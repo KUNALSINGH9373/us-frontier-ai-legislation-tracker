@@ -1,0 +1,16 @@
+{
+  "name": "us-frontier-ai-legislation-tracker",
+  "version": "1.0.0",
+  "description": "US Frontier AI Legislation Tracker (2025-2026): primary-source audit, published as a static site",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "node build/build.mjs"
+  },
+  "type": "module",
+  "dependencies": {
+    "marked": "15.0.12"
+  },
+  "private": true
+}
