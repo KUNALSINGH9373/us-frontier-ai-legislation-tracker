@@ -1,0 +1,1685 @@
+[
+ {
+  "Bill Name": "AI Labeling Act of 2026",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Brian Schatz",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Senate - Commerce, Science, and Transportation",
+  "Summary": "The bill would require providers of generative artificial intelligence (AI) systems to label AI-generated content and include machine-readable disclosures identifying its AI origin. The legislation aims to improve transparency, help consumers identify AI-generated content, and reduce deceptive uses of AI-generated media.",
+  "Implementation": "The bill would require AI providers to include visible and machine-readable labels on covered AI-generated content and require large online platforms to preserve and display those disclosures. It would also establish a NIST-led working group to develop technical standards and best practices for AI content labeling and detection.",
+  "Enforcement / Oversight": "The Federal Trade Commission would enforce the labeling requirements as unfair or deceptive acts or practices. The U.S. attorney general, state attorneys general, and certain private parties could bring civil actions against individuals or entities that remove, falsify, or circumvent required AI disclosures.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/4915/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/4915/text"
+  ]
+ },
+ {
+  "Bill Name": "AI Workforce Assessment and Research Enhancement (AWARE) Act",
+  "Classification": "Workforce Development",
+  "Chamber": "H",
+  "Sponsor": "Tim Walberg",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "House - Education and Workforce",
+  "Summary": "The bill would require the Bureau of Labor Statistics (BLS) to collect and report data on the use of artificial intelligence (AI) in the workplace. The legislation aims to improve understanding of AI's impact on employment, job tasks, wages, hiring, training, and workforce needs.",
+  "Implementation": "The bill would amend federal labor statistics law to require BLS to include AI usage in its labor market data collection and reporting. The agency would begin collecting these statistics no later than 18 months after enactment.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/9381/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/9381/text"
+  ]
+ },
+ {
+  "Bill Name": "Utilize Standards for All (USA) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Daniel Webster",
+  "Cosponsors": "0",
+  "Companion": "Y",
+  "Committee": "House - Science, Space, and Technology",
+  "Summary": "The bill would require the National Institute of Standards and Technology (NIST) to promote openness, transparency, due process, appeals, and consensus in the development of international standards for artificial intelligence. The legislation aims to strengthen U.S. leadership in international standards development and support private sector-led standards for emerging technologies.",
+  "Implementation": "The bill would amend the Research and Development, Competition, and Innovation Act to direct the NIST director to promote voluntary, private sector-led consensus AI standards, strengthen U.S. public-private partnerships in standards development, and coordinate with federal agencies to support standards development for emerging technologies.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/4906/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/4906/text"
+  ]
+ },
+ {
+  "Bill Name": "American A.I. Sovereign Wealth Fund Act",
+  "Classification": "Enabling AI use",
+  "Chamber": "S",
+  "Sponsor": "Bernard Sanders",
+  "Cosponsors": "0",
+  "Companion": "Y",
+  "Committee": "Senate - Finance",
+  "Summary": "The bill would impose an excise tax on \u201csystemically important\u201d artificial intelligence (AI) companies and use the proceeds to establish an American AI sovereign wealth fund.",
+  "Implementation": "The bill would amend the Internal Revenue Code to impose an excise tax on applicable AI companies that generate more than $200 million annually from AI-related activities, including AI data centers, computing infrastructure, AI services, and advanced robotics. The tax would require companies to issue equity interests to the federal government until the federal government holds 50-percent ownership. The bill would also establish the American AI sovereign wealth fund within the Treasury Department to manage these equity interests and authorize annual distributions from the fund to support public programs.",
+  "Enforcement / Oversight": "The Treasury Department would oversee implementation, issue regulations, and administer reporting requirements for AI companies and businesses purchasing covered AI products and services.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/4825/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/4825/text"
+  ]
+ },
+ {
+  "Bill Name": "AI Incident Reporting Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Nathaniel Moran",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "House - Energy and Commerce",
+  "Summary": "The bill aims to improve the federal government's ability to identify and respond to artificial intelligence (AI) systems that could pose significant risks to national security or public safety. It would require developers of designated high-risk AI models to report AI-related incidents and dangerous capabilities to the Department of Commerce.",
+  "Implementation": "The bill would direct the secretary of Commerce to establish thresholds identifying covered AI models and developers and to issue reporting guidelines. Covered developers would be required to report AI incidents within seven days of becoming aware of them, including incidents involving model autonomy, cybersecurity risks, and model weight theft. The bill also requires procedures for secure reporting and protection of sensitive information.",
+  "Enforcement / Oversight": "The secretary of Commerce would have authority to investigate compliance, issue regulations, require corrective actions, and refer violations to the attorney general. Civil penalties of up to $2 million per violation could be imposed, with each day of a continuing violation treated as a separate offense.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+  ]
+ },
+ {
+  "Bill Name": "Workforce for AI Trust Act",
+  "Classification": "Workforce Development",
+  "Chamber": "H",
+  "Sponsor": "Zoe Lofgren",
+  "Cosponsors": "2",
+  "Companion": "N",
+  "Committee": "House - Science, Space, and Technology",
+  "Summary": "The bill would amend the National Artificial Intelligence Initiative Act of 2020 to facilitate the growth of multidisciplinary teams that can advance the development and training of safe and trustworthy artificial intelligence (AI) systems.",
+  "Implementation": "The bill would add a section under the National Artificial Intelligence Initiative Act of 2020 that authorizes the National Science Foundation to establish graduate and postdoctoral fellowships, workshops, and skills-based training programs to integrate disciplines such as social sciences, ethics, and law into AI research. It would also direct the National Institute of Standards and Technology (NIST) to develop an AI workforce framework that defines AI work roles, skills, and competencies, supports workforce development, and provides technical assistance to federal agencies. NIST would be required to consult with federal agencies, academia, industry, labor organizations, and other stakeholders in developing the AI workforce framework. The framework would be published publicly and submitted to Congress within one year of its development, with periodic updates to support workforce planning and federal AI initiatives.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/9334/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/9334/text"
+  ]
+ },
+ {
+  "Bill Name": "Sectoral AI Governance Act of 2026",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Sara Jacobs",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "House - Judiciary; Oversight and Government Reform",
+  "Summary": "The bill would authorize federal agencies to issue regulations governing the use of algorithmic decision-making systems when those systems are likely to contribute to violations of federal laws the agencies are authorized to enforce. It aims to clarify agencies\u2019 regulatory authority.",
+  "Implementation": "The bill would allow agencies to issue rules addressing harmful uses of algorithmic decision-making systems based on available evidence and require advanced public notice before most rulemakings. Agencies would consult with the Office of Information and Regulatory Affairs, the Office of Science and Technology Policy, and the National Institute of Standards and Technology to coordinate rulemaking, reduce regulatory conflicts, and incorporate technical expertise. Agencies would also periodically review and update their rules to reflect technological developments.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/9125/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/9125/text"
+  ]
+ },
+ {
+  "Bill Name": "SBA Artificial Intelligence Utilization Act of 2026",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Brad Finstad",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "House - Small Business | Senate - Small Business and Entrepreneurship",
+  "Summary": "The bill requires the Small Business Administration (SBA) to report annually to Congress on its use of artificial intelligence (AI) and machine learning. The legislation aims to improve congressional oversight of AI adoption within the agency by evaluating its benefits, risks, and appropriate use in SBA operations.",
+  "Implementation": "The bill amends the Small Business Act to require the SBA administrator to submit an initial report within 90 days of enactment and annually thereafter. The reports must describe the agency's use of AI and machine learning, assess the benefits and risks of these technologies, and identify measures for managing those risks. The reports must also explain how the SBA will maintain human involvement in important decisions, determine appropriate AI use cases, evaluate AI tools, and assess whether they effectively meet agency needs. The administrator must provide a congressional briefing within 30 days of submitting each report.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/8881/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/8881/text"
+  ]
+ },
+ {
+  "Bill Name": "Resources for Evaluating and Documenting (READ) AI Models Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Sarah McBride",
+  "Cosponsors": "10",
+  "Companion": "N",
+  "Committee": "House - Science, Space, and Technology",
+  "Summary": "The bill directs the National Institute of Standards and Technology (NIST) to establish a pilot program to develop standardized documentation templates and technical guidance for artificial intelligence (AI) models and associated data. The legislation aims to improve transparency, consistency, and usability of AI model documentation across both the public and private sectors.",
+  "Implementation": "Subject to available appropriations, NIST would develop a modular template for documenting key information about AI models, including details such as the developer, release date, training data, supported languages, and terms of service. The agency would also issue technical guidance incorporating relevant metrics, benchmarks, voluntary consensus standards, and industry best practices. NIST would consult with federal agencies, industry, academia, nonprofits, and international standards organizations, publish draft guidance for at least 60 days of public comment, and, within one year of establishing the pilot, submit a report to Congress evaluating the program and, if successful, proposing permanent implementation.",
+  "Enforcement / Oversight": "The bill does not establish mandatory documentation requirements or enforcement mechanisms for AI developers. Instead, it creates a voluntary pilot program led by NIST, with oversight through public consultation, publication of guidance, and reporting to Congress.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/6461/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/6461/text"
+  ]
+ },
+ {
+  "Bill Name": "Protecting Consumers from Deceptive AI Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Valerie P. Foushee",
+  "Cosponsors": "4",
+  "Companion": "Y",
+  "Committee": "House - Science, Space, and Technology",
+  "Summary": "The bill directs the National Institute of Standards and Technology (NIST) to establish task forces to support the development of technical standards and guidelines for identifying content created or substantially modified by generative artificial intelligence (AI). The legislation aims to improve transparency and help consumers distinguish AI-generated content through technical solutions such as watermarking, digital fingerprinting, and content origin metadata.",
+  "Implementation": "The bill requires NIST, within 90 days of enactment, to establish task forces composed of representatives from federal agencies, AI developers, technology companies, standards organizations, academia, civil society, labor groups, and privacy and human rights experts. The task forces would develop recommendations for technical standards to identify AI-generated text, images, audio, and video, as well as promote interoperable detection and labeling methods, and issue privacy-preserving guidance for handling origin metadata. The task forces would submit recommendations to NIST within 270 days and provide annual reports to Congress for five years.",
+  "Enforcement / Oversight": "The bill does not impose regulatory requirements or penalties on private entities. Instead, it directs NIST to facilitate voluntary, consensus-based technical standards that may inform industry adoption. Oversight is provided through required reports to Congress and ongoing task force activities.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/8893/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/8893/text"
+  ]
+ },
+ {
+  "Bill Name": "Workforce Transparency Act of 2026",
+  "Classification": "Workforce Development",
+  "Chamber": "S",
+  "Sponsor": "Mark R. Warner",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Senate - Health, Education, Labor, and Pensions",
+  "Summary": "The bill would establish a voluntary federal framework for developers and users of artificial intelligence (AI) systems to share aggregated and privacy-preserving workforce-related data with the Department of Labor (DOL). The legislation aims to improve public understanding of how AI is affecting workforce tasks, productivity, skills, and labor market trends while protecting individual privacy and proprietary business information.",
+  "Implementation": "Covered AI system providers and enterprise customers may voluntarily submit aggregated workforce transparency data to the DOL regarding AI usage patterns across broad task categories such as writing, coding, research, analysis, translation, and job-related assistance. Submitted data may also include geographic distribution, adult age ranges, and temporal trends in AI usage. The secretary of DOL, acting through the Bureau of Labor Statistics and in coordination with the Census Bureau, would establish a public online database and publish annual reports summarizing aggregated workforce transparency data. Within 180 days of enactment, the Secretary would issue guidance and regulations establishing standardized reporting formats, privacy-preserving methods, aggregation standards, and workforce-related AI task classifications. The bill also directs the DOL to establish a working group to improve labor-market data related to AI\u2019s effects on entry-level and early-career workers.",
+  "Enforcement / Oversight": "Participation in the reporting framework would be voluntary, and federal agencies would be prohibited from drawing adverse inferences against entities that choose not to participate. The secretary of DOL may seek injunctive relief against participating entities that knowingly and willfully misrepresent submitted workforce transparency data.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/4476/text?s=2&r=1&hl=S4476",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/4476/text?s=2&r=1&hl=S4476"
+  ]
+ },
+ {
+  "Bill Name": "Children\u2019s Health, Advancement, Trust, Boundaries, and Oversight in Technology (CHATBOT) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Ted Cruz",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Senate - Commerce, Science, and Transportation",
+  "Summary": "The bill would establish federal requirements governing child and teen access to artificial intelligence (AI) chatbots. The legislation would require AI chatbot providers to implement family accounts and parental controls for child users, obtain verifiable parental consent for teen users, prohibit targeted advertising directed at children and teens, and establish safeguards related to data privacy, transparency, and parental oversight.",
+  "Implementation": "Covered entities that primarily provide AI chatbots would be required to create and maintain family account systems for users under age 13 and obtain verifiable parental consent before users aged 13 to 17 may create accounts. Parents would be provided with tools to manage privacy and account settings, including limits on chatbot usage time, disabling notifications or rewards systems, controlling memory retention of user interactions, restricting financial transactions, and accessing records of chatbot conversations and activity. Covered entities would also be required to display transparency labels disclosing that users are interacting with AI-generated content. Existing accounts belonging to children or teens that do not comply with the new parental consent and family account requirements would need to be terminated, and associated personal data deleted, subject to limited retention exceptions. The bill further prohibits the use of personal data from known children or teen users for targeted advertising purposes.",
+  "Enforcement / Oversight": "The Federal Trade Commission (FTC) would enforce the legislation as an unfair or deceptive trade practice. State attorneys general would also be authorized to bring civil actions to enforce compliance, seek injunctions, and obtain damages or restitution on behalf of residents. The bill additionally directs the National Science Foundation to conduct a study on the effects of AI chatbots on children\u2019s and teens\u2019 social development, companionship, and mental health, and requires the Government Accountability Office to evaluate the effectiveness of the law and recommend best practices and potential legislative improvements.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/4407/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/4407/text"
+  ]
+ },
+ {
+  "Bill Name": "American Leadership in AI Act",
+  "Classification": "Workforce Development, Research and Development",
+  "Chamber": "H",
+  "Sponsor": "Ted Lieu",
+  "Cosponsors": "4",
+  "Companion": "Y",
+  "Committee": "House - Science, Space, and Technology; Energy and Commerce; Agriculture; Oversight and Government Reform; Education and Workforce; Judiciary; Ways and Means",
+  "Summary": "The bill establishes a broad federal framework governing artificial intelligence (AI) accountability, workforce development, education, and research capacity building. It creates protections for AI whistleblowers, strengthens cybersecurity and AI literacy programs across K\u201312 and higher education, and expands National Science Foundation (NSF) initiatives to grow the U.S. AI talent pipeline.",
+  "Implementation": "The bill directs the National Institute of Standards & Technology (NIST) to establish a Center for AI Standards and Innovation to define technical metrics for AI safety and standardize adversarial red-teaming protocols across public and private sectors. The NSF and a White House steering subcommittee will build and govern the National AI Research Resource to provide cloud computing, curated datasets, and secure testbeds to eligible U.S. researchers and small businesses. It also requires that every major federal agency appoint a senior chief AI officer to evaluate internal system risks, publish case inventories, and enforce strict, updated technical standards for all federal AI procurement. It directs the Department of Labor (DOL) and the Small Business Administration (SBA) to establish an AI Workforce Research Hub to monitor labor displacement while actively distributing neutral integration benchmarks to help small firms safely adopt AI. The bill also directs the federal judiciary and the DOL to enforce strict liability mechanisms against deepfakes, granting victims the right to sue over non-consensual deepfakes and guaranteeing whistleblowers double back-pay protection. Also, the bill requires the Department of Treasury and the NSF to drive national technical AI proficiency by processing a 50-percent corporate tax credit for employee cybersecurity training and funding regional K\u201312 and community college AI literacy pipelines.",
+  "Enforcement / Oversight": "The Office of Management and Budget and heads of agencies will enforce compliance with federal procurement standards, using a government-wide Chief AI Officers Council to monitor deployed systems and ban unsafe agency use cases. The NSF will enforce strict user controls to verify that all access to public computing assets is limited to eligible U.S. entities and explicitly bar individuals working on behalf of defined foreign adversary nations. The DOL and the SBA will utilize interagency data sharing to enforce compliance with workforce monitoring benchmarks and evaluate small business feedback on distributed resources. The federal judiciary and the DOL will enforce strict civil and criminal penalties, granting victims up to $250,000 in deepfake statutory damages, adding severe prison terms for AI-assisted fraud, and protecting whistleblowers.",
+  "Funding": "The bill authorizes a specific appropriation of $10,000,000 for fiscal year (FY) 2027 to fund the establishment and operational goals of the NIST Center for AI Standards and Innovation. It authorizes an additional $5,000,000 for the period of FYs 2027 through 2031, to implement a pilot program to support standards meeting for AI and other critical emerging technologies. It also authorizes a major appropriation of $300,000,000 annually for FYs 2027 through 2032 dedicated to the Department of Energy's cross-cutting AI research program, data center testbeds, and scientific datasets.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/8516/text?s=4&r=4&hl=hr+8516",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/8516/text?s=4&r=4&hl=hr+8516"
+  ]
+ },
+ {
+  "Bill Name": "AI Workforce Projections, Research, and Evaluations to Promote AI Readiness and Employment (AI Workforce PREPARE) Act",
+  "Classification": "Workforce Development",
+  "Chamber": "S",
+  "Sponsor": "Jim Banks",
+  "Cosponsors": "4",
+  "Companion": "N",
+  "Committee": "Senate - Health, Education, Labor, and Pensions",
+  "Summary": "The bill establishes a federal framework to improve forecasting and data collection on how artificial intelligence (AI) affects the U.S. labor market. It aims to help policymakers, educators, and workforce programs anticipate job displacement, skill shifts, and emerging labor demand by creating new federal tools to measure AI adoption, track occupational transitions, and evaluate AI\u2019s impact on employment.",
+  "Implementation": "The bill directs the Department of Labor, in coordination with the Census Bureau, Bureau of Labor Statistics, and other agencies to build new AI labor-market data systems, including a dedicated Artificial Intelligence Workforce Research Hub to conduct labor-market research, scenario planning, and workforce impact analysis related to AI adoption. It also requires federal agencies to develop tools and benchmarks to measure AI\u2019s ability to automate or augment workplace tasks. It creates voluntary data-sharing partnerships with AI developers and deployers to collect anonymized information on AI adoption and workforce use. The bill also directs the Department of Labor to produce detailed employment forecasts for occupations considered highly sensitive to AI disruption or augmentation, and to evaluate how new AI workforce data, forecasts, and benchmarks can be integrated into federal workforce development and training programs.",
+  "Enforcement / Oversight": "Implementation is carried out through federal agency mandates rather than penalties, with the Departments of Labor and Commerce responsible for producing reports, forecasts, surveys, and guidance. Employers would be required under the Worker Adjustment and Retraining Notification Act to disclose when AI is a substantial factor in mass layoffs, including estimated impact and retraining efforts.",
+  "Funding": "The bill authorizes multiple federal appropriations across agencies for research, data infrastructure, and forecasting systems over fiscal years 2026\u20132030. It authorizes a total of $8,000,000 for Title I: Data Access, Studies, and Government Technical Talent; $14,000,000 for Title II: Measuring AI Capabilities, Adoption, and Layoff Impacts; $24,000,000 for Title III: Improving AI Labor Market Forecasts; and $7,500,000 for Title IV: Linking Better Data to Employment, Training, and Adjustment Programs. Funding is directed primarily at the Departments of Labor and Commerce, and the National Science Foundation to support workforce data systems, research hubs, forecasting initiatives, and AI-related prize competitions.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/3339/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/3339/text"
+  ]
+ },
+ {
+  "Bill Name": "AI Workforce Training Act",
+  "Classification": "Workforce Development",
+  "Chamber": "H",
+  "Sponsor": "Josh Gottheimer",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "House - Ways and Means",
+  "Summary": "The bill would establish a federal tax credit for employers that invest in artificial intelligence (AI) workforce training programs for employees. The legislation aims to encourage businesses to expand literacy and workforce readiness by subsidizing employee participation in AI-related education and training programs.",
+  "Implementation": "The bill would amend the Internal Revenue Code to create a new workforce AI training tax credit equal to 30 percent of qualified AI training expenses incurred by a taxpayer during a taxable year. Eligible expenses would include enrollment costs for accredited AI training programs, workshops, certificate programs, and courses covering areas such as prompt engineering, data literacy, machine learning fundamentals, and AI ethics. Employers could also claim the credit for employee wages paid during participation in training programs and for expenses related to developing or providing in-house AI training. The credit would be capped at $2,500 per employee annually, with future adjustments for inflation beginning after 2026.",
+  "Enforcement / Oversight": "The bill prohibits taxpayers from claiming multiple tax benefits for the same training expenses. The secretaries of the Treasury, Labor, and Commerce would jointly conduct a public outreach campaign to inform businesses about the tax credit through webinars, multilingual informational materials, and partnerships with workforce development organizations. The agencies would also submit annual reports to Congress on outreach efforts and measurable outcomes.",
+  "Funding": "The bill establishes a new federal tax expenditure through the AI workforce training credit but does not include direct appropriation.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/7576/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/7576/text"
+  ]
+ },
+ {
+  "Bill Name": "Copyright Labeling and Ethical AI Reporting (CLEAR) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Adam B. Schiff",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Judiciary",
+  "Summary": "The bill would require developers of generative artificial intelligence (AI) models to submit a notice to the Register of Copyrights identifying copyrighted works used in training datasets. The notice must include a sufficiently detailed summary of each copyrighted work included in the dataset and, if applicable, the URL to which the dataset is publicly available. The bill aims to increase transparency regarding the use of copyrighted material in training generative AI systems.",
+  "Implementation": "Entities that use training datasets to train or release generative AI models would be required to submit a notice to the Register of Copyrights detailing the copyrighted works used. For models first used or released after the law\u2019s effective date, the notice must be filed at least 30 days before the model is used commercially or released. For models already in use prior to the law\u2019s enactment, the notice must be submitted within 30 days after the Copyright Office issues implementing regulations. The Register of Copyrights would be required to issue regulations establishing the form and procedures for submitting notices within 180 days of enactment and to maintain a publicly accessible online database containing all submitted notices.",
+  "Enforcement / Oversight": "Copyright owners whose works are used in generative AI training datasets without the required notice may bring a civil action in federal district court. Courts may impose civil penalties of at least $5,000 per instance of noncompliance, capped at $2.5 million per year for a single entity.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/3813/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/3813/text"
+  ]
+ },
+ {
+  "Bill Name": "AI Grand Challenges Act of 2026",
+  "Classification": "Research and Development",
+  "Chamber": "S",
+  "Sponsor": "Cory A. Booker",
+  "Cosponsors": "2",
+  "Companion": "Y",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would direct the National Science Foundation (NSF) to establish a prize competition program to stimulate artificial intelligence (AI) research, development, and commercialization aimed at solving major national challenges. The program would award competitive prizes to eligible participants developing AI solutions across a range of sectors, including national security, cybersecurity, health, energy, education, agriculture, manufacturing, and supply chains.",
+  "Implementation": "Within 12 months of enactment, the director of the National Science Foundation, in coordination with the National Artificial Intelligence Advisory Committee, would establish the AI Grand Challenges Program. The NSF director would identify and define specific AI grand challenge problems, develop success metrics and validation protocols, and publish competition details through the federal Challenge.gov website. The program would require at least one prize competition focused on AI-enabled breakthroughs in cancer detection or treatment, with winners receiving at least $10 million in cash prizes. Additional challenges may address areas such as national security, energy, disaster preparedness, materials science, and AI system safety and transparency with awards of no less than $1 million in cash.",
+  "Enforcement / Oversight": "The NSF director would establish eligibility requirements, judging procedures, and verification processes for submissions. Prize recipients must be U.S.-based entities or U.S. citizens or permanent residents. The NSF would report to Congress within 60 days after awarding prizes and submit biennial reports describing program activities, competitions, and outcomes.",
+  "Funding": "The bill authorizes the NSF to fund prizes of at least $1 million per competition, with the possibility of awards exceeding $50 million. The NSF may accept financial contributions from federal agencies, state or local governments, nonprofit organizations, and private sector entities to support the prize competitions.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/3809/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/3809/text"
+  ]
+ },
+ {
+  "Bill Name": "AI for Secure Networks Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Robert Menendez",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Energy and Commerce",
+  "Summary": "The bill would require the Department of Commerce to conduct a study on how artificial intelligence (AI) technologies affect the security of telecommunications networks. The study would evaluate both the potential benefits of AI \u2013 such as improved threat detection, network resiliency, and energy efficiency \u2013 as well as risks posed by AI to telecommunications infrastructure.",
+  "Implementation": "The secretary of Commerce, acting through the assistant secretary for Communications and Information, would conduct a study analyzing how AI can enhance telecommunications network security. Areas of analysis would include AI-enabled threat and malware detection, zero-trust security systems, network resiliency and interoperability, energy efficiency, and integrated sensing and communications. The Department of Commerce would consult with the Federal Communications Commission and industry stakeholders during the study and provide an opportunity for public comment prior to finalizing the report.",
+  "Enforcement / Oversight": "The secretary of Commerce would be required to submit a report to the House Committee on Energy and Commerce and the Senate Committee on Commerce, Science, and Transportation within one year of enactment. The report may include legislative recommendations related to AI and telecommunications security.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/7294/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/7294/text"
+  ]
+ },
+ {
+  "Bill Name": "Expanding AI Voices Act",
+  "Classification": "Research and Development",
+  "Chamber": "H",
+  "Sponsor": "Valerie P. Foushee",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology",
+  "Summary": "The bill would expand participation in artificial intelligence (AI) research, education, and workforce development by directing the National Science Foundation (NSF) to provide competitive grants to certain institutions of higher education and nonprofit organizations. The program aims to strengthen AI research capacity and workforce pathways at institutions that historically receive less federal research funding and among populations underrepresented in STEM fields.",
+  "Implementation": "The director of the National Science Foundation, in consultation with relevant federal agencies, would award competitive, merit-reviewed grants to eligible institutions and nonprofit organizations to build capacity in AI research and education. Eligible institutions include those not among the top 100 recipients of federal research and development funding, historically Black colleges and universities, minority-serving institutions, Tribal Colleges and Universities, and consortia of such entities. Grant recipients could use funds to expand AI research programs, recruit and train faculty, establish bridge programs to prepare students for graduate studies in AI, improve access to computing and data resources, and develop partnerships with federal agencies, industry, and nonprofit organizations.",
+  "Enforcement / Oversight": "The NSF would administer the program through competitive grant awards and conduct outreach to eligible institutions and organizations nationwide. The NSF director would ensure that awards complement existing programs and consider factors such as institutional resource constraints, geographic diversity, and support for students from diverse or underserved backgrounds when making funding decisions.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/7158/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/7158/text"
+  ]
+ },
+ {
+  "Bill Name": "Transparency and Responsibility for Artificial Intelligence Networks (TRAIN) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Madeleine Dean",
+  "Cosponsors": "1",
+  "Companion": "Y",
+  "Committee": "Judiciary",
+  "Summary": "The bill would create an administrative subpoena process allowing copyright owners to request records from developers of generative artificial intelligence (AI) models to determine whether their copyrighted works were used in AI training datasets. The legislation aims to increase transparency around the use of copyrighted materials in the training of generative AI systems and provide copyright holders with a mechanism to investigate potential infringement.",
+  "Implementation": "The bill would amend the Copyright Act to allow copyright owners, or authorized representatives, to request that a clerk of a U.S. district court issue a subpoena to an AI developer. The subpoena would require the developer to provide copies of training materials or records sufficient to identify copyrighted works used in training the generative AI model that are likely owned by the requesting party. To obtain a subpoena, the requester must submit a sworn declaration stating a good-faith belief that their copyrighted works were used in the model\u2019s training dataset and that the information will be used solely to protect their copyright interests. Developers receiving a subpoena would be required to disclose the requested records or materials identifying the training data used.",
+  "Enforcement / Oversight": "If a developer fails to comply with a valid subpoena, the court may apply standard subpoena enforcement procedures under the Federal Rules of Civil Procedure, and the failure to comply would create a rebuttable presumption that the developer copied the copyrighted work in question. Courts may also impose sanctions on copyright owners who request subpoenas in bad faith.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/7209/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/7209/text"
+  ]
+ },
+ {
+  "Bill Name": "AI-Related Job Impacts Clarity Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Josh Hawley",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Health, Education, Labor, and Pensions",
+  "Summary": "The bill would require certain employers to disclose and report artificial intelligence (AI)-related job impacts, including layoffs, hiring, unfilled positions, and worker retraining related to the use of AI, and would direct the Department of Labor to publish regular reports analyzing these impacts.",
+  "Implementation": "Covered entities, including publicly traded companies, federal agencies, and certain non-publicly traded companies identified through rulemaking, would be required to submit quarterly disclosures to the Secretary of Labor within 30 days after the end of each quarter. The Secretary of Labor, in consultation with the Office of Management and Budget and the Office of Personnel Management, would be required to prepare quarterly and annual summary reports, as well as biennial analyses of AI-related job impacts.",
+  "Enforcement / Oversight": "The bill establishes mandatory reporting requirements for covered entities and directs the Secretary of Labor to issue regulations within 180 days of enactment to determine the inclusion and reporting obligations of companies.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/3108/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/3108/text"
+  ]
+ },
+ {
+  "Bill Name": "Children Harmed by AI Technology (CHAT) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Jon Husted",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would require companion artificial intelligence (AI) chatbots to implement age verification measures and establish protections for minor users, including parental consent requirements, content restrictions, and safeguards related to mental health and transparency.",
+  "Implementation": "Covered entities that make companion AI chatbots available in the United States would be required to mandate user accounts and verify the age of all users using commercially available and reasonably accurate methods. Existing accounts would be frozen until age verification is completed, and new accounts would require age verification at creation. Users identified as minors would be subject to additional protections, including verified parental accounts, verifiable parental consent, immediate parental notification of suicidal ideation interactions, and blocked access to chatbots engaging in sexually explicit communication. Covered entities would also be required to monitor interactions for suicidal ideation and provide suicide prevention resources when detected.",
+  "Enforcement / Oversight": "The Federal Trade Commission (FTC) would be required to issue compliance guidance within 180 days of enactment, and the act would take effect one year after enactment. Violations of the act or related regulations would be treated as unfair or deceptive acts or practices under the Federal Trade Commission Act and enforced by the FTC using its existing authorities.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/2714",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/2714"
+  ]
+ },
+ {
+  "Bill Name": "Guaranteeing Access and Innovation for National Artificial Intelligence (GAIN AI) Act of 2025",
+  "Classification": "Enabling AI use",
+  "Chamber": "H",
+  "Sponsor": "John R. Moolenaar",
+  "Cosponsors": "4",
+  "Companion": "N",
+  "Committee": "Foreign Affairs",
+  "Summary": "The bill would require entities seeking a license to export advanced artificial intelligence (AI) chips to countries of concern to certify that U.S. consumers have priority in acquiring those chips before international sales can be fulfilled.",
+  "Implementation": "The under secretary of the Department of Commerce for Industry and Security would require a license for the export, reexport, or in-country transfer of advanced integrated circuits or products containing such circuits to entities in countries of concern. Applicants must certify that U.S. persons had a right of first refusal for the chips, that there are no current or foreseeable backlogs for U.S. persons, and that foreign customers are not receiving more favorable pricing or terms. The under secretary would issue regulations within 90 days after enactment to provide guidance on compliance, including recordkeeping, procedures for U.S. persons to exercise rights of first refusal, conditions for proceeding with exports, and penalties for misrepresentation.",
+  "Enforcement / Oversight": "Licenses would be denied if certification requirements are not met. The under secretary is responsible for ensuring compliance with certification and trusted person standards. Misrepresentation or concealment of material facts may trigger penalties under the Export Administration Regulations.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/5885/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/5885/text"
+  ]
+ },
+ {
+  "Bill Name": "Learning Innovation and Family Empowerment with AI (LIFE with AI) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Bill Cassidy",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Health, Education, Labor, and Pensions",
+  "Summary": "The bill would strengthen student data privacy and parental choice while promoting responsible integration of artificial intelligence (AI) and personalized learning technologies in education.",
+  "Implementation": "The bill directs the secretary of Education to establish a voluntary \u201cGolden Seal of Excellence in Student Data Privacy\u201d to recognize schools and educational agencies that implement robust parental notification and consent systems using instant verification technology. The bill simplifies and standardizes Family Educational Rights and Privacy Act (FERPA) directory information opt-out processes, restricts the use of student photographs for facial recognition without parental consent, and prohibits yearbook companies from selling student data. The bill also establishes a privacy technical assistance center, authorizes voluntary safe harbor programs for education technology providers, supports teacher training on AI integration, and prioritizes AI-driven personalized learning research through the Small Business Innovation Research program.",
+  "Enforcement / Oversight": "Enforcement is tied primarily to FERPA\u2019s existing funding conditions, with federal education funds withheld from agencies or institutions that fail to meet the bill\u2019s requirements. The secretary of Education is authorized to investigate alleged violations by third-party vendors and maintain a public noncompliance list.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/3063/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/3063/text"
+  ]
+ },
+ {
+  "Bill Name": "AI for America Act",
+  "Classification": "Enabling AI use",
+  "Chamber": "H",
+  "Sponsor": "Jennifer A. Kiggans",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology; Energy and Commerce",
+  "Summary": "The bill would codify a national artificial intelligence (AI) strategy focused on strengthening U.S. leadership, accelerating AI adoption, and reducing regulatory friction, while addressing security risks and \u201cideological bias\u201d in AI systems.",
+  "Implementation": "The bill requires Office of Science and Technology Policy (OSTP), in coordination with relevant federal agencies, to submit an AI Action Plan to Congress by July 31, 2027, with measurable milestones and biennial updates thereafter. The Action Plan must address AI leadership and workforce development, public-private partnerships, civilian AI research infrastructure, and measures to counter security risks and ideological bias. OSTP must also identify regulatory barriers to AI adoption, in health care, scientific research, and transportation, with flexibility to include additional sectors. It also directs the National Institute of Standards and Technology to produce a report outlining measures (e.g., internal reviews, third-party audits, disclosure practices) to detect and prevent security risks and ideological bias in AI systems, potentially integrating this work into existing AI risk management frameworks.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/6304/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/6304/text"
+  ]
+ },
+ {
+  "Bill Name": "Artificial Intelligence Oversight of Verified Exports and Restrictions on Weaponizable Advanced Technology to Covered High-Risk Actors (OVERWATCH) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Brian J. Mast",
+  "Cosponsors": "19",
+  "Companion": "N",
+  "Committee": "Foreign Affairs",
+  "Summary": "The bill would significantly tighten U.S. export controls on advanced, artificial intelligence (AI)-relevant integrated circuits by mandating individual licenses for exports, reexports, or in-country transfers to designated \u201ccountries of concern.\u201d",
+  "Implementation": "The bill amends the Export Control Reform Act of 2018 to require licenses for transfers of \u201ccovered integrated circuits\u201d to entities linked to countries of concern, including China, Russia, Iran, North Korea, Cuba, and Venezuela. Before approving any such license, the under secretary of Commerce for Industry and Security must submit a detailed certification package to Congress at least 30 days in advance, and Congress retains the ability to block licenses through a joint resolution of disapproval.",
+  "Enforcement / Oversight": "Enforcement is driven through mandatory licensing and interagency review via the Operating Committee for Export Policy, including advance notification and the ability to block licenses legislatively. Licenses issued prior to enactment are terminated, and violations would be subject to existing export control penalties under U.S. law.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/6875/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/6875/text"
+  ]
+ },
+ {
+  "Bill Name": "Artificial Intelligence Civil Rights Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Edward J. Markey",
+  "Cosponsors": "4",
+  "Companion": "Y",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would establish protections for individual rights with respect to computational algorithms. It aims to prevent discrimination, require rigorous algorithmic impact assessments, expand transparency and individual rights, and create strong enforcement mechanisms.",
+  "Implementation": "The act applies to developers and deployers of \u201ccovered algorithms,\u201d broadly defined to include artificial intelligence, machine learning, and other complex computational systems used in consequential actions (the ones that likely have an impact on employment, education, housing, healthcare, etc.). It covers both private-sector and government uses and applies across nearly all sectors. The bill prohibits developers and deployers from using covered algorithms in ways that cause unjustified disparate impact or otherwise deny equal enjoyment of goods, services, or opportunities; requires deployers to conduct annual assessments to identify real-world harms or disparate impacts, triggering independent audits if harms are found; and requires entities to certify that benefits outweigh harms, ensure reasonable performance and avoid deceptive marketing.",
+  "Enforcement / Oversight": "Violations are treated as unfair or deceptive acts or practices under the Federal Trade Commission (FTC) Act, with full FTC rulemaking and enforcement powers. State attorneys general and state data protection authorities may bring civil actions, with penalties up to $15,000 per violation or 4 percent of average annual revenue.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/3308/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/3308/text"
+  ]
+ },
+ {
+  "Bill Name": "Producing Advanced Technologies for Homeland Security (PATHS) Act",
+  "Classification": "Research and Development",
+  "Chamber": "H",
+  "Sponsor": "Michael Guest",
+  "Cosponsors": "1",
+  "Companion": "Y",
+  "Committee": "Homeland Security",
+  "Summary": "The bill would amend the Homeland Security Act of 2002 to enable secure and trustworthy technology through other transaction contracting authority.",
+  "Implementation": "The bill would extend an existing artificial intelligence (AI) research and development acquisition pilot program through 2028.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1692/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1692/text"
+  ]
+ },
+ {
+  "Bill Name": "Leadership in Critical and Emerging Technologies (Leadership in CET) Act",
+  "Classification": "Research and Development",
+  "Chamber": "H",
+  "Sponsor": "Lance Gooden",
+  "Cosponsors": "1",
+  "Companion": "Y",
+  "Committee": "Judiciary",
+  "Summary": "The bill would require the under-secretary of the Department of Commerce for Intellectual Property and the director of the Patent and Trademark Office to establish and carry out a pilot program to expedite the examination of applications for certain patents.",
+  "Implementation": "The bill would require the director to establish a pilot program to expedite patent and trademark examination to encourage innovation aligning with qualifying applications for American entities.",
+  "Enforcement / Oversight": "The pilot would be enforceable for 5 years, or until the reception of 15,000 covered applications for participation, whichever happens earlier. The bill would require the director to submit a report to the Congress that assesses the impacts of the pilot program after its termination.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3539/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3539/text"
+  ]
+ },
+ {
+  "Bill Name": "Defense Technology Hubs Act",
+  "Classification": "Research and Development",
+  "Chamber": "S",
+  "Sponsor": "Eric Schmitt",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Armed Services",
+  "Summary": "The bill would require the secretary of Defense to establish a network of regional hubs to foster innovation, collaboration, and rapid development of defense-related technologies.",
+  "Implementation": "The bill would direct the secretary of Defense to establish defense technology hubs that would accelerate research and development of emerging technologies with military applications, including artificial intelligence (AI). The regional consortia seeking to be the defense hubs would be selected based on several criteria, including proximity to federal defense institutions or missions supporting or utilizing emerging defense technologies, among them AI.",
+  "Enforcement / Oversight": "The secretary would be required to submit a yearly report to Congress that includes activity, performance, and recommendations for program improvement.",
+  "Funding": "$375 million for the period of fiscal years 2026 through 2030.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1978/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1978/text"
+  ]
+ },
+ {
+  "Bill Name": "Testing and Evaluation Systems for Trusted Artificial Intelligence (TEST AI) Act",
+  "Classification": "Research and Development",
+  "Chamber": "S",
+  "Sponsor": "Ben Ray Luj\u00e1n",
+  "Cosponsors": "4",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would require the director of the National Institute of Standards and Technology (NIST) to establish a pilot program that uses testbeds to develop measurement standards for the evaluation of artificial intelligence (AI) systems.",
+  "Implementation": "The bill would require the director to conduct a testbed pilot program to determine whether it is feasible and advisable to create measurement standards for the evaluation of AI systems utilized by federal agencies.",
+  "Enforcement / Oversight": "The secretaries of the Departments of Commerce and Energy would be required to enter into a memorandum of understanding to implement the coordination. The bill would require the NIST director to submit a findings report to Congress that includes a set of recommendations of actions to implement.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1633/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1633/text"
+  ]
+ },
+ {
+  "Bill Name": "Creating Resources for Every American To Experiment with Artificial Intelligence (CREATE AI) Act of 2025",
+  "Classification": "Research and Development",
+  "Chamber": "H",
+  "Sponsor": "Jay Obernolte",
+  "Cosponsors": "17",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology",
+  "Summary": "The bill would direct two agencies to establish and oversee the National Artificial Intelligence Research Resource (NAIRR), designed to promote AI innovation, capability, and capacity, and diversify and increase opportunities for AI research and development.",
+  "Implementation": "The bill would create three main structural components of NAIRR: first, a steering committee, created and chaired by the director of the Office of Science and Technology Policy (OSTP), which would set the strategic direction of and help coordinate procurement for the NAIRR; second, a program management office (PMO), established by the director of the National Science Foundation (NSF), to oversee day-to-day functions of the NAIRR; third, the operating entity, which would be in charge of operating the NAIRR. The NAIRR itself would be an individual entity or consortium of entities, such as universities, federally funded research and development centers, and public or private laboratories responsible for building out the cyberinfrastructure \u2013 the infrastructure, hardware, and software necessary to research and build AI/ML systems \u2013 and overseeing day-to-day operations to achieve the goals defined in the bill.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "The bill would allow NAIRR to accept and use donations from the private sector.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/2385/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/2385/text"
+  ]
+ },
+ {
+  "Bill Name": "To amend the Communications Act of 1934 to establish technical and procedural standards for artificial or prerecorded voice systems created through generative artificial intelligence",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Rick Allen",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Energy and Commerce",
+  "Summary": "The bill would amend Section 227(d)(3) of the Communications Act of 1934 to include Artificial Intelligence (AI) generated calls in the Federal Communications Commission's Commission (FCC) robocall rules.",
+  "Implementation": "The FCC would simply continue existing practices but apply the robocalling rules to calls generated with artificial intelligence.",
+  "Enforcement / Oversight": "Existing enforcement authority.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/334/text?s=3&r=1&q=%7B%22search%22%3A%22artificial+intelligence%22%7D",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/334/text?s=3&r=1&q=%7B%22search%22%3A%22artificial+intelligence%22%7D"
+  ]
+ },
+ {
+  "Bill Name": "Decoupling America\u2019s Artificial Intelligence Capabilities from China Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Josh Hawley",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Judiciary",
+  "Summary": "The bill would prohibit United States persons from importing and exporting artificial intelligence (AI) technology or intellectual property to China.",
+  "Implementation": "The bill would ban both the importation and export of AI technology and intellectual property to China. Further, it would make it illegal to support AI research in China, including the transfer of information relating to the research of AI within China.",
+  "Enforcement / Oversight": "The bill would subject violators to both criminal prosecution and civil penalties under the Export Control Reform Act of 2018.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/321/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/321/text"
+  ]
+ },
+ {
+  "Bill Name": "Generative AI Terrorism Risk Assessment Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "August Pfluger",
+  "Cosponsors": "2",
+  "Companion": "N",
+  "Committee": "Homeland Security",
+  "Summary": "The bill would require the secretary of Homeland Security to conduct annual assessments on terrorism threats to the United States utilizing generative artificial intelligence (AI) applications.",
+  "Implementation": "The bill would require that assessments include an analysis of incidents during the immediately preceding calendar year in which terrorist organizations have utilized generative AI to spread violent messaging or develop or deploy weapons.",
+  "Enforcement / Oversight": "The bill would require the secretary of Homeland Security to coordinate with the Office of the General Counsel, the Privacy Office, and the Office of for Civil Rights and Civil Liberties of the Department of Homeland Security prior to release outside the department to ensure each such assessment complies with applicable law and protects individuals\u2019 privacy, civil rights, and civil liberties.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1736?loclr=cga-search",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1736?loclr=cga-search"
+  ]
+ },
+ {
+  "Bill Name": "China Technology Transfer Control Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Mark Green",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Foreign Affairs: Ways and Means",
+  "Summary": "The bill would control the export to the People\u2019s Republic of China of certain technology including artificial intelligence (AI) and intellectual property important to the national interest of the United States.",
+  "Implementation": "In addition to directing the president to control the export of national interest technology or intellectual property, including AI, the bill would also direct the president impose sanctions with respect to the provision or purchase from China such technology or intellectual property.",
+  "Enforcement / Oversight": "The bill would require the secretaries of the Departments of State and Commerce to submit a report assessing covered national interest technology and intellectual property.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1122/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1122/text"
+  ]
+ },
+ {
+  "Bill Name": "Preventing Algorithmic Collusion Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Amy Klobuchar",
+  "Cosponsors": "6",
+  "Companion": "N",
+  "Committee": "Judiciary",
+  "Summary": "The bill would seek to prevent anticompetitive conduct through the use of pricing algorithms by prohibiting the use of pricing algorithms that can facilitate collusion with nonpublic competitor data, creating an antitrust law enforcement audit tool, increasing transparency, and enforcing violations through the Sherman Act and Federal Trade Commission (FTC) Act.",
+  "Implementation": "The bill would require the U.S. Attorney General or the FTC to issue reports on pricing algorithms upon request that examine whether the pricing algorithm facilitates collusion and price discrimination. It would also prohibit the use of pricing algorithms that use nonpublic competitor data. Finally, the bill would create a presumption of an agreement if a defendant distributes a pricing algorithm to two or more persons within a market and uses the pricing algorithm to set prices.",
+  "Enforcement / Oversight": "A violation of this act would constitute an unfair method of competition under the FTC Act, and the presumption would essentially make use of such algorithms a per se violation of Section 1 of the Sherman Act. The bill would also require the FTC to publish a study of the use of pricing algorithms.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/118th-congress/senate-bill/3686",
+  "_links": [
+   "https://www.congress.gov/bill/118th-congress/senate-bill/3686"
+  ]
+ },
+ {
+  "Bill Name": "Nucleic Acid Standards for Biosecurity Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Andrea Salinas",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology",
+  "Summary": "The bill would amend the Research and Development, Competition, and Innovation Act to support nucleic acid screening.",
+  "Implementation": "The bill would require additional research to support the development and improvement of best practices and technical standards for biosecurity measures related to nucleic acid synthesis, including risks associated with the use of artificial intelligence. This bill would also convene a consortium of stakeholders and produce a findings report.",
+  "Enforcement / Oversight": "The director shall submit to the Senate Committee on Commerce, Science, and Transportation and the House of Representatives Committee on Science, Space, and Technology a report summarizing the findings of the consortium within 18 months.",
+  "Funding": "$5 million for each of fiscal years 2026 through 2030. direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3029/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3029/text"
+  ]
+ },
+ {
+  "Bill Name": "Consumer Safety Technology Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Darren Soto",
+  "Cosponsors": "3",
+  "Companion": "Y",
+  "Committee": "Energy and Commerce",
+  "Summary": "The bill would direct the Consumer Product Safety Commission to establish a pilot program to explore the use of artificial intelligence (AI) in support of the mission of the Commission and to direct the secretary of Commerce and the Federal Trade Commission to study and report on the use of blockchain technology and tokens.",
+  "Implementation": "The bill would incorporate three separate provisions. First, it would direct the Consumer Public Safety Commission to establish a pilot program that would use AI to track trends with injuries involving consumer products and identify hazards. Second, the bill would require the secretary of Commerce to study possible uses of blockchain technology for consumer protection purposes, including preventing fraud. Finally, the bill would require the Federal Trade Commission to develop a report to Congress on enforcement actions relating to digital tokens.",
+  "Enforcement / Oversight": "The bill would require a report to Congress on each initiative.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/118th-congress/house-bill/4814",
+  "_links": [
+   "https://www.congress.gov/bill/118th-congress/house-bill/4814"
+  ]
+ },
+ {
+  "Bill Name": "Preventing Deep Fake Scams Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Brittany Patterson",
+  "Cosponsors": "7",
+  "Companion": "N",
+  "Committee": "Financial Services",
+  "Summary": "The bill would establish a task force on artificial intelligence (AI) in the financial services sector, specifically looking at fraud using AI.",
+  "Implementation": "The bill would task it with issuing a report to Congress that includes a description of how banks and credit unions proactively protect themselves and consumers from AI fraud. The report would also include an analysis of potential risks and a list of best practices and regulatory reforms to protect consumers from AI fraud.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct approriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1734/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1734/text"
+  ]
+ },
+ {
+  "Bill Name": "Small Business Technological Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Mark Alford",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Small Business",
+  "Summary": "The bill would authorize small business loans to finance access to modern business software that utilizes artificial intelligence.",
+  "Implementation": "The bill would amend the Small Business Act to allow for loans to finance business software or cloud computing services that facilitate business operations, product or service delivery, the processing, payment, or tracking of payroll expenses, human resources, sales and billing functions, or accounting or tracking of supplies, inventory, records and expenses, including business tools that utilize artificial intelligence.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/915/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/915/text"
+  ]
+ },
+ {
+  "Bill Name": "Kids Online Safety Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Marsha Blackburn",
+  "Cosponsors": "23",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would protect the safety of children on the internet by creating a duty of care for online platforms to protect minors using their services.",
+  "Implementation": "The bill would direct platforms and game providers to introduce protection mechanisms into their platforms, including introducing safeguards, time limiting options, parental tools, and reporting mechanisms. The bill would prohibit covered platforms from researching on children and minors, requires platforms to provide disclosure of practices. Additionally, platforms would be required to provide public transparency reports once a year. The FTC would be required to produce guidance providing information and examples for covered platforms.",
+  "Enforcement / Oversight": "The enforcing agency would be the Federal Trade Commission (FTC), which would hold civil action against covered platforms violating the bill. The secretary of Commerce would be required to conduct a study evaluating the most technologically feasible methods and options for developing systems to verify age at the device or operating system. The bill would establish a Kids Online Safety Council, which would produce interim and final reports including findings and a policy recommendations.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1748/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1748/text"
+  ]
+ },
+ {
+  "Bill Name": "One Big Beautiful Bill Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Jodey Arrington",
+  "Cosponsors": "0",
+  "Companion": "Y",
+  "Committee": "Budget",
+  "Summary": "The bill would modernize artificial intelligence (AI) and information technology by introducing a 10-year AI law moratorium.",
+  "Implementation": "The bill would prohibit states and localities from limiting, restricting, or otherwise regulating AI models, AI systems, or automated decision systems entered into interstate commerce for 10 years. The Department of Commerce would additionally have to modernize and secure federal information technology systems through the deployment of commercial AI, the deployment of automation technologies, and the replacement of antiquated business systems.",
+  "Enforcement / Oversight": "AI moratorium would be enforced as part of the One Big Beautiful Bill Act.",
+  "Funding": "$5 million to remain available until September 30, 2034.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1?loclr=cga-search",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1?loclr=cga-search"
+  ]
+ },
+ {
+  "Bill Name": "AI Accountability Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "h",
+  "Sponsor": "Josh Harder",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Energy and Commerce",
+  "Summary": "The bill would direct the assistant secretary of Commerce for Communications and Information to conduct a study on artificial intelligence (AI) systems.",
+  "Implementation": "Specifically, the bill would require the assistant secretary to conduct a study on accountability measures for AI systems, including how these measures are being incorporated into systems used by communications networks, how they can connect low-income Americans to the internet, and how they can reduce cybersecurity risks. The bill would also require public meetings to consult with relevant stakeholders.",
+  "Enforcement / Oversight": "The bill would require the assistant secretary to submit to Congress a report that includes the results of the analysis, a description of the feedback, and recommendations for governmental and non-governmental actions to support effective accountability measures.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1694/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1694/text"
+  ]
+ },
+ {
+  "Bill Name": "Protecting Our Children in an AI World Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Gus Bilirakis",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Judiciary",
+  "Summary": "The bill would prohibit using artificial intelligence (AI) to generate child pornography.",
+  "Implementation": "The bill would eliminate an affirmative defense for existing child pornography law that allowed defendants to argue that the individual depicted was an actual person but an adult, and the bill would also specifically redefine child pornography to include simulated pornography.",
+  "Enforcement / Oversight": "The bill would incorporate these changes into existing criminal enforcement of child pornography laws.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1283/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1283/text"
+  ]
+ },
+ {
+  "Bill Name": "Artificial Intelligence Practices, Logistics, Actions, and Necessities (AI PLAN) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Zachary Nunn",
+  "Cosponsors": "2",
+  "Companion": "N",
+  "Committee": "Financial Services",
+  "Summary": "The bill would require the development of a strategy to defend against the economic and national security risks posed by the use of artificial intelligence (AI) in the commission of financial crimes, including fraud and the dissemination of misinformation.",
+  "Implementation": "The bill would direct the secretary of Treasury, secretary of Homeland Security, and the secretary of Commerce to develop a report describing interagency policies to defend financial markets from national and economic security risks posed by AI. This report would also include a list of available resources.",
+  "Enforcement / Oversight": "The secretaries would be required to submit a report to Congress that includes a set of recommendations of policies to implement.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/2152/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/2152/text"
+  ]
+ },
+ {
+  "Bill Name": "Protect Victims of Digital Exploitation and Manipulation Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Nancy Mace",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Judiciary",
+  "Summary": "The bill would prohibit the production or distribution of digital forgeries of intimate visual depictions of identifiable individuals.",
+  "Implementation": "The bill would criminalize the reckless disregard to produce or distribute a digital forgery of an identifiable individual.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/2564/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/2564/text"
+  ]
+ },
+ {
+  "Bill Name": "Protection Against Foreign Adversarial Artificial Intelligence Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Bill Cassidy",
+  "Cosponsors": "2",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would protect the United States from artificial intelligence applications based in or affiliated with countries of concern.",
+  "Implementation": "The bill would prohibit the use of Deepseek, or any entity owned by High Flyer, to carry out federal contracts. The bill would require the secretary of the Department of Commerce to produce a report.",
+  "Enforcement / Oversight": "The secretary would be required to submit to congress a report including analysis of censorship laws, propaganda, security threats, and recommendations for actions to strengthen U.S. security against threat actors.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1638/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1638/text"
+  ]
+ },
+ {
+  "Bill Name": "Nurture Originals, Foster Art, and Keep Entertainment Safe (NO FAKES) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Maria Elvira Salazar",
+  "Cosponsors": "8",
+  "Companion": "N",
+  "Committee": "Judiciary",
+  "Summary": "The bill would create an intellectual property right to protect the voice and visual likeness of individuals. The bill would also give individuals the ability to exclude their likeness from AI training models.",
+  "Implementation": "The bill would grant individuals a property right, not assignable but licensable, to use one\u2019s voice or visual likeness. The bill would impose additional requirements for licensing the rights for minors. It would also create a variety of safe harbors, such as for secondary liability or if an online service removes the claimed material.",
+  "Enforcement / Oversight": "A violation of the act would allow the affected party to bring a civil case against the infringing party for damages, including $5,000 per work for an individual and $5,000 per violation for an online service, as well as injunctive relief. Punitive damages may be awarded only when the defendant acted with malice, fraud, or knowledge that the conduct violated the law.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/2794/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/2794/text"
+  ]
+ },
+ {
+  "Bill Name": "Restoring Fair Housing Protections Eliminated by Trump Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Maxine Waters",
+  "Cosponsors": "0",
+  "Companion": "Y",
+  "Committee": "Judiciary",
+  "Summary": "The bill would restore the fair housing mission of the Department of Housing and Urban Development (HUD).",
+  "Implementation": "The bill would require HUD to repeal the March 2025 interim rule on Affirmatively Furthering Fair Housing (AFFH) and issue a new rule reinforcing proactive integration efforts. The bill mandates a review of discrimination complaints involving AI and digital platforms and requires the creation of a public database of fair housing complaints.",
+  "Enforcement / Oversight": "The secretary would be required to submit a report to Congress that includes a review of the complaints received and analysis of trends and risks.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3086?loclr=cga-search",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3086?loclr=cga-search"
+  ]
+ },
+ {
+  "Bill Name": "AI Whistleblower Protection Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Jay Obernolte",
+  "Cosponsors": "2",
+  "Companion": "Y",
+  "Committee": "Education and Workforce",
+  "Summary": "The bill would prohibit employment discrimination against whistleblowers reporting artificial intelligence (AI) security vulnerabilities or AI violations.",
+  "Implementation": "The bill would establish protection measures for employees against direct and indirect discrimination. The bill would protect employees who provide information regarding an AI security vulnerability or assist investigation into AI violations.",
+  "Enforcement / Oversight": "The employee might seek relief and file a complaint with the secretary of Labor, should be entitled to a trial by jury and be entitled to additional relief. The bill enforces a 6-year statute of limitations.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3460?loclr=cga-search",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3460?loclr=cga-search"
+  ]
+ },
+ {
+  "Bill Name": "Strengthening Transparency and Obligations to Protect Children Suffering from Abuse and Mistreatment (STOP CSAM) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Josh Hawley",
+  "Cosponsors": "8",
+  "Companion": "Y",
+  "Committee": "Judiciary",
+  "Summary": "The bill would combat the sexual exploitation of children by supporting victims and promoting accountability and transparency by the tech industry.",
+  "Implementation": "The bill would require a provider to submit to the CyberTipline of NCMEC a report of child sexual exploitation, including an indication as to whether the apparent child pornography was created fully or in part through the use of artificial intelligence.",
+  "Enforcement / Oversight": "Private litigation.",
+  "Funding": "$40 million for each fiscal year",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1829/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1829/text"
+  ]
+ },
+ {
+  "Bill Name": "Protect Elections from Deceptive AI Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Amy Klobuchar",
+  "Cosponsors": "4",
+  "Companion": "N",
+  "Committee": "Rules and Administration",
+  "Summary": "The bill would prohibit the distribution of materially deceptive artificially generated audio or visual media relating to candidates for federal office.",
+  "Implementation": "The bill would prohibit the use of materially deceptive artificially generated audio or visual media in carrying out federal election activity for the purpose of influencing an election or soliciting funds. The prohibition doesn\u2019t apply to radio or television broadcasting stations that broadcast such content as part of coverage of the news if the broadcast clearly acknowledges the questions about authenticity.",
+  "Enforcement / Oversight": "Individuals depicted by artificial content covered by the bill would be allowed to bring a civil action for injunctive or other equitable relief.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1213/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1213/text"
+  ]
+ },
+ {
+  "Bill Name": "Disrupt Explicit Forged Images And Non-Consensual Edits (DEFIANCE) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Alexandria Ocasio-Cortez",
+  "Cosponsors": "13",
+  "Companion": "Y",
+  "Committee": "Judiciary",
+  "Summary": "The bill would improve rights to relief for individuals affected by non-consensual activities involving intimate digital forgeries.",
+  "Implementation": "The bill would amend Section 1309 of the Consolidated Appropriations Act of 2022 to include nonconsensual activity involving digital forgeries and identifiable individuals.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3562/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3562/text"
+  ]
+ },
+ {
+  "Bill Name": "Improving Seniors\u2019 Timely Access to Care Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Roger Marshall",
+  "Cosponsors": "132",
+  "Companion": "N",
+  "Committee": "Finance",
+  "Summary": "The bill would amend title XVIII of the Social Security Act to establish requirements with respect to the use of prior authorization under Medicare Advantage plans.",
+  "Implementation": "The bill would amend Section 1852 of the Social Security Act by including a transparency clause where plans are required to submit a breakdown of denied requests through utilization of artificial intelligence technology, among others.",
+  "Enforcement / Oversight": "The Heath and Human Services secretary would be required to submit to Congress an overview report, and Center for Medicare and Medicaid Services secretary would be required to submit a report to Congress, and Government Accountability Office would be required to submit an analysis report on issues in implementing requirements faced by Medicare Advantage plans.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1816/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1816/text"
+  ]
+ },
+ {
+  "Bill Name": "No Adversarial AI Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "John Moolenaar",
+  "Cosponsors": "3",
+  "Companion": "Y",
+  "Committee": "Oversight and Government Reform",
+  "Summary": "The bill would protect the United States government from foreign adversary-developed artificial intelligence (AI).",
+  "Implementation": "The bill would require the Federal Acquisition Security Council to develop a list containing any AI that is produced or developed by a foreign adversary. After 90 days of enactment of the bill, agency heads would be required to review and consider the removal of AI included on the list.",
+  "Enforcement / Oversight": "The bill would require the council to develop an AI adversary provider list.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/4142/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/4142/text"
+  ]
+ },
+ {
+  "Bill Name": "To prohibit the Secretary of Defense from entering into software source code contracts with entities with certain relationships with China",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Pat Fallon",
+  "Cosponsors": "6",
+  "Companion": "N",
+  "Committee": "Armed Services",
+  "Summary": "The bill would prohibit the secretary of Defense from entering into software source code contracts with entities that have certain relationships to China.",
+  "Implementation": "No implementation.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3961/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3961/text"
+  ]
+ },
+ {
+  "Bill Name": "Preventing Deep Fake Scams Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Jon Husted",
+  "Cosponsors": "1",
+  "Companion": "Y",
+  "Committee": "Banking, Housing, and Urban Affairs",
+  "Summary": "The bill would establish the Task Force on Artificial Intelligence in the Financial Services Sector to report to Congress on issues related to artificial intelligence (AI) in the financial services sector.",
+  "Implementation": "The bill would establish the Task Force on Artificial Intelligence, which with comments from industry and expert stakeholders would produce a report on how banks and credit unions utilize AI in operations.",
+  "Enforcement / Oversight": "The Task force would produce a report for Congress on the use of AI to protect from fraud, potential risks of using AI by threat actors, best practices, and regulatory recommendations.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/2117/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/2117/text"
+  ]
+ },
+ {
+  "Bill Name": "Preventing PLA Acquisition of United States Technology Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Jim Banks",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Foreign Relations",
+  "Summary": "The bill would counter the military-civil fusion strategy of the Chinese Communist Party and prevent U.S. contributions to the development of dual-use technology in China.",
+  "Implementation": "The bill would prohibit entities to engage with or form partnerships with a Chinese entity of concern in any scientific research or technical exchange that has a direct bearing on the development of technologies that the Chinese Communist Party has identified as a priority of its national strategy of military-civil fusion, including artificial intelligence. The secretaries are required to develop and maintain a list of the specific areas and a list of Chinese entities of concern.",
+  "Enforcement / Oversight": "The covered entities would be required to submit a yearly report to secretary of Defense that discloses any research relationships with Chinese entities.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1754?loclr=cga-search",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1754?loclr=cga-search"
+  ]
+ },
+ {
+  "Bill Name": "Chip Security Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Bill Huizenga",
+  "Cosponsors": "9",
+  "Companion": "Y",
+  "Committee": "Foreign Affairs",
+  "Summary": "The bill would require the secretary of the Department of Commerce to issue standards with respect to chip security mechanisms for integrated circuit products, and for other purposes.",
+  "Implementation": "The bill would direct the secretary to require any covered integrated circuit product to be outfitted with chip security mechanisms that implement location verification, using feasible techniques. The bill would strengthen reporting requirements for chips-exporting licensees.",
+  "Enforcement / Oversight": "The secretary would be required to submit a chip security assessment report to Congress. The bill also would require the development of secondary requirements for chips security measures following enactment.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3447/text"
+  ]
+ },
+ {
+  "Bill Name": "Content Origin Protection and Integrity from Edited and Deepfaked Media Act of 2025",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Maria Cantwell",
+  "Cosponsors": "2",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would require transparency with respect to content and content provenance information to protect artistic content.",
+  "Implementation": "The bill would require the under secretary of Commerce for Standards and Technology to establish a public-private partnership to facilitate the development of standards regarding content provenance information technologies and the detection of artificially generated synthetic content and synthetically modified content. Beginning two years after enactment, developers of artificial intelligence (AI) tools capable of creating synthetic media would be required to provide content provenance tools to users of the program.",
+  "Enforcement / Oversight": "The bill would prohibit the knowing removal or altering of content provenance information in furtherance of an unfair or deceptive act or practice. Enforcement would be placed with the Federal Trade Commission and state attorneys general. The bill would also create a private right of action for individuals affected by violations of the bill.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1396/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1396/text"
+  ]
+ },
+ {
+  "Bill Name": "Quashing Unwanted and Interruptive Electronic Telecommunications (QUIET) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Eric Sorensen",
+  "Cosponsors": "15",
+  "Companion": "N",
+  "Committee": "Energy and Commerce",
+  "Summary": "The bill would require the disclosure of the use of artificial intelligence (AI) in automated telephone calls or text messaging.",
+  "Implementation": "The bill would amend the Communications Act of 1934 to require that if a person makes a robocall using AI to emulate a human being, that person must include a disclosure at the beginning of that message.",
+  "Enforcement / Oversight": "The bill would apply existing penalties for violations of the Communications Act as it relates to robocalls to violations of the disclosure rules. The bill would also include heightened penalties for violations that intend to defraud, cause harm, or wrongfully obtain anything of value.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1027/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1027/text"
+  ]
+ },
+ {
+  "Bill Name": "Foreign Investment Guardrails to Help Thwart (FIGHT) China Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "H",
+  "Sponsor": "Andy Barr",
+  "Cosponsors": "6",
+  "Companion": "Y",
+  "Committee": "Foreign Affairs; Financial Services",
+  "Summary": "The bill would impose sanctions on national security transactions with individuals with ties to People\u2019s Republic of China and require notifications for specific investments in artificial intelligence (AI), among other technologies.",
+  "Implementation": "The bill would grant the secretary of Treasury the authority to prohibit United States persons from knowingly engaging in a covered national security transaction involving AI, among other technologies. The bill would grant the secretary rulemaking authority to carry out the act but also requires a process through which a person can request feedback on a confidential basis as to whether a transaction would violate the law. In addition, the bill would require individuals engaging in transactions that use AI technology to notify the secretary within 30 days of completing a transaction.",
+  "Enforcement / Oversight": "The bill would require the secretary to develop an annual report to Congress that lists enforcement actions taken under this bill and an assessment of whether Congress should change the types of technologies included in the sanctions.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/2246/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/2246/text"
+  ]
+ },
+ {
+  "Bill Name": "Tools to Address Known Exploitation by Immobilizing Technological Deepfakes on Websites and Networks (TAKE IT DOWN) Act",
+  "Classification": "Mitigating Harms",
+  "Chamber": "S",
+  "Sponsor": "Ted Cruz",
+  "Cosponsors": "21",
+  "Companion": "Y",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would require covered platforms to remove nonconsensual intimate visual depictions when served with a valid judicial order.",
+  "Implementation": "The bill would first criminalize the use of an interactive computer service to knowingly publish a digital forgery of an identifiable individual if the digital forgery was published without consent, not a matter of public concern, and intended to cause harm, with stricter rules for forgeries of minors. Second, the bill would require covered platforms to establish a process whereby an individual can report such images to the platform, and the platform must remove the images if the request is valid.",
+  "Enforcement / Oversight": "The bill would grant the Federal Trade Commission authority to treat violations of the notice and takedown provisions as an unfair or deceptive act or practice.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/146/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/146/text"
+  ]
+ },
+ {
+  "Bill Name": "Maintaining Innovation and Safe Technologies Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "David Schweikert",
+  "Cosponsors": "2",
+  "Companion": "N",
+  "Committee": "Energy and Commerce; Ways and Means",
+  "Summary": "The bill would direct the secretary of Health and Human Services to issue guidance on payment under the Medicare program for certain items involving artificial intelligence.",
+  "Implementation": "The bill would require the issuance of guidance by January 1, 2027, and use existing communications methods to issue that guidance.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/118th-congress/senate-bill/4487/text",
+  "_links": [
+   "https://www.congress.gov/bill/118th-congress/senate-bill/4487/text"
+  ]
+ },
+ {
+  "Bill Name": "Guiding and Establishing National Innovation for U.S. Stablecoins (GENIUS) Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "S",
+  "Sponsor": "Bill Hagerty",
+  "Cosponsors": "5",
+  "Companion": "N",
+  "Committee": "None",
+  "Summary": "The bill would provide for the regulation of payment stablecoins.",
+  "Implementation": "The bill would require the secretary of the Treasury to seek public comments to identify novel methods used by regulate financial institutions, including artificial intelligence.",
+  "Enforcement / Oversight": "The secretary would be required to develop and submit to the congress a report including risk assessment, recommendations, and legislative proposals.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1582/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1582/text"
+  ]
+ },
+ {
+  "Bill Name": "Protecting Coasts and Cities from Severe Weather Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "Thomas Kean",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology",
+  "Summary": "Protecting Coasts and Cities from Severe Weather Act",
+  "Implementation": "The bill would establish a coastal flooding and storm surge forecast improvement program, which would establish skill metrics for coastal inundation forecasting that quantify the benefits of machine learning based prediction systems.",
+  "Enforcement / Oversight": "The under-secretary would be required to develop a program plan within 180 days.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3771/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3771/text"
+  ]
+ },
+ {
+  "Bill Name": "Artificial Intelligence Public Awareness and Education Campaign Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "S",
+  "Sponsor": "Todd Young",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would require the secretary of the Department of Commerce to conduct a public awareness and education campaign to provide information regarding the benefits of, risks relating to, and the prevalence of artificial intelligence (AI) in the daily lives of individuals in the United States.",
+  "Implementation": "The bill would require the secretary of Commerce to conduct a 5-year AI education campaign to improve AI consumer literacy in collaboration with the director of the National Institute of Standards and Technology and the administrator of the National Telecommunications and Information Administration.",
+  "Enforcement / Oversight": "The secretary would be required to submit to the Senate Committee on Commerce, Science, and Transportation and the House of Representatives Committee on Science, Space, and Technology a report on the activities conducted under the AI Campaign.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1699/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1699/text"
+  ]
+ },
+ {
+  "Bill Name": "Artificial Intelligence Literacy and Inclusion Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "Adriano Espaillat",
+  "Cosponsors": "2",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology; Education and Workforce; Small Business; Energy and Commerce",
+  "Summary": "The bill would direct the National Science Foundation (NSF) to make awards for artificial intelligence (AI) literacy programs, and for other purposes.",
+  "Implementation": "The bill would direct the secretaries of Labor, Commerce, and Education as well as the administrator of Small Business Administration to develop a report detailing how the respective agency could more effectively advance AI literacy. This report would identify existing awards that could be modified to support AI literacy with adjustment recommendations.",
+  "Enforcement / Oversight": "The secretaries would be required to submit a report to Congress that includes a set of recommendations on how the respective agency can more effectively advance AI literacy.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3210/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3210/text"
+  ]
+ },
+ {
+  "Bill Name": "Medicare Transaction Fraud Prevention Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "S",
+  "Sponsor": "Tim Sheehy",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Finance",
+  "Summary": "The bill would amend Title XI of the Social Security Act to establish a pilot program for testing the use of a predictive risk-scoring algorithm to provide oversight of payments for durable medical equipment and clinical diagnostic laboratory tests under the Medicare program.",
+  "Implementation": "The bill would establish a pilot program to test the use of predictive risk-scoring algorithms to provide oversight of relevant transactions.",
+  "Enforcement / Oversight": "The secretary of Health and Human Services would implement the program.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/2066/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/2066/text"
+  ]
+ },
+ {
+  "Bill Name": "Supporting Modern Approaches in Recovery Technology for Traumatic Brain Injury (SMART for TBI) Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "Jason Crow",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Armed Services",
+  "Summary": "The bill would direct the secretary of Defense to develop a strategy for treating traumatic brain injuries through digital health technologies.",
+  "Implementation": "The bill would amend Section 735 of the James M. Inhofe National Defense Authorization Act for Fiscal Year 2023 to establish a working group to develop a strategy for treating traumatic brain injuries through digital health technologies, including artificial intelligence.",
+  "Enforcement / Oversight": "The bill would require the secretary to provide to the congressional defense committees a briefing on the developed strategy.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/4321/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/4321/text"
+  ]
+ },
+ {
+  "Bill Name": "Deploying American Blockchains Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "S",
+  "Sponsor": "Bernie Moreno",
+  "Cosponsors": "2",
+  "Companion": "Y",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would require the secretary of Commerce support the leadership of the United States with respect to the deployment, use, application, and competitiveness of blockchain technology.",
+  "Implementation": "The bill would require the Federal Acquisition Security Council to develop a list containing any artificial intelligence (AI) produced or developed by a foreign adversary. The bill would then require heads of executive agencies to review and consider removing AI tools included on the list.",
+  "Enforcement / Oversight": "The council would produce a detailed report on foreign adversary-linked AI products.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1492/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1492/text"
+  ]
+ },
+ {
+  "Bill Name": "Small Business Artificial Intelligence Advancement Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "Mike Collins",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology",
+  "Summary": "The bill would require the Director of the National Institute of Standards and Technology to develop resources for small businesses in utilizing artificial intelligence, and for other purposes.",
+  "Implementation": "The bill would amend Section 22A of the National Institute of Standards and Technology Act to include developing technical standards, best practices, benchmarks, methodologies, procedures, or processes for the understanding, adoption, or integration of artificial intelligence, to support small businesses. The bill requires the director to review and update the resources every 2 years.",
+  "Enforcement / Oversight": "The director would be required to submit an information report to Congress.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3679?loclr=cga-search",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3679?loclr=cga-search"
+  ]
+ },
+ {
+  "Bill Name": "Contraband Awareness Technology Catches Harmful (CATCH) Fentanyl Act",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "Clay Higgins",
+  "Cosponsors": "21",
+  "Companion": "Y",
+  "Committee": "Homeland Security",
+  "Summary": "The bill would establish a pilot program to assess the use of technology to speed up and enhance the cargo inspection process at land ports of entry along the border.",
+  "Implementation": "The bill would specifically allow the use of artificial intelligence technologies as a part of the pilot program to inspect border crossings to detect contraband, illegal drugs, weapons, human smuggling, and threats on inbound and outbound traffic. The pilot project would only last five years.",
+  "Enforcement / Oversight": "The secretary of Homeland Security would be required to submit a report to Congress on the effectiveness of the technology enhancements and any recommendations for Congress. The bill would also require a report on the effect of the program on privacy and civil liberties.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1569/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1569/text"
+  ]
+ },
+ {
+  "Bill Name": "Promoting Resilient Supply Chains Act of 2025",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "John James",
+  "Cosponsors": "4",
+  "Companion": "Y",
+  "Committee": "Passed House",
+  "Summary": "The bill would require the Department of Commerce to establish a supply chain resiliency and crisis response program and would direct the assistant secretary of Commerce for the Office of Industry and Analysis to promote the stability and resilience of critical supply chains.",
+  "Implementation": "The assistant secretary would be required to establish and lead a working group designed to promote resilient critical supply chains and identify potential supply chain shocks to critical industries. The working group would consult with state and local governments, as well as allies and key international partner nations. Membership of the working group would include a representative from every agency that relies on the analysis of the Industry and Analysis Office within the Department of Commerce.",
+  "Enforcement / Oversight": "The bill would require the assistant secretary to submit a report to Congress on the implementation of the working group, as well as an annual report on the work of the group including identification of critical infrastructure and methods to prepare or prevent shocks to this infrastructure. The bill would sunset after 10 years.",
+  "Funding": "No direct appropriations",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/2444",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/2444"
+  ]
+ },
+ {
+  "Bill Name": "A bill to amend the Public Health Service Act to direct the secretary of Health and Human Services to establish drug adherence guidelines, and for other purposes.",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "David Schweikart",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Energy and Commerce",
+  "Summary": "The bill would require the secretary of Health and Human Services to establish drug adherence guidelines with the goal of achieving 90 percent adherence for all Medicare Parts B and D drugs.",
+  "Implementation": "In establishing the guidelines, the bill would require the secretary to incorporate artificial intelligence and machine learning technologies.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "A bill to amend the Public Health Service Act to direct the secretary of Health and Human Services to establish drug adherence guidelines, and for other purposes.",
+  "_links": [
+   "http://A%20bill%20to%20amend%20the%20Public%20Health%20Service%20Act%20to%20direct%20the%20secretary%20of%20Health%20and%20Human%20Services%20to%20establish%20drug%20adherence%20guidelines,%20and%20for%20other%20purposes."
+  ]
+ },
+ {
+  "Bill Name": "Healthy Technology Act of 2025",
+  "Classification": "Enabling AI Use",
+  "Chamber": "H",
+  "Sponsor": "David Schweikart",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Energy and Commerce",
+  "Summary": "The bill would amend the Federal Food, Drug, and Cosmetic Act to clarify that artificial intelligence and machine learning technologies can qualify as a practitioner eligible to prescribe drugs if authorized by the state involved and approved, cleared, or authorized by the Food and Drug Administration.",
+  "Implementation": "The bill would still require the models to be authorized by state statutes to prescribe drugs.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/238?q=%7B%22search%22%3A%22artificial+intelligence%22%7D&s=3&r=3",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/238?q=%7B%22search%22%3A%22artificial+intelligence%22%7D&s=3&r=3"
+  ]
+ },
+ {
+  "Bill Name": "Providing Individuals Various Opportunities for Technical Training to Build a Skills-Based Cyber Workforce (Cyber PIVOTT) Act of 2025",
+  "Classification": "Workforce Development",
+  "Chamber": "H",
+  "Sponsor": "Mark Green",
+  "Cosponsors": "12",
+  "Companion": "N",
+  "Committee": "Homeland Security; Education and Workforce",
+  "Summary": "The bill would amend the Homeland Security Act of 2002 to provide for education and training programs and resources of the Cybersecurity and Infrastructure Security Agency (CISA) of the Department of Homeland Security.",
+  "Implementation": "The bill would direct CISA to seek to enter partnerships with community colleges and technical schools to create a program that engages in cybersecurity-related coursework and skills-based exercises focusing on artificial intelligence and machine learning. It would also create a service obligation for graduates of the program. The program would initially start with no fewer than 250 students and double each year until the program reaches 1000 students. The bill would also direct CISA to develop a long-term plan that includes 10,000 students.",
+  "Enforcement / Oversight": "The bill would require a report on enrollment goals if the program fails to meet the minimum quota.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1000/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1000/text"
+  ]
+ },
+ {
+  "Bill Name": "AI Training Extension Act",
+  "Classification": "Workforce Development",
+  "Chamber": "H",
+  "Sponsor": "Nancy Mace",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Oversight and Government Reform",
+  "Summary": "The bill would amend the Artificial Intelligence (AI) Training for the Acquisition Workforce Act to expand AI training within the executive branch of the federal government.",
+  "Implementation": "The bill would expand the scope of individuals who must receive AI training beyond the acquisition workforce and shift the training development role to the administrator of General Services. The bill also clarifies and updates the training contents incorporates it into existing federal training. The bill would shorten the name of Artificial Intelligence Training for the Acquisition Workforce Act to Artificial Intelligence Training Act.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3775/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3775/text"
+  ]
+ },
+ {
+  "Bill Name": "Countering Russian Innovation and Safeguarding Individual Scientists (CRISIS) Act",
+  "Classification": "Workforce Development",
+  "Chamber": "H",
+  "Sponsor": "Bill Foster",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Judiciary",
+  "Summary": "The bill would authorize the secretary of Homeland Security (DHS) to provide certain Russian nationals with special immigrant status, and for other purposes.",
+  "Implementation": "The bill would allow the secretary to grant a status of a special immigrant to Russian individuals eligible to receive an immigration visa, holding a STEM doctorate degree, and seeking admission to engage in work in the United States.",
+  "Enforcement / Oversight": "The number of aliens provided with special immigrant status cannot exceed 3,000 a year for the 2026\u20132029 period, after which the authority of DHS to grant such status will be terminated.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3536/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3536/text"
+  ]
+ },
+ {
+  "Bill Name": "Artificial Intelligence and Critical Technology Workforce Framework Act of 2025",
+  "Classification": "Workforce Development",
+  "Chamber": "S",
+  "Sponsor": "Gary Peters",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would expand the functions of the National Institute of Standards and Technology (NIST) to include workforce frameworks for critical and emerging technologies.",
+  "Implementation": "The bill would require the director of NIST to develop, maintain, and provide industry, government, research, nonprofit, labor organizations, and educational institutions with workforce frameworks for critical and emerging technologies and other science, technology, engineering, and mathematics domains for the purpose of bolstering scientific and technical education, training, and workforce development, updated every three years. The bill would also require updates to the National Initiative for Cybersecurity Education (NICE) Workforce Framework within 180 days.",
+  "Enforcement / Oversight": "Within three years, the director of NIST would be required to provide Congress a report that identifies the applications of the framework, any guidance that the office of NICE provides, available information regarding employers and education, an assessment of the effectiveness of the framework, and additional actions taken by the director.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1290/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1290/text"
+  ]
+ },
+ {
+  "Bill Name": "Leveraging Artificial Intelligence to Streamline the Code of Federal Regulations Act of 2025",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Jon Husted",
+  "Cosponsors": "6",
+  "Companion": "N",
+  "Committee": "Homeland Security and Government Affairs",
+  "Summary": "The bill would require the use of artificial intelligence (AI) to review the effectiveness of and need for agency regulations.",
+  "Implementation": "The bill would require the director of the Office of Management and Budget to implement a process for identifying redundant or outdated regulation using AI systems that meet accuracy, transparency, accountability, and national security risk standards set out by the National Institute of Standards and Technology. The bill would also streamline the rulemaking process for eliminating such rules.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1110?loclr=cga-search",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1110?loclr=cga-search"
+  ]
+ },
+ {
+  "Bill Name": "Veterans Appeals Efficiency Act",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Jim Banks",
+  "Cosponsors": "2",
+  "Companion": "Y",
+  "Committee": "Veterans' Affairs",
+  "Summary": "The bill would amend Title 38 of the United States Code to improve the efficiency of adjudications and appeals of claims for benefits under laws administered by secretary of Veterans Affairs.",
+  "Implementation": "The bill allows the chairman of Board of Veterans\u2019 Appeals to use artificial intelligence to conduct a study to identify questions of law or fact the Board commonly considers when reviewing appeals pursuant to section 7104 of Title 38.",
+  "Enforcement / Oversight": "The chairman would be required to submit a report to Congress on the findings of the study.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1992/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1992/text"
+  ]
+ },
+ {
+  "Bill Name": "Protecting AI and Cloud Competition in Defense Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Pat Fallon",
+  "Cosponsors": "2",
+  "Companion": "Y",
+  "Committee": "Armed Services",
+  "Summary": "The bill would establish requirements relating to cloud, data infrastructure, and foundation model procurement.",
+  "Implementation": "The bill would direct the secretary of the Department of Defense to implement new procurement requirements for cloud, data infrastructure, and foundation model solutions, promoting security, resiliency, and competition. The bill requires updates to the Defense Federal Acquisition Regulation Supplement (DFARS) to reflect the changes.",
+  "Enforcement / Oversight": "The chairman of the Joint Chiefs of Staff would be required to submit AI-space analysis report to congressional defense committees. The report would be made public.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3434/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3434/text"
+  ]
+ },
+ {
+  "Bill Name": "Study on AI For Enhanced Crossing Safety (SAFE CROSS) Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Kevin Mullin",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Transportation and Infrastructure",
+  "Summary": "The bill would require the administrator of the Federal Railroad Administration to conduct a study to identify potential benefits and challenges of implementing and using sensors enabled with artificial intelligence as a safety measure at rail crossings.",
+  "Implementation": "The bill would direct the administrator of the Federal Railroad Administration to conduct a study.",
+  "Enforcement / Oversight": "The administration would submit to Congress a report reviewing existing pilot programs, cost-benefit analysis, and best practices. The study would be distributed on publicly available channels.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3647/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3647/text"
+  ]
+ },
+ {
+  "Bill Name": "Emerging Innovative Border Technologies Act",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Catherine Cortez Masto",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Homeland Security and Government Affairs",
+  "Summary": "The bill would require the secretary of the Department of Homeland Security (DHS) to develop a plan to identify, integrate, and deploy new, innovative, disruptive, or other emerging or advanced technologies that are safe and secure to enhance U.S. Customs and Border Protection's (CPB) capabilities to meet its mission needs along international borders and at ports of entry.",
+  "Implementation": "The bill would direct the commissioner for U.S. Customs and Border Protection to create a plan outlining how CBP is aligning with existing DHS artificial intelligence (AI) policies.",
+  "Enforcement / Oversight": "The bill would require each CBP Innovation team to align with policies on responsible use of AI. The commissioner would also be required to submit an overview report to the committee.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1871/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1871/text"
+  ]
+ },
+ {
+  "Bill Name": "Advanced Weather Model Computing Development Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Max Miller",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Natural Resources; Science, Space, and Technology",
+  "Summary": "The bill would direct the Department of Energy and the National Oceanic and Atmospheric Administration (NOAA) to conduct collaborative research to advance numerical weather and climate prediction in the United States.",
+  "Implementation": "The bill would amend Section 108 of the Weather Research and Forecasting Innovation Act of 2017 to include AI investments, leverage artificial intelligence to advance NOAA\u2019s mission, and expand centers of excellence to adopt AI.",
+  "Enforcement / Oversight": "The bill would require the under secretary of Commerce for Oceans and Atmosphere to submit a report evaluating the needs and timeline for implementing computing requirements and needs of NOAA and publish a 10-year strategic plan that outlines the needs, actions, and strategies to address them. The secretary would be required to brief Congress on a yearly basis on progress.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/4141/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/4141/text"
+  ]
+ },
+ {
+  "Bill Name": "NSF and USDA Interagency Research Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "James Baird",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology; Agriculture",
+  "Summary": "The bill would direct the secretary of the Department of Agriculture (USDA) and the director of the National Science Foundation (NSF) to carry out cross-cutting and collaborative research and development activities focused on the joint advancement of USDA and NSF mission requirements and priorities.",
+  "Implementation": "The bill would direct the secretary and the director to collaborate on key emerging technology areas, such as artificial intelligence, for agricultural uses.",
+  "Enforcement / Oversight": "The secretary and director would be required to submit a report to Congress that includes an overview of progress and potential future opportunities to expand capabilities of the USDA and NSF.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3707/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3707/text"
+  ]
+ },
+ {
+  "Bill Name": "Future of Defense Manufacturing Act",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Elissa Slotkin",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Armed Services",
+  "Summary": "The bill would promote innovation and advanced manufacturing in the Department of Defense (DoD) and the defense industrial base with the use of artificial intelligence (AI).",
+  "Implementation": "The bill would require DoD to develop guidance and a manual to incorporate innovations in advanced manufacturing, which would include AI-enabled modeling and simulation technologies design, development, test, and evaluation.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/2214/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/2214/text"
+  ]
+ },
+ {
+  "Bill Name": "Protecting AI and Cloud Competition in Defense Act",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Elizabeth Warren",
+  "Cosponsors": "1",
+  "Companion": "Y",
+  "Committee": "Armed Services",
+  "Summary": "The bill would provide for certain requirements relating to cloud, data infrastructure, and foundation model procurement.",
+  "Implementation": "The bill would direct the secretary of Defense to require a competitive award process for procurement of cloud computing, data infrastructure, or foundation model solutions, but would also maintain exclusive rights to government data. This bill would update the Defense Federal Acquisition Regulation Supplement (DFARS) to ensure government-furnished data stored on vendor systems is protected and not used to train commercial products.",
+  "Enforcement / Oversight": "The chairman would be required to submit a report to Congress that includes a set of U.S. artificial intelligence market share analysis, and a list of the exemptions granted.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1775/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1775/text"
+  ]
+ },
+ {
+  "Bill Name": "Flexible Acquisition of Software Technology (FAST) Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Pat Fallon",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Armed Services",
+  "Summary": "The bill would authorize the secretary of the Department of Defense to procure software and data as a service to support the development of artificial intelligence systems.",
+  "Implementation": "The bill would require the secretary to procure, modify, and research software and data to support development and implementation of AI in the Department of Defense.",
+  "Enforcement / Oversight": "The secretary would be required to issue or modify regulations to support the implementation of the bill.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3807/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3807/text"
+  ]
+ },
+ {
+  "Bill Name": "Advanced AI Security Readiness Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Darin LaHood",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Intilligence",
+  "Summary": "The bill would direct the director of the National Security Agency to develop strategies to secure artificial intelligence (AI) related technologies.",
+  "Implementation": "The bill would direct the director of the National Security Agency to develop strategies to defend AI technologies from theft, known as AI Security Playbook, describing vulnerabilities, key components, levels of security, and prevention strategies.",
+  "Enforcement / Oversight": "The director would produce an initial progress report within 90 days and final playbook within 270 days.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3919/text"
+  ]
+ },
+ {
+  "Bill Name": "Ground and Orbital Launched Defeat of Emergent Nuclear Destruction and Other Missile Engagements (GOLDEN DOME) Act",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Dan Sullivan",
+  "Cosponsors": "8",
+  "Companion": "Y",
+  "Committee": "Armed Services",
+  "Summary": "The bill would improve the missile defense capabilities of the United States with the use of artificial intelligence (AI).",
+  "Implementation": "The bill would establish a program to accelerate development of AI-powered security capabilities, including non-kinetic battle management, information fusion platforms, and positioning, navigation, and timing solutions for missile detection systems.",
+  "Enforcement / Oversight": "The program manager would submit a feasibility study to the congressional defense committees.",
+  "Funding": "$23 billion for fiscal year 2026",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/2142/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/2142/text"
+  ]
+ },
+ {
+  "Bill Name": "Streamlining Procurement for Effective Execution and Delivery (SPEED) Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Mike Rogers",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Armed Services",
+  "Summary": "The bill would authorize appropriations for fiscal year 2026 for military activities of the Department of Defense, for military construction, and for defense activities of the Department of Energy, to prescribe military personnel strengths for such fiscal year.",
+  "Implementation": "The bill would direct the consortium to identify and address challenges and limitations with adoption of commercial approaches to information technology, including artificial intelligence.",
+  "Enforcement / Oversight": "The consortium would be required to submit a report to Congress that includes recommendations and actions taken.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3838/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3838/text"
+  ]
+ },
+ {
+  "Bill Name": "Forcing Real Accountability for Unlawful Distributions or the (FRAUD) Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Tom Barrett",
+  "Cosponsors": "0",
+  "Companion": "N",
+  "Committee": "Veterans' Affairs",
+  "Summary": "The bill would amend Title 38 to direct the secretary of Veterans Affairs to use an information technology system to detect fraud, waste, and abuse regarding claims for payment submitted to the secretary under the Veterans Community Care Program.",
+  "Implementation": "The bill would require the secretary to incorporate information technology into analysis of claims for payment.",
+  "Enforcement / Oversight": "The secretary would be required to submit to the Senate\u2019s and House of Representatives\u2019 respective Committees on Veterans' Affairs a report regarding the operation of information technology systems.",
+  "Funding": "The secretary shall use funds from the Department of Veterans Affairs franchise fund established under title I of Public Law 104\u2013204.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/3483/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/3483/text"
+  ]
+ },
+ {
+  "Bill Name": "To establish in the National Oceanic and Atmospheric Administration a program to improve precipitation forecasts, and for other purposes.",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Deborah Ross",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Science, Space, and Technology",
+  "Summary": "The bill would establish in the National Oceanic and Atmospheric Administration (NOAA) a program to improve precipitation forecasts.",
+  "Implementation": "The bill would establish a program to develop and implement fully coupled Earth System Models, supporting research and development of precipitation prediction tools and collaborate with partners to test and evaluate emerging technologies, including machine learning and artificial intelligence.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "$75.4 million for the period of fiscal years 2026 through 2030.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/4416/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/4416/text"
+  ]
+ },
+ {
+  "Bill Name": "Contraband Awareness Technology Catches Harmful Fentanyl (CATCH) Act",
+  "Classification": "Government Use",
+  "Chamber": "H",
+  "Sponsor": "Clay Higgins",
+  "Cosponsors": "21",
+  "Companion": "Y",
+  "Committee": "Homeland Security",
+  "Summary": "The bill would establish a pilot program to assess the use of technology including artificial intelligence (AI) to speed up and enhance the cargo inspection process at land ports of entry along the border.",
+  "Implementation": "The bill would require secretary of Homeland Security to begin the implementation of pilot projects for testing and assessing the use of technologies or technology enhancements to improve the process for inspecting \u2013 including by increasing efficiencies of such inspections \u2013 any conveyance or mode of transportation at land ports of entry along the borders of the United States. The bill would sunset the program after five years.",
+  "Enforcement / Oversight": "The bill would require a report providing an analysis of the effectiveness of the technology enhancements and any recommendations concerning the ability to utilize the technologies at all land ports of entry. The bill would require a privacy and civil liberty report on the potential privacy, civil liberty, and civil rights impacts of the technologies.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/house-bill/1569/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/house-bill/1569/text"
+  ]
+ },
+ {
+  "Bill Name": "Transformational Artificial intelligence to Modernize the Economy (TAME) against Extreme Weather and Wildfires Act",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Brian Schatz",
+  "Cosponsors": "3",
+  "Companion": "N",
+  "Committee": "Commerce, Science, and Transportation",
+  "Summary": "The bill would enhance the use of artificial intelligence (AI) by the National Oceanic and Atmospheric Administration for weather forecasting.",
+  "Implementation": "The bill would direct the under secretary of Commerce for Oceans and Atmosphere to develop and curate comprehensive weather forecasting training data sets, as well as develop global weather models using AI. In addition, the bill would direct the under secretary to explore advanced applications of AI to improve weather forecasts and information delivery.",
+  "Enforcement / Oversight": "No enforcement.",
+  "Funding": "For the year 2026, $311,000,000, and for 2027 through 2030, $76,000,000.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1378/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1378/text"
+  ]
+ },
+ {
+  "Bill Name": "MedShield Act of 2025",
+  "Classification": "Government Use",
+  "Chamber": "S",
+  "Sponsor": "Mike Rounds",
+  "Cosponsors": "1",
+  "Companion": "N",
+  "Committee": "Health, Education, Labor, and Pensions",
+  "Summary": "The bill would require the secretary of Health and Human Services to implement a pandemic preparedness and response program using artificial intelligence (AI).",
+  "Implementation": "The secretary would be required to integrate recommendations from the National Security Commission and consult with appropriate federal agencies, leveraging AI capabilities to develop the program.",
+  "Enforcement / Oversight": "The secretary would be required to develop a report detailing the plan within 180 days.",
+  "Funding": "No direct appropriations.",
+  "Status": "https://www.congress.gov/bill/119th-congress/senate-bill/1085/text",
+  "_links": [
+   "https://www.congress.gov/bill/119th-congress/senate-bill/1085/text"
+  ]
+ }
+]

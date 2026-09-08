@@ -24,6 +24,12 @@ The tracker is published as a static site from the `docs/` folder:
 
 The filter row under the top bar scopes the whole tracker to a year: All time, 2023, 2024, 2025, 2026, or 2027 and later. An entry belongs to a year when it has a dated event in that year, using the same events as the timeline tab. Section counts, the sidebar, jump lists and search all follow the filter, and each matching entry shows the dated events that placed it in that year. Entries with no dated event appear under All time only. The overview's "Activity by year" chart sets the same filter.
 
+## Table tab
+
+Every entry as one row with the tracker's Sponsor, mechanism, threshold, status, source and confidence cells under their own headings. Sortable by section, entry, jurisdiction, status class and confidence; filterable by group, section, jurisdiction, status class, free text and the year filter; rows expand to show full cells. `docs/tracker-table.csv` is the same table as CSV.
+
+Below the table is a cross-check against the American Action Forum's "List of Proposed AI Bills" (99 federal bills, fetched 2026-09-08, snapshot in `source/`). `build/aaf-crosscheck.json` records which bills appear in both lists, which AAF bills fall within or near the tracker's frontier scope but are not yet entries, which tracker bills AAF lacks, and caveats about the AAF list. The candidates are inputs to the tracker's verification process, not entries.
+
 ## Timeline tab
 
 The **Changes over time** tab is a derived view. At build time, `build/events.mjs` reads every date in the tracker's date-bearing columns (Signed, Effective, Status, Introduced / status, Date) and turns each into an event with the entry it belongs to, the column it came from, the clause of text around it, and an event type inferred from the words in that clause (introduced, passed, signed, effective, referred/stalled, vetoed/failed/rescinded, litigation, deadline). Where the tracker gives only month and day, the year is taken from the same cell and the event is flagged as inferred. Hovering any mark shows the original cell text, and a table view lists every event. The tracker text is not changed by this; if a type looks wrong, the classifier is the place to fix it.

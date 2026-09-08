@@ -33,6 +33,7 @@ let title = "";
 const sourceCells = [];
 const tablesData = []; // plain-text copy of card tables for event extraction
 const matricesData = []; // section-K matrices, HTML cells, reused on the overview
+const pairsData = [];    // section-J exclusion rows
 const renderedCells = [];
 
 marked.use({
@@ -63,7 +64,7 @@ marked.use({
       }
 
       if (heads.length === 2) {
-        const items = rows.map((r) => { renderedCells.push(plain(r[0]), plain(r[1])); return `<div class="pair" id="${uniq("rec-" + slug(r[0]).slice(0, 70))}"><dt><span class="vh">${heads[0]}: </span>${r[0]}</dt><dd><span class="lbl">${heads[1]}</span>${r[1]}</dd></div>`; }).join("\n");
+        const items = rows.map((r) => { renderedCells.push(plain(r[0]), plain(r[1])); const pid = uniq("rec-" + slug(r[0]).slice(0, 70)); pairsData.push({ id: pid, heads: heads.map(plain), cells: r.map(plain), html: r }); return `<div class="pair" id="${pid}"><dt><span class="vh">${heads[0]}: </span>${r[0]}</dt><dd><span class="lbl">${heads[1]}</span>${r[1]}</dd></div>`; }).join("\n");
         return `<div class="pairs" data-count="${rows.length}"><dl>\n${items}\n</dl></div>\n`;
       }
 
@@ -71,7 +72,7 @@ marked.use({
       const tdata = { heads: heads.map(plain), rows: [] }; tablesData.push(tdata);
       const cards = rows.map((r) => {
         const id = uniq("rec-" + slug(r[0]).slice(0, 70));
-        tdata.rows.push({ id, cells: r.map(plain) });
+        tdata.rows.push({ id, cells: r.map(plain), html: r });
         const chip = stateIdx >= 0 ? `<span class="chip state"><span class="vh">${heads[stateIdx]}: </span>${r[stateIdx]}</span>` : "";
         // Fields in the author's column order. Consecutive short cells share a facts grid;
         // long cells (and Source) stand alone as prose blocks.
@@ -169,6 +170,95 @@ sections.splice(1, 0, { id: "sec-timeline", label: "TL", name: "Changes over tim
 // Stamp each entry with the years in which it has a dated event (drives the year filter).
 sections.forEach((sec) => { if (!sec.synthetic) sec.body = sec.body.replace(/<(article class="record"|div class="pair") id="([^"]+)"/g, (m, tag, id) => `<${tag} id="${id}" data-years="${yearsOf(id)}"`); });
 
+// ---- Table tab: one row per entry, AAF-style columns, all cells verbatim ----
+const pick = (heads, re) => heads.map((h, i) => (re.test(h) ? i : -1)).filter((i) => i >= 0);
+const confRank = { HIGH: 5, "MED-HIGH": 4, MED: 3, "SEARCH-QUALIFIED": 2, LOW: 1 };
+const tableRows = [];
+tablesData.forEach((t) => t.rows.forEach((row) => {
+  const meta = entryMeta[row.id]; if (!meta) return;
+  const H = t.heads;
+  const stateI = pick(H, /^state$/i)[0];
+  const sponsorI = pick(H, /sponsor/i);
+  const mechI = pick(H, /mechanism|what it does|key content|frontier-relevant|relevance|nature/i);
+  const threshI = pick(H, /threshold|^scope$/i);
+  const statusI = pick(H, /status|introduced|signed|effective|^date/i);
+  const srcI = pick(H, /^source/i);
+  const confI = pick(H, /^confidence/i);
+  const cellsOf = (idx) => idx.map((i) => `<div class="tc"><span class="tl">${H[i]}</span>${row.html[i]}</div>`).join("");
+  const confText = confI.length ? row.cells[confI[0]] : "";
+  const confKey = (confText.match(/^(HIGH|MED-HIGH|MED|SEARCH-QUALIFIED|LOW)/) || ["", ""])[1];
+  const statusText = statusI.map((i) => row.cells[i]).join(" ");
+  const statusTag = (statusText.match(/\[(PENDING|STALLED|FAILED)/) || [])[1] || (meta.section === "A" ? "ENACTED" : "");
+  tableRows.push({
+    id: row.id, title: row.html[0], titlePlain: row.cells[0], juris: stateI >= 0 ? row.cells[stateI] : (meta.group === "state" ? "" : "US"),
+    section: meta.section, sectionName: meta.sectionName, group: meta.group,
+    sponsor: cellsOf(sponsorI), mech: cellsOf(mechI), thresh: cellsOf(threshI), status: cellsOf(statusI), source: cellsOf(srcI), conf: cellsOf(confI),
+    confKey, confRank: confRank[confKey] || 0, statusTag, years: yearsOf(row.id),
+    csv: { sponsor: sponsorI.map((i) => row.cells[i]).join(" | "), mech: mechI.map((i) => row.cells[i]).join(" | "), thresh: threshI.map((i) => row.cells[i]).join(" | "), status: statusI.map((i) => `${H[i]}: ${row.cells[i]}`).join(" | "), source: srcI.map((i) => row.cells[i]).join(" | "), conf: confText },
+  });
+}));
+pairsData.forEach((pr) => { const meta = entryMeta[pr.id]; if (!meta) return; tableRows.push({ id: pr.id, title: pr.html[0], titlePlain: pr.cells[0], juris: "", section: meta.section, sectionName: meta.sectionName, group: meta.group, sponsor: "", mech: `<div class="tc"><span class="tl">${pr.heads[1]}</span>${pr.html[1]}</div>`, thresh: "", status: "", source: "", conf: "", confKey: "", confRank: 0, statusTag: "EXCLUDED", years: yearsOf(pr.id), csv: { sponsor: "", mech: pr.cells[1], thresh: "", status: "", source: "", conf: "" } }); });
+
+const csvEsc = (v) => `"${String(v).replace(/"/g, '""')}"`;
+const csv = [["Section", "Entry", "Jurisdiction", "Sponsor", "Core mechanism / description", "Thresholds / scope", "Status and dates", "Source", "Confidence", "Years with dated events", "Permalink"].join(","),
+  ...tableRows.map((r) => [r.section, r.titlePlain, r.juris, r.csv.sponsor, r.csv.mech, r.csv.thresh, r.csv.status, r.csv.source, r.csv.conf, r.years, `https://kunalssingh.com/us-frontier-ai-legislation-tracker/#${r.id}`].map(csvEsc).join(","))].join("\n");
+writeFileSync("docs/tracker-table.csv", "\ufeff" + csv);
+
+const sectionsWithRows = [...new Set(tableRows.map((r) => r.section))];
+const groupsWithRows = GROUPS.filter((g) => tableRows.some((r) => r.group === g.key));
+const statesWithRows = [...new Set(tableRows.map((r) => r.juris).filter(Boolean))].sort();
+const aaf = JSON.parse(readFileSync("build/aaf-crosscheck.json", "utf8"));
+const tableBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-group">Start here</span><span class="sec-count">${tableRows.length} rows</span></p><h2 id="table">All entries as a table</h2></header>
+<p class="viz-intro">Every entry in the tracker as one row: state laws and bills, federal bills and drafts, executive actions, litigation, export controls, precursors and exclusions. Cells are the tracker's own text under the tracker's own headings; long cells are clipped to three lines until you expand the row. Sort by clicking a heading, filter with the controls, or <a href="tracker-table.csv" download>download the table as CSV</a>.</p>
+<div class="tbl-controls">
+  <label class="tsearch"><span class="vh">Filter rows</span><input id="tq" type="search" placeholder="Filter rows: any word in any column" autocomplete="off"></label>
+  <select id="tgroup" aria-label="Group"><option value="">All groups</option>${groupsWithRows.map((g) => `<option value="${g.key}">${g.name}</option>`).join("")}</select>
+  <select id="tsection" aria-label="Section"><option value="">All sections</option>${sections.filter((x) => sectionsWithRows.includes(x.label)).map((x) => `<option value="${x.label}">${x.label}. ${x.short}</option>`).join("")}</select>
+  <select id="tstate" aria-label="Jurisdiction"><option value="">All jurisdictions</option>${statesWithRows.map((x) => `<option value="${x}">${x}</option>`).join("")}</select>
+  <select id="tstatus" aria-label="Status class"><option value="">Any status class</option><option value="ENACTED">Enacted (section A)</option><option value="PENDING">[PENDING]</option><option value="STALLED">[STALLED]</option><option value="FAILED">[FAILED]</option><option value="EXCLUDED">Excluded (section J)</option></select>
+  <button type="button" id="texpand" class="viz-btn">Expand all rows</button>
+  <span class="tcount" id="tcount"></span>
+</div>
+<div class="bigwrap"><table class="big" id="bigtable">
+<thead><tr>
+<th data-sort="section" aria-sort="none"><button type="button">Section</button></th>
+<th data-sort="title" aria-sort="none"><button type="button">Entry</button></th>
+<th data-sort="juris" aria-sort="none"><button type="button">Jurisdiction</button></th>
+<th>Sponsor</th>
+<th>Mechanism / description</th>
+<th>Thresholds / scope</th>
+<th data-sort="status" aria-sort="none"><button type="button">Status and dates</button></th>
+<th>Source</th>
+<th data-sort="conf" aria-sort="none"><button type="button">Confidence</button></th>
+</tr></thead>
+<tbody>
+${tableRows.map((r) => `<tr id="row-${r.id}" data-years="${r.years}" data-group="${r.group}" data-section="${r.section}" data-state="${r.juris}" data-status="${r.statusTag}" data-conf="${r.confRank}" data-title="${r.titlePlain.replace(/"/g, "&quot;").toLowerCase()}">
+<td class="c-sec"><a href="#sec-${slug(sections.find((x) => x.label === r.section).id.replace(/^sec-/, ""))}" title="${r.sectionName.replace(/"/g, "&quot;")}"><span class="lbl">${r.section}</span></a></td>
+<td class="c-title"><a href="#${r.id}">${r.title}</a><button type="button" class="rowtgl" aria-expanded="false">Expand</button></td>
+<td class="c-juris">${r.juris ? `<span class="chip state">${r.juris}</span>` : ""}</td>
+<td class="c-sponsor clip">${r.sponsor}</td>
+<td class="c-mech clip">${r.mech}</td>
+<td class="c-thresh clip">${r.thresh}</td>
+<td class="c-status clip">${r.status}</td>
+<td class="c-src">${r.source}</td>
+<td class="c-conf">${r.conf}</td>
+</tr>`).join("\n")}
+</tbody></table></div>
+<p class="tfoot">${tableRows.length} rows. Section J rows carry the tracker's exclusion reason in the mechanism column. Every cell links back to its entry.</p>
+
+<section class="panel" aria-labelledby="aaf-h"><h2 id="aaf-h" class="panel-title">Cross-check against the American Action Forum list</h2>
+<p class="panel-note"><a data-site href="${aaf.url}" target="_blank" rel="noopener">${aaf.source}</a>, ${aaf.rows} federal bills, fetched ${aaf.fetched}. ${aaf.scope_note}</p>
+<h3 class="cc-h">In both lists</h3><ul class="cc-list">${aaf.in_both.map((x) => `<li><b>${x.bill}</b> ${x.title} <span class="cc-tag">${x.tracker}</span></li>`).join("")}</ul>
+<h3 class="cc-h">On the AAF list, within the tracker's scope or close to it, not yet in the tracker</h3>
+<p class="panel-note">Candidates for the tracker's own verification process, not entries. Summaries are AAF's wording, quoted. Nothing here is added to the tracker until the operative text and official action record have been read.</p>
+<div class="ccwrap"><table class="cc"><thead><tr><th>Bill</th><th>Sponsor</th><th>Title</th><th>AAF summary (quoted)</th><th>Assessment under the tracker's rules</th><th>Suggested section</th></tr></thead><tbody>
+${aaf.candidates.map((x) => `<tr><td><b>${x.bill}</b></td><td>${x.sponsor}</td><td>${x.title}</td><td class="q">“${x.aaf_summary}”</td><td>${x.assessment}</td><td><span class="cc-tag">${x.suggested}</span></td></tr>`).join("")}
+</tbody></table></div>
+<h3 class="cc-h">In the tracker, absent from the AAF list</h3><ul class="cc-list inline">${aaf.tracker_only.map((x) => `<li>${x}</li>`).join("")}</ul>
+<h3 class="cc-h">Caveats about the AAF list as observed on the fetch date</h3><ul class="cc-list">${aaf.caveats.map((x) => `<li>${x}</li>`).join("")}</ul>
+</section>`;
+sections.splice(2, 0, { id: "sec-table", label: "TB", name: "All entries as a table", short: "Table of all entries", count: 0, entries: [], h3s: [], group: GROUPS[0], body: tableBody, synthetic: true });
+
 // ---- About section (doc's confidence key + verification note, plus how the site was made) ----
 GROUPS.push({ key: "about", name: "About this site", labels: ["i"] });
 const om = parts[0].match(/^<h1>([\s\S]*?)<\/h1>\n<p>([\s\S]*?)<\/p>\n([\s\S]*)$/);
@@ -189,6 +279,7 @@ const aboutBody = `<header class="sec-head"><p class="sec-meta"><span class="sec
 <li>Every word of the markdown must appear in the page at least as often as in the source.</li>
 <li>A second, independently written checker parses the markdown tables and the published HTML and confirms that each cell sits under its own heading, in its own entry, in the tracker's column order, with its links, and that every paragraph is present.</li>
 </ul></div>
+<div class="about-block"><h3>The Table tab</h3><p>Every entry as one row with the tracker's Sponsor, mechanism, threshold, status, source and confidence cells placed under their own headings, sortable and filterable, with a CSV download. Below the table, a cross-check against the American Action Forum's list of federal AI bills records which bills appear in both, which AAF bills fall within or near the tracker's frontier scope but are not yet entries, and which tracker bills AAF lacks. Those candidates are for the tracker's verification process; they are not entries.</p></div>
 <div class="about-block"><h3>The Changes over time tab</h3><p>A derived view, not part of the tracker text. At build time every date in the tracker's Signed, Effective, Status, Introduced and Date cells becomes an event carrying the entry it belongs to, the column it came from, the clause of text around it, and an event type inferred from the words in that clause. Where the tracker gives only month and day, the year is taken from the same cell and the event is marked as inferred. Hovering a mark shows the original cell text, and a table view lists every event.</p></div>
 ${linkCheck ? `<div class="about-block"><h3>Link check</h3><p>Every unique link in the tracker was requested on ${linkCheck.date}. ${linkCheck.ok} returned 200. ${linkCheck.forbidden} returned 403 from sites that block automated access, which matches the tracker's own note about such sites. ${linkCheck.notfound} returned 404. No link was changed as a result; the full report is in the repository.</p></div>` : ""}
 <div class="about-block"><h3>Source and updates</h3><p>The markdown of record, the raw export, the build and the checks are in the <a data-site href="${REPO_URL}">repository</a>. To update, edit the markdown, run the build and the verifier, and push; the site redeploys. <a href="tracker.md">Download the markdown</a>.</p></div>`;
@@ -197,7 +288,7 @@ sections.push({ id: "sec-about", label: "i", name: "About this site", short: "Ab
 const totalEntries = sections.reduce((n, s) => n + s.count, 0);
 const mdLinkCount = (md.match(/\]\(https?:\/\//g) || []).length;
 const linkText = (t, n = 96) => (t.length > n ? t.slice(0, n - 2).trimEnd() + "…" : t);
-const lblPrefix = (s) => (["Overview", "TL", "i"].includes(s.label) ? "" : s.label + ". ");
+const lblPrefix = (s) => (["Overview", "TL", "TB", "i"].includes(s.label) ? "" : s.label + ". ");
 const jumpList = (s) => {
   const items = [...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text)}</a></li>`)];
   return items.length ? `<nav class="jump" aria-label="Entries in this section"><p class="jump-title">In this section</p><ol>${items.join("")}</ol></nav>` : "";
@@ -245,7 +336,7 @@ ${kmini ? `<section class="panel" aria-labelledby="cmp-h"><h2 id="cmp-h" class="
 
 const directory = `<div class="directory">
 <h2 class="dir-title" id="directory">Browse the tracker</h2>
-<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
+<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable table, open <a href="#sec-table">Table of all entries</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
 ${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${g.name}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${s.name}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}
 </div>`;
 
@@ -271,7 +362,8 @@ if (!same(sourceCells, renderedCells)) {
   throw new Error(`table cells differ: ${[...s].filter(([, n]) => n).slice(0, 5).map(([c, n]) => `${n > 0 ? "missing" : "extra"}: ${c.slice(0, 80)}`).join(" | ")}`);
 }
 const mdLinks = [...md.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g)].map((x) => `${plain(marked.parseInline(x[1]))} -> ${x[2]}`);
-const htmlLinks = [...html.matchAll(/<a ([^>]*?)href="(https?:\/\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].filter((x) => !x[1].includes("data-site")).map((x) => `${plain(x[3])} -> ${x[2]}`);
+const trackerHtml = sections.filter((x) => !x.synthetic).map((x) => x.html).join("\n"); // synthetic tabs may repeat links
+const htmlLinks = [...trackerHtml.matchAll(/<a ([^>]*?)href="(https?:\/\/[^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].filter((x) => !x[1].includes("data-site")).map((x) => `${plain(x[3])} -> ${x[2]}`);
 if (!same(mdLinks, htmlLinks)) {
   const s = new Map(); mdLinks.forEach((c) => s.set(c, (s.get(c) || 0) + 1)); htmlLinks.forEach((c) => s.set(c, (s.get(c) || 0) - 1));
   throw new Error(`links differ: ${[...s].filter(([, n]) => n).slice(0, 5).map(([c, n]) => `${n > 0 ? "missing" : "extra"}: ${c}`).join(" | ")}`);
@@ -288,9 +380,9 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 const sidebar = GROUPS.map((g) => {
   const secs = sections.filter((s) => s.group === g);
   if (!secs.length) return "";
-  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
+  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
-const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
+const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
 
 const out = template
   .replaceAll("{{TITLE}}", title)
