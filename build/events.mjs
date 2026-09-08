@@ -18,23 +18,25 @@ export const TYPES = [
   "Search date / deadline / scheduled",
 ];
 
-function classify(window, column, sectionLabel) {
+function keywords(window, sectionLabel) {
   const w = window.toLowerCase();
   const has = (re) => re.test(w);
-  if (has(/\bsearch|checked live|located in|located through|\bas of\b|located by/)) return "Search date / deadline / scheduled";
+  if (has(/\bsearch|checked live|located in|located through|\bas of\b|located by|deadline|\bdue\b|sunset|reimposed|scheduled|recheck/)) return "Search date / deadline / scheduled";
   if (sectionLabel === "G.2" && has(/sued|complaint|intervened|lawsuit|petition|filed|case|suit|foia/)) return "Litigation";
   if (has(/vetoed|withdrawn|rescinded|rescission|struck|stripped|repealed|revoked|removed|terminat|suspended|not enacted|\bdead\b|failed|bills not passed/)) return "Vetoed / failed / rescinded";
+  if (has(/non-concur|referred|re-referred|\bheld\b|stalled|subject to call|no action|returned to|hearing|calendar|rules committee|assignments|conference committee|session ended|adjourn/)) return "Referred / stalled / hearing";
   if (has(/signed|approved by|enacted|chapter\b|public act|became law/)) return "Signed / enacted";
-  if (has(/effective|eff\.|in effect|obligations from|apply from|compliance date|from jan|from july/)) return "Effective";
-  if (has(/passed|concurred|reported|favorable|engrossed|adopted|third reading|roll call|vote\b|votes\b|markup|ordered|enrolled|sent to governor|to enrolling/)) return "Passed / advanced";
-  if (has(/introduced|filed|announced|released|published|prefiled|issued|kickoff|created|proposal|draft|section-by-section|interview|remark|post\b|directive|order\b/)) return "Introduced / published";
-  if (has(/referred|re-referred|held|stalled|subject to call|no action|returned to|hearing|calendar|rules|assignments/)) return "Referred / stalled / hearing";
-  if (has(/deadline|due|sunset|through|reimposed|scheduled|recheck|by jan|by july|checked live|as of|search/)) return "Search date / deadline / scheduled";
+  if (has(/effective|eff\.|in effect|obligations from|apply from|compliance date|from jan|from july|through/)) return "Effective";
+  if (has(/passed|concurred|reported favorably|reported|favorable|engrossed|adopted|third reading|roll call|vote\b|votes\b|markup|ordered|enrolled|sent to governor|to enrolling/)) return "Passed / advanced";
+  if (has(/introduced|filed|announced|released|published|prefiled|issued|kickoff|created|proposal|draft|section-by-section|interview|remark|post\b|directive|order\b|appointed/)) return "Introduced / published";
+  return null;
+}
+function classify(near, wide, column, sectionLabel) {
+  const t = keywords(near, sectionLabel) || keywords(wide, sectionLabel);
+  if (t) return t;
   const c = column.toLowerCase();
   if (c.startsWith("signed")) return "Signed / enacted";
   if (c.startsWith("effective")) return "Effective";
-  if (c.startsWith("introduced")) return "Introduced / published";
-  if (c.startsWith("date")) return "Introduced / published";
   return "Introduced / published";
 }
 
@@ -82,9 +84,13 @@ export function extractEvents(tables, sectionOf) {
           const afterRaw = text.slice(end, end + 40);
           const cut = afterRaw.search(/[;,(·)]|\.\s|\b(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)\b/);
           const after = cut >= 0 ? afterRaw.slice(0, cut) : afterRaw;
-          const window = (text.slice(prevEnd, end) + after).replace(/\[[A-Z—–\- ]+\]/g, " ");
+          const clean = (x) => x.replace(/\[[A-Z—–\- ]+\]/g, " ");
+          const pre = text.slice(prevEnd, m.index);
+          const lastBreak = Math.max(pre.lastIndexOf(";"), pre.lastIndexOf("·"), pre.lastIndexOf(". "));
+          const near = clean((lastBreak >= 0 ? pre.slice(lastBreak + 1) : pre) + m[0] + after);   // the clause the date sits in
+          const wide = clean(text.slice(prevEnd, end) + after);                                    // everything since the previous date
           prevEnd = end;
-          const type = classify(window, head, sec.label);
+          const type = classify(near, wide, head, sec.label);
           const date = new Date(Date.UTC(year, month, day || 1));
           events.push({
             id: row.id, date: date.toISOString().slice(0, 10), precision: day ? "day" : "month", inferredYear,
