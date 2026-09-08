@@ -15,6 +15,7 @@
 //  - every word in the markdown appears in the page at least as often
 import { readFileSync, writeFileSync, copyFileSync } from "node:fs";
 import { marked } from "marked";
+import { extractEvents, TYPES } from "./events.mjs";
 
 const REPO_URL = process.env.REPO_URL || "https://github.com/KUNALSINGH9373/us-frontier-ai-legislation-tracker";
 const md = readFileSync("tracker.md", "utf8");
@@ -30,6 +31,7 @@ const FACT_MAX = 170; // plain-text length at or below which a cell is shown in 
 
 let title = "";
 const sourceCells = [];
+const tablesData = []; // plain-text copy of card tables for event extraction
 const renderedCells = [];
 
 marked.use({
@@ -64,8 +66,10 @@ marked.use({
       }
 
       const stateIdx = heads.findIndex((h) => /^State$/i.test(strip(h)));
+      const tdata = { heads: heads.map(plain), rows: [] }; tablesData.push(tdata);
       const cards = rows.map((r) => {
         const id = uniq("rec-" + slug(r[0]).slice(0, 70));
+        tdata.rows.push({ id, cells: r.map(plain) });
         const chip = stateIdx >= 0 ? `<span class="chip state"><span class="vh">${heads[stateIdx]}: </span>${r[stateIdx]}</span>` : "";
         // Fields in the author's column order. Consecutive short cells share a facts grid;
         // long cells (and Source) stand alone as prose blocks.
@@ -134,6 +138,25 @@ parts.forEach((part, i) => {
   sections.push({ id, label, name, short, count, entries, h3s, group, body: part });
 });
 
+// ---- Timeline tab: events read from the date-bearing columns ----
+const entryMeta = {};
+sections.forEach((sec) => sec.entries.forEach((e) => { entryMeta[e.id] = { title: e.text, section: sec.label, sectionName: sec.name, group: sec.group.key }; }));
+const events = extractEvents(tablesData, (id) => entryMeta[id] ? { label: entryMeta[id].section } : null);
+const usedEntries = {}; events.forEach((e) => { usedEntries[e.id] = entryMeta[e.id]; });
+const VIZ = { types: TYPES, colors: ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#4a3aa7", "#e34948"], events, entries: usedEntries, sectionOrder: sections.map((x) => x.label) };
+const vizBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-group">Start here</span><span class="sec-count">Derived view</span></p><h2 id="timeline">Changes over time</h2></header>
+<p class="viz-intro">Every dated event in the tracker's <em>Signed</em>, <em>Effective</em>, <em>Status</em>, <em>Introduced</em> and <em>Date</em> cells, placed on one time axis: <b>${events.length} events</b> read from <b>${Object.keys(usedEntries).length} entries</b>. Nothing is added to the tracker here; each mark points back to the cell it was read from, and hovering shows that text. Colour is the kind of event. Press play to watch the record fill in month by month.</p>
+<div class="viz-controls"><div class="viz-presets" role="group" aria-label="Date range"></div><div class="viz-play"><button type="button" id="viz-play" aria-pressed="false">Play the timeline</button><button type="button" id="viz-reset">Reset</button><span id="viz-cursor" class="viz-cursor"></span></div></div>
+<div class="viz-legend" role="group" aria-label="Event types. Click to hide or show a type."></div>
+<ul class="viz-stats"><li><b id="st-events">0</b><span>events shown</span></li><li><b id="st-entries">0</b><span>instruments</span></li><li><b id="st-enacted">0</b><span>with a signed / enacted event</span></li><li><b id="st-effective">0</b><span>with an effective date</span></li><li class="note"><span id="st-note"></span></li></ul>
+<div class="viz-card"><h3>Every instrument's lifecycle</h3><p class="viz-help">One row per instrument, grouped by section and ordered by first event. Hover or focus a mark for the original cell text; click a name to open the entry. Paler marks are month-only dates.</p><div id="viz-timeline" class="viz-plot"></div></div>
+<div class="viz-card"><h3>Activity by month</h3><p class="viz-help">Events per month, stacked by type. Hover a segment to see which instruments it counts.</p><div id="viz-bars" class="viz-plot"></div></div>
+<div class="viz-card"><h3>Instruments with a dated event, cumulative</h3><p class="viz-help">How the tracked set grew over time. Hover for the count at any date.</p><div id="viz-cum" class="viz-plot"></div></div>
+<p><button type="button" id="viz-table-toggle" aria-expanded="false" class="viz-btn">Show table view</button></p>
+<div class="viz-table" hidden><table><thead><tr><th>Date</th><th>Section</th><th>Entry</th><th>Event type</th><th>Column</th><th>Text read from the cell</th></tr></thead><tbody></tbody></table><p class="viz-foot">* Year inferred from the same cell where the tracker gives only month and day.</p></div>
+<div class="viz-tip" role="tooltip" hidden></div>`;
+sections.splice(1, 0, { id: "sec-timeline", label: "TL", name: "Changes over time", short: "Changes over time", count: 0, entries: [], h3s: [], group: GROUPS[0], body: vizBody, synthetic: true });
+
 const totalEntries = sections.reduce((n, s) => n + s.count, 0);
 const mdLinkCount = (md.match(/\]\(https?:\/\//g) || []).length;
 const linkText = (t, n = 96) => (t.length > n ? t.slice(0, n - 2).trimEnd() + "…" : t);
@@ -145,20 +168,20 @@ const jumpList = (s) => {
 sections.forEach((s, i) => {
   let body = s.body;
   if (i === 0) {
-    body = body.replace(/<h1>([\s\S]*?)<\/h1>\n<p>([\s\S]*?)<\/p>/, (_, h, l) => `<div class="hero"><p class="eyebrow">Primary-source audit</p><h1 class="display">${h}</h1><p class="lede">${l}</p><ul class="stats"><li><b>${totalEntries}</b><span>entries</span></li><li><b>${sections.length - 1}</b><span>sections</span></li><li><b>${mdLinkCount}</b><span>source links</span></li></ul></div>`);
+    body = body.replace(/<h1>([\s\S]*?)<\/h1>\n<p>([\s\S]*?)<\/p>/, (_, h, l) => `<div class="hero"><h1 class="display">${h}</h1><p class="lede">${l}</p><ul class="stats"><li><b>${totalEntries}</b><span>entries</span></li><li><b>${sections.length - 1}</b><span>sections</span></li><li><b>${mdLinkCount}</b><span>source links</span></li></ul></div>`);
   } else {
     const meta = `<p class="sec-meta"><span class="sec-group">${s.group.name}</span><span class="sec-count">${s.count ? `${s.count} ${s.count === 1 ? "entry" : "entries"}` : "Reference"}</span></p>`;
-    body = body.replace(/^(<h2 id="[^"]+">)([\s\S]*?)(<\/h2>)/, (_, a, t, b) => `<header class="sec-head">${meta}${a}${t}${b}</header>${jumpList(s)}`);
+    if (!s.synthetic) body = body.replace(/^(<h2 id="[^"]+">)([\s\S]*?)(<\/h2>)/, (_, a, t, b) => `<header class="sec-head">${meta}${a}${t}${b}</header>${jumpList(s)}`);
   }
   const prev = sections[i - 1], next = sections[i + 1];
-  const pn = `<nav class="pn" aria-label="Previous and next section">${prev ? `<a class="prev" href="#${prev.id}"><span>Previous</span><b>${prev.label === "Overview" ? "" : prev.label + ". "}${prev.name}</b></a>` : "<span></span>"}${next ? `<a class="next" href="#${next.id}"><span>Next</span><b>${next.label}. ${next.name}</b></a>` : "<span></span>"}</nav>`;
+  const pn = `<nav class="pn" aria-label="Previous and next section">${prev ? `<a class="prev" href="#${prev.id}"><span>Previous</span><b>${prev.label === "Overview" || prev.label === "TL" ? "" : prev.label + ". "}${prev.name}</b></a>` : "<span></span>"}${next ? `<a class="next" href="#${next.id}"><span>Next</span><b>${next.label === "TL" ? "" : next.label + ". "}${next.name}</b></a>` : "<span></span>"}</nav>`;
   s.html = `<section class="sec" id="${s.id}" data-label="${s.label}" aria-label="${s.label === "Overview" ? "Overview" : `Section ${s.label}`}">\n${body}\n${pn}\n</section>`;
 });
 
 // Directory on the overview page.
 const directory = `<div class="directory">
 <h2 class="dir-title" id="directory">Browse the tracker</h2>
-<p class="dir-lede">${totalEntries} entries across ${sections.length - 1} sections. Each section opens on its own page; every entry has a permanent link.</p>
+<p class="dir-lede">${totalEntries} entries across ${sections.length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>.</p>
 ${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${g.name}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${s.name}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}
 </div>`;
 sections[0].html = sections[0].html.replace(/(<\/div>)\n([\s\S]*?)(<nav class="pn")/, (_, heroEnd, rest, pn) => `${heroEnd}\n${directory}\n<div class="keybox" id="confidence-key"><p class="keybox-title">Confidence key and verification note</p>\n${rest}</div>\n${pn}`);
@@ -189,9 +212,9 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 const sidebar = GROUPS.map((g) => {
   const secs = sections.filter((s) => s.group === g);
   if (!secs.length) return "";
-  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
+  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
-const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
+const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : s.label === "TL" ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
 
 const out = template
   .replaceAll("{{TITLE}}", title)
@@ -202,9 +225,12 @@ const out = template
   .replaceAll("{{TOTAL}}", String(totalEntries))
   .replaceAll("{{LINKS}}", String(htmlLinks.length))
   .replaceAll("{{REPO_URL}}", REPO_URL)
+  .replaceAll("{{VIZ_JSON}}", JSON.stringify(VIZ).replace(/</g, "\\u003c"))
+  .replaceAll("{{VIZ_SCRIPT}}", readFileSync("build/viz.js", "utf8"))
   .replaceAll("{{BUILT}}", new Date().toISOString().slice(0, 10));
 
 writeFileSync("docs/index.html", out);
 copyFileSync("tracker.md", "docs/tracker.md");
 writeFileSync("docs/.nojekyll", "");
+console.log(`timeline: ${events.length} events from ${Object.keys(usedEntries).length} entries; by type: ${TYPES.map((t) => t.split(" ")[0] + "=" + events.filter((e) => e.type === t).length).join(", ")}`);
 console.log(`built docs/index.html: ${sections.length} sections, ${totalEntries} entries, ${renderedCells.length} cells, ${htmlLinks.length} links, ${mdWords.length} words verified`);

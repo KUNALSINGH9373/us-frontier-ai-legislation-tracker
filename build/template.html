@@ -46,7 +46,7 @@ code{font-family:var(--mono);font-size:.88em}
 .topbar{background:var(--surface);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:30}
 .topbar-in{max-width:1480px;margin:0 auto;padding:.8rem clamp(16px,3vw,40px);display:flex;align-items:center;gap:1rem 1.6rem;flex-wrap:wrap}
 .brand{display:flex;flex-direction:column;gap:.1rem;min-width:0;flex:1 1 18rem}
-.brand a{text-decoration:none;color:var(--ink);font-family:var(--serif);font-weight:600;font-size:1.15rem;line-height:1.25}
+.brand a{text-decoration:none;color:var(--ink);font-family:var(--serif);font-weight:600;font-size:1.45rem;line-height:1.2;letter-spacing:-.01em}
 .brand small{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-weight:600}
 .search{flex:1 1 20rem;max-width:36rem;display:flex;align-items:center;gap:.5rem;position:relative}
 .search input{width:100%;padding:.6rem .9rem .6rem 2.3rem;border:1px solid var(--rule-strong);border-radius:8px;background:var(--ground);color:var(--ink);font:inherit;font-size:.92rem}
@@ -56,6 +56,10 @@ code{font-family:var(--mono);font-size:.88em}
 .picker select{width:100%;padding:.6rem .8rem;border:1px solid var(--rule-strong);border-radius:8px;background:var(--surface);font:inherit;font-size:.92rem;color:var(--ink)}
 @media (max-width:1023px){.js .picker{display:block}}
 
+/* Tabs */
+.tabs{display:flex;gap:.25rem;background:var(--surface-2);padding:.25rem;border-radius:9px}
+.tabs a{padding:.42rem .95rem;border-radius:7px;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:.88rem}
+.tabs a[aria-current="page"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
 /* Shell */
 .shell{max-width:1480px;margin:0 auto;padding:2rem clamp(16px,3vw,40px) 5rem;display:grid;grid-template-columns:1fr;gap:2.4rem;align-items:start}
 @media (min-width:1024px){.shell{grid-template-columns:280px minmax(0,1fr)}}
@@ -68,6 +72,9 @@ code{font-family:var(--mono);font-size:.88em}
 .grp-title{margin:0;padding:.65rem .9rem .6rem;background:var(--accent-soft);color:var(--accent-ink);font-family:var(--serif);font-size:.98rem;font-weight:600;letter-spacing:0;text-transform:none;border-bottom:1px solid var(--accent-line);border-left:4px solid var(--accent)}
 .grp ul{list-style:none;margin:0;padding:.45rem}
 .grp li{margin:0}
+.grp a[data-sec][aria-expanded]::after{content:"";width:.45rem;height:.45rem;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg);margin:-.2rem 0 0 .3rem;transition:transform .15s}
+.grp a[data-sec][aria-expanded="true"]::after{transform:rotate(-135deg);margin-top:.15rem}
+.grp a[data-sec][aria-expanded]{grid-template-columns:2.2rem 1fr auto auto}
 .grp a[data-sec]{display:grid;grid-template-columns:2.2rem 1fr auto;align-items:center;gap:.4rem;padding:.5rem .6rem;border-radius:8px;color:var(--ink-2);text-decoration:none;font-size:.9rem;line-height:1.3}
 .grp a[data-sec]:hover{background:var(--ground);color:var(--ink)}
 .grp a[data-sec][aria-current="page"]{background:var(--surface-2);color:var(--ink);font-weight:600}
@@ -180,6 +187,72 @@ strong.status.pending{color:var(--pending)}
 strong.status.stalled{color:var(--stalled)}
 strong.status.failed{color:var(--failed)}
 
+/* Timeline tab */
+#sec-timeline{position:relative}
+.viz-intro{max-width:76ch;font-size:1.02rem;color:var(--ink-2)}
+.viz-controls{display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;align-items:center;margin:1.4rem 0 .8rem}
+.viz-presets,.viz-play{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap}
+.viz-presets button,.viz-play button,.viz-btn{font:inherit;font-size:.84rem;padding:.45rem .8rem;border:1px solid var(--rule-strong);border-radius:8px;background:var(--surface);color:var(--ink-2);cursor:pointer}
+.viz-presets button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+#viz-play{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-ink);font-weight:600}
+#viz-play[aria-pressed="true"]{background:var(--accent);color:#fff}
+.viz-cursor{font-size:.82rem;color:var(--muted);font-family:var(--mono)}
+.viz-legend{display:flex;flex-wrap:wrap;gap:.35rem .5rem;margin:0 0 1.2rem}
+.viz-legend .lg{font:inherit;font-size:.8rem;display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .65rem;border:1px solid var(--rule);border-radius:999px;background:var(--surface);color:var(--ink-2);cursor:pointer}
+.viz-legend .lg i{width:.7rem;height:.7rem;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.viz-legend .lg[aria-pressed="false"]{opacity:.45;text-decoration:line-through}
+.viz-stats{list-style:none;margin:0 0 1.6rem;padding:1rem 1.4rem;display:flex;flex-wrap:wrap;gap:1rem 2.4rem;background:var(--surface);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow)}
+.viz-stats li{display:flex;flex-direction:column;margin:0}
+.viz-stats b{font-family:var(--serif);font-size:1.7rem;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.viz-stats span{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.viz-stats li.note{justify-content:center;flex:1 1 14rem}
+.viz-stats li.note span{text-transform:none;letter-spacing:0;font-weight:500;font-size:.84rem;color:var(--ink-2)}
+.viz-card{background:var(--surface);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow);padding:1.4rem clamp(1rem,2.4vw,1.8rem) 1rem;margin:0 0 1.4rem}
+.viz-card h3{margin:0 0 .3rem;font-size:1.15rem}
+.viz-help{font-size:.86rem;color:var(--muted);margin:0 0 1rem;max-width:80ch}
+.viz-plot{width:100%}
+.viz-plot svg{display:block;width:100%;height:auto;font-family:var(--sans)}
+svg .grid{stroke:var(--rule);stroke-width:1}
+svg .grid.year{stroke:var(--rule-strong)}
+svg .ax{fill:var(--muted);font-size:11px;text-anchor:middle}
+svg .ax.year{fill:var(--ink-2);font-weight:600}
+.tl .headbg{fill:var(--surface-2)}
+.tl .headlbl{fill:var(--accent);font-family:var(--mono);font-size:11px;font-weight:600}
+.tl .headname{fill:var(--ink-2);font-size:12px;font-weight:600}
+.tl .rowbg{fill:transparent}
+.tl .row:hover .rowbg{fill:var(--ground)}
+.tl .rowlbl{fill:var(--ink-2);font-size:12px}
+.tl .rowlink:hover .rowlbl{fill:var(--accent);text-decoration:underline}
+.tl .life{stroke:var(--rule-strong);stroke-width:2;stroke-linecap:round}
+.tl .dot .hit{fill:transparent;cursor:pointer}
+.tl .dot .mark{stroke:#fff;stroke-width:2;transition:transform .2s,opacity .25s;transform-box:fill-box;transform-origin:center}
+.tl .dot .mark.approx{fill-opacity:.55}
+.tl .dot:hover .mark,.tl .dot:focus .mark{transform:scale(1.5)}
+.tl .dot:focus{outline:none}
+.tl .dot.off .mark{opacity:0;transform:scale(.2)}
+.tl .cursor{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:4 3}
+svg .hair{stroke:var(--muted);stroke-width:1;stroke-dasharray:2 3;pointer-events:none}
+.tl .hairlbl{fill:var(--ink-2);font-size:11px;font-family:var(--mono);text-anchor:middle}
+.bars .seg{transition:height .2s,y .2s;cursor:pointer}
+.bars .seg:hover{opacity:.8}
+.cum .area{fill:var(--accent-soft)}
+.cum .line{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round}
+.cum .end{fill:var(--accent);stroke:#fff;stroke-width:2}
+.cum .endlbl{fill:var(--ink-2);font-size:12px;font-weight:600}
+.viz-tip{position:absolute;z-index:40;max-width:380px;background:var(--surface);border:1px solid var(--rule-strong);border-radius:10px;padding:.7rem .9rem;box-shadow:0 12px 32px -12px rgba(23,32,43,.35);font-size:.82rem;line-height:1.45;pointer-events:none}
+.viz-tip .tr{display:flex;gap:.5rem;align-items:flex-start;margin:0 0 .3rem}
+.viz-tip .tr:last-child{margin:0}
+.viz-tip .tr i{width:1rem;height:3px;border-radius:2px;margin-top:.5rem;flex:0 0 auto}
+.viz-tip .v{font-weight:700;color:var(--ink);font-size:.9rem}
+.viz-tip .k{color:var(--ink);font-weight:600}
+.viz-tip .t{color:var(--ink)}
+.viz-tip .m{color:var(--muted);font-size:.76rem}
+.viz-tip .q{color:var(--ink-2);font-style:italic;border-left:2px solid var(--rule);padding-left:.6rem}
+.viz-table{margin:0 0 1.5rem;overflow-x:auto;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+.viz-table table{border-collapse:collapse;width:100%;font-size:.84rem;min-width:900px}
+.viz-table th,.viz-table td{text-align:left;padding:.55rem .8rem;border-bottom:1px solid var(--rule);vertical-align:top}
+.viz-table th{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--surface-2);position:sticky;top:0}
+.viz-foot{font-size:.78rem;color:var(--muted);margin:0;padding:.6rem .8rem}
 /* Previous / next */
 .pn{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:3rem 0 0;padding-top:2rem;border-top:1px solid var(--rule)}
 .pn a{display:flex;flex-direction:column;gap:.2rem;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--rule);border-radius:12px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow)}
@@ -205,7 +278,8 @@ footer p{margin:0}
 <body>
 <div class="topbar">
   <div class="topbar-in">
-    <div class="brand"><small>Primary-source audit</small><a href="#sec-overview">US Frontier AI Legislation Tracker</a></div>
+    <div class="brand"><a href="#sec-overview">US Frontier AI Legislation Tracker</a></div>
+    <nav class="tabs" aria-label="Views"><a href="#sec-overview" data-tab="tracker">Tracker</a><a href="#sec-timeline" data-tab="timeline">Timeline</a></nav>
     <label class="search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><input id="q" type="search" placeholder="Search all {{TOTAL}} entries: bill number, sponsor, state, threshold, penalty…" aria-label="Search entries" autocomplete="off"></label>
     <div class="picker"><select id="pick" aria-label="Go to section">{{PICKER}}</select></div>
   </div>
@@ -224,9 +298,11 @@ footer p{margin:0}
   <p>Content reproduced verbatim from the tracker markdown; only the layout is added. Confidence ratings, status classes and dates are the author's.</p>
   <p>Verified as of September 5, 2026 · <a href="tracker.md">Markdown source</a> · <a href="{{REPO_URL}}">Repository</a> · {{LINKS}} source links · Page built {{BUILT}}</p>
 </div></footer>
+<script id="viz-data" type="application/json">{{VIZ_JSON}}</script>
 <script>
 (function(){
   document.documentElement.classList.add('js');
+  try { window.VIZ = JSON.parse(document.getElementById('viz-data').textContent); } catch (e) { window.VIZ = null; }
   var secs=[].slice.call(document.querySelectorAll('section.sec'));
   var navLinks=[].slice.call(document.querySelectorAll('.side a[data-sec]'));
   var entryLists=[].slice.call(document.querySelectorAll('.side .entries'));
@@ -240,7 +316,9 @@ footer p{margin:0}
     secs.forEach(function(s){ s.hidden=s.id!==id; });
     navLinks.forEach(function(a){ a.setAttribute('aria-current', a.dataset.sec===id?'page':'false'); });
     entryLists.forEach(function(l){ l.hidden=l.dataset.for!==id; });
+    navLinks.forEach(function(a){ if(document.querySelector('.side .entries[data-for="'+a.dataset.sec+'"]')) a.setAttribute('aria-expanded', a.dataset.sec===id?'true':'false'); });
     pick.value=id;
+    [].slice.call(document.querySelectorAll('.tabs a')).forEach(function(a){ a.setAttribute('aria-current', (a.dataset.tab==='timeline')===(id==='sec-timeline')?'page':'false'); });
     if(toTop) window.scrollTo({top:0});
   }
   function exitSearch(){
@@ -262,6 +340,9 @@ footer p{margin:0}
     var a=e.target.closest('a[href^="#"]'); if(!a) return;
     var id=a.getAttribute('href').slice(1); var el=document.getElementById(id); if(!el) return;
     e.preventDefault();
+    if(a.dataset.sec && a.dataset.sec===current){ // clicking the open section again folds its entry list
+      var list=document.querySelector('.side .entries[data-for="'+id+'"]'); if(list){ list.hidden=!list.hidden; a.setAttribute('aria-expanded', list.hidden?'false':'true'); } return;
+    }
     history.pushState(null,'','#'+id); route();
   });
   window.addEventListener('popstate', route);
@@ -288,6 +369,9 @@ footer p{margin:0}
   totop.addEventListener('click', function(){ window.scrollTo({top:0}); });
   route();
 })();
+</script>
+<script>
+{{VIZ_SCRIPT}}
 </script>
 </body>
 </html>
