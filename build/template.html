@@ -64,20 +64,20 @@ code{font-family:var(--mono);font-size:.88em}
 /* Sidebar */
 .side{display:none;position:sticky;top:5.6rem;max-height:calc(100vh - 6.4rem);overflow-y:auto;padding-right:.5rem;scrollbar-width:thin}
 @media (min-width:1024px){.js .side{display:block}}
-.grp{margin:0 0 1.5rem}
-.grp-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin:0 0 .45rem .6rem}
-.grp ul{list-style:none;margin:0;padding:0}
+.grp{background:var(--surface);border:1px solid var(--rule);border-radius:12px;margin:0 0 1rem;overflow:hidden;box-shadow:var(--shadow)}
+.grp-title{margin:0;padding:.65rem .9rem .6rem;background:var(--accent-soft);color:var(--accent-ink);font-family:var(--serif);font-size:.98rem;font-weight:600;letter-spacing:0;text-transform:none;border-bottom:1px solid var(--accent-line);border-left:4px solid var(--accent)}
+.grp ul{list-style:none;margin:0;padding:.45rem}
 .grp li{margin:0}
-.grp a[data-sec]{display:grid;grid-template-columns:2.2rem 1fr auto;align-items:center;gap:.4rem;padding:.5rem .6rem;border-radius:8px;color:var(--ink-2);text-decoration:none;font-size:.92rem;line-height:1.3}
-.grp a[data-sec]:hover{background:var(--surface);color:var(--ink)}
-.grp a[data-sec][aria-current="page"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow);font-weight:600}
+.grp a[data-sec]{display:grid;grid-template-columns:2.2rem 1fr auto;align-items:center;gap:.4rem;padding:.5rem .6rem;border-radius:8px;color:var(--ink-2);text-decoration:none;font-size:.9rem;line-height:1.3}
+.grp a[data-sec]:hover{background:var(--ground);color:var(--ink)}
+.grp a[data-sec][aria-current="page"]{background:var(--surface-2);color:var(--ink);font-weight:600}
 .grp .lbl{font-family:var(--mono);font-size:.78rem;color:var(--accent);font-weight:500}
 .grp .n{font-family:var(--mono);font-size:.72rem;color:var(--muted);background:var(--surface-3);padding:.1rem .45rem;border-radius:10px}
 .grp a[aria-current="page"] .n{background:var(--accent-soft);color:var(--accent-ink)}
-.entries{list-style:none;margin:.25rem 0 .6rem 1.4rem;padding:0 0 0 .8rem;border-left:2px solid var(--accent-line)}
+.entries{list-style:none;margin:.25rem .3rem .6rem 1.6rem;padding:0 0 0 .7rem;border-left:2px solid var(--accent-line)}
 .entries li{margin:0}
 .entries a{display:block;padding:.32rem .5rem;font-size:.82rem;line-height:1.35;color:var(--ink-2);text-decoration:none;border-radius:6px}
-.entries a:hover{background:var(--surface);color:var(--ink)}
+.entries a:hover{background:var(--ground);color:var(--ink)}
 .entries li.sub a{font-family:var(--serif);font-weight:600;color:var(--ink)}
 
 /* Main */
@@ -109,7 +109,10 @@ html:not(.js) section.sec + section.sec{margin-top:4rem;padding-top:3rem;border-
 .hero .stats li{display:flex;flex-direction:column;gap:.05rem}
 .hero .stats b{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.1}
 .hero .stats span{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
-.directory{margin:3rem 0 0;padding-top:2.4rem;border-top:1px solid var(--rule)}
+.directory{margin:0}
+.keybox{margin:3rem 0 0;padding:1.8rem clamp(1.2rem,2.6vw,2.2rem) 1.2rem;background:var(--surface);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow)}
+.keybox-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin:0 0 1rem}
+.keybox p:last-child{margin-bottom:0}
 .dir-title{font-size:1.6rem;margin:0 0 .4rem}
 .dir-lede{color:var(--ink-2);margin:0 0 1.6rem;max-width:64ch}
 .dir-group{margin:0 0 1.6rem}
@@ -137,7 +140,8 @@ dl{margin:0}
 .fact dt,.block dt{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin:0 0 .25rem}
 .fact dt strong,.block dt strong{font-weight:700}
 .fact dd{margin:0;font-size:.95rem;line-height:1.5;overflow-wrap:anywhere}
-.blocks{display:grid;gap:1.4rem}
+.blocks{display:grid;gap:1.4rem;margin:0 0 1.6rem}
+.record dl:last-of-type{margin-bottom:0}
 .block dd{margin:0;max-width:76ch;line-height:1.7;overflow-wrap:anywhere}
 .block.src dd a{display:inline-block;margin:.15rem .1rem}
 .permalink{margin:1.4rem 0 0;font-size:.78rem}
@@ -201,7 +205,7 @@ footer p{margin:0}
 <body>
 <div class="topbar">
   <div class="topbar-in">
-    <div class="brand"><small>Verified as of September 5, 2026</small><a href="#sec-overview">US Frontier AI Legislation Tracker</a></div>
+    <div class="brand"><small>Primary-source audit</small><a href="#sec-overview">US Frontier AI Legislation Tracker</a></div>
     <label class="search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><input id="q" type="search" placeholder="Search all {{TOTAL}} entries: bill number, sponsor, state, threshold, penalty…" aria-label="Search entries" autocomplete="off"></label>
     <div class="picker"><select id="pick" aria-label="Go to section">{{PICKER}}</select></div>
   </div>
@@ -218,7 +222,7 @@ footer p{margin:0}
 <button type="button" class="totop" id="totop" hidden>Back to top</button>
 <footer><div class="in">
   <p>Content reproduced verbatim from the tracker markdown; only the layout is added. Confidence ratings, status classes and dates are the author's.</p>
-  <p><a href="tracker.md">Markdown source</a> · <a href="{{REPO_URL}}">Repository</a> · {{LINKS}} source links · Page built {{BUILT}}</p>
+  <p>Verified as of September 5, 2026 · <a href="tracker.md">Markdown source</a> · <a href="{{REPO_URL}}">Repository</a> · {{LINKS}} source links · Page built {{BUILT}}</p>
 </div></footer>
 <script>
 (function(){

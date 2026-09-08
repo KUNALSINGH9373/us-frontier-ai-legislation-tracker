@@ -67,20 +67,25 @@ marked.use({
       const cards = rows.map((r) => {
         const id = uniq("rec-" + slug(r[0]).slice(0, 70));
         const chip = stateIdx >= 0 ? `<span class="chip state"><span class="vh">${heads[stateIdx]}: </span>${r[stateIdx]}</span>` : "";
-        const facts = [], blocks = [];
+        // Fields in the author's column order. Consecutive short cells share a facts grid;
+        // long cells (and Source) stand alone as prose blocks.
+        const runs = []; // [{kind:"facts"|"block", items:[]}]
         r.forEach((cell, i) => {
           if (i === 0 || i === stateIdx) return;
           const label = strip(heads[i]).toLowerCase();
           const isSource = label.startsWith("source");
           const short = plain(cell).length <= FACT_MAX && !isSource;
           const cls = label.startsWith("confidence") ? " conf" : isSource ? " src" : "";
-          (short ? facts : blocks).push(`<div class="${short ? "fact" : "block"}${cls}"><dt>${heads[i]}</dt><dd>${cell}</dd></div>`);
+          const item = `<div class="${short ? "fact" : "block"}${cls}"><dt>${heads[i]}</dt><dd>${cell}</dd></div>`;
+          const last = runs[runs.length - 1];
+          if (short && last && last.kind === "facts") last.items.push(item);
+          else runs.push({ kind: short ? "facts" : "block", items: [item] });
         });
+        const body = runs.map((run) => `<dl class="${run.kind === "facts" ? "facts" : "blocks"}">\n${run.items.join("\n")}\n</dl>`).join("\n");
         r.forEach((c) => renderedCells.push(plain(c)));
         return `<article class="record" id="${id}">
 <header class="record-head">${chip}<h3 class="title"><span class="vh">${heads[0]}: </span>${r[0]}</h3></header>
-${facts.length ? `<dl class="facts">\n${facts.join("\n")}\n</dl>` : ""}
-${blocks.length ? `<dl class="blocks">\n${blocks.join("\n")}\n</dl>` : ""}
+${body}
 <p class="permalink"><a href="#${id}">Link to this entry</a></p>
 </article>`;
       }).join("\n");
@@ -140,7 +145,7 @@ const jumpList = (s) => {
 sections.forEach((s, i) => {
   let body = s.body;
   if (i === 0) {
-    body = body.replace(/<h1>([\s\S]*?)<\/h1>\n<p>([\s\S]*?)<\/p>/, (_, h, l) => `<div class="hero"><p class="eyebrow">Primary-source audit · verified as of September 5, 2026</p><h1 class="display">${h}</h1><p class="lede">${l}</p><ul class="stats"><li><b>${totalEntries}</b><span>entries</span></li><li><b>${sections.length - 1}</b><span>sections</span></li><li><b>${mdLinkCount}</b><span>source links</span></li><li><b>Sept 5, 2026</b><span>verified as of</span></li></ul></div>`);
+    body = body.replace(/<h1>([\s\S]*?)<\/h1>\n<p>([\s\S]*?)<\/p>/, (_, h, l) => `<div class="hero"><p class="eyebrow">Primary-source audit</p><h1 class="display">${h}</h1><p class="lede">${l}</p><ul class="stats"><li><b>${totalEntries}</b><span>entries</span></li><li><b>${sections.length - 1}</b><span>sections</span></li><li><b>${mdLinkCount}</b><span>source links</span></li></ul></div>`);
   } else {
     const meta = `<p class="sec-meta"><span class="sec-group">${s.group.name}</span><span class="sec-count">${s.count ? `${s.count} ${s.count === 1 ? "entry" : "entries"}` : "Reference"}</span></p>`;
     body = body.replace(/^(<h2 id="[^"]+">)([\s\S]*?)(<\/h2>)/, (_, a, t, b) => `<header class="sec-head">${meta}${a}${t}${b}</header>${jumpList(s)}`);
@@ -156,7 +161,7 @@ const directory = `<div class="directory">
 <p class="dir-lede">${totalEntries} entries across ${sections.length - 1} sections. Each section opens on its own page; every entry has a permanent link.</p>
 ${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${g.name}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${s.name}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}
 </div>`;
-sections[0].html = sections[0].html.replace(/<nav class="pn"/, `${directory}\n<nav class="pn"`);
+sections[0].html = sections[0].html.replace(/(<\/div>)\n([\s\S]*?)(<nav class="pn")/, (_, heroEnd, rest, pn) => `${heroEnd}\n${directory}\n<div class="keybox" id="confidence-key"><p class="keybox-title">Confidence key and verification note</p>\n${rest}</div>\n${pn}`);
 
 html = sections.map((s) => s.html).join("\n");
 
