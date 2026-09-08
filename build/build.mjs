@@ -146,6 +146,13 @@ sections.forEach((sec) => sec.entries.forEach((e) => { entryMeta[e.id] = { title
 const events = extractEvents(tablesData, (id) => entryMeta[id] ? { label: entryMeta[id].section } : null);
 const usedEntries = {}; events.forEach((e) => { usedEntries[e.id] = entryMeta[e.id]; });
 const VIZ = { types: TYPES, colors: ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#4a3aa7", "#e34948"], events, entries: usedEntries, sectionOrder: sections.map((x) => x.label) };
+const YEARS = ["2023", "2024", "2025", "2026", "2027+"];
+const bucket = (iso) => { const y = Number(iso.slice(0, 4)); return y >= 2027 ? "2027+" : String(y); };
+const entryYears = {}; events.forEach((e) => { (entryYears[e.id] = entryYears[e.id] || new Set()).add(bucket(e.date)); });
+const yearsOf = (id) => (entryYears[id] ? [...entryYears[id]].sort().join(" ") : "");
+VIZ.entryYears = Object.fromEntries(Object.entries(entryYears).map(([k, v]) => [k, [...v].sort()]));
+const GROUP_COLORS = { state: "#2a78d6", federal: "#eb6834", exec: "#1baf7a", context: "#eda100" };
+const yearPanelData = YEARS.map((y) => { const per = {}; Object.entries(entryYears).forEach(([id, ys]) => { if (ys.has(y)) { const g = entryMeta[id].group; per[g] = (per[g] || new Set()).add(id); } }); return { y, counts: Object.fromEntries(Object.entries(per).map(([g, ids]) => [g, ids.size])) }; });
 const vizBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-group">Start here</span><span class="sec-count">Derived view</span></p><h2 id="timeline">Changes over time</h2></header>
 <p class="viz-intro">Every dated event in the tracker's <em>Signed</em>, <em>Effective</em>, <em>Status</em>, <em>Introduced</em> and <em>Date</em> cells, placed on one time axis: <b>${events.length} events</b> read from <b>${Object.keys(usedEntries).length} entries</b>. Nothing is added to the tracker here; each mark points back to the cell it was read from, and hovering shows that text. Colour is the kind of event. Press play to watch the record fill in month by month.</p>
 <div class="viz-controls"><div class="viz-presets" role="group" aria-label="Date range"></div><div class="viz-play"><button type="button" id="viz-play" aria-pressed="false">Play the timeline</button><button type="button" id="viz-reset">Reset</button><span id="viz-cursor" class="viz-cursor"></span></div></div>
@@ -158,6 +165,9 @@ const vizBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-g
 <div class="viz-table" hidden><table><thead><tr><th>Date</th><th>Section</th><th>Entry</th><th>Event type</th><th>Column</th><th>Text read from the cell</th></tr></thead><tbody></tbody></table><p class="viz-foot">* Year inferred from the same cell where the tracker gives only month and day.</p></div>
 <div class="viz-tip" role="tooltip" hidden></div>`;
 sections.splice(1, 0, { id: "sec-timeline", label: "TL", name: "Changes over time", short: "Changes over time", count: 0, entries: [], h3s: [], group: GROUPS[0], body: vizBody, synthetic: true });
+
+// Stamp each entry with the years in which it has a dated event (drives the year filter).
+sections.forEach((sec) => { if (!sec.synthetic) sec.body = sec.body.replace(/<(article class="record"|div class="pair") id="([^"]+)"/g, (m, tag, id) => `<${tag} id="${id}" data-years="${yearsOf(id)}"`); });
 
 // ---- About section (doc's confidence key + verification note, plus how the site was made) ----
 GROUPS.push({ key: "about", name: "About this site", labels: ["i"] });
@@ -189,7 +199,7 @@ const mdLinkCount = (md.match(/\]\(https?:\/\//g) || []).length;
 const linkText = (t, n = 96) => (t.length > n ? t.slice(0, n - 2).trimEnd() + "…" : t);
 const lblPrefix = (s) => (["Overview", "TL", "i"].includes(s.label) ? "" : s.label + ". ");
 const jumpList = (s) => {
-  const items = [...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li><a href="#${e.id}">${linkText(e.text)}</a></li>`)];
+  const items = [...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text)}</a></li>`)];
   return items.length ? `<nav class="jump" aria-label="Entries in this section"><p class="jump-title">In this section</p><ol>${items.join("")}</ol></nav>` : "";
 };
 
@@ -222,6 +232,9 @@ const glance = `<section class="panel" aria-labelledby="glance-h"><h2 id="glance
 <li><a href="${href("G.2")}"><b>${cnt("G.2")}</b><span>litigation and enforcement items</span></a></li>
 </ul>
 <p class="panel-note">Counts are taken from the tracker's sections and from the status class the tracker writes at the start of each status cell.</p></section>
+<section class="panel" aria-labelledby="years-h"><h2 id="years-h" class="panel-title">Activity by year</h2><p class="panel-note">Instruments with at least one dated event in each year, by group. Click a year to filter the whole tracker to it; the filter row under the top bar clears it.</p>
+<div class="ybars">${(() => { const max = Math.max(...yearPanelData.map((d) => Object.values(d.counts).reduce((a, b) => a + b, 0))); return yearPanelData.map((d) => { const total = Object.values(d.counts).reduce((a, b) => a + b, 0); const segs = ["state", "federal", "exec", "context"].filter((g) => d.counts[g]).map((g) => `<span class="seg" style="height:${(d.counts[g] / max) * 100}%;background:${GROUP_COLORS[g]}" title="${GROUPS.find((x) => x.key === g).name}: ${d.counts[g]}"></span>`).join(""); return `<button type="button" class="ybar" data-year="${d.y}" aria-label="Filter to ${d.y === "2027+" ? "2027 and later" : d.y}: ${total} instruments"><span class="tot">${total}</span><span class="col">${segs}</span><span class="yl">${d.y === "2027+" ? "2027+" : d.y}</span></button>`; }).join(""); })()}</div>
+<ul class="ylegend">${["state", "federal", "exec", "context"].map((g) => `<li><i style="background:${GROUP_COLORS[g]}"></i>${GROUPS.find((x) => x.key === g).name}</li>`).join("")}</ul></section>
 <section class="panel two" aria-labelledby="states-h">
 <div><h2 id="states-h" class="panel-title">Where the state measures are</h2><p class="panel-note">Entries with a State column, across enacted laws, pending bills, IVO measures, precursors and adjacent laws.</p>
 <ul class="statebars">${states.map(([st, n]) => `<li><span class="st">${st}</span><span class="bar"><span style="width:${(n / stateMax) * 100}%"></span></span><span class="n">${n}</span></li>`).join("")}</ul></div>
@@ -275,7 +288,7 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 const sidebar = GROUPS.map((g) => {
   const secs = sections.filter((s) => s.group === g);
   if (!secs.length) return "";
-  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
+  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
 const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
 

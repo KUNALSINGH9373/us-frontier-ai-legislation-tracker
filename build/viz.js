@@ -9,6 +9,9 @@
   var enabled = {}; TYPES.forEach(function(t){ enabled[t] = true; });
   var PRESETS = [
     { key:'active', label:'Jan 2025 – Dec 2026', from:Date.UTC(2025,0,1), to:Date.UTC(2026,11,31) },
+    { key:'y2024', label:'2024', from:Date.UTC(2024,0,1), to:Date.UTC(2024,11,31) },
+    { key:'y2025', label:'2025', from:Date.UTC(2025,0,1), to:Date.UTC(2025,11,31) },
+    { key:'y2026', label:'2026', from:Date.UTC(2026,0,1), to:Date.UTC(2026,11,31) },
     { key:'wide', label:'2023 – 2028', from:Date.UTC(2023,0,1), to:Date.UTC(2028,11,31) },
     { key:'all', label:'All dates', from:Math.min.apply(null, events.map(function(e){return e.t;})) - 864e5*20, to:Math.max.apply(null, events.map(function(e){return e.t;})) + 864e5*40 }
   ];
