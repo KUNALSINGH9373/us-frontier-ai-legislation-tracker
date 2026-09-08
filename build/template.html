@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>{{TITLE}}</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="description" content="Primary-source audit of US state and federal legislation, executive actions and litigation targeting frontier AI developers. Verified as of September 5, 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -117,6 +118,7 @@ html:not(.js) section.sec + section.sec{margin-top:4rem;padding-top:3rem;border-
 .hero .stats b{font-family:var(--serif);font-size:1.5rem;font-weight:600;line-height:1.1}
 .hero .stats span{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
 .directory{margin:0}
+.hero{padding-bottom:1.2rem;margin-bottom:1.6rem}
 .keybox{margin:3rem 0 0;padding:1.8rem clamp(1.2rem,2.6vw,2.2rem) 1.2rem;background:var(--surface);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow)}
 .keybox-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:700;margin:0 0 1rem}
 .keybox p:last-child{margin-bottom:0}
@@ -133,6 +135,46 @@ html:not(.js) section.sec + section.sec{margin-top:4rem;padding-top:3rem;border-
 .dir-group .n{font-family:var(--mono);font-size:.76rem;color:var(--accent-ink);background:var(--accent-soft);padding:.15rem .55rem;border-radius:10px}
 .dir-group .n.ref{color:var(--muted);background:var(--surface-3)}
 
+/* Overview panels */
+.panel{margin:0 0 2rem;padding:1.6rem clamp(1.2rem,2.6vw,2rem) 1.4rem;background:var(--surface);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow)}
+.panel-title{font-size:1.25rem;margin:0 0 .4rem}
+.panel-note{font-size:.86rem;color:var(--muted);margin:0 0 1rem;max-width:70ch}
+.panel-foot{font-size:.78rem;color:var(--muted);margin:.6rem 0 0}
+.panel.two{display:grid;grid-template-columns:1fr;gap:1.6rem 2.4rem}
+@media (min-width:900px){.panel.two{grid-template-columns:1fr 1.3fr}}
+.glance{list-style:none;margin:0 0 .8rem;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem}
+.glance li{margin:0}
+.glance a{display:flex;flex-direction:column;gap:.15rem;padding:.9rem 1rem;background:var(--ground);border:1px solid var(--rule);border-radius:10px;text-decoration:none;color:var(--ink);min-height:6rem}
+.glance a:hover{border-color:var(--accent-line);background:var(--accent-soft)}
+.glance b{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.glance span{font-size:.78rem;color:var(--ink-2);line-height:1.3}
+.statebars{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.statebars li{display:grid;grid-template-columns:3.2rem 1fr 2rem;align-items:center;gap:.6rem;margin:0;font-size:.86rem}
+.statebars .st{font-family:var(--mono);color:var(--ink-2)}
+.statebars .bar{height:.8rem;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.statebars .bar span{display:block;height:100%;background:var(--accent);border-radius:4px;min-width:4px}
+.statebars .n{font-family:var(--mono);color:var(--muted);text-align:right;font-size:.8rem}
+.movement{list-style:none;margin:0 0 1.4rem;padding:0;display:grid;gap:.45rem}
+.movement li{display:grid;grid-template-columns:6.4rem auto 1fr;align-items:baseline;gap:.6rem;margin:0;font-size:.88rem;line-height:1.35}
+.movement .dt{font-family:var(--mono);font-size:.76rem;color:var(--muted);white-space:nowrap}
+.movement i{width:.6rem;height:.6rem;border-radius:50%;display:inline-block;transform:translateY(.05rem);box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.movement .what{display:flex;flex-direction:column;gap:.05rem;min-width:0}
+.movement .what a{text-decoration:none;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.movement .what a:hover{color:var(--accent);text-decoration:underline}
+.movement .ty{font-size:.74rem;color:var(--muted)}
+.kmini{overflow-x:auto;border:1px solid var(--rule);border-radius:10px}
+.kmini table{border-collapse:separate;border-spacing:0;font-size:.82rem;line-height:1.45;width:100%}
+.kmini th,.kmini td{text-align:left;vertical-align:top;padding:.6rem .75rem;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);min-width:8.5rem}
+.kmini th:last-child,.kmini td:last-child{border-right:0}
+.kmini tr:last-child td,.kmini tr:last-child th{border-bottom:0}
+.kmini thead th{background:var(--surface-2);color:var(--ink-2);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.kmini tbody th{font-family:var(--serif);font-weight:600;font-size:.9rem;background:var(--ground);min-width:11rem}
+.kmini td p{margin:0}
+/* About */
+.about-block{margin:0 0 1.6rem;padding:1.6rem clamp(1.2rem,2.6vw,2rem) 1.2rem;background:var(--surface);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow)}
+.about-block h3{margin:0 0 .8rem;font-size:1.25rem}
+.about-block p:last-child,.about-block ol:last-child,.about-block ul:last-child{margin-bottom:0}
+.about-note{font-size:.82rem;color:var(--muted)}
 /* Record cards */
 .records{display:grid;gap:1.6rem;margin:0 0 2.4rem}
 .record{background:var(--surface);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow);padding:1.7rem clamp(1.2rem,2.6vw,2.2rem) 1.2rem;scroll-margin-top:6rem}
@@ -279,7 +321,7 @@ footer p{margin:0}
 <div class="topbar">
   <div class="topbar-in">
     <div class="brand"><a href="#sec-overview">US Frontier AI Legislation Tracker</a></div>
-    <nav class="tabs" aria-label="Views"><a href="#sec-overview" data-tab="tracker">Tracker</a><a href="#sec-timeline" data-tab="timeline">Timeline</a></nav>
+    <nav class="tabs" aria-label="Views"><a href="#sec-overview" data-tab="tracker">Tracker</a><a href="#sec-timeline" data-tab="timeline">Timeline</a><a href="#sec-about" data-tab="about">About</a></nav>
     <label class="search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><input id="q" type="search" placeholder="Search all {{TOTAL}} entries: bill number, sponsor, state, threshold, penalty…" aria-label="Search entries" autocomplete="off"></label>
     <div class="picker"><select id="pick" aria-label="Go to section">{{PICKER}}</select></div>
   </div>
@@ -318,7 +360,8 @@ footer p{margin:0}
     entryLists.forEach(function(l){ l.hidden=l.dataset.for!==id; });
     navLinks.forEach(function(a){ if(document.querySelector('.side .entries[data-for="'+a.dataset.sec+'"]')) a.setAttribute('aria-expanded', a.dataset.sec===id?'true':'false'); });
     pick.value=id;
-    [].slice.call(document.querySelectorAll('.tabs a')).forEach(function(a){ a.setAttribute('aria-current', (a.dataset.tab==='timeline')===(id==='sec-timeline')?'page':'false'); });
+    var tab = id==='sec-timeline' ? 'timeline' : id==='sec-about' ? 'about' : 'tracker';
+    [].slice.call(document.querySelectorAll('.tabs a')).forEach(function(a){ a.setAttribute('aria-current', a.dataset.tab===tab?'page':'false'); });
     if(toTop) window.scrollTo({top:0});
   }
   function exitSearch(){

@@ -15,20 +15,21 @@ export const TYPES = [
   "Referred / stalled / hearing",
   "Vetoed / failed / rescinded",
   "Litigation",
-  "Deadline / scheduled",
+  "Search date / deadline / scheduled",
 ];
 
 function classify(window, column, sectionLabel) {
   const w = window.toLowerCase();
   const has = (re) => re.test(w);
+  if (has(/\bsearch|checked live|located in|located through|\bas of\b|located by/)) return "Search date / deadline / scheduled";
   if (sectionLabel === "G.2" && has(/sued|complaint|intervened|lawsuit|petition|filed|case|suit|foia/)) return "Litigation";
-  if (has(/vetoed|withdrawn|rescinded|rescission|struck|stripped|repealed|revoked|removed|terminat|suspended|not enacted|dead|failed|bills not passed/)) return "Vetoed / failed / rescinded";
+  if (has(/vetoed|withdrawn|rescinded|rescission|struck|stripped|repealed|revoked|removed|terminat|suspended|not enacted|\bdead\b|failed|bills not passed/)) return "Vetoed / failed / rescinded";
   if (has(/signed|approved by|enacted|chapter\b|public act|became law/)) return "Signed / enacted";
   if (has(/effective|eff\.|in effect|obligations from|apply from|compliance date|from jan|from july/)) return "Effective";
   if (has(/passed|concurred|reported|favorable|engrossed|adopted|third reading|roll call|vote\b|votes\b|markup|ordered|enrolled|sent to governor|to enrolling/)) return "Passed / advanced";
   if (has(/introduced|filed|announced|released|published|prefiled|issued|kickoff|created|proposal|draft|section-by-section|interview|remark|post\b|directive|order\b/)) return "Introduced / published";
   if (has(/referred|re-referred|held|stalled|subject to call|no action|returned to|hearing|calendar|rules|assignments/)) return "Referred / stalled / hearing";
-  if (has(/deadline|due|sunset|through|reimposed|scheduled|recheck|by jan|by july|checked live|as of|search/)) return "Deadline / scheduled";
+  if (has(/deadline|due|sunset|through|reimposed|scheduled|recheck|by jan|by july|checked live|as of|search/)) return "Search date / deadline / scheduled";
   const c = column.toLowerCase();
   if (c.startsWith("signed")) return "Signed / enacted";
   if (c.startsWith("effective")) return "Effective";
@@ -79,7 +80,7 @@ export function extractEvents(tables, sectionOf) {
           // up to the next punctuation break, so a neighbouring clause cannot recolour this event
           const end = m.index + m[0].length;
           const afterRaw = text.slice(end, end + 40);
-          const cut = afterRaw.search(/[;,(·)]|\b(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)\b/);
+          const cut = afterRaw.search(/[;,(·)]|\.\s|\b(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)\b/);
           const after = cut >= 0 ? afterRaw.slice(0, cut) : afterRaw;
           const window = (text.slice(prevEnd, end) + after).replace(/\[[A-Z—–\- ]+\]/g, " ");
           prevEnd = end;
