@@ -15,10 +15,16 @@ The tracker is published as a static site from the `docs/` folder:
 | `tracker.md` | The tracker itself, in markdown. This is the content of record. |
 | `source/google-doc-export.md` | The tracker exactly as exported from the source Google Doc, untouched. Kept for provenance. |
 | `build/build.mjs` | Renders `tracker.md` to `docs/index.html`. |
+| `handbook.md` | The Plain-English Handbook shown on the Info tab. |
+| `build/handbook.mjs` | Renders the handbook into the Info tab. |
 | `build/verify.py` | Independent check, written separately from the build: parses the markdown tables and the published HTML and confirms every cell appears under its own column heading, in its own entry, in the author's column order, with its links; and that every paragraph is present. |
 | `build/template.html` | Page chrome: typography, table of contents, table styling. |
 | `docs/` | The generated site that GitHub Pages serves. Also carries a copy of `tracker.md` for download. |
 | `LINK-CHECK.md` | Reachability check of every unique link in the tracker, with HTTP status codes. |
+
+## Info tab
+
+The *Plain-English Handbook for the Frontier AI Law Audit (2025–26)*, shown one chapter at a time with a chapter grid, sub-section chips, and previous/next links. `handbook.md` is the text of record and `docs/handbook.pdf` the print version. `build/handbook.mjs` renders it: glossary bullets become term cards, numbered lists become step cards, the source hierarchy a ladder, the ten rules rule cards; trailing colons on glossary terms are dropped in card headings. The build fails if any word of the handbook is missing from the page.
 
 ## Year filter
 

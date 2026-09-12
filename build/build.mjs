@@ -16,6 +16,7 @@
 import { readFileSync, writeFileSync, copyFileSync } from "node:fs";
 import { marked } from "marked";
 import { extractEvents, TYPES } from "./events.mjs";
+import { renderHandbook } from "./handbook.mjs";
 
 const REPO_URL = process.env.REPO_URL || "https://github.com/KUNALSINGH9373/us-frontier-ai-legislation-tracker";
 const md = readFileSync("tracker.md", "utf8");
@@ -150,7 +151,7 @@ const VIZ = { types: TYPES, colors: ["#2a78d6", "#eb6834", "#1baf7a", "#eda100",
 const YEARS = ["2023", "2024", "2025", "2026", "2027+"];
 const bucket = (iso) => { const y = Number(iso.slice(0, 4)); return y >= 2027 ? "2027+" : String(y); };
 const entryYears = {}; events.forEach((e) => { (entryYears[e.id] = entryYears[e.id] || new Set()).add(bucket(e.date)); });
-const yearsOf = (id) => (entryYears[id] ? [...entryYears[id]].sort().join(" ") : "");
+const yearsOf = (id) => (id.startsWith("hb-") ? "*" : entryYears[id] ? [...entryYears[id]].sort().join(" ") : "");
 VIZ.entryYears = Object.fromEntries(Object.entries(entryYears).map(([k, v]) => [k, [...v].sort()]));
 const GROUP_COLORS = { state: "#2a78d6", federal: "#eb6834", exec: "#1baf7a", context: "#eda100" };
 const yearPanelData = YEARS.map((y) => { const per = {}; Object.entries(entryYears).forEach(([id, ys]) => { if (ys.has(y)) { const g = entryMeta[id].group; per[g] = (per[g] || new Set()).add(id); } }); return { y, counts: Object.fromEntries(Object.entries(per).map(([g, ids]) => [g, ids.size])) }; });
@@ -257,7 +258,20 @@ ${aaf.candidates.map((x) => `<tr><td><b>${x.bill}</b></td><td>${x.sponsor}</td><
 <h3 class="cc-h">In the tracker, absent from the AAF list</h3><ul class="cc-list inline">${aaf.tracker_only.map((x) => `<li>${x}</li>`).join("")}</ul>
 <h3 class="cc-h">Caveats about the AAF list as observed on the fetch date</h3><ul class="cc-list">${aaf.caveats.map((x) => `<li>${x}</li>`).join("")}</ul>
 </section>`;
-sections.splice(2, 0, { id: "sec-table", label: "TB", name: "All entries as a table", short: "Table of all entries", count: 0, entries: [], h3s: [], group: GROUPS[0], body: tableBody, synthetic: true });
+// ---- Info tab: the Plain-English Handbook ----
+const hbMd = readFileSync("handbook.md", "utf8");
+const hb = renderHandbook(hbMd);
+const infoBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-group">Start here</span><span class="sec-count">${hb.chapters.length} chapters</span></p><h2 id="info">${hb.title}</h2></header>
+<div class="hb-pre">${hb.preamble}<p class="hb-actions"><a class="viz-btn" href="handbook.pdf" download>Download the handbook as PDF</a> <a class="viz-btn" href="handbook.md" download>Markdown</a> <button type="button" class="viz-btn" id="hb-all" aria-pressed="false">Show all chapters on one page</button></p></div>
+${hb.grid}
+<div class="hb-chapters">${hb.chapterHtml}</div>`;
+const hbNorm = (t) => t.replace(/[*_|`#>\[\]]/g, " ").split(/\s+/).map((w) => w.replace(/[:;,.]+$/, "")).filter(Boolean); // trailing punctuation ignored: glossary colons are dropped in card headings
+const hbWords = hbNorm(hbMd.replace(/\]\((https?:[^)]+)\)/g, "]").replace(/^\s*(\d+\.|[-*])\s+/gm, "")); // list markers are rendered as counters
+const hbHtmlWords = hbNorm(infoBody.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'"));
+{ const tally = (ws) => ws.reduce((mm, w) => mm.set(w, (mm.get(w) || 0) + 1), new Map()); const a = tally(hbWords), b = tally(hbHtmlWords); const miss = [...a].filter(([w, n]) => (b.get(w) || 0) < n && !/^[-:]+$|^\d+\.$/.test(w)).map(([w, n]) => `${w}×${n - (b.get(w) || 0)}`); if (miss.length) throw new Error(`handbook words missing: ${miss.slice(0, 20).join(" ")}`); }
+sections.splice(1, 0, { id: "sec-info", label: "HB", name: "Plain-English Handbook", short: "Handbook: how US AI law works", count: 0, entries: hb.chapters.map((c) => ({ id: c.id, text: `${c.num ? c.num + ". " : ""}${c.title}` })), h3s: [], group: GROUPS[0], body: infoBody, synthetic: true });
+
+sections.splice(3, 0, { id: "sec-table", label: "TB", name: "All entries as a table", short: "Table of all entries", count: 0, entries: [], h3s: [], group: GROUPS[0], body: tableBody, synthetic: true });
 
 // ---- About section (doc's confidence key + verification note, plus how the site was made) ----
 GROUPS.push({ key: "about", name: "About this site", labels: ["i"] });
@@ -279,6 +293,7 @@ const aboutBody = `<header class="sec-head"><p class="sec-meta"><span class="sec
 <li>Every word of the markdown must appear in the page at least as often as in the source.</li>
 <li>A second, independently written checker parses the markdown tables and the published HTML and confirms that each cell sits under its own heading, in its own entry, in the tracker's column order, with its links, and that every paragraph is present.</li>
 </ul></div>
+<div class="about-block"><h3>The Info tab</h3><p>The <em>Plain-English Handbook for the Frontier AI Law Audit (2025–26)</em>, a companion guide to the US legal system, legislative procedure, statutory reading, AI-governance vocabulary, enforcement, preemption, litigation terms and research method. Its text is shown verbatim, one chapter at a time, with the handbook's own structure driving the layout: glossary entries become term cards, numbered procedures become step cards, and the ten closing rules become rule cards. Trailing colons on glossary terms are dropped in the card headings. The PDF and markdown are downloadable from the tab, and the build checks that every word of the handbook appears on the page.</p></div>
 <div class="about-block"><h3>The Table tab</h3><p>Every entry as one row with the tracker's Sponsor, mechanism, threshold, status, source and confidence cells placed under their own headings, sortable and filterable, with a CSV download. Below the table, a cross-check against the American Action Forum's list of federal AI bills records which bills appear in both, which AAF bills fall within or near the tracker's frontier scope but are not yet entries, and which tracker bills AAF lacks. Those candidates are for the tracker's verification process; they are not entries.</p></div>
 <div class="about-block"><h3>The Changes over time tab</h3><p>A derived view, not part of the tracker text. At build time every date in the tracker's Signed, Effective, Status, Introduced and Date cells becomes an event carrying the entry it belongs to, the column it came from, the clause of text around it, and an event type inferred from the words in that clause. Where the tracker gives only month and day, the year is taken from the same cell and the event is marked as inferred. Hovering a mark shows the original cell text, and a table view lists every event.</p></div>
 ${linkCheck ? `<div class="about-block"><h3>Link check</h3><p>Every unique link in the tracker was requested on ${linkCheck.date}. ${linkCheck.ok} returned 200. ${linkCheck.forbidden} returned 403 from sites that block automated access, which matches the tracker's own note about such sites. ${linkCheck.notfound} returned 404. No link was changed as a result; the full report is in the repository.</p></div>` : ""}
@@ -288,7 +303,7 @@ sections.push({ id: "sec-about", label: "i", name: "About this site", short: "Ab
 const totalEntries = sections.reduce((n, s) => n + s.count, 0);
 const mdLinkCount = (md.match(/\]\(https?:\/\//g) || []).length;
 const linkText = (t, n = 96) => (t.length > n ? t.slice(0, n - 2).trimEnd() + "…" : t);
-const lblPrefix = (s) => (["Overview", "TL", "TB", "i"].includes(s.label) ? "" : s.label + ". ");
+const lblPrefix = (s) => (["Overview", "TL", "TB", "HB", "i"].includes(s.label) ? "" : s.label + ". ");
 const jumpList = (s) => {
   const items = [...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text)}</a></li>`)];
   return items.length ? `<nav class="jump" aria-label="Entries in this section"><p class="jump-title">In this section</p><ol>${items.join("")}</ol></nav>` : "";
@@ -336,7 +351,7 @@ ${kmini ? `<section class="panel" aria-labelledby="cmp-h"><h2 id="cmp-h" class="
 
 const directory = `<div class="directory">
 <h2 class="dir-title" id="directory">Browse the tracker</h2>
-<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable table, open <a href="#sec-table">Table of all entries</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
+<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable table, open <a href="#sec-table">Table of all entries</a>; for the legal background in plain English, open the <a href="#sec-info">Handbook</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
 ${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${g.name}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${s.name}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}
 </div>`;
 
@@ -380,9 +395,9 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 const sidebar = GROUPS.map((g) => {
   const secs = sections.filter((s) => s.group === g);
   if (!secs.length) return "";
-  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
+  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
-const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
+const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "HB", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
 
 const out = template
   .replaceAll("{{TITLE}}", title)
