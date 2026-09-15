@@ -17,8 +17,8 @@ The tracker is published as a static site from the `docs/` folder:
 | `build/build.mjs` | Renders `tracker.md` to `docs/index.html`. |
 | `build/relationships.json` | Relationships between entries for the Map tab, each with its tracker clause. |
 | `build/map.js` | Draws the Map tab. |
-| `handbook.md` | The Plain-English Handbook shown on the Info tab. |
-| `build/handbook.mjs` | Renders the handbook into the Info tab. |
+| `handbook.md` | The Plain-English Handbook shown on the Handbook tab. |
+| `build/handbook.mjs` | Renders the handbook into the Handbook tab. |
 | `build/verify.py` | Independent check, written separately from the build: parses the markdown tables and the published HTML and confirms every cell appears under its own column heading, in its own entry, in the author's column order, with its links; and that every paragraph is present. |
 | `build/template.html` | Page chrome: typography, table of contents, table styling. |
 | `docs/` | The generated site that GitHub Pages serves. Also carries a copy of `tracker.md` for download. |
@@ -28,7 +28,7 @@ The tracker is published as a static site from the `docs/` folder:
 
 A relationship map of the tracker's entries: drafting families, predecessors and amendments, federal preemption and reciprocity, orders that drove later actions, litigation, the auditor layer, and named sponsors, supporters, opponents and parties. `build/relationships.json` holds every edge with the tracker clause it comes from; the build fails if a clause is not found verbatim in `tracker.md`. `build/map.js` lays the nodes out in role columns, orders them to reduce crossings, and draws the edges. Click a node to highlight its connections and open a detail panel below the map (shareable as `?node=<entry id>`; add `&isolate=1` to reduce the map to that node's neighbourhood), click an edge for its clause, switch lenses, toggle types, or open the edge table. Dashed edges are relationships the tracker itself qualifies. Edges carry no quantity and are drawn at one width.
 
-## Info tab
+## Handbook tab
 
 The *Plain-English Handbook for the Frontier AI Law Audit (2025–26)*, shown one chapter at a time with a chapter grid, sub-section chips, and previous/next links. `handbook.md` is the text of record and `docs/handbook.pdf` the print version. `build/handbook.mjs` renders it: glossary bullets become term cards, numbered lists become step cards, the source hierarchy a ladder, the ten rules rule cards; trailing colons on glossary terms are dropped in card headings. The build fails if any word of the handbook is missing from the page.
 
