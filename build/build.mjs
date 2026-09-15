@@ -277,7 +277,7 @@ const mapEdges = rel.edges.map((e, i) => {
 });
 const MAP = { types: rel.types, columns: rel.columns, nodes: mapNodes, edges: mapEdges };
 const mapBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-group">Start here</span><span class="sec-count">${mapNodes.length} nodes · ${mapEdges.length} relationships</span></p><h2 id="map">How the instruments connect</h2></header>
-<p class="viz-intro">Every relationship the tracker states between its entries, drawn as a map: drafting families, predecessors and amendments, federal pressure on state laws, orders that drove later actions, litigation, the auditor layer, and the people and organisations named. Each line is cited to a clause of the tracker; dashed lines are links the tracker itself qualifies as unproven, asserted or negative. Lines carry no quantity, so they are all the same width. <b>Click a node</b> to focus on it and its neighbours, <b>click a line</b> for the clause behind it, hover to trace connections.</p>
+<p class="viz-intro">Every relationship the tracker states between its entries, drawn as a map: drafting families, predecessors and amendments, federal pressure on state laws, orders that drove later actions, litigation, the auditor layer, and the people and organisations named. Each line is cited to a clause of the tracker; dashed lines are links the tracker itself qualifies as unproven, asserted or negative. Lines carry no quantity, so they are all the same width. <b>Click a node</b> to highlight its connections and read them below the map; <b>click a line</b> for the clause behind it; hover to trace connections. The map itself only changes when you choose to isolate a node or switch lens.</p>
 <div class="map-controls">
   <div class="map-lenses" role="group" aria-label="Lens"><button type="button" data-lens="all" aria-pressed="true">Everything</button><button type="button" data-lens="lineage" aria-pressed="false">Lineage and amendments</button><button type="button" data-lens="fedstate" aria-pressed="false">Federal, state and courts</button><button type="button" data-lens="actors" aria-pressed="false">People and organisations</button></div>
   <label class="tsearch"><span class="vh">Find a node</span><input id="map-q" type="search" placeholder="Find a bill or actor and focus on it" autocomplete="off"></label>
@@ -286,10 +286,8 @@ const mapBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-g
   <span class="tcount" id="map-count"></span>
 </div>
 <div class="map-legend" role="group" aria-label="Relationship types. Click to hide or show a type."></div>
-<div class="map-layout">
-  <div class="map-wrap"><div class="map-stage"><svg class="map-svg" role="img" aria-label="Relationship map"></svg><div class="map-nodes"></div></div><div class="map-tip" role="tooltip" hidden></div></div>
-  <aside class="map-panel" hidden></aside>
-</div>
+<div class="map-wrap"><div class="map-stage"><svg class="map-svg" role="img" aria-label="Relationship map"></svg><div class="map-nodes"></div></div><div class="map-tip" role="tooltip" hidden></div></div>
+<section class="map-panel" aria-live="polite" hidden></section>
 <p><button type="button" id="map-table-toggle" class="viz-btn" aria-expanded="false">Show all relationships as a table</button></p>
 <div class="map-table" hidden><table><thead><tr><th>From</th><th>Type</th><th>To</th><th>Relationship</th><th>Tracker clause</th><th>Source</th></tr></thead><tbody></tbody></table></div>`;
 sections.splice(1, 0, { id: "sec-map", label: "MP", name: "How the instruments connect", short: "Map of connections", count: 0, entries: [], h3s: [], group: GROUPS[0], body: mapBody, synthetic: true });
@@ -363,7 +361,8 @@ const upcoming = events.filter((e) => e.date > CUTOFF).sort((a, b) => a.date.loc
 const evLi = (e) => `<li><span class="dt">${fmtD(e.date, e.precision)}${e.inferredYear ? "*" : ""}</span><i style="background:${VIZ.colors[TYPES.indexOf(e.type)]}"></i><span class="what"><a href="#${e.id}">${entryMeta[e.id].title}</a><span class="ty">${e.type} · ${e.column}</span></span></li>`;
 const KEEP_DIMS = ["Casualty threshold", "Developer trigger", "FLOP threshold", "Incident reporting", "Third-party audit", "Whistleblower protection", "Private right of action", "Penalty ceiling"];
 const kmini = matricesData[0] ? `<div class="kmini"><table><thead><tr>${matricesData[0].heads.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${matricesData[0].rows.filter((r) => KEEP_DIMS.includes(plain(r[0]))).map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${c}</th>` : `<td>${c}</td>`)).join("")}</tr>`).join("")}</tbody></table></div>` : "";
-const glance = `<section class="panel" aria-labelledby="glance-h"><h2 id="glance-h" class="panel-title">At a glance</h2>
+const glance = `<div class="ov-grid">
+<section class="panel" aria-labelledby="glance-h"><h2 id="glance-h" class="panel-title">At a glance</h2>
 <ul class="glance">
 <li><a href="${href("A")}"><b>${cnt("A")}</b><span>enacted state frontier laws</span></a></li>
 <li><a href="${href("B")}"><b>${statusTags.PENDING}</b><span>state bills pending</span></a></li>
@@ -378,12 +377,11 @@ const glance = `<section class="panel" aria-labelledby="glance-h"><h2 id="glance
 <section class="panel" aria-labelledby="years-h"><h2 id="years-h" class="panel-title">Activity by year</h2><p class="panel-note">Instruments with at least one dated event in each year, by group. Click a year to filter the whole tracker to it; the filter row under the top bar clears it.</p>
 <div class="ybars">${(() => { const max = Math.max(...yearPanelData.map((d) => Object.values(d.counts).reduce((a, b) => a + b, 0))); return yearPanelData.map((d) => { const total = Object.values(d.counts).reduce((a, b) => a + b, 0); const segs = ["state", "federal", "exec", "context"].filter((g) => d.counts[g]).map((g) => `<span class="seg" style="height:${(d.counts[g] / max) * 100}%;background:${GROUP_COLORS[g]}" title="${GROUPS.find((x) => x.key === g).name}: ${d.counts[g]}"></span>`).join(""); return `<button type="button" class="ybar" data-year="${d.y}" aria-label="Filter to ${d.y === "2027+" ? "2027 and later" : d.y}: ${total} instruments"><span class="tot">${total}</span><span class="col">${segs}</span><span class="yl">${d.y === "2027+" ? "2027+" : d.y}</span></button>`; }).join(""); })()}</div>
 <ul class="ylegend">${["state", "federal", "exec", "context"].map((g) => `<li><i style="background:${GROUP_COLORS[g]}"></i>${GROUPS.find((x) => x.key === g).name}</li>`).join("")}</ul></section>
-<section class="panel two" aria-labelledby="states-h">
-<div><h2 id="states-h" class="panel-title">Where the state measures are</h2><p class="panel-note">Entries with a State column, across enacted laws, pending bills, IVO measures, precursors and adjacent laws.</p>
-<ul class="statebars">${states.map(([st, n]) => `<li><span class="st">${st}</span><span class="bar"><span style="width:${(n / stateMax) * 100}%"></span></span><span class="n">${n}</span></li>`).join("")}</ul></div>
-<div><h2 class="panel-title">Latest movement in the record</h2><p class="panel-note">Most recent dated events on or before the verification date. Colour is the kind of event.</p><ul class="movement">${latest.map(evLi).join("")}</ul>
-<h2 class="panel-title">Dates ahead</h2><p class="panel-note">Effective dates, deadlines and scheduled steps after the verification date.</p><ul class="movement">${upcoming.map(evLi).join("")}</ul><p class="panel-foot">* year inferred from the same cell. Full record in <a href="#sec-timeline">Changes over time</a>.</p></div>
-</section>
+<section class="panel" aria-labelledby="states-h"><h2 id="states-h" class="panel-title">Where the state measures are</h2><p class="panel-note">Entries with a State column, across enacted laws, pending bills, IVO measures, precursors and adjacent laws.</p>
+<ul class="statebars">${states.map(([st, n]) => `<li><span class="st">${st}</span><span class="bar"><span style="width:${(n / stateMax) * 100}%"></span></span><span class="n">${n}</span></li>`).join("")}</ul></section>
+<section class="panel" aria-labelledby="latest-h"><h2 id="latest-h" class="panel-title">Latest movement in the record</h2><p class="panel-note">Most recent dated events on or before the verification date. Colour is the kind of event.</p><ul class="movement">${latest.map(evLi).join("")}</ul><p class="panel-foot">* year inferred from the same cell. Full record in <a href="#sec-timeline">Changes over time</a>.</p></section>
+</div>
+<section class="panel" aria-labelledby="ahead-h"><h2 id="ahead-h" class="panel-title">Dates ahead</h2><p class="panel-note">Effective dates, deadlines and scheduled steps after the verification date.</p><ul class="movement cols">${upcoming.map(evLi).join("")}</ul></section>
 ${kmini ? `<section class="panel" aria-labelledby="cmp-h"><h2 id="cmp-h" class="panel-title">How the leading instruments compare</h2><p class="panel-note">Selected rows from the tracker's own cross-cutting comparison. The full matrix, with every dimension and the assurance-layer table, is in <a href="${href("K")}">section K</a>.</p>${kmini}</section>` : ""}`;
 
 const directory = `<div class="directory">

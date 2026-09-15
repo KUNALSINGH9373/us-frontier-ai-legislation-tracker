@@ -26,7 +26,7 @@ The tracker is published as a static site from the `docs/` folder:
 
 ## Map tab
 
-A relationship map of the tracker's entries: drafting families, predecessors and amendments, federal preemption and reciprocity, orders that drove later actions, litigation, the auditor layer, and named sponsors, supporters, opponents and parties. `build/relationships.json` holds every edge with the tracker clause it comes from; the build fails if a clause is not found verbatim in `tracker.md`. `build/map.js` lays the nodes out in role columns, orders them to reduce crossings, and draws the edges. Click a node to focus on it and its neighbours (shareable as `?node=<entry id>`), click an edge for its clause, switch lenses, toggle types, or open the edge table. Dashed edges are relationships the tracker itself qualifies. Edges carry no quantity and are drawn at one width.
+A relationship map of the tracker's entries: drafting families, predecessors and amendments, federal preemption and reciprocity, orders that drove later actions, litigation, the auditor layer, and named sponsors, supporters, opponents and parties. `build/relationships.json` holds every edge with the tracker clause it comes from; the build fails if a clause is not found verbatim in `tracker.md`. `build/map.js` lays the nodes out in role columns, orders them to reduce crossings, and draws the edges. Click a node to highlight its connections and open a detail panel below the map (shareable as `?node=<entry id>`; add `&isolate=1` to reduce the map to that node's neighbourhood), click an edge for its clause, switch lenses, toggle types, or open the edge table. Dashed edges are relationships the tracker itself qualifies. Edges carry no quantity and are drawn at one width.
 
 ## Info tab
 
