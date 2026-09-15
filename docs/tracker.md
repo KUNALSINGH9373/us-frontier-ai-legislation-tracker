@@ -1,4 +1,4 @@
-# US Frontier AI Legislation Tracker (2025–2026) — Corrected Primary-Source Audit
+# US Frontier AI Legislation Tracker (2025–2026)
 
 Compiled for the frontier AI law audit project. "Frontier" = laws/bills targeting the largest AI developers and catastrophic risk from advanced models, plus the independent-verification-organization (IVO) / AI-auditor licensing bills that form a distinct sub-category. Section J lists items checked and **excluded**.
 

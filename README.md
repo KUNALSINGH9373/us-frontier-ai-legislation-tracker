@@ -55,6 +55,8 @@ The published page reproduces `tracker.md` without editorial changes. The build 
 1. Markdown characters inside table cells had been backslash-escaped by the export (`\*\*Bill\*\*`); one level of escaping was removed so the author's original markdown renders.
 2. The export emitted each table with an empty header row and the real header as the first body row; the real header was restored.
 
+One deliberate edit was made afterwards: the document heading was shortened from "US Frontier AI Legislation Tracker (2025–2026) — Corrected Primary-Source Audit" to "US Frontier AI Legislation Tracker (2025–2026)". The subtitle and what it means are recorded on the About tab. No other text differs from the export.
+
 ## Updating
 
 1. Edit `tracker.md`.
