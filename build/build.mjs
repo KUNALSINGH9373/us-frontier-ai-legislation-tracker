@@ -258,6 +258,42 @@ ${aaf.candidates.map((x) => `<tr><td><b>${x.bill}</b></td><td>${x.sponsor}</td><
 <h3 class="cc-h">In the tracker, absent from the AAF list</h3><ul class="cc-list inline">${aaf.tracker_only.map((x) => `<li>${x}</li>`).join("")}</ul>
 <h3 class="cc-h">Caveats about the AAF list as observed on the fetch date</h3><ul class="cc-list">${aaf.caveats.map((x) => `<li>${x}</li>`).join("")}</ul>
 </section>`;
+// ---- Map tab: relationships between entries, each cited to a tracker clause ----
+const rel = JSON.parse(readFileSync("build/relationships.json", "utf8"));
+const relNorm = (t) => t.replace(/\\(.)/g, "$1").replace(/\*\*|\*/g, "").replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/\s+/g, " ").toLowerCase();
+const trackerPlainForRel = relNorm(md);
+const rowById = {}; tableRows.forEach((r) => { rowById[r.id] = r; });
+const resolve = (k) => rel.aliases[k] || (rel.actors[k] ? k : null);
+const mapNodes = [];
+Object.keys(rel.aliases).forEach((k, i) => { const id = rel.aliases[k]; if (!entryMeta[id]) throw new Error(`map: unknown entry ${k} -> ${id}`); const r = rowById[id] || {}; mapNodes.push({ id, key: k, kind: "entry", short: rel.short[k] || entryMeta[id].title, title: entryMeta[id].title, section: entryMeta[id].section, sectionName: entryMeta[id].sectionName, juris: r.juris || "", status: r.statusTag || "", conf: r.confKey || "", years: (entryYears[id] ? [...entryYears[id]].sort() : []), col: rel.columnOf[k], order: i }); });
+Object.keys(rel.actors).forEach((k, i) => mapNodes.push({ id: k, key: k, kind: "actor", short: rel.actors[k], title: "", col: 0, order: 1000 + i, years: [] }));
+const mapEdges = rel.edges.map((e, i) => {
+  const from = resolve(e.from), to = resolve(e.to); if (!from || !to) throw new Error(`map: unknown node in edge ${i}: ${e.from} -> ${e.to}`);
+  if (!trackerPlainForRel.includes(relNorm(e.quote))) throw new Error(`map: quote not found in tracker for edge ${i} (${e.from} -> ${e.to}): ${e.quote.slice(0, 80)}`);
+  let srcHref, srcLabel;
+  if (e.src.startsWith("sec-")) { const sec = sections.find((x) => x.label === e.src.replace("sec-", "").toUpperCase()); srcHref = sec ? "#" + sec.id : "#"; srcLabel = sec ? `Section ${sec.label}` : e.src; }
+  else { const sid = rel.aliases[e.src]; srcHref = "#" + sid; srcLabel = rel.short[e.src] || entryMeta[sid].title; }
+  return { from, to, type: e.type, label: e.label, quote: e.quote, dashed: !!e.dashed, col: e.col, srcHref, srcLabel };
+});
+const MAP = { types: rel.types, columns: rel.columns, nodes: mapNodes, edges: mapEdges };
+const mapBody = `<header class="sec-head"><p class="sec-meta"><span class="sec-group">Start here</span><span class="sec-count">${mapNodes.length} nodes · ${mapEdges.length} relationships</span></p><h2 id="map">How the instruments connect</h2></header>
+<p class="viz-intro">Every relationship the tracker states between its entries, drawn as a map: drafting families, predecessors and amendments, federal pressure on state laws, orders that drove later actions, litigation, the auditor layer, and the people and organisations named. Each line is cited to a clause of the tracker; dashed lines are links the tracker itself qualifies as unproven, asserted or negative. Lines carry no quantity, so they are all the same width. <b>Click a node</b> to focus on it and its neighbours, <b>click a line</b> for the clause behind it, hover to trace connections.</p>
+<div class="map-controls">
+  <div class="map-lenses" role="group" aria-label="Lens"><button type="button" data-lens="all" aria-pressed="true">Everything</button><button type="button" data-lens="lineage" aria-pressed="false">Lineage and amendments</button><button type="button" data-lens="fedstate" aria-pressed="false">Federal, state and courts</button><button type="button" data-lens="actors" aria-pressed="false">People and organisations</button></div>
+  <label class="tsearch"><span class="vh">Find a node</span><input id="map-q" type="search" placeholder="Find a bill or actor and focus on it" autocomplete="off"></label>
+  <button type="button" id="map-full" class="viz-btn">Show full map</button>
+  <button type="button" id="map-fit" class="viz-btn" aria-pressed="true">Fit to width</button>
+  <span class="tcount" id="map-count"></span>
+</div>
+<div class="map-legend" role="group" aria-label="Relationship types. Click to hide or show a type."></div>
+<div class="map-layout">
+  <div class="map-wrap"><div class="map-stage"><svg class="map-svg" role="img" aria-label="Relationship map"></svg><div class="map-nodes"></div></div><div class="map-tip" role="tooltip" hidden></div></div>
+  <aside class="map-panel" hidden></aside>
+</div>
+<p><button type="button" id="map-table-toggle" class="viz-btn" aria-expanded="false">Show all relationships as a table</button></p>
+<div class="map-table" hidden><table><thead><tr><th>From</th><th>Type</th><th>To</th><th>Relationship</th><th>Tracker clause</th><th>Source</th></tr></thead><tbody></tbody></table></div>`;
+sections.splice(1, 0, { id: "sec-map", label: "MP", name: "How the instruments connect", short: "Map of connections", count: 0, entries: [], h3s: [], group: GROUPS[0], body: mapBody, synthetic: true });
+
 // ---- Info tab: the Plain-English Handbook ----
 const hbMd = readFileSync("handbook.md", "utf8");
 const hb = renderHandbook(hbMd);
@@ -293,6 +329,7 @@ const aboutBody = `<header class="sec-head"><p class="sec-meta"><span class="sec
 <li>Every word of the markdown must appear in the page at least as often as in the source.</li>
 <li>A second, independently written checker parses the markdown tables and the published HTML and confirms that each cell sits under its own heading, in its own entry, in the tracker's column order, with its links, and that every paragraph is present.</li>
 </ul></div>
+<div class="about-block"><h3>The Map tab</h3><p>A relationship map drawn from the tracker's own statements: drafting families, predecessors and amendments, federal preemption and reciprocity, orders that drove later actions, litigation, the auditor layer, and named sponsors, supporters, opponents and parties. Each relationship is stored with the tracker clause it comes from, and the build refuses any relationship whose clause is not found verbatim in the tracker. Dashed lines are relationships the tracker itself qualifies. Lines carry no quantity and are drawn at one width. Node positions are computed from the connections; the columns group instruments by role.</p></div>
 <div class="about-block"><h3>The Info tab</h3><p>The <em>Plain-English Handbook for the Frontier AI Law Audit (2025–26)</em>, a companion guide to the US legal system, legislative procedure, statutory reading, AI-governance vocabulary, enforcement, preemption, litigation terms and research method. Its text is shown verbatim, one chapter at a time, with the handbook's own structure driving the layout: glossary entries become term cards, numbered procedures become step cards, and the ten closing rules become rule cards. Trailing colons on glossary terms are dropped in the card headings. The PDF and markdown are downloadable from the tab, and the build checks that every word of the handbook appears on the page.</p></div>
 <div class="about-block"><h3>The Table tab</h3><p>Every entry as one row with the tracker's Sponsor, mechanism, threshold, status, source and confidence cells placed under their own headings, sortable and filterable, with a CSV download. Below the table, a cross-check against the American Action Forum's list of federal AI bills records which bills appear in both, which AAF bills fall within or near the tracker's frontier scope but are not yet entries, and which tracker bills AAF lacks. Those candidates are for the tracker's verification process; they are not entries.</p></div>
 <div class="about-block"><h3>The Changes over time tab</h3><p>A derived view, not part of the tracker text. At build time every date in the tracker's Signed, Effective, Status, Introduced and Date cells becomes an event carrying the entry it belongs to, the column it came from, the clause of text around it, and an event type inferred from the words in that clause. Where the tracker gives only month and day, the year is taken from the same cell and the event is marked as inferred. Hovering a mark shows the original cell text, and a table view lists every event.</p></div>
@@ -303,7 +340,7 @@ sections.push({ id: "sec-about", label: "i", name: "About this site", short: "Ab
 const totalEntries = sections.reduce((n, s) => n + s.count, 0);
 const mdLinkCount = (md.match(/\]\(https?:\/\//g) || []).length;
 const linkText = (t, n = 96) => (t.length > n ? t.slice(0, n - 2).trimEnd() + "…" : t);
-const lblPrefix = (s) => (["Overview", "TL", "TB", "HB", "i"].includes(s.label) ? "" : s.label + ". ");
+const lblPrefix = (s) => (["Overview", "TL", "TB", "HB", "MP", "i"].includes(s.label) ? "" : s.label + ". ");
 const jumpList = (s) => {
   const items = [...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text)}</a></li>`)];
   return items.length ? `<nav class="jump" aria-label="Entries in this section"><p class="jump-title">In this section</p><ol>${items.join("")}</ol></nav>` : "";
@@ -351,7 +388,7 @@ ${kmini ? `<section class="panel" aria-labelledby="cmp-h"><h2 id="cmp-h" class="
 
 const directory = `<div class="directory">
 <h2 class="dir-title" id="directory">Browse the tracker</h2>
-<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable table, open <a href="#sec-table">Table of all entries</a>; for the legal background in plain English, open the <a href="#sec-info">Handbook</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
+<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable table, open <a href="#sec-table">Table of all entries</a>; for the legal background in plain English, open the <a href="#sec-info">Handbook</a>; for how the instruments connect, open the <a href="#sec-map">Map</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
 ${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${g.name}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${s.name}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}
 </div>`;
 
@@ -395,9 +432,9 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 const sidebar = GROUPS.map((g) => {
   const secs = sections.filter((s) => s.group === g);
   if (!secs.length) return "";
-  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
+  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "MP" ? "⬡" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
-const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "HB", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
+const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "HB", "MP", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
 
 const out = template
   .replaceAll("{{TITLE}}", title)
@@ -410,6 +447,8 @@ const out = template
   .replaceAll("{{REPO_URL}}", REPO_URL)
   .replaceAll("{{VIZ_JSON}}", JSON.stringify(VIZ).replace(/</g, "\\u003c"))
   .replaceAll("{{VIZ_SCRIPT}}", readFileSync("build/viz.js", "utf8"))
+  .replaceAll("{{MAP_JSON}}", JSON.stringify(MAP).replace(/</g, "\\u003c"))
+  .replaceAll("{{MAP_SCRIPT}}", readFileSync("build/map.js", "utf8"))
   .replaceAll("{{BUILT}}", new Date().toISOString().slice(0, 10));
 
 writeFileSync("docs/index.html", out);
@@ -417,4 +456,5 @@ copyFileSync("tracker.md", "docs/tracker.md");
 writeFileSync("docs/.nojekyll", "");
 writeFileSync("docs/favicon.svg", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#1D57A5"/><text x="32" y="41" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="30" fill="#fff" letter-spacing="-1">KS</text></svg>`);
 console.log(`timeline: ${events.length} events from ${Object.keys(usedEntries).length} entries; by type: ${TYPES.map((t) => t.split(" ")[0] + "=" + events.filter((e) => e.type === t).length).join(", ")}`);
+console.log(`map: ${mapNodes.length} nodes, ${mapEdges.length} edges, all quotes verified`);
 console.log(`built docs/index.html: ${sections.length} sections, ${totalEntries} entries, ${renderedCells.length} cells, ${htmlLinks.length} links, ${mdWords.length} words verified`);

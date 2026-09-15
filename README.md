@@ -15,12 +15,18 @@ The tracker is published as a static site from the `docs/` folder:
 | `tracker.md` | The tracker itself, in markdown. This is the content of record. |
 | `source/google-doc-export.md` | The tracker exactly as exported from the source Google Doc, untouched. Kept for provenance. |
 | `build/build.mjs` | Renders `tracker.md` to `docs/index.html`. |
+| `build/relationships.json` | Relationships between entries for the Map tab, each with its tracker clause. |
+| `build/map.js` | Draws the Map tab. |
 | `handbook.md` | The Plain-English Handbook shown on the Info tab. |
 | `build/handbook.mjs` | Renders the handbook into the Info tab. |
 | `build/verify.py` | Independent check, written separately from the build: parses the markdown tables and the published HTML and confirms every cell appears under its own column heading, in its own entry, in the author's column order, with its links; and that every paragraph is present. |
 | `build/template.html` | Page chrome: typography, table of contents, table styling. |
 | `docs/` | The generated site that GitHub Pages serves. Also carries a copy of `tracker.md` for download. |
 | `LINK-CHECK.md` | Reachability check of every unique link in the tracker, with HTTP status codes. |
+
+## Map tab
+
+A relationship map of the tracker's entries: drafting families, predecessors and amendments, federal preemption and reciprocity, orders that drove later actions, litigation, the auditor layer, and named sponsors, supporters, opponents and parties. `build/relationships.json` holds every edge with the tracker clause it comes from; the build fails if a clause is not found verbatim in `tracker.md`. `build/map.js` lays the nodes out in role columns, orders them to reduce crossings, and draws the edges. Click a node to focus on it and its neighbours (shareable as `?node=<entry id>`), click an edge for its clause, switch lenses, toggle types, or open the edge table. Dashed edges are relationships the tracker itself qualifies. Edges carry no quantity and are drawn at one width.
 
 ## Info tab
 
