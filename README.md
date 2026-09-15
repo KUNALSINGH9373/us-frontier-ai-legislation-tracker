@@ -36,7 +36,7 @@ The *Plain-English Handbook for the Frontier AI Law Audit (2025–26)*, shown on
 
 The filter row under the top bar scopes the whole tracker to a year: All time, 2023, 2024, 2025, 2026, or 2027 and later. An entry belongs to a year when it has a dated event in that year, using the same events as the timeline tab. Section counts, the sidebar, jump lists and search all follow the filter, and each matching entry shows the dated events that placed it in that year. Entries with no dated event appear under All time only. The overview's "Activity by year" chart sets the same filter.
 
-## Table tab
+## Comparison tab
 
 Every entry as one row with the tracker's Sponsor, mechanism, threshold, status, source and confidence cells under their own headings. Sortable by section, entry, jurisdiction, status class and confidence; filterable by group, section, jurisdiction, status class, free text and the year filter; rows expand to show full cells. `docs/tracker-table.csv` is the same table as CSV.
 
