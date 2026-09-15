@@ -119,7 +119,7 @@ code{font-family:var(--mono);font-size:.88em}
 .entries li.sub a{font-family:var(--serif);font-weight:600;color:var(--ink)}
 
 /* Main */
-main{min-width:0;max-width:1040px}
+main{min-width:0}
 section.sec{scroll-margin-top:var(--stick,6rem)}
 html:not(.js) section.sec + section.sec{margin-top:4rem;padding-top:3rem;border-top:1px solid var(--rule)}
 .sec-head{margin:0 0 1.6rem}
@@ -509,6 +509,8 @@ main:has(#sec-map:not([hidden])),main:has(#sec-timeline:not([hidden])),main:has(
 .map-table th,.map-table td{text-align:left;padding:.55rem .8rem;border-bottom:1px solid var(--rule);vertical-align:top}
 .map-table th{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--surface-2)}
 .map-table .sw{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;margin-right:.4rem}
+/* Text fills its container: no reading-width caps */
+main p,main ul,main ol,main dl,main dd,main blockquote,.prose p,.prose ul,.prose ol,.viz-intro,.viz-help,.hb-pre,.hb-body p,.hb-body > ul.hb-list,.hb-list,.hb-callout,.panel-note,.dir-lede,.hero .lede,.hero .display,.block dd,.pair dd,.f dd,.fact dd,.sec-head,.about-block p,ol.hb-steps li,ol.hb-workflow li,ol.hb-ladder,.tfoot,.results{max-width:none !important}
 /* Previous / next */
 .pn{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:3rem 0 0;padding-top:2rem;border-top:1px solid var(--rule)}
 .pn a{display:flex;flex-direction:column;gap:.2rem;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--rule);border-radius:12px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow)}
