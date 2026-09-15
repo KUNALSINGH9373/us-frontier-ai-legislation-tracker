@@ -303,7 +303,7 @@ const hbNorm = (t) => t.replace(/[*_|`#>\[\]]/g, " ").split(/\s+/).map((w) => w.
 const hbWords = hbNorm(hbMd.replace(/\]\((https?:[^)]+)\)/g, "]").replace(/^\s*(\d+\.|[-*])\s+/gm, "")); // list markers are rendered as counters
 const hbHtmlWords = hbNorm(infoBody.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'"));
 { const tally = (ws) => ws.reduce((mm, w) => mm.set(w, (mm.get(w) || 0) + 1), new Map()); const a = tally(hbWords), b = tally(hbHtmlWords); const miss = [...a].filter(([w, n]) => (b.get(w) || 0) < n && !/^[-:]+$|^\d+\.$/.test(w)).map(([w, n]) => `${w}×${n - (b.get(w) || 0)}`); if (miss.length) throw new Error(`handbook words missing: ${miss.slice(0, 20).join(" ")}`); }
-sections.splice(1, 0, { id: "sec-info", label: "HB", name: "Plain-English Handbook", short: "Handbook: how US AI law works", count: 0, entries: hb.chapters.map((c) => ({ id: c.id, text: `${c.num ? c.num + ". " : ""}${c.title}` })), h3s: [], group: GROUPS[0], body: infoBody, synthetic: true });
+sections.splice(3, 0, { id: "sec-info", label: "HB", name: "Plain-English Handbook", short: "Handbook: how US AI law works", count: 0, entries: hb.chapters.map((c) => ({ id: c.id, text: `${c.num ? c.num + ". " : ""}${c.title}` })), h3s: [], group: GROUPS[0], body: infoBody, synthetic: true });
 
 sections.splice(3, 0, { id: "sec-table", label: "TB", name: "Comparison table of all entries", short: "Comparison table", count: 0, entries: [], h3s: [], group: GROUPS[0], body: tableBody, synthetic: true });
 
