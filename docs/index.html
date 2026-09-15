@@ -503,7 +503,17 @@ ol.hb-rules li p{margin:0}
 .mp-facts div{margin:0}
 .mp-facts dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin:0 0 .2rem}
 .mp-facts dd{margin:0;font-size:1rem}
-.mp-count{color:var(--ink-2);margin:0 0 1rem;font-size:.95rem}
+.mp-count{color:var(--ink-2);margin:0 0 1rem;font-size:.95rem;font-weight:600}
+.mp-entry{margin:0 0 1.4rem;padding:1.2rem 1.4rem;background:var(--ground);border:1px solid var(--rule);border-radius:10px}
+.mp-entry h4{font-family:var(--sans);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin:0 0 .8rem}
+.mp-entry .facts{background:var(--surface);margin:0 0 1rem}
+.mp-entry .blocks{margin:0}
+.mp-entry .fact dd,.mp-entry .block dd{font-size:1rem}
+.mp-mentions{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+.mp-mentions li{font-size:.98rem}
+.mp-mentions a{font-family:var(--serif);font-weight:600;font-size:1.05rem}
+.mp-mentions q{display:block;font-style:italic;color:var(--ink-2);font-size:.9rem;margin-top:.2rem}
+.map-panel{scroll-margin-top:var(--stick,6rem)}
 .mp-group{margin:0 0 1.4rem}
 .mp-group h4{display:flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);margin:0 0 .6rem}
 .mp-group h4 i{width:1.2rem;height:4px;border-radius:2px;display:inline-block}
@@ -3709,7 +3719,7 @@ footer p{margin:0}
     Object.keys(L.cards).forEach(function(id){ var d = L.cards[id];
       d.addEventListener('pointerenter', function(){ highlight(id, null); });
       d.addEventListener('pointerleave', function(){ highlight(selected, null); });
-      d.addEventListener('click', function(ev){ ev.stopPropagation(); selected = (selected === id) ? null : id; pinned = null; hideTip(); render(); if (selected) setTimeout(function(){ panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }, 50); });
+      d.addEventListener('click', function(ev){ ev.stopPropagation(); selected = (selected === id) ? null : id; pinned = null; hideTip(); render(); if (selected) setTimeout(function(){ panel.scrollIntoView({ block: 'start', behavior: 'smooth' }); }, 50); });
       d.addEventListener('keydown', function(ev){ if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); d.click(); } });
     });
     function highlight(nodeId, edge){ var conn = {}; if (nodeId){ conn[nodeId] = 1; v.edges.forEach(function(e){ if (e.from === nodeId || e.to === nodeId){ conn[e.from] = 1; conn[e.to] = 1; } }); } if (edge){ conn[edge.from] = 1; conn[edge.to] = 1; }
@@ -3738,7 +3748,13 @@ footer p{margin:0}
     var clr = document.createElement('button'); clr.type = 'button'; clr.className = 'viz-btn'; clr.textContent = 'Clear selection'; clr.addEventListener('click', function(){ selected = null; focus = null; render(); }); acts.appendChild(clr);
     head.appendChild(acts); panel.appendChild(head);
     if (n.kind !== 'actor'){ var facts = document.createElement('dl'); facts.className = 'mp-facts'; [['Section', n.section ? n.section + (n.sectionName ? ' · ' + n.sectionName : '') : ''], ['Jurisdiction', n.juris], ['Status class', n.status], ['Confidence', n.conf], ['Years with dated events', (n.years||[]).join(', ')]].forEach(function(kv){ if (!kv[1]) return; var w = document.createElement('div'); var dt = document.createElement('dt'); dt.textContent = kv[0]; var dd = document.createElement('dd'); dd.textContent = kv[1]; w.appendChild(dt); w.appendChild(dd); facts.appendChild(w); }); panel.appendChild(facts); }
-    var count = document.createElement('p'); count.className = 'mp-count'; count.textContent = edges.length + (edges.length === 1 ? ' relationship' : ' relationships') + ' stated in the tracker' + (edges.length !== M.edges.filter(function(e){ return e.from === id || e.to === id; }).length ? ' (some types are hidden by the current lens or legend)' : ''); panel.appendChild(count);
+    // The full tracker entry, verbatim, cloned from the tracker card on this page.
+    if (n.kind !== 'actor'){ var card = document.getElementById(n.id); if (card){ var box = document.createElement('div'); box.className = 'mp-entry'; var bh = document.createElement('h4'); bh.textContent = 'From the tracker entry'; box.appendChild(bh);
+        [].slice.call(card.querySelectorAll('dl.facts, dl.blocks, dd')).forEach(function(part){ if (part.tagName === 'DD' && part.closest('dl')) return; var cl = part.cloneNode(true); [].slice.call(cl.querySelectorAll('[id]')).forEach(function(x){ x.removeAttribute('id'); }); box.appendChild(cl); });
+        if (card.classList.contains('pair')){ var dd = card.querySelector('dd'); if (dd){ var cl2 = dd.cloneNode(true); box.appendChild(cl2); } }
+        panel.appendChild(box); } }
+    else { var mentions = document.createElement('div'); mentions.className = 'mp-entry'; var mh = document.createElement('h4'); mh.textContent = 'Where the tracker names this actor'; mentions.appendChild(mh); var ml = document.createElement('ul'); ml.className = 'mp-mentions'; var seen = {}; M.edges.filter(function(e){ return e.from === id || e.to === id; }).forEach(function(e){ var other = e.from === id ? e.to : e.from; if (seen[other]) return; seen[other] = 1; var li = document.createElement('li'); var a = document.createElement('a'); a.href = byId[other].kind === 'actor' ? '#' : '#' + other; a.textContent = byId[other].short; li.appendChild(a); li.appendChild(document.createTextNode(' — ' + e.label)); var q = document.createElement('q'); q.textContent = e.quote; li.appendChild(q); ml.appendChild(li); }); mentions.appendChild(ml); panel.appendChild(mentions); }
+    var count = document.createElement('p'); count.className = 'mp-count'; count.textContent = 'Relationships: the tracker states ' + edges.length + (edges.length === 1 ? ' link' : ' links') + ' for this node' + (edges.length !== M.edges.filter(function(e){ return e.from === id || e.to === id; }).length ? ' (some types are hidden by the current lens or legend)' : ''); panel.appendChild(count);
     var byType = {}; edges.forEach(function(e){ (byType[e.type] = byType[e.type] || []).push(e); });
     Object.keys(M.types).forEach(function(t){ if (!byType[t]) return; var grp = document.createElement('div'); grp.className = 'mp-group'; var gh = document.createElement('h4'); var sw = document.createElement('i'); sw.style.background = M.types[t].color; gh.appendChild(sw); gh.appendChild(document.createTextNode(M.types[t].name)); grp.appendChild(gh); var ul = document.createElement('ul'); ul.className = 'mp-cards';
       byType[t].forEach(function(e){ var other = e.from === id ? e.to : e.from; var li = document.createElement('li'); li.className = 'mp-card' + (e.dashed ? ' qualified' : ''); li.style.borderTopColor = M.types[t].color;
