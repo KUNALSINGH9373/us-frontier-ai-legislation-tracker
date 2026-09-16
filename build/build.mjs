@@ -434,7 +434,7 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 
 // Navigation fragments.
 const sidebar = GROUPS.map((g) => {
-  const secs = sections.filter((s) => s.group === g);
+  const secs = sections.filter((s) => s.group === g && s.id !== "sec-info"); // the Handbook has its own tab
   if (!secs.length) return "";
   return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "MP" ? "⬡" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
