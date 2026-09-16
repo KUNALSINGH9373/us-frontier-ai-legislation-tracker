@@ -534,6 +534,16 @@ ol.hb-rules li p{margin:0}
 .map-table .sw{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;margin-right:.4rem}
 /* Text fills its container: no reading-width caps */
 main p,main ul,main ol,main dl,main dd,main blockquote,.prose p,.prose ul,.prose ol,.viz-intro,.viz-help,.hb-pre,.hb-body p,.hb-body > ul.hb-list,.hb-list,.hb-callout,.panel-note,.dir-lede,.hero .lede,.hero .display,.block dd,.pair dd,.f dd,.fact dd,.sec-head,.about-block p,ol.hb-steps li,ol.hb-workflow li,ol.hb-ladder,.tfoot,.results{max-width:none !important}
+.ylines{width:100%;height:auto;display:block;overflow:visible}
+.ylines .ygrid{stroke:var(--rule);stroke-width:1}
+.ylines .yax,.ylines .xax{fill:var(--muted);font-size:11px;font-family:var(--mono)}
+.ylines .xax{fill:var(--ink-2);font-weight:600}
+.ylines .xtot{fill:var(--muted);font-size:9.5px;font-family:var(--sans)}
+.ylines .ylab{font-size:11px;font-weight:700;font-family:var(--sans)}
+.ylines .ydot{stroke:#fff;stroke-width:2}
+.ylines a{cursor:pointer}
+.ylines a:hover .xax{fill:var(--accent);text-decoration:underline}
+.yr-empty button{font:inherit;font-size:.85rem;margin-left:.6rem;padding:.3rem .7rem;border:1px solid var(--accent-line);border-radius:6px;background:var(--accent-soft);color:var(--accent-ink);cursor:pointer}
 /* ============================================================
    Design layer: rhythm, hierarchy, fewer boxes. Applied after the
    component rules; changes presentation only.
@@ -786,7 +796,7 @@ footer p{margin:0}
     if(window.applyTableFilters) window.applyTableFilters();
     if(window.mapSetYear) window.mapSetYear(year);
     secs.forEach(function(s){ var all=s.querySelectorAll('.record, .pair').length; if(!all) return; var vis=s.querySelectorAll('.record:not(.yr-hidden), .pair:not(.yr-hidden)').length; var meta=s.querySelector('.sec-count'); if(meta) meta.textContent = year==='all' ? all+(all===1?' entry':' entries') : vis+' of '+all+' entries with a dated event in '+yearLabel(year);
-      var empty=s.querySelector('.yr-empty'); if(empty) empty.remove(); if(vis===0 && year!=='all'){ var d=document.createElement('p'); d.className='yr-empty'; d.textContent='No entry in this section has a dated event in '+yearLabel(year)+'. Choose All time to see every entry.'; var anchor=s.querySelector('.records, .pairs'); if(anchor) anchor.parentNode.insertBefore(d, anchor); }
+      var empty=s.querySelector('.yr-empty'); if(empty) empty.remove(); if(vis===0 && year!=='all'){ var d=document.createElement('p'); d.className='yr-empty'; d.textContent='The year filter is set to '+yearLabel(year)+' and no entry in this section has a dated event in that year. '; var rb=document.createElement('button'); rb.type='button'; rb.textContent='Show all time'; rb.addEventListener('click', function(){ setYear('all'); }); d.appendChild(rb); var anchor=s.querySelector('.records, .pairs'); if(anchor) anchor.parentNode.insertBefore(d, anchor); }
       var nav=document.querySelector('.side a[data-sec="'+s.id+'"] .n'); if(nav) nav.textContent = year==='all' ? String(all) : vis+'/'+all;
       var dir=document.querySelector('.dir-group a[href="#'+s.id+'"] .n:not(.ref)'); if(dir) dir.textContent = year==='all' ? String(all) : vis+'/'+all; });
     fnote.textContent = year==='all' ? 'Showing every entry.' : shown+' of '+total+' entries have a dated event in '+yearLabel(year)+'. Undated entries appear under All time only.';
@@ -794,7 +804,7 @@ footer p{margin:0}
   }
   function setYear(y){ year=YEARS.indexOf(y)>=0?y:'all'; applyYear(); }
   filterbar.addEventListener('click', function(e){ var b=e.target.closest('button[data-year]'); if(!b) return; setYear(b.dataset.year); });
-  document.addEventListener('click', function(e){ var b=e.target.closest('.ybar[data-year]'); if(!b) return; setYear(b.dataset.year); var first=document.querySelector('section.sec[data-label="A"]'); if(first){ history.pushState(null,'',location.pathname+location.search+'#'+first.id); route(); } });
+  document.addEventListener('click', function(e){ var b=e.target.closest('.ybar[data-year]'); if(!b) return; e.preventDefault(); setYear(b.dataset.year); var first=document.querySelector('section.sec[data-label="A"]'); if(first){ history.pushState(null,'',location.pathname+location.search+'#'+first.id); route(); } });
   function placeFilterbar(){ var tb=document.querySelector('.topbar'); filterbar.style.top=tb.offsetHeight+'px'; document.documentElement.style.setProperty('--stick', (tb.offsetHeight+filterbar.offsetHeight+8)+'px'); }
   window.addEventListener('resize', placeFilterbar);
 

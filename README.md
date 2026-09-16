@@ -34,7 +34,7 @@ The *Plain-English Handbook for the Frontier AI Law Audit (2025–26)*, shown on
 
 ## Year filter
 
-The filter row under the top bar scopes the whole tracker to a year: All time, 2023, 2024, 2025, 2026, or 2027 and later. An entry belongs to a year when it has a dated event in that year, using the same events as the timeline tab. Section counts, the sidebar, jump lists and search all follow the filter, and each matching entry shows the dated events that placed it in that year. Entries with no dated event appear under All time only. The overview's "Activity by year" chart sets the same filter.
+The filter row under the top bar scopes the whole tracker to a year: All time, 2023, 2024, 2025, 2026, or 2027 and later. An entry belongs to a year when it has a dated event in that year, using the same events as the timeline tab. Section counts, the sidebar, jump lists and search all follow the filter, and each matching entry shows the dated events that placed it in that year. Entries with no dated event appear under All time only. The overview's "Activity by year" chart sets the same filter; the exclusion list in section J is exempt from the year filter because its entries carry no date column.
 
 ## Comparison tab
 
