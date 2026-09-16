@@ -60,7 +60,34 @@ code{font-family:var(--mono);font-size:.88em}
 .search svg{position:absolute;left:.8rem;width:15px;height:15px;color:var(--muted);pointer-events:none}
 .picker{display:none;flex:1 1 100%}
 .picker select{width:100%;padding:.6rem .8rem;border:1px solid var(--rule-strong);border-radius:8px;background:var(--surface);font:inherit;font-size:.92rem;color:var(--ink)}
-@media (max-width:1023px){.js .picker{display:block}}
+@media (max-width:1023px){.js .picker{display:none}}
+.navbtn{display:none;font:inherit;font-size:.9rem;font-weight:600;align-items:center;gap:.5rem;padding:.5rem .9rem;border:1px solid var(--rule-strong);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer}
+.navbtn-bars{width:16px;height:2px;background:currentColor;box-shadow:0 5px 0 currentColor,0 -5px 0 currentColor;display:inline-block}
+@media (max-width:1023px){.js .navbtn{display:inline-flex}}
+.side-head{display:none}
+.backdrop{position:fixed;inset:0;background:rgba(23,32,43,.45);z-index:59}
+@media (max-width:1023px){
+  .js .side{display:block;position:fixed;top:0;left:0;bottom:0;width:min(86vw,360px);max-height:none;height:100vh;height:100dvh;overflow-y:auto;border-radius:0;border:0;border-right:1px solid var(--rule);z-index:60;transform:translateX(-102%);transition:transform .22s ease;box-shadow:0 0 40px rgba(0,0,0,.25);padding-bottom:2rem}
+  .js body.nav-open .side{transform:none}
+  .js .side .side-head{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;border-bottom:1px solid var(--rule);font-weight:700;font-size:.95rem;position:sticky;top:0;background:var(--surface);z-index:2}
+  .side-close{font:inherit;font-size:1.4rem;line-height:1;border:0;background:none;color:var(--ink-2);cursor:pointer;padding:.2rem .5rem}
+  .topbar-in{gap:.6rem .8rem}
+  .brand a{font-size:1.05rem}
+  .tabs{order:3;flex:1 1 100%;overflow-x:auto;scrollbar-width:none}
+  .tabs a{white-space:nowrap}
+  .search{flex:1 1 100%;order:4}
+  .fyears{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:.1rem}
+  .filterbar-in{flex-wrap:nowrap;overflow:hidden}
+  .fnote{display:none}
+  .hero .display{font-size:1.6rem}
+  .glance{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .snapshot-grid,.whenwhere-grid,.dir-cols{grid-template-columns:1fr}
+  .record{padding:var(--sp-4)}
+  .record-head .title{font-size:1.05rem}
+  .pn{grid-template-columns:1fr}
+  .pn a.next{text-align:left;align-items:flex-start}
+  .map-controls,.viz-controls,.tbl-controls{gap:.4rem}
+}
 
 /* Tabs */
 .tabs{display:flex;gap:.25rem;background:var(--surface-2);padding:.25rem;border-radius:9px}
@@ -736,6 +763,7 @@ footer p{margin:0}
     <nav class="tabs" aria-label="Views"><a href="#sec-overview" data-tab="tracker">Tracker</a><a href="#sec-map" data-tab="map">Map</a><a href="#sec-timeline" data-tab="timeline">Timeline</a><a href="#sec-table" data-tab="table">Comparison</a><a href="#sec-info" data-tab="info">Handbook</a><a href="#sec-about" data-tab="about">About</a></nav>
     <label class="search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><input id="q" type="search" placeholder="Search all {{TOTAL}} entries: bill number, sponsor, state, threshold, penalty…" aria-label="Search entries" autocomplete="off"></label>
     <div class="picker"><select id="pick" aria-label="Go to section">{{PICKER}}</select></div>
+    <button type="button" class="navbtn" id="navbtn" aria-controls="sidenav" aria-expanded="false"><span class="navbtn-bars" aria-hidden="true"></span>Sections</button>
   </div>
 </div>
 <div class="filterbar" id="filterbar">
@@ -748,7 +776,9 @@ footer p{margin:0}
   </div>
 </div>
 <div class="shell">
-  <aside class="side" aria-label="Sections">
+  <div class="backdrop" id="backdrop" hidden></div>
+  <aside class="side" id="sidenav" aria-label="Sections">
+    <div class="side-head"><span>Sections</span><button type="button" class="side-close" id="sideclose" aria-label="Close sections">×</button></div>
 {{SIDEBAR}}
   </aside>
   <main class="prose">
@@ -846,6 +876,13 @@ footer p{margin:0}
     history.pushState(null,'','#'+id); route();
   });
   window.addEventListener('popstate', route);
+  var navbtn=document.getElementById('navbtn'), backdrop=document.getElementById('backdrop'), sideEl=document.querySelector('.side');
+  function navOpen(o){ document.body.classList.toggle('nav-open', o); backdrop.hidden=!o; navbtn.setAttribute('aria-expanded', o?'true':'false'); if(o){ var cur=sideEl.querySelector('a[aria-current="page"]'); if(cur) cur.scrollIntoView({block:'center'}); } }
+  navbtn.addEventListener('click', function(){ navOpen(!document.body.classList.contains('nav-open')); });
+  backdrop.addEventListener('click', function(){ navOpen(false); });
+  document.getElementById('sideclose').addEventListener('click', function(){ navOpen(false); });
+  sideEl.addEventListener('click', function(e){ var a=e.target.closest('a[href^="#"]'); if(a && !a.dataset.sec) navOpen(false); if(a && a.dataset.sec && window.matchMedia('(max-width:1023px)').matches && a.dataset.sec!==current) setTimeout(function(){ navOpen(false); }, 120); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && document.body.classList.contains('nav-open')) navOpen(false); });
   pick.addEventListener('change', function(){ history.pushState(null,'','#'+pick.value); route(); });
 
   q.addEventListener('input', function(){

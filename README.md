@@ -46,6 +46,10 @@ Below the table is a cross-check against the American Action Forum's "List of Pr
 
 The **Changes over time** tab is a derived view. At build time, `build/events.mjs` reads every date in the tracker's date-bearing columns (Signed, Effective, Status, Introduced / status, Date) and turns each into an event with the entry it belongs to, the column it came from, the clause of text around it, and an event type inferred from the words in that clause (introduced, passed, signed, effective, referred/stalled, vetoed/failed/rescinded, litigation, deadline). Where the tracker gives only month and day, the year is taken from the same cell and the event is flagged as inferred. Hovering any mark shows the original cell text, and a table view lists every event. The tracker text is not changed by this; if a type looks wrong, the classifier is the place to fix it.
 
+## Mobile
+
+Below 1024px the sidebar becomes a slide-in drawer opened by the Sections button in the top bar; it carries the same groups and entries and closes when a section or entry is chosen. Tabs and the year filter scroll sideways, panels stack in one column, and wide tables scroll inside their own containers so the page never scrolls horizontally.
+
 ## Design principles
 
 The layout follows published guidance rather than taste: the GOV.UK Design System and USWDS type scales and vertical rhythm (body text at 15px here, line heights on a fixed rhythm); the Laws of UX on common region and proximity, so related items are grouped by whitespace and hairlines instead of boxes inside boxes; Nielsen's heuristics on consistency and minimalism, so one button, chip and panel style is used everywhere and the overview and About pages carry few, merged panels; and the list-first pattern of documentation sites such as GitHub Docs for the directory and the sidebar. The presentation layer is CSS only; no content is changed by it.
