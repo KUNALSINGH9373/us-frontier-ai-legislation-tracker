@@ -1,6 +1,6 @@
 # US Frontier AI Legislation Tracker (2025–2026)
 
-A primary-source audit of US state and federal bills, enacted laws, executive actions, litigation and export controls that target frontier AI developers, plus the independent-verification-organization (IVO) and AI-auditor licensing bills that form a distinct sub-category. Verified as of **September 5, 2026**.
+A primary-source audit of US state and federal bills, enacted laws, executive actions, litigation and export controls that target frontier AI developers, plus the independent-verification-organization (IVO) and AI-auditor licensing bills that form a distinct sub-category. Verified as of **September 5, 2026**, with a supplementary check through **September 28, 2026** (rows marked ⟨U⟩ in the tracker; the change list is in `updates/2026-09-28-change-list.md`).
 
 The tracker is published as a static site from the `docs/` folder:
 
