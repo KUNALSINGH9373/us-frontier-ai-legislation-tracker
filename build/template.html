@@ -754,13 +754,40 @@ footer{border-top:1px solid var(--rule);color:var(--muted);font-size:.84rem;padd
 footer .in{max-width:1480px;margin:0 auto;display:flex;flex-wrap:wrap;gap:.6rem 2rem}
 footer p{margin:0}
 @media print{.topbar,.side,.totop,.pn,.jump,.permalink{display:none !important} section.sec{display:block !important} .record,.pair{break-inside:avoid}}
+
+/* ---- News tab ---- */
+.nw-head .panel-note{max-width:none}
+.nw-legend{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.nw-f{font:inherit;font-size:.86rem;display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;padding:.5rem .8rem;border:1px solid var(--rule-strong);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;text-align:left;min-width:9rem}
+.nw-f small{font-size:.74rem;color:var(--muted);font-weight:400;line-height:1.3}
+.nw-f .nw-n{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:400;margin-left:.25rem}
+.nw-f[aria-pressed="true"]{border-color:var(--nw,var(--ink));background:var(--nw-soft,var(--surface-2));box-shadow:inset 0 0 0 1px var(--nw,var(--ink))}
+.nw-f[data-kind="all"]{--nw:var(--ink)}
+.nw-dot{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--nw,var(--muted));margin-right:.4rem;vertical-align:baseline;flex:none}
+.nw-list{list-style:none;margin:1.25rem 0 0;padding:0}
+.nw-day{margin:0 0 1.5rem}
+.nw-date{display:flex;align-items:baseline;gap:.6rem;font-size:1.15rem;padding:.5rem 0;border-bottom:2px solid var(--ink);position:sticky;top:var(--stick,4rem);background:var(--ground);z-index:2}
+.nw-year{font-family:var(--sans);font-size:.8rem;color:var(--muted);font-weight:400}
+.nw-items{list-style:none;margin:0;padding:0}
+.nw-item{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;padding:1rem 0 1rem .9rem;border-bottom:1px solid var(--rule);border-left:4px solid var(--nw);background:linear-gradient(90deg,var(--nw-soft),transparent 14rem)}
+.nw-item[hidden]{display:none}
+.nw-tag{font-size:.78rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--nw);display:flex;align-items:center;padding-top:.2rem}
+.nw-title{font-family:var(--serif);font-size:1.08rem;font-weight:600;margin:0 0 .35rem;text-wrap:balance}
+.nw-body{margin:0 0 .5rem;color:var(--ink-2)}
+.nw-links{margin:0 0 .35rem;display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:.9rem}
+.nw-links a.nw-tr{color:var(--nw);font-weight:600}
+.nw-check{margin:0;font-size:.84rem;color:var(--muted)}
+.nw-check b{color:var(--ink-2);font-weight:600}
+.nw-day.nw-empty{display:none}
+.nw-foot .sub-title{margin-bottom:.4rem}
+@media (max-width:760px){.nw-item{grid-template-columns:1fr;gap:.35rem;padding-left:.7rem}.nw-f{min-width:0;flex:1 1 40%}}
 </style>
 </head>
 <body>
 <div class="topbar">
   <div class="topbar-in">
     <div class="brand"><a href="#sec-overview">US Frontier AI Legislation Tracker</a></div>
-    <nav class="tabs" aria-label="Views"><a href="#sec-overview" data-tab="tracker">Tracker</a><a href="#sec-map" data-tab="map">Map</a><a href="#sec-timeline" data-tab="timeline">Timeline</a><a href="#sec-table" data-tab="table">Comparison</a><a href="#sec-info" data-tab="info">Handbook</a><a href="#sec-about" data-tab="about">About</a></nav>
+    <nav class="tabs" aria-label="Views"><a href="#sec-overview" data-tab="tracker">Tracker</a><a href="#sec-map" data-tab="map">Map</a><a href="#sec-timeline" data-tab="timeline">Timeline</a><a href="#sec-table" data-tab="table">Comparison</a><a href="#sec-news" data-tab="news">News</a><a href="#sec-info" data-tab="info">Handbook</a><a href="#sec-about" data-tab="about">About</a></nav>
     <label class="search"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4.5 4.5"/></svg><input id="q" type="search" placeholder="Search all {{TOTAL}} entries: bill number, sponsor, state, threshold, penalty…" aria-label="Search entries" autocomplete="off"></label>
     <div class="picker"><select id="pick" aria-label="Go to section">{{PICKER}}</select></div>
     <button type="button" class="navbtn" id="navbtn" aria-controls="sidenav" aria-expanded="false"><span class="navbtn-bars" aria-hidden="true"></span>Sections</button>
@@ -789,7 +816,7 @@ footer p{margin:0}
 <button type="button" class="totop" id="totop" hidden>Back to top</button>
 <footer><div class="in">
   <p>Content reproduced verbatim from the tracker markdown; only the layout is added. Confidence ratings, status classes and dates are the author's.</p>
-  <p>Verified as of September 5, 2026; supplementary check September 28, 2026 (rows marked ⟨U⟩) · <a href="tracker.md">Markdown source</a> · <a href="{{REPO_URL}}">Repository</a> · {{LINKS}} source links · Page built {{BUILT}}</p>
+  <p>Verified as of September 5, 2026; supplementary checks September 28–29, 2026 (rows marked ⟨U⟩) · <a href="tracker.md">Markdown source</a> · <a href="{{REPO_URL}}">Repository</a> · {{LINKS}} source links · Page built {{BUILT}}</p>
 </div></footer>
 <script id="viz-data" type="application/json">{{VIZ_JSON}}</script>
 <script id="map-data" type="application/json">{{MAP_JSON}}</script>
@@ -845,7 +872,7 @@ footer p{margin:0}
     entryLists.forEach(function(l){ l.hidden=l.dataset.for!==id; });
     navLinks.forEach(function(a){ if(document.querySelector('.side .entries[data-for="'+a.dataset.sec+'"]')) a.setAttribute('aria-expanded', a.dataset.sec===id?'true':'false'); });
     pick.value=id;
-    var tab = id==='sec-timeline' ? 'timeline' : id==='sec-about' ? 'about' : id==='sec-table' ? 'table' : id==='sec-info' ? 'info' : id==='sec-map' ? 'map' : 'tracker';
+    var tab = id==='sec-timeline' ? 'timeline' : id==='sec-about' ? 'about' : id==='sec-table' ? 'table' : id==='sec-info' ? 'info' : id==='sec-news' ? 'news' : id==='sec-map' ? 'map' : 'tracker';
     filterbar.hidden = (tab!=='tracker' && tab!=='table' && tab!=='map'); placeFilterbar();
     [].slice.call(document.querySelectorAll('.tabs a')).forEach(function(a){ a.setAttribute('aria-current', a.dataset.tab===tab?'page':'false'); });
     if(toTop) window.scrollTo({top:0});
@@ -909,6 +936,16 @@ footer p{margin:0}
 </script>
 <script>
 (function(){
+    var sec=document.getElementById('sec-news'); if(!sec) return;
+    var btns=[].slice.call(sec.querySelectorAll('.nw-f')), items=[].slice.call(sec.querySelectorAll('.nw-item')), days=[].slice.call(sec.querySelectorAll('.nw-day'));
+    function apply(k){
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.kind===k?'true':'false'); });
+      items.forEach(function(it){ it.hidden = !(k==='all' || it.dataset.kind===k); });
+      days.forEach(function(d){ d.classList.toggle('nw-empty', !d.querySelector('.nw-item:not([hidden])')); });
+    }
+    sec.addEventListener('click', function(e){ var b=e.target.closest('.nw-f'); if(!b) return; apply(b.dataset.kind); });
+  })();
+  (function(){
   var sec=document.getElementById('sec-info'); if(!sec) return;
   var chs=[].slice.call(sec.querySelectorAll('.hb-ch')), grid=sec.querySelector('.hb-grid'), allBtn=document.getElementById('hb-all'), showAll=false, current=chs[0]?chs[0].id:null;
   function paint(){ chs.forEach(function(ch){ ch.hidden = !showAll && ch.id!==current; }); [].slice.call(grid.querySelectorAll('a')).forEach(function(a){ a.setAttribute('aria-current', (!showAll && a.dataset.ch===current)?'page':'false'); }); allBtn.setAttribute('aria-pressed', showAll?'true':'false'); allBtn.textContent = showAll ? 'Show one chapter at a time' : 'Show all chapters on one page'; }

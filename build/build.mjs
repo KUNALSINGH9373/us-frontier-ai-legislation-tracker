@@ -308,6 +308,35 @@ sections.splice(3, 0, { id: "sec-info", label: "HB", name: "Plain-English Handbo
 
 sections.splice(3, 0, { id: "sec-table", label: "TB", name: "Comparison table of all entries", short: "Comparison table", count: 0, entries: [], h3s: [], group: GROUPS[0], body: tableBody, synthetic: true });
 
+// ---- News tab: dated September 2026 record (build/news.json), colour-coded by level of government ----
+const news = JSON.parse(readFileSync("build/news.json", "utf8"));
+const nwEsc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const nwDate = (d) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
+news.items.forEach((it, i) => {
+  if (!news.kinds[it.kind]) throw new Error(`news: unknown kind ${it.kind} in item ${i}`);
+  if (it.tracker) { const id = rel.aliases[it.tracker]; if (!id || !entryMeta[id]) throw new Error(`news: unknown tracker alias ${it.tracker} in item ${i}`); }
+});
+const nwByDate = []; news.items.slice().sort((a, b) => a.date.localeCompare(b.date)).forEach((it) => { const last = nwByDate[nwByDate.length - 1]; if (last && last.date === it.date) last.items.push(it); else nwByDate.push({ date: it.date, items: [it] }); });
+const nwCounts = {}; news.items.forEach((it) => { nwCounts[it.kind] = (nwCounts[it.kind] || 0) + 1; });
+const nwKindCss = Object.keys(news.kinds).map((k) => `.nw-item[data-kind="${k}"]{--nw:${news.kinds[k].color};--nw-soft:${news.kinds[k].soft}}`).join("");
+const newsBody = `<style>${nwKindCss}</style>
+<section class="panel nw-head" aria-labelledby="nw-h"><h2 id="nw-h" class="panel-title">${nwEsc(news.title)}</h2>
+<p class="panel-note">${nwEsc(news.intro)}</p>
+<div class="nw-legend" role="group" aria-label="Filter by level of government">
+<button type="button" class="nw-f" data-kind="all" aria-pressed="true">All <span class="nw-n">${news.items.length}</span></button>
+${Object.keys(news.kinds).map((k) => `<button type="button" class="nw-f" data-kind="${k}" aria-pressed="false" style="--nw:${news.kinds[k].color};--nw-soft:${news.kinds[k].soft}"><i class="nw-dot" aria-hidden="true"></i>${nwEsc(news.kinds[k].name)} <span class="nw-n">${nwCounts[k] || 0}</span><small>${nwEsc(news.kinds[k].desc)}</small></button>`).join("")}
+</div></section>
+<ol class="nw-list">
+${nwByDate.map((g) => `<li class="nw-day" data-date="${g.date}"><h3 class="nw-date"><time datetime="${g.date}">${nwDate(g.date)}</time><span class="nw-year">2026</span></h3>
+<ul class="nw-items">${g.items.map((it) => { const k = news.kinds[it.kind]; const tid = it.tracker ? rel.aliases[it.tracker] : null; return `<li class="nw-item" data-kind="${it.kind}">
+<div class="nw-tag"><i class="nw-dot" aria-hidden="true"></i>${nwEsc(k.name)}</div>
+<div class="nw-main"><h4 class="nw-title">${nwEsc(it.title)}</h4><p class="nw-body">${nwEsc(it.body)}</p>
+<p class="nw-links">${it.links.map((l) => `<a data-site href="${nwEsc(l.u)}" target="_blank" rel="noopener">${nwEsc(l.t)}</a>`).join("")}${tid ? `<a class="nw-tr" href="#${tid}">Tracker entry: ${nwEsc(rel.short[it.tracker] || entryMeta[tid].title)}</a>` : ""}</p>
+<p class="nw-check"><b>Checked:</b> ${nwEsc(it.check)}</p></div></li>`; }).join("")}</ul></li>`).join("\n")}
+</ol>
+<section class="panel nw-foot"><h3 class="sub-title">Where September ended</h3><p>${nwEsc(news.bottom)}</p><p class="panel-foot">Record as of ${nwEsc(news.asof)}. Federal, state, executive, litigation and industry items are colour-coded by the tag on each row; use the buttons above to show one kind at a time.</p></section>`;
+sections.splice(4, 0, { id: "sec-news", label: "NW", name: "News: September 2026 developments", short: "News", count: 0, entries: [], h3s: [], group: GROUPS[0], body: newsBody, synthetic: true });
+
 // ---- About section (doc's confidence key + verification note, plus how the site was made) ----
 GROUPS.push({ key: "about", name: "About this site", labels: ["i"] });
 const om = parts[0].match(/^<h1>([\s\S]*?)<\/h1>\n<p>([\s\S]*?)<\/p>\n([\s\S]*)$/);
@@ -392,7 +421,7 @@ ${kmini ? `<section class="panel" aria-labelledby="cmp-h"><div class="panel-head
 
 const directory = `<div class="directory">
 <h2 class="dir-title" id="directory">Browse the tracker</h2>
-<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable comparison table, open <a href="#sec-table">Comparison table</a>; for the legal background in plain English, open the <a href="#sec-info">Handbook</a>; for how the instruments connect, open the <a href="#sec-map">Map</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
+<p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable comparison table, open <a href="#sec-table">Comparison table</a>; for the legal background in plain English, open the <a href="#sec-info">Handbook</a>; for how the instruments connect, open the <a href="#sec-map">Map</a>; for a dated record of hearings, letters, investigations and incidents around the bills, open <a href="#sec-news">News</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
 <div class="dir-cols">${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${g.name}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${s.name}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}</div>
 </div>`;
 
@@ -434,7 +463,7 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 
 // Navigation fragments.
 const sidebar = GROUPS.map((g) => {
-  const secs = sections.filter((s) => s.group === g && s.id !== "sec-info"); // the Handbook has its own tab
+  const secs = sections.filter((s) => s.group === g && s.id !== "sec-info" && s.id !== "sec-news"); // the Handbook and News have their own tabs
   if (!secs.length) return "";
   return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "MP" ? "⬡" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");

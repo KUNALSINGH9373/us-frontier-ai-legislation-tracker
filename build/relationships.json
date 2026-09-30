@@ -101,13 +101,23 @@
     "COLORADO": "rec-colorado-sb-24-205-sb-26-189",
     "VA2094": "rec-virginia-hb-2094-2025",
     "AIRMSA": "rec-artificial-intelligence-risk-management-and-security-act-of-2026-u",
-    "AIEBA": "rec-s-5417-ai-emergency-button-act-house-companion-introduced-by-rep-tom-k",
+    "AIEBA": "rec-s-5417-h-r-10567-ai-emergency-button-act-u",
     "AIREG": "rec-ai-regulator-act-of-2026-proposal-not-introduced-u",
     "CAEO": "rec-california-executive-order-n-9-26-independent-oversight-and-an-ai-kill",
     "ILEO": "rec-illinois-executive-order-2026-07-illinois-artificial-intelligence-cabi",
     "OREO": "rec-oregon-executive-order-26-26-ai-procurement-safety-standards-for-state",
     "OVERWATCH": "rec-ai-overwatch-act-h-r-6875-rep-mast-s-4456-sens-banks-and-warren-and-ot",
-    "CHIPSEC": "rec-chip-security-act-h-r-3447-senate-companion-by-sen-cotton"
+    "CHIPSEC": "rec-chip-security-act-h-r-3447-senate-companion-by-sen-cotton",
+    "NYTERM": "rec-s-10701-terminator-act-technical-evaluation-risk-monitoring-incident-n",
+    "PAHB2800": "rec-h-b-2800-artificial-intelligence-risk-prevention-act-u",
+    "FLvOAI": "rec-state-of-florida-v-openai-motion-for-temporary-injunction-against-fron",
+    "WHACCORD": "rec-the-white-house-accord-on-superintelligence-a-joint-commitment-on-fron",
+    "ASTA": "rec-s-5471-ai-systems-transparency-act-asta-u",
+    "ROGUE": "rec-h-r-10362-stop-rogue-ai-act-u",
+    "USCHINA": "rec-u-s-china-frontier-ai-safety-coordination-bill-liccardo-kiley-announce",
+    "MARKEY": "rec-s-5541-cybersecurity-and-ai-board-of-investigations-act-u",
+    "AASA": "rec-american-ai-security-act-announced-u",
+    "SENDRAFT": "rec-senate-commerce-draft-ai-bill-cruz-klobuchar-thune-in-development-text"
   },
   "short": {
     "SB53": "CA SB 53 (TFAIA)",
@@ -171,13 +181,23 @@
     "COLORADO": "Colorado SB 24-205 → SB 26-189",
     "VA2094": "VA HB 2094 (2025, vetoed)",
     "AIRMSA": "Warner–Schatz–Kim AI Risk Management and Security Act",
-    "AIEBA": "S. 5417 AI Emergency Button Act",
+    "AIEBA": "S. 5417 / H.R. 10567 AI Emergency Button Act",
     "AIREG": "AI Regulator Act (Bennet–Welch proposal)",
     "CAEO": "CA EO N-9-26 (IVOs onsite, kill switch)",
     "ILEO": "IL EO 2026-07 (AI Cabinet)",
     "OREO": "OR EO 26-26 (state procurement)",
     "OVERWATCH": "AI OVERWATCH Act / FY27 NDAA",
-    "CHIPSEC": "Chip Security Act (H.R. 3447 / Cotton companion)"
+    "CHIPSEC": "Chip Security Act (H.R. 3447 / Cotton companion)",
+    "NYTERM": "NY S.10701 TERMINATOR Act (withdrawn)",
+    "PAHB2800": "PA H.B. 2800 AI Risk Prevention Act",
+    "FLvOAI": "Florida v. OpenAI — injunction motion",
+    "WHACCORD": "White House Accord on Superintelligence (voluntary)",
+    "ASTA": "S. 5471 AI Systems Transparency Act",
+    "ROGUE": "H.R. 10362 Stop Rogue AI Act",
+    "USCHINA": "Liccardo–Kiley US–China AI safety bill",
+    "MARKEY": "S. 5541 Cyber and AI Board of Investigations",
+    "AASA": "American AI Security Act (announced)",
+    "SENDRAFT": "Senate Commerce draft (Cruz–Klobuchar–Thune)"
   },
   "columnOf": {
     "SB53": 3,
@@ -247,7 +267,17 @@
     "ILEO": 1,
     "OREO": 1,
     "OVERWATCH": 1,
-    "CHIPSEC": 1
+    "CHIPSEC": 1,
+    "NYTERM": 4,
+    "PAHB2800": 4,
+    "FLvOAI": 6,
+    "WHACCORD": 1,
+    "ASTA": 2,
+    "ROGUE": 2,
+    "USCHINA": 2,
+    "MARKEY": 2,
+    "AASA": 2,
+    "SENDRAFT": 2
   },
   "actors": {
     "act-wiener": "Sen. Scott Wiener (CA)",
@@ -1473,6 +1503,43 @@
       "src": "OVERWATCH",
       "col": "Date / status",
       "quote": "in the Senate NDAA manager's package as SA 6575 (July 14, 2026)"
+    },
+    {
+      "from": "RAISE",
+      "to": "NYTERM",
+      "type": "succession",
+      "label": "Would amend the RAISE Act (Chapter 96) to add independent evaluations",
+      "src": "NYTERM",
+      "col": "Core mechanism",
+      "quote": "Amends the RAISE Act (GBL Article 44-B as replaced by Chapter 96 of 2026) by adding GBL §§ 1429–1436"
+    },
+    {
+      "from": "SB53",
+      "to": "PAHB2800",
+      "type": "template",
+      "label": "SB 53 pattern with a registration layer",
+      "src": "PAHB2800",
+      "col": "Core mechanism",
+      "quote": "Free-standing act on the SB 53 pattern with a registration layer"
+    },
+    {
+      "from": "SENDRAFT",
+      "to": "SB53",
+      "type": "fedstate",
+      "dashed": true,
+      "label": "Reported preemption of state regulation for certain risk categories",
+      "src": "SENDRAFT",
+      "col": "Key content",
+      "quote": "preemption of state regulation for certain risk categories"
+    },
+    {
+      "from": "act-openai",
+      "to": "FLvOAI",
+      "type": "litigation",
+      "label": "Defendant",
+      "src": "FLvOAI",
+      "col": "Status",
+      "quote": "the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users"
     }
   ]
 }
