@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" href="fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>US Frontier AI Law Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{font-family:'Jakarta';src:url('fonts/PlusJakartaSans-latin.woff2') format('woff2');font-weight:400 800;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Jakarta';src:url('fonts/PlusJakartaSans-latin-ext.woff2') format('woff2');font-weight:400 800;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+:root,[data-theme=light]{--bg:#F6F8FC;--surface:#FFFFFF;--surface-2:#EEF2F8;--ink:#0D1424;--ink-2:#36415A;--ink-3:#4F5A72;--line:#DFE5EF;--line-2:#C3CCDB;--accent:#1A8CF0;--accent-ink:#0A63BD;--accent-soft:#E6F2FE;--on-accent:#FFFFFF;--mark:#FFE58A;--st-enacted:#0B7F5E;--st-pending:#9A6700;--st-auditor:#7A3FC4;--st-stalled:#5A6680;--st-failed:#B4471A;--st-executive:#0B7891;--st-litigation:#B23A70;--st-export:#56657A;--st-excluded:#7B8496;--k-fed:#0A63BD;--k-state:#7A3FC4;--k-exec:#0B7891;--k-lit:#B23A70;--k-ind:#5A6680;--shadow-1:0 1px 2px rgba(13,20,36,.06),0 1px 1px rgba(13,20,36,.04);--shadow-2:0 10px 30px -12px rgba(13,20,36,.18),0 2px 6px rgba(13,20,36,.05);--shadow-3:0 30px 80px -20px rgba(13,20,36,.38);--wash-a:rgba(26,140,240,.10);--wash-b:rgba(214,92,180,.08);--b-bg:#FBFCFE;--b-img:radial-gradient(70% 60% at 15% 0%,rgba(26,140,240,.07),transparent 60%),radial-gradient(60% 60% at 100% 100%,rgba(214,92,180,.05),transparent 60%),radial-gradient(rgba(13,20,36,.07) 1px,transparent 1px);--b-frame:var(--line);--b-ink:#0D1424;--b-ink-2:#36415A;--b-ink-3:#4F5A72;--b-line:rgba(13,20,36,.14);--b-line-strong:rgba(13,20,36,.32);--b-line-soft:rgba(13,20,36,.08);--b-fill:rgba(13,20,36,.03);--b-fill-2:rgba(13,20,36,.05);--b-field:#FFFFFF;--b-accent:#0A63BD;--b-solid:#FFFFFF;--b-card:#F6F8FC;--b-pop:rgba(255,255,255,.96);--b-cyan:#0B7891;--b-press:rgba(13,20,36,.07);--b-press-bd:rgba(13,20,36,.45);--b-rail:linear-gradient(180deg,rgba(11,120,145,.06),rgba(13,20,36,.015));color-scheme:light}
+[data-theme=dark]{--bg:#0A0F1C;--surface:#111827;--surface-2:#182134;--ink:#EEF2F8;--ink-2:#C6CEDC;--ink-3:#A3AEC2;--line:#243049;--line-2:#34415E;--accent:#3BA4F5;--accent-ink:#7CC4FF;--accent-soft:#12253F;--on-accent:#03121F;--mark:#5C4A0E;--st-enacted:#2FD69E;--st-pending:#FFC23D;--st-auditor:#C89BFF;--st-stalled:#A9B4C7;--st-failed:#FF9B5E;--st-executive:#4FD4F0;--st-litigation:#FF8CC0;--st-export:#A9B6C8;--st-excluded:#8792A6;--k-fed:#7CC4FF;--k-state:#C89BFF;--k-exec:#4FD4F0;--k-lit:#FF8CC0;--k-ind:#A9B4C7;--shadow-1:0 1px 2px rgba(0,0,0,.4);--shadow-2:0 10px 30px -12px rgba(0,0,0,.6);--shadow-3:0 30px 80px -20px rgba(0,0,0,.8);--wash-a:rgba(59,164,245,.10);--wash-b:rgba(200,155,255,.07);--b-bg:#070C18;--b-img:radial-gradient(70% 60% at 20% 0%,rgba(47,214,158,.10),transparent 60%),radial-gradient(60% 60% at 100% 100%,rgba(79,212,240,.08),transparent 60%),radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);--b-frame:transparent;--b-ink:#E9EEF7;--b-ink-2:#C6CEDC;--b-ink-3:#A9B4C7;--b-line:rgba(255,255,255,.14);--b-line-strong:rgba(255,255,255,.32);--b-line-soft:rgba(255,255,255,.08);--b-fill:rgba(255,255,255,.04);--b-fill-2:rgba(255,255,255,.06);--b-field:#0E1628;--b-accent:#7CC4FF;--b-solid:#070C18;--b-card:rgba(7,12,24,.5);--b-pop:rgba(7,12,24,.92);--b-cyan:#4FD4F0;--b-press:rgba(255,255,255,.12);--b-press-bd:rgba(255,255,255,.55);--b-rail:linear-gradient(180deg,rgba(79,212,240,.07),rgba(255,255,255,.02));color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#0A0F1C;--surface:#111827;--surface-2:#182134;--ink:#EEF2F8;--ink-2:#C6CEDC;--ink-3:#A3AEC2;--line:#243049;--line-2:#34415E;--accent:#3BA4F5;--accent-ink:#7CC4FF;--accent-soft:#12253F;--on-accent:#03121F;--mark:#5C4A0E;--st-enacted:#2FD69E;--st-pending:#FFC23D;--st-auditor:#C89BFF;--st-stalled:#A9B4C7;--st-failed:#FF9B5E;--st-executive:#4FD4F0;--st-litigation:#FF8CC0;--st-export:#A9B6C8;--st-excluded:#8792A6;--k-fed:#7CC4FF;--k-state:#C89BFF;--k-exec:#4FD4F0;--k-lit:#FF8CC0;--k-ind:#A9B4C7;--shadow-1:0 1px 2px rgba(0,0,0,.4);--shadow-2:0 10px 30px -12px rgba(0,0,0,.6);--shadow-3:0 30px 80px -20px rgba(0,0,0,.8);--wash-a:rgba(59,164,245,.10);--wash-b:rgba(200,155,255,.07);--b-bg:#070C18;--b-img:radial-gradient(70% 60% at 20% 0%,rgba(47,214,158,.10),transparent 60%),radial-gradient(60% 60% at 100% 100%,rgba(79,212,240,.08),transparent 60%),radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);--b-frame:transparent;--b-ink:#E9EEF7;--b-ink-2:#C6CEDC;--b-ink-3:#A9B4C7;--b-line:rgba(255,255,255,.14);--b-line-strong:rgba(255,255,255,.32);--b-line-soft:rgba(255,255,255,.08);--b-fill:rgba(255,255,255,.04);--b-fill-2:rgba(255,255,255,.06);--b-field:#0E1628;--b-accent:#7CC4FF;--b-solid:#070C18;--b-card:rgba(7,12,24,.5);--b-pop:rgba(7,12,24,.92);--b-cyan:#4FD4F0;--b-press:rgba(255,255,255,.12);--b-press-bd:rgba(255,255,255,.55);--b-rail:linear-gradient(180deg,rgba(79,212,240,.07),rgba(255,255,255,.02));color-scheme:dark}}
+:root{--ease-out:cubic-bezier(.2,.8,.2,1);--ease-io:cubic-bezier(.6,0,.2,1);--ease-spring:cubic-bezier(.34,1.4,.64,1);--dur-1:120ms;--dur-2:240ms;--dur-3:420ms;--dur-4:700ms}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Jakarta',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+*{box-sizing:border-box}
+a{color:var(--accent-ink);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+button{font-family:inherit}
+mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
+::selection{background:var(--accent-soft)}
+[tabindex="-1"]:focus{outline:none}
+@media (pointer:coarse),(max-width:759px){button:not([data-tile]),a[href]:not(p a),select,summary,input{min-height:44px!important}button[aria-label]:not([data-tile]),[data-sq]{min-width:44px!important}}
+@keyframes gxPulse{0%{opacity:.9;transform:scale(1)}70%{opacity:0;transform:scale(1.35)}100%{opacity:0;transform:scale(1.35)}}
+@keyframes gxShimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes gxIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes gxUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes gxFade{from{opacity:0}to{opacity:1}}
+@keyframes gxTile{0%{opacity:.12;transform:scale(.55)}55%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}@keyframes gxBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes gxOut{to{opacity:0;visibility:hidden}}@keyframes gxRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)">
+<a href="#main" onClick="{{skipToMain}}" style="position:fixed;left:12px;top:-80px;z-index:300;height:44px;padding:0 16px;border-radius:10px;background:var(--accent-ink);color:var(--on-accent);font-weight:700;font-size:15px;display:flex;align-items:center;text-decoration:none" style-focus="top:12px">Skip to content</a>
+
+<header style="position:sticky;top:0;z-index:40;background:color-mix(in oklab,var(--bg) 84%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)">
+  <div style="max-width:1280px;margin:0 auto;padding:0 clamp(16px,3vw,32px);height:64px;display:flex;align-items:center;gap:20px">
+    <a href="#/" aria-label="Frontier AI Law Tracker, home" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);min-height:44px;flex-shrink:0">
+      <span aria-hidden="true" style="width:32px;height:32px;border-radius:9px;background:#070C18;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:6px;box-shadow:0 0 0 1px rgba(255,255,255,.06) inset">
+        <span style="border-radius:2px;background:#2FD69E"></span><span style="border-radius:2px;background:#26324A"></span><span style="border-radius:2px;background:#FFC23D"></span>
+        <span style="border-radius:2px;background:#26324A"></span><span style="border-radius:2px;background:#2FD69E"></span><span style="border-radius:2px;background:#C89BFF"></span>
+        <span style="border-radius:2px;background:#2FD69E"></span><span style="border-radius:2px;background:#26324A"></span><span style="border-radius:2px;background:#26324A"></span>
+      </span>
+      <span style="display:flex;flex-direction:column;line-height:1.15">
+        <span style="font-weight:800;font-size:15px;letter-spacing:-.01em">Frontier AI Law</span>
+        <span style="font-size:12px;color:var(--ink-3);font-weight:600;letter-spacing:.02em">US tracker</span>
+      </span>
+    </a>
+    <sc-if value="{{showTopNav}}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Main" style="display:flex;gap:4px">
+        <sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+          <a href="{{n.href}}" aria-current="{{n.cur}}" style="display:flex;align-items:center;height:44px;padding:0 14px;border-radius:999px;text-decoration:none;font-weight:650;font-size:15px;white-space:nowrap;color:{{n.fg}};background:{{n.bg}};transition:background var(--dur-2) var(--ease-out)" style-hover="background:var(--surface-2);color:var(--ink)">{{n.l}}</a>
+        </sc-for>
+      </nav>
+    </sc-if>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+      <a href="#/explore" onClick="{{searchClick}}" aria-label="Search the tracker" style="width:44px;height:44px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none" style-hover="border-color:var(--line-2)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      </a>
+      <button onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" style="width:44px;height:44px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer" style-hover="border-color:var(--line-2)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<sc-if value="{{offline}}">
+  <div role="status" style="background:var(--surface-2);border-bottom:1px solid var(--line);padding:10px clamp(16px,3vw,32px);font-size:14px;font-weight:600;color:var(--ink-2);text-align:center">You’re offline. Showing the copy saved on this device, verified as of 5 Sep 2026.</div>
+</sc-if>
+
+<main id="main" tabIndex="-1" ref="{{mainRef}}" style="flex:1;outline:none;padding-bottom:{{mainPadBottom}}">
+
+<sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
+  <div aria-busy="true" aria-label="Loading the tracker" style="max-width:1280px;margin:0 auto;padding:48px clamp(16px,3vw,32px);display:flex;flex-direction:column;gap:16px">
+    <div style="height:14px;width:180px;border-radius:8px;background:linear-gradient(90deg,var(--surface-2) 0,var(--line) 50%,var(--surface-2) 100%);background-size:800px 100%;animation:gxShimmer 1.4s linear infinite"></div>
+    <div style="height:56px;width:min(760px,100%);border-radius:12px;background:linear-gradient(90deg,var(--surface-2) 0,var(--line) 50%,var(--surface-2) 100%);background-size:800px 100%;animation:gxShimmer 1.4s linear infinite"></div>
+    <div style="height:56px;width:min(560px,90%);border-radius:12px;background:linear-gradient(90deg,var(--surface-2) 0,var(--line) 50%,var(--surface-2) 100%);background-size:800px 100%;animation:gxShimmer 1.4s linear infinite"></div>
+    <div style="height:min(520px,70vw);border-radius:28px;background:#070C18;margin-top:16px;display:grid;place-items:center;color:#A9B4C7;font-weight:600;font-size:14px">Drawing the map…</div>
+  </div>
+</sc-if>
+
+<sc-if value="{{loadError}}">
+  <div role="alert" style="max-width:560px;margin:0 auto;padding:96px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px">
+    <div aria-hidden="true" style="font-size:40px;line-height:1">⚠︎</div>
+    <h1 style="margin:0;font-size:28px;letter-spacing:-.02em">We couldn’t load the tracker data</h1>
+    <p style="margin:0;color:var(--ink-2)">Nothing is wrong with the entries themselves. The connection dropped before they arrived.</p>
+    <button onClick="{{retry}}" style="height:48px;padding:0 22px;border-radius:999px;border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:700;font-size:16px;cursor:pointer">Try again</button>
+  </div>
+</sc-if>
+
+<sc-if value="{{isHome}}">
+<section aria-labelledby="story-h" style="position:relative;overflow:hidden">
+  <div aria-hidden="true" style="position:absolute;inset:-20% -10% auto -10%;height:120%;background:radial-gradient(60% 50% at 18% 20%,var(--wash-a),transparent 70%),radial-gradient(50% 50% at 85% 10%,var(--wash-b),transparent 70%);pointer-events:none"></div>
+  <div style="position:relative;max-width:1280px;margin:0 auto;padding:clamp(16px,5vw,64px) clamp(16px,3vw,32px) clamp(16px,3vw,40px);display:flex;flex-direction:column;gap:clamp(14px,2.6vw,32px)">
+    <div style="min-width:0">
+      <sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><p style="margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">US frontier AI legislation</p></sc-if>
+      <h1 id="story-h" aria-label="3 states have enacted frontier-AI laws. Congress has introduced 10 bills and passed none." style="margin:0;font-weight:800;font-size:clamp(26px,5.4vw,68px);line-height:1.06;letter-spacing:-.035em;text-wrap:balance;max-width:1120px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="3" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="10" style="color:var(--accent-ink)">{{h10}}</span> bills and passed none.</span></h1>
+      </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px clamp(24px,4vw,64px);align-items:flex-end">
+    <sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><p style="flex:1 1 420px;margin:0;font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--ink-2);text-wrap:pretty;font-variant-numeric:tabular-nums">{{t5}} state bills are pending and {{t11}} have stalled or failed. {{t6}} measures would license or study AI auditors. The tracker also follows {{t10b}} executive actions and {{t9}} lawsuits and enforcement items.</p></sc-if>
+    <form role="search" onSubmit="{{submitQ}}" style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:8px">
+      <label for="home-q" style="{{homeLabelStyle}}">Search 90 laws, bills and actions</label>
+      <div style="display:flex;align-items:center;gap:8px;height:{{searchH}};padding:0 4px 0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-2)" style-focus-within="border-color:var(--accent)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        <input id="home-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Try “kill switch”" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:17px;outline:none">
+        <button type="submit" aria-label="Search" data-sq="1" style="height:44px;min-width:44px;padding:{{searchBtnPad}};border-radius:999px;border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:750;font-size:16px;cursor:pointer;flex-shrink:0;display:grid;place-items:center" style-hover="filter:brightness(1.08)" style-active="transform:scale(.97)"><sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true">Search</span></sc-if><sc-if value="{{mob}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if></button>
+      </div>
+    </form>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="board-h" style="max-width:1280px;width:100%;margin:0 auto;padding:0 clamp(8px,2vw,32px)">
+  <div data-screen-label="Signal board" style="position:relative;overflow:hidden;contain:layout paint;background:var(--b-bg);background-image:var(--b-img);background-size:auto,auto,18px 18px;border:1px solid var(--b-frame);border-radius:clamp(20px,2.6vw,32px);color:var(--b-ink);padding:clamp(14px,2.6vw,32px);box-shadow:var(--shadow-3)">
+    <div style="display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+        <h2 id="board-h" style="margin:0;font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-.02em">The signal board</h2>
+        <p style="margin:0;font-size:13px;font-weight:600;color:var(--b-ink-3);display:flex;align-items:baseline;gap:8px"><span aria-hidden="true" style="width:8px;height:8px;flex-shrink:0;border-radius:50%;background:var(--st-enacted);box-shadow:0 0 10px var(--st-enacted);transform:translateY(-1px)"></span><span style="display:flex;flex-wrap:wrap;column-gap:6px"><span style="white-space:nowrap">Verified as of 5 Sep 2026</span><span style="white-space:nowrap">· updates through 29 Sep 2026</span></span></p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div role="group" aria-label="View as" style="display:flex;padding:3px;border-radius:999px;border:1px solid var(--b-line)">
+          <button onClick="{{setMap}}" aria-pressed="{{mapSel}}" style="height:{{segH}};padding:0 14px;border-radius:999px;border:0;background:{{mapTabBg}};color:var(--b-ink);font-weight:700;font-size:14px;cursor:pointer">Map</button>
+          <button onClick="{{setList}}" aria-pressed="{{listSel}}" style="height:{{segH}};padding:0 14px;border-radius:999px;border:0;background:{{listTabBg}};color:var(--b-ink);font-weight:700;font-size:14px;cursor:pointer">List</button>
+        </div>
+        <button onClick="{{toggleCmp}}" aria-pressed="{{cmpMode}}" style="height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--b-line-strong);background:{{cmpBtnBg}};color:{{cmpBtnFg}};font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px"><span aria-hidden="true">⇆</span>{{cmpLabel}}</button>
+      </div>
+    </div>
+
+    <sc-if value="{{filtersInline}}" hint-placeholder-val="{{ true }}"><div role="group" aria-label="Filter the map" style="margin-top:18px;display:flex;flex-wrap:wrap;gap:10px 8px;align-items:center">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <sc-for list="{{statusChips}}" as="c" hint-placeholder-count="7">
+        <button onClick="{{c.toggle}}" aria-pressed="{{c.pressed}}" style="height:36px;padding:0 12px;border-radius:999px;border:{{c.bd}};background:{{c.bg}};color:var(--b-ink);font-weight:650;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;transition:background var(--dur-2) var(--ease-out)" style-hover="border-color:var(--b-line-strong)"><span aria-hidden="true" style="color:{{c.c}};font-size:12px">{{c.g}}</span>{{c.l}}</button>
+      </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <label style="position:relative;display:flex"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Type</span>
+        <select value="{{fType}}" onChange="{{onType}}" style="height:36px;padding:0 10px;border-radius:999px;border:1px solid var(--b-line);background:var(--b-field);color:var(--b-ink);font:inherit;font-size:13.5px;font-weight:650;cursor:pointer">
+          <option value="">Any type</option><option value="law">Law</option><option value="bill">Bill</option><option value="auditor">Auditor licensing</option><option value="draft">Draft or proposal</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="precursor">Earlier proposal</option>
+        </select></label>
+      <label style="position:relative;display:flex"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Year</span>
+        <select value="{{fYear}}" onChange="{{onYear}}" style="height:36px;padding:0 10px;border-radius:999px;border:1px solid var(--b-line);background:var(--b-field);color:var(--b-ink);font:inherit;font-size:13.5px;font-weight:650;cursor:pointer">
+          <option value="">Any year</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027+">2027 and later</option>
+        </select></label>
+      <label style="position:relative;display:flex"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Confidence</span>
+        <select value="{{fConf}}" onChange="{{onConf}}" style="height:36px;padding:0 10px;border-radius:999px;border:1px solid var(--b-line);background:var(--b-field);color:var(--b-ink);font:inherit;font-size:13.5px;font-weight:650;cursor:pointer">
+          <option value="">Any confidence</option><option value="HIGH">High</option><option value="MED-HIGH">Med-high</option><option value="MED">Medium</option><option value="SEARCH-QUALIFIED">Search-qualified</option>
+        </select></label>
+      </div>
+      <sc-for list="{{boardChips}}" as="c">
+        <button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:36px;padding:0 8px 0 12px;border-radius:999px;border:1px solid var(--b-press-bd);background:var(--b-press);color:var(--b-ink);font-weight:650;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:6px">{{c.l}}<span aria-hidden="true" style="width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--b-line);font-size:12px">✕</span></button>
+      </sc-for>
+      <sc-if value="{{hasBoardChips}}"><button onClick="{{clearBoard}}" style="height:36px;padding:0 10px;border:0;background:transparent;color:var(--b-accent);font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Clear all</button></sc-if>
+    </div></sc-if>
+    <sc-if value="{{mob}}">
+      <div style="margin-top:12px;display:flex;align-items:center;gap:10px;min-width:0">
+        <button onClick="{{openFilters}}" aria-haspopup="dialog" aria-label="{{filtersAria}}" style="flex-shrink:0;height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--b-line-strong);background:{{filtersBg}};color:var(--b-ink);font-weight:750;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>Filters<sc-if value="{{hasFilterN}}"><span aria-hidden="true" style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--b-accent);color:var(--b-solid);font-size:12px;font-weight:800;display:grid;place-items:center">{{filterN}}</span></sc-if></button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{cmpMode}}">
+      <div role="status" style="margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:var(--accent-soft);border:1px solid var(--accent)">
+        <span style="font-weight:700;font-size:14px">Tap 2 or 3 states to compare.</span>
+        <sc-for list="{{cmpStates}}" as="c"><button onClick="{{c.rm}}" aria-label="Remove {{c.nm}}" style="height:36px;padding:0 8px 0 12px;border-radius:999px;border:1px solid var(--b-press-bd);background:var(--b-line-soft);color:var(--b-ink);font-weight:650;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:6px">{{c.nm}}<span aria-hidden="true">✕</span></button></sc-for>
+        <sc-if value="{{cmpReady}}"><button onClick="{{goCmp}}" style="margin-left:auto;height:44px;padding:0 18px;border-radius:999px;border:0;background:var(--b-ink);color:var(--b-solid);font-weight:800;font-size:15px;cursor:pointer">Compare {{cmpN}} states →</button></sc-if>
+      </div>
+    </sc-if>
+
+    <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,32px);align-items:stretch">
+      <div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:12px">
+        <sc-if value="{{mapGrid}}" hint-placeholder-val="{{ true }}">
+          <p id="map-help" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">US states as a tile map. Use arrow keys to move between states and Enter to open a state’s laws.</p>
+          <div role="group" aria-label="Map of US states by strongest frontier-AI status" aria-describedby="map-help" aria-hidden="{{mapHidden}}" style="position:relative;display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:clamp(3px,.6vw,7px)">
+            <sc-for list="{{tiles}}" as="t" hint-placeholder-count="51">
+              <button data-tile="{{t.code}}" aria-label="{{t.aria}}" aria-pressed="{{t.pressed}}" tabIndex="{{t.ti}}" onClick="{{t.onClick}}" onKeyDown="{{t.onKey}}" onFocus="{{t.onEnter}}" onMouseEnter="{{t.onEnter}}" style="grid-row:{{t.r}};grid-column:{{t.c}};pointer-events:{{t.pe}};position:relative;aspect-ratio:1;min-width:0;padding:0;margin:0;border-radius:clamp(5px,.9vw,12px);background:{{t.bg}};border:{{t.bd}};color:{{t.fg}};box-shadow:{{t.sh}};text-shadow:{{t.ts}};font:inherit;font-weight:800;font-size:clamp(12px,1.3vw,16px);letter-spacing:.02em;cursor:pointer;display:grid;place-items:center;transition:background var(--dur-4) var(--ease-out),border-color var(--dur-4) var(--ease-out),box-shadow var(--dur-4) var(--ease-out),color var(--dur-4),transform var(--dur-1) var(--ease-out)" style-hover="transform:translateY(-2px)" style-active="transform:scale(.95)">
+                <span>{{t.code}}</span>
+                <span data-tg="1" aria-hidden="true" style="position:absolute;top:4px;left:6px;font-size:12px;line-height:1;color:{{t.gc}}">{{t.gTxt}}</span>
+                <span data-tn="1" aria-hidden="true" style="position:absolute;bottom:4px;right:6px;font-size:12px;line-height:1;font-weight:800;font-variant-numeric:tabular-nums;color:{{t.gc}}">{{t.nTxt}}</span>
+                <sc-if value="{{t.pulse}}"><span aria-hidden="true" style="position:absolute;inset:-5px;border-radius:inherit;border:2px solid var(--b-accent);animation:gxPulse 2.6s var(--ease-out) infinite;pointer-events:none"></span></sc-if>
+              </button>
+            </sc-for>
+            <sc-if value="{{noResults}}">
+              <div role="status" style="position:absolute;inset:0;display:grid;place-items:center;pointer-events:none">
+                <div style="pointer-events:auto;max-width:340px;text-align:center;padding:20px 22px;border-radius:20px;background:var(--b-pop);border:1px solid var(--b-line);display:flex;flex-direction:column;gap:10px;align-items:center">
+                  <strong style="font-size:17px">No instruments match these filters</strong>
+                  <span style="font-size:14px;color:var(--b-ink-3)">Every state reads as “none” right now. Remove a filter to bring the map back.</span>
+                  <button onClick="{{clearBoard}}" style="height:44px;padding:0 18px;border-radius:999px;border:0;background:var(--b-ink);color:var(--b-solid);font-weight:800;font-size:14px;cursor:pointer">Clear filters</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+          <sc-if value="{{hoverStrip}}" hint-placeholder-val="{{ true }}"><div style="min-height:48px;display:flex;align-items:center;gap:12px;padding:8px 14px;border-radius:14px;background:var(--b-fill);border:1px solid var(--b-line-soft);font-size:14px">
+            <sc-if value="{{hasHover}}"><span aria-hidden="true" style="color:{{hoverC}};font-size:14px">{{hoverG}}</span><strong style="font-size:15px">{{hoverName}}</strong><span style="color:var(--b-ink-2)">{{hoverCat}} · {{hoverN}}</span><span style="color:var(--b-accent);font-weight:650">{{hoverPulse}}</span></sc-if>
+            <sc-if value="{{noHover}}"><span style="color:var(--b-ink-2)">Point at or tab to a state for a preview. Open it to see every instrument. Pulsing outlines mark new activity this week.</span></sc-if>
+          </div></sc-if>
+          <sc-if value="{{mob}}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:13px;font-weight:700;color:var(--b-ink-2)">Tap a state to see its laws</span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:8px">
+                <sc-for list="{{activeStates}}" as="a"><button onClick="{{a.open}}" aria-label="{{a.nm}}: {{a.l}}" style="height:44px;padding:0 10px;justify-content:center;border-radius:999px;border:1px solid var(--b-line);background:var(--b-fill);color:var(--b-ink);font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;cursor:pointer"><span aria-hidden="true" style="color:{{a.c}}">{{a.g}}</span>{{a.code}}</button></sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </sc-if>
+        <sc-if value="{{mapList}}">
+          <ul aria-label="States with tracked activity" style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
+            <sc-for list="{{activeStates}}" as="a">
+              <li><button onClick="{{a.open}}" style="width:100%;min-height:52px;display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;border:1px solid var(--b-line-soft);background:var(--b-fill);color:var(--b-ink);font:inherit;text-align:left;cursor:pointer" style-hover="background:var(--b-line-soft)">
+                <span aria-hidden="true" style="width:28px;text-align:center;color:{{a.c}};font-size:16px">{{a.g}}</span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column"><strong style="font-size:15px">{{a.nm}}</strong><span style="font-size:13px;color:var(--b-ink-2)">{{a.l}}</span></span>
+                <span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:15px">{{a.n}}</span><span aria-hidden="true" style="color:var(--b-ink-3)">›</span>
+              </button></li>
+            </sc-for>
+          </ul>
+        </sc-if>
+      </div>
+
+      <aside aria-labelledby="fed-h" style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:8px;padding:clamp(14px,1.6vw,20px);border-radius:22px;background:var(--b-rail);border:1px solid var(--b-line-soft)">
+        <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:4px">
+          <span style="font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--b-cyan)">Federal layer</span>
+          <h3 id="fed-h" style="margin:0;font-size:18px;font-weight:800;letter-spacing:-.01em">Washington: Congress, White House, courts</h3>
+          <span style="font-size:13px;color:var(--b-ink-3)">One square per instrument. Lit squares match your filters.</span>
+        </div>
+        <sc-for list="{{fedGroups}}" as="g" hint-placeholder-count="7">
+          <button onClick="{{g.onClick}}" aria-label="{{g.aria}}" style="display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:14px;border:{{g.sel}};background:var(--b-card);color:var(--b-ink);font:inherit;text-align:left;cursor:pointer;min-height:44px;transition:background var(--dur-2)" style-hover="background:var(--b-fill-2)">
+            <span style="display:flex;align-items:baseline;gap:8px;width:100%"><strong style="font-size:14.5px;flex:1;min-width:0">{{g.l}}</strong><span data-fn="{{g.k}}" style="font-variant-numeric:tabular-nums;font-weight:800;font-size:15px">{{g.n}}</span><span aria-hidden="true" style="color:var(--b-ink-3)">›</span></span>
+            <span aria-hidden="true" style="display:flex;flex-wrap:wrap;gap:4px"><sc-for list="{{g.sq}}" as="q"><span data-fq="{{q.id}}" style="width:14px;height:14px;border-radius:4px;background:{{q.bg}};box-shadow:{{q.sh}};transition:background var(--dur-4) var(--ease-out)"></span></sc-for></span>
+            <span style="font-size:12.5px;color:var(--b-ink-3)">{{g.sub}}</span>
+          </button>
+        </sc-for>
+      </aside>
+    </div>
+
+    <sc-if value="{{showLegend}}"><ul aria-label="Map legend" style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 18px">
+      <sc-for list="{{legend}}" as="l" hint-placeholder-count="6">
+        <li style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--b-ink-2)"><span aria-hidden="true" style="width:22px;height:22px;border-radius:6px;background:{{l.bg}};border:{{l.bd}};color:{{l.gc}};display:grid;place-items:center;font-size:11px">{{l.g}}</span>{{l.l}}<span data-ln="{{l.k}}" style="font-variant-numeric:tabular-nums;color:var(--b-ink-3);font-weight:700">{{l.n}}</span></li>
+      </sc-for>
+    </ul></sc-if>
+    <div style="margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding:12px 14px;border-radius:18px;background:var(--b-fill);border:1px solid var(--b-line-soft)">
+      <button onClick="{{togglePlay}}" aria-label="{{playLabel}}" style="width:48px;height:48px;border-radius:50%;border:0;background:var(--b-ink);color:var(--b-solid);font-size:15px;font-weight:900;cursor:pointer;flex-shrink:0;display:grid;place-items:center" style-active="transform:scale(.94)">{{playIcon}}</button>
+      <div style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:4px">
+        <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><strong data-rd="1" style="font-variant-numeric:tabular-nums;font-size:15px;min-width:72px"></strong><span data-rc="1" style="font-size:14px;color:var(--b-ink-2);text-wrap:pretty"></span></div>
+        <sc-if value="{{replayIsNow}}"><span style="font-size:13px;color:var(--b-ink-3);font-weight:600">Replay: how we got here, 2023 → now</span></sc-if>
+        <sc-if value="{{replayActive}}"><button onClick="{{showNow}}" style="align-self:flex-start;height:44px;padding:0 4px;border:0;background:transparent;color:var(--b-accent);font-weight:700;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Jump to now</button></sc-if>
+      </div>
+      <div role="group" aria-label="Move through time" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px">
+        <button onClick="{{onPrev}}" disabled="{{prevOff}}" aria-label="{{prevAria}}" style="height:44px;min-width:44px;padding:0 14px;border-radius:999px;border:1px solid var(--b-line-strong);background:transparent;color:var(--b-ink);font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;opacity:{{prevOp}}"><span aria-hidden="true">◀</span><span>Previous</span></button>
+        <button onClick="{{onNext}}" disabled="{{nextOff}}" aria-label="{{nextAria}}" style="height:44px;min-width:44px;padding:0 14px;border-radius:999px;border:1px solid var(--b-line-strong);background:transparent;color:var(--b-ink);font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;opacity:{{nextOp}}"><span>Next</span><span aria-hidden="true">▶</span></button>
+        <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--b-ink-3)">Step
+          <select value="{{stepKind}}" onChange="{{onStep}}" aria-label="Step size for Previous and Next" style="height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--b-line-strong);background:var(--b-fill);color:var(--b-ink);font:inherit;font-weight:700;font-size:14px;cursor:pointer">
+            <option value="event">1 event</option><option value="m1">1 month</option><option value="m3">3 months</option><option value="m6">6 months</option><option value="y1">1 year</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section aria-labelledby="ask-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(16px,3vw,32px) 0">
+  <h2 id="ask-h" style="margin:0 0 18px;font-size:clamp(22px,2.4vw,30px);font-weight:800;letter-spacing:-.02em">Start with a question</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+    <a href="#/explore?type=law&amp;level=state" style="display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-decoration:none;color:var(--ink);min-height:132px;transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-2);color:var(--ink)"><span aria-hidden="true" style="font-size:18px;color:var(--st-enacted)">●</span><strong style="font-size:18px;letter-spacing:-.01em">What applies to my company?</strong><span style="font-size:14.5px;color:var(--ink-2)">Enacted laws and exactly who they cover: compute and revenue thresholds.</span></a>
+    <a href="#/compare?ids=1,2,3" style="display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-decoration:none;color:var(--ink);min-height:132px;transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-2);color:var(--ink)"><span aria-hidden="true" style="font-size:18px;color:var(--accent-ink)">⇆</span><strong style="font-size:18px;letter-spacing:-.01em">Compare two laws</strong><span style="font-size:14.5px;color:var(--ink-2)">California, New York and Illinois side by side, differences first.</span></a>
+    <a href="#/explore?view=timeline&amp;when=upcoming" style="display:flex;flex-direction:column;gap:8px;padding:20px;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-decoration:none;color:var(--ink);min-height:132px;transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-2);color:var(--ink)"><span aria-hidden="true" style="font-size:18px;color:var(--st-pending)">◐</span><strong style="font-size:18px;letter-spacing:-.01em">What’s coming up?</strong><span style="font-size:14.5px;color:var(--ink-2)">Effective dates and deadlines scheduled after 29 Sep 2026.</span></a>
+  </div>
+</section>
+
+<section aria-labelledby="week-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(16px,3vw,32px) clamp(48px,6vw,88px)">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+    <h2 id="week-h" style="margin:0;font-size:clamp(22px,2.4vw,30px);font-weight:800;letter-spacing:-.02em">This week</h2>
+    <a href="#/updates" style="font-weight:700;font-size:15px;min-height:44px;display:flex;align-items:center">All September updates →</a>
+  </div>
+  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:0 32px">
+    <sc-for list="{{week}}" as="n" hint-placeholder-count="6">
+      <li style="display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line)">
+        <span aria-hidden="true" style="width:28px;height:28px;flex-shrink:0;border-radius:8px;background:var(--surface-2);display:grid;place-items:center;color:{{n.kc}};font-size:13px">{{n.kg}}</span>
+        <div style="min-width:0;display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:13px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums">{{n.date}} · {{n.kl}}</span>
+          <strong style="font-size:16px;line-height:1.35;text-wrap:pretty">{{n.title}}</strong>
+          <sc-if value="{{n.hasEntry}}"><a href="{{n.entryHref}}" aria-label="Tracker entry: {{n.entryShort}}" style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;max-width:100%;padding:4px 14px 4px 12px;border-radius:14px;border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:700;line-height:1.3" style-hover="border-color:var(--accent);background:var(--accent-soft)"><span aria-hidden="true" style="flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">Entry</span><span style="min-width:0;overflow-wrap:anywhere">{{n.entryShort}}</span><span aria-hidden="true" style="flex-shrink:0;color:var(--accent-ink)">→</span></a></sc-if>
+        </div>
+      </li>
+    </sc-for>
+  </ol>
+</section>
+</sc-if>
+
+<sc-if value="{{isExplore}}">
+<div data-screen-label="Explore" style="max-width:1080px;width:100%;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,3vw,32px) 64px">
+  <h1 style="margin:0;font-size:clamp(32px,4.4vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1.05">Explore</h1>
+  <p style="margin:8px 0 22px;font-size:17px;color:var(--ink-2);max-width:640px">Every law, bill, executive action and lawsuit in the tracker. Results update as you type.</p>
+  <form role="search" onSubmit="{{submitQ}}" style="display:flex;align-items:center;gap:10px;height:60px;padding:0 18px;border-radius:999px;background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-2)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+    <label for="ex-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search the tracker</label>
+    <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Bill, state or idea" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:17px;outline:none">
+  </form>
+  <div role="group" aria-label="Filters" style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px">
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:700;color:var(--ink-3)">Level<select value="{{fLevel}}" onChange="{{onLevel}}" style="height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px;font-weight:600"><option value="">Federal and state</option><option value="federal">Federal</option><option value="state">State</option></select></label>
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:700;color:var(--ink-3)">Status<select value="{{fStatus}}" onChange="{{onStatus}}" style="height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px;font-weight:600"><option value="">Any status</option><option value="enacted">Enacted</option><option value="pending">Pending</option><option value="stalled">Stalled</option><option value="failed">Failed</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="excluded">Excluded</option></select></label>
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:700;color:var(--ink-3)">State<select value="{{fSt}}" onChange="{{onSt}}" style="height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px;font-weight:600"><option value="">Any state</option><option value="CA">California</option><option value="CT">Connecticut</option><option value="FL">Florida</option><option value="IL">Illinois</option><option value="LA">Louisiana</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="NJ">New Jersey</option><option value="NY">New York</option><option value="OH">Ohio</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="TN">Tennessee</option><option value="UT">Utah</option><option value="VA">Virginia</option></select></label>
+  </div>
+  <details open="{{moreOpen}}" style="margin-top:6px"><summary style="cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;font-size:14px;color:var(--accent-ink)">More filters</summary>
+  <div style="margin-top:6px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px">
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:700;color:var(--ink-3)">Type<select value="{{fType}}" onChange="{{onType}}" style="height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px;font-weight:600"><option value="">Any type</option><option value="law">Law</option><option value="bill">Bill</option><option value="auditor">Auditor licensing</option><option value="draft">Draft or proposal</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="precursor">Earlier proposal</option><option value="excluded">Excluded</option></select></label>
+    <label style="display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:700;color:var(--ink-3)">Confidence<select value="{{fConf}}" onChange="{{onConf}}" style="height:44px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:15px;font-weight:600"><option value="">Any confidence</option><option value="HIGH">High</option><option value="MED-HIGH">Med-high</option><option value="MED">Medium</option><option value="SEARCH-QUALIFIED">Search-qualified</option></select></label>
+  </div></details>
+  <sc-if value="{{hasChips}}">
+    <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <sc-for list="{{chips}}" as="c"><button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:36px;padding:0 8px 0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);font-weight:650;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap">{{c.l}}<span aria-hidden="true" style="width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--line);font-size:11px">✕</span></button></sc-for>
+      <button onClick="{{clearAll}}" style="height:36px;padding:0 8px;border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Clear all</button>
+    </div>
+  </sc-if>
+  <div role="tablist" aria-label="View" style="margin:22px 0 18px;display:flex;width:100%;max-width:460px;padding:4px;border-radius:999px;background:var(--surface-2);gap:2px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{t.sel}}" onClick="{{t.go}}" style="flex:1 1 0;min-width:0;height:44px;padding:0 6px;justify-content:center;white-space:nowrap;border-radius:999px;border:0;background:{{t.bg}};color:{{t.fg}};font-weight:700;font-size:clamp(13px,3.8vw,14.5px);cursor:pointer;display:flex;align-items:center;gap:6px;transition:background var(--dur-2) var(--ease-out)">{{t.l}}<span style="font-variant-numeric:tabular-nums;opacity:.75">{{t.n}}</span></button></sc-for>
+  </div>
+
+  <sc-if value="{{vResults}}">
+    <p aria-live="polite" style="margin:0 0 10px;font-size:14px;font-weight:600;color:var(--ink-3)">{{resultCount}}</p>
+    <sc-if value="{{noResults}}">
+      <div role="status" style="padding:40px 24px;border-radius:24px;border:1px dashed var(--line-2);text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center">
+        <strong style="font-size:20px;letter-spacing:-.01em">Nothing in the tracker matches that</strong>
+        <span style="color:var(--ink-2);max-width:460px">Try a broader word, remove a filter, or start from one of these.</span>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px"><sc-for list="{{suggest}}" as="g"><button onClick="{{g.go}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:650;font-size:14px;cursor:pointer">{{g.t}}</button></sc-for></div>
+        <button onClick="{{clearAll}}" style="margin-top:6px;height:44px;padding:0 18px;border-radius:999px;border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:750;font-size:15px;cursor:pointer">Clear search and filters</button>
+      </div>
+    </sc-if>
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{results}}" as="x" hint-placeholder-count="6">
+        <li style="display:flex;flex-direction:column;gap:8px;padding:16px 18px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);animation:gxRise var(--dur-3) var(--ease-out)">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+            <span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:999px;background:var(--surface-2);font-size:12.5px;font-weight:700"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span>{{x.sl}}</span>
+            <button onClick="{{x.onConf}}" aria-label="Confidence: {{x.cl}}. What does this mean?" title="{{x.cd}}" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:999px;background:var(--surface-2);border:0;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer"><span aria-hidden="true" style="display:flex;align-items:flex-end;gap:2px;height:14px"><sc-for list="{{x.cb}}" as="b"><span style="width:3px;height:{{b.h}};border-radius:1px;background:{{b.c}}"></span></sc-for></span>{{x.cl}}</button>
+            <span style="font-size:13px;font-weight:650;color:var(--ink-3)">{{x.juris}} · {{x.tl}}</span>
+            <sc-if value="{{x.upd}}"><span style="font-size:12px;font-weight:800;color:var(--accent-ink)">Updated Sept 2026</span></sc-if>
+          </div>
+          <a href="{{x.href}}" style="font-size:18px;font-weight:750;line-height:1.35;color:var(--ink);text-decoration:none;text-wrap:pretty;overflow-wrap:anywhere" style-hover="text-decoration:underline"><sc-for list="{{x.titleSegs}}" as="g"><sc-if value="{{g.m}}"><mark>{{g.t}}</mark></sc-if><sc-if value="{{g.n}}"><span>{{g.t}}</span></sc-if></sc-for></a>
+          <p style="margin:0;font-size:15px;color:var(--ink-2);text-wrap:pretty"><sc-for list="{{x.leadSegs}}" as="g"><sc-if value="{{g.m}}"><mark>{{g.t}}</mark></sc-if><sc-if value="{{g.n}}"><span>{{g.t}}</span></sc-if></sc-for></p>
+          <sc-if value="{{x.hasTh}}"><p style="margin:0;font-size:14px;padding:10px 12px;border-radius:12px;background:var(--surface-2);color:var(--ink)"><strong>Who it covers: </strong>{{x.th}}</p></sc-if>
+          <span style="font-size:13px;font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums">{{x.kd}}<sc-if value="{{x.isDraft}}"><span> · Summary is draft copy for author review</span></sc-if><sc-if value="{{x.isSnip}}"><span> · Match in “what it does”</span></sc-if></span>
+        </li>
+      </sc-for>
+    </ol>
+    <sc-if value="{{hasMore}}"><button onClick="{{showMore}}" style="margin-top:14px;width:100%;height:52px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:750;font-size:15px;cursor:pointer">Show {{moreN}} more</button></sc-if>
+  </sc-if>
+
+  <sc-if value="{{vTimeline}}">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <p style="margin:0;font-size:15px;color:var(--ink-2);max-width:560px"><strong style="color:var(--ink)">Every dated step, newest first.</strong> Use it to see the pace of change and what is scheduled next. {{tlCount}}.</p>
+      <button onClick="{{toggleUp}}" aria-pressed="{{upOn}}" style="height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:{{upBg}};color:{{upFg}};font-weight:700;font-size:14px;cursor:pointer">◐ Only what’s coming up</button>
+    </div>
+    <sc-if value="{{tlEmpty}}"><div role="status" style="padding:32px;border-radius:20px;border:1px dashed var(--line-2);text-align:center;color:var(--ink-2)">No dated events match these filters.</div></sc-if>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <sc-for list="{{tlGroups}}" as="g" hint-placeholder-count="3">
+        <section style="display:flex;flex-direction:column;gap:6px">
+          <h2 style="position:sticky;top:72px;z-index:2;margin:0;padding:6px 0;background:var(--bg);font-size:15px;font-weight:800;letter-spacing:.02em;display:flex;gap:10px;align-items:center">{{g.label}}<sc-if value="{{g.sched}}"><span style="font-size:12px;font-weight:800;padding:2px 8px;border-radius:999px;border:1px dashed var(--st-pending);color:var(--ink)">{{g.schedTag}}</span></sc-if></h2>
+          <ol style="list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line);display:flex;flex-direction:column">
+            <sc-for list="{{g.items}}" as="e">
+              <li style="position:relative;padding:8px 0 8px 18px">
+                <span aria-hidden="true" style="position:absolute;left:-26px;top:16px;width:12px;height:12px;border-radius:50%;background:{{e.dot}};border:{{e.dotBd}}"></span>
+                <a href="{{e.href}}" style="display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:14px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);min-height:44px" style-hover="border-color:var(--line-2);color:var(--ink)">
+                  <span style="font-size:13px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums">{{e.date}} · <span style="color:{{e.sc}}" aria-hidden="true">{{e.sg}}</span> {{e.sl}}</span>
+                  <strong style="font-size:15.5px">{{e.short}}</strong>
+                  <span style="font-size:14px;color:var(--ink-2);text-wrap:pretty">{{e.t}}</span>
+                </a>
+              </li>
+            </sc-for>
+          </ol>
+        </section>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{vConn}}">
+    <p style="margin:0 0 14px;font-size:15px;color:var(--ink-2);max-width:640px"><strong style="color:var(--ink)">How laws borrow from, replace, challenge and verify each other.</strong> Pick a starting point, then tap any link to explore it. Every link quotes the tracker.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:14px;cursor:pointer">{{h.l}}</button></sc-for></div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+      <div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
+        <div style="aspect-ratio:1;width:100%">{{cGraph}}</div>
+        <p style="margin:10px 0 0;text-align:center;font-size:13px;color:var(--ink-3)">Filled dots are tracker entries, hollow dots are people and groups. Dashed lines are links the tracker itself treats as unproven.</p>
+      </div>
+      <div style="flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">Starting from</span><h2 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-.02em">{{cName}}</h2><sc-if value="{{cIsEntry}}"><a href="{{cHref}}" style="font-weight:700;font-size:14.5px;min-height:36px;display:inline-flex;align-items:center">Open this entry →</a></sc-if></div>
+        <sc-if value="{{cEmpty}}"><p style="margin:0;color:var(--ink-2)">No recorded relationships for this item.</p></sc-if>
+        <sc-for list="{{cTypes}}" as="g">
+          <section style="display:flex;flex-direction:column;gap:8px">
+            <h3 style="margin:0;font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:18px;height:3px;border-radius:2px;background:{{g.c}}"></span>{{g.name}}</h3>
+            <sc-for list="{{g.items}}" as="i">
+              <div style="padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><span aria-hidden="true" style="color:var(--ink-3);font-weight:800">{{i.dir}}</span><strong style="font-size:15.5px">{{i.name}}</strong><sc-if value="{{i.dashed}}"><span style="font-size:12px;font-weight:700;color:var(--ink-3);border:1px dashed var(--line-2);padding:1px 6px;border-radius:6px">Unproven</span></sc-if></div>
+                <span style="font-size:14.5px;color:var(--ink-2)">{{i.label}}</span>
+                <blockquote style="margin:0;padding-left:10px;border-left:2px solid var(--line-2);font-size:13.5px;color:var(--ink-3);font-style:italic">“{{i.quote}}”</blockquote>
+                <div style="display:flex;gap:14px;flex-wrap:wrap"><button onClick="{{i.recenter}}" style="height:36px;padding:0;border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:14px;cursor:pointer">Explore from here →</button><sc-if value="{{i.isEntry}}"><a href="{{i.href}}" style="font-weight:700;font-size:14px;min-height:36px;display:inline-flex;align-items:center">Open entry</a></sc-if></div>
+              </div>
+            </sc-for>
+          </section>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{isBill}}">
+<article data-screen-label="Bill page" style="max-width:1180px;width:100%;margin:0 auto;padding:clamp(20px,4vw,44px) clamp(16px,3vw,32px) 72px">
+  <nav aria-label="Breadcrumb" style="font-size:14px;font-weight:650;display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--ink-3)"><a href="#/explore" style="min-height:36px;display:inline-flex;align-items:center">Explore</a><span aria-hidden="true">›</span><a href="{{bSecHref}}" style="min-height:36px;display:inline-flex;align-items:center">{{bSec}}</a></nav>
+  <header style="margin-top:10px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:14px;font-weight:750"><span aria-hidden="true" style="color:{{bSc}}">{{bSg}}</span>{{bSl}}</span>
+      <button onClick="{{openConf}}" aria-label="Confidence: {{bCl}}. What does this mean?" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:inherit;font-size:14px;font-weight:750;color:var(--ink);cursor:pointer"><span aria-hidden="true" style="display:flex;align-items:flex-end;gap:2px;height:16px"><sc-for list="{{bCb}}" as="b"><span style="width:3px;height:{{b.h}};border-radius:1px;background:{{b.c}}"></span></sc-for></span>Confidence: {{bCl}}<span aria-hidden="true" style="color:var(--ink-3)">ⓘ</span></button>
+      <span style="font-size:14px;font-weight:650;color:var(--ink-3)">{{bJuris}} · {{bType}}</span>
+    </div>
+    <h1 style="margin:0;font-size:clamp(28px,4.2vw,50px);line-height:1.08;font-weight:800;letter-spacing:-.03em;text-wrap:balance;overflow-wrap:anywhere;max-width:960px">{{bShort}}</h1>
+    <p style="margin:0;font-size:15px;color:var(--ink-3);max-width:860px;overflow-wrap:anywhere">{{bTitle}}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <sc-if value="{{showFollow}}"><button onClick="{{toggleFollowB}}" aria-pressed="{{following}}" style="height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:{{followBg}};color:{{followFg}};font-weight:750;font-size:15px;cursor:pointer">{{followLabel}}</button></sc-if>
+      <button onClick="{{share}}" style="height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:750;font-size:15px;cursor:pointer">Copy link</button>
+      <a href="{{cmpHref}}" style="height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:750;font-size:15px;display:inline-flex;align-items:center;text-decoration:none">⇆ Compare</a>
+    </div>
+  </header>
+
+  <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+    <div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:28px">
+      <sc-if value="{{hasSummary}}">
+      <section aria-labelledby="b-sum" style="padding:22px;border-radius:22px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1)">
+        <h2 id="b-sum" style="margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">In plain English</h2>
+        <sc-if value="{{hasSummary}}"><p style="margin:0;font-size:clamp(18px,1.9vw,22px);line-height:1.45;font-weight:550;text-wrap:pretty">{{bSummary}}</p><p style="margin:12px 0 0;display:inline-flex;font-size:12.5px;font-weight:750;padding:4px 10px;border-radius:999px;border:1px dashed var(--line-2);color:var(--ink-2)">Draft copy for author review · derived only from the tracker’s text</p></sc-if>
+      </section>
+      </sc-if>
+
+      <section aria-labelledby="b-steps">
+        <h2 id="b-steps" style="margin:0 0 12px;font-size:20px;font-weight:800;letter-spacing:-.01em">Where it stands</h2>
+        <sc-if value="{{noSteps}}"><p style="margin:0;color:var(--ink-2)">No dated events are recorded for this entry.</p></sc-if>
+        <ol style="list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line);display:flex;flex-direction:column">
+          <sc-for list="{{steps}}" as="s">
+            <li style="position:relative;padding:6px 0 14px 18px">
+              <span aria-hidden="true" style="position:absolute;left:-27px;top:10px;width:14px;height:14px;border-radius:50%;background:{{s.dot}};border:{{s.bd}}"></span>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><strong style="font-size:15px;font-variant-numeric:tabular-nums">{{s.date}}</strong><sc-if value="{{s.fut}}"><span style="font-size:12px;font-weight:800;padding:1px 8px;border-radius:999px;border:1px dashed var(--st-pending)">{{s.tag}}</span></sc-if></div>
+              <p style="margin:2px 0 0;font-size:15px;color:var(--ink-2);text-wrap:pretty">{{s.t}}</p>
+            </li>
+          </sc-for>
+        </ol>
+        <sc-if value="{{hasNotes}}"><ul style="margin:6px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{notes}}" as="n"><li style="font-size:14.5px;color:var(--ink-2);padding:10px 12px;border-radius:12px;background:var(--surface-2)">{{n.t}}</li></sc-for></ul></sc-if>
+      </section>
+
+      <section aria-labelledby="b-mech">
+        <sc-if value="{{noSummary}}">
+          <h2 id="b-mech" style="margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">What it does</h2>
+          <div style="padding:22px;border-radius:22px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1)"><p style="margin:0;font-size:17px;line-height:1.6;text-wrap:pretty;overflow-wrap:anywhere">{{bMech}}</p><p style="margin:12px 0 0;font-size:13px;font-weight:650;color:var(--ink-3)">The tracker’s own wording.</p></div>
+        </sc-if>
+        <sc-if value="{{hasSummary}}">
+          <h2 id="b-mech2" style="margin:0 0 10px;font-size:20px;font-weight:800;letter-spacing:-.01em">What it does, in legal detail</h2>
+          <details style="border-radius:18px;border:1px solid var(--line);background:var(--surface)">
+            <summary style="cursor:pointer;padding:14px 18px;font-weight:700;font-size:15px;min-height:44px">Show the tracker’s full description</summary>
+            <p style="margin:0;padding:0 18px 18px;font-size:15px;line-height:1.65;color:var(--ink-2);text-wrap:pretty;overflow-wrap:anywhere">{{bMech}}</p>
+          </details>
+        </sc-if>
+      </section>
+
+      <sc-if value="{{hasNews}}">
+        <section aria-labelledby="b-news">
+          <h2 id="b-news" style="margin:0 0 10px;font-size:20px;font-weight:800;letter-spacing:-.01em">In the news this month</h2>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{bNews}}" as="n"><li style="padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:4px"><span style="font-size:13px;font-weight:700;color:var(--ink-3)"><span aria-hidden="true" style="color:{{n.kc}}">{{n.kg}}</span> {{n.date}} · {{n.kl}}</span><strong style="font-size:15.5px">{{n.title}}</strong><span style="font-size:14px;color:var(--ink-2)">{{n.check}}</span></li></sc-for>
+          </ul>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{hasRel}}">
+        <section aria-labelledby="b-rel">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px"><h2 id="b-rel" style="margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em">Related</h2><a href="{{relHref}}" style="font-weight:700;font-size:14.5px;min-height:44px;display:inline-flex;align-items:center">See all relationships →</a></div>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:8px">
+            <sc-for list="{{rel}}" as="r"><li style="padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:4px"><span style="font-size:12px;font-weight:800;color:var(--ink-3)">{{r.type}}</span><sc-if value="{{r.isEntry}}"><a href="{{r.href}}" style="font-weight:750;font-size:15px;color:var(--ink);min-height:32px;display:inline-flex;align-items:center">{{r.name}}</a></sc-if><sc-if value="{{r.isActor}}"><strong style="font-size:15px">{{r.name}}</strong></sc-if><span style="font-size:13.5px;color:var(--ink-2)">{{r.label}}</span></li></sc-for>
+          </ul>
+        </section>
+      </sc-if>
+    </div>
+
+    <aside style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:14px;position:sticky;top:80px">
+      <section aria-labelledby="b-facts" style="padding:18px;border-radius:20px;background:var(--surface);border:1px solid var(--line)">
+        <h2 id="b-facts" style="margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">Key facts</h2>
+        <dl style="margin:0;display:flex;flex-direction:column;gap:12px">
+          <sc-if value="{{hasTh}}"><div><dt style="font-size:13px;font-weight:750;color:var(--ink-3)">Who it covers</dt><dd style="margin:2px 0 0;font-size:15px;overflow-wrap:anywhere">{{bTh}}</dd></div></sc-if>
+          <sc-if value="{{hasSigned}}"><div><dt style="font-size:13px;font-weight:750;color:var(--ink-3)">Signed</dt><dd style="margin:2px 0 0;font-size:15px">{{bSigned}}</dd></div></sc-if>
+          <sc-if value="{{hasEffective}}"><div><dt style="font-size:13px;font-weight:750;color:var(--ink-3)">Effective</dt><dd style="margin:2px 0 0;font-size:15px;overflow-wrap:anywhere">{{bEffective}}</dd></div></sc-if>
+          <sc-if value="{{hasPenalties}}"><div><dt style="font-size:13px;font-weight:750;color:var(--ink-3)">Penalties and enforcement</dt><dd style="margin:2px 0 0;font-size:15px;overflow-wrap:anywhere">{{bPenalties}}</dd></div></sc-if>
+          <sc-if value="{{hasSponsor}}"><div><dt style="font-size:13px;font-weight:750;color:var(--ink-3)">Sponsors</dt><dd style="margin:2px 0 0;font-size:15px">{{bSponsor}}</dd></div></sc-if>
+          <div><dt style="font-size:13px;font-weight:750;color:var(--ink-3)">Jurisdiction</dt><dd style="margin:2px 0 0;font-size:15px">{{bJuris}}</dd></div>
+          <div><dt style="font-size:13px;font-weight:750;color:var(--ink-3)">Years with dated events</dt><dd style="margin:2px 0 0;font-size:15px;font-variant-numeric:tabular-nums">{{bYears}}</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="b-conf" style="padding:18px;border-radius:20px;background:var(--surface);border:1px solid var(--line)">
+        <h2 id="b-conf" style="margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">How sure we are</h2>
+        <div style="display:flex;gap:12px;align-items:center"><span aria-hidden="true" style="display:flex;align-items:flex-end;gap:3px;height:20px"><sc-for list="{{bCb}}" as="b"><span style="width:5px;height:{{b.h}};border-radius:2px;background:{{b.c}}"></span></sc-for></span><strong style="font-size:17px">{{bCl}}</strong></div>
+        <p style="margin:8px 0 0;font-size:14.5px;color:var(--ink-2)">{{bCd}}</p>
+        <sc-if value="{{hasConfNote}}"><p style="margin:10px 0 0;font-size:14px;padding:10px 12px;border-radius:12px;background:var(--surface-2)"><strong>Author’s note: </strong>{{bConfNote}}</p></sc-if>
+      </section>
+      <section aria-labelledby="b-src" style="padding:18px;border-radius:20px;background:var(--surface);border:1px solid var(--line)">
+        <h2 id="b-src" style="margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">Primary sources</h2>
+        <p style="margin:0;font-size:15px;overflow-wrap:anywhere">{{bSource}}</p>
+        <sc-if value="{{hasSrcLinks}}"><ul style="margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px"><sc-for list="{{srcLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-weight:700;font-size:14.5px;min-height:44px;display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></sc-if>
+        <sc-if value="{{hasMoreLinks}}"><details style="margin-top:6px"><summary style="cursor:pointer;font-weight:700;font-size:14px;min-height:44px;display:flex;align-items:center">More links in the tracker row ({{nMoreLinks}})</summary><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px"><sc-for list="{{moreLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:14px;min-height:44px;display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></details></sc-if>
+        <sc-if value="{{noSrcLinks}}"><a href="{{bLink}}" target="_blank" rel="noopener" style="margin-top:8px;font-weight:700;font-size:14.5px;min-height:44px;display:inline-flex;align-items:center">See this entry on the current tracker ↗</a></sc-if>
+        <sc-if value="{{hasMarks}}"><ul style="margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{marks}}" as="m"><li style="font-size:13.5px;color:var(--ink-2);display:flex;gap:8px"><span aria-hidden="true" style="color:var(--accent-ink)">●</span>{{m.t}}</li></sc-for></ul></sc-if>
+        <p style="margin:12px 0 0;font-size:13px;color:var(--ink-3)">Verified as of 5 Sep 2026. Not legal advice: re-check the primary source before citing.</p>
+      </section>
+    </aside>
+  </div>
+</article>
+</sc-if>
+
+<sc-if value="{{isCompare}}">
+<div data-screen-label="Compare" style="max-width:1180px;width:100%;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,3vw,32px) 72px">
+  <nav aria-label="Breadcrumb" style="font-size:14px;font-weight:650;margin-bottom:8px"><a href="#/explore" style="min-height:36px;display:inline-flex;align-items:center">Explore</a></nav>
+  <h1 style="margin:0;font-size:clamp(32px,4.4vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1.05">Compare</h1>
+
+  <sc-if value="{{cmpIsEntries}}">
+    <p style="margin:8px 0 22px;font-size:17px;color:var(--ink-2);max-width:680px">Up to three entries side by side. Rows where they differ come first.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <sc-for list="{{heads}}" as="h"><span style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 6px 0 6px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface)"><span aria-hidden="true" style="width:30px;height:30px;border-radius:50%;background:{{h.col}};color:var(--bg);display:grid;place-items:center;font-weight:800;font-size:14px">{{h.letter}}</span><span style="font-weight:700;font-size:14.5px">{{h.short}}</span><button onClick="{{h.rm}}" aria-label="{{h.aria}}" style="width:36px;height:36px;border-radius:50%;border:0;background:var(--surface-2);color:var(--ink);cursor:pointer">✕</button></span></sc-for>
+      <sc-if value="{{canAdd}}"><button onClick="{{openAdd}}" aria-expanded="{{cmpAdd}}" style="height:44px;padding:0 16px;border-radius:999px;border:1px dashed var(--line-2);background:transparent;color:var(--ink);font-weight:750;font-size:14.5px;cursor:pointer">+ Add an entry</button></sc-if>
+    </div>
+    <sc-if value="{{cmpAdd}}">
+      <div style="margin-top:10px;max-width:560px;padding:12px;border-radius:18px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow-2);display:flex;flex-direction:column;gap:6px">
+        <label for="cmp-q" style="font-size:13px;font-weight:700;color:var(--ink-3)">Find an entry</label>
+        <input id="cmp-q" type="search" value="{{cmpQ}}" onChange="{{onCmpQ}}" placeholder="e.g. Michigan, FRONTIER, kill switch" style="height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg);color:var(--ink);font:inherit;font-size:16px">
+        <sc-for list="{{addList}}" as="a"><button onClick="{{a.add}}" style="min-height:48px;display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;border:0;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer" style-hover="background:var(--surface-2)"><span aria-hidden="true" style="color:{{a.sc}}">{{a.sg}}</span><span style="flex:1;min-width:0;display:flex;flex-direction:column"><strong style="font-size:15px">{{a.short}}</strong><span style="font-size:13px;color:var(--ink-3)">{{a.juris}} · {{a.sl}}</span></span><sc-if value="{{a.inK}}"><span style="font-size:12px;font-weight:750;color:var(--ink-3)">Full matrix</span></sc-if></button></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{notK}}"><p style="margin:14px 0 0;font-size:14px;color:var(--ink-2);padding:10px 14px;border-radius:12px;background:var(--surface-2);max-width:720px">The tracker’s detailed matrix covers CA SB 53, NY RAISE, IL SB 315, MI HB 4668, NJ S.4446, MA H.5576 and the FRONTIER Act. For other entries we compare the core fields.</p></sc-if>
+    <sc-if value="{{tooFew}}"><div role="status" style="margin-top:22px;padding:28px;border-radius:20px;border:1px dashed var(--line-2);text-align:center;color:var(--ink-2)">Add at least one more entry to see differences.</div></sc-if>
+
+    <sc-if value="{{cmpWide}}">
+      <div style="margin-top:26px;position:sticky;top:64px;z-index:3;background:var(--bg);padding:10px 0;display:grid;grid-template-columns:200px {{cmpGrid}};gap:12px;border-bottom:1px solid var(--line)">
+        <span></span>
+        <sc-for list="{{heads}}" as="h"><a href="{{h.href}}" style="display:flex;gap:10px;align-items:flex-start;text-decoration:none;color:var(--ink)"><span aria-hidden="true" style="width:28px;height:28px;flex-shrink:0;border-radius:50%;background:{{h.col}};color:var(--bg);display:grid;place-items:center;font-weight:800;font-size:13px">{{h.letter}}</span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><strong style="font-size:15.5px;line-height:1.3">{{h.short}}</strong><span style="font-size:13px;line-height:1.4;color:var(--ink-3)"><span aria-hidden="true" style="color:{{h.sc}}">{{h.sg}}</span> {{h.sl}} · {{h.juris}}</span></span></a></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{cmpNarrow}}"><div style="height:18px"></div></sc-if>
+
+    <section aria-label="Differences" style="display:flex;flex-direction:column">
+      <sc-for list="{{rowsDiff}}" as="r">
+        <div style="padding:14px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:{{cmpRowGrid}};gap:10px 12px">
+          <div style="display:flex;flex-direction:column;gap:4px"><strong style="font-size:15px">{{r.dim}}</strong><sc-if value="{{r.isDiff}}"><span style="display:inline-flex;align-self:flex-start;font-size:12px;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--mark);color:var(--ink)">Differs</span></sc-if><sc-if value="{{r.isMostly}}"><span style="display:inline-flex;align-self:flex-start;font-size:12px;font-weight:800;padding:1px 8px;border-radius:999px;border:1px dashed var(--line-2);color:var(--ink-2)">Mostly the same</span></sc-if><sc-if value="{{r.hasNote}}"><span style="font-size:12.5px;font-weight:650;color:var(--ink-3)">{{r.note}}</span></sc-if></div>
+          <sc-for list="{{r.vals}}" as="v"><div style="display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--surface);border:{{v.bd}}"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">{{v.nm}}:</span><span aria-hidden="true" style="width:24px;height:24px;flex-shrink:0;border-radius:50%;background:{{v.col}};color:var(--bg);display:grid;place-items:center;font-weight:800;font-size:12px">{{v.letter}}</span><span style="font-size:15px;line-height:1.45;overflow-wrap:anywhere"><sc-for list="{{v.segs}}" as="g"><sc-if value="{{g.m}}"><mark>{{g.t}}</mark></sc-if><sc-if value="{{g.n}}"><span>{{g.t}}</span></sc-if></sc-for></span></div></sc-for>
+        </div>
+      </sc-for>
+    </section>
+    <sc-if value="{{hasSame}}">
+      <details style="margin-top:18px;border-radius:16px;border:1px solid var(--line);background:var(--surface)">
+        <summary style="cursor:pointer;padding:14px 16px;font-weight:700;font-size:15px;min-height:44px">Same across all ({{nSame}})</summary>
+        <div style="padding:0 16px 12px">
+          <sc-for list="{{rowsSame}}" as="r"><div style="padding:10px 0;border-top:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap"><strong style="font-size:14.5px;min-width:180px">{{r.dim}}</strong><span style="font-size:14.5px;color:var(--ink-2)">{{r.same}}</span></div></sc-for>
+        </div>
+      </details>
+    </sc-if>
+    <p style="margin:18px 0 0;font-size:13px;color:var(--ink-3)">Matrix values are quoted from the tracker’s cross-cutting comparison (verified as of 5 Sep 2026). Not legal advice.</p>
+  </sc-if>
+
+  <sc-if value="{{cmpIsStates}}">
+    <p style="margin:8px 0 22px;font-size:17px;color:var(--ink-2);max-width:680px">What each state has on the books or in play.</p>
+    <button onClick="{{backToMap}}" style="height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:750;font-size:14.5px;cursor:pointer">← Change states on the map</button>
+    <sc-if value="{{sEmpty}}"><div role="status" style="margin-top:18px;padding:28px;border-radius:20px;border:1px dashed var(--line-2);text-align:center;color:var(--ink-2)">Pick at least two states on the map to compare.</div></sc-if>
+    <div style="margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px">
+      <sc-for list="{{sCols}}" as="c">
+        <section style="padding:18px;border-radius:22px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:10px;align-items:center"><span aria-hidden="true" style="width:32px;height:32px;border-radius:50%;background:{{c.col}};color:var(--bg);display:grid;place-items:center;font-weight:800">{{c.letter}}</span><div><h2 style="margin:0;font-size:22px;font-weight:800;letter-spacing:-.02em">{{c.nm}}</h2><span style="font-size:13.5px;font-weight:700;color:var(--ink-3)">{{c.g}} {{c.cat}} · {{c.n}} tracked</span></div></div>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{c.counts}}" as="k"><li style="display:inline-flex;gap:6px;align-items:center;height:28px;padding:0 10px;border-radius:999px;background:var(--surface-2);font-size:13px;font-weight:700"><span aria-hidden="true" style="color:{{k.c}}">{{k.g}}</span>{{k.n}} {{k.l}}</li></sc-for></ul>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px"><sc-for list="{{c.items}}" as="i"><li><a href="{{i.href}}" style="display:flex;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);text-decoration:none;color:var(--ink);min-height:44px" style-hover="border-color:var(--line-2);color:var(--ink)"><span aria-hidden="true" style="color:{{i.c}}">{{i.g}}</span><span style="display:flex;flex-direction:column"><strong style="font-size:14.5px">{{i.short}}</strong><span style="font-size:12.5px;color:var(--ink-3)">{{i.sl}} · {{i.kd}}</span></span></a></li></sc-for></ul>
+        </section>
+      </sc-for>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{isUpdates}}">
+<div data-screen-label="Updates" style="max-width:1180px;width:100%;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,3vw,32px) 72px">
+  <h1 style="margin:0;font-size:clamp(32px,4.4vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1.05">What changed</h1>
+  <p style="margin:8px 0 0;font-size:17px;color:var(--ink-2);max-width:700px">A dated record of September 2026, through 29 Sep. It is wider than the tracker: hearings, letters and industry incidents appear too. Where a summary supplied to us was wrong, the correction is shown.</p>
+  <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
+    <div style="flex:1 1 520px;min-width:0;max-width:820px">
+      <div role="group" aria-label="Filter by kind" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px">
+        <sc-for list="{{uKinds}}" as="k" hint-placeholder-count="5"><button onClick="{{k.toggle}}" aria-pressed="{{k.pressed}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:{{k.bg}};color:{{k.fg}};font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap"><span aria-hidden="true" style="color:{{k.c}}">{{k.g}}</span>{{k.l}}<span style="font-variant-numeric:tabular-nums;opacity:.7">{{k.n}}</span></button></sc-for>
+        <sc-if value="{{hasKindF}}"><button onClick="{{clearKinds}}" style="height:40px;padding:0 8px;border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px">Show all</button></sc-if>
+      </div>
+      <p aria-live="polite" style="margin:0 0 8px;font-size:13.5px;font-weight:650;color:var(--ink-3)">{{uCount}}</p>
+      <sc-if value="{{uEmpty}}"><div role="status" style="padding:28px;border-radius:20px;border:1px dashed var(--line-2);text-align:center;color:var(--ink-2)">No updates of that kind this month.</div></sc-if>
+      <sc-for list="{{uGroups}}" as="g" hint-placeholder-count="3">
+        <section style="display:flex;flex-direction:column">
+          <h2 style="position:sticky;top:64px;z-index:2;margin:0;padding:12px 0 6px;background:var(--bg);font-size:14px;font-weight:800;letter-spacing:.04em;color:var(--ink-2);font-variant-numeric:tabular-nums">{{g.date}}</h2>
+          <sc-for list="{{g.items}}" as="n">
+            <article style="display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line)">
+              <span aria-hidden="true" style="width:32px;height:32px;flex-shrink:0;border-radius:10px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;color:{{n.kc}};font-size:14px">{{n.kg}}</span>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:13px;font-weight:750;color:var(--ink-3)">{{n.kl}}<sc-if value="{{n.corr}}"><span style="margin-left:8px;padding:1px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink)">Correction noted</span></sc-if></span>
+                <h3 style="margin:0;font-size:17.5px;line-height:1.35;font-weight:750;text-wrap:pretty">{{n.title}}</h3>
+                <p style="margin:0;font-size:15px;color:var(--ink-2);text-wrap:pretty">{{n.body}}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center">
+                  <sc-if value="{{n.hasEntry}}"><a href="{{n.entryHref}}" aria-label="Tracker entry: {{n.entryShort}}" style="display:inline-flex;align-items:center;gap:8px;align-self:flex-start;max-width:100%;padding:4px 14px 4px 12px;border-radius:14px;border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:700;line-height:1.3" style-hover="border-color:var(--accent);background:var(--accent-soft)"><span aria-hidden="true" style="flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">Entry</span><span style="min-width:0;overflow-wrap:anywhere">{{n.entryShort}}</span><span aria-hidden="true" style="flex-shrink:0;color:var(--accent-ink)">→</span></a></sc-if>
+                  <button onClick="{{n.toggle}}" aria-expanded="{{n.expanded}}" style="min-height:40px;padding:0;border:0;background:transparent;color:var(--ink-2);font-weight:700;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px">{{n.toggleLabel}}</button>
+                </div>
+                <sc-if value="{{n.open}}">
+                  <div style="padding:12px 14px;border-radius:14px;background:var(--surface-2);display:flex;flex-direction:column;gap:8px;animation:gxRise var(--dur-2) var(--ease-out)">
+                    <p style="margin:0;font-size:14px"><strong>How we checked: </strong>{{n.check}}</p>
+                    <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px"><sc-for list="{{n.links}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:14px;font-weight:650;min-height:36px;display:inline-flex;align-items:center">{{l.t}} ↗</a></li></sc-for></ul>
+                  </div>
+                </sc-if>
+              </div>
+            </article>
+          </sc-for>
+        </section>
+      </sc-for>
+      <p style="margin:24px 0 0;padding:16px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);font-size:15px;text-wrap:pretty"><strong>The month in one paragraph. </strong>{{uBottom}}</p>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{isMethod}}">
+<div data-screen-label="Method" style="max-width:920px;width:100%;margin:0 auto;padding:clamp(28px,5vw,56px) clamp(16px,3vw,32px) 72px;display:flex;flex-direction:column;gap:40px">
+  <header><p style="margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">Data &amp; trust</p><h1 style="margin:0;font-size:clamp(32px,4.4vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1.05">How to read the tracker</h1>
+  <p style="margin:10px 0 0;font-size:18px;color:var(--ink-2);text-wrap:pretty">Each entry has two labels: a <strong style="color:var(--ink)">status</strong> (where it stands) and a <strong style="color:var(--ink)">confidence level</strong> (how sure we are). This page explains both, when the data was checked, and what we chose not to include.</p>
+  <nav aria-label="On this page" style="margin-top:18px;display:flex;flex-wrap:wrap;gap:8px">
+    <a href="#/method" onClick="{{jumpStatus}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center">Statuses</a>
+    <a href="#/method" onClick="{{jumpConf}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center">Confidence</a>
+    <a href="#/method" onClick="{{jumpDates}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center">Dates</a>
+    <a href="#/method" onClick="{{jumpExcl}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none;display:inline-flex;align-items:center">What’s excluded</a>
+  </nav></header>
+  <section id="m-st-s" aria-labelledby="m-st" style="scroll-margin-top:84px">
+    <h2 id="m-st" style="margin:0 0 6px;font-size:24px;font-weight:800;letter-spacing:-.02em">1. What each status means</h2>
+    <p style="margin:0 0 14px;font-size:15.5px;color:var(--ink-2)">Every status has its own symbol, so it reads without colour. Select one to see those entries.</p>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px">
+      <sc-for list="{{mStatuses}}" as="s" hint-placeholder-count="8"><li style="display:flex"><a href="{{s.href}}" style="flex:1;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);transition:border-color var(--dur-2),transform var(--dur-2) var(--ease-out)" style-hover="border-color:var(--line-2);transform:translateY(-2px);color:var(--ink)"><span aria-hidden="true" style="width:30px;height:30px;flex-shrink:0;border-radius:9px;background:var(--surface-2);display:grid;place-items:center;color:{{s.c}};font-size:14px">{{s.g}}</span><span style="display:flex;flex-direction:column;gap:2px;min-width:0"><strong style="font-size:15.5px">{{s.l}} <span style="font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums">· {{s.n}}</span></strong><span style="font-size:14px;color:var(--ink-2)">{{s.d}}</span></span></a></li></sc-for>
+    </ul>
+  </section>
+  <section id="m-l-s" aria-labelledby="m-l" style="scroll-margin-top:84px">
+    <h2 id="m-l" style="margin:0 0 6px;font-size:24px;font-weight:800;letter-spacing:-.02em">2. Five levels of confidence</h2>
+    <p style="margin:0 0 14px;font-size:15.5px;color:var(--ink-2)">The bars on every card. More bars means the claim was checked closer to the original record.</p>
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{mLevels}}" as="c" hint-placeholder-count="5">
+        <li style="display:flex;gap:16px;align-items:flex-start;padding:16px 18px;border-radius:18px;background:var(--surface);border:1px solid var(--line)">
+          <span aria-hidden="true" style="display:flex;align-items:flex-end;gap:3px;height:22px;padding-top:3px;flex-shrink:0"><sc-for list="{{c.cb}}" as="b"><span style="width:5px;height:{{b.h}};border-radius:2px;background:{{b.c}}"></span></sc-for></span>
+          <div style="flex:1;min-width:0"><strong style="font-size:17px">{{c.l}}</strong><p style="margin:2px 0 0;font-size:15px;color:var(--ink-2)">{{c.d}}</p></div>
+          <a href="{{c.href}}" style="flex-shrink:0;font-weight:750;font-size:14px;font-variant-numeric:tabular-nums;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);display:flex;align-items:center;text-decoration:none;white-space:nowrap" aria-label="See the {{c.n}} entries rated {{c.l}}">{{c.cta}}</a>
+        </li>
+      </sc-for>
+    </ol>
+  </section>
+  <section id="m-v-s" aria-labelledby="m-v" style="scroll-margin-top:84px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px">
+    <h2 id="m-v" style="grid-column:1/-1;margin:0;font-size:24px;font-weight:800;letter-spacing:-.02em">3. What “verified as of” means</h2>
+    <div style="padding:18px;border-radius:18px;background:var(--surface);border:1px solid var(--line)"><strong style="font-size:15px">5 Sep 2026</strong><p style="margin:4px 0 0;font-size:15px;color:var(--ink-2)">The date of the full verification pass. Every entry’s status was checked against its sources as of this day.</p></div>
+    <div style="padding:18px;border-radius:18px;background:var(--surface);border:1px solid var(--line)"><strong style="font-size:15px">Through 29 Sep 2026</strong><p style="margin:4px 0 0;font-size:15px;color:var(--ink-2)">Supplementary checks after the full pass. Entries added or changed in them are marked “Updated Sept 2026”.</p></div>
+    <div style="padding:18px;border-radius:18px;background:var(--surface);border:1px solid var(--line)"><strong style="font-size:15px">How an item was found</strong><p style="margin:4px 0 0;font-size:15px;color:var(--ink-2)">Some entries came from a dedicated search pass or the NCSL legislation database. Each entry page says which.</p></div>
+  </section>
+  <section id="m-x-s" aria-labelledby="m-x" style="scroll-margin-top:84px">
+    <h2 id="m-x" style="margin:0 0 6px;font-size:24px;font-weight:800;letter-spacing:-.02em">4. Checked and excluded</h2>
+    <p style="margin:0 0 14px;font-size:15.5px;color:var(--ink-2)">These were reviewed and are not frontier-AI regulation, usually because they regulate uses, sectors or minors rather than the developers of the largest models.</p>
+    <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:10px">
+      <sc-for list="{{mExcl}}" as="x"><li style="display:flex"><a href="{{x.href}}" style="flex:1;display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--line-2);color:var(--ink)"><strong style="font-size:15px"><span aria-hidden="true" style="color:var(--st-excluded)">○</span> {{x.t}}</strong><span style="font-size:14px;color:var(--ink-2)">{{x.why}}</span></a></li></sc-for>
+    </ul>
+  </section>
+  <p style="margin:0;padding:16px 18px;border-radius:16px;background:var(--surface-2);font-size:15px"><strong>Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing anything here.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{isNotFound}}">
+<div data-screen-label="404" style="max-width:720px;width:100%;margin:0 auto;padding:clamp(56px,10vw,120px) clamp(16px,3vw,32px);display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+  <div aria-hidden="true" style="display:grid;grid-template-columns:repeat(3,56px);gap:6px">
+    <span style="height:56px;border-radius:12px;border:1.5px dashed #FF9B5E;background:#070C18"></span><span style="height:56px;border-radius:12px;background:#070C18;border:1px solid rgba(255,255,255,.08)"></span><span style="height:56px;border-radius:12px;border:1.5px dashed #FF9B5E;background:#070C18"></span>
+  </div>
+  <p style="margin:0;font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">404 · Not found</p>
+  <h1 style="margin:0;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.035em;line-height:1.05">This page never made it out of committee.</h1>
+  <p style="margin:0;font-size:17px;color:var(--ink-2)">The link may be old, or the entry may have moved. Everything in the tracker is still a search away.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#/" style="height:48px;padding:0 20px;border-radius:999px;background:var(--accent-ink);color:var(--on-accent);font-weight:750;display:inline-flex;align-items:center;text-decoration:none">Back to the map</a><a href="#/explore" style="height:48px;padding:0 20px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink);font-weight:750;display:inline-flex;align-items:center;text-decoration:none">Search the tracker</a></div>
+</div>
+</sc-if>
+
+<!--ROUTES-->
+
+</main>
+
+<footer style="border-top:1px solid var(--line);background:var(--surface);padding:28px clamp(16px,3vw,32px) {{footerPadBottom}}">
+  <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-start;justify-content:space-between">
+    <p style="margin:0;max-width:620px;font-size:14px;color:var(--ink-2);text-wrap:pretty"><strong style="color:var(--ink)">Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing. Verified as of 5 Sep 2026, with supplementary checks through 29 Sep 2026.</p>
+  </div>
+</footer>
+
+<sc-if value="{{showBottomNav}}">
+  <nav aria-label="Main" style="position:fixed;left:0;right:0;bottom:0;z-index:45;background:color-mix(in oklab,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px calc(6px + env(safe-area-inset-bottom))">
+    <sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+      <a href="{{n.href}}" aria-current="{{n.cur}}" style="min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;border-radius:14px;font-size:12.5px;font-weight:700;color:{{n.fg}};background:{{n.bg}}">
+        <span aria-hidden="true" style="font-size:16px;line-height:1">{{n.ic}}</span>{{n.l}}
+      </a>
+    </sc-for>
+  </nav>
+</sc-if>
+
+<sc-if value="{{panelOpen}}">
+  <div onClick="{{closePanel}}" aria-hidden="true" style="position:fixed;inset:0;z-index:60;background:rgba(4,8,18,.5);backdrop-filter:blur(2px);animation:gxFade var(--dur-2) var(--ease-out)"></div>
+  <div role="dialog" aria-modal="true" aria-labelledby="panel-h" style="position:fixed;z-index:61;top:{{pTop}};right:{{pRight}};bottom:{{pBottom}};left:{{pLeft}};width:{{pW}};max-height:{{pMaxH}};border-radius:{{pRad}};animation:{{pAnim}};background:var(--surface);color:var(--ink);box-shadow:var(--shadow-3);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden">
+    <sc-if value="{{pHandle}}"><div aria-hidden="true" style="width:44px;height:5px;border-radius:999px;background:var(--line-2);margin:10px auto 0;flex-shrink:0"></div></sc-if>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:18px 18px 14px;border-bottom:1px solid var(--line);flex-shrink:0">
+      <div ref="{{panelTileRef}}" aria-hidden="true" style="position:relative;width:64px;height:64px;flex-shrink:0;border-radius:16px;background:{{panelTileBg}};border:{{panelTileBd}};color:{{panelTileFg}};text-shadow:{{panelTileTs}};display:grid;place-items:center;font-weight:800;font-size:20px"><span style="position:absolute;top:5px;left:7px;font-size:12px;color:{{panelGC}}">{{panelG}}</span>{{panelCode}}</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+        <span style="font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">{{panelCat}}</span>
+        <h2 id="panel-h" style="margin:0;font-size:26px;line-height:1.1;font-weight:800;letter-spacing:-.02em">{{panelTitle}}</h2>
+        <p style="margin:2px 0 0;font-size:14.5px;color:var(--ink-2);text-wrap:pretty">{{panelSub}}</p>
+        <sc-if value="{{panelPulse}}"><span style="font-size:13px;font-weight:700;color:var(--accent-ink)">● {{panelPulse}}</span></sc-if>
+      </div>
+      <button ref="{{panelCloseRef}}" onClick="{{closePanel}}" aria-label="Close" style="width:44px;height:44px;flex-shrink:0;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:16px;cursor:pointer">✕</button>
+    </div>
+    <div style="flex:1;overflow-y:auto;overscroll-behavior:contain;padding:14px 18px 18px;display:flex;flex-direction:column;gap:10px">
+      <sc-if value="{{panelEmpty}}"><div style="padding:24px 4px;color:var(--ink-2);font-size:15px">Nothing here is tracked as frontier-AI regulation. Check Explore for adjacent laws that were checked and excluded.</div></sc-if>
+      <sc-for list="{{panelItems}}" as="x" hint-placeholder-count="3">
+        <article style="display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--bg)">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+            <span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:12.5px;font-weight:700"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span>{{x.sl}}</span>
+            <button onClick="{{x.onConf}}" aria-label="Confidence: {{x.cl}}. What does this mean?" title="{{x.cd}}" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font:inherit;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer"><span aria-hidden="true" style="display:flex;align-items:flex-end;gap:2px;height:14px"><sc-for list="{{x.cb}}" as="b"><span style="width:3px;height:{{b.h}};border-radius:1px;background:{{b.c}}"></span></sc-for></span>{{x.cl}}</button>
+            <sc-if value="{{x.upd}}"><span style="font-size:12px;font-weight:800;color:var(--accent-ink)">Updated Sept 2026</span></sc-if>
+          </div>
+          <a href="{{x.href}}" style="font-size:16.5px;font-weight:750;line-height:1.35;color:var(--ink);text-decoration:none;text-wrap:pretty;min-height:32px;display:flex;align-items:center" style-hover="text-decoration:underline">{{x.short}}</a>
+          <span style="font-size:13px;font-weight:650;color:var(--ink-3);font-variant-numeric:tabular-nums">{{x.tl}} · {{x.kd}}</span>
+        </article>
+      </sc-for>
+    </div>
+    <div style="padding:12px 18px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);flex-shrink:0;display:flex;gap:8px">
+      <button onClick="{{panelExplore}}" style="flex:1;height:48px;border-radius:999px;border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:750;font-size:15px;cursor:pointer">Open in Explore</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{filtersOpen}}">
+  <div onClick="{{closeFilters}}" aria-hidden="true" style="position:fixed;inset:0;z-index:70;background:rgba(4,8,18,.5);animation:gxFade var(--dur-2)"></div>
+  <div role="dialog" aria-modal="true" aria-labelledby="flt-h" style="position:fixed;z-index:71;left:0;right:0;bottom:0;max-height:88vh;overflow:auto;overscroll-behavior:contain;background:var(--surface);border-top:1px solid var(--line);border-radius:24px 24px 0 0;box-shadow:var(--shadow-3);padding:10px 18px calc(16px + env(safe-area-inset-bottom));animation:gxUp var(--dur-3) var(--ease-out);display:flex;flex-direction:column;gap:18px">
+    <div aria-hidden="true" style="width:44px;height:5px;border-radius:999px;background:var(--line-2);margin:0 auto"></div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <h2 id="flt-h" style="flex:1;margin:0;font-size:22px;font-weight:800;letter-spacing:-.02em">Filter the map</h2>
+      <button data-close="filters" onClick="{{closeFilters}}" aria-label="Close filters" style="width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:16px;cursor:pointer;flex-shrink:0">✕</button>
+    </div>
+    <fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:10px">
+      <legend style="padding:0;margin-bottom:10px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)">Status</legend>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{statusChips}}" as="c" hint-placeholder-count="7"><button onClick="{{c.toggle}}" aria-pressed="{{c.pressed}}" style="height:44px;padding:0 14px;border-radius:999px;border:{{c.sbd}};background:{{c.sbg}};color:var(--ink);font-weight:700;font-size:14.5px;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap"><span aria-hidden="true" style="color:{{c.c}}">{{c.g}}</span>{{c.l}}</button></sc-for>
+      </div>
+    </fieldset>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:10px">
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;color:var(--ink-3)">Type<select value="{{fType}}" onChange="{{onType}}" style="height:48px;padding:0 10px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:16px;font-weight:600"><option value="">Any type</option><option value="law">Law</option><option value="bill">Bill</option><option value="auditor">Auditor licensing</option><option value="draft">Draft or proposal</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="precursor">Earlier proposal</option></select></label>
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;color:var(--ink-3)">Year<select value="{{fYear}}" onChange="{{onYear}}" style="height:48px;padding:0 10px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:16px;font-weight:600"><option value="">Any year</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027+">2027 and later</option></select></label>
+      <label style="display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:700;color:var(--ink-3)">Confidence<select value="{{fConf}}" onChange="{{onConf}}" style="height:48px;padding:0 10px;border-radius:12px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:16px;font-weight:600"><option value="">Any confidence</option><option value="HIGH">High</option><option value="MED-HIGH">Med-high</option><option value="MED">Medium</option><option value="SEARCH-QUALIFIED">Search-qualified</option></select></label>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;padding-top:4px;border-top:1px solid var(--line)">
+      <button onClick="{{clearBoard}}" style="height:48px;padding:0 18px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:750;font-size:15px;cursor:pointer;margin-top:12px">Clear all</button>
+      <button onClick="{{closeFilters}}" style="flex:1;height:48px;padding:0 18px;border-radius:999px;border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:800;font-size:15px;cursor:pointer;margin-top:12px">{{filtersDone}}</button>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{confSheet}}">
+  <div onClick="{{closeConf}}" aria-hidden="true" style="position:fixed;inset:0;z-index:70;background:rgba(4,8,18,.5);animation:gxFade var(--dur-2)"></div>
+  <div role="dialog" aria-modal="true" aria-labelledby="conf-h" style="position:fixed;z-index:71;left:50%;bottom:max(16px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(560px,calc(100vw - 24px));max-height:80vh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-3);padding:20px;animation:gxRise var(--dur-3) var(--ease-out)">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
+      <div style="flex:1"><h2 id="conf-h" style="margin:0;font-size:22px;font-weight:800;letter-spacing:-.02em">How sure are we?</h2><p style="margin:4px 0 0;font-size:14.5px;color:var(--ink-2)">Every claim carries one of five levels. More bars means the claim was checked closer to the primary record.</p></div>
+      <button data-close="conf" onClick="{{closeConf}}" aria-label="Close" style="width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:16px;cursor:pointer;flex-shrink:0">✕</button>
+    </div>
+    <sc-if value="{{confNone}}"><p style="margin:0 0 10px;font-size:14.5px;padding:10px 12px;border-radius:12px;background:var(--surface-2)">Excluded entries are not rated. They were checked and found not to be frontier-AI regulation.</p></sc-if>
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{confLevels}}" as="c">
+        <li style="display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border-radius:14px;border:{{c.bd}};background:{{c.bg}}">
+          <span aria-hidden="true" style="display:flex;align-items:flex-end;gap:3px;height:18px;padding-top:2px;flex-shrink:0"><sc-for list="{{c.cb}}" as="b"><span style="width:4px;height:{{b.h}};border-radius:1px;background:{{b.c}}"></span></sc-for></span>
+          <span style="display:flex;flex-direction:column;gap:2px"><strong style="font-size:15px">{{c.l}} <span style="font-size:12px;font-weight:800;color:var(--accent-ink);margin-left:6px">{{c.cur}}</span></strong><span style="font-size:14px;color:var(--ink-2)">{{c.d}}</span></span>
+        </li>
+      </sc-for>
+    </ul>
+    <a href="#/method" onClick="{{closeConf}}" style="display:inline-flex;margin-top:12px;font-weight:700;font-size:14.5px;min-height:44px;align-items:center">How we verify →</a>
+  </div>
+</sc-if>
+
+<sc-if value="{{booting}}" hint-placeholder-val="{{ true }}">
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;animation:{{bootAnim}}">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(50% 40% at 30% 30%,var(--wash-a),transparent 70%),radial-gradient(40% 40% at 75% 70%,var(--wash-b),transparent 70%)"></div>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;padding:24px;text-align:center">
+      <span aria-hidden="true" style="width:104px;height:104px;border-radius:28px;background:#070C18;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:18px;box-shadow:0 24px 60px -18px rgba(7,12,24,.55),0 0 0 1px rgba(255,255,255,.06) inset"><span style="border-radius:7px;background:#2FD69E;animation:gxTile 620ms var(--ease-spring) 120ms both;box-shadow:0 0 18px -4px #2FD69E"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 230ms both;box-shadow:none"></span><span style="border-radius:7px;background:#FFC23D;animation:gxTile 620ms var(--ease-spring) 340ms both;box-shadow:0 0 18px -4px #FFC23D"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 670ms both;box-shadow:none"></span><span style="border-radius:7px;background:#2FD69E;animation:gxTile 620ms var(--ease-spring) 560ms both;box-shadow:0 0 18px -4px #2FD69E"></span><span style="border-radius:7px;background:#C89BFF;animation:gxTile 620ms var(--ease-spring) 450ms both;box-shadow:0 0 18px -4px #C89BFF"></span><span style="border-radius:7px;background:#2FD69E;animation:gxTile 620ms var(--ease-spring) 780ms both;box-shadow:0 0 18px -4px #2FD69E"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 890ms both;box-shadow:none"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 1000ms both;box-shadow:none"></span></span>
+      <div style="display:flex;flex-direction:column;gap:4px;animation:gxRise 600ms var(--ease-out) 700ms both">
+        <span style="font-size:clamp(26px,5vw,34px);font-weight:800;letter-spacing:-.03em;color:var(--ink)">Frontier AI Law</span>
+        <span style="font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)">US tracker</span>
+      </div>
+      <div aria-hidden="true" style="width:160px;height:3px;border-radius:999px;background:var(--line);overflow:hidden;animation:gxFade 400ms ease 900ms both"><div style="height:100%;background:var(--accent);transform-origin:left;animation:gxBar 1500ms var(--ease-io) 900ms both"></div></div>
+      <span style="font-size:13px;font-weight:600;color:var(--ink-3);animation:gxFade 400ms ease 1000ms both">Verified as of 5 Sep 2026</span>
+    </div>
+  </div>
+</sc-if>
+<div role="status" style="position:fixed;left:50%;bottom:{{toastBottom}};transform:translateX(-50%);z-index:90;pointer-events:none;max-width:calc(100vw - 32px)">
+  <sc-if value="{{toast}}"><div style="background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:650;font-size:14px;box-shadow:var(--shadow-2);animation:gxRise var(--dur-2) var(--ease-out)">{{toast}}</div></sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// Set to true to show prototype-only UI (footer links to #/design and #/system, email + RSS cards on Updates).
+const SHOW_FOLLOW = false; // the Follow button only saves in this browser; nothing notifies, so it stays hidden until alerts exist
+const STEPS = { event: { l: '1 event' }, m1: { l: '1 month', months: 1 }, m3: { l: '3 months', months: 3 }, m6: { l: '6 months', months: 6 }, y1: { l: '1 year', months: 12 } };
+const SHORT = { law: 'Law', pending: 'Pending', auditor: 'Auditor', sf: 'Stalled/failed', other: 'Other', none: 'None' };
+const CATV = { law: 'var(--st-enacted)', pending: 'var(--st-pending)', auditor: 'var(--st-auditor)', sf: 'var(--st-failed)', other: 'var(--st-executive)', none: 'var(--st-excluded)' };
+const L_SN = (L, c) => L.SN[c];
+class Component extends DCLogic {
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, center: 'SB53', kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '' };
+  mainRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
+  componentDidMount() {
+    this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
+    this.mq = matchMedia('(prefers-color-scheme: dark)'); this.onMq = () => this.forceUpdate(); this.mq.addEventListener && this.mq.addEventListener('change', this.onMq);
+    this.onHash = () => { if (location.hash === '#main') { history.replaceState(null, '', this.lastHash || '#/'); this.focusMain(); return; } this.lastHash = location.hash || '#/'; const route = this.parse(); this.setState({ route, q: route.p.q || '', limit: 20, cmpAdd: false, filtersOpen: this.lastPath === route.path ? this.state.filtersOpen : false }); if (!route.p.state && !route.p.fed) this.fromRect = null; if (this.lastPath !== route.path) { window.scrollTo(0, 0); this.lastPath = route.path; this.wantRouteFocus = true; } };
+    this.onResize = () => this.setState({ vw: window.innerWidth });
+    this.onNet = () => this.setState({ online: navigator.onLine });
+    this.onKey = e => {
+      if (e.key === 'Tab') { const ds = document.querySelectorAll('[role=dialog][aria-modal=true]'); const d = ds[ds.length - 1]; if (!d) return; const fs = [...d.querySelectorAll('a[href],button:not([disabled]),input,select,textarea,summary')].filter(el => el.getClientRects().length); if (!fs.length) return; const a = document.activeElement, first = fs[0], last = fs[fs.length - 1]; if (!d.contains(a)) { e.preventDefault(); first.focus(); } else if (e.shiftKey && a === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && a === last) { e.preventDefault(); first.focus(); } return; }
+      if (e.key !== 'Escape') return; if (this.state.filtersOpen) this.setState({ filtersOpen: false }); else if (this.state.confOpen) this.setState({ confOpen: null }); else if (this.state.route.p.state || this.state.route.p.fed) this.closePanel(); };
+    addEventListener('hashchange', this.onHash); addEventListener('resize', this.onResize); addEventListener('online', this.onNet); addEventListener('offline', this.onNet); addEventListener('keydown', this.onKey);
+    let th = null, follow = [];
+    try { th = localStorage.getItem('fal-theme'); follow = JSON.parse(localStorage.getItem('fal-follow') || '[]'); } catch (e) {}
+    if (th) document.documentElement.setAttribute('data-theme', th);
+    const route = this.parse(); this.lastPath = route.path; this.lastHash = location.hash || '#/';
+    this.setState({ route, q: route.p.q || '', online: navigator.onLine, theme: th, follow });
+    this.load();
+  }
+  componentWillUnmount() { removeEventListener('hashchange', this.onHash); removeEventListener('resize', this.onResize); removeEventListener('online', this.onNet); removeEventListener('offline', this.onNet); removeEventListener('keydown', this.onKey); clearInterval(this.pi); clearInterval(this.ci); }
+  focusMain() { const m = this.mainRef.current; if (m) m.focus(); }
+  componentDidUpdate() {
+    this.syncChrome();
+    const ps = this._ps || {}; this._ps = { confOpen: this.state.confOpen, filtersOpen: this.state.filtersOpen };
+    if (this.docTitle && document.title !== this.docTitle) document.title = this.docTitle;
+    if (this.wantRouteFocus && !this.state.booting) { const h = document.querySelector('main h1'); if (h) { this.wantRouteFocus = false; h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
+    [['confOpen', 'conf'], ['filtersOpen', 'filters']].forEach(([k, sel]) => {
+      if (!ps[k] && this.state[k]) { this.ret = this.ret || {}; this.ret[k] = document.activeElement; setTimeout(() => { const b = document.querySelector('[data-close="' + sel + '"]'); if (b) b.focus(); }, 0); }
+      if (ps[k] && !this.state[k]) { const r = this.ret && this.ret[k]; if (r && document.contains(r)) r.focus(); }
+    });
+    const el = this.panelTileRef.current;
+    if (el && this.fromRect && !this.rm) {
+      const to = el.getBoundingClientRect(), f = this.fromRect; this.fromRect = null;
+      const s = f.width / to.width;
+      el.animate([{ transform: `translate(${f.left - to.left}px,${f.top - to.top}px) scale(${s})`, transformOrigin: 'top left' }, { transform: 'none', transformOrigin: 'top left' }], { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    }
+    if (this.wantQFocus && this.qRef.current) { this.wantQFocus = false; this.qRef.current.focus({ preventScroll: true }); }
+    if (this.wantPanelFocus && this.panelCloseRef.current) { this.wantPanelFocus = false; this.panelCloseRef.current.focus({ preventScroll: true }); }
+  }
+  async load() {
+    this.setState({ loading: true, err: false });
+    try {
+      const [L, e, n, r] = await Promise.all([import('./tracker-lib.js'), ...['data/entries.json', 'data/news.json', 'data/relationships.json'].map(u => fetch(u).then(x => { if (!x.ok) throw new Error(u); return x.json(); }))]);
+      this.L = L; this.D = L.build(e, n, r);
+      this.setState({ loading: false });
+      this.endBoot();
+    } catch (err) { console.warn(err); this.setState({ loading: false, err: true, booting: false }); }
+  }
+  endBoot() {
+    if (!this.state.booting) { this.intro(); return; }
+    const min = this.rm ? 200 : 1900, wait = Math.max(0, min - (performance.now() - this.t0));
+    setTimeout(() => { this.setState({ leaving: true }); setTimeout(() => { this.setState({ booting: false, leaving: false }); this.intro(); }, this.rm ? 0 : 520); }, wait);
+  }
+  intro() {
+    if (this.rm || document.visibilityState !== 'visible') return;
+    const els = [...document.querySelectorAll('[data-cu]')], t0 = performance.now(); clearInterval(this.ci);
+    const step = () => { const p = Math.min(1, (performance.now() - t0) / 1100), e = 1 - Math.pow(1 - p, 3); els.forEach(el => { const to = +el.dataset.cu; this.setText(el, String(Math.max(1, Math.round(to * (0.35 + 0.65 * e))))); }); if (p >= 1) clearInterval(this.ci); };
+    step(); this.ci = setInterval(step, 33);
+    let seen = false; try { seen = sessionStorage.getItem('fal-replayed') === '1'; sessionStorage.setItem('fal-replayed', '1'); } catch (e) {}
+    if (!seen && this.state.route.path === '/' && !this.state.route.p.state) setTimeout(() => { if (this.state.route.path === '/' && !this.state.route.p.state) this.play(true); }, 1400);
+  }
+  parse() {
+    const h = (location.hash || '#/').slice(1); const [path, qs] = h.split('?'); const p = {};
+    new URLSearchParams(qs || '').forEach((v, k) => { p[k] = v; });
+    return { path: path || '/', p };
+  }
+  go(path, p = {}, replace) {
+    const qs = new URLSearchParams(Object.entries(p).filter(([, v]) => v != null && v !== '')).toString();
+    const h = '#' + path + (qs ? '?' + qs : '');
+    if (replace) { history.replaceState(null, '', h); this.onHash(); } else location.hash = h;
+  }
+  setP(ch, replace) { this.go(this.state.route.path, { ...this.state.route.p, ...ch }, replace); }
+  toastMsg(m) { this.setState({ toast: m }); clearTimeout(this.tt); this.tt = setTimeout(() => this.setState({ toast: '' }), 2600); }
+  closePanel = () => { const p = { ...this.state.route.p }; delete p.state; delete p.fed; this.go(this.state.route.path, p); const f = this.lastTile; if (f) setTimeout(() => { const el = document.querySelector(`[data-tile="${f}"]`); if (el) el.focus({ preventScroll: true }); }, 30); };
+  openState(code, e) { if (this.state.cmpMode) return; this.fromRect = e && e.currentTarget ? e.currentTarget.getBoundingClientRect() : null; this.lastTile = code; this.wantPanelFocus = true; this.pause(); const p = { ...this.state.route.p, state: code }; delete p.fed; this.go('/', p); }
+  play(fromStart) {
+    if (this.rm && !fromStart) { this.setState({ t: null }); }
+    const L = this.L, S = +L.REPLAY_START, END = +L.ASOF, DUR = 11000;
+    let t = this.state.t == null || fromStart ? S : this.state.t; if (t >= END) t = S;
+    this.setState({ playing: true, t }); this.curT = t;
+    this.lastFrame = this.boardAt(this.state.route.p, t, this.state.vw < 760, !this.isDark());
+    let last = performance.now();
+    clearInterval(this.pi);
+    const stop = () => { clearInterval(this.pi); this.lastFrame = null; this.curT = null; this.setState({ t: null, playing: false }); };
+    this.pi = setInterval(() => {
+      const now = performance.now(), dt = Math.min(64, now - last); last = now; t = Math.min(END, t + (END - S) * dt / DUR); this.curT = t;
+      const route = this.state.route; if (t >= END || route.path !== '/') { stop(); return; }
+      this.applyFrame(this.boardAt(route.p, t, this.state.vw < 760, !this.isDark())); this.applyChrome(t);
+    }, 50);
+  }
+  pause() { clearInterval(this.pi); if (this.state.playing) { const t = this.curT != null ? this.curT : this.state.t; this.lastFrame = null; this.curT = null; this.setState({ playing: false, t }); } }
+  setText(el, v) { const c = el.firstChild; if (c && c.nodeType === 3) { if (c.nodeValue !== v) c.nodeValue = v; } else if (el.textContent !== v) el.textContent = v; }
+  stepTarget(dir) {
+    const L = this.L, S = +L.REPLAY_START, END = +L.ASOF, kind = STEPS[this.state.stepKind] || STEPS.event;
+    const cur = this.curT != null ? this.curT : (this.state.t == null ? END : this.state.t);
+    if (dir < 0 && cur <= S + 36e5) return null;
+    if (dir > 0 && this.state.t == null && !this.state.playing) return null;
+    let to;
+    if (kind.months) { const d = new Date(cur); d.setMonth(d.getMonth() + dir * kind.months); to = +d; }
+    else { const ms = L.MILESTONES.map(m => +m.d); to = dir > 0 ? ms.find(m => m > cur + 36e5) : [...ms].reverse().find(m => m < cur - 36e5); if (to == null) to = dir > 0 ? END : S; }
+    if (to <= S) to = S; if (to >= END) return { t: null };
+    return { t: to };
+  }
+  stepBy(dir) { const r = this.stepTarget(dir); if (!r) return; this.pause(); this.curT = null; this.setState({ t: r.t }); }
+  boardAt(p, t, mob, light) {
+    const L = this.L, D = this.D, f = this.filt(p), cmp = this.csv(p.cmp);
+    const live = D.E.filter(x => x.section !== 'J' && f(x) && (t == null || (x.first && +x.first <= t)));
+    const byState = {}; live.forEach(x => { if (x.st) (byState[x.st] = byState[x.st] || []).push(x); });
+    const catCount = {}; Object.keys(L.CAT).forEach(k => catCount[k] = 0);
+    const tiles = {};
+    L.GRID.forEach(([code]) => { const list = byState[code] || [], cat = L.stateCat(list), ts = L.tileStyle(cat, p.state === code || cmp.includes(code), light); catCount[cat]++; tiles[code] = { ...ts, cat, list, g: !mob && cat !== 'none' ? L.CAT[cat].g : '', n: !mob && list.length ? String(list.length) : '' }; });
+    const fedLive = live.filter(x => x.level === 'federal'), fed = {};
+    L.FED_GROUPS.forEach(g => { const all = D.E.filter(x => x.level === 'federal' && x.section === g.k), on = fedLive.filter(x => x.section === g.k); fed[g.k] = { all, n: on.length, sq: all.map(x => { const lit = on.includes(x); return { bg: lit ? `var(--st-${x.status})` : 'var(--b-line-soft)', sh: lit && !light ? `0 0 10px -2px var(--st-${x.status})` : 'none' }; }) }; });
+    return { live, byState, tiles, fed, fedLive, catCount };
+  }
+  applyFrame(fr) {
+    const o = this.lastFrame; this.lastFrame = fr; if (!o) return;
+    Object.entries(fr.tiles).forEach(([code, v]) => { const w = o.tiles[code]; if (w && w.bg === v.bg && w.bd === v.bd && w.sh === v.sh && w.fg === v.fg && w.g === v.g && w.n === v.n) return; const el = document.querySelector('[data-tile="' + code + '"]'); if (!el) return; el.style.background = v.bg; el.style.border = v.bd; el.style.color = v.fg; el.style.boxShadow = v.sh; el.style.textShadow = v.ts; const g = el.querySelector('[data-tg]'), n = el.querySelector('[data-tn]'); if (g) { this.setText(g, v.g); g.style.color = v.gc; } if (n) { this.setText(n, v.n); n.style.color = v.gc; } });
+    Object.entries(fr.fed).forEach(([k, v]) => { const w = o.fed[k]; v.sq.forEach((q, i) => { if (w && w.sq[i].bg === q.bg && w.sq[i].sh === q.sh) return; const el = document.querySelector('[data-fq="' + k + '-' + i + '"]'); if (el) { el.style.background = q.bg; el.style.boxShadow = q.sh; } }); if (!w || w.n !== v.n) { const el = document.querySelector('[data-fn="' + k + '"]'); if (el) this.setText(el, String(v.n)); } });
+    Object.entries(fr.catCount).forEach(([k, n]) => { if (o.catCount[k] !== n) document.querySelectorAll('[data-ln="' + k + '"]').forEach(el => { this.setText(el, String(n)); }); });
+  }
+  chromeText(t, playing) {
+    const L = this.L, END = +L.ASOF, tt = t == null ? END : t, M = L.MILESTONES;
+    const ms = t == null ? M[M.length - 1] : [...M].reverse().find(m => +m.d <= t);
+    return { ds: t == null ? 'Now' : L.fmtShort(new Date(tt)), cap: !ms ? 'Before the first frontier bill' : (playing || t == null || Math.abs(+ms.d - tt) < 2 * 864e5 ? ms.c : 'Latest event, ' + L.fmtShort(ms.d) + ': ' + ms.c) };
+  }
+  syncChrome() {
+    if (this.state.route.path !== '/') return;
+    const d = document.querySelector('[data-rd]'), c = document.querySelector('[data-rc]'); if (!d || !c) return;
+    const pl = this.state.playing && this.curT != null, x = this.chromeText(pl ? this.curT : this.state.t, pl);
+    if (d.textContent !== x.ds) d.textContent = x.ds; if (c.textContent !== x.cap) c.textContent = x.cap;
+  }
+  applyChrome(t) {
+    const x = this.chromeText(t, true), d = document.querySelector('[data-rd]'), c = document.querySelector('[data-rc]');
+    if (d && d.textContent !== x.ds) d.textContent = x.ds; if (c && c.textContent !== x.cap) c.textContent = x.cap;
+  }
+  tileKey(code, e) {
+    const L = this.L, me = L.GRID.find(g => g[0] === code); if (!me) return;
+    const dir = { ArrowUp: [-1, 0], ArrowDown: [1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1] }[e.key];
+    if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); const g = e.key === 'Home' ? L.GRID[0] : L.GRID[L.GRID.length - 1]; this.focusTileEl(g[0]); return; }
+    if (!dir) return; e.preventDefault();
+    let best = null, bd = 1e9;
+    L.GRID.forEach(g => { const dr = g[1] - me[1], dc = g[2] - me[2]; if (dir[0] && Math.sign(dr) !== dir[0]) return; if (dir[1] && Math.sign(dc) !== dir[1]) return; if (dir[0] && dr === 0 || dir[1] && dc === 0) return; const d = dir[0] ? Math.abs(dr) * 10 + Math.abs(dc) * 3 : Math.abs(dc) * 10 + Math.abs(dr) * 3; if (d < bd) { bd = d; best = g; } });
+    if (best) this.focusTileEl(best[0]);
+  }
+  focusTileEl(code) { this.setState({ focusTile: code, hover: code }); setTimeout(() => { const el = document.querySelector(`[data-tile="${code}"]`); if (el) el.focus(); }, 0); }
+  toggleFollow(id) { const f = this.state.follow.includes(id) ? this.state.follow.filter(x => x !== id) : [...this.state.follow, id]; try { localStorage.setItem('fal-follow', JSON.stringify(f)); } catch (e) {} this.setState({ follow: f }); this.toastMsg(f.includes(id) ? 'Following. Changes will be flagged in Updates.' : 'Stopped following.'); }
+  isDark() { const t = this.state.theme; return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches; }
+  csv(v) { return (v || '').split(',').filter(Boolean); }
+  bars(conf) { const n = conf ? this.L.CONF[conf].n : 0; return [1, 2, 3, 4, 5].map(i => ({ c: i <= n ? 'var(--ink)' : 'var(--line-2)', h: (6 + i * 2) + 'px' })); }
+  card(x, terms) {
+    const L = this.L, t = terms || [];
+    const lead = x.summary || x.lead, snip = t.length ? L.snippet(x.mech, t) : null;
+    return { id: x.id, href: '#/bill/' + x.id, titleSegs: L.hl(x.title, t), short: x.short, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, tl: L.TYPES[x.type], juris: x.juris, kd: x.kdLabel,
+      cl: x.conf ? L.CONF[x.conf].l : 'Not rated', cd: x.conf ? L.CONF[x.conf].d : 'Excluded entries carry no confidence rating.', cb: this.bars(x.conf), onConf: e => { e.stopPropagation(); this.setState({ confOpen: x.conf || 'NONE' }); },
+      leadSegs: L.hl(snip || lead, t), isDraft: !snip && !!x.summary, isMech: !snip && !x.summary, isSnip: !!snip, upd: x.U, open: () => this.go('/bill/' + x.id) };
+  }
+  filt(p) {
+    const st = this.csv(p.status);
+    return x => (!st.length || st.includes(x.status)) && (!p.type || x.type === p.type) && (!p.year || x.years.includes(p.year)) && (!p.conf || x.conf === p.conf) && (!p.level || x.level === p.level) && (!p.st || x.st === p.st);
+  }
+  chips(p, keys) {
+    const L = this.L, out = [];
+    const lab = { status: v => this.csv(v).map(s => L.ST[s] ? L.ST[s].l : s).join(' or '), type: v => L.TYPES[v], year: v => v, conf: v => 'Confidence ' + (L.CONF[v] ? L.CONF[v].l : v), level: v => v === 'state' ? 'States' : 'Federal', st: v => L.SN[v], q: v => '“' + v + '”' };
+    keys.forEach(k => { if (p[k]) out.push({ l: lab[k](p[k]), aria: 'Remove filter ' + lab[k](p[k]), rm: () => { const n = { ...p }; delete n[k]; this.go(this.state.route.path, n); } }); });
+    return out;
+  }
+  renderVals() {
+    const s = this.state, r = s.route, p = r.p, mob = s.vw < 760, ready = !s.loading && !s.err && !!this.D;
+    const path = r.path, isBill = /^\/bill\//.test(path);
+    const known = ['/', '/explore', '/updates', '/method', '/compare'];
+    const sec = path === '/' ? 'map' : path === '/explore' || isBill || path === '/compare' ? 'explore' : path.slice(1);
+    const NAV = [['map', 'Map', '#/', '◎'], ['explore', 'Explore', '#/explore', '⌕'], ['updates', 'Updates', '#/updates', '◷'], ['method', 'Data & trust', '#/method', '✓']];
+    const v = {
+      loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
+      showTopNav: !mob, showBottomNav: mob, mainPadBottom: mob ? '88px' : '0px', footerPadBottom: mob ? '104px' : '28px', toastBottom: mob ? '96px' : '28px',
+      nav: NAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-2)', bg: sec === k ? 'var(--surface-2)' : 'transparent' })),
+      mainRef: this.mainRef, skipToMain: e => { e.preventDefault(); this.focusMain(); }, showFollow: SHOW_FOLLOW,
+      themeLabel: s.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
+      toggleTheme: () => { const cur = s.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); const th = cur === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', th); try { localStorage.setItem('fal-theme', th); } catch (e) {} this.setState({ theme: th }); },
+      retry: () => this.load(), searchClick: () => { this.wantQFocus = true; if (this.state.route.path === '/explore') this.forceUpdate(); },
+      booting: s.booting, bootAnim: s.leaving ? 'gxOut 520ms var(--ease-io) forwards' : 'none',
+      isHome: false, isExplore: false, isBill: false, isCompare: false, isUpdates: false, isMethod: false, isNotFound: false, panelOpen: false, confSheet: false
+    };
+    if (!ready) return v;
+    const route = isBill ? 'bill' : known.includes(path) ? path : '404';
+    if (route === '/') Object.assign(v, this.home(p, mob));
+    if (route === '/explore') Object.assign(v, this.explore(p));
+    if (route === 'bill') Object.assign(v, this.bill(+path.split('/')[2]));
+    if (route === '/compare') Object.assign(v, this.compare(p));
+    if (route === '/updates') Object.assign(v, this.updates(p));
+    if (route === '/method') Object.assign(v, this.method());
+    if (route === '404' || (route === 'bill' && !v.isBill)) Object.assign(v, { isNotFound: true, isBill: false });
+    Object.assign(v, this.confSheetVals());
+    const T = 'Frontier AI Law Tracker';
+    this.docTitle = v.isHome ? (p.state && L_SN(this.L, p.state) ? L_SN(this.L, p.state) + ' · ' + T : v.panelOpen ? v.panelTitle + ' · ' + T : T + ' · US states and Congress')
+      : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'connections' ? 'Relationships' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
+      : v.isBill ? v.bShort + ' · Bill · ' + T
+      : v.isCompare ? 'Compare' + (v.heads ? ': ' + v.heads.map(h => h.short).join(' vs ') : v.sCols ? ': ' + v.sCols.map(c => c.nm).join(' vs ') : '') + ' · ' + T
+      : v.isUpdates ? 'Updates · ' + T : v.isMethod ? 'Data & trust · ' + T : v.isNotFound ? 'Page not found · ' + T : T;
+    return v;
+  }
+  home(p, mob) {
+    const L = this.L, D = this.D, s = this.state, light = !this.isDark(), t = s.t;
+    const fr = this.boardAt(p, t, mob, light), live = fr.live, byState = fr.byState;
+    const allByState = {}; D.E.forEach(x => { if (x.st) (allByState[x.st] = allByState[x.st] || []).push(x); });
+    const cmp = this.csv(p.cmp), cmpMode = p.mode === 'compare';
+    const catCount = fr.catCount;
+    const tiles = L.GRID.map(([code, row, col]) => {
+      const ft = fr.tiles[code], list = ft.list, cat = ft.cat, ts = ft;
+      const nm = L.SN[code], all = allByState[code] || [];
+      const aria = `${nm}: ${L.CAT[cat].l}${list.length ? `, ${list.length} ${list.length === 1 ? 'instrument' : 'instruments'}` : ''}${D.pulse[code] ? ', new activity this week' : ''}${cmpMode ? (cmp.includes(code) ? ', selected for comparison' : ', press to add to comparison') : ''}`;
+      return { code, r: row + 1, c: col + 1, bg: ts.bg, bd: ts.bd, fg: ts.fg, sh: ts.sh, ts: ts.ts, gc: ts.gc, gTxt: ft.g, nTxt: ft.n, pe: mob ? 'none' : 'auto', pulse: !!D.pulse[code] && t == null && !this.rm, aria, pressed: cmpMode ? cmp.includes(code) : undefined, ti: !mob && s.focusTile === code ? 0 : -1,
+        onClick: e => { if (cmpMode) { if (!all.length) { this.toastMsg(`${nm} has no tracked instruments to compare.`); return; } const n = cmp.includes(code) ? cmp.filter(c => c !== code) : cmp.length >= 3 ? cmp : [...cmp, code]; if (!cmp.includes(code) && cmp.length >= 3) this.toastMsg('Compare up to 3 states.'); this.setP({ cmp: n.join(',') }, true); } else this.openState(code, e); },
+        onKey: e => this.tileKey(code, e), onEnter: () => this.setState({ hover: code, focusTile: code }) };
+    });
+    const fedLive = fr.fedLive;
+    const fedGroups = L.FED_GROUPS.map(g => {
+      const fg = fr.fed[g.k], all = fg.all;
+      return { k: g.k, l: g.l, sub: g.sub, n: fg.n, sq: fg.sq.map((q, i) => ({ ...q, id: g.k + '-' + i })), sel: p.fed === g.k ? '1px solid var(--b-ink)' : '1px solid var(--b-line-soft)',
+        aria: `${g.l}: ${fg.n} of ${all.length} shown. Open list.`, onClick: e => { this.fromRect = null; this.wantPanelFocus = true; this.pause(); const n = { ...p, fed: g.k }; delete n.state; this.go('/', n); } };
+    });
+    const hv = s.hover && L.SN[s.hover] ? s.hover : null, hl = hv ? (byState[hv] || []) : [], hcat = L.stateCat(hl);
+    const ms = t == null ? L.MILESTONES[L.MILESTONES.length - 1] : [...L.MILESTONES].reverse().find(m => +m.d <= t);
+    const S0 = +L.REPLAY_START, E0 = +L.ASOF, tt = t == null ? E0 : t;
+    const stc = this.csv(p.status);
+    const statusChips = ['enacted', 'pending', 'stalled', 'failed', 'executive', 'litigation', 'export'].map(k => { const on = stc.includes(k); return { l: L.ST[k].l, g: L.ST[k].g, c: `var(--st-${k})`, pressed: on, bg: on ? 'var(--b-press)' : 'transparent', bd: on ? '1px solid var(--b-press-bd)' : '1px solid var(--b-line)', sbg: on ? 'var(--accent-soft)' : 'var(--surface)', sbd: on ? '1.5px solid var(--accent)' : '1px solid var(--line-2)', toggle: () => { const n = on ? stc.filter(x => x !== k) : [...stc, k]; this.setP({ status: n.join(',') }, true); } }; });
+    const boardChips = this.chips(p, ['type', 'year', 'conf']);
+    const activeStates = Object.keys(allByState).filter(c => L.SN[c]).map(c => { const list = byState[c] || []; const cat = L.stateCat(list); return { code: c, nm: L.SN[c], cat, g: L.CAT[cat].g, c: CATV[cat], n: list.length, l: L.CAT[cat].l, open: e => this.openState(c, e) }; }).sort((a, b) => Object.keys(L.CAT).indexOf(a.cat) - Object.keys(L.CAT).indexOf(b.cat) || b.n - a.n);
+    const week = D.N.filter(n => n.d >= L.WEEK_FROM).sort((a, b) => b.d - a.d).slice(0, 6).map(n => this.feedItem(n));
+    const num = n => n; const fN = stc.length + ['type', 'year', 'conf'].filter(k => p[k]).length;
+    const anyLive = live.length > 0;
+    return {
+      isHome: true, heroFull: !mob, homeLabelStyle: mob ? 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)' : 'font-size:14px;font-weight:700;color:var(--ink-2)', searchH: mob ? '52px' : '60px', searchBtnPad: mob ? '0' : '0 20px',
+      segH: mob ? '44px' : '38px', cmpLabel: mob ? 'Compare' : 'Compare states', filtersInline: !mob, mapHidden: mob ? 'true' : undefined, hoverStrip: !mob,
+      filterN: fN, hasFilterN: fN > 0, filtersAria: fN ? `Filters, ${fN} active` : 'Filters', filtersBg: fN ? 'var(--b-press)' : 'transparent',
+      filtersOpen: s.filtersOpen, openFilters: () => this.setState({ filtersOpen: true }), closeFilters: () => this.setState({ filtersOpen: false }),
+      filtersDone: live.length ? `Show ${live.length} ${live.length === 1 ? 'instrument' : 'instruments'}` : 'No matches · close',
+      h3: num(3), h10: num(10), t5: num(5), t11: num(11), t6: num(6), t10b: num(10), t9: num(9),
+      q: s.q, qRef: this.qRef, onQ: e => this.setState({ q: e.target.value }), submitQ: e => { e.preventDefault(); this.go('/explore', { q: s.q.trim() }); },
+      tiles, fedGroups, fedLiveN: fedLive.length, statusChips, boardChips, hasBoardChips: boardChips.length > 0 || stc.length > 0,
+      clearBoard: () => { const n = { ...p }; ['status', 'type', 'year', 'conf'].forEach(k => delete n[k]); this.go('/', n, true); },
+      fType: p.type || '', fYear: p.year || '', fConf: p.conf || '',
+      onType: e => this.setP({ type: e.target.value }, true), onYear: e => this.setP({ year: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true),
+      mapList: p.view === 'list', mapGrid: p.view !== 'list', setMap: () => this.setP({ view: '' }, true), setList: () => this.setP({ view: 'list' }, true),
+      mapTabBg: p.view !== 'list' ? 'var(--b-press)' : 'transparent', listTabBg: p.view === 'list' ? 'var(--b-press)' : 'transparent', mapSel: p.view !== 'list', listSel: p.view === 'list',
+      noResults: !anyLive && t == null, liveN: live.length,
+      hasHover: !!hv && !mob, hoverName: hv ? L.SN[hv] : '', hoverCat: L.CAT[hcat].l, hoverG: L.CAT[hcat].g, hoverC: CATV[hcat], hoverN: hl.length ? `${hl.length} ${hl.length === 1 ? 'instrument' : 'instruments'}` : 'Nothing tracked', hoverPulse: hv && D.pulse[hv] ? 'New activity this week' : '',
+      noHover: !hv || mob,
+      showLegend: true, legend: Object.entries(L.CAT).map(([k, c]) => ({ k, l: c.l, s: SHORT[k], n: catCount[k], ...L.tileStyle(k, false, light), g: c.g })),
+      playing: s.playing, playLabel: s.playing ? 'Pause the replay' : 'Replay how we got here, 2023 to now', playIcon: s.playing ? '❚❚' : '▶',
+      togglePlay: () => s.playing ? this.pause() : this.play(false),
+      stepKind: s.stepKind, onStep: e => this.setState({ stepKind: e.target.value }),
+      ...(() => { const P = this.stepTarget(-1), N = this.stepTarget(1), nm = (r) => r ? (r.t == null ? 'now' : (s.stepKind === 'event' ? L.fmt(new Date(r.t)) : L.fmtShort(new Date(r.t)))) : '', sk = STEPS[s.stepKind].l;
+        return { prevOff: !P, nextOff: !N, prevOp: P ? '1' : '.4', nextOp: N ? '1' : '.4',
+          prevAria: P ? `Previous: back ${sk}, to ${nm(P)}` : 'Previous: already at the start, September 2023', nextAria: N ? `Next: forward ${sk}, to ${nm(N)}` : 'Next: already at now',
+          onPrev: () => this.stepBy(-1), onNext: () => this.stepBy(1) }; })(),
+      replayIsNow: t == null, replayActive: t != null,
+      showNow: () => { this.pause(); this.setState({ t: null }); },
+      cmpMode: p.mode === 'compare', cmpOff: p.mode !== 'compare', cmpN: cmp.length, cmpReady: cmp.length >= 2,
+      cmpStates: cmp.map(c => ({ code: c, nm: L.SN[c], rm: () => this.setP({ cmp: cmp.filter(x => x !== c).join(',') }, true) })),
+      toggleCmp: () => { const n = { ...p }; if (n.mode === 'compare') { delete n.mode; delete n.cmp; } else { n.mode = 'compare'; delete n.state; } this.go('/', n, true); },
+      goCmp: () => this.go('/compare', { states: cmp.join(',') }),
+      cmpBtnBg: p.mode === 'compare' ? 'var(--b-ink)' : 'transparent', cmpBtnFg: p.mode === 'compare' ? 'var(--b-solid)' : 'var(--b-ink)',
+      activeStates, week,
+      ...this.panel(p, byState, mob)
+    };
+  }
+  panel(p, byState, mob) {
+    const L = this.L, D = this.D;
+    if (!p.state && !p.fed) return { panelOpen: false };
+    let title, sub, cat, items, isState = !!p.state, explore;
+    if (isState) {
+      const all = D.E.filter(x => x.st === p.state).sort((a, b) => L.STATUS_ORDER.indexOf(a.status) - L.STATUS_ORDER.indexOf(b.status));
+      cat = L.stateCat(all); title = L.SN[p.state] || p.state;
+      const counts = {}; all.forEach(x => { const k = x.section === 'A' ? 'frontier law' : x.type === 'auditor' ? 'auditor measure' : x.type === 'executive' ? "governor's order" : x.type === 'litigation' ? 'enforcement item' : x.type === 'precursor' ? 'earlier proposal' : x.type === 'law' ? 'broader law' : x.status + ' bill'; counts[k] = (counts[k] || 0) + 1; });
+      sub = all.length ? Object.entries(counts).map(([k, n]) => `${n} ${k}${n > 1 ? (k.endsWith('order') ? 's' : 's') : ''}`).join(' · ').replace("governor's orders", "governor's orders") : 'No frontier-AI law or bill is tracked here. That is the most common state of play.';
+      items = all; explore = () => this.go('/explore', { st: p.state });
+    } else {
+      const g = L.FED_GROUPS.find(g => g.k === p.fed) || L.FED_GROUPS[0];
+      items = D.E.filter(x => x.level === 'federal' && x.section === g.k); title = g.l; sub = `${items.length} ${items.length === 1 ? 'item' : 'items'} · ${g.sub}`; cat = 'other';
+      explore = () => this.go('/explore', { level: 'federal' });
+    }
+    const ts = L.tileStyle(isState ? cat : 'none', false, !this.isDark());
+    return {
+      panelOpen: true, panelIsState: isState, panelIsFed: !isState, panelTitle: title, panelSub: sub, panelCat: isState ? L.CAT[cat].l : 'Federal layer', panelG: isState ? L.CAT[cat].g : '▣', panelCode: isState ? p.state : 'US',
+      panelTileBg: isState ? (ts.bg.startsWith('#') ? ts.bg : `${ts.bg}, var(--b-bg)`) : 'var(--b-card)', panelTileBd: isState ? ts.bd : '1.5px solid var(--b-cyan)', panelTileFg: isState ? ts.fg : 'var(--b-ink)', panelTileTs: isState ? ts.ts : 'none', panelGC: isState ? ts.gc : 'var(--b-cyan)',
+      panelItems: items.map(x => this.card(x)), panelEmpty: !items.length, panelTileRef: this.panelTileRef, panelCloseRef: this.panelCloseRef, closePanel: this.closePanel, panelExplore: explore,
+      panelPulse: isState && D.pulse[p.state] ? 'New activity this week' : '',
+      pTop: mob ? 'auto' : '12px', pRight: mob ? '0' : '12px', pBottom: mob ? '0' : '12px', pLeft: mob ? '0' : 'auto', pW: mob ? '100%' : 'min(460px, calc(100vw - 24px))', pMaxH: mob ? '86vh' : 'none', pRad: mob ? '24px 24px 0 0' : '24px', pAnim: mob ? 'gxUp var(--dur-3) var(--ease-out)' : 'gxIn var(--dur-3) var(--ease-out)', pHandle: mob
+    };
+  }
+  feedItem(n) {
+    const L = this.L, D = this.D, k = L.KINDS[n.kind] || L.KINDS.industry, e = n.entryId ? D.byId[n.entryId] : null, open = !!this.state.open[n.i];
+    return { i: n.i, date: L.fmt(n.d), title: n.title, body: n.body, kl: k.l, kg: k.g, kc: k.v, hasEntry: !!e, entryHref: e ? '#/bill/' + e.id : '', entryShort: e ? e.short : '', check: n.check, links: n.links.map(l => ({ t: l.t, u: l.u })),
+      open, toggle: () => this.setState(st => ({ open: { ...st.open, [n.i]: !st.open[n.i] } })), toggleLabel: open ? 'Hide sources' : `Sources and how we checked (${n.links.length})`, expanded: open ? 'true' : 'false', corr: /Correction/.test(n.check) };
+  }
+  confSheetVals() {
+    const L = this.L, c = this.state.confOpen;
+    if (!c) return { confSheet: false };
+    return { confSheet: true, closeConf: () => this.setState({ confOpen: null }), confLevels: L.CONF_ORDER.map(k => ({ l: L.CONF[k].l, code: k, d: L.CONF[k].d, cb: this.bars(k), bg: k === c ? 'var(--accent-soft)' : 'transparent', bd: k === c ? '1px solid var(--accent)' : '1px solid var(--line)', cur: k === c ? 'This entry' : '' })), confNone: c === 'NONE' };
+  }
+  explore(p) {
+    const L = this.L, D = this.D, s = this.state, view = p.view || 'results';
+    const f = this.filt(p);
+    const { terms, res } = L.search(D.E.filter(f), s.q);
+    const rows = s.q.trim() ? res : res.sort((a, b) => (b.x.kd ? +b.x.kd.d : 0) - (a.x.kd ? +a.x.kd.d : 0));
+    const chips = this.chips({ ...p, q: s.q.trim() || undefined }, ['q', 'level', 'status', 'type', 'conf', 'st']);
+    const tab = (k, l, n) => ({ k, l, n, sel: view === k, bg: view === k ? 'var(--ink)' : 'transparent', fg: view === k ? 'var(--bg)' : 'var(--ink-2)', go: () => this.setP({ view: k === 'results' ? '' : k }, true) });
+    const out = {
+      isExplore: true, q: s.q, qRef: this.qRef,
+      onQ: e => { const q = e.target.value; this.setState({ q }); clearTimeout(this.qt); this.qt = setTimeout(() => { history.replaceState(null, '', '#/explore?' + new URLSearchParams(Object.entries({ ...this.state.route.p, q }).filter(([, v]) => v)).toString()); }, 300); },
+      submitQ: e => { e.preventDefault(); },
+      chips, hasChips: chips.length > 0, clearAll: () => { this.setState({ q: '' }); this.go('/explore', p.view ? { view: p.view } : {}); },
+      moreOpen: !!(p.type || p.conf), fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fConf: p.conf || '', fSt: p.st || '',
+      onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true),
+      tabs: [tab('results', 'Results', rows.length), tab('timeline', 'Timeline', null), tab('connections', 'Relationships', null)],
+      vResults: view === 'results', vTimeline: view === 'timeline', vConn: view === 'connections',
+      showThresholds: p.type === 'law'
+    };
+    if (view === 'results') {
+      const lim = s.limit;
+      out.results = rows.slice(0, lim).map(r => ({ ...this.card(r.x, terms), th: r.x.thresholds || 'Coverage not stated in the entry', hasTh: p.type === 'law' }));
+      out.resultCount = `${rows.length} ${rows.length === 1 ? 'result' : 'results'}${s.q.trim() ? ', best match first' : ', most recent first'}`;
+      out.moreN = Math.max(0, rows.length - lim); out.hasMore = rows.length > lim; out.showMore = () => this.setState({ limit: lim + 20 });
+      out.noResults = rows.length === 0;
+      out.suggest = ['kill switch', 'whistleblower', '10²⁶', 'incident reporting', 'Anthropic'].map(t => ({ t, go: () => { this.setState({ q: t }); this.go('/explore', { q: t }); } }));
+    }
+    if (view === 'timeline') {
+      const ids = new Set(rows.map(r => r.x.id)), up = p.when === 'upcoming';
+      let ev = D.events.filter(e => ids.has(e.id) && (!up || e.d > L.ASOF));
+      if (up) ev = ev.slice().sort((a, b) => a.d - b.d);
+      const groups = []; let cur = null;
+      ev.forEach(e => { const sched = e.d > L.ASOF, lab = L.fmtMonth(e.d); if (!cur || cur.label !== lab) { cur = { label: lab, sched, schedTag: sched ? 'Scheduled' : '', items: [] }; groups.push(cur); } const x = D.byId[e.id]; cur.items.push({ date: L.fmt(e.d), sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, sl: L.ST[x.status].l, short: x.short, t: e.t, href: '#/bill/' + x.id, dot: sched ? 'var(--surface)' : `var(--st-${x.status})`, dotBd: `2px solid var(--st-${x.status})` }); });
+      out.tlGroups = groups; out.tlCount = `${ev.length} dated ${ev.length === 1 ? 'event' : 'events'}${up ? ' after 29 Sep 2026' : ''}`; out.tlEmpty = !ev.length;
+      out.upOn = up; out.upBg = up ? 'var(--ink)' : 'var(--surface)'; out.upFg = up ? 'var(--bg)' : 'var(--ink)';
+      out.toggleUp = () => this.setP({ when: up ? '' : 'upcoming' }, true);
+    }
+    if (view === 'connections') Object.assign(out, this.conn(p.c || 'SB53'));
+    return out;
+  }
+  conn(c) {
+    const L = this.L, D = this.D, R = D.rel;
+    const TC = { template: 'var(--accent)', succession: 'var(--st-pending)', fedstate: 'var(--st-enacted)', executive: 'var(--st-executive)', litigation: 'var(--st-litigation)', assurance: 'var(--st-auditor)', actor: 'var(--st-stalled)' };
+    const nameOf = k => R.actors[k] || R.short[k] || k;
+    const es = D.edges.filter(e => e.from === c || e.to === c);
+    const others = []; es.forEach(e => { const o = e.from === c ? e.to : e.from; if (!others.includes(o)) others.push(o); });
+    const n = Math.max(others.length, 1), cx = 200, cy = 200, rad = 150;
+    const pos = {}; others.forEach((o, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; pos[o] = { x: cx + rad * Math.cos(a), y: cy + rad * Math.sin(a) }; });
+    const lines = es.map(e => { const o = e.from === c ? e.to : e.from; return { x2: pos[o].x, y2: pos[o].y, c: TC[e.type], dash: e.dashed ? '5 5' : '' }; });
+    const nodes = others.map(o => ({ x: pos[o].x, y: pos[o].y, r: R.actors[o] ? 5 : 8, f: R.actors[o] ? 'var(--surface)' : 'var(--ink)' }));
+    const types = Object.keys(R.types).map(t => ({ t, name: R.types[t].name, c: TC[t], items: es.filter(e => e.type === t).map(e => { const o = e.from === c ? e.to : e.from, isEntry = !!D.keyToId[o]; return { name: nameOf(o), label: e.label, quote: e.quote, dir: e.from === c ? '→' : '←', dashed: !!e.dashed, isEntry, isActor: !isEntry, recenter: () => this.setP({ c: o }, true), href: isEntry ? '#/bill/' + D.keyToId[o] : '' }; }) })).filter(g => g.items.length);
+    const hubs = ['SB53', 'RAISE', 'SB315', 'FRONTIER', 'EO14365', 'SB813'].map(k => ({ l: R.short[k] || k, sel: k === c, bg: k === c ? 'var(--ink)' : 'var(--surface)', fg: k === c ? 'var(--bg)' : 'var(--ink)', go: () => this.setP({ c: k }, true) }));
+    const cid = D.keyToId[c];
+    const h = React.createElement;
+    const cGraph = h('svg', { viewBox: '0 0 400 400', role: 'img', 'aria-label': nameOf(c) + ' has ' + es.length + ' connections, listed alongside', style: { width: '100%', height: '100%', display: 'block' } },
+      h('circle', { key: 'ring', cx: 200, cy: 200, r: 150, fill: 'none', stroke: 'var(--line)', strokeDasharray: '2 6' }),
+      ...lines.map((l, i) => h('line', { key: 'l' + i, x1: 200, y1: 200, x2: l.x2, y2: l.y2, stroke: l.c, strokeWidth: 2, strokeDasharray: l.dash || undefined, strokeLinecap: 'round', opacity: 0.85 })),
+      ...nodes.map((nd, i) => h('circle', { key: 'n' + i, cx: nd.x, cy: nd.y, r: nd.r, fill: nd.f, stroke: 'var(--ink)', strokeWidth: 2 })),
+      h('circle', { key: 'hub', cx: 200, cy: 200, r: 34, fill: '#070C18', stroke: 'var(--accent)', strokeWidth: 3 }),
+      h('text', { key: 'lab', x: 200, y: 205, textAnchor: 'middle', fill: '#FFFFFF', fontSize: 13, fontWeight: 800 }, es.length + ' links'));
+    return { cGraph, cName: nameOf(c), cHref: cid ? '#/bill/' + cid : '', cIsEntry: !!cid, cLines: lines, cNodes: nodes, cTypes: types, cN: es.length, cHubs: hubs, cEmpty: !es.length };
+  }
+  bill(id) {
+    const L = this.L, D = this.D, x = D.byId[id];
+    if (!x) return { isBill: false };
+    const R = D.rel, k = x.key;
+    const steps = x.dated.map(sg => { const fut = sg.d > L.ASOF; return { date: L.fmt(sg.d), t: sg.t, fut, tag: fut ? 'Scheduled' : '', dot: fut ? 'var(--surface)' : `var(--st-${x.status})`, bd: `2px solid var(--st-${x.status})` }; });
+    const notes = x.segs.filter(sg => !sg.d).map(sg => ({ t: sg.t }));
+    const rel = k ? D.edges.filter(e => e.from === k || e.to === k).slice(0, 10).map(e => { const o = e.from === k ? e.to : e.from, oid = D.keyToId[o]; return { name: R.actors[o] || R.short[o] || o, label: e.label, type: R.types[e.type].name, href: oid ? '#/bill/' + oid : '', isEntry: !!oid, isActor: !oid }; }) : [];
+    const news = D.N.filter(n => n.entryId === id).map(n => this.feedItem(n));
+    const following = this.state.follow.includes(id);
+    const marks = [x.U && 'Added or changed in the supplementary checks through 29 Sep 2026', x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
+    return {
+      isBill: true, bId: id, bTitle: x.title, bShort: x.short, bSec: x.sec, bSecHref: '#/explore?type=' + x.type, bJuris: x.juris, bType: L.TYPES[x.type],
+      bSl: L.ST[x.status].l, bSg: L.ST[x.status].g, bSc: `var(--st-${x.status})`,
+      bCl: x.conf ? L.CONF[x.conf].l : 'Not rated', bCd: x.conf ? L.CONF[x.conf].d : 'Excluded entries were checked and found out of scope, so they carry no confidence rating.', bCb: this.bars(x.conf), bConfNote: x.confNote && x.confNote !== x.conf ? x.confNote : '', hasConfNote: !!(x.confNote && x.confNote !== x.conf),
+      openConf: () => this.setState({ confOpen: x.conf || 'NONE' }),
+      hasSummary: !!x.summary, bSummary: x.summary, noSummary: !x.summary, bLead: x.lead,
+      bMech: x.mech, hasSigned: !!x.signed, bSigned: x.signed, hasEffective: !!x.effective, bEffective: x.effective, hasPenalties: !!x.penalties, bPenalties: x.penalties,
+      srcLinks: x.srcLinks, hasSrcLinks: x.srcLinks.length > 0, noSrcLinks: !x.srcLinks.length && !x.moreLinks.length, moreLinks: x.moreLinks, hasMoreLinks: x.moreLinks.length > 0, nMoreLinks: x.moreLinks.length, bTh: x.thresholds, hasTh: !!x.thresholds, bSponsor: x.sponsor, hasSponsor: !!x.sponsor, bSource: x.source, bLink: x.link, bYears: x.years.filter(y => y !== '*').join(', ') || 'None recorded',
+      steps, hasSteps: steps.length > 0, notes, hasNotes: notes.length > 0, noSteps: !steps.length && !notes.length,
+      rel, hasRel: rel.length > 0, relHref: k ? '#/explore?view=connections&c=' + k : '', bNews: news, hasNews: news.length > 0,
+      marks, hasMarks: marks.length > 0,
+      following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',
+      toggleFollowB: () => this.toggleFollow(id),
+      share: () => { const u = location.href; const done = () => this.toastMsg('Link copied'); if (navigator.share && this.state.vw < 760) navigator.share({ title: x.short, url: u }).catch(() => {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, () => this.toastMsg('Copy the address bar to share')); else this.toastMsg('Copy the address bar to share'); },
+      cmpHref: '#/compare?ids=' + (L.K_IDS.includes(id) ? [id, ...L.K_IDS.filter(i => i !== id).slice(0, 1)] : [id, ...D.E.filter(o => o.section === x.section && o.id !== id).slice(0, 1).map(o => o.id)]).join(','),
+      isExcluded: x.section === 'J'
+    };
+  }
+  compare(p) {
+    const L = this.L, D = this.D, s = this.state;
+    const LET = ['A', 'B', 'C'], COL = ['var(--accent-ink)', 'var(--st-auditor)', 'var(--st-executive)'];
+    if (p.states) {
+      const codes = this.csv(p.states).filter(c => L.SN[c]).slice(0, 3);
+      const cols = codes.map((c, i) => { const all = D.E.filter(x => x.st === c); const cat = L.stateCat(all); const by = {}; all.forEach(x => by[x.status] = (by[x.status] || 0) + 1);
+        return { nm: L.SN[c], code: c, letter: LET[i], col: COL[i], cat: L.CAT[cat].l, g: L.CAT[cat].g, n: all.length, counts: L.STATUS_ORDER.filter(k => by[k]).map(k => ({ l: L.ST[k].l, g: L.ST[k].g, c: `var(--st-${k})`, n: by[k] })), items: all.map(x => ({ short: x.short, href: '#/bill/' + x.id, g: L.ST[x.status].g, c: `var(--st-${x.status})`, sl: L.ST[x.status].l, kd: x.kdLabel })) }; });
+      return { isCompare: true, cmpIsStates: true, cmpIsEntries: false, sCols: cols, sEmpty: cols.length < 2, backToMap: () => this.go('/', { mode: 'compare', cmp: codes.join(',') }) };
+    }
+    const ids = (p.ids ? this.csv(p.ids).map(Number) : [1, 2, 3]).filter(i => D.byId[i]).slice(0, 3);
+    const xs = ids.map(i => D.byId[i]);
+    const useK = xs.length && xs.every(x => L.K_IDS.includes(x.id));
+    const raw = useK ? L.K_ROWS.map(([dim, m]) => [dim, xs.map(x => m[x.id])]) : [
+      ['Status', xs.map(x => L.ST[x.status].l)], ['Type', xs.map(x => L.TYPES[x.type])], ['Who it covers', xs.map(x => x.thresholds || '—')], ['Latest step', xs.map(x => x.kdLabel)],
+      ['Confidence', xs.map(x => x.conf ? L.CONF[x.conf].l : 'Not rated')], ['Sponsors', xs.map(x => x.sponsor || '—')], ['Source', xs.map(x => x.source || '—')]];
+    const TOK = /\([^)]*\)|[^\s\/;,+()]+|[\s\/;,+]+/g, SEP = /^[\s\/;,+]+$/;
+    const norm = v => v.toLowerCase().replace(/\([^)]*\)/g, ' ').replace(/[–-]/g, '—').replace(/\s+/g, ' ').trim().replace(/^(—|none|no|n\/a)$/, 'none');
+    const rows = raw.map(([dim, v0]) => {
+      const vals = v0.map(v => (v || '—').trim()), ns = vals.map(norm), nset = new Set(ns), rset = new Set(vals.map(v => v.toLowerCase()));
+      const kind = nset.size > 1 ? 'diff' : rset.size > 1 ? 'mostly' : 'same';
+      let note = '', odd = -1;
+      if (kind === 'diff' && vals.length === 3 && nset.size === 2) { odd = ns.findIndex(n => ns.filter(m => m === n).length === 1); note = [0, 1, 2].filter(i => i !== odd).map(i => LET[i]).join(' and ') + ' match'; }
+      const segsFor = (v, i) => { const plain = [{ t: v, m: false, n: true }]; if (kind === 'same' || vals.length < 2) return plain; const others = vals.filter((_, j) => j !== i).map(o => o.toLowerCase()); const toks = v.match(TOK) || [v]; const segs = toks.map(tk => { const m = !SEP.test(tk) && tk !== '—' && others.some(o => !o.includes(tk.toLowerCase())); return { t: tk, m, n: !m }; }); const words = segs.filter(g => !SEP.test(g.t)), marked = words.filter(g => g.m).length; return words.length > 8 && marked / words.length > 0.6 ? plain : segs; };
+      return { dim, kind, isDiff: kind === 'diff', isMostly: kind === 'mostly', note, hasNote: !!note, same: vals[0], vals: vals.map((v, i) => ({ v, segs: segsFor(v, i), letter: LET[i], col: COL[i], nm: xs[i].short, bd: i === odd ? '1.5px solid var(--accent)' : '1px solid var(--line)' })) };
+    });
+    const setIds = n => this.go('/compare', { ids: n.join(',') }, true);
+    const heads = xs.map((x, i) => ({ letter: LET[i], col: COL[i], short: x.short, href: '#/bill/' + x.id, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, juris: x.juris, rm: () => setIds(ids.filter(j => j !== x.id)), aria: 'Remove ' + x.short }));
+    const ql = s.cmpQ.trim().toLowerCase();
+    const pool = D.E.filter(x => x.section !== 'J' && !ids.includes(x.id) && (!ql || (x.short + ' ' + x.title + ' ' + x.juris).toLowerCase().includes(ql)));
+    const sorted = ql ? pool : [...pool.filter(x => L.K_IDS.includes(x.id)), ...pool.filter(x => !L.K_IDS.includes(x.id))];
+    return {
+      isCompare: true, cmpIsStates: false, cmpIsEntries: true, heads, rowsDiff: [...rows.filter(r => r.kind === 'diff'), ...rows.filter(r => r.kind === 'mostly')], rowsSame: rows.filter(r => r.kind === 'same'), hasSame: rows.some(r => r.kind === 'same'), nSame: rows.filter(r => r.kind === 'same').length, nDiff: rows.filter(r => r.kind === 'diff').length,
+      cmpGrid: `repeat(${Math.max(xs.length, 1)}, minmax(0,1fr))`, useK, notK: !useK, tooFew: xs.length < 2, canAdd: xs.length < 3,
+      cmpAdd: s.cmpAdd, openAdd: () => this.setState({ cmpAdd: !s.cmpAdd, cmpQ: '' }), cmpQ: s.cmpQ, onCmpQ: e => this.setState({ cmpQ: e.target.value }),
+      addList: sorted.slice(0, 8).map(x => ({ short: x.short, juris: x.juris, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, inK: L.K_IDS.includes(x.id), add: () => { this.setState({ cmpAdd: false }); setIds([...ids, x.id]); } })),
+      cmpWide: s.vw >= 760, cmpNarrow: s.vw < 760, cmpRowGrid: s.vw >= 760 ? `200px repeat(${Math.max(xs.length, 1)}, minmax(0,1fr))` : 'minmax(0,1fr)'
+    };
+  }
+  updates(p) {
+    const L = this.L, D = this.D, s = this.state, kf = s.kindF;
+    const items = D.N.filter(n => !kf.length || kf.includes(n.kind)).sort((a, b) => b.d - a.d || b.i - a.i);
+    const groups = []; let cur = null;
+    items.forEach(n => { const lab = L.fmt(n.d); if (!cur || cur.date !== lab) { cur = { date: lab, items: [] }; groups.push(cur); } cur.items.push(this.feedItem(n)); });
+    const kinds = Object.entries(L.KINDS).map(([k, m]) => { const on = kf.includes(k); return { l: m.l, g: m.g, c: m.v, n: D.N.filter(n => n.kind === k).length, pressed: on, bg: on ? 'var(--ink)' : 'var(--surface)', fg: on ? 'var(--bg)' : 'var(--ink)', toggle: () => this.setState({ kindF: on ? kf.filter(x => x !== k) : [...kf, k] }) }; });
+    return {
+      isUpdates: true, uGroups: groups, uKinds: kinds, uCount: `${items.length} of ${D.N.length} items`, uEmpty: !items.length, clearKinds: () => this.setState({ kindF: [] }), hasKindF: kf.length > 0,
+      uBottom: D.newsBottom
+    };
+  }
+  method() {
+    const L = this.L, D = this.D;
+    const levels = L.CONF_ORDER.map(k => { const n = D.E.filter(x => x.conf === k).length; return { l: L.CONF[k].l, code: k, d: L.CONF[k].d, cb: this.bars(k), n, href: n ? '#/explore?conf=' + k : '#/explore', cta: n ? `See ${n} ${n === 1 ? 'entry' : 'entries'} →` : 'None yet' }; });
+    const SD = { enacted: 'Signed into law, or approved by a governor.', pending: 'Introduced and still alive, or a federal draft or proposal not yet a bill.', stalled: 'Referred to committee with no action for months.', failed: 'Vetoed, withdrawn, stripped, or the session adjourned before passage.', executive: 'An order, directive or voluntary program from a governor, the White House or an agency.', litigation: 'Lawsuits, enforcement, and dated “none located” findings.', export: 'Rules on AI chips, compute and model diffusion.', excluded: 'Checked and found not to be frontier-AI regulation.' };
+    const statuses = L.STATUS_ORDER.map(k => ({ l: L.ST[k].l, g: L.ST[k].g, c: `var(--st-${k})`, d: SD[k], n: D.E.filter(x => x.status === k).length, href: '#/explore?status=' + k }));
+    const jump = id => e => { e.preventDefault(); const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 80); const h = el.querySelector('h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } };
+    const excl = D.E.filter(x => x.section === 'J').map(x => ({ t: x.title, why: x.lead, href: '#/bill/' + x.id }));
+    return { isMethod: true, mLevels: levels, mExcl: excl, mStatuses: statuses, jumpStatus: jump('m-st-s'), jumpConf: jump('m-l-s'), jumpDates: jump('m-v-s'), jumpExcl: jump('m-x-s') };
+  }
+}
+</script>
+</body>
+</html>
