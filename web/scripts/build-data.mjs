@@ -5,6 +5,7 @@
 // Run from the repository root:  node web/scripts/build-data.mjs
 import fs from 'fs';
 import path from 'path';
+import { pathToFileURL } from 'url';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..', '..');
 const R = (...p) => path.join(root, ...p);
@@ -62,6 +63,7 @@ const entries = rows.map((r, i) => {
 
 // ---------- enrich + verify ----------
 const problems = [];
+const evTables = []; // one single-row table per entry, in the shape v1's event extractor expects
 const norm = (s) => plain(s || '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
 const sameText = (a, b) => norm(a) === norm(b);
 // Align by title (in order), so rows that are not entries in v1 (extra tables in the markdown) are reported, not silently mixed in.
@@ -76,6 +78,7 @@ entries.forEach((e) => {
   if (row.section !== e.section) problems.push(`#${e.id}: section ${row.section} vs ${e.section}`);
   const cells = row.headers.map((hd, k) => ({ h: hd, t: plain(row.cells[k] || ''), links: linksOf(row.cells[k] || '') }));
   e.cells = cells;
+  evTables.push({ heads: row.headers, rows: [{ id: e.id, cells: row.cells.map((c) => plain(c || '')) }] });
   const byH = (re) => cells.find((c) => re.test(c.h));
   const src = byH(/^source/i);
   e.source_links = src ? src.links : [];
@@ -89,9 +92,17 @@ entries.forEach((e) => {
 });
 mdRows.forEach((r, j) => { if (!used.has(j)) problems.push(`tracker.md row not in v1 table export: [${r.section}] ${plain(r.cells[0]).slice(0, 70)}`); });
 
+// ---------- typed events (v1's own extractor, read-only import) ----------
+// Every event keeps the clause it was read from, so the UI can show the author's own sentence.
+const { extractEvents, TYPES: EVENT_TYPES } = await import(pathToFileURL(R('build', 'events.mjs')).href);
+const secOf = new Map(entries.map((e) => [e.id, e.section]));
+const events = extractEvents(evTables, (id) => (secOf.has(id) ? { label: secOf.get(id) } : null));
+fs.writeFileSync(path.join(out, 'events.json'), JSON.stringify({ types: EVENT_TYPES, events }, null, 1));
+
 fs.writeFileSync(path.join(out, 'entries.json'), JSON.stringify(entries, null, 1));
 for (const f of ['news.json', 'relationships.json']) fs.copyFileSync(R('build', f), path.join(out, f));
 
 const withLinks = entries.filter((e) => e.source_links.length).length;
 console.log(`entries: ${entries.length}; with source links: ${withLinks}; total links: ${entries.reduce((n, e) => n + e.all_links.length, 0)}`);
 console.log(problems.length ? `PROBLEMS (${problems.length}):\n` + problems.join('\n') : 'verification: every title and mechanism matches tracker.md');
+console.log(`typed events: ${events.length} across ${new Set(events.map((e) => e.id)).size} entries`);

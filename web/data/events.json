@@ -1,0 +1,1794 @@
+{
+ "types": [
+  "Introduced / published",
+  "Passed / advanced",
+  "Signed / enacted",
+  "Effective",
+  "Referred / stalled / hearing",
+  "Vetoed / failed / rescinded",
+  "Litigation",
+  "Search date / deadline / scheduled"
+ ],
+ "events": [
+  {
+   "id": 75,
+   "date": "2023-10-01",
+   "precision": "month",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "Oct. 2023 → present",
+   "match": "Oct. 2023"
+  },
+  {
+   "id": 77,
+   "date": "2024-09-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status",
+   "clause": "Vetoed Sept. 29, 2024",
+   "match": "Sept. 29, 2024"
+  },
+  {
+   "id": 70,
+   "date": "2025-01-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "Published Jan 15, 2025",
+   "match": "Jan 15, 2025"
+  },
+  {
+   "id": 7,
+   "date": "2025-02-07",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[STALLED\\] Filed Feb. 7, 2025",
+   "match": "Feb. 7, 2025"
+  },
+  {
+   "id": 7,
+   "date": "2025-03-20",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "passed Cybersecurity, Data Analytics & IT Committee 7–4 (Mar. 20, 2025)",
+   "match": "Mar. 20, 2025"
+  },
+  {
+   "id": 7,
+   "date": "2025-04-11",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "re-referred to Rules under Rule 19(a) Apr. 11, 2025. Inactive, but not formally dead while the 104th General Assembly remains open",
+   "match": "Apr. 11, 2025"
+  },
+  {
+   "id": 70,
+   "date": "2025-05-01",
+   "precision": "month",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Date / status",
+   "clause": "rescinded May 2025 before its compliance date",
+   "match": "May 2025"
+  },
+  {
+   "id": 43,
+   "date": "2025-05-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Introduced May 15, 2025",
+   "match": "May 15, 2025"
+  },
+  {
+   "id": 5,
+   "date": "2025-06-24",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[STALLED\\] Introduced June 24, 2025 (referred to Judiciary)",
+   "match": "June 24, 2025"
+  },
+  {
+   "id": 78,
+   "date": "2025-07-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status",
+   "clause": "Stripped by a 99–1 Senate vote on July 1, 2025: Blackburn Amendment No. 2814 to H.R. 1 stated its purpose as striking the section relating to support for artificial intelligence",
+   "match": "July 1, 2025"
+  },
+  {
+   "id": 1,
+   "date": "2025-09-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Signed",
+   "clause": "Sept 29, 2025",
+   "match": "Sept 29, 2025"
+  },
+  {
+   "id": 26,
+   "date": "2025-09-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "Sept 29, 2025",
+   "match": "Sept 29, 2025"
+  },
+  {
+   "id": 73,
+   "date": "2025-11-06",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "Introduced in the Senate Nov. 6, 2025",
+   "match": "Nov. 6, 2025"
+  },
+  {
+   "id": 74,
+   "date": "2025-11-10",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Date / status",
+   "clause": "Suspended Nov. 10, 2025 through Nov. 9, 2026",
+   "match": "Nov. 10, 2025"
+  },
+  {
+   "id": 51,
+   "date": "2025-12-11",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Dec 11, 2025",
+   "match": "Dec 11, 2025"
+  },
+  {
+   "id": 76,
+   "date": "2025-12-18",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "H.R. 6875 introduced Dec 18, 2025 and advanced by House Foreign Affairs Jan 21, 2026",
+   "match": "Dec 18, 2025"
+  },
+  {
+   "id": 2,
+   "date": "2025-12-19",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Signed",
+   "clause": "Original Dec 19, 2025",
+   "match": "Dec 19, 2025"
+  },
+  {
+   "id": 37,
+   "date": "2025-12-19",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Section-by-section Dec 19, 2025",
+   "match": "Dec 19, 2025"
+  },
+  {
+   "id": 1,
+   "date": "2026-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Effective",
+   "clause": "Jan 1, 2026 (OES anonymized reporting & annual reviews from Jan 1, 2027)",
+   "match": "Jan 1, 2026"
+  },
+  {
+   "id": 61,
+   "date": "2026-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Status",
+   "clause": "No challenge or reported enforcement action located in the Sept. 5 search. Re-run Sept 28, 2026: none located ⟨U⟩. SB 53 has been in effect since Jan 1, 2026",
+   "match": "Jan 1, 2026"
+  },
+  {
+   "id": 71,
+   "date": "2026-01-13",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "Announced Jan. 13, 2026",
+   "match": "Jan. 13, 2026"
+  },
+  {
+   "id": 71,
+   "date": "2026-01-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Date / status",
+   "clause": "published and effective Jan. 15, 2026",
+   "match": "Jan. 15, 2026"
+  },
+  {
+   "id": 12,
+   "date": "2026-01-19",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[FAILED\\] Introduced Jan. 19, 2026",
+   "match": "Jan. 19, 2026"
+  },
+  {
+   "id": 76,
+   "date": "2026-01-21",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "H.R. 6875 introduced Dec 18, 2025 and advanced by House Foreign Affairs Jan 21, 2026",
+   "match": "Jan 21, 2026"
+  },
+  {
+   "id": 12,
+   "date": "2026-01-27",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "first substitute received an 8–0 favorable committee recommendation Jan. 27",
+   "match": "Jan. 27"
+  },
+  {
+   "id": 2,
+   "date": "2026-01-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Signed",
+   "clause": "S.8828 passed Senate 58-1 (Jan 28, 2026), passed Assembly Mar 11, signed Mar 27, 2026",
+   "match": "Jan 28, 2026"
+  },
+  {
+   "id": 8,
+   "date": "2026-02-04",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[STALLED\\] Introduced Feb 4, 2026",
+   "match": "Feb 4, 2026"
+  },
+  {
+   "id": 79,
+   "date": "2026-02-04",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "title and summary had issued Feb 4, 2026",
+   "match": "Feb 4, 2026"
+  },
+  {
+   "id": 52,
+   "date": "2026-02-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Feb 27, 2026 (directive and Secretarial Order)",
+   "match": "Feb 27, 2026"
+  },
+  {
+   "id": 79,
+   "date": "2026-02-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status",
+   "clause": "Withdrawn Feb 27, 2026 (confirmed on CA AG inactive-measures page",
+   "match": "Feb 27, 2026"
+  },
+  {
+   "id": 52,
+   "date": "2026-03-02",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Mar 2 (Treasury, FHFA, State)",
+   "match": "Mar 2"
+  },
+  {
+   "id": 12,
+   "date": "2026-03-03",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "moved from the third-reading calendar to Rules Mar. 3",
+   "match": "Mar. 3"
+  },
+  {
+   "id": 52,
+   "date": "2026-03-03",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "letters dated Mar 3, received Mar 4",
+   "match": "Mar 3"
+  },
+  {
+   "id": 66,
+   "date": "2026-03-03",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "The Mar. 9 complaint (n.36) states Anthropic received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (civilian-agency supply-chain exclusion), that judicial review lies exclusively in the D.C. Circuit under 41 U.S.C. § 1327(b), and that…",
+   "match": "Mar. 3"
+  },
+  {
+   "id": 52,
+   "date": "2026-03-04",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "letters dated Mar 3, received Mar 4",
+   "match": "Mar 4"
+  },
+  {
+   "id": 12,
+   "date": "2026-03-06",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "enacting clause struck and filed among bills not passed Mar. 6",
+   "match": "Mar. 6"
+  },
+  {
+   "id": 65,
+   "date": "2026-03-09",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "Complaint read. Filed Mar. 9, 2026 (WilmerHale",
+   "match": "Mar. 9, 2026"
+  },
+  {
+   "id": 66,
+   "date": "2026-03-09",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "The Mar. 9 complaint (n.36) states Anthropic received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (civilian-agency supply-chain exclusion), that judicial review lies exclusively in the D.C. Circuit under 41 U.S.C. § 1327(b), and that…",
+   "match": "Mar. 9"
+  },
+  {
+   "id": 2,
+   "date": "2026-03-11",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Signed",
+   "clause": "S.8828 passed Senate 58-1 (Jan 28, 2026), passed Assembly Mar 11, signed Mar 27, 2026",
+   "match": "Mar 11"
+  },
+  {
+   "id": 22,
+   "date": "2026-03-17",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status",
+   "clause": "hearings Mar 17, 2026",
+   "match": "Mar 17, 2026"
+  },
+  {
+   "id": 37,
+   "date": "2026-03-18",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "draft text Mar 18, 2026",
+   "match": "Mar 18, 2026"
+  },
+  {
+   "id": 5,
+   "date": "2026-03-19",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "re-referred to Communications & Technology Mar 19, 2026. No hearings/votes found",
+   "match": "Mar 19, 2026"
+  },
+  {
+   "id": 38,
+   "date": "2026-03-20",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Mar 20, 2026",
+   "match": "Mar 20, 2026"
+  },
+  {
+   "id": 19,
+   "date": "2026-03-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Introduced Mar 23, 2026",
+   "match": "Mar 23, 2026"
+  },
+  {
+   "id": 23,
+   "date": "2026-03-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status",
+   "clause": "\\[FAILED—ADJOURNED\\] House and Senate versions introduced Mar. 23, 2026 and referred to their commerce committees",
+   "match": "Mar. 23, 2026"
+  },
+  {
+   "id": 72,
+   "date": "2026-03-26",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Date / status",
+   "clause": "House Foreign Affairs ordered it reported 42–0 on Mar. 26, 2026",
+   "match": "Mar. 26, 2026"
+  },
+  {
+   "id": 2,
+   "date": "2026-03-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Signed",
+   "clause": "S.8828 passed Senate 58-1 (Jan 28, 2026), passed Assembly Mar 11, signed Mar 27, 2026",
+   "match": "Mar 27, 2026"
+  },
+  {
+   "id": 10,
+   "date": "2026-03-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[STALLED\\] H.B. 4705 re-referred to Rules Committee Mar. 27, 2026",
+   "match": "Mar. 27, 2026"
+  },
+  {
+   "id": 13,
+   "date": "2026-03-31",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[FAILED\\] Introduced Mar. 31, 2026",
+   "match": "Mar. 31, 2026"
+  },
+  {
+   "id": 24,
+   "date": "2026-04-08",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Status",
+   "clause": "HB 797 approved by Governor Apr 8, 2026 (Ch. 425, eff. July 1, 2026)",
+   "match": "Apr 8, 2026"
+  },
+  {
+   "id": 66,
+   "date": "2026-04-08",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "stay denied Apr. 8",
+   "match": "Apr. 8"
+  },
+  {
+   "id": 64,
+   "date": "2026-04-09",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "xAI sued Apr 9, 2026 to enjoin Colorado SB 24-205 (the ADMT/algorithmic-discrimination law — Section I, *not* a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Righ…",
+   "match": "Apr 9, 2026"
+  },
+  {
+   "id": 24,
+   "date": "2026-04-13",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Signed / enacted",
+   "column": "Status",
+   "clause": "SB 384 signed Apr 13 (Ch. 426)",
+   "match": "Apr 13"
+  },
+  {
+   "id": 13,
+   "date": "2026-04-15",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "reported favorably by Commerce Committee Apr. 15",
+   "match": "Apr. 15"
+  },
+  {
+   "id": 11,
+   "date": "2026-04-16",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[FAILED\\] House passed 94–0 (Apr 16, 2026)",
+   "match": "Apr 16, 2026"
+  },
+  {
+   "id": 13,
+   "date": "2026-04-20",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "engrossed Apr. 20",
+   "match": "Apr. 20"
+  },
+  {
+   "id": 13,
+   "date": "2026-04-21",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "floor amendments adopted Apr. 21 and \"returned to the Calendar, subject to call\" — never received final Senate passage",
+   "match": "Apr. 21"
+  },
+  {
+   "id": 11,
+   "date": "2026-04-24",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "not enacted before adjournment (tracker marks dead Apr 24). The official fiscal memorandum for the amended bill states an effective date of July 1, 2027",
+   "match": "Apr 24"
+  },
+  {
+   "id": 64,
+   "date": "2026-04-24",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "…tion I, *not* a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division",
+   "match": "Apr 24, 2026"
+  },
+  {
+   "id": 65,
+   "date": "2026-04-27",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "…ed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit",
+   "match": "Apr 27"
+  },
+  {
+   "id": 76,
+   "date": "2026-04-30",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "S. 4456 introduced Apr 30, 2026",
+   "match": "Apr 30, 2026"
+  },
+  {
+   "id": 80,
+   "date": "2026-05-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Status",
+   "clause": "Passed May 1, 2026 (Senate 32–4, House 131–17)",
+   "match": "May 1, 2026"
+  },
+  {
+   "id": 64,
+   "date": "2026-05-14",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status",
+   "clause": "the legislature then repealed and replaced it with SB 26-189 (May 14, 2026)",
+   "match": "May 14, 2026"
+  },
+  {
+   "id": 15,
+   "date": "2026-05-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[PENDING\\] Introduced May 15, 2026",
+   "match": "May 15, 2026"
+  },
+  {
+   "id": 16,
+   "date": "2026-05-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[PENDING\\] Introduced May 15, 2026",
+   "match": "May 15, 2026"
+  },
+  {
+   "id": 66,
+   "date": "2026-05-19",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "argued May 19",
+   "match": "May 19"
+  },
+  {
+   "id": 8,
+   "date": "2026-05-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "re-referred to Assignments May 22, 2026 (stalled) — superseded politically by SB 315",
+   "match": "May 22, 2026"
+  },
+  {
+   "id": 9,
+   "date": "2026-05-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[STALLED\\] Re-referred to Assignments May 22, 2026 (stalled)",
+   "match": "May 22, 2026"
+  },
+  {
+   "id": 10,
+   "date": "2026-05-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "S.B. 3261 re-referred to Assignments May 22, 2026",
+   "match": "May 22, 2026"
+  },
+  {
+   "id": 25,
+   "date": "2026-05-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Status",
+   "clause": "Enacted May 27, 2026",
+   "match": "May 27, 2026"
+  },
+  {
+   "id": 80,
+   "date": "2026-05-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Status",
+   "clause": "signed May 27, 2026",
+   "match": "May 27, 2026"
+  },
+  {
+   "id": 68,
+   "date": "2026-06-01",
+   "precision": "month",
+   "inferredYear": false,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "Motion filed Sept 28, 2026 in the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" wi…",
+   "match": "June 2026"
+  },
+  {
+   "id": 44,
+   "date": "2026-06-02",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "June 2, 2026",
+   "match": "June 2, 2026"
+  },
+  {
+   "id": 53,
+   "date": "2026-06-02",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "June 2, 2026",
+   "match": "June 2, 2026"
+  },
+  {
+   "id": 36,
+   "date": "2026-06-04",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "June 4, 2026",
+   "match": "June 4, 2026"
+  },
+  {
+   "id": 53,
+   "date": "2026-06-05",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Search date / deadline / scheduled",
+   "column": "Date",
+   "clause": "scheduled for Federal Register publication June 5",
+   "match": "June 5"
+  },
+  {
+   "id": 6,
+   "date": "2026-06-11",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "referred to Assembly Science, Innovation & Technology Committee. S.4446 introduced June 11, 2026 — identical text (verified against njleg.gov)",
+   "match": "June 11, 2026"
+  },
+  {
+   "id": 54,
+   "date": "2026-06-12",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Directive June 12",
+   "match": "June 12"
+  },
+  {
+   "id": 6,
+   "date": "2026-06-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[PENDING\\] A.5275 introduced June 15, 2026",
+   "match": "June 15, 2026"
+  },
+  {
+   "id": 42,
+   "date": "2026-06-18",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Introduced June 18, 2026",
+   "match": "June 18, 2026"
+  },
+  {
+   "id": 30,
+   "date": "2026-06-25",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "June 25, 2026",
+   "match": "June 25, 2026"
+  },
+  {
+   "id": 3,
+   "date": "2026-06-26",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Signed",
+   "clause": "Sent to Governor June 26",
+   "match": "June 26"
+  },
+  {
+   "id": 54,
+   "date": "2026-06-26",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Mythos 5 partially restored to vetted US organizations after a June 26 government approval",
+   "match": "June 26"
+  },
+  {
+   "id": 54,
+   "date": "2026-06-30",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "controls lifted June 30",
+   "match": "June 30"
+  },
+  {
+   "id": 24,
+   "date": "2026-07-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Status",
+   "clause": "HB 797 approved by Governor Apr 8, 2026 (Ch. 425, eff. July 1, 2026)",
+   "match": "July 1, 2026"
+  },
+  {
+   "id": 54,
+   "date": "2026-07-01",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Fable 5 redeployed globally July 1",
+   "match": "July 1"
+  },
+  {
+   "id": 3,
+   "date": "2026-07-06",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Signed",
+   "clause": "signed July 6, 2026 (Gov. Pritzker)",
+   "match": "July 6, 2026"
+  },
+  {
+   "id": 4,
+   "date": "2026-07-08",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[PENDING\\] House passed 148-2 July 8",
+   "match": "July 8"
+  },
+  {
+   "id": 72,
+   "date": "2026-07-14",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Date / status",
+   "clause": "…e Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH), reported July 14, 2026",
+   "match": "July 14, 2026"
+  },
+  {
+   "id": 76,
+   "date": "2026-07-14",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "in the Senate NDAA manager's package as SA 6575 (July 14, 2026)",
+   "match": "July 14, 2026"
+  },
+  {
+   "id": 76,
+   "date": "2026-07-14",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Date / status",
+   "clause": "Senate NDAA (S. 4784) awaiting floor action after a failed cloture vote July 14",
+   "match": "July 14"
+  },
+  {
+   "id": 28,
+   "date": "2026-07-21",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "July 21, 2026",
+   "match": "July 21, 2026"
+  },
+  {
+   "id": 46,
+   "date": "2026-07-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Status",
+   "clause": "CRS lists H.R. 8800 (FY2027 NDAA) as related — H.R. 8800 passed the House July 22, 2026 (216–212) and was received in the Senate Sept 14, 2026 ⟨U⟩",
+   "match": "July 22, 2026"
+  },
+  {
+   "id": 76,
+   "date": "2026-07-22",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Date / status",
+   "clause": "House NDAA (H.R. 8800) passed July 22, received in the Senate Sept 14",
+   "match": "July 22"
+  },
+  {
+   "id": 27,
+   "date": "2026-07-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "July 23, 2026",
+   "match": "July 23, 2026"
+  },
+  {
+   "id": 29,
+   "date": "2026-07-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "July 23, 2026",
+   "match": "July 23, 2026"
+  },
+  {
+   "id": 31,
+   "date": "2026-07-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "July 23, 2026 (same day as FRONTIER and CATSR)",
+   "match": "July 23, 2026"
+  },
+  {
+   "id": 4,
+   "date": "2026-07-24",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "Senate struck all after the enacting clause and inserted S.3178 text July 24 (reprinted as S.3228)",
+   "match": "July 24"
+  },
+  {
+   "id": 31,
+   "date": "2026-07-24",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Referred / stalled / hearing",
+   "column": "Introduced / status",
+   "clause": "to its Cybersecurity and Infrastructure Protection Subcommittee July 24",
+   "match": "July 24"
+  },
+  {
+   "id": 32,
+   "date": "2026-07-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "July 27, 2026",
+   "match": "July 27, 2026"
+  },
+  {
+   "id": 4,
+   "date": "2026-07-30",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "House non-concurred July 30",
+   "match": "July 30"
+  },
+  {
+   "id": 4,
+   "date": "2026-07-30",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "House: Michlewitz-Fiola-Soter). Official bill history checked live Sept 4, 2026: no action since July 30. Formal session ended July 31",
+   "match": "July 30"
+  },
+  {
+   "id": 4,
+   "date": "2026-07-31",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "House: Michlewitz-Fiola-Soter). Official bill history checked live Sept 4, 2026: no action since July 30. Formal session ended July 31",
+   "match": "July 31"
+  },
+  {
+   "id": 67,
+   "date": "2026-08-01",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Status",
+   "clause": "…Commerce, Treasury, and OSTP, with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before release, participating-company information, and t…",
+   "match": "Aug. 1"
+  },
+  {
+   "id": 27,
+   "date": "2026-08-07",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "no committee action through Sept 28, 2026 ⟨U⟩. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+   "match": "Aug 7, 2026"
+  },
+  {
+   "id": 56,
+   "date": "2026-08-07",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Aug 7, 2026",
+   "match": "Aug 7, 2026"
+  },
+  {
+   "id": 45,
+   "date": "2026-08-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Aug. 27, 2026",
+   "match": "Aug. 27, 2026"
+  },
+  {
+   "id": 65,
+   "date": "2026-08-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "…sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update ⟨U⟩: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic, holding the § 3252 designation and related…",
+   "match": "Aug 27, 2026"
+  },
+  {
+   "id": 65,
+   "date": "2026-08-27",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "…ounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 2…",
+   "match": "Aug 27, 2026"
+  },
+  {
+   "id": 20,
+   "date": "2026-08-30",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Status",
+   "clause": "Passed Senate Aug 30 (29–10)",
+   "match": "Aug 30"
+  },
+  {
+   "id": 21,
+   "date": "2026-08-30",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Passed / advanced",
+   "column": "Status",
+   "clause": "Passed Assembly Aug 30 (53–4)",
+   "match": "Aug 30"
+  },
+  {
+   "id": 46,
+   "date": "2026-08-31",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Aug. 31, 2026",
+   "match": "Aug. 31, 2026"
+  },
+  {
+   "id": 21,
+   "date": "2026-09-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Status",
+   "clause": "enrolled Sept 1, 2026",
+   "match": "Sept 1, 2026"
+  },
+  {
+   "id": 67,
+   "date": "2026-09-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "FOIA suit filed Sept. 1, 2026 against ONCD, Commerce, Treasury, and OSTP, with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before releas…",
+   "match": "Sept. 1, 2026"
+  },
+  {
+   "id": 4,
+   "date": "2026-09-04",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "House: Michlewitz-Fiola-Soter). Official bill history checked live Sept 4, 2026: no action since July 30. Formal session ended July 31",
+   "match": "Sept 4, 2026"
+  },
+  {
+   "id": 61,
+   "date": "2026-09-05",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "No challenge or reported enforcement action located in the Sept. 5 search. Re-run Sept 28, 2026: none located ⟨U⟩. SB 53 has been in effect since Jan 1, 2026",
+   "match": "Sept. 5"
+  },
+  {
+   "id": 62,
+   "date": "2026-09-05",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "No independently attributed Task Force case was located through Sept. 5, nor through Sept 28, 2026 ⟨U⟩. DOJ intervened in the Colorado case below, but the cited materials do not attribute that act to the Task Force",
+   "match": "Sept. 5"
+  },
+  {
+   "id": 63,
+   "date": "2026-09-05",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "No public report was located through Sept. 5, nor through Sept 28, 2026 ⟨U⟩",
+   "match": "Sept. 5"
+  },
+  {
+   "id": 69,
+   "date": "2026-09-05",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "A California DOJ job posting sought Investigative Technologists to conduct technical investigations and support consumer-protection, privacy, and technology-enforcement matters. No SB 53 enforcement action was located in the Sept. 5 search",
+   "match": "Sept. 5"
+  },
+  {
+   "id": 20,
+   "date": "2026-09-09",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Status",
+   "clause": "signed by Gov. Newsom Sept 9, 2026",
+   "match": "Sept 9, 2026"
+  },
+  {
+   "id": 21,
+   "date": "2026-09-09",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Signed / enacted",
+   "column": "Status",
+   "clause": "signed by Gov. Newsom Sept 9, 2026",
+   "match": "Sept 9, 2026"
+  },
+  {
+   "id": 49,
+   "date": "2026-09-09",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Announced Sept 9, 2026",
+   "match": "Sept 9, 2026"
+  },
+  {
+   "id": 46,
+   "date": "2026-09-14",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "CRS lists H.R. 8800 (FY2027 NDAA) as related — H.R. 8800 passed the House July 22, 2026 (216–212) and was received in the Senate Sept 14, 2026 ⟨U⟩",
+   "match": "Sept 14, 2026"
+  },
+  {
+   "id": 49,
+   "date": "2026-09-14",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "introduced Sept 14, 2026, referred to Science, Space, and Technology and to Oversight and Government Reform",
+   "match": "Sept 14, 2026"
+  },
+  {
+   "id": 76,
+   "date": "2026-09-14",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date / status",
+   "clause": "House NDAA (H.R. 8800) passed July 22, received in the Senate Sept 14",
+   "match": "Sept 14"
+  },
+  {
+   "id": 30,
+   "date": "2026-09-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Introduced / status",
+   "clause": "Lieu (D-CA) cosponsored Sept 15, 2026 ⟨U⟩",
+   "match": "Sept 15, 2026"
+  },
+  {
+   "id": 31,
+   "date": "2026-09-15",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026 ⟨U⟩",
+   "match": "Sept 15, 2026"
+  },
+  {
+   "id": 27,
+   "date": "2026-09-16",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Introduced / status",
+   "clause": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+   "match": "Sept 16, 2026"
+  },
+  {
+   "id": 35,
+   "date": "2026-09-16",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "S. 5417 introduced Sept 16, 2026, read twice and referred to Senate Commerce",
+   "match": "Sept 16, 2026"
+  },
+  {
+   "id": 17,
+   "date": "2026-09-18",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Vetoed / failed / rescinded",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[FAILED\\] Introduced Sept 18, 2026 and referred to Rules",
+   "match": "Sept 18, 2026"
+  },
+  {
+   "id": 40,
+   "date": "2026-09-18",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Sept 18, 2026",
+   "match": "Sept 18, 2026"
+  },
+  {
+   "id": 57,
+   "date": "2026-09-18",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Sept 18, 2026 (experts named Sept 23)",
+   "match": "Sept 18, 2026"
+  },
+  {
+   "id": 27,
+   "date": "2026-09-21",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+   "match": "Sept 21, 2026"
+  },
+  {
+   "id": 18,
+   "date": "2026-09-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[PENDING\\] Introduced Sept 22, 2026",
+   "match": "Sept 22, 2026"
+  },
+  {
+   "id": 43,
+   "date": "2026-09-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status",
+   "clause": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) and Sept 24, 2026 (Durbin, Curtis R-UT, Kelly) ⟨U⟩",
+   "match": "Sept 22, 2026"
+  },
+  {
+   "id": 50,
+   "date": "2026-09-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Release of Sept 22, 2026 says the members \"will introduce\" the bill",
+   "match": "Sept 22, 2026"
+  },
+  {
+   "id": 58,
+   "date": "2026-09-22",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Sept 22, 2026",
+   "match": "Sept 22, 2026"
+  },
+  {
+   "id": 18,
+   "date": "2026-09-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "referred to House Communications & Technology Sept 23, 2026",
+   "match": "Sept 23, 2026"
+  },
+  {
+   "id": 33,
+   "date": "2026-09-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "S. 5493 introduced Sept 23, 2026, read twice and referred to Senate Commerce",
+   "match": "Sept 23, 2026"
+  },
+  {
+   "id": 39,
+   "date": "2026-09-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Sept 23, 2026",
+   "match": "Sept 23, 2026"
+  },
+  {
+   "id": 48,
+   "date": "2026-09-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Introduced Sept 23, 2026",
+   "match": "Sept 23, 2026"
+  },
+  {
+   "id": 57,
+   "date": "2026-09-23",
+   "precision": "day",
+   "inferredYear": true,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Sept 18, 2026 (experts named Sept 23)",
+   "match": "Sept 23"
+  },
+  {
+   "id": 59,
+   "date": "2026-09-23",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Sept 23, 2026",
+   "match": "Sept 23, 2026"
+  },
+  {
+   "id": 33,
+   "date": "2026-09-24",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "H.R. 10538 introduced Sept 24, 2026, referred to House Oversight and Government Reform",
+   "match": "Sept 24, 2026"
+  },
+  {
+   "id": 34,
+   "date": "2026-09-24",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "Introduced Sept 24, 2026 per sponsors, who spoke on the Senate floor the same day. S. number not located (GovInfo bill status checked for every Senate bill S. 5486–5500 and S. 5535–5556)",
+   "match": "Sept 24, 2026"
+  },
+  {
+   "id": 35,
+   "date": "2026-09-24",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Introduced / status",
+   "clause": "unanimous-consent request blocked the same day. House companion H.R. 10567 introduced Sept 24, 2026 by Rep. Tom Kean Jr. (R-NJ), referred to House Science, Space, and Technology",
+   "match": "Sept 24, 2026"
+  },
+  {
+   "id": 43,
+   "date": "2026-09-24",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) and Sept 24, 2026 (Durbin, Curtis R-UT, Kelly) ⟨U⟩",
+   "match": "Sept 24, 2026"
+  },
+  {
+   "id": 47,
+   "date": "2026-09-24",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "Introduced Sept 24, 2026",
+   "match": "Sept 24, 2026"
+  },
+  {
+   "id": 66,
+   "date": "2026-09-25",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "decided Sept. 25, 2026, 2–1, petition denied. Katsas (writing) and Rao held that FASCSA's term \"manipulate\" reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendme…",
+   "match": "Sept. 25, 2026"
+  },
+  {
+   "id": 4,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "informal sessions can still act but can't override a veto. Not enacted. Bill history re-checked Sept 28, 2026: still no action since July 30 ⟨U⟩. OpenAI lobbying for IL-style annual audits",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 5,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "legislature.mi.gov history re-checked Sept 28, 2026: no change ⟨U⟩",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 27,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Introduced / status",
+   "clause": "no committee action through Sept 28, 2026 ⟨U⟩. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 61,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "No challenge or reported enforcement action located in the Sept. 5 search. Re-run Sept 28, 2026: none located ⟨U⟩. SB 53 has been in effect since Jan 1, 2026",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 62,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "No independently attributed Task Force case was located through Sept. 5, nor through Sept 28, 2026 ⟨U⟩. DOJ intervened in the Colorado case below, but the cited materials do not attribute that act to the Task Force",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 63,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "No public report was located through Sept. 5, nor through Sept 28, 2026 ⟨U⟩",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 65,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "no post-judgment appeal located through Sept 28, 2026",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 67,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "no ruling located through Sept 28, 2026 ⟨U⟩",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 68,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Litigation",
+   "column": "Status",
+   "clause": "Motion filed Sept 28, 2026 in the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" wi…",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 72,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Date / status",
+   "clause": "no standalone floor action located through Sept 28, 2026. Included, with the AI OVERWATCH Act and MATCH Act, in the Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH), reported July 14…",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 76,
+   "date": "2026-09-28",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Date / status",
+   "clause": "conference pending as of Sept 28, 2026",
+   "match": "Sept 28, 2026"
+  },
+  {
+   "id": 18,
+   "date": "2026-09-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "no hearing scheduled as of Sept 29, 2026. Most provisions would take effect one year after enactment",
+   "match": "Sept 29, 2026"
+  },
+  {
+   "id": 50,
+   "date": "2026-09-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "H.R. number not located as of Sept 29, 2026",
+   "match": "Sept 29, 2026"
+  },
+  {
+   "id": 60,
+   "date": "2026-09-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Date",
+   "clause": "Sept 29, 2026",
+   "match": "Sept 29, 2026"
+  },
+  {
+   "id": 68,
+   "date": "2026-09-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Status",
+   "clause": "…ity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No ruling reported as of Sept 29, 2026",
+   "match": "Sept 29, 2026"
+  },
+  {
+   "id": 67,
+   "date": "2026-09-30",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "…rity. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026",
+   "match": "Sept 30, 2026"
+  },
+  {
+   "id": 74,
+   "date": "2026-11-09",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Date / status",
+   "clause": "Suspended Nov. 10, 2025 through Nov. 9, 2026",
+   "match": "Nov. 9, 2026"
+  },
+  {
+   "id": 74,
+   "date": "2026-11-10",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Search date / deadline / scheduled",
+   "column": "Date / status",
+   "clause": "scheduled to be reimposed Nov. 10, 2026",
+   "match": "Nov. 10, 2026"
+  },
+  {
+   "id": 1,
+   "date": "2027-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Effective",
+   "clause": "Jan 1, 2026 (OES anonymized reporting & annual reviews from Jan 1, 2027)",
+   "match": "Jan 1, 2027"
+  },
+  {
+   "id": 2,
+   "date": "2027-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Effective",
+   "clause": "Jan 1, 2027 (Chapter 96 §3 replaced the original \"90th day\" effective clause)",
+   "match": "Jan 1, 2027"
+  },
+  {
+   "id": 3,
+   "date": "2027-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Effective",
+   "clause": "Jan 1, 2027 (disclosure statements, incident reporting, whistleblower, transparency reports)",
+   "match": "Jan 1, 2027"
+  },
+  {
+   "id": 13,
+   "date": "2027-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "not enacted. Would have been effective Jan. 1, 2027",
+   "match": "Jan. 1, 2027"
+  },
+  {
+   "id": 61,
+   "date": "2027-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Status",
+   "clause": "RAISE and SB 315 are not effective until Jan 1, 2027",
+   "match": "Jan 1, 2027"
+  },
+  {
+   "id": 21,
+   "date": "2027-05-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "chaptered as Chapter 179, Statutes of 2026 ⟨U⟩. Executive Order N-9-26 (Section G) directs GovOps to complete the IVO application requirements by May 1, 2027, ahead of the statutory Jan 1, 2028 date",
+   "match": "May 1, 2027"
+  },
+  {
+   "id": 11,
+   "date": "2027-07-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "not enacted before adjournment (tracker marks dead Apr 24). The official fiscal memorandum for the amended bill states an effective date of July 1, 2027",
+   "match": "July 1, 2027"
+  },
+  {
+   "id": 20,
+   "date": "2027-12-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "chaptered as Chapter 178, Statutes of 2026 ⟨U⟩. Executive Order N-9-26 (Section G) directs GovOps to have online auditor registration in place by Dec 1, 2027, ahead of the statutory Jan 1, 2029 date",
+   "match": "Dec 1, 2027"
+  },
+  {
+   "id": 3,
+   "date": "2028-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Effective",
+   "column": "Effective",
+   "clause": "framework + audit obligations from Jan 1, 2028",
+   "match": "Jan 1, 2028"
+  },
+  {
+   "id": 21,
+   "date": "2028-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "chaptered as Chapter 179, Statutes of 2026 ⟨U⟩. Executive Order N-9-26 (Section G) directs GovOps to complete the IVO application requirements by May 1, 2027, ahead of the statutory Jan 1, 2028 date",
+   "match": "Jan 1, 2028"
+  },
+  {
+   "id": 20,
+   "date": "2029-01-01",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status",
+   "clause": "chaptered as Chapter 178, Statutes of 2026 ⟨U⟩. Executive Order N-9-26 (Section G) directs GovOps to have online auditor registration in place by Dec 1, 2027, ahead of the statutory Jan 1, 2029 date",
+   "match": "Jan 1, 2029"
+  }
+ ]
+}

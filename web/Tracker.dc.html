@@ -28,7 +28,7 @@ button{font-family:inherit}
 mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 ::selection{background:var(--accent-soft)}
 [tabindex="-1"]:focus{outline:none}
-@media (pointer:coarse),(max-width:759px){button:not([data-tile]),a[href]:not(p a),select,summary,input{min-height:44px!important}button[aria-label]:not([data-tile]),[data-sq]{min-width:44px!important}}
+@media (pointer:coarse),(max-width:1023px){button:not([data-tile]),a[href]:not(p a),select,summary,input:not([type=checkbox]){min-height:44px!important}button[aria-label]:not([data-tile]),[data-sq]{min-width:44px!important}}
 @keyframes gxPulse{0%{opacity:.9;transform:scale(1)}70%{opacity:0;transform:scale(1.35)}100%{opacity:0;transform:scale(1.35)}}
 @keyframes gxShimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
 @keyframes gxIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
@@ -318,8 +318,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <button onClick="{{clearAll}}" style="height:36px;padding:0 8px;border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Clear all</button>
     </div>
   </sc-if>
-  <div role="tablist" aria-label="View" style="margin:22px 0 18px;display:flex;width:100%;max-width:460px;padding:4px;border-radius:999px;background:var(--surface-2);gap:2px">
-    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{t.sel}}" onClick="{{t.go}}" style="flex:1 1 0;min-width:0;height:44px;padding:0 6px;justify-content:center;white-space:nowrap;border-radius:999px;border:0;background:{{t.bg}};color:{{t.fg}};font-weight:700;font-size:clamp(13px,3.8vw,14.5px);cursor:pointer;display:flex;align-items:center;gap:6px;transition:background var(--dur-2) var(--ease-out)">{{t.l}}<span style="font-variant-numeric:tabular-nums;opacity:.75">{{t.n}}</span></button></sc-for>
+  <div role="tablist" aria-label="View" style="margin:22px 0 18px;display:flex;width:100%;max-width:640px;padding:4px;border-radius:999px;background:var(--surface-2);gap:2px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{t.sel}}" onClick="{{t.go}}" style="flex:1 1 0;min-width:0;height:44px;padding:0 6px;justify-content:center;white-space:nowrap;border-radius:999px;border:0;background:{{t.bg}};color:{{t.fg}};font-weight:700;font-size:clamp(11.5px,3.2vw,14.5px);cursor:pointer;display:flex;align-items:center;gap:4px;transition:background var(--dur-2) var(--ease-out)">{{t.l}}<span style="font-variant-numeric:tabular-nums;opacity:.75">{{t.n}}</span></button></sc-for>
   </div>
 
   <sc-if value="{{vResults}}">
@@ -353,9 +353,12 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
   <sc-if value="{{vTimeline}}">
     <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <p style="margin:0;font-size:15px;color:var(--ink-2);max-width:560px"><strong style="color:var(--ink)">Every dated step, newest first.</strong> Use it to see the pace of change and what is scheduled next. {{tlCount}}.</p>
-      <button onClick="{{toggleUp}}" aria-pressed="{{upOn}}" style="height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:{{upBg}};color:{{upFg}};font-weight:700;font-size:14px;cursor:pointer">◐ Only what’s coming up</button>
+      <p style="margin:0;font-size:15px;color:var(--ink-2);max-width:560px"><strong style="color:var(--ink)">Every dated step.</strong> Lanes show each entry’s whole life on one time axis; the list is easier to scan on a phone. {{tlCount}}.</p>
+      <div role="group" aria-label="Timeline layout" style="display:flex;padding:4px;border-radius:999px;background:var(--surface-2);gap:2px"><sc-for list="{{tlModes}}" as="m"><button onClick="{{m.go}}" aria-pressed="{{m.sel}}" style="height:40px;padding:0 16px;border-radius:999px;border:0;background:{{m.bg}};color:{{m.fg}};font-weight:700;font-size:14px;cursor:pointer">{{m.l}}</button></sc-for></div>
     </div>
+    <sc-if value="{{tlLanes}}">{{lanesEl}}</sc-if>
+    <sc-if value="{{tlList}}">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:14px"><button onClick="{{toggleUp}}" aria-pressed="{{upOn}}" style="height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:{{upBg}};color:{{upFg}};font-weight:700;font-size:14px;cursor:pointer">◐ Only what’s coming up</button></div>
     <sc-if value="{{tlEmpty}}"><div role="status" style="padding:32px;border-radius:20px;border:1px dashed var(--line-2);text-align:center;color:var(--ink-2)">No dated events match these filters.</div></sc-if>
     <div style="display:flex;flex-direction:column;gap:22px">
       <sc-for list="{{tlGroups}}" as="g" hint-placeholder-count="3">
@@ -376,16 +379,18 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         </section>
       </sc-for>
     </div>
+    </sc-if>
   </sc-if>
 
   <sc-if value="{{vConn}}">
     <p style="margin:0 0 14px;font-size:15px;color:var(--ink-2);max-width:640px"><strong style="color:var(--ink)">How laws borrow from, replace, challenge and verify each other.</strong> Pick a starting point, then tap any link to explore it. Every link quotes the tracker.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:14px;cursor:pointer">{{h.l}}</button></sc-for></div>
+    <sc-if value="{{showNet}}"><div style="margin-bottom:22px">{{netEl}}</div></sc-if>
+    <sc-if value="{{showStar}}"><div role="group" aria-label="Start from" style="display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0 -16px 18px;padding:0 16px 6px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="flex-shrink:0;white-space:nowrap;height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:14px;cursor:pointer">{{h.l}}</button></sc-for></div></sc-if>
     <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
-      <div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
+      <sc-if value="{{showStar}}"><div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
         <div style="aspect-ratio:1;width:100%">{{cGraph}}</div>
         <p style="margin:10px 0 0;text-align:center;font-size:13px;color:var(--ink-3)">Filled dots are tracker entries, hollow dots are people and groups. Dashed lines are links the tracker itself treats as unproven.</p>
-      </div>
+      </div></sc-if>
       <div style="flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:18px">
         <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">Starting from</span><h2 style="margin:0;font-size:24px;font-weight:800;letter-spacing:-.02em">{{cName}}</h2><sc-if value="{{cIsEntry}}"><a href="{{cHref}}" style="font-weight:700;font-size:14.5px;min-height:36px;display:inline-flex;align-items:center">Open this entry →</a></sc-if></div>
         <sc-if value="{{cEmpty}}"><p style="margin:0;color:var(--ink-2)">No recorded relationships for this item.</p></sc-if>
@@ -405,6 +410,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       </div>
     </div>
   </sc-if>
+
+  <sc-if value="{{vTable}}">{{tableEl}}</sc-if>
 </div>
 </sc-if>
 
@@ -809,8 +816,11 @@ const STEPS = { event: { l: '1 event' }, m1: { l: '1 month', months: 1 }, m3: { 
 const SHORT = { law: 'Law', pending: 'Pending', auditor: 'Auditor', sf: 'Stalled/failed', other: 'Other', none: 'None' };
 const CATV = { law: 'var(--st-enacted)', pending: 'var(--st-pending)', auditor: 'var(--st-auditor)', sf: 'var(--st-failed)', other: 'var(--st-executive)', none: 'var(--st-excluded)' };
 const L_SN = (L, c) => L.SN[c];
+const L_lanes = (self, ids, p) => { const s = self.state; return self.V.lanes({ L: self.L, D: self.D, ids, range: p.rng || 'recent', kindOff: s.kindOff, sel: s.tlSel, mob: s.vw < 760,
+  select: k => { if (self.state.tlSel !== k) self.setState({ tlSel: k }); }, setRange: k => self.setP({ rng: k === 'recent' ? '' : k }, true),
+  toggleKind: k => self.setState({ kindOff: s.kindOff.includes(k) ? s.kindOff.filter(z => z !== k) : [...s.kindOff, k] }) }); };
 class Component extends DCLogic {
-  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, center: 'SB53', kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '' };
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, center: 'SB53', kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [] };
   mainRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
@@ -852,8 +862,9 @@ class Component extends DCLogic {
   async load() {
     this.setState({ loading: true, err: false });
     try {
-      const [L, e, n, r] = await Promise.all([import('./tracker-lib.js'), ...['data/entries.json', 'data/news.json', 'data/relationships.json'].map(u => fetch(u).then(x => { if (!x.ok) throw new Error(u); return x.json(); }))]);
-      this.L = L; this.D = L.build(e, n, r);
+      const [L, V, e, n, r, ev] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'].map(u => fetch(u).then(x => { if (!x.ok) throw new Error(u); return x.json(); }))]);
+      this.L = L; this.V = V; this.D = L.build(e, n, r);
+      this.D.tev = ev.events.map(x => ({ ...x, d: new Date(x.date + 'T12:00:00') })).filter(x => this.D.byId[x.id]);
       this.setState({ loading: false });
       this.endBoot();
     } catch (err) { console.warn(err); this.setState({ loading: false, err: true, booting: false }); }
@@ -1006,7 +1017,7 @@ class Component extends DCLogic {
     Object.assign(v, this.confSheetVals());
     const T = 'Frontier AI Law Tracker';
     this.docTitle = v.isHome ? (p.state && L_SN(this.L, p.state) ? L_SN(this.L, p.state) + ' · ' + T : v.panelOpen ? v.panelTitle + ' · ' + T : T + ' · US states and Congress')
-      : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'connections' ? 'Relationships' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
+      : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'connections' ? 'Relationships' : p.view === 'table' ? 'Table' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
       : v.isBill ? v.bShort + ' · Bill · ' + T
       : v.isCompare ? 'Compare' + (v.heads ? ': ' + v.heads.map(h => h.short).join(' vs ') : v.sCols ? ': ' + v.sCols.map(c => c.nm).join(' vs ') : '') + ' · ' + T
       : v.isUpdates ? 'Updates · ' + T : v.isMethod ? 'Data & trust · ' + T : v.isNotFound ? 'Page not found · ' + T : T;
@@ -1126,8 +1137,8 @@ class Component extends DCLogic {
       chips, hasChips: chips.length > 0, clearAll: () => { this.setState({ q: '' }); this.go('/explore', p.view ? { view: p.view } : {}); },
       moreOpen: !!(p.type || p.conf), fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fConf: p.conf || '', fSt: p.st || '',
       onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true),
-      tabs: [tab('results', 'Results', rows.length), tab('timeline', 'Timeline', null), tab('connections', 'Relationships', null)],
-      vResults: view === 'results', vTimeline: view === 'timeline', vConn: view === 'connections',
+      tabs: [tab('results', 'Results', rows.length), tab('timeline', 'Timeline', null), tab('connections', 'Relationships', null), tab('table', 'Table', null)],
+      vResults: view === 'results', vTimeline: view === 'timeline', vConn: view === 'connections', vTable: view === 'table',
       showThresholds: p.type === 'law'
     };
     if (view === 'results') {
@@ -1142,13 +1153,35 @@ class Component extends DCLogic {
       const ids = new Set(rows.map(r => r.x.id)), up = p.when === 'upcoming';
       let ev = D.events.filter(e => ids.has(e.id) && (!up || e.d > L.ASOF));
       if (up) ev = ev.slice().sort((a, b) => a.d - b.d);
+      const tlMode = p.tl || (s.vw < 760 ? 'list' : 'lanes');
+      out.tlLanes = tlMode === 'lanes'; out.tlList = tlMode !== 'lanes';
+      out.tlModes = [['lanes', 'Lanes'], ['list', 'List']].map(([k, l]) => ({ l, sel: tlMode === k, bg: tlMode === k ? 'var(--ink)' : 'transparent', fg: tlMode === k ? 'var(--bg)' : 'var(--ink-2)', go: () => this.setP({ tl: k }, true) }));
+      if (tlMode === 'lanes') out.lanesEl = L_lanes(this, ids, p);
       const groups = []; let cur = null;
       ev.forEach(e => { const sched = e.d > L.ASOF, lab = L.fmtMonth(e.d); if (!cur || cur.label !== lab) { cur = { label: lab, sched, schedTag: sched ? 'Scheduled' : '', items: [] }; groups.push(cur); } const x = D.byId[e.id]; cur.items.push({ date: L.fmt(e.d), sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, sl: L.ST[x.status].l, short: x.short, t: e.t, href: '#/bill/' + x.id, dot: sched ? 'var(--surface)' : `var(--st-${x.status})`, dotBd: `2px solid var(--st-${x.status})` }); });
       out.tlGroups = groups; out.tlCount = `${ev.length} dated ${ev.length === 1 ? 'event' : 'events'}${up ? ' after 29 Sep 2026' : ''}`; out.tlEmpty = !ev.length;
       out.upOn = up; out.upBg = up ? 'var(--ink)' : 'var(--surface)'; out.upFg = up ? 'var(--bg)' : 'var(--ink)';
       out.toggleUp = () => this.setP({ when: up ? '' : 'upcoming' }, true);
     }
-    if (view === 'connections') Object.assign(out, this.conn(p.c || 'SB53'));
+    if (view === 'connections') {
+      const lensK = this.V.LENSES[p.net] ? p.net : 'family', lens = this.V.LENSES[lensK], mob = s.vw < 760;
+      const focus = mob ? (p.c || 'SB53') : this.V.netFocus(D, lensK, s.netOff, p.c);
+      Object.assign(out, this.conn(focus));
+      out.showNet = !mob; out.showStar = mob;
+      if (!mob) out.netEl = this.V.network({ L, D, lens: lensK, avail: Math.min(1016, s.vw - 15 - 2 * Math.max(16, Math.min(32, s.vw * 0.03))) - 2, scope: p.scope === 'all' ? 'all' : 'near', off: s.netOff, focus, hover: s.netHover,
+        select: k => this.setP({ c: k }, true), hoverSet: k => { if (this.state.netHover !== k) this.setState({ netHover: k }); },
+        setLens: k => this.go('/explore', { ...p, net: k === 'family' ? '' : k, c: '', scope: '' }, true), setScope: v => this.setP({ scope: v === 'all' ? 'all' : '' }, true),
+        toggleType: t => this.setState({ netOff: s.netOff.includes(t) ? s.netOff.filter(z => z !== t) : [...s.netOff, t] }) });
+    }
+    if (view === 'table') {
+      const sort = p.sort || 'latest', dir = p.dir || (sort === 'title' || sort === 'where' ? 'asc' : 'desc');
+      const picked = rows.map(r => r.x);
+      out.tableEl = this.V.table({ L, rows: picked, sort, dir, sel: s.tblSel.filter(id => D.byId[id]), compact: s.vw < 1040,
+        setSort: (k, pick) => this.setP({ sort: k, dir: pick ? (k === 'title' || k === 'where' ? 'asc' : 'desc') : k === sort && dir === 'desc' ? 'asc' : k === sort ? 'desc' : (k === 'title' || k === 'where' ? 'asc' : 'desc') }, true),
+        toggle: id => this.setState({ tblSel: s.tblSel.includes(id) ? s.tblSel.filter(z => z !== id) : s.tblSel.length < 3 ? [...s.tblSel, id] : s.tblSel }),
+        compare: () => this.go('/compare', { ids: s.tblSel.join(',') }),
+        download: () => { const b = new Blob([this.V.toCsv(this.V.sortRows(picked, L, sort, dir), L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'frontier-ai-law-tracker-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } });
+    }
     return out;
   }
   conn(c) {
