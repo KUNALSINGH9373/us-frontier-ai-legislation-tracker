@@ -1,0 +1,222 @@
+{
+ "verified_as_of": "2026-09-05",
+ "updates_through": "2026-09-29",
+ "week_from": "2026-09-23",
+ "section_names": {
+  "A": "Enacted state frontier laws",
+  "B": "State frontier bills",
+  "B.2": "State catastrophic-risk bills without a compute threshold",
+  "C": "Auditor and verifier licensing",
+  "D": "Federal frontier bills",
+  "E": "Federal drafts and proposals",
+  "F": "Related federal bills",
+  "G": "Executive actions",
+  "G.2": "Lawsuits and enforcement",
+  "G.3": "Chips and export controls",
+  "H": "Earlier and withdrawn proposals",
+  "I": "Frontier provisions in broader laws",
+  "J": "Checked and excluded"
+ },
+ "replay_milestones": [
+  {
+   "date": "2023-10-01",
+   "entry_key": "1026-threshold-lineage-eo-14110",
+   "caption": "The 10²⁶-operation compute threshold enters US policy"
+  },
+  {
+   "date": "2024-09-29",
+   "entry_key": "ca-sb-1047-vetoed-2024",
+   "caption": "California’s SB 1047 is vetoed"
+  },
+  {
+   "date": "2025-07-01",
+   "entry_key": "2025-reconciliation-moratorium-struck-99-1",
+   "caption": "The Senate strips a 10-year moratorium on state AI laws, 99–1"
+  },
+  {
+   "date": "2025-09-29",
+   "entry_key": "ca-sb-53-tfaia",
+   "caption": "California signs SB 53, the first frontier-developer law"
+  },
+  {
+   "date": "2025-12-11",
+   "entry_key": "eo-14365-state-law-framework",
+   "caption": "EO 14365 directs agencies to challenge state AI laws"
+  },
+  {
+   "date": "2025-12-19",
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "caption": "New York signs the RAISE Act"
+  },
+  {
+   "date": "2026-03-27",
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "caption": "New York replaces RAISE with a law on the SB 53 template"
+  },
+  {
+   "date": "2026-07-06",
+   "entry_key": "il-sb-315-p-a-104-0538",
+   "caption": "Illinois signs SB 315, adding annual audits"
+  },
+  {
+   "date": "2026-07-23",
+   "entry_key": "h-r-9925-frontier-act",
+   "caption": "The FRONTIER Act is introduced in the House"
+  },
+  {
+   "date": "2026-09-09",
+   "entry_key": "ca-ab-1405-auditor-registry",
+   "caption": "California signs auditor laws SB 813 and AB 1405"
+  },
+  {
+   "date": "2026-09-29",
+   "entry_key": "white-house-accord-on-superintelligence-voluntary",
+   "caption": "White House accord: voluntary principles, no binding rule"
+  }
+ ],
+ "comparison_matrix": {
+  "entry_keys": [
+   "ca-sb-53-tfaia",
+   "ny-raise-act-ch-699-ch-96",
+   "il-sb-315-p-a-104-0538",
+   "mi-hb-4668",
+   "nj-s-4446-a-5275",
+   "ma-h-5576-s-3178",
+   "h-r-9925-frontier-act"
+  ],
+  "rows": [
+   {
+    "dimension": "Casualty threshold",
+    "values": {
+     "ca-sb-53-tfaia": ">50",
+     "ny-raise-act-ch-699-ch-96": ">50 (was 100)",
+     "il-sb-315-p-a-104-0538": ">50",
+     "ma-h-5576-s-3178": "50+",
+     "mi-hb-4668": ">100",
+     "nj-s-4446-a-5275": "25+",
+     "h-r-9925-frontier-act": ">50"
+    }
+   },
+   {
+    "dimension": "Developer trigger",
+    "values": {
+     "ca-sb-53-tfaia": ">$500M revenue",
+     "ny-raise-act-ch-699-ch-96": ">$500M revenue",
+     "il-sb-315-p-a-104-0538": ">$500M revenue",
+     "ma-h-5576-s-3178": ">$500M AI revenue or >$1B R&D",
+     "mi-hb-4668": "Compute cost $5M / $100M",
+     "nj-s-4446-a-5275": ">$100M revenue",
+     "h-r-9925-frontier-act": ">$50M revenue + ≥$1B AI spend (large); >$5B + ≥$10B (very large)"
+    }
+   },
+   {
+    "dimension": "Compute (FLOP) threshold",
+    "values": {
+     "ca-sb-53-tfaia": "10²⁶",
+     "ny-raise-act-ch-699-ch-96": "10²⁶",
+     "il-sb-315-p-a-104-0538": "10²⁶",
+     "ma-h-5576-s-3178": "10²⁶",
+     "mi-hb-4668": "None — compute expressed as estimated cost",
+     "nj-s-4446-a-5275": "10²⁶",
+     "h-r-9925-frontier-act": "10²⁶"
+    }
+   },
+   {
+    "dimension": "Incident reporting",
+    "values": {
+     "ca-sb-53-tfaia": "15 days / 24 h if imminent",
+     "ny-raise-act-ch-699-ch-96": "72 h / 24 h",
+     "il-sb-315-p-a-104-0538": "72 h / 24 h if imminent",
+     "ma-h-5576-s-3178": "To the AG",
+     "mi-hb-4668": "Conditions self-defined in protocol",
+     "nj-s-4446-a-5275": "None (term defined, never used)",
+     "h-r-9925-frontier-act": "72 h / 24 h to law enforcement"
+    }
+   },
+   {
+    "dimension": "Third-party audit",
+    "values": {
+     "ca-sb-53-tfaia": "None",
+     "ny-raise-act-ch-699-ch-96": "Dropped",
+     "il-sb-315-p-a-104-0538": "Annual (from 2028)",
+     "ma-h-5576-s-3178": "Every 120 days",
+     "mi-hb-4668": "Annual",
+     "nj-s-4446-a-5275": "Discretionary (AG)",
+     "h-r-9925-frontier-act": "Annual (large) + IVO at least every 6 months (very large)"
+    }
+   },
+   {
+    "dimension": "Whistleblower protection",
+    "values": {
+     "ca-sb-53-tfaia": "Yes + anonymous channel",
+     "ny-raise-act-ch-699-ch-96": "Removed",
+     "il-sb-315-p-a-104-0538": "Yes",
+     "ma-h-5576-s-3178": "Yes",
+     "mi-hb-4668": "Yes + private right of action",
+     "nj-s-4446-a-5275": "None",
+     "h-r-9925-frontier-act": "None"
+    }
+   },
+   {
+    "dimension": "Private right of action",
+    "values": {
+     "ca-sb-53-tfaia": "None for developer obligations; employees may sue for retaliation",
+     "ny-raise-act-ch-699-ch-96": "No",
+     "il-sb-315-p-a-104-0538": "None for developer obligations; employee remedies via IL Whistleblower Act",
+     "ma-h-5576-s-3178": "No",
+     "mi-hb-4668": "Employees only",
+     "nj-s-4446-a-5275": "No",
+     "h-r-9925-frontier-act": "No (IVO immunity)"
+    }
+   },
+   {
+    "dimension": "Penalty ceiling",
+    "values": {
+     "ca-sb-53-tfaia": "$1M",
+     "ny-raise-act-ch-699-ch-96": "$1M / $3M",
+     "il-sb-315-p-a-104-0538": "$1M / $3M",
+     "ma-h-5576-s-3178": "—",
+     "mi-hb-4668": "$1M ($500 for whistleblower violations)",
+     "nj-s-4446-a-5275": "$100K",
+     "h-r-9925-frontier-act": "$1M/day; $10M/day + criminal for emergency-order violations"
+    }
+   },
+   {
+    "dimension": "Oversight body",
+    "values": {
+     "ca-sb-53-tfaia": "OES + AG",
+     "ny-raise-act-ch-699-ch-96": "New DFS office (rulemaking)",
+     "il-sb-315-p-a-104-0538": "IEMA/OHS + AG",
+     "ma-h-5576-s-3178": "AG",
+     "mi-hb-4668": "AG",
+     "nj-s-4446-a-5275": "AG + OHSP",
+     "h-r-9925-frontier-act": "New Under Secretary of Commerce"
+    }
+   },
+   {
+    "dimension": "Federal reciprocity",
+    "values": {
+     "ca-sb-53-tfaia": "Incident reporting only",
+     "ny-raise-act-ch-699-ch-96": "Incident reporting only",
+     "il-sb-315-p-a-104-0538": "Whole Act, but federal rule must mandate audits",
+     "ma-h-5576-s-3178": "—",
+     "mi-hb-4668": "—",
+     "nj-s-4446-a-5275": "—",
+     "h-r-9925-frontier-act": "Would displace"
+    }
+   },
+   {
+    "dimension": "Preempts local governments",
+    "values": {
+     "ca-sb-53-tfaia": "Yes (ordinances on/after Jan 1, 2025)",
+     "ny-raise-act-ch-699-ch-96": "—",
+     "il-sb-315-p-a-104-0538": "Yes (denies home rule, Sec. 35)",
+     "ma-h-5576-s-3178": "—",
+     "mi-hb-4668": "—",
+     "nj-s-4446-a-5275": "—",
+     "h-r-9925-frontier-act": "Partially preempts states in three enumerated fields; effect on existing laws textually disputed"
+    }
+   }
+  ]
+ }
+}

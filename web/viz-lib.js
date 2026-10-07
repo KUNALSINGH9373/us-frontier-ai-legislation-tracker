@@ -57,7 +57,8 @@ export function lanes(ctx) {
   shown.forEach((e) => { (byId.get(e.id) || byId.set(e.id, []).get(e.id)).push(e); });
   const order = Object.keys(L.SEC);
   const groups = order.map((s) => ({ s, name: L.SEC[s], ids: [...byId.keys()].filter((id) => D.byId[id].section === s) })).filter((g) => g.ids.length);
-  groups.forEach((g) => g.ids.sort((a, b) => Math.max(...byId.get(b).map((e) => +e.d)) - Math.max(...byId.get(a).map((e) => +e.d))));
+  // latest activity first; ties by entry number so the order never depends on how the data file is sorted
+  groups.forEach((g) => g.ids.sort((a, b) => Math.max(...byId.get(b).map((e) => +e.d)) - Math.max(...byId.get(a).map((e) => +e.d)) || a - b));
 
   const W = 1000, LW = ctx.mob ? 150 : 232, PR = 22, ROW = 30, BAND = 32, TOP = 56, BOT = 12;
   let H = TOP + BOT; groups.forEach((g) => { H += BAND + g.ids.length * ROW; });
@@ -163,10 +164,10 @@ export function lanes(ctx) {
 
 /* ---------- relationship network ---------- */
 export const LENSES = {
-  all: { l: 'Everything', d: 'Every relationship the tracker states.', types: null, start: 'SB53' },
-  family: { l: 'Who copied whom', d: 'Drafting families, replacements and amendments.', types: ['template', 'succession'], start: 'SB53' },
+  all: { l: 'Everything', d: 'Every relationship the tracker states.', types: null, start: null },
+  family: { l: 'Who copied whom', d: 'Drafting families, replacements and amendments.', types: ['template', 'succession'], start: null },
   fedstate: { l: 'Washington vs. the states', d: 'Federal pressure, executive orders and lawsuits.', types: ['fedstate', 'executive', 'litigation'], start: null },
-  assurance: { l: 'Who checks the checkers', d: 'Auditor and verifier laws and what they build on.', types: ['assurance'], start: 'SB813' },
+  assurance: { l: 'Who checks the checkers', d: 'Auditor and verifier laws and what they build on.', types: ['assurance'], start: null },
   people: { l: 'Sponsors and backers', d: 'Who sponsors, supports and opposes.', types: ['actor'], start: null }
 };
 export const TYPE_COLOR = { template: 'var(--accent)', succession: 'var(--st-pending)', fedstate: 'var(--st-enacted)', executive: 'var(--st-executive)', litigation: 'var(--st-litigation)', assurance: 'var(--st-auditor)', actor: 'var(--st-stalled)' };
@@ -179,7 +180,7 @@ export function lensGraph(D, lensK, off) {
   const hubs = Object.keys(deg).sort((a, b) => deg[b] - deg[a]);
   return { lens, edges, deg, hubs };
 }
-export const netFocus = (D, lensK, off, c) => { const g = lensGraph(D, lensK, off); return c && g.deg[c] ? c : (g.lens.start && g.deg[g.lens.start] ? g.lens.start : g.hubs[0] || c); };
+export const netFocus = (D, lensK, off, c) => { const g = lensGraph(D, lensK, off); return c && g.deg[c] ? c : (g.lens.start && g.deg[g.lens.start] ? g.lens.start : g.hubs.find((k) => !D.rel.actors[k]) || g.hubs[0] || c); };
 
 // ctx: { L, D, lens, scope:'near'|'all', off:[], focus:key, hover:key, select(key), hoverSet(key|null), setLens(k), setScope(s), toggleType(t) }
 export function network(ctx) {
@@ -366,6 +367,9 @@ const ROLE = {
   assurance: { out: 'Auditor or verifier link', in: 'Auditor or verifier link' },
   actor: null
 };
+// Short form for inside a card (about 20 characters); the dashed line marks unproven links, the details strip says it in words.
+const ROLE_SHORT = { template: { out: 'Copied its framework', in: 'Its template' }, succession: { out: 'Successor or revival', in: 'Earlier version' }, fedstate: { out: 'State law it targets', in: 'Federal pressure on it' }, executive: { out: 'Follows from this order', in: 'Order behind it' }, litigation: { out: 'Resulting case or step', in: 'What led to this case' }, assurance: { out: 'Auditor link', in: 'Auditor link' } };
+const roleShort = (e, parent) => { const out = e.from === parent; if (e.type === 'template' && e.dashed) return out ? 'Similar framework' : 'Similar to it'; return ROLE_SHORT[e.type] ? ROLE_SHORT[e.type][out ? 'out' : 'in'] : e.label; };
 const roleOf = (e, parent) => {
   const out = e.from === parent;
   if (e.type === 'template' && e.dashed) return out ? 'Similar framework · not proven copied' : 'Similar to · not proven copied';
@@ -387,9 +391,12 @@ function canvasClass() {
       this.rm = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
       this.state = { ...this.initial(p), cam: { x: 0, y: 0, s: 1 }, w: 0, h: 0, sel: null, hover: null };
     }
-    initial(p) { const nodes = { [p.root]: { x: 0, y: 0, hub: null } }; this.fan(nodes, p.root, p); return { nodes, open: { [p.root]: true } }; }
+    initial(p) {
+      if (p.layout) { const nodes = {}; Object.entries(p.layout.nodes).forEach(([k, n]) => { nodes[k] = { ...n }; }); return { nodes, open: {} }; }
+      const nodes = { [p.root]: { x: 0, y: 0, hub: null } }; this.fan(nodes, p.root, p); return { nodes, open: { [p.root]: true } };
+    }
     others(k, p = this.props) { return [...new Set((p.adj[k] || []).map((a) => a.o))]; }
-    hidden(k, nodes = this.state.nodes) { return this.others(k).filter((o) => !nodes[o]).length; }
+    hidden(k, nodes = this.state.nodes) { return this.props.layout ? 0 : this.others(k).filter((o) => !nodes[o]).length; }
     // place k's not-yet-shown links around k, opening away from k's own hub
     fan(nodes, k, p = this.props) {
       const kids = this.others(k, p).filter((o) => !nodes[o]); if (!kids.length) return [];
@@ -423,12 +430,17 @@ function canvasClass() {
     }
     componentWillUnmount() { cancelAnimationFrame(this.raf); clearTimeout(this.snap); if (this.ro) this.ro.disconnect(); if (this.wrap.current) this.wrap.current.removeEventListener('wheel', this.onWheel); }
     componentDidUpdate(pp) {
-      if (pp.root !== this.props.root || pp.adj !== this.props.adj) { this.setState({ ...this.initial(this.props), sel: null, hover: null }, () => this.fit(true)); }
+      if (pp.root !== this.props.root || pp.adj !== this.props.adj || pp.layout !== this.props.layout) { this.setState({ ...this.initial(this.props), sel: null, hover: null }, () => this.fit(true)); }
     }
     measure() { const el = this.wrap.current; if (!el) return; const w = el.clientWidth, h = el.clientHeight; if (w !== this.state.w || h !== this.state.h) this.setState({ w, h }, () => { if (!this.fitted) { this.fitted = true; this.fit(false); } }); }
     bbox(keys) { const ns = this.state.nodes; let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; keys.forEach((k) => { const n = ns[k]; if (!n) return; x0 = Math.min(x0, n.x - RW / 2); x1 = Math.max(x1, n.x + RW / 2); y0 = Math.min(y0, n.y - RH / 2); y1 = Math.max(y1, n.y + RH / 2); }); return { x0, y0, x1, y1 }; }
     camFor(b, maxS, right = 0, bottom = 0) { const h = this.state.h - bottom, w = this.state.w - right, pad = 36, s = clamp(Math.min((w - pad * 2) / (b.x1 - b.x0), (h - pad * 2) / (b.y1 - b.y0)), 0.3, maxS); return { s, x: w / 2 - ((b.x0 + b.x1) / 2) * s, y: h / 2 - ((b.y0 + b.y1) / 2) * s }; }
-    fit(anim) { if (!this.state.w) return; this.go(this.camFor(this.bbox(Object.keys(this.state.nodes)), 1.1), anim); }
+    fit(anim) {
+      if (!this.state.w) return; const b = this.bbox(Object.keys(this.state.nodes));
+      // the whole map: fit the columns across, start at the top (it is taller than it is wide)
+      if (this.props.layout) { const s = clamp((this.state.w - 72) / (b.x1 - b.x0), 0.3, 1); this.go({ s, x: this.state.w / 2 - ((b.x0 + b.x1) / 2) * s, y: 64 - b.y0 * s }, anim); return; }
+      this.go(this.camFor(b, 1.1), anim);
+    }
     // keep a freshly opened cluster in view without jumping when it already is
     reveal(keys) {
       // on wide canvases the details panel covers the right 344px, so keep the cluster left of it
@@ -458,6 +470,7 @@ function canvasClass() {
     // click on a node: open or fold its links, and show its details
     tap(k) {
       if (this.moved > 4) return;
+      if (this.props.layout) { this.setState({ sel: this.state.sel === k ? null : k }); return; }
       const root = k === this.props.root, nodes = { ...this.state.nodes }, open = { ...this.state.open };
       if (root) { this.setState({ sel: k }); return; }
       if (open[k]) {
@@ -472,11 +485,24 @@ function canvasClass() {
       const { ctx, root, adj } = this.props, { L, D } = ctx, R = D.rel, { nodes, open, cam, w, sel, hover, dragging } = this.state;
       const nameOf = (k) => R.actors[k] || R.short[k] || k, keys = Object.keys(nodes), focus = hover || sel;
       const seen = new Set(), edges = [];
-      keys.forEach((a) => (adj[a] || []).forEach(({ o, e }) => { if (!nodes[o]) return; const id = a < o ? a + '|' + o : o + '|' + a; if (seen.has(id)) return; seen.add(id); edges.push({ a, b: o, e }); }));
+      // one line per link; a pair linked twice gets two lines side by side (lane -1/+1) so neither relationship is hidden
+      const perPair = {};
+      keys.forEach((a) => (adj[a] || []).forEach(({ o, e }) => { if (!nodes[o] || seen.has(e)) return; seen.add(e); const id = a < o ? a + '|' + o : o + '|' + a; (perPair[id] = perPair[id] || []).push({ a, b: o, e }); }));
+      Object.values(perPair).forEach((list) => list.forEach((x, i) => { x.lane = list.length > 1 ? i * 2 - (list.length - 1) : 0; edges.push(x); }));
       // a link that brought a node in (node to its hub) is drawn firmly; links between two already-shown nodes are faint until one end is in focus
-      const line = (x) => { const A = nodes[x.a], B = nodes[x.b], on = focus && (x.a === focus || x.b === focus), tree = A.hub === x.b || B.hub === x.a; return h('line', { key: x.a + x.b, x1: A.x, y1: A.y, x2: B.x, y2: B.y, style: { stroke: TYPE_COLOR[x.e.type], strokeWidth: on ? 2.6 : tree ? 1.8 : 1.2, strokeDasharray: x.e.dashed ? '6 5' : undefined, opacity: focus ? (on ? 1 : 0.12) : tree ? 0.75 : 0.22, transition: 'opacity .15s' } }); };
-      const tags = hover ? edges.filter((x) => (x.a === hover || x.b === hover) && (nodes[x.a].hub === x.b || nodes[x.b].hub === x.a)).map((x) => { const focus = hover, other = x.a === focus ? x.b : x.a, A = nodes[focus], B = nodes[other], mx = A.x + (B.x - A.x) * 0.55, my = A.y + (B.y - A.y) * 0.55;
-        return h('span', { key: 't' + other, 'aria-hidden': true, style: { position: 'absolute', left: mx, top: my, transform: 'translate(-50%,-50%)', whiteSpace: 'nowrap', padding: '2px 7px', borderRadius: 999, background: 'var(--surface)', border: `1px solid ${TYPE_COLOR[x.e.type]}`, color: 'var(--ink-2)', fontSize: 11, fontWeight: 650, pointerEvents: 'none', zIndex: 2 } }, roleOf(x.e, focus)); }) : [];
+      // where a line meets a node's border (so the arrowhead sits on the edge, not under the card)
+      const size = (k) => (k === root ? [RW, RH] : [NW, NH]);
+      const edgeAt = (k, toward, gap) => { const n = nodes[k], [W, H] = size(k), dx = toward.x - n.x, dy = toward.y - n.y; if (!dx && !dy) return { x: n.x, y: n.y }; const f = Math.min(dx ? (W / 2 + gap) / Math.abs(dx) : Infinity, dy ? (H / 2 + gap) / Math.abs(dy) : Infinity); return { x: n.x + dx * f, y: n.y + dy * f }; };
+      // arrows run from the earlier or acting item to the later or affected one (the edge's own from → to)
+      const line = (x) => {
+        const f = x.e.from, t = x.e.to, F = nodes[f], T = nodes[t], on = focus && (x.a === focus || x.b === focus), tree = nodes[x.a].hub === x.b || nodes[x.b].hub === x.a;
+        const q1 = edgeAt(f, T, 2), q2 = edgeAt(t, F, 4), L0 = Math.hypot(q2.x - q1.x, q2.y - q1.y) || 1, off = (x.lane || 0) * 5, ox = (-(q2.y - q1.y) / L0) * off, oy = ((q2.x - q1.x) / L0) * off;
+        const p1 = { x: q1.x + ox, y: q1.y + oy }, p2 = { x: q2.x + ox, y: q2.y + oy };
+        return h('line', { key: x.a + x.b + x.e.type + (x.lane || 0), x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y, markerEnd: `url(#fa-${x.e.type})`, style: { stroke: TYPE_COLOR[x.e.type], strokeWidth: on ? 2.6 : tree ? 1.8 : 1.2, strokeDasharray: x.e.dashed ? '6 5' : undefined, opacity: focus ? (on ? 1 : 0.1) : tree ? 0.75 : this.props.layout ? 0.38 : 0.22, transition: 'opacity .15s' } });
+      };
+      const defs = h('defs', null, ...FOCUS_TYPE_ORDER.map((t) => h('marker', { key: t, id: 'fa-' + t, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, markerUnits: 'userSpaceOnUse', orient: 'auto' }, h('path', { d: 'M0 0L10 5L0 10z', style: { fill: TYPE_COLOR[t] } }))));
+      // the focused node's links, by neighbour: each linked card shows its relationship in place of its status line
+      const roleTo = {}; if (focus && nodes[focus]) edges.forEach((x) => { if (x.a === focus || x.b === focus) { const o = x.a === focus ? x.b : x.a; roleTo[o] = roleTo[o] ? { text: roleTo[o].text + ' · ' + roleShort(x.e, focus), full: roleTo[o].full + '; ' + roleOf(x.e, focus), e: roleTo[o].e } : { text: roleShort(x.e, focus), full: roleOf(x.e, focus), e: x.e }; } });
       const node = (k) => {
         const n = nodes[k], isRoot = k === root, id = D.keyToId[k], x = id ? D.byId[id] : null, actor = !!R.actors[k], more = this.hidden(k), isOpen = !!open[k] && !isRoot;
         const col = x ? `var(--st-${x.status})` : 'var(--ink-3)', on = focus === k || sel === k, near = focus && !on && edges.some((y) => (y.a === focus && y.b === k) || (y.b === focus && y.a === k)), dim = focus && !on && !near;
@@ -487,7 +513,8 @@ function canvasClass() {
           onClick: () => this.tap(k), onMouseEnter: () => this.setState({ hover: k }), onMouseLeave: () => this.setState({ hover: null }), onFocus: () => this.setState({ hover: k }), onBlur: () => this.setState({ hover: null }),
           style: { position: 'absolute', left: n.x - W / 2, top: n.y - H / 2, width: W, height: H, zIndex: on ? 4 : 3, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 1, padding: '0 14px 0 14px', textAlign: 'left', font: 'inherit', color: 'var(--ink)', background: isRoot ? 'var(--accent-soft)' : 'var(--surface)', border: `${isRoot || on ? 2 : 1}px ${actor ? 'dashed' : 'solid'} ${isRoot || on ? 'var(--accent)' : 'var(--line-2)'}`, borderRadius: 10, boxShadow: on ? 'var(--shadow-3)' : 'var(--shadow-1)', cursor: dragging ? 'grabbing' : 'pointer', opacity: dim ? 0.4 : 1, transition: 'opacity .15s, box-shadow .15s' } },
           h('span', { 'aria-hidden': true, style: { position: 'absolute', left: 0, top: 10, bottom: 10, width: 3, borderRadius: 2, background: col } }),
-          meta ? h('span', { style: { fontSize: 11, color: 'var(--ink-3)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, meta) : null,
+          roleTo[k] ? h('span', { style: { fontSize: 11.5, fontWeight: 750, color: TYPE_COLOR[roleTo[k].e.type], whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }, title: roleTo[k].full }, roleTo[k].text)
+            : meta ? h('span', { style: { fontSize: 11, color: 'var(--ink-3)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, meta) : null,
           h('span', { style: { fontSize: isRoot ? 15 : 13.5, fontWeight: 650, lineHeight: 1.25, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', overflowWrap: 'anywhere' } }, nameOf(k)),
           badge ? h('span', { 'aria-hidden': true, style: { position: 'absolute', top: -9, right: -9, minWidth: 22, height: 22, padding: '0 6px', borderRadius: 999, display: 'grid', placeItems: 'center', fontSize: 11.5, fontWeight: 750, fontVariantNumeric: 'tabular-nums', background: isOpen ? 'var(--surface)' : 'var(--accent-ink)', color: isOpen ? 'var(--ink)' : 'var(--on-accent)', border: '2px solid var(--surface)', boxShadow: '0 0 0 1px var(--line-2)' } }, badge) : null);
       };
@@ -514,46 +541,74 @@ function canvasClass() {
             h('button', { type: 'button', 'data-chip': '', onClick: () => this.setState({ sel: null }), 'aria-label': 'Close details', style: { ...b, width: 34, padding: 0, justifyContent: 'center' } }, '✕')));
       })();
       const tool = { width: 34, height: 34, display: 'grid', placeItems: 'center', border: 0, borderBottom: '1px solid var(--line)', background: 'var(--surface)', color: 'var(--ink)', fontSize: 16, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', padding: 0 };
-      return h('div', { ref: this.wrap, role: 'region', 'aria-label': `Relationship canvas starting from ${nameOf(root)}. Drag to move, Ctrl and scroll or pinch to zoom.`,
+      return h('div', { ref: this.wrap, role: 'region', 'aria-label': this.props.layout ? 'Map of every relationship. Drag to move, Ctrl and scroll or pinch to zoom.' : `Relationship canvas starting from ${nameOf(root)}. Drag to move, Ctrl and scroll or pinch to zoom.`,
         onPointerDown: this.down, onPointerMove: this.move, onPointerUp: this.up, onPointerCancel: this.up,
         style: { position: 'relative', height: ctx.height, overflow: 'hidden', touchAction: 'none', userSelect: 'none', cursor: dragging ? 'grabbing' : 'grab', borderRadius: 'var(--r)', border: '1px solid var(--line)', background: 'var(--surface-2)', backgroundImage: 'radial-gradient(var(--line-2) 1px, transparent 1px)', backgroundSize: `${22 * cam.s}px ${22 * cam.s}px`, backgroundPosition: `${cam.x}px ${cam.y}px` } },
         h('div', { style: { position: 'absolute', left: 0, top: 0, transformOrigin: '0 0', transform: `translate(${cam.x}px,${cam.y}px) scale(${cam.s})` } },
-          h('svg', { 'aria-hidden': true, width: 1, height: 1, style: { position: 'absolute', left: 0, top: 0, overflow: 'visible' } }, ...edges.map(line)),
-          ...tags, ...keys.map(node)),
+          h('svg', { 'aria-hidden': true, width: 1, height: 1, style: { position: 'absolute', left: 0, top: 0, overflow: 'visible' } }, defs, ...edges.map(line)),
+          ...(this.props.layout ? this.props.layout.heads.map((c) => h('div', { key: 'hd' + c.x, 'aria-hidden': true, style: { position: 'absolute', left: c.x - NW / 2, top: c.y, width: NW, textAlign: 'center', fontSize: 12, fontWeight: 750, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, c.label)) : []),
+          ...keys.map(node)),
         h('div', { role: 'group', 'aria-label': 'Zoom', onPointerDown: (e) => e.stopPropagation(), style: { position: 'absolute', left: 12, top: 12, zIndex: 9, display: 'flex', flexDirection: 'column', borderRadius: 8, overflow: 'hidden', border: '1px solid var(--line-2)', boxShadow: 'var(--shadow-1)' } },
           h('button', { type: 'button', 'data-chip': '', onClick: () => this.zoomBy(1.25), 'aria-label': 'Zoom in', style: tool }, '+'),
           h('button', { type: 'button', 'data-chip': '', onClick: () => this.zoomBy(0.8), 'aria-label': 'Zoom out', style: tool }, '−'),
           h('button', { type: 'button', 'data-chip': '', onClick: () => this.fit(true), 'aria-label': 'Fit everything in view', title: 'Fit', style: { ...tool, borderBottom: 0, fontSize: 13 } }, '⤢')),
-        w >= 640 && !sel ? h('p', { 'aria-hidden': true, style: { position: 'absolute', left: 12, bottom: 12, zIndex: 9, margin: 0, padding: '4px 8px', borderRadius: 6, background: 'var(--surface)', border: '1px solid var(--line)', fontSize: 11.5, color: 'var(--ink-3)', pointerEvents: 'none' } }, 'Drag to move · Ctrl + scroll to zoom · Click a node to open or fold its links') : null,
+        w >= 640 && !sel ? h('p', { 'aria-hidden': true, style: { position: 'absolute', left: 12, bottom: 12, zIndex: 9, margin: 0, padding: '4px 8px', borderRadius: 6, background: 'var(--surface)', border: '1px solid var(--line)', fontSize: 11.5, color: 'var(--ink-3)', pointerEvents: 'none' } }, this.props.layout ? 'Drag to move · Ctrl + scroll to zoom · Click an item to light up its links' : 'Drag to move · Ctrl + scroll to zoom · Click a node to open or fold its links') : null,
         panel);
     }
   };
   return CanvasClass;
 }
 
-// ctx: { L, D, focus, people, select(k), setPeople(bool), narrow }
+export function entireLayout(D, adj) {
+  const R = D.rel, keys = Object.keys(adj).filter((k) => adj[k].length), COLW = NW + 150, ROWH = NH + 22;
+  const colOf = (k) => (R.columnOf[k] != null ? R.columnOf[k] : 0);
+  const colIdx = [...new Set(keys.map(colOf))].sort((a, b) => a - b);
+  const cols = colIdx.map((c) => keys.filter((k) => colOf(k) === c).sort((a, b) => (R.actors[a] || R.short[a] || a).localeCompare(R.actors[b] || R.short[b] || b)));
+  const pos = {}; cols.forEach((c) => c.forEach((k, i) => { pos[k] = i; }));
+  for (let it = 0; it < 8; it++) cols.forEach((c) => { const b = {}; c.forEach((k) => { const ns = adj[k].map((a) => pos[a.o]).filter((v) => v != null); b[k] = ns.length ? ns.reduce((t, v) => t + v, 0) / ns.length : pos[k]; }); c.sort((x, y) => b[x] - b[y]); c.forEach((k, i) => { pos[k] = i; }); });
+  const tallest = Math.max(1, ...cols.map((c) => c.length)), nodes = {};
+  cols.forEach((c, ci) => c.forEach((k, i) => { nodes[k] = { x: ci * COLW, y: (i - (c.length - 1) / 2) * ROWH, hub: null }; }));
+  const top = -((tallest - 1) / 2) * ROWH - NH / 2 - 40;
+  return { nodes, heads: colIdx.map((c, ci) => ({ x: ci * COLW, y: top, label: R.columns[c] || '' })) };
+}
+
+// ctx: { L, D, focus, people, entire, lens, select(k), setPeople(bool), setMode(entire), setLens(k), narrow }
 export function focusView(ctx) {
   const { D } = ctx, R = D.rel, nameOf = (k) => R.actors[k] || R.short[k] || k;
   const key = ctx.people ? 'p' : 'n';
   D._adj = D._adj || {};
   if (!D._adj.all) { const a = {}; D.edges.forEach((e) => { (a[e.from] = a[e.from] || []).push({ o: e.to, e }); (a[e.to] = a[e.to] || []).push({ o: e.from, e }); }); D._adj.all = a; }
   if (!D._adj[key]) { const a = {}; Object.entries(D._adj.all).forEach(([k, list]) => { if (!ctx.people && R.actors[k]) return; a[k] = ctx.people ? list : list.filter((x) => !R.actors[x.o]); }); D._adj[key] = a; }
-  const adj = D._adj[key], data = focusData(D, ctx.focus, { people: ctx.people, depth: null });
+  const lens = LENSES[ctx.lens] && ctx.lens !== 'people' ? ctx.lens : 'all', types = LENSES[lens].types;
+  const ekey = 'e' + key + lens;
+  if (ctx.entire && !D._adj[ekey]) { const a = {}; Object.entries(D._adj[key]).forEach(([k, list]) => { a[k] = types ? list.filter((x) => types.includes(x.e.type) || (ctx.people && x.e.type === 'actor')) : list; }); D._adj[ekey] = a; D._adj[ekey + 'L'] = entireLayout(D, a); }
+  const adj = ctx.entire ? D._adj[ekey] : D._adj[key], data = focusData(D, ctx.focus, { people: ctx.people, depth: null });
   const direct = new Set((adj[ctx.focus] || []).map((x) => x.o)).size;
   const label = { fontSize: 'calc(12.5px*var(--fs))', fontWeight: 650, color: 'var(--ink-3)' };
   const opts = Object.keys(D._adj.all).filter((k) => ctx.people || !R.actors[k] || k === ctx.focus).sort((a, b) => (!!R.actors[a] - !!R.actors[b]) || nameOf(a).localeCompare(nameOf(b)));
+  const seg = (on) => ({ height: 'calc(36px*var(--hs))', padding: '0 14px', border: 0, borderRadius: 'calc(var(--r) - 3px)', background: on ? 'var(--surface)' : 'transparent', boxShadow: on ? 'var(--shadow-1)' : 'none', color: on ? 'var(--ink)' : 'var(--ink-2)', fontWeight: 650, fontSize: 'calc(14px*var(--fs))', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' });
+  const field = { height: 'calc(40px*var(--hs))', padding: '0 10px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', font: 'inherit', fontSize: 'calc(14px*var(--fs))', fontWeight: 600, maxWidth: '100%', minWidth: 0 };
+  const inline = { display: 'flex', alignItems: 'center', gap: 8, fontSize: 'calc(13.5px*var(--fs))', fontWeight: 650, color: 'var(--ink-3)', minWidth: 0 };
+  const L2 = ctx.entire ? D._adj[ekey + 'L'] : null, nShown = L2 ? Object.keys(L2.nodes).length : 0, eShown = L2 ? new Set(Object.values(adj).flat().map((x) => x.e)).size : 0;
   return h('div', null,
-    h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '10px 16px', alignItems: 'flex-end', marginBottom: 10 } },
-      h('label', { style: { display: 'flex', flexDirection: 'column', gap: 4, ...label, flex: '1 1 260px', minWidth: 0, maxWidth: 440 } }, 'Start from',
-        h('select', { value: ctx.focus, onChange: (e) => ctx.select(e.target.value), style: { height: 'calc(40px*var(--hs))', padding: '0 10px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', font: 'inherit', fontSize: 'calc(14.5px*var(--fs))', fontWeight: 600, maxWidth: '100%' } },
-          ...opts.map((k) => h('option', { key: k, value: k }, nameOf(k) + (R.actors[k] ? ' (person or group)' : ''))))),
-      h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, minHeight: 'calc(40px*var(--hs))', fontSize: 'calc(13.5px*var(--fs))', fontWeight: 600, color: 'var(--ink-2)', cursor: 'pointer' } },
-        h('input', { type: 'checkbox', checked: !!ctx.people, onChange: (e) => ctx.setPeople(e.target.checked), style: { width: 16, height: 16, accentColor: 'var(--accent-ink)', margin: 0 } }), 'Show people and groups')),
-    h('p', { style: { margin: '0 0 14px', fontSize: 'calc(13.5px*var(--fs))', color: 'var(--ink-2)', maxWidth: 780 } },
-      h('strong', { style: { color: 'var(--ink)' } }, nameOf(ctx.focus)), ` links directly to ${direct} ${direct === 1 ? 'item' : 'items'}, and through them to ${data.n} in all. The number on a node is how many more links it has: ${ctx.narrow ? 'tap' : 'click'} it to open them around it, and again to fold them.`),
+    h('div', { role: 'toolbar', 'aria-label': 'Relationship view', style: { display: 'flex', flexWrap: 'wrap', gap: '10px 18px', alignItems: 'center', marginBottom: 10 } },
+      h('div', { role: 'group', 'aria-label': 'View', style: { display: 'inline-flex', padding: 3, gap: 2, borderRadius: 'var(--r)', background: 'var(--surface-2)', border: '1px solid var(--line)' } },
+        h('button', { type: 'button', 'data-chip': '', 'aria-pressed': !ctx.entire, onClick: () => ctx.setMode(false), style: seg(!ctx.entire) }, 'Focused'),
+        h('button', { type: 'button', 'data-chip': '', 'aria-pressed': !!ctx.entire, onClick: () => ctx.setMode(true), style: seg(!!ctx.entire) }, 'Entire map')),
+      ctx.entire
+        ? h('label', { style: { ...inline, flex: '0 1 340px' } }, 'Show',
+          h('select', { value: lens, onChange: (e) => ctx.setLens(e.target.value), style: { ...field, flex: 1 } }, ...Object.keys(LENSES).filter((k) => k !== 'people').map((k) => h('option', { key: k, value: k }, k === 'all' ? 'All links' : LENSES[k].l))))
+        : h('label', { style: { ...inline, flex: '1 1 300px', maxWidth: 460 } }, 'Start from',
+          h('select', { value: ctx.focus, onChange: (e) => ctx.select(e.target.value), style: { ...field, flex: 1 } }, ...opts.map((k) => h('option', { key: k, value: k }, nameOf(k) + (R.actors[k] ? ' (person or group)' : ''))))),
+      h('label', { style: { ...inline, color: 'var(--ink-2)', cursor: 'pointer' } },
+        h('input', { type: 'checkbox', checked: !!ctx.people, onChange: (e) => ctx.setPeople(e.target.checked), style: { width: 16, height: 16, accentColor: 'var(--accent-ink)', margin: 0 } }), 'People and groups')),
+    h('p', { style: { margin: '0 0 12px', fontSize: 'calc(13.5px*var(--fs))', color: 'var(--ink-2)' } },
+      ctx.entire ? `${nShown} items and ${eShown} links${lens !== 'all' ? ' · ' + LENSES[lens].d : ''}`
+        : [h('strong', { key: 'n', style: { color: 'var(--ink)' } }, nameOf(ctx.focus)), ` · ${direct} direct ${direct === 1 ? 'link' : 'links'}, ${data.n} connected in all. Numbers on a node are its further links; ${ctx.narrow ? 'tap' : 'click'} to open them.`]),
+    ctx.entire ? h(canvasClass(), { ctx: { ...ctx, allAdj: D._adj.all, height: ctx.narrow ? '70vh' : 'min(74vh, 720px)' }, root: null, adj, layout: L2 }) :
     direct === 0 ? h('div', { role: 'status', style: { padding: 28, borderRadius: 'var(--r)', border: '1px dashed var(--line-2)', textAlign: 'center', color: 'var(--ink-2)' } }, 'Nothing else in the tracker links to this item.') :
       h(canvasClass(), { ctx: { ...ctx, allAdj: D._adj.all, height: ctx.narrow ? '70vh' : 'min(72vh, 700px)' }, root: ctx.focus, adj }),
     h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px 16px', marginTop: 12, fontSize: 'calc(12.5px*var(--fs))', color: 'var(--ink-3)' } },
       ...FOCUS_TYPE_ORDER.filter((t) => t !== 'actor' || ctx.people).map((t) => h('span', { key: t, style: { display: 'inline-flex', alignItems: 'center', gap: 6 } }, h('span', { 'aria-hidden': true, style: { width: 16, height: 3, borderRadius: 2, background: TYPE_COLOR[t] } }), FOCUS_TYPE_SHORT[t])),
-      h('span', null, 'Dashed: link the tracker marks as unproven, or a person or group.')));
+      h('span', null, 'Arrows point from the earlier or acting item to the later or affected one. Dashed: unproven link, or a person or group.')));
 }

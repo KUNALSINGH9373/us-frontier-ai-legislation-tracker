@@ -1,7 +1,8 @@
 // Data model + derivations for the tracker prototype. All values derive from data/*.json.
-export const ASOF = new Date(2026, 8, 29), VERIFIED = new Date(2026, 8, 5);
-export const WEEK_FROM = new Date(2026, 8, 23);
-export const HC = { enacted: 3, pending: 5, stalled: 6, failed: 5, ivo: 6, fed: 10, exec: 10, lit: 9, total: 90, sources: 173, events: 178 };
+// Defaults for the v1 data; applySite() replaces them from site.json when the v2 data is loaded.
+export let ASOF = new Date(2026, 8, 29), VERIFIED = new Date(2026, 8, 5);
+export let WEEK_FROM = new Date(2026, 8, 23);
+export let HC = { enacted: 3, pending: 5, stalled: 6, failed: 5, ivo: 6, fed: 10, exec: 10, lit: 9, total: 90, sources: 173, events: 178 };
 export const SN = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
 export const GRID = [['AK',0,0],['ME',0,10],['WI',1,5],['VT',1,9],['NH',1,10],['WA',2,0],['ID',2,1],['MT',2,2],['ND',2,3],['MN',2,4],['IL',2,5],['MI',2,6],['NY',2,8],['MA',2,9],['OR',3,0],['NV',3,1],['WY',3,2],['SD',3,3],['IA',3,4],['IN',3,5],['OH',3,6],['PA',3,7],['NJ',3,8],['CT',3,9],['RI',3,10],['CA',4,0],['UT',4,1],['CO',4,2],['NE',4,3],['MO',4,4],['KY',4,5],['WV',4,6],['VA',4,7],['MD',4,8],['DE',4,9],['AZ',5,1],['NM',5,2],['KS',5,3],['AR',5,4],['TN',5,5],['NC',5,6],['SC',5,7],['DC',5,8],['OK',6,3],['LA',6,4],['MS',6,5],['AL',6,6],['GA',6,7],['HI',7,0],['TX',7,3],['FL',7,8]];
 export const ST = {
@@ -10,7 +11,7 @@ export const ST = {
 };
 export const STATUS_ORDER = ['enacted','pending','stalled','failed','executive','litigation','export','excluded'];
 export const TYPES = {law:'Law',bill:'Bill',auditor:'Auditor licensing',draft:'Draft or proposal',executive:'Executive action',litigation:'Litigation',export:'Export control',precursor:'Earlier proposal',excluded:'Excluded'};
-export const SEC = {A:'Enacted state frontier laws',B:'State frontier bills','B.2':'State catastrophic-risk bills without a compute threshold',C:'Auditor and verifier licensing',D:'Federal frontier bills',E:'Federal drafts and proposals',F:'Related federal bills',G:'Executive actions','G.2':'Lawsuits and enforcement','G.3':'Chips and export controls',H:'Earlier and withdrawn proposals',I:'Frontier provisions in broader laws',J:'Checked and excluded'};
+export let SEC = {A:'Enacted state frontier laws',B:'State frontier bills','B.2':'State catastrophic-risk bills without a compute threshold',C:'Auditor and verifier licensing',D:'Federal frontier bills',E:'Federal drafts and proposals',F:'Related federal bills',G:'Executive actions','G.2':'Lawsuits and enforcement','G.3':'Chips and export controls',H:'Earlier and withdrawn proposals',I:'Frontier provisions in broader laws',J:'Checked and excluded'};
 export const BOARD = {enacted:'#2FD69E',pending:'#FFC23D',auditor:'#C89BFF',stalled:'#A9B4C7',failed:'#FF9B5E',executive:'#4FD4F0',litigation:'#FF8CC0',export:'#A9B6C8',excluded:'#8792A6'};
 export const CAT = {
   law:{l:'Frontier law enacted',g:'●',c:'#2FD69E'}, pending:{l:'Bill pending',g:'◐',c:'#FFC23D'}, auditor:{l:'Auditor licensing',g:'◆',c:'#C89BFF'},
@@ -35,7 +36,7 @@ export const FED_GROUPS = [
   {k:'G.3',l:'Chips and export controls',sub:'Compute and diffusion rules'},
   {k:'H',l:'Earlier proposals',sub:'Withdrawn or stripped'}
 ];
-export const MILESTONES = [
+export let MILESTONES = [
   ['2023-10-01',75,'The 10²⁶-operation compute threshold enters US policy'],
   ['2024-09-29',77,'California’s SB 1047 is vetoed'],
   ['2025-07-01',78,'The Senate strips a 10-year moratorium on state AI laws, 99–1'],
@@ -82,8 +83,8 @@ export const SUM = {
 };
 
 // Section K comparison matrix (verbatim from tracker-full.md), keyed by entry id.
-export const K_IDS = [1,2,3,5,6,4,27];
-export const K_ROWS = [
+export let K_IDS = [1,2,3,5,6,4,27];
+export let K_ROWS = [
   ['Casualty threshold', {1:'>50',2:'>50 (was 100)',3:'>50',5:'>100',6:'25+',4:'50+',27:'>50'}],
   ['Developer trigger', {1:'>$500M revenue',2:'>$500M revenue',3:'>$500M revenue',5:'Compute cost $5M / $100M',6:'>$100M revenue',4:'>$500M AI revenue or >$1B R&D',27:'>$50M revenue + ≥$1B AI spend (large); >$5B + ≥$10B (very large)'}],
   ['Compute (FLOP) threshold', {1:'10²⁶',2:'10²⁶',3:'10²⁶',5:'None — compute expressed as estimated cost',6:'10²⁶',4:'10²⁶',27:'10²⁶'}],
@@ -133,6 +134,37 @@ function deriveStatus(x) {
 }
 const TYPE_OF = {A:'law',I:'law',B:'bill','B.2':'bill',C:'auditor',D:'bill',F:'bill',E:'draft',G:'executive','G.2':'litigation','G.3':'export',H:'precursor',J:'excluded'};
 
+// Dated steps from a status line: the parts of the text tied to each date, plus the first date and the key (latest past) step.
+function stepsOf(statusText, fy) {
+  const sd = (statusText || '').replace(/\s*\(as of [^)]*\)/gi, '');
+  const all = datesIn(sd, fy);
+  const segs = []; let pos = 0;
+  sd.split(/\s*(?:\||;)\s*/).forEach(raw => {
+    const start = sd.indexOf(raw, pos); pos = start + raw.length;
+    const ds = all.filter(a => a.i >= start && a.i < pos);
+    if (!ds.length) { const txt = cleanSeg(raw); if (txt) segs.push({ d: null, t: txt }); return; }
+    let from = start;
+    ds.forEach((a, k) => {
+      const m = sd.slice(a.i).match(DRE_ONE); const end = a.i + (m ? m[0].length : 0);
+      const stop = k === ds.length - 1 ? pos : end;
+      let txt = cleanSeg(sd.slice(from, stop)).replace(/^[,.\s)(]+/, '').replace(/\s*\(?\b(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}\b(,?\s*\d{4})?\)?\s*$/, '').replace(/[,;:\s]+$/, '');
+      if (txt) txt = txt[0].toUpperCase() + txt.slice(1);
+      if (!txt) { const vm = sd.slice(start, stop).match(VERB); txt = vm ? vm[1][0].toUpperCase() + vm[1].slice(1).toLowerCase() : 'Dated step'; }
+      const before = sd.slice(Math.max(start, a.i - 40), a.i);
+      const isCheck = /\b(through|as of|since|until)\s*$/i.test(before) || /^(no|nor|none)\b/i.test(txt);
+      if (isCheck) { from = stop; return; }
+      if (txt) segs.push({ d: a.d, t: txt.length > 220 ? txt.slice(0, 216).replace(/\s\S*$/, '') + '…' : txt });
+      from = stop;
+    });
+  });
+  const dated = segs.filter(s => s.d).sort((a, b) => a.d - b.d);
+  const first = dated.length ? dated[0].d : (all.length ? new Date(Math.min(...all.map(a => +a.d))) : null);
+  const past = dated.filter(s => s.d <= ASOF);
+  const kd = past.length ? past[past.length - 1] : dated[0];
+  const verb = kd ? (kd.t.match(VERB) || [])[1] : null;
+  return { segs, dated, first, kd, verb };
+}
+
 export function build(entries, news, rel) {
   const anchorToId = {}; entries.forEach(x => { anchorToId[(x.permalink_old_site||'').split('#')[1]] = x.id; });
   const keyToId = {}, idToKey = {};
@@ -141,32 +173,7 @@ export function build(entries, news, rel) {
   const E = entries.map(x => {
     const t = clean(x.title), st = STATE_OVERRIDE[x.id] || (/^[A-Z]{2}$/.test(x.jurisdiction) && x.jurisdiction !== 'US' ? x.jurisdiction : null);
     const fy = (x.years || []).find(y => /^\d{4}$/.test(y));
-    const sd = (x.status_and_dates || '').replace(/\s*\(as of [^)]*\)/gi, '');
-    const all = datesIn(sd, fy);
-    const segs = []; let pos = 0;
-    sd.split(/\s*(?:\||;)\s*/).forEach(raw => {
-      const start = sd.indexOf(raw, pos); pos = start + raw.length;
-      const ds = all.filter(a => a.i >= start && a.i < pos);
-      if (!ds.length) { const txt = cleanSeg(raw); if (txt) segs.push({ d: null, t: txt }); return; }
-      let from = start;
-      ds.forEach((a, k) => {
-        const m = sd.slice(a.i).match(DRE_ONE); const end = a.i + (m ? m[0].length : 0);
-        const stop = k === ds.length - 1 ? pos : end;
-        let txt = cleanSeg(sd.slice(from, stop)).replace(/^[,.\s)(]+/, '').replace(/\s*\(?\b(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}\b(,?\s*\d{4})?\)?\s*$/, '').replace(/[,;:\s]+$/, '');
-        if (txt) txt = txt[0].toUpperCase() + txt.slice(1);
-        if (!txt) { const vm = sd.slice(start, stop).match(VERB); txt = vm ? vm[1][0].toUpperCase() + vm[1].slice(1).toLowerCase() : 'Dated step'; }
-        const before = sd.slice(Math.max(start, a.i - 40), a.i);
-        const isCheck = /\b(through|as of|since|until)\s*$/i.test(before) || /^(no|nor|none)\b/i.test(txt);
-        if (isCheck) { from = stop; return; }
-        if (txt) segs.push({ d: a.d, t: txt.length > 220 ? txt.slice(0, 216).replace(/\s\S*$/, '') + '…' : txt });
-        from = stop;
-      });
-    });
-    const dated = segs.filter(s => s.d).sort((a, b) => a.d - b.d);
-    const first = dated.length ? dated[0].d : (all.length ? new Date(Math.min(...all.map(a => +a.d))) : null);
-    const past = dated.filter(s => s.d <= ASOF);
-    const kd = past.length ? past[past.length - 1] : dated[0];
-    const verb = kd ? (kd.t.match(VERB) || [])[1] : null;
+    const { segs, dated, first, kd, verb } = stepsOf(x.status_and_dates, fy);
     const key = idToKey[x.id];
     const short = (key && rel.short[key]) || t.split(' — ')[0];
     const status = deriveStatus(x);
@@ -245,4 +252,74 @@ export function snippet(text, terms) {
   if (i < 0) return null;
   const s = Math.max(0, i - 60), e = Math.min(text.length, i + 140);
   return (s ? '…' : '') + text.slice(s, e).replace(/^\S*\s/, s ? '' : '$&') + (e < text.length ? '…' : '');
+}
+
+
+/* ---------- v2 data ---------- */
+// The published v2 files (entries, relationships, news, site) are the source of truth: the UI builds the same model
+// from them that build() makes from the v1 files, so every view works unchanged. Entries keep their legacy numeric id
+// (the schema guarantees one, never reused); the text key links entries, news, links, milestones and the matrix.
+const dayOf = (iso) => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
+const noonOf = (iso) => new Date(iso + 'T12:00:00');
+
+export function applySite(site, idOfKey) {
+  ASOF = dayOf(site.updates_through); VERIFIED = dayOf(site.verified_as_of); WEEK_FROM = dayOf(site.week_from);
+  if (site.section_names) SEC = { ...site.section_names };
+  MILESTONES = (site.replay_milestones || []).filter((m) => idOfKey[m.entry_key]).map((m) => ({ d: noonOf(m.date), id: idOfKey[m.entry_key], c: m.caption }));
+  const cm = site.comparison_matrix || { entry_keys: [], rows: [] };
+  K_IDS = cm.entry_keys.filter((k) => idOfKey[k]).map((k) => idOfKey[k]);
+  K_ROWS = cm.rows.map((r) => [r.dimension, Object.fromEntries(Object.entries(r.values).filter(([k]) => idOfKey[k]).map(([k, v]) => [idOfKey[k], v]))]);
+}
+
+// Headline numbers, counted from the entries instead of typed in.
+export function headline(E) {
+  const n = (f) => E.filter(f).length, B = (st) => n((x) => (x.section === 'B' || x.section === 'B.2') && x.status === st);
+  return { enacted: n((x) => x.section === 'A'), pending: B('pending'), stalled: B('stalled'), failed: B('failed'), stalledOrFailed: B('stalled') + B('failed'), ivo: n((x) => x.section === 'C'),
+    fed: n((x) => x.section === 'D'), exec: n((x) => x.section === 'G'), lit: n((x) => x.section === 'G.2'), total: E.length,
+    sources: E.reduce((t, x) => t + x.srcLinks.length, 0), events: E.reduce((t, x) => t + x.v2events.length, 0) };
+}
+
+export function buildV2(entries, news, rel, site) {
+  const idOfKey = {}; entries.forEach((x) => { idOfKey[x.key] = x.id; });
+  applySite(site, idOfKey);
+  // relationships: node keys (e.g. SB53) are what the graph uses; entry_key ties a node to its entry
+  const R = { types: rel.types, columns: rel.columns, short: {}, actors: {}, columnOf: {}, edges: rel.edges };
+  const keyToId = {}, idToKey = {};
+  Object.entries(rel.nodes).forEach(([k, nd]) => {
+    R.columnOf[k] = nd.column;
+    if (nd.kind === 'actor') { R.actors[k] = nd.name; return; }
+    R.short[k] = nd.name;
+    const id = idOfKey[nd.entry_key]; if (id != null) { keyToId[k] = id; idToKey[id] = k; }
+  });
+  const events = [];
+  const E = entries.map((x) => {
+    // years as the year filter uses them: anything after the data year is grouped as "<next year>+"
+    const later = ASOF.getFullYear() + 1, st = x.state || null, years = [...new Set(x.events.map((e) => { const y = +e.date.slice(0, 4); return y >= later ? later + '+' : String(y); }))].sort();
+    const fy = years.find((y) => /^\d{4}$/.test(y));
+    const { segs, dated, first, kd, verb } = stepsOf(x.status_text, fy);
+    const mech = clean(x.mechanism);
+    let lead = mech.split(/;\s|\.\s/)[0]; if (lead.length > 190) lead = lead.slice(0, 186).replace(/\s\S*$/, '') + '…';
+    const tags = x.tags || {}, conf = x.confidence || {};
+    const o = { id: x.id, v2key: x.key, raw: x, title: clean(x.title), short: x.short_name, key: idToKey[x.id], section: x.section, sec: SEC[x.section], st,
+      juris: st ? SN[st] : (x.section === 'J' ? 'Not tracked' : 'Federal'), level: x.level === 'state' || x.level === 'federal' ? x.level : (st ? 'state' : (x.section === 'J' ? 'none' : 'federal')),
+      status: x.status, type: x.type, conf: conf.level || null, confNote: clean(conf.note || conf.level || ''), sponsor: clean(x.sponsor_text), mech, thresholds: clean(x.thresholds), source: clean(x.source_label),
+      years, U: !!tags.updated_after_verification, R: tags.found_via === 'dedicated_search', NCSL: tags.found_via === 'ncsl', segs, dated, first, kd,
+      kdLabel: kd ? `${verb ? verb[0].toUpperCase() + verb.slice(1).toLowerCase() + ' · ' : ''}${fmt(kd.d)}` : 'No dated event',
+      summary: USE_DRAFT_SUMMARIES ? (SUM[x.id] || null) : null, lead, link: x.legacy ? x.legacy.permalink : null,
+      srcLinks: (x.sources || []).map((l) => ({ t: l.label, u: l.url })), moreLinks: (x.more_links || []).map((l) => ({ t: l.t, u: l.u })),
+      penalties: clean(x.penalties), signed: clean(x.signed_text), effective: clean(x.effective_text),
+      origin: x.origin, lastChecked: x.last_checked, v2events: x.events };
+    dated.forEach((sg) => events.push({ d: sg.d, id: x.id, t: sg.t }));
+    return o;
+  });
+  const byId = {}; E.forEach((e) => { byId[e.id] = e; });
+  const N = news.items.map((n, i) => ({ ...n, tracker: n.tracker ? idToKey[idOfKey[n.tracker]] || null : null, i, d: noonOf(n.date), entryId: n.tracker ? idOfKey[n.tracker] || null : null }));
+  const edges = rel.edges.map((ed) => ({ ...ed, fromId: keyToId[ed.from] || null, toId: keyToId[ed.to] || null }));
+  const pulse = {};
+  N.filter((n) => n.d >= WEEK_FROM && n.entryId).forEach((n) => { const s = byId[n.entryId].st; if (s) pulse[s] = true; });
+  // dated events for the timeline lanes, straight from each entry's structured events
+  const tev = [];
+  E.forEach((x) => x.v2events.forEach((e, i) => tev.push({ id: x.id, date: e.date, precision: e.precision, inferredYear: !!e.inferred_year, type: e.type, column: i, clause: e.clause, match: e.text, d: noonOf(e.date) })));
+  HC = headline(E);
+  return { E, byId, keyToId, idToKey, idOfKey, N, edges, rel: R, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom, tev, site, v2: true };
 }

@@ -1,0 +1,2017 @@
+{
+ "types": {
+  "template": {
+   "name": "Drafting family / template",
+   "color": "#2a78d6"
+  },
+  "succession": {
+   "name": "Predecessor, successor, amendment",
+   "color": "#eb6834"
+  },
+  "fedstate": {
+   "name": "Federal–state: preemption, reciprocity, threshold lineage",
+   "color": "#1baf7a"
+  },
+  "executive": {
+   "name": "Executive order or directive drives action",
+   "color": "#eda100"
+  },
+  "litigation": {
+   "name": "Litigation and enforcement",
+   "color": "#e87ba4"
+  },
+  "assurance": {
+   "name": "Auditor and verifier layer",
+   "color": "#008300"
+  },
+  "actor": {
+   "name": "Sponsor, supporter, opponent, party",
+   "color": "#4a3aa7"
+  }
+ },
+ "columns": [
+  "Actors",
+  "Federal executive",
+  "Federal bills and drafts",
+  "Enacted state laws",
+  "State bills and precursors",
+  "Verification infrastructure",
+  "Litigation, enforcement, excluded"
+ ],
+ "nodes": {
+  "SB53": {
+   "name": "CA SB 53 (TFAIA)",
+   "column": 3,
+   "kind": "entry",
+   "entry_key": "ca-sb-53-tfaia"
+  },
+  "RAISE": {
+   "name": "NY RAISE Act (Ch. 699 → Ch. 96)",
+   "column": 3,
+   "kind": "entry",
+   "entry_key": "ny-raise-act-ch-699-ch-96"
+  },
+  "SB315": {
+   "name": "IL SB 315 (P.A. 104-0538)",
+   "column": 3,
+   "kind": "entry",
+   "entry_key": "il-sb-315-p-a-104-0538"
+  },
+  "MA": {
+   "name": "MA H.5576 / S.3178",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ma-h-5576-s-3178"
+  },
+  "MI4668": {
+   "name": "MI HB 4668",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "mi-hb-4668"
+  },
+  "NJ": {
+   "name": "NJ S.4446 / A.5275",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "nj-s-4446-a-5275"
+  },
+  "HB3506": {
+   "name": "IL HB 3506 (2025)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "il-hb-3506-2025"
+  },
+  "SB3444": {
+   "name": "IL SB 3444",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "il-sb-3444"
+  },
+  "SB3312": {
+   "name": "IL SB 3312",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "il-sb-3312"
+  },
+  "HB4705": {
+   "name": "IL HB 4705 / SB 3261",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "il-hb-4705-sb-3261"
+  },
+  "TN": {
+   "name": "TN HB 1898 / SB 2171",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "tn-hb-1898-sb-2171"
+  },
+  "UT": {
+   "name": "UT HB 286",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ut-hb-286"
+  },
+  "LA": {
+   "name": "LA SB 474",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "la-sb-474"
+  },
+  "RI": {
+   "name": "RI S.358 / H.5224",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ri-s-358-h-5224"
+  },
+  "S10373": {
+   "name": "NY S.10373 (verification)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ny-s-10373-verification"
+  },
+  "S10456": {
+   "name": "NY S.10456 (minimum standards)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ny-s-10456-minimum-standards"
+  },
+  "MN4532": {
+   "name": "MN HF 4532 (no threshold)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "mn-hf-4532-no-threshold"
+  },
+  "AB1405": {
+   "name": "CA AB 1405 (auditor registry)",
+   "column": 5,
+   "kind": "entry",
+   "entry_key": "ca-ab-1405-auditor-registry"
+  },
+  "SB813": {
+   "name": "CA SB 813 (IVOs)",
+   "column": 5,
+   "kind": "entry",
+   "entry_key": "ca-sb-813-ivos"
+  },
+  "OH628": {
+   "name": "OH HB 628",
+   "column": 5,
+   "kind": "entry",
+   "entry_key": "oh-hb-628"
+  },
+  "MN4544": {
+   "name": "MN HF 4544 / SF 4636",
+   "column": 5,
+   "kind": "entry",
+   "entry_key": "mn-hf-4544-sf-4636"
+  },
+  "VA797": {
+   "name": "VA Ch. 425 / 426 (JCOTS study)",
+   "column": 5,
+   "kind": "entry",
+   "entry_key": "va-ch-425-426-jcots-study"
+  },
+  "CTIVO": {
+   "name": "CT P.A. 26-15 IVO pilot",
+   "column": 5,
+   "kind": "entry",
+   "entry_key": "ct-p-a-26-15-ivo-pilot"
+  },
+  "S2938": {
+   "name": "S. 2938 AI Risk Evaluation Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-2938-ai-risk-evaluation-act"
+  },
+  "FRONTIER": {
+   "name": "H.R. 9925 FRONTIER Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-9925-frontier-act"
+  },
+  "S5061": {
+   "name": "S. 5061 Secure AI Development Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-5061-secure-ai-development-act"
+  },
+  "CATSR": {
+   "name": "H.R. 9914 / S. 5105 CATSR",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-9914-s-5105-catsr"
+  },
+  "HR9477": {
+   "name": "H.R. 9477 AI Incident Reporting Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-9477-ai-incident-reporting-act"
+  },
+  "HR9917": {
+   "name": "H.R. 9917 AI Kill Switch Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-9917-ai-kill-switch-act"
+  },
+  "HR9965": {
+   "name": "H.R. 9965 ATOMIC Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-9965-atomic-act"
+  },
+  "GAAIA": {
+   "name": "GAAIA discussion draft",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "gaaia-discussion-draft"
+  },
+  "TRUMPAI": {
+   "name": "TRUMP AMERICA AI Act draft",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "trump-america-ai-act-draft"
+  },
+  "WHFW": {
+   "name": "White House legislative recommendations",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "white-house-legislative-recommendations"
+  },
+  "BANASI": {
+   "name": "S. 5493 / H.R. 10538 Ban Artificial Superintelligence Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-5493-h-r-10538-ban-artificial-superintelligence-act"
+  },
+  "HR9363": {
+   "name": "H.R. 9363 AI Security and Innovation Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-9363-ai-security-and-innovation-act"
+  },
+  "S1792": {
+   "name": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act"
+  },
+  "S4656": {
+   "name": "S. 4656 Military AI Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-4656-military-ai-act"
+  },
+  "HR10180": {
+   "name": "H.R. 10180 Self-Improving AI Monitoring Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-10180-self-improving-ai-monitoring-act"
+  },
+  "HR10189": {
+   "name": "H.R. 10189 Defense AI Reliability Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-10189-defense-ai-reliability-act"
+  },
+  "EO14365": {
+   "name": "EO 14365 (state-law framework)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "eo-14365-state-law-framework"
+  },
+  "FEB27": {
+   "name": "Feb. 27, 2026 directive and supply-chain order",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "feb-27-2026-directive-and-supply-chain-order"
+  },
+  "EO14409": {
+   "name": "EO 14409 (pre-release access)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "eo-14409-pre-release-access"
+  },
+  "JUNE12": {
+   "name": "June 12, 2026 export-control directive",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "june-12-2026-export-control-directive"
+  },
+  "CAISI": {
+   "name": "CAISI and NIST AITE",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "caisi-and-nist-aite"
+  },
+  "REMARKS": {
+   "name": "Trump remarks, Aug 7, 2026",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "trump-remarks-aug-7-2026"
+  },
+  "NOCHALLENGE": {
+   "name": "No challenge located to SB 53, RAISE, SB 315",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "no-challenge-located-to-sb-53-raise-sb-315"
+  },
+  "DOJTF": {
+   "name": "DOJ AI Litigation Task Force",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "doj-ai-litigation-task-force"
+  },
+  "COMMERCE": {
+   "name": "Commerce 'onerous state AI laws' evaluation",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "commerce-onerous-state-ai-laws-evaluation"
+  },
+  "XAI": {
+   "name": "X.AI v. Weiser (D. Colo.)",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "x-ai-v-weiser-d-colo"
+  },
+  "ANTHvDOW": {
+   "name": "Anthropic v. Department of War (N.D. Cal.)",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "anthropic-v-department-of-war-n-d-cal"
+  },
+  "DCCIR": {
+   "name": "Anthropic v. DoW, D.C. Cir. (§ 4713) — petition denied",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "anthropic-v-dow-d-c-cir-4713-petition-denied"
+  },
+  "PROTECTDEM": {
+   "name": "Protect Democracy v. ONCD",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "protect-democracy-v-oncd"
+  },
+  "CADOJ": {
+   "name": "California DOJ enforcement capacity",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "ca-california-doj-enforcement-capacity"
+  },
+  "LINEAGE": {
+   "name": "10²⁶ threshold lineage (EO 14110)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "1026-threshold-lineage-eo-14110"
+  },
+  "SB1047": {
+   "name": "CA SB 1047 (vetoed 2024)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ca-sb-1047-vetoed-2024"
+  },
+  "MORATORIUM": {
+   "name": "2025 reconciliation moratorium (struck 99–1)",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "2025-reconciliation-moratorium-struck-99-1"
+  },
+  "BALLOT": {
+   "name": "CA ballot initiative 25-0034 (withdrawn)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ca-ballot-initiative-25-0034-withdrawn"
+  },
+  "CTSB5": {
+   "name": "CT P.A. 26-15 (omnibus)",
+   "column": 3,
+   "kind": "entry",
+   "entry_key": "ct-p-a-26-15-omnibus"
+  },
+  "COLORADO": {
+   "name": "Colorado SB 24-205 → SB 26-189",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "colorado-sb-24-205-sb-26-189"
+  },
+  "VA2094": {
+   "name": "VA HB 2094 (2025, vetoed)",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "va-hb-2094-2025-vetoed"
+  },
+  "AIRMSA": {
+   "name": "Warner–Schatz–Kim AI Risk Management and Security Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "warner-schatz-kim-ai-risk-management-and-security-act"
+  },
+  "AIEBA": {
+   "name": "S. 5417 / H.R. 10567 AI Emergency Button Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-5417-h-r-10567-ai-emergency-button-act"
+  },
+  "AIREG": {
+   "name": "AI Regulator Act (Bennet–Welch proposal)",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "ai-regulator-act-bennet-welch-proposal"
+  },
+  "CAEO": {
+   "name": "CA EO N-9-26 (IVOs onsite, kill switch)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "ca-eo-n-9-26-ivos-onsite-kill-switch"
+  },
+  "ILEO": {
+   "name": "IL EO 2026-07 (AI Cabinet)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "il-eo-2026-07-ai-cabinet"
+  },
+  "OREO": {
+   "name": "OR EO 26-26 (state procurement)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "or-eo-26-26-state-procurement"
+  },
+  "OVERWATCH": {
+   "name": "AI OVERWATCH Act / FY27 NDAA",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "ai-overwatch-act-fy27-ndaa"
+  },
+  "CHIPSEC": {
+   "name": "Chip Security Act (H.R. 3447 / Cotton companion)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "chip-security-act-h-r-3447-cotton-companion"
+  },
+  "NYTERM": {
+   "name": "NY S.10701 TERMINATOR Act (withdrawn)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ny-s-10701-terminator-act-withdrawn"
+  },
+  "PAHB2800": {
+   "name": "PA H.B. 2800 AI Risk Prevention Act",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "pa-h-b-2800-ai-risk-prevention-act"
+  },
+  "FLvOAI": {
+   "name": "Florida v. OpenAI — injunction motion",
+   "column": 6,
+   "kind": "entry",
+   "entry_key": "fl-florida-v-openai-injunction-motion"
+  },
+  "WHACCORD": {
+   "name": "White House Accord on Superintelligence (voluntary)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "white-house-accord-on-superintelligence-voluntary"
+  },
+  "ASTA": {
+   "name": "S. 5471 AI Systems Transparency Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-5471-ai-systems-transparency-act"
+  },
+  "ROGUE": {
+   "name": "H.R. 10362 Stop Rogue AI Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-10362-stop-rogue-ai-act"
+  },
+  "USCHINA": {
+   "name": "Liccardo–Kiley US–China AI safety bill",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "liccardo-kiley-us-china-ai-safety-bill"
+  },
+  "MARKEY": {
+   "name": "S. 5541 Cyber and AI Board of Investigations",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-5541-cyber-and-ai-board-of-investigations"
+  },
+  "AASA": {
+   "name": "American AI Security Act (announced)",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "american-ai-security-act-announced"
+  },
+  "SENDRAFT": {
+   "name": "Senate Commerce draft (Cruz–Klobuchar–Thune)",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "senate-commerce-draft-cruz-klobuchar-thune"
+  },
+  "act-wiener": {
+   "name": "Sen. Scott Wiener (CA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-gounardes": {
+   "name": "Sen. Andrew Gounardes (NY)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-bores": {
+   "name": "Asm. Alex Bores (NY)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-edlyallen": {
+   "name": "Sen. Mary Edly-Allen (IL)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-didech": {
+   "name": "Rep. Daniel Didech (IL)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-cunningham": {
+   "name": "Sen. Bill Cunningham (IL)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-finegold": {
+   "name": "Sen. Barry Finegold (MA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-bauerkahan": {
+   "name": "Asm. Rebecca Bauer-Kahan (CA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-mcnerney": {
+   "name": "Sen. Jerry McNerney (CA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-fathom": {
+   "name": "Fathom (sponsor of SB 813)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-obernolte": {
+   "name": "Rep. Jay Obernolte (R-CA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-trahan": {
+   "name": "Rep. Lori Trahan (D-MA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-moran": {
+   "name": "Rep. Nathaniel Moran (R-TX)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-lieu": {
+   "name": "Rep. Ted Lieu (D-CA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-jacobs": {
+   "name": "Rep. Sara Jacobs (D-CA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-whitesides": {
+   "name": "Rep. George Whitesides (D-CA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-hawley": {
+   "name": "Sen. Josh Hawley (R-MO)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-blumenthal": {
+   "name": "Sen. Richard Blumenthal (D-CT)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-warner": {
+   "name": "Sen. Mark Warner (D-VA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-blackburn": {
+   "name": "Sen. Marsha Blackburn (R-TN)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-sanders": {
+   "name": "Sen. Bernie Sanders (I-VT)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-grassley": {
+   "name": "Sen. Chuck Grassley (R-IA)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-anthropic": {
+   "name": "Anthropic",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-openai": {
+   "name": "OpenAI",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-ccia": {
+   "name": "CCIA and CCAGW",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-xai": {
+   "name": "xAI",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-doj": {
+   "name": "U.S. Department of Justice",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-protectdem": {
+   "name": "Protect Democracy Project",
+   "column": 0,
+   "kind": "actor"
+  }
+ },
+ "edges": [
+  {
+   "from": "SB53",
+   "to": "RAISE",
+   "type": "template",
+   "label": "RAISE Chapter 96 copies TFAIA's framework and transparency report",
+   "quote": "enacts a new Art. 44-B (§§1420–1429) that copies TFAIA's frontier AI framework (§1421(1)) and transparency report (§1421(3))",
+   "src": "RAISE",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "SB315",
+   "type": "template",
+   "label": "IL switched to the TFAIA template and added the audit back",
+   "quote": "the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back",
+   "src": "HB3506",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "MA",
+   "type": "template",
+   "label": "TFAIA-cluster variant (similarity ≠ proven copying)",
+   "quote": "with MA H.5576's Senate text, LA SB 474, TN HB 1898, UT HB 286, and NJ S.4446/A.5275 as variants",
+   "dashed": true,
+   "src": "sec-k",
+   "col": "Two textual clusters",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "LA",
+   "type": "template",
+   "label": "TFAIA-cluster variant",
+   "quote": "with MA H.5576's Senate text, LA SB 474, TN HB 1898, UT HB 286, and NJ S.4446/A.5275 as variants",
+   "dashed": true,
+   "src": "sec-k",
+   "col": "Two textual clusters",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "TN",
+   "type": "template",
+   "label": "CA/IL-style hybrid",
+   "quote": "CA/IL-style hybrid: large frontier developers publish a frontier safety plan",
+   "dashed": true,
+   "src": "TN",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "UT",
+   "type": "template",
+   "label": "TFAIA-style public-safety plan",
+   "quote": "TFAIA-style public-safety plan plus a child-protection plan for covered chatbots",
+   "dashed": true,
+   "src": "UT",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "NJ",
+   "type": "template",
+   "label": "TFAIA-cluster variant",
+   "quote": "with MA H.5576's Senate text, LA SB 474, TN HB 1898, UT HB 286, and NJ S.4446/A.5275 as variants",
+   "dashed": true,
+   "src": "sec-k",
+   "col": "Two textual clusters",
+   "origin": "authored"
+  },
+  {
+   "from": "HB4705",
+   "to": "TN",
+   "type": "template",
+   "label": "Same title, a model bill circulating in at least two states",
+   "quote": "Same title as IL HB 4705 — a model bill circulating in at least two states, Republican-sponsored in TN",
+   "src": "TN",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "RAISE",
+   "to": "MI4668",
+   "type": "template",
+   "label": "Appears to be a clone of the original June 2025 RAISE text",
+   "quote": "Appears to be a clone of the original June 2025 RAISE Act text",
+   "dashed": true,
+   "src": "MI4668",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "HB3506",
+   "to": "MI4668",
+   "type": "template",
+   "label": "Same template; common drafting source rather than sequential copying",
+   "quote": "Original-RAISE-style design, the same template as MI H.B. 4668",
+   "dashed": true,
+   "src": "HB3506",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "HB3506",
+   "to": "RAISE",
+   "type": "template",
+   "label": "Original-RAISE / SSP cluster; direction of influence not established",
+   "quote": "Illinois's bill predates New York's passage, so direction of influence within this cluster is not established",
+   "dashed": true,
+   "src": "sec-k",
+   "col": "Two textual clusters",
+   "origin": "authored"
+  },
+  {
+   "from": "RAISE",
+   "to": "MN4532",
+   "type": "template",
+   "label": "Uses the original NY RAISE Act penalty figures",
+   "quote": "up to $10M first / $30M subsequent (the original NY RAISE Act figures)",
+   "dashed": true,
+   "src": "MN4532",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB1047",
+   "to": "RI",
+   "type": "template",
+   "label": "SB 1047's thresholds verbatim",
+   "quote": "SB 1047's thresholds verbatim",
+   "src": "RI",
+   "col": "Scope",
+   "origin": "authored"
+  },
+  {
+   "from": "SB1047",
+   "to": "BALLOT",
+   "type": "template",
+   "label": "The maximal SB 1047-style design, via direct democracy",
+   "quote": "The maximal SB 1047-style design, attempted via direct democracy",
+   "dashed": true,
+   "src": "BALLOT",
+   "col": "Relevance",
+   "origin": "authored"
+  },
+  {
+   "from": "SB1047",
+   "to": "SB53",
+   "type": "succession",
+   "label": "SB 1047's protocol, auditor, certification, shutdown and incident features were dropped from SB 53",
+   "quote": "Those features were dropped from S.B. 53",
+   "src": "SB1047",
+   "col": "Relevance",
+   "origin": "authored"
+  },
+  {
+   "from": "SB1047",
+   "to": "FRONTIER",
+   "type": "succession",
+   "label": "FRONTIER's emergency-order power revives an SB 1047 feature at federal level",
+   "quote": "the federal FRONTIER Act's emergency-order power and Illinois S.B. 315's audit mandate revive two of them at other levels of government",
+   "src": "SB1047",
+   "col": "Relevance",
+   "origin": "authored"
+  },
+  {
+   "from": "SB1047",
+   "to": "SB315",
+   "type": "succession",
+   "label": "SB 315's audit mandate revives an SB 1047 feature",
+   "quote": "the federal FRONTIER Act's emergency-order power and Illinois S.B. 315's audit mandate revive two of them at other levels of government",
+   "src": "SB1047",
+   "col": "Relevance",
+   "origin": "authored"
+  },
+  {
+   "from": "SB1047",
+   "to": "HR9917",
+   "type": "succession",
+   "label": "Revives the SB 1047 full-shutdown mandate at federal level",
+   "quote": "Revives the SB 1047 \"full shutdown\" mandate at federal level",
+   "src": "HR9917",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "HB3506",
+   "to": "SB3312",
+   "type": "succession",
+   "label": "Illinois moved from the SSP bill to the TFAIA vehicle",
+   "quote": "this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template",
+   "src": "HB3506",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB3312",
+   "to": "SB315",
+   "type": "succession",
+   "label": "SB 3312's text moved into SB 315 via floor amendment",
+   "quote": "Its text was moved into SB 315 via floor amendment; SB 3312 itself stalled",
+   "src": "SB3312",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB3444",
+   "to": "SB315",
+   "type": "succession",
+   "label": "Superseded politically by SB 315",
+   "quote": "superseded politically by SB 315",
+   "dashed": true,
+   "src": "SB3444",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "S10373",
+   "to": "RAISE",
+   "type": "succession",
+   "label": "Adds GBL §1425, re-adding the audit requirement the chapter amendment removed",
+   "quote": "the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
+   "src": "S10373",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "S10456",
+   "to": "RAISE",
+   "type": "succession",
+   "label": "Adds GBL §1430: state-set minimum standards for frameworks",
+   "quote": "Adds GBL §1430: DFS/DIGIT must adopt regulations",
+   "src": "S10456",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "GAAIA",
+   "to": "FRONTIER",
+   "type": "succession",
+   "label": "GAAIA's frontier title was reworked and introduced as H.R. 9925",
+   "quote": "its frontier title was reworked and introduced as H.R. 9925",
+   "src": "GAAIA",
+   "col": "Nature",
+   "origin": "authored"
+  },
+  {
+   "from": "GAAIA",
+   "to": "HR9477",
+   "type": "succession",
+   "label": "Moran split incident reporting out of the GAAIA framework",
+   "quote": "Moran told Reuters he split reporting out of the GAAIA framework to move faster",
+   "src": "HR9477",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "S1792",
+   "to": "GAAIA",
+   "type": "succession",
+   "label": "GAAIA folded this bill in; FRONTIER then dropped it",
+   "quote": "GAAIA had folded this bill in, and FRONTIER then dropped it",
+   "src": "S1792",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "S2938",
+   "to": "TRUMPAI",
+   "type": "succession",
+   "label": "Blackburn draft incorporates the DOE evaluation program from S. 2938",
+   "quote": "incorporates the DOE \"Advanced Artificial Intelligence Evaluation Program\" (i.e., Hawley-Blumenthal S. 2938)",
+   "src": "TRUMPAI",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "HR9917",
+   "to": "FRONTIER",
+   "type": "succession",
+   "label": "Overlaps FRONTIER Sec. 8 emergency orders, but lodges the power in DHS",
+   "quote": "overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
+   "dashed": true,
+   "src": "HR9917",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "VA2094",
+   "to": "VA797",
+   "type": "succession",
+   "label": "Context for Virginia's pivot to the IVO-study approach",
+   "quote": "Context for VA's later pivot to the IVO-study approach",
+   "dashed": true,
+   "src": "VA2094",
+   "col": "Why excluded",
+   "origin": "authored"
+  },
+  {
+   "from": "CTSB5",
+   "to": "CTIVO",
+   "type": "assurance",
+   "label": "The same act: the omnibus carries the DCP-run IVO pilot",
+   "quote": "plus a DCP-run IVO pilot through June 30, 2030 — see Section C",
+   "src": "CTSB5",
+   "col": "Frontier-relevant content",
+   "origin": "authored"
+  },
+  {
+   "from": "SB813",
+   "to": "AB1405",
+   "type": "assurance",
+   "label": "Defines 'covered AI audit' identically to AB 1405",
+   "quote": "Defines \"covered AI audit\" identically to AB 1405",
+   "src": "SB813",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "AB1405",
+   "to": "SB53",
+   "type": "assurance",
+   "label": "Registration for anyone conducting a state-law-required AI audit",
+   "quote": "an audit of internal controls/processes/systems \"necessary for compliance with state law\"",
+   "dashed": true,
+   "src": "AB1405",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "S10373",
+   "to": "RAISE",
+   "type": "assurance",
+   "label": "DFS/DIGIT to accredit verifiers; only accredited verifiers from 2029",
+   "quote": "DFS/DIGIT to accredit verifiers by July 1, 2028",
+   "src": "S10373",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "HR10180",
+   "to": "CAISI",
+   "type": "assurance",
+   "label": "Conditions voluntary predeployment evaluation MOUs at NIST",
+   "quote": "conditions voluntary predeployment frontier-model evaluation MOUs on developer disclosure",
+   "src": "HR10180",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "FRONTIER",
+   "to": "SB53",
+   "type": "fedstate",
+   "label": "Sec. 9 preemption is 'aimed at' CA SB-53, NY RAISE, IL SB-315",
+   "quote": "Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
+   "src": "FRONTIER",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "FRONTIER",
+   "to": "RAISE",
+   "type": "fedstate",
+   "label": "Sec. 9 preemption is 'aimed at' CA SB-53, NY RAISE, IL SB-315",
+   "quote": "Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
+   "src": "FRONTIER",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "FRONTIER",
+   "to": "SB315",
+   "type": "fedstate",
+   "label": "Sec. 9 preemption is 'aimed at' CA SB-53, NY RAISE, IL SB-315",
+   "quote": "Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
+   "src": "FRONTIER",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "WHFW",
+   "to": "SB53",
+   "type": "fedstate",
+   "label": "'States should not be permitted to regulate AI development' targets SB 53, RAISE, SB 315",
+   "quote": "the direct target of SB 53/RAISE/SB 315",
+   "src": "WHFW",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "WHFW",
+   "to": "RAISE",
+   "type": "fedstate",
+   "label": "Targets SB 53, RAISE, SB 315",
+   "quote": "the direct target of SB 53/RAISE/SB 315",
+   "src": "WHFW",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "WHFW",
+   "to": "SB315",
+   "type": "fedstate",
+   "label": "Targets SB 53, RAISE, SB 315",
+   "quote": "the direct target of SB 53/RAISE/SB 315",
+   "src": "WHFW",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "WHFW",
+   "to": "FRONTIER",
+   "type": "fedstate",
+   "label": "'No new federal rulemaking body', which FRONTIER's Under Secretary contradicts",
+   "quote": "which H.R. 9925's new Under Secretary contradicts",
+   "dashed": true,
+   "src": "WHFW",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "LINEAGE",
+   "to": "SB53",
+   "type": "fedstate",
+   "label": "Same 10²⁶ benchmark as EO 14110; not proof of direct copying",
+   "quote": "Current state frontier statutes use the same numerical benchmark",
+   "dashed": true,
+   "src": "LINEAGE",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "LINEAGE",
+   "to": "RAISE",
+   "type": "fedstate",
+   "label": "Same 10²⁶ benchmark as EO 14110",
+   "quote": "Current state frontier statutes use the same numerical benchmark",
+   "dashed": true,
+   "src": "LINEAGE",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "LINEAGE",
+   "to": "SB315",
+   "type": "fedstate",
+   "label": "Same 10²⁶ benchmark as EO 14110",
+   "quote": "Current state frontier statutes use the same numerical benchmark",
+   "dashed": true,
+   "src": "LINEAGE",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "RAISE",
+   "to": "SB315",
+   "type": "fedstate",
+   "label": "NY's federal reciprocity is narrower than IL's: incident reporting only",
+   "quote": "Federal reciprocity is narrower than IL's: it covers incident reporting only",
+   "dashed": true,
+   "src": "RAISE",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "MORATORIUM",
+   "to": "EO14365",
+   "type": "fedstate",
+   "label": "Legislative history for preemption; causation is interpretation",
+   "quote": "Any claim that this vote *caused* later actors to choose narrower routes is interpretation and should be framed as such",
+   "dashed": true,
+   "src": "MORATORIUM",
+   "col": "Relevance",
+   "origin": "authored"
+  },
+  {
+   "from": "EO14365",
+   "to": "DOJTF",
+   "type": "executive",
+   "label": "Task force created Jan 9, 2026 under EO 14365",
+   "quote": "DOJ AI Litigation Task Force (created Jan 9, 2026 under EO 14365)",
+   "src": "DOJTF",
+   "col": "Item",
+   "origin": "authored"
+  },
+  {
+   "from": "EO14365",
+   "to": "COMMERCE",
+   "type": "executive",
+   "label": "EO 14365 deliverable, due Mar. 11, 2026",
+   "quote": "(EO 14365 deliverable, due Mar. 11, 2026; trigger for BEAD-funding pressure)",
+   "src": "COMMERCE",
+   "col": "Item",
+   "origin": "authored"
+  },
+  {
+   "from": "FEB27",
+   "to": "JUNE12",
+   "type": "executive",
+   "label": "The executive-action layer the June 12 directive later extended to model access",
+   "quote": "they establish the executive-action layer that the June 12 directive later extended to model access",
+   "src": "FEB27",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "JUNE12",
+   "to": "EO14409",
+   "type": "executive",
+   "label": "Anthropic commits to the EO 14409 §2(d) clearinghouse",
+   "quote": "participation in the EO 14409 §2(d) clearinghouse",
+   "src": "JUNE12",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "REMARKS",
+   "to": "FRONTIER",
+   "type": "executive",
+   "label": "Reported in the context of this bill's audit mandate",
+   "quote": "was reported in the context of this bill's audit mandate",
+   "dashed": true,
+   "src": "FRONTIER",
+   "col": "Introduced / status",
+   "origin": "authored"
+  },
+  {
+   "from": "BANASI",
+   "to": "FEB27",
+   "type": "executive",
+   "label": "The Sanders–Casar release references the same events",
+   "quote": "The Sanders–Casar release and Reuters coverage cited above reference the same events",
+   "dashed": true,
+   "src": "FEB27",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "FEB27",
+   "to": "ANTHvDOW",
+   "type": "litigation",
+   "label": "Directive and order attached as complaint exhibits",
+   "quote": "the directive and order (attached as complaint exhibits)",
+   "src": "FEB27",
+   "col": "Confidence",
+   "origin": "authored"
+  },
+  {
+   "from": "FEB27",
+   "to": "DCCIR",
+   "type": "litigation",
+   "label": "Separate Mar. 3 letter invoking 41 U.S.C. § 4713",
+   "quote": "Anthropic received a **separate Mar. 3 letter invoking 41 U.S.C. § 4713**",
+   "src": "DCCIR",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "ANTHvDOW",
+   "to": "DCCIR",
+   "type": "litigation",
+   "label": "Complaint n.36 states the intent to challenge in the D.C. Circuit",
+   "quote": "Anthropic \"intends to challenge that separate action in that forum.\"",
+   "src": "DCCIR",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "DOJTF",
+   "to": "XAI",
+   "type": "litigation",
+   "label": "DOJ intervened, but the materials do not attribute it to the Task Force",
+   "quote": "DOJ intervened in the Colorado case below, but the cited materials do not attribute that act to the Task Force",
+   "dashed": true,
+   "src": "DOJTF",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "XAI",
+   "to": "COLORADO",
+   "type": "litigation",
+   "label": "xAI sued to enjoin Colorado SB 24-205",
+   "quote": "xAI sued Apr 9, 2026 to enjoin **Colorado SB 24-205**",
+   "src": "XAI",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "EO14409",
+   "to": "PROTECTDEM",
+   "type": "litigation",
+   "label": "Tests transparency around the executive pre-release review regime",
+   "quote": "Directly tests transparency around the executive pre-release review regime described in Section G",
+   "dashed": true,
+   "src": "PROTECTDEM",
+   "col": "Relevance",
+   "origin": "authored"
+  },
+  {
+   "from": "NOCHALLENGE",
+   "to": "SB53",
+   "type": "litigation",
+   "label": "No challenge or enforcement located (SEARCH-QUALIFIED)",
+   "quote": "No challenge or reported enforcement action located in the Sept. 5 search.",
+   "dashed": true,
+   "src": "NOCHALLENGE",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "NOCHALLENGE",
+   "to": "RAISE",
+   "type": "litigation",
+   "label": "No challenge or enforcement located (SEARCH-QUALIFIED)",
+   "quote": "No challenge or reported enforcement action located in the Sept. 5 search.",
+   "dashed": true,
+   "src": "NOCHALLENGE",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "NOCHALLENGE",
+   "to": "SB315",
+   "type": "litigation",
+   "label": "No challenge or enforcement located (SEARCH-QUALIFIED)",
+   "quote": "No challenge or reported enforcement action located in the Sept. 5 search.",
+   "dashed": true,
+   "src": "NOCHALLENGE",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "CADOJ",
+   "to": "SB53",
+   "type": "litigation",
+   "label": "Technical hiring, but no SB 53 enforcement action located",
+   "quote": "No SB 53 enforcement action was located in the Sept. 5 search",
+   "dashed": true,
+   "src": "CADOJ",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-wiener",
+   "to": "SB53",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Scott Wiener (D)",
+   "src": "SB53",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-wiener",
+   "to": "AB1405",
+   "type": "actor",
+   "label": "Coauthor",
+   "quote": "coauthors Sens. McNerney, Rubio, Wiener",
+   "src": "AB1405",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-gounardes",
+   "to": "RAISE",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Andrew Gounardes (D); Asm. Alex Bores (D)",
+   "src": "RAISE",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-bores",
+   "to": "RAISE",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Andrew Gounardes (D); Asm. Alex Bores (D)",
+   "src": "RAISE",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-gounardes",
+   "to": "S10373",
+   "type": "actor",
+   "label": "Sponsor, the RAISE Act's own sponsor",
+   "quote": "Sen. Andrew Gounardes (D) — the RAISE Act's own sponsor",
+   "src": "S10373",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-gounardes",
+   "to": "S10456",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Andrew Gounardes (D)",
+   "src": "S10456",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-edlyallen",
+   "to": "SB315",
+   "type": "actor",
+   "label": "Chief sponsor",
+   "quote": "Sen. Mary Edly-Allen (D-Lake County), chief sponsor",
+   "src": "SB315",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-didech",
+   "to": "SB315",
+   "type": "actor",
+   "label": "House sponsor",
+   "quote": "Rep. Daniel Didech (D-Buffalo Grove), House",
+   "src": "SB315",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-edlyallen",
+   "to": "SB3312",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Edly-Allen; House parallel",
+   "src": "SB3312",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-didech",
+   "to": "HB3506",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Rep. Daniel Didech (D); co-sponsor Rep. Matt Hanson",
+   "src": "HB3506",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-didech",
+   "to": "HB4705",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Rep. Daniel Didech (D) ⟨R⟩; Senate parallel",
+   "src": "HB4705",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-edlyallen",
+   "to": "HB4705",
+   "type": "actor",
+   "label": "Sponsors the Senate parallel SB 3261",
+   "quote": "sponsored by Sen. Mary Edly-Allen (D) and co-sponsors",
+   "src": "HB4705",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-cunningham",
+   "to": "SB3444",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Bill Cunningham (D)",
+   "src": "SB3444",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-finegold",
+   "to": "MA",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Barry Finegold (D); Sen. Mike Rush amendment for stronger evaluations",
+   "src": "MA",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-bauerkahan",
+   "to": "AB1405",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Asm. Rebecca Bauer-Kahan (D); coauthors Sens. McNerney, Rubio, Wiener",
+   "src": "AB1405",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-bauerkahan",
+   "to": "SB813",
+   "type": "actor",
+   "label": "Coauthor",
+   "quote": "coauthors Asm. Bauer-Kahan, Asm. Lowenthal",
+   "src": "SB813",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-mcnerney",
+   "to": "SB813",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Jerry McNerney (D); coauthors Asm. Bauer-Kahan, Asm. Lowenthal; sponsored by Fathom",
+   "src": "SB813",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-mcnerney",
+   "to": "AB1405",
+   "type": "actor",
+   "label": "Coauthor",
+   "quote": "coauthors Sens. McNerney, Rubio, Wiener",
+   "src": "AB1405",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-fathom",
+   "to": "SB813",
+   "type": "actor",
+   "label": "Organisational sponsor",
+   "quote": "sponsored by Fathom",
+   "src": "SB813",
+   "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "act-obernolte",
+   "to": "FRONTIER",
+   "type": "actor",
+   "label": "Lead sponsor",
+   "quote": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
+   "src": "FRONTIER",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-trahan",
+   "to": "FRONTIER",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
+   "src": "FRONTIER",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-obernolte",
+   "to": "GAAIA",
+   "type": "actor",
+   "label": "Draft author",
+   "quote": "Reps. Obernolte, Trahan + Franklin, Subramanyam, Houchin, Peters",
+   "src": "GAAIA",
+   "col": "Sponsor/Source",
+   "origin": "authored"
+  },
+  {
+   "from": "act-trahan",
+   "to": "GAAIA",
+   "type": "actor",
+   "label": "Draft author",
+   "quote": "Reps. Obernolte, Trahan + Franklin, Subramanyam, Houchin, Peters",
+   "src": "GAAIA",
+   "col": "Sponsor/Source",
+   "origin": "authored"
+  },
+  {
+   "from": "act-obernolte",
+   "to": "HR9363",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Reps. Obernolte (R-CA), Valerie Foushee (D-NC) + 5",
+   "src": "HR9363",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-obernolte",
+   "to": "CATSR",
+   "type": "actor",
+   "label": "House cosponsor",
+   "quote": "Whitesides, Obernolte, Lieu, Issa, Moran, Harrigan, Miller-Meeks, Trahan",
+   "src": "CATSR",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-moran",
+   "to": "HR9477",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Rep. Nathaniel Moran (R-TX)",
+   "src": "HR9477",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-moran",
+   "to": "HR9917",
+   "type": "actor",
+   "label": "Sponsor with Lieu",
+   "quote": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX)",
+   "src": "HR9917",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-lieu",
+   "to": "HR9917",
+   "type": "actor",
+   "label": "Sponsor with Moran",
+   "quote": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX)",
+   "src": "HR9917",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-moran",
+   "to": "HR10189",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX), George Whitesides (D-CA)",
+   "src": "HR10189",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-jacobs",
+   "to": "HR10189",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX), George Whitesides (D-CA)",
+   "src": "HR10189",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-whitesides",
+   "to": "HR10189",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX), George Whitesides (D-CA)",
+   "src": "HR10189",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-jacobs",
+   "to": "HR9965",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Reps. Celeste Maloy (R-UT), Sara Jacobs (D-CA)",
+   "src": "HR9965",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-whitesides",
+   "to": "HR10180",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Reps. George Whitesides (D-CA), Pat Harrigan (R-NC)",
+   "src": "HR10180",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-moran",
+   "to": "CATSR",
+   "type": "actor",
+   "label": "House cosponsor",
+   "quote": "Whitesides, Obernolte, Lieu, Issa, Moran, Harrigan, Miller-Meeks, Trahan",
+   "src": "CATSR",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-hawley",
+   "to": "S2938",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
+   "src": "S2938",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-blumenthal",
+   "to": "S2938",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
+   "src": "S2938",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-hawley",
+   "to": "S1792",
+   "type": "actor",
+   "label": "Cosponsor",
+   "quote": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz",
+   "src": "S1792",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-grassley",
+   "to": "S1792",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz",
+   "src": "S1792",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-warner",
+   "to": "S5061",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Mark Warner (D-VA)",
+   "src": "S5061",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-blackburn",
+   "to": "TRUMPAI",
+   "type": "actor",
+   "label": "Draft author",
+   "quote": "Sen. Marsha Blackburn (R-TN)",
+   "src": "TRUMPAI",
+   "col": "Sponsor/Source",
+   "origin": "authored"
+  },
+  {
+   "from": "act-blackburn",
+   "to": "MORATORIUM",
+   "type": "actor",
+   "label": "Amendment No. 2814 struck the moratorium",
+   "quote": "Blackburn Amendment No. 2814 to H.R. 1 stated its purpose as striking the section relating to support for artificial intelligence",
+   "src": "MORATORIUM",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-sanders",
+   "to": "BANASI",
+   "type": "actor",
+   "label": "Sponsor, with Rep. Casar",
+   "quote": "Sen. Bernie Sanders (I-VT), Rep. Greg Casar (D-TX)",
+   "src": "BANASI",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "act-anthropic",
+   "to": "SB315",
+   "type": "actor",
+   "label": "Publicly supported SB 315",
+   "quote": "Anthropic publicly supported SB 315 and the MA bill",
+   "src": "sec-a",
+   "col": "Votes paragraph",
+   "origin": "authored"
+  },
+  {
+   "from": "act-anthropic",
+   "to": "MA",
+   "type": "actor",
+   "label": "Supported the stronger Rush amendment",
+   "quote": "Anthropic for the stronger Rush amendment",
+   "src": "MA",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-openai",
+   "to": "SB315",
+   "type": "actor",
+   "label": "Praised the IL process",
+   "quote": "OpenAI praised the IL process",
+   "src": "sec-a",
+   "col": "Votes paragraph",
+   "origin": "authored"
+  },
+  {
+   "from": "act-openai",
+   "to": "MA",
+   "type": "actor",
+   "label": "Lobbying for IL-style annual audits",
+   "quote": "OpenAI lobbying for IL-style annual audits",
+   "src": "MA",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-ccia",
+   "to": "TN",
+   "type": "actor",
+   "label": "Opposed as 'outdated catastrophic-risk constructs'",
+   "quote": "Opposed by CCIA and CCAGW as \"outdated catastrophic-risk constructs\"",
+   "src": "TN",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "act-anthropic",
+   "to": "FEB27",
+   "type": "actor",
+   "label": "Named target of the directive and supply-chain order",
+   "quote": "directing DoD to designate Anthropic a **\"Supply-Chain Risk to National Security\"**",
+   "src": "FEB27",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "act-anthropic",
+   "to": "JUNE12",
+   "type": "actor",
+   "label": "Models suspended under the directive",
+   "quote": "suspended both models for all users because it could not verify nationality in real time",
+   "src": "JUNE12",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "act-anthropic",
+   "to": "ANTHvDOW",
+   "type": "actor",
+   "label": "Plaintiff",
+   "quote": "Filed Mar. 9, 2026 (WilmerHale; 48 pp.)",
+   "src": "ANTHvDOW",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-xai",
+   "to": "XAI",
+   "type": "actor",
+   "label": "Plaintiff",
+   "quote": "xAI sued Apr 9, 2026",
+   "src": "XAI",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-doj",
+   "to": "XAI",
+   "type": "actor",
+   "label": "Intervenor (Civil Rights Division)",
+   "quote": "DOJ intervened Apr 24, 2026",
+   "src": "XAI",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-doj",
+   "to": "DOJTF",
+   "type": "actor",
+   "label": "Created the Task Force",
+   "quote": "DOJ AI Litigation Task Force",
+   "src": "DOJTF",
+   "col": "Item",
+   "origin": "authored"
+  },
+  {
+   "from": "act-protectdem",
+   "to": "PROTECTDEM",
+   "type": "actor",
+   "label": "Plaintiff",
+   "quote": "FOIA suit filed Sept. 1, 2026 against ONCD, Commerce, Treasury, and OSTP",
+   "src": "PROTECTDEM",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-sanders",
+   "to": "BANASI",
+   "type": "actor",
+   "label": "Senate sponsor of S. 5493",
+   "quote": "S. 5493 introduced Sept 23, 2026",
+   "src": "BANASI",
+   "col": "Introduced / status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-warner",
+   "to": "AIRMSA",
+   "type": "actor",
+   "label": "Lead sponsor",
+   "quote": "Sen. Mark Warner (D-VA), Sen. Brian Schatz (D-HI), Sen. Andy Kim (D-NJ)",
+   "src": "AIRMSA",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "S5061",
+   "to": "AIRMSA",
+   "type": "succession",
+   "label": "Successor to Warner's S. 5061 with a broader board and standards regime",
+   "quote": "Successor to Warner's S. 5061 (NSA pre-deployment testing) with a broader board and standards regime",
+   "src": "AIRMSA",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "AIEBA",
+   "to": "HR9917",
+   "type": "succession",
+   "label": "Overlaps H.R. 9917 and FRONTIER Sec. 8, without a government trigger",
+   "quote": "Overlaps H.R. 9917 (Lieu–Moran) and FRONTIER Sec. 8, but with no government trigger authority described",
+   "dashed": true,
+   "src": "AIEBA",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "AIREG",
+   "type": "template",
+   "label": "Definitions match the SB 53 / RAISE text; 15-day deadline is SB 53's",
+   "quote": "These definitions match the SB 53 / RAISE (Chapter 96) text and the 15-day deadline is SB 53's figure",
+   "dashed": true,
+   "src": "AIREG",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "RAISE",
+   "to": "AIREG",
+   "type": "template",
+   "label": "Definitions match the SB 53 / RAISE text",
+   "quote": "These definitions match the SB 53 / RAISE (Chapter 96) text and the 15-day deadline is SB 53's figure",
+   "dashed": true,
+   "src": "AIREG",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "CAEO",
+   "to": "SB813",
+   "type": "assurance",
+   "label": "Accelerates SB 813's IVO application requirements to May 1, 2027",
+   "quote": "Accelerates implementation of SB 813 (IVO application requirements by May 1, 2027, statutory date Jan 1, 2028)",
+   "src": "CAEO",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "CAEO",
+   "to": "AB1405",
+   "type": "assurance",
+   "label": "Accelerates AB 1405's auditor registration to Dec 1, 2027",
+   "quote": "AB 1405 (online auditor registration by Dec 1, 2027, statutory date Jan 1, 2029)",
+   "src": "CAEO",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "CAEO",
+   "to": "SB53",
+   "type": "assurance",
+   "label": "Recommendations to amend the SB 53 regime; the order cannot itself amend SB 53",
+   "quote": "A state executive order cannot itself amend SB 53; it produces recommendations for the Legislature",
+   "dashed": true,
+   "src": "CAEO",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "ILEO",
+   "to": "SB315",
+   "type": "executive",
+   "label": "Implementation context for SB 315",
+   "quote": "The order cites the AI Safety Measures Act (SB 315) and its framework, annual-audit and 72-hour incident-reporting duties",
+   "src": "ILEO",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "ANTHvDOW",
+   "to": "DCCIR",
+   "type": "litigation",
+   "label": "Opposite outcomes under the two statutes",
+   "quote": "The two statutory designations now have opposite outcomes: § 3252 vacated in N.D. Cal. (Aug. 27), § 4713 upheld in the D.C. Circuit (Sept. 25)",
+   "src": "DCCIR",
+   "col": "Relevance",
+   "origin": "authored"
+  },
+  {
+   "from": "act-anthropic",
+   "to": "DCCIR",
+   "type": "actor",
+   "label": "Petitioner; considering further review",
+   "quote": "Anthropic: \"considering all options, including further review\"",
+   "src": "DCCIR",
+   "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "OVERWATCH",
+   "to": "CHIPSEC",
+   "type": "succession",
+   "label": "Both ride the Senate NDAA manager's package",
+   "quote": "in the Senate NDAA manager's package as SA 6575 (July 14, 2026)",
+   "dashed": true,
+   "src": "OVERWATCH",
+   "col": "Date / status",
+   "origin": "authored"
+  },
+  {
+   "from": "RAISE",
+   "to": "NYTERM",
+   "type": "succession",
+   "label": "Would amend the RAISE Act (Chapter 96) to add independent evaluations",
+   "quote": "Amends the RAISE Act (GBL Article 44-B as replaced by Chapter 96 of 2026) by adding GBL §§ 1429–1436",
+   "src": "NYTERM",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SB53",
+   "to": "PAHB2800",
+   "type": "template",
+   "label": "SB 53 pattern with a registration layer",
+   "quote": "Free-standing act on the SB 53 pattern with a registration layer",
+   "src": "PAHB2800",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "SENDRAFT",
+   "to": "SB53",
+   "type": "fedstate",
+   "label": "Reported preemption of state regulation for certain risk categories",
+   "quote": "preemption of state regulation for certain risk categories",
+   "dashed": true,
+   "src": "SENDRAFT",
+   "col": "Key content",
+   "origin": "authored"
+  },
+  {
+   "from": "act-openai",
+   "to": "FLvOAI",
+   "type": "litigation",
+   "label": "Defendant",
+   "quote": "the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users",
+   "src": "FLvOAI",
+   "col": "Status",
+   "origin": "authored"
+  }
+ ]
+}

@@ -89,7 +89,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <form role="search" data-dk onSubmit="{{hdrSubmit}}" style="align-items:center;gap:8px;width:clamp(240px,26vw,360px);height:36px;padding:0 10px;border-radius:4px;border:1px solid var(--line-2);background:var(--surface)" style-focus-within="border-color:var(--accent)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
         <label for="hdr-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search the tracker</label>
-        <input id="hdr-q" name="q" type="search" placeholder="Search 90 laws, bills and actions" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:14px;outline:none">
+        <input id="hdr-q" name="q" type="search" placeholder="Search {{nEntries}} laws, bills and actions" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:14px;outline:none">
         <kbd aria-hidden="true" style="font:inherit;font-size:11px;font-weight:700;color:var(--ink-3);border:1px solid var(--line-2);border-radius:3px;padding:0 5px;line-height:18px">/</kbd>
       </form>
       <a href="#/explore" data-mb onClick="{{searchClick}}" aria-label="Search the tracker" style="width:calc(44px*var(--hs));height:calc(44px*var(--hs));border-radius:min(999px,var(--r));display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none" style-hover="border-color:var(--line-2)">
@@ -103,7 +103,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 </header>
 
 <sc-if value="{{offline}}">
-  <div role="status" style="background:var(--surface-2);border-bottom:1px solid var(--line);padding:calc(10px*var(--ps)) clamp(16px,3vw,32px);font-size:calc(14px*var(--fs));font-weight:600;color:var(--ink-2);text-align:center">You’re offline. Showing the copy saved on this device, verified as of 5 Sep 2026.</div>
+  <div role="status" style="background:var(--surface-2);border-bottom:1px solid var(--line);padding:calc(10px*var(--ps)) clamp(16px,3vw,32px);font-size:calc(14px*var(--fs));font-weight:600;color:var(--ink-2);text-align:center">You’re offline. Showing the copy saved on this device, verified as of {{verLabel}}.</div>
 </sc-if>
 
 <main id="main" tabIndex="-1" ref="{{mainRef}}" style="flex:1;outline:none;padding-bottom:{{mainPadBottom}}">
@@ -132,12 +132,12 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   <div style="position:relative;max-width:1280px;margin:0 auto;padding:clamp(16px,3vw,32px) clamp(16px,3vw,32px) clamp(14px,2vw,22px);display:flex;flex-direction:column;gap:10px">
     <div style="min-width:0">
       <sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><p style="margin:0 0 8px;font-size:calc(12px*var(--fs));font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">US frontier AI legislation</p></sc-if>
-      <h1 id="story-h" aria-label="3 states have enacted frontier-AI laws. Congress has introduced 10 bills and passed none." style="margin:0;font-weight:800;font-size:clamp(24px,3.1vw,38px);line-height:1.18;letter-spacing:-.01em;text-wrap:balance;max-width:900px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="3" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="10" style="color:var(--accent-ink)">{{h10}}</span> bills and passed none.</span></h1>
+      <h1 id="story-h" aria-label="{{h3}} states have enacted frontier-AI laws. Congress has introduced {{h10}} bills and passed none." style="margin:0;font-weight:800;font-size:clamp(24px,3.1vw,38px);line-height:1.18;letter-spacing:-.01em;text-wrap:balance;max-width:900px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="{{h3}}" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="{{h10}}" style="color:var(--accent-ink)">{{h10}}</span> bills and passed none.</span></h1>
       </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px clamp(24px,4vw,64px);align-items:flex-end">
     <sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><p style="flex:1 1 420px;margin:0;font-size:calc(16px*var(--fs));line-height:1.55;max-width:900px;color:var(--ink-2);text-wrap:pretty;font-variant-numeric:tabular-nums">{{t5}} state bills are pending and {{t11}} have stalled or failed. {{t6}} measures would license or study AI auditors. The tracker also follows {{t10b}} executive actions and {{t9}} lawsuits and enforcement items.</p></sc-if>
     <form role="search" data-mb onSubmit="{{submitQ}}" style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:8px">
-      <label for="home-q" style="{{homeLabelStyle}}">Search 90 laws, bills and actions</label>
+      <label for="home-q" style="{{homeLabelStyle}}">Search {{nEntries}} laws, bills and actions</label>
       <div style="display:flex;align-items:center;gap:8px;height:{{searchH}};padding:0 4px 0 calc(16px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-2)" style-focus-within="border-color:var(--accent)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
         <input id="home-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Try “kill switch”" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(17px*var(--fs));outline:none">
@@ -153,7 +153,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     <div style="display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between">
       <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
         <h2 id="board-h" style="margin:0;font-size:calc(clamp(20px,2vw,26px)*var(--fs));font-weight:800;letter-spacing:-.02em">The signal board</h2>
-        <p style="margin:0;font-size:calc(13px*var(--fs));font-weight:600;color:var(--b-ink-3);display:flex;align-items:baseline;gap:8px"><span aria-hidden="true" style="width:8px;height:8px;flex-shrink:0;border-radius:50%;background:var(--st-enacted);box-shadow:0 0 10px var(--st-enacted);transform:translateY(-1px)"></span><span style="display:flex;flex-wrap:wrap;column-gap:6px"><span style="white-space:nowrap">Verified as of 5 Sep 2026</span><span style="white-space:nowrap">· updates through 29 Sep 2026</span></span></p>
+        <p style="margin:0;font-size:calc(13px*var(--fs));font-weight:600;color:var(--b-ink-3);display:flex;align-items:baseline;gap:8px"><span aria-hidden="true" style="width:8px;height:8px;flex-shrink:0;border-radius:50%;background:var(--st-enacted);box-shadow:0 0 10px var(--st-enacted);transform:translateY(-1px)"></span><span style="display:flex;flex-wrap:wrap;column-gap:6px"><span style="white-space:nowrap">Verified as of {{verLabel}}</span><span style="white-space:nowrap">· updates through {{asofLabel}}</span></span></p>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <div role="group" aria-label="View as" style="display:flex;padding:3px;border-radius:min(999px,var(--r));border:1px solid var(--b-line)">
@@ -299,7 +299,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
     <a href="#/explore?type=law&amp;level=state" style="display:flex;flex-direction:column;gap:8px;padding:calc(20px*var(--ps));border-radius:min(20px,var(--r));background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-decoration:none;color:var(--ink);min-height:132px;transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-2);color:var(--ink)"><span aria-hidden="true" style="font-size:calc(18px*var(--fs));color:var(--st-enacted)">●</span><strong style="font-size:calc(18px*var(--fs));letter-spacing:-.01em">What applies to my company?</strong><span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">Enacted laws and exactly who they cover: compute and revenue thresholds.</span></a>
     <a href="#/compare?ids=1,2,3" style="display:flex;flex-direction:column;gap:8px;padding:calc(20px*var(--ps));border-radius:min(20px,var(--r));background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-decoration:none;color:var(--ink);min-height:132px;transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-2);color:var(--ink)"><span aria-hidden="true" style="font-size:calc(18px*var(--fs));color:var(--accent-ink)">⇆</span><strong style="font-size:calc(18px*var(--fs));letter-spacing:-.01em">Compare two laws</strong><span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">California, New York and Illinois side by side, differences first.</span></a>
-    <a href="#/explore?view=timeline&amp;when=upcoming" style="display:flex;flex-direction:column;gap:8px;padding:calc(20px*var(--ps));border-radius:min(20px,var(--r));background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-decoration:none;color:var(--ink);min-height:132px;transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-2);color:var(--ink)"><span aria-hidden="true" style="font-size:calc(18px*var(--fs));color:var(--st-pending)">◐</span><strong style="font-size:calc(18px*var(--fs));letter-spacing:-.01em">What’s coming up?</strong><span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">Effective dates and deadlines scheduled after 29 Sep 2026.</span></a>
+    <a href="#/explore?view=timeline&amp;when=upcoming" style="display:flex;flex-direction:column;gap:8px;padding:calc(20px*var(--ps));border-radius:min(20px,var(--r));background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-decoration:none;color:var(--ink);min-height:132px;transition:transform var(--dur-2) var(--ease-out),box-shadow var(--dur-2)" style-hover="transform:translateY(-3px);box-shadow:var(--shadow-2);color:var(--ink)"><span aria-hidden="true" style="font-size:calc(18px*var(--fs));color:var(--st-pending)">◐</span><strong style="font-size:calc(18px*var(--fs));letter-spacing:-.01em">What’s coming up?</strong><span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">Effective dates and deadlines scheduled after {{asofLabel}}.</span></a>
   </div>
 </section>
 
@@ -343,31 +343,30 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 </aside>
 <div style="min-width:0">
   <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);line-height:1.15">Explore</h1>
-  <p style="margin:8px 0 22px;font-size:calc(17px*var(--fs));color:var(--ink-2);max-width:640px">Every law, bill, executive action and lawsuit in the tracker. Results update as you type.</p>
-  <form role="search" onSubmit="{{submitQ}}" style="display:flex;align-items:center;gap:10px;height:calc(60px*var(--hs));padding:0 calc(18px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-2)">
+  <p style="margin:6px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:640px">Every law, bill, executive action and lawsuit in the tracker.</p>
+  <div role="tablist" aria-label="View" style="margin:14px 0 16px;display:flex;width:100%;border-bottom:1px solid var(--line);gap:clamp(4px,2vw,24px)">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{t.sel}}" onClick="{{t.go}}" style="flex:0 1 auto;min-width:0;height:calc(44px*var(--hs));padding:0 4px;justify-content:center;white-space:nowrap;border-radius:0;border:0;background:transparent;box-shadow:{{t.ul}};color:{{t.fg}};font-weight:650;font-size:calc(clamp(11.5px,3.2vw,14.5px)*var(--fs));cursor:pointer;display:flex;align-items:center;gap:4px;transition:background var(--dur-2) var(--ease-out)">{{t.l}}<span style="font-variant-numeric:tabular-nums;opacity:.75">{{t.n}}</span></button></sc-for>
+  </div>
+  <sc-if value="{{showFilters}}">
+  <form role="search" onSubmit="{{submitQ}}" style="display:flex;align-items:center;gap:10px;height:calc(48px*var(--hs));padding:0 calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-2)">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
     <label for="ex-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search the tracker</label>
-    <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Bill, state or idea" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(17px*var(--fs));outline:none">
+    <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Bill, state or idea" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(16px*var(--fs));outline:none">
   </form>
-  <div role="group" aria-label="Filters" style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px">
-    <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3)">Level<select value="{{fLevel}}" onChange="{{onLevel}}" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(15px*var(--fs));font-weight:600"><option value="">Federal and state</option><option value="federal">Federal</option><option value="state">State</option></select></label>
-    <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3)">Status<select value="{{fStatus}}" onChange="{{onStatus}}" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(15px*var(--fs));font-weight:600"><option value="">Any status</option><option value="enacted">Enacted</option><option value="pending">Pending</option><option value="stalled">Stalled</option><option value="failed">Failed</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="excluded">Excluded</option></select></label>
-    <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3)">State<select value="{{fSt}}" onChange="{{onSt}}" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(15px*var(--fs));font-weight:600"><option value="">Any state</option><option value="CA">California</option><option value="CT">Connecticut</option><option value="FL">Florida</option><option value="IL">Illinois</option><option value="LA">Louisiana</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="NJ">New Jersey</option><option value="NY">New York</option><option value="OH">Ohio</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="TN">Tennessee</option><option value="UT">Utah</option><option value="VA">Virginia</option></select></label>
+  <div role="group" aria-label="Filters" data-filters style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
+    <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Level</span><select value="{{fLevel}}" onChange="{{onLevel}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Federal and state</option><option value="federal">Federal</option><option value="state">State</option></select></label>
+    <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Status</span><select value="{{fStatus}}" onChange="{{onStatus}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Any status</option><option value="enacted">Enacted</option><option value="pending">Pending</option><option value="stalled">Stalled</option><option value="failed">Failed</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="excluded">Excluded</option></select></label>
+    <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">State</span><select value="{{fSt}}" onChange="{{onSt}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Any state</option><option value="CA">California</option><option value="CT">Connecticut</option><option value="FL">Florida</option><option value="IL">Illinois</option><option value="LA">Louisiana</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="NJ">New Jersey</option><option value="NY">New York</option><option value="OH">Ohio</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="TN">Tennessee</option><option value="UT">Utah</option><option value="VA">Virginia</option></select></label>
+    <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Type</span><select value="{{fType}}" onChange="{{onType}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Any type</option><option value="law">Law</option><option value="bill">Bill</option><option value="auditor">Auditor licensing</option><option value="draft">Draft or proposal</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="precursor">Earlier proposal</option><option value="excluded">Excluded</option></select></label>
+    <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Confidence</span><select value="{{fConf}}" onChange="{{onConf}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Any confidence</option><option value="HIGH">High</option><option value="MED-HIGH">Med-high</option><option value="MED">Medium</option><option value="SEARCH-QUALIFIED">Search-qualified</option></select></label>
   </div>
-  <details open="{{moreOpen}}" style="margin-top:6px"><summary style="cursor:pointer;min-height:calc(44px*var(--hs));display:flex;align-items:center;font-weight:700;font-size:calc(14px*var(--fs));color:var(--accent-ink)">More filters</summary>
-  <div style="margin-top:6px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px">
-    <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3)">Type<select value="{{fType}}" onChange="{{onType}}" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(15px*var(--fs));font-weight:600"><option value="">Any type</option><option value="law">Law</option><option value="bill">Bill</option><option value="auditor">Auditor licensing</option><option value="draft">Draft or proposal</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="precursor">Earlier proposal</option><option value="excluded">Excluded</option></select></label>
-    <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3)">Confidence<select value="{{fConf}}" onChange="{{onConf}}" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(15px*var(--fs));font-weight:600"><option value="">Any confidence</option><option value="HIGH">High</option><option value="MED-HIGH">Med-high</option><option value="MED">Medium</option><option value="SEARCH-QUALIFIED">Search-qualified</option></select></label>
-  </div></details>
   <sc-if value="{{hasChips}}">
     <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
       <sc-for list="{{chips}}" as="c"><button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:calc(36px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);font-weight:650;font-size:calc(14px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap">{{c.l}}<span aria-hidden="true" style="width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--line);font-size:calc(11px*var(--fs))">✕</span></button></sc-for>
       <button onClick="{{clearAll}}" style="height:calc(36px*var(--hs));padding:0 calc(8px*var(--ps));border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Clear all</button>
     </div>
   </sc-if>
-  <div role="tablist" aria-label="View" style="margin:20px 0 16px;display:flex;width:100%;border-bottom:1px solid var(--line);gap:clamp(4px,2vw,24px)">
-    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button role="tab" aria-selected="{{t.sel}}" onClick="{{t.go}}" style="flex:0 1 auto;min-width:0;height:calc(44px*var(--hs));padding:0 4px;justify-content:center;white-space:nowrap;border-radius:0;border:0;background:transparent;box-shadow:{{t.ul}};color:{{t.fg}};font-weight:650;font-size:calc(clamp(11.5px,3.2vw,14.5px)*var(--fs));cursor:pointer;display:flex;align-items:center;gap:4px;transition:background var(--dur-2) var(--ease-out)">{{t.l}}<span style="font-variant-numeric:tabular-nums;opacity:.75">{{t.n}}</span></button></sc-for>
-  </div>
+  </sc-if>
 
   <sc-if value="{{vResults}}">
     <p aria-live="polite" style="margin:0 0 10px;font-size:calc(14px*var(--fs));font-weight:600;color:var(--ink-3)">{{resultCount}}</p>
@@ -386,7 +385,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
             <span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 calc(10px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface-2);font-size:calc(12.5px*var(--fs));font-weight:700"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span>{{x.sl}}</span>
             <button data-chip onClick="{{x.onConf}}" aria-label="Confidence: {{x.cl}}. What does this mean?" title="{{x.cd}}" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 calc(10px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface-2);border:0;font:inherit;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink);cursor:pointer"><span aria-hidden="true" style="display:flex;align-items:flex-end;gap:2px;height:14px"><sc-for list="{{x.cb}}" as="b"><span style="width:3px;height:{{b.h}};border-radius:1px;background:{{b.c}}"></span></sc-for></span>{{x.cl}}</button>
             <span style="font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-3)">{{x.juris}} · {{x.tl}}</span>
-            <sc-if value="{{x.upd}}"><span style="font-size:calc(12px*var(--fs));font-weight:800;color:var(--accent-ink)">Updated Sept 2026</span></sc-if>
+            <sc-if value="{{x.upd}}"><span style="font-size:calc(12px*var(--fs));font-weight:800;color:var(--accent-ink)">Updated {{updLabel}}</span></sc-if>
           </div>
           <a href="{{x.href}}" data-serif style="font-size:calc(19px*var(--fs));line-height:1.3;color:var(--ink);text-decoration:none;text-wrap:pretty;overflow-wrap:anywhere" style-hover="text-decoration:underline"><sc-for list="{{x.titleSegs}}" as="g"><sc-if value="{{g.m}}"><mark>{{g.t}}</mark></sc-if><sc-if value="{{g.n}}"><span>{{g.t}}</span></sc-if></sc-for></a>
           <p style="margin:0;font-size:calc(15px*var(--fs));color:var(--ink-2);text-wrap:pretty"><sc-for list="{{x.leadSegs}}" as="g"><sc-if value="{{g.m}}"><mark>{{g.t}}</mark></sc-if><sc-if value="{{g.n}}"><span>{{g.t}}</span></sc-if></sc-for></p>
@@ -430,11 +429,9 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   </sc-if>
 
   <sc-if value="{{vConn}}">
-    <p style="margin:0 0 14px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:640px"><strong style="color:var(--ink)">How laws borrow from, replace, challenge and verify each other.</strong> Pick a starting point, then tap any link to explore it. Every link quotes the tracker.</p>
-    <sc-if value="{{graphToggle}}"><div role="group" aria-label="Relationship view" style="display:inline-flex;padding:3px;gap:2px;margin-bottom:16px;border-radius:var(--r);background:var(--surface-2);border:1px solid var(--line)"><sc-for list="{{graphModes}}" as="m"><button data-chip onClick="{{m.go}}" aria-pressed="{{m.on}}" style="height:calc(36px*var(--hs));padding:0 calc(16px*var(--ps));border:0;border-radius:calc(var(--r) - 3px);background:{{m.bg}};box-shadow:{{m.sh}};color:{{m.fg}};font-weight:650;font-size:calc(14px*var(--fs));cursor:pointer">{{m.l}}</button></sc-for></div></sc-if>
     <sc-if value="{{showNet}}"><div style="margin-bottom:28px">{{netEl}}</div></sc-if>
     <sc-if value="{{showStar}}"><div role="group" aria-label="Start from" style="display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0 -16px 18px;padding:0 calc(16px*var(--ps)) 6px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="flex-shrink:0;white-space:nowrap;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">{{h.l}}</button></sc-for></div></sc-if>
-    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+    <sc-if value="{{showDirect}}"><div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
       <sc-if value="{{showStar}}"><div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
         <div style="aspect-ratio:1;width:100%">{{cGraph}}</div>
         <p style="margin:10px 0 0;text-align:center;font-size:calc(13px*var(--fs));color:var(--ink-3)">Filled dots are tracker entries, hollow dots are people and groups. Dashed lines are links the tracker itself treats as unproven.</p>
@@ -456,7 +453,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
           </section>
         </sc-for>
       </div>
-    </div>
+    </div></sc-if>
   </sc-if>
 
   <sc-if value="{{vTable}}">{{tableEl}}</sc-if>
@@ -566,7 +563,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         <sc-if value="{{hasMoreLinks}}"><details style="margin-top:6px"><summary style="cursor:pointer;font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(44px*var(--hs));display:flex;align-items:center">More links in the tracker row ({{nMoreLinks}})</summary><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px"><sc-for list="{{moreLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:calc(14px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></details></sc-if>
         <sc-if value="{{noSrcLinks}}"><a href="{{bLink}}" target="_blank" rel="noopener" style="margin-top:8px;font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center">See this entry on the current tracker ↗</a></sc-if>
         <sc-if value="{{hasMarks}}"><ul style="margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{marks}}" as="m"><li style="font-size:calc(13.5px*var(--fs));color:var(--ink-2);display:flex;gap:8px"><span aria-hidden="true" style="color:var(--accent-ink)">●</span>{{m.t}}</li></sc-for></ul></sc-if>
-        <p style="margin:12px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Verified as of 5 Sep 2026. Not legal advice: re-check the primary source before citing.</p>
+        <p style="margin:12px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Verified as of {{verLabel}}. Not legal advice: re-check the primary source before citing.</p>
       </section>
     </aside>
   </div>
@@ -618,7 +615,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         </div>
       </details>
     </sc-if>
-    <p style="margin:18px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Matrix values are quoted from the tracker’s cross-cutting comparison (verified as of 5 Sep 2026). Not legal advice.</p>
+    <p style="margin:18px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Matrix values are quoted from the tracker’s cross-cutting comparison (verified as of {{verLabel}}). Not legal advice.</p>
   </sc-if>
 
   <sc-if value="{{cmpIsStates}}">
@@ -641,7 +638,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <sc-if value="{{isUpdates}}">
 <div data-screen-label="Updates" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(calc(28px*var(--ps)),5vw,calc(56px*var(--ps))) clamp(16px,3vw,32px) calc(72px*var(--ps))">
   <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);font-weight:800;letter-spacing:-.035em;line-height:1.05">What changed</h1>
-  <p style="margin:8px 0 0;font-size:calc(17px*var(--fs));color:var(--ink-2);max-width:700px">A dated record of September 2026, through 29 Sep. It is wider than the tracker: hearings, letters and industry incidents appear too. Where a summary supplied to us was wrong, the correction is shown.</p>
+  <p style="margin:8px 0 0;font-size:calc(17px*var(--fs));color:var(--ink-2);max-width:700px">A dated record of {{asofMonth}}, through {{asofDay}}. It is wider than the tracker: hearings, letters and industry incidents appear too. Where a summary supplied to us was wrong, the correction is shown.</p>
   <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
     <div style="flex:1 1 520px;min-width:0;max-width:820px">
       <div role="group" aria-label="Filter by kind" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px">
@@ -713,8 +710,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   </section>
   <section id="m-v-s" aria-labelledby="m-v" style="scroll-margin-top:84px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px">
     <h2 id="m-v" style="grid-column:1/-1;margin:0;font-size:calc(24px*var(--fs));font-weight:800;letter-spacing:-.02em">3. What “verified as of” means</h2>
-    <div style="padding:calc(18px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)"><strong style="font-size:calc(15px*var(--fs))">5 Sep 2026</strong><p style="margin:4px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2)">The date of the full verification pass. Every entry’s status was checked against its sources as of this day.</p></div>
-    <div style="padding:calc(18px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)"><strong style="font-size:calc(15px*var(--fs))">Through 29 Sep 2026</strong><p style="margin:4px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2)">Supplementary checks after the full pass. Entries added or changed in them are marked “Updated Sept 2026”.</p></div>
+    <div style="padding:calc(18px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)"><strong style="font-size:calc(15px*var(--fs))">{{verLabel}}</strong><p style="margin:4px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2)">The date of the full verification pass. Every entry’s status was checked against its sources as of this day.</p></div>
+    <div style="padding:calc(18px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)"><strong style="font-size:calc(15px*var(--fs))">Through {{asofLabel}}</strong><p style="margin:4px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2)">Supplementary checks after the full pass. Entries added or changed in them are marked “Updated {{updLabel}}”.</p></div>
     <div style="padding:calc(18px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)"><strong style="font-size:calc(15px*var(--fs))">How an item was found</strong><p style="margin:4px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2)">Some entries came from a dedicated search pass or the NCSL legislation database. Each entry page says which.</p></div>
   </section>
   <section id="m-x-s" aria-labelledby="m-x" style="scroll-margin-top:84px">
@@ -746,7 +743,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 <footer style="border-top:1px solid var(--line);background:var(--surface);padding:28px clamp(16px,3vw,32px) {{footerPadBottom}}">
   <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-start;justify-content:space-between">
-    <p style="margin:0;max-width:620px;font-size:calc(14px*var(--fs));color:var(--ink-2);text-wrap:pretty"><strong style="color:var(--ink)">Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing. Verified as of 5 Sep 2026, with supplementary checks through 29 Sep 2026.</p>
+    <p style="margin:0;max-width:620px;font-size:calc(14px*var(--fs));color:var(--ink-2);text-wrap:pretty"><strong style="color:var(--ink)">Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing. Verified as of {{verLabel}}, with supplementary checks through {{asofLabel}}.</p>
   </div>
 </footer>
 
@@ -781,7 +778,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
           <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
             <span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 calc(10px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line);font-size:calc(12.5px*var(--fs));font-weight:700"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span>{{x.sl}}</span>
             <button data-chip onClick="{{x.onConf}}" aria-label="Confidence: {{x.cl}}. What does this mean?" title="{{x.cd}}" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 calc(10px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line);font:inherit;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink);cursor:pointer"><span aria-hidden="true" style="display:flex;align-items:flex-end;gap:2px;height:14px"><sc-for list="{{x.cb}}" as="b"><span style="width:3px;height:{{b.h}};border-radius:1px;background:{{b.c}}"></span></sc-for></span>{{x.cl}}</button>
-            <sc-if value="{{x.upd}}"><span style="font-size:calc(12px*var(--fs));font-weight:800;color:var(--accent-ink)">Updated Sept 2026</span></sc-if>
+            <sc-if value="{{x.upd}}"><span style="font-size:calc(12px*var(--fs));font-weight:800;color:var(--accent-ink)">Updated {{updLabel}}</span></sc-if>
           </div>
           <a href="{{x.href}}" style="font-size:calc(16.5px*var(--fs));font-weight:750;line-height:1.35;color:var(--ink);text-decoration:none;text-wrap:pretty;min-height:32px;display:flex;align-items:center" style-hover="text-decoration:underline">{{x.short}}</a>
           <span style="font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-3);font-variant-numeric:tabular-nums">{{x.tl}} · {{x.kd}}</span>
@@ -849,7 +846,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         <span style="font-size:clamp(26px,5vw,34px);font-weight:800;letter-spacing:-.03em;color:var(--ink)">US Frontier AI Legislation Tracker</span>
       </div>
       <div aria-hidden="true" style="width:160px;height:3px;border-radius:999px;background:var(--line);overflow:hidden;animation:gxFade 400ms ease 900ms both"><div style="height:100%;background:var(--accent);transform-origin:left;animation:gxBar 1500ms var(--ease-io) 900ms both"></div></div>
-      <span style="font-size:13px;font-weight:600;color:var(--ink-3);animation:gxFade 400ms ease 1000ms both">Verified as of 5 Sep 2026</span>
+      <span style="font-size:13px;font-weight:600;color:var(--ink-3);animation:gxFade 400ms ease 1000ms both">{{bootLabel}}</span>
     </div>
   </div>
 </sc-if>
@@ -871,7 +868,7 @@ const L_lanes = (self, ids, p) => { const s = self.state; return self.V.lanes({ 
   select: k => { if (self.state.tlSel !== k) self.setState({ tlSel: k }); }, setRange: k => self.setP({ rng: k === 'recent' ? '' : k }, true),
   toggleKind: k => self.setState({ kindOff: s.kindOff.includes(k) ? s.kindOff.filter(z => z !== k) : [...s.kindOff, k] }) }); };
 class Component extends DCLogic {
-  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, center: 'SB53', kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [] };
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [] };
   mainRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
@@ -914,9 +911,12 @@ class Component extends DCLogic {
   async load() {
     this.setState({ loading: true, err: false });
     try {
-      const [L, V, e, n, r, ev] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'].map(u => fetch(u).then(x => { if (!x.ok) throw new Error(u); return x.json(); }))]);
-      this.L = L; this.V = V; this.D = L.build(e, n, r);
-      this.D.tev = ev.events.map(x => ({ ...x, d: new Date(x.date + 'T12:00:00') })).filter(x => this.D.byId[x.id]);
+      const get = u => fetch(u).then(x => { if (!x.ok) throw new Error(u); return x.json(); });
+      const v1 = /[?&]data=v1\b/.test(location.search);
+      const [L, V, ...d] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...(v1 ? ['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'] : ['data/v2/entries.json', 'data/v2/news.json', 'data/v2/relationships.json', 'data/v2/site.json']).map(get)]);
+      this.L = L; this.V = V;
+      if (v1) { this.D = L.build(d[0], d[1], d[2]); this.D.tev = d[3].events.map(x => ({ ...x, d: new Date(x.date + 'T12:00:00') })).filter(x => this.D.byId[x.id]); }
+      else this.D = L.buildV2(d[0], d[1], d[2], d[3]);
       this.setState({ loading: false });
       this.endBoot();
     } catch (err) { console.warn(err); this.setState({ loading: false, err: true, booting: false }); }
@@ -1048,6 +1048,9 @@ class Component extends DCLogic {
     const NAV = [['map', 'Map', '#/', '◎'], ['explore', 'Explore', '#/explore', '⌕'], ['updates', 'Updates', '#/updates', '◷'], ['method', 'Data & trust', '#/method', '✓']];
     const v = {
       loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
+      ...(this.L && this.D ? (() => { const L = this.L, MNL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        return { verLabel: L.fmt(L.VERIFIED), asofLabel: L.fmt(L.ASOF), asofDay: L.fmt(L.ASOF).replace(/ \d{4}$/, ''), asofMonth: MNL[L.ASOF.getMonth()] + ' ' + L.ASOF.getFullYear(), updLabel: L.fmtShort(L.ASOF), nEntries: String(this.D.E.length), bootLabel: 'Verified as of ' + L.fmt(L.VERIFIED) }; })()
+        : { verLabel: '', asofLabel: '', asofDay: '', asofMonth: '', updLabel: '', nEntries: '', bootLabel: 'Loading the tracker' }),
       showTopNav: !mob, showBottomNav: mob, mainPadBottom: mob ? '88px' : '0px', footerPadBottom: mob ? '104px' : '28px', toastBottom: mob ? '96px' : '28px',
       nav: NAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-3)', ul: sec === k ? 'inset 0 -2px 0 var(--accent-ink)' : 'none' })),
       mainRef: this.mainRef, skipToMain: e => { e.preventDefault(); this.focusMain(); }, showFollow: SHOW_FOLLOW,
@@ -1103,7 +1106,7 @@ class Component extends DCLogic {
     const boardChips = this.chips(p, ['type', 'year', 'conf']);
     const activeStates = Object.keys(allByState).filter(c => L.SN[c]).map(c => { const list = byState[c] || []; const cat = L.stateCat(list); return { code: c, nm: L.SN[c], cat, g: L.CAT[cat].g, c: CATV[cat], n: list.length, l: L.CAT[cat].l, open: e => this.openState(c, e) }; }).sort((a, b) => Object.keys(L.CAT).indexOf(a.cat) - Object.keys(L.CAT).indexOf(b.cat) || b.n - a.n);
     const week = D.N.filter(n => n.d >= L.WEEK_FROM).sort((a, b) => b.d - a.d).slice(0, 6).map(n => this.feedItem(n));
-    const num = n => n; const fN = stc.length + ['type', 'year', 'conf'].filter(k => p[k]).length;
+    const num = n => n, HC = L.HC; const fN = stc.length + ['type', 'year', 'conf'].filter(k => p[k]).length;
     const anyLive = live.length > 0;
     return {
       isHome: true, heroFull: !mob, homeLabelStyle: mob ? 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)' : 'font-size:calc(14px*var(--fs));font-weight:700;color:var(--ink-2)', searchH: mob ? '52px' : '60px', searchBtnPad: mob ? '0' : '0 20px',
@@ -1111,7 +1114,7 @@ class Component extends DCLogic {
       filterN: fN, hasFilterN: fN > 0, filtersAria: fN ? `Filters, ${fN} active` : 'Filters', filtersBg: fN ? 'var(--b-press)' : 'transparent',
       filtersOpen: s.filtersOpen, openFilters: () => this.setState({ filtersOpen: true }), closeFilters: () => this.setState({ filtersOpen: false }),
       filtersDone: live.length ? `Show ${live.length} ${live.length === 1 ? 'instrument' : 'instruments'}` : 'No matches · close',
-      h3: num(3), h10: num(10), t5: num(5), t11: num(11), t6: num(6), t10b: num(10), t9: num(9),
+      h3: num(HC.enacted), h10: num(HC.fed), t5: num(HC.pending), t11: num(HC.stalled + HC.failed), t6: num(HC.ivo), t10b: num(HC.exec), t9: num(HC.lit),
       q: s.q, qRef: this.qRef, onQ: e => this.setState({ q: e.target.value }), submitQ: e => { e.preventDefault(); this.go('/explore', { q: s.q.trim() }); },
       tiles, fedGroups, fedLiveN: fedLive.length, statusChips, boardChips, hasBoardChips: boardChips.length > 0 || stc.length > 0,
       clearBoard: () => { const n = { ...p }; ['status', 'type', 'year', 'conf'].forEach(k => delete n[k]); this.go('/', n, true); },
@@ -1177,7 +1180,7 @@ class Component extends DCLogic {
   }
   sidebar(p, small) {
     const L = this.L, D = this.D;
-    const href = ch => { const n = { ...p, ...ch }; delete n.q; if (this.state.q.trim()) n.q = this.state.q.trim(); return '#/explore?' + new URLSearchParams(Object.entries(n).filter(([, v]) => v)).toString(); };
+    const href = ch => { const n = { ...p, ...ch }; delete n.q; if (n.view === 'connections') { ['view', 'c', 'graph', 'net', 'people'].forEach(f => delete n[f]); } if (this.state.q.trim()) n.q = this.state.q.trim(); return '#/explore?' + new URLSearchParams(Object.entries(n).filter(([, v]) => v)).toString(); };
     const item = (on, x) => ({ ...x, cur: on ? 'page' : undefined, fg: on ? 'var(--ink)' : 'var(--ink-2)', bg: on ? 'var(--accent-soft)' : 'transparent', ul: on ? 'inset 2px 0 0 var(--accent-ink)' : 'none' });
     const count = {}; D.E.forEach(x => { count[x.section] = (count[x.section] || 0) + 1; });
     const placed = new Set(SIDE_GROUPS.flatMap(g => g[1]));
@@ -1206,7 +1209,7 @@ class Component extends DCLogic {
       moreOpen: !!(p.type || p.conf), fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fConf: p.conf || '', fSt: p.st || '',
       onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true),
       tabs: [tab('results', 'Results', rows.length), tab('timeline', 'Timeline', null), tab('connections', 'Relationships', null), tab('table', 'Table', null)],
-      vResults: view === 'results', vTimeline: view === 'timeline', vConn: view === 'connections', vTable: view === 'table',
+      vResults: view === 'results', vTimeline: view === 'timeline', vConn: view === 'connections', vTable: view === 'table', showFilters: view !== 'connections',
       showThresholds: p.type === 'law'
     };
     if (view === 'results') {
@@ -1227,23 +1230,19 @@ class Component extends DCLogic {
       if (tlMode === 'lanes') out.lanesEl = L_lanes(this, ids, p);
       const groups = []; let cur = null;
       ev.forEach(e => { const sched = e.d > L.ASOF, lab = L.fmtMonth(e.d); if (!cur || cur.label !== lab) { cur = { label: lab, sched, schedTag: sched ? 'Scheduled' : '', items: [] }; groups.push(cur); } const x = D.byId[e.id]; cur.items.push({ date: L.fmt(e.d), sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, sl: L.ST[x.status].l, short: x.short, t: e.t, href: '#/bill/' + x.id, dot: sched ? 'var(--surface)' : `var(--st-${x.status})`, dotBd: `2px solid var(--st-${x.status})` }); });
-      out.tlGroups = groups; out.tlCount = `${ev.length} dated ${ev.length === 1 ? 'event' : 'events'}${up ? ' after 29 Sep 2026' : ''}`; out.tlEmpty = !ev.length;
+      out.tlGroups = groups; out.tlCount = `${ev.length} dated ${ev.length === 1 ? 'event' : 'events'}${up ? ' after ' + L.fmt(L.ASOF) : ''}`; out.tlEmpty = !ev.length;
       out.upOn = up; out.upBg = up ? 'var(--ink)' : 'var(--surface)'; out.upFg = up ? 'var(--bg)' : 'var(--ink)';
       out.toggleUp = () => this.setP({ when: up ? '' : 'upcoming' }, true);
     }
     if (view === 'connections') {
       const lensK = this.V.LENSES[p.net] ? p.net : 'all', lens = this.V.LENSES[lensK], mob = s.vw < 760;
-      const entire = p.graph === 'entire' && !mob, all = this.V.lensGraph(D, 'all', []);
-      const focus = entire ? this.V.netFocus(D, lensK, s.netOff, p.c) : (p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]));
+      const entire = p.graph === 'entire', all = this.V.lensGraph(D, 'all', []);
+      const focus = p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]);
       Object.assign(out, this.conn(focus));
-      out.showNet = true; out.showStar = false; out.graphToggle = !mob;
-      out.graphModes = [['', 'Focused'], ['entire', 'Entire map']].map(([k, l]) => { const on = (entire ? 'entire' : '') === k; return { l, on, bg: on ? 'var(--surface)' : 'transparent', sh: on ? 'var(--shadow-1)' : 'none', fg: on ? 'var(--ink)' : 'var(--ink-2)', go: () => this.setP({ graph: k }, true) }; });
-      if (!entire) out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', expandAll: s.fgExpand, narrow: s.vw < 640,
-        select: k => this.setP({ c: k }), setPeople: v => this.setP({ people: v ? '1' : '' }, true), setExpand: v => this.setState({ fgExpand: { v } }) });
-      else out.netEl = this.V.network({ L, D, lens: lensK, avail: (s.vw >= 1024 ? Math.min(1016, Math.min(s.vw - 15, 1320) - 2 * Math.min(32, s.vw * 0.03) - (s.sideHidden ? 76 : 284)) : Math.min(1016, s.vw - 15 - 2 * Math.max(16, Math.min(32, s.vw * 0.03)))) - 2, scope: p.scope === 'all' ? 'all' : 'near', off: s.netOff, focus, hover: s.netHover,
-        select: k => this.setP({ c: k }, true), hoverSet: k => { if (this.state.netHover !== k) this.setState({ netHover: k }); },
-        setLens: k => this.go('/explore', { ...p, net: k === 'all' ? '' : k, c: '', scope: '' }, true), setScope: v => this.setP({ scope: v === 'all' ? 'all' : '' }, true),
-        toggleType: t => this.setState({ netOff: s.netOff.includes(t) ? s.netOff.filter(z => z !== t) : [...s.netOff, t] }) });
+      out.showNet = true; out.showStar = false; out.showDirect = !entire;
+      out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', entire, lens: p.net || 'all', narrow: s.vw < 640,
+        select: k => this.setP({ c: k, graph: '' }), setPeople: v => this.setP({ people: v ? '1' : '' }, true),
+        setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
     }
     if (view === 'table') {
       const sort = p.sort || 'latest', dir = p.dir || (sort === 'title' || sort === 'where' ? 'asc' : 'desc');
@@ -1267,7 +1266,8 @@ class Component extends DCLogic {
     const lines = es.map(e => { const o = e.from === c ? e.to : e.from; return { x2: pos[o].x, y2: pos[o].y, c: TC[e.type], dash: e.dashed ? '5 5' : '' }; });
     const nodes = others.map(o => ({ x: pos[o].x, y: pos[o].y, r: R.actors[o] ? 5 : 8, f: R.actors[o] ? 'var(--surface)' : 'var(--ink)' }));
     const types = Object.keys(R.types).map(t => ({ t, name: R.types[t].name, c: TC[t], items: es.filter(e => e.type === t).map(e => { const o = e.from === c ? e.to : e.from, isEntry = !!D.keyToId[o]; return { name: nameOf(o), label: e.label, quote: e.quote, dir: e.from === c ? '→' : '←', dashed: !!e.dashed, isEntry, isActor: !isEntry, recenter: () => this.setP({ c: o }, true), href: isEntry ? '#/bill/' + D.keyToId[o] : '' }; }) })).filter(g => g.items.length);
-    const hubs = ['SB53', 'RAISE', 'SB315', 'FRONTIER', 'EO14365', 'SB813'].map(k => ({ l: R.short[k] || k, sel: k === c, bg: k === c ? 'var(--ink)' : 'var(--surface)', fg: k === c ? 'var(--bg)' : 'var(--ink)', go: () => this.setP({ c: k }, true) }));
+    const deg = {}; D.edges.forEach(e => { if (!R.actors[e.from]) deg[e.from] = (deg[e.from] || 0) + 1; if (!R.actors[e.to]) deg[e.to] = (deg[e.to] || 0) + 1; });
+    const hubs = Object.keys(deg).sort((a, b) => deg[b] - deg[a]).slice(0, 6).map(k => ({ l: R.short[k] || k, sel: k === c, bg: k === c ? 'var(--ink)' : 'var(--surface)', fg: k === c ? 'var(--bg)' : 'var(--ink)', go: () => this.setP({ c: k }, true) }));
     const cid = D.keyToId[c];
     const h = React.createElement;
     const cGraph = h('svg', { viewBox: '0 0 400 400', role: 'img', 'aria-label': nameOf(c) + ' has ' + es.length + ' connections, listed alongside', style: { width: '100%', height: '100%', display: 'block' } },
@@ -1287,7 +1287,7 @@ class Component extends DCLogic {
     const rel = k ? D.edges.filter(e => e.from === k || e.to === k).slice(0, 10).map(e => { const o = e.from === k ? e.to : e.from, oid = D.keyToId[o]; return { name: R.actors[o] || R.short[o] || o, label: e.label, type: R.types[e.type].name, href: oid ? '#/bill/' + oid : '', isEntry: !!oid, isActor: !oid }; }) : [];
     const news = D.N.filter(n => n.entryId === id).map(n => this.feedItem(n));
     const following = this.state.follow.includes(id);
-    const marks = [x.U && 'Added or changed in the supplementary checks through 29 Sep 2026', x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
+    const marks = [x.U && 'Added or changed in the supplementary checks through ' + L.fmt(L.ASOF), x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
     return {
       isBill: true, bId: id, bTitle: x.title, bShort: x.short, bSec: x.sec, bSecHref: '#/explore?type=' + x.type, bJuris: x.juris, bType: L.TYPES[x.type],
       bSl: L.ST[x.status].l, bSg: L.ST[x.status].g, bSc: `var(--st-${x.status})`,
