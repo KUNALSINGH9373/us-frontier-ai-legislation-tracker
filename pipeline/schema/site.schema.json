@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tracker.local/schema/site.schema.json",
+  "title": "Site settings (v2)",
+  "description": "Dates and labels the UI shows. Headline counts are NOT stored here: the build computes them from the entries, so they cannot drift from the data.",
+  "type": "object",
+  "required": ["verified_as_of", "updates_through", "section_names", "replay_milestones"],
+  "additionalProperties": false,
+  "properties": {
+    "verified_as_of": { "$ref": "common.schema.json#/$defs/isoDate", "description": "The date the author's main verification ended." },
+    "updates_through": { "$ref": "common.schema.json#/$defs/isoDate", "description": "The date of the latest supplementary or automated check. The UI treats this as 'today' for scheduled-date logic." },
+    "week_from": { "$ref": "common.schema.json#/$defs/isoDate", "description": "Start of the 'this week' window." },
+    "section_names": {
+      "type": "object",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/section" },
+      "additionalProperties": { "type": "string" }
+    },
+    "replay_milestones": {
+      "type": "array",
+      "description": "The captioned moments in the home-page replay. They point at entries by key, replacing the hardcoded numbers.",
+      "items": {
+        "type": "object",
+        "required": ["date", "entry_key", "caption"],
+        "additionalProperties": false,
+        "properties": {
+          "date": { "$ref": "common.schema.json#/$defs/isoDate" },
+          "entry_key": { "$ref": "common.schema.json#/$defs/key" },
+          "caption": { "type": "string", "minLength": 8 }
+        }
+      }
+    },
+    "comparison_matrix": {
+      "type": "object",
+      "description": "The side-by-side comparison of the main laws (section K of the tracker).",
+      "required": ["entry_keys", "rows"],
+      "additionalProperties": false,
+      "properties": {
+        "entry_keys": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/key" }, "minItems": 2 },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["dimension", "values"],
+            "additionalProperties": false,
+            "properties": {
+              "dimension": { "type": "string" },
+              "values": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Entry key to the value shown." }
+            }
+          }
+        }
+      }
+    }
+  }
+}

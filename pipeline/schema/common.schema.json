@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tracker.local/schema/common.schema.json",
+  "title": "Shared definitions",
+  "description": "Enums and small shapes reused by every other schema. Changing an enum here changes it everywhere.",
+  "$defs": {
+    "isoDate": { "type": "string", "format": "date", "description": "YYYY-MM-DD" },
+    "isoDateTime": { "type": "string", "format": "date-time" },
+    "url": { "type": "string", "format": "uri", "pattern": "^https?://" },
+    "key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "maxLength": 80, "description": "Stable slug. Never reused, never renamed once published." },
+
+    "section": {
+      "enum": ["A", "B", "B.2", "C", "D", "E", "F", "G", "G.2", "G.3", "H", "I", "J"],
+      "description": "A enacted state laws; B state bills; B.2 state catastrophic-risk bills; C auditor/verifier licensing; D federal bills; E federal drafts; F adjacent federal bills; G executive actions; G.2 litigation; G.3 export controls; H precursors; I adjacent provisions; J excluded."
+    },
+    "status": {
+      "enum": ["enacted", "pending", "stalled", "failed", "executive", "litigation", "export", "excluded"],
+      "description": "What the entry is today. Set by rule from the source record, never guessed from prose."
+    },
+    "type": {
+      "enum": ["law", "bill", "auditor", "draft", "executive", "litigation", "export", "precursor", "excluded"]
+    },
+    "level": { "enum": ["federal", "state", "none"] },
+    "jurisdiction": {
+      "description": "Two-letter state code, US, or Federal. Null only for excluded (section J) items.",
+      "oneOf": [{ "type": "string", "pattern": "^([A-Z]{2}|US|Federal)$" }, { "type": "null" }]
+    },
+    "stateCode": {
+      "description": "The state tile this entry belongs on. Null for federal and excluded items. Replaces the hardcoded state overrides in the UI.",
+      "oneOf": [{ "type": "string", "pattern": "^[A-Z]{2}$" }, { "type": "null" }]
+    },
+
+    "eventType": {
+      "enum": [
+        "Introduced / published",
+        "Passed / advanced",
+        "Signed / enacted",
+        "Effective",
+        "Referred / stalled / hearing",
+        "Vetoed / failed / rescinded",
+        "Litigation",
+        "Search date / deadline / scheduled"
+      ],
+      "description": "The eight event types the timeline uses. The UI folds them into six display kinds."
+    },
+
+    "confidenceLevel": { "enum": ["HIGH", "MED-HIGH", "MED", "SEARCH-QUALIFIED", "LOW"] },
+    "confidenceBasis": {
+      "enum": ["primary_record", "corroborated", "secondary", "single_source", "search_negative", "not_rated"],
+      "description": "Why the level was given. primary_record: read from an official API or the bill text. corroborated: two or more reputable secondary sources. search_negative: a dated 'none located'. Automated entries may only use primary_record, corroborated, secondary or single_source."
+    },
+
+    "sourceKind": { "enum": ["primary", "secondary", "aggregator"] },
+    "sourceRef": {
+      "type": "object",
+      "required": ["label", "url", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "type": "string", "minLength": 1 },
+        "url": { "$ref": "#/$defs/url" },
+        "kind": { "$ref": "#/$defs/sourceKind" },
+        "retrieved_at": { "$ref": "#/$defs/isoDateTime" }
+      }
+    },
+
+    "evidence": {
+      "type": "object",
+      "required": ["field", "quote", "source_url"],
+      "additionalProperties": false,
+      "description": "A verbatim passage from a fetched source that supports one field. The validator checks, in code, that the quote appears word for word in the stored source text.",
+      "properties": {
+        "field": { "type": "string", "description": "Dotted path of the field supported, e.g. mechanism, thresholds, events[2]." },
+        "quote": { "type": "string", "minLength": 8 },
+        "source_url": { "$ref": "#/$defs/url" }
+      }
+    },
+
+    "link": {
+      "type": "object",
+      "required": ["t", "u"],
+      "additionalProperties": false,
+      "properties": { "t": { "type": "string" }, "u": { "$ref": "#/$defs/url" } }
+    },
+
+    "origin": { "enum": ["authored", "automated", "mixed"], "description": "authored: written by the tracker's author. automated: produced and verified by the agents. mixed: authored entry later updated by the agents." },
+
+    "verification": {
+      "type": "object",
+      "required": ["method", "checked_at"],
+      "additionalProperties": false,
+      "properties": {
+        "method": { "enum": ["author", "agent"] },
+        "checked_at": { "$ref": "#/$defs/isoDateTime" },
+        "run_id": { "type": "string" },
+        "rounds": { "type": "integer", "minimum": 0, "maximum": 3, "description": "Generator/validator rounds it took to pass." }
+      }
+    }
+  }
+}

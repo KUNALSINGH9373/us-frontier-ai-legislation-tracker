@@ -1,0 +1,28 @@
+{
+  "_note": "DRAFT for the author to confirm. Used only to decide which new bills are worth a closer look. It does not decide what is published: the Generator and Validator still have to support every claim from the bill text.",
+  "title_terms": [
+    "artificial intelligence",
+    "\bAI\b",
+    "frontier",
+    "foundation model",
+    "machine learning",
+    "superintelligen",
+    "advanced ai",
+    "catastrophic",
+    "kill switch",
+    "algorithmic",
+    "super intelligence"
+  ],
+  "max_candidates_per_run": 40,
+  "federal_register": {
+    "terms": [
+      "artificial intelligence",
+      "frontier model",
+      "foundation model",
+      "advanced computing",
+      "superintelligence",
+      "super intelligence"
+    ],
+    "max_candidates_per_run": 40
+  }
+}

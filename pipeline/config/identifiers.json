@@ -1,0 +1,556 @@
+{
+ "_note": "Proposed by grabber/map-ids.mjs. Confirm each entry by setting status to \"confirmed\", or correct the ids.",
+ "congress_gov": {
+  "s-2938-ai-risk-evaluation-act": {
+   "congress_gov": [
+    "119/s/2938"
+   ],
+   "status": "proposed",
+   "entry_id": 26,
+   "short_name": "S. 2938 AI Risk Evaluation Act",
+   "checks": [
+    {
+     "id": "119/s/2938",
+     "found": true,
+     "api_title": "Artificial Intelligence Risk Evaluation Act of 2025",
+     "api_sponsor": "Sen. Hawley, Josh [R-MO]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-9925-frontier-act": {
+   "congress_gov": [
+    "119/hr/9925"
+   ],
+   "status": "proposed",
+   "entry_id": 27,
+   "short_name": "H.R. 9925 FRONTIER Act",
+   "checks": [
+    {
+     "id": "119/hr/9925",
+     "found": true,
+     "api_title": "FRONTIER Act",
+     "api_sponsor": "Rep. Obernolte, Jay [R-CA-23]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "s-5061-secure-ai-development-act": {
+   "congress_gov": [
+    "119/s/5061"
+   ],
+   "status": "proposed",
+   "entry_id": 28,
+   "short_name": "S. 5061 Secure AI Development Act",
+   "checks": [
+    {
+     "id": "119/s/5061",
+     "found": true,
+     "api_title": "Secure A.I. Development Act of 2026",
+     "api_sponsor": "Sen. Warner, Mark R. [D-VA]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-9914-s-5105-catsr": {
+   "congress_gov": [
+    "119/hr/9914",
+    "119/s/5105"
+   ],
+   "status": "proposed",
+   "entry_id": 29,
+   "short_name": "H.R. 9914 / S. 5105 CATSR",
+   "checks": [
+    {
+     "id": "119/hr/9914",
+     "found": true,
+     "api_title": "Collaboration on Adversarial Threats and Security Risks Act",
+     "api_sponsor": "Rep. Latta, Robert E. [R-OH-5]",
+     "overlap": 0,
+     "acronym": true,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "id": "119/s/5105",
+     "found": true,
+     "api_title": "Collaboration on Adversarial Threats and Security Risks Act",
+     "api_sponsor": "Sen. Schiff, Adam B. [D-CA]",
+     "overlap": 0,
+     "acronym": true,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-9477-ai-incident-reporting-act": {
+   "congress_gov": [
+    "119/hr/9477"
+   ],
+   "status": "proposed",
+   "entry_id": 30,
+   "short_name": "H.R. 9477 AI Incident Reporting Act",
+   "checks": [
+    {
+     "id": "119/hr/9477",
+     "found": true,
+     "api_title": "AI Incident Reporting Act",
+     "api_sponsor": "Rep. Moran, Nathaniel [R-TX-1]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-9917-ai-kill-switch-act": {
+   "congress_gov": [
+    "119/hr/9917"
+   ],
+   "status": "proposed",
+   "entry_id": 31,
+   "short_name": "H.R. 9917 AI Kill Switch Act",
+   "checks": [
+    {
+     "id": "119/hr/9917",
+     "found": true,
+     "api_title": "AI Kill Switch Act",
+     "api_sponsor": "Rep. Lieu, Ted [D-CA-36]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-9965-atomic-act": {
+   "congress_gov": [
+    "119/hr/9965"
+   ],
+   "status": "proposed",
+   "entry_id": 32,
+   "short_name": "H.R. 9965 ATOMIC Act",
+   "checks": [
+    {
+     "id": "119/hr/9965",
+     "found": true,
+     "api_title": "AI Threat Output and Monitoring Incident Containment Act",
+     "api_sponsor": "Rep. Maloy, Celeste [R-UT-2]",
+     "overlap": 0,
+     "acronym": true,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "s-5493-h-r-10538-ban-artificial-superintelligence-act": {
+   "congress_gov": [
+    "119/s/5493",
+    "119/hr/10538"
+   ],
+   "status": "proposed",
+   "entry_id": 33,
+   "short_name": "S. 5493 / H.R. 10538 Ban Artificial Superintelligence Act",
+   "checks": [
+    {
+     "id": "119/s/5493",
+     "found": true,
+     "api_title": "Ban Artificial Superintelligence Act of 2026",
+     "api_sponsor": "Sen. Sanders, Bernard [I-VT]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "id": "119/hr/10538",
+     "found": true,
+     "api_title": "Ban Artificial Superintelligence Act of 2026",
+     "api_sponsor": "Rep. Casar, Greg [D-TX-35]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "warner-schatz-kim-ai-risk-management-and-security-act": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 34,
+   "short_name": "Warner–Schatz–Kim AI Risk Management and Security Act",
+   "checks": []
+  },
+  "s-5417-h-r-10567-ai-emergency-button-act": {
+   "congress_gov": [
+    "119/s/5417",
+    "119/hr/10567"
+   ],
+   "status": "proposed",
+   "entry_id": 35,
+   "short_name": "S. 5417 / H.R. 10567 AI Emergency Button Act",
+   "checks": [
+    {
+     "id": "119/s/5417",
+     "found": true,
+     "api_title": "AI Emergency Button Act",
+     "api_sponsor": "Sen. Kennedy, John [R-LA]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "id": "119/hr/10567",
+     "found": true,
+     "api_title": "AI Emergency Button Act",
+     "api_sponsor": "Rep. Kean, Thomas H. [R-NJ-7]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "gaaia-discussion-draft": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 36,
+   "short_name": "GAAIA discussion draft",
+   "checks": []
+  },
+  "trump-america-ai-act-draft": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 37,
+   "short_name": "TRUMP AMERICA AI Act draft",
+   "checks": []
+  },
+  "white-house-legislative-recommendations": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 38,
+   "short_name": "White House legislative recommendations",
+   "checks": []
+  },
+  "ai-regulator-act-bennet-welch-proposal": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 39,
+   "short_name": "AI Regulator Act (Bennet–Welch proposal)",
+   "checks": []
+  },
+  "american-ai-security-act-announced": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 40,
+   "short_name": "American AI Security Act (announced)",
+   "checks": []
+  },
+  "senate-commerce-draft-cruz-klobuchar-thune": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 41,
+   "short_name": "Senate Commerce draft (Cruz–Klobuchar–Thune)",
+   "checks": []
+  },
+  "h-r-9363-ai-security-and-innovation-act": {
+   "congress_gov": [
+    "119/hr/9363"
+   ],
+   "status": "proposed",
+   "entry_id": 42,
+   "short_name": "H.R. 9363 AI Security and Innovation Act",
+   "checks": [
+    {
+     "id": "119/hr/9363",
+     "found": true,
+     "api_title": "AI Security and Innovation Act",
+     "api_sponsor": "Rep. Obernolte, Jay [R-CA-23]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "s-1792-h-r-3460-ai-whistleblower-protection-act": {
+   "congress_gov": [
+    "119/s/1792",
+    "119/hr/3460"
+   ],
+   "status": "proposed",
+   "entry_id": 43,
+   "short_name": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
+   "checks": [
+    {
+     "id": "119/s/1792",
+     "found": true,
+     "api_title": "AI Whistleblower Protection Act",
+     "api_sponsor": "Sen. Grassley, Chuck [R-IA]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "id": "119/hr/3460",
+     "found": true,
+     "api_title": "AI Whistleblower Protection Act",
+     "api_sponsor": "Rep. Obernolte, Jay [R-CA-23]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "match"
+    }
+   ]
+  },
+  "s-4656-military-ai-act": {
+   "congress_gov": [
+    "119/s/4656"
+   ],
+   "status": "proposed",
+   "entry_id": 44,
+   "short_name": "S. 4656 Military AI Act",
+   "checks": [
+    {
+     "id": "119/s/4656",
+     "found": true,
+     "api_title": "Secure and Accountable Military AI Act of 2026",
+     "api_sponsor": "Sen. Gillibrand, Kirsten E. [D-NY]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-10180-self-improving-ai-monitoring-act": {
+   "congress_gov": [
+    "119/hr/10180"
+   ],
+   "status": "proposed",
+   "entry_id": 45,
+   "short_name": "H.R. 10180 Self-Improving AI Monitoring Act",
+   "checks": [
+    {
+     "id": "119/hr/10180",
+     "found": true,
+     "api_title": "Self-Improving AI Monitoring Act",
+     "api_sponsor": "Rep. Whitesides, George [D-CA-27]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-10189-defense-ai-reliability-act": {
+   "congress_gov": [
+    "119/hr/10189"
+   ],
+   "status": "proposed",
+   "entry_id": 46,
+   "short_name": "H.R. 10189 Defense AI Reliability Act",
+   "checks": [
+    {
+     "id": "119/hr/10189",
+     "found": true,
+     "api_title": "Defense AI Reliability and Reporting Act",
+     "api_sponsor": "Rep. Jacobs, Sara [D-CA-51]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "s-5541-cyber-and-ai-board-of-investigations": {
+   "congress_gov": [
+    "119/s/5541"
+   ],
+   "status": "proposed",
+   "entry_id": 47,
+   "short_name": "S. 5541 Cyber and AI Board of Investigations",
+   "checks": [
+    {
+     "id": "119/s/5541",
+     "found": true,
+     "api_title": "A bill to establish the Cybersecurity and AI Board of Investigations, and for other purposes.",
+     "api_sponsor": "Sen. Markey, Edward J. [D-MA]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "s-5471-ai-systems-transparency-act": {
+   "congress_gov": [
+    "119/s/5471"
+   ],
+   "status": "proposed",
+   "entry_id": 48,
+   "short_name": "S. 5471 AI Systems Transparency Act",
+   "checks": [
+    {
+     "id": "119/s/5471",
+     "found": true,
+     "api_title": "AI Systems Transparency Act",
+     "api_sponsor": "Sen. Coons, Christopher A. [D-DE]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "h-r-10362-stop-rogue-ai-act": {
+   "congress_gov": [
+    "119/hr/10362"
+   ],
+   "status": "proposed",
+   "entry_id": 49,
+   "short_name": "H.R. 10362 Stop Rogue AI Act",
+   "checks": [
+    {
+     "id": "119/hr/10362",
+     "found": true,
+     "api_title": "Stop Rogue AI Act",
+     "api_sponsor": "Rep. Gottheimer, Josh [D-NJ-5]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "liccardo-kiley-us-china-ai-safety-bill": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 50,
+   "short_name": "Liccardo–Kiley US–China AI safety bill",
+   "checks": []
+  },
+  "bis-framework-for-ai-diffusion-biden-era-interim-final-rule": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 70,
+   "short_name": "BIS \"Framework for AI Diffusion\" (Biden-era interim final rule)",
+   "checks": []
+  },
+  "bis-final-rule-on-ai-chip-licensing-to-china-macau": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 71,
+   "short_name": "BIS final rule on AI-chip licensing to China/Macau",
+   "checks": []
+  },
+  "chip-security-act-h-r-3447-cotton-companion": {
+   "congress_gov": [
+    "119/hr/3447"
+   ],
+   "status": "proposed",
+   "entry_id": 72,
+   "short_name": "Chip Security Act (H.R. 3447 / Cotton companion)",
+   "checks": [
+    {
+     "id": "119/hr/3447",
+     "found": true,
+     "api_title": "Chip Security Act",
+     "api_sponsor": "Rep. Huizenga, Bill [R-MI-4]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "match"
+    }
+   ]
+  },
+  "gain-ai-act-of-2025-s-3150": {
+   "congress_gov": [
+    "119/s/3150"
+   ],
+   "status": "proposed",
+   "entry_id": 73,
+   "short_name": "GAIN AI Act of 2025 (S.3150)",
+   "checks": [
+    {
+     "id": "119/s/3150",
+     "found": true,
+     "api_title": "GAIN AI Act of 2025",
+     "api_sponsor": "Sen. Banks, Jim [R-IN]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "match"
+    }
+   ]
+  },
+  "bis-affiliates-rule": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 74,
+   "short_name": "BIS Affiliates Rule",
+   "checks": []
+  },
+  "1026-threshold-lineage-eo-14110": {
+   "congress_gov": [],
+   "status": "no_number_found",
+   "note": "No bill number in the title; discovery may find it later.",
+   "entry_id": 75,
+   "short_name": "10²⁶ threshold lineage (EO 14110)",
+   "checks": []
+  },
+  "ai-overwatch-act-fy27-ndaa": {
+   "congress_gov": [
+    "119/hr/6875",
+    "119/s/4456"
+   ],
+   "status": "proposed",
+   "entry_id": 76,
+   "short_name": "AI OVERWATCH Act / FY27 NDAA",
+   "checks": [
+    {
+     "id": "119/hr/6875",
+     "found": true,
+     "api_title": "AI OVERWATCH Act",
+     "api_sponsor": "Rep. Mast, Brian J. [R-FL-21]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "match"
+    },
+    {
+     "id": "119/s/4456",
+     "found": true,
+     "api_title": "AI OVERWATCH Act",
+     "api_sponsor": "Sen. Banks, Jim [R-IN]",
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "match"
+    }
+   ]
+  }
+ }
+}

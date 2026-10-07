@@ -1,0 +1,413 @@
+[
+ {
+  "id": 26,
+  "key": "s-2938-ai-risk-evaluation-act",
+  "section": "D",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "S. 2938 — Artificial Intelligence Risk Evaluation Act of 2025",
+  "short_name": "S. 2938 AI Risk Evaluation Act",
+  "sponsor_text": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
+  "mechanism": "Dept. of Energy runs a mandatory Advanced AI Evaluation Program: classified red-team testing, blind third-party evaluations; ≥$1M/day non-participation penalty. Earliest of the federal testing-mandate bills",
+  "thresholds": "10²⁶ ops",
+  "penalties": null,
+  "status_text": "Introduced / status: Sept 29, 2025; referred to Senate Commerce. No action in 11+ months",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2025-09-29",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Sept 29, 2025",
+    "clause": "Sept 29, 2025",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill text — congress.gov",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text — congress.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (congress.gov/govinfo text)"
+  },
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "author",
+   "checked_at": "2026-09-05T00:00:00Z"
+  },
+  "last_checked": "2026-09-05",
+  "last_changed": "2026-09-05",
+  "legacy": {
+   "permalink": "https://kunalssingh.com/us-frontier-ai-legislation-tracker/#rec-s-2938-artificial-intelligence-risk-evaluation-act-of-2025",
+   "section_name": "Federal frontier-AI bills introduced (none enacted)"
+  },
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/s/2938"
+    ]
+   }
+  }
+ },
+ {
+  "id": 27,
+  "key": "h-r-9925-frontier-act",
+  "section": "D",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "H.R. 9925 — FRONTIER Act (Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act)",
+  "short_name": "H.R. 9925 FRONTIER Act",
+  "sponsor_text": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
+  "mechanism": "Creates Under Secretary of Commerce for AI Security (not CAISI) with rulemaking power. Large developers: frontier AI framework, annual third-party compliance audit, transparency reports, registration/disclosure statement with beneficial owners. Very large developers: additionally retain a licensed IVO for ongoing assessment, reports at least every 6 months . Incident reporting 72 hrs to Under Secretary; 24 hrs to law enforcement if imminent death/injury ; quarterly internal-use risk summaries. Sec. 8 emergency orders: Commerce Secretary may suspend/restrict development, deployment, or internal use on an imminent-catastrophic-risk finding (provisional 45 days; final 90 days, renewable); applies to fine-tuned/distilled derivatives; exclusive D.D.C. review; declared the exclusive means for any federal actor incl. the President to restrict a model on those grounds. IVOs immune from suit except willful misconduct causing death/serious injury. State AGs may opt in to receive reports and enforce. Under Secretary may only raise thresholds, never lower. Good-faith exception for false statements; confidential-deployment deferral of transparency reports. No whistleblower title (the June GAAIA draft had one). Sec. 9 preemption: no state may \"adopt or enforce\" any law imposing \" new substantive obligations\" on developers re: catastrophic-risk transparency, third-party auditing/verification, or incident reporting; carve-outs for general laws, deployer/use regulation, minors, state procurement. No sunset (June draft had 3 years). Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
+  "thresholds": "Frontier model 10²⁶ ops incl. fine-tuning/RL. Large = >$50M revenue and ≥$1B AI-related development expenditures over 36 months. Very large = >$5B revenue and ≥$10B expenditures. Not the $500M revenue test used by states. Catastrophic risk >50 deaths or >$1B (property excludes equity-value loss)",
+  "penalties": null,
+  "status_text": "Introduced / status: July 23, 2026; referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA); no committee action through Sept 28, 2026. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-07-23",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "July 23, 2026",
+    "clause": "July 23, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-08-07",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "no committee action through Sept 28, 2026. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+    "clause": "no committee action through Sept 28, 2026 ⟨U⟩. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-09-16",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+    "clause": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-09-21",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+    "clause": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-09-28",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "no committee action through Sept 28, 2026. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+    "clause": "no committee action through Sept 28, 2026 ⟨U⟩. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill text — sponsor PDF",
+    "url": "https://obernolte.house.gov/sites/evo-subsites/obernolte.house.gov/files/evo-media-document/oberno_079_xml-the-frontier-act-final-text.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "Section-by-section",
+    "url": "https://obernolte.house.gov/sites/evo-subsites/obernolte.house.gov/files/evo-media-document/26-07-21-frontier-act-section-by-section.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "congress.gov",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text",
+    "kind": "primary"
+   },
+   {
+    "label": "Bill status XML — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9925.xml",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text — sponsor PDF · Section-by-section · congress.gov · Bill status XML — GovInfo",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (full introduced text + sponsor section-by-section read; cosponsor dates from GovInfo bill status)"
+  },
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "author",
+   "checked_at": "2026-09-05T00:00:00Z"
+  },
+  "last_checked": "2026-09-05",
+  "last_changed": "2026-09-05",
+  "legacy": {
+   "permalink": "https://kunalssingh.com/us-frontier-ai-legislation-tracker/#rec-h-r-9925-frontier-act-frontier-risk-oversight-national-transparency-in",
+   "section_name": "Federal frontier-AI bills introduced (none enacted)"
+  },
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/hr/9925"
+    ]
+   }
+  }
+ },
+ {
+  "id": 28,
+  "key": "s-5061-secure-ai-development-act",
+  "section": "D",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "S. 5061 — Secure AI Development Act of 2026",
+  "short_name": "S. 5061 Secure AI Development Act",
+  "sponsor_text": "Sen. Mark Warner (D-VA)",
+  "mechanism": "Mandatory NSA-led pre-deployment testing of frontier models; AI Risk Board; voluntary incident reporting modeled on aviation safety. Centerpiece of Warner's \"Framework for America's AI Future\" (also: Data Center Tax Accountability Act, AI AGENT Act, National Workforce Transition Fund)",
+  "thresholds": "Capability-based: models posing \"serious risk to national security, national economic security, or public health or safety\" — no compute threshold",
+  "penalties": null,
+  "status_text": "Introduced / status: July 21, 2026; referred to Senate Commerce",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-07-21",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "July 21, 2026",
+    "clause": "July 21, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill text — congress.gov",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text — congress.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (congress.gov text)"
+  },
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "author",
+   "checked_at": "2026-09-05T00:00:00Z"
+  },
+  "last_checked": "2026-09-05",
+  "last_changed": "2026-09-05",
+  "legacy": {
+   "permalink": "https://kunalssingh.com/us-frontier-ai-legislation-tracker/#rec-s-5061-secure-ai-development-act-of-2026",
+   "section_name": "Federal frontier-AI bills introduced (none enacted)"
+  },
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/s/5061"
+    ]
+   }
+  }
+ },
+ {
+  "id": 33,
+  "key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+  "section": "D",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "S. 5493 / H.R. 10538 — Ban Artificial Superintelligence Act of 2026",
+  "short_name": "S. 5493 / H.R. 10538 Ban Artificial Superintelligence Act",
+  "sponsor_text": "Sen. Bernie Sanders (I-VT), Rep. Greg Casar (D-TX); House cosponsors Khanna, Mejia, Ansari, Hoyle, Lynch, García, Deluzio, Grijalva, Velázquez, Ocasio-Cortez (ten as of Sept 29, 2026)",
+  "mechanism": "Sponsor section-by-section read; bill text (19 pp.) linked, not read line-by-line. Creates a cabinet-level Department of Artificial Intelligence ; mandatory pause on training, modifying or deploying \"advanced\" systems until the Department is staffed and has rules covering pre-development plans, monitoring, audits and final pre-deployment approval ; permanent prohibition on developing, deploying, possessing, funding or transferring artificial superintelligence or any system with \"superintelligence precursor characteristics\" (automating AI R&D, unauthorized access to infrastructure, resisting shutdown, CBRN uplift, self-modification, scheming or deceiving to avoid oversight); such systems to be sequestered and rendered inoperative within 30 days; 24-hour discovery notice; charter required for advanced-AI companies with full Department access to systems, staff and facilities; penalties up to 20 years' imprisonment for policymaking individuals, 10-year industry bar for others, and charter revocation with surrender of IP and assets for companies; anti-retaliation; international coordination and export controls. No \"catastrophic risk\" definition ; superintelligence is defined partly as capability \"to plan and execute the destruction or disempowerment of humanity\"",
+  "thresholds": "\"Advanced artificial intelligence system\" = trained on ≥10²⁵ integer or floating-point operations — one order of magnitude below every other instrument in this tracker ; the Secretary \"shall adjust this threshold to reflect technological developments\"",
+  "penalties": null,
+  "status_text": "Introduced / status: S. 5493 introduced Sept 23, 2026 , read twice and referred to Senate Commerce; H.R. 10538 introduced Sept 24, 2026 , referred to House Oversight and Government Reform",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-09-23",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "S. 5493 introduced Sept 23, 2026, read twice and referred to Senate Commerce",
+    "clause": "S. 5493 introduced Sept 23, 2026, read twice and referred to Senate Commerce",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-09-24",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "H.R. 10538 introduced Sept 24, 2026, referred to House Oversight and Government Reform",
+    "clause": "H.R. 10538 introduced Sept 24, 2026, referred to House Oversight and Government Reform",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "S. 5493 status — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s5493.xml",
+    "kind": "primary"
+   },
+   {
+    "label": "H.R. 10538 — GovInfo",
+    "url": "https://www.govinfo.gov/app/details/BILLS-119hr10538ih",
+    "kind": "primary"
+   },
+   {
+    "label": "Section-by-section — sanders.senate.gov",
+    "url": "https://www.sanders.senate.gov/wp-content/uploads/Ban-Artificial-Superintelligence-Act-Section-by-Section.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "Sponsor release Sept 23",
+    "url": "https://www.sanders.senate.gov/press-releases/news-sanders-casar-introduce-legislation-to-create-new-federal-agency-to-ban-artificial-superintelligence-pause-advanced-ai-development/",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "S. 5493 status — GovInfo · H.R. 10538 — GovInfo · Section-by-section — sanders.senate.gov · Sponsor release Sept 23",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH on numbers, dates, committees and cosponsors (GovInfo bill status read); provisions HIGH per sponsor section-by-section, bill text not read line-by-line"
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "author",
+   "checked_at": "2026-09-29T00:00:00Z"
+  },
+  "last_checked": "2026-09-29",
+  "last_changed": "2026-09-29",
+  "legacy": {
+   "permalink": "https://kunalssingh.com/us-frontier-ai-legislation-tracker/#rec-s-5493-h-r-10538-ban-artificial-superintelligence-act-of-2026-u-moved-",
+   "section_name": "Federal frontier-AI bills introduced (none enacted)"
+  },
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/s/5493",
+     "119/hr/10538"
+    ]
+   }
+  }
+ },
+ {
+  "id": 42,
+  "key": "h-r-9363-ai-security-and-innovation-act",
+  "section": "F",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "H.R. 9363 — AI Security and Innovation Act",
+  "short_name": "H.R. 9363 AI Security and Innovation Act",
+  "sponsor_text": "Reps. Obernolte (R-CA), Valerie Foushee (D-NC) + 5",
+  "mechanism": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; 5-year sunset; CBO est. $80M 2026-31",
+  "thresholds": null,
+  "penalties": null,
+  "status_text": "Status: Introduced June 18, 2026; passed House Science Committee markup (10-bill package)",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-06-18",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced June 18, 2026",
+    "clause": "Introduced June 18, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill text",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text/ih",
+    "kind": "primary"
+   },
+   {
+    "label": "CBO estimate",
+    "url": "https://www.cbo.gov/publication/62730",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text · CBO estimate",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (congress.gov text, CBO)"
+  },
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "author",
+   "checked_at": "2026-09-05T00:00:00Z"
+  },
+  "last_checked": "2026-09-05",
+  "last_changed": "2026-09-05",
+  "legacy": {
+   "permalink": "https://kunalssingh.com/us-frontier-ai-legislation-tracker/#rec-h-r-9363-ai-security-and-innovation-act",
+   "section_name": "Adjacent and sectoral federal bills"
+  },
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/hr/9363"
+    ]
+   }
+  }
+ }
+]
