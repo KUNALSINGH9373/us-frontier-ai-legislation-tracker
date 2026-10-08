@@ -203,7 +203,7 @@ pairsData.forEach((pr) => { const meta = entryMeta[pr.id]; if (!meta) return; ta
 
 const csvEsc = (v) => `"${String(v).replace(/"/g, '""')}"`;
 const csv = [["Section", "Entry", "Jurisdiction", "Sponsor", "Core mechanism / description", "Thresholds / scope", "Status and dates", "Source", "Confidence", "Years with dated events", "Permalink"].join(","),
-  ...tableRows.map((r) => [r.section, r.titlePlain, r.juris, r.csv.sponsor, r.csv.mech, r.csv.thresh, r.csv.status, r.csv.source, r.csv.conf, r.years, `https://kunalssingh.com/us-frontier-ai-legislation-tracker/#${r.id}`].map(csvEsc).join(","))].join("\n");
+  ...tableRows.map((r) => [r.section, r.titlePlain, r.juris, r.csv.sponsor, r.csv.mech, r.csv.thresh, r.csv.status, r.csv.source, r.csv.conf, r.years, `https://usfrontierlaw.com/#${r.id}`].map(csvEsc).join(","))].join("\n");
 writeFileSync("docs/tracker-table.csv", "\ufeff" + csv);
 
 const sectionsWithRows = [...new Set(tableRows.map((r) => r.section))];

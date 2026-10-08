@@ -4,7 +4,7 @@ A primary-source audit of US state and federal bills, enacted laws, executive ac
 
 The tracker is published as a static site from the `docs/` folder:
 
-**https://kunalssingh.com/us-frontier-ai-legislation-tracker/** (the GitHub Pages address, `https://kunalsingh9373.github.io/us-frontier-ai-legislation-tracker/`, redirects there because the account's Pages site uses that custom domain).
+**https://usfrontierlaw.com/** (the GitHub Pages address, `https://kunalsingh9373.github.io/us-frontier-ai-legislation-tracker/`, and the earlier address under `kunalssingh.com` redirect there; the domain is registered at Vercel, whose DNS points the apex at GitHub Pages and `www` at the github.io host, with HTTPS enforced).
 
 `LINK-CHECK.md` records a reachability check of every link in the tracker.
 
