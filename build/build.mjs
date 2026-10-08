@@ -388,7 +388,7 @@ tablesData.forEach((t) => { const si = t.heads.findIndex((h) => /^state$/i.test(
 const states = Object.entries(stateCounts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 const stateMax = Math.max(...states.map((x) => x[1]));
 const fmtD = (iso, precision) => { const [y, mo, d] = iso.split("-").map(Number); const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][mo - 1]; return precision === "month" ? `${M} ${y}` : `${M} ${d}, ${y}`; };
-const CUTOFF = "2026-09-29"; // latest verification date: "Latest movement" is on or before it, "Dates ahead" after it
+const CUTOFF = "2026-10-08"; // latest verification date: "Latest movement" is on or before it, "Dates ahead" after it
 const latest = events.filter((e) => e.date <= CUTOFF && !/^Search/.test(e.type)).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8); // search-date stamps are not movement
 const upcoming = events.filter((e) => e.date > CUTOFF).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
 const evLi = (e) => `<li><span class="dt">${fmtD(e.date, e.precision)}${e.inferredYear ? "*" : ""}</span><i style="background:${VIZ.colors[TYPES.indexOf(e.type)]}"></i><span class="what"><a href="#${e.id}">${entryMeta[e.id].title}</a><span class="ty">${e.type} · ${e.column}</span></span></li>`;

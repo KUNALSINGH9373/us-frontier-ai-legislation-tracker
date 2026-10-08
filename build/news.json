@@ -1,7 +1,7 @@
 {
-  "title": "September 2026 developments",
-  "asof": "September 29, 2026",
-  "intro": "A dated record of what happened around frontier-AI law in the United States in September 2026. It is wider than the tracker: it includes hearings, letters, investigations, executive statements and the industry incidents that lawmakers cited, none of which are legislation. Every legislative item here also has a tracker entry, linked from the item. Items were checked against the official page where one exists; where a source blocks automated access the item says so and names what corroborated it. Where the summary supplied to this site named the wrong sponsor or number, the correction is shown.",
+  "title": "September–October 2026 developments",
+  "asof": "October 8, 2026",
+  "intro": "A dated record of what happened around frontier-AI law in the United States from September 2026 onward. It is wider than the tracker: it includes hearings, letters, investigations, executive statements and the industry incidents that lawmakers cited, none of which are legislation. Every legislative item here also has a tracker entry, linked from the item. Items were checked against the official page where one exists; where a source blocks automated access the item says so and names what corroborated it. Where the summary supplied to this site named the wrong sponsor or number, the correction is shown.",
   "kinds": {
     "federal": {
       "name": "Federal",
@@ -483,7 +483,7 @@
       "date": "2026-09-24",
       "kind": "federal",
       "title": "Warner, Schatz and Kim introduce the AI Risk Management and Security Act",
-      "body": "An AI Safety Board in Commerce, model safety plans, access for the Board at least 45 days before release including weights, incident reporting within 30 days or 72 hours, and penalties up to $250,000 per violation per day. The sponsors spoke on the Senate floor the same day; Schatz described the Hugging Face incident as escaping earlier than ordinary pre-deployment testing would catch. No Senate bill number has been located.",
+      "body": "An AI Safety Board in Commerce, model safety plans, access for the Board at least 45 days before release including weights, incident reporting within 30 days or 72 hours, and penalties up to $250,000 per violation per day. The sponsors spoke on the Senate floor the same day; Schatz described the Hugging Face incident as escaping earlier than ordinary pre-deployment testing would catch. The bill was formally introduced as S. 5576 on Sept 29 and referred to Commerce.",
       "links": [
         {
           "t": "Bill text (warner.senate.gov)",
@@ -496,9 +496,13 @@
         {
           "t": "Congressional Record, Sept 24 (S4962–S4974)",
           "u": "https://www.govinfo.gov/content/pkg/CREC-2026-09-24/html/CREC-2026-09-24-pt1-PgS4962.htm"
+        },
+        {
+          "t": "S. 5576 status, GovInfo",
+          "u": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s5576.xml"
         }
       ],
-      "check": "Bill print read in part; the Congressional Record page was read and contains the Warner, Schatz and Kim remarks. The Warner link in the summary supplied to this site no longer resolves and was replaced.",
+      "check": "Bill print read in part; the Congressional Record page was read and contains the Warner, Schatz and Kim remarks. GovInfo bill status (read Oct 8) gives the number S. 5576 and the introduction date Sept 29; the earlier note that no number existed is superseded.",
       "tracker": "AIRMSA"
     },
     {
@@ -666,9 +670,17 @@
     {
       "date": "2026-09-29",
       "kind": "executive",
-      "title": "White House meeting: voluntary \"Accord on Superintelligence\", no binding rule",
-      "body": "President Trump met frontier-AI executives and congressional leaders at the White House, said he would \"never stifle\" the technology and called for \"tremendous self-regulation.\" Speaker Johnson said the companies signed \"The White House Accord on Superintelligence: A Joint Commitment on Frontier SI Responsibilities,\" described as voluntary principles and standards. No licensing, release-review or catastrophic-risk standard was announced.",
+      "title": "White House meeting: voluntary \"Accord on Super Intelligence\" and a terminology executive order",
+      "body": "President Trump met frontier-AI executives and congressional leaders at the White House, said he would \"never stifle\" the technology and called for \"tremendous self-regulation.\" Google, Anthropic, Meta, OpenAI, xAI and Nvidia signed a one-page accord committing each company training frontier models to internal capability and alignment controls, an internal assurance team, an independent external auditor or evaluator, and an independent board committee, adding that \"over time, it may make sense to codify these steps into laws or regulations.\" The same day the President signed Executive Order 14434, which renames AI \"Super Intelligence\" across the executive branch and orders a legislative definition within 60 days; it contains no safety or testing provision.",
       "links": [
+        {
+          "t": "Accord text (American Presidency Project)",
+          "u": "https://www.presidency.ucsb.edu/documents/white-house-accord-super-intelligence"
+        },
+        {
+          "t": "EO 14434, Federal Register",
+          "u": "https://www.federalregister.gov/documents/2026/10/02/2026-20321/inaugurating-the-era-of-super-intelligence"
+        },
         {
           "t": "ABC News",
           "u": "https://abcnews.com/Politics/top-ai-leaders-meet-trump-white-house-amid/story?id=136832988"
@@ -676,15 +688,96 @@
         {
           "t": "NBC News",
           "u": "https://www.nbcnews.com/politics/donald-trump/trump-host-summit-top-ai-leaders-washington-rcna599853"
-        },
-        {
-          "t": "Fortune",
-          "u": "https://fortune.com/2026/09/29/trump-ai-leaders-self-police-industrial-revolution/"
         }
       ],
-      "check": "The AP link supplied blocks automated access and was replaced. The accord text has not been located.",
+      "check": "Accord text read via the American Presidency Project; EO 14434 read in the Federal Register (91 FR 63129). The accord has no whitehouse.gov posting located.",
       "tracker": "WHACCORD"
+    },
+    {
+      "date": "2026-09-29",
+      "kind": "federal",
+      "title": "S. 5576, AI Risk Management and Security Act, formally introduced",
+      "body": "Five days after the floor speeches, the Warner–Schatz–Kim bill was introduced as S. 5576, read twice and referred to Commerce. The introduced print was not yet on GovInfo as of Oct 8.",
+      "links": [
+        {
+          "t": "S. 5576 status, GovInfo",
+          "u": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s5576.xml"
+        }
+      ],
+      "check": "GovInfo bill status read.",
+      "tracker": "AIRMSA"
+    },
+    {
+      "date": "2026-09-29",
+      "kind": "executive",
+      "title": "Executive Order 14434 renames AI \"Super Intelligence\" and orders a legislative definition within 60 days",
+      "body": "The order directs agencies to use \"Super Intelligence\" and \"SI\" in place of \"artificial intelligence\" and \"AI\" in non-statutory documents, defines the term by reference to the existing statutory AI definition at 15 U.S.C. § 9401(3), and gives the President's science adviser 60 days to propose legislative language for a federal definition. It contains no safety, testing or frontier-model provision. Published in the Federal Register on Oct 2 at 91 FR 63129.",
+      "links": [
+        {
+          "t": "Federal Register text",
+          "u": "https://www.federalregister.gov/documents/2026/10/02/2026-20321/inaugurating-the-era-of-super-intelligence"
+        },
+        {
+          "t": "whitehouse.gov",
+          "u": "https://www.whitehouse.gov/presidential-actions/2026/09/inaugurating-the-era-of-super-intelligence/"
+        }
+      ],
+      "check": "Full text read in the Federal Register.",
+      "tracker": "EO14434"
+    },
+    {
+      "date": "2026-09-30",
+      "kind": "federal",
+      "title": "Senate hearing: \"Rogue AI: Securing the Homeland Against AI Agent Attacks\"",
+      "body": "Sen. Hawley's Homeland Security Subcommittee on Disaster Management, District of Columbia, and Census heard from Chris Painter (METR), Marius Hobbhahn (Apollo Research), Paul Ohm (Georgetown Law), Kurt Gaudette (Dragos) and Daniel Kokotajlo (AI Futures Project) on the Hugging Face incident and agent attacks. Hawley said OpenAI's Sam Altman declined to testify. Ranking member Andy Kim is a cosponsor of S. 5576.",
+      "links": [
+        {
+          "t": "Hearing page and testimony, HSGAC",
+          "u": "https://www.hsgac.senate.gov/subcommittees/dmdcc/hearings/rogue-ai-securing-the-homeland-against-ai-agent-attacks/"
+        },
+        {
+          "t": "CNBC, Sept 30",
+          "u": "https://www.cnbc.com/2026/09/30/hawley-openai-sam-altman-rogue-ai.html"
+        },
+        {
+          "t": "Tech Policy Press transcript",
+          "u": "https://www.techpolicy.press/senate-hearing-on-rogue-ai-securing-the-homeland-against-ai-agent-attacks/"
+        }
+      ],
+      "check": "Official hearing page read for date and witnesses; testimony PDFs not opened."
+    },
+    {
+      "date": "2026-10-01",
+      "kind": "federal",
+      "title": "Hawley and Murphy announce the AI Agent Accountability Act",
+      "body": "The bill would make AI agent operators criminally and civilly liable under the Computer Fraud and Abuse Act for knowingly operating an agent that recklessly causes hacking damage, make developers liable for failing to implement reasonable safeguards when they knew of an agent's hacking capability, and let the Attorney General and state attorneys general sue to enjoin such conduct. Murphy: executives should \"develop responsibly or face prison time.\" No bill number or text has been published.",
+      "links": [
+        {
+          "t": "Sponsor release, Oct 1",
+          "u": "https://www.hawley.senate.gov/senators-hawley-murphy-announce-bipartisan-ai-agent-accountability-act/"
+        }
+      ],
+      "check": "Release read. GovInfo bill status checked through S. 5625 on Oct 8: not yet numbered.",
+      "tracker": "AIAAA"
+    },
+    {
+      "date": "2026-10-04",
+      "kind": "executive",
+      "title": "Trump names a \"Super Intelligence Force\" chaired by DNI Jay Clayton",
+      "body": "In a Truth Social post the President announced a federal coordinating body chaired by Director of National Intelligence Jay Clayton, with FTC Chair Andrew Ferguson, Under Secretary of War Emil Michael and OPM Director Scott Kupor as vice chairs, tasked with keeping America ahead in \"Super Intelligence\" and, per reporting, producing a 120-day report on AI risks and opportunities including breach disclosure. No executive order or charter has been published.",
+      "links": [
+        {
+          "t": "TechCrunch, Oct 4",
+          "u": "https://techcrunch.com/2026/10/04/trump-unveils-his-new-super-intelligence-force/"
+        },
+        {
+          "t": "Nextgov/FCW",
+          "u": "https://www.nextgov.com/people/2026/10/spy-chief-jay-clayton-takes-white-houses-ai-portfolio/416413/"
+        }
+      ],
+      "check": "Press accounts of the President's post; no founding document located.",
+      "tracker": "SIF"
     }
   ],
-  "bottom": "No federal frontier-AI bill became law in September 2026. California's SB 813 and AB 1405 were the month's enacted measures. New York's S.10701 was withdrawn on introduction and Pennsylvania's H.B. 2800 is in committee. Every federal bill above remains at the referral stage."
+  "bottom": "No federal frontier-AI bill became law in September or the first week of October 2026. California's SB 813 and AB 1405 were the period's enacted measures. New York's S.10701 was withdrawn on introduction and Pennsylvania's H.B. 2800 is in committee. Every federal bill above remains at the referral stage; the administration's response so far is a voluntary accord, a terminology executive order and a task force with a 120-day report."
 }
