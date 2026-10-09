@@ -858,3 +858,37 @@ export function handbookView(ctx) {
         terms.length && !shown.length ? h('p', { role: 'status', style: { padding: 20, border: '1px dashed var(--line-2)', borderRadius: 'var(--r)', color: 'var(--ink-2)' } }, list.length ? 'This chapter has no match. Pick a matching chapter from the list.' : 'No chapter matches that search.') : null,
         ...shown.map(chapter), pager)));
 }
+
+/* ---------- links panel (below the canvas) ---------- */
+// The focused item's direct links, one tab per link type, as compact rows. The cited clause opens on request.
+// ctx: { name, href, types: [{ t, name, c, items: [{ k, dir, name, label, quote, dashed, isEntry, href, recenter }] }],
+//        tab, setTab(t), all, setAll(v), open: Set of row keys, toggle(key) }
+export function linksPanel(ctx) {
+  const types = ctx.types, total = types.reduce((n, g) => n + g.items.length, 0), LIMIT = 6;
+  const head = h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'baseline', marginBottom: 10 } },
+    h('h3', { style: { margin: 0, fontSize: 'calc(17px*var(--fs))', fontWeight: 800 } }, `${ctx.name}: ${total} direct ${total === 1 ? 'link' : 'links'}`),
+    ctx.href ? h('a', { href: ctx.href, style: { fontWeight: 700, fontSize: 'calc(14px*var(--fs))' } }, 'Open this entry →') : null);
+  if (!total) return h('section', { 'aria-label': 'Direct links' }, head, h('p', { style: { margin: 0, color: 'var(--ink-2)' } }, 'No recorded relationships for this item.'));
+  const cur = types.find((g) => g.t === ctx.tab) || types[0];
+  const tabs = h('div', { role: 'tablist', 'aria-label': 'Link type', style: { display: 'flex', gap: 6, overflowX: 'auto', paddingBottom: 4, marginBottom: 12, scrollbarWidth: 'thin' } },
+    ...types.map((g) => { const on = g === cur; return h('button', { key: g.t, role: 'tab', 'aria-selected': on ? 'true' : 'false', title: g.name, onClick: () => ctx.setTab(g.t),
+      style: { flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: 8, height: 'calc(36px*var(--hs))', padding: '0 12px', borderRadius: 'var(--r)', border: on ? '1px solid var(--ink)' : '1px solid var(--line-2)', background: on ? 'var(--ink)' : 'var(--surface)', color: on ? 'var(--bg)' : 'var(--ink)', fontFamily: 'inherit', fontWeight: 700, fontSize: 'calc(13.5px*var(--fs))', cursor: 'pointer', whiteSpace: 'nowrap' } },
+      h('span', { 'aria-hidden': true, style: { width: 14, height: 3, borderRadius: 2, background: g.c } }), FOCUS_TYPE_SHORT[g.t] || g.name, h('span', { style: { fontVariantNumeric: 'tabular-nums', opacity: 0.75 } }, g.items.length)); }));
+  const shown = ctx.all ? cur.items : cur.items.slice(0, LIMIT);
+  const small = { minHeight: 'calc(32px*var(--hs))', padding: 0, border: 0, background: 'transparent', color: 'var(--accent-ink)', fontFamily: 'inherit', fontWeight: 700, fontSize: 'calc(13px*var(--fs))', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', textDecoration: 'none' };
+  const row = (i) => { const open = ctx.open.has(i.k);
+    return h('li', { key: i.k, style: { display: 'flex', flexDirection: 'column', gap: 4, padding: '10px 12px', borderRadius: 'var(--r)', border: '1px solid var(--line)', background: 'var(--surface)', minWidth: 0 } },
+      h('div', { style: { display: 'flex', gap: 8, alignItems: 'baseline', minWidth: 0 } },
+        h('span', { 'aria-label': i.dir === '→' ? 'Outgoing' : 'Incoming', style: { color: 'var(--ink-3)', fontWeight: 800, flexShrink: 0 } }, i.dir),
+        h('strong', { style: { fontSize: 'calc(14.5px*var(--fs))', lineHeight: 1.3, overflowWrap: 'anywhere' } }, i.name),
+        i.dashed ? h('span', { style: { flexShrink: 0, fontSize: 'calc(11.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-3)', border: '1px dashed var(--line-2)', padding: '0 6px', borderRadius: 6 } }, 'Unproven') : null),
+      h('span', { style: { fontSize: 'calc(13.5px*var(--fs))', color: 'var(--ink-2)', lineHeight: 1.4 } }, i.label),
+      open ? h('blockquote', { style: { margin: '2px 0 0', paddingLeft: 10, borderLeft: '2px solid var(--line-2)', fontSize: 'calc(13px*var(--fs))', color: 'var(--ink-3)', fontStyle: 'italic' } }, '“' + i.quote + '”') : null,
+      h('div', { style: { display: 'flex', gap: 14, flexWrap: 'wrap', marginTop: 'auto' } },
+        i.quote ? h('button', { onClick: () => ctx.toggle(i.k), 'aria-expanded': open ? 'true' : 'false', style: small }, open ? 'Hide clause' : 'Show clause') : null,
+        h('button', { onClick: i.recenter, style: small }, 'Explore from here'),
+        i.isEntry ? h('a', { href: i.href, style: small }, 'Open entry') : null)); };
+  return h('section', { 'aria-label': 'Direct links', style: { marginTop: 4 } }, head, tabs,
+    h('ul', { role: 'tabpanel', 'aria-label': cur.name, style: { listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: 8 } }, ...shown.map(row)),
+    cur.items.length > LIMIT ? h('button', { onClick: () => ctx.setAll(!ctx.all), style: { ...small, marginTop: 8 } }, ctx.all ? 'Show fewer' : `Show all ${cur.items.length}`) : null);
+}

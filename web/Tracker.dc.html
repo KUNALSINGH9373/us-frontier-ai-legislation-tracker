@@ -326,30 +326,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   <p style="margin:0 0 16px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:760px">Who copied whom, what replaced what, and where Washington is pushing back on the states. Every link cites the clause it comes from.</p>
     <sc-if value="{{showNet}}"><div style="margin-bottom:28px">{{netEl}}</div></sc-if>
     <sc-if value="{{hasClusters}}"><aside aria-label="Two textual clusters" style="margin:-12px 0 28px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface-2);border:1px solid var(--line);max-width:960px">{{clustersEl}}</aside></sc-if>
-    <sc-if value="{{showStar}}"><div role="group" aria-label="Start from" style="display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0 -16px 18px;padding:0 calc(16px*var(--ps)) 6px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="flex-shrink:0;white-space:nowrap;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">{{h.l}}</button></sc-for></div></sc-if>
-    <sc-if value="{{showDirect}}"><div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
-      <sc-if value="{{showStar}}"><div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
-        <div style="aspect-ratio:1;width:100%">{{cGraph}}</div>
-        <p style="margin:10px 0 0;text-align:center;font-size:calc(13px*var(--fs));color:var(--ink-3)">Filled dots are tracker entries, hollow dots are people and groups. Dashed lines are links the tracker itself treats as unproven.</p>
-      </div></sc-if>
-      <div style="flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:18px">
-        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:calc(12.5px*var(--fs));font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">Direct links, with the clause each one cites</span><h2 style="margin:0;font-size:calc(24px*var(--fs));font-weight:800;letter-spacing:-.02em">{{cName}}</h2><sc-if value="{{cIsEntry}}"><a href="{{cHref}}" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Open this entry →</a></sc-if></div>
-        <sc-if value="{{cEmpty}}"><p style="margin:0;color:var(--ink-2)">No recorded relationships for this item.</p></sc-if>
-        <sc-for list="{{cTypes}}" as="g">
-          <section style="display:flex;flex-direction:column;gap:8px">
-            <h3 style="margin:0;font-size:calc(15px*var(--fs));font-weight:800;display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:18px;height:3px;border-radius:2px;background:{{g.c}}"></span>{{g.name}}</h3>
-            <sc-for list="{{g.items}}" as="i">
-              <div style="padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:min(14px,var(--r));background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px">
-                <div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><span aria-hidden="true" style="color:var(--ink-3);font-weight:800">{{i.dir}}</span><strong style="font-size:calc(15.5px*var(--fs))">{{i.name}}</strong><sc-if value="{{i.dashed}}"><span style="font-size:calc(12px*var(--fs));font-weight:700;color:var(--ink-3);border:1px dashed var(--line-2);padding:1px 6px;border-radius:6px">Unproven</span></sc-if></div>
-                <span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">{{i.label}}</span>
-                <blockquote style="margin:0;padding-left:calc(10px*var(--ps));border-left:2px solid var(--line-2);font-size:calc(13.5px*var(--fs));color:var(--ink-3);font-style:italic">“{{i.quote}}”</blockquote>
-                <div style="display:flex;gap:14px;flex-wrap:wrap"><button onClick="{{i.recenter}}" style="height:calc(36px*var(--hs));padding:0;border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">Explore from here →</button><sc-if value="{{i.isEntry}}"><a href="{{i.href}}" style="font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Open entry</a></sc-if></div>
-              </div>
-            </sc-for>
-          </section>
-        </sc-for>
-      </div>
-    </div></sc-if>
+    <sc-if value="{{showDirect}}">{{linksEl}}</sc-if>
   </section>
 
 <section aria-labelledby="tbl-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(28px,4vw,44px) clamp(16px,3vw,32px) clamp(40px,5vw,64px)">
@@ -913,7 +890,7 @@ const L_lanes = (self, ids, p) => { const s = self.state; return self.V.lanes({ 
   select: k => { if (self.state.tlSel !== k) self.setState({ tlSel: k }); }, setRange: k => self.setP({ rng: k === 'recent' ? '' : k }, true),
   toggleKind: k => self.setState({ kindOff: s.kindOff.includes(k) ? s.kindOff.filter(z => z !== k) : [...s.kindOff, k] }) }); };
 class Component extends DCLogic {
-  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [], tblOpen: [], tblAll: false };
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [], tblOpen: [], tblAll: false, lkTab: '', lkAll: false, lkOpen: [] };
   mainRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
@@ -1264,7 +1241,9 @@ class Component extends DCLogic {
     const entire = p.graph === 'entire', all = this.V.lensGraph(D, 'all', []);
     const focus = p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]);
     const cl = p.net === 'family' && D.content && D.content.comparison.clusters;
-    const out = { ...this.conn(focus), showNet: true, showStar: false, showDirect: !entire, hasClusters: !!cl, clustersEl: cl ? this.V.mdP(cl, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }) : null };
+    const cv = this.conn(focus), st = this.state;
+    const linksEl = entire ? null : this.V.linksPanel({ name: cv.cName, href: cv.cIsEntry ? cv.cHref : '', types: cv.cTypes, tab: st.lkTab, setTab: t => this.setState({ lkTab: t, lkAll: false }), all: st.lkAll, setAll: v => this.setState({ lkAll: v }), open: new Set(st.lkOpen), toggle: k => this.setState({ lkOpen: st.lkOpen.includes(k) ? st.lkOpen.filter(z => z !== k) : [...st.lkOpen, k] }) });
+    const out = { ...cv, linksEl, showNet: true, showStar: false, showDirect: !entire, hasClusters: !!cl, clustersEl: cl ? this.V.mdP(cl, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }) : null };
     out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', entire, lens: p.net || 'all', narrow: s.vw < 640,
       select: k => this.setP({ c: k, graph: '' }), setPeople: v => this.setP({ people: v ? '1' : '' }, true),
       setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
@@ -1338,7 +1317,7 @@ class Component extends DCLogic {
     const pos = {}; others.forEach((o, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; pos[o] = { x: cx + rad * Math.cos(a), y: cy + rad * Math.sin(a) }; });
     const lines = es.map(e => { const o = e.from === c ? e.to : e.from; return { x2: pos[o].x, y2: pos[o].y, c: TC[e.type], dash: e.dashed ? '5 5' : '' }; });
     const nodes = others.map(o => ({ x: pos[o].x, y: pos[o].y, r: R.actors[o] ? 5 : 8, f: R.actors[o] ? 'var(--surface)' : 'var(--ink)' }));
-    const types = Object.keys(R.types).map(t => ({ t, name: R.types[t].name, c: TC[t], items: es.filter(e => e.type === t).map(e => { const o = e.from === c ? e.to : e.from, isEntry = !!D.keyToId[o]; return { name: nameOf(o), label: e.label, quote: e.quote, dir: e.from === c ? '→' : '←', dashed: !!e.dashed, isEntry, isActor: !isEntry, recenter: () => this.setP({ c: o }, true), href: isEntry ? '#/bill/' + D.keyToId[o] : '' }; }) })).filter(g => g.items.length);
+    const types = Object.keys(R.types).map(t => ({ t, name: R.types[t].name, c: TC[t], items: es.filter(e => e.type === t).map(e => { const o = e.from === c ? e.to : e.from, isEntry = !!D.keyToId[o]; return { k: e.from + '>' + e.to + '>' + e.type, name: nameOf(o), label: e.label, quote: e.quote, dir: e.from === c ? '→' : '←', dashed: !!e.dashed, isEntry, isActor: !isEntry, recenter: () => this.setP({ c: o }, true), href: isEntry ? '#/bill/' + D.keyToId[o] : '' }; }) })).filter(g => g.items.length);
     const deg = {}; D.edges.forEach(e => { if (!R.actors[e.from]) deg[e.from] = (deg[e.from] || 0) + 1; if (!R.actors[e.to]) deg[e.to] = (deg[e.to] || 0) + 1; });
     const hubs = Object.keys(deg).sort((a, b) => deg[b] - deg[a]).slice(0, 6).map(k => ({ l: R.short[k] || k, sel: k === c, bg: k === c ? 'var(--ink)' : 'var(--surface)', fg: k === c ? 'var(--bg)' : 'var(--ink)', go: () => this.setP({ c: k }, true) }));
     const cid = D.keyToId[c];
