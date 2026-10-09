@@ -1,6 +1,6 @@
 // Validates tracker data against the schemas.
 //   node schema/validate.mjs <schema> <file.json>
-//   schema: entry | news | relationships | site | state | changeset | draft | verdict | held | runlog
+//   schema: entry | news | relationships | site | content | state | changeset | draft | verdict | held | runlog
 // For "entry" the file may hold one entry or an array of entries.
 import fs from 'fs';
 import path from 'path';
@@ -14,7 +14,7 @@ const read = (f) => JSON.parse(fs.readFileSync(path.join(here, f), 'utf8'));
 export function makeValidator() {
   const ajv = new Ajv2020({ allErrors: true, strict: true, strictTypes: false, strictRequired: false, allowUnionTypes: true });
   addFormats(ajv);
-  const files = ['common', 'entry', 'news', 'relationships', 'site', 'pipeline'];
+  const files = ['common', 'entry', 'news', 'relationships', 'site', 'content', 'pipeline'];
   files.forEach((f) => ajv.addSchema(read(f + '.schema.json')));
   const P = 'https://tracker.local/schema/pipeline.schema.json#/$defs/';
   const ids = {
@@ -22,6 +22,7 @@ export function makeValidator() {
     news: 'https://tracker.local/schema/news.schema.json',
     relationships: 'https://tracker.local/schema/relationships.schema.json',
     site: 'https://tracker.local/schema/site.schema.json',
+    content: 'https://tracker.local/schema/content.schema.json',
     state: P + 'state', changeset: P + 'changeset', draft: P + 'draft', verdict: P + 'verdict', held: P + 'held', runlog: P + 'runlog', diff: P + 'diff', patch: P + 'patch'
   };
   const fns = Object.fromEntries(Object.entries(ids).map(([k, id]) => [k, ajv.getSchema(id)]));

@@ -1,0 +1,687 @@
+{
+ "source": {
+  "tracker": "tracker.md",
+  "handbook": "handbook.md",
+  "about": "docs/index.html#sec-about",
+  "aaf": "build/aaf-crosscheck.json"
+ },
+ "downloads": {
+  "handbook_pdf": "downloads/handbook.pdf",
+  "handbook_md": "downloads/handbook.md",
+  "tracker_md": "downloads/tracker.md"
+ },
+ "intro": {
+  "title": "US Frontier AI Legislation Tracker (2025–2026)",
+  "paragraphs": [
+   "Compiled for the frontier AI law audit project. \"Frontier\" = laws/bills targeting the largest AI developers and catastrophic risk from advanced models, plus the independent-verification-organization (IVO) / AI-auditor licensing bills that form a distinct sub-category. Section J lists items checked and **excluded**."
+  ],
+  "confidence_key_intro": "**Confidence key** (applies to the row as a whole; individual cells noted where they differ):",
+  "confidence_key": [
+   {
+    "level": "HIGH",
+    "text": "the load-bearing proposition was checked directly against an operative primary record (statute/bill text, official legislature action page, rule/order, docket or first-party program record)"
+   },
+   {
+    "level": "MED-HIGH",
+    "text": "strong corroboration, but a load-bearing primary record is nonpublic, inaccessible, or does not itself establish the full proposition"
+   },
+   {
+    "level": "MED",
+    "text": "two or more concurring reputable secondary sources; primary material does not establish the key detail"
+   },
+   {
+    "level": "SEARCH-QUALIFIED",
+    "text": "a date-bounded negative finding (for example, \"no case located\"), not proof that an event does not exist"
+   },
+   {
+    "level": "LOW",
+    "text": "single source, or key details thin/unverified"
+   }
+  ],
+  "verification_note": "Verified as of **September 5, 2026**. Legislative status changes weekly — re-check the primary link before citing. Confidence is assessed **per claim** where cells differ; the row rating is the weakest load-bearing claim in the row. Items marked ⟨R⟩ were first identified by an external review (Sept. 4, 2026) and then independently checked unless a cell expressly says otherwise. ⟨NCSL⟩ marks an item discovered in the final NCSL keyword cross-check. ⟨U⟩ marks a row added or changed in a supplementary check through **September 29, 2026**; those rows carry their own dates and ratings, and the Sept. 5 recertification statement below does not cover them (see the supplementary note at the end of Section L)."
+ },
+ "section_notes": {
+  "A": [
+   "Votes (ilga.gov roll calls): SB 315 passed IL Senate **52-5-2 NV** (May 21, 2026) and House **110-0-4 NV** (May 27, 2026); both Executive Committees unanimous. Anthropic publicly supported SB 315 and the MA bill; OpenAI praised the IL process — noted because industry positioning is itself a variable for the audit.",
+   "**Verification status (Sept. 5, 2026):** HIGH from primary documents — all three Category A laws; CT Public Act 26-15; the TN H.B. 1898/S.B. 2171 introduced text and official amended-bill fiscal summary; IL H.B. 3506 amendment, H.B. 4705 text, S.B. 3261/H.B. 4799 status, and S.B. 3444 sponsor; LA S.B. 474 engrossed text; the introduced texts of H.R. 9925, S. 2938, S. 5061, H.R. 9914/S. 5105, H.R. 9477, H.R. 9965, **H.R. 9917**, S. 4656, H.R. 10180, and H.R. 10189; **EO 14409**; **NIST AITE**; the federal export-control rules in Section G.3; CA S.B. 1047; the Senate's 99–1 moratorium roll call; all Category E frameworks and the Sanders–Casar announcement; the Anthropic v. Department of War complaint; and the other items whose rows say HIGH. MED-HIGH remains appropriate where the operative government record is nonpublic or a proposition rests partly on reporting: the June 12 model-access directive's issuing authority and rationale, and the Aug. 7 Trump remarks. Negative findings are marked SEARCH-QUALIFIED rather than being promoted to HIGH. **No cell is rated LOW.**"
+  ],
+  "B.2": [
+   "Reviewer correctly flagged that this bill does not belong in Section B: it uses catastrophic-risk machinery but applies to *every* AI developer."
+  ],
+  "C": [
+   "Distinct from Section A: these regulate *who may audit* frontier developers rather than the developers directly. Directly relevant to the SB 315 audit-provision case study."
+  ],
+  "G.2": [
+   "Searches through **Sept. 5, 2026** located no court challenge or reported enforcement action involving an enacted state frontier law. This is a **date-bounded negative finding, not proof of universal absence**. Litigation has nevertheless begun around federal executive treatment of a frontier developer and the administration's undisclosed pre-release review framework."
+  ],
+  "G.3": [
+   "Upstream of every developer mandate above. Executive and legislative, none of it in the \"frontier law\" template."
+  ]
+ },
+ "section_headings": {
+  "A": "A. Enacted state frontier-developer laws (the core template)",
+  "B": "B. Pending, stalled, and failed state frontier-developer bills (status class shown in bold at start of Status cell)",
+  "B.2": "B.2 Catastrophic-risk regulation **without** a frontier threshold",
+  "C": "C. State IVO / AI-auditor licensing measures",
+  "D": "D. Federal frontier-AI bills — formally introduced (none enacted)",
+  "E": "E. Federal frameworks — discussion drafts / non-binding (not introduced bills)",
+  "F": "F. Federal AI bills — adjacent or sectoral (not general frontier-developer regulation)",
+  "G": "G. Executive actions (not legislation)",
+  "G.2": "G.2 Frontier-AI litigation and enforcement (as of Sept. 5, 2026)",
+  "G.3": "G.3 Compute and export-control layer (governs who can build frontier models)",
+  "H": "H. Precursors, withdrawn proposals, and legislative history",
+  "I": "I. Adjacent — partial frontier provisions inside broader AI laws",
+  "J": "J. Checked and excluded (with reason)",
+  "K": "K. Cross-cutting divergences (raw material for the ambiguity taxonomy)",
+  "K.2": "K.2 Assurance layers",
+  "L": "L. Completeness methodology and known gaps"
+ },
+ "comparison": {
+  "heading": "K. Cross-cutting divergences (raw material for the ambiguity taxonomy)",
+  "columns": [
+   "CA SB 53",
+   "NY RAISE (amended)",
+   "IL SB 315",
+   "MI HB 4668",
+   "NJ S.4446/A.5275",
+   "MA (Senate text)",
+   "H.R. 9925 FRONTIER"
+  ],
+  "clusters": "**Two textual clusters (from primary texts; similarity ≠ proven copying):** *Original-RAISE / SSP cluster* — IL HB 3506 (filed Feb 7, 2025), NY S.6953 as passed June 2025, MI HB 4668 (June 24, 2025), MN HF 4532 (Mar 2026, threshold removed). Illinois's bill predates New York's passage, so direction of influence within this cluster is not established; the shared features (compute-cost thresholds, 90-day reports, annual audit, whistleblower private action) point to a common drafting source rather than sequential copying. *TFAIA cluster* — CA SB 53 (Sept 2025) → NY Chapter 96 (Mar 2026) → IL SB 315 (July 2026, + audit), with MA H.5576's Senate text, LA SB 474, TN HB 1898, **UT HB 286**, and NJ S.4446/A.5275 as variants. **Supportable claim:** New York and Illinois demonstrably shifted from the SSP/audit structure toward the TFAIA framework (NY by amending its own law; IL by moving away from HB 3506 to SB 315); Michigan and Minnesota retain variants of the earlier approach.",
+  "assurance": {
+   "heading": "K.2 Assurance layers",
+   "intro": [
+    "One \"third-party audit\" column hid the distinction that matters most for the paper. Three separable layers:"
+   ],
+   "columns": [
+    "**Jurisdiction / bill**",
+    "**1. Developer self-governance (published framework + disclosures)**",
+    "**2. Compliance audit (did the developer follow its own framework?)**",
+    "**3a. Independent technical risk evaluation (does the model pose catastrophic risk?)**",
+    "**3b. Auditor/evaluator accreditation (who may perform 2 or 3a?)**"
+   ],
+   "rows": [
+    [
+     "CA SB 53 (+ AB 1405 / SB 813 on Governor's desk)",
+     "yes",
+     "—",
+     "—",
+     "**AB 1405: mandatory registration for anyone conducting a state-law-required AI audit (from 2029); SB 813: voluntary GovOps-designated IVOs (by 2028)**"
+    ],
+    [
+     "NY RAISE (enacted)",
+     "yes",
+     "**removed**",
+     "—",
+     "—"
+    ],
+    [
+     "NY S.10373 (pending)",
+     "—",
+     "**annual**",
+     "partly (verifier checks statements vs. findings)",
+     "**DFS accreditation, mandatory from 2029**"
+    ],
+    [
+     "NY S.10456 (pending)",
+     "**state-set minimum standards** for the framework",
+     "—",
+     "—",
+     "—"
+    ],
+    [
+     "IL SB 315",
+     "yes",
+     "annual (2028)",
+     "—",
+     "auditor-independence rules only"
+    ],
+    [
+     "MI HB 4668",
+     "yes",
+     "annual",
+     "—",
+     "—"
+    ],
+    [
+     "MA (Senate text)",
+     "yes",
+     "—",
+     "**every 120 days**",
+     "—"
+    ],
+    [
+     "NJ S.4446/A.5275",
+     "yes (to AG, NIST-RMF-mapped)",
+     "discretionary AG audit",
+     "—",
+     "—"
+    ],
+    [
+     "LA SB 474",
+     "yes",
+     "annual (2028) + self-certification",
+     "—",
+     "—"
+    ],
+    [
+     "TN HB 1898",
+     "yes",
+     "\"independent reviews\"",
+     "—",
+     "—"
+    ],
+    [
+     "UT HB 286",
+     "yes",
+     "—",
+     "child-risk assessments may involve third-party evaluators",
+     "—"
+    ],
+    [
+     "MN HF 4532 (no threshold)",
+     "yes (protocol)",
+     "—",
+     "—",
+     "—"
+    ],
+    [
+     "CT SB 5",
+     "—",
+     "—",
+     "pilot participants may seek verification",
+     "DCP-administered IVO **pilot through June 30, 2030**"
+    ],
+    [
+     "OH HB 628",
+     "—",
+     "—",
+     "voluntary IVO verification",
+     "**voluntary license**, IVO-defined scope"
+    ],
+    [
+     "MN HF 4544 / SF 4636",
+     "—",
+     "—",
+     "voluntary IVO verification with a rebuttable presumption against liability",
+     "**risk-specific Commerce license**; advisory council; ongoing monitoring"
+    ],
+    [
+     "VA Ch. 425/426",
+     "—",
+     "—",
+     "—",
+     "JCOTS **study**"
+    ],
+    [
+     "H.R. 9925 FRONTIER",
+     "yes",
+     "annual (large tier)",
+     "**IVO ongoing assessment ≥6-monthly (very large tier)**",
+     "**federal IVO licensing**"
+    ],
+    [
+     "H.R. 9965 ATOMIC",
+     "—",
+     "—",
+     "**mandatory DOE/NNSA nuclear-risk evaluation with weight access**",
+     "—"
+    ],
+    [
+     "S. 5061 Warner",
+     "—",
+     "—",
+     "**mandatory NSA pre-deployment testing**",
+     "—"
+    ],
+    [
+     "S. 2938 Hawley-Blumenthal",
+     "—",
+     "—",
+     "**mandatory DOE evaluation program**",
+     "—"
+    ]
+   ]
+  }
+ },
+ "methodology": {
+  "heading": "L. Completeness methodology and known gaps",
+  "paragraphs": [
+   {
+    "label": "How this list was built.",
+    "text": "**How this list was built.** Bills were found via (a) the user's seed list, (b) secondary trackers and law-firm alerts, (c) targeted sweeps for compute-threshold, \"frontier developer,\" \"catastrophic risk,\" and IVO/auditor language, (d) FPF's *The State of State AI 2025* (Oct. 2025), which tracked **210 industry-facing AI bills in 42 states** and classified **2.9% (≈6 bills) as frontier/foundation-model legislation**, and (e) direct keyword searches of the [NCSL Artificial Intelligence Legislation Database](https://www.ncsl.org/financial-services/artificial-intelligence-legislation-database), updated Sept. 1, 2026."
+   },
+   {
+    "label": "Accuracy-hardening protocol used in the Sept. 5 recertification:",
+    "text": "**Accuracy-hardening protocol used in the Sept. 5 recertification:** (1) pin every legal proposition to the relevant bill version, enrolled act, final rule/order, official action page, or docket; (2) separate a source-established fact from the researcher's comparison or inference; (3) use secondary reporting only when the operative document is nonpublic, and say exactly what remains unverified; (4) convert absolute absence claims into date-bounded **SEARCH-QUALIFIED** results; (5) avoid upgrading a row merely because several secondary sources repeat the same originating report; and (6) preserve contradictory or superseded versions rather than silently blending them. This protocol improves accuracy more than forcing every item into a HIGH bucket."
+   },
+   {
+    "label": "Coverage against those baselines:",
+    "text": "**Coverage against those baselines:** CA (SB 53), NY (RAISE), MI (HB 4668), IL (**HB 3506 — the 2025 bill FPF counted**, plus 2026's SB 315 / SB 3312 / HB 4705 / SB 3261 / HB 4799 / SB 3444) and RI (S.358 / H.5224) are all included — **the FPF 2025 frontier set is fully identified by bill number.** The 2026 sweep and reviews added MA, NJ, MN (including the no-threshold RAISE bill and the IVO pair), TN, LA, UT, NY S.10373/S.10456, the IVO measures in CA, OH, VA, CT, and MN, and the federal measures listed in Sections D–F. The NCSL \"frontier\" search produced 11 bills in five states for 2026 and exposed the previously missing **Utah H.B. 286**; the NCSL \"independent verification organization\" search exposed the previously missing **Minnesota H.F. 4544 / S.F. 4636**. Other NCSL hits using \"frontier\" only for workforce or quantum-technology topics were excluded as false positives."
+   },
+   {
+    "label": "Residual limitation:",
+    "text": "**Residual limitation:** NCSL's keyword results omit several independently verified bills already in this tracker and therefore function as a cross-check, not an exhaustive frontier-AI index. The [IAPP State AI Governance tracker](https://iapp.org/resources/article/us-state-ai-governance-legislation-tracker) was also reviewed, but its public page was last updated Apr. 28, 2026 and focuses on broadly applicable private-sector governance, so it cannot validate late-2026 or narrowly scoped IVO additions. Newly introduced bills or post-Sept. 5 status changes may still exist. Two-reviewer provenance: rows marked ⟨R⟩ or ⟨NCSL⟩, and several HIGH ratings on sites that block automated access (cga.ct.gov, capitol.tn.gov, leginfo.ca.gov, some ilga.gov full-text pages, Federal Register public-inspection PDFs), rest on the external reviewer's direct reads; the items independently re-opened in this pass are the Anthropic v. Department of War complaint, Utah H.B. 286's official page, and Anthropic's June 30 post. The defensible description is: **\"primary-source verified within stated selection criteria; comprehensive to the FPF 2025 baseline and cross-checked against the Sept. 1, 2026 NCSL database; not guaranteed exhaustive.\"**"
+   },
+   {
+    "label": "Supplementary check (Sept. 28, 2026) ⟨U⟩:",
+    "text": "**Supplementary check (Sept. 28, 2026) ⟨U⟩:** rows marked ⟨U⟩ were added or changed in checks on Sept. 28 and Sept. 29, 2026 of the period Aug. 28–Sept. 29, 2026 using the Governor of California's legislative updates and releases, GovInfo bill-status records for every federal bill in this tracker and for newly numbered bills, malegislature.gov, legislature.mi.gov, illinois.gov, sponsor releases and bill prints, and court reporting for the Anthropic litigation. Operative documents **not opened** in that check, and therefore capped at MED-HIGH: the chaptered texts of AB 1405 (Ch. 178) and SB 813 (Ch. 179); the N.D. Cal. summary-judgment order of Aug. 27, 2026; the D.C. Circuit opinion of Sept. 25, 2026 (Nos. 26-1049, 26-1162); California EO N-9-26 and Oregon EO 26-26. Bill numbers **not located**: the Warner–Schatz–Kim Artificial Intelligence Risk Management and Security Act and the Liccardo–Kiley U.S.–China bill (the numbers H.R. 10362, S. 5471 and H.R. 10567 were resolved from GovInfo bill status on Sept. 29); the AI Regulator Act was not found among Senate introductions of Sept. 23–24. Date-bounded negatives as of Sept. 28, 2026: no new federal AI executive order since EO 14409; no Commerce evaluation of \"onerous\" state AI laws; no DOJ AI Litigation Task Force suit against a frontier law; no new CAISI agreements since May 5, 2026; no further action on S. 2938, S. 5061, H.R. 9965, S. 4656, H.R. 10180, S. 3150 or H.R. 9363. Sites blocking automated access in this pass: leginfo.ca.gov, nysenate.gov, congress.gov, legiscan.com, CourtListener and Justia dockets. The AAF cross-check on the Comparison tab was not refreshed. The Sept. 29 pass added NY S.10701, PA H.B. 2800, the Florida injunction motion and the White House accord after reading the two bills' introduced texts on nyassembly.gov and palegis.us. The ratings in this supplementary check follow the same key as the Sept. 5 recertification. A separate **News** tab on the website records September's hearings, letters, investigations and industry incidents; those items are not tracker entries."
+   },
+   {
+    "label": null,
+    "text": "*Next step: run each Category A/B/D row through the ambiguity taxonomy. Strongest case-study candidates now: (1) FRONTIER Sec. 9's \"new substantive obligations\" — does \"adopt or enforce ... new\" displace existing state laws, as the sponsor summary says it's \"aimed\" to, or only future ones? (2) MI HB 4668 as a frozen copy of a template NY abandoned. (3) NJ A.5275's orphaned \"critical safety incident\" definition. (4) IL SB 315's deemed-compliance clause letting a state AG enforce federal standards. (5) IL SB 315's 2027/2028 gap — transparency reports due from 2027 must summarize assessments under a framework not required until 2028. (6) The split-forum structure of the § 3252 / § 4713 supply-chain designations against a frontier developer.*"
+   }
+  ]
+ },
+ "about": {
+  "heading": "About this site",
+  "blocks": [
+   {
+    "type": "h3",
+    "text": "What this is and how it was made"
+   },
+   {
+    "type": "p",
+    "text": "A reading view of the *US Frontier AI Legislation Tracker (2025–2026)*, whose source document is titled *US Frontier AI Legislation Tracker (2025–2026) — Corrected Primary-Source Audit*: “primary-source audit” because every row was checked against operative records rather than reporting, and “corrected” because it is the revision that followed an external review on September 4, 2026 and an NCSL cross-check. The site shows the shorter title; the subtitle is the only change to the tracker's text. It is a primary-source audit of state and federal bills, enacted laws, executive actions, litigation and export controls that target frontier AI developers, together with the independent-verification-organization and AI-auditor licensing bills that form a distinct sub-category. The tracker's text is shown without editorial change. Every entry keeps the tracker's own column headings, column order, confidence ratings, status classes, dates and source links."
+   },
+   {
+    "type": "h4",
+    "text": "How it was made"
+   },
+   {
+    "type": "ol",
+    "items": [
+     "The tracker was written as a markdown document and exported from Google Docs. The export is kept unchanged in the repository for provenance.",
+     "Two artifacts of that export were reversed and nothing else: markdown characters inside table cells that the export had backslash-escaped, and table header rows that the export had pushed into the first body row. The result is the markdown of record.",
+     "A build script renders that markdown to this page. Each table row becomes one entry; each column becomes a labelled field under the tracker's own heading, in the tracker's order. The two comparison matrices in section K stay as tables. The exclusion list in section J is a definition list.",
+     "The document is split into sections at its own headings, grouped for navigation, and given a directory, jump lists, search and previous/next links. The confidence key and verification note live on this page."
+    ]
+   },
+   {
+    "type": "h4",
+    "text": "Checks that run on every build"
+   },
+   {
+    "type": "ul",
+    "items": [
+     "Every table cell in the markdown must be rendered exactly once. The build stops otherwise.",
+     "Every link, as a text-and-URL pair, must appear in the page.",
+     "Every word of the markdown must appear in the page at least as often as in the source.",
+     "A second, independently written checker parses the markdown tables and the published HTML and confirms that each cell sits under its own heading, in its own entry, in the tracker's column order, with its links, and that every paragraph is present."
+    ]
+   },
+   {
+    "type": "h3",
+    "text": "The derived views"
+   },
+   {
+    "type": "h4",
+    "text": "Map"
+   },
+   {
+    "type": "p",
+    "text": "A relationship map drawn from the tracker's own statements: drafting families, predecessors and amendments, federal preemption and reciprocity, orders that drove later actions, litigation, the auditor layer, and named sponsors, supporters, opponents and parties. Each relationship is stored with the tracker clause it comes from, and the build refuses any relationship whose clause is not found verbatim in the tracker. Dashed lines are relationships the tracker itself qualifies. Lines carry no quantity and are drawn at one width."
+   },
+   {
+    "type": "h4",
+    "text": "Changes over time"
+   },
+   {
+    "type": "p",
+    "text": "Every date in the tracker's Signed, Effective, Status, Introduced and Date cells becomes an event carrying the entry it belongs to, the column it came from, the clause of text around it, and an event type inferred from the words in that clause. Where the tracker gives only month and day, the year is taken from the same cell and the event is marked as inferred. Hovering a mark shows the original cell text, and a table view lists every event."
+   },
+   {
+    "type": "h4",
+    "text": "Comparison table"
+   },
+   {
+    "type": "p",
+    "text": "Every entry as one row with the tracker's Sponsor, mechanism, threshold, status, source and confidence cells placed under their own headings, sortable and filterable, with a CSV download. Below it, a cross-check against the American Action Forum's list of federal AI bills records which bills appear in both, which AAF bills fall within or near the tracker's frontier scope but are not yet entries, and which tracker bills AAF lacks. Those candidates are for the tracker's verification process; they are not entries."
+   },
+   {
+    "type": "h4",
+    "text": "Handbook"
+   },
+   {
+    "type": "p",
+    "text": "The *Plain-English Handbook for the Frontier AI Law Audit (2025–26)*, a companion guide to the US legal system, legislative procedure, statutory reading, AI-governance vocabulary, enforcement, preemption, litigation terms and research method. Its text is shown verbatim, one chapter at a time; glossary entries become term cards, numbered procedures become step cards, and the ten closing rules become rule cards. Trailing colons on glossary terms are dropped in the card headings, and the build checks that every word of the handbook appears on the page."
+   },
+   {
+    "type": "h3",
+    "text": "Confidence key, sources and updates"
+   },
+   {
+    "type": "p",
+    "text": "The following text is the tracker's own introduction, reproduced verbatim."
+   },
+   {
+    "type": "p",
+    "text": "**Confidence key** (applies to the row as a whole; individual cells noted where they differ):"
+   },
+   {
+    "type": "ul",
+    "items": [
+     "HIGH — the load-bearing proposition was checked directly against an operative primary record (statute/bill text, official legislature action page, rule/order, docket or first-party program record)",
+     "MED-HIGH — strong corroboration, but a load-bearing primary record is nonpublic, inaccessible, or does not itself establish the full proposition",
+     "MED — two or more concurring reputable secondary sources; primary material does not establish the key detail",
+     "SEARCH-QUALIFIED — a date-bounded negative finding (for example, \"no case located\"), not proof that an event does not exist",
+     "LOW — single source, or key details thin/unverified"
+    ]
+   },
+   {
+    "type": "p",
+    "text": "Verified as of **September 5, 2026**. Legislative status changes weekly — re-check the primary link before citing. Confidence is assessed **per claim** where cells differ; the row rating is the weakest load-bearing claim in the row. Items marked ⟨R⟩ were first identified by an external review (Sept. 4, 2026) and then independently checked unless a cell expressly says otherwise. ⟨NCSL⟩ marks an item discovered in the final NCSL keyword cross-check. ⟨U⟩ marks a row added or changed in a supplementary check through **September 29, 2026**; those rows carry their own dates and ratings, and the Sept. 5 recertification statement below does not cover them (see the supplementary note at the end of Section L)."
+   },
+   {
+    "type": "h4",
+    "text": "Link check"
+   },
+   {
+    "type": "p",
+    "text": "Every unique link in the tracker was requested on 2026-09-08. 101 returned 200. 13 returned 403 from sites that block automated access, which matches the tracker's own note about such sites. 1 returned 404. No link was changed as a result; the full report is in the repository."
+   },
+   {
+    "type": "h4",
+    "text": "Source and updates"
+   },
+   {
+    "type": "p",
+    "text": "The markdown of record, the raw export, the build and the checks are in the [repository](https://github.com/KUNALSINGH9373/us-frontier-ai-legislation-tracker). To update, edit the markdown, run the build and the verifier, and push; the site redeploys. [Download the markdown](downloads/tracker.md)."
+   }
+  ]
+ },
+ "handbook": {
+  "title": "Plain-English Handbook for the Frontier AI Law Audit (2025–26)",
+  "intro": "**Purpose.** This handbook explains the U.S. legal system, legislative terminology, regulatory materials, litigation language, AI-governance vocabulary, and research methods needed for the project. It is written for a researcher without prior U.S. legal training.\n\n**Important limitation.** This is a research guide, not legal advice. A court, agency, or attorney dealing with a real dispute may need to consider additional authorities and facts.",
+  "chapters": [
+   {
+    "n": 1,
+    "title": "The essential mental model",
+    "md": "The United States does not have one single lawmaker. Several overlapping institutions make and interpret law:\n\n1. **The federal government** acts nationally through Congress, the President, federal agencies, and federal courts.\n2. **Each state** has its own constitution, legislature, governor, agencies, statutes, and courts.\n3. **Local governments**—cities and counties—may also legislate when state law allows them to do so.\n\nThat structure is called **federalism**. A company can therefore be subject to federal law, several state laws, and sometimes local ordinances at the same time. Federal law does not automatically cancel state law merely because both address AI. Displacement requires a valid federal rule of law and a legally sufficient form of **preemption**.\n\nFor this project, always ask four separate questions:\n\n1. **What document is this?** A bill, enacted statute, executive order, regulation, guidance document, court filing, or judicial decision?\n2. **Who issued it, and under what authority?** Congress, a state legislature, a president or governor, an agency, or a court?\n3. **What legal effect does it have now?** Binding law, a future obligation, a proposal, an interpretation, evidence of history, or merely political commentary?\n4. **Who can enforce it, against whom, for what conduct, and with what remedy?**\n\nThe answer to the first question determines how much legal weight the document deserves. The second identifies the limits of the issuing institution's power. The third prevents a proposed bill or policy announcement from being mistaken for current law. The fourth reveals whether an apparent duty is practically enforceable.",
+    "slug": "1-the-essential-mental-model"
+   },
+   {
+    "n": 2,
+    "title": "The branches of government",
+    "md": "### 2.1 Legislative branch\n\nThe **legislative branch** writes and passes legislation.\n\n- At the federal level it is **Congress**, composed of the **House of Representatives** and the **Senate**.\n- State legislatures normally have two chambers as well. Their names vary: California has an Assembly and Senate; New York has an Assembly and Senate; Massachusetts calls its legislature the **General Court**.\n- **Bicameral** means having two legislative chambers.\n\nA proposal normally must pass both chambers in identical form before it can be presented to the President or governor. Passage by one chamber is significant political progress, but it is not enactment.\n\n### 2.2 Executive branch\n\nThe President leads the federal executive branch; a governor leads a state's executive branch. Executive officials implement and enforce legislation through departments and agencies.\n\nExamples in this project include:\n\n- the **Department of Justice (DOJ)** and the **Federal Trade Commission (FTC)** at the federal level;\n- the California Attorney General and Government Operations Agency;\n- New York's Department of Financial Services;\n- Connecticut's Department of Consumer Protection.\n\nThe executive generally cannot rewrite a statute. It may possess delegated authority to make regulations, investigate violations, bring enforcement actions, issue guidance, or decide specified factual questions.\n\n### 2.3 Judicial branch\n\nCourts decide actual legal disputes. They interpret constitutions, statutes, regulations, and other legal materials. A court can enjoin enforcement, invalidate an unlawful provision, construe ambiguous language, award authorized relief, or dismiss a case without reaching the merits.\n\nFederal **district courts** are trial courts. Federal **courts of appeals** review district-court decisions. The **Supreme Court of the United States** is the highest federal court. Each state has a separate state-court system.",
+    "slug": "2-the-branches-of-government"
+   },
+   {
+    "n": 3,
+    "title": "What counts as law—and what does not",
+    "md": "### 3.1 Constitution\n\nA **constitution** is the highest source of law within its system. The U.S. Constitution limits federal and state governmental action and divides power among institutions. State constitutions perform a similar role within each state but remain subordinate to valid federal constitutional and statutory law.\n\n### 3.2 Bill\n\nA **bill** is proposed legislation. It is not a law merely because it has a bill number, official text, sponsors, hearings, or even passage by one chamber.\n\nProject examples:\n\n- **H.R. 9925** means House of Representatives bill 9925.\n- **S. 5061** means U.S. Senate bill 5061.\n- **S.B. 53** means Senate Bill 53 in California.\n- **A.B. 1405** means Assembly Bill 1405 in California.\n- **H.B. 4668** means House Bill 4668 in Michigan.\n- Massachusetts commonly uses **H.5576** and **S.3228**.\n\nBill numbers are jurisdiction- and session-specific. “SB 53” alone is ambiguous because many states can have an SB 53. Always include the jurisdiction and session or year.\n\n### 3.3 Act, public law, session law, chapter, and statute\n\nOnce legislation is legally adopted, it becomes an **act** or **law**. The terminology differs by jurisdiction:\n\n- A federal enacted bill receives a **Public Law** number, such as “Pub. L. 119-___.”\n- Illinois and Connecticut use **Public Act** numbers.\n- California and New York assign a **chapter** number in the year's session laws.\n- **Session laws** preserve enactments in chronological order.\n- A **code** reorganizes general and permanent laws by subject.\n\nAt the federal level, the **Statutes at Large** preserve laws chronologically as enacted, while the **United States Code (U.S.C.)** organizes current general and permanent federal statutes by subject. GovInfo describes the Statutes at Large as the permanent chronological collection of enacted laws. The Code is more convenient for current subject-based research, but recent amendments may require checking the session law and classification tables.\n\n### 3.4 Regulation\n\nA **regulation** or **rule** is law made by an administrative agency under authority delegated by a statute. A valid final legislative rule can bind regulated parties. Agencies generally publish proposed rules, receive public comments, and then issue final rules, subject to statutory exceptions.\n\nFederal rules appear first in the **Federal Register**, the federal government's daily official journal, and general permanent rules are organized in the **Code of Federal Regulations (C.F.R.)**.\n\n### 3.5 Executive order\n\nAn **executive order (EO)** is a numbered presidential directive used principally to manage the federal executive branch. It can direct agencies to take lawful actions, set executive policy, create task forces, or coordinate enforcement. Its force depends on constitutional or statutory authority.\n\nAn EO is not an act of Congress. It cannot, by announcement alone, repeal a state statute, create powers Congress has not supplied, or decide conclusively that a state law is unconstitutional. It can nevertheless produce major real-world consequences through enforcement priorities, grant conditions, procurement, agency action, and litigation.\n\nIn the dataset, **EO 14365** belongs in implementation context because it directs federal actors and helps explain later DOJ and FTC activity; it does not itself impose the audited disclosure or audit duties on frontier developers.\n\n### 3.6 Guidance, memorandum, policy statement, framework, and press release\n\n- **Guidance** explains how an agency understands or intends to administer law. It is usually not independently binding in the way a statute or regulation is.\n- A **memorandum** records directions, legal analysis, or internal policy. A DOJ memorandum establishing a task force is evidence that implementation machinery exists.\n- A **policy statement** announces an agency's enforcement or interpretive position. It may strongly influence conduct but is not automatically equivalent to a final regulation or judicial holding.\n- A governmental **framework** often means recommendations or an organizing policy document. Its legal force must be examined rather than assumed.\n- A **press release** proves that an institution publicly announced something. It does not substitute for the underlying bill, signed act, regulation, order, or court filing.\n\nGAO summarizes the usual hierarchy simply: statutes and binding regulations have legal force; guidance generally does not, although it can reveal the agency's interpretation and influence enforcement.\n\n### 3.7 Discussion draft\n\nA **discussion draft** is proposed text circulated for feedback before—or instead of—formal introduction as a bill. It has no direct legal force and may never receive a bill number.\n\nFor this project, the Great American AI Act and TRUMP AMERICA AI Act discussion drafts are drafting history and comparative designs. They are not pending bills unless formally introduced.\n\n### 3.8 Court filing versus court decision\n\nA **complaint**, brief, motion, or intervention filing contains a party's allegations and arguments. It is not a court's ruling and should never be described as though the court accepted its claims.\n\nAn **order**, judgment, or opinion records judicial action. Even then, the precise issue decided, procedural stage, jurisdiction, later history, and precedential effect must be checked.",
+    "slug": "3-what-counts-as-law-and-what-does-not"
+   },
+   {
+    "n": 4,
+    "title": "The life cycle of a bill",
+    "md": "Procedures vary by jurisdiction, but the following vocabulary is widely useful. The Congressional Research Service cautions that the real process is not always linear and that many bills do not follow every textbook stage.\n\n### 4.1 Drafting and introduction\n\n- **Drafting:** converting a policy idea into legislative language.\n- **Sponsor:** legislator who formally introduces or leads the bill.\n- **Cosponsor:** legislator who formally associates with the proposal but is not necessarily its author.\n- **Introduction:** formal placement of the bill before a chamber and assignment of a number.\n- **Session/biennium:** the legislative period in which the bill exists. The 119th Congress and the states' 2025–26 sessions are two-year cycles.\n\n“Introduced” means only that formal legislative consideration became possible.\n\n### 4.2 Referral and committee work\n\n- **Referral:** assignment to a committee with subject-matter jurisdiction.\n- **Standing committee:** permanent committee covering a policy field.\n- **Re-referral:** moving a bill to another committee, often after action, discharge, or recognition that another committee has jurisdiction.\n- **Hearing:** meeting at which legislators receive testimony or evidence. A hearing does not equal a vote.\n- **Markup:** meeting at which a committee debates, amends, and votes on a measure; this term is especially common in Congress.\n- **Reported/report out:** committee sends the bill onward, often with a recommendation.\n- **Favorable report:** recommendation that the chamber advance or pass the measure.\n- **Adverse report:** recommendation against passage.\n- **Discharge:** removal of a bill from a committee so the chamber may act without waiting for the committee.\n- **No action:** the committee leaves the bill untouched. Many bills die this way without a formal rejection vote.\n\nMichigan HB 4668 illustrates why exact language matters: “reported with recommendation for referral,” “discharged,” and “re-referred” are distinct procedural events.\n\n### 4.3 Readings, calendars, and floor action\n\n- **First, second, and third reading:** formal legislative stages. In many legislatures, reading the title satisfies the reading requirement.\n- **Calendar/general orders/orders of the day:** list of matters eligible or scheduled for chamber action. Placement on a calendar is not passage.\n- **Floor:** the full chamber, as distinguished from a committee.\n- **Debate:** formal discussion by members.\n- **Amendment:** proposed change to the text.\n- **Substitute:** replacement text offered under the existing measure. A substitute can transform a bill substantially without changing its number.\n- **Roll-call vote:** recorded vote identifying how members voted.\n- **Voice vote:** result determined from spoken responses without necessarily recording each member.\n- **Quorum:** minimum membership required to conduct business.\n- **Majority:** more votes for than against under the applicable rule; some actions require a majority of the full membership rather than merely those voting.\n- **Supermajority:** greater threshold, commonly two-thirds or three-fifths.\n- **Passed/approved by a chamber:** that chamber agreed to the bill. The bill is not yet enacted if the other chamber or executive must still act.\n\n### 4.4 Engrossed, enrolled, concurrence, and conference\n\n- **Engrossed text:** generally a formally prepared version incorporating amendments adopted by a chamber. Exact usage varies. In Massachusetts, “passed to be engrossed” is a distinctive stage before final enactment votes.\n- **Concurrence:** one chamber agrees to amendments made by the other.\n- **Nonconcurrence:** a chamber refuses those changes.\n- **Conference committee:** temporary committee formed to negotiate differences between chamber versions.\n- **Conference report:** negotiated compromise submitted to both chambers, usually for an up-or-down vote.\n- **Enrolled bill:** final text passed in identical form and prepared for presentation to the President or governor.\n\nFor substantive analysis, the enrolled text is normally safer than an introduced, amended, or chamber-passed version because it represents the text sent for executive action.\n\n### 4.5 Executive action\n\n- **Presented to the President/governor:** formally delivered for executive consideration.\n- **Signed:** executive approved the bill.\n- **Vetoed:** executive rejected it.\n- **Veto override:** legislature enacts the bill despite the veto using the constitutionally required supermajority.\n- **Pocket veto:** in specified circumstances, executive inaction prevents enactment. The rules vary between federal and state systems.\n- **Becomes law without signature:** some systems treat executive inaction during a specified period as approval.\n- **Chaptered:** assigned a chapter number and placed in the session laws after enactment.\n\n### 4.6 Enacted, effective, and operative are different\n\nThis distinction is essential:\n\n- **Enactment/signing date:** date the law was legally adopted.\n- **Effective date:** date the law, or a specified section, formally takes effect.\n- **Operative/compliance date:** date a particular duty must actually be performed.\n- **Reporting period:** time covered by a required report; it may begin before the filing deadline.\n- **Implementation deadline:** date by which an agency must create rules, forms, a registry, or another system.\n\nExample: a statute can be signed in 2026, become effective in 2027, and require audits beginning in 2028. Describing all three simply as “starts in 2027” would be misleading.\n\n### 4.7 Pending, stalled, failed, repealed, and replaced\n\n- **Pending:** still legally capable of legislative action in the current session.\n- **Stalled:** descriptive research term, not usually a formal status. State the last official action and date instead.\n- **Failed/defeated:** rejected in a vote or rendered incapable of passage when the session ended. Confirm carryover rules before declaring a bill dead.\n- **Vetoed:** rejected by the executive; distinguish this from defeat in the legislature.\n- **Repealed:** an enacted law or provision was formally removed.\n- **Amended:** existing law was changed but continues in altered form.\n- **Replaced/superseded:** a later enactment establishes a substitute regime. Identify whether the earlier text was expressly repealed or merely displaced.\n\nThe New York RAISE history should therefore identify both the original chapter and the 2026 repeal-and-replacement enactment.",
+    "slug": "4-the-life-cycle-of-a-bill"
+   },
+   {
+    "n": 5,
+    "title": "How to read a statute",
+    "md": "Do not begin by asking, “Is this a good law?” Begin by mapping the legal mechanism.\n\n### 5.1 Anatomy of a statute\n\nA statute may contain:\n\n- **Long title:** formal description of the legislation.\n- **Short title/popular name:** convenient name, such as the RAISE Act.\n- **Findings:** legislature's factual or policy statements.\n- **Purpose:** stated objective.\n- **Definitions:** special meanings controlling the rest of the text.\n- **Scope/coverage:** persons, conduct, places, products, and time periods governed.\n- **Operative provisions:** actual commands, prohibitions, permissions, or conditions.\n- **Exceptions/exemptions:** situations removed from a general rule.\n- **Administration/rulemaking:** powers given to agencies.\n- **Enforcement:** who may investigate or sue.\n- **Penalties/remedies:** consequences of violation.\n- **Preemption:** displacement of another government's rules.\n- **Effective-date and transition provisions:** when duties begin and how old situations are treated.\n- **Severability:** whether valid portions should survive if one part is invalid.\n\n### 5.2 Section hierarchy\n\nLegal texts are divided into levels. A reference such as **§ 7(b)(2)(A)(i)** means:\n\n- section 7;\n- subsection (b);\n- paragraph (2);\n- subparagraph (A);\n- clause (i).\n\nAlways quote or cite the smallest provision that supports the statement, while reading enough surrounding text to understand it.\n\n### 5.3 Defined terms\n\nDefinitions often determine the outcome. Check whether a word is capitalized or expressly defined.\n\n- **“Means”** usually introduces a closed definition.\n- **“Includes”** often signals a non-exhaustive list, although context matters.\n- **“For purposes of this section”** limits the definition to that section.\n- **Cross-reference:** instruction to use another provision's definition or rule.\n\nFor every project law, build a definition chain for at least: covered model, developer, large developer, frontier model, training, fine-tuning, critical/catastrophic risk, safety incident, material modification, audit, auditor, and affiliate.\n\n### 5.4 Operative verbs and connectors\n\n- **Shall/must:** ordinarily mandatory.\n- **May:** ordinarily permissive or discretionary.\n- **May not/shall not:** prohibition.\n- **And:** normally requires all connected elements.\n- **Or:** normally allows alternatives, but inclusive versus exclusive usage can be disputed.\n- **Unless/except:** introduces a condition that removes cases from the main rule.\n- **Provided that:** adds a condition or qualification.\n- **To the extent:** limits a duty to the specified degree.\n- **Including:** normally gives examples rather than a complete list.\n\nDo not treat any single word mechanically. Read the entire provision, definitions, exceptions, and enforcement scheme.\n\n### 5.5 Standards that create discretion\n\nThese words deliberately require judgment:\n\n- **reasonable/reasonably;**\n- **appropriate;**\n- **material;**\n- **substantial;**\n- **foreseeable;**\n- **imminent;**\n- **good faith;**\n- **practicable;**\n- **sufficient;**\n- **as determined by** a named official or entity.\n\nSuch language is not automatically a loophole. The audit must ask whether the statute supplies factors, documentation, review, consistency requirements, or an independent decision-maker that disciplines the discretion.\n\n### 5.6 Mental-state terms\n\n- **Knowledge/knowingly:** awareness required by the provision.\n- **Willful/willfully:** intentional conduct; exact legal meaning varies by statute.\n- **Reckless:** conscious disregard of a substantial risk.\n- **Negligent:** failure to exercise legally required care.\n- **Good faith:** honest effort or belief, often relevant to defenses or reduced liability.\n- **Strict liability:** liability without proving a specified mental state, although other elements still must be established.\n\nAlways check whether the mental-state word modifies the violation, the reporting failure, the underlying harm, or only the penalty.\n\n### 5.7 Important risk-allocation devices\n\n- **Exception:** conduct is outside the general rule when specified conditions exist.\n- **Exemption:** person or category is removed from coverage.\n- **Safe harbor:** satisfying stated conditions protects a person from specified liability or enforcement.\n- **Affirmative defense:** defendant avoids liability by proving additional facts after the claimant establishes the basic claim.\n- **Deemed compliance:** the law treats compliance with one standard as satisfying another specified requirement.\n- **Reciprocity:** one jurisdiction recognizes compliance, approvals, or acts from another regime.\n- **Waiver:** intentional relinquishment of a right or requirement when legally permitted.\n- **Rebuttable presumption:** court begins with an assumed fact, but opposing evidence may defeat it.\n- **Conclusive presumption:** assumption cannot be rebutted for the specified purpose.\n- **No presumption/no inference:** legislature directs the decision-maker not to treat an event as automatically proving or disproving another matter.\n\nThese are not interchangeable. Illinois's federal deemed-compliance mechanism and New York's incident-reporting reciprocity must be analyzed according to their exact scope.\n\n### 5.8 Amendments, codification, and conflicts\n\n- **Amendatory act:** changes existing statutory text.\n- **Codification:** integration of session-law provisions into the subject-organized code.\n- **Uncodified provision:** legally operative text left in the session law rather than integrated into the code.\n- **Conforming amendment:** adjusts related provisions to remain consistent.\n- **Technical amendment:** intended to correct form or coordination rather than policy, although the actual text controls.\n- **Chaptering out:** in California, two enacted bills amend the same code section and the later chapter can displace the earlier version unless coordination language preserves both.\n- **Severability clause:** expresses a preference that remaining provisions survive if one provision is invalid.\n- **Savings clause:** preserves specified rights, proceedings, duties, or other law despite repeal or change.\n- **Retroactive:** applies to conduct or events before enactment or effective date.\n- **Prospective:** applies only going forward.\n- **Sunset:** provision or program expires automatically on a specified date.\n- **Pilot program:** temporary, limited experiment designed to generate evidence before permanent adoption.",
+    "slug": "5-how-to-read-a-statute"
+   },
+   {
+    "n": 6,
+    "title": "Coverage and threshold terminology in the AI laws",
+    "md": "### 6.1 Covered person and regulated entity\n\nA **covered person** or **regulated entity** is someone to whom the duty applies. The category may depend on role, revenue, compute, geography, or control.\n\nPossible roles include:\n\n- **developer:** creates or trains a model;\n- **deployer:** uses a model in an operational setting;\n- **distributor/provider:** makes a model or service available;\n- **affiliate:** legally related company under common control;\n- **auditor/independent verification organization:** evaluates a system or compliance program.\n\nNever assume that “AI company” is the legal category. Use the statute's own definition.\n\n### 6.2 Frontier model and foundation model\n\nA **foundation model** is broadly trained and adaptable to many tasks. A **frontier model** usually refers to a highly capable model at or near the leading edge of capability. These are policy concepts, not uniform legal definitions. Each statute's wording controls.\n\n### 6.3 Compute threshold\n\nA threshold such as **10²⁶ computational operations** attempts to measure training computation. It is not the same as parameter count, performance, cost, or risk.\n\nAudit questions include:\n\n- Does the calculation include pretraining, fine-tuning, retraining, post-training, or multiple runs?\n- Can training be divided among related entities, facilities, or phases?\n- Is the threshold “greater than,” “at least,” or “equal to or greater than” the number?\n- Who calculates and verifies it?\n- What records must be retained?\n- Does the definition adapt as hardware and algorithms improve?\n\n### 6.4 Fine-tuning and material modification\n\n- **Fine-tuning:** additional training that adapts an existing model.\n- **Post-training:** broader family of techniques applied after main training.\n- **Material modification:** change important enough to trigger renewed duties.\n\n“Material” is a common audit point. Determine whether materiality turns on cost, compute, capability, risk, intended use, actual effects, or the developer's own judgment.\n\n### 6.5 Revenue and expenditure thresholds\n\nRevenue thresholds may refer to worldwide revenue, U.S. revenue, state revenue, AI revenue, gross revenue, or revenue of the whole corporate group. Expenditure thresholds may include research, training, compute procurement, employees, or only specified development expenses.\n\nCheck:\n\n- measurement period;\n- accounting method;\n- currency conversion;\n- affiliates and parent companies;\n- acquisitions and reorganizations;\n- whether “more than” differs from “at least”;\n- whether a company can cross or fall below the threshold midyear.\n\n### 6.6 Critical or catastrophic risk\n\nA **critical/catastrophic risk** definition normally combines a type of event, causation, severity, and probability or foreseeability. Death and monetary thresholds do not answer every question.\n\nAsk:\n\n- Must the model be the sole cause or merely a substantial contributor?\n- Are multiple incidents aggregated?\n- Does property damage include data, intellectual property, ecosystem damage, or economic loss?\n- Does “foreseeable” use an objective reasonable-developer standard or the company's actual knowledge?\n- Are harms outside listed categories excluded?\n\n### 6.7 Jurisdictional nexus\n\nA **nexus** is the legally sufficient connection between regulated conduct and the jurisdiction. New York's “in whole or in part in New York” wording is a nexus rule.\n\nPotential connecting facts include residence, incorporation, office location, training location, deployment, user location, injury, transaction, or availability over the internet. A vague or extremely broad nexus can create both compliance uncertainty and constitutional litigation risk.",
+    "slug": "6-coverage-and-threshold-terminology-in-the-ai-laws"
+   },
+   {
+    "n": 7,
+    "title": "The project’s substantive AI-governance terms",
+    "md": "### 7.1 Safety and security framework or protocol\n\nA **safety and security framework/protocol** is the developer's documented process for identifying, testing, mitigating, and responding to serious model risks.\n\nAn obligation to “have a framework” is different from a rule imposing minimum substantive safety performance. If the developer defines its own thresholds, acceptable risk, testing, and mitigation, the audit should examine whether transparency alone constrains those choices.\n\n### 7.2 Transparency report\n\nA **transparency report** is a recurring public or regulator-facing disclosure about the model, framework, assessments, incidents, or internal use.\n\nAudit questions:\n\n- What must be disclosed?\n- May trade-secret, security, or privileged information be withheld?\n- Who decides what is sensitive?\n- Must omissions be explained?\n- Is the report independently verified?\n- What happens if the report is accurate but the underlying framework is weak?\n\n### 7.3 Incident reporting\n\n**Incident reporting** requires notice after specified harmful or risky events.\n\nIdentify:\n\n- the triggering event;\n- when the reporting clock starts—occurrence, discovery, reasonable belief, or confirmation;\n- recipient agency or law-enforcement body;\n- initial and supplemental deadlines;\n- required contents;\n- confidentiality and public-disclosure rules;\n- penalties for late, incomplete, or inaccurate reports.\n\n“Within 24 hours if imminent” and “within 72 hours” are not meaningful without knowing the trigger and recipient.\n\n### 7.4 Assessment, evaluation, review, audit, and verification\n\nThese terms may overlap but are not synonyms:\n\n- **Assessment:** systematic examination; may be internal or external.\n- **Evaluation:** testing or measurement of model behavior or capability.\n- **Review:** broader inspection of work, documents, or decisions.\n- **Audit:** evidence-based examination against specified criteria, often accompanied by a report or opinion.\n- **Verification:** confirmation that a claim, control, process, or result meets specified requirements.\n\nThe **assurance object** is what is actually being tested: technical model behavior, risk-management process, legal compliance, financial controls, reported facts, or all of these. An “independent audit” can sound strong while testing only whether the developer followed its own framework.\n\n### 7.5 Independent third party and IVO\n\nAn **independent third party** should be structurally and financially capable of reaching an unbiased conclusion. An **independent verification organization (IVO)** is an entity formally recognized to conduct specified verification work.\n\nIndependence questions include:\n\n- Who hires, pays, and can fire the verifier?\n- Is payment contingent on the result?\n- Does the verifier sell consulting services to the same client?\n- Is there a cooling-off period?\n- May former employees audit their old work?\n- Who receives the full report?\n- Can the developer restrict access or publication?\n- Does an agency inspect verifier quality?\n\n**Conflict of interest** means a relationship or incentive capable of compromising objective judgment. Disclosure of a conflict is not always the same as eliminating it.\n\n### 7.6 Registry, designation, certification, and accreditation\n\n- **Registry:** official list of persons meeting registration requirements.\n- **Designation:** governmental recognition for a specified role.\n- **Certification:** representation that stated criteria are satisfied; identify who certifies and with what liability.\n- **Accreditation:** evaluation of the competence of an organization that performs certification, testing, or auditing.\n\nRegistration may screen entry without guaranteeing the quality of each audit. A voluntary IVO regime may impose duties on designated verifiers while imposing no duty on developers to hire them.\n\n### 7.7 Whistleblower and retaliation\n\nA **whistleblower** reports suspected wrongdoing, danger, or noncompliance. **Anti-retaliation** provisions prohibit adverse treatment because of protected reporting or participation.\n\nMap:\n\n- who is protected—employees, contractors, former workers, applicants;\n- what reports are protected;\n- internal versus government disclosure;\n- reasonable-belief or good-faith requirement;\n- confidentiality and anonymous channels;\n- prohibited actions—termination, demotion, threats, blacklisting;\n- burden of proof;\n- available remedies and filing deadlines.\n\nAn anonymous channel is a reporting mechanism, not by itself a full remedy for retaliation.\n\n### 7.8 CalCompute and government programs\n\n**CalCompute** is a California public-compute initiative referenced in SB 53. A programmatic provision may be part of the same act without imposing direct compliance duties on private frontier developers. Separate the program from the audit target unless it affects coverage, implementation, enforcement, or remedies.",
+    "slug": "7-the-project-s-substantive-ai-governance-terms"
+   },
+   {
+    "n": 8,
+    "title": "Enforcement and remedies",
+    "md": "### 8.1 Regulator and enforcement authority\n\n- **Attorney General (AG):** chief legal officer of the federal government or a state. A state AG can bring civil enforcement when authorized.\n- **Exclusive enforcement:** only the named public official or agency may enforce that statutory duty.\n- **Agency enforcement:** administrative investigations, orders, licensing action, or penalties under delegated authority.\n- **Prosecutorial/enforcement discretion:** authority to decide whether and how to pursue a violation within legal limits.\n\n“AG-exclusive” usually means the statute itself does not let private plaintiffs sue to enforce it. It does not necessarily erase claims available under other laws.\n\n### 8.2 Private right of action and cause of action\n\n- **Cause of action:** legally recognized basis for filing a claim.\n- **Private right of action:** permission for a private person or company to sue under the statute.\n- **Express private right:** statute clearly creates the claim.\n- **Implied private right:** court concludes a claim exists despite no explicit language; modern courts are often reluctant to infer one without evidence of legislative intent.\n- **Standing:** plaintiff's legal entitlement to invoke the court's authority, including a concrete injury connected to the defendant and redressable by the court.\n\n“No private right of action” means private parties cannot directly enforce that statute. They may still attempt other claims, such as contract, negligence, fraud, consumer protection, or retaliation, if those claims independently exist.\n\n### 8.3 Civil penalty, damages, and other remedies\n\n- **Civil penalty:** money payable to government as punishment or deterrence.\n- **Fine:** often used similarly, although frequently associated with criminal or governmental penalties.\n- **Compensatory damages:** money intended to compensate the injured person.\n- **Punitive damages:** additional damages intended to punish and deter, available only under governing law.\n- **Statutory damages:** amount or formula specified by statute without requiring proof of the same actual loss.\n- **Restitution:** restoration of money or property obtained from victims.\n- **Disgorgement:** surrender of improperly obtained gains.\n- **Injunction:** court order requiring or prohibiting conduct.\n- **Declaratory judgment:** judicial statement of the parties' legal rights without necessarily ordering damages.\n- **Reinstatement/back pay:** employment remedies commonly relevant to retaliation.\n- **Attorney's fees:** shifting litigation costs when authorized.\n\n### 8.4 Per violation and penalty ceilings\n\n“Up to $1 million per violation” contains two variables:\n\n1. **Up to** gives the decision-maker discretion below the ceiling.\n2. **Per violation** requires a unit of violation: each model, report, day, incident, false statement, affected person, or course of conduct?\n\nAmbiguity in the unit of violation can make a nominal penalty either trivial or enormous.\n\n### 8.5 Notice and cure\n\nA **cure period** gives an alleged violator time to correct conduct before penalties or suit. Ask:\n\n- Is notice mandatory?\n- Who decides whether the cure is adequate?\n- Can consequences of an already completed violation genuinely be cured?\n- Does cure prevent all liability or only specified penalties?\n- Does repeated misconduct receive repeated cure periods?\n- Does the cure right expire or sunset?\n\n### 8.6 Evidence and evidentiary effect\n\n- **Admissible:** court may receive the evidence; it does not mean the evidence is conclusive or persuasive.\n- **Inadmissible:** evidence may not be used for the specified purpose or proceeding.\n- **Relevant:** has a tendency to make a consequential fact more or less probable.\n- **Conclusive:** settles the specified question unless the law says otherwise.\n- **Privilege:** legal protection against compelled disclosure, such as attorney-client privilege.\n- **Burden of proof:** identifies who must establish a fact and to what standard.\n\nConnecticut's rule allowing verification evidence in specified private harm suits while excluding it from government enforcement is an **evidentiary asymmetry**. It does not necessarily create immunity or a liability presumption.",
+    "slug": "8-enforcement-and-remedies"
+   },
+   {
+    "n": 9,
+    "title": "Federal, state, and local conflicts",
+    "md": "### 9.1 Supremacy Clause and preemption\n\nThe Constitution's **Supremacy Clause** makes the Constitution, valid federal statutes, and treaties supreme over conflicting state law. The main preemption categories are:\n\n- **Express preemption:** federal text explicitly identifies displaced state or local requirements.\n- **Conflict preemption—impossibility:** it is impossible to comply with both federal and state duties.\n- **Conflict preemption—obstacle:** state law stands as an obstacle to the objectives of valid federal law.\n- **Field preemption:** federal regulation is so pervasive, or the federal interest so dominant, that Congress is understood to occupy the field.\n\nA political preference for one national standard is not itself preemption. The precise federal text, constitutional authority, and relationship between the two regimes matter.\n\n### 9.2 Savings clause\n\nA **savings clause** expressly preserves specified state law, remedies, or authority. It can narrow an otherwise plausible preemption argument, but its scope depends on its text and interaction with the rest of the statute.\n\n### 9.3 Anti-commandeering\n\nThe **anti-commandeering doctrine** generally prevents the federal government from ordering state legislatures or executive officials to enact or administer a federal regulatory program. Congress can often regulate private actors directly and valid federal law can preempt conflicting state law; those mechanisms differ from commanding the state government itself.\n\nThis distinction is relevant when evaluating a federal proposal framed as “states may not enact” rather than as a federal rule governing private conduct.\n\n### 9.4 Dormant Commerce Clause\n\nThe **Dormant Commerce Clause** is a constitutional doctrine limiting state measures that discriminate against or unduly burden interstate commerce even when Congress has not enacted conflicting legislation.\n\nFor internet-based AI services, audit questions include whether a state's nexus or disclosure requirement effectively controls activity occurring wholly outside the state, discriminates against interstate commerce, or creates burdens excessive in relation to local benefits. The existence of different state rules is not alone sufficient to invalidate them.\n\n### 9.5 State preemption and home rule\n\n- **Home rule:** authority of cities or counties to govern local matters.\n- **State preemption:** state law displaces local ordinances.\n- **Express local preemption:** statute directly says local governments may not regulate the subject.\n- **Implied local preemption:** courts infer displacement from comprehensive state regulation or conflict.\n\nCalifornia SB 53's local-preemption clause and Illinois SB 315's denial of home-rule authority concern state–local relations, not federal–state preemption.\n\n### 9.6 Reciprocity and deemed compliance are not preemption\n\n- **Preemption** invalidates or displaces another rule.\n- **Reciprocity** recognizes another regime's compliance or acts for a specified purpose.\n- **Deemed compliance** treats an external standard as satisfying particular duties.\n\nA narrow reciprocity clause for incident reports does not necessarily excuse frameworks, audits, disclosures, or whistleblower duties.",
+    "slug": "9-federal-state-and-local-conflicts"
+   },
+   {
+    "n": 10,
+    "title": "Constitutional challenges relevant to the project",
+    "md": "### 10.1 First Amendment and compelled speech\n\nThe **First Amendment** protects speech against governmental restriction and, in some settings, compelled expression. Disclosure and labeling mandates can trigger compelled-speech analysis, but the applicable test varies with the nature of the speaker, content, context, and governmental interest. Courts have sometimes upheld factual commercial disclosures while scrutinizing ideological or burdensome mandates more closely.\n\nFor frontier-law analysis, separate:\n\n- compelled disclosure of factual operational information;\n- compelled adoption of a government viewpoint;\n- public disclosure versus confidential regulatory reporting;\n- commercial speech versus other speech;\n- trade-secret and security concerns from the constitutional speech claim.\n\nA complaint alleging compelled speech proves that the challenge was made—not that it will succeed.\n\n### 10.2 Due process and vagueness\n\n**Due process** requires fair legal procedures and places substantive limits on government. Under the **void-for-vagueness doctrine**, a law can be constitutionally defective if it fails to give regulated people fair notice or lacks standards sufficient to constrain arbitrary enforcement.\n\nNot every undefined word is unconstitutionally vague. Civil economic regulation commonly uses flexible standards. A stronger vagueness issue exists when severe penalties combine with uncertain coverage, no objective factors, inconsistent enforcement, or burdens on constitutional rights.\n\n### 10.3 Equal Protection\n\nThe **Equal Protection Clause** limits unjustified governmental classifications. Most economic classifications receive deferential **rational-basis review**: the classification generally survives if rationally related to a legitimate governmental interest. Higher scrutiny may apply to protected classifications or fundamental rights.\n\nA revenue or compute threshold that appears imperfect or underinclusive is not automatically unconstitutional. It may still be a serious policy-design or avoidance issue even if it survives constitutional review.\n\n### 10.4 Facial and as-applied challenges\n\n- **Facial challenge:** argues that the law itself is invalid across the legally relevant range of applications.\n- **As-applied challenge:** argues that applying the law to the particular plaintiff or conduct is invalid.\n\nAn ambiguity may produce an as-applied dispute without justifying invalidation of the entire statute.",
+    "slug": "10-constitutional-challenges-relevant-to-the-project"
+   },
+   {
+    "n": 11,
+    "title": "Agencies and administrative law",
+    "md": "### 11.1 Delegation and rulemaking authority\n\nA legislature may **delegate** implementation decisions to an agency. The statute should identify the agency's subject, objectives, factors, procedures, and limits.\n\nAn authorization that an agency “may adopt rules” differs from “shall adopt rules by January 1, 2028.” The first grants discretion; the second ordinarily creates a mandate and deadline.\n\n### 11.2 Rulemaking sequence\n\nCommon federal terms include:\n\n- **RFI:** request for information, an early request for evidence or ideas.\n- **ANPRM:** advance notice of proposed rulemaking, seeking input before a detailed proposal.\n- **NPRM/proposed rule:** proposed regulatory text and explanation opened for public comment.\n- **Comment period:** period during which interested persons submit evidence and arguments.\n- **Docket:** organized public record for the rulemaking.\n- **Final rule:** agency's adopted regulatory text and explanation.\n- **Effective date/compliance date:** when the rule legally takes effect and when conduct must conform.\n- **Interim final rule:** rule effective before completion of the ordinary comment sequence, usually relying on specific authority or an exception.\n\nPublic comments are not votes. Agencies assess evidence and reasoning in the rulemaking record; the number of supporting comments does not decide the result.\n\n### 11.3 Final agency action and judicial review\n\n**Final agency action** generally refers to an agency's completed position with legal consequences, rather than a tentative step. Reviewability depends on the governing statute and administrative-law doctrines.\n\nUnder the federal Administrative Procedure Act, courts may set aside agency action that is arbitrary, capricious, an abuse of discretion, contrary to law, procedurally defective, or unconstitutional. Since **Loper Bright Enterprises v. Raimondo (2024)**, federal courts exercise independent judgment about statutory meaning rather than applying mandatory Chevron deference, while respecting genuine delegations of discretion and considering persuasive agency reasoning.\n\n### 11.4 Agency names in the dataset\n\n- **FTC:** independent federal agency enforcing specified competition and consumer-protection laws. **Section 5** commonly refers to § 5 of the FTC Act concerning unfair or deceptive acts or practices and unfair methods of competition.\n- **DOJ:** executive department representing the United States in litigation and enforcing federal law.\n- **NSA:** National Security Agency, relevant to the testing proposal in S. 5061.\n- **DFS:** New York Department of Financial Services.\n- **DCP:** Connecticut Department of Consumer Protection.\n- **GovOps:** California Government Operations Agency.\n- **OES/Cal OES:** California Governor's Office of Emergency Services.\n\nAn agency acronym is not a legal power. Locate the statutory provision granting the relevant authority.",
+    "slug": "11-agencies-and-administrative-law"
+   },
+   {
+    "n": 12,
+    "title": "Litigation vocabulary",
+    "md": "### 12.1 Case identification\n\n**X.AI LLC v. Weiser, No. 1:26-cv-01515 (D. Colo.)** breaks down as follows:\n\n- **X.AI LLC:** plaintiff named first;\n- **Weiser:** defendant;\n- **1:26-cv-01515:** court docket number; “26” indicates the filing year and “cv” a civil matter;\n- **D. Colo.:** United States District Court for the District of Colorado.\n\n### 12.2 Parties and pleadings\n\n- **Plaintiff:** party initiating the civil case.\n- **Defendant:** party against whom the case is brought.\n- **Complaint:** pleading stating allegations, legal claims, jurisdiction, and requested relief.\n- **Answer:** defendant's response admitting, denying, or otherwise addressing allegations and asserting defenses.\n- **Claim/count:** individual legal theory in the complaint.\n- **Motion:** request for a court order.\n- **Brief:** written legal argument supporting or opposing a position.\n- **Exhibit/declaration/affidavit:** material submitted as evidence or support.\n- **Docket:** official chronological record of filings and court actions in a case.\n\n### 12.3 Intervention and amicus participation\n\n- **Intervention:** nonparty becomes a party because the legal requirements are satisfied or the court permits it.\n- **Intervenor:** party entering through intervention.\n- **Amicus curiae:** “friend of the court”; submits a brief but normally does not become a party.\n\nDOJ intervention is stronger procedural participation than a public statement or amicus brief, but its arguments remain party positions until the court rules.\n\n### 12.4 Temporary relief\n\n- **Temporary restraining order (TRO):** short emergency order preserving the situation until a fuller hearing.\n- **Preliminary injunction:** temporary order issued during the case to prevent likely irreparable harm while merits are litigated.\n- **Permanent injunction:** final equitable relief after adjudication.\n- **Stay:** pause of enforcement, litigation, or the effect of a ruling.\n- **Stipulation:** agreement between parties filed with or approved by the court.\n\nA stipulated stay is not a merits holding. “Enforcement stayed” must name the precise statute, provisions, parties, duration, and order.\n\n### 12.5 Decisions and disposition\n\n- **Dismissed:** case or claim ended at that stage; may be procedural rather than a decision on legality.\n- **Dismissed with prejudice:** cannot ordinarily be refiled as the same claim.\n- **Dismissed without prejudice:** may potentially be corrected and refiled.\n- **Summary judgment:** decision without trial because no genuine dispute of material fact requires one and a party is entitled to judgment as law.\n- **Trial:** factfinding proceeding resolving disputed evidence and legal claims.\n- **Judgment:** formal final disposition of rights and claims.\n- **Appeal:** request for a higher court to review a lower court decision.\n- **Affirmed/reversed/vacated/remanded:** higher court respectively leaves the decision in place, changes it, nullifies it, or sends the matter back.\n- **Settlement:** parties resolve the dispute without a final adjudication of all merits.\n\n### 12.6 Holding, reasoning, and precedent\n\n- **Holding:** legal rule necessary to decide the issue before the court.\n- **Reasoning:** court's explanation for the holding.\n- **Dicta:** observations not necessary to decide the case; potentially persuasive but not binding in the same way.\n- **Precedent:** prior judicial decision used to decide later cases.\n- **Binding precedent:** authority a court must follow within the relevant hierarchy.\n- **Persuasive authority:** authority a court may consider but need not follow.\n\nA federal district-court decision does not bind every other district court, and an unresolved complaint creates no precedent.\n\n### 12.7 Justiciability\n\n- **Standing:** plaintiff has a concrete, particularized injury caused by the defendant and likely redressable by the court.\n- **Ripeness:** dispute is sufficiently developed for judicial decision rather than premature.\n- **Mootness:** a once-live dispute no longer presents an effective controversy.\n- **Jurisdiction:** court's legal power over the subject and parties.\n- **Merits:** substantive correctness of the legal claims, distinct from procedural barriers.\n\nRepeal or replacement of a challenged law can create mootness questions, although exceptions, continuing injuries, new enactments, and requested relief may keep issues alive.",
+    "slug": "12-litigation-vocabulary"
+   },
+   {
+    "n": 13,
+    "title": "What “ambiguity,” “loophole,” and “exploit” should mean",
+    "md": "### 13.1 Ambiguity\n\nAn **ambiguity** exists when statutory language reasonably supports more than one materially different interpretation after context is considered.\n\nDo not label language ambiguous simply because it is technical, broad, or unfamiliar. State the two readings and the legal consequence of each.\n\n### 13.2 Vagueness\n\n**Vagueness** means insufficient clarity or standards. It can be:\n\n- a drafting problem;\n- an implementation problem;\n- an enforcement-discretion problem; or\n- in serious cases, a constitutional due-process problem.\n\nDo not treat every drafting uncertainty as constitutionally void.\n\n### 13.3 Loophole\n\n“Loophole” is not a precise legal category. For rigorous work, classify the mechanism:\n\n- **coverage gap:** relevant actor, model, conduct, or harm falls outside scope;\n- **threshold gap:** regulated party can remain below or manipulate the threshold;\n- **definition gap:** key term has an unresolved boundary;\n- **timing gap:** duty begins too late, dates conflict, or reporting windows leave blind periods;\n- **information gap:** regulator lacks data needed to detect noncompliance;\n- **verification gap:** claims are self-certified or the auditor lacks access/independence;\n- **enforcement gap:** no capable enforcer, weak authority, or impractical proof requirement;\n- **remedy gap:** consequence is too limited or unavailable for the likely harm;\n- **exception/safe-harbor gap:** exception is broader than its apparent purpose;\n- **coordination gap:** state, federal, or agency regimes do not align;\n- **delegation gap:** important policy choices are left without standards or deadlines;\n- **update gap:** static threshold or definition becomes obsolete;\n- **evidentiary gap:** useful evidence cannot be obtained or used;\n- **remedial asymmetry:** evidence, defenses, or remedies operate differently across proceedings without clear justification.\n\n### 13.4 Lawful avoidance, evasion, and violation\n\n- **Compliance:** conduct satisfies the law.\n- **Lawful avoidance:** structuring conduct to remain outside legal coverage.\n- **Evasion:** disguising facts or exploiting form over substance to escape an obligation; depending on the law, it may be unlawful.\n- **Noncompliance/violation:** failure to perform a binding duty.\n\nYour project should primarily identify **foreseeable avoidance or evasion pathways**, not provide operational instructions for wrongdoing. Describe the structural weakness, likely actor, legal interpretation, consequence, detection method, counterargument, and possible legislative repair.\n\n### 13.5 Flexibility is not automatically a defect\n\nLegislatures deliberately use flexible standards to handle changing technologies. A provision is more plausibly problematic when flexibility is combined with:\n\n- self-interested decision-making;\n- no documentation;\n- no review;\n- no minimum criteria;\n- weak audit access;\n- inability to detect manipulation;\n- inconsistent remedies; or\n- no mechanism for updating obsolete thresholds.\n\nYour job is to distinguish **deliberate policy flexibility** from **uncontrolled discretion** and from an accidental drafting defect.",
+    "slug": "13-what-ambiguity-loophole-and-exploit-should-mean"
+   },
+   {
+    "n": 14,
+    "title": "A repeatable loophole-audit method",
+    "md": "For every operative provision, complete this map:\n\n| Question | What to record |\n|---|---|\n| **Who?** | Regulated person, affiliates, exemptions, enforcer, beneficiaries |\n| **What?** | Required or prohibited act, required contents, assurance object |\n| **Trigger?** | Event that activates the duty and who decides it occurred |\n| **When?** | Effective date, compliance date, frequency, deadline, sunset |\n| **Where?** | Territorial or transactional nexus |\n| **Standard?** | Objective rule, flexible standard, self-defined criteria, mental state |\n| **Evidence?** | Records, audit access, confidentiality, admissibility, burden of proof |\n| **Exception?** | Exemptions, safe harbors, deemed compliance, cure rights |\n| **Enforcer?** | AG, agency, private plaintiff, exclusive authority |\n| **Consequence?** | Penalty unit, damages, injunction, defense, no consequence |\n| **Conflict?** | Other state laws, federal law, local law, other sections |\n| **Update?** | Rulemaking, annual review, inflation/compute adjustment, no update |\n\nThen write each hypothesis in this form:\n\n> **Actor + strategy + textual pathway + practical consequence + strongest counterargument + evidence needed + possible repair.**\n\nExample template:\n\n> A corporate group might allocate training costs among affiliates to argue that no single “developer” crosses the threshold, because § X defines developer but does not expressly aggregate controlled affiliates. This could exclude economically integrated development from coverage. The counterargument is that “directly or indirectly controls” in § Y already aggregates the group. Confirm using corporate-control definitions, agency interpretation, and enforcement history. A repair would expressly aggregate expenditures of controlled affiliates.\n\nThe example identifies a research question. It does not assert that the strategy works.\n\n### Strength scale\n\nClassify hypotheses:\n\n- **Textually demonstrated:** the statutory wording clearly produces the result.\n- **Strong:** text and structure support it; no obvious provision closes it.\n- **Plausible:** credible reading, but counterarguments or missing facts remain.\n- **Speculative:** depends on unusual facts or unresolved assumptions.\n- **Closed:** later text, regulation, decision, or evidence defeats the hypothesis.",
+    "slug": "14-a-repeatable-loophole-audit-method"
+   },
+   {
+    "n": 15,
+    "title": "Evidence and source hierarchy",
+    "md": "### 15.1 Primary sources\n\nUse these to establish law and official status:\n\n1. constitutions;\n2. enrolled or chaptered acts and official codes;\n3. official bill texts, amendments, votes, journals, and status pages;\n4. executive orders and agency documents;\n5. Federal Register and official regulatory dockets;\n6. court dockets, filings, orders, and opinions.\n\n### 15.2 Secondary sources\n\nExamples include law-firm alerts, news reports, academic articles, advocacy papers, and commercial bill trackers. They are useful for:\n\n- discovering issues and sources;\n- learning context;\n- identifying commentary or stakeholder positions;\n- cross-checking a procedural fact when an official site is temporarily inaccessible.\n\nThey should not replace accessible operative text or a court order. A tracker can support a cautiously worded status statement when the official page fails, but the sourcing limitation must be disclosed—as in the Michigan HB 4668 row.\n\n### 15.3 Sponsor summaries and legislative history\n\nA **sponsor summary**, committee analysis, hearing record, or sponsor memorandum can explain purpose and proposed operation. It cannot override enacted text.\n\nUse legislative history to:\n\n- identify problems lawmakers believed they were addressing;\n- compare removed or added provisions;\n- understand drafting evolution;\n- test whether an omission appears deliberate.\n\nAvoid saying that an omission “proves a loophole” or definitively establishes the legislature's collective intent.\n\n### 15.4 Versions matter\n\nFor every bill, record:\n\n- jurisdiction and session;\n- bill number;\n- version label and version date;\n- introduced, amended, substituted, chamber-passed, engrossed, enrolled, or chaptered status;\n- source URL;\n- access/verification date.\n\nNever merge duties from different versions into one description.\n\n### 15.5 Negative findings\n\n“No case found” is a **date-bounded negative research finding**, not proof that no case exists.\n\nRecord:\n\n- databases searched;\n- exact search terms;\n- date and time range;\n- jurisdictions and courts covered;\n- spelling variants and popular names;\n- whether PACER, CourtListener, state dockets, or only web search was used;\n- known coverage limitations.\n\nThe correct language is “No challenge was located in the documented searches as of [date].”\n\n### 15.6 Fact, inference, hypothesis, and opinion\n\n- **Verified fact:** directly supported by cited evidence.\n- **Inference:** conclusion logically drawn from evidence; label it as an inference.\n- **Audit hypothesis:** proposition to test, marked ⚗ in the dataset.\n- **Political or policy opinion:** normative judgment by a person or organization; attribute it.\n\nKeep these categories separate in every row.",
+    "slug": "15-evidence-and-source-hierarchy"
+   },
+   {
+    "n": 16,
+    "title": "Citation literacy",
+    "md": "### 16.1 Legislation\n\n- **Cal. S.B. 53 (2025–2026):** California Senate Bill 53 in that session.\n- **P.A. 104-0538:** Illinois Public Act 104-0538.\n- **P.A. 26-15:** Connecticut Public Act 26-15.\n- **Ch. 699 (2025):** the 699th chaptered act of that jurisdiction/year.\n- **Pub. L. 119-___:** federal public law from the 119th Congress once assigned.\n\n### 16.2 Codes and regulations\n\n- **5 U.S.C. § 706:** section 706 of title 5 of the United States Code.\n- **16 U.S.C. §§ 1853–1855:** multiple sections.\n- **16 C.F.R. pt. 1:** part 1 of title 16 of the Code of Federal Regulations.\n- **91 Fed. Reg. 12,345:** page 12,345 of volume 91 of the Federal Register.\n\n### 16.3 Cases\n\nA full case citation normally includes case name, reporter volume, reporter abbreviation, first page, court, and year. A docket citation is used when the matter has not produced a published opinion.\n\n- **Slip opinion:** court's newly issued opinion before final bound publication.\n- **Pin cite:** exact page supporting the proposition.\n- **Id.:** same source as the immediately preceding citation, used carefully.\n- **See:** source supports the proposition indirectly or by inference.\n- **Cf.:** source is analogous rather than direct support.\n\nFor the working dataset, reliable hyperlinks plus section/page references are more important than perfect law-review citation style. Adopt a uniform formal style when drafting the final paper.",
+    "slug": "16-citation-literacy"
+   },
+   {
+    "n": 17,
+    "title": "Terms used in the dataset's methodology",
+    "md": "- **Corpus/dataset:** defined collection of materials being studied.\n- **Audit target:** operative legal text examined directly for weaknesses.\n- **Comparator:** another regime used to reveal alternative drafting choices.\n- **Context:** material needed to interpret, implement, enforce, or understand an audit target but not itself the principal private obligation.\n- **Inclusion test:** rule deciding whether an item enters the dataset.\n- **Subject-matter nexus:** required connection between the instrument and frontier-AI obligations.\n- **Core corpus:** principal enacted laws.\n- **Watchlist:** possible additions not yet verified or admitted.\n- **Cutoff date:** date after which later developments are outside that version of the study.\n- **As-of date:** date on which a changing fact was last checked.\n- **Volatile status:** fact likely to change, such as a pending bill or active lawsuit.\n- **Settled textual fact:** wording fixed in a final historical document.\n- **Operative text:** language that creates or changes legal rights, duties, powers, or consequences.\n- **Legislative history:** official materials generated during lawmaking.\n- **Drafting history:** comparison among textual versions, including predecessor and discussion drafts.\n- **Implementation:** actions that make enacted requirements functional.\n- **Interpretive context:** evidence bearing on meaning without itself controlling the text.\n- **Audit hypothesis:** testable claim about a possible ambiguity or avoidance pathway.\n- **Source hierarchy:** ranking of sources by authority and directness.",
+    "slug": "17-terms-used-in-the-dataset-s-methodology"
+   },
+   {
+    "n": 18,
+    "title": "Project-specific reading of the three groups",
+    "md": "### Group 1A: enacted frontier-developer laws\n\nThese are the main audit targets because they create legally adopted duties for covered frontier developers. Later operative dates do not make them merely “proposed.”\n\nRead them for:\n\n- coverage and thresholds;\n- framework quality requirements;\n- incident-reporting triggers;\n- disclosure and confidentiality;\n- audit or absence of audit;\n- whistleblower protection;\n- enforcement and remedies;\n- state–local preemption;\n- federal reciprocity or deemed compliance.\n\n### Group 1B: enacted audit infrastructure\n\nThese laws regulate auditors or verifiers rather than directly requiring every frontier developer to obtain an audit. They belong in the project because auditor availability, independence, registration, and evidentiary consequences affect whether assurance mechanisms work.\n\nDo not describe voluntary verification as a developer audit mandate.\n\n### Group 2: pending and unsuccessful measures\n\nThese are not current legal obligations. They are used to:\n\n- identify possible weaknesses before enactment;\n- compare competing designs;\n- track provisions removed or added during drafting;\n- assess potential future federal–state conflicts.\n\nStatus must be rechecked whenever the dataset is used.\n\n### Group 3: implementation and interpretive context\n\nEOs, policy statements, lawsuits, predecessor bills, and discussion drafts help answer how the core laws might be implemented, challenged, or interpreted. They should not be presented as equivalent to enacted developer duties.\n\nYour admission test—whether deleting the item would make a specific Group 1 or 2 finding unprovable or unanswerable—is a sound discipline against uncontrolled scope expansion.",
+    "slug": "18-project-specific-reading-of-the-three-groups"
+   },
+   {
+    "n": 19,
+    "title": "A practical workflow for each law or bill",
+    "md": "1. **Identify the instrument** using jurisdiction, session, number, and exact title.\n2. **Verify current status** on the official page and record the as-of date.\n3. **Download or preserve the correct version.**\n4. **Record enactment, effective, operative, reporting, rulemaking, and sunset dates separately.**\n5. **Create a definition map** with all cross-references.\n6. **Create a duty matrix** using who/what/trigger/when/where/standard/evidence/exception/enforcer/consequence.\n7. **Create an enforcement map** distinguishing public enforcement, private claims, penalties, damages, defenses, cure, and evidentiary rules.\n8. **Compare versions and comparator statutes** without treating every omission as a defect.\n9. **Search implementation materials and litigation.** Distinguish allegations from holdings.\n10. **Draft audit hypotheses** with counterarguments and evidence needs.\n11. **Rate confidence** and mark unresolved facts.\n12. **Write a possible repair** narrow enough to address the identified mechanism.\n13. **Re-verify volatile information** before publication.",
+    "slug": "19-a-practical-workflow-for-each-law-or-bill"
+   },
+   {
+    "n": 20,
+    "title": "Ten rules that prevent the most common mistakes",
+    "md": "1. A bill is not a law.\n2. Passage by one chamber is not enactment.\n3. Signed, effective, and operational are different dates.\n4. A press release or sponsor summary is not operative text.\n5. A complaint is not a judicial holding.\n6. A stay is not necessarily a merits ruling.\n7. Guidance and policy statements are not automatically binding regulations.\n8. Federal activity does not automatically preempt state law.\n9. An undefined or flexible word is not automatically an unconstitutional ambiguity.\n10. “No result found” means only that the documented search found none by the stated date.",
+    "slug": "20-ten-rules-that-prevent-the-most-common-mistakes"
+   },
+   {
+    "title": "Official learning references",
+    "md": "- [Congressional Research Service, Introduction to the Legislative Process in the U.S. Congress](https://www.congress.gov/crs_external_products/R/PDF/R42843/R42843.15.pdf)\n- [CRS, Engrossment, Enrollment, and Presentation of Legislation](https://www.congress.gov/crs_external_products/RS/PDF/98-826/98-826.8.pdf)\n- [GovInfo, United States Statutes at Large](https://www.govinfo.gov/help/statute)\n- [National Archives, About the Federal Register](https://www.archives.gov/federal-register/the-federal-register/about.html)\n- [GAO, Federal Rulemaking](https://www.gao.gov/federal-rulemaking)\n- [GAO, Regulations and Guidance Practices](https://www.gao.gov/products/gao-18-436t)\n- [U.S. Courts, Glossary of Legal Terms](https://www.uscourts.gov/glossary)\n- [Constitution Annotated, Supremacy Clause](https://constitution.congress.gov/browse/article-6/clause-2/)\n- [Constitution Annotated, Void for Vagueness](https://constitution.congress.gov/browse/essay/amdt14-S1-7-3/ALDE_00000261/)\n- [Constitution Annotated, Content-Based and Compelled Speech](https://constitution.congress.gov/browse/essay/amdt1-7-3-6/ALDE_00013700/)\n- [Constitution Annotated, Equal Protection and Rational-Basis Review](https://constitution.congress.gov/browse/essay/amdt14-S1-8-1-2/ALDE_00000817/)\n- [Supreme Court, Loper Bright Enterprises v. Raimondo](https://www.supremecourt.gov/opinions/23pdf/22-451_7m58.pdf)\n- [California Assembly, Legislative Process](https://www.assembly.ca.gov/resources/legislative-process)\n- [California Assembly Chief Clerk, Glossary](https://clerk.assembly.ca.gov/glossary-terms)\n- [New York Senate, How a Bill Becomes a Law](https://www.nysenate.gov/how-bill-becomes-law)\n- [Illinois Legislative Research Unit, Preface to Lawmaking Materials](https://www.ilga.gov/COMMISSION/LRU/Preface2023.pdf)\n- [Connecticut General Assembly, How a Bill Becomes a Law](https://www.cga.ct.gov/LCO/pdfs/bill-law.pdf)\n- [Massachusetts Legislature, Glossary](https://malegislature.gov/StateHouse/Glossary)\n- [Michigan Legislature, How a Bill Becomes a Law](https://www.legislature.mi.gov/Publications/HowBillBecomesLaw.pdf)",
+    "slug": "official-learning-references"
+   }
+  ]
+ },
+ "aaf_crosscheck": {
+  "source": "American Action Forum, \"List of Proposed AI Bills\" table",
+  "url": "https://www.americanactionforum.org/list-of-proposed-ai-bills-table/",
+  "fetched": "2026-09-08",
+  "rows": 99,
+  "columns": [
+   "Bill Name",
+   "Classification",
+   "Chamber",
+   "Sponsor",
+   "Cosponsors",
+   "Companion",
+   "Committee",
+   "Summary",
+   "Implementation",
+   "Enforcement / Oversight",
+   "Funding",
+   "Status"
+  ],
+  "scope_note": "The AAF list covers federal AI bills of every kind in five classifications (Mitigating Harms, Workforce Development, Research and Development, Enabling AI Use, Government Use). The tracker covers only instruments that target frontier developers, catastrophic risk, the compute and export layer, or independent verification. The comparison below applies the tracker's scope, not AAF's. Updated Sept 28, 2026 for the AI OVERWATCH Act only; the AAF table itself was not re-fetched.",
+  "in_both": [
+   {
+    "bill": "H.R. 9477",
+    "title": "AI Incident Reporting Act",
+    "tracker": "Section D"
+   },
+   {
+    "bill": "H.R. 3460",
+    "title": "AI Whistleblower Protection Act (House companion of S. 1792)",
+    "tracker": "Section F"
+   },
+   {
+    "bill": "H.R. 3447",
+    "title": "Chip Security Act",
+    "tracker": "Section G.3"
+   },
+   {
+    "bill": "H.R. 1",
+    "title": "One Big Beautiful Bill Act (the stripped 10-year state-AI-law moratorium)",
+    "tracker": "Section H"
+   },
+   {
+    "bill": "H.R. 5885",
+    "title": "GAIN AI Act (House version; the tracker lists the Senate bill S. 3150)",
+    "tracker": "Section G.3, Senate bill only"
+   },
+   {
+    "bill": "H.R. 6875",
+    "title": "AI OVERWATCH Act (added to the tracker Sept 28, 2026 with its Senate companion S. 4456)",
+    "tracker": "Section G.3"
+   }
+  ],
+  "candidates": [
+   {
+    "bill": "H.R. 5885",
+    "sponsor": "John R. Moolenaar",
+    "title": "Guaranteeing Access and Innovation for National Artificial Intelligence (GAIN AI) Act",
+    "aaf_summary": "The bill would require entities seeking a license to export advanced artificial intelligence (AI) chips to countries of concern to certify that U.S. consumers have priority in acquiring those chips before international sales can be fulfilled.",
+    "assessment": "House companion of S. 3150, which the tracker already carries. Belongs in G.3 as a companion once its text and status are read on Congress.gov or GovInfo.",
+    "suggested": "G.3 (companion)"
+   },
+   {
+    "bill": "S. 321",
+    "sponsor": "Josh Hawley",
+    "title": "Decoupling America’s Artificial Intelligence Capabilities from China Act",
+    "aaf_summary": "The bill would prohibit United States persons from importing and exporting artificial intelligence (AI) technology or intellectual property to China.",
+    "assessment": "Export-control layer aimed at AI technology and model IP rather than chips alone. Candidate for G.3; text must be read for whether it reaches model weights or research collaboration.",
+    "suggested": "G.3"
+   },
+   {
+    "bill": "H.R. 1122",
+    "sponsor": "Mark Green",
+    "title": "China Technology Transfer Control Act of 2025",
+    "aaf_summary": "The bill would control the export to the People’s Republic of China of certain technology including artificial intelligence (AI) and intellectual property important to the national interest of the United States.",
+    "assessment": "Broad technology-transfer control that names AI. Likely adjacent unless the text singles out advanced models or compute; record in J with reason if excluded.",
+    "suggested": "G.3 or J"
+   },
+   {
+    "bill": "H.R. 8516",
+    "sponsor": "Ted Lieu",
+    "title": "American Leadership in AI Act",
+    "aaf_summary": "The bill establishes a broad federal framework governing artificial intelligence (AI) accountability, workforce development, education, and research capacity building. It creates protections for AI whistleblowers, strengthens cybersecurity and AI literacy programs, and expands research and development capacity.",
+    "assessment": "Omnibus with an AI-whistleblower title, one of the tracker's comparison dimensions. Candidate for F (adjacent) or I (partial provision) depending on whether the whistleblower title reaches frontier developers.",
+    "suggested": "F or I"
+   },
+   {
+    "bill": "S. 4825",
+    "sponsor": "Bernard Sanders",
+    "title": "American A.I. Sovereign Wealth Fund Act",
+    "aaf_summary": "The bill would impose an excise tax on “systemically important” artificial intelligence (AI) companies and use the proceeds to establish an American AI sovereign wealth fund.",
+    "assessment": "Targets the largest AI companies by size, but through taxation rather than safety, transparency or evaluation duties. Probably J with a stated reason; the definition of “systemically important” should be read first.",
+    "suggested": "J (with reason) or I"
+   },
+   {
+    "bill": "S. 1633",
+    "sponsor": "Ben Ray Luján",
+    "title": "Testing and Evaluation Systems for Trusted Artificial Intelligence (TEST AI) Act",
+    "aaf_summary": "The bill would require the director of the National Institute of Standards and Technology (NIST) to establish a pilot program that uses testbeds to develop measurement standards for the evaluation of artificial intelligence (AI) systems.",
+    "assessment": "Voluntary evaluation infrastructure at NIST. Adjacent to the assurance layers in K.2 and to H.R. 9363 in F; not a developer mandate.",
+    "suggested": "F"
+   },
+   {
+    "bill": "H.R. 3919",
+    "sponsor": "Darin LaHood",
+    "title": "Advanced AI Security Readiness Act",
+    "aaf_summary": "The bill would direct the director of the National Security Agency to develop strategies to secure artificial intelligence (AI) related technologies.",
+    "assessment": "Government security strategy for advanced AI; no developer obligation in the summary. Adjacent, F or J.",
+    "suggested": "F or J"
+   },
+   {
+    "bill": "H.R. 3434 / S. 1775",
+    "sponsor": "Pat Fallon; Elizabeth Warren",
+    "title": "Protecting AI and Cloud Competition in Defense Act",
+    "aaf_summary": "The bill would establish requirements relating to cloud, data infrastructure, and foundation model procurement.",
+    "assessment": "Sectoral DoD procurement rules that name foundation models. Adjacent to S. 4656 and H.R. 10189 in F.",
+    "suggested": "F"
+   },
+   {
+    "bill": "H.R. 6304",
+    "sponsor": "Jennifer A. Kiggans",
+    "title": "AI for America Act",
+    "aaf_summary": "The bill would codify a national artificial intelligence (AI) strategy focused on strengthening U.S. leadership, accelerating AI adoption, and reducing regulatory friction, while addressing security risks and “ideological bias” in AI systems.",
+    "assessment": "Worth reading for preemption language, given the tracker's attention to federal preemption vehicles. If none, exclude with reason.",
+    "suggested": "Check for preemption; else J"
+   },
+   {
+    "bill": "H.R. 6461",
+    "sponsor": "Sarah McBride",
+    "title": "Resources for Evaluating and Documenting (READ) AI Models Act",
+    "aaf_summary": "The bill directs the National Institute of Standards and Technology (NIST) to establish a pilot program to develop standardized documentation templates and technical guidance for artificial intelligence (AI) models and associated data.",
+    "assessment": "Voluntary documentation standards. Adjacent; likely J with reason.",
+    "suggested": "J"
+   },
+   {
+    "bill": "H.R. 1736",
+    "sponsor": "August Pfluger",
+    "title": "Generative AI Terrorism Risk Assessment Act",
+    "aaf_summary": "The bill would require the secretary of Homeland Security to conduct annual assessments on terrorism threats to the United States utilizing generative artificial intelligence (AI) applications.",
+    "assessment": "Government threat assessment touching misuse, not a developer mandate. J with reason.",
+    "suggested": "J"
+   }
+  ],
+  "tracker_only": [
+   "H.R. 9925 FRONTIER Act",
+   "S. 2938 Artificial Intelligence Risk Evaluation Act",
+   "S. 5061 Secure AI Development Act",
+   "H.R. 9914 / S. 5105 CATSR Act",
+   "H.R. 9917 AI Kill Switch Act",
+   "H.R. 9965 ATOMIC Act",
+   "S. 4656 Secure and Accountable Military AI Act",
+   "H.R. 10180 Self-Improving AI Monitoring Act",
+   "H.R. 10189 Defense AI Reliability and Reporting Act",
+   "H.R. 9363 AI Security and Innovation Act",
+   "S. 3150 GAIN AI Act (Senate)",
+   "the GAAIA and TRUMP AMERICA AI Act discussion drafts and the White House legislative recommendations (not numbered bills, so outside AAF's table by design)"
+  ],
+  "caveats": [
+   "AAF's row for H.R. 1 still describes it as \"introducing a 10-year AI law moratorium\"; the tracker's section H records that the Senate struck that provision 99–1 on July 1, 2025.",
+   "Three rows link to 118th-Congress bill pages (S. 3686, H.R. 4814, S. 4487), one row has no bill number, one row lists a Senate number under the House chamber, and H.R. 1569 appears twice under different classifications.",
+   "AAF states the table is updated bi-weekly from Congress.gov. On the fetch date it did not include the July and August 2026 frontier bills above, so its coverage of this area lags the tracker.",
+   "AAF summaries are AAF's characterisations, not bill text. They are quoted here for orientation only; the tracker's rules require the operative text and official action record before any of these becomes an entry."
+  ]
+ }
+}

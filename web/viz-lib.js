@@ -678,3 +678,183 @@ export function focusView(ctx) {
       ...FOCUS_TYPE_ORDER.filter((t) => t !== 'actor' || ctx.people).map((t) => h('span', { key: t, style: { display: 'inline-flex', alignItems: 'center', gap: 6 } }, h('span', { 'aria-hidden': true, style: { width: 16, height: 3, borderRadius: 2, background: TYPE_COLOR[t] } }), FOCUS_TYPE_SHORT[t])),
       h('span', null, 'Arrows point from the earlier or acting item to the later or affected one. Dashed: unproven link, or a person or group.')));
 }
+
+/* ---------- v1 reference content (content.json) ---------- */
+// The v1 text is stored as markdown and rendered here, verbatim: inline **bold**, *italic*, [links](url) and escapes;
+// blocks for the handbook: ### headings, paragraphs, - and 1. lists, > quotes and | tables.
+const INLINE = /\*\*(.+?)\*\*|\*(?![\s*])(.+?)\*|\[([^\]]+)\]\(([^)\s]+)\)|\\([\\`*_{}[\]()#+\-.!|<>&])/g;
+const markTerms = (text, terms, key) => {
+  if (!terms || !terms.length || !text) return text;
+  const re = new RegExp('(' + terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'ig');
+  return text.split(re).map((p, i) => (i % 2 ? h('mark', { key: key + 'm' + i }, p) : p));
+};
+export function mdInline(s, terms, kp = 'i') {
+  const out = []; let last = 0, m, n = 0; INLINE.lastIndex = 0;
+  const text = (t) => { if (t) out.push(...[].concat(markTerms(t, terms, kp + n++))); };
+  const src = String(s || '');
+  while ((m = INLINE.exec(src))) {
+    text(src.slice(last, m.index)); last = INLINE.lastIndex; const k = kp + '-' + n++;
+    const save = INLINE.lastIndex;
+    if (m[1] != null) out.push(h('strong', { key: k }, ...mdInline(m[1], terms, k)));
+    else if (m[2] != null) out.push(h('em', { key: k }, ...mdInline(m[2], terms, k)));
+    else if (m[3] != null) { const ext = /^https?:/.test(m[4]); out.push(h('a', { key: k, href: m[4], ...(ext ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }, ...mdInline(m[3], terms, k), ext ? ' ↗' : '')); }
+    else out.push(m[5]);
+    INLINE.lastIndex = save;
+  }
+  text(src.slice(last));
+  return out;
+}
+const P = { margin: '0 0 12px', fontSize: 'calc(16px*var(--fs))', lineHeight: 1.65, color: 'var(--ink)', textWrap: 'pretty', overflowWrap: 'anywhere' };
+export const mdP = (s, terms, style) => h('p', { style: { ...P, ...style } }, ...mdInline(s, terms));
+const mdCells = (l) => l.trim().replace(/^\||\|$/g, '').split(/(?<!\\)\|/).map((c) => c.trim());
+export function mdTable(columns, rows, opts = {}) {
+  const th = { textAlign: 'left', padding: '10px 10px', background: 'var(--surface-2)', fontSize: 'calc(13px*var(--fs))', fontWeight: 800, verticalAlign: 'bottom', borderBottom: '1px solid var(--line-2)', position: 'sticky', top: 0 };
+  const td = { padding: '10px 10px', borderTop: '1px solid var(--line)', fontSize: 'calc(14px*var(--fs))', lineHeight: 1.45, verticalAlign: 'top', overflowWrap: 'anywhere' };
+  return h('div', { tabIndex: 0, role: 'region', 'aria-label': opts.label || 'Table, scrolls sideways', style: { overflow: 'auto', border: '1px solid var(--line)', borderRadius: 'var(--r)', background: 'var(--surface)', margin: '0 0 14px', maxHeight: opts.maxHeight } },
+    h('table', { style: { borderCollapse: 'separate', borderSpacing: 0, width: '100%', minWidth: opts.minWidth || 640 } },
+      opts.caption ? h('caption', { style: visuallyHidden }, opts.caption) : null,
+      h('thead', null, h('tr', null, ...columns.map((c, i) => h('th', { key: i, scope: 'col', style: { ...th, ...(i === 0 && opts.firstWide ? { minWidth: 180 } : {}) } }, ...mdInline(c, null, 'h' + i))))),
+      h('tbody', null, ...rows.map((r, ri) => r.span != null ? h('tr', { key: ri }, h('th', { scope: 'row', style: { ...td, fontWeight: 700, textAlign: 'left' } }, ...mdInline(r.head, null, 'sh' + ri)), h('td', { colSpan: columns.length - 1, style: { ...td, fontStyle: 'italic' } }, ...mdInline(r.span, opts.terms, 'sp' + ri))) : h('tr', { key: ri }, ...r.map((c, ci) => h(ci === 0 ? 'th' : 'td', { key: ci, scope: ci === 0 ? 'row' : undefined, style: { ...td, ...(ci === 0 ? { fontWeight: 700, textAlign: 'left', background: 'var(--surface)' } : {}) } }, ...mdInline(c, opts.terms, 'c' + ri + '-' + ci))))))));
+}
+export function mdBlocks(md, terms, opts = {}) {
+  const lines = String(md || '').split(/\r?\n/), out = []; let i = 0, k = 0;
+  const H = opts.h || 'h3';
+  while (i < lines.length) {
+    const l = lines[i];
+    if (!l.trim() || /^\s*---\s*$/.test(l)) { i++; continue; }
+    let m;
+    if ((m = l.match(/^#{3,4}\s+(.*)$/))) { const id = (opts.idPrefix || 'md-') + m[1].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); out.push(h(H, { key: k++, id, style: { margin: '26px 0 10px', fontSize: 'calc(20px*var(--fs))', scrollMarginTop: 84 } }, ...mdInline(m[1], terms))); i++; continue; }
+    if (/^\s*\|/.test(l)) { const t = []; while (i < lines.length && /^\s*\|/.test(lines[i])) t.push(lines[i++]); const rows = t.filter((x) => !/^\s*\|?\s*:?-{3,}/.test(x)).map(mdCells); out.push(h('div', { key: k++ }, mdTable(rows[0], rows.slice(1), { terms, minWidth: 520 }))); continue; }
+    if (/^>\s?/.test(l)) { const t = []; while (i < lines.length && /^>\s?/.test(lines[i])) t.push(lines[i++].replace(/^>\s?/, '')); out.push(h('blockquote', { key: k++, style: { margin: '0 0 14px', padding: '12px 16px', borderLeft: '3px solid var(--accent)', background: 'var(--surface-2)', borderRadius: '0 var(--r) var(--r) 0' } }, ...t.filter((x) => x.trim()).map((x, j) => mdP(x, terms, { margin: j ? '8px 0 0' : 0 })))); continue; }
+    if (/^\s*[-*]\s+/.test(l) || /^\s*\d+\.\s+/.test(l)) {
+      const ord = /^\s*\d+\./.test(l), items = [];
+      while (i < lines.length && (ord ? /^\s*\d+\.\s+/ : /^\s*[-*]\s+/).test(lines[i])) { let t = lines[i++].replace(/^\s*(?:[-*]|\d+\.)\s+/, ''); while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*(?:[-*]|\d+\.)\s+/.test(lines[i])) t += ' ' + lines[i++].trim(); items.push(t); }
+      out.push(h(ord ? 'ol' : 'ul', { key: k++, style: { margin: '0 0 14px', paddingLeft: 24, display: 'flex', flexDirection: 'column', gap: 6 } }, ...items.map((t, j) => h('li', { key: j, style: { fontSize: 'calc(16px*var(--fs))', lineHeight: 1.6, overflowWrap: 'anywhere' } }, ...mdInline(t, terms, 'l' + j)))));
+      continue;
+    }
+    const para = []; while (i < lines.length && lines[i].trim() && !/^(#{3,4}\s|\s*\||>|\s*[-*]\s+|\s*\d+\.\s+|\s*---\s*$)/.test(lines[i])) para.push(lines[i++].trim());
+    out.push(h('div', { key: k++ }, mdP(para.join(' '), terms)));
+  }
+  return out;
+}
+
+const kicker = (t) => h('p', { style: { margin: '0 0 6px', fontSize: 'calc(13px*var(--fs))', fontWeight: 800, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, t);
+const card = (children, style) => h('div', { style: { padding: 'calc(18px*var(--ps)) calc(20px*var(--ps))', borderRadius: 'var(--r)', background: 'var(--surface)', border: '1px solid var(--line)', ...style } }, ...children);
+const H2 = (id, t) => h('h2', { id, style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))', scrollMarginTop: 84 } }, t);
+const empty = (what) => h('p', { style: { margin: 0, color: 'var(--ink-2)' } }, what + ' is part of the v2 data and is not available with ?data=v1.');
+
+// Section notes: the paragraphs a tracker section carries beside its table.
+export function sectionNotes(C, sec, L) {
+  const notes = C && C.section_notes && C.section_notes[sec];
+  if (!notes) return null;
+  return h('aside', { 'aria-label': 'Notes on section ' + sec, style: { margin: '0 0 16px', padding: '14px 16px', borderRadius: 'var(--r)', background: 'var(--surface-2)', border: '1px solid var(--line)' } },
+    h('p', { style: { margin: '0 0 6px', fontSize: 'calc(12.5px*var(--fs))', fontWeight: 800, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, 'Section note · ' + ((C.section_headings || {})[sec] || sec + '. ' + L.SEC[sec])),
+    ...notes.map((p, i) => mdP(p, null, { margin: i ? '8px 0 0' : 0, fontSize: 'calc(15px*var(--fs))' })));
+}
+
+// About this site (v1's About section).
+export function aboutView(C) {
+  if (!C) return empty('About this site');
+  const A = C.about, out = []; let n = 0;
+  A.blocks.forEach((b) => {
+    const k = 'a' + n++;
+    if (b.type === 'h3') out.push(h('h2', { key: k, style: { margin: '30px 0 10px', fontSize: 'calc(24px*var(--fs))' } }, ...mdInline(b.text)));
+    else if (b.type === 'h4') out.push(h('h3', { key: k, style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, ...mdInline(b.text)));
+    else if (b.type === 'p') out.push(h('div', { key: k }, mdP(b.text)));
+    else out.push(h(b.type, { key: k, style: { margin: '0 0 14px', paddingLeft: 24, display: 'flex', flexDirection: 'column', gap: 6 } }, ...b.items.map((t, j) => h('li', { key: j, style: { fontSize: 'calc(16px*var(--fs))', lineHeight: 1.6 } }, ...mdInline(t)))));
+  });
+  return h('div', { style: { maxWidth: 820 } }, ...out);
+}
+
+// Data & trust additions: v1's exact definitions, section L, and the AAF cross-check.
+export function trustExtras(C, L) {
+  if (!C) return null;
+  const I = C.intro, M = C.methodology, A = C.aaf_crosscheck;
+  const tag = (t) => h('span', { style: { display: 'inline-flex', marginLeft: 6, padding: '1px 8px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', fontSize: 'calc(12.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-2)', whiteSpace: 'nowrap' } }, t);
+  const li = { fontSize: 'calc(15px*var(--fs))', lineHeight: 1.55, overflowWrap: 'anywhere' };
+  return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 40 } },
+    h('section', { id: 'm-def-s', 'aria-labelledby': 'm-def', style: { scrollMarginTop: 84 } },
+      H2('m-def', '5. The tracker’s own definitions'),
+      h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15.5px*var(--fs))', color: 'var(--ink-2)' } }, 'The wording above is a plain-English version. This is the tracker’s introduction and confidence key exactly as written, which is what each rating legally means.'),
+      card([
+        h('p', { key: 't', style: { margin: '0 0 10px', fontSize: 'calc(13px*var(--fs))', fontWeight: 800, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, 'From the introduction of ' + I.title),
+        ...I.paragraphs.map((p, i) => h('div', { key: 'p' + i }, mdP(p))),
+        I.confidence_key_intro ? h('div', { key: 'ki' }, mdP(I.confidence_key_intro, null, { marginBottom: 8 })) : null,
+        h('dl', { key: 'dl', style: { margin: '0 0 12px', display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 10 } },
+          ...I.confidence_key.map((c) => h('div', { key: c.level, style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: '4px 16px', padding: '10px 0', borderTop: '1px solid var(--line)' } },
+            h('dt', { style: { margin: 0, ...li } }, ...mdInline('**' + c.level + '** — ' + c.text)),
+            h('dd', { style: { margin: 0, fontSize: 'calc(13.5px*var(--fs))', color: 'var(--ink-3)', lineHeight: 1.5 } }, L.CONF[c.level] ? 'Plain English: ' + L.CONF[c.level].d : '')))),
+        h('div', { key: 'v' }, mdP(I.verification_note, null, { margin: 0 }))
+      ].filter(Boolean))),
+    h('section', { id: 'm-l-s2', 'aria-labelledby': 'm-meth', style: { scrollMarginTop: 84 } },
+      H2('m-meth', '6. ' + M.heading.replace(/^[A-Z]\.\s*/, '') + ' (section L)'),
+      card(M.paragraphs.map((p, i) => h('div', { key: i }, mdP(p.text, null, { margin: i === M.paragraphs.length - 1 ? 0 : '0 0 14px' }))))),
+    h('section', { id: 'm-aaf-s', 'aria-labelledby': 'm-aaf', style: { scrollMarginTop: 84 } },
+      H2('m-aaf', '7. Cross-check against the American Action Forum list'),
+      h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)', lineHeight: 1.6 } }, h('a', { href: A.url, target: '_blank', rel: 'noopener noreferrer' }, A.source + ' ↗'), `, ${A.rows} federal bills, fetched ${A.fetched}. ${A.scope_note}`),
+      h('h3', { style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, 'In both lists'),
+      h('ul', { style: { margin: '0 0 14px', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 } }, ...A.in_both.map((x, i) => h('li', { key: i, style: li }, h('strong', null, x.bill), ' ', x.title, tag(x.tracker)))),
+      h('h3', { style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, 'On the AAF list, within the tracker’s scope or close to it, not yet in the tracker'),
+      h('p', { style: { margin: '0 0 10px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)' } }, 'Candidates for the tracker’s own verification process, not entries. Summaries are AAF’s wording, quoted. Nothing here is added to the tracker until the operative text and official action record have been read.'),
+      mdTable(['Bill', 'Sponsor', 'Title', 'AAF summary (quoted)', 'Assessment under the tracker’s rules', 'Suggested section'], A.candidates.map((x) => [x.bill, x.sponsor || '', x.title, x.aaf_summary ? '“' + x.aaf_summary + '”' : '', x.assessment, x.suggested || '']), { minWidth: 1100, label: 'AAF candidates, scrolls sideways' }),
+      h('h3', { style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, 'In the tracker, absent from the AAF list'),
+      h('ul', { style: { margin: '0 0 14px', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 4 } }, ...A.tracker_only.map((x, i) => h('li', { key: i, style: li }, x))),
+      h('h3', { style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, 'Caveats about the AAF list as observed on the fetch date'),
+      h('ul', { style: { margin: 0, paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 } }, ...A.caveats.map((x, i) => h('li', { key: i, style: li }, x)))));
+}
+
+// Compare page additions: the full section K matrix, the clusters note, and K.2.
+export function compareExtras(C, L, D) {
+  if (!C) return null;
+  const K = C.comparison, cols = K.columns, ids = L.K_IDS;
+  const head = ['Dimension', ...cols.map((c, i) => (D.byId[ids[i]] ? `[${c}](#/bill/${ids[i]})` : c))];
+  const rows = L.K_ROWS.map(([dim, m, note]) => (note ? { head: dim, span: note } : [dim, ...ids.map((id) => m[id] || '—')]));
+  return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 36, marginTop: 44 } },
+    h('section', { 'aria-labelledby': 'k-h' },
+      kicker('Section K'), h('h2', { id: 'k-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.heading || 'Cross-cutting divergences'),
+      h('p', { style: { margin: '0 0 12px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)' } }, `The tracker’s full comparison matrix, ${rows.length} rows, as written. The “full spread” row lists figures from other bills, so it is shown as one line.`),
+      mdTable(head, rows, { minWidth: 1100, firstWide: true, label: 'Section K matrix, scrolls sideways', caption: 'Cross-cutting divergences across seven laws and bills' }),
+      K.clusters ? card([mdP(K.clusters, null, { margin: 0, fontSize: 'calc(15.5px*var(--fs))' })], { background: 'var(--surface-2)' }) : null),
+    h('section', { 'aria-labelledby': 'k2-h' },
+      kicker('Section K.2'), h('h2', { id: 'k2-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.assurance.heading),
+      ...(K.assurance.intro || []).map((p, i) => h('div', { key: i }, mdP(p, null, { color: 'var(--ink-2)', fontSize: 'calc(15px*var(--fs))' }))),
+      mdTable(K.assurance.columns, K.assurance.rows, { minWidth: 1000, firstWide: true, label: 'Assurance layers, scrolls sideways', caption: 'Assurance layers by jurisdiction or bill' })));
+}
+
+// Handbook: chapter list, one chapter at a time (or all), search within.
+// ctx: { C, ch (slug), all, q, setQ(v), go(slug), showAll(v) }
+export function handbookView(ctx) {
+  const C = ctx.C; if (!C) return empty('The Handbook');
+  const HB = C.handbook, terms = (ctx.q || '').toLowerCase().split(/\s+/).filter((t) => t.length > 1);
+  const hits = (c) => { const t = (c.title + ' ' + c.md).toLowerCase(); return terms.every((w) => t.includes(w)); };
+  const count = (c) => terms.reduce((n, w) => n + ((c.title + ' ' + c.md).toLowerCase().split(w).length - 1), 0);
+  const list = terms.length ? HB.chapters.filter(hits) : HB.chapters;
+  const pick = HB.chapters.find((c) => c.slug === ctx.ch) || HB.chapters[0];
+  const cur = terms.length && !hits(pick) && list.length ? list[0] : pick, idx = HB.chapters.indexOf(cur); // a search opens the first matching chapter
+  const label = (c) => (c.n ? c.n + '. ' : '') + c.title;
+  const dl = C.downloads || {};
+  const btn = { height: 'calc(40px*var(--hs))', padding: '0 14px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', fontWeight: 700, fontSize: 'calc(14px*var(--fs))', cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', textDecoration: 'none', whiteSpace: 'nowrap' };
+  const toc = h('nav', { 'aria-label': 'Chapters', style: { display: 'flex', flexDirection: 'column', border: '1px solid var(--line)', borderRadius: 'var(--r)', background: 'var(--surface)', overflow: 'hidden' } },
+    h('p', { style: { margin: 0, padding: '10px 12px', background: 'var(--surface-2)', fontSize: 'calc(12px*var(--fs))', fontWeight: 800, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, terms.length ? `${list.length} of ${HB.chapters.length} chapters match` : `${HB.chapters.length} chapters`),
+    ...list.map((c) => { const on = !ctx.all && c === cur; return h('a', { key: c.slug, href: '#/handbook?ch=' + c.slug + (ctx.q ? '&q=' + encodeURIComponent(ctx.q) : ''), 'aria-current': on ? 'page' : undefined, style: { display: 'flex', gap: 8, padding: '8px 12px', textDecoration: 'none', fontSize: 'calc(14px*var(--fs))', lineHeight: 1.35, color: on ? 'var(--ink)' : 'var(--ink-2)', background: on ? 'var(--accent-soft)' : 'transparent', boxShadow: on ? 'inset 2px 0 0 var(--accent-ink)' : 'none' } }, h('span', { style: { flex: 1 } }, label(c)), terms.length ? h('span', { style: { fontSize: 'calc(12px*var(--fs))', color: 'var(--ink-3)', fontVariantNumeric: 'tabular-nums' } }, count(c)) : null); }));
+  const chapter = (c) => h('article', { key: c.slug, 'aria-labelledby': 'hb-' + c.slug, style: { marginBottom: 28 } },
+    h('h2', { id: 'hb-' + c.slug, style: { margin: '0 0 14px', fontSize: 'calc(28px*var(--fs))', scrollMarginTop: 84 } }, ...mdInline(label(c), terms)), ...mdBlocks(c.md, terms, { idPrefix: 'hb-' + c.slug + '-' }));
+  const pager = !ctx.all ? h('div', { style: { display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', borderTop: '1px solid var(--line)', paddingTop: 14 } },
+    idx > 0 ? h('a', { href: '#/handbook?ch=' + HB.chapters[idx - 1].slug, style: btn }, '← ' + label(HB.chapters[idx - 1])) : h('span'),
+    idx < HB.chapters.length - 1 ? h('a', { href: '#/handbook?ch=' + HB.chapters[idx + 1].slug, style: btn }, label(HB.chapters[idx + 1]) + ' →') : h('span')) : null;
+  const shown = ctx.all ? list : (terms.length && !hits(cur) ? [] : [cur]);
+  return h('div', null,
+    h('p', { style: { margin: '0 0 14px', fontSize: 'calc(17px*var(--fs))', color: 'var(--ink-2)', maxWidth: 760 } }, ...mdInline(HB.intro.split(/\n\s*\n/)[0] || '')),
+    HB.intro.split(/\n\s*\n/).slice(1).map((p, i) => h('div', { key: i }, mdP(p, null, { color: 'var(--ink-2)', maxWidth: 760, fontSize: 'calc(15px*var(--fs))' }))),
+    h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', margin: '6px 0 20px' } },
+      h('label', { style: { display: 'contents' } }, h('span', { style: visuallyHidden }, 'Search the handbook'),
+        h('input', { type: 'search', value: ctx.q || '', onChange: (e) => ctx.setQ(e.target.value), placeholder: 'Search within the handbook', autoComplete: 'off', style: { flex: '1 1 260px', minWidth: 0, height: 'calc(40px*var(--hs))', padding: '0 12px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', font: 'inherit', fontSize: 'calc(15px*var(--fs))' } })),
+      h('button', { onClick: () => ctx.showAll(!ctx.all), 'aria-pressed': ctx.all ? 'true' : 'false', style: btn }, ctx.all ? 'One chapter at a time' : 'Show all on one page'),
+      dl.handbook_pdf ? h('a', { href: dl.handbook_pdf, download: '', style: btn }, 'Download PDF') : null,
+      dl.handbook_md ? h('a', { href: dl.handbook_md, download: '', style: btn }, 'Download Markdown') : null),
+    h('div', { 'data-hbgrid': '', style: { display: 'grid', gap: 28, alignItems: 'start' } },
+      h('div', { 'data-hbside': '' }, toc),
+      h('div', { style: { minWidth: 0, maxWidth: 820 } },
+        terms.length && !shown.length ? h('p', { role: 'status', style: { padding: 20, border: '1px dashed var(--line-2)', borderRadius: 'var(--r)', color: 'var(--ink-2)' } }, list.length ? 'This chapter has no match. Pick a matching chapter from the list.' : 'No chapter matches that search.') : null,
+        ...shown.map(chapter), pager)));
+}

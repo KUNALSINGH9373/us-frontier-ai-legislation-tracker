@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tracker.local/schema/content.schema.json",
+  "title": "Reference content (v2)",
+  "description": "The v1 site's own text that is not tied to one entry: the tracker's introduction and confidence key, section notes, the cross-cutting comparison (K, K.2), the completeness methodology (L), the About section, the Handbook and the AAF cross-check. Strings are verbatim inline markdown (**bold**, *italic*, [text](url)); handbook chapters are block markdown.",
+  "type": "object",
+  "required": ["intro", "section_notes", "comparison", "methodology", "about", "handbook", "aaf_crosscheck"],
+  "additionalProperties": false,
+  "$defs": {
+    "md": { "type": "string", "minLength": 1 },
+    "table": {
+      "type": "object", "required": ["columns", "rows"], "additionalProperties": false,
+      "properties": { "heading": { "type": "string" }, "intro": { "type": "array", "items": { "$ref": "#/$defs/md" } }, "columns": { "type": "array", "items": { "type": "string" }, "minItems": 2 }, "rows": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } } }
+    }
+  },
+  "properties": {
+    "source": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Where each part was read from (repository paths)." },
+    "downloads": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Files offered for download, as paths relative to the web page." },
+    "intro": {
+      "type": "object", "required": ["title", "paragraphs", "confidence_key", "verification_note"], "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "paragraphs": { "type": "array", "items": { "$ref": "#/$defs/md" } },
+        "confidence_key_intro": { "type": "string" },
+        "confidence_key": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "object", "required": ["level", "text"], "additionalProperties": false, "properties": { "level": { "enum": ["HIGH", "MED-HIGH", "MED", "SEARCH-QUALIFIED", "LOW"] }, "text": { "$ref": "#/$defs/md" } } }
+        },
+        "verification_note": { "$ref": "#/$defs/md" }
+      }
+    },
+    "section_notes": {
+      "type": "object", "description": "Paragraphs a section of the tracker carries beside its table, keyed by section code.",
+      "propertyNames": { "$ref": "common.schema.json#/$defs/section" },
+      "additionalProperties": { "type": "array", "items": { "$ref": "#/$defs/md" }, "minItems": 1 }
+    },
+    "section_headings": { "type": "object", "additionalProperties": { "type": "string" }, "description": "The tracker's full section headings, keyed by code (A … L, K.2)." },
+    "comparison": {
+      "type": "object", "required": ["columns", "assurance"], "additionalProperties": false,
+      "properties": {
+        "heading": { "type": "string" },
+        "columns": { "type": "array", "items": { "type": "string" }, "description": "The matrix's column labels as v1 prints them, in the order of site.comparison_matrix.entry_keys." },
+        "clusters": { "type": "string", "description": "The 'Two textual clusters' paragraph." },
+        "assurance": { "$ref": "#/$defs/table" }
+      }
+    },
+    "methodology": {
+      "type": "object", "required": ["heading", "paragraphs"], "additionalProperties": false,
+      "properties": {
+        "heading": { "type": "string" },
+        "paragraphs": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["text"], "additionalProperties": false, "properties": { "label": { "type": ["string", "null"] }, "text": { "$ref": "#/$defs/md" } } } }
+      }
+    },
+    "about": {
+      "type": "object", "required": ["heading", "blocks"], "additionalProperties": false,
+      "properties": {
+        "heading": { "type": "string" },
+        "blocks": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "required": ["type"], "additionalProperties": false,
+            "properties": { "type": { "enum": ["h3", "h4", "p", "ol", "ul"] }, "text": { "type": "string" }, "items": { "type": "array", "items": { "type": "string" } } }
+          }
+        }
+      }
+    },
+    "handbook": {
+      "type": "object", "required": ["title", "chapters"], "additionalProperties": false,
+      "properties": {
+        "title": { "type": "string" },
+        "intro": { "type": "string" },
+        "chapters": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "object", "required": ["title", "slug", "md"], "additionalProperties": false, "properties": { "n": { "type": "integer" }, "title": { "type": "string" }, "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" }, "md": { "$ref": "#/$defs/md" } } }
+        }
+      }
+    },
+    "aaf_crosscheck": {
+      "type": "object", "required": ["source", "url", "fetched", "in_both", "candidates", "tracker_only", "caveats"],
+      "properties": {
+        "source": { "type": "string" }, "url": { "type": "string", "format": "uri" }, "fetched": { "$ref": "common.schema.json#/$defs/isoDate" },
+        "rows": { "type": "integer" }, "scope_note": { "type": "string" },
+        "in_both": { "type": "array", "items": { "type": "object", "required": ["bill", "title", "tracker"] } },
+        "candidates": { "type": "array", "items": { "type": "object", "required": ["bill", "title", "assessment"] } },
+        "tracker_only": { "type": "array", "items": { "type": "string" } },
+        "caveats": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

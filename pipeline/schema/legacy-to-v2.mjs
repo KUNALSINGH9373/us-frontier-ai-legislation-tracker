@@ -5,6 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
+import { convertContent } from './content-from-v1.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..', '..');
@@ -86,6 +87,7 @@ export async function convert() {
     }))
   };
 
+  const v1text = convertContent(root, L, keyOfId);
   const site = {
     verified_as_of: VERIFIED, updates_through: THROUGH, week_from: WEEK_FROM,
     section_names: L.SEC,
@@ -93,12 +95,10 @@ export async function convert() {
     federal_groups: L.FED_GROUPS.map((g) => ({ section: g.k, name: g.l, note: g.sub })),
     replay_start: iso(new Date(Date.UTC(L.REPLAY_START.getFullYear(), L.REPLAY_START.getMonth(), L.REPLAY_START.getDate()))),
     replay_milestones: L.MILESTONES.map((m) => ({ date: iso(m.d), entry_key: keyOfId[m.id], caption: m.c })),
-    comparison_matrix: {
-      entry_keys: L.K_IDS.map((i) => keyOfId[i]),
-      rows: L.K_ROWS.map(([dimension, m]) => ({ dimension, values: Object.fromEntries(Object.entries(m).map(([i, v]) => [keyOfId[i], v])) }))
-    }
+    // section K of tracker.md, read verbatim (all its rows), with v1's other reference text in content
+    comparison_matrix: v1text.matrix
   };
-  return { entries: out, relationships, news: newsV2, site };
+  return { entries: out, relationships, news: newsV2, site, content: v1text.content };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {

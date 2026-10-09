@@ -33,6 +33,7 @@ export function checkIntegrity({ entries, relationships, news, site }) {
   site.replay_milestones.forEach((m, i) => { if (!keys.has(m.entry_key)) problems.push(`milestone #${i}: no such entry ${m.entry_key}`); });
   if (site.comparison_matrix) {
     site.comparison_matrix.entry_keys.forEach((k) => { if (!keys.has(k)) problems.push(`comparison matrix: no such entry ${k}`); });
+    site.comparison_matrix.rows.forEach((r) => { if (!Object.keys(r.values).length && !r.note) problems.push(`comparison row "${r.dimension}": no values and no note`); });
     site.comparison_matrix.rows.forEach((r) => Object.keys(r.values).forEach((k) => { if (!site.comparison_matrix.entry_keys.includes(k)) problems.push(`comparison row "${r.dimension}": ${k} is not a column`); }));
   }
   return problems;

@@ -37,6 +37,8 @@ h2[style*="text-transform:uppercase"]{font-family:inherit!important;font-weight:
 [data-sidehead]{margin:0;padding:12px 12px 6px;border-top:1px solid var(--line);background:var(--surface-2);font-size:calc(11px*var(--fs));font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
 @media (min-width:1024px){[data-boardsec]{padding-left:clamp(16px,3vw,32px)!important;padding-right:clamp(16px,3vw,32px)!important}}
 [data-screen-label="Method"]>*{max-width:880px}
+[data-hbgrid]{grid-template-columns:minmax(0,1fr)}
+@media (min-width:1024px){[data-hbgrid]{grid-template-columns:260px minmax(0,1fr)!important}[data-hbside]{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}}
 [data-chip]{position:relative}@media (pointer:coarse),(max-width:1023px){[data-chip]::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
 [data-sidetoggle]{align-items:center;justify-content:center;gap:6px;height:calc(32px*var(--hs));margin:0 0 8px auto;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-weight:650;font-size:calc(13px*var(--fs));cursor:pointer}
 [data-sidetoggle]:hover{color:var(--ink);border-color:var(--line-2)}
@@ -361,6 +363,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <section aria-labelledby="tbl-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(28px,4vw,44px) clamp(16px,3vw,32px) 0">
   <h2 id="tbl-h" style="margin:0 0 4px;font-size:calc(clamp(20px,2.2vw,26px)*var(--fs))">Comparison table of all entries</h2>
   <p style="margin:0 0 14px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:820px">Every entry as one row, in the tracker’s own words. Long cells show three lines until you expand the row. Sort by a heading, filter with the controls, tick up to three rows to compare, or download the rows as CSV.</p>
+  <sc-if value="{{hasHomeSecNotes}}">{{homeSecNotesEl}}</sc-if>
   {{homeTableEl}}
 </section>
 
@@ -416,6 +419,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   </sc-if>
   </sc-if>
 
+  <sc-if value="{{hasSecNotes}}">{{secNotesEl}}</sc-if>
   <sc-if value="{{vResults}}">
     <p aria-live="polite" style="margin:0 0 10px;font-size:calc(14px*var(--fs));font-weight:600;color:var(--ink-3)">{{resultCount}}</p>
     <sc-if value="{{noResults}}">
@@ -488,6 +492,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   <p style="margin:6px 0 18px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:720px">How the laws, bills, orders and lawsuits connect: which bills copy which template, what replaced what, and where federal action targets state law. Every link cites the clause it comes from.</p>
 
     <sc-if value="{{showNet}}"><div style="margin-bottom:28px">{{netEl}}</div></sc-if>
+    <sc-if value="{{hasClusters}}"><aside aria-label="Two textual clusters" style="margin:-12px 0 28px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface-2);border:1px solid var(--line);max-width:960px">{{clustersEl}}</aside></sc-if>
     <sc-if value="{{showStar}}"><div role="group" aria-label="Start from" style="display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0 -16px 18px;padding:0 calc(16px*var(--ps)) 6px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="flex-shrink:0;white-space:nowrap;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">{{h.l}}</button></sc-for></div></sc-if>
     <sc-if value="{{showDirect}}"><div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
       <sc-if value="{{showStar}}"><div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
@@ -654,6 +659,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     <sc-if value="{{notK}}"><p style="margin:14px 0 0;font-size:calc(14px*var(--fs));color:var(--ink-2);padding:calc(10px*var(--ps)) calc(14px*var(--ps));border-radius:min(12px,var(--r));background:var(--surface-2);max-width:720px">The tracker’s detailed matrix covers CA SB 53, NY RAISE, IL SB 315, MI HB 4668, NJ S.4446, MA H.5576 and the FRONTIER Act. For other entries we compare the core fields.</p></sc-if>
     <sc-if value="{{tooFew}}"><div role="status" style="margin-top:22px;padding:calc(28px*var(--ps));border-radius:min(20px,var(--r));border:1px dashed var(--line-2);text-align:center;color:var(--ink-2)">Add at least one more entry to see differences.</div></sc-if>
 
+    <div>
     <sc-if value="{{cmpWide}}">
       <div style="margin-top:26px;position:sticky;top:64px;z-index:3;background:var(--bg);padding:calc(10px*var(--ps)) 0;display:grid;grid-template-columns:200px {{cmpGrid}};gap:12px;border-bottom:1px solid var(--line)">
         <span></span>
@@ -678,7 +684,9 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         </div>
       </details>
     </sc-if>
+    </div>
     <p style="margin:18px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Matrix values are quoted from the tracker’s cross-cutting comparison (verified as of {{verLabel}}). Not legal advice.</p>
+    {{cmpExtrasEl}}
   </sc-if>
 
   <sc-if value="{{cmpIsStates}}">
@@ -750,6 +758,9 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     <a href="#/method" onClick="{{jumpConf}}" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">Confidence</a>
     <a href="#/method" onClick="{{jumpDates}}" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">Dates</a>
     <a href="#/method" onClick="{{jumpExcl}}" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">What’s excluded</a>
+    <sc-if value="{{hasContent}}"><a href="#/method" onClick="{{jumpDef}}" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">Exact definitions</a><a href="#/method" onClick="{{jumpMeth}}" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">Methodology and gaps</a><a href="#/method" onClick="{{jumpAaf}}" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">AAF cross-check</a></sc-if>
+    <a href="#/handbook" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">Handbook →</a>
+    <a href="#/about" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));text-decoration:none;display:inline-flex;align-items:center">About this site →</a>
   </nav></header>
   <section id="m-st-s" aria-labelledby="m-st" style="scroll-margin-top:84px">
     <h2 id="m-st" style="margin:0 0 6px;font-size:calc(24px*var(--fs));font-weight:800;letter-spacing:-.02em">1. What each status means</h2>
@@ -784,7 +795,24 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <sc-for list="{{mExcl}}" as="x"><li style="display:flex"><a href="{{x.href}}" style="flex:1;display:flex;flex-direction:column;gap:4px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:min(16px,var(--r));background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--line-2);color:var(--ink)"><strong style="font-size:calc(15px*var(--fs))"><span aria-hidden="true" style="color:var(--st-excluded)">○</span> {{x.t}}</strong><span style="font-size:calc(14px*var(--fs));color:var(--ink-2)">{{x.why}}</span></a></li></sc-for>
     </ul>
   </section>
-  <p style="margin:0;padding:calc(16px*var(--ps)) calc(18px*var(--ps));border-radius:min(16px,var(--r));background:var(--surface-2);font-size:calc(15px*var(--fs))"><strong>Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing anything here.</p>
+  {{trustEl}}
+  <p style="margin:0;padding:calc(16px*var(--ps)) calc(18px*var(--ps));border-radius:min(16px,var(--r));background:var(--surface-2);font-size:calc(15px*var(--fs))"><strong>Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing anything here. For the legal background in plain English, read the <a href="#/handbook">Handbook</a>; for how this site was built, see <a href="#/about">About this site</a>.</p>
+</div>
+</sc-if>
+
+<sc-if value="{{isHandbook}}">
+<div data-screen-label="Handbook" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(calc(28px*var(--ps)),5vw,calc(56px*var(--ps))) clamp(16px,3vw,32px) calc(72px*var(--ps))">
+  <nav aria-label="Breadcrumb" style="font-size:calc(14px*var(--fs));font-weight:650;margin-bottom:8px"><a href="#/method" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Data &amp; trust</a></nav>
+  <h1 style="margin:0 0 10px;font-size:clamp(26px,2.6vw,34px);line-height:1.15;max-width:900px">{{hbH1}}</h1>
+  {{hbEl}}
+</div>
+</sc-if>
+
+<sc-if value="{{isAbout}}">
+<div data-screen-label="About" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(calc(28px*var(--ps)),5vw,calc(56px*var(--ps))) clamp(16px,3vw,32px) calc(72px*var(--ps))">
+  <nav aria-label="Breadcrumb" style="font-size:calc(14px*var(--fs));font-weight:650;margin-bottom:8px"><a href="#/method" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Data &amp; trust</a></nav>
+  <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);line-height:1.15">About this site</h1>
+  {{aboutEl}}
 </div>
 </sc-if>
 
@@ -807,6 +835,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <footer style="border-top:1px solid var(--line);background:var(--surface);padding:28px clamp(16px,3vw,32px) {{footerPadBottom}}">
   <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-start;justify-content:space-between">
     <p style="margin:0;max-width:620px;font-size:calc(14px*var(--fs));color:var(--ink-2);text-wrap:pretty"><strong style="color:var(--ink)">Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing. Verified as of {{verLabel}}, with supplementary checks through {{asofLabel}}.</p>
+    <nav aria-label="Reference" style="display:flex;flex-wrap:wrap;gap:4px 18px;font-size:calc(14px*var(--fs));font-weight:700"><a href="#/method" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Data &amp; trust</a><a href="#/handbook" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Handbook</a><a href="#/about" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">About this site</a></nav>
   </div>
 </footer>
 
@@ -974,10 +1003,10 @@ class Component extends DCLogic {
     try {
       const get = u => fetch(u).then(x => { if (!x.ok) throw new Error(u); return x.json(); });
       const v1 = /[?&]data=v1\b/.test(location.search);
-      const [L, V, ...d] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...(v1 ? ['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'] : ['data/v2/entries.json', 'data/v2/news.json', 'data/v2/relationships.json', 'data/v2/site.json']).map(get)]);
+      const [L, V, ...d] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...(v1 ? ['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'] : ['data/v2/entries.json', 'data/v2/news.json', 'data/v2/relationships.json', 'data/v2/site.json', 'data/v2/content.json']).map(get)]);
       this.L = L; this.V = V;
       if (v1) { this.D = L.build(d[0], d[1], d[2]); this.D.tev = d[3].events.map(x => ({ ...x, d: new Date(x.date + 'T12:00:00') })).filter(x => this.D.byId[x.id]); }
-      else this.D = L.buildV2(d[0], d[1], d[2], d[3]);
+      else this.D = L.buildV2(d[0], d[1], d[2], d[3], d[4]);
       this.setState({ loading: false });
       this.endBoot();
     } catch (err) { console.warn(err); this.setState({ loading: false, err: true, booting: false }); }
@@ -1108,8 +1137,8 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, r = s.route, p = r.p, mob = s.vw < 760, ready = !s.loading && !s.err && !!this.D;
     const path = r.path, isBill = /^\/bill\//.test(path);
-    const known = ['/', '/map', '/explore', '/updates', '/method', '/compare'];
-    const sec = path === '/' ? 'home' : path === '/explore' || isBill || path === '/compare' ? 'explore' : path.slice(1);
+    const known = ['/', '/map', '/explore', '/updates', '/method', '/compare', '/handbook', '/about'];
+    const sec = path === '/' ? 'home' : path === '/explore' || isBill || path === '/compare' ? 'explore' : path === '/handbook' || path === '/about' ? 'method' : path.slice(1);
     const NAV = [['home', 'Home', '#/', '⌂'], ['map', 'Map', '#/map', '◎'], ['explore', 'Explore', '#/explore', '⌕'], ['updates', 'Updates', '#/updates', '◷'], ['method', 'Data & trust', '#/method', '✓']];
     const v = {
       loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
@@ -1123,7 +1152,7 @@ class Component extends DCLogic {
       toggleTheme: () => { const cur = s.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); const th = cur === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', th); try { localStorage.setItem('fal-theme', th); } catch (e) {} this.setState({ theme: th }); },
       hdrSubmit: e => { e.preventDefault(); const q = (e.target.q.value || '').trim(); e.target.q.value = ''; this.setState({ q }); this.wantQFocus = !q; this.go('/explore', q ? { q } : {}); }, retry: () => this.load(), searchClick: () => { this.wantQFocus = true; if (this.state.route.path === '/explore') this.forceUpdate(); },
       booting: s.booting, bootAnim: s.leaving ? 'gxOut 520ms var(--ease-io) forwards' : 'none',
-      isHome: false, isMap: false, isExplore: false, isBill: false, isCompare: false, isUpdates: false, isMethod: false, isNotFound: false, panelOpen: false, confSheet: false
+      isHome: false, isMap: false, isHandbook: false, isAbout: false, isExplore: false, isBill: false, isCompare: false, isUpdates: false, isMethod: false, isNotFound: false, panelOpen: false, confSheet: false
     };
     if (!ready) return v;
     const route = isBill ? 'bill' : known.includes(path) ? path : '404';
@@ -1134,6 +1163,8 @@ class Component extends DCLogic {
     if (route === '/compare') Object.assign(v, this.compare(p));
     if (route === '/updates') Object.assign(v, this.updates(p));
     if (route === '/method') Object.assign(v, this.method());
+    if (route === '/handbook') Object.assign(v, this.handbook(p));
+    if (route === '/about') Object.assign(v, { isAbout: true, aboutEl: this.V.aboutView(this.D.content) });
     if (route === '404' || (route === 'bill' && !v.isBill)) Object.assign(v, { isNotFound: true, isBill: false });
     Object.assign(v, this.confSheetVals());
     const T = 'Frontier AI Law Tracker';
@@ -1142,6 +1173,7 @@ class Component extends DCLogic {
       : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'table' ? 'Table' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
       : v.isBill ? v.bShort + ' · Bill · ' + T
       : v.isCompare ? 'Compare' + (v.heads ? ': ' + v.heads.map(h => h.short).join(' vs ') : v.sCols ? ': ' + v.sCols.map(c => c.nm).join(' vs ') : '') + ' · ' + T
+      : v.isHandbook ? (v.hbTitle ? v.hbTitle + ' · ' : '') + 'Handbook · ' + T : v.isAbout ? 'About this site · ' + T
       : v.isUpdates ? 'Updates · ' + T : v.isMethod ? 'Data & trust · ' + T : v.isNotFound ? 'Page not found · ' + T : T;
     return v;
   }
@@ -1216,7 +1248,7 @@ class Component extends DCLogic {
       goCmp: () => this.go('/compare', { states: cmp.join(',') }),
       cmpBtnBg: p.mode === 'compare' ? 'var(--b-ink)' : 'transparent', cmpBtnFg: p.mode === 'compare' ? 'var(--b-solid)' : 'var(--b-ink)',
       activeStates, homeNews, upcoming, upLink: `All ${upAll.length} upcoming dates →`, upEmpty: !upAll.length, fedLink: `All ${D.E.filter(x => x.level === 'federal').length} federal items →`,
-      homeTableEl: tbl.tableEl, trustLine: `${D.E.length} entries · ${nSrc} source links · ${D.tev.length} dated events · verified as of ${L.fmt(L.VERIFIED)}, with checks through ${L.fmt(L.ASOF)}.`,
+      homeTableEl: tbl.tableEl, homeSecNotesEl: tf.sec ? this.V.sectionNotes(D.content, tf.sec, L) : null, hasHomeSecNotes: !!(tf.sec && D.content && D.content.section_notes[tf.sec]), trustLine: `${D.E.length} entries · ${nSrc} source links · ${D.tev.length} dated events · verified as of ${L.fmt(L.VERIFIED)}, with checks through ${L.fmt(L.ASOF)}.`,
       sideState: !!p.state && !mob && !!L.SN[p.state], sideNews: !(p.state && !mob && L.SN[p.state]),
       ...this.panel(p, byState, mob)
     };
@@ -1275,7 +1307,8 @@ class Component extends DCLogic {
     const L = this.L, D = this.D, s = this.state;
     const entire = p.graph === 'entire', all = this.V.lensGraph(D, 'all', []);
     const focus = p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]);
-    const out = { isMap: true, ...this.conn(focus), showNet: true, showStar: false, showDirect: !entire };
+    const cl = p.net === 'family' && D.content && D.content.comparison.clusters;
+    const out = { isMap: true, ...this.conn(focus), showNet: true, showStar: false, showDirect: !entire, hasClusters: !!cl, clustersEl: cl ? this.V.mdP(cl, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }) : null };
     out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', entire, lens: p.net || 'all', narrow: s.vw < 640,
       select: k => this.setP({ c: k, graph: '' }), setPeople: v => this.setP({ people: v ? '1' : '' }, true),
       setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
@@ -1289,7 +1322,7 @@ class Component extends DCLogic {
     const chips = this.chips({ ...p, q: s.q.trim() || undefined }, ['q', 'sec', 'grp', 'level', 'status', 'type', 'conf', 'year', 'st']);
     const tab = (k, l, n) => ({ k, l, n, sel: view === k, ul: view === k ? 'inset 0 -2px 0 var(--accent-ink)' : 'none', fg: view === k ? 'var(--ink)' : 'var(--ink-3)', go: () => this.setP({ view: k === 'results' ? '' : k }, true) });
     const out = {
-      isExplore: true, q: s.q, qPh: view === 'table' ? 'Filter rows: any word in any column' : 'Bill, state or idea', qRef: this.qRef, ...this.sidebar(p, s.vw < 1024),
+      isExplore: true, secNotesEl: p.sec ? this.V.sectionNotes(D.content, p.sec, L) : null, hasSecNotes: !!(p.sec && D.content && D.content.section_notes[p.sec]), q: s.q, qPh: view === 'table' ? 'Filter rows: any word in any column' : 'Bill, state or idea', qRef: this.qRef, ...this.sidebar(p, s.vw < 1024),
       onQ: e => { const q = e.target.value; this.setState({ q }); clearTimeout(this.qt); this.qt = setTimeout(() => { history.replaceState(null, '', '#/explore?' + new URLSearchParams(Object.entries({ ...this.state.route.p, q }).filter(([, v]) => v)).toString()); }, 300); },
       submitQ: e => { e.preventDefault(); },
       chips, hasChips: chips.length > 0, clearAll: () => { this.setState({ q: '' }); this.go('/explore', p.view ? { view: p.view } : {}); },
@@ -1404,7 +1437,7 @@ class Component extends DCLogic {
     const ids = (p.ids ? this.csv(p.ids).map(Number) : [1, 2, 3]).filter(i => D.byId[i]).slice(0, 3);
     const xs = ids.map(i => D.byId[i]);
     const useK = xs.length && xs.every(x => L.K_IDS.includes(x.id));
-    const raw = useK ? L.K_ROWS.map(([dim, m]) => [dim, xs.map(x => m[x.id])]) : [
+    const raw = useK ? L.K_ROWS.filter(r => !r[2]).map(([dim, m]) => [dim, xs.map(x => m[x.id])]) : [
       ['Status', xs.map(x => L.ST[x.status].l)], ['Type', xs.map(x => L.TYPES[x.type])], ['Who it covers', xs.map(x => x.thresholds || '—')], ['Latest step', xs.map(x => x.kdLabel)],
       ['Confidence', xs.map(x => x.conf ? L.CONF[x.conf].l : 'Not rated')], ['Sponsors', xs.map(x => x.sponsor || '—')], ['Source', xs.map(x => x.source || '—')]];
     const TOK = /\([^)]*\)|[^\s\/;,+()]+|[\s\/;,+]+/g, SEP = /^[\s\/;,+]+$/;
@@ -1423,7 +1456,7 @@ class Component extends DCLogic {
     const pool = D.E.filter(x => x.section !== 'J' && !ids.includes(x.id) && (!ql || (x.short + ' ' + x.title + ' ' + x.juris).toLowerCase().includes(ql)));
     const sorted = ql ? pool : [...pool.filter(x => L.K_IDS.includes(x.id)), ...pool.filter(x => !L.K_IDS.includes(x.id))];
     return {
-      isCompare: true, cmpIsStates: false, cmpIsEntries: true, heads, rowsDiff: [...rows.filter(r => r.kind === 'diff'), ...rows.filter(r => r.kind === 'mostly')], rowsSame: rows.filter(r => r.kind === 'same'), hasSame: rows.some(r => r.kind === 'same'), nSame: rows.filter(r => r.kind === 'same').length, nDiff: rows.filter(r => r.kind === 'diff').length,
+      isCompare: true, cmpIsStates: false, cmpIsEntries: true, cmpExtrasEl: this.V.compareExtras(D.content, L, D), heads, rowsDiff: [...rows.filter(r => r.kind === 'diff'), ...rows.filter(r => r.kind === 'mostly')], rowsSame: rows.filter(r => r.kind === 'same'), hasSame: rows.some(r => r.kind === 'same'), nSame: rows.filter(r => r.kind === 'same').length, nDiff: rows.filter(r => r.kind === 'diff').length,
       cmpGrid: `repeat(${Math.max(xs.length, 1)}, minmax(0,1fr))`, useK, notK: !useK, tooFew: xs.length < 2, canAdd: xs.length < 3,
       cmpAdd: s.cmpAdd, openAdd: () => this.setState({ cmpAdd: !s.cmpAdd, cmpQ: '' }), cmpQ: s.cmpQ, onCmpQ: e => this.setState({ cmpQ: e.target.value }),
       addList: sorted.slice(0, 8).map(x => ({ short: x.short, juris: x.juris, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, inK: L.K_IDS.includes(x.id), add: () => { this.setState({ cmpAdd: false }); setIds([...ids, x.id]); } })),
@@ -1441,6 +1474,11 @@ class Component extends DCLogic {
       uBottom: D.newsBottom
     };
   }
+  handbook(p) {
+    const C = this.D.content, HB = C && C.handbook, ch = HB && (HB.chapters.find(c => c.slug === p.ch) || HB.chapters[0]);
+    return { isHandbook: true, hbH1: HB ? HB.title : 'Handbook', hbTitle: ch && !p.all ? (ch.n ? ch.n + '. ' : '') + ch.title : '',
+      hbEl: this.V.handbookView({ C, ch: p.ch, all: p.all === '1', q: p.q || '', setQ: v => this.setP({ q: v }, true), showAll: v => this.setP({ all: v ? '1' : '' }) }) };
+  }
   method() {
     const L = this.L, D = this.D;
     const levels = L.CONF_ORDER.map(k => { const n = D.E.filter(x => x.conf === k).length; return { l: L.CONF[k].l, code: k, d: L.CONF[k].d, cb: this.bars(k), n, href: n ? '#/explore?conf=' + k : '#/explore', cta: n ? `See ${n} ${n === 1 ? 'entry' : 'entries'} →` : 'None yet' }; });
@@ -1448,7 +1486,7 @@ class Component extends DCLogic {
     const statuses = L.STATUS_ORDER.map(k => ({ l: L.ST[k].l, g: L.ST[k].g, c: `var(--st-${k})`, d: SD[k], n: D.E.filter(x => x.status === k).length, href: '#/explore?status=' + k }));
     const jump = id => e => { e.preventDefault(); const el = document.getElementById(id); if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 80); const h = el.querySelector('h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } };
     const excl = D.E.filter(x => x.section === 'J').map(x => ({ t: x.title, why: x.lead, href: '#/bill/' + x.id }));
-    return { isMethod: true, mLevels: levels, mExcl: excl, mStatuses: statuses, jumpStatus: jump('m-st-s'), jumpConf: jump('m-l-s'), jumpDates: jump('m-v-s'), jumpExcl: jump('m-x-s') };
+    return { isMethod: true, hasContent: !!D.content, trustEl: this.V.trustExtras(D.content, L), jumpDef: jump('m-def-s'), jumpMeth: jump('m-l-s2'), jumpAaf: jump('m-aaf-s'), mLevels: levels, mExcl: excl, mStatuses: statuses, jumpStatus: jump('m-st-s'), jumpConf: jump('m-l-s'), jumpDates: jump('m-v-s'), jumpExcl: jump('m-x-s') };
   }
 }
 </script>

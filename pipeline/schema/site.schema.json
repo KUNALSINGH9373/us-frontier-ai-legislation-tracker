@@ -73,7 +73,8 @@
             "additionalProperties": false,
             "properties": {
               "dimension": { "type": "string" },
-              "values": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Entry key to the value shown." }
+              "values": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Entry key to the value shown." },
+              "note": { "type": "string", "description": "For a row that is not per-entry (v1's 'full spread' row): its text as one note." }
             }
           }
         }

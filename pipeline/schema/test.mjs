@@ -17,6 +17,11 @@ ok(`all ${data.entries.length} converted entries pass the entry schema`, bad.len
 ok('news passes', v.check('news', data.news).length === 0, v.check('news', data.news).join('; '));
 ok('relationships pass', v.check('relationships', data.relationships).length === 0, v.check('relationships', data.relationships).join('; '));
 ok('site settings pass', v.check('site', data.site).length === 0, v.check('site', data.site).join('; '));
+ok('reference content passes', v.check('content', data.content).length === 0, v.check('content', data.content).join('; '));
+ok('comparison matrix has all 16 rows of tracker.md section K', data.site.comparison_matrix.rows.length === 16);
+ok('handbook has its 21 chapters', data.content.handbook.chapters.length === 21);
+ok('section notes for A, B.2, C, G.2 and G.3', ['A', 'B.2', 'C', 'G.2', 'G.3'].every((k) => (data.content.section_notes[k] || []).length));
+{ const d = clone(data.content); d.about.blocks[0].type = 'script'; ok('content schema rejects an unknown block type', v.check('content', d).length > 0); }
 const integrity = checkIntegrity(data);
 ok('cross-file references are consistent', integrity.length === 0, integrity.slice(0, 5).join('\n      '));
 ok('90 entries, 178 events, 133 edges (matches the live UI)', data.entries.length === 90 && data.entries.reduce((n, e) => n + e.events.length, 0) === 178 && data.relationships.edges.length === 133);

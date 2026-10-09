@@ -168,82 +168,87 @@
      "ca-sb-53-tfaia": ">50",
      "ny-raise-act-ch-699-ch-96": ">50 (was 100)",
      "il-sb-315-p-a-104-0538": ">50",
-     "ma-h-5576-s-3178": "50+",
      "mi-hb-4668": ">100",
      "nj-s-4446-a-5275": "25+",
+     "ma-h-5576-s-3178": "50+",
      "h-r-9925-frontier-act": ">50"
     }
    },
    {
+    "dimension": "Casualty threshold — full spread",
+    "values": {},
+    "note": "H.R. 9965 ATOMIC: 5 deaths / 50 serious injuries / $100M · H.R. 9917 Kill Switch: 10 / $100M · MN HF 4532: 25 / $1M · NJ: 25 / $1B · MI & original RAISE: 100 / $1B · most others: 50 / $1B"
+   },
+   {
     "dimension": "Developer trigger",
     "values": {
-     "ca-sb-53-tfaia": ">$500M revenue",
-     "ny-raise-act-ch-699-ch-96": ">$500M revenue",
-     "il-sb-315-p-a-104-0538": ">$500M revenue",
-     "ma-h-5576-s-3178": ">$500M AI revenue or >$1B R&D",
-     "mi-hb-4668": "Compute cost $5M / $100M",
-     "nj-s-4446-a-5275": ">$100M revenue",
-     "h-r-9925-frontier-act": ">$50M revenue + ≥$1B AI spend (large); >$5B + ≥$10B (very large)"
+     "ca-sb-53-tfaia": ">$500M rev",
+     "ny-raise-act-ch-699-ch-96": ">$500M rev",
+     "il-sb-315-p-a-104-0538": ">$500M rev",
+     "mi-hb-4668": "Compute cost $5M/$100M",
+     "nj-s-4446-a-5275": ">$100M rev",
+     "ma-h-5576-s-3178": ">$500M AI rev or >$1B R&D",
+     "h-r-9925-frontier-act": ">$50M rev + ≥$1B AI spend (large); >$5B + ≥$10B (very large)"
     }
    },
    {
-    "dimension": "Compute (FLOP) threshold",
+    "dimension": "FLOP threshold",
     "values": {
      "ca-sb-53-tfaia": "10²⁶",
      "ny-raise-act-ch-699-ch-96": "10²⁶",
      "il-sb-315-p-a-104-0538": "10²⁶",
-     "ma-h-5576-s-3178": "10²⁶",
-     "mi-hb-4668": "None — compute expressed as estimated cost",
+     "mi-hb-4668": "none — compute expressed as estimated cost",
      "nj-s-4446-a-5275": "10²⁶",
+     "ma-h-5576-s-3178": "10²⁶",
      "h-r-9925-frontier-act": "10²⁶"
     }
    },
    {
     "dimension": "Incident reporting",
     "values": {
-     "ca-sb-53-tfaia": "15 days / 24 h if imminent",
+     "ca-sb-53-tfaia": "15 d / 24 h imminent",
      "ny-raise-act-ch-699-ch-96": "72 h / 24 h",
-     "il-sb-315-p-a-104-0538": "72 h / 24 h if imminent",
-     "ma-h-5576-s-3178": "To the AG",
-     "mi-hb-4668": "Conditions self-defined in protocol",
-     "nj-s-4446-a-5275": "None (term defined, never used)",
+     "il-sb-315-p-a-104-0538": "72 h / 24 h imminent",
+     "mi-hb-4668": "conditions self-defined in protocol",
+     "nj-s-4446-a-5275": "none (term defined, never used)",
+     "ma-h-5576-s-3178": "to AG",
      "h-r-9925-frontier-act": "72 h / 24 h to law enforcement"
     }
    },
    {
     "dimension": "Third-party audit",
     "values": {
-     "ca-sb-53-tfaia": "None",
-     "ny-raise-act-ch-699-ch-96": "Dropped",
-     "il-sb-315-p-a-104-0538": "Annual (from 2028)",
-     "ma-h-5576-s-3178": "Every 120 days",
-     "mi-hb-4668": "Annual",
-     "nj-s-4446-a-5275": "Discretionary (AG)",
-     "h-r-9925-frontier-act": "Annual (large) + IVO at least every 6 months (very large)"
+     "ca-sb-53-tfaia": "none",
+     "ny-raise-act-ch-699-ch-96": "dropped",
+     "il-sb-315-p-a-104-0538": "annual (from 2028)",
+     "mi-hb-4668": "annual",
+     "nj-s-4446-a-5275": "discretionary (AG)",
+     "ma-h-5576-s-3178": "every 120 days",
+     "h-r-9925-frontier-act": "annual (large) + IVO ≥6-monthly (very large)"
     }
    },
    {
     "dimension": "Whistleblower protection",
     "values": {
-     "ca-sb-53-tfaia": "Yes + anonymous channel",
-     "ny-raise-act-ch-699-ch-96": "Removed",
-     "il-sb-315-p-a-104-0538": "Yes",
-     "ma-h-5576-s-3178": "Yes",
-     "mi-hb-4668": "Yes + private right of action",
-     "nj-s-4446-a-5275": "None",
-     "h-r-9925-frontier-act": "None"
+     "ca-sb-53-tfaia": "yes + anonymous channel",
+     "ny-raise-act-ch-699-ch-96": "removed",
+     "il-sb-315-p-a-104-0538": "yes",
+     "mi-hb-4668": "yes + private right of action",
+     "nj-s-4446-a-5275": "none",
+     "ma-h-5576-s-3178": "yes",
+     "h-r-9925-frontier-act": "none"
     }
    },
    {
     "dimension": "Private right of action",
     "values": {
-     "ca-sb-53-tfaia": "None for developer obligations; employees may sue for retaliation",
-     "ny-raise-act-ch-699-ch-96": "No",
-     "il-sb-315-p-a-104-0538": "None for developer obligations; employee remedies via IL Whistleblower Act",
-     "ma-h-5576-s-3178": "No",
-     "mi-hb-4668": "Employees only",
-     "nj-s-4446-a-5275": "No",
-     "h-r-9925-frontier-act": "No (IVO immunity)"
+     "ca-sb-53-tfaia": "none for developer obligations; employees may sue for retaliation",
+     "ny-raise-act-ch-699-ch-96": "no",
+     "il-sb-315-p-a-104-0538": "none for developer obligations; employee remedies via IL Whistleblower Act",
+     "mi-hb-4668": "employees only",
+     "nj-s-4446-a-5275": "no",
+     "ma-h-5576-s-3178": "no",
+     "h-r-9925-frontier-act": "no (IVO immunity)"
     }
    },
    {
@@ -252,9 +257,9 @@
      "ca-sb-53-tfaia": "$1M",
      "ny-raise-act-ch-699-ch-96": "$1M / $3M",
      "il-sb-315-p-a-104-0538": "$1M / $3M",
-     "ma-h-5576-s-3178": "—",
      "mi-hb-4668": "$1M ($500 for whistleblower violations)",
      "nj-s-4446-a-5275": "$100K",
+     "ma-h-5576-s-3178": "—",
      "h-r-9925-frontier-act": "$1M/day; $10M/day + criminal for emergency-order violations"
     }
    },
@@ -262,36 +267,84 @@
     "dimension": "Oversight body",
     "values": {
      "ca-sb-53-tfaia": "OES + AG",
-     "ny-raise-act-ch-699-ch-96": "New DFS office (rulemaking)",
+     "ny-raise-act-ch-699-ch-96": "new DFS office (rulemaking)",
      "il-sb-315-p-a-104-0538": "IEMA/OHS + AG",
-     "ma-h-5576-s-3178": "AG",
      "mi-hb-4668": "AG",
      "nj-s-4446-a-5275": "AG + OHSP",
-     "h-r-9925-frontier-act": "New Under Secretary of Commerce"
+     "ma-h-5576-s-3178": "AG",
+     "h-r-9925-frontier-act": "new Under Secretary of Commerce"
+    }
+   },
+   {
+    "dimension": "Sunset / review",
+    "values": {
+     "ca-sb-53-tfaia": "annual definitional review",
+     "ny-raise-act-ch-699-ch-96": "—",
+     "il-sb-315-p-a-104-0538": "—",
+     "mi-hb-4668": "—",
+     "nj-s-4446-a-5275": "5-yr sunset",
+     "ma-h-5576-s-3178": "—",
+     "h-r-9925-frontier-act": "thresholds may only increase; 2-yr review"
     }
    },
    {
     "dimension": "Federal reciprocity",
     "values": {
-     "ca-sb-53-tfaia": "Incident reporting only",
-     "ny-raise-act-ch-699-ch-96": "Incident reporting only",
-     "il-sb-315-p-a-104-0538": "Whole Act, but federal rule must mandate audits",
-     "ma-h-5576-s-3178": "—",
+     "ca-sb-53-tfaia": "incident reporting only",
+     "ny-raise-act-ch-699-ch-96": "incident reporting only",
+     "il-sb-315-p-a-104-0538": "whole Act, but federal rule must mandate audits",
      "mi-hb-4668": "—",
      "nj-s-4446-a-5275": "—",
-     "h-r-9925-frontier-act": "Would displace"
+     "ma-h-5576-s-3178": "—",
+     "h-r-9925-frontier-act": "would displace (see above)"
     }
    },
    {
-    "dimension": "Preempts local governments",
+    "dimension": "Disclosure-statement renewal",
     "values": {
-     "ca-sb-53-tfaia": "Yes (ordinances on/after Jan 1, 2025)",
-     "ny-raise-act-ch-699-ch-96": "—",
-     "il-sb-315-p-a-104-0538": "Yes (denies home rule, Sec. 35)",
-     "ma-h-5576-s-3178": "—",
+     "ca-sb-53-tfaia": "—",
+     "ny-raise-act-ch-699-ch-96": "every 2 years",
+     "il-sb-315-p-a-104-0538": "annually",
      "mi-hb-4668": "—",
      "nj-s-4446-a-5275": "—",
-     "h-r-9925-frontier-act": "Partially preempts states in three enumerated fields; effect on existing laws textually disputed"
+     "ma-h-5576-s-3178": "—",
+     "h-r-9925-frontier-act": "annually"
+    }
+   },
+   {
+    "dimension": "Territorial limit",
+    "values": {
+     "ca-sb-53-tfaia": "no express territorial clause",
+     "ny-raise-act-ch-699-ch-96": "NY-only",
+     "il-sb-315-p-a-104-0538": "disclosure statement: \"in whole or in part in this State\"",
+     "mi-hb-4668": "—",
+     "nj-s-4446-a-5275": "\"users in NJ\"",
+     "ma-h-5576-s-3178": "—",
+     "h-r-9925-frontier-act": "interstate commerce"
+    }
+   },
+   {
+    "dimension": "Preempts local govts",
+    "values": {
+     "ca-sb-53-tfaia": "yes (ordinances on/after Jan 1, 2025)",
+     "ny-raise-act-ch-699-ch-96": "—",
+     "il-sb-315-p-a-104-0538": "yes (denies home rule, Sec. 35)",
+     "mi-hb-4668": "—",
+     "nj-s-4446-a-5275": "—",
+     "ma-h-5576-s-3178": "—",
+     "h-r-9925-frontier-act": "partially preempts states in three enumerated fields; effect on existing laws textually disputed"
+    }
+   },
+   {
+    "dimension": "Good-faith exception for false statements",
+    "values": {
+     "ca-sb-53-tfaia": "yes",
+     "ny-raise-act-ch-699-ch-96": "yes (§1421(4)(b))",
+     "il-sb-315-p-a-104-0538": "yes",
+     "mi-hb-4668": "—",
+     "nj-s-4446-a-5275": "yes",
+     "ma-h-5576-s-3178": "—",
+     "h-r-9925-frontier-act": "yes"
     }
    }
   ]

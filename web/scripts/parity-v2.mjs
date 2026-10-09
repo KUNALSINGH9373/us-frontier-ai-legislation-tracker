@@ -40,7 +40,15 @@ same('link names in use', Object.fromEntries(Object.entries(D1.rel.short).filter
 same('pulse (states with news this week)', D1.pulse, D2.pulse);
 same('replay milestones', A.MILESTONES, B.MILESTONES);
 same('comparison matrix ids', A.K_IDS, B.K_IDS);
-same('comparison matrix rows', A.K_ROWS, B.K_ROWS);
+// The matrix is checked against its v1 source, tracker.md section K, read here independently of the converter
+// (the old hand-copied rows in tracker-lib.js were reworded and had 11 of the 16 rows).
+{
+  const md = fs.readFileSync(path.join(web, '..', 'tracker.md'), 'utf8'), k = md.slice(md.indexOf('\n## K.'), md.indexOf('\n### K.2'));
+  const txt = (c) => c.replace(/\\(.)/g, '$1').replace(/\*\*([^*]+)\*\*/g, '$1').replace(/\*([^*]+)\*/g, '$1').replace(/\s+/g, ' ').trim();
+  const rows = k.split('\n').filter((l) => /^\|/.test(l) && !/^\|\s*-/.test(l)).slice(1).map((l) => l.trim().slice(1, -1).split(/(?<!\\)\|/).map(txt));
+  const want = rows.map((r) => [r[0], /full spread/i.test(r[0]) ? {} : Object.fromEntries(B.K_IDS.map((id, i) => [id, r[i + 1]])), /full spread/i.test(r[0]) ? r.slice(1).filter((v) => v && v !== '—').join(' · ') : null]);
+  same('comparison matrix rows (v2 vs tracker.md section K)', want, B.K_ROWS);
+}
 same('section names', A.SEC, B.SEC);
 same('section groups', A.GROUPS, B.GROUPS);
 same('federal groups', A.FED_GROUPS, B.FED_GROUPS);

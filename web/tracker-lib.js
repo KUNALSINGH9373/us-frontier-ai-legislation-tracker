@@ -288,7 +288,7 @@ export function applySite(site, idOfKey) {
   MILESTONES = (site.replay_milestones || []).filter((m) => idOfKey[m.entry_key]).map((m) => ({ d: noonOf(m.date), id: idOfKey[m.entry_key], c: m.caption }));
   const cm = site.comparison_matrix || { entry_keys: [], rows: [] };
   K_IDS = cm.entry_keys.filter((k) => idOfKey[k]).map((k) => idOfKey[k]);
-  K_ROWS = cm.rows.map((r) => [r.dimension, Object.fromEntries(Object.entries(r.values).filter(([k]) => idOfKey[k]).map(([k, v]) => [idOfKey[k], v]))]);
+  K_ROWS = cm.rows.map((r) => [r.dimension, Object.fromEntries(Object.entries(r.values).filter(([k]) => idOfKey[k]).map(([k, v]) => [idOfKey[k], v])), r.note || null]);
 }
 
 // Headline numbers, counted from the entries instead of typed in.
@@ -299,7 +299,7 @@ export function headline(E) {
     sources: E.reduce((t, x) => t + x.srcLinks.length, 0), events: E.reduce((t, x) => t + x.v2events.length, 0) };
 }
 
-export function buildV2(entries, news, rel, site) {
+export function buildV2(entries, news, rel, site, content) {
   const idOfKey = {}; entries.forEach((x) => { idOfKey[x.key] = x.id; });
   applySite(site, idOfKey);
   // relationships: node keys (e.g. SB53) are what the graph uses; entry_key ties a node to its entry
@@ -341,5 +341,5 @@ export function buildV2(entries, news, rel, site) {
   const tev = [];
   E.forEach((x) => x.v2events.forEach((e, i) => tev.push({ id: x.id, date: e.date, precision: e.precision, inferredYear: !!e.inferred_year, type: e.type, column: i, clause: e.clause, match: e.text, d: noonOf(e.date) })));
   HC = headline(E);
-  return { E, byId, keyToId, idToKey, idOfKey, N, edges, rel: R, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom, tev, site, v2: true };
+  return { E, byId, keyToId, idToKey, idOfKey, N, edges, rel: R, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom, tev, site, content: content || null, v2: true };
 }
