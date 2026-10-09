@@ -43,10 +43,20 @@ The design-rationale and design-system pages, the RSS feed and the email signup 
 | `Tracker.dc.html` | The whole app (markup, styles, logic) in one component file |
 | `support.js` | Component runtime used by the prototype |
 | `tracker-lib.js` | Data model and derivations (status, dates, search, map tiles) |
-| `viz-lib.js` | Explore views built from data: lifecycle lanes (Timeline), relationship network (Relationships), sortable table + CSV (Table) |
+| `viz-lib.js` | Views built from data: lifecycle lanes (Timeline), the relationship canvas (Map), the full comparison table + CSV (Table, Home), and the v1 reference text (Handbook, About, Data & trust, Compare) rendered from `content.json` |
 | `data/` | Generated data (see above) |
-| `fonts/` | Plus Jakarta Sans, latin and latin-ext WOFF2 subsets |
+| `fonts/` | Plus Jakarta Sans and Source Serif 4 (headings), latin and latin-ext WOFF2 subsets |
+| `downloads/` | v1's handbook (PDF, Markdown) and tracker Markdown, copied by `scripts/sync-v2.mjs` |
 | `scripts/build-data.mjs` | Data generator and verifier |
+| `scripts/sync-v2.mjs` | Copies `pipeline/out/*.v2.json` (entries, relationships, news, site, content) to `data/v2/` and the downloads to `downloads/` |
+| `scripts/parity-v2.mjs` | The UI builds the same model from the v1 and v2 files; the comparison matrix is checked against `tracker.md` section K |
+| `scripts/check-bill-text.mjs` | Renders all 90 bill pages in headless Chrome; every clause of every v1 cell must appear |
+| `scripts/check-v1-content.mjs` | Renders the Handbook, About, Data & trust, Compare and section views; every piece of v1 reference text must appear |
+| `scripts/audit-layout.js` | In-page layout audit (`await auditLayout()`): no sideways page scroll, controls in a row share height and centre, square icon buttons, heading aligned with the logo, no console errors |
+
+## Routes
+
+`#/` Home (map + latest updates, federal strip, coming up, full table) · `#/map` relationship canvas (`c`, `graph=entire`, `net`, `people`; old `#/explore?view=connections…` links redirect here) · `#/explore` Results, Timeline, Table (`sec`, `grp`, `level`, `status`, `st`, `type`, `conf`, `year`) · `#/bill/<id>` · `#/compare` · `#/updates` · `#/method` Data & trust · `#/handbook` (`ch`, `all=1`, `q`) · `#/about`
 
 ## Explore views (added)
 
