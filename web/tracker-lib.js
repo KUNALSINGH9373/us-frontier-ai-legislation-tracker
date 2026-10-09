@@ -104,7 +104,16 @@ const MNL = ['January','February','March','April','May','June','July','August','
 export const fmt = d => d ? `${d.getDate()} ${MN[d.getMonth()]} ${d.getFullYear()}` : 'Undated';
 export const fmtMonth = d => `${MNL[d.getMonth()]} ${d.getFullYear()}`;
 export const fmtShort = d => `${MN[d.getMonth()]} ${d.getFullYear()}`;
-export const clean = s => (s||'').replace(/\s*⟨[^⟩]*⟩/g,'').replace(/\s*\(moved from[^)]*\)/i,'').replace(/\s+/g,' ').trim();
+export const clean = s => (s||'').replace(/\s*⟨[^⟩]*⟩/g,'').replace(/\s+/g,' ').trim();
+// The status line exactly as recorded, minus the column label ("Status (as of …):") and the [PENDING]-style class tag,
+// which the status badge already shows. asOf is the date in the column label, when it has one.
+export function statusOf(text) {
+  let t = clean(text), asOf = null;
+  const m = t.match(/^(Status|Introduced \/ status|Date \/ status|Date)\b([^:]{0,40}):\s*/);
+  if (m) { const a = m[2].match(/as of ([^)]+)\)/i); if (a) asOf = a[1].trim(); t = t.slice(m[0].length); }
+  t = t.replace(/\[[A-Z][A-Z—\- ]*\]\s*/g, '').trim();
+  return { text: t, asOf };
+}
 
 const DRE = /\b(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})\b(?:,?\s*(\d{4}))?/g;
 const DRE_ONE = /^(Jan|Feb|Mar|Apr|May|June?|July?|Aug|Sept?|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}\b(?:,?\s*\d{4})?\)?/;
@@ -183,7 +192,7 @@ export function build(entries, news, rel) {
       status, type: TYPE_OF[x.section], conf: x.confidence_level || null, confNote: clean(x.confidence_note), sponsor: clean(x.sponsor), mech, thresholds: clean(x.thresholds), source: clean(x.source),
       years: x.years || [], U: /⟨U⟩/.test(x.title), R: /⟨R⟩/.test(x.title), NCSL: /⟨NCSL⟩/.test(x.title), segs, dated, first, kd, kdLabel: kd ? `${verb ? verb[0].toUpperCase()+verb.slice(1).toLowerCase()+' · ' : ''}${fmt(kd.d)}` : 'No dated event',
       summary: USE_DRAFT_SUMMARIES ? (SUM[x.id] || null) : null, lead, link: x.permalink_old_site,
-      srcLinks: x.source_links || [], moreLinks: (x.all_links || []).filter(l => !(x.source_links || []).some(s => s.u === l.u)), penalties: clean(x.penalties), signed: clean(x.signed), effective: clean(x.effective) };
+      srcLinks: x.source_links || [], moreLinks: (x.all_links || []).filter(l => !(x.source_links || []).some(s => s.u === l.u)), penalties: clean(x.penalties), signed: clean(x.signed), effective: clean(x.effective), statusText: statusOf(x.status_and_dates) };
     dated.forEach(s => events.push({ d: s.d, id: x.id, t: s.t }));
     return o;
   });
@@ -307,7 +316,7 @@ export function buildV2(entries, news, rel, site) {
       kdLabel: kd ? `${verb ? verb[0].toUpperCase() + verb.slice(1).toLowerCase() + ' · ' : ''}${fmt(kd.d)}` : 'No dated event',
       summary: USE_DRAFT_SUMMARIES ? (SUM[x.id] || null) : null, lead, link: x.legacy ? x.legacy.permalink : null,
       srcLinks: (x.sources || []).map((l) => ({ t: l.label, u: l.url })), moreLinks: (x.more_links || []).map((l) => ({ t: l.t, u: l.u })),
-      penalties: clean(x.penalties), signed: clean(x.signed_text), effective: clean(x.effective_text),
+      penalties: clean(x.penalties), signed: clean(x.signed_text), effective: clean(x.effective_text), statusText: statusOf(x.status_text),
       origin: x.origin, lastChecked: x.last_checked, v2events: x.events };
     dated.forEach((sg) => events.push({ d: sg.d, id: x.id, t: sg.t }));
     return o;

@@ -501,7 +501,10 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
             </li>
           </sc-for>
         </ol>
-        <sc-if value="{{hasNotes}}"><ul style="margin:6px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{notes}}" as="n"><li style="font-size:calc(14.5px*var(--fs));color:var(--ink-2);padding:calc(10px*var(--ps)) calc(12px*var(--ps));border-radius:min(12px,var(--r));background:var(--surface-2)">{{n.t}}</li></sc-for></ul></sc-if>
+        <sc-if value="{{hasStatusText}}"><div data-status-text style="margin-top:6px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line)">
+          <h3 style="margin:0 0 6px;font-size:calc(13px*var(--fs));font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)">{{statusLabel}}</h3>
+          <p style="margin:0;font-size:calc(15px*var(--fs));line-height:1.6;color:var(--ink);text-wrap:pretty;overflow-wrap:anywhere">{{statusText}}</p>
+        </div></sc-if>
       </section>
 
       <section aria-labelledby="b-mech">
@@ -530,9 +533,16 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <sc-if value="{{hasRel}}">
         <section aria-labelledby="b-rel">
           <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px"><h2 id="b-rel" style="margin:0;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">Related</h2><a href="{{relHref}}" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center">See all relationships →</a></div>
-          <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:8px">
-            <sc-for list="{{rel}}" as="r"><li style="padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:min(14px,var(--r));border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:4px"><span style="font-size:calc(12px*var(--fs));font-weight:800;color:var(--ink-3)">{{r.type}}</span><sc-if value="{{r.isEntry}}"><a href="{{r.href}}" style="font-weight:750;font-size:calc(15px*var(--fs));color:var(--ink);min-height:32px;display:inline-flex;align-items:center">{{r.name}}</a></sc-if><sc-if value="{{r.isActor}}"><strong style="font-size:calc(15px*var(--fs))">{{r.name}}</strong></sc-if><span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2)">{{r.label}}</span></li></sc-for>
-          </ul>
+          <div style="display:flex;flex-direction:column;gap:16px">
+          <sc-for list="{{relGroups}}" as="g">
+            <section style="display:flex;flex-direction:column;gap:8px">
+              <h3 style="margin:0;font-size:calc(14px*var(--fs));font-weight:800;display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:18px;height:3px;border-radius:2px;background:{{g.c}}"></span>{{g.name}}<span style="font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums">{{g.n}}</span></h3>
+              <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:8px">
+                <sc-for list="{{g.items}}" as="r"><li style="padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:var(--r);border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:4px"><sc-if value="{{r.isEntry}}"><a href="{{r.href}}" style="font-weight:750;font-size:calc(15px*var(--fs));color:var(--ink);min-height:32px;display:inline-flex;align-items:center">{{r.name}}</a></sc-if><sc-if value="{{r.isActor}}"><strong style="font-size:calc(15px*var(--fs))">{{r.name}}</strong></sc-if><span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2)">{{r.label}}</span></li></sc-for>
+              </ul>
+            </section>
+          </sc-for>
+          </div>
         </section>
       </sc-if>
     </div>
@@ -1283,8 +1293,9 @@ class Component extends DCLogic {
     if (!x) return { isBill: false };
     const R = D.rel, k = x.key;
     const steps = x.dated.map(sg => { const fut = sg.d > L.ASOF; return { date: L.fmt(sg.d), t: sg.t, fut, tag: fut ? 'Scheduled' : '', dot: fut ? 'var(--surface)' : `var(--st-${x.status})`, bd: `2px solid var(--st-${x.status})` }; });
-    const notes = x.segs.filter(sg => !sg.d).map(sg => ({ t: sg.t }));
-    const rel = k ? D.edges.filter(e => e.from === k || e.to === k).slice(0, 10).map(e => { const o = e.from === k ? e.to : e.from, oid = D.keyToId[o]; return { name: R.actors[o] || R.short[o] || o, label: e.label, type: R.types[e.type].name, href: oid ? '#/bill/' + oid : '', isEntry: !!oid, isActor: !oid }; }) : [];
+    const rel = k ? D.edges.filter(e => e.from === k || e.to === k).map(e => { const o = e.from === k ? e.to : e.from, oid = D.keyToId[o]; return { t: e.type, name: R.actors[o] || R.short[o] || o, label: e.label, href: oid ? '#/bill/' + oid : '', isEntry: !!oid, isActor: !oid }; }) : [];
+    const relGroups = Object.keys(R.types).map(t => { const items = rel.filter(r => r.t === t); return { name: R.types[t].name, c: this.V.TYPE_COLOR[t] || 'var(--line-2)', n: String(items.length), items }; }).filter(g => g.items.length);
+    const stx = x.statusText || { text: '', asOf: null };
     const news = D.N.filter(n => n.entryId === id).map(n => this.feedItem(n));
     const following = this.state.follow.includes(id);
     const marks = [x.U && 'Added or changed in the supplementary checks through ' + L.fmt(L.ASOF), x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
@@ -1296,8 +1307,9 @@ class Component extends DCLogic {
       hasSummary: !!x.summary, bSummary: x.summary, noSummary: !x.summary, bLead: x.lead,
       bMech: x.mech, hasSigned: !!x.signed, bSigned: x.signed, hasEffective: !!x.effective, bEffective: x.effective, hasPenalties: !!x.penalties, bPenalties: x.penalties,
       srcLinks: x.srcLinks, hasSrcLinks: x.srcLinks.length > 0, noSrcLinks: !x.srcLinks.length && !x.moreLinks.length, moreLinks: x.moreLinks, hasMoreLinks: x.moreLinks.length > 0, nMoreLinks: x.moreLinks.length, bTh: x.thresholds, hasTh: !!x.thresholds, bSponsor: x.sponsor, hasSponsor: !!x.sponsor, bSource: x.source, bLink: x.link, bYears: x.years.filter(y => y !== '*').join(', ') || 'None recorded',
-      steps, hasSteps: steps.length > 0, notes, hasNotes: notes.length > 0, noSteps: !steps.length && !notes.length,
-      rel, hasRel: rel.length > 0, relHref: k ? '#/explore?view=connections&c=' + k : '', bNews: news, hasNews: news.length > 0,
+      steps, hasSteps: steps.length > 0, noSteps: !steps.length && !stx.text,
+      statusText: stx.text, hasStatusText: !!stx.text, statusLabel: 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
+      relGroups, hasRel: rel.length > 0, relHref: k ? '#/explore?view=connections&c=' + k : '', bNews: news, hasNews: news.length > 0,
       marks, hasMarks: marks.length > 0,
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',
       toggleFollowB: () => this.toggleFollow(id),
