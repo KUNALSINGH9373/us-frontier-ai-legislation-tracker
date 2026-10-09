@@ -430,7 +430,17 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     </sc-if>
   </sc-if>
 
-  <sc-if value="{{vConn}}">
+  <sc-if value="{{vTable}}">{{tableEl}}</sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isMap}}">
+<div data-screen-label="Map" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(20px,3vw,36px) clamp(16px,3vw,32px) 64px">
+  <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);line-height:1.15">Map</h1>
+  <p style="margin:6px 0 18px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:720px">How the laws, bills, orders and lawsuits connect: which bills copy which template, what replaced what, and where federal action targets state law. Every link cites the clause it comes from.</p>
+
     <sc-if value="{{showNet}}"><div style="margin-bottom:28px">{{netEl}}</div></sc-if>
     <sc-if value="{{showStar}}"><div role="group" aria-label="Start from" style="display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0 -16px 18px;padding:0 calc(16px*var(--ps)) 6px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="flex-shrink:0;white-space:nowrap;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">{{h.l}}</button></sc-for></div></sc-if>
     <sc-if value="{{showDirect}}"><div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
@@ -456,12 +466,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         </sc-for>
       </div>
     </div></sc-if>
-  </sc-if>
-
-  <sc-if value="{{vTable}}">{{tableEl}}</sc-if>
-</div>
-</div>
-</div>
+  </div>
 </sc-if>
 
 <sc-if value="{{isBill}}">
@@ -745,7 +750,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   <p style="margin:0;font-size:calc(14px*var(--fs));font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">404 · Not found</p>
   <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);font-weight:800;letter-spacing:-.035em;line-height:1.05">This page never made it out of committee.</h1>
   <p style="margin:0;font-size:calc(17px*var(--fs));color:var(--ink-2)">The link may be old, or the entry may have moved. Everything in the tracker is still a search away.</p>
-  <div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#/" style="height:calc(48px*var(--hs));padding:0 calc(20px*var(--ps));border-radius:min(999px,var(--r));background:var(--accent-ink);color:var(--on-accent);font-weight:750;display:inline-flex;align-items:center;text-decoration:none">Back to the map</a><a href="#/explore" style="height:calc(48px*var(--hs));padding:0 calc(20px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);color:var(--ink);font-weight:750;display:inline-flex;align-items:center;text-decoration:none">Search the tracker</a></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#/" style="height:calc(48px*var(--hs));padding:0 calc(20px*var(--ps));border-radius:min(999px,var(--r));background:var(--accent-ink);color:var(--on-accent);font-weight:750;display:inline-flex;align-items:center;text-decoration:none">Back to home</a><a href="#/explore" style="height:calc(48px*var(--hs));padding:0 calc(20px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);color:var(--ink);font-weight:750;display:inline-flex;align-items:center;text-decoration:none">Search the tracker</a></div>
 </div>
 </sc-if>
 
@@ -760,8 +765,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 </footer>
 
 <sc-if value="{{showBottomNav}}">
-  <nav aria-label="Main" style="position:fixed;left:0;right:0;bottom:0;z-index:45;background:color-mix(in oklab,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:6px calc(8px*var(--ps)) calc(6px + env(safe-area-inset-bottom))">
-    <sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
+  <nav aria-label="Main" style="position:fixed;left:0;right:0;bottom:0;z-index:45;background:color-mix(in oklab,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:6px calc(8px*var(--ps)) calc(6px + env(safe-area-inset-bottom))">
+    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
       <a href="{{n.href}}" aria-current="{{n.cur}}" style="min-height:calc(52px*var(--hs));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;border-radius:min(14px,var(--r));font-size:calc(12.5px*var(--fs));font-weight:700;color:{{n.fg}};background:{{n.bg}}">
         <span aria-hidden="true" style="font-size:calc(16px*var(--fs));line-height:1">{{n.ic}}</span>{{n.l}}
       </a>
@@ -883,7 +888,7 @@ class Component extends DCLogic {
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
     this.mq = matchMedia('(prefers-color-scheme: dark)'); this.onMq = () => this.forceUpdate(); this.mq.addEventListener && this.mq.addEventListener('change', this.onMq);
-    this.onHash = () => { if (location.hash === '#main') { history.replaceState(null, '', this.lastHash || '#/'); this.focusMain(); return; } this.lastHash = location.hash || '#/'; const route = this.parse(); this.setState({ route, q: route.p.q || '', limit: 20, cmpAdd: false, filtersOpen: this.lastPath === route.path ? this.state.filtersOpen : false }); if (!route.p.state && !route.p.fed) this.fromRect = null; if (this.lastPath !== route.path) { window.scrollTo(0, 0); this.lastPath = route.path; this.wantRouteFocus = true; } };
+    this.onHash = () => { if (location.hash === '#main') { history.replaceState(null, '', this.lastHash || '#/'); this.focusMain(); return; } this.lastHash = location.hash || '#/'; if (this.redirectOld()) return; const route = this.parse(); this.setState({ route, q: route.p.q || '', limit: 20, cmpAdd: false, filtersOpen: this.lastPath === route.path ? this.state.filtersOpen : false }); if (!route.p.state && !route.p.fed) this.fromRect = null; if (this.lastPath !== route.path) { window.scrollTo(0, 0); this.lastPath = route.path; this.wantRouteFocus = true; } };
     this.onResize = () => this.setState({ vw: window.innerWidth });
     this.onNet = () => this.setState({ online: navigator.onLine });
     this.onKey = e => {
@@ -894,7 +899,7 @@ class Component extends DCLogic {
     let th = null, follow = [], sideHidden = false;
     try { th = localStorage.getItem('fal-theme'); follow = JSON.parse(localStorage.getItem('fal-follow') || '[]'); sideHidden = localStorage.getItem('fal-side') === 'hidden'; } catch (e) {}
     if (th) document.documentElement.setAttribute('data-theme', th);
-    const route = this.parse(); this.lastPath = route.path; this.lastHash = location.hash || '#/';
+    this.redirectOld(); const route = this.parse(); this.lastPath = route.path; this.lastHash = location.hash || '#/';
     this.setState({ route, q: route.p.q || '', online: navigator.onLine, theme: th, follow, sideHidden });
     this.load();
   }
@@ -943,6 +948,12 @@ class Component extends DCLogic {
     step(); this.ci = setInterval(step, 33);
     let seen = false; try { seen = sessionStorage.getItem('fal-replayed') === '1'; sessionStorage.setItem('fal-replayed', '1'); } catch (e) {}
     if (!seen && this.state.route.path === '/' && !this.state.route.p.state) setTimeout(() => { if (this.state.route.path === '/' && !this.state.route.p.state) this.play(true); }, 1400);
+  }
+  // Old links: #/explore?view=connections… now lives at #/map…
+  redirectOld() {
+    const r = this.parse(); if (r.path !== '/explore' || r.p.view !== 'connections') return false;
+    const n = {}; ['c', 'graph', 'net', 'people'].forEach(k => { if (r.p[k]) n[k] = r.p[k]; });
+    const qs = new URLSearchParams(n).toString(); history.replaceState(null, '', '#/map' + (qs ? '?' + qs : '')); if (this.onHash) this.onHash(); return true;
   }
   parse() {
     const h = (location.hash || '#/').slice(1); const [path, qs] = h.split('?'); const p = {};
@@ -1053,9 +1064,9 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, r = s.route, p = r.p, mob = s.vw < 760, ready = !s.loading && !s.err && !!this.D;
     const path = r.path, isBill = /^\/bill\//.test(path);
-    const known = ['/', '/explore', '/updates', '/method', '/compare'];
-    const sec = path === '/' ? 'map' : path === '/explore' || isBill || path === '/compare' ? 'explore' : path.slice(1);
-    const NAV = [['map', 'Map', '#/', '◎'], ['explore', 'Explore', '#/explore', '⌕'], ['updates', 'Updates', '#/updates', '◷'], ['method', 'Data & trust', '#/method', '✓']];
+    const known = ['/', '/map', '/explore', '/updates', '/method', '/compare'];
+    const sec = path === '/' ? 'home' : path === '/explore' || isBill || path === '/compare' ? 'explore' : path.slice(1);
+    const NAV = [['home', 'Home', '#/', '⌂'], ['map', 'Map', '#/map', '◎'], ['explore', 'Explore', '#/explore', '⌕'], ['updates', 'Updates', '#/updates', '◷'], ['method', 'Data & trust', '#/method', '✓']];
     const v = {
       loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
       ...(this.L && this.D ? (() => { const L = this.L, MNL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -1068,11 +1079,12 @@ class Component extends DCLogic {
       toggleTheme: () => { const cur = s.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); const th = cur === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', th); try { localStorage.setItem('fal-theme', th); } catch (e) {} this.setState({ theme: th }); },
       hdrSubmit: e => { e.preventDefault(); const q = (e.target.q.value || '').trim(); e.target.q.value = ''; this.setState({ q }); this.wantQFocus = !q; this.go('/explore', q ? { q } : {}); }, retry: () => this.load(), searchClick: () => { this.wantQFocus = true; if (this.state.route.path === '/explore') this.forceUpdate(); },
       booting: s.booting, bootAnim: s.leaving ? 'gxOut 520ms var(--ease-io) forwards' : 'none',
-      isHome: false, isExplore: false, isBill: false, isCompare: false, isUpdates: false, isMethod: false, isNotFound: false, panelOpen: false, confSheet: false
+      isHome: false, isMap: false, isExplore: false, isBill: false, isCompare: false, isUpdates: false, isMethod: false, isNotFound: false, panelOpen: false, confSheet: false
     };
     if (!ready) return v;
     const route = isBill ? 'bill' : known.includes(path) ? path : '404';
     if (route === '/') Object.assign(v, this.home(p, mob));
+    if (route === '/map') Object.assign(v, this.map(p));
     if (route === '/explore') Object.assign(v, this.explore(p));
     if (route === 'bill') Object.assign(v, this.bill(+path.split('/')[2]));
     if (route === '/compare') Object.assign(v, this.compare(p));
@@ -1082,7 +1094,8 @@ class Component extends DCLogic {
     Object.assign(v, this.confSheetVals());
     const T = 'Frontier AI Law Tracker';
     this.docTitle = v.isHome ? (p.state && L_SN(this.L, p.state) ? L_SN(this.L, p.state) + ' · ' + T : v.panelOpen ? v.panelTitle + ' · ' + T : T + ' · US states and Congress')
-      : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'connections' ? 'Relationships' : p.view === 'table' ? 'Table' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
+      : v.isMap ? (p.graph === 'entire' ? 'Entire map' : 'Map') + (p.c && v.cName ? ': ' + v.cName : '') + ' · ' + T
+      : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'table' ? 'Table' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
       : v.isBill ? v.bShort + ' · Bill · ' + T
       : v.isCompare ? 'Compare' + (v.heads ? ': ' + v.heads.map(h => h.short).join(' vs ') : v.sCols ? ': ' + v.sCols.map(c => c.nm).join(' vs ') : '') + ' · ' + T
       : v.isUpdates ? 'Updates · ' + T : v.isMethod ? 'Data & trust · ' + T : v.isNotFound ? 'Page not found · ' + T : T;
@@ -1190,7 +1203,7 @@ class Component extends DCLogic {
   }
   sidebar(p, small) {
     const L = this.L, D = this.D;
-    const href = ch => { const n = { ...p, ...ch }; delete n.q; if (n.view === 'connections') { ['view', 'c', 'graph', 'net', 'people'].forEach(f => delete n[f]); } if (this.state.q.trim()) n.q = this.state.q.trim(); return '#/explore?' + new URLSearchParams(Object.entries(n).filter(([, v]) => v)).toString(); };
+    const href = ch => { const n = { ...p, ...ch }; delete n.q; if (this.state.q.trim()) n.q = this.state.q.trim(); return '#/explore?' + new URLSearchParams(Object.entries(n).filter(([, v]) => v)).toString(); };
     const item = (on, x) => ({ ...x, cur: on ? 'page' : undefined, fg: on ? 'var(--ink)' : 'var(--ink-2)', bg: on ? 'var(--accent-soft)' : 'transparent', ul: on ? 'inset 2px 0 0 var(--accent-ink)' : 'none' });
     const count = {}; D.E.forEach(x => { count[x.section] = (count[x.section] || 0) + 1; });
     const placed = new Set(L.GROUPS.flatMap(g => g.sections));
@@ -1203,6 +1216,16 @@ class Component extends DCLogic {
     const hid = !small && !!this.state.sideHidden;
     const toggleSide = () => { const v = !this.state.sideHidden; try { localStorage.setItem('fal-side', v ? 'hidden' : 'shown'); } catch (e) {} this.setState({ sideHidden: v }); };
     return { sideCollapsed: hid ? 'true' : 'false', sideExpanded: hid ? 'false' : 'true', sideBtnLabel: hid ? 'Show sections and states' : 'Hide sections and states', sideBtnText: hid ? '›' : '‹ Hide', toggleSide, sideOpen: !small, sideGroups: groups, sideJur: jur, sideAll: item(!p.sec && !p.st && !p.level, { n: D.E.length, href: href({ sec: '', st: '', level: '' }) }) };
+  }
+  map(p) {
+    const L = this.L, D = this.D, s = this.state;
+    const entire = p.graph === 'entire', all = this.V.lensGraph(D, 'all', []);
+    const focus = p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]);
+    const out = { isMap: true, ...this.conn(focus), showNet: true, showStar: false, showDirect: !entire };
+    out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', entire, lens: p.net || 'all', narrow: s.vw < 640,
+      select: k => this.setP({ c: k, graph: '' }), setPeople: v => this.setP({ people: v ? '1' : '' }, true),
+      setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
+    return out;
   }
   explore(p) {
     const L = this.L, D = this.D, s = this.state, view = p.view || 'results';
@@ -1218,8 +1241,8 @@ class Component extends DCLogic {
       chips, hasChips: chips.length > 0, clearAll: () => { this.setState({ q: '' }); this.go('/explore', p.view ? { view: p.view } : {}); },
       moreOpen: !!(p.type || p.conf), fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fConf: p.conf || '', fSt: p.st || '', fYear: p.year || '', fGrp: p.grp || '', grpOpts: L.GROUPS.map(g => ({ k: g.k, l: g.l })),
       onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true), onYear: e => this.setP({ year: e.target.value }, true), onGrp: e => this.setP({ grp: e.target.value }, true),
-      tabs: [tab('results', 'Results', rows.length), tab('timeline', 'Timeline', null), tab('connections', 'Relationships', null), tab('table', 'Table', null)],
-      vResults: view === 'results', vTimeline: view === 'timeline', vConn: view === 'connections', vTable: view === 'table', showFilters: view !== 'connections',
+      tabs: [tab('results', 'Results', rows.length), tab('timeline', 'Timeline', null), tab('table', 'Table', null)],
+      vResults: view === 'results', vTimeline: view === 'timeline', vTable: view === 'table', showFilters: true,
       showThresholds: p.type === 'law'
     };
     if (view === 'results') {
@@ -1243,16 +1266,6 @@ class Component extends DCLogic {
       out.tlGroups = groups; out.tlCount = `${ev.length} dated ${ev.length === 1 ? 'event' : 'events'}${up ? ' after ' + L.fmt(L.ASOF) : ''}`; out.tlEmpty = !ev.length;
       out.upOn = up; out.upBg = up ? 'var(--ink)' : 'var(--surface)'; out.upFg = up ? 'var(--bg)' : 'var(--ink)';
       out.toggleUp = () => this.setP({ when: up ? '' : 'upcoming' }, true);
-    }
-    if (view === 'connections') {
-      const lensK = this.V.LENSES[p.net] ? p.net : 'all', lens = this.V.LENSES[lensK], mob = s.vw < 760;
-      const entire = p.graph === 'entire', all = this.V.lensGraph(D, 'all', []);
-      const focus = p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]);
-      Object.assign(out, this.conn(focus));
-      out.showNet = true; out.showStar = false; out.showDirect = !entire;
-      out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', entire, lens: p.net || 'all', narrow: s.vw < 640,
-        select: k => this.setP({ c: k, graph: '' }), setPeople: v => this.setP({ people: v ? '1' : '' }, true),
-        setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
     }
     if (view === 'table') {
       const base = D.E.filter(f);
@@ -1316,7 +1329,7 @@ class Component extends DCLogic {
       srcLinks: x.srcLinks, hasSrcLinks: x.srcLinks.length > 0, noSrcLinks: !x.srcLinks.length && !x.moreLinks.length, moreLinks: x.moreLinks, hasMoreLinks: x.moreLinks.length > 0, nMoreLinks: x.moreLinks.length, bTh: x.thresholds, hasTh: !!x.thresholds, bSponsor: x.sponsor, hasSponsor: !!x.sponsor, bSource: x.source, bLink: x.link, bYears: x.years.filter(y => y !== '*').join(', ') || 'None recorded',
       steps, hasSteps: steps.length > 0, noSteps: !steps.length && !stx.text,
       statusText: stx.text, hasStatusText: !!stx.text, statusLabel: 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
-      relGroups, hasRel: rel.length > 0, relHref: k ? '#/explore?view=connections&c=' + k : '', bNews: news, hasNews: news.length > 0,
+      relGroups, hasRel: rel.length > 0, relHref: k ? '#/map?c=' + k : '', bNews: news, hasNews: news.length > 0,
       marks, hasMarks: marks.length > 0,
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',
       toggleFollowB: () => this.toggleFollow(id),
