@@ -98,7 +98,7 @@ export function lanes(ctx) {
             h('tspan', { style: { fill: 'var(--ink-3)', fontWeight: 600, fontSize: 'calc(11px*var(--fs))' } }, tag), trunc(x0.short, ctx.mob ? (tag ? 14 : 19) : (tag ? 25 : 31)))),
         evs.length > 1 ? h('line', { x1: Math.max(x(+evs[0].d), LW), x2: Math.min(x(+evs[evs.length - 1].d), W - PR), y1: cy, y2: cy, style: { stroke: 'var(--line-2)', strokeWidth: 2.2, strokeLinecap: 'round' } }) : null,
         ...evs.map((e) => {
-          const kd = kindOf(e), key = e.id + '|' + e.date + '|' + e.type + '|' + e.column, future = +e.d > ASOF, on = ctx.sel === key;
+          const kd = kindOf(e), key = e.id + '|' + e.date + '|' + e.type + '|' + e.column, future = +e.d >= ASOF + DAY, on = ctx.sel === key;
           const act = () => ctx.select(key);
           return h('g', {
             key, tabIndex: 0, role: 'button', 'aria-pressed': on, 'aria-label': `${L.fmt(e.d)}, ${EV_KINDS[kd].l}${future ? ', scheduled' : ''}: ${x0.short}`,
@@ -128,8 +128,8 @@ export function lanes(ctx) {
     ...lbl.map((r, k) => r.band
       ? h('g', { key: k }, h('rect', { x: 0, y: r.y + 3, width: LW, height: BAND - 6, style: { fill: 'var(--surface-2)' } }), h('text', { x: 10, y: r.y + BAND / 2 + 4.5, style: { fill: 'var(--ink)', fontSize: 'calc(11.5px*var(--fs))', fontWeight: 800 } }, trunc(r.name, 20)))
       : h('g', { key: k }, r.sel ? h('rect', { x: 0, y: r.y, width: LW, height: ROW, style: { fill: 'var(--accent-soft)' } }) : (r.i % 2 ? h('rect', { x: 0, y: r.y, width: LW, height: ROW, style: { fill: 'var(--b-fill)' } }) : null), labelText(r, LW - 10))));
-  const nEntries = byId.size, nLaw = new Set(shown.filter((e) => kindOf(e) === 'law' && +e.d <= ASOF).map((e) => e.id)).size;
-  const nSched = shown.filter((e) => +e.d > ASOF).length, outside = all.filter((e) => !off.has(kindOf(e)) && (+e.d < from || +e.d > to)).length;
+  const nEntries = byId.size, nLaw = new Set(shown.filter((e) => kindOf(e) === 'law' && +e.d < ASOF + DAY).map((e) => e.id)).size;
+  const nSched = shown.filter((e) => +e.d >= ASOF + DAY).length, outside = all.filter((e) => !off.has(kindOf(e)) && (+e.d < from || +e.d > to)).length;
   const counts = {}; inRange.forEach((e) => { const k = kindOf(e); counts[k] = (counts[k] || 0) + 1; });
   const selEv = ctx.sel ? D.tev.find((e) => e.id + '|' + e.date + '|' + e.type + '|' + e.column === ctx.sel) : null;
 
@@ -151,7 +151,7 @@ export function lanes(ctx) {
         h('div', { style: { display: 'flex', width: W } }, overlay,
           h('svg', { viewBox: `${LW} 0 ${W - LW} ${H}`, role: 'group', 'aria-label': `Lifecycle chart: ${nEntries} entries, ${shown.length} dated events`, style: { display: 'block', width: W - LW, height: 'auto', fontFamily: 'inherit' } }, ...els, asofEl))),
     h('div', { 'aria-live': 'polite', style: { position: 'sticky', bottom: ctx.mob ? 84 : 14, zIndex: 5, marginTop: 14 } },
-      selEv ? (() => { const e = selEv, x0 = D.byId[e.id], kd = kindOf(e), fut = +e.d > ASOF; return h('div', { style: { padding: '14px 16px', borderRadius: 'min(16px,var(--r))', background: 'var(--surface)', border: '1px solid var(--line-2)', boxShadow: 'var(--shadow-2)', display: 'flex', flexDirection: 'column', gap: 6 } },
+      selEv ? (() => { const e = selEv, x0 = D.byId[e.id], kd = kindOf(e), fut = +e.d >= ASOF + DAY; return h('div', { style: { padding: '14px 16px', borderRadius: 'min(16px,var(--r))', background: 'var(--surface)', border: '1px solid var(--line-2)', boxShadow: 'var(--shadow-2)', display: 'flex', flexDirection: 'column', gap: 6 } },
         h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', fontSize: 'calc(13.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-3)' } },
           h('span', { 'aria-hidden': true, style: { color: EV_KINDS[kd].c, fontSize: 'calc(16px*var(--fs))' } }, EV_KINDS[kd].g), h('span', { style: { color: 'var(--ink)' } }, EV_KINDS[kd].l),
           h('span', null, (e.precision === 'month' ? L.fmtMonth(e.d) : L.fmt(e.d))), fut ? h('span', { style: { padding: '1px 8px', borderRadius: 'min(999px,var(--r))', border: '1px dashed var(--st-pending)', color: 'var(--ink)', fontSize: 'calc(12px*var(--fs))', fontWeight: 800 } }, 'Scheduled') : null,
