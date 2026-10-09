@@ -9,7 +9,7 @@
 // Nothing here changes the page apart from the hash and the theme, which are restored at the end.
 (function () {
   if (!window.__errs) { window.__errs = []; window.addEventListener('error', (e) => window.__errs.push(String(e.message))); const ce = console.error; console.error = (...a) => { window.__errs.push(a.join(' ')); ce.apply(console, a); }; }
-  const ROUTES = ['#/', '#/?view=list', '#/map', '#/map?graph=entire', '#/explore', '#/explore?view=timeline', '#/explore?view=table', '#/explore?sec=A', '#/bill/1', '#/bill/4', '#/compare', '#/updates', '#/method', '#/handbook', '#/handbook?all=1', '#/about'];
+  const ROUTES = ['#/', '#/?view=list', '#/?graph=entire', '#/?c=SB53', '#/explore', '#/explore?view=timeline', '#/explore?view=table', '#/explore?sec=A', '#/bill/1', '#/bill/4', '#/compare', '#/updates', '#/method', '#/handbook', '#/handbook?all=1', '#/about'];
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const vis = (el) => { const r = el.getBoundingClientRect(), cs = getComputedStyle(el); return r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none'; };
   const isControl = (el) => {

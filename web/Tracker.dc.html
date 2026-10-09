@@ -321,58 +321,44 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   </div>
 </section>
 
-<section aria-labelledby="fedstrip-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(20px,3vw,32px) clamp(16px,3vw,32px) 0">
-  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:4px 12px;flex-wrap:wrap;margin-bottom:10px">
-    <h2 id="fedstrip-h" style="margin:0;font-size:calc(clamp(20px,2.2vw,26px)*var(--fs))">Federal: Congress, White House, courts</h2>
-    <a href="#/explore?level=federal" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(40px*var(--hs));display:inline-flex;align-items:center">{{fedLink}}</a>
-  </div>
-  <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,168px),1fr));gap:8px">
-    <sc-for list="{{fedGroups}}" as="g" hint-placeholder-count="7">
-      <li style="display:flex"><a href="{{g.href}}" aria-label="{{g.aria}}" style="flex:1;display:flex;flex-direction:column;gap:2px;padding:calc(10px*var(--ps)) calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink);min-height:calc(44px*var(--hs))" style-hover="border-color:var(--line-2);color:var(--ink)">
-        <span style="display:flex;align-items:baseline;gap:8px"><strong data-serif style="font-size:calc(24px*var(--fs));font-variant-numeric:tabular-nums;line-height:1.1">{{g.n}}</strong><span aria-hidden="true" style="margin-left:auto;color:var(--ink-3)">›</span></span>
-        <span style="font-size:calc(14px*var(--fs));font-weight:700;line-height:1.3">{{g.l}}</span>
-        <span style="font-size:calc(12.5px*var(--fs));color:var(--ink-3);line-height:1.35">{{g.sub}}</span>
-      </a></li>
-    </sc-for>
-  </ul>
-</section>
+<section id="connect" aria-labelledby="connect-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(28px,4vw,48px) clamp(16px,3vw,32px) 0;scroll-margin-top:72px">
+  <h2 id="connect-h" style="margin:0 0 4px;font-size:calc(clamp(22px,2.4vw,30px)*var(--fs))">How the laws connect</h2>
+  <p style="margin:0 0 16px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:760px">Who copied whom, what replaced what, and where Washington is pushing back on the states. Every link cites the clause it comes from.</p>
+    <sc-if value="{{showNet}}"><div style="margin-bottom:28px">{{netEl}}</div></sc-if>
+    <sc-if value="{{hasClusters}}"><aside aria-label="Two textual clusters" style="margin:-12px 0 28px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface-2);border:1px solid var(--line);max-width:960px">{{clustersEl}}</aside></sc-if>
+    <sc-if value="{{showStar}}"><div role="group" aria-label="Start from" style="display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0 -16px 18px;padding:0 calc(16px*var(--ps)) 6px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="flex-shrink:0;white-space:nowrap;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">{{h.l}}</button></sc-for></div></sc-if>
+    <sc-if value="{{showDirect}}"><div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+      <sc-if value="{{showStar}}"><div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
+        <div style="aspect-ratio:1;width:100%">{{cGraph}}</div>
+        <p style="margin:10px 0 0;text-align:center;font-size:calc(13px*var(--fs));color:var(--ink-3)">Filled dots are tracker entries, hollow dots are people and groups. Dashed lines are links the tracker itself treats as unproven.</p>
+      </div></sc-if>
+      <div style="flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:calc(12.5px*var(--fs));font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">Direct links, with the clause each one cites</span><h2 style="margin:0;font-size:calc(24px*var(--fs));font-weight:800;letter-spacing:-.02em">{{cName}}</h2><sc-if value="{{cIsEntry}}"><a href="{{cHref}}" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Open this entry →</a></sc-if></div>
+        <sc-if value="{{cEmpty}}"><p style="margin:0;color:var(--ink-2)">No recorded relationships for this item.</p></sc-if>
+        <sc-for list="{{cTypes}}" as="g">
+          <section style="display:flex;flex-direction:column;gap:8px">
+            <h3 style="margin:0;font-size:calc(15px*var(--fs));font-weight:800;display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:18px;height:3px;border-radius:2px;background:{{g.c}}"></span>{{g.name}}</h3>
+            <sc-for list="{{g.items}}" as="i">
+              <div style="padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:min(14px,var(--r));background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><span aria-hidden="true" style="color:var(--ink-3);font-weight:800">{{i.dir}}</span><strong style="font-size:calc(15.5px*var(--fs))">{{i.name}}</strong><sc-if value="{{i.dashed}}"><span style="font-size:calc(12px*var(--fs));font-weight:700;color:var(--ink-3);border:1px dashed var(--line-2);padding:1px 6px;border-radius:6px">Unproven</span></sc-if></div>
+                <span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">{{i.label}}</span>
+                <blockquote style="margin:0;padding-left:calc(10px*var(--ps));border-left:2px solid var(--line-2);font-size:calc(13.5px*var(--fs));color:var(--ink-3);font-style:italic">“{{i.quote}}”</blockquote>
+                <div style="display:flex;gap:14px;flex-wrap:wrap"><button onClick="{{i.recenter}}" style="height:calc(36px*var(--hs));padding:0;border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">Explore from here →</button><sc-if value="{{i.isEntry}}"><a href="{{i.href}}" style="font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Open entry</a></sc-if></div>
+              </div>
+            </sc-for>
+          </section>
+        </sc-for>
+      </div>
+    </div></sc-if>
+  </section>
 
-<section aria-labelledby="up-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(28px,4vw,44px) clamp(16px,3vw,32px) 0">
-  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:4px 12px;flex-wrap:wrap;margin-bottom:10px">
-    <h2 id="up-h" style="margin:0;font-size:calc(clamp(20px,2.2vw,26px)*var(--fs))">Coming up</h2>
-    <a href="#/explore?view=timeline&amp;when=upcoming&amp;tl=list" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(40px*var(--hs));display:inline-flex;align-items:center">{{upLink}}</a>
-  </div>
-  <sc-if value="{{upEmpty}}"><p style="margin:0;color:var(--ink-2)">No scheduled dates after {{asofLabel}}.</p></sc-if>
-  <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:8px">
-    <sc-for list="{{upcoming}}" as="e" hint-placeholder-count="5">
-      <li style="display:flex"><a href="{{e.href}}" style="flex:1;display:flex;flex-direction:column;gap:3px;padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:var(--r);border:1px dashed var(--line-2);background:var(--surface);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--accent);color:var(--ink)">
-        <span style="font-size:calc(13px*var(--fs));font-weight:800;color:var(--ink-2);font-variant-numeric:tabular-nums">{{e.date}}</span>
-        <strong style="font-size:calc(15px*var(--fs));line-height:1.3">{{e.short}}</strong>
-        <span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2);text-wrap:pretty">{{e.t}}</span>
-      </a></li>
-    </sc-for>
-  </ol>
-</section>
-
-<section aria-labelledby="ask-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(28px,4vw,44px) clamp(16px,3vw,32px) 0">
-  <h2 id="ask-h" style="margin:0 0 10px;font-size:calc(clamp(20px,2.2vw,26px)*var(--fs))">Start with a question</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:8px">
-    <a href="#/explore?type=law&amp;level=state" style="display:flex;flex-direction:column;gap:4px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--line-2);color:var(--ink)"><strong style="font-size:calc(16px*var(--fs))"><span aria-hidden="true" style="color:var(--st-enacted)">●</span> What applies to my company?</strong><span style="font-size:calc(14px*var(--fs));color:var(--ink-2)">Enacted laws and exactly who they cover: compute and revenue thresholds.</span></a>
-    <a href="#/compare?ids=1,2,3" style="display:flex;flex-direction:column;gap:4px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--line-2);color:var(--ink)"><strong style="font-size:calc(16px*var(--fs))"><span aria-hidden="true" style="color:var(--accent-ink)">⇆</span> Compare two laws</strong><span style="font-size:calc(14px*var(--fs));color:var(--ink-2)">California, New York and Illinois side by side, differences first.</span></a>
-    <a href="#/map" style="display:flex;flex-direction:column;gap:4px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--line-2);color:var(--ink)"><strong style="font-size:calc(16px*var(--fs))"><span aria-hidden="true" style="color:var(--st-auditor)">◎</span> Who copied whom?</strong><span style="font-size:calc(14px*var(--fs));color:var(--ink-2)">Which bills follow which template, what replaced what, and where federal action targets state law.</span></a>
-  </div>
-</section>
-
-<section aria-labelledby="tbl-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(28px,4vw,44px) clamp(16px,3vw,32px) 0">
+<section aria-labelledby="tbl-h" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(28px,4vw,44px) clamp(16px,3vw,32px) clamp(40px,5vw,64px)">
   <h2 id="tbl-h" style="margin:0 0 4px;font-size:calc(clamp(20px,2.2vw,26px)*var(--fs))">Comparison table of all entries</h2>
   <p style="margin:0 0 14px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:820px">Every entry as one row, in the tracker’s own words. Long cells show three lines until you expand the row. Sort by a heading, filter with the controls, tick up to three rows to compare, or download the rows as CSV.</p>
   <sc-if value="{{hasHomeSecNotes}}">{{homeSecNotesEl}}</sc-if>
   {{homeTableEl}}
 </section>
 
-<section aria-label="About the data" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(24px,3vw,36px) clamp(16px,3vw,32px) clamp(40px,5vw,64px)">
-  <p style="margin:0;padding:calc(12px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface-2);font-size:calc(14.5px*var(--fs));font-weight:650;color:var(--ink-2);font-variant-numeric:tabular-nums">{{trustLine}} <a href="#/method" style="margin-left:6px;font-weight:700">How we verify →</a></p>
-</section>
 </sc-if>
 
 <sc-if value="{{isExplore}}">
@@ -487,40 +473,6 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 </div>
 </div>
 </div>
-</sc-if>
-
-<sc-if value="{{isMap}}">
-<div data-screen-label="Map" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(20px,3vw,36px) clamp(16px,3vw,32px) 64px">
-  <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);line-height:1.15">Map</h1>
-  <p style="margin:6px 0 18px;font-size:calc(15px*var(--fs));color:var(--ink-2);max-width:720px">How the laws, bills, orders and lawsuits connect: which bills copy which template, what replaced what, and where federal action targets state law. Every link cites the clause it comes from.</p>
-
-    <sc-if value="{{showNet}}"><div style="margin-bottom:28px">{{netEl}}</div></sc-if>
-    <sc-if value="{{hasClusters}}"><aside aria-label="Two textual clusters" style="margin:-12px 0 28px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface-2);border:1px solid var(--line);max-width:960px">{{clustersEl}}</aside></sc-if>
-    <sc-if value="{{showStar}}"><div role="group" aria-label="Start from" style="display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0 -16px 18px;padding:0 calc(16px*var(--ps)) 6px"><sc-for list="{{cHubs}}" as="h"><button onClick="{{h.go}}" aria-pressed="{{h.sel}}" style="flex-shrink:0;white-space:nowrap;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{h.bg}};color:{{h.fg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">{{h.l}}</button></sc-for></div></sc-if>
-    <sc-if value="{{showDirect}}"><div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
-      <sc-if value="{{showStar}}"><div style="flex:1 1 300px;max-width:420px;margin:0 auto;position:sticky;top:80px">
-        <div style="aspect-ratio:1;width:100%">{{cGraph}}</div>
-        <p style="margin:10px 0 0;text-align:center;font-size:calc(13px*var(--fs));color:var(--ink-3)">Filled dots are tracker entries, hollow dots are people and groups. Dashed lines are links the tracker itself treats as unproven.</p>
-      </div></sc-if>
-      <div style="flex:2 1 360px;min-width:0;display:flex;flex-direction:column;gap:18px">
-        <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:calc(12.5px*var(--fs));font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)">Direct links, with the clause each one cites</span><h2 style="margin:0;font-size:calc(24px*var(--fs));font-weight:800;letter-spacing:-.02em">{{cName}}</h2><sc-if value="{{cIsEntry}}"><a href="{{cHref}}" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Open this entry →</a></sc-if></div>
-        <sc-if value="{{cEmpty}}"><p style="margin:0;color:var(--ink-2)">No recorded relationships for this item.</p></sc-if>
-        <sc-for list="{{cTypes}}" as="g">
-          <section style="display:flex;flex-direction:column;gap:8px">
-            <h3 style="margin:0;font-size:calc(15px*var(--fs));font-weight:800;display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:18px;height:3px;border-radius:2px;background:{{g.c}}"></span>{{g.name}}</h3>
-            <sc-for list="{{g.items}}" as="i">
-              <div style="padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:min(14px,var(--r));background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px">
-                <div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><span aria-hidden="true" style="color:var(--ink-3);font-weight:800">{{i.dir}}</span><strong style="font-size:calc(15.5px*var(--fs))">{{i.name}}</strong><sc-if value="{{i.dashed}}"><span style="font-size:calc(12px*var(--fs));font-weight:700;color:var(--ink-3);border:1px dashed var(--line-2);padding:1px 6px;border-radius:6px">Unproven</span></sc-if></div>
-                <span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">{{i.label}}</span>
-                <blockquote style="margin:0;padding-left:calc(10px*var(--ps));border-left:2px solid var(--line-2);font-size:calc(13.5px*var(--fs));color:var(--ink-3);font-style:italic">“{{i.quote}}”</blockquote>
-                <div style="display:flex;gap:14px;flex-wrap:wrap"><button onClick="{{i.recenter}}" style="height:calc(36px*var(--hs));padding:0;border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">Explore from here →</button><sc-if value="{{i.isEntry}}"><a href="{{i.href}}" style="font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Open entry</a></sc-if></div>
-              </div>
-            </sc-for>
-          </section>
-        </sc-for>
-      </div>
-    </div></sc-if>
-  </div>
 </sc-if>
 
 <sc-if value="{{isBill}}">
@@ -843,8 +795,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 </footer>
 
 <sc-if value="{{showBottomNav}}">
-  <nav aria-label="Main" style="position:fixed;left:0;right:0;bottom:0;z-index:45;background:color-mix(in oklab,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:6px calc(4px*var(--ps)) calc(6px + env(safe-area-inset-bottom))">
-    <sc-for list="{{nav}}" as="n" hint-placeholder-count="5">
+  <nav aria-label="Main" style="position:fixed;left:0;right:0;bottom:0;z-index:45;background:color-mix(in oklab,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:6px calc(4px*var(--ps)) calc(6px + env(safe-area-inset-bottom))">
+    <sc-for list="{{nav}}" as="n" hint-placeholder-count="4">
       <a href="{{n.href}}" aria-current="{{n.cur}}" style="min-height:calc(52px*var(--hs));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;border-radius:min(14px,var(--r));font-size:calc(11.5px*var(--fs));font-weight:700;white-space:nowrap;letter-spacing:-.01em;color:{{n.fg}};background:{{n.bg}}">
         <span aria-hidden="true" style="font-size:calc(16px*var(--fs));line-height:1">{{n.ic}}</span>{{n.l}}
       </a>
@@ -1003,6 +955,7 @@ class Component extends DCLogic {
       const s = f.width / to.width;
       el.animate([{ transform: `translate(${f.left - to.left}px,${f.top - to.top}px) scale(${s})`, transformOrigin: 'top left' }, { transform: 'none', transformOrigin: 'top left' }], { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)' });
     }
+    if (this.wantCanvas && !this.state.booting && document.getElementById('connect')) { this.wantCanvas = false; this.wantRouteFocus = false; setTimeout(() => { const el = document.getElementById('connect'); if (el) { el.scrollIntoView(); const hh = document.getElementById('connect-h'); hh.setAttribute('tabindex', '-1'); hh.focus({ preventScroll: true }); } }, 50); }
     if (this.wantQFocus && this.qRef.current) { this.wantQFocus = false; this.qRef.current.focus({ preventScroll: true }); }
     if (this.wantPanelFocus && this.panelCloseRef.current) { this.wantPanelFocus = false; this.panelCloseRef.current.focus({ preventScroll: true }); }
   }
@@ -1032,11 +985,11 @@ class Component extends DCLogic {
     let seen = false; try { seen = sessionStorage.getItem('fal-replayed') === '1'; sessionStorage.setItem('fal-replayed', '1'); } catch (e) {}
     if (!seen && this.state.route.path === '/' && !this.state.route.p.state) setTimeout(() => { if (this.state.route.path === '/' && !this.state.route.p.state) this.play(true); }, 1400);
   }
-  // Old links: #/explore?view=connections… now lives at #/map…
+  // Old links: #/map… and #/explore?view=connections… now land on the canvas section of the Map page
   redirectOld() {
-    const r = this.parse(); if (r.path !== '/explore' || r.p.view !== 'connections') return false;
+    const r = this.parse(); if (r.path !== '/map' && !(r.path === '/explore' && r.p.view === 'connections')) return false;
     const n = {}; ['c', 'graph', 'net', 'people'].forEach(k => { if (r.p[k]) n[k] = r.p[k]; });
-    const qs = new URLSearchParams(n).toString(); history.replaceState(null, '', '#/map' + (qs ? '?' + qs : '')); if (this.onHash) this.onHash(); return true;
+    const qs = new URLSearchParams(n).toString(); history.replaceState(null, '', '#/' + (qs ? '?' + qs : '')); this.wantCanvas = true; if (this.onHash) this.onHash(); return true;
   }
   parse() {
     const h = (location.hash || '#/').slice(1); const [path, qs] = h.split('?'); const p = {};
@@ -1145,9 +1098,9 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, r = s.route, p = r.p, mob = s.vw < 760, ready = !s.loading && !s.err && !!this.D;
     const path = r.path, isBill = /^\/bill\//.test(path);
-    const known = ['/', '/map', '/explore', '/updates', '/method', '/compare', '/handbook', '/about'];
-    const sec = path === '/' ? 'home' : path === '/explore' || isBill || path === '/compare' ? 'explore' : path === '/handbook' || path === '/about' ? 'method' : path.slice(1);
-    const NAV = [['home', 'Home', '#/', '⌂'], ['map', 'Map', '#/map', '◎'], ['explore', 'Explore', '#/explore', '⌕'], ['updates', 'Updates', '#/updates', '◷'], ['method', 'Data & trust', '#/method', '✓']];
+    const known = ['/', '/explore', '/updates', '/method', '/compare', '/handbook', '/about'];
+    const sec = path === '/' ? 'map' : path === '/explore' || isBill || path === '/compare' ? 'explore' : path === '/handbook' || path === '/about' ? 'method' : path.slice(1);
+    const NAV = [['map', 'Map', '#/', '◎'], ['explore', 'Explore', '#/explore', '⌕'], ['updates', 'Updates', '#/updates', '◷'], ['method', 'Data & trust', '#/method', '✓']];
     const v = {
       loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
       ...(this.L && this.D ? (() => { const L = this.L, MNL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -1160,12 +1113,11 @@ class Component extends DCLogic {
       toggleTheme: () => { const cur = s.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); const th = cur === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', th); try { localStorage.setItem('fal-theme', th); } catch (e) {} this.setState({ theme: th }); },
       hdrSubmit: e => { e.preventDefault(); const q = (e.target.q.value || '').trim(); e.target.q.value = ''; this.setState({ q }); this.wantQFocus = !q; this.go('/explore', q ? { q } : {}); }, retry: () => this.load(), searchClick: () => { this.wantQFocus = true; if (this.state.route.path === '/explore') this.forceUpdate(); },
       booting: s.booting, bootAnim: s.leaving ? 'gxOut 520ms var(--ease-io) forwards' : 'none',
-      isHome: false, isMap: false, isHandbook: false, isAbout: false, isExplore: false, isBill: false, isCompare: false, isUpdates: false, isMethod: false, isNotFound: false, panelOpen: false, confSheet: false
+      isHome: false, isHandbook: false, isAbout: false, isExplore: false, isBill: false, isCompare: false, isUpdates: false, isMethod: false, isNotFound: false, panelOpen: false, confSheet: false
     };
     if (!ready) return v;
     const route = isBill ? 'bill' : known.includes(path) ? path : '404';
     if (route === '/') Object.assign(v, this.home(p, mob));
-    if (route === '/map') Object.assign(v, this.map(p));
     if (route === '/explore') Object.assign(v, this.explore(p));
     if (route === 'bill') Object.assign(v, this.bill(+path.split('/')[2]));
     if (route === '/compare') Object.assign(v, this.compare(p));
@@ -1177,7 +1129,6 @@ class Component extends DCLogic {
     Object.assign(v, this.confSheetVals());
     const T = 'Frontier AI Law Tracker';
     this.docTitle = v.isHome ? (p.state && L_SN(this.L, p.state) ? L_SN(this.L, p.state) + ' · ' + T : v.panelOpen ? v.panelTitle + ' · ' + T : T + ' · US states and Congress')
-      : v.isMap ? (p.graph === 'entire' ? 'Entire map' : 'Map') + (p.c && v.cName ? ': ' + v.cName : '') + ' · ' + T
       : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'table' ? 'Table' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
       : v.isBill ? v.bShort + ' · Bill · ' + T
       : v.isCompare ? 'Compare' + (v.heads ? ': ' + v.heads.map(h => h.short).join(' vs ') : v.sCols ? ': ' + v.sCols.map(c => c.nm).join(' vs ') : '') + ' · ' + T
@@ -1200,10 +1151,7 @@ class Component extends DCLogic {
         onKey: e => this.tileKey(code, e), onEnter: () => this.setState({ hover: code, focusTile: code }) };
     });
     // federal strip: one count per federal section, linking to that section in Explore
-    const fedGroups = L.FED_GROUPS.map(g => { const n = D.E.filter(x => x.section === g.k).length; return { k: g.k, l: g.l, sub: g.sub, n: String(n), href: '#/explore?sec=' + encodeURIComponent(g.k), aria: `${g.l}: ${n} ${n === 1 ? 'item' : 'items'}. ${g.sub}. Open in Explore.` }; });
     const homeNews = D.N.slice().sort((a, b) => b.d - a.d || b.i - a.i).slice(0, 7).map(n => { const f = this.feedItem(n); return { ...f, noEntry: !f.hasEntry }; });
-    const upAll = D.events.filter(e => this.sched(e.d)).sort((a, b) => a.d - b.d);
-    const upcoming = upAll.slice(0, 5).map(e => { const x = D.byId[e.id]; return { date: L.fmt(e.d), short: x.short, t: e.t, href: '#/bill/' + x.id }; });
     // the full table, with its own filters (t-prefixed params so they don't touch the map filters)
     const TK = { q: 'tq', group: 'tgrp', sec: 'tsec', jur: 'tjur', status: 'tstat', year: 'tyr' };
     const tf = Object.fromEntries(Object.entries(TK).map(([k, u]) => [k, p[u] || '']));
@@ -1213,7 +1161,6 @@ class Component extends DCLogic {
       groups: L.GROUPS.map(g => ({ k: g.k, l: g.l })), secs, jurs: [{ k: 'US', l: 'Federal' }, ...stN.map(c => ({ k: c, l: L.SN[c] }))],
       statuses: L.STATUS_ORDER.filter(k => D.E.some(x => x.status === k)).map(k => ({ k, l: L.ST[k].l })), years: ['2023', '2024', '2025', '2026', (L.ASOF.getFullYear() + 1) + '+'] };
     const tbl = this.tableVals(this.V.filterRows(D.E, L, tf), p, 't', D.E.length, controls);
-    const nSrc = D.E.reduce((t, x) => t + x.srcLinks.length, 0);
     const hv = s.hover && L.SN[s.hover] ? s.hover : null, hl = hv ? (byState[hv] || []) : [], hcat = L.stateCat(hl);
     const ms = t == null ? L.MILESTONES[L.MILESTONES.length - 1] : [...L.MILESTONES].reverse().find(m => +m.d <= t);
     const S0 = +L.REPLAY_START, E0 = +L.ASOF, tt = t == null ? E0 : t;
@@ -1231,7 +1178,7 @@ class Component extends DCLogic {
       filtersDone: live.length ? `Show ${live.length} ${live.length === 1 ? 'instrument' : 'instruments'}` : 'No matches · close',
       h3: num(HC.enacted), h10: num(HC.fed), t5: num(HC.pending), t11: num(HC.stalled + HC.failed), t6: num(HC.ivo), t10b: num(HC.exec), t9: num(HC.lit),
       q: s.q, qRef: this.qRef, onQ: e => this.setState({ q: e.target.value }), submitQ: e => { e.preventDefault(); this.go('/explore', { q: s.q.trim() }); },
-      tiles, fedGroups, statusChips, boardChips, hasBoardChips: boardChips.length > 0 || stc.length > 0,
+      tiles, statusChips, boardChips, hasBoardChips: boardChips.length > 0 || stc.length > 0,
       clearBoard: () => { const n = { ...p }; ['status', 'type', 'year', 'conf'].forEach(k => delete n[k]); this.go('/', n, true); },
       fType: p.type || '', fYear: p.year || '', fConf: p.conf || '',
       onType: e => this.setP({ type: e.target.value }, true), onYear: e => this.setP({ year: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true),
@@ -1255,8 +1202,8 @@ class Component extends DCLogic {
       toggleCmp: () => { const n = { ...p }; if (n.mode === 'compare') { delete n.mode; delete n.cmp; } else { n.mode = 'compare'; delete n.state; } this.go('/', n, true); },
       goCmp: () => this.go('/compare', { states: cmp.join(',') }),
       cmpBtnBg: p.mode === 'compare' ? 'var(--b-ink)' : 'transparent', cmpBtnFg: p.mode === 'compare' ? 'var(--b-solid)' : 'var(--b-ink)',
-      activeStates, homeNews, upcoming, upLink: `All ${upAll.length} upcoming dates →`, upEmpty: !upAll.length, fedLink: `All ${D.E.filter(x => x.level === 'federal').length} federal items →`,
-      homeTableEl: tbl.tableEl, homeSecNotesEl: tf.sec ? this.V.sectionNotes(D.content, tf.sec, L) : null, hasHomeSecNotes: !!(tf.sec && D.content && D.content.section_notes[tf.sec]), trustLine: `${D.E.length} entries · ${nSrc} source links · ${D.tev.length} dated events · verified as of ${L.fmt(L.VERIFIED)}, with checks through ${L.fmt(L.ASOF)}.`,
+      activeStates, homeNews, ...this.map(p),
+      homeTableEl: tbl.tableEl, homeSecNotesEl: tf.sec ? this.V.sectionNotes(D.content, tf.sec, L) : null, hasHomeSecNotes: !!(tf.sec && D.content && D.content.section_notes[tf.sec]),
       sideState: !!p.state && !mob && !!L.SN[p.state], sideNews: !(p.state && !mob && L.SN[p.state]),
       ...this.panel(p, byState, mob)
     };
@@ -1311,12 +1258,13 @@ class Component extends DCLogic {
     const toggleSide = () => { const v = !this.state.sideHidden; try { localStorage.setItem('fal-side', v ? 'hidden' : 'shown'); } catch (e) {} this.setState({ sideHidden: v }); };
     return { sideCollapsed: hid ? 'true' : 'false', sideExpanded: hid ? 'false' : 'true', sideBtnLabel: hid ? 'Show sections and states' : 'Hide sections and states', sideBtnText: hid ? '›' : '‹ Hide', toggleSide, sideOpen: !small, sideGroups: groups, sideJur: jur, sideAll: item(!p.sec && !p.st && !p.level, { n: D.E.length, href: href({ sec: '', st: '', level: '' }) }) };
   }
+  // The relationship canvas section of the Map page.
   map(p) {
     const L = this.L, D = this.D, s = this.state;
     const entire = p.graph === 'entire', all = this.V.lensGraph(D, 'all', []);
     const focus = p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]);
     const cl = p.net === 'family' && D.content && D.content.comparison.clusters;
-    const out = { isMap: true, ...this.conn(focus), showNet: true, showStar: false, showDirect: !entire, hasClusters: !!cl, clustersEl: cl ? this.V.mdP(cl, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }) : null };
+    const out = { ...this.conn(focus), showNet: true, showStar: false, showDirect: !entire, hasClusters: !!cl, clustersEl: cl ? this.V.mdP(cl, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }) : null };
     out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', entire, lens: p.net || 'all', narrow: s.vw < 640,
       select: k => this.setP({ c: k, graph: '' }), setPeople: v => this.setP({ people: v ? '1' : '' }, true),
       setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });

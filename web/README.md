@@ -56,7 +56,7 @@ The design-rationale and design-system pages, the RSS feed and the email signup 
 
 ## Routes
 
-`#/` Home (map + latest updates, federal strip, coming up, full table) · `#/map` relationship canvas (`c`, `graph=entire`, `net`, `people`; old `#/explore?view=connections…` links redirect here) · `#/explore` Results, Timeline, Table (`sec`, `grp`, `level`, `status`, `st`, `type`, `conf`, `year`) · `#/bill/<id>` · `#/compare` · `#/updates` · `#/method` Data & trust · `#/handbook` (`ch`, `all=1`, `q`) · `#/about`
+`#/` Map: headline, US map with the latest updates beside it (a state swaps the panel to its bills), “How the laws connect” (the relationship canvas: `c`, `graph=entire`, `net`, `people`), then the full table (`t`-prefixed filters). Old `#/map…` and `#/explore?view=connections…` links land on the canvas section · `#/explore` Results, Timeline, Table (`sec`, `grp`, `level`, `status`, `st`, `type`, `conf`, `year`) · `#/bill/<id>` · `#/compare` · `#/updates` · `#/method` Data & trust · `#/handbook` (`ch`, `all=1`, `q`) · `#/about`
 
 ## Explore views (added)
 
