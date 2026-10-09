@@ -27,7 +27,7 @@ export const CONF = {
 export const CONF_ORDER = ['HIGH','MED-HIGH','MED','SEARCH-QUALIFIED','LOW'];
 export const KINDS = {federal:{l:'Congress',g:'■',v:'var(--k-fed)'},state:{l:'States',g:'●',v:'var(--k-state)'},executive:{l:'White House and agencies',g:'▲',v:'var(--k-exec)'},litigation:{l:'Courts',g:'§',v:'var(--k-lit)'},industry:{l:'Industry and incidents',g:'◇',v:'var(--k-ind)'}};
 export const STATE_OVERRIDE = {57:'CA',58:'IL',59:'OR',68:'FL',69:'CA'};
-export const FED_GROUPS = [
+export let FED_GROUPS = [
   {k:'D',l:'Bills in Congress',sub:'Introduced. None enacted.'},
   {k:'F',l:'Related federal bills',sub:'Adjacent and sector-specific'},
   {k:'E',l:'Drafts and proposals',sub:'Not introduced as bills'},
@@ -49,7 +49,15 @@ export let MILESTONES = [
   ['2026-09-09',20,'California signs auditor laws SB 813 and AB 1405'],
   ['2026-09-29',60,'White House accord: voluntary principles, no binding rule']
 ].map(([d,id,c]) => ({d:new Date(d+'T12:00:00'), id, c}));
-export const REPLAY_START = new Date(2023, 8, 1);
+export let REPLAY_START = new Date(2023, 8, 1);
+// Section groups, as v1 groups its sections (build/build.mjs GROUPS). Used by the Explore sidebar and the table's Group filter.
+export let GROUPS = [
+  { k: 'state', l: 'State legislation', sections: ['A', 'B', 'B.2', 'C'] },
+  { k: 'federal', l: 'Federal legislation', sections: ['D', 'E', 'F'] },
+  { k: 'exec', l: 'Executive action, litigation, export controls', sections: ['G', 'G.2', 'G.3'] },
+  { k: 'context', l: 'Precursors, adjacent laws, exclusions', sections: ['H', 'I', 'J'] }
+];
+export const groupOf = (sec) => (GROUPS.find((g) => g.sections.includes(sec)) || { k: 'other' }).k;
 
 // Plain-English summaries are OFF for the v1-parity showcase: the app shows the tracker's own core-mechanism text.
 // Real summaries will arrive with the automated pipeline (reviewed, stored in a separate field). Set to true to preview the 22 drafts.
@@ -274,6 +282,9 @@ const noonOf = (iso) => new Date(iso + 'T12:00:00');
 export function applySite(site, idOfKey) {
   ASOF = dayOf(site.updates_through); VERIFIED = dayOf(site.verified_as_of); WEEK_FROM = dayOf(site.week_from);
   if (site.section_names) SEC = { ...site.section_names };
+  if (site.replay_start) REPLAY_START = dayOf(site.replay_start);
+  if (site.section_groups) GROUPS = site.section_groups.map((g) => ({ k: g.key, l: g.name, sections: g.sections }));
+  if (site.federal_groups) FED_GROUPS = site.federal_groups.map((g) => ({ k: g.section, l: g.name, sub: g.note }));
   MILESTONES = (site.replay_milestones || []).filter((m) => idOfKey[m.entry_key]).map((m) => ({ d: noonOf(m.date), id: idOfKey[m.entry_key], c: m.caption }));
   const cm = site.comparison_matrix || { entry_keys: [], rows: [] };
   K_IDS = cm.entry_keys.filter((k) => idOfKey[k]).map((k) => idOfKey[k]);

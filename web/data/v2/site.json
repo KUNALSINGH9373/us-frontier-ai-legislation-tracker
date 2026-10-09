@@ -17,6 +17,83 @@
   "I": "Frontier provisions in broader laws",
   "J": "Checked and excluded"
  },
+ "section_groups": [
+  {
+   "key": "state",
+   "name": "State legislation",
+   "sections": [
+    "A",
+    "B",
+    "B.2",
+    "C"
+   ]
+  },
+  {
+   "key": "federal",
+   "name": "Federal legislation",
+   "sections": [
+    "D",
+    "E",
+    "F"
+   ]
+  },
+  {
+   "key": "exec",
+   "name": "Executive action, litigation, export controls",
+   "sections": [
+    "G",
+    "G.2",
+    "G.3"
+   ]
+  },
+  {
+   "key": "context",
+   "name": "Precursors, adjacent laws, exclusions",
+   "sections": [
+    "H",
+    "I",
+    "J"
+   ]
+  }
+ ],
+ "federal_groups": [
+  {
+   "section": "D",
+   "name": "Bills in Congress",
+   "note": "Introduced. None enacted."
+  },
+  {
+   "section": "F",
+   "name": "Related federal bills",
+   "note": "Adjacent and sector-specific"
+  },
+  {
+   "section": "E",
+   "name": "Drafts and proposals",
+   "note": "Not introduced as bills"
+  },
+  {
+   "section": "G",
+   "name": "White House and agencies",
+   "note": "Orders, directives, voluntary programs"
+  },
+  {
+   "section": "G.2",
+   "name": "Lawsuits and enforcement",
+   "note": "Courts, task forces, negative findings"
+  },
+  {
+   "section": "G.3",
+   "name": "Chips and export controls",
+   "note": "Compute and diffusion rules"
+  },
+  {
+   "section": "H",
+   "name": "Earlier proposals",
+   "note": "Withdrawn or stripped"
+  }
+ ],
+ "replay_start": "2023-09-01",
  "replay_milestones": [
   {
    "date": "2023-10-01",

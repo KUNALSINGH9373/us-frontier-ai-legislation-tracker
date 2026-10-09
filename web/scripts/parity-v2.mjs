@@ -42,6 +42,9 @@ same('replay milestones', A.MILESTONES, B.MILESTONES);
 same('comparison matrix ids', A.K_IDS, B.K_IDS);
 same('comparison matrix rows', A.K_ROWS, B.K_ROWS);
 same('section names', A.SEC, B.SEC);
+same('section groups', A.GROUPS, B.GROUPS);
+same('federal groups', A.FED_GROUPS, B.FED_GROUPS);
+same('replay start', A.REPLAY_START, B.REPLAY_START);
 same('dates', [A.ASOF, A.VERIFIED, A.WEEK_FROM], [B.ASOF, B.VERIFIED, B.WEEK_FROM]);
 // The page shows: enacted, federal bills, pending, stalled-or-failed, auditor measures, executive actions, lawsuits.
 // (v1's typed 6 stalled / 5 failed split disagrees with its own statuses, but the page only shows the 11 total.)

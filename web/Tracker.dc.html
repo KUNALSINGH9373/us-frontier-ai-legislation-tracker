@@ -351,7 +351,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   <form role="search" onSubmit="{{submitQ}}" style="display:flex;align-items:center;gap:10px;height:calc(48px*var(--hs));padding:0 calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-2)">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
     <label for="ex-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search the tracker</label>
-    <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Bill, state or idea" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(16px*var(--fs));outline:none">
+    <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="{{qPh}}" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(16px*var(--fs));outline:none">
   </form>
   <div role="group" aria-label="Filters" data-filters style="margin:10px 0 18px;display:flex;flex-wrap:wrap;gap:8px">
     <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Level</span><select value="{{fLevel}}" onChange="{{onLevel}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Federal and state</option><option value="federal">Federal</option><option value="state">State</option></select></label>
@@ -359,6 +359,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">State</span><select value="{{fSt}}" onChange="{{onSt}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Any state</option><option value="CA">California</option><option value="CT">Connecticut</option><option value="FL">Florida</option><option value="IL">Illinois</option><option value="LA">Louisiana</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="NJ">New Jersey</option><option value="NY">New York</option><option value="OH">Ohio</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="TN">Tennessee</option><option value="UT">Utah</option><option value="VA">Virginia</option></select></label>
     <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Type</span><select value="{{fType}}" onChange="{{onType}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Any type</option><option value="law">Law</option><option value="bill">Bill</option><option value="auditor">Auditor licensing</option><option value="draft">Draft or proposal</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="precursor">Earlier proposal</option><option value="excluded">Excluded</option></select></label>
     <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Confidence</span><select value="{{fConf}}" onChange="{{onConf}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">Any confidence</option><option value="HIGH">High</option><option value="MED-HIGH">Med-high</option><option value="MED">Medium</option><option value="SEARCH-QUALIFIED">Search-qualified</option></select></label>
+    <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Year</span><select value="{{fYear}}" onChange="{{onYear}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">All years</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027+">2027 and later</option></select></label>
+    <label data-filter style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Group</span><select value="{{fGrp}}" onChange="{{onGrp}}" style="flex:1 1 150px;max-width:220px;height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600"><option value="">All groups</option><sc-for list="{{grpOpts}}" as="o"><option value="{{o.k}}">{{o.l}}</option></sc-for></select></label>
   </div>
   <sc-if value="{{hasChips}}">
     <div style="margin:-6px 0 18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
@@ -868,8 +870,6 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <script type="text/x-dc" data-dc-script>
 // Set to true to show prototype-only UI (footer links to #/design and #/system, email + RSS cards on Updates).
 const SHOW_FOLLOW = false; // the Follow button only saves in this browser; nothing notifies, so it stays hidden until alerts exist
-// Sidebar grouping of the tracker's section codes (as in v1). Names and counts come from the data; unlisted sections fall into 'Other'.
-const SIDE_GROUPS = [['State legislation', ['A', 'B', 'B.2', 'C']], ['Federal legislation', ['D', 'E', 'F']], ['Executive action, litigation, export controls', ['G', 'G.2', 'G.3']], ['Precursors, adjacent, excluded', ['H', 'I', 'J']]];
 const STEPS = { event: { l: '1 event' }, m1: { l: '1 month', months: 1 }, m3: { l: '3 months', months: 3 }, m6: { l: '6 months', months: 6 }, y1: { l: '1 year', months: 12 } };
 const SHORT = { law: 'Law', pending: 'Pending', auditor: 'Auditor', sf: 'Stalled/failed', other: 'Other', none: 'None' };
 const CATV = { law: 'var(--st-enacted)', pending: 'var(--st-pending)', auditor: 'var(--st-auditor)', sf: 'var(--st-failed)', other: 'var(--st-executive)', none: 'var(--st-excluded)' };
@@ -878,7 +878,7 @@ const L_lanes = (self, ids, p) => { const s = self.state; return self.V.lanes({ 
   select: k => { if (self.state.tlSel !== k) self.setState({ tlSel: k }); }, setRange: k => self.setP({ rng: k === 'recent' ? '' : k }, true),
   toggleKind: k => self.setState({ kindOff: s.kindOff.includes(k) ? s.kindOff.filter(z => z !== k) : [...s.kindOff, k] }) }); };
 class Component extends DCLogic {
-  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [] };
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, confOpen: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [], tblOpen: [], tblAll: false };
   mainRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
@@ -1042,11 +1042,11 @@ class Component extends DCLogic {
   }
   filt(p) {
     const st = this.csv(p.status);
-    return x => (!st.length || st.includes(x.status)) && (!p.type || x.type === p.type) && (!p.year || x.years.includes(p.year)) && (!p.conf || x.conf === p.conf) && (!p.level || x.level === p.level) && (!p.st || x.st === p.st) && (!p.sec || x.section === p.sec);
+    return x => (!st.length || st.includes(x.status)) && (!p.type || x.type === p.type) && (!p.year || x.years.includes(p.year)) && (!p.conf || x.conf === p.conf) && (!p.level || x.level === p.level) && (!p.st || x.st === p.st) && (!p.sec || x.section === p.sec) && (!p.grp || this.L.groupOf(x.section) === p.grp);
   }
   chips(p, keys) {
     const L = this.L, out = [];
-    const lab = { status: v => this.csv(v).map(s => L.ST[s] ? L.ST[s].l : s).join(' or '), type: v => L.TYPES[v], year: v => v, conf: v => 'Confidence ' + (L.CONF[v] ? L.CONF[v].l : v), level: v => v === 'state' ? 'States' : 'Federal', st: v => L.SN[v], sec: v => L.SEC[v] || v, q: v => '“' + v + '”' };
+    const lab = { status: v => this.csv(v).map(s => L.ST[s] ? L.ST[s].l : s).join(' or '), type: v => L.TYPES[v], year: v => v, conf: v => 'Confidence ' + (L.CONF[v] ? L.CONF[v].l : v), level: v => v === 'state' ? 'States' : 'Federal', st: v => L.SN[v], sec: v => L.SEC[v] || v, grp: v => (L.GROUPS.find(g => g.k === v) || { l: v }).l, q: v => '“' + v + '”' };
     keys.forEach(k => { if (p[k]) out.push({ l: lab[k](p[k]), aria: 'Remove filter ' + lab[k](p[k]), rm: () => { const n = { ...p }; delete n[k]; this.go(this.state.route.path, n); } }); });
     return out;
   }
@@ -1193,8 +1193,8 @@ class Component extends DCLogic {
     const href = ch => { const n = { ...p, ...ch }; delete n.q; if (n.view === 'connections') { ['view', 'c', 'graph', 'net', 'people'].forEach(f => delete n[f]); } if (this.state.q.trim()) n.q = this.state.q.trim(); return '#/explore?' + new URLSearchParams(Object.entries(n).filter(([, v]) => v)).toString(); };
     const item = (on, x) => ({ ...x, cur: on ? 'page' : undefined, fg: on ? 'var(--ink)' : 'var(--ink-2)', bg: on ? 'var(--accent-soft)' : 'transparent', ul: on ? 'inset 2px 0 0 var(--accent-ink)' : 'none' });
     const count = {}; D.E.forEach(x => { count[x.section] = (count[x.section] || 0) + 1; });
-    const placed = new Set(SIDE_GROUPS.flatMap(g => g[1]));
-    const groups = [...SIDE_GROUPS, ['Other', Object.keys(count).filter(c => !placed.has(c))]]
+    const placed = new Set(L.GROUPS.flatMap(g => g.sections));
+    const groups = [...L.GROUPS.map(g => [g.l, g.sections]), ['Other', Object.keys(count).filter(c => !placed.has(c))]]
       .map(([l, codes]) => ({ l, items: codes.filter(c => count[c]).map(c => item(p.sec === c, { code: c, l: L.SEC[c] || c, n: count[c], href: href({ sec: c, st: '', level: '' }) })) })).filter(g => g.items.length);
     const stN = {}; D.E.forEach(x => { if (x.st) stN[x.st] = (stN[x.st] || 0) + 1; });
     const fedN = D.E.filter(x => x.level === 'federal').length;
@@ -1209,15 +1209,15 @@ class Component extends DCLogic {
     const f = this.filt(p);
     const { terms, res } = L.search(D.E.filter(f), s.q);
     const rows = s.q.trim() ? res : res.sort((a, b) => (b.x.kd ? +b.x.kd.d : 0) - (a.x.kd ? +a.x.kd.d : 0));
-    const chips = this.chips({ ...p, q: s.q.trim() || undefined }, ['q', 'sec', 'level', 'status', 'type', 'conf', 'st']);
+    const chips = this.chips({ ...p, q: s.q.trim() || undefined }, ['q', 'sec', 'grp', 'level', 'status', 'type', 'conf', 'year', 'st']);
     const tab = (k, l, n) => ({ k, l, n, sel: view === k, ul: view === k ? 'inset 0 -2px 0 var(--accent-ink)' : 'none', fg: view === k ? 'var(--ink)' : 'var(--ink-3)', go: () => this.setP({ view: k === 'results' ? '' : k }, true) });
     const out = {
-      isExplore: true, q: s.q, qRef: this.qRef, ...this.sidebar(p, s.vw < 1024),
+      isExplore: true, q: s.q, qPh: view === 'table' ? 'Filter rows: any word in any column' : 'Bill, state or idea', qRef: this.qRef, ...this.sidebar(p, s.vw < 1024),
       onQ: e => { const q = e.target.value; this.setState({ q }); clearTimeout(this.qt); this.qt = setTimeout(() => { history.replaceState(null, '', '#/explore?' + new URLSearchParams(Object.entries({ ...this.state.route.p, q }).filter(([, v]) => v)).toString()); }, 300); },
       submitQ: e => { e.preventDefault(); },
       chips, hasChips: chips.length > 0, clearAll: () => { this.setState({ q: '' }); this.go('/explore', p.view ? { view: p.view } : {}); },
-      moreOpen: !!(p.type || p.conf), fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fConf: p.conf || '', fSt: p.st || '',
-      onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true),
+      moreOpen: !!(p.type || p.conf), fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fConf: p.conf || '', fSt: p.st || '', fYear: p.year || '', fGrp: p.grp || '', grpOpts: L.GROUPS.map(g => ({ k: g.k, l: g.l })),
+      onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true), onYear: e => this.setP({ year: e.target.value }, true), onGrp: e => this.setP({ grp: e.target.value }, true),
       tabs: [tab('results', 'Results', rows.length), tab('timeline', 'Timeline', null), tab('connections', 'Relationships', null), tab('table', 'Table', null)],
       vResults: view === 'results', vTimeline: view === 'timeline', vConn: view === 'connections', vTable: view === 'table', showFilters: view !== 'connections',
       showThresholds: p.type === 'law'
@@ -1255,15 +1255,22 @@ class Component extends DCLogic {
         setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
     }
     if (view === 'table') {
-      const sort = p.sort || 'latest', dir = p.dir || (sort === 'title' || sort === 'where' ? 'asc' : 'desc');
-      const picked = rows.map(r => r.x);
-      out.tableEl = this.V.table({ L, rows: picked, sort, dir, sel: s.tblSel.filter(id => D.byId[id]), compact: s.vw < 1040,
-        setSort: (k, pick) => this.setP({ sort: k, dir: pick ? (k === 'title' || k === 'where' ? 'asc' : 'desc') : k === sort && dir === 'desc' ? 'asc' : k === sort ? 'desc' : (k === 'title' || k === 'where' ? 'asc' : 'desc') }, true),
-        toggle: id => this.setState({ tblSel: s.tblSel.includes(id) ? s.tblSel.filter(z => z !== id) : s.tblSel.length < 3 ? [...s.tblSel, id] : s.tblSel }),
-        compare: () => this.go('/compare', { ids: s.tblSel.join(',') }),
-        download: () => { const b = new Blob([this.V.toCsv(this.V.sortRows(picked, L, sort, dir), L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'frontier-ai-law-tracker-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } });
+      const base = D.E.filter(f);
+      Object.assign(out, this.tableVals(this.V.filterRows(base, L, { q: s.q }), p, '', base.length));
+      out.resultCount = '';
     }
     return out;
+  }
+  // The full table (Explore → Table and Home). pre is the URL prefix for its sort params ('' in Explore, 't' on Home).
+  tableVals(picked, p, pre, total, controls) {
+    const L = this.L, D = this.D, s = this.state, V = this.V;
+    const sort = V.SORT_KEYS.includes(p[pre + 'sort']) ? p[pre + 'sort'] : 'latest', dir = p[pre + 'dir'] || (V.ascFirst(sort) ? 'asc' : 'desc');
+    return { tableEl: V.table({ L, rows: picked, sort, dir, total, controls, sel: s.tblSel.filter(id => D.byId[id]), compact: s.vw < 1040,
+      open: s.tblOpen, allOpen: s.tblAll, toggleRow: id => this.setState({ tblOpen: s.tblOpen.includes(id) ? s.tblOpen.filter(z => z !== id) : [...s.tblOpen, id] }), setAllOpen: v => this.setState({ tblAll: v, tblOpen: [] }),
+      setSort: (k, pick) => this.setP({ [pre + 'sort']: k, [pre + 'dir']: pick ? (V.ascFirst(k) ? 'asc' : 'desc') : k === sort && dir === 'desc' ? 'asc' : k === sort ? 'desc' : (V.ascFirst(k) ? 'asc' : 'desc') }, true),
+      toggle: id => this.setState({ tblSel: s.tblSel.includes(id) ? s.tblSel.filter(z => z !== id) : s.tblSel.length < 3 ? [...s.tblSel, id] : s.tblSel }),
+      compare: () => this.go('/compare', { ids: s.tblSel.join(',') }),
+      download: () => { const b = new Blob([V.toCsv(V.sortRows(picked, L, sort, dir), L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'frontier-ai-law-tracker-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } }) };
   }
   conn(c) {
     const L = this.L, D = this.D, R = D.rel;

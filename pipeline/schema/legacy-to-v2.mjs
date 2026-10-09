@@ -89,6 +89,9 @@ export async function convert() {
   const site = {
     verified_as_of: VERIFIED, updates_through: THROUGH, week_from: WEEK_FROM,
     section_names: L.SEC,
+    section_groups: L.GROUPS.map((g) => ({ key: g.k, name: g.l, sections: g.sections })),
+    federal_groups: L.FED_GROUPS.map((g) => ({ section: g.k, name: g.l, note: g.sub })),
+    replay_start: iso(new Date(Date.UTC(L.REPLAY_START.getFullYear(), L.REPLAY_START.getMonth(), L.REPLAY_START.getDate()))),
     replay_milestones: L.MILESTONES.map((m) => ({ date: iso(m.d), entry_key: keyOfId[m.id], caption: m.c })),
     comparison_matrix: {
       entry_keys: L.K_IDS.map((i) => keyOfId[i]),

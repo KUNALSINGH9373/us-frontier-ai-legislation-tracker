@@ -262,64 +262,130 @@ export function network(ctx) {
 }
 
 /* ---------- table + CSV ---------- */
+// The full comparison table, as v1 shows it: every column's text, long cells clamped to three lines until a row is
+// expanded. Columns with `s` are sortable; `long` columns are clamped.
+const secRank = (L, s) => { const i = Object.keys(L.SEC).indexOf(s); return i < 0 ? 99 : i; };
+const statusLine = (x) => (x.statusText ? x.statusText.text : '');
 export const TABLE_COLS = [
-  { k: 'title', l: 'Entry', v: (x) => x.short.toLowerCase() },
-  { k: 'where', l: 'Where', v: (x) => x.juris.toLowerCase() },
-  { k: 'status', l: 'Status', v: (x, L) => L.STATUS_ORDER.indexOf(x.status) },
-  { k: 'type', l: 'Type', v: (x, L) => L.TYPES[x.type] },
-  { k: 'conf', l: 'Confidence', v: (x, L) => (x.conf ? L.CONF[x.conf].n : 0) },
-  { k: 'latest', l: 'Latest step', v: (x) => (x.kd ? +x.kd.d : 0) }
+  { k: 'section', l: 'Section', w: 64, s: (x, L) => secRank(L, x.section) },
+  { k: 'title', l: 'Entry', w: 230, s: (x) => x.short.toLowerCase() },
+  { k: 'where', l: 'Jurisdiction', w: 120, s: (x) => x.juris.toLowerCase() },
+  { k: 'sponsor', l: 'Sponsor', w: 170, long: true, s: (x) => x.sponsor.toLowerCase() || '~' },
+  { k: 'mech', l: 'Core mechanism / description', w: 330, long: true },
+  { k: 'thresholds', l: 'Thresholds / scope', w: 230, long: true },
+  { k: 'status', l: 'Status and dates', w: 330, long: true, s: (x, L) => L.STATUS_ORDER.indexOf(x.status) },
+  { k: 'penalties', l: 'Penalties', w: 210, long: true, optional: true },
+  { k: 'source', l: 'Source', w: 190, long: true },
+  { k: 'conf', l: 'Confidence', w: 170, long: true, s: (x, L) => (x.conf ? L.CONF[x.conf].n : 0) },
+  { k: 'latest', l: 'Latest step', w: 130, s: (x) => (x.kd ? +x.kd.d : 0) }
 ];
+export const SORT_KEYS = TABLE_COLS.filter((c) => c.s).map((c) => c.k);
+export const ascFirst = (k) => k === 'title' || k === 'where' || k === 'section' || k === 'sponsor';
 export function sortRows(rows, L, key, dir) {
-  const c = TABLE_COLS.find((t) => t.k === key) || TABLE_COLS[5], m = dir === 'asc' ? 1 : -1;
-  return rows.slice().sort((a, b) => { const va = c.v(a, L), vb = c.v(b, L); return (va < vb ? -1 : va > vb ? 1 : a.id - b.id) * m; });
+  const c = TABLE_COLS.find((t) => t.k === key && t.s) || TABLE_COLS.find((t) => t.k === 'latest'), m = dir === 'asc' ? 1 : -1;
+  return rows.slice().sort((a, b) => { const va = c.s(a, L), vb = c.s(b, L); return (va < vb ? -1 : va > vb ? 1 : a.id - b.id) * m; });
+}
+const confText = (x, L) => (x.confNote || (x.conf ? x.conf : ''));
+const rowText = (x, L) => [x.section, L.SEC[x.section], x.title, x.short, x.juris, x.st, x.sponsor, x.mech, x.thresholds, statusLine(x), L.ST[x.status].l, x.penalties, x.source, x.conf && L.CONF[x.conf].l, x.confNote, x.kdLabel, L.TYPES[x.type]].filter(Boolean).join(' \u0001 ').toLowerCase();
+// Table filters. q: every word must appear somewhere in the row (any column). The rest match exactly.
+export function filterRows(rows, L, f) {
+  const terms = (f.q || '').toLowerCase().split(/\s+/).filter(Boolean);
+  return rows.filter((x) => (!f.group || L.groupOf(x.section) === f.group) && (!f.sec || x.section === f.sec)
+    && (!f.jur || (f.jur === 'US' ? x.level === 'federal' : x.st === f.jur)) && (!f.status || x.status === f.status)
+    && (!f.year || x.years.includes(f.year)) && (!terms.length || (() => { const t = rowText(x, L); return terms.every((w) => t.includes(w)); })()));
 }
 export function toCsv(rows, L) {
-  const head = ['Entry number', 'Title', 'Short name', 'Level', 'Where', 'Status', 'Type', 'Section', 'Confidence', 'Latest step', 'Sponsor', 'Who it covers', 'Source', 'Source links', 'Tracker page'];
+  const head = ['Section', 'Entry', 'Jurisdiction', 'Sponsor', 'Core mechanism / description', 'Thresholds / scope', 'Status and dates', 'Penalties', 'Source', 'Source links', 'Confidence', 'Status', 'Type', 'Latest step', 'Years with dated events', 'Permalink', 'Entry number'];
   const q = (s) => '"' + String(s == null ? '' : s).replace(/"/g, '""').replace(/\s+/g, ' ').trim() + '"';
   const base = location.href.split('#')[0];
-  const lines = rows.map((x) => [x.id, x.title, x.short, x.level, x.juris, L.ST[x.status].l, L.TYPES[x.type], x.sec, x.conf ? L.CONF[x.conf].l : 'Not rated', x.kdLabel, x.sponsor, x.thresholds, x.source, x.srcLinks.map((l) => l.u).join(' '), base + '#/bill/' + x.id].map(q).join(','));
+  const lines = rows.map((x) => [x.section, x.title, x.juris, x.sponsor, x.mech, x.thresholds, L.clean(x.raw.status_text != null ? x.raw.status_text : x.raw.status_and_dates), x.penalties, x.source, x.srcLinks.map((l) => l.u).join(' '), confText(x, L) || 'Not rated',
+    L.ST[x.status].l, L.TYPES[x.type], x.kdLabel, x.years.filter((y) => y !== '*').join(' '), base + '#/bill/' + x.id, x.id].map(q).join(','));
   return '﻿' + [head.map(q).join(','), ...lines].join('\r\n');
 }
 
-// ctx: { L, rows, sort, dir, setSort(k), sel:[ids], toggle(id), compact (cards below 1024px), download(), compare() }
+const fieldStyle = { height: 'calc(40px*var(--hs))', padding: '0 10px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', font: 'inherit', fontSize: 'calc(14px*var(--fs))', fontWeight: 600, minWidth: 0 };
+const btnStyle = { height: 'calc(40px*var(--hs))', padding: '0 16px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', fontWeight: 750, fontSize: 'calc(14px*var(--fs))', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' };
+// controls: { v: {q, group, sec, jur, status, year}, set(key, value), clear(), groups:[{k,l}], secs:[{k,l}], jurs:[{k,l}], statuses:[{k,l}], years:[k] }
+function controlBar(c) {
+  const sel = (key, label, any, opts) => h('label', { key, style: { display: 'contents' } }, h('span', { style: visuallyHidden }, label),
+    h('select', { value: c.v[key] || '', onChange: (e) => c.set(key, e.target.value), style: { ...fieldStyle, flex: '1 1 150px', maxWidth: 240 } }, h('option', { value: '' }, any), ...opts.map((o) => h('option', { key: o.k, value: o.k }, o.l))));
+  const any = Object.values(c.v).some(Boolean);
+  return h('div', { role: 'group', 'aria-label': 'Filter the table', style: { display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12, alignItems: 'center' } },
+    h('label', { style: { display: 'contents' } }, h('span', { style: visuallyHidden }, 'Filter rows'),
+      h('input', { type: 'search', value: c.v.q || '', onChange: (e) => c.set('q', e.target.value), placeholder: 'Filter rows: any word in any column', autoComplete: 'off', style: { ...fieldStyle, flex: '2 1 260px', padding: '0 12px', fontWeight: 500 } })),
+    sel('group', 'Group', 'All groups', c.groups), sel('sec', 'Section', 'All sections', c.secs), sel('jur', 'Jurisdiction', 'All jurisdictions', c.jurs),
+    sel('status', 'Status', 'Any status', c.statuses), sel('year', 'Year', 'All years', c.years.map((y) => ({ k: y, l: y.endsWith('+') ? y.slice(0, -1) + ' and later' : y }))),
+    any ? h('button', { onClick: c.clear, style: { ...btnStyle, border: 0, background: 'transparent', color: 'var(--accent-ink)', padding: '0 8px', textDecoration: 'underline', textUnderlineOffset: 3 } }, 'Clear filters') : null);
+}
+
+// ctx: { L, rows (already filtered), sort, dir, setSort(k, fromSelect), sel:[ids], toggle(id), compare(), download(), compact,
+//        open:[ids] (expanded rows), allOpen, toggleRow(id), setAllOpen(v), controls (optional, see controlBar), total }
 export function table(ctx) {
-  const { L } = ctx, rows = sortRows(ctx.rows, L, ctx.sort, ctx.dir), sel = new Set(ctx.sel), full = sel.size >= 3;
+  const { L } = ctx, rows = sortRows(ctx.rows, L, ctx.sort, ctx.dir), sel = new Set(ctx.sel), full = sel.size >= 3, opened = new Set(ctx.open || []);
+  const isOpen = (x) => ctx.allOpen || opened.has(x.id);
+  const cols = TABLE_COLS.filter((c) => !c.optional || rows.some((x) => x[c.k]));
+  const clamp = (open) => (open ? {} : { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' });
   const chk = (x) => h('label', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'calc(44px*var(--hs))', height: 'calc(44px*var(--hs))', margin: '-10px -10px -10px -12px', cursor: 'pointer' } }, h('input', { type: 'checkbox', checked: sel.has(x.id), disabled: !sel.has(x.id) && full, onChange: () => ctx.toggle(x.id), 'aria-label': 'Select ' + x.short + ' to compare', style: { width: 22, height: 22, minHeight: 0, margin: 0, accentColor: 'var(--accent-ink)', cursor: 'pointer' } }));
   const status = (x) => h('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 700, fontSize: 'calc(13.5px*var(--fs))', whiteSpace: 'nowrap' } }, h('span', { 'aria-hidden': true, style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g), L.ST[x.status].l);
   const conf = (x) => h('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 650, fontSize: 'calc(13.5px*var(--fs))', whiteSpace: 'nowrap' } },
     h('span', { 'aria-hidden': true, style: { display: 'inline-flex', alignItems: 'flex-end', gap: 2, height: 14 } }, ...[1, 2, 3, 4, 5].map((i) => h('span', { key: i, style: { width: 3, height: 6 + i * 2, borderRadius: 1, background: i <= (x.conf ? L.CONF[x.conf].n : 0) ? 'var(--ink)' : 'var(--line-2)' } }))), x.conf ? L.CONF[x.conf].l : 'Not rated');
+  const sources = (x) => x.srcLinks.length ? h('span', null, ...x.srcLinks.map((l, i) => h('span', { key: i }, i ? ' · ' : '', h('a', { href: l.u, target: '_blank', rel: 'noopener noreferrer' }, l.t)))) : (x.source || '—');
+  const cell = { // content of each column for one row
+    section: (x) => h('a', { href: '#/explore?sec=' + encodeURIComponent(x.section), title: L.SEC[x.section], style: { fontWeight: 800, color: 'var(--accent-ink)', textDecoration: 'none' } }, x.section),
+    title: (x) => h('a', { href: '#/bill/' + x.id, title: x.title, style: { fontWeight: 750, color: 'var(--ink)', textDecoration: 'none' } }, x.short),
+    where: (x) => x.juris, sponsor: (x) => x.sponsor || '—', mech: (x) => x.mech || '—', thresholds: (x) => x.thresholds || '—',
+    status: (x) => h('span', null, status(x), statusLine(x) ? h('span', { style: { display: 'block', marginTop: 2, color: 'var(--ink-2)' } }, statusLine(x)) : null),
+    penalties: (x) => x.penalties || '—', source: sources,
+    conf: (x) => h('span', null, conf(x), x.confNote && x.confNote !== x.conf ? h('span', { style: { display: 'block', marginTop: 2, color: 'var(--ink-2)' } }, x.confNote) : null),
+    latest: (x) => x.kdLabel
+  };
+  const rowBtn = (x) => h('button', { onClick: () => ctx.toggleRow(x.id), 'aria-expanded': isOpen(x) ? 'true' : 'false', 'aria-label': (isOpen(x) ? 'Collapse ' : 'Expand ') + x.short, disabled: ctx.allOpen, style: { marginTop: 6, minHeight: 'calc(32px*var(--hs))', padding: 0, border: 0, background: 'transparent', color: ctx.allOpen ? 'var(--ink-3)' : 'var(--accent-ink)', fontWeight: 700, fontSize: 'calc(13px*var(--fs))', cursor: ctx.allOpen ? 'default' : 'pointer', fontFamily: 'inherit', textDecoration: 'underline', textUnderlineOffset: 3 } }, isOpen(x) ? 'Collapse' : 'Expand');
   const bar = h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 } },
-    h('p', { 'aria-live': 'polite', style: { margin: 0, fontSize: 'calc(14px*var(--fs))', fontWeight: 600, color: 'var(--ink-3)' } }, `${rows.length} ${rows.length === 1 ? 'entry' : 'entries'}. ${sel.size ? sel.size + ' selected for comparison.' : 'Tick up to three to compare them.'}`),
+    h('p', { 'aria-live': 'polite', style: { margin: 0, fontSize: 'calc(14px*var(--fs))', fontWeight: 600, color: 'var(--ink-3)' } }, `${rows.length}${ctx.total != null && ctx.total !== rows.length ? ' of ' + ctx.total : ''} ${rows.length === 1 ? 'entry' : 'entries'}. ${sel.size ? sel.size + ' selected for comparison.' : 'Tick up to three to compare them.'}`),
     h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8 } },
-      sel.size >= 2 ? h('button', { onClick: ctx.compare, style: { height: 'calc(44px*var(--hs))', padding: '0 18px', borderRadius: 'min(999px,var(--r))', border: 0, background: 'var(--accent-ink)', color: 'var(--on-accent)', fontWeight: 750, fontSize: 'calc(14.5px*var(--fs))', cursor: 'pointer', fontFamily: 'inherit' } }, `Compare ${sel.size} selected`) : null,
-      h('button', { onClick: ctx.download, style: { height: 'calc(44px*var(--hs))', padding: '0 18px', borderRadius: 'min(999px,var(--r))', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', fontWeight: 750, fontSize: 'calc(14.5px*var(--fs))', cursor: 'pointer', fontFamily: 'inherit' } }, `Download CSV (${rows.length})`)));
-  if (!rows.length) return h('div', null, bar, h('div', { role: 'status', style: { padding: 32, borderRadius: 'min(20px,var(--r))', border: '1px dashed var(--line-2)', textAlign: 'center', color: 'var(--ink-2)' } }, 'No entries match these filters.'));
+      sel.size >= 2 ? h('button', { onClick: ctx.compare, style: { ...btnStyle, border: 0, background: 'var(--accent-ink)', color: 'var(--on-accent)' } }, `Compare ${sel.size} selected`) : null,
+      rows.length ? h('button', { onClick: () => ctx.setAllOpen(!ctx.allOpen), 'aria-pressed': ctx.allOpen ? 'true' : 'false', style: btnStyle }, ctx.allOpen ? 'Collapse all rows' : 'Expand all rows') : null,
+      h('button', { onClick: ctx.download, style: btnStyle }, `Download CSV (${rows.length})`)));
+  const top = h('div', null, ctx.controls ? controlBar(ctx.controls) : null, bar);
+  if (!rows.length) return h('div', null, top, h('div', { role: 'status', style: { padding: 32, borderRadius: 'var(--r)', border: '1px dashed var(--line-2)', textAlign: 'center', color: 'var(--ink-2)' } }, 'No entries match these filters.'));
 
-  const sortSel = h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, fontSize: 'calc(13.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-3)', marginBottom: 12 } }, 'Sort by',
-    h('select', { value: ctx.sort, onChange: (e) => ctx.setSort(e.target.value, true), style: { height: 'calc(44px*var(--hs))', padding: '0 10px', borderRadius: 'min(12px,var(--r))', border: '1px solid var(--line)', background: 'var(--surface)', color: 'var(--ink)', font: 'inherit', fontSize: 'calc(15px*var(--fs))', fontWeight: 600 } }, ...TABLE_COLS.map((c) => h('option', { key: c.k, value: c.k }, c.l + (c.k === 'latest' ? ' (newest first)' : '')))));
-  if (ctx.compact) return h('div', null, bar, sortSel, h('ul', { style: { listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))', gap: 10 } },
-    ...rows.map((x) => h('li', { key: x.id, style: { display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 14px', borderRadius: 'min(16px,var(--r))', background: 'var(--surface)', border: '1px solid var(--line)' } },
-      h('div', { style: { paddingTop: 2 } }, chk(x)),
-      h('div', { style: { display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 } },
-        h('a', { href: '#/bill/' + x.id, style: { display: 'inline-flex', alignItems: 'center', minHeight: 'calc(44px*var(--hs))', margin: '-8px 0', fontWeight: 750, fontSize: 'calc(16px*var(--fs))', color: 'var(--ink)', textDecoration: 'none' } }, x.short),
-        h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'center' } }, status(x), conf(x)),
-        h('span', { style: { fontSize: 'calc(13px*var(--fs))', color: 'var(--ink-3)', fontWeight: 600 } }, x.juris + ' · ' + L.TYPES[x.type] + ' · ' + x.kdLabel))))));
+  if (ctx.compact) {
+    const sortSel = h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, fontSize: 'calc(13.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-3)', marginBottom: 12 } }, 'Sort by',
+      h('select', { value: ctx.sort, onChange: (e) => ctx.setSort(e.target.value, true), style: { ...fieldStyle, height: 'calc(44px*var(--hs))' } }, ...TABLE_COLS.filter((c) => c.s).map((c) => h('option', { key: c.k, value: c.k }, c.l + (c.k === 'latest' ? ' (newest first)' : '')))));
+    const LONG = cols.filter((c) => c.long && c.k !== 'status' && c.k !== 'conf');
+    return h('div', null, top, sortSel, h('ul', { style: { listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', gap: 10 } },
+      ...rows.map((x) => { const open = isOpen(x); return h('li', { key: x.id, style: { display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 14px', borderRadius: 'var(--r)', background: sel.has(x.id) ? 'var(--accent-soft)' : 'var(--surface)', border: '1px solid var(--line)', minWidth: 0 } },
+        h('div', { style: { paddingTop: 2 } }, chk(x)),
+        h('div', { style: { display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0, flex: 1 } },
+          h('a', { href: '#/bill/' + x.id, style: { display: 'inline-flex', alignItems: 'center', minHeight: 'calc(44px*var(--hs))', margin: '-8px 0', fontWeight: 750, fontSize: 'calc(16px*var(--fs))', color: 'var(--ink)', textDecoration: 'none', overflowWrap: 'anywhere' } }, x.short),
+          h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'center' } }, status(x), conf(x)),
+          h('span', { style: { fontSize: 'calc(13px*var(--fs))', color: 'var(--ink-3)', fontWeight: 600 } }, x.section + ' · ' + x.juris + ' · ' + x.kdLabel),
+          h('dl', { style: { margin: 0, display: 'flex', flexDirection: 'column', gap: 6 } }, ...[...LONG.slice(0, 3), { k: 'status', l: 'Status and dates' }, ...LONG.slice(3)].filter((c) => c.k === 'status' ? statusLine(x) : x[c.k] || (c.k === 'source' && x.srcLinks.length)).map((c) => h('div', { key: c.k, style: { minWidth: 0 } },
+            h('dt', { style: { fontSize: 'calc(12px*var(--fs))', fontWeight: 750, color: 'var(--ink-3)' } }, c.l),
+            h('dd', { style: { margin: 0, fontSize: 'calc(14px*var(--fs))', color: 'var(--ink-2)', overflowWrap: 'anywhere', ...clamp(open) } }, c.k === 'status' ? statusLine(x) : c.k === 'source' ? sources(x) : x[c.k])))),
+          h('div', null, rowBtn(x)))); })));
+  }
 
-  const th = (c) => { const on = ctx.sort === c.k; return h('th', { key: c.k, scope: 'col', 'aria-sort': on ? (ctx.dir === 'asc' ? 'ascending' : 'descending') : 'none', style: { textAlign: 'left', padding: 0, position: 'sticky', top: 0, background: 'var(--surface-2)', zIndex: 2 } },
-    h('button', { onClick: () => ctx.setSort(c.k), style: { width: '100%', minHeight: 'calc(44px*var(--hs))', padding: '0 8px', border: 0, background: 'transparent', color: on ? 'var(--ink)' : 'var(--ink-2)', font: 'inherit', fontWeight: 800, fontSize: 'calc(12.5px*var(--fs))', letterSpacing: '.04em', textTransform: 'uppercase', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 } }, c.l, h('span', { 'aria-hidden': true, style: { opacity: on ? 1 : 0.35 } }, on ? (ctx.dir === 'asc' ? '▲' : '▼') : '↕'))); };
-  const td = { padding: '10px 8px', borderTop: '1px solid var(--line)', verticalAlign: 'top', fontSize: 'calc(14px*var(--fs))' };
-  return h('div', null, bar,
-    h('div', { tabIndex: 0, role: 'region', 'aria-label': 'Entries table, scrollable', style: { borderRadius: 'min(18px,var(--r))', border: '1px solid var(--line)', background: 'var(--surface)', overflow: 'auto', maxHeight: 'max(420px, calc(100vh - 150px))' } },
-      h('table', { style: { width: '100%', borderCollapse: 'separate', borderSpacing: 0, minWidth: 800 } },
-        h('caption', { style: visuallyHidden }, 'All tracker entries. Sortable columns.'),
-        h('thead', null, h('tr', null, h('th', { scope: 'col', style: { width: 48, position: 'sticky', top: 0, background: 'var(--surface-2)', zIndex: 2 } }, h('span', { style: visuallyHidden }, 'Select')), ...TABLE_COLS.filter((c) => c.k !== 'type').map(th), h('th', { scope: 'col', style: { textAlign: 'left', padding: '0 8px', fontSize: 'calc(12.5px*var(--fs))', letterSpacing: '.04em', textTransform: 'uppercase', color: 'var(--ink-2)', position: 'sticky', top: 0, background: 'var(--surface-2)', zIndex: 2 } }, 'Source'))),
-        h('tbody', null, ...rows.map((x) => h('tr', { key: x.id, style: { background: sel.has(x.id) ? 'var(--accent-soft)' : 'transparent' } },
-          h('td', { style: { ...td, paddingRight: 0 } }, chk(x)),
-          h('td', { style: { ...td, minWidth: 250 } }, h('a', { href: '#/bill/' + x.id, title: x.title, style: { display: 'inline-flex', alignItems: 'center', minHeight: 'calc(44px*var(--hs))', margin: '-10px 0 -6px', fontWeight: 750, color: 'var(--ink)', textDecoration: 'none' } }, x.short), h('div', { style: { fontSize: 'calc(12.5px*var(--fs))', color: 'var(--ink-3)', marginTop: 2 } }, x.sec + ' · ' + L.TYPES[x.type])),
-          h('td', { style: td }, x.juris), h('td', { style: td }, status(x)), h('td', { style: td }, conf(x)),
-          h('td', { style: { ...td, fontVariantNumeric: 'tabular-nums', minWidth: 100 } }, x.kdLabel),
-          h('td', { style: { ...td, maxWidth: 150, fontSize: 'calc(13px*var(--fs))', color: 'var(--ink-2)' } }, x.srcLinks[0] ? h('a', { href: x.srcLinks[0].u, target: '_blank', rel: 'noopener noreferrer', style: { display: 'inline-flex', alignItems: 'center', minHeight: 'calc(44px*var(--hs))', margin: '-10px 0' } }, trunc(x.source || x.srcLinks[0].t, 24)) : trunc(x.source || '—', 24)))))))
+  // wide table: horizontal scroll stays inside the table; the select, section and entry columns stay in view
+  const STICK = { sel: 0, section: 48, title: 112 };
+  const stick = (k, bg) => STICK[k] != null ? { position: 'sticky', left: STICK[k], zIndex: 1, background: bg } : {};
+  const th = (c) => { const on = ctx.sort === c.k, s = { textAlign: 'left', padding: 0, position: 'sticky', top: 0, background: 'var(--surface-2)', zIndex: STICK[c.k] != null ? 3 : 2, minWidth: c.w, width: c.w, ...(STICK[c.k] != null ? { left: STICK[c.k] } : {}) };
+    const label = h('span', { style: { display: 'flex', alignItems: 'center', gap: 6, minHeight: 'calc(44px*var(--hs))', padding: '0 8px', fontWeight: 800, fontSize: 'calc(12.5px*var(--fs))', letterSpacing: '.04em', textTransform: 'uppercase', color: on ? 'var(--ink)' : 'var(--ink-2)', textAlign: 'left' } }, c.l, c.s ? h('span', { 'aria-hidden': true, style: { opacity: on ? 1 : 0.35 } }, on ? (ctx.dir === 'asc' ? '▲' : '▼') : '↕') : null);
+    return h('th', { key: c.k, scope: 'col', 'aria-sort': c.s ? (on ? (ctx.dir === 'asc' ? 'ascending' : 'descending') : 'none') : undefined, style: s },
+      c.s ? h('button', { onClick: () => ctx.setSort(c.k), style: { width: '100%', padding: 0, border: 0, background: 'transparent', font: 'inherit', cursor: 'pointer', display: 'block' } }, label) : label); };
+  const td = { padding: '10px 8px', borderTop: '1px solid var(--line)', verticalAlign: 'top', fontSize: 'calc(14px*var(--fs))', lineHeight: 1.45, overflowWrap: 'anywhere' };
+  const W = 48 + cols.reduce((t, c) => t + c.w, 0);
+  return h('div', null, top,
+    h('div', { tabIndex: 0, role: 'region', 'aria-label': 'Entries table, scrolls sideways', style: { borderRadius: 'var(--r)', border: '1px solid var(--line)', background: 'var(--surface)', overflow: 'auto', maxHeight: 'max(480px, calc(100vh - 150px))' } },
+      h('table', { style: { width: W, minWidth: '100%', borderCollapse: 'separate', borderSpacing: 0, tableLayout: 'fixed' } },
+        h('caption', { style: visuallyHidden }, 'All tracker entries. Sortable columns. Long cells show three lines until the row is expanded.'),
+        h('thead', null, h('tr', null, h('th', { scope: 'col', style: { width: 48, position: 'sticky', top: 0, left: 0, background: 'var(--surface-2)', zIndex: 3 } }, h('span', { style: visuallyHidden }, 'Select')), ...cols.map(th))),
+        h('tbody', null, ...rows.map((x) => { const open = isOpen(x), bg = sel.has(x.id) ? 'var(--accent-soft)' : 'var(--surface)';
+          return h('tr', { key: x.id, style: { background: bg } },
+            h('td', { style: { ...td, paddingRight: 0, ...stick('sel', bg) } }, chk(x)),
+            ...cols.map((c) => h('td', { key: c.k, style: { ...td, ...stick(c.k, bg), ...(c.k === 'latest' ? { fontVariantNumeric: 'tabular-nums' } : {}), ...(c.k === 'title' ? { boxShadow: 'inset -1px 0 0 var(--line)' } : {}) } },
+              c.long ? h('div', { style: clamp(open) }, cell[c.k](x)) : cell[c.k](x),
+              c.k === 'title' ? h('div', null, h('div', { style: { fontSize: 'calc(12.5px*var(--fs))', color: 'var(--ink-3)', marginTop: 2 } }, L.TYPES[x.type]), rowBtn(x)) : null))); }))))
   );
 }
 

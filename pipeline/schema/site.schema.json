@@ -15,6 +15,35 @@
       "propertyNames": { "$ref": "common.schema.json#/$defs/section" },
       "additionalProperties": { "type": "string" }
     },
+    "replay_start": { "$ref": "common.schema.json#/$defs/isoDate", "description": "Where the home-page replay starts." },
+    "section_groups": {
+      "type": "array",
+      "description": "How sections are grouped in the Explore sidebar and the table's Group filter (v1's grouping).",
+      "items": {
+        "type": "object",
+        "required": ["key", "name", "sections"],
+        "additionalProperties": false,
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "name": { "type": "string" },
+          "sections": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/section" }, "minItems": 1 }
+        }
+      }
+    },
+    "federal_groups": {
+      "type": "array",
+      "description": "The federal sections shown on Home, in order, with a one-line note each.",
+      "items": {
+        "type": "object",
+        "required": ["section", "name"],
+        "additionalProperties": false,
+        "properties": {
+          "section": { "$ref": "common.schema.json#/$defs/section" },
+          "name": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
     "replay_milestones": {
       "type": "array",
       "description": "The captioned moments in the home-page replay. They point at entries by key, replacing the hardcoded numbers.",
