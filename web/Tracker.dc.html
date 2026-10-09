@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preload" href="fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap">
+<link rel="preload" href="fonts/SourceSerif4-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -13,6 +13,9 @@
 <title>US Frontier AI Law Tracker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+/* Source Serif 4 (headings), hosted here; one variable file per subset covers weights 400–700 and optical sizes 8–60 */
+@font-face{font-family:'Source Serif 4';src:url('fonts/SourceSerif4-latin.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Source Serif 4';src:url('fonts/SourceSerif4-latin-ext.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Jakarta';src:url('fonts/PlusJakartaSans-latin.woff2') format('woff2');font-weight:400 800;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Jakarta';src:url('fonts/PlusJakartaSans-latin-ext.woff2') format('woff2');font-weight:400 800;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 :root,[data-theme=light]{--bg:#F6F8FC;--surface:#FFFFFF;--surface-2:#EEF2F8;--ink:#0D1424;--ink-2:#36415A;--ink-3:#4F5A72;--line:#DFE5EF;--line-2:#C3CCDB;--accent:#1A8CF0;--accent-ink:#0A63BD;--accent-soft:#E6F2FE;--on-accent:#FFFFFF;--mark:#FFE58A;--st-enacted:#0B7F5E;--st-pending:#9A6700;--st-auditor:#7A3FC4;--st-stalled:#5A6680;--st-failed:#B4471A;--st-executive:#0B7891;--st-litigation:#B23A70;--st-export:#56657A;--st-excluded:#7B8496;--k-fed:#0A63BD;--k-state:#7A3FC4;--k-exec:#0B7891;--k-lit:#B23A70;--k-ind:#5A6680;--shadow-1:0 1px 2px rgba(13,20,36,.06),0 1px 1px rgba(13,20,36,.04);--shadow-2:0 10px 30px -12px rgba(13,20,36,.18),0 2px 6px rgba(13,20,36,.05);--shadow-3:0 30px 80px -20px rgba(13,20,36,.38);--wash-a:rgba(26,140,240,.10);--wash-b:rgba(214,92,180,.08);--b-bg:#FBFCFE;--b-img:radial-gradient(70% 60% at 15% 0%,rgba(26,140,240,.07),transparent 60%),radial-gradient(60% 60% at 100% 100%,rgba(214,92,180,.05),transparent 60%),radial-gradient(rgba(13,20,36,.07) 1px,transparent 1px);--b-frame:var(--line);--b-ink:#0D1424;--b-ink-2:#36415A;--b-ink-3:#4F5A72;--b-line:rgba(13,20,36,.14);--b-line-strong:rgba(13,20,36,.32);--b-line-soft:rgba(13,20,36,.08);--b-fill:rgba(13,20,36,.03);--b-fill-2:rgba(13,20,36,.05);--b-field:#FFFFFF;--b-accent:#0A63BD;--b-solid:#FFFFFF;--b-card:#F6F8FC;--b-pop:rgba(255,255,255,.96);--b-cyan:#0B7891;--b-press:rgba(13,20,36,.07);--b-press-bd:rgba(13,20,36,.45);--b-rail:linear-gradient(180deg,rgba(11,120,145,.06),rgba(13,20,36,.015));color-scheme:light}
@@ -982,6 +985,11 @@ class Component extends DCLogic {
   focusMain() { const m = this.mainRef.current; if (m) m.focus(); }
   componentDidUpdate() {
     this.syncChrome();
+    // The replay writes tile styles straight to the DOM, so React's diff can't be trusted to restyle every tile when
+    // the theme flips: repaint them all from the data whenever light/dark changes.
+    const dark = this.isDark();
+    if (this._dark !== undefined && this._dark !== dark && this.D && this.state.route.path === '/') { const t = this.curT != null ? this.curT : this.state.t; this.applyFrame(this.boardAt(this.state.route.p, t, this.state.vw < 760, !dark), true); if (!this.state.playing) this.lastFrame = null; }
+    this._dark = dark;
     const ps = this._ps || {}; this._ps = { confOpen: this.state.confOpen, filtersOpen: this.state.filtersOpen };
     if (this.docTitle && document.title !== this.docTitle) document.title = this.docTitle;
     if (this.wantRouteFocus && !this.state.booting) { const h = document.querySelector('main h1'); if (h) { this.wantRouteFocus = false; h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } }
@@ -1082,10 +1090,10 @@ class Component extends DCLogic {
     L.GRID.forEach(([code]) => { const list = byState[code] || [], cat = L.stateCat(list), ts = L.tileStyle(cat, p.state === code || cmp.includes(code), light); catCount[cat]++; tiles[code] = { ...ts, cat, list, g: !mob && cat !== 'none' ? L.CAT[cat].g : '', n: !mob && list.length ? String(list.length) : '' }; });
     return { live, byState, tiles, catCount };
   }
-  applyFrame(fr) {
-    const o = this.lastFrame; this.lastFrame = fr; if (!o) return;
-    Object.entries(fr.tiles).forEach(([code, v]) => { const w = o.tiles[code]; if (w && w.bg === v.bg && w.bd === v.bd && w.sh === v.sh && w.fg === v.fg && w.g === v.g && w.n === v.n) return; const el = document.querySelector('[data-tile="' + code + '"]'); if (!el) return; el.style.background = v.bg; el.style.border = v.bd; el.style.color = v.fg; el.style.boxShadow = v.sh; el.style.textShadow = v.ts; const g = el.querySelector('[data-tg]'), n = el.querySelector('[data-tn]'); if (g) { this.setText(g, v.g); g.style.color = v.gc; } if (n) { this.setText(n, v.n); n.style.color = v.gc; } });
-    Object.entries(fr.catCount).forEach(([k, n]) => { if (o.catCount[k] !== n) document.querySelectorAll('[data-ln="' + k + '"]').forEach(el => { this.setText(el, String(n)); }); });
+  applyFrame(fr, force) {
+    const o = this.lastFrame; this.lastFrame = fr; if (!o && !force) return;
+    Object.entries(fr.tiles).forEach(([code, v]) => { const w = !force && o.tiles[code]; if (w && w.bg === v.bg && w.bd === v.bd && w.sh === v.sh && w.fg === v.fg && w.g === v.g && w.n === v.n) return; const el = document.querySelector('[data-tile="' + code + '"]'); if (!el) return; el.style.background = v.bg; el.style.border = v.bd; el.style.color = v.fg; el.style.boxShadow = v.sh; el.style.textShadow = v.ts; const g = el.querySelector('[data-tg]'), n = el.querySelector('[data-tn]'); if (g) { this.setText(g, v.g); g.style.color = v.gc; } if (n) { this.setText(n, v.n); n.style.color = v.gc; } });
+    Object.entries(fr.catCount).forEach(([k, n]) => { if (force || o.catCount[k] !== n) document.querySelectorAll('[data-ln="' + k + '"]').forEach(el => { this.setText(el, String(n)); }); });
   }
   chromeText(t, playing) {
     const L = this.L, END = +L.ASOF, tt = t == null ? END : t, M = L.MILESTONES;
