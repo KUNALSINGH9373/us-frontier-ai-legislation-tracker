@@ -4,7 +4,7 @@
 //   1. no horizontal page scroll (wide tables scroll inside their own region)
 //   2. controls that sit on one row share height and vertical centre (±1px)
 //   3. icon-only buttons are square
-//   4. the page's first heading starts at the same x as the header logo
+//   4. the page's first heading starts at the same x as the header logo (except on centred pages, [data-centered])
 //   5. no errors in the console since the page loaded (window.__errs, collected below)
 // Nothing here changes the page apart from the hash and the theme, which are restored at the end.
 (function () {
@@ -52,7 +52,7 @@
     });
     // first heading aligned with the logo
     const logo = document.querySelector('header a[href="#/"]'), h1 = [...document.querySelectorAll('main h1')].find(vis);
-    if (logo && h1) { const dx = h1.getBoundingClientRect().left - logo.getBoundingClientRect().left; if (Math.abs(dx) > 1 && !h1.closest('[data-exgrid]')) P.push(`h1 "${label(h1)}" starts ${dx.toFixed(1)}px from the logo edge`); }
+    if (logo && h1) { const dx = h1.getBoundingClientRect().left - logo.getBoundingClientRect().left; if (Math.abs(dx) > 1 && !h1.closest('[data-exgrid],[data-centered]')) P.push(`h1 "${label(h1)}" starts ${dx.toFixed(1)}px from the logo edge`); }
     return P;
   }
   window.auditLayout = async function (routes = ROUTES) {

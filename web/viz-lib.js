@@ -758,7 +758,7 @@ export function aboutView(C) {
     else if (b.type === 'p') out.push(h('div', { key: k }, mdP(b.text)));
     else out.push(h(b.type, { key: k, style: { margin: '0 0 14px', paddingLeft: 24, display: 'flex', flexDirection: 'column', gap: 6 } }, ...b.items.map((t, j) => h('li', { key: j, style: { fontSize: 'calc(16px*var(--fs))', lineHeight: 1.6 } }, ...mdInline(t)))));
   });
-  return h('div', { style: { maxWidth: 820 } }, ...out);
+  return h('div', { style: { maxWidth: '75ch' } }, ...out);
 }
 
 // Methodology page: v1's introduction and "Frontier =" definition, its verification note, section L, the AAF
@@ -852,7 +852,7 @@ export function handbookView(ctx) {
       dl.handbook_md ? h('a', { href: dl.handbook_md, download: '', style: btn }, 'Download Markdown') : null),
     h('div', { 'data-hbgrid': '', style: { display: 'grid', gap: 28, alignItems: 'start' } },
       h('div', { 'data-hbside': '' }, toc),
-      h('div', { style: { minWidth: 0, maxWidth: 820 } },
+      h('div', { style: { minWidth: 0, maxWidth: '75ch' } },
         terms.length && !shown.length ? h('p', { role: 'status', style: { padding: 20, border: '1px dashed var(--line-2)', borderRadius: 'var(--r)', color: 'var(--ink-2)' } }, list.length ? 'This chapter has no match. Pick a matching chapter from the list.' : 'No chapter matches that search.') : null,
         ...shown.map(chapter), pager)));
 }
