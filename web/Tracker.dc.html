@@ -40,8 +40,9 @@
 @media (min-width:1024px){:root{--fs:.88;--hs:.8;--ps:.8}}
 h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;letter-spacing:-.01em!important;font-optical-sizing:auto}
 h2[style*="text-transform:uppercase"]{font-family:inherit!important;font-weight:700!important;letter-spacing:.08em!important}
-[data-mapgrid]{container-type:inline-size}
-@media (min-width:1024px){[data-mapgrid]{max-width:max(560px,calc((100vh - 420px) * 1.36));margin-inline:auto;width:100%}[data-mapgrid] [data-tile]{font-size:clamp(10px,1.95cqw,16px)!important}[data-mapgrid] [data-tg],[data-mapgrid] [data-tn]{font-size:clamp(8px,1.3cqw,12px)!important}}
+[data-mapgrid]{container-type:inline-size;width:100%}
+[data-homerow]{display:flex;flex-direction:column;gap:clamp(16px,2vw,28px)}
+@media (min-width:1024px){[data-homerow]{flex-direction:row;align-items:stretch}[data-mapcol]{flex:0 1 min(69%,calc((100vh - 300px) * 1.375),1100px)}[data-homeside]{flex:1 1 300px}[data-mapgrid] [data-tile]{font-size:clamp(10px,1.95cqw,16px)!important}[data-mapgrid] [data-tg],[data-mapgrid] [data-tn]{font-size:clamp(8px,1.3cqw,12px)!important}}
 [data-exgrid]{display:block}
 @media (min-width:1024px){[data-exgrid]{display:grid;grid-template-columns:248px minmax(0,1fr);gap:36px;align-items:start}[data-side]{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}}
 [data-sideitem]{display:flex;align-items:baseline;gap:10px;padding:7px 12px;text-decoration:none;font-size:calc(14px*var(--fs));line-height:1.35;transition:background var(--dur-1)}
@@ -49,13 +50,14 @@ h2[style*="text-transform:uppercase"]{font-family:inherit!important;font-weight:
 [data-sidecode]{width:28px;flex-shrink:0;font-size:calc(11.5px*var(--fs));font-weight:700;color:var(--accent-ink);font-variant-numeric:tabular-nums}
 [data-sidecount]{font-size:calc(12px*var(--fs));color:var(--ink-3);font-variant-numeric:tabular-nums}
 [data-sidehead]{margin:0;padding:12px 12px 6px;border-top:1px solid var(--line);background:var(--surface-2);font-size:calc(11px*var(--fs));font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
-@media (min-width:1024px){[data-boardsec]{padding-left:clamp(16px,3vw,32px)!important;padding-right:clamp(16px,3vw,32px)!important}}
 [data-hbgrid]{grid-template-columns:minmax(0,1fr)}
 @media (min-width:1024px){[data-hbgrid]{grid-template-columns:260px minmax(0,1fr)!important}[data-hbside]{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}}
 [data-chip]{position:relative}@media (pointer:coarse),(max-width:1023px){[data-chip]::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
 [data-sidetoggle]{align-items:center;justify-content:center;gap:6px;height:calc(32px*var(--hs));margin:0 0 8px auto;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-weight:650;font-size:calc(13px*var(--fs));cursor:pointer}
 [data-sidetoggle]:hover{color:var(--ink);border-color:var(--line-2)}
 @media (min-width:1024px){[data-exgrid][data-collapsed=true]{grid-template-columns:40px minmax(0,1fr)}[data-exgrid][data-collapsed=true] [data-side] details{display:none}[data-exgrid][data-collapsed=true] [data-sidetoggle]{width:calc(32px*var(--hs));padding:0;margin:0;font-size:18px}}
+[data-fdlg]{left:0;right:0;bottom:0;border-radius:var(--r) var(--r) 0 0;animation:gxUp var(--dur-3) var(--ease-out)}
+@media (min-width:760px){[data-fdlg]{left:50%;right:auto;bottom:auto;top:12vh;width:min(600px,calc(100vw - 32px));transform:translateX(-50%);border-radius:var(--r);animation:gxFade var(--dur-2) var(--ease-out)}}
 [data-dk]{display:none!important}
 @media (min-width:1024px){[data-dk]{display:flex!important}[data-mb]{display:none!important}}
 html{-webkit-text-size-adjust:100%}
@@ -142,196 +144,129 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 </sc-if>
 
 <sc-if value="{{isHome}}">
-<section aria-labelledby="story-h" style="position:relative;overflow:hidden">
-  <div aria-hidden="true" style="position:absolute;inset:-20% -10% auto -10%;height:120%;background:radial-gradient(60% 50% at 18% 20%,var(--wash-a),transparent 70%),radial-gradient(50% 50% at 85% 10%,var(--wash-b),transparent 70%);pointer-events:none"></div>
-  <div style="position:relative;max-width:1280px;margin:0 auto;padding:clamp(16px,3vw,32px) clamp(16px,3vw,32px) clamp(14px,2vw,22px);display:flex;flex-direction:column;gap:10px">
-    <div style="min-width:0">
-      <sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><p style="margin:0 0 8px;font-size:calc(12px*var(--fs));font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)">US frontier AI legislation</p></sc-if>
-      <h1 id="story-h" aria-label="{{h3}} states have enacted frontier-AI laws. Congress has introduced {{h10}} bills and passed none." style="margin:0;font-weight:800;font-size:clamp(24px,3.1vw,38px);line-height:1.18;letter-spacing:-.01em;text-wrap:balance;max-width:900px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="{{h3}}" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="{{h10}}" style="color:var(--accent-ink)">{{h10}}</span> bills and passed none.</span></h1>
+<div data-screen-label="Home" style="max-width:1280px;width:100%;margin:0 auto;padding:clamp(18px,2.4vw,28px) clamp(16px,3vw,32px) clamp(32px,4vw,48px)">
+  <h1 id="story-h" aria-label="{{h3}} states have enacted frontier-AI laws. Congress has introduced {{h10}} bills and passed none." style="margin:0 0 clamp(14px,1.8vw,20px);font-size:clamp(22px,2.5vw,32px);line-height:1.2;text-wrap:balance;max-width:1000px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="{{h3}}" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="{{h10}}" style="color:var(--accent-ink)">{{h10}}</span> bills and passed none.</span></h1>
+
+  <div data-hometools style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:12px">
+    <div role="group" aria-label="Filter the map" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;min-width:0">
+      <button onClick="{{openFilters}}" aria-haspopup="dialog" aria-label="{{filtersAria}}" style="height:calc(36px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:{{filtersBg}};color:var(--ink);font-weight:650;font-size:calc(14px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>Filters<sc-if value="{{hasFilterN}}"><span aria-hidden="true" style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--accent-ink);color:var(--on-accent);font-size:calc(12px*var(--fs));font-weight:800;display:grid;place-items:center">{{filterN}}</span></sc-if></button>
+      <sc-for list="{{boardChips}}" as="c">
+        <button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:calc(36px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);font-weight:600;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap">{{c.l}}<span aria-hidden="true" style="font-size:calc(12px*var(--fs));color:var(--ink-3)">✕</span></button>
+      </sc-for>
+      <sc-if value="{{hasBoardChips}}"><button onClick="{{clearBoard}}" style="height:calc(36px*var(--hs));padding:0 4px;border:0;background:transparent;color:var(--accent-ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px">Clear all</button></sc-if>
+    </div>
+    <div style="margin-left:auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+      <div role="group" aria-label="Replay, 2023 to now" style="display:flex;align-items:center;gap:6px">
+        <button onClick="{{togglePlay}}" aria-label="{{playLabel}}" title="{{playLabel}}" style="width:calc(36px*var(--hs));height:calc(36px*var(--hs));padding:0;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:calc(12px*var(--fs));cursor:pointer;display:grid;place-items:center">{{playIcon}}</button>
+        <button onClick="{{onPrev}}" disabled="{{prevOff}}" aria-label="{{prevAria}}" title="Previous event" style="width:calc(36px*var(--hs));height:calc(36px*var(--hs));padding:0;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:calc(11px*var(--fs));cursor:pointer;display:grid;place-items:center;opacity:{{prevOp}}">◀</button>
+        <button onClick="{{onNext}}" disabled="{{nextOff}}" aria-label="{{nextAria}}" title="Next event" style="width:calc(36px*var(--hs));height:calc(36px*var(--hs));padding:0;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:calc(11px*var(--fs));cursor:pointer;display:grid;place-items:center;opacity:{{nextOp}}">▶</button>
+        <strong data-rd="1" aria-live="off" style="min-width:76px;font-size:calc(14px*var(--fs));font-variant-numeric:tabular-nums;padding-left:4px"></strong>
+        <sc-if value="{{replayActive}}"><button onClick="{{showNow}}" style="height:calc(36px*var(--hs));padding:0 4px;border:0;background:transparent;color:var(--accent-ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Jump to now</button></sc-if>
       </div>
-    <div style="display:flex;flex-wrap:wrap;gap:20px clamp(24px,4vw,64px);align-items:flex-end">
-    <sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><p style="flex:1 1 420px;margin:0;font-size:calc(16px*var(--fs));line-height:1.55;max-width:900px;color:var(--ink-2);text-wrap:pretty;font-variant-numeric:tabular-nums">{{t5}} state bills are pending and {{t11}} have stalled or failed. {{t6}} measures would license or study AI auditors. The tracker also follows {{t10b}} executive actions and {{t9}} lawsuits and enforcement items.</p></sc-if>
-    <form role="search" data-mb onSubmit="{{submitQ}}" style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:8px">
-      <label for="home-q" style="{{homeLabelStyle}}">Search {{nEntries}} laws, bills and actions</label>
-      <div style="display:flex;align-items:center;gap:8px;height:{{searchH}};padding:0 4px 0 calc(16px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow-2)" style-focus-within="border-color:var(--accent)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-        <input id="home-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Try “kill switch”" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(17px*var(--fs));outline:none">
-        <button type="submit" aria-label="Search" data-sq="1" style="height:calc(44px*var(--hs));min-width:44px;padding:{{searchBtnPad}};border-radius:min(999px,var(--r));border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:750;font-size:calc(16px*var(--fs));cursor:pointer;flex-shrink:0;display:grid;place-items:center" style-hover="filter:brightness(1.08)" style-active="transform:scale(.97)"><sc-if value="{{heroFull}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true">Search</span></sc-if><sc-if value="{{mob}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></sc-if></button>
+      <div role="group" aria-label="View as" style="display:flex;padding:2px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface)">
+        <button data-chip onClick="{{setMap}}" aria-pressed="{{mapSel}}" style="height:calc(30px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:8px;border:0;background:{{mapTabBg}};color:var(--ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer">Map</button>
+        <button data-chip onClick="{{setList}}" aria-pressed="{{listSel}}" style="height:calc(30px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:8px;border:0;background:{{listTabBg}};color:var(--ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer">List</button>
       </div>
-    </form>
+      <button onClick="{{toggleCmp}}" aria-pressed="{{cmpMode}}" style="height:calc(36px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:{{cmpBtnBg}};color:{{cmpBtnFg}};font-weight:650;font-size:calc(14px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap"><span aria-hidden="true">⇆</span>{{cmpLabel}}</button>
     </div>
   </div>
-</section>
 
-<section aria-labelledby="board-h" data-boardsec style="max-width:1280px;width:100%;margin:0 auto;padding:0 clamp(calc(8px*var(--ps)),2vw,calc(32px*var(--ps)))">
-  <div data-screen-label="Signal board" style="position:relative;overflow:hidden;contain:layout paint;background:var(--b-bg);background-image:var(--b-img);background-size:auto,auto,18px 18px;border:1px solid var(--b-frame);border-radius:min(clamp(20px,2.6vw,32px),var(--r));color:var(--b-ink);padding:clamp(calc(14px*var(--ps)),2.6vw,calc(32px*var(--ps)));box-shadow:var(--shadow-3)">
-    <div style="display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between">
-      <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
-        <h2 id="board-h" style="margin:0;font-size:calc(clamp(20px,2vw,26px)*var(--fs));font-weight:800;letter-spacing:-.02em">The signal board</h2>
-        <p style="margin:0;font-size:calc(13px*var(--fs));font-weight:600;color:var(--b-ink-3);display:flex;align-items:baseline;gap:8px"><span aria-hidden="true" style="width:8px;height:8px;flex-shrink:0;border-radius:50%;background:var(--st-enacted);box-shadow:0 0 10px var(--st-enacted);transform:translateY(-1px)"></span><span style="display:flex;flex-wrap:wrap;column-gap:6px"><span style="white-space:nowrap">Verified as of {{verLabel}}</span><span style="white-space:nowrap">· updates through {{asofLabel}}</span></span></p>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <div role="group" aria-label="View as" style="display:flex;padding:3px;border-radius:min(999px,var(--r));border:1px solid var(--b-line)">
-          <button data-chip onClick="{{setMap}}" aria-pressed="{{mapSel}}" style="height:{{segH}};padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:0;background:{{mapTabBg}};color:var(--b-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">Map</button>
-          <button data-chip onClick="{{setList}}" aria-pressed="{{listSel}}" style="height:{{segH}};padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:0;background:{{listTabBg}};color:var(--b-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">List</button>
-        </div>
-        <button onClick="{{toggleCmp}}" aria-pressed="{{cmpMode}}" style="height:calc(44px*var(--hs));padding:0 calc(16px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-line-strong);background:{{cmpBtnBg}};color:{{cmpBtnFg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:8px"><span aria-hidden="true">⇆</span>{{cmpLabel}}</button>
-      </div>
+  <sc-if value="{{cmpMode}}">
+    <div role="status" style="margin-bottom:12px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:calc(10px*var(--ps)) calc(12px*var(--ps));border-radius:var(--r);background:var(--accent-soft);border:1px solid var(--accent)">
+      <span style="font-weight:650;font-size:calc(14px*var(--fs))">Select 2 or 3 states to compare.</span>
+      <sc-for list="{{cmpStates}}" as="c"><button data-chip onClick="{{c.rm}}" aria-label="Remove {{c.nm}}" style="height:calc(32px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:600;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px">{{c.nm}}<span aria-hidden="true">✕</span></button></sc-for>
+      <sc-if value="{{cmpReady}}"><button data-chip onClick="{{goCmp}}" style="margin-left:auto;height:calc(32px*var(--hs));padding:0 calc(16px*var(--ps));border-radius:var(--r);border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">Compare {{cmpN}} states →</button></sc-if>
     </div>
+  </sc-if>
 
-    <sc-if value="{{filtersInline}}" hint-placeholder-val="{{ true }}"><div role="group" aria-label="Filter the map" style="margin-top:18px;display:flex;flex-wrap:wrap;gap:10px 8px;align-items:center">
-      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-      <sc-for list="{{statusChips}}" as="c" hint-placeholder-count="7">
-        <button onClick="{{c.toggle}}" aria-pressed="{{c.pressed}}" style="height:calc(36px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:min(999px,var(--r));border:{{c.bd}};background:{{c.bg}};color:var(--b-ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;transition:background var(--dur-2) var(--ease-out)" style-hover="border-color:var(--b-line-strong)"><span aria-hidden="true" style="color:{{c.c}};font-size:calc(12px*var(--fs))">{{c.g}}</span>{{c.l}}</button>
-      </sc-for>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-      <label style="position:relative;display:flex"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Type</span>
-        <select value="{{fType}}" onChange="{{onType}}" style="height:calc(36px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-line);background:var(--b-field);color:var(--b-ink);font:inherit;font-size:calc(13.5px*var(--fs));font-weight:650;cursor:pointer">
-          <option value="">Any type</option><option value="law">Law</option><option value="bill">Bill</option><option value="auditor">Auditor licensing</option><option value="draft">Draft or proposal</option><option value="executive">Executive action</option><option value="litigation">Litigation</option><option value="export">Export control</option><option value="precursor">Earlier proposal</option>
-        </select></label>
-      <label style="position:relative;display:flex"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Year</span>
-        <select value="{{fYear}}" onChange="{{onYear}}" style="height:calc(36px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-line);background:var(--b-field);color:var(--b-ink);font:inherit;font-size:calc(13.5px*var(--fs));font-weight:650;cursor:pointer">
-          <option value="">Any year</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027+">2027 and later</option>
-        </select></label>
-      <label style="position:relative;display:flex"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Confidence</span>
-        <select value="{{fConf}}" onChange="{{onConf}}" style="height:calc(36px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-line);background:var(--b-field);color:var(--b-ink);font:inherit;font-size:calc(13.5px*var(--fs));font-weight:650;cursor:pointer">
-          <option value="">Any confidence</option><option value="HIGH">High</option><option value="MED-HIGH">Med-high</option><option value="MED">Medium</option><option value="SEARCH-QUALIFIED">Search-qualified</option>
-        </select></label>
-      </div>
-      <sc-for list="{{boardChips}}" as="c">
-        <button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:calc(36px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-press-bd);background:var(--b-press);color:var(--b-ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px">{{c.l}}<span aria-hidden="true" style="width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:var(--b-line);font-size:calc(12px*var(--fs))">✕</span></button>
-      </sc-for>
-      <sc-if value="{{hasBoardChips}}"><button onClick="{{clearBoard}}" style="height:calc(36px*var(--hs));padding:0 calc(10px*var(--ps));border:0;background:transparent;color:var(--b-accent);font-weight:700;font-size:calc(13.5px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px">Clear all</button></sc-if>
-    </div></sc-if>
-    <sc-if value="{{mob}}">
-      <div style="margin-top:12px;display:flex;align-items:center;gap:10px;min-width:0">
-        <button onClick="{{openFilters}}" aria-haspopup="dialog" aria-label="{{filtersAria}}" style="flex-shrink:0;height:calc(44px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-line-strong);background:{{filtersBg}};color:var(--b-ink);font-weight:750;font-size:calc(14px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>Filters<sc-if value="{{hasFilterN}}"><span aria-hidden="true" style="min-width:20px;height:20px;padding:0 6px;border-radius:min(999px,var(--r));background:var(--b-accent);color:var(--b-solid);font-size:calc(12px*var(--fs));font-weight:800;display:grid;place-items:center">{{filterN}}</span></sc-if></button>
-      </div>
-    </sc-if>
+  <sc-if value="{{sideState}}"><div data-dim onClick="{{closePanel}}" aria-hidden="true" style="position:fixed;inset:0;z-index:45;background:rgba(4,8,18,.45);animation:gxFade 200ms var(--ease-out)"></div></sc-if>
 
-    <sc-if value="{{cmpMode}}">
-      <div role="status" style="margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:calc(10px*var(--ps)) calc(12px*var(--ps));border-radius:min(16px,var(--r));background:var(--accent-soft);border:1px solid var(--accent)">
-        <span style="font-weight:700;font-size:calc(14px*var(--fs))">Tap 2 or 3 states to compare.</span>
-        <sc-for list="{{cmpStates}}" as="c"><button data-chip onClick="{{c.rm}}" aria-label="Remove {{c.nm}}" style="height:calc(36px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-press-bd);background:var(--b-line-soft);color:var(--b-ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px">{{c.nm}}<span aria-hidden="true">✕</span></button></sc-for>
-        <sc-if value="{{cmpReady}}"><button data-chip onClick="{{goCmp}}" style="margin-left:auto;height:calc(36px*var(--hs));padding:0 calc(18px*var(--ps));border-radius:min(999px,var(--r));border:0;background:var(--b-ink);color:var(--b-solid);font-weight:800;font-size:calc(15px*var(--fs));cursor:pointer">Compare {{cmpN}} states →</button></sc-if>
-      </div>
-    </sc-if>
-
-    <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,32px);align-items:stretch">
-      <div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:12px">
-        <sc-if value="{{mapGrid}}" hint-placeholder-val="{{ true }}">
-          <p id="map-help" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">US states as a tile map. Use arrow keys to move between states and Enter to open a state’s laws.</p>
-          <div role="group" aria-label="Map of US states by strongest frontier-AI status" aria-describedby="map-help" aria-hidden="{{mapHidden}}" data-mapgrid style="position:relative;display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:clamp(3px,.6vw,7px)">
-            <sc-for list="{{tiles}}" as="t" hint-placeholder-count="51">
-              <button data-tile="{{t.code}}" aria-label="{{t.aria}}" aria-pressed="{{t.pressed}}" tabIndex="{{t.ti}}" onClick="{{t.onClick}}" onKeyDown="{{t.onKey}}" onFocus="{{t.onEnter}}" onMouseEnter="{{t.onEnter}}" style="grid-row:{{t.r}};grid-column:{{t.c}};pointer-events:{{t.pe}};position:relative;aspect-ratio:1;min-width:0;padding:0;margin:0;border-radius:clamp(5px,.9vw,12px);background:{{t.bg}};border:{{t.bd}};color:{{t.fg}};box-shadow:{{t.sh}};text-shadow:{{t.ts}};font:inherit;font-weight:800;font-size:calc(clamp(12px,1.3vw,16px)*var(--fs));letter-spacing:.02em;cursor:pointer;display:grid;place-items:center;transition:background var(--dur-4) var(--ease-out),border-color var(--dur-4) var(--ease-out),box-shadow var(--dur-4) var(--ease-out),color var(--dur-4),transform var(--dur-1) var(--ease-out)" style-hover="transform:translateY(-2px)" style-active="transform:scale(.95)">
-                <span>{{t.code}}</span>
-                <span data-tg="1" aria-hidden="true" style="position:absolute;top:4px;left:6px;font-size:calc(12px*var(--fs));line-height:1;color:{{t.gc}}">{{t.gTxt}}</span>
-                <span data-tn="1" aria-hidden="true" style="position:absolute;bottom:4px;right:6px;font-size:calc(12px*var(--fs));line-height:1;font-weight:800;font-variant-numeric:tabular-nums;color:{{t.gc}}">{{t.nTxt}}</span>
-                <sc-if value="{{t.pulse}}"><span aria-hidden="true" style="position:absolute;inset:-5px;border-radius:inherit;border:2px solid var(--b-accent);animation:gxPulse 2.6s var(--ease-out) infinite;pointer-events:none"></span></sc-if>
-              </button>
-            </sc-for>
-            <sc-if value="{{noResults}}">
-              <div role="status" style="position:absolute;inset:0;display:grid;place-items:center;pointer-events:none">
-                <div style="pointer-events:auto;max-width:340px;text-align:center;padding:calc(20px*var(--ps)) calc(22px*var(--ps));border-radius:min(20px,var(--r));background:var(--b-pop);border:1px solid var(--b-line);display:flex;flex-direction:column;gap:10px;align-items:center">
-                  <strong style="font-size:calc(17px*var(--fs))">No instruments match these filters</strong>
-                  <span style="font-size:calc(14px*var(--fs));color:var(--b-ink-3)">Every state reads as “none” right now. Remove a filter to bring the map back.</span>
-                  <button onClick="{{clearBoard}}" style="height:calc(44px*var(--hs));padding:0 calc(18px*var(--ps));border-radius:min(999px,var(--r));border:0;background:var(--b-ink);color:var(--b-solid);font-weight:800;font-size:calc(14px*var(--fs));cursor:pointer">Clear filters</button>
-                </div>
-              </div>
-            </sc-if>
-          </div>
-          <sc-if value="{{hoverStrip}}" hint-placeholder-val="{{ true }}"><div style="min-height:calc(48px*var(--hs));display:flex;align-items:center;gap:12px;padding:calc(8px*var(--ps)) calc(14px*var(--ps));border-radius:min(14px,var(--r));background:var(--b-fill);border:1px solid var(--b-line-soft);font-size:calc(14px*var(--fs))">
-            <sc-if value="{{hasHover}}"><span aria-hidden="true" style="color:{{hoverC}};font-size:calc(14px*var(--fs))">{{hoverG}}</span><strong style="font-size:calc(15px*var(--fs))">{{hoverName}}</strong><span style="color:var(--b-ink-2)">{{hoverCat}} · {{hoverN}}</span><span style="color:var(--b-accent);font-weight:650">{{hoverPulse}}</span></sc-if>
-            <sc-if value="{{noHover}}"><span style="color:var(--b-ink-2)">Point at or tab to a state for a preview. Open it to see every instrument. Pulsing outlines mark new activity this week.</span></sc-if>
-          </div></sc-if>
-          <sc-if value="{{mob}}">
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <span style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--b-ink-2)">Tap a state to see its laws</span>
-              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:8px">
-                <sc-for list="{{activeStates}}" as="a"><button onClick="{{a.open}}" aria-label="{{a.nm}}: {{a.l}}" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));justify-content:center;border-radius:min(999px,var(--r));border:1px solid var(--b-line);background:var(--b-fill);color:var(--b-ink);font-weight:700;font-size:calc(14px*var(--fs));display:flex;align-items:center;gap:8px;cursor:pointer"><span aria-hidden="true" style="color:{{a.c}}">{{a.g}}</span>{{a.code}}</button></sc-for>
+  <div data-homerow>
+    <div data-mapcol style="min-width:0;display:flex;flex-direction:column;gap:10px">
+      <sc-if value="{{mapGrid}}" hint-placeholder-val="{{ true }}">
+        <p id="map-help" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">US states as a tile map. Use arrow keys to move between states and Enter to open a state’s laws.</p>
+        <div role="group" aria-label="Map of US states by strongest frontier-AI status" aria-describedby="map-help" aria-hidden="{{mapHidden}}" data-mapgrid style="position:relative;display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:clamp(3px,.5vw,7px)">
+          <sc-for list="{{tiles}}" as="t" hint-placeholder-count="51">
+            <button data-tile="{{t.code}}" aria-label="{{t.aria}}" title="{{t.tip}}" aria-pressed="{{t.pressed}}" tabIndex="{{t.ti}}" onClick="{{t.onClick}}" onKeyDown="{{t.onKey}}" onFocus="{{t.onEnter}}" onMouseEnter="{{t.onEnter}}" style="grid-row:{{t.r}};grid-column:{{t.c}};pointer-events:{{t.pe}};position:relative;z-index:{{t.z}};aspect-ratio:1;min-width:0;padding:0;margin:0;border-radius:clamp(5px,.8vw,10px);background:{{t.bg}};border:{{t.bd}};color:{{t.fg}};box-shadow:{{t.sh}};text-shadow:{{t.ts}};font:inherit;font-weight:800;font-size:calc(clamp(12px,1.3vw,16px)*var(--fs));letter-spacing:.02em;cursor:pointer;display:grid;place-items:center;transition:background var(--dur-4) var(--ease-out),border-color var(--dur-4) var(--ease-out),box-shadow var(--dur-4) var(--ease-out),color var(--dur-4),transform var(--dur-1) var(--ease-out)" style-hover="transform:translateY(-2px)" style-active="transform:scale(.95)">
+              <span>{{t.code}}</span>
+              <span data-tg="1" aria-hidden="true" style="position:absolute;top:4px;left:6px;font-size:calc(12px*var(--fs));line-height:1;color:{{t.gc}}">{{t.gTxt}}</span>
+              <span data-tn="1" aria-hidden="true" style="position:absolute;bottom:4px;right:6px;font-size:calc(12px*var(--fs));line-height:1;font-weight:800;font-variant-numeric:tabular-nums;color:{{t.gc}}">{{t.nTxt}}</span>
+              <sc-if value="{{t.pulse}}"><span aria-hidden="true" style="position:absolute;inset:-5px;border-radius:inherit;border:2px solid var(--accent);animation:gxPulse 2.6s var(--ease-out) infinite;pointer-events:none"></span></sc-if>
+            </button>
+          </sc-for>
+          <sc-if value="{{noResults}}">
+            <div role="status" style="position:absolute;inset:0;display:grid;place-items:center;pointer-events:none">
+              <div style="pointer-events:auto;max-width:340px;text-align:center;padding:calc(20px*var(--ps)) calc(22px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:10px;align-items:center">
+                <strong style="font-size:calc(17px*var(--fs))">No instruments match these filters</strong>
+                <span style="font-size:calc(14px*var(--fs));color:var(--ink-3)">Every state reads as “none” right now. Remove a filter to bring the map back.</span>
+                <button onClick="{{clearBoard}}" style="height:calc(40px*var(--hs));padding:0 calc(18px*var(--ps));border-radius:var(--r);border:0;background:var(--accent-ink);color:var(--on-accent);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">Clear filters</button>
               </div>
             </div>
           </sc-if>
-        </sc-if>
-        <sc-if value="{{mapList}}">
-          <ul aria-label="States with tracked activity" style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
-            <sc-for list="{{activeStates}}" as="a">
-              <li><button onClick="{{a.open}}" style="width:100%;min-height:calc(52px*var(--hs));display:flex;align-items:center;gap:12px;padding:calc(10px*var(--ps)) calc(14px*var(--ps));border-radius:min(14px,var(--r));border:1px solid var(--b-line-soft);background:var(--b-fill);color:var(--b-ink);font:inherit;text-align:left;cursor:pointer" style-hover="background:var(--b-line-soft)">
-                <span aria-hidden="true" style="width:28px;text-align:center;color:{{a.c}};font-size:calc(16px*var(--fs))">{{a.g}}</span>
-                <span style="flex:1;min-width:0;display:flex;flex-direction:column"><strong style="font-size:calc(15px*var(--fs))">{{a.nm}}</strong><span style="font-size:calc(13px*var(--fs));color:var(--b-ink-2)">{{a.l}}</span></span>
-                <span style="font-variant-numeric:tabular-nums;font-weight:800;font-size:calc(15px*var(--fs))">{{a.n}}</span><span aria-hidden="true" style="color:var(--b-ink-3)">›</span>
-              </button></li>
-            </sc-for>
-          </ul>
-        </sc-if>
-      </div>
-
-      <aside aria-labelledby="hs-h" data-homeside style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:6px;padding:clamp(calc(14px*var(--ps)),1.6vw,calc(20px*var(--ps)));border-radius:var(--r);background:var(--b-rail);border:1px solid var(--b-line-soft)">
-        <sc-if value="{{sideNews}}">
-          <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:2px">
-            <span style="font-size:calc(12px*var(--fs));font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--b-cyan)">Latest updates</span>
-            <h3 id="hs-h" style="margin:0;font-size:calc(18px*var(--fs));font-weight:800;letter-spacing:-.01em">What changed, through {{asofDay}}</h3>
+        </div>
+        <sc-if value="{{mob}}">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-2)">Tap a state to see its laws</span>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:8px">
+              <sc-for list="{{activeStates}}" as="a"><button onClick="{{a.open}}" aria-label="{{a.nm}}: {{a.l}}" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));justify-content:center;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;font-size:calc(14px*var(--fs));display:flex;align-items:center;gap:8px;cursor:pointer"><span aria-hidden="true" style="color:{{a.c}}">{{a.g}}</span>{{a.code}}</button></sc-for>
+            </div>
           </div>
-          <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
-            <sc-for list="{{homeNews}}" as="n" hint-placeholder-count="7">
-              <li style="display:flex;gap:10px;padding:calc(9px*var(--ps)) 0;border-top:1px solid var(--b-line-soft)">
-                <span aria-hidden="true" style="width:24px;height:24px;flex-shrink:0;border-radius:6px;background:var(--b-fill-2);display:grid;place-items:center;color:{{n.kc}};font-size:calc(12px*var(--fs))">{{n.kg}}</span>
-                <div style="min-width:0;display:flex;flex-direction:column;gap:2px">
-                  <span style="font-size:calc(12px*var(--fs));font-weight:700;color:var(--b-ink-3);font-variant-numeric:tabular-nums">{{n.date}} · {{n.kl}}</span>
-                  <sc-if value="{{n.hasEntry}}"><a href="{{n.entryHref}}" style="font-size:calc(14px*var(--fs));font-weight:700;line-height:1.35;color:var(--b-ink);text-decoration:none;text-wrap:pretty" style-hover="text-decoration:underline">{{n.title}}</a></sc-if>
-                  <sc-if value="{{n.noEntry}}"><span style="font-size:calc(14px*var(--fs));font-weight:700;line-height:1.35;text-wrap:pretty">{{n.title}}</span></sc-if>
-                </div>
-              </li>
-            </sc-for>
-          </ol>
-          <a href="#/updates" style="margin-top:auto;align-self:flex-start;font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(40px*var(--hs));display:inline-flex;align-items:center;color:var(--b-accent)">All news and updates →</a>
         </sc-if>
-        <sc-if value="{{sideState}}">
-          <button ref="{{panelCloseRef}}" onClick="{{closePanel}}" style="align-self:flex-start;height:calc(36px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--b-line-strong);background:transparent;color:var(--b-ink);font-weight:700;font-size:calc(13.5px*var(--fs));cursor:pointer">← Back to news</button>
-          <div style="display:flex;flex-direction:column;gap:2px;margin:6px 0 4px">
-            <span style="font-size:calc(12px*var(--fs));font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--b-cyan)"><span aria-hidden="true">{{panelG}}</span> {{panelCat}}</span>
-            <h3 id="hs-h" style="margin:0;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">{{panelTitle}}</h3>
-            <span style="font-size:calc(13px*var(--fs));color:var(--b-ink-3)">{{panelSub}}</span>
-          </div>
-          <sc-if value="{{panelEmpty}}"><p style="margin:0;color:var(--b-ink-2);font-size:calc(14px*var(--fs))">Nothing here is tracked as frontier-AI regulation. Check Explore for adjacent laws that were checked and excluded.</p></sc-if>
-          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
-            <sc-for list="{{panelItems}}" as="x">
-              <li><a href="{{x.href}}" style="display:flex;flex-direction:column;gap:2px;padding:calc(9px*var(--ps)) calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--b-line-soft);background:var(--b-card);text-decoration:none;color:var(--b-ink)" style-hover="border-color:var(--b-line-strong);color:var(--b-ink)"><span style="font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--b-ink-3)"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span> {{x.sl}} · {{x.kd}}</span><strong style="font-size:calc(14.5px*var(--fs));line-height:1.35">{{x.short}}</strong></a></li>
-            </sc-for>
-          </ul>
-          <button onClick="{{panelExplore}}" style="margin-top:auto;align-self:flex-start;min-height:calc(40px*var(--hs));padding:0;border:0;background:transparent;color:var(--b-accent);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;text-align:left">Open {{panelTitle}} in Explore →</button>
-        </sc-if>
-      </aside>
+      </sc-if>
+      <sc-if value="{{mapList}}">
+        <ul aria-label="States with tracked activity" style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
+          <sc-for list="{{activeStates}}" as="a">
+            <li><button onClick="{{a.open}}" style="width:100%;min-height:calc(52px*var(--hs));display:flex;align-items:center;gap:12px;padding:calc(10px*var(--ps)) calc(14px*var(--ps));border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;text-align:left;cursor:pointer" style-hover="border-color:var(--line-2)">
+              <span aria-hidden="true" style="width:28px;text-align:center;color:{{a.c}};font-size:calc(16px*var(--fs))">{{a.g}}</span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column"><strong style="font-size:calc(15px*var(--fs))">{{a.nm}}</strong><span style="font-size:calc(13px*var(--fs));color:var(--ink-2)">{{a.l}}</span></span>
+              <span style="font-variant-numeric:tabular-nums;font-weight:750;font-size:calc(15px*var(--fs))">{{a.n}}</span><span aria-hidden="true" style="color:var(--ink-3)">›</span>
+            </button></li>
+          </sc-for>
+        </ul>
+      </sc-if>
+      <ul aria-label="Map legend" style="list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 16px">
+        <sc-for list="{{legend}}" as="l" hint-placeholder-count="6">
+          <li style="display:flex;align-items:center;gap:7px;font-size:calc(13px*var(--fs));color:var(--ink-2)"><span aria-hidden="true" style="width:18px;height:18px;border-radius:5px;background:{{l.bg}};border:{{l.bd}};color:{{l.gc}};display:grid;place-items:center;font-size:calc(10px*var(--fs))">{{l.g}}</span>{{l.l}}<span data-ln="{{l.k}}" style="font-variant-numeric:tabular-nums;color:var(--ink-3);font-weight:700">{{l.n}}</span></li>
+        </sc-for>
+      </ul>
+      <p data-rc="1" style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3);text-wrap:pretty"></p>
     </div>
 
-    <sc-if value="{{showLegend}}"><ul aria-label="Map legend" style="list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 18px">
-      <sc-for list="{{legend}}" as="l" hint-placeholder-count="6">
-        <li style="display:flex;align-items:center;gap:8px;font-size:calc(13.5px*var(--fs));color:var(--b-ink-2)"><span aria-hidden="true" style="width:22px;height:22px;border-radius:6px;background:{{l.bg}};border:{{l.bd}};color:{{l.gc}};display:grid;place-items:center;font-size:calc(11px*var(--fs))">{{l.g}}</span>{{l.l}}<span data-ln="{{l.k}}" style="font-variant-numeric:tabular-nums;color:var(--b-ink-3);font-weight:700">{{l.n}}</span></li>
-      </sc-for>
-    </ul></sc-if>
-    <div style="margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:min(18px,var(--r));background:var(--b-fill);border:1px solid var(--b-line-soft)">
-      <button onClick="{{togglePlay}}" aria-label="{{playLabel}}" style="width:calc(48px*var(--hs));height:calc(48px*var(--hs));border-radius:50%;border:0;background:var(--b-ink);color:var(--b-solid);font-size:calc(15px*var(--fs));font-weight:900;cursor:pointer;flex-shrink:0;display:grid;place-items:center" style-active="transform:scale(.94)">{{playIcon}}</button>
-      <div style="flex:1 1 150px;min-width:0;display:flex;flex-direction:column;gap:4px">
-        <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><strong data-rd="1" style="font-variant-numeric:tabular-nums;font-size:calc(15px*var(--fs));min-width:72px"></strong><span data-rc="1" style="font-size:calc(14px*var(--fs));color:var(--b-ink-2);text-wrap:pretty"></span></div>
-        <sc-if value="{{replayIsNow}}"><span style="font-size:calc(13px*var(--fs));color:var(--b-ink-3);font-weight:600">Replay: how we got here, 2023 → now</span></sc-if>
-        <sc-if value="{{replayActive}}"><button onClick="{{showNow}}" style="align-self:flex-start;height:calc(44px*var(--hs));padding:0 4px;border:0;background:transparent;color:var(--b-accent);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px">Jump to now</button></sc-if>
-      </div>
-      <div role="group" aria-label="Move through time" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px">
-        <button onClick="{{onPrev}}" disabled="{{prevOff}}" aria-label="{{prevAria}}" style="height:calc(44px*var(--hs));min-width:44px;padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-line-strong);background:transparent;color:var(--b-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;display:inline-flex;align-items:center;gap:6px;opacity:{{prevOp}}"><span aria-hidden="true">◀</span><span>Previous</span></button>
-        <button onClick="{{onNext}}" disabled="{{nextOff}}" aria-label="{{nextAria}}" style="height:calc(44px*var(--hs));min-width:44px;padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--b-line-strong);background:transparent;color:var(--b-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;display:inline-flex;align-items:center;gap:6px;opacity:{{nextOp}}"><span>Next</span><span aria-hidden="true">▶</span></button>
-        <label style="display:inline-flex;align-items:center;gap:8px;font-size:calc(13px*var(--fs));font-weight:700;color:var(--b-ink-3)">Step
-          <select value="{{stepKind}}" onChange="{{onStep}}" aria-label="Step size for Previous and Next" style="height:calc(44px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--b-line-strong);background:var(--b-fill);color:var(--b-ink);font:inherit;font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer">
-            <option value="event">1 event</option><option value="m1">1 month</option><option value="m3">3 months</option><option value="m6">6 months</option><option value="y1">1 year</option>
-          </select>
-        </label>
-      </div>
-    </div>
-
+    <aside aria-labelledby="hs-h" data-homeside style="position:relative;z-index:{{asideZ}};min-width:0;display:flex;flex-direction:column;gap:6px;padding:clamp(calc(14px*var(--ps)),1.4vw,calc(18px*var(--ps)));border-radius:var(--r);background:var(--surface);border:1px solid var(--line);box-shadow:{{asideSh}}">
+      <sc-if value="{{sideNews}}">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:2px">
+          <h2 id="hs-h" style="margin:0;font-size:calc(19px*var(--fs))">Latest news</h2>
+          <span style="font-size:calc(12.5px*var(--fs));color:var(--ink-3);white-space:nowrap">Through {{asofDay}}</span>
+        </div>
+        <ol data-newslist style="position:relative;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;flex:1 1 0;min-height:0;overflow:hidden">
+          <sc-for list="{{homeNews}}" as="n" hint-placeholder-count="7">
+            <li style="flex-shrink:0;display:flex;flex-direction:column;gap:2px;padding:calc(10px*var(--ps)) 0;border-top:1px solid var(--line)">
+              <span style="font-size:calc(12.5px*var(--fs));color:var(--ink-3);font-variant-numeric:tabular-nums"><span aria-hidden="true" style="color:{{n.kc}}">{{n.kg}}</span> {{n.date}} · {{n.kl}}</span>
+              <sc-if value="{{n.hasEntry}}"><a href="{{n.entryHref}}" style="font-size:calc(14.5px*var(--fs));font-weight:650;line-height:1.35;color:var(--ink);text-decoration:none;text-wrap:pretty" style-hover="text-decoration:underline">{{n.title}}</a></sc-if>
+              <sc-if value="{{n.noEntry}}"><span style="font-size:calc(14.5px*var(--fs));font-weight:650;line-height:1.35;text-wrap:pretty">{{n.title}}</span></sc-if>
+            </li>
+          </sc-for>
+        </ol>
+        <a href="#/updates" style="flex-shrink:0;padding-top:8px;border-top:1px solid var(--line);font-weight:650;font-size:calc(14px*var(--fs));min-height:calc(40px*var(--hs));display:flex;align-items:center">All news and updates →</a>
+      </sc-if>
+      <sc-if value="{{sideState}}">
+        <button ref="{{panelCloseRef}}" onClick="{{closePanel}}" style="flex-shrink:0;align-self:flex-start;height:calc(36px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer">← Back to news</button>
+        <div style="flex-shrink:0;display:flex;flex-direction:column;gap:2px;margin:6px 0 4px">
+          <h2 id="hs-h" style="margin:0;font-size:calc(22px*var(--fs))">{{panelTitle}}</h2>
+          <span style="font-size:calc(13px*var(--fs));color:var(--ink-2)"><span aria-hidden="true" style="color:{{panelGC}}">{{panelG}}</span> {{panelCat}}</span>
+          <span style="font-size:calc(13px*var(--fs));color:var(--ink-3)">{{panelSub}}</span>
+        </div>
+        <sc-if value="{{panelEmpty}}"><p style="margin:0;color:var(--ink-2);font-size:calc(14px*var(--fs))">Nothing here is tracked as frontier-AI regulation. Check Explore for adjacent laws that were checked and excluded.</p></sc-if>
+        <ul style="list-style:none;margin:0;padding:0 2px 2px 0;display:flex;flex-direction:column;gap:6px;flex:1 1 0;min-height:0;overflow:auto;scrollbar-width:thin">
+          <sc-for list="{{panelItems}}" as="x">
+            <li><a href="{{x.href}}" style="display:flex;flex-direction:column;gap:2px;padding:calc(9px*var(--ps)) calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--line-2);color:var(--ink)"><span style="font-size:calc(12.5px*var(--fs));font-weight:600;color:var(--ink-3)"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span> {{x.sl}} · {{x.kd}}</span><strong style="font-size:calc(14.5px*var(--fs));font-weight:650;line-height:1.35">{{x.short}}</strong></a></li>
+          </sc-for>
+        </ul>
+        <button onClick="{{panelExplore}}" style="flex-shrink:0;align-self:flex-start;min-height:calc(40px*var(--hs));padding:0;border:0;background:transparent;color:var(--accent-ink);font-weight:650;font-size:calc(14px*var(--fs));cursor:pointer;text-align:left">Open {{panelTitle}} in Explore →</button>
+      </sc-if>
+    </aside>
   </div>
-</section>
-
-
+</div>
 </sc-if>
 
 <sc-if value="{{isExplore}}">
@@ -804,8 +739,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 <sc-if value="{{filtersOpen}}">
   <div onClick="{{closeFilters}}" aria-hidden="true" style="position:fixed;inset:0;z-index:70;background:rgba(4,8,18,.5);animation:gxFade var(--dur-2)"></div>
-  <div role="dialog" aria-modal="true" aria-labelledby="flt-h" style="position:fixed;z-index:71;left:0;right:0;bottom:0;max-height:88vh;overflow:auto;overscroll-behavior:contain;background:var(--surface);border-top:1px solid var(--line);border-radius:min(24px,var(--r)) min(24px,var(--r)) 0 0;box-shadow:var(--shadow-3);padding:calc(10px*var(--ps)) calc(18px*var(--ps)) calc(calc(16px*var(--ps)) + env(safe-area-inset-bottom));animation:gxUp var(--dur-3) var(--ease-out);display:flex;flex-direction:column;gap:18px">
-    <div aria-hidden="true" style="width:calc(44px*var(--hs));height:5px;border-radius:min(999px,var(--r));background:var(--line-2);margin:0 auto"></div>
+  <div role="dialog" aria-modal="true" aria-labelledby="flt-h" data-fdlg style="position:fixed;z-index:71;max-height:88vh;overflow:auto;overscroll-behavior:contain;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-3);padding:calc(16px*var(--ps)) calc(18px*var(--ps)) calc(calc(16px*var(--ps)) + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:18px">
     <div style="display:flex;align-items:center;gap:12px">
       <h2 id="flt-h" style="flex:1;margin:0;font-size:calc(22px*var(--fs));font-weight:800;letter-spacing:-.02em">Filter the map</h2>
       <button data-close="filters" onClick="{{closeFilters}}" aria-label="Close filters" style="width:calc(44px*var(--hs));height:calc(44px*var(--hs));border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:calc(16px*var(--fs));cursor:pointer;flex-shrink:0">✕</button>
@@ -913,8 +847,14 @@ class Component extends DCLogic {
   }
   componentWillUnmount() { removeEventListener('pointerdown', this.onDown); removeEventListener('hashchange', this.onHash); removeEventListener('resize', this.onResize); removeEventListener('online', this.onNet); removeEventListener('offline', this.onNet); removeEventListener('keydown', this.onKey); clearInterval(this.pi); clearInterval(this.ci); }
   focusMain() { const m = this.mainRef.current; if (m) m.focus(); }
+  // Home's news panel does not scroll: on desktop it shows only the items that fit at the map's height.
+  fitNews() {
+    const ol = document.querySelector('[data-newslist]'); if (!ol) return;
+    const lis = [...ol.children]; lis.forEach(li => { li.style.display = ''; }); if (this.state.vw < 1024) return;
+    const h = ol.clientHeight; lis.forEach(li => { if (li.offsetTop + li.offsetHeight > h + 1) li.style.display = 'none'; });
+  }
   componentDidUpdate() {
-    this.syncChrome();
+    this.syncChrome(); this.fitNews();
     // The replay writes tile styles straight to the DOM, so React's diff can't be trusted to restyle every tile when
     // the theme flips: repaint them all from the data whenever light/dark changes.
     const dark = this.isDark();
@@ -1138,40 +1078,36 @@ class Component extends DCLogic {
       const ft = fr.tiles[code], list = ft.list, cat = ft.cat, ts = ft;
       const nm = L.SN[code], all = allByState[code] || [];
       const aria = `${nm}: ${L.CAT[cat].l}${list.length ? `, ${list.length} ${list.length === 1 ? 'instrument' : 'instruments'}` : ''}${D.pulse[code] ? ', new activity this week' : ''}${cmpMode ? (cmp.includes(code) ? ', selected for comparison' : ', press to add to comparison') : ''}`;
-      return { code, r: row + 1, c: col + 1, bg: ts.bg, bd: ts.bd, fg: ts.fg, sh: ts.sh, ts: ts.ts, gc: ts.gc, gTxt: ft.g, nTxt: ft.n, pe: mob ? 'none' : 'auto', pulse: !!D.pulse[code] && t == null && !this.rm, aria, pressed: cmpMode ? cmp.includes(code) : undefined, ti: !mob && s.focusTile === code ? 0 : -1,
+      return { code, r: row + 1, c: col + 1, z: p.state === code && !mob ? 46 : 'auto', tip: `${nm}: ${L.CAT[cat].l}${list.length ? ` · ${list.length}` : ''}`, bg: ts.bg, bd: ts.bd, fg: ts.fg, sh: ts.sh, ts: ts.ts, gc: ts.gc, gTxt: ft.g, nTxt: ft.n, pe: mob ? 'none' : 'auto', pulse: !!D.pulse[code] && t == null && !this.rm, aria, pressed: cmpMode ? cmp.includes(code) : undefined, ti: !mob && s.focusTile === code ? 0 : -1,
         onClick: e => { if (cmpMode) { if (!all.length) { this.toastMsg(`${nm} has no tracked instruments to compare.`); return; } const n = cmp.includes(code) ? cmp.filter(c => c !== code) : cmp.length >= 3 ? cmp : [...cmp, code]; if (!cmp.includes(code) && cmp.length >= 3) this.toastMsg('Compare up to 3 states.'); this.setP({ cmp: n.join(',') }, true); } else this.openState(code, e); },
         onKey: e => this.tileKey(code, e), onEnter: () => this.setState({ hover: code, focusTile: code }) };
     });
     // federal strip: one count per federal section, linking to that section in Explore
-    const homeNews = D.N.slice().sort((a, b) => b.d - a.d || b.i - a.i).slice(0, 7).map(n => { const f = this.feedItem(n); return { ...f, noEntry: !f.hasEntry }; });
-    const hv = s.hover && L.SN[s.hover] ? s.hover : null, hl = hv ? (byState[hv] || []) : [], hcat = L.stateCat(hl);
+    const homeNews = D.N.slice().sort((a, b) => b.d - a.d || b.i - a.i).slice(0, mob ? 5 : 10).map(n => { const f = this.feedItem(n); return { ...f, noEntry: !f.hasEntry }; });
     const ms = t == null ? L.MILESTONES[L.MILESTONES.length - 1] : [...L.MILESTONES].reverse().find(m => +m.d <= t);
     const S0 = +L.REPLAY_START, E0 = +L.ASOF, tt = t == null ? E0 : t;
     const stc = this.csv(p.status);
     const statusChips = ['enacted', 'pending', 'stalled', 'failed', 'executive', 'litigation', 'export'].map(k => { const on = stc.includes(k); return { l: L.ST[k].l, g: L.ST[k].g, c: `var(--st-${k})`, pressed: on, bg: on ? 'var(--b-press)' : 'transparent', bd: on ? '1px solid var(--b-press-bd)' : '1px solid var(--b-line)', sbg: on ? 'var(--accent-soft)' : 'var(--surface)', sbd: on ? '1.5px solid var(--accent)' : '1px solid var(--line-2)', toggle: () => { const n = on ? stc.filter(x => x !== k) : [...stc, k]; this.setP({ status: n.join(',') }, true); } }; });
-    const boardChips = this.chips(p, ['type', 'year', 'conf']);
+    const boardChips = this.chips(p, ['status', 'type', 'year', 'conf']);
     const activeStates = Object.keys(allByState).filter(c => L.SN[c]).map(c => { const list = byState[c] || []; const cat = L.stateCat(list); return { code: c, nm: L.SN[c], cat, g: L.CAT[cat].g, c: CATV[cat], n: list.length, l: L.CAT[cat].l, open: e => this.openState(c, e) }; }).sort((a, b) => Object.keys(L.CAT).indexOf(a.cat) - Object.keys(L.CAT).indexOf(b.cat) || b.n - a.n);
     const num = n => n, HC = L.HC; const fN = stc.length + ['type', 'year', 'conf'].filter(k => p[k]).length;
     const anyLive = live.length > 0;
     return {
-      isHome: true, heroFull: !mob, homeLabelStyle: mob ? 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)' : 'font-size:calc(14px*var(--fs));font-weight:700;color:var(--ink-2)', searchH: mob ? '52px' : '60px', searchBtnPad: mob ? '0' : '0 20px',
-      segH: 'calc(44px*var(--hs) - 8px)', cmpLabel: mob ? 'Compare' : 'Compare states', filtersInline: !mob, mapHidden: mob ? 'true' : undefined, hoverStrip: !mob,
-      filterN: fN, hasFilterN: fN > 0, filtersAria: fN ? `Filters, ${fN} active` : 'Filters', filtersBg: fN ? 'var(--b-press)' : 'transparent',
+      isHome: true, cmpLabel: mob ? 'Compare' : 'Compare states', mapHidden: mob ? 'true' : undefined,
+      filterN: fN, hasFilterN: fN > 0, filtersAria: fN ? `Filters, ${fN} active` : 'Filters', filtersBg: fN ? 'var(--accent-soft)' : 'var(--surface)',
       filtersOpen: s.filtersOpen, openFilters: () => this.setState({ filtersOpen: true }), closeFilters: () => this.setState({ filtersOpen: false }),
       filtersDone: live.length ? `Show ${live.length} ${live.length === 1 ? 'instrument' : 'instruments'}` : 'No matches · close',
       h3: num(HC.enacted), h10: num(HC.fed), t5: num(HC.pending), t11: num(HC.stalled + HC.failed), t6: num(HC.ivo), t10b: num(HC.exec), t9: num(HC.lit),
       q: s.q, qRef: this.qRef, onQ: e => this.setState({ q: e.target.value }), submitQ: e => { e.preventDefault(); this.go('/explore', { q: s.q.trim() }); },
-      tiles, statusChips, boardChips, hasBoardChips: boardChips.length > 0 || stc.length > 0,
+      tiles, statusChips, boardChips, hasBoardChips: boardChips.length > 0,
       clearBoard: () => { const n = { ...p }; ['status', 'type', 'year', 'conf'].forEach(k => delete n[k]); this.go('/', n, true); },
       fType: p.type || '', fYear: p.year || '', fConf: p.conf || '',
       onType: e => this.setP({ type: e.target.value }, true), onYear: e => this.setP({ year: e.target.value }, true), onConf: e => this.setP({ conf: e.target.value }, true),
       mapList: p.view === 'list', mapGrid: p.view !== 'list', setMap: () => this.setP({ view: '' }, true), setList: () => this.setP({ view: 'list' }, true),
-      mapTabBg: p.view !== 'list' ? 'var(--b-press)' : 'transparent', listTabBg: p.view === 'list' ? 'var(--b-press)' : 'transparent', mapSel: p.view !== 'list', listSel: p.view === 'list',
+      mapTabBg: p.view !== 'list' ? 'var(--surface-2)' : 'transparent', listTabBg: p.view === 'list' ? 'var(--surface-2)' : 'transparent', mapSel: p.view !== 'list', listSel: p.view === 'list',
       noResults: !anyLive && t == null, liveN: live.length,
-      hasHover: !!hv && !mob, hoverName: hv ? L.SN[hv] : '', hoverCat: L.CAT[hcat].l, hoverG: L.CAT[hcat].g, hoverC: CATV[hcat], hoverN: hl.length ? `${hl.length} ${hl.length === 1 ? 'instrument' : 'instruments'}` : 'Nothing tracked', hoverPulse: hv && D.pulse[hv] ? 'New activity this week' : '',
-      noHover: !hv || mob,
       showLegend: true, legend: Object.entries(L.CAT).map(([k, c]) => ({ k, l: c.l, s: SHORT[k], n: catCount[k], ...L.tileStyle(k, false, light), g: c.g })),
-      playing: s.playing, playLabel: s.playing ? 'Pause the replay' : 'Replay how we got here, 2023 to now', playIcon: s.playing ? '❚❚' : '▶',
+      playing: s.playing, playLabel: s.playing ? 'Pause the replay' : 'Replay how we got here, 2023 to now', playIcon: s.playing ? '❚❚' : '⟲',
       togglePlay: () => s.playing ? this.pause() : this.play(false),
       stepKind: s.stepKind, onStep: e => this.setState({ stepKind: e.target.value }),
       ...(() => { const P = this.stepTarget(-1), N = this.stepTarget(1), nm = (r) => r ? (r.t == null ? 'now' : (s.stepKind === 'event' ? L.fmt(new Date(r.t)) : L.fmtShort(new Date(r.t)))) : '', sk = STEPS[s.stepKind].l;
@@ -1184,9 +1120,9 @@ class Component extends DCLogic {
       cmpStates: cmp.map(c => ({ code: c, nm: L.SN[c], rm: () => this.setP({ cmp: cmp.filter(x => x !== c).join(',') }, true) })),
       toggleCmp: () => { const n = { ...p }; if (n.mode === 'compare') { delete n.mode; delete n.cmp; } else { n.mode = 'compare'; delete n.state; } this.go('/', n, true); },
       goCmp: () => this.go('/compare', { states: cmp.join(',') }),
-      cmpBtnBg: p.mode === 'compare' ? 'var(--b-ink)' : 'transparent', cmpBtnFg: p.mode === 'compare' ? 'var(--b-solid)' : 'var(--b-ink)',
+      cmpBtnBg: p.mode === 'compare' ? 'var(--ink)' : 'var(--surface)', cmpBtnFg: p.mode === 'compare' ? 'var(--bg)' : 'var(--ink)',
       activeStates, homeNews,
-      sideState: !!p.state && !mob && !!L.SN[p.state], sideNews: !(p.state && !mob && L.SN[p.state]),
+      sideState: !!p.state && !mob && !!L.SN[p.state], sideNews: !(p.state && !mob && L.SN[p.state]), asideZ: p.state && !mob ? 46 : 'auto', asideSh: p.state && !mob ? 'var(--shadow-3)' : 'none',
       ...this.panel(p, byState, mob)
     };
   }

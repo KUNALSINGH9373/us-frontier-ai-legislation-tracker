@@ -226,7 +226,7 @@ export function tileStyle(cat, selected, light) {
   if (light) {
     const ring = selected ? '0 0 0 3px #0D1424' : '', k = LCAT[cat], ink = { fg:'#0D1424', ts:'none' };
     const sh = (s) => [s, ring].filter(Boolean).join(', ') || 'none';
-    if (cat === 'law') return { ...ink, bg:k.c, bd:`1px solid ${k.d}`, fg:'#03140D', gc:'#03140D', sh: sh(`0 6px 18px -8px ${k.d}`) };
+    if (cat === 'law') return { ...ink, bg:k.c, bd:`1px solid ${k.d}`, fg:'#03140D', gc:'#03140D', sh: sh('') };
     if (cat === 'pending') return { ...ink, bg:`linear-gradient(to top, ${k.c} 0 50%, #FFF6DD 50% 100%)`, bd:`1.5px solid ${k.d}`, gc:'#5A3F00', sh: sh('') };
     if (cat === 'auditor') return { ...ink, bg:`repeating-linear-gradient(135deg, ${k.c}99 0 3px, #F6EFFF 3px 8px)`, bd:`1.5px solid ${k.d}`, gc:k.d, sh: sh('') };
     if (cat === 'sf') return { ...ink, bg:'#FDF1EA', bd:`1.5px dashed ${k.d}`, gc:k.d, sh: sh('') };
