@@ -43,7 +43,7 @@ The design-rationale and design-system pages, the RSS feed and the email signup 
 | `Tracker.dc.html` | The whole app (markup, styles, logic) in one component file |
 | `support.js` | Component runtime used by the prototype |
 | `tracker-lib.js` | Data model and derivations (status, dates, search, map tiles) |
-| `viz-lib.js` | Views built from data: lifecycle lanes (Timeline), the relationship canvas (Map), the full comparison table + CSV (Table, Home), and the v1 reference text (Handbook, About, Data & trust, Compare) rendered from `content.json` |
+| `viz-lib.js` | Views built from data: lifecycle lanes (Timeline), the relationship canvas (Insights → Bill relations), the full comparison table + CSV (Insights → Table), and the v1 reference text (Handbook, About, Methodology, Compare) rendered from `content.json` |
 | `data/` | Generated data (see above) |
 | `fonts/` | Plus Jakarta Sans and Source Serif 4 (headings), latin and latin-ext WOFF2 subsets |
 | `downloads/` | v1's handbook (PDF, Markdown) and tracker Markdown, copied by `scripts/sync-v2.mjs` |
@@ -51,12 +51,12 @@ The design-rationale and design-system pages, the RSS feed and the email signup 
 | `scripts/sync-v2.mjs` | Copies `pipeline/out/*.v2.json` (entries, relationships, news, site, content) to `data/v2/` and the downloads to `downloads/` |
 | `scripts/parity-v2.mjs` | The UI builds the same model from the v1 and v2 files; the comparison matrix is checked against `tracker.md` section K |
 | `scripts/check-bill-text.mjs` | Renders all 90 bill pages in headless Chrome; every clause of every v1 cell must appear |
-| `scripts/check-v1-content.mjs` | Renders the Handbook, About, Data & trust, Compare and section views; every piece of v1 reference text must appear |
+| `scripts/check-v1-content.mjs` | Renders the Handbook, About, Methodology, Compare and section views; every piece of v1 reference text must appear |
 | `scripts/audit-layout.js` | In-page layout audit (`await auditLayout()`): no sideways page scroll, controls in a row share height and centre, square icon buttons, heading aligned with the logo, no console errors |
 
 ## Routes
 
-`#/` Map: headline, US map with the latest updates beside it (a state swaps the panel to its bills), “How the laws connect” (the relationship canvas: `c`, `graph=entire`, `net`, `people`), then the full table (`t`-prefixed filters). Old `#/map…` and `#/explore?view=connections…` links land on the canvas section · `#/explore` Results, Timeline, Table (`sec`, `grp`, `level`, `status`, `st`, `type`, `conf`, `year`) · `#/bill/<id>` · `#/compare` · `#/updates` · `#/method` Data & trust · `#/handbook` (`ch`, `all=1`, `q`) · `#/about`
+`#/` Home: headline, then the US map with the latest news beside it (a state swaps the panel to its bills) · `#/explore` search and results (`sec`, `grp`, `level`, `status`, `st`, `type`, `year`) · `#/insights` Timeline, Bill relations, Table (`view=timeline|relations|table`; relations takes `c`, `graph=entire`, `net`, `people`; the table takes `q`, `grp`, `sec`, `jur`, `status`, `year`, `sort`, `dir`). Old `#/explore?view=timeline|table…`, `#/map…`, `#/?c=…` and `#/explore?view=connections…` links redirect there · `#/bill/<id>` · `#/compare` · `#/updates` News and Updates · `#/methodology` (old `#/method` redirects) · `#/handbook` (`ch`, `all=1`, `q`) · `#/about`. Handbook, About and Methodology sit under the Resources menu
 
 ## Explore views (added)
 

@@ -1,7 +1,9 @@
 // Checks that v1's reference text is on the v2 pages, read straight from v1's own files (not from content.json):
 //   handbook.md            → #/handbook?all=1   every heading, paragraph, list item and table cell
-//   tracker.md intro, L    → #/method           the "Frontier =" definition, the confidence key, the verification note, section L
-//   build/aaf-crosscheck   → #/method           every AAF row, candidate, tracker-only item and caveat
+//   tracker.md intro, L    → #/methodology      the "Frontier =" definition, the verification note, section L
+//                                               (not the confidence key: confidence is hidden in the UI by the owner's decision,
+//                                               v3 change list step 4; it stays in content.json, the data and the CSV)
+//   build/aaf-crosscheck   → #/methodology      every AAF row, candidate, tracker-only item and caveat
 //   tracker.md K, K.2      → #/compare          every matrix cell, the clusters paragraph, K.2's intro and cells
 //   tracker.md notes       → #/explore?sec=X    the paragraphs beside each section's table
 //   docs/index.html About  → #/about            every heading, paragraph and list item of v1's About section
@@ -22,11 +24,13 @@ const plainHtml = (h) => h.replace(/<[^>]+>/g, '').replace(/&(#x?[0-9a-f]+|\w+);
 
 const aaf = JSON.parse(read('build', 'aaf-crosscheck.json'));
 const html = read('docs', 'index.html'), ai = html.indexOf('id="sec-about"'), about = html.slice(ai, html.indexOf('</section>', ai)).replace(/<nav[\s\S]*?<\/nav>/g, '').replace(/<header[\s\S]*?<\/header>/, '');
+// tracker.md's intro without its confidence key (the "**Confidence key**" line and the level bullets under it)
+const introLines = mdLines.slice(0, mdLines.findIndex((l) => /^## A\./.test(l))).filter((l) => !/^\*\*Confidence key\*\*/.test(l) && !/^\s*-\s+\*\*(HIGH|MED-HIGH|MED|SEARCH-QUALIFIED|LOW)\*\*/.test(l));
 const CHECKS = [
   ['Handbook (all chapters)', '#/handbook?all=1', piecesOf(read('handbook.md').split(/\r?\n/))],
-  ['Data & trust: intro and confidence key', '#/method', piecesOf(mdLines.slice(0, mdLines.findIndex((l) => /^## A\./.test(l))))],
-  ['Data & trust: section L', '#/method', piecesOf(section('L'))],
-  ['Data & trust: AAF cross-check', '#/method', [aaf.scope_note, ...aaf.in_both.flatMap((x) => [x.bill, x.title, x.tracker]), ...aaf.candidates.flatMap((x) => [x.bill, x.sponsor, x.title, x.aaf_summary, x.assessment, x.suggested].filter(Boolean)), ...aaf.tracker_only, ...aaf.caveats]],
+  ['Methodology: intro and definition', '#/methodology', piecesOf(introLines)],
+  ['Methodology: section L', '#/methodology', piecesOf(section('L'))],
+  ['Methodology: AAF cross-check', '#/methodology', [aaf.scope_note, ...aaf.in_both.flatMap((x) => [x.bill, x.title, x.tracker]), ...aaf.candidates.flatMap((x) => [x.bill, x.sponsor, x.title, x.aaf_summary, x.assessment, x.suggested].filter(Boolean)), ...aaf.tracker_only, ...aaf.caveats]],
   ['Compare: section K', '#/compare', piecesOf(section('K'))],
   ['Compare: section K.2', '#/compare', piecesOf(section('K.2'))],
   ...['A', 'B.2', 'C', 'G.2', 'G.3'].map((c) => [`Explore: section ${c} notes`, '#/explore?sec=' + c, piecesOf(notes(c))]),

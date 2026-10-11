@@ -766,31 +766,27 @@ export function aboutView(C) {
   return h('div', { style: { maxWidth: 820 } }, ...out);
 }
 
-// Data & trust additions: v1's exact definitions, section L, and the AAF cross-check.
-export function trustExtras(C, L) {
-  if (!C) return null;
+// Methodology page: v1's introduction and "Frontier =" definition, its verification note, section L, the AAF
+// cross-check, and the entries checked and excluded. v1's confidence key is not shown: confidence is hidden in the UI
+// (it stays in the data and the CSV).
+// excl: [{ t, why, href }]
+export function methodologyView(C, L, excl) {
+  if (!C) return empty('The methodology');
   const I = C.intro, M = C.methodology, A = C.aaf_crosscheck;
   const tag = (t) => h('span', { style: { display: 'inline-flex', marginLeft: 6, padding: '1px 8px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', fontSize: 'calc(12.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-2)', whiteSpace: 'nowrap' } }, t);
   const li = { fontSize: 'calc(15px*var(--fs))', lineHeight: 1.55, overflowWrap: 'anywhere' };
-  return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 40 } },
-    h('section', { id: 'm-def-s', 'aria-labelledby': 'm-def', style: { scrollMarginTop: 84 } },
-      H2('m-def', '5. The tracker’s own definitions'),
-      h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15.5px*var(--fs))', color: 'var(--ink-2)' } }, 'The wording above is a plain-English version. This is the tracker’s introduction and confidence key exactly as written, which is what each rating legally means.'),
-      card([
-        h('p', { key: 't', style: { margin: '0 0 10px', fontSize: 'calc(13px*var(--fs))', fontWeight: 800, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, 'From the introduction of ' + I.title),
-        ...I.paragraphs.map((p, i) => h('div', { key: 'p' + i }, mdP(p))),
-        I.confidence_key_intro ? h('div', { key: 'ki' }, mdP(I.confidence_key_intro, null, { marginBottom: 8 })) : null,
-        h('dl', { key: 'dl', style: { margin: '0 0 12px', display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: 10 } },
-          ...I.confidence_key.map((c) => h('div', { key: c.level, style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: '4px 16px', padding: '10px 0', borderTop: '1px solid var(--line)' } },
-            h('dt', { style: { margin: 0, ...li } }, ...mdInline('**' + c.level + '** — ' + c.text)),
-            h('dd', { style: { margin: 0, fontSize: 'calc(13.5px*var(--fs))', color: 'var(--ink-3)', lineHeight: 1.5 } }, L.CONF[c.level] ? 'Plain English: ' + L.CONF[c.level].d : '')))),
-        h('div', { key: 'v' }, mdP(I.verification_note, null, { margin: 0 }))
-      ].filter(Boolean))),
-    h('section', { id: 'm-l-s2', 'aria-labelledby': 'm-meth', style: { scrollMarginTop: 84 } },
-      H2('m-meth', '6. ' + M.heading.replace(/^[A-Z]\.\s*/, '') + ' (section L)'),
-      card(M.paragraphs.map((p, i) => h('div', { key: i }, mdP(p.text, null, { margin: i === M.paragraphs.length - 1 ? 0 : '0 0 14px' }))))),
+  const prose = { maxWidth: '75ch' };
+  return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 44 } },
+    h('section', { id: 'm-def-s', 'aria-labelledby': 'm-def', style: { scrollMarginTop: 84, ...prose } },
+      H2('m-def', 'Scope and definition'),
+      h('p', { style: { margin: '0 0 10px', fontSize: 'calc(14px*var(--fs))', color: 'var(--ink-3)' } }, 'From the introduction of ' + I.title + ':'),
+      ...I.paragraphs.map((p, i) => h('div', { key: 'p' + i }, mdP(p))),
+      h('div', { key: 'v' }, mdP(I.verification_note, null, { margin: 0, color: 'var(--ink-2)' }))),
+    h('section', { id: 'm-l-s2', 'aria-labelledby': 'm-meth', style: { scrollMarginTop: 84, ...prose } },
+      H2('m-meth', M.heading.replace(/^[A-Z]\.\s*/, '')),
+      ...M.paragraphs.map((p, i) => h('div', { key: i }, mdP(p.text, null, { margin: i === M.paragraphs.length - 1 ? 0 : '0 0 14px' })))),
     h('section', { id: 'm-aaf-s', 'aria-labelledby': 'm-aaf', style: { scrollMarginTop: 84 } },
-      H2('m-aaf', '7. Cross-check against the American Action Forum list'),
+      H2('m-aaf', 'Cross-check against the American Action Forum list'),
       h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)', lineHeight: 1.6 } }, h('a', { href: A.url, target: '_blank', rel: 'noopener noreferrer' }, A.source + ' ↗'), `, ${A.rows} federal bills, fetched ${A.fetched}. ${A.scope_note}`),
       h('h3', { style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, 'In both lists'),
       h('ul', { style: { margin: '0 0 14px', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 } }, ...A.in_both.map((x, i) => h('li', { key: i, style: li }, h('strong', null, x.bill), ' ', x.title, tag(x.tracker)))),
@@ -800,7 +796,14 @@ export function trustExtras(C, L) {
       h('h3', { style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, 'In the tracker, absent from the AAF list'),
       h('ul', { style: { margin: '0 0 14px', paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 4 } }, ...A.tracker_only.map((x, i) => h('li', { key: i, style: li }, x))),
       h('h3', { style: { margin: '18px 0 8px', fontSize: 'calc(18px*var(--fs))' } }, 'Caveats about the AAF list as observed on the fetch date'),
-      h('ul', { style: { margin: 0, paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 } }, ...A.caveats.map((x, i) => h('li', { key: i, style: li }, x)))));
+      h('ul', { style: { margin: 0, paddingLeft: 22, display: 'flex', flexDirection: 'column', gap: 6 } }, ...A.caveats.map((x, i) => h('li', { key: i, style: li }, x)))),
+    excl && excl.length ? h('section', { id: 'm-x-s', 'aria-labelledby': 'm-x', style: { scrollMarginTop: 84 } },
+      H2('m-x', 'Checked and excluded'),
+      h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15.5px*var(--fs))', color: 'var(--ink-2)', maxWidth: '75ch' } }, 'These were reviewed and are not frontier-AI regulation, usually because they regulate uses, sectors or minors rather than the developers of the largest models.'),
+      h('ul', { style: { listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(min(100%,300px),1fr))', gap: 10 } },
+        ...excl.map((x, i) => h('li', { key: i, style: { display: 'flex' } }, h('a', { href: x.href, style: { flex: 1, display: 'flex', flexDirection: 'column', gap: 4, padding: '14px 16px', borderRadius: 'var(--r)', background: 'var(--surface)', border: '1px solid var(--line)', textDecoration: 'none', color: 'var(--ink)' } },
+          h('strong', { style: { fontSize: 'calc(15px*var(--fs))' } }, x.t), h('span', { style: { fontSize: 'calc(14px*var(--fs))', color: 'var(--ink-2)' } }, x.why)))))) : null,
+    h('p', { style: { margin: 0, padding: '16px 18px', borderRadius: 'var(--r)', background: 'var(--surface-2)', fontSize: 'calc(15px*var(--fs))', maxWidth: '75ch' } }, h('strong', null, 'Not legal advice.'), ' Status changes weekly. Re-check the primary source before citing anything here. For the legal background in plain English, read the ', h('a', { href: '#/handbook' }, 'Handbook'), '; for how this site was built, see ', h('a', { href: '#/about' }, 'About this site'), '.'));
 }
 
 // Compare page additions: the full section K matrix, the clusters note, and K.2.
