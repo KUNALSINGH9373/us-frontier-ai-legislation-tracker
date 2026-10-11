@@ -276,7 +276,6 @@ export const TABLE_COLS = [
   { k: 'status', l: 'Status and dates', w: 330, long: true, s: (x, L) => L.STATUS_ORDER.indexOf(x.status) },
   { k: 'penalties', l: 'Penalties', w: 210, long: true, optional: true },
   { k: 'source', l: 'Source', w: 190, long: true },
-  { k: 'conf', l: 'Confidence', w: 170, long: true, s: (x, L) => (x.conf ? L.CONF[x.conf].n : 0) },
   { k: 'latest', l: 'Latest step', w: 130, s: (x) => (x.kd ? +x.kd.d : 0) }
 ];
 export const SORT_KEYS = TABLE_COLS.filter((c) => c.s).map((c) => c.k);
@@ -286,7 +285,7 @@ export function sortRows(rows, L, key, dir) {
   return rows.slice().sort((a, b) => { const va = c.s(a, L), vb = c.s(b, L); return (va < vb ? -1 : va > vb ? 1 : a.id - b.id) * m; });
 }
 const confText = (x, L) => (x.confNote || (x.conf ? x.conf : ''));
-const rowText = (x, L) => [x.section, L.SEC[x.section], x.title, x.short, x.juris, x.st, x.sponsor, x.mech, x.thresholds, statusLine(x), L.ST[x.status].l, x.penalties, x.source, x.conf && L.CONF[x.conf].l, x.confNote, x.kdLabel, L.TYPES[x.type]].filter(Boolean).join(' \u0001 ').toLowerCase();
+const rowText = (x, L) => [x.section, L.SEC[x.section], x.title, x.short, x.juris, x.st, x.sponsor, x.mech, x.thresholds, statusLine(x), L.ST[x.status].l, x.penalties, x.source, x.kdLabel, L.TYPES[x.type]].filter(Boolean).join(' \u0001 ').toLowerCase();
 // Table filters. q: every word must appear somewhere in the row (any column). The rest match exactly.
 export function filterRows(rows, L, f) {
   const terms = (f.q || '').toLowerCase().split(/\s+/).filter(Boolean);
@@ -327,8 +326,6 @@ export function table(ctx) {
   const clamp = (open) => (open ? {} : { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' });
   const chk = (x) => h('label', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'calc(44px*var(--hs))', height: 'calc(44px*var(--hs))', margin: '-10px -10px -10px -12px', cursor: 'pointer' } }, h('input', { type: 'checkbox', checked: sel.has(x.id), disabled: !sel.has(x.id) && full, onChange: () => ctx.toggle(x.id), 'aria-label': 'Select ' + x.short + ' to compare', style: { width: 22, height: 22, minHeight: 0, margin: 0, accentColor: 'var(--accent-ink)', cursor: 'pointer' } }));
   const status = (x) => h('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 700, fontSize: 'calc(13.5px*var(--fs))', whiteSpace: 'nowrap' } }, h('span', { 'aria-hidden': true, style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g), L.ST[x.status].l);
-  const conf = (x) => h('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 650, fontSize: 'calc(13.5px*var(--fs))', whiteSpace: 'nowrap' } },
-    h('span', { 'aria-hidden': true, style: { display: 'inline-flex', alignItems: 'flex-end', gap: 2, height: 14 } }, ...[1, 2, 3, 4, 5].map((i) => h('span', { key: i, style: { width: 3, height: 6 + i * 2, borderRadius: 1, background: i <= (x.conf ? L.CONF[x.conf].n : 0) ? 'var(--ink)' : 'var(--line-2)' } }))), x.conf ? L.CONF[x.conf].l : 'Not rated');
   const sources = (x) => x.srcLinks.length ? h('span', null, ...x.srcLinks.map((l, i) => h('span', { key: i }, i ? ' · ' : '', h('a', { href: l.u, target: '_blank', rel: 'noopener noreferrer' }, l.t)))) : (x.source || '—');
   const cell = { // content of each column for one row
     section: (x) => h('a', { href: '#/explore?sec=' + encodeURIComponent(x.section), title: L.SEC[x.section], style: { fontWeight: 800, color: 'var(--accent-ink)', textDecoration: 'none' } }, x.section),
@@ -336,7 +333,6 @@ export function table(ctx) {
     where: (x) => x.juris, sponsor: (x) => x.sponsor || '—', mech: (x) => x.mech || '—', thresholds: (x) => x.thresholds || '—',
     status: (x) => h('span', null, status(x), statusLine(x) ? h('span', { style: { display: 'block', marginTop: 2, color: 'var(--ink-2)' } }, statusLine(x)) : null),
     penalties: (x) => x.penalties || '—', source: sources,
-    conf: (x) => h('span', null, conf(x), x.confNote && x.confNote !== x.conf ? h('span', { style: { display: 'block', marginTop: 2, color: 'var(--ink-2)' } }, x.confNote) : null),
     latest: (x) => x.kdLabel
   };
   const rowBtn = (x) => h('button', { onClick: () => ctx.toggleRow(x.id), 'aria-expanded': isOpen(x) ? 'true' : 'false', 'aria-label': (isOpen(x) ? 'Collapse ' : 'Expand ') + x.short, disabled: ctx.allOpen, style: { marginTop: 6, minHeight: 'calc(32px*var(--hs))', padding: 0, border: 0, background: 'transparent', color: ctx.allOpen ? 'var(--ink-3)' : 'var(--accent-ink)', fontWeight: 700, fontSize: 'calc(13px*var(--fs))', cursor: ctx.allOpen ? 'default' : 'pointer', fontFamily: 'inherit', textDecoration: 'underline', textUnderlineOffset: 3 } }, isOpen(x) ? 'Collapse' : 'Expand');
@@ -352,13 +348,13 @@ export function table(ctx) {
   if (ctx.compact) {
     const sortSel = h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, fontSize: 'calc(13.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-3)', marginBottom: 12 } }, 'Sort by',
       h('select', { value: ctx.sort, onChange: (e) => ctx.setSort(e.target.value, true), style: { ...fieldStyle, height: 'calc(44px*var(--hs))' } }, ...TABLE_COLS.filter((c) => c.s).map((c) => h('option', { key: c.k, value: c.k }, c.l + (c.k === 'latest' ? ' (newest first)' : '')))));
-    const LONG = cols.filter((c) => c.long && c.k !== 'status' && c.k !== 'conf');
+    const LONG = cols.filter((c) => c.long && c.k !== 'status');
     return h('div', null, top, sortSel, h('ul', { style: { listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', gap: 10 } },
       ...rows.map((x) => { const open = isOpen(x); return h('li', { key: x.id, style: { display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 14px', borderRadius: 'var(--r)', background: sel.has(x.id) ? 'var(--accent-soft)' : 'var(--surface)', border: '1px solid var(--line)', minWidth: 0 } },
         h('div', { style: { paddingTop: 2 } }, chk(x)),
         h('div', { style: { display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0, flex: 1 } },
           h('a', { href: '#/bill/' + x.id, style: { display: 'inline-flex', alignItems: 'center', minHeight: 'calc(44px*var(--hs))', margin: '-8px 0', fontWeight: 750, fontSize: 'calc(16px*var(--fs))', color: 'var(--ink)', textDecoration: 'none', overflowWrap: 'anywhere' } }, x.short),
-          h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'center' } }, status(x), conf(x)),
+          h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'center' } }, status(x)),
           h('span', { style: { fontSize: 'calc(13px*var(--fs))', color: 'var(--ink-3)', fontWeight: 600 } }, x.section + ' · ' + x.juris + ' · ' + x.kdLabel),
           h('dl', { style: { margin: 0, display: 'flex', flexDirection: 'column', gap: 6 } }, ...[...LONG.slice(0, 3), { k: 'status', l: 'Status and dates' }, ...LONG.slice(3)].filter((c) => c.k === 'status' ? statusLine(x) : x[c.k] || (c.k === 'source' && x.srcLinks.length)).map((c) => h('div', { key: c.k, style: { minWidth: 0 } },
             h('dt', { style: { fontSize: 'calc(12px*var(--fs))', fontWeight: 750, color: 'var(--ink-3)' } }, c.l),
@@ -738,7 +734,6 @@ export function mdBlocks(md, terms, opts = {}) {
   return out;
 }
 
-const kicker = (t) => h('p', { style: { margin: '0 0 6px', fontSize: 'calc(13px*var(--fs))', fontWeight: 800, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, t);
 const card = (children, style) => h('div', { style: { padding: 'calc(18px*var(--ps)) calc(20px*var(--ps))', borderRadius: 'var(--r)', background: 'var(--surface)', border: '1px solid var(--line)', ...style } }, ...children);
 const H2 = (id, t) => h('h2', { id, style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))', scrollMarginTop: 84 } }, t);
 const empty = (what) => h('p', { style: { margin: 0, color: 'var(--ink-2)' } }, what + ' is part of the v2 data and is not available with ?data=v1.');
@@ -748,7 +743,7 @@ export function sectionNotes(C, sec, L) {
   const notes = C && C.section_notes && C.section_notes[sec];
   if (!notes) return null;
   return h('aside', { 'aria-label': 'Notes on section ' + sec, style: { margin: '0 0 16px', padding: '14px 16px', borderRadius: 'var(--r)', background: 'var(--surface-2)', border: '1px solid var(--line)' } },
-    h('p', { style: { margin: '0 0 6px', fontSize: 'calc(12.5px*var(--fs))', fontWeight: 800, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, 'Section note · ' + ((C.section_headings || {})[sec] || sec + '. ' + L.SEC[sec])),
+    h('p', { style: { margin: '0 0 6px', fontSize: 'calc(14px*var(--fs))', fontWeight: 700, color: 'var(--ink-2)' } }, 'Note on ' + ((C.section_headings || {})[sec] || sec + '. ' + L.SEC[sec])),
     ...notes.map((p, i) => mdP(p, null, { margin: i ? '8px 0 0' : 0, fontSize: 'calc(15px*var(--fs))' })));
 }
 
@@ -814,12 +809,12 @@ export function compareExtras(C, L, D) {
   const rows = L.K_ROWS.map(([dim, m, note]) => (note ? { head: dim, span: note } : [dim, ...ids.map((id) => m[id] || '—')]));
   return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 36, marginTop: 44 } },
     h('section', { 'aria-labelledby': 'k-h' },
-      kicker('Section K'), h('h2', { id: 'k-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.heading || 'Cross-cutting divergences'),
+      h('h2', { id: 'k-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.heading || 'Cross-cutting divergences'),
       h('p', { style: { margin: '0 0 12px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)' } }, `The tracker’s full comparison matrix, ${rows.length} rows, as written. The “full spread” row lists figures from other bills, so it is shown as one line.`),
       mdTable(head, rows, { minWidth: 1100, firstWide: true, label: 'Section K matrix, scrolls sideways', caption: 'Cross-cutting divergences across seven laws and bills' }),
       K.clusters ? card([mdP(K.clusters, null, { margin: 0, fontSize: 'calc(15.5px*var(--fs))' })], { background: 'var(--surface-2)' }) : null),
     h('section', { 'aria-labelledby': 'k2-h' },
-      kicker('Section K.2'), h('h2', { id: 'k2-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.assurance.heading),
+      h('h2', { id: 'k2-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.assurance.heading),
       ...(K.assurance.intro || []).map((p, i) => h('div', { key: i }, mdP(p, null, { color: 'var(--ink-2)', fontSize: 'calc(15px*var(--fs))' }))),
       mdTable(K.assurance.columns, K.assurance.rows, { minWidth: 1000, firstWide: true, label: 'Assurance layers, scrolls sideways', caption: 'Assurance layers by jurisdiction or bill' })));
 }
@@ -838,7 +833,7 @@ export function handbookView(ctx) {
   const dl = C.downloads || {};
   const btn = { height: 'calc(40px*var(--hs))', padding: '0 14px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', fontWeight: 700, fontSize: 'calc(14px*var(--fs))', cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', textDecoration: 'none', whiteSpace: 'nowrap' };
   const toc = h('nav', { 'aria-label': 'Chapters', style: { display: 'flex', flexDirection: 'column', border: '1px solid var(--line)', borderRadius: 'var(--r)', background: 'var(--surface)', overflow: 'hidden' } },
-    h('p', { style: { margin: 0, padding: '10px 12px', background: 'var(--surface-2)', fontSize: 'calc(12px*var(--fs))', fontWeight: 800, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--ink-3)' } }, terms.length ? `${list.length} of ${HB.chapters.length} chapters match` : `${HB.chapters.length} chapters`),
+    h('p', { style: { margin: 0, padding: '10px 12px', background: 'var(--surface-2)', fontSize: 'calc(13.5px*var(--fs))', fontWeight: 650, color: 'var(--ink-2)' } }, terms.length ? `${list.length} of ${HB.chapters.length} chapters match` : `${HB.chapters.length} chapters`),
     ...list.map((c) => { const on = !ctx.all && c === cur; return h('a', { key: c.slug, href: '#/handbook?ch=' + c.slug + (ctx.q ? '&q=' + encodeURIComponent(ctx.q) : ''), 'aria-current': on ? 'page' : undefined, style: { display: 'flex', gap: 8, padding: '8px 12px', textDecoration: 'none', fontSize: 'calc(14px*var(--fs))', lineHeight: 1.35, color: on ? 'var(--ink)' : 'var(--ink-2)', background: on ? 'var(--accent-soft)' : 'transparent', boxShadow: on ? 'inset 2px 0 0 var(--accent-ink)' : 'none' } }, h('span', { style: { flex: 1 } }, label(c)), terms.length ? h('span', { style: { fontSize: 'calc(12px*var(--fs))', color: 'var(--ink-3)', fontVariantNumeric: 'tabular-nums' } }, count(c)) : null); }));
   const chapter = (c) => h('article', { key: c.slug, 'aria-labelledby': 'hb-' + c.slug, style: { marginBottom: 28 } },
     h('h2', { id: 'hb-' + c.slug, style: { margin: '0 0 14px', fontSize: 'calc(28px*var(--fs))', scrollMarginTop: 84 } }, ...mdInline(label(c), terms)), ...mdBlocks(c.md, terms, { idPrefix: 'hb-' + c.slug + '-' }));
