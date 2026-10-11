@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preload" href="fonts/PlusJakartaSans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/SourceSerif4-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" type="image/svg+xml" href="logo/us-frontier-law-seal.svg">
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-<title>US Frontier AI Law Tracker</title>
+<title>US Frontier Law</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 /* Source Serif 4 (headings), hosted here; one variable file per subset covers weights 400–700 and optical sizes 8–60 */
@@ -25,6 +26,16 @@
 :root,[data-theme=light]{--bg:#F7F8FA;--surface:#FFFFFF;--surface-2:#EFF2F6;--ink:#111827;--ink-2:#374151;--ink-3:#545E70;--line:#E2E6EC;--line-2:#C9D0DA;--accent:#2361C7;--accent-ink:#1A4FA8;--accent-soft:#E8F0FC;--on-accent:#FFFFFF;--shadow-1:0 1px 2px rgba(17,24,39,.05);--shadow-2:0 1px 3px rgba(17,24,39,.06),0 6px 16px -10px rgba(17,24,39,.12);--shadow-3:0 1px 3px rgba(17,24,39,.05),0 12px 32px -18px rgba(17,24,39,.18)}
 [data-theme=dark]{--bg:#0D1117;--surface:#151B24;--surface-2:#1C2330;--ink:#ECEFF4;--ink-2:#C4CAD4;--ink-3:#9DA5B3;--line:#262E3B;--line-2:#36404F;--accent:#6C9EF0;--accent-ink:#93B7F5;--accent-soft:#18243A;--on-accent:#0D1117}
 @media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#0D1117;--surface:#151B24;--surface-2:#1C2330;--ink:#ECEFF4;--ink-2:#C4CAD4;--ink-3:#9DA5B3;--line:#262E3B;--line-2:#36404F;--accent:#6C9EF0;--accent-ink:#93B7F5;--accent-soft:#18243A;--on-accent:#0D1117}}
+:root,[data-theme=light]{--seal:#14213D}
+[data-theme=dark]{--seal:#1B2B4F}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--seal:#1B2B4F}}
+[data-wordmark]{letter-spacing:-.005em!important}[data-us]{font-variant:small-caps;letter-spacing:.06em;font-weight:700}
+[data-boot] .fade{opacity:0;animation:gxFade .4s ease forwards}
+[data-boot] .draw{stroke-dasharray:1;stroke-dashoffset:1;animation:sealDraw .7s cubic-bezier(.6,0,.2,1) both}
+[data-boot] .pop{transform-box:fill-box;transform-origin:center;opacity:0;animation:sealPop .45s ease both}
+@keyframes sealDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes sealPop{0%{opacity:0;transform:scale(.2)}60%{opacity:1;transform:scale(1.15)}100%{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){[data-boot] .fade,[data-boot] .draw,[data-boot] .pop{animation:none!important;stroke-dashoffset:0;opacity:1}}
 :root{--fs:1;--hs:1;--ps:1;--r:10px;--serif:'Source Serif 4','Iowan Old Style',Georgia,'Times New Roman',serif}
 @media (min-width:1024px){:root{--fs:.88;--hs:.8;--ps:.8}}
 h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;letter-spacing:-.01em!important;font-optical-sizing:auto}
@@ -73,15 +84,9 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 <header style="position:sticky;top:0;z-index:40;background:color-mix(in oklab,var(--bg) 84%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line)">
   <div style="max-width:1280px;margin:0 auto;padding:0 clamp(16px,3vw,32px);height:calc(64px*var(--hs));display:flex;align-items:center;gap:clamp(10px,1.6vw,20px)">
-    <a href="#/" aria-label="Frontier AI Law Tracker, home" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);min-height:calc(44px*var(--hs));flex-shrink:0">
-      <span aria-hidden="true" style="width:32px;height:32px;border-radius:9px;background:#070C18;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:6px;box-shadow:0 0 0 1px rgba(255,255,255,.06) inset">
-        <span style="border-radius:2px;background:#2FD69E"></span><span style="border-radius:2px;background:#26324A"></span><span style="border-radius:2px;background:#FFC23D"></span>
-        <span style="border-radius:2px;background:#26324A"></span><span style="border-radius:2px;background:#2FD69E"></span><span style="border-radius:2px;background:#C89BFF"></span>
-        <span style="border-radius:2px;background:#2FD69E"></span><span style="border-radius:2px;background:#26324A"></span><span style="border-radius:2px;background:#26324A"></span>
-      </span>
-      <span style="display:flex;flex-direction:column;line-height:1.15">
-        <span data-serif style="font-size:calc(18px*var(--fs));color:var(--ink)"><span data-dk style="display:inline">US Frontier AI Legislation Tracker</span><span data-mb>Frontier AI Law Tracker</span></span>
-      </span>
+    <a href="#/" aria-label="US Frontier Law, home" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);min-height:calc(44px*var(--hs));flex-shrink:0">
+      <svg data-seal viewBox="0 0 64 64" width="36" height="36" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;display:block"><rect x="1" y="1" width="62" height="62" rx="15" style="fill:var(--seal)"></rect><rect x="4.5" y="4.5" width="55" height="55" rx="12" stroke="#D4A43A" stroke-width="1" opacity=".55"></rect><g transform="translate(6.4 6.6) scale(.8)" stroke="#F5F2EA" stroke-width="2.2"><path d="M7 56H57M11 52.5H53M12 52.5V42M18 52.5V42M24 52.5V42M40 52.5V42M46 52.5V42M52 52.5V42M28 52.5V45.5A4 4 0 0 1 36 45.5V52.5M9.5 42H54.5L32 35.5ZM19 35.5V31H45V35.5M20 31C20 22 25.5 15.6 32 14C38.5 15.6 44 22 44 31M29.5 14V10.5H34.5V14M32 10.5V8"></path><path stroke-width="1.76" d="M24 34V32.5M29.3 34V32.5M34.7 34V32.5M40 34V32.5"></path><path stroke="#D4A43A" stroke-width="1.9" d="M25.5 31V25.5L28.6 21.6M32 31V18.6M38.5 31V25.5L35.4 21.6"></path><g fill="#D4A43A" stroke="none"><circle cx="28.6" cy="21.6" r="1.55"></circle><circle cx="32" cy="18.6" r="1.55"></circle><circle cx="35.4" cy="21.6" r="1.55"></circle><circle cx="32" cy="7" r="2.2"></circle></g></g></svg>
+      <span data-serif data-wordmark style="font-size:calc(20px*var(--fs));line-height:1.1;color:var(--ink);white-space:nowrap"><span data-us>US</span> Frontier Law</span>
     </a>
     <sc-if value="{{showTopNav}}" hint-placeholder-val="{{ true }}">
       <nav aria-label="Main" style="display:flex;gap:4px;align-self:stretch;align-items:stretch"><span style="display:none"></span>
@@ -114,7 +119,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <main id="main" tabIndex="-1" ref="{{mainRef}}" style="flex:1;outline:none;padding-bottom:{{mainPadBottom}}">
 
 <sc-if value="{{loading}}" hint-placeholder-val="{{ false }}">
-  <div aria-busy="true" aria-label="Loading the tracker" style="max-width:1280px;margin:0 auto;padding:calc(48px*var(--ps)) clamp(16px,3vw,32px);display:flex;flex-direction:column;gap:16px">
+  <div aria-busy="true" aria-label="Loading US Frontier Law" style="max-width:1280px;margin:0 auto;padding:calc(48px*var(--ps)) clamp(16px,3vw,32px);display:flex;flex-direction:column;gap:16px">
     <div style="height:14px;width:180px;border-radius:min(8px,var(--r));background:linear-gradient(90deg,var(--surface-2) 0,var(--line) 50%,var(--surface-2) 100%);background-size:800px 100%;animation:gxShimmer 1.4s linear infinite"></div>
     <div style="height:calc(56px*var(--hs));width:min(760px,100%);border-radius:min(12px,var(--r));background:linear-gradient(90deg,var(--surface-2) 0,var(--line) 50%,var(--surface-2) 100%);background-size:800px 100%;animation:gxShimmer 1.4s linear infinite"></div>
     <div style="height:calc(56px*var(--hs));width:min(560px,90%);border-radius:min(12px,var(--r));background:linear-gradient(90deg,var(--surface-2) 0,var(--line) 50%,var(--surface-2) 100%);background-size:800px 100%;animation:gxShimmer 1.4s linear infinite"></div>
@@ -766,7 +771,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 <footer style="border-top:1px solid var(--line);background:var(--surface);padding:28px clamp(16px,3vw,32px) {{footerPadBottom}}">
   <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-start;justify-content:space-between">
-    <p style="margin:0;max-width:620px;font-size:calc(14px*var(--fs));color:var(--ink-2);text-wrap:pretty"><strong style="color:var(--ink)">Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing. Verified as of {{verLabel}}, with supplementary checks through {{asofLabel}}.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;max-width:620px"><span data-serif data-wordmark style="font-size:calc(17px*var(--fs));color:var(--ink)"><span data-us>US</span> Frontier Law</span>
+    <p style="margin:0;font-size:calc(14px*var(--fs));color:var(--ink-2);text-wrap:pretty"><strong style="color:var(--ink)">Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing. Verified as of {{verLabel}}, with supplementary checks through {{asofLabel}}.</p></div>
     <nav aria-label="Reference" style="display:flex;flex-wrap:wrap;gap:4px 18px;font-size:calc(14px*var(--fs));font-weight:700"><a href="#/method" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Data &amp; trust</a><a href="#/handbook" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Handbook</a><a href="#/about" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">About this site</a></nav>
   </div>
 </footer>
@@ -863,13 +869,26 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 <sc-if value="{{booting}}" hint-placeholder-val="{{ true }}">
   <div aria-hidden="true" style="position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;animation:{{bootAnim}}">
-    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(50% 40% at 30% 30%,var(--wash-a),transparent 70%),radial-gradient(40% 40% at 75% 70%,var(--wash-b),transparent 70%)"></div>
     <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:22px;padding:24px;text-align:center">
-      <span aria-hidden="true" style="width:104px;height:104px;border-radius:28px;background:#070C18;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:18px;box-shadow:0 24px 60px -18px rgba(7,12,24,.55),0 0 0 1px rgba(255,255,255,.06) inset"><span style="border-radius:7px;background:#2FD69E;animation:gxTile 620ms var(--ease-spring) 120ms both;box-shadow:0 0 18px -4px #2FD69E"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 230ms both;box-shadow:none"></span><span style="border-radius:7px;background:#FFC23D;animation:gxTile 620ms var(--ease-spring) 340ms both;box-shadow:0 0 18px -4px #FFC23D"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 670ms both;box-shadow:none"></span><span style="border-radius:7px;background:#2FD69E;animation:gxTile 620ms var(--ease-spring) 560ms both;box-shadow:0 0 18px -4px #2FD69E"></span><span style="border-radius:7px;background:#C89BFF;animation:gxTile 620ms var(--ease-spring) 450ms both;box-shadow:0 0 18px -4px #C89BFF"></span><span style="border-radius:7px;background:#2FD69E;animation:gxTile 620ms var(--ease-spring) 780ms both;box-shadow:0 0 18px -4px #2FD69E"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 890ms both;box-shadow:none"></span><span style="border-radius:7px;background:#26324A;animation:gxTile 620ms var(--ease-spring) 1000ms both;box-shadow:none"></span></span>
-      <div style="display:flex;flex-direction:column;gap:4px;animation:gxRise 600ms var(--ease-out) 700ms both">
-        <span style="font-size:clamp(26px,5vw,34px);font-weight:800;letter-spacing:-.03em;color:var(--ink)">US Frontier AI Legislation Tracker</span>
-      </div>
-      <div aria-hidden="true" style="width:160px;height:3px;border-radius:999px;background:var(--line);overflow:hidden;animation:gxFade 400ms ease 900ms both"><div style="height:100%;background:var(--accent);transform-origin:left;animation:gxBar 1500ms var(--ease-io) 900ms both"></div></div>
+      <svg data-seal data-boot viewBox="0 0 64 64" width="140" height="140" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:block"><rect class="fade" x="1" y="1" width="62" height="62" rx="15" style="fill:var(--seal)"></rect><rect class="draw" pathLength="1" x="4.5" y="4.5" width="55" height="55" rx="12" stroke="#D4A43A" stroke-width="1" opacity=".55" style="animation-delay:.05s"></rect><g transform="translate(6.4 6.6) scale(.8)" stroke="#F5F2EA" stroke-width="2.2">
+        <path class="draw" pathLength="1" style="animation-delay:0s" d="M7 56H57"></path>
+        <path class="draw" pathLength="1" style="animation-delay:.1s" d="M11 52.5H53"></path>
+        <path class="draw" pathLength="1" style="animation-delay:.25s" d="M12 52.5V42M18 52.5V42M24 52.5V42M40 52.5V42M46 52.5V42M52 52.5V42"></path>
+        <path class="draw" pathLength="1" style="animation-delay:.35s" d="M28 52.5V45.5A4 4 0 0 1 36 45.5V52.5"></path>
+        <path class="draw" pathLength="1" style="animation-delay:.5s" d="M9.5 42H54.5L32 35.5Z"></path>
+        <path class="draw" pathLength="1" style="animation-delay:.75s" d="M19 35.5V31H45V35.5"></path>
+        <path class="draw" pathLength="1" style="animation-delay:.85s" stroke-width="1.76" d="M24 34V32.5M29.3 34V32.5M34.7 34V32.5M40 34V32.5"></path>
+        <path class="draw" pathLength="1" style="animation-delay:.95s" d="M20 31C20 22 25.5 15.6 32 14C38.5 15.6 44 22 44 31"></path>
+        <path class="draw" pathLength="1" style="animation-delay:1.35s" stroke="#D4A43A" stroke-width="1.9" d="M25.5 31V25.5L28.6 21.6"></path>
+        <path class="draw" pathLength="1" style="animation-delay:1.42s" stroke="#D4A43A" stroke-width="1.9" d="M32 31V18.6"></path>
+        <path class="draw" pathLength="1" style="animation-delay:1.49s" stroke="#D4A43A" stroke-width="1.9" d="M38.5 31V25.5L35.4 21.6"></path>
+        <circle class="pop" style="animation-delay:1.7s" fill="#D4A43A" stroke="none" cx="28.6" cy="21.6" r="1.55"></circle>
+        <circle class="pop" style="animation-delay:1.76s" fill="#D4A43A" stroke="none" cx="32" cy="18.6" r="1.55"></circle>
+        <circle class="pop" style="animation-delay:1.82s" fill="#D4A43A" stroke="none" cx="35.4" cy="21.6" r="1.55"></circle>
+        <path class="draw" pathLength="1" style="animation-delay:1.9s" d="M29.5 14V10.5H34.5V14M32 10.5V8"></path>
+        <circle class="pop" style="animation-delay:2.1s" fill="#D4A43A" stroke="none" cx="32" cy="7" r="2.2"></circle>
+      </g></svg>
+      <span data-serif data-wordmark style="font-size:clamp(26px,5vw,32px);line-height:1.1;color:var(--ink);animation:gxRise 600ms var(--ease-out) 700ms both"><span data-us>US</span> Frontier Law</span>
       <span style="font-size:13px;font-weight:600;color:var(--ink-3);animation:gxFade 400ms ease 1000ms both">{{bootLabel}}</span>
     </div>
   </div>
@@ -951,7 +970,7 @@ class Component extends DCLogic {
   }
   endBoot() {
     if (!this.state.booting) { this.intro(); return; }
-    const min = this.rm ? 200 : 1900, wait = Math.max(0, min - (performance.now() - this.t0));
+    const min = this.rm ? 200 : 2700, wait = Math.max(0, min - (performance.now() - this.t0));
     setTimeout(() => { this.setState({ leaving: true }); setTimeout(() => { this.setState({ booting: false, leaving: false }); this.intro(); }, this.rm ? 0 : 520); }, wait);
   }
   intro() {
@@ -1104,7 +1123,7 @@ class Component extends DCLogic {
     if (route === '/about') Object.assign(v, { isAbout: true, aboutEl: this.V.aboutView(this.D.content) });
     if (route === '404' || (route === 'bill' && !v.isBill)) Object.assign(v, { isNotFound: true, isBill: false });
     Object.assign(v, this.confSheetVals());
-    const T = 'Frontier AI Law Tracker';
+    const T = 'US Frontier Law';
     this.docTitle = v.isHome ? (p.state && L_SN(this.L, p.state) ? L_SN(this.L, p.state) + ' · ' + T : v.panelOpen ? v.panelTitle + ' · ' + T : T + ' · US states and Congress')
       : v.isExplore ? (p.view === 'timeline' ? 'Timeline' : p.view === 'table' ? 'Table' : 'Explore') + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
       : v.isBill ? v.bShort + ' · Bill · ' + T
@@ -1305,7 +1324,7 @@ class Component extends DCLogic {
       setSort: (k, pick) => this.setP({ [pre + 'sort']: k, [pre + 'dir']: pick ? (V.ascFirst(k) ? 'asc' : 'desc') : k === sort && dir === 'desc' ? 'asc' : k === sort ? 'desc' : (V.ascFirst(k) ? 'asc' : 'desc') }, true),
       toggle: id => this.setState({ tblSel: s.tblSel.includes(id) ? s.tblSel.filter(z => z !== id) : s.tblSel.length < 3 ? [...s.tblSel, id] : s.tblSel }),
       compare: () => this.go('/compare', { ids: s.tblSel.join(',') }),
-      download: () => { const b = new Blob([V.toCsv(V.sortRows(picked, L, sort, dir), L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'frontier-ai-law-tracker-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } }) };
+      download: () => { const b = new Blob([V.toCsv(V.sortRows(picked, L, sort, dir), L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'us-frontier-law-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } }) };
   }
   conn(c) {
     const L = this.L, D = this.D, R = D.rel;
@@ -1355,7 +1374,7 @@ class Component extends DCLogic {
       marks, hasMarks: marks.length > 0,
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',
       toggleFollowB: () => this.toggleFollow(id),
-      share: () => { const u = location.href; const done = () => this.toastMsg('Link copied'); if (navigator.share && this.state.vw < 760) navigator.share({ title: x.short, url: u }).catch(() => {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, () => this.toastMsg('Copy the address bar to share')); else this.toastMsg('Copy the address bar to share'); },
+      share: () => { const u = location.href; const done = () => this.toastMsg('Link copied'); if (navigator.share && this.state.vw < 760) navigator.share({ title: x.short + ' · US Frontier Law', url: u }).catch(() => {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, () => this.toastMsg('Copy the address bar to share')); else this.toastMsg('Copy the address bar to share'); },
       cmpHref: '#/compare?ids=' + (L.K_IDS.includes(id) ? [id, ...L.K_IDS.filter(i => i !== id).slice(0, 1)] : [id, ...D.E.filter(o => o.section === x.section && o.id !== id).slice(0, 1).map(o => o.id)]).join(','),
       isExcluded: x.section === 'J'
     };
