@@ -41,7 +41,7 @@
 h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;letter-spacing:-.01em!important;font-optical-sizing:auto}
 [data-mapgrid]{container-type:inline-size;width:100%}
 [data-homerow]{display:flex;flex-direction:column;gap:clamp(16px,2vw,28px)}
-@media (min-width:1024px){[data-homerow]{flex-direction:row;align-items:stretch}[data-mapcol]{flex:0 1 min(69%,calc((100vh - 300px) * 1.375),1100px)}[data-homeside]{flex:1 1 300px}[data-mapgrid] [data-tile]{font-size:clamp(10px,1.95cqw,16px)!important}[data-mapgrid] [data-tg],[data-mapgrid] [data-tn]{font-size:clamp(8px,1.3cqw,12px)!important}}
+@media (min-width:1024px){[data-homerow]{flex-direction:row;align-items:stretch}[data-mapcol]{flex:0 1 min(76%,calc((100vh - 215px) * 1.375),1300px)}[data-homeside]{flex:1 1 260px;max-width:380px}[data-mapgrid] [data-tile]{font-size:clamp(10px,1.95cqw,16px)!important}[data-mapgrid] [data-tg],[data-mapgrid] [data-tn]{font-size:clamp(8px,1.3cqw,12px)!important}}
 [data-exgrid]{display:block}
 [data-screen-label="Bill page"] p,[data-screen-label="Bill page"] dd{max-width:75ch}
 @media (min-width:1024px){[data-exgrid]{display:grid;grid-template-columns:248px minmax(0,1fr);gap:36px;align-items:start}[data-side]{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}}
@@ -185,7 +185,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     <div data-mapcol style="min-width:0;display:flex;flex-direction:column;gap:10px">
       <sc-if value="{{mapGrid}}" hint-placeholder-val="{{ true }}">
         <p id="map-help" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">US states as a tile map. Use arrow keys to move between states and Enter to open a state’s laws.</p>
-        <div role="group" aria-label="Map of US states by strongest frontier-AI status" aria-describedby="map-help" aria-hidden="{{mapHidden}}" data-mapgrid style="position:relative;display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:clamp(3px,.5vw,7px)">
+        <div role="group" aria-label="Map of US states by strongest frontier-AI status" aria-describedby="map-help" aria-hidden="{{mapHidden}}" data-mapgrid style="position:relative;display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:clamp(3px,.45vw,6px)">
           <sc-for list="{{tiles}}" as="t" hint-placeholder-count="51">
             <button data-tile="{{t.code}}" aria-label="{{t.aria}}" title="{{t.tip}}" aria-pressed="{{t.pressed}}" tabIndex="{{t.ti}}" onClick="{{t.onClick}}" onKeyDown="{{t.onKey}}" onFocus="{{t.onEnter}}" onMouseEnter="{{t.onEnter}}" style="grid-row:{{t.r}};grid-column:{{t.c}};pointer-events:{{t.pe}};position:relative;z-index:{{t.z}};aspect-ratio:1;min-width:0;padding:0;margin:0;border-radius:clamp(5px,.8vw,10px);background:{{t.bg}};border:{{t.bd}};color:{{t.fg}};box-shadow:{{t.sh}};text-shadow:{{t.ts}};font:inherit;font-weight:800;font-size:calc(clamp(12px,1.3vw,16px)*var(--fs));letter-spacing:.02em;cursor:pointer;display:grid;place-items:center;transition:background var(--dur-4) var(--ease-out),border-color var(--dur-4) var(--ease-out),box-shadow var(--dur-4) var(--ease-out),color var(--dur-4),transform var(--dur-1) var(--ease-out)" style-hover="transform:translateY(-2px)" style-active="transform:scale(.95)">
               <span>{{t.code}}</span>
@@ -275,15 +275,17 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <aside aria-label="Browse by section" data-side>
   <button data-dk data-chip data-sidetoggle onClick="{{toggleSide}}" aria-expanded="{{sideExpanded}}" aria-controls="side-nav" aria-label="{{sideBtnLabel}}" title="{{sideBtnLabel}}">{{sideBtnText}}</button>
   <details open="{{sideOpen}}" style="margin-bottom:14px">
-    <summary data-mb style="cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--surface);font-weight:700;font-size:15px">Browse sections and states<span aria-hidden="true" style="color:var(--ink-3)">▾</span></summary>
+    <summary data-mb style="cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--surface);font-weight:700;font-size:15px">Browse<span aria-hidden="true" style="color:var(--ink-3)">▾</span></summary>
     <nav id="side-nav" aria-label="Sections" style="display:flex;flex-direction:column;gap:1px">
       <a href="{{sideAll.href}}" aria-current="{{sideAll.cur}}" data-sideitem style="color:{{sideAll.fg}};background:{{sideAll.bg}};box-shadow:{{sideAll.ul}}"><span data-sidecode>·</span><span style="flex:1">All entries</span><span data-sidecount>{{sideAll.n}}</span></a>
       <sc-for list="{{sideGroups}}" as="g" hint-placeholder-count="4">
-        <p data-sidehead>{{g.l}}</p>
-        <sc-for list="{{g.items}}" as="it" hint-placeholder-count="3"><a href="{{it.href}}" aria-current="{{it.cur}}" data-sideitem style="color:{{it.fg}};background:{{it.bg}};box-shadow:{{it.ul}}"><span data-sidecode>{{it.code}}</span><span style="flex:1">{{it.l}}</span><span data-sidecount>{{it.n}}</span></a></sc-for>
+        <a href="{{g.href}}" aria-current="{{g.cur}}" data-sideitem style="color:{{g.fg}};background:{{g.bg}};box-shadow:{{g.ul}}"><span style="flex:1">{{g.l}}</span><span data-sidecount>{{g.n}}</span></a>
+        <sc-if value="{{g.open}}"><div style="display:flex;flex-direction:column;gap:1px;margin:0 0 6px 12px;padding-left:8px;border-left:1px solid var(--line)"><sc-for list="{{g.items}}" as="it" hint-placeholder-count="3"><a href="{{it.href}}" aria-current="{{it.cur}}" data-sideitem style="color:{{it.fg}};background:{{it.bg}};box-shadow:{{it.ul}}"><span style="flex:1">{{it.l}}</span><span data-sidecount>{{it.n}}</span></a></sc-for></div></sc-if>
       </sc-for>
-      <p data-sidehead>Jurisdiction</p>
-      <sc-for list="{{sideJur}}" as="it" hint-placeholder-count="6"><a href="{{it.href}}" aria-current="{{it.cur}}" data-sideitem style="color:{{it.fg}};background:{{it.bg}};box-shadow:{{it.ul}}"><span data-sidecode>{{it.code}}</span><span style="flex:1">{{it.l}}</span><span data-sidecount>{{it.n}}</span></a></sc-for>
+      <a href="{{sideFed.href}}" aria-current="{{sideFed.cur}}" data-sideitem style="color:{{sideFed.fg}};background:{{sideFed.bg}};box-shadow:{{sideFed.ul}}"><span style="flex:1">Federal</span><span data-sidecount>{{sideFed.n}}</span></a>
+      <details open="{{sideStOpen}}"><summary data-sideitem style="cursor:pointer;color:var(--ink-2)"><span style="flex:1">States</span><span data-sidecount>{{sideStN}}</span></summary>
+        <div style="display:flex;flex-direction:column;gap:1px;margin:0 0 6px 12px;padding-left:8px;border-left:1px solid var(--line)"><sc-for list="{{sideJur}}" as="it" hint-placeholder-count="6"><a href="{{it.href}}" aria-current="{{it.cur}}" data-sideitem style="color:{{it.fg}};background:{{it.bg}};box-shadow:{{it.ul}}"><span style="flex:1">{{it.l}}</span><span data-sidecount>{{it.n}}</span></a></sc-for></div>
+      </details>
     </nav>
   </details>
 </aside>
@@ -541,6 +543,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
               <a href="{{k.href}}" data-serif style="font-size:calc(18px*var(--fs));line-height:1.25;color:var(--ink);text-decoration:none;overflow-wrap:anywhere" style-hover="text-decoration:underline">{{k.short}}</a>
               <span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2)"><span aria-hidden="true" style="color:{{k.sc}}">{{k.sg}}</span> {{k.sl}} · {{k.juris}}</span>
+              <p style="margin:6px 0 0;font-size:calc(14.5px*var(--fs));line-height:1.5;color:var(--ink);overflow-wrap:anywhere"><span style="display:block;font-size:calc(12.5px*var(--fs));font-weight:650;color:var(--ink-3);margin-bottom:2px">Summary</span>{{k.sum}}</p>
             </div>
             <button data-chip onClick="{{k.rm}}" aria-label="{{k.aria}}" style="width:calc(32px*var(--hs));height:calc(32px*var(--hs));flex-shrink:0;padding:0;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer">✕</button>
           </header>
@@ -663,13 +666,6 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 </main>
 
-<footer style="border-top:1px solid var(--line);background:var(--surface);padding:28px clamp(16px,3vw,32px) {{footerPadBottom}}">
-  <div style="max-width:1600px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-start;justify-content:space-between">
-    <div style="display:flex;flex-direction:column;gap:8px;max-width:620px"><span data-serif data-wordmark style="font-size:calc(17px*var(--fs));color:var(--ink)"><span data-us>US</span> Frontier Law</span>
-    <p style="margin:0;font-size:calc(14px*var(--fs));color:var(--ink-2);text-wrap:pretty"><strong style="color:var(--ink)">Not legal advice.</strong> Status changes weekly. Re-check the primary source before citing. Verified as of {{verLabel}}, with supplementary checks through {{asofLabel}}.</p></div>
-    <nav aria-label="Reference" style="display:flex;flex-wrap:wrap;gap:4px 18px;font-size:calc(14px*var(--fs));font-weight:700"><a href="#/handbook" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Handbook</a><a href="#/about" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">About this site</a><a href="#/methodology" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Methodology</a></nav>
-  </div>
-</footer>
 
 <sc-if value="{{showBottomNav}}">
   <nav aria-label="Main" style="position:fixed;left:0;right:0;bottom:0;z-index:45;background:color-mix(in oklab,var(--surface) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:6px calc(4px*var(--ps)) calc(6px + env(safe-area-inset-bottom))">
@@ -857,7 +853,7 @@ class Component extends DCLogic {
   }
   endBoot() {
     if (!this.state.booting) { this.intro(); return; }
-    const min = this.rm ? 200 : 2700, wait = Math.max(0, min - (performance.now() - this.t0));
+    const min = this.rm ? 200 : 3400, wait = Math.max(0, min - (performance.now() - this.t0));
     setTimeout(() => { this.setState({ leaving: true }); setTimeout(() => { this.setState({ booting: false, leaving: false }); this.intro(); }, this.rm ? 0 : 520); }, wait);
   }
   intro() {
@@ -1125,19 +1121,20 @@ class Component extends DCLogic {
     const count = {}; D.E.forEach(x => { count[x.section] = (count[x.section] || 0) + 1; });
     const placed = new Set(L.GROUPS.flatMap(g => g.sections));
     const groups = [...L.GROUPS.map(g => [g.l, g.sections]), ['Other', Object.keys(count).filter(c => !placed.has(c))]]
-      .map(([l, codes]) => ({ l, items: codes.filter(c => count[c]).map(c => item(p.sec === c, { code: c, l: L.SEC[c] || c, n: count[c], href: href({ sec: c, st: '', level: '' }) })) })).filter(g => g.items.length);
+      .map(([l, codes], gi) => { const k = (L.GROUPS[gi] || {}).k, items = codes.filter(c => count[c]).map(c => item(p.sec === c, { code: c, l: L.SEC[c] || c, n: count[c], href: href({ sec: c, grp: '', st: '', level: '' }) })), open = (k && p.grp === k) || codes.includes(p.sec);
+        return item(k && p.grp === k && !p.sec, { l, items, open, n: items.reduce((t, x) => t + x.n, 0), href: k ? href({ grp: k, sec: '', st: '', level: '' }) : href({ sec: codes[0], grp: '', st: '', level: '' }) }); }).filter(g => g.items.length);
     const stN = {}; D.E.forEach(x => { if (x.st) stN[x.st] = (stN[x.st] || 0) + 1; });
     const fedN = D.E.filter(x => x.level === 'federal').length;
-    const jur = [item(p.level === 'federal' && !p.st, { code: 'US', l: 'Federal', n: fedN, href: href({ level: 'federal', st: '', sec: '' }) }),
-      ...Object.keys(stN).filter(c => L.SN[c]).sort((a, b) => L.SN[a].localeCompare(L.SN[b])).map(c => item(p.st === c, { code: c, l: L.SN[c], n: stN[c], href: href({ st: c, level: '', sec: '' }) }))];
+    const sideFed = item(p.level === 'federal' && !p.st, { n: fedN, href: href({ level: 'federal', st: '', sec: '', grp: '' }) });
+    const jur = [...Object.keys(stN).filter(c => L.SN[c]).sort((a, b) => L.SN[a].localeCompare(L.SN[b])).map(c => item(p.st === c, { code: c, l: L.SN[c], n: stN[c], href: href({ st: c, level: '', sec: '', grp: '' }) }))];
     const hid = !small && !!this.state.sideHidden;
     const toggleSide = () => { const v = !this.state.sideHidden; try { localStorage.setItem('fal-side', v ? 'hidden' : 'shown'); } catch (e) {} this.setState({ sideHidden: v }); };
-    return { sideCollapsed: hid ? 'true' : 'false', sideExpanded: hid ? 'false' : 'true', sideBtnLabel: hid ? 'Show sections and states' : 'Hide sections and states', sideBtnText: hid ? '›' : '‹ Hide', toggleSide, sideOpen: !small, sideGroups: groups, sideJur: jur, sideAll: item(!p.sec && !p.st && !p.level, { n: D.E.length, href: href({ sec: '', st: '', level: '' }) }) };
+    return { sideCollapsed: hid ? 'true' : 'false', sideExpanded: hid ? 'false' : 'true', sideBtnLabel: hid ? 'Show sections and states' : 'Hide sections and states', sideBtnText: hid ? '›' : '‹ Hide', toggleSide, sideOpen: !small, sideGroups: groups, sideJur: jur, sideFed, sideStN: jur.length, sideStOpen: !!p.st, sideAll: item(!p.sec && !p.st && !p.level && !p.grp, { n: D.E.length, href: href({ sec: '', st: '', level: '' }) }) };
   }
   // Insights → Bill relations: the relationship canvas and the links panel.
   map(p) {
     const L = this.L, D = this.D, s = this.state;
-    const entire = p.graph === 'entire', all = this.V.lensGraph(D, 'all', []);
+    const entire = p.graph === 'entire' || (!p.c && p.graph !== 'focus'), all = this.V.lensGraph(D, 'all', []);
     const focus = p.c && all.deg[p.c] ? p.c : all.hubs.find(k => !D.rel.actors[k]);
     const cl = p.net === 'family' && D.content && D.content.comparison.clusters;
     const cv = this.conn(focus), st = this.state;
@@ -1145,7 +1142,7 @@ class Component extends DCLogic {
     const out = { ...cv, linksEl, showNet: true, showStar: false, showDirect: !entire, hasClusters: !!cl, clustersEl: cl ? this.V.mdP(cl, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }) : null };
     out.netEl = this.V.focusView({ L, D, focus, people: p.people === '1', entire, lens: p.net || 'all', narrow: s.vw < 640,
       select: k => this.setP({ c: k, graph: '' }), setPeople: v => this.setP({ people: v ? '1' : '' }, true),
-      setMode: v => this.setP({ graph: v ? 'entire' : '' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
+      setMode: v => this.setP({ graph: v ? 'entire' : 'focus' }, true), setLens: k => this.setP({ net: k === 'all' ? '' : k }, true) });
     return out;
   }
   explore(p) {
@@ -1306,7 +1303,7 @@ class Component extends DCLogic {
       return { dim, kind, isDiff: kind === 'diff', isMostly: kind === 'mostly', note, hasNote: !!note, same: vals[0], vals: vals.map((v, i) => ({ v, segs: segsFor(v, i), letter: LET[i], col: COL[i], nm: xs[i].short, bd: i === odd ? '1.5px solid var(--accent)' : '1px solid var(--line)' })) };
     });
     const setIds = n => this.go('/compare', { ids: n.join(',') }, true);
-    const heads = xs.map((x, i) => ({ letter: LET[i], col: COL[i], short: x.short, href: '#/bill/' + x.id, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, juris: x.juris, rm: () => setIds(ids.filter(j => j !== x.id)), aria: 'Remove ' + x.short }));
+    const heads = xs.map((x, i) => ({ letter: LET[i], col: COL[i], short: x.short, sum: x.summary || x.mech || x.lead, href: '#/bill/' + x.id, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, juris: x.juris, rm: () => setIds(ids.filter(j => j !== x.id)), aria: 'Remove ' + x.short }));
     const ql = s.cmpQ.trim().toLowerCase();
     const pool = D.E.filter(x => x.section !== 'J' && !ids.includes(x.id) && (!ql || (x.short + ' ' + x.title + ' ' + x.juris).toLowerCase().includes(ql)));
     const sorted = ql ? pool : [...pool.filter(x => L.K_IDS.includes(x.id)), ...pool.filter(x => !L.K_IDS.includes(x.id))];
