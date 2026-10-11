@@ -807,7 +807,10 @@ export function compareExtras(C, L, D) {
   const K = C.comparison, cols = K.columns, ids = L.K_IDS;
   const head = ['Dimension', ...cols.map((c, i) => (D.byId[ids[i]] ? `[${c}](#/bill/${ids[i]})` : c))];
   const rows = L.K_ROWS.map(([dim, m, note]) => (note ? { head: dim, span: note } : [dim, ...ids.map((id) => m[id] || '—')]));
-  return h('div', { style: { display: 'flex', flexDirection: 'column', gap: 36, marginTop: 44 } },
+  // Closed by default: it always covers the same seven bills, whatever entries are picked above.
+  return h('details', { style: { marginTop: 36, borderRadius: 'var(--r)', border: '1px solid var(--line)', background: 'var(--surface)' } },
+    h('summary', { style: { cursor: 'pointer', padding: '14px 16px', fontWeight: 650, fontSize: 'calc(15px*var(--fs))', minHeight: 'calc(44px*var(--hs))' } }, 'Show the full comparison tables for the seven main laws and bills'),
+    h('div', { style: { display: 'flex', flexDirection: 'column', gap: 36, padding: '8px 16px 20px' } },
     h('section', { 'aria-labelledby': 'k-h' },
       h('h2', { id: 'k-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.heading || 'Cross-cutting divergences'),
       h('p', { style: { margin: '0 0 12px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)' } }, `The tracker’s full comparison matrix, ${rows.length} rows, as written. The “full spread” row lists figures from other bills, so it is shown as one line.`),
@@ -816,7 +819,7 @@ export function compareExtras(C, L, D) {
     h('section', { 'aria-labelledby': 'k2-h' },
       h('h2', { id: 'k2-h', style: { margin: '0 0 8px', fontSize: 'calc(24px*var(--fs))' } }, K.assurance.heading),
       ...(K.assurance.intro || []).map((p, i) => h('div', { key: i }, mdP(p, null, { color: 'var(--ink-2)', fontSize: 'calc(15px*var(--fs))' }))),
-      mdTable(K.assurance.columns, K.assurance.rows, { minWidth: 1000, firstWide: true, label: 'Assurance layers, scrolls sideways', caption: 'Assurance layers by jurisdiction or bill' })));
+      mdTable(K.assurance.columns, K.assurance.rows, { minWidth: 1000, firstWide: true, label: 'Assurance layers, scrolls sideways', caption: 'Assurance layers by jurisdiction or bill' }))));
 }
 
 // Handbook: chapter list, one chapter at a time (or all), search within.

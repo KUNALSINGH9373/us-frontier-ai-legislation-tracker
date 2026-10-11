@@ -266,6 +266,12 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       </sc-if>
     </aside>
   </div>
+  <section aria-labelledby="ask-h" style="margin-top:clamp(24px,3vw,36px)">
+    <h2 id="ask-h" style="margin:0 0 12px;font-size:calc(20px*var(--fs))">Start with a question</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px">
+      <sc-for list="{{starts}}" as="g" hint-placeholder-count="3"><a href="{{g.href}}" style="display:flex;flex-direction:column;gap:4px;padding:calc(16px*var(--ps)) calc(18px*var(--ps));border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none" style-hover="border-color:var(--line-2);color:var(--ink)"><strong data-serif style="font-size:calc(17px*var(--fs))">{{g.t}}</strong><span style="font-size:calc(14px*var(--fs));color:var(--ink-2)">{{g.d}}</span></a></sc-for>
+    </div>
+  </section>
 </div>
 </sc-if>
 
@@ -1081,6 +1087,7 @@ class Component extends DCLogic {
       goCmp: () => this.go('/compare', { states: cmp.join(',') }),
       cmpBtnBg: p.mode === 'compare' ? 'var(--ink)' : 'var(--surface)', cmpBtnFg: p.mode === 'compare' ? 'var(--bg)' : 'var(--ink)',
       activeStates, homeNews,
+      starts: [['What applies to my company?', 'Enacted state laws and exactly who they cover.', '#/explore?type=law&level=state'], ['What’s coming up?', 'Effective dates and deadlines after ' + L.fmt(L.ASOF) + '.', '#/insights?when=upcoming&tl=list'], ['What is Congress doing?', 'Federal bills and proposals, and where each stands.', '#/explore?level=federal']].map(([t, d, href]) => ({ t, d, href })),
       sideState: !!p.state && !mob && !!L.SN[p.state], sideNews: !(p.state && !mob && L.SN[p.state]), asideZ: p.state && !mob ? 46 : 'auto', asideSh: p.state && !mob ? 'var(--shadow-3)' : 'none',
       ...this.panel(p, byState, mob)
     };
