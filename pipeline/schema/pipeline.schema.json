@@ -1,0 +1,665 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tracker.local/schema/pipeline.schema.json",
+  "title": "Pipeline files",
+  "description": "The files the agents pass to each other. Each agent reads one and writes the next, so every step can be tested alone.",
+  "$defs": {
+    "state": {
+      "title": "state.json: what the Grabber saw on the last successful run",
+      "type": "object",
+      "required": [
+        "version",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "last_run": {
+          "type": "object",
+          "required": [
+            "run_id",
+            "finished_at",
+            "status"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "run_id": {
+              "type": "string"
+            },
+            "finished_at": {
+              "$ref": "common.schema.json#/$defs/isoDateTime"
+            },
+            "status": {
+              "enum": [
+                "success",
+                "partial",
+                "failed"
+              ]
+            }
+          }
+        },
+        "sources": {
+          "type": "object",
+          "description": "One block per source (congress_gov, federal_register, legiscan, ...).",
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "last_success"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "last_success": {
+                "$ref": "common.schema.json#/$defs/isoDateTime"
+              },
+              "cursor": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Last item id or date seen, for sources that page forward."
+              },
+              "hashes": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Change hash per record id, for sources like LegiScan."
+              },
+              "quota": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "period": {
+                    "type": "string"
+                  },
+                  "used": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "changeItem": {
+      "type": "object",
+      "required": [
+        "item_id",
+        "source",
+        "source_id",
+        "change",
+        "source_url",
+        "fetched_at",
+        "raw_hash",
+        "raw_path"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "item_id": {
+          "type": "string",
+          "description": "Unique within a run, used to follow one item through every step."
+        },
+        "source": {
+          "type": "string"
+        },
+        "source_id": {
+          "type": "string",
+          "description": "The record's id in that source."
+        },
+        "entry_key": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/key"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The tracker entry it matches, or null for a possible new entry."
+        },
+        "change": {
+          "enum": [
+            "new",
+            "changed"
+          ]
+        },
+        "source_url": {
+          "$ref": "common.schema.json#/$defs/url"
+        },
+        "fetched_at": {
+          "$ref": "common.schema.json#/$defs/isoDateTime"
+        },
+        "raw_hash": {
+          "type": "string"
+        },
+        "raw_path": {
+          "type": "string",
+          "description": "Where the fetched source text was saved. The validator checks quotes against this file."
+        },
+        "reason": {
+          "enum": [
+            "updated_since_cursor",
+            "reconcile",
+            "discovery"
+          ],
+          "description": "Why it was picked up: changed since the last run, a one-time reconciliation, or a possible new entry found by search."
+        },
+        "title": {
+          "type": "string",
+          "description": "The source's own title, for logs only."
+        }
+      }
+    },
+    "changeset": {
+      "title": "changeset.json: the Grabber's output",
+      "type": "object",
+      "required": [
+        "run_id",
+        "generated_at",
+        "items"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "run_id": {
+          "type": "string"
+        },
+        "generated_at": {
+          "$ref": "common.schema.json#/$defs/isoDateTime"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/changeItem"
+          }
+        }
+      }
+    },
+    "draft": {
+      "title": "draft.json: the Generator's output for one item",
+      "type": "object",
+      "required": [
+        "run_id",
+        "item_id",
+        "attempt",
+        "model",
+        "entry"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "run_id": {
+          "type": "string"
+        },
+        "item_id": {
+          "type": "string"
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "model": {
+          "type": "string"
+        },
+        "feedback_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The validator complaints this attempt was asked to fix."
+        },
+        "entry": {
+          "type": "object",
+          "description": "A full v2 entry (see entry.schema.json). Validated separately."
+        }
+      }
+    },
+    "verdict": {
+      "title": "verdict.json: the Validator's result for one draft",
+      "type": "object",
+      "required": [
+        "run_id",
+        "item_id",
+        "attempt",
+        "passed",
+        "code_checks",
+        "claims"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "run_id": {
+          "type": "string"
+        },
+        "item_id": {
+          "type": "string"
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "code_checks": {
+          "type": "array",
+          "description": "Plain-code checks: schema, real dates, quote appears verbatim in the source, dates and sponsors match the API.",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "passed"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "passed": {
+                "type": "boolean"
+              },
+              "detail": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "claims": {
+          "type": "array",
+          "description": "The independent LLM check, claim by claim.",
+          "items": {
+            "type": "object",
+            "required": [
+              "field",
+              "claim",
+              "supported"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "claim": {
+                "type": "string"
+              },
+              "supported": {
+                "type": "boolean"
+              },
+              "evidence_quote": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "description": "Required when not supported: exactly what is wrong and what the source says."
+              }
+            },
+            "if": {
+              "properties": {
+                "supported": {
+                  "const": false
+                }
+              },
+              "required": [
+                "supported"
+              ]
+            },
+            "then": {
+              "required": [
+                "reason"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "held": {
+      "title": "held.json item: could not be verified in 3 rounds, retried next run",
+      "type": "object",
+      "required": [
+        "item_id",
+        "source",
+        "source_id",
+        "reason",
+        "attempts",
+        "first_held_at",
+        "last_held_at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "item_id": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "source_id": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "attempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "last_verdict": {
+          "$ref": "#/$defs/verdict"
+        },
+        "first_held_at": {
+          "$ref": "common.schema.json#/$defs/isoDateTime"
+        },
+        "last_held_at": {
+          "$ref": "common.schema.json#/$defs/isoDateTime"
+        }
+      }
+    },
+    "runlog": {
+      "title": "run log: one record per scheduled run",
+      "type": "object",
+      "required": [
+        "run_id",
+        "started_at",
+        "finished_at",
+        "status",
+        "counts"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "run_id": {
+          "type": "string"
+        },
+        "started_at": {
+          "$ref": "common.schema.json#/$defs/isoDateTime"
+        },
+        "finished_at": {
+          "$ref": "common.schema.json#/$defs/isoDateTime"
+        },
+        "status": {
+          "enum": [
+            "success",
+            "partial",
+            "failed",
+            "paused"
+          ]
+        },
+        "counts": {
+          "type": "object",
+          "required": [
+            "fetched",
+            "changed",
+            "published",
+            "held"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "fetched": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "changed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "published": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "held": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "llm_calls": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "estimated_cost_usd": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "paused_reason": {
+          "type": "string",
+          "description": "Set when the safety guard stopped publishing, e.g. a sudden spike in changes."
+        }
+      }
+    },
+    "diff": {
+      "title": "diff.json item: what the comparison step found for one change-set item",
+      "type": "object",
+      "required": [
+        "item_id",
+        "verdict",
+        "reasons"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "item_id": {
+          "type": "string"
+        },
+        "entry_key": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/key"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verdict": {
+          "enum": [
+            "new_entry_candidate",
+            "material",
+            "minor",
+            "unchanged"
+          ],
+          "description": "material: something the tracker should reflect (a new action, a status change, a sponsor change). minor: counts or wording only, no AI needed. unchanged: nothing to do."
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "kind",
+              "detail"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "new_action",
+                  "status_change",
+                  "sponsor_change",
+                  "record_updated",
+                  "title_change",
+                  "candidate"
+                ]
+              },
+              "detail": {
+                "type": "string"
+              },
+              "api_value": {
+                "type": "string"
+              },
+              "our_value": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "patch": {
+      "title": "patch.json: the Generator's proposal for one item. It never sets status, type, level or confidence: code decides those from rules.",
+      "type": "object",
+      "required": [
+        "operation",
+        "in_scope",
+        "scope_reason",
+        "fields",
+        "events_add",
+        "evidence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "operation": {
+          "enum": [
+            "update",
+            "create"
+          ]
+        },
+        "in_scope": {
+          "type": "boolean",
+          "description": "Is this about regulating frontier / large-scale AI developers, as the tracker defines it? false means do not publish."
+        },
+        "scope_reason": {
+          "type": "string",
+          "minLength": 10,
+          "description": "One or two sentences, citing the source, for the in_scope answer."
+        },
+        "fields": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "short_name": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 100
+            },
+            "section": {
+              "$ref": "common.schema.json#/$defs/section"
+            },
+            "sponsor_text": {
+              "type": "string",
+              "minLength": 1
+            },
+            "mechanism": {
+              "type": "string",
+              "minLength": 1
+            },
+            "thresholds": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "penalties": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status_text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "signed_text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "effective_text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "events_add": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "date",
+              "precision",
+              "type",
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "date": {
+                "$ref": "common.schema.json#/$defs/isoDate"
+              },
+              "precision": {
+                "enum": [
+                  "day",
+                  "month"
+                ]
+              },
+              "type": {
+                "$ref": "common.schema.json#/$defs/eventType"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "clause": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "field",
+              "quote"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 8
+              },
+              "source_url": {
+                "$ref": "common.schema.json#/$defs/url"
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string"
+        },
+        "section": {
+          "enum": [
+            "D",
+            "F",
+            "G",
+            "G.3"
+          ],
+          "description": "Create only: the section for a new entry. Required for a bill (D or F)."
+        }
+      }
+    }
+  }
+}

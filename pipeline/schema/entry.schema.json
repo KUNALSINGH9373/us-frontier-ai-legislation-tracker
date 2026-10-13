@@ -1,0 +1,610 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tracker.local/schema/entry.schema.json",
+  "title": "Tracker entry (v2)",
+  "description": "One law, bill, executive action, lawsuit or export control. Everything the UI shows for an entry comes from this object. Dates and status are structured fields, not prose, so the agents can update them without rewriting text.",
+  "type": "object",
+  "required": [
+    "id",
+    "key",
+    "section",
+    "type",
+    "level",
+    "jurisdiction",
+    "state",
+    "status",
+    "title",
+    "short_name",
+    "sponsor_text",
+    "mechanism",
+    "events",
+    "sources",
+    "confidence",
+    "origin",
+    "verification",
+    "last_checked",
+    "last_changed"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Legacy number the UI and the old site already use. Never reused."
+    },
+    "key": {
+      "$ref": "common.schema.json#/$defs/key"
+    },
+    "section": {
+      "$ref": "common.schema.json#/$defs/section"
+    },
+    "type": {
+      "$ref": "common.schema.json#/$defs/type"
+    },
+    "level": {
+      "$ref": "common.schema.json#/$defs/level"
+    },
+    "jurisdiction": {
+      "$ref": "common.schema.json#/$defs/jurisdiction"
+    },
+    "state": {
+      "$ref": "common.schema.json#/$defs/stateCode"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/status"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "description": "Full title with citation, as the tracker writes it."
+    },
+    "short_name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 100
+    },
+    "identifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "How to find this entry in each official API. This is what lets the Grabber match an API record to this entry.",
+      "properties": {
+        "bill_number": {
+          "type": "string",
+          "description": "e.g. S.B. 53, H.R. 9925, EO 14365"
+        },
+        "session": {
+          "type": "string",
+          "description": "e.g. 2025-2026, 119th Congress"
+        },
+        "external": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "congress_gov": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "pattern": "^\\d+/[a-z]+/\\d+$"
+              },
+              "description": "Every Congress.gov bill this entry covers, e.g. [\"119/hr/9925\"]. Some entries cover a House and a Senate bill."
+            },
+            "legiscan_bill_id": {
+              "type": "integer"
+            },
+            "openstates_id": {
+              "type": "string"
+            },
+            "courtlistener_docket": {
+              "type": "string"
+            },
+            "federal_register_doc": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "sponsor_text": {
+      "type": "string",
+      "description": "Sponsors exactly as displayed."
+    },
+    "sponsors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "party": {
+            "type": "string"
+          },
+          "chamber": {
+            "enum": [
+              "house",
+              "senate",
+              "assembly",
+              "other"
+            ]
+          },
+          "state": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "primary",
+              "cosponsor",
+              "supporter",
+              "opponent"
+            ]
+          }
+        }
+      }
+    },
+    "mechanism": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What it does. For automated entries this must be supported by evidence quotes."
+    },
+    "thresholds": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Who it covers (compute, revenue, scope)."
+    },
+    "penalties": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status_text": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Status and dates as displayed prose. Kept for display; the structured events below are what the UI computes from."
+    },
+    "signed_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "effective_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "events": {
+      "type": "array",
+      "description": "Every dated step, oldest first.",
+      "items": {
+        "type": "object",
+        "required": [
+          "date",
+          "precision",
+          "type",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "date": {
+            "$ref": "common.schema.json#/$defs/isoDate"
+          },
+          "precision": {
+            "enum": [
+              "day",
+              "month"
+            ]
+          },
+          "type": {
+            "$ref": "common.schema.json#/$defs/eventType"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What happened, short."
+          },
+          "clause": {
+            "type": "string",
+            "description": "The verbatim sentence the event was read from."
+          },
+          "inferred_year": {
+            "type": "boolean"
+          },
+          "scheduled": {
+            "type": "boolean",
+            "description": "True when the date is after the data cut-off."
+          },
+          "source_url": {
+            "$ref": "common.schema.json#/$defs/url"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/sourceRef"
+      }
+    },
+    "more_links": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/link"
+      }
+    },
+    "source_label": {
+      "type": "string",
+      "description": "Short source line shown in the table."
+    },
+    "confidence": {
+      "type": "object",
+      "required": [
+        "level",
+        "basis"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/confidenceLevel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis": {
+          "$ref": "common.schema.json#/$defs/confidenceBasis"
+        },
+        "note": {
+          "type": "string",
+          "description": "What was and was not checked."
+        }
+      }
+    },
+    "tags": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "updated_after_verification": {
+          "type": "boolean",
+          "description": "The old marker U: added or changed in the checks after the main verification date."
+        },
+        "found_via": {
+          "enum": [
+            "dedicated_search",
+            "ncsl",
+            "api",
+            "news",
+            "author"
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/evidence"
+      }
+    },
+    "origin": {
+      "$ref": "common.schema.json#/$defs/origin"
+    },
+    "verification": {
+      "$ref": "common.schema.json#/$defs/verification"
+    },
+    "last_checked": {
+      "$ref": "common.schema.json#/$defs/isoDate"
+    },
+    "last_changed": {
+      "$ref": "common.schema.json#/$defs/isoDate"
+    },
+    "legacy": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Old-site references kept for continuity (permalink, section name, original table cells). Ignored by the pipeline."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "section": {
+            "const": "J"
+          }
+        },
+        "required": [
+          "section"
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "excluded"
+          },
+          "confidence": {
+            "properties": {
+              "level": {
+                "type": "null"
+              },
+              "basis": {
+                "const": "not_rated"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "origin": {
+            "enum": [
+              "automated",
+              "mixed"
+            ]
+          }
+        },
+        "required": [
+          "origin"
+        ]
+      },
+      "then": {
+        "required": [
+          "evidence",
+          "identifiers",
+          "sources"
+        ],
+        "properties": {
+          "evidence": {
+            "minItems": 1
+          },
+          "verification": {
+            "properties": {
+              "method": {
+                "const": "agent"
+              },
+              "run_id": {
+                "type": "string"
+              },
+              "rounds": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "run_id",
+              "rounds"
+            ]
+          },
+          "confidence": {
+            "properties": {
+              "basis": {
+                "enum": [
+                  "primary_record",
+                  "corroborated",
+                  "secondary",
+                  "single_source"
+                ]
+              }
+            }
+          },
+          "sources": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "level": {
+            "const": "state"
+          }
+        },
+        "required": [
+          "level"
+        ]
+      },
+      "then": {
+        "properties": {
+          "state": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "level": {
+            "const": "federal"
+          }
+        },
+        "required": [
+          "level"
+        ]
+      },
+      "then": {
+        "properties": {
+          "state": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "basis": {
+                "const": "primary_record"
+              }
+            },
+            "required": [
+              "basis"
+            ]
+          }
+        },
+        "required": [
+          "confidence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "level": {
+                "enum": [
+                  "HIGH",
+                  "MED-HIGH"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "basis": {
+                "const": "corroborated"
+              }
+            },
+            "required": [
+              "basis"
+            ]
+          }
+        },
+        "required": [
+          "confidence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "level": {
+                "enum": [
+                  "MED-HIGH",
+                  "MED"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "basis": {
+                "const": "secondary"
+              }
+            },
+            "required": [
+              "basis"
+            ]
+          }
+        },
+        "required": [
+          "confidence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "level": {
+                "enum": [
+                  "MED",
+                  "LOW"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "basis": {
+                "const": "single_source"
+              }
+            },
+            "required": [
+              "basis"
+            ]
+          }
+        },
+        "required": [
+          "confidence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "level": {
+                "enum": [
+                  "LOW"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "basis": {
+                "const": "search_negative"
+              }
+            },
+            "required": [
+              "basis"
+            ]
+          }
+        },
+        "required": [
+          "confidence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "confidence": {
+            "properties": {
+              "level": {
+                "enum": [
+                  "SEARCH-QUALIFIED"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

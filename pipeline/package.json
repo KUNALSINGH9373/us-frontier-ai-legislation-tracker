@@ -1,0 +1,28 @@
+{
+  "name": "tracker-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Schemas, validators and (later) the agents that keep the tracker data current. Separate from v1 and from web/.",
+  "scripts": {
+    "validate": "node schema/validate.mjs",
+    "convert": "node schema/legacy-to-v2.mjs",
+    "map-ids": "node grabber/map-ids.mjs",
+    "grab": "node grabber/run.mjs",
+    "compare": "node compare/run.mjs",
+    "test:schema": "node schema/test.mjs",
+    "test:grabber": "node grabber/test.mjs",
+    "test:fr": "node grabber/test-federal-register.mjs",
+    "test:compare": "node compare/test.mjs",
+    "test:compare-fr": "node compare/test-federal-register.mjs",
+    "test": "node schema/test.mjs && node grabber/test.mjs && node grabber/test-federal-register.mjs && node compare/test.mjs && node compare/test-federal-register.mjs && node llm/test.mjs && node agents/test-derive.mjs && node agents/test.mjs",
+    "test:llm": "node llm/test.mjs",
+    "test:agents": "node agents/test.mjs",
+    "agents": "node agents/run.mjs",
+    "test:derive": "node agents/test-derive.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  }
+}

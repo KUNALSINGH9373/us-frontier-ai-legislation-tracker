@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tracker.local/schema/news.schema.json",
+  "title": "Updates feed (v2)",
+  "description": "The dated news page. Items link to an entry through its stable key, not a number.",
+  "type": "object",
+  "required": ["title", "asof", "kinds", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "title": { "type": "string" },
+    "asof": { "type": "string", "description": "Display date the feed is current to." },
+    "intro": { "type": "string" },
+    "bottom": { "type": "string", "description": "The month in one paragraph." },
+    "kinds": {
+      "type": "object",
+      "propertyNames": { "enum": ["federal", "state", "executive", "litigation", "industry"] },
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "desc"],
+        "additionalProperties": false,
+        "properties": { "name": { "type": "string" }, "desc": { "type": "string" }, "color": { "type": "string" }, "soft": { "type": "string" } }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["date", "kind", "title", "body", "links", "origin", "verification"],
+        "additionalProperties": false,
+        "properties": {
+          "date": { "$ref": "common.schema.json#/$defs/isoDate" },
+          "kind": { "enum": ["federal", "state", "executive", "litigation", "industry"] },
+          "title": { "type": "string", "minLength": 5 },
+          "body": { "type": "string", "minLength": 20 },
+          "links": { "type": "array", "minItems": 1, "items": { "$ref": "common.schema.json#/$defs/link" } },
+          "check": { "type": "string", "description": "What was and was not verified, e.g. a page that blocked automated access." },
+          "tracker": { "oneOf": [{ "$ref": "common.schema.json#/$defs/key" }, { "type": "null" }], "description": "Key of the entry this item is about." },
+          "evidence": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/evidence" } },
+          "origin": { "$ref": "common.schema.json#/$defs/origin" },
+          "verification": { "$ref": "common.schema.json#/$defs/verification" }
+        },
+        "if": { "properties": { "origin": { "enum": ["automated", "mixed"] } }, "required": ["origin"] },
+        "then": { "required": ["evidence"], "properties": { "evidence": { "minItems": 1 } } }
+      }
+    }
+  }
+}

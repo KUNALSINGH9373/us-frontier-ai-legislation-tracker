@@ -1,0 +1,84 @@
+{
+ "id": "119/s/5061",
+ "list_item": null,
+ "bill": {
+  "actions": {
+   "count": 2,
+   "url": "https://api.congress.gov/v3/bill/119/s/5061/actions?format=json"
+  },
+  "committees": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/s/5061/committees?format=json"
+  },
+  "congress": 119,
+  "introducedDate": "2026-07-21",
+  "latestAction": {
+   "actionDate": "2026-07-21",
+   "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation."
+  },
+  "legislationUrl": "https://www.congress.gov/bill/119th-congress/senate-bill/5061",
+  "number": "5061",
+  "originChamber": "Senate",
+  "originChamberCode": "S",
+  "policyArea": {
+   "name": "Armed Forces and National Security"
+  },
+  "sponsors": [
+   {
+    "bioguideId": "W000805",
+    "firstName": "Mark",
+    "fullName": "Sen. Warner, Mark R. [D-VA]",
+    "isByRequest": "N",
+    "lastName": "Warner",
+    "middleName": "R.",
+    "party": "D",
+    "state": "VA",
+    "url": "https://api.congress.gov/v3/member/W000805?format=json"
+   }
+  ],
+  "subjects": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/s/5061/subjects?format=json"
+  },
+  "textVersions": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/s/5061/text?format=json"
+  },
+  "title": "Secure A.I. Development Act of 2026",
+  "titles": {
+   "count": 4,
+   "url": "https://api.congress.gov/v3/bill/119/s/5061/titles?format=json"
+  },
+  "type": "S",
+  "updateDate": "2026-09-08T18:03:40Z",
+  "updateDateIncludingText": "2026-09-08T18:03:40Z"
+ },
+ "actions": [
+  {
+   "actionDate": "2026-07-21",
+   "committees": [
+    {
+     "name": "Commerce, Science, and Transportation Committee",
+     "systemCode": "sscm00",
+     "url": "https://api.congress.gov/v3/committee/senate/sscm00?format=json"
+    }
+   ],
+   "sourceSystem": {
+    "name": "Senate"
+   },
+   "text": "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+   "type": "IntroReferral"
+  },
+  {
+   "actionCode": "10000",
+   "actionDate": "2026-07-21",
+   "sourceSystem": {
+    "code": 9,
+    "name": "Library of Congress"
+   },
+   "text": "Introduced in Senate",
+   "type": "IntroReferral"
+  }
+ ],
+ "summaries": []
+}
