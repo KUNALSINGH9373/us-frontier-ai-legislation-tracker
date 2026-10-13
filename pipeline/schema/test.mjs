@@ -24,7 +24,7 @@ ok('section notes for A, B.2, C, G.2 and G.3', ['A', 'B.2', 'C', 'G.2', 'G.3'].e
 { const d = clone(data.content); d.about.blocks[0].type = 'script'; ok('content schema rejects an unknown block type', v.check('content', d).length > 0); }
 const integrity = checkIntegrity(data);
 ok('cross-file references are consistent', integrity.length === 0, integrity.slice(0, 5).join('\n      '));
-ok('90 entries, 178 events, 133 edges (matches the live UI)', data.entries.length === 90 && data.entries.reduce((n, e) => n + e.events.length, 0) === 178 && data.relationships.edges.length === 133);
+ok('93 entries, 186 events, 136 edges (matches the live UI)', data.entries.length === 93 && data.entries.reduce((n, e) => n + e.events.length, 0) === 186 && data.relationships.edges.length === 136);
 
 // ---------- 2. the schema rejects bad input ----------
 const good = data.entries.find((e) => e.section === 'A');

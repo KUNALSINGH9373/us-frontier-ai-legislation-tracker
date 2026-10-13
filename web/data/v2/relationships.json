@@ -307,7 +307,7 @@
    "name": "Trump remarks, Aug 7, 2026",
    "column": 1,
    "kind": "entry",
-   "entry_key": "trump-remarks-aug-7-2026"
+   "entry_key": "ca-trump-remarks-aug-7-2026"
   },
   "NOCHALLENGE": {
    "name": "No challenge located to SB 53, RAISE, SB 315",
@@ -337,13 +337,13 @@
    "name": "Anthropic v. Department of War (N.D. Cal.)",
    "column": 6,
    "kind": "entry",
-   "entry_key": "anthropic-v-department-of-war-n-d-cal"
+   "entry_key": "fl-anthropic-v-department-of-war-n-d-cal"
   },
   "DCCIR": {
    "name": "Anthropic v. DoW, D.C. Cir. (§ 4713) — petition denied",
    "column": 6,
    "kind": "entry",
-   "entry_key": "anthropic-v-dow-d-c-cir-4713-petition-denied"
+   "entry_key": "ca-anthropic-v-dow-d-c-cir-4713-petition-denied"
   },
   "PROTECTDEM": {
    "name": "Protect Democracy v. ONCD",
@@ -355,7 +355,7 @@
    "name": "California DOJ enforcement capacity",
    "column": 6,
    "kind": "entry",
-   "entry_key": "ca-california-doj-enforcement-capacity"
+   "entry_key": "california-doj-enforcement-capacity"
   },
   "LINEAGE": {
    "name": "10²⁶ threshold lineage (EO 14110)",
@@ -400,10 +400,10 @@
    "entry_key": "va-hb-2094-2025-vetoed"
   },
   "AIRMSA": {
-   "name": "Warner–Schatz–Kim AI Risk Management and Security Act",
+   "name": "S. 5576 Warner–Schatz–Kim AI Risk Management and Security Act",
    "column": 2,
    "kind": "entry",
-   "entry_key": "warner-schatz-kim-ai-risk-management-and-security-act"
+   "entry_key": "s-5576-warner-schatz-kim-ai-risk-management-and-security-act"
   },
   "AIEBA": {
    "name": "S. 5417 / H.R. 10567 AI Emergency Button Act",
@@ -421,13 +421,13 @@
    "name": "CA EO N-9-26 (IVOs onsite, kill switch)",
    "column": 1,
    "kind": "entry",
-   "entry_key": "ca-eo-n-9-26-ivos-onsite-kill-switch"
+   "entry_key": "il-ca-eo-n-9-26-ivos-onsite-kill-switch"
   },
   "ILEO": {
    "name": "IL EO 2026-07 (AI Cabinet)",
    "column": 1,
    "kind": "entry",
-   "entry_key": "il-eo-2026-07-ai-cabinet"
+   "entry_key": "or-il-eo-2026-07-ai-cabinet"
   },
   "OREO": {
    "name": "OR EO 26-26 (state procurement)",
@@ -463,13 +463,13 @@
    "name": "Florida v. OpenAI — injunction motion",
    "column": 6,
    "kind": "entry",
-   "entry_key": "fl-florida-v-openai-injunction-motion"
+   "entry_key": "florida-v-openai-injunction-motion"
   },
   "WHACCORD": {
-   "name": "White House Accord on Superintelligence (voluntary)",
+   "name": "White House Accord on Super Intelligence (voluntary)",
    "column": 1,
    "kind": "entry",
-   "entry_key": "white-house-accord-on-superintelligence-voluntary"
+   "entry_key": "white-house-accord-on-super-intelligence-voluntary"
   },
   "ASTA": {
    "name": "S. 5471 AI Systems Transparency Act",
@@ -506,6 +506,24 @@
    "column": 2,
    "kind": "entry",
    "entry_key": "senate-commerce-draft-cruz-klobuchar-thune"
+  },
+  "EO14434": {
+   "name": "EO 14434 \"Super Intelligence\" terminology order",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "eo-14434-super-intelligence-terminology-order"
+  },
+  "SIF": {
+   "name": "Super Intelligence Force (Clayton)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "super-intelligence-force-clayton"
+  },
+  "AIAAA": {
+   "name": "AI Agent Accountability Act (Hawley–Murphy, announced)",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "ai-agent-accountability-act-hawley-murphy-announced"
   },
   "act-wiener": {
    "name": "Sen. Scott Wiener (CA)",
@@ -2011,6 +2029,38 @@
    "quote": "the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users",
    "src": "FLvOAI",
    "col": "Status",
+   "origin": "authored"
+  },
+  {
+   "from": "act-hawley",
+   "to": "AIAAA",
+   "type": "actor",
+   "label": "Sponsor with Sen. Murphy",
+   "quote": "Sens. Josh Hawley (R-MO), Chris Murphy (D-CT)",
+   "src": "AIAAA",
+   "col": "Sponsor(s)",
+   "origin": "authored"
+  },
+  {
+   "from": "EO14434",
+   "to": "WHACCORD",
+   "type": "executive",
+   "label": "Signed the same day; neither creates a developer obligation",
+   "quote": "Signed the same day as the White House accord; it ends the \"no new federal AI executive order since EO 14409\" finding, but changes no obligation on developers",
+   "dashed": true,
+   "src": "EO14434",
+   "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "WHACCORD",
+   "to": "SB813",
+   "type": "assurance",
+   "label": "Accord's external-auditor layer is what SB 813 / AB 1405 regulate",
+   "quote": "Layer (3) is the function SB 813 and AB 1405 regulate in California; the accord sets no accreditation, scope or disclosure rule for the auditor",
+   "dashed": true,
+   "src": "WHACCORD",
+   "col": "What it does",
    "origin": "authored"
   }
  ]
