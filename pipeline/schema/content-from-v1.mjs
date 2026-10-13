@@ -77,7 +77,9 @@ export function handbookContent(md) {
   return { title, intro: intro.join('\n').replace(/^\s*---\s*$/gm, '').trim(), chapters };
 }
 
-// The About section of the built v1 page (docs/index.html), as headed blocks of inline markdown.
+// The About section of the built v1 page, as headed blocks of inline markdown. Once the new UI is published the v1 page
+// lives at docs/v1/index.html (web/scripts/publish-site.mjs); before that it is docs/index.html.
+const v1PageOf = (root) => (fs.existsSync(path.join(root, 'docs', 'v1', 'index.html')) ? ['docs', 'v1', 'index.html'] : ['docs', 'index.html']);
 const ENT = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', '#39': "'" };
 const inline = (html) => html
   .replace(/<a\b[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g, (m, u, t) => `[${t.replace(/<[^>]+>/g, '')}](${u})`)
@@ -108,7 +110,7 @@ export function convertContent(root, L, keyOfId) {
       downloads: { handbook_pdf: 'downloads/handbook.pdf', handbook_md: 'downloads/handbook.md', tracker_md: 'downloads/tracker.md' },
       ...t.content,
       // v1's relative download link points at its own docs folder; v2 serves the same file from downloads/
-      about: JSON.parse(JSON.stringify(aboutContent(read('docs', 'index.html'))).replace(/\]\(tracker\.md\)/g, '](downloads/tracker.md)')),
+      about: JSON.parse(JSON.stringify(aboutContent(read(...v1PageOf(root)))).replace(/\]\(tracker\.md\)/g, '](downloads/tracker.md)')),
       handbook: handbookContent(read('handbook.md')),
       aaf_crosscheck: aaf
     }

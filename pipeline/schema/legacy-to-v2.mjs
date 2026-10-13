@@ -13,7 +13,7 @@ const readJson = (...p) => JSON.parse(fs.readFileSync(path.join(root, ...p), 'ut
 
 const iso = (d) => d.toISOString().slice(0, 10);
 const day = (y, m, d) => iso(new Date(Date.UTC(y, m, d)));
-const VERIFIED = '2026-09-05', THROUGH = '2026-09-29', WEEK_FROM = '2026-09-23';
+const VERIFIED = '2026-09-05', THROUGH = '2026-10-08', WEEK_FROM = '2026-10-02';
 
 const slug = (s) => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60).replace(/-+$/g, '');
 const PRIMARY = /(\.gov\b|legislature|leginfo|ilga\.|nysenate|malegislature|capitol|courtlistener|justia|congress|whitehouse|govinfo|federalregister|sec\.state|\.us\/)/i;

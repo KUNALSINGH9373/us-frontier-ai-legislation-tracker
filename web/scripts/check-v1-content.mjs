@@ -23,7 +23,7 @@ const notes = (code) => section(code).filter((l) => l.trim() && !isTable(l));
 const plainHtml = (h) => h.replace(/<[^>]+>/g, '').replace(/&(#x?[0-9a-f]+|\w+);/gi, (m, e) => (e[0] === '#' ? String.fromCodePoint(e[1] === 'x' ? parseInt(e.slice(2), 16) : +e.slice(1)) : { amp: '&', lt: '<', gt: '>', quot: '"', nbsp: ' ' }[e] ?? m));
 
 const aaf = JSON.parse(read('build', 'aaf-crosscheck.json'));
-const html = read('docs', 'index.html'), ai = html.indexOf('id="sec-about"'), about = html.slice(ai, html.indexOf('</section>', ai)).replace(/<nav[\s\S]*?<\/nav>/g, '').replace(/<header[\s\S]*?<\/header>/, '');
+const html = read('docs', fs.existsSync(path.join(web, '..', 'docs', 'v1', 'index.html')) ? 'v1/index.html' : 'index.html'), ai = html.indexOf('id="sec-about"'), about = html.slice(ai, html.indexOf('</section>', ai)).replace(/<nav[\s\S]*?<\/nav>/g, '').replace(/<header[\s\S]*?<\/header>/, '');
 // tracker.md's intro without its confidence key (the "**Confidence key**" line and the level bullets under it)
 const introLines = mdLines.slice(0, mdLines.findIndex((l) => /^## A\./.test(l))).filter((l) => !/^\*\*Confidence key\*\*/.test(l) && !/^\s*-\s+\*\*(HIGH|MED-HIGH|MED|SEARCH-QUALIFIED|LOW)\*\*/.test(l));
 const CHECKS = [
