@@ -100,7 +100,7 @@
     "CTSB5": "rec-s-b-5-connecticut-ai-responsibility-and-transparency-act-public-act-26",
     "COLORADO": "rec-colorado-sb-24-205-sb-26-189",
     "VA2094": "rec-virginia-hb-2094-2025",
-    "AIRMSA": "rec-artificial-intelligence-risk-management-and-security-act-of-2026-u",
+    "AIRMSA": "rec-s-5576-artificial-intelligence-risk-management-and-security-act-of-202",
     "AIEBA": "rec-s-5417-h-r-10567-ai-emergency-button-act-u",
     "AIREG": "rec-ai-regulator-act-of-2026-proposal-not-introduced-u",
     "CAEO": "rec-california-executive-order-n-9-26-independent-oversight-and-an-ai-kill",
@@ -111,13 +111,16 @@
     "NYTERM": "rec-s-10701-terminator-act-technical-evaluation-risk-monitoring-incident-n",
     "PAHB2800": "rec-h-b-2800-artificial-intelligence-risk-prevention-act-u",
     "FLvOAI": "rec-state-of-florida-v-openai-motion-for-temporary-injunction-against-fron",
-    "WHACCORD": "rec-the-white-house-accord-on-superintelligence-a-joint-commitment-on-fron",
+    "WHACCORD": "rec-white-house-accord-on-super-intelligence-joint-commitment-on-frontier-",
     "ASTA": "rec-s-5471-ai-systems-transparency-act-asta-u",
     "ROGUE": "rec-h-r-10362-stop-rogue-ai-act-u",
     "USCHINA": "rec-u-s-china-frontier-ai-safety-coordination-bill-liccardo-kiley-announce",
     "MARKEY": "rec-s-5541-cybersecurity-and-ai-board-of-investigations-act-u",
     "AASA": "rec-american-ai-security-act-announced-u",
-    "SENDRAFT": "rec-senate-commerce-draft-ai-bill-cruz-klobuchar-thune-in-development-text"
+    "SENDRAFT": "rec-senate-commerce-draft-ai-bill-cruz-klobuchar-thune-in-development-text",
+    "EO14434": "rec-executive-order-14434-inaugurating-the-era-of-super-intelligence-u",
+    "SIF": "rec-super-intelligence-force-presidential-task-force-chaired-by-dni-jay-cl",
+    "AIAAA": "rec-ai-agent-accountability-act-hawley-murphy-announced-not-yet-numbered-u"
   },
   "short": {
     "SB53": "CA SB 53 (TFAIA)",
@@ -180,7 +183,7 @@
     "CTSB5": "CT P.A. 26-15 (omnibus)",
     "COLORADO": "Colorado SB 24-205 → SB 26-189",
     "VA2094": "VA HB 2094 (2025, vetoed)",
-    "AIRMSA": "Warner–Schatz–Kim AI Risk Management and Security Act",
+    "AIRMSA": "S. 5576 Warner–Schatz–Kim AI Risk Management and Security Act",
     "AIEBA": "S. 5417 / H.R. 10567 AI Emergency Button Act",
     "AIREG": "AI Regulator Act (Bennet–Welch proposal)",
     "CAEO": "CA EO N-9-26 (IVOs onsite, kill switch)",
@@ -191,13 +194,16 @@
     "NYTERM": "NY S.10701 TERMINATOR Act (withdrawn)",
     "PAHB2800": "PA H.B. 2800 AI Risk Prevention Act",
     "FLvOAI": "Florida v. OpenAI — injunction motion",
-    "WHACCORD": "White House Accord on Superintelligence (voluntary)",
+    "WHACCORD": "White House Accord on Super Intelligence (voluntary)",
     "ASTA": "S. 5471 AI Systems Transparency Act",
     "ROGUE": "H.R. 10362 Stop Rogue AI Act",
     "USCHINA": "Liccardo–Kiley US–China AI safety bill",
     "MARKEY": "S. 5541 Cyber and AI Board of Investigations",
     "AASA": "American AI Security Act (announced)",
-    "SENDRAFT": "Senate Commerce draft (Cruz–Klobuchar–Thune)"
+    "SENDRAFT": "Senate Commerce draft (Cruz–Klobuchar–Thune)",
+    "EO14434": "EO 14434 \"Super Intelligence\" terminology order",
+    "SIF": "Super Intelligence Force (Clayton)",
+    "AIAAA": "AI Agent Accountability Act (Hawley–Murphy, announced)"
   },
   "columnOf": {
     "SB53": 3,
@@ -277,7 +283,10 @@
     "USCHINA": 2,
     "MARKEY": 2,
     "AASA": 2,
-    "SENDRAFT": 2
+    "SENDRAFT": 2,
+    "EO14434": 1,
+    "SIF": 1,
+    "AIAAA": 2
   },
   "actors": {
     "act-wiener": "Sen. Scott Wiener (CA)",
@@ -1540,6 +1549,35 @@
       "src": "FLvOAI",
       "col": "Status",
       "quote": "the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users"
+    },
+    {
+      "from": "act-hawley",
+      "to": "AIAAA",
+      "type": "actor",
+      "label": "Sponsor with Sen. Murphy",
+      "src": "AIAAA",
+      "col": "Sponsor(s)",
+      "quote": "Sens. Josh Hawley (R-MO), Chris Murphy (D-CT)"
+    },
+    {
+      "from": "EO14434",
+      "to": "WHACCORD",
+      "type": "executive",
+      "dashed": true,
+      "label": "Signed the same day; neither creates a developer obligation",
+      "src": "EO14434",
+      "col": "What it does",
+      "quote": "Signed the same day as the White House accord; it ends the \"no new federal AI executive order since EO 14409\" finding, but changes no obligation on developers"
+    },
+    {
+      "from": "WHACCORD",
+      "to": "SB813",
+      "type": "assurance",
+      "dashed": true,
+      "label": "Accord's external-auditor layer is what SB 813 / AB 1405 regulate",
+      "src": "WHACCORD",
+      "col": "What it does",
+      "quote": "Layer (3) is the function SB 813 and AB 1405 regulate in California; the accord sets no accreditation, scope or disclosure rule for the auditor"
     }
   ]
 }

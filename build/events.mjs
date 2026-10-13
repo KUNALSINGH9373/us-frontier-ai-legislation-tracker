@@ -21,7 +21,7 @@ export const TYPES = [
 function keywords(window, sectionLabel) {
   const w = window.toLowerCase();
   const has = (re) => re.test(w);
-  if (has(/\bsearch|checked live|located in|located through|\bas of\b|located by|deadline|\bdue\b|sunset|reimposed|scheduled|recheck|re-checked|no change|none located|nor through|not located|no ruling|no (committee |floor |standalone |post-judgment |further )?(action|hearing|appeal|report|challenge)[^.;|]{0,40}(through|since)/)) return "Search date / deadline / scheduled"; // "re-checked, no change" stamps are search dates, not movement
+  if (has(/\bsearch|checked live|located in|located through|\bas of\b|located by|deadline|\bdue\b|sunset|reimposed|scheduled|recheck|re-checked|\bchecked\b|no change|none located|nor through|not located|no ruling|no (committee |floor |standalone |post-judgment |further )?(action|hearing|appeal|report|challenge)[^.;|]{0,40}(through|since)/)) return "Search date / deadline / scheduled"; // "re-checked, no change" stamps are search dates, not movement
   if (sectionLabel === "G.2" && has(/sued|complaint|intervened|lawsuit|petition|filed|case|suit|foia/)) return "Litigation";
   if (has(/vetoed|withdrawn|rescinded|rescission|struck|stripped|repealed|revoked|removed|terminat|suspended|not enacted|\bdead\b|failed|bills not passed/)) return "Vetoed / failed / rescinded";
   if (has(/non-concur|referred|re-referred|\bheld\b|stalled|subject to call|no action|returned to|hearing|calendar|rules committee|assignments|conference committee|session ended|adjourn/)) return "Referred / stalled / hearing";
