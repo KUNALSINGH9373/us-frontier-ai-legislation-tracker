@@ -15,14 +15,19 @@
     "test:fr": "node grabber/test-federal-register.mjs",
     "test:compare": "node compare/test.mjs",
     "test:compare-fr": "node compare/test-federal-register.mjs",
-    "test": "node schema/test.mjs && node grabber/test.mjs && node grabber/test-federal-register.mjs && node compare/test.mjs && node compare/test-federal-register.mjs && node llm/test.mjs && node agents/test-derive.mjs && node agents/test.mjs",
+    "test": "node schema/test.mjs && node grabber/test.mjs && node grabber/test-federal-register.mjs && node grabber/test-legiscan.mjs && node compare/test.mjs && node compare/test-federal-register.mjs && node llm/test.mjs && node agents/test-derive.mjs && node agents/test.mjs",
     "test:llm": "node llm/test.mjs",
     "test:agents": "node agents/test.mjs",
     "agents": "node agents/run.mjs",
-    "test:derive": "node agents/test-derive.mjs"
+    "test:derive": "node agents/test-derive.mjs",
+    "test:legiscan": "node grabber/test-legiscan.mjs",
+    "map-ids-legiscan": "node grabber/map-ids-legiscan.mjs"
   },
   "devDependencies": {
     "ajv": "8.17.1",
     "ajv-formats": "3.0.1"
+  },
+  "dependencies": {
+    "pdfjs-dist": "4.10.38"
   }
 }

@@ -81,7 +81,7 @@ How it behaves:
 
 - **Key:** read from `CONGRESS_API_KEY` in the environment or a `.env` file found upward from this folder (yours is at `E:\uslegislation\.env`, outside the repo). It is sent in a header, scrubbed from every error and log line, and `.env` is git-ignored.
 - **Starting point:** 29 Sep 2026, the tracker's data cut-off. Nothing earlier is re-examined.
-- **What it keeps:** bills we already track (matched by `identifiers.external.congress_gov`) and new bills whose title passes the draft word list in `config/scope.draft.json`. Everything else is counted and dropped. **The word list is a draft for the author to confirm.**
+- **What it keeps:** bills we already track (matched by `identifiers.external.congress_gov`) and new bills that pass the screen in `config/scope.draft.json` (finalised 13 Oct 2026): a title with frontier wording (`precise_terms`) is a candidate at once; a title with any AI, compute, chip, security or threat word (`title_terms`, deliberately wide, because e.g. the "Collaboration on Adversarial Threats and Security Risks Act" has no AI word) goes to the AI intent check, which drops only a confident "no" (listed in `congress-screened-out.json`). Titles with none of those words are counted and dropped. A run cut off by its budget resumes at the first candidate it did not fetch.
 - **Unchanged bills cost nothing:** a saved fingerprint per bill means a bill that has not changed is skipped, so a quiet run is one request.
 - **Budget:** a hard cap on requests per run (default 400). If it is reached, the run stops cleanly and the next run resumes exactly where it stopped.
 - **Failures:** rate limits and server errors are retried with growing waits; anything else fails the run. A failed run saves no state, so the next run starts from the same point and nothing is lost.
@@ -114,6 +114,26 @@ All 25 mapped federal bills were fetched (75 requests) and compared: **1 materia
 
 `node grabber/run.mjs --source federal_register` (no key needed) searches for exact phrases ("artificial intelligence", "frontier model", "foundation model", "advanced computing", "superintelligence", "super intelligence") in documents published since the saved date, then screens each document's title and abstract. Presidential documents also have their full text screened, because an order's title often does not say what it is about. Orders already in the tracker are recognised by order number; later documents that name a tracked order are flagged. `--source all` runs both Grabbers. Bill text is also fetched for new Congress.gov candidates, so what we write about them can be checked.
 
+## The LegiScan Grabber (state bills)
+
+`node grabber/run.mjs --source legiscan [--dry-run] [--no-search] [--legiscan-bill <bill_id>]` (keys: `LEGISCAN_API_KEY`; `GEMINI_API_KEY` for the intent check). Built standalone so it can be plugged into compare / agents / derive later. The site is frontier-only (owner, 13 Oct 2026); discovery is built to **miss nothing in scope**, and catching extra bills is acceptable. The free tier is 30,000 queries a month:
+
+- **Tracked bills:** `config/identifiers-legiscan.json` (made by `node grabber/map-ids-legiscan.mjs`, reviewed in `out/identifier-review-legiscan.md`) links 21 live state entries to 33 LegiScan bills. Each run makes one `getMasterListRaw` call per open session (11) and compares `change_hash`; `getBill` only for bills whose hash changed. A session counts as open until its last year ends (LegiScan's `sine_die` flag is set after the regular session, but e.g. Illinois still has a veto session).
+- **New bills, two bulk full-text searches per run** (`getSearchRaw`: up to 2,000 hits per query, so no hit is cut off by a page limit):
+  - *precise* (`precise_phrases` in `config/legiscan.json`: frontier model / developer, foundation model, large developer, compute-threshold wording, IVO, AI safety, ...): every hit is a candidate, with no title screen. A bill whose TEXT uses frontier wording can therefore never be dropped by the AI check.
+  - *wide* (`wide_query`: every bill mentioning artificial intelligence / machine learning / AI model or system, about 2,700): titles of bills not seen before go to the **AI intent check** (`grabber/intent.mjs`, model role `screener`). Only a confident "no" is dropped; a title the model leaves out, a failed call or no key all count as "maybe"; a "no" on a generic title (budget, omnibus, "An act to amend the code", Illinois "SCH CD-...") is overruled to "maybe" by code. Titles come from one `getBill` each when there are few, or from the titled search pages (50 a query) when there are many.
+  - Bill numbers the tracker already has (failed entries too) and federal bills (left to Congress.gov) are settled without the model. Every "no" is listed with the model's reason in the run folder (`legiscan-screened-out.json`) and remembered in `data/legiscan-seen.json`; it is re-checked only when the bill changes and 30 days have passed.
+- **Text:** fetched only for candidates, newest version, HTML preferred; PDF-only states are read by `grabber/lib/pdf.mjs` (pdfjs-dist, pinned): margin line numbers and running headers / footers removed, words split across lines rejoined; the PDF file is kept next to the record. A scanned PDF (no text layer) or garbled text gives `text_missing: true` with the reason; nothing is guessed. Pieces of text that touch with no gap are one word (CT, RI and PA printers split words mid-run: "w" + "ithin"); line numbers are removed from the right margin too (Ohio) when they count up; a small raised number after a number becomes an exponent ("10^26"). Where the printed text itself has lost an exponent (PA H.B. 2800 prints "1,026 integer or floating-point operations"; MA S. 37 prints "1026"), the text is kept as printed and `pdf.warnings` lists a `possible_lost_exponent`, so no number is ever silently corrected. Tested on the real PA H.B. 2800, OH H.B. 628 and MA S. 37 PDFs (`fixtures/legiscan/`); all 11 PDF texts of the tracked state bills read on 15 Oct 2026. Each candidate also carries `frontier_markers` found in its text (a flag for the agents, never a filter).
+- **Citations:** each item's `source_url` is the legislature's own page (`state_link`); LegiScan is only the finder.
+- **Caps only delay:** `per_run_budget` (100), `max_candidates_per_run` (25) and a monthly cap (15,000 = half the free tier, counted in `data/legiscan-usage.json`, written even when a run fails). Anything not reached is not marked seen, so the next run continues.
+- **Status and events:** `trackerStatus` (4 enacted, 5/6 failed, else pending; "stalled" is never set by code) and `eventsFrom` (routine readings, amendments, substitutes and Virginia's "passed by for the day" dropped), in `grabber/sources/legiscan.mjs`. `derive.mjs` does not use them yet.
+
+**Recall tests (the bar is 100%; re-run after any change to the phrases, the word lists, the intent prompt or the screener model):**
+- `node grabber/recall-legiscan.mjs` treats every state bill on the site as new: 13 Oct 2026, intent-v2: **38 / 38 caught** (37 by the precise search; MA H.5576 "economic development" by the wide search + "maybe"); 3 bills are in older sessions outside the search (RI 2025, CA SB 1047). Report: `out/recall-legiscan.md`.
+- `node grabber/recall-congress.mjs` does the same for the 25 federal bills: **25 / 25**. intent-v1 missed 3 (two military / defense AI bills and the Cybersecurity and AI Board of Investigations), which led to intent-v2.
+
+**Live dry run, 13 Oct 2026 (first run, nothing saved):** 180 queries. 141 precise hits, 2,717 wide hits (658 federal), intent yes 54 / maybe 539 / no 1,346 (before the generic-title rule, which turns 53 of those "no"s into "maybe"); 25 candidates fetched, all with text (16 read from PDFs); about 650 wait for later runs. The first catch-up therefore takes about 1,400 queries spread over a few days; after that a quiet run costs about 14 queries (11 master lists + 3 search pages).
+
 ## The Generator and Validator (`agents/`)
 
 `node agents/run.mjs [run folder] [--item <id>]` takes a run folder that has a `diff.json` and, for every item the comparison step marked `material` or `new_entry_candidate`:
@@ -145,11 +165,11 @@ Both resolved every item without crashing. Held items are the safe outcome. With
 ## Tests
 
 ```bash
-npm test        # schema 49, grabber 41, federal register 23, compare 25 + 9, llm 25, derive 16, agents 77
+npm test        # schema 49, grabber 47, federal register 23, legiscan 70, compare 25 + 9, llm 25, derive 16, agents 77
 ```
 
 Every test file was also checked by deliberately breaking the code and confirming a test fails.
 
 ## Not built yet
 
-The held-item retry loop and the publisher (merge verified entries into the data, 24-hour delay, anomaly guard, rollback, heartbeat); the LegiScan and CourtListener Grabbers (waiting on keys); the GitHub workflows; and the UI reading v2.
+The held-item retry loop and the publisher (merge verified entries into the data, 24-hour delay, anomaly guard, rollback, heartbeat); the CourtListener Grabber; reading PDF bill text and plugging LegiScan into the compare/agents/derive steps; the GitHub workflows; and the UI reading v2.

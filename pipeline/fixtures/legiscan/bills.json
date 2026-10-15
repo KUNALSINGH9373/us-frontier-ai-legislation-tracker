@@ -1,0 +1,2383 @@
+{
+ "NY-S10373": {
+  "bill_id": 2150136,
+  "change_hash": "61b6a6872ad0ffd96417c7f8fee6978f",
+  "session_id": 2188,
+  "session": {
+   "session_id": 2188,
+   "state_id": 32,
+   "year_start": 2025,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 1,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2025-2026 Regular Session",
+   "session_name": "2025-2026 General Assembly"
+  },
+  "url": "https://legiscan.com/NY/bill/S10373/2025",
+  "state_link": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+  "completed": 0,
+  "status": 1,
+  "status_date": "2026-05-15",
+  "progress": [
+   {
+    "date": "2026-05-15",
+    "event": 1
+   },
+   {
+    "date": "2026-05-15",
+    "event": 9
+   }
+  ],
+  "state": "NY",
+  "state_id": 32,
+  "bill_number": "S10373",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "S",
+  "body_id": 74,
+  "current_body": "S",
+  "current_body_id": 74,
+  "title": "Requires third party verification of compliance with transparency and safety requirements for developers of artificial intelligence models; requires publication of such compliance reports.",
+  "description": "Requires third party verification of compliance with transparency and safety requirements for developers of artificial intelligence models; requires publication of such compliance reports.",
+  "pending_committee_id": 3936,
+  "committee": {
+   "committee_id": 3936,
+   "chamber": "S",
+   "chamber_id": 74,
+   "name": "Internet and Technology"
+  },
+  "history": [
+   {
+    "date": "2026-05-15",
+    "action": "REFERRED TO INTERNET AND TECHNOLOGY",
+    "chamber": "S",
+    "chamber_id": 74,
+    "importance": 1
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 20262,
+    "person_hash": "iai6irkz",
+    "party_id": "1",
+    "state_id": 32,
+    "party": "D",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Andrew Gounardes",
+    "first_name": "Andrew",
+    "middle_name": "S.",
+    "last_name": "Gounardes",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-026",
+    "ftm_eid": 15666264,
+    "votesmart_id": 143086,
+    "opensecrets_id": "",
+    "knowwho_pid": 433585,
+    "ballotpedia": "Andrew_S._Gounardes",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "518-455-3270",
+      "district_phone": "718-238-6044",
+      "email": "gounardes@nysenate.gov",
+      "webmail": "",
+      "biography": "https://www.nysenate.gov/senators/andrew-gounardes",
+      "image": "https://www.nysenate.gov/sites/default/files/styles/160x160/public/ag_headshot1.jpeg",
+      "ballotpedia": "https://ballotpedia.org/Andrew_S._Gounardes",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/143086"
+     },
+     "capitol_address": {
+      "address1": "Legislative Office Bldg. Room 917",
+      "address2": "",
+      "city": "Albany",
+      "state": "NY",
+      "zip": "12247"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/SenGounardes",
+       "instagram": "https://www.instagram.com/sen_gounardes/",
+       "linkedin": "",
+       "tiktok": "https://www.tiktok.com/@andrewgounardes",
+       "twitter": "https://www.twitter.com/Sen_Gounardes",
+       "website": "https://www.nysenate.gov/senators/andrew-gounardes",
+       "youtube": "https://www.youtube.com/@senatorandrewgounardes"
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/andrew.gounardes",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/andrew-s-gounardes-18b5a014/",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://www.senatorgounardes.nyc/",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [
+   {
+    "type_id": 1,
+    "type": "Same As",
+    "sast_bill_number": "A11636",
+    "sast_bill_id": 2157282
+   }
+  ],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3436963,
+    "date": "2026-05-15",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/NY/text/S10373/id/3436963",
+    "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=S10373&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#S10373",
+    "text_size": 12392,
+    "text_hash": "2703f6e01f24d5cc746b29d49d49f3ea",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "calendar": []
+ },
+ "CA-SB53": {
+  "bill_id": 1904800,
+  "change_hash": "4782d2e022656892272323df6ab1fcdb",
+  "session_id": 2172,
+  "session": {
+   "session_id": 2172,
+   "state_id": 5,
+   "year_start": 2025,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 0,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2025-2026 Regular Session",
+   "session_name": "2025-2026 Regular Session"
+  },
+  "url": "https://legiscan.com/CA/bill/SB53/2025",
+  "state_link": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+  "completed": 1,
+  "status": 4,
+  "status_date": "2025-09-29",
+  "progress": [
+   {
+    "date": "2025-01-07",
+    "event": 1
+   },
+   {
+    "date": "2025-01-29",
+    "event": 9
+   },
+   {
+    "date": "2025-02-27",
+    "event": 9
+   },
+   {
+    "date": "2025-03-12",
+    "event": 9
+   },
+   {
+    "date": "2025-03-26",
+    "event": 10
+   },
+   {
+    "date": "2025-03-27",
+    "event": 9
+   },
+   {
+    "date": "2025-04-09",
+    "event": 10
+   },
+   {
+    "date": "2025-04-09",
+    "event": 9
+   },
+   {
+    "date": "2025-05-23",
+    "event": 10
+   },
+   {
+    "date": "2025-05-28",
+    "event": 2
+   },
+   {
+    "date": "2025-06-05",
+    "event": 9
+   },
+   {
+    "date": "2025-06-12",
+    "event": 9
+   },
+   {
+    "date": "2025-07-02",
+    "event": 10
+   },
+   {
+    "date": "2025-07-02",
+    "event": 9
+   },
+   {
+    "date": "2025-07-08",
+    "event": 9
+   },
+   {
+    "date": "2025-07-16",
+    "event": 10
+   },
+   {
+    "date": "2025-07-17",
+    "event": 9
+   },
+   {
+    "date": "2025-08-29",
+    "event": 10
+   },
+   {
+    "date": "2025-09-08",
+    "event": 9
+   },
+   {
+    "date": "2025-09-11",
+    "event": 10
+   },
+   {
+    "date": "2025-09-13",
+    "event": 3
+   },
+   {
+    "date": "2025-09-29",
+    "event": 8
+   },
+   {
+    "date": "2025-09-29",
+    "event": 4
+   }
+  ],
+  "state": "CA",
+  "state_id": 5,
+  "bill_number": "SB53",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "S",
+  "body_id": 20,
+  "current_body": "S",
+  "current_body_id": 20,
+  "title": "Artificial intelligence models: large developers.",
+  "description": "An act to add Chapter 25.1 (commencing with Section 22757.10) to Division 8 of the Business and Professions Code, to add Section 11546.8 to the Government Code, and to add Chapter 5.1 (commencing with Section 1107) to Part 3 of Division 2 of the Labor Code, relating to artificial intelligence.",
+  "pending_committee_id": 0,
+  "committee": [],
+  "history": [
+   {
+    "date": "2025-01-07",
+    "action": "Introduced. Read first time. To Com. on RLS. for assignment. To print.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-01-08",
+    "action": "From printer. May be acted upon on or after February 7.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-01-29",
+    "action": "Referred to Com. on RLS.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-02-27",
+    "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on RLS.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-03-12",
+    "action": "Re-referred to Coms. on G.O. and JUD.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-03-17",
+    "action": "Set for hearing March 25.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-03-26",
+    "action": "From committee: Do pass as amended and re-refer to Com. on JUD. (Ayes 13. Noes 0. Page 530.) (March 25).",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-03-27",
+    "action": "Read second time and amended. Re-referred to Com. on JUD.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-04-01",
+    "action": "Set for hearing April 8.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-04-09",
+    "action": "From committee: Do pass and re-refer to Com. on APPR. with recommendation: To consent calendar. (Ayes 13. Noes 0. Page 705.) (April 8). Re-referred to Com. on APPR.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-04-10",
+    "action": "Set for hearing April 21.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-04-21",
+    "action": "April 21 hearing: Placed on APPR. suspense file.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-05-16",
+    "action": "Set for hearing May 23.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-05-23",
+    "action": "From committee: Do pass as amended. (Ayes 6. Noes 0. Page 1189.) (May 23).",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-05-23",
+    "action": "Read second time and amended. Ordered to second reading.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-05-27",
+    "action": "Read second time. Ordered to third reading.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-05-28",
+    "action": "Read third time. Passed. (Ayes 37. Noes 0. Page 1281.) Ordered to the Assembly.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-05-28",
+    "action": "In Assembly. Read first time. Held at Desk.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-06-05",
+    "action": "Referred to Coms. on P. & C.P. and JUD.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-06-12",
+    "action": "Re-referred to Coms. on JUD. and P. & C.P. pursuant to Assembly Rule 96.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-07-02",
+    "action": "From committee: Do pass and re-refer to Com. on P. & C.P. (Ayes 12. Noes 0.) (July 1). Re-referred to Com. on P. & C.P.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-07-08",
+    "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on P. & C.P.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-07-16",
+    "action": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 9. Noes 0.) (July 16).",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-07-17",
+    "action": "Read second time and amended. Re-referred to Com. on APPR.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-08-20",
+    "action": "August 20 set for first hearing. Placed on APPR. suspense file.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-08-29",
+    "action": "From committee: Do pass as amended. (Ayes 11. Noes 1.) (August 29).",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-09-02",
+    "action": "Read second time and amended. Ordered to second reading.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-03",
+    "action": "Read second time. Ordered to third reading.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-05",
+    "action": "Assembly Rule 69(b)(1) suspended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-05",
+    "action": "Read third time and amended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-05",
+    "action": "Ordered to third reading.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-08",
+    "action": "Re-referred to Com. on P. & C.P. pursuant to Assembly Rule 77.2.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-09-09",
+    "action": "Joint Rule 62(a) suspended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-11",
+    "action": "From committee: Do pass. (Ayes 12. Noes 1.) (September 11).",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2025-09-12",
+    "action": "Read second time. Ordered to third reading.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-12",
+    "action": "Assembly Rule 63 suspended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-12",
+    "action": "Read third time. Passed. (Ayes 59. Noes 7. Page 3432.) Ordered to the Senate.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-13",
+    "action": "In Senate. Concurrence in Assembly amendments pending.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-13",
+    "action": "Assembly amendments concurred in. (Ayes 29. Noes 8. Page 3039.) Ordered to engrossing and enrolling.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-09-23",
+    "action": "Enrolled and presented to the Governor at 2 p.m.",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-29",
+    "action": "Approved by the Governor.",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 0
+   },
+   {
+    "date": "2025-09-29",
+    "action": "Chaptered by Secretary of State. Chapter 138, Statutes of 2025.",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 1
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 18068,
+    "person_hash": "0e28hoa9",
+    "party_id": "1",
+    "state_id": 5,
+    "party": "D",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Scott Wiener",
+    "first_name": "Scott",
+    "middle_name": "",
+    "last_name": "Wiener",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-011",
+    "ftm_eid": 32203683,
+    "votesmart_id": 129655,
+    "opensecrets_id": "",
+    "knowwho_pid": 577701,
+    "ballotpedia": "Scott_Wiener",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "916-651-4011",
+      "district_phone": "415-557-1300",
+      "email": "",
+      "webmail": "https://sd11.senate.ca.gov/",
+      "biography": "https://sd11.senate.ca.gov/",
+      "image": "https://www.senate.ca.gov/sites/senate.ca.gov/files/styles/large/public/media/WIENER%252C%2520SCOTT%2520%2528D-11%2529_8.jpg",
+      "ballotpedia": "https://ballotpedia.org/Scott_Wiener",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/129655"
+     },
+     "capitol_address": {
+      "address1": "1021 O Street, Suite 8620",
+      "address2": "",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "Suite"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://sd11.senate.ca.gov/",
+       "youtube": "https://www.youtube.com/@scottwiener3007"
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/scottdwiener",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/scott-wiener-936760/",
+       "tiktok": "https://www.tiktok.com/@scott_wiener",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   },
+   {
+    "people_id": 19733,
+    "person_hash": "29daikh4",
+    "party_id": "1",
+    "state_id": 5,
+    "party": "D",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Susan Rubio",
+    "first_name": "Susan",
+    "middle_name": "",
+    "last_name": "Rubio",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-022",
+    "ftm_eid": 44493639,
+    "votesmart_id": 129493,
+    "opensecrets_id": "",
+    "knowwho_pid": 660377,
+    "ballotpedia": "Susan_Rubio",
+    "bioguide_id": "",
+    "sponsor_type_id": 2,
+    "sponsor_order": 2,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "916-651-4022",
+      "district_phone": "626-430-2499",
+      "email": "",
+      "webmail": "https://sd22.senate.ca.gov/",
+      "biography": "https://sd22.senate.ca.gov/",
+      "image": "https://www.senate.ca.gov/sites/senate.ca.gov/files/styles/large/public/media/RUBIO%252C%2520SUSAN%2520%2528D-22%2529_7.jpg",
+      "ballotpedia": "https://ballotpedia.org/Susan_Rubio",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/129493"
+     },
+     "capitol_address": {
+      "address1": "1021 O Street, Suite 8710",
+      "address2": "",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "Suite"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/SenSusanRubio/",
+       "instagram": "https://www.instagram.com/sensusanrubio",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "https://www.twitter.com/SenSusanRubio",
+       "website": "https://sd22.senate.ca.gov/",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/susan.rubio.33",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3041703,
+    "date": "2025-01-07",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3041703",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#99INT",
+    "text_size": 4973,
+    "text_hash": "743aa22c0931d48e13b85fcc672ebae9",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3147801,
+    "date": "2025-02-27",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3147801",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#98AMD",
+    "text_size": 24651,
+    "text_hash": "0c256a593bc6ce80ccf8fdaf7789d56e",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3192693,
+    "date": "2025-03-27",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3192693",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#97AMD",
+    "text_size": 22128,
+    "text_hash": "d713ae04aeb9f0d19d0eb5183eb51d4e",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3245213,
+    "date": "2025-05-23",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3245213",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#96AMD",
+    "text_size": 27428,
+    "text_hash": "24c1fe9f8e52c8cb2555de3133ddab7c",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3261043,
+    "date": "2025-07-08",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3261043",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#95AMD",
+    "text_size": 56035,
+    "text_hash": "a090543ba1555129d32688aea52e072a",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3262148,
+    "date": "2025-07-17",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3262148",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#94AMD",
+    "text_size": 64079,
+    "text_hash": "f1ead6422d70fbf8ecc6384d35ba484d",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3267098,
+    "date": "2025-09-02",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3267098",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#93AMD",
+    "text_size": 58423,
+    "text_hash": "a510dde67bb7d1c02a3c340954dc796a",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3268028,
+    "date": "2025-09-05",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3268028",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#92AMD",
+    "text_size": 100562,
+    "text_hash": "a7ea4597cf7036d94f93a60af35c5159",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3270002,
+    "date": "2025-09-17",
+    "type": "Enrolled",
+    "type_id": 5,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3270002",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#91ENR",
+    "text_size": 62806,
+    "text_hash": "93865c23a95091c6aa113abc87377543",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3271094,
+    "date": "2025-09-29",
+    "type": "Chaptered",
+    "type_id": 6,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB53/id/3271094",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53#90CHP",
+    "text_size": 59525,
+    "text_hash": "1174635f56f912f3d3e08bdec9548e02",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "calendar": [
+   {
+    "type_id": 1,
+    "event_hash": "29ce40b1",
+    "type": "Hearing",
+    "date": "2025-03-25",
+    "time": "09:00",
+    "location": "1021 O Street, Room 1200",
+    "description": "Senate Governmental Organization Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "8c052509",
+    "type": "Hearing",
+    "date": "2025-04-08",
+    "time": "13:30",
+    "location": "1021 O Street, Room 2100",
+    "description": "Senate Judiciary Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "f05534f9",
+    "type": "Hearing",
+    "date": "2025-04-21",
+    "time": "10:30",
+    "location": "1021 O Street, Room 2200",
+    "description": "Senate Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "1a64fe50",
+    "type": "Hearing",
+    "date": "2025-05-23",
+    "time": "00:00",
+    "location": "1021 O Street, Room 2200",
+    "description": "Senate Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "92961761",
+    "type": "Hearing",
+    "date": "2025-07-01",
+    "time": "08:30",
+    "location": "State Capitol, Room 437",
+    "description": "Assembly Judiciary Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "49b2b403",
+    "type": "Hearing",
+    "date": "2025-07-01",
+    "time": "08:30",
+    "location": "State Capitol, Room 447",
+    "description": "Assembly Judiciary Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "54ed3c03",
+    "type": "Hearing",
+    "date": "2025-07-16",
+    "time": "00:00",
+    "location": "State Capitol, Room 444",
+    "description": "Assembly Privacy And Consumer Protection Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "2d5fb266",
+    "type": "Hearing",
+    "date": "2025-08-20",
+    "time": "09:00",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "55629a42",
+    "type": "Hearing",
+    "date": "2025-08-29",
+    "time": "00:00",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Appropriations Hearing"
+   }
+  ]
+ },
+ "LA-SB474": {
+  "bill_id": 2139816,
+  "change_hash": "19e075039f0680ba3377d7376d889492",
+  "session_id": 2248,
+  "session": {
+   "session_id": 2248,
+   "state_id": 18,
+   "year_start": 2026,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 1,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2026 Regular Session",
+   "session_name": "2026 Regular Session"
+  },
+  "url": "https://legiscan.com/LA/bill/SB474/2026",
+  "state_link": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y",
+  "completed": 0,
+  "status": 1,
+  "status_date": "2026-03-31",
+  "progress": [
+   {
+    "date": "2026-03-31",
+    "event": 1
+   },
+   {
+    "date": "2026-04-01",
+    "event": 9
+   },
+   {
+    "date": "2026-04-15",
+    "event": 10
+   }
+  ],
+  "state": "LA",
+  "state_id": 18,
+  "bill_number": "SB474",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "S",
+  "body_id": 46,
+  "current_body": "S",
+  "current_body_id": 46,
+  "title": "Creates the Protecting Louisiana's Infrastructure from Artificial Intelligence Risk Act. (1/1/27)",
+  "description": "Creates the Protecting Louisiana's Infrastructure from Artificial Intelligence Risk Act. (1/1/27)",
+  "pending_committee_id": 0,
+  "committee": [],
+  "history": [
+   {
+    "date": "2026-03-31",
+    "action": "Introduced in the Senate. Read by title and placed on the Calendar for a second reading.",
+    "chamber": "S",
+    "chamber_id": 46,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-01",
+    "action": "Read second time by title and referred to the Committee on Commerce, Consumer Protection and International Affairs.",
+    "chamber": "S",
+    "chamber_id": 46,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-15",
+    "action": "Reported favorably.",
+    "chamber": "S",
+    "chamber_id": 46,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-20",
+    "action": "Read by title. Ordered engrossed and passed to third reading and final passage.",
+    "chamber": "S",
+    "chamber_id": 46,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-21",
+    "action": "Senate floor amendments read and adopted.",
+    "chamber": "S",
+    "chamber_id": 46,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-21",
+    "action": "Read by title and returned to the Calendar, subject to call.",
+    "chamber": "S",
+    "chamber_id": 46,
+    "importance": 0
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 13915,
+    "person_hash": "6osooo7p",
+    "party_id": "2",
+    "state_id": 18,
+    "party": "R",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Gregory Miller",
+    "first_name": "Gregory",
+    "middle_name": "A.",
+    "last_name": "Miller",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-019",
+    "ftm_eid": 8675224,
+    "votesmart_id": 134603,
+    "opensecrets_id": "",
+    "knowwho_pid": 310100,
+    "ballotpedia": "Gregory_Miller_(Louisiana)",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "225-342-2040",
+      "district_phone": "985-764-9991",
+      "email": "sen19@legis.la.gov",
+      "webmail": "",
+      "biography": "https://senate.la.gov/smembers.aspx?ID=19",
+      "image": "https://senate.la.gov/SenPics/Sen19.jpg",
+      "ballotpedia": "https://ballotpedia.org/Gregory_Miller_%28Louisiana%29",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/134603"
+     },
+     "capitol_address": {
+      "address1": "900 North 3rd St",
+      "address2": "BOX 94183",
+      "city": "Baton Rouge",
+      "state": "LA",
+      "zip": "70804"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://senate.la.gov/smembers.aspx?ID=19",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/gregory.miller.79069",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/gregory-miller-50855942/",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [],
+  "subjects": [
+   {
+    "subject_id": 330823,
+    "subject_name": "INFORMATION TECHNOLOGY"
+   }
+  ],
+  "texts": [
+   {
+    "doc_id": 3408742,
+    "date": "0000-00-00",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/LA/text/SB474/id/3408742",
+    "state_link": "https://www.legis.la.gov/Legis/ViewDocument.aspx?d=1457225",
+    "text_size": 119796,
+    "text_hash": "e1d81ec75e0f361f5bb3f680f696bbfd",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3422330,
+    "date": "0000-00-00",
+    "type": "Engrossed",
+    "type_id": 4,
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/LA/text/SB474/id/3422330",
+    "state_link": "https://www.legis.la.gov/Legis/ViewDocument.aspx?d=1462764",
+    "text_size": 119811,
+    "text_hash": "3066a0d334d7358e2b707c73b9a85e11",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "calendar": [
+   {
+    "type_id": 1,
+    "event_hash": "9f8102f9",
+    "type": "Hearing",
+    "date": "2026-04-15",
+    "time": "09:30",
+    "location": "Room E",
+    "description": "Senate Committee on Commerce, Consumer Protection and International Affairs"
+   }
+  ]
+ },
+ "CA-AB2653": {
+  "bill_id": 2121730,
+  "change_hash": "49da4354464a537a2d95a685f4572512",
+  "session_id": 2172,
+  "session": {
+   "session_id": 2172,
+   "state_id": 5,
+   "year_start": 2025,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 0,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2025-2026 Regular Session",
+   "session_name": "2025-2026 Regular Session"
+  },
+  "url": "https://legiscan.com/CA/bill/AB2653/2025",
+  "state_link": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB2653",
+  "completed": 0,
+  "status": 1,
+  "status_date": "2026-02-20",
+  "progress": [
+   {
+    "date": "2026-02-20",
+    "event": 1
+   },
+   {
+    "date": "2026-03-19",
+    "event": 9
+   },
+   {
+    "date": "2026-03-19",
+    "event": 10
+   },
+   {
+    "date": "2026-03-23",
+    "event": 9
+   },
+   {
+    "date": "2026-03-26",
+    "event": 9
+   },
+   {
+    "date": "2026-04-09",
+    "event": 10
+   },
+   {
+    "date": "2026-04-09",
+    "event": 9
+   },
+   {
+    "date": "2026-04-22",
+    "event": 10
+   },
+   {
+    "date": "2026-04-27",
+    "event": 9
+   },
+   {
+    "date": "2026-05-06",
+    "event": 9
+   }
+  ],
+  "state": "CA",
+  "state_id": 5,
+  "bill_number": "AB2653",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "A",
+  "body_id": 19,
+  "current_body": "A",
+  "current_body_id": 19,
+  "title": "State contracts: report: modern foundation models and associated artificial intelligence systems.",
+  "description": "An act to add Chapter 6.5 (commencing with Section 12450) to Part 2 of Division 2 of the Public Contract Code, relating to public contracts.",
+  "pending_committee_id": 0,
+  "committee": [],
+  "history": [
+   {
+    "date": "2026-02-20",
+    "action": "Read first time. To print.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-02-21",
+    "action": "From printer. May be heard in committee March 23.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-19",
+    "action": "Referred to Coms. on G.O., L. & E. and P. & C.P.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-19",
+    "action": "From committee chair, with author's amendments: Amend, and re-refer to Com. on G.O. Read second time and amended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-23",
+    "action": "Re-referred to Com. on G.O.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-26",
+    "action": "Pursuant to Assembly Rule 96:",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-26",
+    "action": "Re-referred to Coms. on L. & E., P. & C.P., and G.O.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-09",
+    "action": "From committee: Do pass and re-refer to Com. on P. & C.P. (Ayes 5. Noes 0.) (April 8). Re-referred to Com. on P. & C.P.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-16",
+    "action": "Assembly Rule 56 suspended. (Page 4663.)",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-16",
+    "action": "(Pending re-refer to Com. on G.O.)",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-22",
+    "action": "From committee: Amend, and do pass as amended and re-refer to Com. on APPR. with recommendation: To Consent Calendar. (Ayes 15. Noes 0.) (April 21).",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-23",
+    "action": "Read second time and amended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-27",
+    "action": "Re-referred to Com. on APPR.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-05-06",
+    "action": "In committee: Set, first hearing. Referred to APPR. suspense file.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-05-14",
+    "action": "In committee: Held under submission.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 21719,
+    "person_hash": "kzop1cuk",
+    "party_id": "1",
+    "state_id": 5,
+    "party": "D",
+    "role_id": 1,
+    "role": "Rep",
+    "name": "Alex Lee",
+    "first_name": "Alex",
+    "middle_name": "",
+    "last_name": "Lee",
+    "suffix": "",
+    "nickname": "",
+    "district": "HD-024",
+    "ftm_eid": 48644320,
+    "votesmart_id": 188786,
+    "opensecrets_id": "",
+    "knowwho_pid": 529817,
+    "ballotpedia": "Alex_Lee",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "916-319-2024",
+      "district_phone": "408-262-2501",
+      "email": "",
+      "webmail": "https://lcmspubcontact.lc.ca.gov/PublicLCMS/ContactPopup.php?district=AD24",
+      "biography": "https://www.assembly.ca.gov/assemblymembers/24",
+      "image": "https://www.assembly.ca.gov/sites/assembly.ca.gov/sites/assembly.ca.gov/files/styles/large/public/media/Lee%2520Portraits_01-08-25_Final-501.jpg",
+      "ballotpedia": "https://ballotpedia.org/Alex_Lee",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/188786"
+     },
+     "capitol_address": {
+      "address1": "1021 O Street, Suite 6330",
+      "address2": "",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "Suite"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/assembly.alex.lee",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://www.assembly.ca.gov/assemblymembers/24",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/the11thdoktor",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/votealexlee/",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3371270,
+    "date": "2026-02-20",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/AB2653/id/3371270",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB2653#99INT",
+    "text_size": 5093,
+    "text_hash": "b2e2e2cd40781bea4cf330cf722e6ec8",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3400009,
+    "date": "2026-03-19",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/AB2653/id/3400009",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB2653#98AMD",
+    "text_size": 41314,
+    "text_hash": "dff3ddb15c004aa1f20593a2f1198a48",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3425408,
+    "date": "2026-04-23",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/AB2653/id/3425408",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260AB2653#97AMD",
+    "text_size": 46990,
+    "text_hash": "3aaf6edd6cb7f829e18907e6100ba21b",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "calendar": [
+   {
+    "type_id": 1,
+    "event_hash": "f73e9111",
+    "type": "Hearing",
+    "date": "2026-04-08",
+    "time": "13:30",
+    "location": "State Capitol, Room 447",
+    "description": "Assembly Labor And Employment Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "020778a0",
+    "type": "Hearing",
+    "date": "2026-04-16",
+    "time": "00:00",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Privacy And Consumer Protection Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "380055d0",
+    "type": "Hearing",
+    "date": "2026-04-21",
+    "time": "13:30",
+    "location": "State Capitol, Room 437",
+    "description": "Assembly Privacy And Consumer Protection Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "d5d2b1ed",
+    "type": "Hearing",
+    "date": "2026-04-22",
+    "time": "13:30",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Governmental Organization Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "e02582cd",
+    "type": "Hearing",
+    "date": "2026-05-06",
+    "time": "09:00",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "affeab3e",
+    "type": "Hearing",
+    "date": "2026-05-14",
+    "time": "00:00",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Appropriations Hearing"
+   }
+  ]
+ },
+ "VA-HB797": {
+  "bill_id": 2073912,
+  "change_hash": "f9d6e19845db8f4fb56bd4b5a04f1f97",
+  "session_id": 2237,
+  "session": {
+   "session_id": 2237,
+   "state_id": 46,
+   "year_start": 2026,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 1,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2026 Regular Session",
+   "session_name": "2026 Regular Regular Session"
+  },
+  "url": "https://legiscan.com/VA/bill/HB797/2026",
+  "state_link": "https://lis.virginia.gov/bill-details/20261/HB797",
+  "completed": 1,
+  "status": 4,
+  "status_date": "2026-04-08",
+  "progress": [
+   {
+    "date": "2026-01-13",
+    "event": 1
+   },
+   {
+    "date": "2026-01-13",
+    "event": 9
+   },
+   {
+    "date": "2026-02-02",
+    "event": 10
+   },
+   {
+    "date": "2026-02-09",
+    "event": 10
+   },
+   {
+    "date": "2026-02-13",
+    "event": 2
+   },
+   {
+    "date": "2026-02-17",
+    "event": 9
+   },
+   {
+    "date": "2026-02-25",
+    "event": 10
+   },
+   {
+    "date": "2026-03-04",
+    "event": 10
+   },
+   {
+    "date": "2026-03-09",
+    "event": 2
+   },
+   {
+    "date": "2026-03-10",
+    "event": 2
+   },
+   {
+    "date": "2026-03-30",
+    "event": 3
+   },
+   {
+    "date": "2026-04-08",
+    "event": 8
+   },
+   {
+    "date": "2026-04-08",
+    "event": 4
+   }
+  ],
+  "state": "VA",
+  "state_id": 46,
+  "bill_number": "HB797",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "H",
+  "body_id": 7,
+  "current_body": "H",
+  "current_body_id": 7,
+  "title": "Artificial intelligence; framework for person/entity acting as an independent verification org.",
+  "description": "Joint Commission on Technology and Science; artificial intelligence; independent verification organizations. Directs the Joint Commission on Technology and Science (JCOTS) to evaluate the feasibility and impact of developing a framework for any person or entity seeking to act as an independent verification organization that assesses artificial intelligence models' or applications' adherence to standards reflecting best practices for the prevention of personal injury and property damage. The bill directs JCOTS to submit a report with its recommendations and any findings to the Chairs of the Senate Committees on Finance and Appropriations and General Laws and Technology and the House Committees on Appropriations and Communications, Technology and Innovation by November 1, 2026. This bill is identical to SB 384.",
+  "pending_committee_id": 0,
+  "committee": [],
+  "history": [
+   {
+    "date": "2026-01-13",
+    "action": "Prefiled and ordered printed; Offered 01-14-2026 26102711D",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-01-13",
+    "action": "Referred to Committee on Communications, Technology and Innovation",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 1
+   },
+   {
+    "date": "2026-01-26",
+    "action": "Fiscal Impact Statement from Department of Planning and Budget (HB797)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-01-29",
+    "action": "Assigned HST sub: Communications",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-02",
+    "action": "House subcommittee offered",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-02",
+    "action": "Subcommittee recommends reporting with substitute and referring to Appropriations (8-Y 2-N)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-02",
+    "action": "Reported from Communications, Technology and Innovation with substitute and referred to Appropriations (18-Y 4-N)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 1
+   },
+   {
+    "date": "2026-02-02",
+    "action": "Committee substitute printed 26105989D-H1",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-03",
+    "action": "Assigned HAPP sub: General Government and Capital Outlay",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-06",
+    "action": "Fiscal Impact Statement from Department of Planning and Budget (HB797)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-06",
+    "action": "Subcommittee recommends reporting with substitute (7-Y 0-N)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-06",
+    "action": "House subcommittee offered",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-09",
+    "action": "Reported from Appropriations with substitute (22-Y 0-N)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 1
+   },
+   {
+    "date": "2026-02-09",
+    "action": "Committee substitute printed 26107298D-H2",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-11",
+    "action": "Read first time",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-12",
+    "action": "Passed by for the day",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-13",
+    "action": "Read second time",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-13",
+    "action": "committee substitute rejected",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-13",
+    "action": "committee substitute agreed to",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-13",
+    "action": "Engrossed by House - committee substitute",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 1
+   },
+   {
+    "date": "2026-02-16",
+    "action": "Read third time and passed House (79-Y 19-N 0-A)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-17",
+    "action": "Constitutional reading dispensed (on 1st reading)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-17",
+    "action": "Referred to Committee on General Laws and Technology",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 1
+   },
+   {
+    "date": "2026-02-24",
+    "action": "Senate committee offered",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-25",
+    "action": "Reported from General Laws and Technology with substitute and rereferred to Finance and Appropriations (15-Y 0-N)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 1
+   },
+   {
+    "date": "2026-02-26",
+    "action": "Committee substitute printed 26108556D-S1",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-27",
+    "action": "Fiscal Impact Statement from Department of Planning and Budget (HB797)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-04",
+    "action": "Reported from Finance and Appropriations (15-Y 0-N)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-05",
+    "action": "Rules suspended",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-05",
+    "action": "Constitutional reading dispensed (on 2nd reading) (39-Y 0-N 0-A)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-05",
+    "action": "Passed by for the day (Voice Vote)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-06",
+    "action": "Passed by for the day Block Vote (Voice Vote)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-09",
+    "action": "Read third time",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-09",
+    "action": "Committee substitute agreed to (Voice Vote)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-09",
+    "action": "Engrossed by Senate - committee substitute",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-09",
+    "action": "Passed Senate with substitute Block Vote (40-Y 0-N 0-A)",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-10",
+    "action": "Senate substitute agreed to by House (84-Y 14-N 0-A)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-30",
+    "action": "Enrolled",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-30",
+    "action": "Bill text as passed House and Senate (HB797ER)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-30",
+    "action": "Signed by President",
+    "chamber": "S",
+    "chamber_id": 8,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-31",
+    "action": "Signed by Speaker",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-31",
+    "action": "Enrolled Bill communicated to Governor on March 31, 2026",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-03-31",
+    "action": "Governor's Action Deadline 11:59 p.m., April 13, 2026",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-06",
+    "action": "Fiscal Impact Statement from Department of Planning and Budget (HB797)",
+    "chamber": "H",
+    "chamber_id": 7,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-08",
+    "action": "Approved by Governor-Chapter 425 (effective 7/1/2026)",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-08",
+    "action": "Acts of Assembly Chapter text (CHAP0425)",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 0
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 18551,
+    "person_hash": "hwu9r1r4",
+    "party_id": "1",
+    "state_id": 46,
+    "party": "D",
+    "role_id": 1,
+    "role": "Rep",
+    "name": "C.E. Hayes",
+    "first_name": "C.E.",
+    "middle_name": "",
+    "last_name": "Hayes",
+    "suffix": "Jr.",
+    "nickname": "Cliff",
+    "district": "HD-091",
+    "ftm_eid": 42052803,
+    "votesmart_id": 78769,
+    "opensecrets_id": "",
+    "knowwho_pid": 604030,
+    "ballotpedia": "Cliff_Hayes",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "804-698-1091",
+      "district_phone": "757-364-0272",
+      "email": "DelCHayes@house.virginia.gov       ",
+      "webmail": "",
+      "biography": "https://lis.virginia.gov/session-details/20262/member-information/H0285/member-details",
+      "image": "",
+      "ballotpedia": "https://ballotpedia.org/Cliff_Hayes",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/78769"
+     },
+     "capitol_address": {
+      "address1": "General Assembly Building, Room 909",
+      "address2": "201 North 9th Street",
+      "city": "Richmond",
+      "state": "VA",
+      "zip": "23219"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://lis.virginia.gov/session-details/20262/member-information/H0285/member-details",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/CliffHayesJr",
+       "instagram": "https://www.instagram.com/cliffhayesjr/",
+       "linkedin": "https://www.linkedin.com/in/cliff-hayes-ccio-b5601a14/",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   },
+   {
+    "people_id": 24986,
+    "person_hash": "qkyw2kq0",
+    "party_id": "1",
+    "state_id": 46,
+    "party": "D",
+    "role_id": 1,
+    "role": "Rep",
+    "name": "Bonita Anthony",
+    "first_name": "Bonita",
+    "middle_name": "Grace",
+    "last_name": "Anthony",
+    "suffix": "",
+    "nickname": "",
+    "district": "HD-092",
+    "ftm_eid": 58873165,
+    "votesmart_id": 0,
+    "opensecrets_id": "",
+    "knowwho_pid": 0,
+    "ballotpedia": "Bonita_Anthony",
+    "bioguide_id": "",
+    "sponsor_type_id": 2,
+    "sponsor_order": 2,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "804-698-1092",
+      "district_phone": "757-204-5492",
+      "email": "DelBAnthony@house.virginia.gov",
+      "webmail": "",
+      "biography": "https://lis.virginia.gov/session-details/20262/member-information/H0353/member-details",
+      "image": "",
+      "ballotpedia": "https://ballotpedia.org/Bonita_Anthony",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/0"
+     },
+     "capitol_address": {
+      "address1": "General Assembly Building, Room 1002",
+      "address2": "201 North 9th Street",
+      "city": "Richmond",
+      "state": "VA",
+      "zip": "23219"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://lis.virginia.gov/session-details/20262/member-information/H0353/member-details",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/bonita.anthony.5",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/bonitaanthony/",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3310720,
+    "date": "2026-01-13",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3310720",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797",
+    "text_size": 31488,
+    "text_hash": "ff6a15ebf2044973c4f6cdd1c7d5031d",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1085939.PDF",
+    "alt_text_size": 48678,
+    "alt_text_hash": "3ea7fabf607c45d396e89134a76941b3"
+   },
+   {
+    "doc_id": 3343383,
+    "date": "2026-02-02",
+    "type": "Comm Sub",
+    "type_id": 2,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3343383",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797HC1",
+    "text_size": 36005,
+    "text_hash": "ce80f6279184efafeb59329c0ab67374",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1105495.PDF",
+    "alt_text_size": 61874,
+    "alt_text_hash": "54b65d044ee289161717356ee39356bc"
+   },
+   {
+    "doc_id": 3344118,
+    "date": "2026-02-02",
+    "type": "Comm Sub",
+    "type_id": 2,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3344118",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797H1",
+    "text_size": 36160,
+    "text_hash": "58a46bbd4f073cf1bca93c1255eb6c92",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1105739.PDF",
+    "alt_text_size": 57197,
+    "alt_text_hash": "d53b3b0fc3fc8d9ec283d837c7279c6a"
+   },
+   {
+    "doc_id": 3344119,
+    "date": "2026-02-02",
+    "type": "Comm Sub",
+    "type_id": 2,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3344119",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797H2",
+    "text_size": 36160,
+    "text_hash": "58a46bbd4f073cf1bca93c1255eb6c92",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1135854.PDF",
+    "alt_text_size": 62251,
+    "alt_text_hash": "ff2e9c1e2c57d5fcf8259f704724a1c7"
+   },
+   {
+    "doc_id": 3352109,
+    "date": "2026-02-06",
+    "type": "Comm Sub",
+    "type_id": 2,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3352109",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797HC2",
+    "text_size": 39302,
+    "text_hash": "015e2037bbc637bead5970d78d010245",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1133385.PDF",
+    "alt_text_size": 68149,
+    "alt_text_hash": "14a469442c07fbcdd6c3fc2c0c93f6ff"
+   },
+   {
+    "doc_id": 3353112,
+    "date": "2026-02-09",
+    "type": "Comm Sub",
+    "type_id": 2,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3353112",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797HC3",
+    "text_size": 39457,
+    "text_hash": "94104d345c9bf225319a0ca4cccd2ce0",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1134020.PDF",
+    "alt_text_size": 62247,
+    "alt_text_hash": "da880859d17428bc20b5f35a2d39417a"
+   },
+   {
+    "doc_id": 3374646,
+    "date": "2026-02-24",
+    "type": "Comm Sub",
+    "type_id": 2,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3374646",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797SC1",
+    "text_size": 4829,
+    "text_hash": "24f9bfe9899cc3138549008e30e38c92",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1178823.PDF",
+    "alt_text_size": 8262,
+    "alt_text_hash": "1c9efae405f931d98d9c5585ebe12e1f"
+   },
+   {
+    "doc_id": 3378072,
+    "date": "2026-02-26",
+    "type": "Comm Sub",
+    "type_id": 2,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3378072",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797S1",
+    "text_size": 4986,
+    "text_hash": "549c6ad2536417842b27bdbb7355496b",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1182034.PDF",
+    "alt_text_size": 8783,
+    "alt_text_hash": "981a7c94590f4807820584ea290ba11b"
+   },
+   {
+    "doc_id": 3408142,
+    "date": "2026-03-30",
+    "type": "Enrolled",
+    "type_id": 5,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3408142",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/HB797ER",
+    "text_size": 3310,
+    "text_hash": "a0df9a6dfd448a56fd66f21f90d6f9bc",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1210896.PDF",
+    "alt_text_size": 8053,
+    "alt_text_hash": "bd26847b183e6b92bda9cc081aa70c5a"
+   },
+   {
+    "doc_id": 3417119,
+    "date": "2026-04-08",
+    "type": "Chaptered",
+    "type_id": 6,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/VA/text/HB797/id/3417119",
+    "state_link": "https://lis.virginia.gov/bill-details/20261/HB797/text/CHAP0425",
+    "text_size": 3117,
+    "text_hash": "911444a6670b5fb5c175558f636677b8",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://lis.blob.core.windows.net/files/1218022.PDF",
+    "alt_text_size": 3764,
+    "alt_text_hash": "67641dbccf2bdd6404ce5da47c74515a"
+   }
+  ],
+  "calendar": [
+   {
+    "type_id": 1,
+    "event_hash": "58a661b0",
+    "type": "Hearing",
+    "date": "2026-01-28",
+    "time": "07:30",
+    "location": "House South Subcommittee Room - 210",
+    "description": "House Communications, Technology and Innovation: Technology and Innovation Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "bad152b3",
+    "type": "Hearing",
+    "date": "2026-02-02",
+    "time": "10:00",
+    "location": "House Committee Room C - 206",
+    "description": "House Communications, Technology and Innovation Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "4a12af2d",
+    "type": "Hearing",
+    "date": "2026-02-02",
+    "time": "08:00",
+    "location": "House Committee Room C - 206",
+    "description": "House Communications, Technology and Innovation: Communications Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "f0270f68",
+    "type": "Hearing",
+    "date": "2026-02-06",
+    "time": "00:00",
+    "location": "House Appropriations Committee Room - 1200",
+    "description": "House Appropriations: General Government and Capital Outlay Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "a8a79987",
+    "type": "Hearing",
+    "date": "2026-02-09",
+    "time": "00:00",
+    "location": "House Appropriations Committee Room - 1200",
+    "description": "House Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "62843eae",
+    "type": "Hearing",
+    "date": "2026-02-25",
+    "time": "19:00",
+    "location": "Senate Room B, Room 306, General Assembly Building",
+    "description": "Senate General Laws and Technology Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "3c05cc20",
+    "type": "Hearing",
+    "date": "2026-03-04",
+    "time": "09:30",
+    "location": "Senate Room A, Room 305, General Assembly Building",
+    "description": "Senate Finance and Appropriations Hearing"
+   }
+  ]
+ }
+}

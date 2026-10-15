@@ -1,0 +1,1039 @@
+{
+ "_note": "Proposed by grabber/map-ids-legiscan.mjs. Confirm each entry by setting status to \"confirmed\", correct the ids, or set \"rejected\".",
+ "legiscan": {
+  "ca-sb-53-tfaia": {
+   "bills": [
+    {
+     "bill_id": 1904800,
+     "number": "SB53",
+     "state": "CA",
+     "session_id": 2172,
+     "session_name": "2025-2026 Regular Session",
+     "official_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+     "legiscan_url": "https://legiscan.com/CA/bill/SB53/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 1,
+   "short_name": "CA SB 53 (TFAIA)",
+   "checks": [
+    {
+     "number": "SB53",
+     "found": true,
+     "bill_id": 1904800,
+     "session": "2025-2026 Regular Session",
+     "api_title": "Artificial intelligence models: large developers.",
+     "api_sponsor": "Scott Wiener; Susan Rubio",
+     "official_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "ny-raise-act-ch-699-ch-96": {
+   "bills": [
+    {
+     "bill_id": 2015571,
+     "number": "S06953",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+     "legiscan_url": "https://legiscan.com/NY/bill/S06953/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 1991849,
+     "number": "A06453",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A6453",
+     "legiscan_url": "https://legiscan.com/NY/bill/A06453/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2068637,
+     "number": "S08828",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+     "legiscan_url": "https://legiscan.com/NY/bill/S08828/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2066205,
+     "number": "A09449",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A9449",
+     "legiscan_url": "https://legiscan.com/NY/bill/A09449/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 2,
+   "short_name": "NY RAISE Act (Ch. 699 → Ch. 96)",
+   "checks": [
+    {
+     "number": "S6953",
+     "found": true,
+     "bill_id": 2015571,
+     "session": "2025-2026 General Assembly",
+     "api_title": "Relates to the training and use of artificial intelligence frontier models; defines terms; establishes remedies for violations.",
+     "api_sponsor": "Andrew Gounardes; Jamaal Bailey; George Borrello",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "A6453",
+     "found": true,
+     "bill_id": 1991849,
+     "session": "2025-2026 General Assembly",
+     "api_title": "Relates to the training and use of artificial intelligence frontier models; defines terms; establishes remedies for violations.",
+     "api_sponsor": "Alex Bores; Micah Lasher; Rebecca Seawright",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A6453",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "S8828",
+     "found": true,
+     "bill_id": 2068637,
+     "session": "2025-2026 General Assembly",
+     "api_title": "Implements transparency requirements for developers of AI models; requires the establishment of an office for oversite of AI model developer transparency and reporting; makes related provisions.",
+     "api_sponsor": "Andrew Gounardes",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "A9449",
+     "found": true,
+     "bill_id": 2066205,
+     "session": "2025-2026 General Assembly",
+     "api_title": "Implements transparency requirements for developers of AI models; requires the establishment of an office for oversite of AI model developer transparency and reporting; makes related provisions.",
+     "api_sponsor": "Alex Bores",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A9449",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "il-sb-315-p-a-104-0538": {
+   "bills": [
+    {
+     "bill_id": 1941067,
+     "number": "SB0315",
+     "state": "IL",
+     "session_id": 2176,
+     "session_name": "104th General Assembly",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+     "legiscan_url": "https://legiscan.com/IL/bill/SB0315/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 3,
+   "short_name": "IL SB 315 (P.A. 104-0538)",
+   "checks": [
+    {
+     "number": "SB315",
+     "found": true,
+     "bill_id": 1941067,
+     "session": "104th General Assembly",
+     "api_title": "BUSINESS-TECH",
+     "api_sponsor": "Mary Edly-Allen; Susan Rezin; Rachel Ventura",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "ma-h-5576-s-3178": {
+   "bills": [
+    {
+     "bill_id": 2155731,
+     "number": "H5576",
+     "state": "MA",
+     "session_id": 2182,
+     "session_name": "194th General Court",
+     "official_url": "https://malegislature.gov/Bills/194/H5576",
+     "legiscan_url": "https://legiscan.com/MA/bill/H5576/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2155977,
+     "number": "S3178",
+     "state": "MA",
+     "session_id": 2182,
+     "session_name": "194th General Court",
+     "official_url": "https://malegislature.gov/Bills/194/S3178",
+     "legiscan_url": "https://legiscan.com/MA/bill/S3178/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 1998184,
+     "number": "S37",
+     "state": "MA",
+     "session_id": 2182,
+     "session_name": "194th General Court",
+     "official_url": "https://malegislature.gov/Bills/194/S37",
+     "legiscan_url": "https://legiscan.com/MA/bill/S37/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2046676,
+     "number": "S2630",
+     "state": "MA",
+     "session_id": 2182,
+     "session_name": "194th General Court",
+     "official_url": "https://malegislature.gov/Bills/194/S2630",
+     "legiscan_url": "https://legiscan.com/MA/bill/S2630/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 4,
+   "short_name": "MA H.5576 / S.3178",
+   "checks": [
+    {
+     "number": "H5576",
+     "found": true,
+     "bill_id": 2155731,
+     "session": "194th General Court",
+     "api_title": "Relative to economic development in the commonwealth",
+     "api_sponsor": "",
+     "official_url": "https://malegislature.gov/Bills/194/H5576",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "check"
+    },
+    {
+     "number": "S3178",
+     "found": true,
+     "bill_id": 2155977,
+     "session": "194th General Court",
+     "api_title": "Site Information & Links",
+     "api_sponsor": "Senate Committee on Ways and Means",
+     "official_url": "https://malegislature.gov/Bills/194/S3178",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "check"
+    },
+    {
+     "number": "S37",
+     "found": true,
+     "bill_id": 1998184,
+     "session": "194th General Court",
+     "api_title": "Promoting economic development with emerging artificial intelligence models and safety",
+     "api_sponsor": "Barry Finegold",
+     "official_url": "https://malegislature.gov/Bills/194/S37",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "S2630",
+     "found": true,
+     "bill_id": 2046676,
+     "session": "194th General Court",
+     "api_title": "Promoting economic development with emerging artificial intelligence models and safety",
+     "api_sponsor": "Advanced Information Technology, the Internet and Cybersecurity",
+     "official_url": "https://malegislature.gov/Bills/194/S2630",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "check"
+    }
+   ],
+   "manual_check": {
+    "by": "claude",
+    "on": "2026-10-13",
+    "note": "H.5576 is the economic development bill; S.3178 is the Senate Ways and Means amendment (LegiScan lists it under a placeholder title); S.37 and S.2630 are the Finegold AI bills in its lineage."
+   }
+  },
+  "mi-hb-4668": {
+   "bills": [
+    {
+     "bill_id": 2037995,
+     "number": "HB4668",
+     "state": "MI",
+     "session_id": 2183,
+     "session_name": "103rd Legislature",
+     "official_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+     "legiscan_url": "https://legiscan.com/MI/bill/HB4668/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 5,
+   "short_name": "MI HB 4668",
+   "checks": [
+    {
+     "number": "HB4668",
+     "found": true,
+     "bill_id": 2037995,
+     "session": "103rd Legislature",
+     "api_title": "Trade: business regulation; requirements and safety standards for developers of certain artificial intelligence models; provide for. Creates new act.",
+     "api_sponsor": "Sarah Lightner",
+     "official_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "nj-s-4446-a-5275": {
+   "bills": [
+    {
+     "bill_id": 2153268,
+     "number": "S4446",
+     "state": "NJ",
+     "session_id": 2250,
+     "session_name": "2026-2027 Regular Session",
+     "official_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+     "legiscan_url": "https://legiscan.com/NJ/bill/S4446/2026",
+     "year_end": 2027,
+     "session_open": true
+    },
+    {
+     "bill_id": 2153622,
+     "number": "A5275",
+     "state": "NJ",
+     "session_id": 2250,
+     "session_name": "2026-2027 Regular Session",
+     "official_url": "https://www.njleg.state.nj.us/bill-search/2026/A5275",
+     "legiscan_url": "https://legiscan.com/NJ/bill/A5275/2026",
+     "year_end": 2027,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 6,
+   "short_name": "NJ S.4446 / A.5275",
+   "checks": [
+    {
+     "number": "S4446",
+     "found": true,
+     "bill_id": 2153268,
+     "session": "2026-2027 Regular Session",
+     "api_title": "Requires certain artificial intelligence developers to make certain disclosures to Attorney General.",
+     "api_sponsor": "Raj Mukherji",
+     "official_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+     "other_sessions": 1,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "A5275",
+     "found": true,
+     "bill_id": 2153622,
+     "session": "2026-2027 Regular Session",
+     "api_title": "Requires certain artificial intelligence developers to make certain disclosures to Attorney General.",
+     "api_sponsor": "Andrew Macurdy",
+     "official_url": "https://www.njleg.state.nj.us/bill-search/2026/A5275",
+     "other_sessions": 1,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "il-hb-3506-2025": {
+   "bills": [
+    {
+     "bill_id": 1962488,
+     "number": "HB3506",
+     "state": "IL",
+     "session_id": 2176,
+     "session_name": "104th General Assembly",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+     "legiscan_url": "https://legiscan.com/IL/bill/HB3506/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 7,
+   "short_name": "IL HB 3506 (2025)",
+   "checks": [
+    {
+     "number": "HB3506",
+     "found": true,
+     "bill_id": 1962488,
+     "session": "104th General Assembly",
+     "api_title": "ARTIFICIAL INTELLIGENCE SAFETY",
+     "api_sponsor": "Daniel Didech; Matt Hanson",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "il-sb-3444": {
+   "bills": [
+    {
+     "bill_id": 2107829,
+     "number": "SB3444",
+     "state": "IL",
+     "session_id": 2176,
+     "session_name": "104th General Assembly",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+     "legiscan_url": "https://legiscan.com/IL/bill/SB3444/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 8,
+   "short_name": "IL SB 3444",
+   "checks": [
+    {
+     "number": "SB3444",
+     "found": true,
+     "bill_id": 2107829,
+     "session": "104th General Assembly",
+     "api_title": "AI MODEL SAFETY",
+     "api_sponsor": "William Cunningham",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "il-sb-3312": {
+   "bills": [
+    {
+     "bill_id": 2105063,
+     "number": "SB3312",
+     "state": "IL",
+     "session_id": 2176,
+     "session_name": "104th General Assembly",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
+     "legiscan_url": "https://legiscan.com/IL/bill/SB3312/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 9,
+   "short_name": "IL SB 3312",
+   "checks": [
+    {
+     "number": "SB3312",
+     "found": true,
+     "bill_id": 2105063,
+     "session": "104th General Assembly",
+     "api_title": "AI SAFETY MEASURES ACT",
+     "api_sponsor": "Mary Edly-Allen; David Koehler; Rachel Ventura",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "il-hb-4705-sb-3261": {
+   "bills": [
+    {
+     "bill_id": 2102227,
+     "number": "HB4705",
+     "state": "IL",
+     "session_id": 2176,
+     "session_name": "104th General Assembly",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+     "legiscan_url": "https://legiscan.com/IL/bill/HB4705/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2104994,
+     "number": "SB3261",
+     "state": "IL",
+     "session_id": 2176,
+     "session_name": "104th General Assembly",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3261&GAID=18&DocTypeID=SB&LegId=166031&SessionID=114",
+     "legiscan_url": "https://legiscan.com/IL/bill/SB3261/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 10,
+   "short_name": "IL HB 4705 / SB 3261",
+   "checks": [
+    {
+     "number": "HB4705",
+     "found": true,
+     "bill_id": 2102227,
+     "session": "104th General Assembly",
+     "api_title": "ARTIFICIAL INTELLIGENCE SAFETY",
+     "api_sponsor": "Daniel Didech; Kimberly Du Buclet; Rita Mayfield",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "SB3261",
+     "found": true,
+     "bill_id": 2104994,
+     "session": "104th General Assembly",
+     "api_title": "ARTIFICIAL INTELLIGENCE SAFETY",
+     "api_sponsor": "Mary Edly-Allen; Mark Walker; Graciela Guzman",
+     "official_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3261&GAID=18&DocTypeID=SB&LegId=166031&SessionID=114",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "ri-s-358-h-5224": {
+   "bills": [
+    {
+     "bill_id": 1979504,
+     "number": "S0358",
+     "state": "RI",
+     "session_id": 2193,
+     "session_name": "2025 Regular Session",
+     "official_url": "https://status.rilegislature.gov/",
+     "legiscan_url": "https://legiscan.com/RI/bill/S0358/2025",
+     "year_end": 2025,
+     "session_open": false
+    },
+    {
+     "bill_id": 1945535,
+     "number": "H5224",
+     "state": "RI",
+     "session_id": 2193,
+     "session_name": "2025 Regular Session",
+     "official_url": "https://status.rilegislature.gov/",
+     "legiscan_url": "https://legiscan.com/RI/bill/H5224/2025",
+     "year_end": 2025,
+     "session_open": false
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 14,
+   "short_name": "RI S.358 / H.5224",
+   "checks": [
+    {
+     "number": "S358",
+     "found": true,
+     "bill_id": 1979504,
+     "session": "2025 Regular Session",
+     "api_title": "Provides a civil cause of action for individuals injured by artificial intelligence.",
+     "api_sponsor": "Victoria Gu; Samuel Zurier; Louis Dipalma",
+     "official_url": "https://status.rilegislature.gov/",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "H5224",
+     "found": true,
+     "bill_id": 1945535,
+     "session": "2025 Regular Session",
+     "api_title": "Provides a civil cause of action for individuals injured by artificial intelligence.",
+     "api_sponsor": "Lauren Carson; Tina Spears; Megan Cotter",
+     "official_url": "https://status.rilegislature.gov/",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "check"
+    }
+   ],
+   "manual_check": {
+    "by": "claude",
+    "on": "2026-10-13",
+    "note": "H.5224 is the House companion (same title as S.358)."
+   }
+  },
+  "ny-s-10373-verification": {
+   "bills": [
+    {
+     "bill_id": 2150136,
+     "number": "S10373",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+     "legiscan_url": "https://legiscan.com/NY/bill/S10373/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2157282,
+     "number": "A11636",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A11636",
+     "legiscan_url": "https://legiscan.com/NY/bill/A11636/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 15,
+   "short_name": "NY S.10373 (verification)",
+   "checks": [
+    {
+     "number": "S10373",
+     "found": true,
+     "bill_id": 2150136,
+     "session": "2025-2026 General Assembly",
+     "api_title": "Requires third party verification of compliance with transparency and safety requirements for developers of artificial intelligence models; requires publication of such compliance reports.",
+     "api_sponsor": "Andrew Gounardes",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+     "other_sessions": 0,
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "A11636",
+     "found": true,
+     "bill_id": 2157282,
+     "session": "2025-2026 General Assembly",
+     "api_title": "Requires third party verification of compliance with transparency and safety requirements for developers of artificial intelligence models; requires publication of such compliance reports.",
+     "api_sponsor": "Jordan Wright",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A11636",
+     "other_sessions": 0,
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "match"
+    }
+   ]
+  },
+  "ny-s-10456-minimum-standards": {
+   "bills": [
+    {
+     "bill_id": 2150234,
+     "number": "S10456",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+     "legiscan_url": "https://legiscan.com/NY/bill/S10456/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 16,
+   "short_name": "NY S.10456 (minimum standards)",
+   "checks": [
+    {
+     "number": "S10456",
+     "found": true,
+     "bill_id": 2150234,
+     "session": "2025-2026 General Assembly",
+     "api_title": "Requires an office within the department of financial services to establish minimum standards for large frontier developers' frontier AI frameworks to prevent unreasonable levels of catastrophic risk.",
+     "api_sponsor": "Andrew Gounardes",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+     "other_sessions": 0,
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "pa-h-b-2800-ai-risk-prevention-act": {
+   "bills": [
+    {
+     "bill_id": 2158760,
+     "number": "HB2800",
+     "state": "PA",
+     "session_id": 2192,
+     "session_name": "2025-2026 Regular Session",
+     "official_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+     "legiscan_url": "https://legiscan.com/PA/bill/HB2800/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 18,
+   "short_name": "PA H.B. 2800 AI Risk Prevention Act",
+   "checks": [
+    {
+     "number": "HB2800",
+     "found": true,
+     "bill_id": 2158760,
+     "session": "2025-2026 Regular Session",
+     "api_title": "Providing for artificial intelligence risk prevention; establishing standards for frontier developers in addressing critical safety incidents and catastrophic risks; imposing duties on the Pennsylvania Emergency Management Agency and the Attorney General; and imposing penalties.",
+     "api_sponsor": "Melissa Shusterman; Gregory Scott; Benjamin Waxman",
+     "official_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+     "other_sessions": 0,
+     "overlap": 1,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "mn-hf-4532-no-threshold": {
+   "bills": [
+    {
+     "bill_id": 2136898,
+     "number": "HF4532",
+     "state": "MN",
+     "session_id": 2151,
+     "session_name": "94th Legislature 2025-2026",
+     "official_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+     "legiscan_url": "https://legiscan.com/MN/bill/HF4532/2025",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2133932,
+     "number": "SF4509",
+     "state": "MN",
+     "session_id": 2151,
+     "session_name": "94th Legislature 2025-2026",
+     "official_url": "https://www.revisor.mn.gov/bills/94/2026/0/SF/4509/",
+     "legiscan_url": "https://legiscan.com/MN/bill/SF4509/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 19,
+   "short_name": "MN HF 4532 (no threshold)",
+   "checks": [
+    {
+     "number": "HF4532",
+     "found": true,
+     "bill_id": 2136898,
+     "session": "94th Legislature 2025-2026",
+     "api_title": "Artificial intelligence safety and disclosure requirements established, and civil remedies provided.",
+     "api_sponsor": "Katie Jones",
+     "official_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "SF4509",
+     "found": true,
+     "bill_id": 2133932,
+     "session": "94th Legislature 2025-2026",
+     "api_title": "Artificial intelligence safety and disclosure requirements establishment (RAISE Act)",
+     "api_sponsor": "Erin Maye Quade; Liz Boldon",
+     "official_url": "https://www.revisor.mn.gov/bills/94/2026/0/SF/4509/",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "check"
+    }
+   ],
+   "manual_check": {
+    "by": "claude",
+    "on": "2026-10-13",
+    "note": "SF 4509 is the Senate companion (same RAISE Act title)."
+   }
+  },
+  "ca-ab-1405-auditor-registry": {
+   "bills": [
+    {
+     "bill_id": 1980302,
+     "number": "AB1405",
+     "state": "CA",
+     "session_id": 2172,
+     "session_name": "2025-2026 Regular Session",
+     "official_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "legiscan_url": "https://legiscan.com/CA/bill/AB1405/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 20,
+   "short_name": "CA AB 1405 (auditor registry)",
+   "checks": [
+    {
+     "number": "AB1405",
+     "found": true,
+     "bill_id": 1980302,
+     "session": "2025-2026 Regular Session",
+     "api_title": "Artificial intelligence: auditors: registration.",
+     "api_sponsor": "Rebecca Bauer-Kahan; Jerry McNerney; Susan Rubio",
+     "official_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "other_sessions": 0,
+     "overlap": 0.5,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "ca-sb-813-ivos": {
+   "bills": [
+    {
+     "bill_id": 1980543,
+     "number": "SB813",
+     "state": "CA",
+     "session_id": 2172,
+     "session_name": "2025-2026 Regular Session",
+     "official_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+     "legiscan_url": "https://legiscan.com/CA/bill/SB813/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 21,
+   "short_name": "CA SB 813 (IVOs)",
+   "checks": [
+    {
+     "number": "SB813",
+     "found": true,
+     "bill_id": 1980543,
+     "session": "2025-2026 Regular Session",
+     "api_title": "Independent verification organizations.",
+     "api_sponsor": "Jerry McNerney; Rebecca Bauer-Kahan; Josh Lowenthal",
+     "official_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "oh-hb-628": {
+   "bills": [
+    {
+     "bill_id": 2058716,
+     "number": "HB628",
+     "state": "OH",
+     "session_id": 2190,
+     "session_name": "136th General Assembly",
+     "official_url": "https://www.legislature.ohio.gov/legislation/136/hb628",
+     "legiscan_url": "https://legiscan.com/OH/bill/HB628/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 22,
+   "short_name": "OH HB 628",
+   "checks": [
+    {
+     "number": "HB628",
+     "found": true,
+     "bill_id": 2058716,
+     "session": "136th General Assembly",
+     "api_title": "License artificial intelligence risk mitigation organizations",
+     "api_sponsor": "Ty Mathews; Kellie Deeter; Tex Fischer",
+     "official_url": "https://www.legislature.ohio.gov/legislation/136/hb628",
+     "other_sessions": 0,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "va-ch-425-426-jcots-study": {
+   "bills": [
+    {
+     "bill_id": 2073912,
+     "number": "HB797",
+     "state": "VA",
+     "session_id": 2237,
+     "session_name": "2026 Regular Regular Session",
+     "official_url": "https://lis.virginia.gov/bill-details/20261/HB797",
+     "legiscan_url": "https://legiscan.com/VA/bill/HB797/2026",
+     "year_end": 2026,
+     "session_open": true
+    },
+    {
+     "bill_id": 2085408,
+     "number": "SB384",
+     "state": "VA",
+     "session_id": 2237,
+     "session_name": "2026 Regular Regular Session",
+     "official_url": "https://lis.virginia.gov/bill-details/20261/SB384",
+     "legiscan_url": "https://legiscan.com/VA/bill/SB384/2026",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 24,
+   "short_name": "VA Ch. 425 / 426 (JCOTS study)",
+   "checks": [
+    {
+     "number": "HB797",
+     "found": true,
+     "bill_id": 2073912,
+     "session": "2026 Regular Regular Session",
+     "api_title": "Artificial intelligence; framework for person/entity acting as an independent verification org.",
+     "api_sponsor": "C.E. Hayes; Bonita Anthony",
+     "official_url": "https://lis.virginia.gov/bill-details/20261/HB797",
+     "other_sessions": 0,
+     "overlap": 0.5,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    },
+    {
+     "number": "SB384",
+     "found": true,
+     "bill_id": 2085408,
+     "session": "2026 Regular Regular Session",
+     "api_title": "Artificial intelligence; framework for person/entity acting as an independent verification org.",
+     "api_sponsor": "Angelia Williams Graves",
+     "official_url": "https://lis.virginia.gov/bill-details/20261/SB384",
+     "other_sessions": 0,
+     "overlap": 0.5,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "ct-p-a-26-15-ivo-pilot": {
+   "bills": [
+    {
+     "bill_id": 2106638,
+     "number": "SB00005",
+     "state": "CT",
+     "session_id": 2244,
+     "session_name": "2026 General Assembly",
+     "official_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+     "legiscan_url": "https://legiscan.com/CT/bill/SB00005/2026",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 25,
+   "short_name": "CT P.A. 26-15 IVO pilot",
+   "checks": [
+    {
+     "number": "SB5",
+     "found": true,
+     "bill_id": 2106638,
+     "session": "2026 General Assembly",
+     "api_title": "An Act Concerning Online Safety.",
+     "api_sponsor": "General Law Committee; Martin Looney; Robert Duff",
+     "official_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+     "other_sessions": 1,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": true,
+     "result": "match"
+    }
+   ]
+  },
+  "ct-p-a-26-15-omnibus": {
+   "bills": [
+    {
+     "bill_id": 2106638,
+     "number": "SB00005",
+     "state": "CT",
+     "session_id": 2244,
+     "session_name": "2026 General Assembly",
+     "official_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+     "legiscan_url": "https://legiscan.com/CT/bill/SB00005/2026",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "proposed",
+   "entry_id": 80,
+   "short_name": "CT P.A. 26-15 (omnibus)",
+   "checks": [
+    {
+     "number": "SB5",
+     "found": true,
+     "bill_id": 2106638,
+     "session": "2026 General Assembly",
+     "api_title": "An Act Concerning Online Safety.",
+     "api_sponsor": "General Law Committee; Martin Looney; Robert Duff",
+     "official_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+     "other_sessions": 1,
+     "overlap": 0,
+     "acronym": false,
+     "sponsorOk": false,
+     "result": "check"
+    }
+   ],
+   "manual_check": {
+    "by": "claude",
+    "on": "2026-10-13",
+    "note": "Same bill as ct-p-a-26-15-ivo-pilot (S.B. 5, PA 26-15); the entry has no sponsor text to compare."
+   }
+  }
+ }
+}

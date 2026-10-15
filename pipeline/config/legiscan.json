@@ -1,0 +1,38 @@
+{
+ "_note": "LegiScan settings. Free tier = 30,000 queries a month. Two bulk full-text searches per run (getSearchRaw, up to 2,000 hits each, no page limit). precise_phrases: frontier wording; every hit becomes a candidate with no title screen. wide_query: anything mentioning AI; titles of bills not seen before go to the AI intent check (grabber/intent.mjs), which drops only a confident 'no'. Caps only delay work to the next run. Proved by grabber/recall-legiscan.mjs against every bill already on the site.",
+ "precise_phrases": [
+  "frontier model",
+  "frontier models",
+  "frontier developer",
+  "frontier developers",
+  "frontier artificial intelligence",
+  "frontier AI",
+  "foundation model",
+  "foundation models",
+  "large developer",
+  "large developers",
+  "independent verification organization",
+  "independent verification organizations",
+  "AI risk mitigation organization",
+  "floating-point operations",
+  "integer or floating-point",
+  "critical safety incident",
+  "artificial intelligence safety",
+  "AI safety",
+  "superintelligence",
+  "artificial general intelligence"
+ ],
+ "wide_query": "\"artificial intelligence\" OR \"machine learning\" OR \"AI model\" OR \"AI models\" OR \"AI system\" OR \"AI systems\"",
+ "exclude_states": [
+  "US"
+ ],
+ "title_by_bill_max": 20,
+ "title_pages_per_run": 60,
+ "max_candidates_per_run": 25,
+ "per_run_budget": 100,
+ "monthly_cap": 2500,
+ "monthly_limit_free_tier": 30000,
+ "text_fallback_legiscan": true,
+ "_note_text": "Bill text is downloaded from the legislature's own site (state_link), which costs no LegiScan query. text_fallback_legiscan: if that fails, use LegiScan's copy (one query).",
+ "_note_cap": "monthly_cap lowered to 2,500 on 13 Oct 2026 until the owner confirms the plan limit (thought to be 30,000; the owner wondered if it is 3,000)."
+}
