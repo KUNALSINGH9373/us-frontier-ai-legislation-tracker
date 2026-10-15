@@ -41,6 +41,16 @@
    "match": "Jan 15, 2025"
   },
   {
+   "id": 14,
+   "date": "2025-01-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "\\[STALLED\\] H.5224 introduced Jan 29, 2025, referred to House Judiciary",
+   "match": "Jan 29, 2025"
+  },
+  {
    "id": 7,
    "date": "2025-02-07",
    "precision": "day",
@@ -49,6 +59,36 @@
    "column": "Status (as of Sept 5, 2026)",
    "clause": "\\[STALLED\\] Filed Feb. 7, 2025",
    "match": "Feb. 7, 2025"
+  },
+  {
+   "id": 14,
+   "date": "2025-02-11",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "heard Feb 11, 2025 and held for further study. S.358 introduced Feb 21, 2025, referred to Senate Judiciary",
+   "match": "Feb 11, 2025"
+  },
+  {
+   "id": 14,
+   "date": "2025-02-21",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Introduced / published",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "heard Feb 11, 2025 and held for further study. S.358 introduced Feb 21, 2025, referred to Senate Judiciary",
+   "match": "Feb 21, 2025"
+  },
+  {
+   "id": 14,
+   "date": "2025-03-18",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "heard Mar 18, 2025 and held for further study. No further action (LegiScan history)",
+   "match": "Mar 18, 2025"
   },
   {
    "id": 7,
@@ -647,7 +687,7 @@
    "inferredYear": false,
    "type": "Introduced / published",
    "column": "Status (as of Sept 5, 2026)",
-   "clause": "\\[PENDING\\] Introduced May 15, 2026",
+   "clause": "\\[PENDING\\] S.10373 introduced May 15, 2026",
    "match": "May 15, 2026"
   },
   {
@@ -764,11 +804,11 @@
    "id": 54,
    "date": "2026-06-05",
    "precision": "day",
-   "inferredYear": true,
-   "type": "Search date / deadline / scheduled",
+   "inferredYear": false,
+   "type": "Introduced / published",
    "column": "Date",
-   "clause": "scheduled for Federal Register publication June 5",
-   "match": "June 5"
+   "clause": "published in the Federal Register June 5, 2026 (FR Doc. 2026-11415)",
+   "match": "June 5, 2026"
   },
   {
    "id": 6,
@@ -818,6 +858,16 @@
    "type": "Introduced / published",
    "column": "Introduced / status",
    "clause": "June 25, 2026",
+   "match": "June 25, 2026"
+  },
+  {
+   "id": 42,
+   "date": "2026-06-25",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Passed / advanced",
+   "column": "Status",
+   "clause": "House Science Committee markup June 25, 2026: ordered reported in the nature of a substitute (amended), 29–0 (10-bill package",
    "match": "June 25, 2026"
   },
   {
@@ -1009,6 +1059,16 @@
    "column": "Introduced / status",
    "clause": "July 27, 2026",
    "match": "July 27, 2026"
+  },
+  {
+   "id": 15,
+   "date": "2026-07-29",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Status (as of Sept 5, 2026)",
+   "clause": "in Senate Internet & Technology Committee. Assembly companion A.11636 introduced and referred to Science & Technology July 29, 2026 (LegiScan)",
+   "match": "July 29, 2026"
   },
   {
    "id": 4,
@@ -1467,7 +1527,7 @@
    "inferredYear": true,
    "type": "Referred / stalled / hearing",
    "column": "Introduced / status",
-   "clause": "the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced print not yet posted on GovInfo as of Oct 8, 2026",
+   "clause": "the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov",
    "match": "Sept 24"
   },
   {
@@ -1681,6 +1741,16 @@
    "match": "Sept 29, 2026"
   },
   {
+   "id": 26,
+   "date": "2026-09-30",
+   "precision": "day",
+   "inferredYear": false,
+   "type": "Referred / stalled / hearing",
+   "column": "Introduced / status",
+   "clause": "referred to Senate Commerce. Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions)",
+   "match": "Sept 30, 2026"
+  },
+  {
    "id": 70,
    "date": "2026-09-30",
    "precision": "day",
@@ -1719,16 +1789,6 @@
    "column": "Date",
    "clause": "Announced Oct 4, 2026 (Truth Social post)",
    "match": "Oct 4, 2026"
-  },
-  {
-   "id": 34,
-   "date": "2026-10-08",
-   "precision": "day",
-   "inferredYear": false,
-   "type": "Search date / deadline / scheduled",
-   "column": "Introduced / status",
-   "clause": "the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced print not yet posted on GovInfo as of Oct 8, 2026",
-   "match": "Oct 8, 2026"
   },
   {
    "id": 51,
