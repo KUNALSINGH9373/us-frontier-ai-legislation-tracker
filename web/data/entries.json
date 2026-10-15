@@ -1253,9 +1253,11 @@
   "sponsor": "Sen. Gu + 8 co-sponsors (S.358, Feb 21, 2025)",
   "mechanism": "Different design: strict tort liability. Developers of covered models are strictly liable for injuries to non-users caused by model conduct that would be negligent, tortious, or criminal if done by a human, where the conduct was not intended or reasonably anticipated by the user or any fine-tuner; rebuttable presumption that the AI satisfies a tort's mental-state element (\"it shall not be a defense that AI systems are incapable of having mental states\"); affirmative defenses for meeting the human standard of care or pure capability failure. Resolves the FPF-identified Rhode Island gap",
   "thresholds": "SB 1047's thresholds verbatim: 10²⁶ ops and >$100M compute cost; fine-tuning 3×10²⁵ ops and >$10M",
-  "status_and_dates": "Status (as of Sept 5, 2026): [STALLED] Referred to Senate Judiciary; no further action found",
+  "status_and_dates": "Status (as of Sept 5, 2026): [STALLED] H.5224 introduced Jan 29, 2025, referred to House Judiciary; heard Feb 11, 2025 and held for further study. S.358 introduced Feb 21, 2025, referred to Senate Judiciary; heard Mar 18, 2025 and held for further study. No further action (LegiScan history)",
   "source": "S.358 text — rilegislature.gov · H.5224 text",
-  "years": [],
+  "years": [
+   "2025"
+  ],
   "permalink_old_site": "https://usfrontierlaw.com/#rec-s-358-h-5224-r",
   "section_name": "Pending, stalled and failed state bills",
   "confidence_level": "HIGH",
@@ -1288,7 +1290,7 @@
    },
    {
     "h": "Status (as of Sept 5, 2026)",
-    "t": "\\[STALLED\\] Referred to Senate Judiciary; no further action found",
+    "t": "\\[STALLED\\] H.5224 introduced Jan 29, 2025, referred to House Judiciary; heard Feb 11, 2025 and held for further study. S.358 introduced Feb 21, 2025, referred to Senate Judiciary; heard Mar 18, 2025 and held for further study. No further action (LegiScan history)",
     "links": []
    },
    {
@@ -1340,7 +1342,7 @@
   "sponsor": "Sen. Andrew Gounardes (D) — the RAISE Act's own sponsor",
   "mechanism": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
   "thresholds": "Uses RAISE definitions",
-  "status_and_dates": "Status (as of Sept 5, 2026): [PENDING] Introduced May 15, 2026; in Senate Internet & Technology Committee",
+  "status_and_dates": "Status (as of Sept 5, 2026): [PENDING] S.10373 introduced May 15, 2026; in Senate Internet & Technology Committee. Assembly companion A.11636 introduced and referred to Science & Technology July 29, 2026 (LegiScan)",
   "source": "S.10373 text + sponsor memo — nysenate.gov",
   "years": [
    "2026"
@@ -1377,7 +1379,7 @@
    },
    {
     "h": "Status (as of Sept 5, 2026)",
-    "t": "\\[PENDING\\] Introduced May 15, 2026; in Senate Internet & Technology Committee",
+    "t": "\\[PENDING\\] S.10373 introduced May 15, 2026; in Senate Internet & Technology Committee. Assembly companion A.11636 introduced and referred to Science & Technology July 29, 2026 (LegiScan)",
     "links": []
    },
    {
@@ -2291,10 +2293,11 @@
   "sponsor": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
   "mechanism": "Dept. of Energy runs a mandatory Advanced AI Evaluation Program: classified red-team testing, blind third-party evaluations; ≥$1M/day non-participation penalty. Earliest of the federal testing-mandate bills",
   "thresholds": "10²⁶ ops",
-  "status_and_dates": "Introduced / status: Sept 29, 2025; referred to Senate Commerce. No action in 11+ months",
+  "status_and_dates": "Introduced / status: Sept 29, 2025; referred to Senate Commerce. Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions); no further action",
   "source": "Bill text — congress.gov",
   "years": [
-   "2025"
+   "2025",
+   "2026"
   ],
   "permalink_old_site": "https://usfrontierlaw.com/#rec-s-2938-artificial-intelligence-risk-evaluation-act-of-2025",
   "section_name": "Federal frontier-AI bills introduced (none enacted)",
@@ -2323,7 +2326,7 @@
    },
    {
     "h": "Introduced / status",
-    "t": "Sept 29, 2025; referred to Senate Commerce. No action in 11+ months",
+    "t": "Sept 29, 2025; referred to Senate Commerce. Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions); no further action",
     "links": []
    },
    {
@@ -2975,7 +2978,7 @@
   "sponsor": "Sen. Mark Warner (D-VA), Sen. Brian Schatz (D-HI), Sen. Andy Kim (D-NJ)",
   "mechanism": "Sponsor bill text (pre-introduction print) read in part. Establishes an Artificial Intelligence Safety Board within Commerce (NIST, CISA, NSA, Treasury and independent technical experts) within 90 days to evaluate risks and set technical safety and security standards; developers of frontier models must give the Board access at least 45 days before public release , including model weights, configuration files, runtimes and software libraries; Model Safety Plans naming the responsible corporate officer; incident reporting within 30 days, or 72 hours for an imminent threat to national security, critical infrastructure or public safety; national AI incident database; secure federal testing environments using NSA and DOE resources; documentation standards for autonomous AI agents; civil penalties up to $250,000 per violation per day . Successor to Warner's S. 5061 (NSA pre-deployment testing) with a broader board and standards regime",
   "thresholds": "Capability-based, no compute figure: \"frontier artificial intelligence model\" = a model \"that exhibits or could be modified to exhibit high levels of performance at tasks that pose a serious risk to national security, national economic security, or public health or safety\"",
-  "status_and_dates": "Introduced / status: Announced and debated on the Senate floor Sept 24, 2026 ; introduced as S. 5576 on Sept 29, 2026 , read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced print not yet posted on GovInfo as of Oct 8, 2026",
+  "status_and_dates": "Introduced / status: Announced and debated on the Senate floor Sept 24, 2026 ; introduced as S. 5576 on Sept 29, 2026 , read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov; no further action",
   "source": "Bill text — warner.senate.gov · Sponsor release · S. 5576 status — GovInfo · Floor remarks — Congressional Record, Sept 24",
   "years": [
    "2026"
@@ -3007,7 +3010,7 @@
    },
    {
     "h": "Introduced / status",
-    "t": "Announced and debated on the Senate floor Sept 24, 2026; introduced as S. 5576 on Sept 29, 2026, read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced print not yet posted on GovInfo as of Oct 8, 2026",
+    "t": "Announced and debated on the Senate floor Sept 24, 2026; introduced as S. 5576 on Sept 29, 2026, read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov; no further action",
     "links": []
    },
    {
@@ -3658,7 +3661,7 @@
   "sponsor": "Reps. Obernolte (R-CA), Valerie Foushee (D-NC) + 5",
   "mechanism": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; 5-year sunset; CBO est. $80M 2026-31",
   "thresholds": "",
-  "status_and_dates": "Status: Introduced June 18, 2026; passed House Science Committee markup (10-bill package)",
+  "status_and_dates": "Status: Introduced June 18, 2026; House Science Committee markup June 25, 2026: ordered reported in the nature of a substitute (amended), 29–0 (10-bill package; Congress.gov actions)",
   "source": "Bill text · CBO estimate",
   "years": [
    "2026"
@@ -3685,7 +3688,7 @@
    },
    {
     "h": "Status",
-    "t": "Introduced June 18, 2026; passed House Science Committee markup (10-bill package)",
+    "t": "Introduced June 18, 2026; House Science Committee markup June 25, 2026: ordered reported in the nature of a substitute (amended), 29–0 (10-bill package; Congress.gov actions)",
     "links": []
    },
    {
@@ -4549,8 +4552,8 @@
   "sponsor": "",
   "mechanism": "Directs Treasury, the Department of War/NSA, and DHS/CISA—consulting the White House, Commerce/NIST and others—to develop a classified cyber-capability benchmark and threshold for \"covered frontier models\" and design a voluntary developer framework permitting up to 30 days' pre-release government access . Also directs a voluntary Treasury/NSA/CISA AI-cybersecurity clearinghouse and DOJ prioritization of AI-enabled cybercrime. Section 3(c) expressly disclaims mandatory licensing, mandatory governmental review, or preclearance",
   "thresholds": "",
-  "status_and_dates": "Date: June 2, 2026; scheduled for Federal Register publication June 5",
-  "source": "Executive Order 14409 — Federal Register public-inspection PDF",
+  "status_and_dates": "Date: June 2, 2026; published in the Federal Register June 5, 2026 (FR Doc. 2026-11415)",
+  "source": "Executive Order 14409 — Federal Register · public-inspection PDF",
   "years": [
    "2026"
   ],
@@ -4566,7 +4569,7 @@
    },
    {
     "h": "Date",
-    "t": "June 2, 2026; scheduled for Federal Register publication June 5",
+    "t": "June 2, 2026; published in the Federal Register June 5, 2026 (FR Doc. 2026-11415)",
     "links": []
    },
    {
@@ -4576,10 +4579,14 @@
    },
    {
     "h": "Source",
-    "t": "Executive Order 14409 — Federal Register public-inspection PDF",
+    "t": "Executive Order 14409 — Federal Register · public-inspection PDF",
     "links": [
      {
-      "t": "Executive Order 14409 — Federal Register public-inspection PDF",
+      "t": "Executive Order 14409 — Federal Register",
+      "u": "https://www.federalregister.gov/documents/2026/06/05/2026-11415/promoting-advanced-artificial-intelligence-innovation-and-security"
+     },
+     {
+      "t": "public-inspection PDF",
       "u": "https://public-inspection.federalregister.gov/2026-11415.pdf"
      }
     ]
@@ -4592,13 +4599,21 @@
   ],
   "source_links": [
    {
-    "t": "Executive Order 14409 — Federal Register public-inspection PDF",
+    "t": "Executive Order 14409 — Federal Register",
+    "u": "https://www.federalregister.gov/documents/2026/06/05/2026-11415/promoting-advanced-artificial-intelligence-innovation-and-security"
+   },
+   {
+    "t": "public-inspection PDF",
     "u": "https://public-inspection.federalregister.gov/2026-11415.pdf"
    }
   ],
   "all_links": [
    {
-    "t": "Executive Order 14409 — Federal Register public-inspection PDF",
+    "t": "Executive Order 14409 — Federal Register",
+    "u": "https://www.federalregister.gov/documents/2026/06/05/2026-11415/promoting-advanced-artificial-intelligence-innovation-and-security"
+   },
+   {
+    "t": "public-inspection PDF",
     "u": "https://public-inspection.federalregister.gov/2026-11415.pdf"
    }
   ]
