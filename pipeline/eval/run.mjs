@@ -25,6 +25,7 @@ import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_DEFINITION } from '../agents/p
 import { buildClaims } from '../agents/validator.mjs';
 import { containsQuote, digitRuns } from '../agents/source-text.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
+import { foreignLetters } from '../agents/checks.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 const args = process.argv.slice(2), opt = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : null; };
@@ -47,7 +48,8 @@ export function codeChecks(patch, text) {
     for (const n of digitRuns(v)) if (n.length > 1 && !src.has(n)) problems.push(`number ${n} in ${f} is not in the source`);
     if (NEGATIVE_FINDING.test(v)) problems.push(`a "none located" style claim in ${f}`);
     if (/[{}]|```|\\n/.test(v)) problems.push(`stray code or JSON syntax in ${f}`);
-    if (v.length > (f === 'mechanism' ? 700 : 500)) problems.push(`${f} is too long (${v.length} characters)`);
+    if (foreignLetters(v, text)) problems.push(`letters that do not occur in the source in ${f}`);
+    if (v.length > (f === 'mechanism' ? 700 : 400)) problems.push(`${f} is too long (${v.length} characters)`);
   }
   return problems;
 }

@@ -34,6 +34,7 @@ ok('exponents read the same however printed; years and single digits are not fac
 {
   const p = codeChecks({ fields: { thresholds: 'more than 10^27 operations' }, evidence: [{ field: 'thresholds', quote: 'greater than 10^27 integer' }] }, TEXT);
   ok('code checks catch an invented quote and an invented number', p.some((x) => /not in the source/.test(x) && /quote/.test(x)) && p.some((x) => /number 27/.test(x)));
+  ok('code checks catch stray foreign-script text (a published Bengali tail, 16 Oct)', codeChecks({ fields: { thresholds: 'more than 10^26 operations খেলতে হবে' }, evidence: [{ field: 'thresholds', quote: 'greater than 10^26 integer or floating-point operations' }] }, TEXT).some((x) => /letters that do not occur/.test(x)));
   ok('code checks pass a faithful field', codeChecks({ fields: { thresholds: 'more than 10^26 operations' }, evidence: [{ field: 'thresholds', quote: 'greater than 10^26 integer or floating-point operations' }] }, TEXT).length === 0);
 }
 {

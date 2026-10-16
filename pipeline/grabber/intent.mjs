@@ -7,7 +7,7 @@ import { SCOPE_DEFINITION } from '../agents/prompts.mjs';
 
 // v2 (13 Oct 2026): v1 said "no" to military / defense AI and to an AI board of investigations, all three on the site. The "no" list is now
 // only topics that are clearly outside the tracker; every other AI title is at least "maybe".
-export const INTENT_PROMPT_VERSION = 'intent-v2';
+export const INTENT_PROMPT_VERSION = 'intent-v3'; // v3: owner-approved scope definition, 16 Oct 2026
 
 export const INTENT_SYSTEM = `You screen US bill titles for a tracker of frontier-AI law. ${SCOPE_DEFINITION}
 The tracker also covers adjacent federal and state bills on AI security, AI oversight or investigation boards, AI reliability and testing, military and defense AI, AI whistleblowers, AI incidents, rogue or self-improving AI, and AI chips.

@@ -1,44 +1,43 @@
 {
- "run_at": "2026-10-16T07:37:58.252Z",
+ "run_at": "2026-10-16T08:46:22.760Z",
  "provider": "gemini",
  "generator": "gemini-3.5-flash-lite",
  "reader": "gemini-3.5-flash-lite",
- "prompt_version": "e44238988cf5",
+ "prompt_version": "e5eef3ab37bf",
  "summary": {
   "items": 48,
   "outcomes": {
-   "held": 26,
-   "published": 12,
-   "too_long": 3,
-   "error": 3,
-   "out_of_scope": 4
+   "held": 23,
+   "out_of_scope": 7,
+   "published": 15,
+   "too_long": 3
   },
   "scope_agreement": 1,
   "scope_wrong": [],
   "fields": {
    "mechanism": {
     "items": 41,
-    "passed": 12,
-    "pass_rate": 0.2926829268292683,
-    "published": 12,
+    "passed": 15,
+    "pass_rate": 0.36585365853658536,
+    "published": 15,
     "unsupported_fields": 0,
     "fact_recall": 0.02,
     "items_with_provable_facts": 25
    },
    "thresholds": {
     "items": 41,
-    "passed": 12,
-    "pass_rate": 0.2926829268292683,
-    "published": 0,
+    "passed": 13,
+    "pass_rate": 0.3170731707317073,
+    "published": 5,
     "unsupported_fields": 0,
-    "fact_recall": 0,
+    "fact_recall": 0.1875,
     "items_with_provable_facts": 16
    },
    "penalties": {
     "items": 41,
-    "passed": 12,
-    "pass_rate": 0.2926829268292683,
-    "published": 0,
+    "passed": 15,
+    "pass_rate": 0.36585365853658536,
+    "published": 1,
     "unsupported_fields": 0,
     "fact_recall": 0,
     "items_with_provable_facts": 2
@@ -46,27 +45,27 @@
   }
  },
  "usage": {
-  "calls": 174,
-  "input_tokens": 1173259,
-  "output_tokens": 188714,
-  "total_tokens": 1361973,
+  "calls": 158,
+  "input_tokens": 1120818,
+  "output_tokens": 127324,
+  "total_tokens": 1248142,
   "by_role": {
    "generator": {
-    "calls": 104,
-    "input": 788889,
-    "output": 170068
+    "calls": 90,
+    "input": 721383,
+    "output": 114910
    },
    "validator": {
-    "calls": 70,
-    "input": 384370,
-    "output": 18646
+    "calls": 68,
+    "input": 399435,
+    "output": 12414
    }
   },
   "by_model": {
    "gemini-3.5-flash-lite": {
-    "calls": 174,
-    "input": 1173259,
-    "output": 188714
+    "calls": 158,
+    "input": 1120818,
+    "output": 127324
    }
   },
   "estimated_cost_usd": null
@@ -111,28 +110,30 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "evidence quote for thresholds is not in the source: \"an integrated circuit, computer, or other product-- (I) classified under Export \""
+    "number 25 in thresholds is not in the source",
+    "number 300 in thresholds is not in the source",
+    "stray code or JSON syntax in thresholds",
+    "thresholds is too long (3294 characters)",
+    "an independent reader judged this item out of scope: no answer"
    ],
    "section": null
   },
   {
    "key": "ca-ab-1405-auditor-registry",
-   "outcome": "published",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Final (Aug 25 Senate-amended, concurred Aug 30) text read. GovOps must establish an AI Auditor Registry by Jan 1, 2029 (earlier drafts said 2027); from Jan 1, 2029 no person may offer, sell, or conduct a \"covered AI audit\" — an audit of internal controls/processes/systems \"necessary for compliance with state law\" — unless registered. Registrants disclose standards applied (ISO, NIST, AICPA, etc.) and basis for validity claims; report contents specified (scope, results, deficiencies, whether auditee followed its internal safety protocols, limitations, signed statement); 10-year retention; independence rules (no self-review, no job-seeking during audit, 12-month cooling-off for former auditee staff); auditor-employee whistleblower protection; GovOps may investigate and remove from registry with referral to AG; CPA-licensed auditors deemed compliant if they follow AICPA standards; registration number on all advertising; AI Auditors' Registration Fund",
-     "got": "Requires the Government Operations Agency to establish an AI Auditor Registry by January 1, 2029. Beginning January 1, 2029, unregistered persons are prohibited from offering, selling, or conducting covered AI audits. Mandates that registered AI auditors meet standards of independence, provide specific reports to auditees, and retain records for at least 10 years.",
+     "got": null,
      "provable": [
       "10",
       "12"
      ],
-     "found": [
-      "10"
-     ],
-     "recall": 0.5,
+     "found": [],
+     "recall": 0,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "thresholds": {
      "gold": null,
@@ -141,7 +142,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "penalties": {
      "gold": null,
@@ -150,17 +151,20 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "D"
+   "rounds": 3,
+   "problems": [
+    "claim about mechanism (\"Requires the Government Operations Agency to establish an AI Auditor Registry allowing AI auditors t\") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
   },
   {
    "key": "ca-sb-1119-adam-s-law-and-sb-867",
-   "outcome": "held",
+   "outcome": "out_of_scope",
    "scope_ok": true,
    "fields": {
     "mechanism": {
@@ -197,9 +201,7 @@
    },
    "gold_in_scope": false,
    "rounds": 1,
-   "problems": [
-    "scope disagreement: generator out, reader in"
-   ],
+   "problems": [],
    "section": null
   },
   {
@@ -245,26 +247,25 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "thresholds is too long (19953 characters)",
-    "claim about mechanism (\"Enacts the Transparency in Frontier Artificial Intelligence Act, requiring large frontier developers\") is not supported: the reader could not confirm it word for word"
+    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
    ],
    "section": null
   },
   {
    "key": "ca-sb-813-ivos",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Enrolled text read. By Jan 1, 2028 the Government Operations Agency must: develop IVO designation application requirements and criteria (risk-assessment competence, technical expertise, conflict-of-interest management — IVO may be paid by the assessed party at market rates but not on terms conditioned on results — and operational independence); develop suspension/termination procedures; convene working groups that must include engineers from competing AI companies and AI safety experts ; report to the Legislature. Designated IVOs file annual reports. §8898.4 expressly: no liability solely for failing a standard; no state endorsement; no requirement that anyone engage an IVO or undergo a covered audit; an audit under the standard is \"relevant to, but not conclusive of\" a harm action — i.e., no presumption of reasonable care. Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone",
-     "got": null,
+     "got": "The Government Operations Agency must develop application requirements, designation criteria, and suspension procedures for independent verification organizations (IVOs) that assess AI risks. Designated IVOs must submit annual reports to the agency and Legislature.",
      "provable": [
       "8898.4"
      ],
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": null,
@@ -273,7 +274,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": null,
@@ -282,29 +283,27 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "claim about mechanism (\"The Government Operations Agency must develop application requirements for designation as an indepen\") is not supported: the reader could not confirm it word for word"
-   ],
-   "section": null
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
   },
   {
    "key": "chip-security-act-h-r-3447-cotton-companion",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "The introduced text requires Commerce standards for location-verification and other chip-security mechanisms for covered advanced integrated circuits, plus reporting of diversion/tampering indications; the committee vote is separately confirmed by an official House release and CBO's reported-bill record",
-     "got": null,
+     "got": "Requires the Secretary of Commerce to issue standards requiring covered integrated circuit products to be outfitted with chip security mechanisms that implement location verification before being exported, reexported, or in-country transferred. Requires reporting of diversion or tampering, and mandates assessments for secondary security mechanisms.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": null,
@@ -313,7 +312,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": null,
@@ -322,15 +321,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
-   ],
-   "section": null
+   "rounds": 1,
+   "problems": [],
+   "section": "G.3"
   },
   {
    "key": "ct-p-a-26-15-ivo-pilot",
@@ -455,7 +452,8 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
+    "claim about thresholds (\"4,800 or more; 2,400 or more; 1,600 or more; 1,400 gigabytes per second or more; 1,100 gigabytes per\") is not supported: the reader could not confirm it word for word",
+    "claim about events_add[0] (\"On 2025-11-06 (Introduced / published): Introduced in the Senate\") is not supported: the reader could not confirm it word for word"
    ],
    "section": null
   },
@@ -466,7 +464,7 @@
    "fields": {
     "mechanism": {
      "gold": "Amends the NIST Act (15 U.S.C. §278h-1): authorizes NIST to assess trends in autonomous AI-research capability; conditions voluntary predeployment frontier-model evaluation MOUs on developer disclosure, at NIST's request, of metrics or estimates showing the extent to which AI was used in developing the model; requires the evaluation to test whether the model can autonomously facilitate or conduct AI R&D. Applies only to developers entering such MOUs",
-     "got": "Authorizes the NIST Director to assess trends regarding AI capabilities that might contribute to scientific research and development breakthroughs. Prohibits the Director from entering into a memorandum of understanding with the developer of a frontier artificial intelligence system to conduct pre-deployment evaluation unless the memorandum requires the developer to disclose information on the extent an AI system was used to facilitate or conduct research on or development of the frontier system, and the evaluation includes the frontier system's capabilities to autonomously facilitate or conduct research on or development of an artificial intelligence system.",
+     "got": "Amends the National Institute of Standards and Technology Act to authorize the Director of the Institute to assess trends regarding AI capabilities that might contribute to R&D breakthroughs. Imposes requirements on memorandums of understanding between the Director and developers of frontier artificial intelligence systems concerning pre-deployment evaluations.",
      "provable": [
       "15",
       "278"
@@ -496,23 +494,23 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
+   "rounds": 1,
    "problems": [],
    "section": "D"
   },
   {
    "key": "h-r-10189-defense-ai-reliability-act",
-   "outcome": "published",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Requires a centralized, non-punitive DoD-wide AI incident and vulnerability reporting, tracking, analysis, and remediation program covering development through operation. Includes prompt reporting; protected disclosures by servicemembers, civilian employees, contractors, and subcontractors; categorization and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operation outside guardrails, mission degradation, failure to obey disengagement, near misses, and control/autonomy concerns. Not frontier-specific",
-     "got": "The Secretary of Defense shall establish a centralized Department-wide program for the reporting, tracking, analysis, and remediation of covered AI incidents and covered AI vulnerabilities arising from the development, testing, procurement, fielding, or operation of artificial intelligence systems within the Department of Defense.",
+     "got": null,
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "thresholds": {
      "gold": null,
@@ -521,7 +519,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "penalties": {
      "gold": null,
@@ -530,27 +528,29 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "F"
+   "rounds": 3,
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
   },
   {
    "key": "h-r-10362-stop-rogue-ai-act",
-   "outcome": "published",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Introduced text read. Directs NIST to set standards so organisations can find and track every AI agent on their networks, verify who built and operates each, monitor in real time, and allow, deny or revoke access; federal agencies and contractors to build the safeguards into procurement and deployment. Duties fall on deployers and agencies, not frontier developers",
-     "got": "Directs NIST, in coordination with the Assistant Secretary of Commerce for Communications and Information, to develop, publish, and maintain standards, guidelines, and best practices for the secure development, deployment, and operation of AI agents by organizations. Requires the Federal Acquisition Regulatory Council to propose revisions to the Federal Acquisition Regulation to require contractors and agencies procuring or deploying AI agents to comply with these standards.",
+     "got": null,
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "thresholds": {
      "gold": null,
@@ -559,7 +559,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "penalties": {
      "gold": null,
@@ -568,13 +568,15 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     }
    },
    "gold_in_scope": true,
    "rounds": 1,
-   "problems": [],
-   "section": "F"
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
   },
   {
    "key": "h-r-9363-ai-security-and-innovation-act",
@@ -583,7 +585,7 @@
    "fields": {
     "mechanism": {
      "gold": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; 5-year sunset; CBO est. $80M 2026-31",
-     "got": "Establishes a Center for AI Security and Innovation in the National Institute of Standards and Technology to measure national security and economic risks of AI systems, evaluate covered frontier systems through voluntary agreements with covered entities, and develop voluntary standards, guidelines, and best practices.",
+     "got": "Establishes a Center for AI Security and Innovation within the National Institute of Standards and Technology to measure AI risks, conduct classified and unclassified evaluations of covered frontier systems, establish voluntary testing agreements with covered entities, and publish standards and guidelines for AI safety and reliability.",
      "provable": [
       "31"
      ],
@@ -612,7 +614,7 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
+   "rounds": 1,
    "problems": [],
    "section": "D"
   },
@@ -623,7 +625,7 @@
    "fields": {
     "mechanism": {
      "gold": "Full text read. Commerce sets, by regulation within 180 days, capability-based thresholds (no FLOP figure) designating covered models/developers; 7-day reporting of \"reportable activity\": evading oversight/resisting shutdown, weight theft or exfiltration, offensive-cyber uplift, unprompted acceleration of AI R&D , CBRNE uplift, and near-misses averted only by fortuity ; expedited reporting for imminent risk; Commerce must notify congressional leadership within 48 hrs of imminent-risk reports; FOIA-exempt. §2(d)(4): reports may not be used in any civil, criminal, or administrative proceeding against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer — a use-immunity that would bind state AGs. Civil penalty up to $2M per day ; Commerce subpoena and inspection powers. Moran told Reuters he split reporting out of the GAAIA framework to move faster",
-     "got": "Requires covered artificial intelligence model developers to submit reports to the Secretary of Commerce within 7 days of knowing or reasonably believing that certain reportable activities have occurred, such as attempts to evade human oversight, theft of model weights, or cyber and CBRN capabilities posing serious risks.",
+     "got": "Requires developers of covered artificial intelligence models to submit detailed reports to the Secretary of Commerce within 7 days of knowing or reasonably believing that a reportable incident, security breach, or dangerous capability has occurred. The Secretary promulgates regulations and guidelines establishing capability thresholds, receives reports, and handles enforcement.",
      "provable": [
       "180",
       "48"
@@ -644,7 +646,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": null,
+     "got": "Civil penalty not to exceed $2,000,000, assessed by the Secretary after notice and an opportunity for a hearing.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -653,7 +655,7 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 1,
+   "rounds": 2,
    "problems": [],
    "section": "D"
   },
@@ -664,7 +666,7 @@
    "fields": {
     "mechanism": {
      "gold": "Antitrust safe harbor for frontier labs sharing model-risk and security information (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
-     "got": "Provides antitrust exemptions for non-Federal entities to exchange information or coordinate on delaying or limiting the release, deployment, use, development, training, testing, or evaluation of artificial intelligence for covered security purposes.",
+     "got": "It shall not be considered a violation of any provision of the antitrust laws for 2 or more non-Federal entities to provide or exchange information or assistance relating to a covered artificial intelligence security risk.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -691,7 +693,7 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
+   "rounds": 3,
    "problems": [],
    "section": "D"
   },
@@ -735,8 +737,11 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "thresholds is too long (2797 characters)",
-    "claim about mechanism (\"Requires covered entities to maintain technical shutdown capabilities, submit incident reports withi\") is not supported: the reader could not confirm it word for word"
+    "the independent reader gave an unusable answer",
+    "claim about mechanism (\"Requires covered entities to maintain a technical capability to stop inference, terminate user acces\") is not supported: the reader could not confirm it word for word",
+    "claim about thresholds (\"$500,000,000 in gross revenue; $100,000,000 in computing power; 10 individuals; $100,000,000 in econ\") is not supported: the reader could not confirm it word for word",
+    "claim about events_add[0] (\"On 2026-07-23 (Introduced / published): Introduced in the House\") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
    ],
    "section": null
   },
@@ -786,7 +791,23 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
+    "evidence quote for thresholds is not in the source: \"1,000,000,000 in AI-related development expenditures\"",
+    "evidence quote for thresholds is not in the source: \"10,000,000,000 in AI-related development expenditures\"",
+    "number 300 in thresholds is not in the source",
+    "number 500000000 in thresholds is not in the source",
+    "number 25 in thresholds is not in the source",
+    "number 142 in thresholds is not in the source",
+    "number 263 in thresholds is not in the source",
+    "number 133 in thresholds is not in the source",
+    "number 07 in thresholds is not in the source",
+    "number 284 in thresholds is not in the source",
+    "number 271 in thresholds is not in the source",
+    "number 5028 in thresholds is not in the source",
+    "stray code or JSON syntax in thresholds",
+    "thresholds is too long (7997 characters)",
+    "claim about thresholds (\"10^26 operations; gross revenues over $50,000,000; expenditures over $1,000,000,000; gross revenues \") is not supported: the reader could not confirm it word for word",
+    "claim about events_add[0] (\"On 2026-07-23 (Introduced / published): Introduced in House and referred to the Committee on Energy \") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
    ],
    "section": null
   },
@@ -832,36 +853,37 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "number 100 in thresholds is not in the source",
-    "thresholds is too long (17831 characters)"
+    "thresholds is too long (600 characters)"
    ],
    "section": null
   },
   {
    "key": "il-hb-3506-2025",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
-     "got": null,
+     "got": "Creates the Artificial Intelligence Safety and Security Protocol Act. Requires frontier AI developers to produce, implement, follow, and publish a safety and security protocol, quarterly risk assessment reports, and annual third-party audits. Establishes whistleblower protections and Attorney General enforcement.",
      "provable": [
       "90"
      ],
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months — the original-RAISE test",
-     "got": null,
+     "got": "Trained at least one foundation model with a quantity of computational power that costs at least $100,000,000 when measured using prevailing market prices of cloud computing., result in the death of, or serious injury to, more than 100 people, or more than $1,000,000,000 in damage to rights in money or property",
      "provable": [
       "100",
       "12"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "100"
+     ],
+     "recall": 0.5,
      "unsupported": [],
      "pass": false
     },
@@ -872,17 +894,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "evidence quote for thresholds is not in the source: \"\"Developer\" means a person that has trained at least one foundation model with a\"",
-    "claim about thresholds (\"\"Developer\" means a person that has trained at least one foundation model with a quantity of computa\") is not supported: the reader could not confirm it word for word",
-    "an independent reader judged this item out of scope: The source text is a state bill (HB3506) from Illinois creating safety frameworks, risk assessment reports, audits, whistleblower protections, and civil penalties for foundation model developers meeting a high compute cost threshold ($100,000,000), which directly concerns frontier AI developers and safety rules as defined by the tracker."
-   ],
-   "section": null
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
   },
   {
    "key": "il-hb-4705-sb-3261",
@@ -924,19 +942,16 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "evidence quote for thresholds is not in the source: \"frontier model that was trained using a quantity of computing power greater than\"",
-    "evidence quote for penalties is not in the source: \"A large frontier developer that violates this Act shall be subject to a civil pe\"",
-    "evidence quote for events_add[0] is not in the source: \"This Act takes effect January 1, 2027.\"",
     "number 500000000 in thresholds is not in the source",
     "number 25000000 in thresholds is not in the source",
-    "thresholds is too long (1597 characters)",
-    "claim about thresholds (\"Frontier model: trained using >10^26 integer or floating-point operations. Large frontier developer:\") is not supported: the reader could not confirm it word for word"
+    "thresholds is too long (614 characters)",
+    "claim about events_add[0] (\"On 2027-01-01 (Effective): Effective date of the Act\") is not supported: The claim states the effective date is January 1, 2027, but the source states: \"Effective January 231, 2027.\""
    ],
    "section": null
   },
   {
    "key": "il-sb-315-p-a-104-0538",
-   "outcome": "error",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
@@ -990,15 +1005,18 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 0,
+   "rounds": 3,
    "problems": [
-    "LLM budget reached: 60000 tokens for item il-sb-315-p-a-104-0538"
+    "evidence quote for mechanism is not in the source: \"Beginning January 1, 2028, a large frontier developer shall write, implement, co\"",
+    "claim about mechanism (\"Requires large frontier developers to write, implement, and publish a frontier AI framework and tran\") is not supported: the reader could not confirm it word for word",
+    "claim about thresholds (\"Greater than 1026 integer or floating-point operations; Excess of $500,000,000; More than 50 people;\") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
    ],
    "section": null
   },
   {
    "key": "il-sb-3312",
-   "outcome": "error",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
@@ -1035,34 +1053,34 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 0,
+   "rounds": 3,
    "problems": [
-    "LLM budget reached: 60000 tokens for item il-sb-3312"
+    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
    ],
    "section": null
   },
   {
    "key": "il-sb-3444",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Different design from SB 315: a liability shield — developer not liable for critical harms absent intent/recklessness if it publishes a safety & security protocol and transparency report; deemed compliant if bound by EU rules or a federal agency agreement; sunsets if federal law creates overlapping requirements",
-     "got": null,
+     "got": "Frontier AI framework establishing liability protections for developers of frontier models who publish safety and security protocols and transparency reports. Compliance is also met by binding to EU AI Act requirements or federal agreements.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "Frontier models defined by compute or cost",
-     "got": null,
+     "got": "Greater than 10^26 computational operations; exceeds $100,000,000; 100 or more people; $1,000,000,000 of damages",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": null,
@@ -1071,16 +1089,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "evidence quote for thresholds is not in the source: \"\"Frontier model\" means an artificial intelligence model that: (1) is trained usi\"",
-    "claim about thresholds (\"\"Frontier model\" means an artificial intelligence model that: (1) is trained using greater than 10^2\") is not supported: the reader could not confirm it word for word"
-   ],
-   "section": null
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
   },
   {
    "key": "ma-h-5576-s-3178",
@@ -1129,12 +1144,12 @@
   },
   {
    "key": "mi-hb-4668",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Safety & security protocol; transparency reports every 90 days ; annual third-party audit (published within 90 days); whistleblower protections with private right of action (90-day window, clear-and-convincing standard) + anonymous channel with monthly updates; AG enforcement. Appears to be a clone of the original June 2025 RAISE Act text — same $5M/$100M compute-cost thresholds, same 100-death threshold, same audit/whistleblower structure that NY later stripped out. Effective dates are written as \"Beginning January 1, 2026\" — already past, since the bill hasn't moved",
-     "got": null,
+     "got": "Requires large AI developers to implement, follow, and publish safety and security protocols, produce quarterly transparency reports, retain test records for 5 years, and obtain annual third-party audits. It also establishes whistleblower protections and authorizes the attorney general to bring civil actions for violations.",
      "provable": [
       "90",
       "100"
@@ -1142,17 +1157,19 @@
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "Cost-based, not FLOP-based: \"large developer\" = trained a model costing ≥$5M in compute (at prevailing cloud prices) and ≥$100M aggregate compute cost in preceding 12 months; critical risk = >100 deaths/serious injuries or >$1B",
-     "got": null,
+     "got": "\"not less than $5,000,000.00\"; \"not less than $100,000,000.00\"; \"100 people\"; \"$1,000,000,000.00\"",
      "provable": [
       "100",
       "12"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "100"
+     ],
+     "recall": 0.5,
      "unsupported": [],
      "pass": false
     },
@@ -1163,17 +1180,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "evidence quote for mechanism is not in the source: \"Requires large developers to implement safety and security protocols\"",
-    "evidence quote for thresholds is not in the source: \"A large developer means a person that has developed both of the following: (i) A\"",
-    "thresholds is too long (548 characters)"
-   ],
-   "section": null
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
   },
   {
    "key": "mi-sb-757-760-kids-over-clicks",
@@ -1260,7 +1273,7 @@
   },
   {
    "key": "nj-s-1802",
-   "outcome": "held",
+   "outcome": "out_of_scope",
    "scope_ok": true,
    "fields": {
     "mechanism": {
@@ -1293,38 +1306,41 @@
    },
    "gold_in_scope": false,
    "rounds": 1,
-   "problems": [
-    "scope disagreement: generator out, reader in"
-   ],
+   "problems": [],
    "section": null
   },
   {
    "key": "nj-s-4446-a-5275",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Large frontier developers with NJ users must: implement protocols; file annual \"Risk Management Disclosure\" with AG, mapped item-by-item to the NIST AI RMF ; file pre-deployment \"New Model Risk Disclosure\" with replicable assessments; flag which sections were written by generative AI . AG publishes with redactions. AG may audit or contract a private auditor (discretionary). 5-year sunset. Defines \"critical safety incident\" but imposes no reporting obligation (orphaned definition). No whistleblower provisions",
-     "got": null,
+     "got": "Requires large frontier developers to write and implement risk-assessment protocols, submit annual Risk Management Disclosures mapping actions to the NIST AI Risk Management Framework, and submit New Model Risk Disclosures prior to or concurrently with deploying new or modified frontier models. Authorizes the Attorney General to conduct compliance audits or contract with private entities for audits.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$100M revenue (lowest of any bill); catastrophic harm = 25+ deaths/serious injuries or $1B (lowest casualty threshold of any bill); weapons list includes illegal firearms, lethal autonomous weapons, explosives — broader than CBRN",
-     "got": null,
+     "got": "Trained on at least 10^26 integer or floating-point operations; annual gross revenues in excess of $100 million in the preceding calendar year; death or serious injury of 25 or more people or $1 billion in damage to, or loss of, property arising from a single incident involving a frontier model.",
      "provable": [
       "10",
       "26",
       "100",
       "25"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "10",
+      "26",
+      "100",
+      "25"
+     ],
+     "recall": 1,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": null,
@@ -1333,18 +1349,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
    "rounds": 3,
-   "problems": [
-    "stray code or JSON syntax in thresholds",
-    "thresholds is too long (9105 characters)",
-    "claim about mechanism (\"Requires large frontier developers to implement risk-reduction protocols, submit annual Risk Managem\") is not supported: the reader could not confirm it word for word",
-    "claim about thresholds (\"Frontier model trained using computing power of at least 10^26 integer or floating-point operations;\") is not supported: the reader could not confirm it word for word"
-   ],
-   "section": null
+   "problems": [],
+   "section": "D"
   },
   {
    "key": "ny-raise-act-ch-699-ch-96",
@@ -1358,9 +1369,7 @@
       "44",
       "1420",
       "1421",
-      "24",
       "1422",
-      "50",
       "1425"
      ],
      "found": [],
@@ -1375,7 +1384,6 @@
       "10",
       "26",
       "1420",
-      "50",
       "1423"
      ],
      "found": [],
@@ -1398,10 +1406,15 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "evidence quote for mechanism is not in the source: \"Before deploying a frontier model, the large developer of such frontier model sh\"",
-    "evidence quote for thresholds is not in the source: \"an artificial intelligence model trained using greater than 10^26 computational \"",
-    "claim about mechanism (\"Before deploying a frontier model, the large developer shall implement a written safety and security\") is not supported: The claim states that before deploying a frontier model, the developer must conduct annual reviews and disclose safety incidents. However, the source states under section 1421 subdivision 1 that annual reviews and safety incident disclosures are ongoing requirements rather than prerequisites before deploying a model (annual reviews are under subdivision 3 and safety incident disclosures are under subdivision 4). Source text: '1. Before deploying a frontier model, the large developer of such frontier model shall do all of the following: (a) Implement a written safety and security protocol; (b) Retain an unredacted copy... (c) Conspicuously publish... (d) Record... and (e) Implement appropriate safeguards...'; subdivision 3: 'A large developer shall conduct an annual review...'; subdivision 4: 'A large developer shall disclose each safety incident...'",
-    "claim about thresholds (\"An artificial intelligence model trained using greater than 10^26 computational operations, the comp\") is not supported: The claim lists a complex set of conditions blending definitions and scope without a complete predicate verb structure supported as a single unified sentence in the source. While components of it appear in sections 1420 (subdivisions 6 and 9) and 1424, the source defines 'frontier model' and 'large developer' separately and does not combine them into this exact single compound descriptive clause."
+    "evidence quote for thresholds is not in the source: \"greater than 10^26\"",
+    "number 100000000 in thresholds is not in the source",
+    "number 5000000 in thresholds is not in the source",
+    "number 100 in thresholds is not in the source",
+    "number 1000000000 in thresholds is not in the source",
+    "number 500000000 in thresholds is not in the source",
+    "number 25 in thresholds is not in the source",
+    "thresholds is too long (2171 characters)",
+    "claim about thresholds (\"Trained using greater than 10^26 computational operations; compute cost exceeds one hundred million \") is not supported: the reader could not confirm it word for word"
    ],
    "section": null
   },
@@ -1443,27 +1456,26 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "evidence quote for mechanism is not in the source: \"A large frontier developer shall annually retain, contract, or otherwise engage \"",
-    "claim about mechanism (\"A large frontier developer shall annually retain, contract, or otherwise engage a third party verifi\") is not supported: The claim states that the report assesses 'unredacted documents,' but SOURCE states under subdivision 1(c) that the report assesses 'whether any redactions made by the large frontier developer pursuant to subdivision five of section fourteen hundred twenty-one of this article are in compliance with such subdivision', which is different.",
-    "claim about events_add[0] (\"On 2026-05-15 (Introduced / published): Introduced in the Senate and referred to the Committee on In\") is not supported: the reader could not confirm it word for word"
+    "evidence quote for penalties is not in the source: \"civil penalty in an amount not to exceed one million dollars for a first violati\"",
+    "claim about penalties (\"Civil penalty not to exceed one million dollars for a first violation and in an amount not to exceed\") is not supported: the reader could not confirm it word for word"
    ],
    "section": null
   },
   {
    "key": "ny-s-10456-minimum-standards",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Adds GBL §1430: DFS/DIGIT must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks, reviewed annually. Sponsor memo: the RAISE Act left \"the design of these frameworks solely in large developers' hands\" — a direct statement that the enacted law's self-defined-framework model is a gap",
-     "got": null,
+     "got": "Requires an office within the department of financial services to establish minimum standards for large frontier developers' frontier AI frameworks to prevent unreasonable levels of catastrophic risk, with annual review and updates by the office.",
      "provable": [
       "1430"
      ],
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "Uses RAISE definitions",
@@ -1472,7 +1484,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": null,
@@ -1481,16 +1493,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "evidence quote for events_add[0] is not in the source: \"The office shall adopt regulations no later than July first, two thousand twenty\"",
-    "claim about events_add[0] (\"On 2028-07-01 (Search date / deadline / scheduled): Deadline to adopt regulations\") is not supported: the reader could not confirm it word for word"
-   ],
-   "section": null
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
   },
   {
    "key": "ny-s10642-a11560-responsible-data-center-development-act-and",
@@ -1566,11 +1575,9 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
+   "rounds": 1,
    "problems": [
-    "evidence quote for mechanism is not in the source: \"create an independent verification organization license for verifying artificial\"",
-    "claim about mechanism (\"Creates an independent verification organization license issued by the attorney general to assess ar\") is not supported: the reader could not confirm it word for word",
-    "an independent reader judged this item out of scope: no answer"
+    "scope disagreement: generator out, reader in"
    ],
    "section": null
   },
@@ -1662,11 +1669,13 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "thresholds is too long (999 characters)",
-    "the independent reader gave an unusable answer",
-    "claim about mechanism (\"The bill provides for artificial intelligence risk prevention, establishing standards for frontier d\") is not supported: the reader could not confirm it word for word",
-    "claim about thresholds (\"A frontier developer is a person who trains a frontier model using computing power greater than 1,02\") is not supported: the reader could not confirm it word for word",
-    "an independent reader judged this item out of scope: no answer"
+    "number 300 in thresholds is not in the source",
+    "number 182 in thresholds is not in the source",
+    "number 163 in thresholds is not in the source",
+    "number 179 in thresholds is not in the source",
+    "number 400 in thresholds is not in the source",
+    "stray code or JSON syntax in thresholds",
+    "thresholds is too long (3087 characters)"
    ],
    "section": null
   },
@@ -1716,17 +1725,17 @@
   },
   {
    "key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
-   "outcome": "published",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Anti-retaliation protection for employees and independent contractors reporting an \"AI security vulnerability\" (a lapse enabling theft of state-of-the-art AI) or \"AI violation\" (federal-law breach or failure to address a substantial danger to public safety/health/national security) to regulators, Congress, or supervisors; DOL complaint then district court with jury trial; reinstatement, 2× back pay, compensatory damages ; arbitration waivers unenforceable. GAAIA's dropped Sec. 113 used the same 2× back-pay remedy — GAAIA had folded this bill in, and FRONTIER then dropped it",
-     "got": "Prohibits employers from discharging, demoting, suspending, threatening, blacklisting, harassing, or in any other manner discriminating against covered individuals reporting AI security vulnerabilities or AI violations.",
+     "got": null,
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "thresholds": {
      "gold": null,
@@ -1735,7 +1744,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "penalties": {
      "gold": null,
@@ -1744,13 +1753,15 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     }
    },
    "gold_in_scope": true,
    "rounds": 3,
-   "problems": [],
-   "section": "D"
+   "problems": [
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
   },
   {
    "key": "s-2938-ai-risk-evaluation-act",
@@ -1791,12 +1802,7 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "no evidence quote for mechanism",
-    "no evidence quote for thresholds",
-    "number 09 in thresholds is not in the source",
-    "stray code or JSON syntax in thresholds",
-    "thresholds is too long (15131 characters)",
-    "claim about thresholds (\"An artificial intelligence system that was trained using a quantity of computing power greater than \") is not supported: The SOURCE is a bill about the Advanced Artificial Intelligence Evaluation Program, not a text about domain names like YAG or .YAGOLDU."
+    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
    ],
    "section": null
   },
@@ -1807,7 +1813,7 @@
    "fields": {
     "mechanism": {
      "gold": "Full text read. Sectoral (DoD). Sec. 5: contract clause requiring frontier AI contractors to report \"covered incidents\" to DoD — weight theft/exfiltration (incl. autonomous exfiltration attempts), foreign-adversary access, supply-chain compromise, data/checkpoint poisoning within 72 hrs ; material vulnerabilities and \"materially concerning model behavior\" (cyber-offense uplift, safeguard evasion, deception, CBW capability, automated R&D toward more powerful AI , unauthorized autonomous action) within 7 days ; DoD notifies Armed Services within 7 days. Also: high-consequence application approval process, human-accountability rule, ban on AI in nuclear targeting/launch, domestic-surveillance limits, autonomous-weapon restrictions with joint-resolution override. \"Frontier AI model\" = SecDef-designated by scale/capability — no compute figure",
-     "got": "Requires the Secretary of Defense to mandate contract clauses for covered contractors developing or providing frontier AI models to report security incidents and concerning model behaviors.",
+     "got": "Establishes oversight and accountability requirements for Department of Defense use of artificial intelligence. Requires covered contractors developing frontier AI models to report security incidents and concerning behaviors. Imposes restrictions on autonomous weapon systems and domestic person-based analysis.",
      "provable": [
       "72"
      ],
@@ -1836,7 +1842,7 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
+   "rounds": 1,
    "problems": [],
    "section": "D"
   },
@@ -1847,7 +1853,7 @@
    "fields": {
     "mechanism": {
      "gold": "Mandatory NSA-led pre-deployment testing of frontier models; AI Risk Board; voluntary incident reporting modeled on aviation safety. Centerpiece of Warner's \"Framework for America's AI Future\" (also: Data Center Tax Accountability Act, AI AGENT Act, National Workforce Transition Fund)",
-     "got": "Requires frontier AI model providers to give the NSA access to models and weights at least 21 days before release. Establishes an AI Risk Board at NIST, a public frontier model registry, a voluntary incident database, and a threat-intelligence sharing pilot program.",
+     "got": "Establishes the Artificial Intelligence Risk Board within NIST, requires providers of frontier AI models to give the NSA access prior to public release, and creates a frontier AI model registry. Also establishes incident tracking databases, vulnerability management updates, and an NSA intelligence-sharing pilot program for covered developers.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -1874,7 +1880,7 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
+   "rounds": 1,
    "problems": [],
    "section": "D"
   },
@@ -1885,13 +1891,15 @@
    "fields": {
     "mechanism": {
      "gold": "Two-page bill: covered entities must \"ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system\"; DHS regulations within 90 days. Kennedy sought immediate passage by unanimous consent on Sept 16 and Sen. Rand Paul objected , calling for hearings first. Overlaps H.R. 9917 (Lieu–Moran) and FRONTIER Sec. 8, but with no government trigger authority described",
-     "got": "Requires entities that develop or operate advanced artificial intelligence systems to include a technical capability for a human operator to shut down the system. The Secretary of Homeland Security must promulgate regulations to ensure compliance.",
+     "got": "Requires covered entities developing or operating advanced artificial intelligence systems to include a technical capability for a human operator to shut down the system. The Secretary of Homeland Security must promulgate compliance regulations within 90 days.",
      "provable": [
       "90",
       "16"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "90"
+     ],
+     "recall": 0.5,
      "unsupported": [],
      "pass": true
     },
@@ -1915,7 +1923,7 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
+   "rounds": 1,
    "problems": [],
    "section": "D"
   },
@@ -1961,12 +1969,12 @@
   },
   {
    "key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Sponsor section-by-section read; bill text (19 pp.) linked, not read line-by-line. Creates a cabinet-level Department of Artificial Intelligence ; mandatory pause on training, modifying or deploying \"advanced\" systems until the Department is staffed and has rules covering pre-development plans, monitoring, audits and final pre-deployment approval ; permanent prohibition on developing, deploying, possessing, funding or transferring artificial superintelligence or any system with \"superintelligence precursor characteristics\" (automating AI R&D, unauthorized access to infrastructure, resisting shutdown, CBRN uplift, self-modification, scheming or deceiving to avoid oversight); such systems to be sequestered and rendered inoperative within 30 days; 24-hour discovery notice; charter required for advanced-AI companies with full Department access to systems, staff and facilities; penalties up to 20 years' imprisonment for policymaking individuals, 10-year industry bar for others, and charter revocation with surrender of IP and assets for companies; anti-retaliation; international coordination and export controls. No \"catastrophic risk\" definition ; superintelligence is defined partly as capability \"to plan and execute the destruction or disempowerment of humanity\"",
-     "got": null,
+     "got": "Establishes the Department of Artificial Intelligence headed by a Senate-confirmed Secretary. Requires developers to obtain a federal charter and pre-deployment approval, enforces a mandatory pause on advanced AI systems until safety rules are promulgated, and prohibits artificial superintelligence or precursor characteristics.",
      "provable": [
       "30",
       "24",
@@ -1976,19 +1984,22 @@
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "\"Advanced artificial intelligence system\" = trained on ≥10²⁵ integer or floating-point operations — one order of magnitude below every other instrument in this tracker ; the Secretary \"shall adjust this threshold to reflect technological developments\"",
-     "got": null,
+     "got": "10^25 integer or floating point operations: \"trained on computing power greater than or equal to 10^25 integer or floating point operations.”",
      "provable": [
       "10",
       "25"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "10",
+      "25"
+     ],
+     "recall": 1,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": null,
@@ -1997,15 +2008,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
-   ],
-   "section": null
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
   },
   {
    "key": "s-5541-cyber-and-ai-board-of-investigations",
@@ -2043,13 +2052,14 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "scope disagreement: generator out, reader in"
+    "evidence quote for mechanism is not in the source: \"establish as an independent establishment\"",
+    "an independent reader judged this item out of scope: no answer"
    ],
    "section": null
   },
   {
    "key": "texas-traiga-hb-149",
-   "outcome": "error",
+   "outcome": "out_of_scope",
    "scope_ok": true,
    "fields": {
     "mechanism": {
@@ -2081,25 +2091,23 @@
     }
    },
    "gold_in_scope": false,
-   "rounds": 0,
-   "problems": [
-    "LLM budget reached: 60000 tokens for item texas-traiga-hb-149"
-   ],
+   "rounds": 1,
+   "problems": [],
    "section": null
   },
   {
    "key": "va-ch-425-426-jcots-study",
-   "outcome": "published",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Directs Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for IVOs assessing AI models' adherence to injury/property-damage prevention standards; report due Nov 1, 2026 to Senate Finance & General Laws and House Appropriations & Communications committees; $25,000 FY2027 appropriation. A study directive, not a mandate — one blog's \"mandatory verification\" claim is wrong",
-     "got": "Directs the Joint Commission on Technology and Science to evaluate the feasibility and impact of developing a framework for independent verification organizations that assess artificial intelligence models or applications. JCOTS must submit a report with its recommendations and findings by November 1, 2026.",
+     "got": null,
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "thresholds": {
      "gold": null,
@@ -2108,7 +2116,7 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "penalties": {
      "gold": null,
@@ -2117,13 +2125,15 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     }
    },
    "gold_in_scope": true,
    "rounds": 2,
-   "problems": [],
-   "section": "F"
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
   },
   {
    "key": "washington-sb-5395",

@@ -1,7 +1,7 @@
 // Downloads a bill's text from the legislature's OWN website (the state_link LegiScan gives for each text version).
 // It costs no LegiScan query, and it is the official source the site cites anyway.
 // Returns { text, bytes, mime } or throws; the caller falls back to LegiScan's copy only when this fails.
-import { htmlToText } from '../lib/text.mjs';
+import { htmlToText, stripLineNumbering } from '../lib/text.mjs';
 import { pdfToText } from '../lib/pdf.mjs';
 
 // Many state sites refuse scripts or traffic from outside the US (13 Oct 2026, from the owner's machine: timeouts from NJ, PA, CT;
@@ -31,7 +31,7 @@ export function createOfficial({ fetchImpl = globalThis.fetch, timeoutMs = 15000
       const { buf, mime } = await get(url);
       const isPdf = /pdf/i.test(mime) || buf.subarray(0, 5).toString('latin1') === '%PDF-';
       if (isPdf) { const p = await pdfToText(buf); return { text: p.text, bytes: buf, mime: 'application/pdf', pdf: { pages: p.pages || null, truncated: !!p.truncated, reason: p.reason || null, warnings: p.warnings || [] } }; }
-      const text = htmlToText(buf.toString('utf8'));
+      const text = stripLineNumbering(htmlToText(buf.toString('utf8')));
       if (text.length < 200) throw new Error('page has almost no text');
       return { text, mime: mime || 'text/html' };
     }

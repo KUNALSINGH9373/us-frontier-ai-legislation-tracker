@@ -1,5 +1,5 @@
 // Fetches the official text of every bill in the accuracy test set and records what was fetched.
-//   node eval/fetch-texts.mjs [--only <key,key>]
+//   node eval/fetch-texts.mjs [--only <key,key>] [--no-cache]
 // Texts go to data/eval/texts/<entry key>.txt (git-ignored; public records, re-fetched on demand). eval/sources.json
 // (committed) records, for each entry, which bill text was used, its official URL, length and SHA-256, so a later
 // run can tell when a text changed. Federal: Congress.gov (newest text version). State: LegiScan's newest text
@@ -12,6 +12,7 @@ import { createHttp } from '../grabber/lib/http.mjs';
 import { createCongress, parseBillId, billUrl } from '../grabber/sources/congress.mjs';
 import { createLegiScan, latestText, normNumber, officialUrl } from '../grabber/sources/legiscan.mjs';
 import { pdfToText } from '../grabber/lib/pdf.mjs';
+import { stripLineNumbering } from '../grabber/lib/text.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
@@ -41,7 +42,8 @@ async function stateText(billId) {
   const bill = await ls.bill(billId), v = latestText(bill);
   if (!v) return { text: null, why: 'no text version on LegiScan', bill };
   const cache = path.join(cacheDir, `${billId}-${v.doc_id}.txt`);
-  if (fs.existsSync(cache)) return { text: fs.readFileSync(cache, 'utf8'), bill, version: v };
+  // --no-cache: re-read from LegiScan (the cache holds text as an older reader produced it)
+  if (fs.existsSync(cache) && !process.argv.includes('--no-cache')) return { text: stripLineNumbering(fs.readFileSync(cache, 'utf8')), bill, version: v };
   const t = await ls.text(v.doc_id);
   if (t.text != null) return { text: t.text, bill, version: v };
   const p = /pdf/i.test(t.mime) ? await pdfToText(t.bytes) : { text: null, reason: 'unsupported format ' + t.mime };

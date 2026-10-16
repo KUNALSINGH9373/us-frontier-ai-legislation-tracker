@@ -13,16 +13,16 @@
    "kind": "legiscan",
    "bill": "NY S06953 (2015571)",
    "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
-   "chars": 18589,
-   "sha256": "852f1e9532d693c378ac0a5d0997f7da4a19fea411d9838b53e89c051691c0d3",
+   "chars": 17818,
+   "sha256": "8597685fdde26d1e5b8d06fcb9507439b158a984905e7e99825fb046017c9e94",
    "fetched": "2026-10-16"
   },
   "il-sb-315-p-a-104-0538": {
    "kind": "legiscan",
    "bill": "IL SB0315 (1941067)",
    "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
-   "chars": 75020,
-   "sha256": "28d30b9cba437bf7abeb4523b456a40d2c082da3728dead53397b61b6cfe0b70",
+   "chars": 71883,
+   "sha256": "4fc4708fff1586060f053516960daa912c6275928d99ef9c6a3ae2dd5507f738",
    "fetched": "2026-10-16"
   },
   "ma-h-5576-s-3178": {
@@ -53,32 +53,32 @@
    "kind": "legiscan",
    "bill": "IL HB3506 (1962488)",
    "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
-   "chars": 15694,
-   "sha256": "68d97702c71645f97fc8443e762d65b7af05b51ac297b26baec12f92e8bd1d01",
+   "chars": 15141,
+   "sha256": "d58e4015f54913be39beb85b9cce409b3d11e0dad0bb6c598ef1ffd3595f6828",
    "fetched": "2026-10-16"
   },
   "il-sb-3444": {
    "kind": "legiscan",
    "bill": "IL SB3444 (2107829)",
    "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
-   "chars": 8264,
-   "sha256": "305c2588ea54e4a58168b3e027de4a6b3f85386926e6fe6a24b1d9f1eca9a4ca",
+   "chars": 7964,
+   "sha256": "1808956f1fbece0904e392b61b7e169b7ede9bb189aac13d7996afcaecc49405",
    "fetched": "2026-10-16"
   },
   "il-sb-3312": {
    "kind": "legiscan",
    "bill": "IL SB3312 (2105063)",
    "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
-   "chars": 65464,
-   "sha256": "a8157628b8922567f2d891d016be7af29c6bdca91782f74eb1c0994fd98f6799",
+   "chars": 62687,
+   "sha256": "733edf175505f96f8395bb1cd08df29f641f36d247f7be29c5df8648afada090",
    "fetched": "2026-10-16"
   },
   "il-hb-4705-sb-3261": {
    "kind": "legiscan",
    "bill": "IL HB4705 (2102227)",
    "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
-   "chars": 29193,
-   "sha256": "3b1f0bc46ec91f68e97c9494447ecc145a95793b442bce0564dec21b2d822b80",
+   "chars": 28196,
+   "sha256": "13ee257db4d3ac55491211b104c8c0e5974d97eccea71f8b9bfd0b7eb55fcadf",
    "fetched": "2026-10-16"
   },
   "ri-s-358-h-5224": {
@@ -93,8 +93,8 @@
    "kind": "legiscan",
    "bill": "NY S10373 (2150136)",
    "url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
-   "chars": 10637,
-   "sha256": "402cc5d1b84ca42b216d21348d6fc0bab07cb90ec77ebe3245f56ec54b276811",
+   "chars": 10229,
+   "sha256": "ba807645c0143ce92f09ebfb51a2c452ffd94da593f7391403b21402367a1e2a",
    "fetched": "2026-10-16"
   },
   "ny-s-10456-minimum-standards": {
@@ -141,8 +141,8 @@
    "kind": "legiscan",
    "bill": "OH HB628 (2058716)",
    "url": "https://www.legislature.ohio.gov/legislation/136/hb628",
-   "chars": 25506,
-   "sha256": "cbb5715981b468a2d9f930714a7d5f16facb03c7b943fb16f66cca1a16df3f3b",
+   "chars": 25216,
+   "sha256": "ac1e4ee748371f50d29971a96a93101ebd8f809c576a81c270f623e3f50ed9bf",
    "fetched": "2026-10-16"
   },
   "va-ch-425-426-jcots-study": {
@@ -174,7 +174,7 @@
    "bill": "119/hr/9925",
    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text",
    "chars": 79087,
-   "sha256": "f200c4cadb96ad430b108eac5d640703482298583046c20dda615969793f61d1",
+   "sha256": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
    "fetched": "2026-10-16"
   },
   "s-5061-secure-ai-development-act": {
@@ -222,7 +222,7 @@
    "bill": "119/s/5493",
    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
    "chars": 20457,
-   "sha256": "a4377729477bf1c2cdf4b690237ed3a146cdfdf3d689640e9015c9fb1a56cbcc",
+   "sha256": "af682a0a653602b8ef31ae35c36bd877cdb1de13050078aa61643ed212817360",
    "fetched": "2026-10-16"
   },
   "s-5417-h-r-10567-ai-emergency-button-act": {
@@ -373,8 +373,8 @@
    "kind": "legiscan",
    "bill": "NY S10642 (2152628)",
    "url": "https://www.nysenate.gov/legislation/bills/2025/S10642",
-   "chars": 38170,
-   "sha256": "76943dc2776f90c5acd81905574d8e035185dae8151a67182aa6f3aa23f71d18",
+   "chars": 36662,
+   "sha256": "c5debb7579d0821cc888ef0035bc24c3d840bb178d91e956a3b7558a36c7452b",
    "fetched": "2026-10-16"
   },
   "mi-sb-757-760-kids-over-clicks": {

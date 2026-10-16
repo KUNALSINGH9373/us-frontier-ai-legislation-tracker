@@ -98,7 +98,7 @@ ok('official legislature URL is cited, LegiScan is the fallback', /leginfo\.legi
   let calls = 0;
   await classifyTitles({ llm: { generate: async () => { calls++; return { data: { results: [] } }; } }, items: Array.from({ length: 250 }, (_, i) => ({ id: String(i), title: 't' })), batchSize: 120 });
   ok('titles are sent in batches', calls === 3);
-  ok('the rule says to prefer maybe and covers chips', /If a title is not plainly in the "no" list/.test(INTENT_SYSTEM) && /export controls on AI chips/.test(INTENT_SYSTEM));
+  ok('the rule says to prefer maybe and covers chips', /If a title is not plainly in the "no" list/.test(INTENT_SYSTEM) && /security rules for advanced AI chips/.test(INTENT_SYSTEM));
 }
 ok('frontier markers flag frontier text only', frontierMarkers('a frontier model trained on 10^26 integer or floating-point operations').length >= 2 && frontierMarkers('a ban on plastic bags').length === 0 && frontierMarkers(null).length === 0);
 

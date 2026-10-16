@@ -1,7 +1,7 @@
 // LegiScan API (https://api.legiscan.com). State bills for all 50 states. Free tier: 30,000 queries a month, so every call counts.
 // LegiScan is an aggregator: it is used to FIND changes. The legislature's own page (state_link) is what the site cites.
 // The key has to go in the URL (the API has no header option); http.mjs scrubs it from every error and log line.
-import { htmlToText } from '../lib/text.mjs';
+import { htmlToText, stripLineNumbering } from '../lib/text.mjs';
 export const BASE = 'https://api.legiscan.com/';
 
 // LegiScan numbers bills like "SB53", "AB1405", "S10373", "HF4532", "S0358". Ours are "S.B. 53", "S.10373", "H.F. 4532".
@@ -71,8 +71,8 @@ export function createLegiScan(http, key) {
     async text(docId) {
       const t = (await call('getBillText', { id: docId })).text;
       const buf = Buffer.from(t.doc || '', 'base64');
-      if (/html/i.test(t.mime)) return { text: htmlToText(buf.toString('utf8')), mime: t.mime, date: t.date, type: t.type };
-      if (/text\/plain/i.test(t.mime)) return { text: buf.toString('utf8'), mime: t.mime, date: t.date, type: t.type };
+      if (/html/i.test(t.mime)) return { text: stripLineNumbering(htmlToText(buf.toString('utf8'))), mime: t.mime, date: t.date, type: t.type };
+      if (/text\/plain/i.test(t.mime)) return { text: stripLineNumbering(buf.toString('utf8')), mime: t.mime, date: t.date, type: t.type };
       return { text: null, mime: t.mime, date: t.date, type: t.type, bytes: buf };
     }
   };
