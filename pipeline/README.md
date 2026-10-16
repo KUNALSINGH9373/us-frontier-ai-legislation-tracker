@@ -134,6 +134,10 @@ All 25 mapped federal bills were fetched (75 requests) and compared: **1 materia
 
 **Live dry run, 13 Oct 2026 (first run, nothing saved):** 180 queries. 141 precise hits, 2,717 wide hits (658 federal), intent yes 54 / maybe 539 / no 1,346 (before the generic-title rule, which turns 53 of those "no"s into "maybe"); 25 candidates fetched, all with text (16 read from PDFs); about 650 wait for later runs. The first catch-up therefore takes about 1,400 queries spread over a few days; after that a quiet run costs about 14 queries (11 master lists + 3 search pages).
 
+## Model providers (`llm/`)
+
+`config/models.json` `"provider"` picks the model company: **`gemini` for building and testing** (`roles`), **`anthropic` in production** (`anthropic.roles`, key `ANTHROPIC_API_KEY`). Both clients (`llm/gemini.mjs`, `llm/anthropic.mjs`) have the same `generate({ system, prompt, itemId })` call, share one token ledger and budget, and return JSON only; `llm/index.mjs` builds either from the config. The Claude client uses the official SDK (`@anthropic-ai/sdk`, pinned), sends no temperature (current Claude models reject non-default sampling), sets thinking depth with `effort`, and treats a refusal or a `max_tokens` stop as an error, never a half answer. `npm run test:anthropic` runs without a key; `npm run smoke:anthropic` makes one real call (pass a model id to try another) and must pass once before the provider is switched to `anthropic`.
+
 ## The Generator and Validator (`agents/`)
 
 `node agents/run.mjs [run folder] [--item <id>]` takes a run folder that has a `diff.json` and, for every item the comparison step marked `material` or `new_entry_candidate`:

@@ -68,11 +68,22 @@ export function createGemini({ http, apiKey, role, model, temperature = 0, maxOu
 }
 
 // Builds the three pieces from config/models.json and the environment.
-export function createLlmFromConfig({ config, apiKey, http, role, log }) {
-  const r = config.roles[role];
-  if (!r) throw new Error(`no model configured for role "${role}"`);
+// "provider": "gemini" (build and tests) uses config.roles and the key passed in; "anthropic" (production) uses
+// config.anthropic.roles and ANTHROPIC_API_KEY from the environment. createAnthropic is passed in by llm/index.mjs
+// so this file does not load the Anthropic SDK for Gemini runs.
+export function createLlmFromConfig({ config, apiKey, http, role, log, provider = config.provider, createAnthropic }) {
+  const claude = provider === 'anthropic';
+  const r = (claude ? (config.anthropic || {}).roles || {} : config.roles)[role];
+  if (!r) throw new Error(`no ${claude ? 'anthropic ' : ''}model configured for role "${role}"`);
   const ledger = createLlmFromConfig.ledgers.get(http) || createLedger({ limits: config.limits, prices: config.prices_per_million_tokens });
   createLlmFromConfig.ledgers.set(http, ledger);
-  return { llm: createGemini({ http, apiKey, role, model: r.model, temperature: r.temperature, maxOutputTokens: r.max_output_tokens, thinkingLevel: r.thinking_level || null, ledger, maxInputChars: config.limits && config.limits.max_input_chars_per_call, log }), ledger };
+  const maxInputChars = config.limits && config.limits.max_input_chars_per_call;
+  if (claude) {
+    if (!createAnthropic) throw new Error('provider "anthropic" needs createAnthropic (import createLlmFromConfig from llm/index.mjs)');
+    const key = process.env.ANTHROPIC_API_KEY;
+    if (!key) throw new Error('ANTHROPIC_API_KEY is not set');
+    return { llm: createAnthropic({ apiKey: key, role, model: r.model, maxOutputTokens: r.max_output_tokens, effort: r.effort || null, ledger, maxInputChars, log }), ledger };
+  }
+  return { llm: createGemini({ http, apiKey, role, model: r.model, temperature: r.temperature, maxOutputTokens: r.max_output_tokens, thinkingLevel: r.thinking_level || null, ledger, maxInputChars, log }), ledger };
 }
 createLlmFromConfig.ledgers = new WeakMap();
