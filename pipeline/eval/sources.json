@@ -1,0 +1,389 @@
+{
+ "_note": "Which official text each test-set entry was scored against. Written by eval/fetch-texts.mjs; the texts themselves are in data/eval/texts/ (git-ignored).",
+ "items": {
+  "ca-sb-53-tfaia": {
+   "kind": "legiscan",
+   "bill": "CA SB53 (1904800)",
+   "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+   "chars": 45185,
+   "sha256": "db9ef56dea85fce788cbb85b9165c2c78122d9a5b706f7db4c2afa44d25acbde",
+   "fetched": "2026-10-16"
+  },
+  "ny-raise-act-ch-699-ch-96": {
+   "kind": "legiscan",
+   "bill": "NY S06953 (2015571)",
+   "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+   "chars": 18589,
+   "sha256": "852f1e9532d693c378ac0a5d0997f7da4a19fea411d9838b53e89c051691c0d3",
+   "fetched": "2026-10-16"
+  },
+  "il-sb-315-p-a-104-0538": {
+   "kind": "legiscan",
+   "bill": "IL SB0315 (1941067)",
+   "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+   "chars": 75020,
+   "sha256": "28d30b9cba437bf7abeb4523b456a40d2c082da3728dead53397b61b6cfe0b70",
+   "fetched": "2026-10-16"
+  },
+  "ma-h-5576-s-3178": {
+   "kind": "legiscan",
+   "bill": "MA H5576 (2155731)",
+   "url": "https://malegislature.gov/Bills/194/H5576",
+   "chars": 434496,
+   "sha256": "a507aeb30adfd4b53062598ed9d8031bc52af1f030cf972389d8f42a2b28fe4f",
+   "fetched": "2026-10-16"
+  },
+  "mi-hb-4668": {
+   "kind": "legiscan",
+   "bill": "MI HB4668 (2037995)",
+   "url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+   "chars": 14894,
+   "sha256": "7eb4fa7c20f6e75e84089072cc9bb0c38c14cc0bc97e49aae424671c399abc5b",
+   "fetched": "2026-10-16"
+  },
+  "nj-s-4446-a-5275": {
+   "kind": "legiscan",
+   "bill": "NJ S4446 (2153268)",
+   "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+   "chars": 14464,
+   "sha256": "ec236d12979d692f80e3d33e11b49b31979d84427b3bb88577c5e077e458f3e9",
+   "fetched": "2026-10-16"
+  },
+  "il-hb-3506-2025": {
+   "kind": "legiscan",
+   "bill": "IL HB3506 (1962488)",
+   "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+   "chars": 15694,
+   "sha256": "68d97702c71645f97fc8443e762d65b7af05b51ac297b26baec12f92e8bd1d01",
+   "fetched": "2026-10-16"
+  },
+  "il-sb-3444": {
+   "kind": "legiscan",
+   "bill": "IL SB3444 (2107829)",
+   "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+   "chars": 8264,
+   "sha256": "305c2588ea54e4a58168b3e027de4a6b3f85386926e6fe6a24b1d9f1eca9a4ca",
+   "fetched": "2026-10-16"
+  },
+  "il-sb-3312": {
+   "kind": "legiscan",
+   "bill": "IL SB3312 (2105063)",
+   "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
+   "chars": 65464,
+   "sha256": "a8157628b8922567f2d891d016be7af29c6bdca91782f74eb1c0994fd98f6799",
+   "fetched": "2026-10-16"
+  },
+  "il-hb-4705-sb-3261": {
+   "kind": "legiscan",
+   "bill": "IL HB4705 (2102227)",
+   "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+   "chars": 29193,
+   "sha256": "3b1f0bc46ec91f68e97c9494447ecc145a95793b442bce0564dec21b2d822b80",
+   "fetched": "2026-10-16"
+  },
+  "ri-s-358-h-5224": {
+   "kind": "legiscan",
+   "bill": "RI S0358 (1979504)",
+   "url": "https://status.rilegislature.gov/",
+   "chars": 6143,
+   "sha256": "6d54f6eedfe5d9ea5a55fee0f28a9bb6fcfc3bc2ea8922beb3a8a162682362e1",
+   "fetched": "2026-10-16"
+  },
+  "ny-s-10373-verification": {
+   "kind": "legiscan",
+   "bill": "NY S10373 (2150136)",
+   "url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+   "chars": 10637,
+   "sha256": "402cc5d1b84ca42b216d21348d6fc0bab07cb90ec77ebe3245f56ec54b276811",
+   "fetched": "2026-10-16"
+  },
+  "ny-s-10456-minimum-standards": {
+   "kind": "legiscan",
+   "bill": "NY S10456 (2150234)",
+   "url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+   "chars": 3703,
+   "sha256": "8a28b76bc1a86c4a2a6eead05f65f756492384bc1c9f09be6375cef9b0b327ff",
+   "fetched": "2026-10-16"
+  },
+  "pa-h-b-2800-ai-risk-prevention-act": {
+   "kind": "legiscan",
+   "bill": "PA HB2800 (2158760)",
+   "url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+   "chars": 35692,
+   "sha256": "d4cbe078587500869cf3f59f49e2d93020ceb1708ccb474e386f6e3650a61209",
+   "fetched": "2026-10-16"
+  },
+  "mn-hf-4532-no-threshold": {
+   "kind": "legiscan",
+   "bill": "MN HF4532 (2136898)",
+   "url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+   "chars": 7848,
+   "sha256": "96d1c1cd8fdb7d1f2150050e99e4939339276211dd87ac008f3d09f6e4ba9424",
+   "fetched": "2026-10-16"
+  },
+  "ca-ab-1405-auditor-registry": {
+   "kind": "legiscan",
+   "bill": "CA AB1405 (1980302)",
+   "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+   "chars": 18932,
+   "sha256": "70025db06cf606861b3b4baee6405739d6f354c1a34d3c722c03233c1ad94fbb",
+   "fetched": "2026-10-16"
+  },
+  "ca-sb-813-ivos": {
+   "kind": "legiscan",
+   "bill": "CA SB813 (1980543)",
+   "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+   "chars": 11246,
+   "sha256": "5452a531b5368b1df5694307831c33b92c917f0eae67eca4442e69d6d5f97602",
+   "fetched": "2026-10-16"
+  },
+  "oh-hb-628": {
+   "kind": "legiscan",
+   "bill": "OH HB628 (2058716)",
+   "url": "https://www.legislature.ohio.gov/legislation/136/hb628",
+   "chars": 25506,
+   "sha256": "cbb5715981b468a2d9f930714a7d5f16facb03c7b943fb16f66cca1a16df3f3b",
+   "fetched": "2026-10-16"
+  },
+  "va-ch-425-426-jcots-study": {
+   "kind": "legiscan",
+   "bill": "VA HB797 (2073912)",
+   "url": "https://lis.virginia.gov/bill-details/20261/HB797",
+   "chars": 2397,
+   "sha256": "2f80972dc59d61cb8b409004a82a78f22854c025dd3e8407f49c912d5e70a13b",
+   "fetched": "2026-10-16"
+  },
+  "ct-p-a-26-15-ivo-pilot": {
+   "kind": "legiscan",
+   "bill": "CT SB00005 (2106638)",
+   "url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "chars": 137606,
+   "sha256": "9c7c31309ca9ff903f258c7f46f94cd737dfcff20d55ae413e1f4647816cb5b1",
+   "fetched": "2026-10-16"
+  },
+  "s-2938-ai-risk-evaluation-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/2938",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+   "chars": 13519,
+   "sha256": "36fb9a501eb6cfbed0530fcbc6a006b9aa1e027a38ac07a6e67b222cde6d5f69",
+   "fetched": "2026-10-16"
+  },
+  "h-r-9925-frontier-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/9925",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text",
+   "chars": 79087,
+   "sha256": "f200c4cadb96ad430b108eac5d640703482298583046c20dda615969793f61d1",
+   "fetched": "2026-10-16"
+  },
+  "s-5061-secure-ai-development-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/5061",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+   "chars": 49067,
+   "sha256": "872bc071685643e65acf6ddf5efa491748a76c207bf4e4ac4d96a636f473c9d3",
+   "fetched": "2026-10-16"
+  },
+  "h-r-9914-s-5105-catsr": {
+   "kind": "congress_gov",
+   "bill": "119/hr/9914",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+   "chars": 9208,
+   "sha256": "a8271e54fc2b582f31d561dccae9bd85835d3c0756f60b557b89f7642dfbe3e3",
+   "fetched": "2026-10-16"
+  },
+  "h-r-9477-ai-incident-reporting-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/9477",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+   "chars": 16383,
+   "sha256": "28aa38c30b1b46749d77862ba2e3a95e588aa54721b47fed196087b9cc19aee4",
+   "fetched": "2026-10-16"
+  },
+  "h-r-9917-ai-kill-switch-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/9917",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+   "chars": 14045,
+   "sha256": "2f0bb8157dd21c91ab8efefae2cb5c07e1532f1f7a4a24fc5f02dd93bf76b90e",
+   "fetched": "2026-10-16"
+  },
+  "h-r-9965-atomic-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/9965",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text",
+   "chars": 16712,
+   "sha256": "6ee73705b0dd28aeffe038c54777c26889a5ac13f3ca80c7fcaf3c8afac0033c",
+   "fetched": "2026-10-16"
+  },
+  "s-5493-h-r-10538-ban-artificial-superintelligence-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/5493",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+   "chars": 20457,
+   "sha256": "a4377729477bf1c2cdf4b690237ed3a146cdfdf3d689640e9015c9fb1a56cbcc",
+   "fetched": "2026-10-16"
+  },
+  "s-5417-h-r-10567-ai-emergency-button-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/5417",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+   "chars": 1947,
+   "sha256": "7b473d7e6287749a4b6411da01166158641a0da7b0f5c03db9c5b241716da203",
+   "fetched": "2026-10-16"
+  },
+  "h-r-9363-ai-security-and-innovation-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/9363",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
+   "chars": 16211,
+   "sha256": "845b140febc2dd346cac49db5b1ee2cde4d5f7df58db8d94bde83be52378cbef",
+   "fetched": "2026-10-16"
+  },
+  "s-1792-h-r-3460-ai-whistleblower-protection-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/1792",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text",
+   "chars": 10086,
+   "sha256": "ffa312d8075386d7d4f908250c57dd50697f931f591dd8fa929a954bbaddddcd",
+   "fetched": "2026-10-16"
+  },
+  "s-4656-military-ai-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/4656",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/4656/text",
+   "chars": 34511,
+   "sha256": "9c5fdaf2b61487b31ab91daa6c6118fe49ca5c6088feb97882a3c542a34375fc",
+   "fetched": "2026-10-16"
+  },
+  "h-r-10180-self-improving-ai-monitoring-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/10180",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/10180/text",
+   "chars": 3525,
+   "sha256": "ffef7bfac4ee84871db682e0057943c236ec8e57ea5adfc0f2d32248b16e6ec7",
+   "fetched": "2026-10-16"
+  },
+  "h-r-10189-defense-ai-reliability-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/10189",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text",
+   "chars": 7664,
+   "sha256": "294e189ef1c58bf3dab91ef7b2c25c441b0cf45c74eea7b0ee5dfdc48e94cb86",
+   "fetched": "2026-10-16"
+  },
+  "s-5541-cyber-and-ai-board-of-investigations": {
+   "kind": "congress_gov",
+   "bill": "119/s/5541",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text",
+   "chars": 34020,
+   "sha256": "021e50f089d277aacc522ea27196c7eb8d9c892aa043e6f06e6df03fc399b2c2",
+   "fetched": "2026-10-16"
+  },
+  "s-5471-ai-systems-transparency-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/5471",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text",
+   "chars": 25218,
+   "sha256": "1390855f6c74789f6446f79fd50dd681241be00764e3482fc3a21a56814f5615",
+   "fetched": "2026-10-16"
+  },
+  "h-r-10362-stop-rogue-ai-act": {
+   "kind": "congress_gov",
+   "bill": "119/hr/10362",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text",
+   "chars": 13989,
+   "sha256": "0829c8d042c21d9470cef2b0e07e725e371e88e5185b2061667150a5f563cd4a",
+   "fetched": "2026-10-16"
+  },
+  "chip-security-act-h-r-3447-cotton-companion": {
+   "kind": "congress_gov",
+   "bill": "119/hr/3447",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
+   "chars": 11308,
+   "sha256": "0cc10e8f15161d5c3ce1a4716c91c5b72627fe1a13dc62bbe9c8ed873e4c5a66",
+   "fetched": "2026-10-16"
+  },
+  "gain-ai-act-of-2025-s-3150": {
+   "kind": "congress_gov",
+   "bill": "119/s/3150",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text",
+   "chars": 13347,
+   "sha256": "edabe6800ed3077bc9afa55202f5b4b5341a61a08d5278c2b0e6a6ac0a830d6a",
+   "fetched": "2026-10-16"
+  },
+  "ai-overwatch-act-fy27-ndaa": {
+   "kind": "congress_gov",
+   "bill": "119/hr/6875",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/6875/text",
+   "chars": 15936,
+   "sha256": "f6912685c417b534e53f2c81691f3bdeccb25d223766e4c7ca25b04bda441566",
+   "fetched": "2026-10-16"
+  },
+  "ct-p-a-26-15-omnibus": {
+   "kind": "legiscan",
+   "bill": "CT SB00005 (2106638)",
+   "url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "chars": 137606,
+   "sha256": "9c7c31309ca9ff903f258c7f46f94cd737dfcff20d55ae413e1f4647816cb5b1",
+   "fetched": "2026-10-16"
+  },
+  "pa-h-b-2705": {
+   "kind": "legiscan",
+   "bill": "PA HB2705 (2155843)",
+   "url": "https://www.palegis.us/legislation/bills/2025/hb2705",
+   "chars": 10232,
+   "sha256": "e72f2fd505c0d4fcbcc249ce0ce9196016ccee531d1a9fdd7b04a1dcba72ce3d",
+   "fetched": "2026-10-16"
+  },
+  "texas-traiga-hb-149": {
+   "kind": "legiscan",
+   "bill": "TX HB149 (2007109)",
+   "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=HB149",
+   "chars": 67411,
+   "sha256": "abd8f804b16f385619ef5f28392e8eb40669328ae7ccdd86e3c6fb5134c55685",
+   "fetched": "2026-10-16"
+  },
+  "washington-sb-5395": {
+   "kind": "legiscan",
+   "bill": "WA SB5395 (1930459)",
+   "url": "https://app.leg.wa.gov/billsummary?BillNumber=5395&Year=2025&Initiative=false",
+   "chars": 61150,
+   "sha256": "fdd6c3c7b00dce58c3f8a1936b814696c84e563fa9e591dfa5749a654c69c2c0",
+   "fetched": "2026-10-16"
+  },
+  "ca-sb-1119-adam-s-law-and-sb-867": {
+   "kind": "legiscan",
+   "bill": "CA SB1119 (2118677)",
+   "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB1119",
+   "chars": 37223,
+   "sha256": "c09beff8cc029e6f3e67ec94fab364acfc2948ceae2fcb8d6c8304680f65ed2e",
+   "fetched": "2026-10-16"
+  },
+  "nj-s-1802": {
+   "kind": "legiscan",
+   "bill": "NJ S1802 (2075684)",
+   "url": "https://www.njleg.state.nj.us/bill-search/2026/S1802",
+   "chars": 5961,
+   "sha256": "f0bcc1fa98acb8449054850cc7b4e47501a7466a9a28fdbac51a02daca45020e",
+   "fetched": "2026-10-16"
+  },
+  "ny-s10642-a11560-responsible-data-center-development-act-and": {
+   "kind": "legiscan",
+   "bill": "NY S10642 (2152628)",
+   "url": "https://www.nysenate.gov/legislation/bills/2025/S10642",
+   "chars": 38170,
+   "sha256": "76943dc2776f90c5acd81905574d8e035185dae8151a67182aa6f3aa23f71d18",
+   "fetched": "2026-10-16"
+  },
+  "mi-sb-757-760-kids-over-clicks": {
+   "kind": "legiscan",
+   "bill": "MI SB0757 (2059472)",
+   "url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-SB-0757",
+   "chars": 8474,
+   "sha256": "a08242e2c952407322a3d323de8e1b19f38835a350ff98f6a5c1f0af9102294a",
+   "fetched": "2026-10-16"
+  }
+ }
+}

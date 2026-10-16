@@ -38,7 +38,8 @@ export function createCongress(http) {
       const versions = (await get(`/bill/${congress}/${type}/${number}/text`)).textVersions || [];
       const latest = versions.filter((v) => v.date).sort((x, y) => y.date.localeCompare(x.date))[0] || versions[0];
       const f = latest && (latest.formats || []).find((x) => /Formatted Text/i.test(x.type));
-      return f ? htmlToText(await http.getText(f.url)) : null;
+      // GPO's formatted text marks a superscript with backslashes ("10\26\" is 10 to the 26th): written as 10^26.
+      return f ? htmlToText(await http.getText(f.url)).replace(/(\d)\\(\d{1,3})\\/g, '$1^$2') : null;
     }
   };
 }
