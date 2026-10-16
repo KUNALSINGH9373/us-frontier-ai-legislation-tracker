@@ -1,0 +1,30 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://tracker.local/schema/changes.schema.json",
+ "title": "Change log (v2)",
+ "description": "One record per field the pipeline changed, oldest first. Written by publish/run.mjs; never edited by hand. Feeds the per-entry history.",
+ "type": "object",
+ "required": ["items"],
+ "additionalProperties": false,
+ "properties": {
+  "items": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": ["entry_key", "field", "old", "new", "date", "run_id", "source_url", "tier"],
+    "additionalProperties": false,
+    "properties": {
+     "entry_key": { "$ref": "common.schema.json#/$defs/key" },
+     "field": { "type": "string", "minLength": 1 },
+     "old": {},
+     "new": {},
+     "date": { "$ref": "common.schema.json#/$defs/isoDate" },
+     "run_id": { "type": "string", "minLength": 1 },
+     "source_url": { "$ref": "common.schema.json#/$defs/url" },
+     "tier": { "enum": ["A", "B"] },
+     "note": { "type": "string" }
+    }
+   }
+  }
+ }
+}

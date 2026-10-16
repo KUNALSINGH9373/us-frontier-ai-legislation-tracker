@@ -1,0 +1,52 @@
+// Stop rules for a publish. Any problem means nothing is written: with no human reviewer, an odd-looking run is
+// stopped, not published. Each check returns readable problems; empty means the run may be written.
+import { makeValidator } from '../schema/validate.mjs';
+import { checkIntegrity } from '../schema/integrity.mjs';
+
+// A status may only move forward. Authored judgement calls ("stalled") may still become law or fail.
+const FORWARD = { pending: ['stalled', 'enacted', 'failed'], stalled: ['pending', 'enacted', 'failed'] };
+// Fields Tier A may change on an entry. Everything else (mechanism, thresholds, penalties, title, ...) must be identical.
+const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked', 'last_changed', 'origin', 'verification', 'evidence']);
+const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
+export function checkPublish({ before, after, runDate, maxEntries, rawHashOk = [] }) {
+  const problems = [];
+  // 1. every output file passes its schema, and the files agree with each other
+  const v = makeValidator();
+  after.entries.forEach((e) => v.check('entry', e).forEach((p) => problems.push(`schema: entry ${e.key}: ${p}`)));
+  [['news', after.news], ['site', after.site], ['relationships', after.relationships], ['changes', after.changes]].forEach(([n, d]) => v.check(n, d).forEach((p) => problems.push(`schema: ${n}: ${p}`)));
+  checkIntegrity(after).forEach((p) => problems.push('integrity: ' + p));
+
+  const old = new Map(before.entries.map((e) => [e.key, e]));
+  const now = new Map(after.entries.map((e) => [e.key, e]));
+  let changed = 0;
+  const cutoff = runDate > after.site.updates_through ? runDate : after.site.updates_through;
+  for (const [key, o] of old) {
+    const n = now.get(key);
+    // 3. nothing is ever deleted: entries, events, sources, links
+    if (!n) { problems.push(`deleted entry: ${key}`); continue; }
+    const evs = new Set(n.events.map(evKey));
+    o.events.filter((x) => !evs.has(evKey(x))).forEach((x) => problems.push(`deleted event on ${key}: ${x.date} ${x.text}`));
+    const urls = new Set([...(n.sources || []), ...(n.more_links || [])].map((s) => s.url || s.u));
+    [...(o.sources || []), ...(o.more_links || [])].map((s) => s.url || s.u).filter((u) => !urls.has(u)).forEach((u) => problems.push(`deleted link on ${key}: ${u}`));
+    // 2. no status goes backwards
+    if (o.status !== n.status && !(FORWARD[o.status] || []).includes(n.status)) problems.push(`status went backwards on ${key}: ${o.status} -> ${n.status}`);
+    // only Tier A fields may change
+    Object.keys({ ...o, ...n }).filter((f) => !TIER_A_FIELDS.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: Tier A may not change it`));
+    if (!same(o, n)) changed++;
+    // 6. no event in the future unless it is marked scheduled
+    n.events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));
+  }
+  for (const key of now.keys()) if (!old.has(key)) problems.push(`new entry ${key}: Tier A does not create entries`);
+  const oldNews = new Set(before.news.items.map((x) => JSON.stringify(x)));
+  const keptNews = after.news.items.filter((x) => oldNews.has(JSON.stringify(x))).length;
+  if (keptNews < before.news.items.length) problems.push(`news items deleted or edited: ${before.news.items.length - keptNews}`);
+  if ((after.changes.items || []).length < (before.changes.items || []).length) problems.push('change log entries deleted');
+  if (!same(before.relationships, after.relationships)) problems.push('relationships changed: Tier A does not change them');
+  // 4. a run that changes too much at once is an anomaly
+  if (changed > maxEntries) problems.push(`${changed} entries would change, over the limit of ${maxEntries} per run`);
+  // 5. the source text read now is the text fetched at grab time
+  rawHashOk.filter((r) => !r.ok).forEach((r) => problems.push(`stored source changed since it was fetched: ${r.item_id}`));
+  return { problems, changed };
+}

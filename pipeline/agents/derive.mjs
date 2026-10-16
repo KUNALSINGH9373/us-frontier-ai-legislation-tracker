@@ -14,7 +14,7 @@ export function sponsorText(sponsors) {
   }).join('; ') || null;
 }
 
-const eventFor = (action) => {
+export const eventFor = (action) => {
   const t = action.text || '';
   if (/became public law|signed by president/i.test(t)) return 'Signed / enacted';
   if (/vetoed/i.test(t)) return 'Vetoed / failed / rescinded';

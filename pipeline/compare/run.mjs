@@ -1,6 +1,7 @@
 // Reads a change set, compares every item with the tracker, writes diff.json next to it.
 //   node compare/run.mjs                       the newest run in data/runs
 //   node compare/run.mjs data/runs/<run id>    a specific run
+//   ... --entries <file>                        compare against another copy of the data (default web/data/v2/entries.json)
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -32,8 +33,10 @@ export function compareRun({ runDir, entries }) {
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const runsDir = path.join(pipelineDir, 'data', 'runs');
-  const runDir = process.argv[2] ? path.resolve(process.argv[2]) : path.join(runsDir, fs.readdirSync(runsDir).filter((r) => fs.existsSync(path.join(runsDir, r, 'changeset.json'))).sort().pop());
-  const entries = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'out', 'entries.v2.json'), 'utf8'));
+  const args = process.argv.slice(2), ei = args.indexOf('--entries'), pos = args.filter((a, i) => !a.startsWith('--') && i !== ei + 1);
+  const runDir = pos[0] ? path.resolve(pos[0]) : path.join(runsDir, fs.readdirSync(runsDir).filter((r) => fs.existsSync(path.join(runsDir, r, 'changeset.json'))).sort().pop());
+  // The live site data (v1 is frozen; the publisher writes web/data/v2). --entries <file> compares against another copy.
+  const entries = JSON.parse(fs.readFileSync(ei >= 0 ? path.resolve(args[ei + 1]) : path.join(pipelineDir, '..', 'web', 'data', 'v2', 'entries.json'), 'utf8'));
   const r = compareRun({ runDir, entries });
   console.log(`${r.run_id}: ${JSON.stringify(r.summary)}`);
   r.items.filter((d) => d.verdict !== 'unchanged').forEach((d) => console.log(`  [${d.verdict}] ${d.item_id} ${d.entry_key || '(new)'}\n      ` + d.reasons.map((x) => `${x.kind}: ${x.detail}`).join('\n      ')));

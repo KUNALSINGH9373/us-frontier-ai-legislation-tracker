@@ -1,0 +1,260 @@
+{
+ "run_id": "run-20261006-1553-c59a",
+ "summary": {
+  "material": 1,
+  "minor": 17,
+  "unchanged": 7
+ },
+ "items": [
+  {
+   "item_id": "congress_gov:119/s/2938",
+   "entry_key": "s-2938-ai-risk-evaluation-act",
+   "verdict": "material",
+   "reasons": [
+    {
+     "kind": "new_action",
+     "detail": "2026-09-30: Committee on Homeland Security and Governmental Affairs. Hearings held.",
+     "api_value": "Committee on Homeland Security and Governmental Affairs. Hearings held.",
+     "our_value": "Introduced / status: Sept 29, 2025; referred to Senate Commerce. No action in 11+ months"
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/9925",
+   "entry_key": "h-r-9925-frontier-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-02; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/5061",
+   "entry_key": "s-5061-secure-ai-development-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-09-08; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/9914",
+   "entry_key": "h-r-9914-s-5105-catsr",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-09-17; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/5105",
+   "entry_key": "h-r-9914-s-5105-catsr",
+   "verdict": "unchanged",
+   "reasons": []
+  },
+  {
+   "item_id": "congress_gov:119/hr/9477",
+   "entry_key": "h-r-9477-ai-incident-reporting-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-09-16; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/9917",
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-06; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/9965",
+   "entry_key": "h-r-9965-atomic-act",
+   "verdict": "unchanged",
+   "reasons": []
+  },
+  {
+   "item_id": "congress_gov:119/s/5493",
+   "entry_key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-02; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/10538",
+   "entry_key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-05; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/5417",
+   "entry_key": "s-5417-h-r-10567-ai-emergency-button-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-05; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/10567",
+   "entry_key": "s-5417-h-r-10567-ai-emergency-button-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-05; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/9363",
+   "entry_key": "h-r-9363-ai-security-and-innovation-act",
+   "verdict": "unchanged",
+   "reasons": []
+  },
+  {
+   "item_id": "congress_gov:119/s/1792",
+   "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-02; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/3460",
+   "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "sponsor_change",
+     "detail": "Sponsor on Congress.gov is Rep. Obernolte, Jay [R-CA-23], not named in the tracker.",
+     "api_value": "Rep. Obernolte, Jay [R-CA-23]",
+     "our_value": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz; House companion"
+    },
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-02; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/4656",
+   "entry_key": "s-4656-military-ai-act",
+   "verdict": "unchanged",
+   "reasons": []
+  },
+  {
+   "item_id": "congress_gov:119/hr/10180",
+   "entry_key": "h-r-10180-self-improving-ai-monitoring-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-09-08; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/10189",
+   "entry_key": "h-r-10189-defense-ai-reliability-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-09-22; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/5541",
+   "entry_key": "s-5541-cyber-and-ai-board-of-investigations",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "title_change",
+     "detail": "Title now reads \"A bill to establish the Cybersecurity and AI Board of Investigations, and for other purposes.\".",
+     "api_value": "A bill to establish the Cybersecurity and AI Board of Investigations, and for other purposes.",
+     "our_value": "S. 5541 Cyber and AI Board of Investigations"
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/5471",
+   "entry_key": "s-5471-ai-systems-transparency-act",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-05; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/hr/10362",
+   "entry_key": "h-r-10362-stop-rogue-ai-act",
+   "verdict": "unchanged",
+   "reasons": []
+  },
+  {
+   "item_id": "congress_gov:119/hr/3447",
+   "entry_key": "chip-security-act-h-r-3447-cotton-companion",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-09-19; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/3150",
+   "entry_key": "gain-ai-act-of-2025-s-3150",
+   "verdict": "unchanged",
+   "reasons": []
+  },
+  {
+   "item_id": "congress_gov:119/hr/6875",
+   "entry_key": "ai-overwatch-act-fy27-ndaa",
+   "verdict": "minor",
+   "reasons": [
+    {
+     "kind": "record_updated",
+     "detail": "Congress.gov record updated 2026-10-02; no new action."
+    }
+   ]
+  },
+  {
+   "item_id": "congress_gov:119/s/4456",
+   "entry_key": "ai-overwatch-act-fy27-ndaa",
+   "verdict": "unchanged",
+   "reasons": []
+  }
+ ]
+}

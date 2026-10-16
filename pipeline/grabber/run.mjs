@@ -123,7 +123,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   if (!['congress_gov', 'federal_register', 'legiscan', 'all'].includes(source)) { console.error('--source must be congress_gov, federal_register, legiscan or all'); process.exit(2); }
   const dryRun = args.includes('--dry-run');
   const stateFile = path.join(pipelineDir, 'data', 'state.json'), outDir = path.join(pipelineDir, 'data', 'runs');
-  const entriesFile = path.join(pipelineDir, 'out', 'entries.v2.json');
+  // The live site data (v1 is frozen; the publisher writes web/data/v2). --entries <file> replays against another copy.
+  const entriesFile = opt('entries') ? path.resolve(opt('entries')) : path.join(pipelineDir, '..', 'web', 'data', 'v2', 'entries.json');
   const entries = fs.existsSync(entriesFile) ? JSON.parse(fs.readFileSync(entriesFile, 'utf8')) : [];
   const scope = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'scope.draft.json'), 'utf8'));
   let state = readState(stateFile);
