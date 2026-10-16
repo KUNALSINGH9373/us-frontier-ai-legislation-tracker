@@ -15,7 +15,7 @@
     "test:fr": "node grabber/test-federal-register.mjs",
     "test:compare": "node compare/test.mjs",
     "test:compare-fr": "node compare/test-federal-register.mjs",
-    "test": "node schema/test.mjs && node grabber/test.mjs && node grabber/test-federal-register.mjs && node grabber/test-legiscan.mjs && node compare/test.mjs && node compare/test-federal-register.mjs && node llm/test.mjs && node llm/test-anthropic.mjs && node agents/test-derive.mjs && node agents/test.mjs && node publish/test.mjs",
+    "test": "node schema/test.mjs && node grabber/test.mjs && node grabber/test-federal-register.mjs && node grabber/test-legiscan.mjs && node compare/test.mjs && node compare/test-federal-register.mjs && node llm/test.mjs && node llm/test-anthropic.mjs && node agents/test-derive.mjs && node agents/test.mjs && node publish/test.mjs && node publish/test-legiscan.mjs",
     "test:llm": "node llm/test.mjs",
     "test:agents": "node agents/test.mjs",
     "agents": "node agents/run.mjs",
@@ -25,7 +25,9 @@
     "test:anthropic": "node llm/test-anthropic.mjs",
     "smoke:anthropic": "node llm/smoke-anthropic.mjs",
     "test:publish": "node publish/test.mjs",
-    "publish": "node publish/run.mjs"
+    "publish": "node publish/run.mjs",
+    "update": "node update.mjs",
+    "test:publish-legiscan": "node publish/test-legiscan.mjs"
   },
   "devDependencies": {
     "ajv": "8.17.1",

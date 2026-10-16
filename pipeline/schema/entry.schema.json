@@ -91,7 +91,7 @@
             },
             "legiscan_bill_id": {
               "type": "integer"
-            },
+            }, "legiscan": { "type": "array", "minItems": 1, "items": { "type": "integer" }, "description": "Every LegiScan bill_id this entry covers (companions too). The official citation is still the legislature page." },
             "openstates_id": {
               "type": "string"
             },

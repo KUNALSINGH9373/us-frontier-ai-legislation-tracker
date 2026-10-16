@@ -146,6 +146,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <sc-if value="{{isHome}}">
 <div data-screen-label="Home" style="max-width:1600px;width:100%;margin:0 auto;padding:clamp(18px,2.4vw,28px) clamp(16px,3vw,32px) clamp(32px,4vw,48px)">
   <h1 id="story-h" aria-label="{{h3}} states have enacted frontier-AI laws. Congress has introduced {{h10}} bills and passed none." style="margin:0 0 clamp(14px,1.8vw,20px);font-size:clamp(22px,2.5vw,32px);line-height:1.2;text-wrap:balance;max-width:1000px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="{{h3}}" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="{{h10}}" style="color:var(--accent-ink)">{{h10}}</span> bills and passed none.</span></h1>
+  <sc-if value="{{hasChecked}}"><p data-checked style="margin:calc(-6px*var(--ps)) 0 12px;font-size:calc(13px*var(--fs));color:var(--ink-3);font-variant-numeric:tabular-nums">{{checkedLine}}</p></sc-if>
 
   <div data-hometools style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:12px">
     <div role="group" aria-label="Filter the map" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;min-width:0">
@@ -513,6 +514,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         <sc-if value="{{hasMoreLinks}}"><details style="margin-top:6px"><summary style="cursor:pointer;font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(44px*var(--hs));display:flex;align-items:center">More links in the tracker row ({{nMoreLinks}})</summary><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px"><sc-for list="{{moreLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:calc(14px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></details></sc-if>
         <sc-if value="{{noSrcLinks}}"><a href="{{bLink}}" target="_blank" rel="noopener" style="margin-top:8px;font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center">See this entry on the current tracker ↗</a></sc-if>
         <sc-if value="{{hasMarks}}"><ul style="margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{marks}}" as="m"><li style="font-size:calc(13.5px*var(--fs));color:var(--ink-2);display:flex;gap:8px"><span aria-hidden="true" style="color:var(--accent-ink)">●</span>{{m.t}}</li></sc-for></ul></sc-if>
+        <sc-if value="{{hasBChecked}}"><p data-checked style="margin:12px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{bCheckedLine}}</p></sc-if>
         <p style="margin:12px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Verified as of {{verLabel}}. Not legal advice: re-check the primary source before citing.</p>
       </section>
     </aside>
@@ -596,6 +598,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <div data-screen-label="Updates" data-centered style="max-width:calc(760px + 2 * clamp(16px,3vw,32px));width:100%;margin:0 auto;padding:clamp(calc(28px*var(--ps)),5vw,calc(56px*var(--ps))) clamp(16px,3vw,32px) calc(72px*var(--ps))">
   <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);font-weight:800;letter-spacing:-.035em;line-height:1.05">News and Updates</h1>
   <p style="margin:8px 0 0;font-size:calc(17px*var(--fs));color:var(--ink-2);max-width:700px">Through {{asofDay}}. Includes hearings, letters and industry incidents; corrections are marked.</p>
+  <sc-if value="{{hasChecked}}"><p data-checked style="margin:6px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{checkedLine}}</p></sc-if>
   <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
     <div style="flex:1 1 100%;min-width:0">
       <div role="group" aria-label="Filter by kind" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px">
@@ -844,6 +847,23 @@ class Component extends DCLogic {
     if (this.wantQFocus && this.qRef.current) { this.wantQFocus = false; this.qRef.current.focus({ preventScroll: true }); }
     if (this.wantPanelFocus && this.panelCloseRef.current) { this.wantPanelFocus = false; this.panelCloseRef.current.focus({ preventScroll: true }); }
   }
+  // "Checked for updates 2 hours ago · Last change 3 Oct 2026". Shown only when status.json is under 24 hours old:
+  // an old "checked" claim is worse than none.
+  ago(iso) {
+    const t = Date.parse(iso), m = Math.round((Date.now() - t) / 60000);
+    if (!(m >= -5) || m > 24 * 60) return null;
+    return m < 2 ? 'just now' : m < 60 ? `${m} minutes ago` : Math.round(m / 60) === 1 ? '1 hour ago' : `${Math.round(m / 60)} hours ago`;
+  }
+  checkedVals() {
+    const st = this.status, rel = st && st.last_checked && this.ago(st.last_checked);
+    if (!rel) return { hasChecked: false, checkedLine: '' };
+    const lc = st.last_change ? this.L.fmt(new Date(st.last_change + 'T12:00:00')) : null;
+    return { hasChecked: true, checkedLine: `Checked for updates ${rel}${lc ? ` · Last change ${lc}` : ''}` };
+  }
+  billChecked(key) {
+    const t = this.status && this.status.checked && this.status.checked[key], rel = t && this.ago(t);
+    return rel ? { hasBChecked: true, bCheckedLine: `Official record last checked ${rel}.` } : { hasBChecked: false, bCheckedLine: '' };
+  }
   async load() {
     this.setState({ loading: true, err: false });
     try {
@@ -851,6 +871,8 @@ class Component extends DCLogic {
       const v1 = /[?&]data=v1\b/.test(location.search);
       const [L, V, ...d] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...(v1 ? ['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'] : ['data/v2/entries.json', 'data/v2/news.json', 'data/v2/relationships.json', 'data/v2/site.json', 'data/v2/content.json']).map(get)]);
       this.L = L; this.V = V;
+      // When the official sources were last checked (pipeline/update.mjs). Optional: no file, no line.
+      if (!v1) fetch('data/v2/status.json', { cache: 'no-store' }).then(x => (x.ok ? x.json() : null)).then(st => { this.status = st; this.forceUpdate(); }).catch(() => {});
       if (v1) { this.D = L.build(d[0], d[1], d[2]); this.D.tev = d[3].events.map(x => ({ ...x, d: new Date(x.date + 'T12:00:00') })).filter(x => this.D.byId[x.id]); }
       else this.D = L.buildV2(d[0], d[1], d[2], d[3], d[4]);
       this.setState({ loading: false });
@@ -995,8 +1017,8 @@ class Component extends DCLogic {
     const v = {
       loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
       ...(this.L && this.D ? (() => { const L = this.L, MNL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        return { verLabel: L.fmt(L.VERIFIED), asofLabel: L.fmt(L.ASOF), asofDay: L.fmt(L.ASOF).replace(/ \d{4}$/, ''), asofMonth: MNL[L.ASOF.getMonth()] + ' ' + L.ASOF.getFullYear(), updLabel: L.fmtShort(L.ASOF), nEntries: String(this.D.E.length), bootLabel: 'Verified as of ' + L.fmt(L.VERIFIED) }; })()
-        : { verLabel: '', asofLabel: '', asofDay: '', asofMonth: '', updLabel: '', nEntries: '', bootLabel: 'Loading the tracker' }),
+        return { verLabel: L.fmt(L.VERIFIED), asofLabel: L.fmt(L.ASOF), asofDay: L.fmt(L.ASOF).replace(/ \d{4}$/, ''), asofMonth: MNL[L.ASOF.getMonth()] + ' ' + L.ASOF.getFullYear(), updLabel: L.fmtShort(L.ASOF), nEntries: String(this.D.E.length), bootLabel: 'Verified as of ' + L.fmt(L.VERIFIED), ...this.checkedVals() }; })()
+        : { verLabel: '', asofLabel: '', asofDay: '', asofMonth: '', updLabel: '', nEntries: '', bootLabel: 'Loading the tracker', hasChecked: false, checkedLine: '' }),
       showTopNav: !mob, showBottomNav: mob, mainPadBottom: mob ? '88px' : '0px', footerPadBottom: mob ? '104px' : '28px', toastBottom: mob ? '96px' : '28px',
       nav: NAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-3)', ul: sec === k ? 'inset 0 -2px 0 var(--accent-ink)' : 'none' })),
       mnav: MNAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-3)', bg: sec === k ? 'var(--accent-soft)' : 'transparent' })),
@@ -1268,7 +1290,7 @@ class Component extends DCLogic {
     const following = this.state.follow.includes(id);
     const marks = [x.U && 'Added or changed in the supplementary checks through ' + L.fmt(L.ASOF), x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
     return {
-      isBill: true, bId: id, bTitle: x.title, bShort: x.short, bSec: x.sec, bSecHref: '#/explore?type=' + x.type, bJuris: x.juris, bType: L.TYPES[x.type],
+      isBill: true, bId: id, ...this.billChecked(x.v2key), bTitle: x.title, bShort: x.short, bSec: x.sec, bSecHref: '#/explore?type=' + x.type, bJuris: x.juris, bType: L.TYPES[x.type],
       bSl: L.ST[x.status].l, bSg: L.ST[x.status].g, bSc: `var(--st-${x.status})`,
       hasSummary: !!x.summary, bSummary: x.summary, noSummary: !x.summary, bLead: x.lead,
       bMech: x.mech, hasSigned: !!x.signed, bSigned: x.signed, hasEffective: !!x.effective, bEffective: x.effective, hasPenalties: !!x.penalties, bPenalties: x.penalties,

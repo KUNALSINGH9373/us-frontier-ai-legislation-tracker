@@ -1,0 +1,1330 @@
+{
+ "id": "1980543",
+ "search_hit": null,
+ "bill": {
+  "bill_id": 1980543,
+  "change_hash": "35f0dfc43ef1e31fc15736c7db22eb27",
+  "session_id": 2172,
+  "session": {
+   "session_id": 2172,
+   "state_id": 5,
+   "year_start": 2025,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 0,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2025-2026 Regular Session",
+   "session_name": "2025-2026 Regular Session"
+  },
+  "url": "https://legiscan.com/CA/bill/SB813/2025",
+  "state_link": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+  "completed": 1,
+  "status": 4,
+  "status_date": "2026-09-09",
+  "progress": [
+   {
+    "date": "2025-02-21",
+    "event": 1
+   },
+   {
+    "date": "2025-03-12",
+    "event": 9
+   },
+   {
+    "date": "2025-03-26",
+    "event": 9
+   },
+   {
+    "date": "2025-03-27",
+    "event": 9
+   },
+   {
+    "date": "2025-04-02",
+    "event": 9
+   },
+   {
+    "date": "2025-04-30",
+    "event": 10
+   },
+   {
+    "date": "2025-05-01",
+    "event": 9
+   },
+   {
+    "date": "2026-01-05",
+    "event": 9
+   },
+   {
+    "date": "2026-01-22",
+    "event": 10
+   },
+   {
+    "date": "2026-01-27",
+    "event": 2
+   },
+   {
+    "date": "2026-05-04",
+    "event": 9
+   },
+   {
+    "date": "2026-06-16",
+    "event": 9
+   },
+   {
+    "date": "2026-07-02",
+    "event": 10
+   },
+   {
+    "date": "2026-07-02",
+    "event": 9
+   },
+   {
+    "date": "2026-08-13",
+    "event": 10
+   },
+   {
+    "date": "2026-08-13",
+    "event": 9
+   },
+   {
+    "date": "2026-08-24",
+    "event": 9
+   },
+   {
+    "date": "2026-08-30",
+    "event": 3
+   },
+   {
+    "date": "2026-09-09",
+    "event": 8
+   },
+   {
+    "date": "2026-09-09",
+    "event": 4
+   }
+  ],
+  "state": "CA",
+  "state_id": 5,
+  "bill_number": "SB813",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "S",
+  "body_id": 20,
+  "current_body": "S",
+  "current_body_id": 20,
+  "title": "Independent verification organizations.",
+  "description": "An act to add Chapter 14 (commencing with Section 8898) to Division 1 of Title 2 of the Government Code, relating to artificial intelligence.",
+  "pending_committee_id": 0,
+  "committee": [],
+  "referrals": [
+   {
+    "date": "2025-02-21",
+    "committee_id": 489,
+    "chamber": "S",
+    "chamber_id": 20,
+    "name": "Rules"
+   },
+   {
+    "date": "2025-03-12",
+    "committee_id": 493,
+    "chamber": "S",
+    "chamber_id": 20,
+    "name": "Business, Professions and Economic Development"
+   },
+   {
+    "date": "2025-03-27",
+    "committee_id": 489,
+    "chamber": "S",
+    "chamber_id": 20,
+    "name": "Rules"
+   },
+   {
+    "date": "2025-04-02",
+    "committee_id": 482,
+    "chamber": "S",
+    "chamber_id": 20,
+    "name": "Judiciary"
+   },
+   {
+    "date": "2025-04-30",
+    "committee_id": 475,
+    "chamber": "S",
+    "chamber_id": 20,
+    "name": "Appropriations"
+   },
+   {
+    "date": "2026-05-04",
+    "committee_id": 3626,
+    "chamber": "A",
+    "chamber_id": 19,
+    "name": "Privacy and Consumer Protection"
+   },
+   {
+    "date": "2026-07-02",
+    "committee_id": 449,
+    "chamber": "A",
+    "chamber_id": 19,
+    "name": "Appropriations"
+   },
+   {
+    "date": "2026-08-13",
+    "committee_id": 470,
+    "chamber": "A",
+    "chamber_id": 19,
+    "name": "Rules"
+   }
+  ],
+  "history": [
+   {
+    "date": "2025-02-21",
+    "action": "Introduced. To Com. on RLS. for assignment. To print.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-02-24",
+    "action": "From printer. May be acted upon on or after March 24.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-02-24",
+    "action": "Read first time.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-03-12",
+    "action": "Referred to Com. on B. P. & E.D.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-03-18",
+    "action": "Set for hearing April 21.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-03-26",
+    "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on B. P. & E.D.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-03-27",
+    "action": "April 21 hearing postponed by committee.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-03-27",
+    "action": "Withdrawn from committee.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-03-27",
+    "action": "Re-referred to Com. on RLS.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-04-02",
+    "action": "Re-referred to Com. on JUD.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-04-09",
+    "action": "Set for hearing April 29.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-04-30",
+    "action": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 10. Noes 0. Page 944.) (April 29).",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-05-01",
+    "action": "Read second time and amended. Re-referred to Com. on APPR.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2025-05-06",
+    "action": "Set for hearing May 12.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-05-12",
+    "action": "May 12 hearing: Placed on APPR. suspense file.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-05-16",
+    "action": "Set for hearing May 23.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2025-05-23",
+    "action": "May 23 hearing: Held in committee and under submission.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2026-01-05",
+    "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on APPR.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2026-01-16",
+    "action": "Set for hearing January 22.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2026-01-22",
+    "action": "From committee: Do pass. (Ayes 5. Noes 2. Page 3270.) (January 22).",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2026-01-22",
+    "action": "Read second time. Ordered to third reading.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2026-01-27",
+    "action": "Read third time. Passed. (Ayes 31. Noes 7. Page 3307.) Ordered to the Assembly.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2026-01-27",
+    "action": "In Assembly. Read first time. Held at Desk.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-05-04",
+    "action": "Referred to Com. on P. & C.P.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-06-16",
+    "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on P. & C.P.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-07-02",
+    "action": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 11. Noes 2.) (July 1).",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-07-02",
+    "action": "Read second time and amended. Re-referred to Com. on APPR.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-08-05",
+    "action": "August 5 set for first hearing. Placed on suspense file.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-13",
+    "action": "Assembly Rule 63 suspended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-13",
+    "action": "From committee: Do pass as amended and re-refer to Com. on RLS. (Ayes 11. Noes 3.) (August 13).",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-08-13",
+    "action": "Read second time and amended. Re-referred to Com. on RLS.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-08-24",
+    "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on RLS.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 1
+   },
+   {
+    "date": "2026-08-24",
+    "action": "Assembly Rule 96 suspended. (Ayes 54. Noes 18. Page 6369.)",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-24",
+    "action": "Withdrawn from committee.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-24",
+    "action": "Ordered to second reading.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-25",
+    "action": "Read second time. Ordered to third reading.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-26",
+    "action": "Joint Rule 61(b)(16) suspended. (Ayes 61. Noes 0. Page 6562.)",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-26",
+    "action": "Read third time and amended.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-26",
+    "action": "Ordered to third reading.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-30",
+    "action": "Read third time. Passed. (Ayes 67. Noes 6. Page 6872.) Ordered to the Senate.",
+    "chamber": "A",
+    "chamber_id": 19,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-30",
+    "action": "In Senate. Concurrence in Assembly amendments pending.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 0
+   },
+   {
+    "date": "2026-08-30",
+    "action": "Assembly amendments concurred in. (Ayes 37. Noes 0.) Ordered to engrossing and enrolling.",
+    "chamber": "S",
+    "chamber_id": 20,
+    "importance": 1
+   },
+   {
+    "date": "2026-09-08",
+    "action": "Enrolled and presented to the Governor at 4 p.m.",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 0
+   },
+   {
+    "date": "2026-09-09",
+    "action": "Approved by the Governor.",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 0
+   },
+   {
+    "date": "2026-09-09",
+    "action": "Chaptered by Secretary of State. Chapter 179, Statutes of 2026.",
+    "chamber": "",
+    "chamber_id": 0,
+    "importance": 1
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 25355,
+    "person_hash": "0acsxxb7",
+    "party_id": "1",
+    "state_id": 5,
+    "party": "D",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Jerry McNerney",
+    "first_name": "Jerry",
+    "middle_name": "",
+    "last_name": "McNerney",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-005",
+    "ftm_eid": 59506633,
+    "votesmart_id": 29474,
+    "opensecrets_id": "",
+    "knowwho_pid": 0,
+    "ballotpedia": "Jerry_McNerney",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 8985,
+    "bio": {
+     "social": {
+      "capitol_phone": "916-651-4005",
+      "district_phone": "209-472-9535",
+      "email": "",
+      "webmail": "https://sd05.senate.ca.gov/",
+      "biography": "https://sd05.senate.ca.gov/",
+      "image": "https://www.senate.ca.gov/sites/senate.ca.gov/files/styles/large/public/media/McNerney%2520new%2520headshot%25203_0_1.jpg",
+      "ballotpedia": "https://ballotpedia.org/Jerry_McNerney",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/29474"
+     },
+     "capitol_address": {
+      "address1": "1021 O Street, Suite 6640",
+      "address2": "",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "Suite"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/congressmanjerrymcnerney",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "https://www.twitter.com/SenMcNerney",
+       "website": "https://sd05.senate.ca.gov/",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "https://www.instagram.com/sennerney/",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   },
+   {
+    "people_id": 19716,
+    "person_hash": "e40wffg6",
+    "party_id": "1",
+    "state_id": 5,
+    "party": "D",
+    "role_id": 1,
+    "role": "Rep",
+    "name": "Rebecca Bauer-Kahan",
+    "first_name": "Rebecca",
+    "middle_name": "",
+    "last_name": "Bauer-Kahan",
+    "suffix": "",
+    "nickname": "",
+    "district": "HD-016",
+    "ftm_eid": 44493620,
+    "votesmart_id": 180050,
+    "opensecrets_id": "",
+    "knowwho_pid": 660427,
+    "ballotpedia": "Rebecca_Bauer-Kahan",
+    "bioguide_id": "",
+    "sponsor_type_id": 3,
+    "sponsor_order": 2,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "916-319-2016",
+      "district_phone": "925-244-1600",
+      "email": "",
+      "webmail": "https://lcmspubcontact.lc.ca.gov/PublicLCMS/ContactPopup.php?district=AD16",
+      "biography": "https://www.assembly.ca.gov/assemblymembers/16",
+      "image": "https://www.assembly.ca.gov/sites/assembly.ca.gov/sites/assembly.ca.gov/files/styles/large/public/media/RBK%2520Headshot.png",
+      "ballotpedia": "https://ballotpedia.org/Rebecca_Bauer-Kahan",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/180050"
+     },
+     "capitol_address": {
+      "address1": "1021 O Street, Suite 5210",
+      "address2": "",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "Suite"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/RBKcalifornia",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "https://www.twitter.com/BauerKahan",
+       "website": "https://www.assembly.ca.gov/assemblymembers/16",
+       "youtube": "https://www.youtube.com/@AsmBauerKahan"
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/rebeccabk",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/rebecca-bauer-kahan-27bb7240/",
+       "tiktok": "",
+       "twitter": "https://www.twitter.com/rebeccabbk",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   },
+   {
+    "people_id": 23213,
+    "person_hash": "h625qnt6",
+    "party_id": "1",
+    "state_id": 5,
+    "party": "D",
+    "role_id": 1,
+    "role": "Rep",
+    "name": "Josh Lowenthal",
+    "first_name": "Josh",
+    "middle_name": "",
+    "last_name": "Lowenthal",
+    "suffix": "",
+    "nickname": "",
+    "district": "HD-069",
+    "ftm_eid": 44493776,
+    "votesmart_id": 180137,
+    "opensecrets_id": "",
+    "knowwho_pid": 0,
+    "ballotpedia": "Josh_Lowenthal",
+    "bioguide_id": "",
+    "sponsor_type_id": 3,
+    "sponsor_order": 3,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "916-319-2069",
+      "district_phone": "562-366-2769",
+      "email": "",
+      "webmail": "https://lcmspubcontact.lc.ca.gov/PublicLCMS/ContactPopup.php?district=AD69",
+      "biography": "https://www.assembly.ca.gov/assemblymembers/69",
+      "image": "https://www.assembly.ca.gov/sites/assembly.ca.gov/sites/assembly.ca.gov/files/styles/large/public/media/Lowenthal%2520502%252011-30-22.jpg",
+      "ballotpedia": "https://ballotpedia.org/Josh_Lowenthal",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/180137"
+     },
+     "capitol_address": {
+      "address1": "1021 O Street, Suite 8320",
+      "address2": "",
+      "city": "Sacramento",
+      "state": "CA",
+      "zip": "Suite"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/AsmJoshLowenthal",
+       "instagram": "https://www.instagram.com/asmlowenthal/",
+       "linkedin": "",
+       "tiktok": "https://www.tiktok.com/@asmjoshlowenthal",
+       "twitter": "https://www.twitter.com/AsmLowenthal",
+       "website": "https://www.assembly.ca.gov/assemblymembers/69",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/josh.lowenthal.5",
+       "instagram": "https://www.instagram.com/jlolbc/",
+       "linkedin": "https://www.linkedin.com/in/josh-lowenthal-82298420/",
+       "tiktok": "https://www.tiktok.com/@joshlowenthal712",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3137328,
+    "date": "2025-02-21",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3137328",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#99INT",
+    "text_size": 4606,
+    "text_hash": "11184b1ed431c748c7faa8ece92e398f",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3191116,
+    "date": "2025-03-26",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3191116",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#98AMD",
+    "text_size": 23595,
+    "text_hash": "10f1a974cf5de79d3556650f179ee247",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3227554,
+    "date": "2025-05-01",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3227554",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#97AMD",
+    "text_size": 23535,
+    "text_hash": "d12d5c77aec395688343ff90a7d5484a",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3299977,
+    "date": "2026-01-05",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3299977",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#96AMD",
+    "text_size": 51212,
+    "text_hash": "34c6bd421d99c78e9570b3e5c25c448b",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3448806,
+    "date": "2026-06-16",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3448806",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#95AMD",
+    "text_size": 56110,
+    "text_hash": "87bea64ba8fa9adb0bcda503b0219b34",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3452189,
+    "date": "2026-07-02",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3452189",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#94AMD",
+    "text_size": 29173,
+    "text_hash": "8ac4fcd32054dcaefae9bb0b68dd7cd1",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3455530,
+    "date": "2026-08-13",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3455530",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#93AMD",
+    "text_size": 26852,
+    "text_hash": "8a55a75a68a76be5b09cf3c5295ac3c7",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3456669,
+    "date": "2026-08-24",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3456669",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#92AMD",
+    "text_size": 43457,
+    "text_hash": "b37abbb80b0fcc13a2d758d828a39b51",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3456889,
+    "date": "2026-08-26",
+    "type": "Amended",
+    "type_id": 3,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3456889",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#91AMD",
+    "text_size": 25289,
+    "text_hash": "8e11daa215fecbc47b5cf9387ded2a66",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3457696,
+    "date": "2026-09-01",
+    "type": "Enrolled",
+    "type_id": 5,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3457696",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#90ENR",
+    "text_size": 20310,
+    "text_hash": "d0d893c3b6a235673ec773890f97f48b",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   },
+   {
+    "doc_id": 3458354,
+    "date": "2026-09-09",
+    "type": "Chaptered",
+    "type_id": 6,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/CA/text/SB813/id/3458354",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB813#89CHP",
+    "text_size": 16676,
+    "text_hash": "61e8ddc8087b570c1bc62fa5b082cd2f",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "votes": [
+   {
+    "roll_call_id": 1562769,
+    "date": "2025-04-29",
+    "desc": "Do pass as amended, but first amend, and re-refer to the Committee on [Appropriations]",
+    "yea": 10,
+    "nay": 0,
+    "nv": 0,
+    "absent": 3,
+    "total": 13,
+    "passed": 1,
+    "chamber": "S",
+    "chamber_id": 20,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1562769",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   },
+   {
+    "roll_call_id": 1569924,
+    "date": "2025-05-12",
+    "desc": "Placed on suspense file",
+    "yea": 7,
+    "nay": 0,
+    "nv": 0,
+    "absent": 0,
+    "total": 7,
+    "passed": 1,
+    "chamber": "S",
+    "chamber_id": 20,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1569924",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   },
+   {
+    "roll_call_id": 1616309,
+    "date": "2026-01-22",
+    "desc": "Do pass",
+    "yea": 5,
+    "nay": 2,
+    "nv": 0,
+    "absent": 0,
+    "total": 7,
+    "passed": 1,
+    "chamber": "S",
+    "chamber_id": 20,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1616309",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   },
+   {
+    "roll_call_id": 1617904,
+    "date": "2026-01-27",
+    "desc": "Senate 3rd Reading SB813 McNerney",
+    "yea": 31,
+    "nay": 7,
+    "nv": 0,
+    "absent": 2,
+    "total": 40,
+    "passed": 1,
+    "chamber": "S",
+    "chamber_id": 20,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1617904",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   },
+   {
+    "roll_call_id": 1713816,
+    "date": "2026-07-01",
+    "desc": "Do pass as amended and be re-referred to the Committee on [Appropriations]",
+    "yea": 11,
+    "nay": 2,
+    "nv": 0,
+    "absent": 2,
+    "total": 15,
+    "passed": 1,
+    "chamber": "A",
+    "chamber_id": 19,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1713816",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   },
+   {
+    "roll_call_id": 1724777,
+    "date": "2026-08-13",
+    "desc": "Do pass as amended and be re-referred to the Committee on [Rules]",
+    "yea": 11,
+    "nay": 3,
+    "nv": 0,
+    "absent": 1,
+    "total": 15,
+    "passed": 1,
+    "chamber": "A",
+    "chamber_id": 19,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1724777",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   },
+   {
+    "roll_call_id": 1727481,
+    "date": "2026-08-30",
+    "desc": "Unfinished Business SB813 McNerney et al. Concurrence",
+    "yea": 39,
+    "nay": 0,
+    "nv": 0,
+    "absent": 1,
+    "total": 40,
+    "passed": 1,
+    "chamber": "S",
+    "chamber_id": 20,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1727481",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   },
+   {
+    "roll_call_id": 1727482,
+    "date": "2026-08-30",
+    "desc": "SB 813 McNerney Senate Third Reading By Bauer-Kahan",
+    "yea": 67,
+    "nay": 6,
+    "nv": 0,
+    "absent": 6,
+    "total": 79,
+    "passed": 1,
+    "chamber": "A",
+    "chamber_id": 19,
+    "url": "https://legiscan.com/CA/rollcall/SB813/id/1727482",
+    "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB813"
+   }
+  ],
+  "amendments": [],
+  "supplements": [],
+  "calendar": [
+   {
+    "type_id": 1,
+    "event_hash": "601f37d7",
+    "type": "Hearing",
+    "date": "2025-04-29",
+    "time": "09:30",
+    "location": "1021 O Street, Room 2100",
+    "description": "Senate Judiciary Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "30b5039a",
+    "type": "Hearing",
+    "date": "2025-05-12",
+    "time": "10:00",
+    "location": "1021 O Street, Room 2200",
+    "description": "Senate Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "1a64fe50",
+    "type": "Hearing",
+    "date": "2025-05-23",
+    "time": "00:00",
+    "location": "1021 O Street, Room 2200",
+    "description": "Senate Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "456a130e",
+    "type": "Hearing",
+    "date": "2026-01-22",
+    "time": "00:00",
+    "location": "1021 O Street, Room 2200",
+    "description": "Senate Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "49d2defd",
+    "type": "Hearing",
+    "date": "2026-07-01",
+    "time": "13:30",
+    "location": "State Capitol, Room 444",
+    "description": "Assembly Privacy And Consumer Protection Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "0e8a00e5",
+    "type": "Hearing",
+    "date": "2026-08-05",
+    "time": "09:00",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Appropriations Hearing"
+   },
+   {
+    "type_id": 1,
+    "event_hash": "3226a148",
+    "type": "Hearing",
+    "date": "2026-08-13",
+    "time": "00:00",
+    "location": "1021 O Street, Room 1100",
+    "description": "Assembly Appropriations Hearing"
+   }
+  ]
+ },
+ "derived": {
+  "status": "enacted",
+  "events": [
+   {
+    "date": "2025-02-21",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced. To Com. on RLS. for assignment. To print.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-03-12",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Referred to Com. on B. P. & E.D.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-03-18",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Set for hearing April 21.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-03-26",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on B. P. & E.D.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-03-27",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "April 21 hearing postponed by committee.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-03-27",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "Withdrawn from committee.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-03-27",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Re-referred to Com. on RLS.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-04-02",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Re-referred to Com. on JUD.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-04-09",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Set for hearing April 29.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-04-30",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 10. Noes 0. Page 944.) (April 29).",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-05-01",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Read second time and amended. Re-referred to Com. on APPR.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-05-06",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Set for hearing May 12.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-05-12",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "May 12 hearing: Placed on APPR. suspense file.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-05-16",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Set for hearing May 23.",
+    "chamber": "S"
+   },
+   {
+    "date": "2025-05-23",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "May 23 hearing: Held in committee and under submission.",
+    "chamber": "S"
+   },
+   {
+    "date": "2026-01-05",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on APPR.",
+    "chamber": "S"
+   },
+   {
+    "date": "2026-01-16",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Set for hearing January 22.",
+    "chamber": "S"
+   },
+   {
+    "date": "2026-01-22",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "From committee: Do pass. (Ayes 5. Noes 2. Page 3270.) (January 22).",
+    "chamber": "S"
+   },
+   {
+    "date": "2026-01-27",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "Read third time. Passed. (Ayes 31. Noes 7. Page 3307.) Ordered to the Assembly.",
+    "chamber": "S"
+   },
+   {
+    "date": "2026-05-04",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Referred to Com. on P. & C.P.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-06-16",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on P. & C.P.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-07-02",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 11. Noes 2.) (July 1).",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-07-02",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Read second time and amended. Re-referred to Com. on APPR.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-08-05",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "August 5 set for first hearing. Placed on suspense file.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-08-13",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "From committee: Do pass as amended and re-refer to Com. on RLS. (Ayes 11. Noes 3.) (August 13).",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-08-13",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Read second time and amended. Re-referred to Com. on RLS.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-08-24",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on RLS.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-08-24",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "Withdrawn from committee.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-08-30",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "Read third time. Passed. (Ayes 67. Noes 6. Page 6872.) Ordered to the Senate.",
+    "chamber": "A"
+   },
+   {
+    "date": "2026-08-30",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "Assembly amendments concurred in. (Ayes 37. Noes 0.) Ordered to engrossing and enrolling.",
+    "chamber": "S"
+   },
+   {
+    "date": "2026-09-08",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "Enrolled and presented to the Governor at 4 p.m.",
+    "chamber": ""
+   },
+   {
+    "date": "2026-09-09",
+    "precision": "day",
+    "type": "Signed / enacted",
+    "text": "Approved by the Governor.",
+    "chamber": ""
+   },
+   {
+    "date": "2026-09-09",
+    "precision": "day",
+    "type": "Signed / enacted",
+    "text": "Chaptered by Secretary of State. Chapter 179, Statutes of 2026.",
+    "chamber": ""
+   }
+  ]
+ }
+}

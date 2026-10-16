@@ -5,21 +5,27 @@
 // Pure: takes the current data and a run, returns new data plus the change log. Writing and stop rules are elsewhere.
 import { longDate, eventFor } from '../agents/derive.mjs';
 import { datesMentioned } from '../compare/congress.mjs';
+import { eventType as stateEventType } from '../grabber/sources/legiscan.mjs';
 
 const FULL_MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const clone = (x) => JSON.parse(JSON.stringify(x));
-const SOURCE_NAME = { congress_gov: 'Congress.gov', federal_register: 'the Federal Register', legiscan: 'the legislature' };
+const SOURCE_NAME = { congress_gov: 'Congress.gov', federal_register: 'the Federal Register' };
+// State bills: the legislature's own record (found through LegiScan; the link is the legislature's page).
+const sourceName = (item, e) => SOURCE_NAME[item.source] || (item.source === 'legiscan' ? `${e.state || 'state'} Legislature` : item.source);
 // Only these reason kinds are facts Tier A may write. Anything else is reported and left for a person or Tier B.
-const TIER_A = { congress_gov: ['new_action', 'status_change'] };
+const TIER_A = { congress_gov: ['new_action', 'status_change'], legiscan: ['new_action', 'status_change'] };
 
 const newsKind = (e) => (e.level === 'state' ? 'state' : e.section === 'G.2' ? 'litigation' : /^G/.test(e.section) && e.section !== 'G.3' ? 'executive' : 'federal');
-const clean = (t) => String(t || '').replace(/\s+/g, ' ').trim().replace(/\.$/, '');
+const clean = (t) => String(t || '').replace(/\s+/g, ' ').trim().replace(/(?<!\b[a-z]\.[a-z])\.$/i, ''); // keep "4 p.m."
 const cut = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 
 // "2026-09-30: Committee on ... Hearings held."  ->  { date, text }
-const actionOf = (reason) => { const m = /^(\d{4}-\d{2}-\d{2}):\s*(.+)$/s.exec(reason.detail || ''); return m ? { date: m[1], text: clean(reason.api_value || m[2]) } : null; };
+// "2026-04-16: TN HB1898: Passed House"  ->  { date, text: the official words, label: with the bill number when given }
+const actionOf = (reason) => { const m = /^(\d{4}-\d{2}-\d{2}):\s*(.+)$/s.exec(reason.detail || ''); return m ? { date: m[1], text: clean(reason.api_value || m[2]), label: clean(m[2]) } : null; };
+// The stored record is JSON, so quotes and slashes in the action text are escaped there.
+const inRaw = (raw, t) => raw.includes(t) || raw.includes(JSON.stringify(t).slice(1, -1));
 
-export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, config = {} }) {
+export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, config = {}, identifiersFor = () => null }) {
   const out = { entries: clone(data.entries), news: clone(data.news), site: clone(data.site), changes: clone(data.changes || { items: [] }) };
   const byKey = new Map(out.entries.map((e) => [e.key, e]));
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
@@ -34,7 +40,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
     if (!item || !e) { skipped.push({ item_id: d.item_id, why: 'no matching change-set item or entry (matched by key)' }); continue; }
     const allowed = TIER_A[item.source] || [];
     const raw = readRaw(item); // the exact text fetched at grab time; its hash was checked by the caller
-    const name = SOURCE_NAME[item.source] || item.source;
+    const name = sourceName(item, e);
     const before = { status: e.status, status_text: e.status_text, events: e.events.length };
     const notes = [];
 
@@ -43,13 +49,13 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
       if (r.kind === 'new_action') {
         const a = actionOf(r);
         if (!a) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: 'new action without a readable date' }); continue; }
-        if (!raw.includes(a.text)) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `action text not found in the stored record: ${a.text}` }); continue; }
-        const type = eventFor({ text: a.text });
+        if (!inRaw(raw, a.text)) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `action text not found in the stored record: ${a.text}` }); continue; }
+        const type = item.source === 'legiscan' ? stateEventType(a.text) : eventFor({ text: a.text }); // each source's own rules
         if (type && !e.events.some((v) => v.date === a.date && v.type === type)) {
-          e.events.push({ date: a.date, precision: 'day', type, text: cut(a.text, 200), clause: a.text, scheduled: a.date > cutoff, source_url: item.source_url });
+          e.events.push({ date: a.date, precision: 'day', type, text: cut(a.label, 200), clause: a.text, scheduled: a.date > cutoff, source_url: item.source_url });
           log.push({ entry_key: e.key, field: 'events', old: null, new: { date: a.date, type, text: a.text }, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
         }
-        const add = `${a.text} (${longDate(a.date)}, ${name})`;
+        const add = `${a.label} (${longDate(a.date)}, ${name})`;
         // Already said, perhaps in the author's own words: the status text names that date.
         const said = (e.status_text || '').includes(a.text) || datesMentioned(e.status_text, [], +(e.last_checked || runDate).slice(0, 4)).has(a.date);
         if (!said) {
@@ -58,7 +64,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
           log.push({ entry_key: e.key, field: 'status_text', old, new: e.status_text, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
         }
         (e.evidence = e.evidence || []).push({ field: 'events', quote: a.text, source_url: item.source_url });
-        notes.push({ date: a.date, text: a.text });
+        notes.push({ date: a.date, text: a.label, quote: a.text });
       }
       if (r.kind === 'status_change') {
         const next = ['enacted', 'failed'].includes(r.api_value) ? r.api_value : null; // compare/congress.mjs statusFromAction
@@ -73,6 +79,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
     const changed = e.status !== before.status || e.status_text !== before.status_text || e.events.length !== before.events;
     if (!changed) continue;
     e.events.sort((x, y) => x.date.localeCompare(y.date));
+    if (!e.identifiers && identifiersFor(e.key)) e.identifiers = identifiersFor(e.key); // a mixed entry must say how it is found
     if (e.origin === 'authored') { log.push({ entry_key: e.key, field: 'origin', old: 'authored', new: 'mixed', date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' }); e.origin = 'mixed'; }
     e.verification = { method: 'agent', checked_at: at, run_id: runId, rounds: 0 };
     e.last_checked = runDate; e.last_changed = runDate;
@@ -86,7 +93,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
         links: [{ t: `${e.short_name} on ${name}`, u: item.source_url }],
         check: `From the official record (${name}), copied word for word by code; no AI was used.`,
         tracker: e.key, origin: 'automated', verification: { method: 'agent', checked_at: at, run_id: runId, rounds: 0 },
-        evidence: [{ field: 'body', quote: n.text, source_url: item.source_url }]
+        evidence: [{ field: 'body', quote: n.quote || n.text, source_url: item.source_url }]
       });
     }
   }

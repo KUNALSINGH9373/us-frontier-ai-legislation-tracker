@@ -1,0 +1,17 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://tracker.local/schema/status.schema.json",
+ "title": "Update status (v2)",
+ "description": "Rewritten by every update run, including runs that change nothing, so readers can see when the official sources were last checked. Written by pipeline/update.mjs.",
+ "type": "object",
+ "required": ["last_checked", "sources", "outcome", "last_change", "checked"],
+ "additionalProperties": false,
+ "properties": {
+  "last_checked": { "$ref": "common.schema.json#/$defs/isoDateTime" },
+  "sources": { "type": "array", "minItems": 1, "items": { "enum": ["congress_gov", "federal_register", "legiscan"] } },
+  "run_ids": { "type": "array", "items": { "type": "string" } },
+  "outcome": { "enum": ["ok"] },
+  "last_change": { "$ref": "common.schema.json#/$defs/isoDate", "description": "Date of the last real data change." },
+  "checked": { "type": "object", "description": "Entry key -> when its official record was last checked.", "additionalProperties": { "$ref": "common.schema.json#/$defs/isoDateTime" } }
+ }
+}

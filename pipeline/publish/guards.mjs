@@ -6,7 +6,7 @@ import { checkIntegrity } from '../schema/integrity.mjs';
 // A status may only move forward. Authored judgement calls ("stalled") may still become law or fail.
 const FORWARD = { pending: ['stalled', 'enacted', 'failed'], stalled: ['pending', 'enacted', 'failed'] };
 // Fields Tier A may change on an entry. Everything else (mechanism, thresholds, penalties, title, ...) must be identical.
-const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked', 'last_changed', 'origin', 'verification', 'evidence']);
+const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked', 'last_changed', 'origin', 'verification', 'evidence', 'identifiers']); // identifiers: added once, when an entry first becomes mixed
 const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 

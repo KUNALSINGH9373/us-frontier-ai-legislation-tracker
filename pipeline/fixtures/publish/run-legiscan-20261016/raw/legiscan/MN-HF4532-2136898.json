@@ -1,0 +1,188 @@
+{
+ "id": "2136898",
+ "search_hit": null,
+ "bill": {
+  "bill_id": 2136898,
+  "change_hash": "e2c06db0c84263894180185f73268d8e",
+  "session_id": 2151,
+  "session": {
+   "session_id": 2151,
+   "state_id": 23,
+   "year_start": 2025,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 1,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2025-2026 Regular Session",
+   "session_name": "94th Legislature 2025-2026"
+  },
+  "url": "https://legiscan.com/MN/bill/HF4532/2025",
+  "state_link": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+  "completed": 0,
+  "status": 1,
+  "status_date": "2026-03-23",
+  "progress": [
+   {
+    "date": "2026-03-23",
+    "event": 1
+   },
+   {
+    "date": "2026-03-23",
+    "event": 9
+   }
+  ],
+  "state": "MN",
+  "state_id": 23,
+  "bill_number": "HF4532",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "H",
+  "body_id": 55,
+  "current_body": "H",
+  "current_body_id": 55,
+  "title": "Artificial intelligence safety and disclosure requirements established, and civil remedies provided.",
+  "description": "Artificial intelligence safety and disclosure requirements established, and civil remedies provided.",
+  "pending_committee_id": 4299,
+  "committee": {
+   "committee_id": 4299,
+   "chamber": "H",
+   "chamber_id": 55,
+   "name": "Commerce Finance & Policy"
+  },
+  "referrals": [
+   {
+    "date": "2026-03-23",
+    "committee_id": 4299,
+    "chamber": "H",
+    "chamber_id": 55,
+    "name": "Commerce Finance & Policy"
+   }
+  ],
+  "history": [
+   {
+    "date": "2026-03-23",
+    "action": "Introduction and first reading, referred to Commerce Finance and Policy",
+    "chamber": "H",
+    "chamber_id": 55,
+    "importance": 1
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 26180,
+    "person_hash": "9vyom16k",
+    "party_id": "1",
+    "state_id": 23,
+    "party": "D",
+    "role_id": 1,
+    "role": "Rep",
+    "name": "Katie Jones",
+    "first_name": "Katie",
+    "middle_name": "",
+    "last_name": "Jones",
+    "suffix": "",
+    "nickname": "",
+    "district": "HD-061A",
+    "ftm_eid": 59984963,
+    "votesmart_id": 218850,
+    "opensecrets_id": "",
+    "knowwho_pid": 0,
+    "ballotpedia": "Katie_Jones_(Minnesota)",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "651-296-9281",
+      "district_phone": "",
+      "email": "rep.katie.jones@house.mn.gov",
+      "webmail": "",
+      "biography": "https://www.house.mn.gov/members/profile/15638",
+      "image": "https://www.house.mn.gov/hinfo/memberimgls94/61A.gif",
+      "ballotpedia": "https://ballotpedia.org/Katie_Jones_%28Minnesota%29",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/218850"
+     },
+     "capitol_address": {
+      "address1": "5th Floor Centennial Office Building",
+      "address2": "658 Cedar Street",
+      "city": "St. Paul",
+      "state": "MN",
+      "zip": "55155"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://www.house.mn.gov/members/profile/15638",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/katie-jones-a20a8923/",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [
+   {
+    "type_id": 2,
+    "type": "Similar To",
+    "sast_bill_number": "SF4509",
+    "sast_bill_id": 2133932
+   }
+  ],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3401746,
+    "date": "2026-03-19",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/MN/text/HF4532/id/3401746",
+    "state_link": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/versions/0/pdf/",
+    "text_size": 250781,
+    "text_hash": "491edd8a75b0beea94f8c849aabfd549",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "votes": [],
+  "amendments": [],
+  "supplements": [],
+  "calendar": []
+ },
+ "derived": {
+  "status": "pending",
+  "events": [
+   {
+    "date": "2026-03-23",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduction and first reading, referred to Commerce Finance and Policy",
+    "chamber": "H"
+   }
+  ]
+ }
+}

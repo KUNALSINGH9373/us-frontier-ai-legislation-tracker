@@ -56,7 +56,10 @@ export function publishRun({ runDir, dataDir, docsDir, dry = false, config }) {
     hashes.push({ item_id: item.item_id, ok: fs.existsSync(f) && sha(fs.readFileSync(f, 'utf8')) === item.raw_hash });
   }
 
-  const result = applyTierA({ data: before, diff, changeset, readRaw, runId, runDate, config });
+  const lsFile = path.join(pipelineDir, 'config', 'identifiers-legiscan.json');
+  const ls = fs.existsSync(lsFile) ? JSON.parse(fs.readFileSync(lsFile, 'utf8')).legiscan || {} : {};
+  const identifiersFor = (key) => (ls[key] && ls[key].status !== 'rejected' ? { session: ls[key].bills[0].session_name, external: { legiscan: ls[key].bills.map((b) => b.bill_id) } } : null);
+  const result = applyTierA({ data: before, diff, changeset, readRaw, runId, runDate, config, identifiersFor });
   const after = { ...result.data, relationships: before.relationships };
   const check = result.touched.length || hashes.some((h) => !h.ok) ? checkPublish({ before, after, runDate, maxEntries: config.max_entries_changed_per_run, rawHashOk: hashes }) : { problems: [], changed: 0 };
   const summary = summaryOf({ runId, runDate, result, check, dry });

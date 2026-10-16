@@ -7,6 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { compareCongress } from './congress.mjs';
 import { compareFederalRegister } from './federal-register.mjs';
+import { compareLegiScan } from './legiscan.mjs';
 import { makeValidator } from '../schema/validate.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -16,8 +17,12 @@ export function compareRun({ runDir, entries }) {
   const changeset = JSON.parse(fs.readFileSync(path.join(runDir, 'changeset.json'), 'utf8'));
   const byKey = new Map(entries.map((e) => [e.key, e]));
   const v = makeValidator();
+  // How many LegiScan bills each state entry covers (a House and a Senate version, companions), from config.
+  const idFile = path.join(pipelineDir, 'config', 'identifiers-legiscan.json');
+  const lsIds = fs.existsSync(idFile) ? JSON.parse(fs.readFileSync(idFile, 'utf8')).legiscan || {} : {};
+  const legiscanBills = (entry) => (entry && lsIds[entry.key] ? lsIds[entry.key].bills.length : 1);
   const diffs = changeset.items.map((item) => {
-    const compare = { congress_gov: compareCongress, federal_register: compareFederalRegister }[item.source];
+    const compare = { congress_gov: compareCongress, federal_register: compareFederalRegister, legiscan: (o) => compareLegiScan({ ...o, billsOfEntry: legiscanBills(o.entry) }) }[item.source];
     if (!compare) throw new Error(`no comparer for source ${item.source}`);
     const raw = JSON.parse(fs.readFileSync(path.join(runDir, item.raw_path), 'utf8'));
     const d = compare({ item, raw, entry: item.entry_key ? byKey.get(item.entry_key) : null });
