@@ -40,6 +40,7 @@
 @media (min-width:1024px){:root{--fs:.88;--hs:.8;--ps:.8}}
 h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;letter-spacing:-.01em!important;font-optical-sizing:auto}
 [data-mapgrid]{container-type:inline-size;width:100%}
+[data-mapgrid][data-replay="fast"] [data-tile]{transition-duration:.15s,.15s,.15s,.15s,var(--dur-1)!important}
 [data-homerow]{display:flex;flex-direction:column;gap:clamp(16px,2vw,28px)}
 @media (min-width:1024px){[data-homerow]{flex-direction:row;align-items:stretch}[data-mapcol]{flex:0 1 min(76%,calc((100vh - 215px) * 1.375),1300px)}[data-homeside]{flex:1 1 260px}[data-mapgrid] [data-tile]{font-size:clamp(10px,1.95cqw,16px)!important}[data-mapgrid] [data-tg],[data-mapgrid] [data-tn]{font-size:clamp(8px,1.3cqw,12px)!important}}
 [data-exgrid]{display:block}
@@ -875,7 +876,11 @@ class Component extends DCLogic {
       if (!v1) fetch('data/v2/status.json', { cache: 'no-store' }).then(x => (x.ok ? x.json() : null)).then(st => { this.status = st; this.forceUpdate(); }).catch(() => {});
       if (v1) { this.D = L.build(d[0], d[1], d[2]); this.D.tev = d[3].events.map(x => ({ ...x, d: new Date(x.date + 'T12:00:00') })).filter(x => this.D.byId[x.id]); }
       else this.D = L.buildV2(d[0], d[1], d[2], d[3], d[4]);
-      this.setState({ loading: false });
+      // A homepage visit replays history: the map is drawn at the replay's start date from the first frame, so the
+      // finished map never shows before the replay lights the states up one by one.
+      const r0 = this.parse();
+      this.autoReplay = !v1 && !this.rm && r0.path === '/' && !r0.p.state;
+      this.setState(this.autoReplay ? { loading: false, t: +L.REPLAY_START } : { loading: false });
       this.endBoot();
     } catch (err) { console.warn(err); this.setState({ loading: false, err: true, booting: false }); }
   }
@@ -886,12 +891,16 @@ class Component extends DCLogic {
     setTimeout(() => { this.setState({ leaving: true }); setTimeout(() => { this.setState({ booting: false, leaving: false }); this.intro(); }, this.rm ? 0 : 300); }, wait);
   }
   intro() {
+    // Replay on every homepage visit, reloads included (owner, 17 Oct 2026). If it cannot play (reduced motion, a tab
+    // opened in the background, the reader already moved on), show today's map instead of the start date.
+    const auto = this.autoReplay; this.autoReplay = false;
+    const home = () => this.state.route.path === '/' && !this.state.route.p.state;
+    if (auto && (this.rm || document.visibilityState !== 'visible' || !home())) this.setState({ t: null });
+    else if (auto) this.play(true, 3000);
     if (this.rm || document.visibilityState !== 'visible') return;
     const els = [...document.querySelectorAll('[data-cu]')], t0 = performance.now(); clearInterval(this.ci);
     const step = () => { const p = Math.min(1, (performance.now() - t0) / 1100), e = 1 - Math.pow(1 - p, 3); els.forEach(el => { const to = +el.dataset.cu; this.setText(el, String(Math.max(1, Math.round(to * (0.35 + 0.65 * e))))); }); if (p >= 1) clearInterval(this.ci); };
     step(); this.ci = setInterval(step, 33);
-    let seen = false; try { seen = sessionStorage.getItem('fal-replayed') === '1'; sessionStorage.setItem('fal-replayed', '1'); } catch (e) {}
-    if (!seen && this.state.route.path === '/' && !this.state.route.p.state) setTimeout(() => { if (this.state.route.path === '/' && !this.state.route.p.state) this.play(true, 3000); }, 400);
   }
   // Old links. #/method → #/methodology. Explore's Timeline and Table views → Insights, with the same params
   // (the table's state filter is called jur there). #/map…, #/?c=… and #/explore?view=connections… → Bill relations.
@@ -929,14 +938,17 @@ class Component extends DCLogic {
     this.lastFrame = this.boardAt(this.state.route.p, t, this.state.vw < 760, !this.isDark());
     let last = performance.now();
     clearInterval(this.pi);
-    const stop = () => { clearInterval(this.pi); this.lastFrame = null; this.curT = null; this.setState({ t: null, playing: false }); };
+    // The fast replay switches the tiles' 0.7 s colour fade to a quick one, so each state visibly lights up as its date passes.
+    const grid = () => document.querySelector('[data-mapgrid]');
+    if (dur < 11000 && grid()) grid().dataset.replay = 'fast';
+    const stop = () => { clearInterval(this.pi); this.lastFrame = null; this.curT = null; if (grid()) delete grid().dataset.replay; this.setState({ t: null, playing: false }); };
     this.pi = setInterval(() => {
       const now = performance.now(), dt = Math.min(64, now - last); last = now; t = Math.min(END, t + (END - S) * dt / DUR); this.curT = t;
       const route = this.state.route; if (t >= END || route.path !== '/') { stop(); return; }
       this.applyFrame(this.boardAt(route.p, t, this.state.vw < 760, !this.isDark())); this.applyChrome(t);
     }, 50);
   }
-  pause() { clearInterval(this.pi); if (this.state.playing) { const t = this.curT != null ? this.curT : this.state.t; this.lastFrame = null; this.curT = null; this.setState({ playing: false, t }); } }
+  pause() { clearInterval(this.pi); { const g = document.querySelector('[data-mapgrid]'); if (g) delete g.dataset.replay; } if (this.state.playing) { const t = this.curT != null ? this.curT : this.state.t; this.lastFrame = null; this.curT = null; this.setState({ playing: false, t }); } }
   setText(el, v) { const c = el.firstChild; if (c && c.nodeType === 3) { if (c.nodeValue !== v) c.nodeValue = v; } else if (el.textContent !== v) el.textContent = v; }
   stepTarget(dir) {
     const L = this.L, S = +L.REPLAY_START, END = +L.ASOF, kind = STEPS[this.state.stepKind] || STEPS.event;
