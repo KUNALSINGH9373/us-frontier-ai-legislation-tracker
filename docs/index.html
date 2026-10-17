@@ -859,8 +859,9 @@ class Component extends DCLogic {
   }
   endBoot() {
     if (!this.state.booting) { this.intro(); return; }
-    const min = this.rm ? 200 : 3400, wait = Math.max(0, min - (performance.now() - this.t0));
-    setTimeout(() => { this.setState({ leaving: true }); setTimeout(() => { this.setState({ booting: false, leaving: false }); this.intro(); }, this.rm ? 0 : 520); }, wait);
+    // Hold the loading screen until the seal has finished drawing (its one pass ends at about 2.4 s), then fade fast.
+    const min = this.rm ? 200 : 2500, wait = Math.max(0, min - (performance.now() - this.t0));
+    setTimeout(() => { this.setState({ leaving: true }); setTimeout(() => { this.setState({ booting: false, leaving: false }); this.intro(); }, this.rm ? 0 : 300); }, wait);
   }
   intro() {
     if (this.rm || document.visibilityState !== 'visible') return;
@@ -868,7 +869,7 @@ class Component extends DCLogic {
     const step = () => { const p = Math.min(1, (performance.now() - t0) / 1100), e = 1 - Math.pow(1 - p, 3); els.forEach(el => { const to = +el.dataset.cu; this.setText(el, String(Math.max(1, Math.round(to * (0.35 + 0.65 * e))))); }); if (p >= 1) clearInterval(this.ci); };
     step(); this.ci = setInterval(step, 33);
     let seen = false; try { seen = sessionStorage.getItem('fal-replayed') === '1'; sessionStorage.setItem('fal-replayed', '1'); } catch (e) {}
-    if (!seen && this.state.route.path === '/' && !this.state.route.p.state) setTimeout(() => { if (this.state.route.path === '/' && !this.state.route.p.state) this.play(true); }, 1400);
+    if (!seen && this.state.route.path === '/' && !this.state.route.p.state) setTimeout(() => { if (this.state.route.path === '/' && !this.state.route.p.state) this.play(true, 3000); }, 400);
   }
   // Old links. #/method → #/methodology. Explore's Timeline and Table views → Insights, with the same params
   // (the table's state filter is called jur there). #/map…, #/?c=… and #/explore?view=connections… → Bill relations.
@@ -896,9 +897,11 @@ class Component extends DCLogic {
   toastMsg(m) { this.setState({ toast: m }); clearTimeout(this.tt); this.tt = setTimeout(() => this.setState({ toast: '' }), 2600); }
   closePanel = () => { const p = { ...this.state.route.p }; delete p.state; delete p.fed; this.go(this.state.route.path, p); const f = this.lastTile; if (f) setTimeout(() => { const el = document.querySelector(`[data-tile="${f}"]`); if (el) el.focus({ preventScroll: true }); }, 30); };
   openState(code, e) { if (this.state.cmpMode) return; this.fromRect = e && e.currentTarget ? e.currentTarget.getBoundingClientRect() : null; this.lastTile = code; this.wantPanelFocus = true; this.pause(); const p = { ...this.state.route.p, state: code }; delete p.fed; this.go('/', p); }
-  play(fromStart) {
+  // dur: the automatic first-visit replay runs fast (3 s) so the map reaches today's status quickly; the replay
+  // button keeps the slower pace (11 s) so people can follow the history when they choose to watch it.
+  play(fromStart, dur = 11000) {
     if (this.rm && !fromStart) { this.setState({ t: null }); }
-    const L = this.L, S = +L.REPLAY_START, END = +L.ASOF, DUR = 11000;
+    const L = this.L, S = +L.REPLAY_START, END = +L.ASOF, DUR = dur;
     let t = this.state.t == null || fromStart ? S : this.state.t; if (t >= END) t = S;
     this.setState({ playing: true, t }); this.curT = t;
     this.lastFrame = this.boardAt(this.state.route.p, t, this.state.vw < 760, !this.isDark());
@@ -1008,7 +1011,7 @@ class Component extends DCLogic {
       themeLabel: s.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme',
       toggleTheme: () => { const cur = s.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); const th = cur === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', th); try { localStorage.setItem('fal-theme', th); } catch (e) {} this.setState({ theme: th }); },
       hdrSubmit: e => { e.preventDefault(); const q = (e.target.q.value || '').trim(); e.target.q.value = ''; this.setState({ q }); this.wantQFocus = !q; this.go('/explore', q ? { q } : {}); }, retry: () => this.load(), searchClick: () => { this.wantQFocus = true; if (this.state.route.path === '/explore') this.forceUpdate(); },
-      booting: s.booting, bootAnim: s.leaving ? 'gxOut 520ms var(--ease-io) forwards' : 'none',
+      booting: s.booting, bootAnim: s.leaving ? 'gxOut 300ms var(--ease-io) forwards' : 'none',
       isHome: false, isHandbook: false, isAbout: false, isExplore: false, isInsights: false, isBill: false, isCompare: false, isUpdates: false, isMethodology: false, isNotFound: false, panelOpen: false
     };
     if (!ready) return v;
