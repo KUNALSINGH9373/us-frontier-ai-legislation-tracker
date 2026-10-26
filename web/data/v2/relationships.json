@@ -664,6 +664,24 @@
    "name": "Protect Democracy Project",
    "column": 0,
    "kind": "actor"
+  },
+  "S5601": {
+   "name": "S. 5601 Insider Threat Reporting Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-5601-insider-threat-reporting-act"
+  },
+  "HR3919": {
+   "name": "H.R. 3919 Advanced AI Security Readiness Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-3919-advanced-ai-security-readiness-act"
+  },
+  "PAHR637": {
+   "name": "PA H.R. 637 (resolution)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "pa-h-r-637-frontier-ai-resolution"
   }
  },
  "edges": [
@@ -2061,6 +2079,48 @@
    "dashed": true,
    "src": "WHACCORD",
    "col": "What it does",
+   "origin": "authored"
+  },
+  {
+   "from": "PAHR637",
+   "to": "FRONTIER",
+   "type": "fedstate",
+   "label": "Urges Congress to regulate frontier AI and cites the FRONTIER Act",
+   "quote": "the federal FRONTIER Act (H.R. 9925)",
+   "src": "PAHR637",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "PAHR637",
+   "to": "EO14409",
+   "type": "executive",
+   "label": "Cites EO 14409 as recognising new national-security risks from advanced AI",
+   "quote": "weapons-of-mass-destruction misuse risk, EO 14409",
+   "src": "PAHR637",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "S5601",
+   "to": "HR3919",
+   "type": "succession",
+   "label": "Overlap: incident notices go to the NSA AI Security Center that H.R. 3919 tasks with its AI Security Playbook",
+   "quote": "the NSA's Artificial Intelligence Security Center",
+   "dashed": true,
+   "src": "S5601",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "S5601",
+   "to": "S4656",
+   "type": "succession",
+   "label": "Overlap: both make AI contractors report incidents to DoD within 72 hours",
+   "quote": "notify DoD within 72 hours of any acute national security risk",
+   "dashed": true,
+   "src": "S5601",
+   "col": "Core mechanism",
    "origin": "authored"
   }
  ]

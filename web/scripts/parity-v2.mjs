@@ -40,8 +40,10 @@ const tevKey = (e) => [e.id, e.date, e.precision, e.inferredYear, e.type, e.clau
 same('timeline lane events', D1.tev.filter(authored).map(tevKey).sort(), D2.tev.filter(authored).map(tevKey).sort());
 const newsRow = (n) => [n.date, n.kind, n.title, n.entryId, n.tracker];
 same('news', D1.N.map(newsRow), D2.N.filter((n) => !autoNews.has(n.date + '|' + n.title)).map(newsRow));
-same('links', D1.edges.map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]), D2.edges.map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]));
-same('link node → entry', D1.keyToId, D2.keyToId);
+// Links and map nodes for entries added after v1 have no v1 counterpart.
+const oldEdge = (e) => !changed.has(e.fromId) && !changed.has(e.toId);
+same('links', D1.edges.map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]), D2.edges.filter(oldEdge).map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]));
+same('link node → entry', D1.keyToId, Object.fromEntries(Object.entries(D2.keyToId).filter(([, id]) => !changed.has(id))));
 same('actors', D1.rel.actors, D2.rel.actors);
 // v1 also lists names for link keys that have no node in v2 (they were never drawn); compare only the ones in use
 const used = new Set(D1.edges.flatMap((e) => [e.from, e.to]));

@@ -6873,7 +6873,7 @@
   "title": "S. 5601 — Insider Threat Reporting and Security Guidance Act of 2026",
   "short_name": "S. 5601 Insider Threat Reporting Act",
   "sponsor_text": "Sen. Jim Banks (R-IN), 1 co-sponsor",
-  "mechanism": "Sectoral (DoD). Within 180 days DoD issues regulations requiring large AI contractors to report their personnel vetting, insider-threat, access-control and model-weight theft protections with every bid, and to re-certify every 90 days; they must notify DoD within 72 hours of any acute national security risk (model-weight theft, exfiltration, poisoning, \"materially concerning model behavior\" such as cyber-offense uplift, deception or unauthorized autonomous action), and DoD tells the Armed Services committees within 7 days. Also voluntary insider-threat guidance for these contractors",
+  "mechanism": "Sectoral (DoD). Within 180 days DoD issues regulations requiring large AI contractors to report their personnel vetting, insider-threat, access-control and model-weight theft protections with every bid, and to re-certify every 90 days; they must notify DoD within 72 hours of any acute national security risk (model-weight theft, exfiltration, poisoning, \"materially concerning model behavior\" such as cyber-offense uplift, deception or unauthorized autonomous action), and DoD tells the Armed Services committees within 7 days.. DoD forwards incident notices to, among others, the NSA's Artificial Intelligence Security Center. Also voluntary insider-threat guidance for these contractors",
   "thresholds": "DoD AI contracts worth at least $100,000,000, and at least $1,000,000,000 in AI R&D over the prior 3 years (with affiliates), or use of a model from a developer that meets that spending test",
   "penalties": null,
   "status_text": "Status: Introduced Sept 29, 2026; read twice and referred to Senate Armed Services; no further action",
@@ -6959,6 +6959,11 @@
    {
     "field": "thresholds",
     "quote": "not less than $1,000,000,000 in artificial intelligence-related research and development expenditures",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "mechanism",
+    "quote": "the Artificial Intelligence Security Center of the National Security Agency",
     "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
    }
   ],
