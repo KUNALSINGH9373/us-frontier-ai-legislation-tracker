@@ -893,3 +893,61 @@ export function linksPanel(ctx) {
     h('ul', { role: 'tabpanel', 'aria-label': cur.name, style: { listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))', gap: 8 } }, ...shown.map(row)),
     cur.items.length > LIMIT ? h('button', { onClick: () => ctx.setAll(!ctx.all), style: { ...small, marginTop: 8 } }, ctx.all ? 'Show fewer' : `Show all ${cur.items.length}`) : null);
 }
+
+// Insights → Compare bills: section K as a bill-by-bill matrix (one column per bill, one row per duty), with the
+// controls readers asked for: pick bills, pick rows, only-differences, fit to width, colour columns by status or level.
+// ctx: { C, L, D, p (route params), set(params) }. State lives in the URL: cmh (hidden bill ids), cmr (hidden row
+// numbers), cmdiff, cmfit, cmcol.
+export function billMatrix(ctx) {
+  const { C, L, D, p, set } = ctx; if (!C || !C.comparison) return empty('The bill comparison');
+  const K = C.comparison, ids = L.K_IDS.filter((id) => D.byId[id]), csv = (v) => String(v || '').split(',').filter(Boolean);
+  const hidden = new Set(csv(p.cmh).map(Number)), hidRows = new Set(csv(p.cmr).map(Number));
+  const diff = p.cmdiff === '1', fit = p.cmfit === '1', byLevel = p.cmcol === 'level';
+  const shown = ids.filter((id) => !hidden.has(id));
+  const all = L.K_ROWS.map((r, i) => ({ i, dim: r[0], m: r[1], note: r[2] }));
+  const rows = all.filter((r) => !hidRows.has(r.i) && (r.note || !diff || new Set(shown.map((id) => String(r.m[id] || '—').trim().toLowerCase())).size > 1));
+  const toggle = (setOf, v, key) => { const n = new Set(setOf); if (n.has(v)) n.delete(v); else n.add(v); set({ [key]: [...n].join(',') }); };
+  const colour = (x) => (byLevel ? (x.st ? 'var(--k-state)' : 'var(--k-fed)') : `var(--st-${x.status})`);
+  const chip = (on, label, onClick, extra) => h('button', { type: 'button', 'data-fchip': '', 'aria-pressed': on ? 'true' : 'false', onClick, ...extra }, ...[].concat(label));
+  const seg = (on, label, onClick) => h('button', { type: 'button', 'aria-pressed': on ? 'true' : 'false', onClick, 'data-seg': '' }, label);
+  const cell = (v) => {
+    const t = String(v || '—').trim();
+    if (/^(none|no)\b/i.test(t) || t === '—') return h('span', { 'data-cv': 'no' }, h('span', { 'aria-hidden': 'true' }, '✕ '), ...mdInline(t));
+    if (/^yes\b/i.test(t)) return h('span', { 'data-cv': 'yes' }, h('span', { 'aria-hidden': 'true' }, '✓ '), ...mdInline(t));
+    return h('span', null, ...mdInline(t));
+  };
+  const bills = shown.map((id) => D.byId[id]);
+  const label = (t) => h('span', { 'data-flabel': '' }, t);
+  const anyChange = hidden.size || hidRows.size || diff || fit || byLevel;
+  return h('div', { 'data-bm': '', 'data-fit': fit ? '1' : '0' },
+    h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)', maxWidth: '75ch' } },
+      `How the main frontier laws and bills compare on the same duties. Each column is one bill; ${rows.filter((r) => !r.note).length} of ${all.filter((r) => !r.note).length} rows shown. Open a bill for its full text and sources.`),
+    h('details', { 'data-fdet': '', open: !ctx.mob, style: { margin: '0 0 14px' } }, h('summary', { 'data-fsum': '' }, 'Bills, rows and view', anyChange ? h('span', { 'data-fbadge': '' }, '•') : null, h('span', { 'aria-hidden': 'true', style: { marginLeft: 'auto', color: 'var(--ink-3)' } }, '▾')),
+    h('div', { 'data-frows': '' },
+      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Bills shown' }, label('Bills'),
+        h('div', { 'data-fopts': '' }, ...ids.map((id) => { const x = D.byId[id]; return chip(!hidden.has(id), [h('span', { key: 'g', 'aria-hidden': 'true', style: { color: colour(x) } }, L.ST[x.status].g), ' ' + x.short], () => { if (shown.length > 1 || hidden.has(id)) toggle(hidden, id, 'cmh'); }, { key: id }); }))),
+      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Rows shown' }, label('Rows'),
+        h('div', { 'data-fopts': '' }, ...all.filter((r) => !r.note).map((r) => chip(!hidRows.has(r.i), r.dim, () => toggle(hidRows, r.i, 'cmr'), { key: r.i })))),
+      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'View' }, label('View'),
+        h('div', { 'data-fopts': '' },
+          chip(diff, 'Only rows that differ', () => set({ cmdiff: diff ? '' : '1' }), { key: 'd' }),
+          chip(fit, 'Fit to screen width', () => set({ cmfit: fit ? '' : '1' }), { key: 'f' }),
+          h('span', { key: 'c', 'data-segs': '', role: 'group', 'aria-label': 'Colour columns by' }, h('span', { 'data-seglab': '' }, 'Colour by'), seg(!byLevel, 'Status', () => set({ cmcol: '' })), seg(byLevel, 'Level', () => set({ cmcol: 'level' }))),
+          anyChange ? h('button', { key: 'r', type: 'button', 'data-reset': '', onClick: () => set({ cmh: '', cmr: '', cmdiff: '', cmfit: '', cmcol: '' }) }, 'Reset view') : null)))),
+    h('div', { tabIndex: 0, role: 'region', 'aria-label': 'Bill comparison, scrolls sideways', 'data-bmwrap': '' },
+      h('table', { 'data-bmt': '', style: { minWidth: fit ? 0 : 180 + bills.length * 220 } },
+        h('caption', { style: visuallyHidden }, 'Frontier AI bills compared duty by duty'),
+        h('thead', null, h('tr', null, h('th', { scope: 'col', 'data-bmdim': '' }, 'Duty'),
+          ...bills.map((x) => h('th', { key: x.id, scope: 'col', style: { boxShadow: `inset 0 3px 0 ${colour(x)}` } },
+            h('a', { href: '#/bill/' + x.id, 'data-bmname': '' }, x.short),
+            h('span', { 'data-bmsub': '' }, h('span', { 'aria-hidden': 'true', style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g + ' '), L.ST[x.status].l + ' · ' + (x.st ? L.SN[x.st] : 'Federal')))))),
+        h('tbody', null, ...rows.map((r) => (r.note
+          ? h('tr', { key: r.i }, h('th', { scope: 'row', 'data-bmdim': '' }, r.dim), h('td', { colSpan: bills.length, 'data-bmnote': '' }, ...mdInline(r.note)))
+          : h('tr', { key: r.i }, h('th', { scope: 'row', 'data-bmdim': '' }, r.dim), ...bills.map((x) => h('td', { key: x.id }, cell(r.m[x.id]))))))))),
+    rows.length ? null : h('p', { role: 'status', style: { margin: '14px 0 0', color: 'var(--ink-2)' } }, 'No rows match. Turn a row back on, or switch off “Only rows that differ”.'),
+    h('p', { 'data-bmkey': '' }, h('span', { 'data-cv': 'yes' }, '✓ Yes'), ' required or provided · ', h('span', { 'data-cv': 'no' }, '✕ None'), ' not in the bill · the coloured line on each column shows its ', byLevel ? 'level' : 'status', '. Not legal advice; check the bill text before relying on a cell.'),
+    K.clusters ? h('details', { 'data-bmmore': '' }, h('summary', null, 'How these bills are related (drafting clusters)'), h('div', { style: { padding: '4px 16px 14px' } }, mdP(K.clusters, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }))) : null,
+    K.assurance ? h('details', { 'data-bmmore': '' }, h('summary', null, K.assurance.heading || 'Assurance layers'),
+      h('div', { style: { padding: '4px 16px 16px' } }, ...(K.assurance.intro || []).map((t, i) => h('div', { key: i }, mdP(t, null, { color: 'var(--ink-2)', fontSize: 'calc(15px*var(--fs))' }))),
+        mdTable(K.assurance.columns, K.assurance.rows, { minWidth: 1000, firstWide: true, label: 'Assurance layers, scrolls sideways', caption: 'Assurance layers by jurisdiction or bill' }))) : null);
+}
