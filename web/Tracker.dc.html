@@ -1359,7 +1359,7 @@ class Component extends DCLogic {
       bMech: x.mech, hasSigned: !!x.signed, bSigned: x.signed, hasEffective: !!x.effective, bEffective: x.effective, hasPenalties: !!x.penalties, bPenalties: x.penalties,
       srcLinks: x.srcLinks, hasSrcLinks: x.srcLinks.length > 0, noSrcLinks: !x.srcLinks.length && !x.moreLinks.length, moreLinks: x.moreLinks, hasMoreLinks: x.moreLinks.length > 0, nMoreLinks: x.moreLinks.length, bTh: x.thresholds, hasTh: !!x.thresholds, bSponsor: x.sponsor, hasSponsor: !!x.sponsor, bSource: x.source, bLink: x.link, bYears: x.years.filter(y => y !== '*').join(', ') || 'None recorded',
       steps, hasSteps: steps.length > 0, noSteps: !steps.length && !stx.text,
-      statusText: stx.text, hasStatusText: !!stx.text, statusLabel: 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
+      statusText: stx.text, hasStatusText: !!stx.text, statusLabel: x.raw && x.raw.verification && x.raw.verification.method === 'session' ? 'Status as recorded (read from the official record on ' + L.fmt(new Date(x.raw.verification.checked_at)) + '; added after the 15 Oct verification)' : 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
       relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0,
       marks, hasMarks: marks.length > 0,
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',

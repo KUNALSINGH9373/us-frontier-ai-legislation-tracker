@@ -2754,6 +2754,14 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5576-artificial-intelligence-risk-management-and-security-act-of-202",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
+  },
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/s/5576"
+    ]
+   }
   }
  },
  {
@@ -6852,5 +6860,455 @@
    "permalink": "https://usfrontierlaw.com/#rec-china-firewall-act-gottheimer-lalota-u",
    "section_name": "Checked and excluded"
   }
+ },
+ {
+  "id": 94,
+  "key": "s-5601-insider-threat-reporting-act",
+  "section": "F",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "S. 5601 — Insider Threat Reporting and Security Guidance Act of 2026",
+  "short_name": "S. 5601 Insider Threat Reporting Act",
+  "sponsor_text": "Sen. Jim Banks (R-IN), 1 co-sponsor",
+  "mechanism": "Sectoral (DoD). Within 180 days DoD issues regulations requiring large AI contractors to report their personnel vetting, insider-threat, access-control and model-weight theft protections with every bid, and to re-certify every 90 days; they must notify DoD within 72 hours of any acute national security risk (model-weight theft, exfiltration, poisoning, \"materially concerning model behavior\" such as cyber-offense uplift, deception or unauthorized autonomous action), and DoD tells the Armed Services committees within 7 days. Also voluntary insider-threat guidance for these contractors",
+  "thresholds": "DoD AI contracts worth at least $100,000,000, and at least $1,000,000,000 in AI R&D over the prior 3 years (with affiliates), or use of a model from a developer that meets that spending test",
+  "penalties": null,
+  "status_text": "Status: Introduced Sept 29, 2026; read twice and referred to Senate Armed Services; no further action",
+  "events": [
+   {
+    "date": "2026-09-29",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced Sept 29, 2026; read twice and referred to Senate Armed Services",
+    "clause": "Introduced Sept 29, 2026; read twice and referred to Senate Armed Services",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/s/5601"
+    ]
+   }
+  },
+  "signed_text": null,
+  "effective_text": null,
+  "sources": [
+   {
+    "label": "Bill text and status — Congress.gov",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text and status — Congress.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (official text read). Entry written on 26 Oct 2026 in a Claude session from the official text; every quote below checked by code against the stored text. Not in the 15 Oct v1 verification."
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "api"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "issue regulations establishing reporting requirements for covered artificial intelligence contractors",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "mechanism",
+    "quote": "as part of any offer, proposal, bid, or other response to a solicitation for a contract",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not less frequently than once every 90 days",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "mechanism",
+    "quote": "not later than 72 hours after becoming aware of any information, incident, or development that presents an acute national security risk",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "mechanism",
+    "quote": "any materially concerning model behavior, including materially increased capability for a cyber offense, evasion of safeguards, deceptive behavior, unauthorized autonomous action",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "mechanism",
+    "quote": "not later than 7 days after the date on which the notification was received",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "mechanism",
+    "quote": "shall issue voluntary guidance for covered artificial intelligence contractors to reduce insider threat",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "thresholds",
+    "quote": "with a total value of not less than $100,000,000, with the Department of Defense",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   },
+   {
+    "field": "thresholds",
+    "quote": "not less than $1,000,000,000 in artificial intelligence-related research and development expenditures",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+   }
+  ],
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-26T12:00:00Z"
+  },
+  "last_checked": "2026-10-26",
+  "last_changed": "2026-10-26"
+ },
+ {
+  "id": 95,
+  "key": "h-r-3919-advanced-ai-security-readiness-act",
+  "section": "F",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "H.R. 3919 — Advanced AI Security Readiness Act",
+  "short_name": "H.R. 3919 Advanced AI Security Readiness Act",
+  "sponsor_text": "Rep. Darin LaHood (R-IL), 8 co-sponsors",
+  "mechanism": "The NSA, through its AI Security Center, writes an \"AI Security Playbook\" to defend covered AI technologies from theft by nation-state and other highly resourced actors: vulnerabilities at advanced AI developers and data centers, which components (models, weights, core insights) matter most, and the security levels that would need substantial US Government involvement, including a hypothetical secure government build. NSA must engage prominent AI developers and review their preparedness frameworks and scaling policies. Initial report in 90 days, final in 270 days, with a public version; no regulatory or enforcement authority",
+  "thresholds": "Capability-based, no compute figure: \"covered AI technologies\" are advanced AI with critical capabilities that would pose a grave national security threat if stolen, such as systems that match or exceed human expert performance in CBRN, cyber offense, model autonomy, persuasion, R&D and self-improvement",
+  "penalties": null,
+  "status_text": "Status: Introduced June 11, 2025; referred to House Permanent Select Committee on Intelligence; no further action",
+  "events": [
+   {
+    "date": "2025-06-11",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced June 11, 2025; referred to House Permanent Select Committee on Intelligence",
+    "clause": "Introduced June 11, 2025; referred to House Permanent Select Committee on Intelligence",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/hr/3919"
+    ]
+   }
+  },
+  "signed_text": null,
+  "effective_text": null,
+  "sources": [
+   {
+    "label": "Bill text and status — Congress.gov",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/3919",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text and status — Congress.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (official text read). Entry written on 26 Oct 2026 in a Claude session from the official text; every quote below checked by code against the stored text. Not in the 15 Oct v1 verification."
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "api"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "shall develop strategies (in this section referred to as the ``AI Security Playbook'') to defend covered AI technologies from technology theft by threat actors",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Identification of potential vulnerabilities in advanced AI data centers and among advanced AI developers",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Identification of the levels of security, if any, that would require substantial involvement by the United States Government",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "a hypothetical initiative to build covered AI technology systems in a highly secure governmental environment",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "engage with prominent AI developers and researchers",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "preparedness frameworks, scaling policies, risk management frameworks",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than 90 days after the date of the enactment of this Act",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than 270 days after the date of enactment of this Act",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "a publicly available version",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Nothing in subsection (b)(4) shall be construed to authorize or require any regulatory or enforcement action",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "thresholds",
+    "quote": "with critical capabilities that the Director determines would pose a grave national security threat if acquired or stolen by threat actors",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   },
+   {
+    "field": "thresholds",
+    "quote": "match or exceed human expert performance in relating to chemical, biological, radiological, and nuclear matters, cyber offense, model autonomy, persuasion, research and development, and self-improvement",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+   }
+  ],
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-26T12:00:00Z"
+  },
+  "last_checked": "2026-10-26",
+  "last_changed": "2026-10-26"
+ },
+ {
+  "id": 96,
+  "key": "h-r-10873-ai-cyber-defense-act",
+  "section": "F",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "H.R. 10873 — AI Cyber Defense Act",
+  "short_name": "H.R. 10873 AI Cyber Defense Act",
+  "sponsor_text": "Rep. Pat Harrigan (R-NC), 1 co-sponsor",
+  "mechanism": "Within 180 days NIST works with private-sector AI developers (excluding entities tied to China, Russia, Iran, North Korea or Cuba) to define \"artificial intelligence distillation attacks\" (copying a model through its outputs) and to set voluntary standards and best practices to detect and prevent them, published within a year. Also an \"AI Cybersecurity Roundtable\" for voluntary standards on defensive use of AI. Voluntary only; no duties on developers",
+  "thresholds": null,
+  "penalties": null,
+  "status_text": "Status: Introduced Oct 22, 2026; referred to House Science, Space, and Technology; no further action",
+  "events": [
+   {
+    "date": "2026-10-22",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced Oct 22, 2026; referred to House Science, Space, and Technology",
+    "clause": "Introduced Oct 22, 2026; referred to House Science, Space, and Technology",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/hr/10873"
+    ]
+   }
+  },
+  "signed_text": null,
+  "effective_text": null,
+  "sources": [
+   {
+    "label": "Bill text and status — Congress.gov",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/10873",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text and status — Congress.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (official text read). Entry written on 26 Oct 2026 in a Claude session from the official text; every quote below checked by code against the stored text. Not in the 15 Oct v1 verification."
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "api"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Not later than 180 days after the date of the enactment of this Act, the Director of the National Institute of Standards and Technology (NIST) shall seek to engage with private sector artificial intelligence stakeholders",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+   },
+   {
+    "field": "mechanism",
+    "quote": "A definition for artificial intelligence distillation attacks",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Voluntary standards and best practices for the detection and prevention of such attacks",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than one year after the establishment of voluntary standards and best practices",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+   },
+   {
+    "field": "mechanism",
+    "quote": "AI Cybersecurity Roundtable",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The Republic of Cuba",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+   },
+   {
+    "field": "mechanism",
+    "quote": "is not an entity of concern",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+   }
+  ],
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-26T12:00:00Z"
+  },
+  "last_checked": "2026-10-26",
+  "last_changed": "2026-10-26"
+ },
+ {
+  "id": 97,
+  "key": "pa-h-r-637-frontier-ai-resolution",
+  "section": "B",
+  "type": "bill",
+  "level": "state",
+  "jurisdiction": "PA",
+  "state": "PA",
+  "status": "pending",
+  "title": "H.R. 637 — Resolution urging Congress to pass federal legislation regulating frontier AI models (Pennsylvania House)",
+  "short_name": "PA H.R. 637 (resolution)",
+  "sponsor_text": "Rep. Joseph Ciresi (D) with 13 co-sponsors, including Republicans Jason Ortitay and Andrea Verobish",
+  "mechanism": "Non-binding House resolution: urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. Cites misalignment incidents, weapons-of-mass-destruction misuse risk, EO 14409 and the federal FRONTIER Act (H.R. 9925). No legal effect",
+  "thresholds": null,
+  "penalties": null,
+  "status_text": "Status: Introduced and referred to House Communications & Technology Sept 28, 2026; reported as committed Oct 7, 2026; awaiting a House vote",
+  "events": [
+   {
+    "date": "2026-09-28",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced and referred to House Communications & Technology Sept 28, 2026",
+    "clause": "Introduced and referred to House Communications & Technology Sept 28, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-07",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "reported as committed Oct 7, 2026",
+    "clause": "reported as committed Oct 7, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "identifiers": {
+   "session": "2025-2026 Regular Session",
+   "external": {
+    "legiscan": [
+     2159278
+    ]
+   }
+  },
+  "signed_text": null,
+  "effective_text": null,
+  "sources": [
+   {
+    "label": "Bill page and history — palegis.us",
+    "url": "https://www.palegis.us/legislation/bills/2025/hr637",
+    "kind": "primary"
+   },
+   {
+    "label": "Printer's No. 3941 (PDF)",
+    "url": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HR0637/PN3941",
+    "kind": "primary"
+   },
+   {
+    "label": "LegiScan record",
+    "url": "https://legiscan.com/PA/bill/HR637/2025",
+    "kind": "secondary"
+   }
+  ],
+  "source_label": "Bill page and history — palegis.us",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (official text read). Entry written on 26 Oct 2026 in a Claude session from the official text; every quote below checked by code against the stored text. Not in the 15 Oct v1 verification."
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "api"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "urge the Congress of the United States to pass Federal legislation that would regulate frontier artificial intelligence models",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
+   },
+   {
+    "field": "mechanism",
+    "quote": "promote reasonable safety standards for frontier AI models, both nationally and internationally",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Affirm the sovereign right and constitutional responsibility of the Pennsylvania General Assembly to legislate",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
+   },
+   {
+    "field": "mechanism",
+    "quote": "AI models being misaligned with the intentions and goals of the AI developers",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
+   },
+   {
+    "field": "mechanism",
+    "quote": "malicious use to create weapons of mass destruction",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Executive Order 14409",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
+   }
+  ],
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-26T12:00:00Z"
+  },
+  "last_checked": "2026-10-26",
+  "last_changed": "2026-10-26"
  }
 ]

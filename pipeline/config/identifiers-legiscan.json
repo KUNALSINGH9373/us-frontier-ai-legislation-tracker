@@ -1034,6 +1034,33 @@
     "on": "2026-10-13",
     "note": "Same bill as ct-p-a-26-15-ivo-pilot (S.B. 5, PA 26-15); the entry has no sponsor text to compare."
    }
+  },
+  "pa-h-r-637-frontier-ai-resolution": {
+   "bills": [
+    {
+     "bill_id": 2159278,
+     "number": "HR637",
+     "state": "PA",
+     "session_id": 2192,
+     "session_name": "2025-2026 Regular Session",
+     "official_url": "https://www.palegis.us/legislation/bills/2025/hr637",
+     "legiscan_url": "https://legiscan.com/PA/bill/HR637/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "confirmed",
+   "entry_id": 97,
+   "short_name": "PA H.R. 637 (resolution)",
+   "checks": [
+    {
+     "number": "HR637",
+     "found": true,
+     "bill_id": 2159278,
+     "result": "match",
+     "note": "added by hand 26 Oct 2026"
+    }
+   ]
   }
  }
 }

@@ -21,14 +21,15 @@ const D2 = B.buildV2(read(v2dir, 'entries.json'), read(v2dir, 'news.json'), read
 
 const problems = [];
 const v2entries = read(v2dir, 'entries.json'), v2news = read(v2dir, 'news.json').items;
-const changed = new Set(v2entries.filter((e) => e.origin !== 'authored').map((e) => e.id));
+// Entries added after v1 froze (written in a Claude session, verification.method "session") have no v1 row either.
+const changed = new Set(v2entries.filter((e) => e.origin !== 'authored' || (e.verification && e.verification.method === 'session')).map((e) => e.id));
 const autoNews = new Set(v2news.filter((n) => n.origin !== 'authored').map((n) => n.date + '|' + n.title));
 const authored = (e) => !changed.has(e.id);
 const norm = (v) => String(JSON.stringify(v, (k, x) => (x instanceof Date ? x.toISOString() : x)));
 const same = (what, a, b) => { if (norm(a) !== norm(b)) problems.push(`${what}\n    v1: ${norm(a).slice(0, 300)}\n    v2: ${norm(b).slice(0, 300)}`); };
 
-same('entry count', D1.E.length, D2.E.length);
-if (changed.size) console.log(`${changed.size} entries updated by the pipeline are not compared with v1: ${v2entries.filter((e) => changed.has(e.id)).map((e) => e.key).join(', ')}`);
+same('entry count', D1.E.length, D2.E.filter(authored).length);
+if (changed.size) console.log(`${changed.size} entries updated by the pipeline or added after v1 are not compared with v1: ${v2entries.filter((e) => changed.has(e.id)).map((e) => e.key).join(', ')}`);
 const SKIP = new Set(['raw', 'v2key', 'origin', 'lastChecked', 'v2events']);
 D1.E.filter(authored).forEach((a) => {
   const b = D2.byId[a.id]; if (!b) { problems.push(`entry ${a.id} missing in v2`); return; }

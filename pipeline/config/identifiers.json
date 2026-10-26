@@ -551,6 +551,70 @@
      "result": "match"
     }
    ]
+  },
+  "s-5576-warner-schatz-kim-ai-risk-management-and-security-act": {
+   "congress_gov": [
+    "119/s/5576"
+   ],
+   "status": "confirmed",
+   "entry_id": 34,
+   "short_name": "S. 5576 Warner–Schatz–Kim AI Risk Management and Security Act",
+   "checks": [
+    {
+     "id": "119/s/5576",
+     "found": true,
+     "result": "match",
+     "note": "added by hand 26 Oct 2026 from the Congress.gov record"
+    }
+   ]
+  },
+  "s-5601-insider-threat-reporting-act": {
+   "congress_gov": [
+    "119/s/5601"
+   ],
+   "status": "confirmed",
+   "entry_id": 94,
+   "short_name": "S. 5601 Insider Threat Reporting Act",
+   "checks": [
+    {
+     "id": "119/s/5601",
+     "found": true,
+     "result": "match",
+     "note": "added by hand 26 Oct 2026 from the Congress.gov record"
+    }
+   ]
+  },
+  "h-r-3919-advanced-ai-security-readiness-act": {
+   "congress_gov": [
+    "119/hr/3919"
+   ],
+   "status": "confirmed",
+   "entry_id": 95,
+   "short_name": "H.R. 3919 Advanced AI Security Readiness Act",
+   "checks": [
+    {
+     "id": "119/hr/3919",
+     "found": true,
+     "result": "match",
+     "note": "added by hand 26 Oct 2026 from the Congress.gov record"
+    }
+   ]
+  },
+  "h-r-10873-ai-cyber-defense-act": {
+   "congress_gov": [
+    "119/hr/10873"
+   ],
+   "status": "confirmed",
+   "entry_id": 96,
+   "short_name": "H.R. 10873 AI Cyber Defense Act",
+   "checks": [
+    {
+     "id": "119/hr/10873",
+     "found": true,
+     "result": "match",
+     "note": "added by hand 26 Oct 2026 from the Congress.gov record"
+    }
+   ]
   }
  }
 }

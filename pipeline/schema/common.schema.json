@@ -89,7 +89,7 @@
       "required": ["method", "checked_at"],
       "additionalProperties": false,
       "properties": {
-        "method": { "enum": ["author", "agent"] },
+        "method": { "enum": ["author", "agent", "session"], "description": "author: the tracker author. agent: the pipeline. session: written by hand in a Claude session from the official text, quotes checked by code." },
         "checked_at": { "$ref": "#/$defs/isoDateTime" },
         "run_id": { "type": "string" },
         "rounds": { "type": "integer", "minimum": 0, "maximum": 3, "description": "Generator/validator rounds it took to pass." }
