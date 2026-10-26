@@ -76,7 +76,7 @@ h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;
 [data-fbadge]{min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--accent-ink);color:var(--on-accent);font-size:calc(12px*var(--fs));font-weight:800;display:inline-grid;place-items:center}
 @media (max-width:767px){[data-fsum]{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--surface);font-weight:650;cursor:pointer;list-style:none}[data-fsum]::-webkit-details-marker{display:none}[data-fdet][open] [data-frows]{margin-top:12px}[data-frow]{flex-direction:column;gap:6px}[data-flabel]{flex:none;padding:0}}
 [data-bmwrap]{overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);max-height:min(78vh,900px)}
-[data-bmt]{border-collapse:separate;border-spacing:0;width:100%}
+[data-bmt]{border-collapse:separate;border-spacing:0;width:100%;table-layout:fixed}
 [data-bmt] td,[data-bmt] thead th:not([data-bmdim]){min-width:calc(190px*var(--fs))}
 [data-fit="1"] [data-bmt]{table-layout:fixed}
 [data-fit="1"] [data-bmt] td,[data-fit="1"] [data-bmt] thead th:not([data-bmdim]){min-width:0}
@@ -99,6 +99,17 @@ h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;
 [data-seg]{height:calc(28px*var(--hs));padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--ink-2);font:inherit;font-size:calc(13px*var(--fs));font-weight:650;cursor:pointer}
 [data-seg][aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 [data-reset]{height:calc(32px*var(--hs));padding:0 6px;border:0;background:transparent;color:var(--accent-ink);font:inherit;font-size:calc(13.5px*var(--fs));font-weight:650;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+[data-etpick]{max-height:calc(84px*var(--hs));overflow:auto;padding:2px;scrollbar-width:thin}
+[data-etq],[data-etsel]{height:calc(32px*var(--hs));padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(13.5px*var(--fs));min-width:0}
+[data-etq]{width:min(240px,100%)}
+[data-etq]:focus,[data-etsel]:focus{outline:2px solid var(--accent);outline-offset:1px}
+[data-etclamp="1"]{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+[data-etmore]{margin-top:6px;padding:0;border:0;background:transparent;color:var(--accent-ink);font:inherit;font-size:calc(12.5px*var(--fs));font-weight:650;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+[data-etrm]{float:right;margin:-4px -6px 0 6px;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:var(--ink-3);cursor:pointer;font-size:13px}
+[data-etrm]:hover{background:var(--surface-2);color:var(--ink)}
+[data-etgroup]{color:var(--ink)!important}
+[data-seg][aria-label$=" entry"]{width:calc(32px*var(--hs));height:calc(32px*var(--hs));padding:0;font-size:calc(16px*var(--fs))}
+[data-seg]:disabled{opacity:.4;cursor:default}
 [data-chip]{position:relative}@media (pointer:coarse),(max-width:1023px){[data-chip]::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
 [data-sidetoggle]{align-items:center;justify-content:center;gap:6px;height:calc(32px*var(--hs));margin:0 0 8px auto;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-weight:650;font-size:calc(13px*var(--fs));cursor:pointer}
 [data-sidetoggle]:hover{color:var(--ink);border-color:var(--line-2)}
@@ -397,7 +408,6 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <button onClick="{{clearAll}}" style="height:calc(36px*var(--hs));padding:0 calc(8px*var(--ps));border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Clear all</button>
     </div>
   </sc-if>
-  <sc-if value="{{vCompare}}">{{cmpEl}}</sc-if>
   <sc-if value="{{vTimeline}}">
     <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px">
       <p style="margin:0;font-size:calc(15px*var(--fs));color:var(--ink-2)">{{tlCount}}</p>
@@ -437,10 +447,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <sc-if value="{{showDirect}}">{{linksEl}}</sc-if>
     </section>
   </sc-if>
-  <sc-if value="{{vTable}}">
-    <sc-if value="{{hasSecNotes}}">{{secNotesEl}}</sc-if>
-    {{tableEl}}
-  </sc-if>
+  <sc-if value="{{vTable}}">{{tableEl}}</sc-if>
   </div>
 </div>
 </sc-if>
@@ -561,56 +568,6 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 <div data-screen-label="Compare" style="max-width:1600px;width:100%;margin:0 auto;padding:clamp(calc(28px*var(--ps)),5vw,calc(56px*var(--ps))) clamp(16px,3vw,32px) calc(72px*var(--ps))">
   <nav aria-label="Breadcrumb" style="font-size:calc(14px*var(--fs));font-weight:650;margin-bottom:8px"><a href="#/explore" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Explore</a></nav>
   <h1 style="margin:0;font-size:clamp(26px,2.6vw,34px);font-weight:800;letter-spacing:-.035em;line-height:1.05">Compare</h1>
-
-  <sc-if value="{{cmpIsEntries}}">
-    <p style="margin:8px 0 22px;font-size:calc(16px*var(--fs));color:var(--ink-2);max-width:75ch">Up to three entries side by side. Only the features where they differ are shown; the rest are listed below.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-      <sc-if value="{{canAdd}}"><button onClick="{{openAdd}}" aria-expanded="{{cmpAdd}}" style="height:calc(44px*var(--hs));padding:0 calc(16px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--line-2);background:transparent;color:var(--ink);font-weight:750;font-size:calc(14.5px*var(--fs));cursor:pointer">+ Add an entry</button></sc-if>
-    </div>
-    <sc-if value="{{cmpAdd}}">
-      <div style="margin-top:10px;max-width:560px;padding:calc(12px*var(--ps));border-radius:min(18px,var(--r));border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow-2);display:flex;flex-direction:column;gap:6px">
-        <label for="cmp-q" style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">Find an entry</label>
-        <input id="cmp-q" type="search" value="{{cmpQ}}" onChange="{{onCmpQ}}" placeholder="e.g. Michigan, FRONTIER, kill switch" style="height:calc(44px*var(--hs));padding:0 calc(12px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--line-2);background:var(--bg);color:var(--ink);font:inherit;font-size:calc(16px*var(--fs))">
-        <sc-for list="{{addList}}" as="a"><button onClick="{{a.add}}" style="min-height:calc(48px*var(--hs));display:flex;align-items:center;gap:10px;padding:calc(8px*var(--ps)) calc(10px*var(--ps));border-radius:min(12px,var(--r));border:0;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer" style-hover="background:var(--surface-2)"><span aria-hidden="true" style="color:{{a.sc}}">{{a.sg}}</span><span style="flex:1;min-width:0;display:flex;flex-direction:column"><strong style="font-size:calc(15px*var(--fs))">{{a.short}}</strong><span style="font-size:calc(13px*var(--fs));color:var(--ink-3)">{{a.juris}} · {{a.sl}}</span></span><sc-if value="{{a.inK}}"><span style="font-size:calc(12px*var(--fs));font-weight:750;color:var(--ink-3)">Full matrix</span></sc-if></button></sc-for>
-      </div>
-    </sc-if>
-    <sc-if value="{{notK}}"><p style="margin:14px 0 0;font-size:calc(14px*var(--fs));color:var(--ink-2);padding:calc(10px*var(--ps)) calc(14px*var(--ps));border-radius:min(12px,var(--r));background:var(--surface-2);max-width:720px">The tracker’s detailed matrix covers CA SB 53, NY RAISE, IL SB 315, MI HB 4668, NJ S.4446, MA H.5576 and the FRONTIER Act. For other entries we compare the core fields.</p></sc-if>
-    <sc-if value="{{tooFew}}"><div role="status" style="margin-top:22px;padding:calc(28px*var(--ps));border-radius:min(20px,var(--r));border:1px dashed var(--line-2);text-align:center;color:var(--ink-2)">Add at least one more entry to see differences.</div></sc-if>
-
-    <div>
-    <div data-cmpcards style="margin-top:22px;display:grid;grid-template-columns:{{cmpCols}};gap:14px">
-      <sc-for list="{{cards}}" as="k">
-        <section aria-label="{{k.short}}" style="display:grid;grid-row:{{k.span}};grid-template-rows:subgrid;row-gap:0;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);overflow:hidden">
-          <header style="display:flex;gap:10px;align-items:flex-start;padding:calc(16px*var(--ps)) calc(16px*var(--ps)) calc(14px*var(--ps));border-bottom:1px solid var(--line)">
-            <span aria-hidden="true" style="width:26px;height:26px;flex-shrink:0;border-radius:50%;background:{{k.col}};color:var(--bg);display:grid;place-items:center;font-weight:800;font-size:calc(13px*var(--fs))">{{k.letter}}</span>
-            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
-              <a href="{{k.href}}" data-serif style="font-size:calc(18px*var(--fs));line-height:1.25;color:var(--ink);text-decoration:none;overflow-wrap:anywhere" style-hover="text-decoration:underline">{{k.short}}</a>
-              <span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2)"><span aria-hidden="true" style="color:{{k.sc}}">{{k.sg}}</span> {{k.sl}} · {{k.juris}}</span>
-              <p style="margin:6px 0 0;font-size:calc(14.5px*var(--fs));line-height:1.5;color:var(--ink);overflow-wrap:anywhere"><span style="display:block;font-size:calc(12.5px*var(--fs));font-weight:650;color:var(--ink-3);margin-bottom:2px">Summary</span>{{k.sum}}</p>
-            </div>
-            <button data-chip onClick="{{k.rm}}" aria-label="{{k.aria}}" style="width:calc(32px*var(--hs));height:calc(32px*var(--hs));flex-shrink:0;padding:0;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer">✕</button>
-          </header>
-          <sc-for list="{{k.rows}}" as="r">
-            <div style="padding:calc(10px*var(--ps)) calc(16px*var(--ps));border-bottom:1px solid var(--line);background:{{r.bg}};display:flex;flex-direction:column;gap:3px;min-width:0">
-              <span style="display:flex;align-items:center;gap:8px;font-size:calc(12.5px*var(--fs));font-weight:650;color:var(--ink-3)">{{r.dim}}<sc-if value="{{r.isDiff}}"><span style="font-weight:600;color:var(--ink-2)">· differs</span></sc-if></span>
-              <span style="font-size:calc(14.5px*var(--fs));line-height:1.45;overflow-wrap:anywhere"><sc-for list="{{r.segs}}" as="g"><sc-if value="{{g.m}}"><mark>{{g.t}}</mark></sc-if><sc-if value="{{g.n}}"><span>{{g.t}}</span></sc-if></sc-for></span>
-            </div>
-          </sc-for>
-        </section>
-      </sc-for>
-    </div>
-    <sc-if value="{{hasSame}}">
-      <details style="margin-top:18px;border-radius:min(16px,var(--r));border:1px solid var(--line);background:var(--surface)">
-        <summary style="cursor:pointer;padding:calc(14px*var(--ps)) calc(16px*var(--ps));font-weight:700;font-size:calc(15px*var(--fs));min-height:calc(44px*var(--hs))">Same across all ({{nSame}})</summary>
-        <div style="padding:0 calc(16px*var(--ps)) calc(12px*var(--ps))">
-          <sc-for list="{{rowsSame}}" as="r"><div style="padding:calc(10px*var(--ps)) 0;border-top:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap"><strong style="font-size:calc(14.5px*var(--fs));min-width:180px">{{r.dim}}</strong><span style="font-size:calc(14.5px*var(--fs));color:var(--ink-2)">{{r.same}}</span></div></sc-for>
-        </div>
-      </details>
-    </sc-if>
-    </div>
-    <p style="margin:18px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Matrix values are quoted from the tracker’s cross-cutting comparison (verified as of {{verLabel}}). Not legal advice.</p>
-    {{cmpExtrasEl}}
-  </sc-if>
 
   <sc-if value="{{cmpIsStates}}">
     <p style="margin:8px 0 22px;font-size:calc(17px*var(--fs));color:var(--ink-2);max-width:680px">What each state has on the books or in play.</p>
@@ -830,12 +787,12 @@ const L_lanes = (self, ids, p) => { const s = self.state; return self.V.lanes({ 
   select: k => { if (self.state.tlSel !== k) self.setState({ tlSel: k }); }, setRange: k => self.setP({ rng: k === 'recent' ? '' : k }, true),
   toggleKind: k => self.setState({ kindOff: s.kindOff.includes(k) ? s.kindOff.filter(z => z !== k) : [...s.kindOff, k] }) }); };
 class Component extends DCLogic {
-  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, cmpQ: '', cmpAdd: false, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], tblSel: [], tblOpen: [], tblAll: false, lkTab: '', lkAll: false, lkOpen: [], resOpen: false, exFOpen: false };
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], etOpen: [], lkTab: '', lkAll: false, lkOpen: [], resOpen: false, exFOpen: false };
   mainRef = React.createRef(); resBtnRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
     this.mq = matchMedia('(prefers-color-scheme: dark)'); this.onMq = () => this.forceUpdate(); this.mq.addEventListener && this.mq.addEventListener('change', this.onMq);
-    this.onHash = () => { if (location.hash === '#main') { history.replaceState(null, '', this.lastHash || '#/'); this.focusMain(); return; } this.lastHash = location.hash || '#/'; if (this.redirectOld()) return; const route = this.parse(); if (this.ret) this.ret.resOpen = null; this.setState({ route, q: route.p.q || '', limit: 20, cmpAdd: false, resOpen: false, filtersOpen: this.lastPath === route.path ? this.state.filtersOpen : false }); if (!route.p.state && !route.p.fed) this.fromRect = null; if (this.lastPath !== route.path) { window.scrollTo(0, 0); this.lastPath = route.path; this.wantRouteFocus = true; } };
+    this.onHash = () => { if (location.hash === '#main') { history.replaceState(null, '', this.lastHash || '#/'); this.focusMain(); return; } this.lastHash = location.hash || '#/'; if (this.redirectOld()) return; const route = this.parse(); if (this.ret) this.ret.resOpen = null; this.setState({ route, q: route.p.q || '', limit: 20, resOpen: false, filtersOpen: this.lastPath === route.path ? this.state.filtersOpen : false }); if (!route.p.state && !route.p.fed) this.fromRect = null; if (this.lastPath !== route.path) { window.scrollTo(0, 0); this.lastPath = route.path; this.wantRouteFocus = true; } };
     this.onResize = () => this.setState({ vw: window.innerWidth });
     this.onNet = () => this.setState({ online: navigator.onLine });
     this.onKey = e => {
@@ -1097,7 +1054,7 @@ class Component extends DCLogic {
     const T = 'US Frontier Law';
     this.docTitle = v.isHome ? (p.state && L_SN(this.L, p.state) ? L_SN(this.L, p.state) + ' · ' + T : v.panelOpen ? v.panelTitle + ' · ' + T : T + ' · US states and Congress')
       : v.isExplore ? 'Explore' + (s.q.trim() ? ' “' + s.q.trim() + '”' : '') + ' · ' + T
-      : v.isInsights ? (p.view === 'relations' ? 'Bill relations' : p.view === 'table' ? 'Table' : p.view === 'timeline' || p.tl || p.when || p.rng ? 'Timeline' : 'Compare bills') + ' · Insights · ' + T
+      : v.isInsights ? (p.view === 'relations' ? 'Bill relations' : p.view === 'timeline' || p.tl || p.when || p.rng ? 'Timeline' : 'Table') + ' · Insights · ' + T
       : v.isBill ? v.bShort + ' · Bill · ' + T
       : v.isCompare ? 'Compare' + (v.heads ? ': ' + v.heads.map(h => h.short).join(' vs ') : v.sCols ? ': ' + v.sCols.map(c => c.nm).join(' vs ') : '') + ' · ' + T
       : v.isHandbook ? (v.hbTitle ? v.hbTitle + ' · ' : '') + 'Handbook · ' + T : v.isAbout ? 'About this site · ' + T
@@ -1266,13 +1223,13 @@ class Component extends DCLogic {
   }
   // Insights: Timeline, Bill relations and Table, one tab each (?view=timeline|relations|table; timeline is the default).
   insights(p) {
-    const L = this.L, D = this.D, s = this.state, VIEWS = [['compare', 'Compare bills'], ['timeline', 'Timeline'], ['relations', 'Bill relations'], ['table', 'Table']];
-    // Compare bills is the default tab; older timeline links (?tl=, ?when=, ?rng=) still open the timeline.
-    const view = VIEWS.some(([k]) => k === p.view) ? p.view : (p.tl || p.when || p.rng) ? 'timeline' : 'compare';
-    const goView = k => { const n = { view: k === 'compare' ? '' : k }; if (p.c) n.c = p.c; this.go('/insights', n); setTimeout(() => { const t = document.getElementById('it-' + k); if (t) t.focus(); }, 30); };
+    const L = this.L, D = this.D, s = this.state, VIEWS = [['table', 'Table'], ['timeline', 'Timeline'], ['relations', 'Bill relations']];
+    // Table is the default tab; older timeline links (?tl=, ?when=, ?rng=) still open the timeline.
+    const view = VIEWS.some(([k]) => k === p.view) ? p.view : (p.tl || p.when || p.rng) ? 'timeline' : 'table';
+    const goView = k => { const n = { view: k === 'table' ? '' : k }; if (p.c) n.c = p.c; this.go('/insights', n); setTimeout(() => { const t = document.getElementById('it-' + k); if (t) t.focus(); }, 30); };
     const iTabs = VIEWS.map(([k, l], i) => ({ id: 'it-' + k, l, sel: view === k ? 'true' : 'false', ti: view === k ? 0 : -1, ul: view === k ? 'inset 0 -2px 0 var(--accent-ink)' : 'none', fg: view === k ? 'var(--ink)' : 'var(--ink-3)', go: () => goView(k),
       onKey: e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key], j = e.key === 'Home' ? 0 : e.key === 'End' ? VIEWS.length - 1 : d ? (i + d + VIEWS.length) % VIEWS.length : -1; if (j < 0) return; e.preventDefault(); goView(VIEWS[j][0]); } }));
-    const out = { isInsights: true, iTabs, iTabId: 'it-' + view, vCompare: view === 'compare', vTimeline: view === 'timeline', vRelations: view === 'relations', vTable: view === 'table', hasChips: false, chips: [] };
+    const out = { isInsights: true, iTabs, iTabId: 'it-' + view, vTimeline: view === 'timeline', vRelations: view === 'relations', vTable: view === 'table', hasChips: false, chips: [] };
     if (view === 'timeline') {
       const f = this.filt(p), q = (p.q || '').trim();
       const rows = L.search(D.E.filter(f), q).res;
@@ -1291,32 +1248,13 @@ class Component extends DCLogic {
       out.upOn = up; out.upBg = up ? 'var(--ink)' : 'var(--surface)'; out.upFg = up ? 'var(--bg)' : 'var(--ink)';
       out.toggleUp = () => this.setP({ when: up ? '' : 'upcoming' }, true);
     }
-    if (view === 'compare') out.cmpEl = this.V.billMatrix({ C: D.content, L, D, p, mob: s.vw < 768, set: ch => this.setP(ch, true) });
     if (view === 'relations') Object.assign(out, this.map(p));
-    if (view === 'table') {
-      const TK = { q: 'q', group: 'grp', sec: 'sec', jur: 'jur', status: 'status', year: 'year' };
-      const tf = Object.fromEntries(Object.entries(TK).map(([k, u]) => [k, p[u] || '']));
-      const secs = Object.keys(L.SEC).filter(k => D.E.some(x => x.section === k)).map(k => ({ k, l: k + '. ' + L.SEC[k] }));
-      const stN = [...new Set(D.E.map(x => x.st).filter(c => c && L.SN[c]))].sort((a, b) => L.SN[a].localeCompare(L.SN[b]));
-      const controls = { v: tf, set: (k, val) => this.setP({ [TK[k]]: val }, true), clear: () => this.go('/insights', { view: 'table' }, true),
-        groups: L.GROUPS.map(g => ({ k: g.k, l: g.l })), secs, jurs: [{ k: 'US', l: 'Federal' }, ...stN.map(c => ({ k: c, l: L.SN[c] }))],
-        statuses: L.STATUS_ORDER.filter(k => D.E.some(x => x.status === k)).map(k => ({ k, l: L.ST[k].l })), years: ['2023', '2024', '2025', '2026', (L.ASOF.getFullYear() + 1) + '+'] };
-      Object.assign(out, this.tableVals(this.V.filterRows(D.E, L, tf), p, '', D.E.length, controls),
-        { secNotesEl: tf.sec ? this.V.sectionNotes(D.content, tf.sec, L) : null, hasSecNotes: !!(tf.sec && D.content && D.content.section_notes[tf.sec]) });
-    }
+    if (view === 'table') out.tableEl = this.V.entryTable({ L, D, C: D.content, p, mob: s.vw < 768, set: ch => this.setP(ch, true), open: s.etOpen,
+      toggleCell: k => this.setState(st => ({ etOpen: st.etOpen.includes(k) ? st.etOpen.filter(z => z !== k) : [...st.etOpen, k] })),
+      download: rows => { const V = this.V, b = new Blob([V.toCsv(rows, L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'us-frontier-law-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } });
     return out;
   }
   // The full table (Insights → Table). pre is the URL prefix for its sort params.
-  tableVals(picked, p, pre, total, controls) {
-    const L = this.L, D = this.D, s = this.state, V = this.V;
-    const sort = V.SORT_KEYS.includes(p[pre + 'sort']) ? p[pre + 'sort'] : 'latest', dir = p[pre + 'dir'] || (V.ascFirst(sort) ? 'asc' : 'desc');
-    return { tableEl: V.table({ L, rows: picked, sort, dir, total, controls, sel: s.tblSel.filter(id => D.byId[id]), compact: s.vw < 1040,
-      open: s.tblOpen, allOpen: s.tblAll, toggleRow: id => this.setState({ tblOpen: s.tblOpen.includes(id) ? s.tblOpen.filter(z => z !== id) : [...s.tblOpen, id] }), setAllOpen: v => this.setState({ tblAll: v, tblOpen: [] }),
-      setSort: (k, pick) => this.setP({ [pre + 'sort']: k, [pre + 'dir']: pick ? (V.ascFirst(k) ? 'asc' : 'desc') : k === sort && dir === 'desc' ? 'asc' : k === sort ? 'desc' : (V.ascFirst(k) ? 'asc' : 'desc') }, true),
-      toggle: id => this.setState({ tblSel: s.tblSel.includes(id) ? s.tblSel.filter(z => z !== id) : s.tblSel.length < 3 ? [...s.tblSel, id] : s.tblSel }),
-      compare: () => this.go('/compare', { ids: s.tblSel.join(',') }),
-      download: () => { const b = new Blob([V.toCsv(V.sortRows(picked, L, sort, dir), L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'us-frontier-law-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } }) };
-  }
   conn(c) {
     const L = this.L, D = this.D, R = D.rel;
     const TC = { template: 'var(--accent)', succession: 'var(--st-pending)', fedstate: 'var(--st-enacted)', executive: 'var(--st-executive)', litigation: 'var(--st-litigation)', assurance: 'var(--st-auditor)', actor: 'var(--st-stalled)' };
@@ -1364,12 +1302,14 @@ class Component extends DCLogic {
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',
       toggleFollowB: () => this.toggleFollow(id),
       share: () => { const u = location.href; const done = () => this.toastMsg('Link copied'); if (navigator.share && this.state.vw < 760) navigator.share({ title: x.short + ' · US Frontier Law', url: u }).catch(() => {}); else if (navigator.clipboard) navigator.clipboard.writeText(u).then(done, () => this.toastMsg('Copy the address bar to share')); else this.toastMsg('Copy the address bar to share'); },
-      cmpHref: '#/compare?ids=' + (L.K_IDS.includes(id) ? [id, ...L.K_IDS.filter(i => i !== id).slice(0, 1)] : [id, ...D.E.filter(o => o.section === x.section && o.id !== id).slice(0, 1).map(o => o.id)]).join(','),
+      cmpHref: '#/insights?cols=' + (L.K_IDS.includes(id) ? [id, ...L.K_IDS.filter(i => i !== id).slice(0, 1)] : [id, ...D.E.filter(o => o.section === x.section && o.id !== id).slice(0, 1).map(o => o.id)]).join(','),
       isExcluded: x.section === 'J'
     };
   }
   compare(p) {
     const L = this.L, D = this.D, s = this.state;
+    // Entries are compared in Insights → Table now; old #/compare?ids= links land there. States keep this page.
+    if (!p.states) { setTimeout(() => this.go('/insights', p.ids ? { cols: p.ids } : {}, true), 0); return { isCompare: true, cmpIsStates: false, cmpIsEntries: false }; }
     const LET = ['A', 'B', 'C'], COL = ['var(--accent-ink)', 'var(--st-auditor)', 'var(--st-executive)'];
     if (p.states) {
       const codes = this.csv(p.states).filter(c => L.SN[c]).slice(0, 3);
@@ -1377,36 +1317,6 @@ class Component extends DCLogic {
         return { nm: L.SN[c], code: c, letter: LET[i], col: COL[i], cat: L.CAT[cat].l, g: L.CAT[cat].g, n: all.length, counts: L.STATUS_ORDER.filter(k => by[k]).map(k => ({ l: L.ST[k].l, g: L.ST[k].g, c: `var(--st-${k})`, n: by[k] })), items: all.map(x => ({ short: x.short, href: '#/bill/' + x.id, g: L.ST[x.status].g, c: `var(--st-${x.status})`, sl: L.ST[x.status].l, kd: x.kdLabel })) }; });
       return { isCompare: true, cmpIsStates: true, cmpIsEntries: false, sCols: cols, sEmpty: cols.length < 2, backToMap: () => this.go('/', { mode: 'compare', cmp: codes.join(',') }) };
     }
-    const ids = (p.ids ? this.csv(p.ids).map(Number) : [1, 2, 3]).filter(i => D.byId[i]).slice(0, 3);
-    const xs = ids.map(i => D.byId[i]);
-    const useK = xs.length && xs.every(x => L.K_IDS.includes(x.id));
-    const raw = useK ? L.K_ROWS.filter(r => !r[2]).map(([dim, m]) => [dim, xs.map(x => m[x.id])]) : [
-      ['Status', xs.map(x => L.ST[x.status].l)], ['Type', xs.map(x => L.TYPES[x.type])], ['Who it covers', xs.map(x => x.thresholds || '—')], ['Latest step', xs.map(x => x.kdLabel)],
-      ['Sponsors', xs.map(x => x.sponsor || '—')], ['Source', xs.map(x => x.source || '—')]];
-    const TOK = /\([^)]*\)|[^\s\/;,+()]+|[\s\/;,+]+/g, SEP = /^[\s\/;,+]+$/;
-    const norm = v => v.toLowerCase().replace(/\([^)]*\)/g, ' ').replace(/[–-]/g, '—').replace(/\s+/g, ' ').trim().replace(/^(—|none|no|n\/a)$/, 'none');
-    const rows = raw.map(([dim, v0]) => {
-      const vals = v0.map(v => (v || '—').trim()), ns = vals.map(norm), nset = new Set(ns), rset = new Set(vals.map(v => v.toLowerCase()));
-      const kind = nset.size > 1 ? 'diff' : rset.size > 1 ? 'mostly' : 'same';
-      let note = '', odd = -1;
-      if (kind === 'diff' && vals.length === 3 && nset.size === 2) { odd = ns.findIndex(n => ns.filter(m => m === n).length === 1); note = [0, 1, 2].filter(i => i !== odd).map(i => LET[i]).join(' and ') + ' match'; }
-      const segsFor = (v, i) => { const plain = [{ t: v, m: false, n: true }]; if (kind === 'same' || vals.length < 2) return plain; const others = vals.filter((_, j) => j !== i).map(o => o.toLowerCase()); const toks = v.match(TOK) || [v]; const segs = toks.map(tk => { const m = !SEP.test(tk) && tk !== '—' && others.some(o => !o.includes(tk.toLowerCase())); return { t: tk, m, n: !m }; }); const words = segs.filter(g => !SEP.test(g.t)), marked = words.filter(g => g.m).length; return words.length > 8 && marked / words.length > 0.6 ? plain : segs; };
-      return { dim, kind, isDiff: kind === 'diff', isMostly: kind === 'mostly', note, hasNote: !!note, same: vals[0], vals: vals.map((v, i) => ({ v, segs: segsFor(v, i), letter: LET[i], col: COL[i], nm: xs[i].short, bd: i === odd ? '1.5px solid var(--accent)' : '1px solid var(--line)' })) };
-    });
-    const setIds = n => this.go('/compare', { ids: n.join(',') }, true);
-    const heads = xs.map((x, i) => ({ letter: LET[i], col: COL[i], short: x.short, sum: x.summary || x.mech || x.lead, href: '#/bill/' + x.id, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, juris: x.juris, rm: () => setIds(ids.filter(j => j !== x.id)), aria: 'Remove ' + x.short }));
-    const ql = s.cmpQ.trim().toLowerCase();
-    const pool = D.E.filter(x => x.section !== 'J' && !ids.includes(x.id) && (!ql || (x.short + ' ' + x.title + ' ' + x.juris).toLowerCase().includes(ql)));
-    const sorted = ql ? pool : [...pool.filter(x => L.K_IDS.includes(x.id)), ...pool.filter(x => !L.K_IDS.includes(x.id))];
-    const rowsDiff = [...rows.filter(r => r.kind === 'diff'), ...rows.filter(r => r.kind === 'mostly')];
-    const cards = heads.map((hd, i) => ({ ...hd, span: `span ${rowsDiff.length + 1}`, rows: rowsDiff.map(r => ({ dim: r.dim, isDiff: r.isDiff, segs: r.vals[i].segs, bg: r.vals[i].bd.startsWith('1.5px') ? 'var(--accent-soft)' : 'transparent' })) }));
-    return {
-      isCompare: true, cmpIsStates: false, cmpIsEntries: true, cmpExtrasEl: this.V.compareExtras(D.content, L, D), heads, cards, cmpCols: s.vw >= 760 ? `repeat(${Math.max(xs.length, 1)}, minmax(0,1fr))` : 'minmax(0,1fr)', rowsDiff, rowsSame: rows.filter(r => r.kind === 'same'), hasSame: rows.some(r => r.kind === 'same'), nSame: rows.filter(r => r.kind === 'same').length, nDiff: rows.filter(r => r.kind === 'diff').length,
-      cmpGrid: `repeat(${Math.max(xs.length, 1)}, minmax(0,1fr))`, useK, notK: !useK, tooFew: xs.length < 2, canAdd: xs.length < 3,
-      cmpAdd: s.cmpAdd, openAdd: () => this.setState({ cmpAdd: !s.cmpAdd, cmpQ: '' }), cmpQ: s.cmpQ, onCmpQ: e => this.setState({ cmpQ: e.target.value }),
-      addList: sorted.slice(0, 8).map(x => ({ short: x.short, juris: x.juris, sl: L.ST[x.status].l, sg: L.ST[x.status].g, sc: `var(--st-${x.status})`, inK: L.K_IDS.includes(x.id), add: () => { this.setState({ cmpAdd: false }); setIds([...ids, x.id]); } })),
-      cmpWide: s.vw >= 760, cmpNarrow: s.vw < 760, cmpRowGrid: s.vw >= 760 ? `200px repeat(${Math.max(xs.length, 1)}, minmax(0,1fr))` : 'minmax(0,1fr)'
-    };
   }
   updates(p) {
     const L = this.L, D = this.D, s = this.state, kf = s.kindF;

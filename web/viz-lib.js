@@ -278,21 +278,11 @@ export const TABLE_COLS = [
   { k: 'source', l: 'Source', w: 190, long: true },
   { k: 'latest', l: 'Latest step', w: 130, s: (x) => (x.kd ? +x.kd.d : 0) }
 ];
-export const SORT_KEYS = TABLE_COLS.filter((c) => c.s).map((c) => c.k);
-export const ascFirst = (k) => k === 'title' || k === 'where' || k === 'section' || k === 'sponsor';
 export function sortRows(rows, L, key, dir) {
   const c = TABLE_COLS.find((t) => t.k === key && t.s) || TABLE_COLS.find((t) => t.k === 'latest'), m = dir === 'asc' ? 1 : -1;
   return rows.slice().sort((a, b) => { const va = c.s(a, L), vb = c.s(b, L); return (va < vb ? -1 : va > vb ? 1 : a.id - b.id) * m; });
 }
 const confText = (x, L) => (x.confNote || (x.conf ? x.conf : ''));
-const rowText = (x, L) => [x.section, L.SEC[x.section], x.title, x.short, x.juris, x.st, x.sponsor, x.mech, x.thresholds, statusLine(x), L.ST[x.status].l, x.penalties, x.source, x.kdLabel, L.TYPES[x.type]].filter(Boolean).join(' \u0001 ').toLowerCase();
-// Table filters. q: every word must appear somewhere in the row (any column). The rest match exactly.
-export function filterRows(rows, L, f) {
-  const terms = (f.q || '').toLowerCase().split(/\s+/).filter(Boolean);
-  return rows.filter((x) => (!f.group || L.groupOf(x.section) === f.group) && (!f.sec || x.section === f.sec)
-    && (!f.jur || (f.jur === 'US' ? x.level === 'federal' : x.st === f.jur)) && (!f.status || x.status === f.status)
-    && (!f.year || x.years.includes(f.year)) && (!terms.length || (() => { const t = rowText(x, L); return terms.every((w) => t.includes(w)); })()));
-}
 export function toCsv(rows, L) {
   const head = ['Section', 'Entry', 'Jurisdiction', 'Sponsor', 'Core mechanism / description', 'Thresholds / scope', 'Status and dates', 'Penalties', 'Source', 'Source links', 'Confidence', 'Status', 'Type', 'Latest step', 'Years with dated events', 'Permalink', 'Entry number'];
   const q = (s) => '"' + String(s == null ? '' : s).replace(/"/g, '""').replace(/\s+/g, ' ').trim() + '"';
@@ -302,88 +292,6 @@ export function toCsv(rows, L) {
   return '﻿' + [head.map(q).join(','), ...lines].join('\r\n');
 }
 
-const fieldStyle = { height: 'calc(40px*var(--hs))', padding: '0 10px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', font: 'inherit', fontSize: 'calc(14px*var(--fs))', fontWeight: 600, minWidth: 0 };
-const btnStyle = { height: 'calc(40px*var(--hs))', padding: '0 16px', borderRadius: 'var(--r)', border: '1px solid var(--line-2)', background: 'var(--surface)', color: 'var(--ink)', fontWeight: 750, fontSize: 'calc(14px*var(--fs))', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' };
-// controls: { v: {q, group, sec, jur, status, year}, set(key, value), clear(), groups:[{k,l}], secs:[{k,l}], jurs:[{k,l}], statuses:[{k,l}], years:[k] }
-function controlBar(c) {
-  const sel = (key, label, any, opts) => h('label', { key, style: { display: 'contents' } }, h('span', { style: visuallyHidden }, label),
-    h('select', { value: c.v[key] || '', onChange: (e) => c.set(key, e.target.value), style: { ...fieldStyle, flex: '1 1 150px', maxWidth: 240 } }, h('option', { value: '' }, any), ...opts.map((o) => h('option', { key: o.k, value: o.k }, o.l))));
-  const any = Object.values(c.v).some(Boolean);
-  return h('div', { role: 'group', 'aria-label': 'Filter the table', style: { display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12, alignItems: 'center' } },
-    h('label', { style: { display: 'contents' } }, h('span', { style: visuallyHidden }, 'Filter rows'),
-      h('input', { type: 'search', value: c.v.q || '', onChange: (e) => c.set('q', e.target.value), placeholder: 'Filter rows: any word in any column', autoComplete: 'off', style: { ...fieldStyle, flex: '2 1 260px', padding: '0 12px', fontWeight: 500 } })),
-    sel('group', 'Group', 'All groups', c.groups), sel('sec', 'Section', 'All sections', c.secs), sel('jur', 'Jurisdiction', 'All jurisdictions', c.jurs),
-    sel('status', 'Status', 'Any status', c.statuses), sel('year', 'Year', 'All years', c.years.map((y) => ({ k: y, l: y.endsWith('+') ? y.slice(0, -1) + ' and later' : y }))),
-    any ? h('button', { onClick: c.clear, style: { ...btnStyle, border: 0, background: 'transparent', color: 'var(--accent-ink)', padding: '0 8px', textDecoration: 'underline', textUnderlineOffset: 3 } }, 'Clear filters') : null);
-}
-
-// ctx: { L, rows (already filtered), sort, dir, setSort(k, fromSelect), sel:[ids], toggle(id), compare(), download(), compact,
-//        open:[ids] (expanded rows), allOpen, toggleRow(id), setAllOpen(v), controls (optional, see controlBar), total }
-export function table(ctx) {
-  const { L } = ctx, rows = sortRows(ctx.rows, L, ctx.sort, ctx.dir), sel = new Set(ctx.sel), full = sel.size >= 3, opened = new Set(ctx.open || []);
-  const isOpen = (x) => ctx.allOpen || opened.has(x.id);
-  const cols = TABLE_COLS.filter((c) => !c.optional || rows.some((x) => x[c.k]));
-  const clamp = (open) => (open ? {} : { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' });
-  const chk = (x) => h('label', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'calc(44px*var(--hs))', height: 'calc(44px*var(--hs))', margin: '-10px -10px -10px -12px', cursor: 'pointer' } }, h('input', { type: 'checkbox', checked: sel.has(x.id), disabled: !sel.has(x.id) && full, onChange: () => ctx.toggle(x.id), 'aria-label': 'Select ' + x.short + ' to compare', style: { width: 22, height: 22, minHeight: 0, margin: 0, accentColor: 'var(--accent-ink)', cursor: 'pointer' } }));
-  const status = (x) => h('span', { style: { display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 700, fontSize: 'calc(13.5px*var(--fs))', whiteSpace: 'nowrap' } }, h('span', { 'aria-hidden': true, style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g), L.ST[x.status].l);
-  const sources = (x) => x.srcLinks.length ? h('span', null, ...x.srcLinks.map((l, i) => h('span', { key: i }, i ? ' · ' : '', h('a', { href: l.u, target: '_blank', rel: 'noopener noreferrer' }, l.t)))) : (x.source || '—');
-  const cell = { // content of each column for one row
-    section: (x) => h('a', { href: '#/explore?sec=' + encodeURIComponent(x.section), title: L.SEC[x.section], style: { fontWeight: 800, color: 'var(--accent-ink)', textDecoration: 'none' } }, x.section),
-    title: (x) => h('a', { href: '#/bill/' + x.id, title: x.title, style: { fontWeight: 750, color: 'var(--ink)', textDecoration: 'none' } }, x.short),
-    where: (x) => x.juris, sponsor: (x) => x.sponsor || '—', mech: (x) => x.mech || '—', thresholds: (x) => x.thresholds || '—',
-    status: (x) => h('span', null, status(x), statusLine(x) ? h('span', { style: { display: 'block', marginTop: 2, color: 'var(--ink-2)' } }, statusLine(x)) : null),
-    penalties: (x) => x.penalties || '—', source: sources,
-    latest: (x) => x.kdLabel
-  };
-  const rowBtn = (x) => h('button', { onClick: () => ctx.toggleRow(x.id), 'aria-expanded': isOpen(x) ? 'true' : 'false', 'aria-label': (isOpen(x) ? 'Collapse ' : 'Expand ') + x.short, disabled: ctx.allOpen, style: { marginTop: 6, minHeight: 'calc(32px*var(--hs))', padding: 0, border: 0, background: 'transparent', color: ctx.allOpen ? 'var(--ink-3)' : 'var(--accent-ink)', fontWeight: 700, fontSize: 'calc(13px*var(--fs))', cursor: ctx.allOpen ? 'default' : 'pointer', fontFamily: 'inherit', textDecoration: 'underline', textUnderlineOffset: 3 } }, isOpen(x) ? 'Collapse' : 'Expand');
-  const bar = h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 } },
-    h('p', { 'aria-live': 'polite', style: { margin: 0, fontSize: 'calc(14px*var(--fs))', fontWeight: 600, color: 'var(--ink-3)' } }, `${rows.length}${ctx.total != null && ctx.total !== rows.length ? ' of ' + ctx.total : ''} ${rows.length === 1 ? 'entry' : 'entries'}. ${sel.size ? sel.size + ' selected for comparison.' : 'Tick up to three to compare them.'}`),
-    h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: 8 } },
-      sel.size >= 2 ? h('button', { onClick: ctx.compare, style: { ...btnStyle, border: 0, background: 'var(--accent-ink)', color: 'var(--on-accent)' } }, `Compare ${sel.size} selected`) : null,
-      rows.length ? h('button', { onClick: () => ctx.setAllOpen(!ctx.allOpen), 'aria-pressed': ctx.allOpen ? 'true' : 'false', style: btnStyle }, ctx.allOpen ? 'Collapse all rows' : 'Expand all rows') : null,
-      h('button', { onClick: ctx.download, style: btnStyle }, `Download CSV (${rows.length})`)));
-  const top = h('div', null, ctx.controls ? controlBar(ctx.controls) : null, bar);
-  if (!rows.length) return h('div', null, top, h('div', { role: 'status', style: { padding: 32, borderRadius: 'var(--r)', border: '1px dashed var(--line-2)', textAlign: 'center', color: 'var(--ink-2)' } }, 'No entries match these filters.'));
-
-  if (ctx.compact) {
-    const sortSel = h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, fontSize: 'calc(13.5px*var(--fs))', fontWeight: 700, color: 'var(--ink-3)', marginBottom: 12 } }, 'Sort by',
-      h('select', { value: ctx.sort, onChange: (e) => ctx.setSort(e.target.value, true), style: { ...fieldStyle, height: 'calc(44px*var(--hs))' } }, ...TABLE_COLS.filter((c) => c.s).map((c) => h('option', { key: c.k, value: c.k }, c.l + (c.k === 'latest' ? ' (newest first)' : '')))));
-    const LONG = cols.filter((c) => c.long && c.k !== 'status');
-    return h('div', null, top, sortSel, h('ul', { style: { listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))', gap: 10 } },
-      ...rows.map((x) => { const open = isOpen(x); return h('li', { key: x.id, style: { display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 14px', borderRadius: 'var(--r)', background: sel.has(x.id) ? 'var(--accent-soft)' : 'var(--surface)', border: '1px solid var(--line)', minWidth: 0 } },
-        h('div', { style: { paddingTop: 2 } }, chk(x)),
-        h('div', { style: { display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0, flex: 1 } },
-          h('a', { href: '#/bill/' + x.id, style: { display: 'inline-flex', alignItems: 'center', minHeight: 'calc(44px*var(--hs))', margin: '-8px 0', fontWeight: 750, fontSize: 'calc(16px*var(--fs))', color: 'var(--ink)', textDecoration: 'none', overflowWrap: 'anywhere' } }, x.short),
-          h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '4px 12px', alignItems: 'center' } }, status(x)),
-          h('span', { style: { fontSize: 'calc(13px*var(--fs))', color: 'var(--ink-3)', fontWeight: 600 } }, x.section + ' · ' + x.juris + ' · ' + x.kdLabel),
-          h('dl', { style: { margin: 0, display: 'flex', flexDirection: 'column', gap: 6 } }, ...[...LONG.slice(0, 3), { k: 'status', l: 'Status and dates' }, ...LONG.slice(3)].filter((c) => c.k === 'status' ? statusLine(x) : x[c.k] || (c.k === 'source' && x.srcLinks.length)).map((c) => h('div', { key: c.k, style: { minWidth: 0 } },
-            h('dt', { style: { fontSize: 'calc(12px*var(--fs))', fontWeight: 750, color: 'var(--ink-3)' } }, c.l),
-            h('dd', { style: { margin: 0, fontSize: 'calc(14px*var(--fs))', color: 'var(--ink-2)', overflowWrap: 'anywhere', ...clamp(open) } }, c.k === 'status' ? statusLine(x) : c.k === 'source' ? sources(x) : x[c.k])))),
-          h('div', null, rowBtn(x)))); })));
-  }
-
-  // wide table: horizontal scroll stays inside the table; the select, section and entry columns stay in view
-  const STICK = { sel: 0, section: 48, title: 112 };
-  const stick = (k, bg) => STICK[k] != null ? { position: 'sticky', left: STICK[k], zIndex: 1, background: bg } : {};
-  const th = (c) => { const on = ctx.sort === c.k, s = { textAlign: 'left', padding: 0, position: 'sticky', top: 0, background: 'var(--surface-2)', zIndex: STICK[c.k] != null ? 3 : 2, minWidth: c.w, width: c.w, ...(STICK[c.k] != null ? { left: STICK[c.k] } : {}) };
-    const label = h('span', { style: { display: 'flex', alignItems: 'center', gap: 6, minHeight: 'calc(44px*var(--hs))', padding: '0 8px', fontWeight: 800, fontSize: 'calc(12.5px*var(--fs))', letterSpacing: '.04em', textTransform: 'uppercase', color: on ? 'var(--ink)' : 'var(--ink-2)', textAlign: 'left' } }, c.l, c.s ? h('span', { 'aria-hidden': true, style: { opacity: on ? 1 : 0.35 } }, on ? (ctx.dir === 'asc' ? '▲' : '▼') : '↕') : null);
-    return h('th', { key: c.k, scope: 'col', 'aria-sort': c.s ? (on ? (ctx.dir === 'asc' ? 'ascending' : 'descending') : 'none') : undefined, style: s },
-      c.s ? h('button', { onClick: () => ctx.setSort(c.k), style: { width: '100%', padding: 0, border: 0, background: 'transparent', font: 'inherit', cursor: 'pointer', display: 'block' } }, label) : label); };
-  const td = { padding: '10px 8px', borderTop: '1px solid var(--line)', verticalAlign: 'top', fontSize: 'calc(14px*var(--fs))', lineHeight: 1.45, overflowWrap: 'anywhere' };
-  const W = 48 + cols.reduce((t, c) => t + c.w, 0);
-  return h('div', null, top,
-    h('div', { tabIndex: 0, role: 'region', 'aria-label': 'Entries table, scrolls sideways', style: { borderRadius: 'var(--r)', border: '1px solid var(--line)', background: 'var(--surface)', overflow: 'auto', maxHeight: 'max(480px, calc(100vh - 150px))' } },
-      h('table', { style: { width: W, minWidth: '100%', borderCollapse: 'separate', borderSpacing: 0, tableLayout: 'fixed' } },
-        h('caption', { style: visuallyHidden }, 'All tracker entries. Sortable columns. Long cells show three lines until the row is expanded.'),
-        h('thead', null, h('tr', null, h('th', { scope: 'col', style: { width: 48, position: 'sticky', top: 0, left: 0, background: 'var(--surface-2)', zIndex: 3 } }, h('span', { style: visuallyHidden }, 'Select')), ...cols.map(th))),
-        h('tbody', null, ...rows.map((x) => { const open = isOpen(x), bg = sel.has(x.id) ? 'var(--accent-soft)' : 'var(--surface)';
-          return h('tr', { key: x.id, style: { background: bg } },
-            h('td', { style: { ...td, paddingRight: 0, ...stick('sel', bg) } }, chk(x)),
-            ...cols.map((c) => h('td', { key: c.k, style: { ...td, ...stick(c.k, bg), ...(c.k === 'latest' ? { fontVariantNumeric: 'tabular-nums' } : {}), ...(c.k === 'title' ? { boxShadow: 'inset -1px 0 0 var(--line)' } : {}) } },
-              c.long ? h('div', { style: clamp(open) }, cell[c.k](x)) : cell[c.k](x),
-              c.k === 'title' ? h('div', null, h('div', { style: { fontSize: 'calc(12.5px*var(--fs))', color: 'var(--ink-3)', marginTop: 2 } }, L.TYPES[x.type]), rowBtn(x)) : null))); }))))
-  );
-}
 
 /* ---------- focused relationship view ---------- */
 // Everything connected to one item, walked outwards step by step. People and groups are shown on the cards
@@ -894,60 +802,98 @@ export function linksPanel(ctx) {
     cur.items.length > LIMIT ? h('button', { onClick: () => ctx.setAll(!ctx.all), style: { ...small, marginTop: 8 } }, ctx.all ? 'Show fewer' : `Show all ${cur.items.length}`) : null);
 }
 
-// Insights → Compare bills: section K as a bill-by-bill matrix (one column per bill, one row per duty), with the
-// controls readers asked for: pick bills, pick rows, only-differences, fit to width, colour columns by status or level.
-// ctx: { C, L, D, p (route params), set(params) }. State lives in the URL: cmh (hidden bill ids), cmr (hidden row
-// numbers), cmdiff, cmfit, cmcol.
-export function billMatrix(ctx) {
-  const { C, L, D, p, set } = ctx; if (!C || !C.comparison) return empty('The bill comparison');
-  const K = C.comparison, ids = L.K_IDS.filter((id) => D.byId[id]), csv = (v) => String(v || '').split(',').filter(Boolean);
-  const hidden = new Set(csv(p.cmh).map(Number)), hidRows = new Set(csv(p.cmr).map(Number));
-  const diff = p.cmdiff === '1', fit = p.cmfit === '1', byLevel = p.cmcol === 'level';
-  const shown = ids.filter((id) => !hidden.has(id));
-  const all = L.K_ROWS.map((r, i) => ({ i, dim: r[0], m: r[1], note: r[2] }));
-  const rows = all.filter((r) => !hidRows.has(r.i) && (r.note || !diff || new Set(shown.map((id) => String(r.m[id] || '—').trim().toLowerCase())).size > 1));
-  const toggle = (setOf, v, key) => { const n = new Set(setOf); if (n.has(v)) n.delete(v); else n.add(v); set({ [key]: [...n].join(',') }); };
+// Insights → Table: every entry the tracker has, one column per entry and one row per field (the reference design the
+// reviewer asked for). Readers pick the columns; the rows are the full table's fields, so nothing is limited to the
+// seven bills of section K. When every column is one of those seven, their duty-by-duty rows are added below.
+// ctx: { L, D, C, p (route params), set(params), mob, open: [cell keys], toggleCell(key), download(rows) }.
+// URL state: cols (entry ids shown), tq (picker search), tst (statuses), tlv (level), tsec (section), trh (hidden
+// rows), tfit, texp, tcol.
+const ET_ROWS = [
+  { k: 'status', l: 'Status and dates', long: true }, { k: 'mech', l: 'Core mechanism / description', long: true },
+  { k: 'thresholds', l: 'Thresholds / scope', long: true }, { k: 'penalties', l: 'Penalties', long: true },
+  { k: 'sponsor', l: 'Sponsor', long: true }, { k: 'where', l: 'Jurisdiction' }, { k: 'section', l: 'Section' },
+  { k: 'latest', l: 'Latest step' }, { k: 'source', l: 'Source', long: true }];
+export const ET_DEFAULT = [1, 2, 3, 27];
+export function entryTable(ctx) {
+  const { L, D, C, p, set } = ctx, csv = (v) => String(v || '').split(',').filter(Boolean);
+  const tst = csv(p.tst), tlv = p.tlv || '', tsec = p.tsec || '', tq = (p.tq || '').trim().toLowerCase();
+  const pool = sortRows(D.E.filter((x) => (!tst.length || tst.includes(x.status)) && (!tlv || x.level === tlv) && (!tsec || x.section === tsec)
+    && (!tq || (x.short + ' ' + x.title + ' ' + x.juris).toLowerCase().includes(tq))), L, 'latest', 'desc');
+  const cols = (p.cols != null ? csv(p.cols).map(Number) : ET_DEFAULT).filter((id) => D.byId[id]);
+  const hidRows = new Set(csv(p.trh)), fit = p.tfit === '1', expAll = p.texp === '1', byLevel = p.tcol === 'level';
+  const xs = cols.map((id) => D.byId[id]), opened = new Set(ctx.open || []);
+  const setCols = (ids) => set({ cols: ids.join(',') });
+  const more = pool.find((x) => !cols.includes(x.id));
   const colour = (x) => (byLevel ? (x.st ? 'var(--k-state)' : 'var(--k-fed)') : `var(--st-${x.status})`);
   const chip = (on, label, onClick, extra) => h('button', { type: 'button', 'data-fchip': '', 'aria-pressed': on ? 'true' : 'false', onClick, ...extra }, ...[].concat(label));
   const seg = (on, label, onClick) => h('button', { type: 'button', 'aria-pressed': on ? 'true' : 'false', onClick, 'data-seg': '' }, label);
-  const cell = (v) => {
-    const t = String(v || '—').trim();
-    if (/^(none|no)\b/i.test(t) || t === '—') return h('span', { 'data-cv': 'no' }, h('span', { 'aria-hidden': 'true' }, '✕ '), ...mdInline(t));
-    if (/^yes\b/i.test(t)) return h('span', { 'data-cv': 'yes' }, h('span', { 'aria-hidden': 'true' }, '✓ '), ...mdInline(t));
-    return h('span', null, ...mdInline(t));
-  };
-  const bills = shown.map((id) => D.byId[id]);
   const label = (t) => h('span', { 'data-flabel': '' }, t);
-  const anyChange = hidden.size || hidRows.size || diff || fit || byLevel;
-  return h('div', { 'data-bm': '', 'data-fit': fit ? '1' : '0' },
-    h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)', maxWidth: '75ch' } },
-      `How the main frontier laws and bills compare on the same duties. Each column is one bill; ${rows.filter((r) => !r.note).length} of ${all.filter((r) => !r.note).length} rows shown. Open a bill for its full text and sources.`),
-    h('details', { 'data-fdet': '', open: !ctx.mob, style: { margin: '0 0 14px' } }, h('summary', { 'data-fsum': '' }, 'Bills, rows and view', anyChange ? h('span', { 'data-fbadge': '' }, '•') : null, h('span', { 'aria-hidden': 'true', style: { marginLeft: 'auto', color: 'var(--ink-3)' } }, '▾')),
+  const toggleIn = (list, v) => (list.includes(v) ? list.filter((z) => z !== v) : [...list, v]);
+  const sources = (x) => (x.srcLinks.length ? h('span', null, ...x.srcLinks.map((l, i) => h('span', { key: i }, i ? ' · ' : '', h('a', { href: l.u, target: '_blank', rel: 'noopener noreferrer' }, l.t)))) : (x.source || '—'));
+  const value = {
+    status: (x) => h('span', null, h('strong', null, h('span', { 'aria-hidden': 'true', style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g + ' '), L.ST[x.status].l), statusLine(x) ? h('span', { style: { display: 'block', marginTop: 2 } }, statusLine(x)) : null),
+    mech: (x) => x.mech || '—', thresholds: (x) => x.thresholds || '—', penalties: (x) => x.penalties || '—', sponsor: (x) => x.sponsor || '—',
+    where: (x) => x.juris, section: (x) => h('a', { href: '#/explore?sec=' + encodeURIComponent(x.section) }, x.section + '. ' + L.SEC[x.section]),
+    latest: (x) => x.kdLabel || '—', source: sources };
+  const rows = ET_ROWS.filter((r) => !hidRows.has(r.k));
+  const kAll = xs.length > 0 && xs.every((x) => L.K_IDS.includes(x.id));
+  const kRows = kAll && !hidRows.has('duties') ? L.K_ROWS.filter((r) => !r[2]) : [];
+  const cell = (x, r) => {
+    const key = x.id + ':' + r.k, open = expAll || opened.has(key), v = value[r.k](x);
+    // Only text long enough to pass five lines gets clamped and a Show all button.
+    const raw = r.k === 'status' ? statusLine(x) : r.k === 'source' ? x.srcLinks.map((l) => l.t).join(' · ') || x.source : x[r.k];
+    if (!r.long || String(raw || '').length < 220) return h('td', { key: x.id }, v);
+    return h('td', { key: x.id, 'data-etcell': open ? 'open' : 'shut' },
+      h('div', { 'data-etclamp': open ? '0' : '1' }, v),
+      expAll ? null : h('button', { type: 'button', 'data-etmore': '', 'aria-expanded': open ? 'true' : 'false', onClick: () => ctx.toggleCell(key) }, open ? 'Show less' : 'Show all'));
+  };
+  const anyChange = p.cols != null || tst.length || tlv || tsec || tq || hidRows.size || fit || expAll || byLevel;
+  const controls = h('details', { 'data-fdet': '', open: !ctx.mob, style: { margin: '0 0 14px' } },
+    h('summary', { 'data-fsum': '' }, 'Entries, rows and view', anyChange ? h('span', { 'data-fbadge': '' }, '•') : null, h('span', { 'aria-hidden': 'true', style: { marginLeft: 'auto', color: 'var(--ink-3)' } }, '▾')),
     h('div', { 'data-frows': '' },
-      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Bills shown' }, label('Bills'),
-        h('div', { 'data-fopts': '' }, ...ids.map((id) => { const x = D.byId[id]; return chip(!hidden.has(id), [h('span', { key: 'g', 'aria-hidden': 'true', style: { color: colour(x) } }, L.ST[x.status].g), ' ' + x.short], () => { if (shown.length > 1 || hidden.has(id)) toggle(hidden, id, 'cmh'); }, { key: id }); }))),
+      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Entries shown' }, label('Shown'),
+        h('div', { 'data-fopts': '', style: { alignItems: 'center' } },
+          h('span', { 'data-segs': '' },
+            h('button', { type: 'button', 'data-seg': '', 'aria-label': 'Show one fewer entry', disabled: cols.length <= 1, onClick: () => setCols(cols.slice(0, -1)) }, '−'),
+            h('span', { 'data-seglab': '', 'aria-live': 'polite' }, `${cols.length} of ${D.E.length}`),
+            h('button', { type: 'button', 'data-seg': '', 'aria-label': 'Show one more entry', disabled: !more, onClick: () => more && setCols([...cols, more.id]) }, '+')),
+          h('label', { style: { display: 'contents' } }, h('span', { style: visuallyHidden }, 'Find entries to add'),
+            h('input', { type: 'search', 'data-etq': '', value: p.tq || '', placeholder: 'Find an entry', autoComplete: 'off', onChange: (e) => set({ tq: e.target.value }) })))),
+      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Include entries by status' }, label('Status'),
+        h('div', { 'data-fopts': '' }, ...L.STATUS_ORDER.filter((k) => D.E.some((x) => x.status === k)).map((k) => chip(tst.includes(k), [h('span', { key: 'g', 'aria-hidden': 'true', style: { color: `var(--st-${k})` } }, L.ST[k].g), ' ' + L.ST[k].l], () => set({ tst: toggleIn(tst, k).join(',') }), { key: k })))),
+      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Include entries by level' }, label('Level'),
+        h('div', { 'data-fopts': '' }, chip(tlv === 'federal', 'Federal', () => set({ tlv: tlv === 'federal' ? '' : 'federal' }), { key: 'f' }), chip(tlv === 'state', 'State', () => set({ tlv: tlv === 'state' ? '' : 'state' }), { key: 's' }),
+          h('label', { key: 'sec', style: { display: 'contents' } }, h('span', { style: visuallyHidden }, 'Section'),
+            h('select', { 'data-etsel': '', value: tsec, onChange: (e) => set({ tsec: e.target.value }) }, h('option', { value: '' }, 'All sections'), ...Object.keys(L.SEC).filter((k) => D.E.some((x) => x.section === k)).map((k) => h('option', { key: k, value: k }, k + '. ' + L.SEC[k])))))),
+      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Pick entries' }, label('Pick'),
+        h('div', { 'data-fopts': '', 'data-etpick': '' }, pool.length ? [...pool.filter((x) => cols.includes(x.id)), ...pool.filter((x) => !cols.includes(x.id))].map((x) => chip(cols.includes(x.id), [h('span', { key: 'g', 'aria-hidden': 'true', style: { color: colour(x) } }, L.ST[x.status].g), ' ' + x.short], () => { if (!cols.includes(x.id) || cols.length > 1) setCols(toggleIn(cols, x.id)); }, { key: x.id })) : h('span', { style: { color: 'var(--ink-3)', fontSize: 'calc(13.5px*var(--fs))' } }, 'No entries match. Clear a status, level or section.'))),
       h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Rows shown' }, label('Rows'),
-        h('div', { 'data-fopts': '' }, ...all.filter((r) => !r.note).map((r) => chip(!hidRows.has(r.i), r.dim, () => toggle(hidRows, r.i, 'cmr'), { key: r.i })))),
+        h('div', { 'data-fopts': '' }, ...[...ET_ROWS, ...(kAll ? [{ k: 'duties', l: 'Key duties (7 bills)' }] : [])].map((r) => chip(!hidRows.has(r.k), r.l, () => set({ trh: toggleIn([...hidRows], r.k).join(',') }), { key: r.k })))),
       h('div', { 'data-frow': '', role: 'group', 'aria-label': 'View' }, label('View'),
         h('div', { 'data-fopts': '' },
-          chip(diff, 'Only rows that differ', () => set({ cmdiff: diff ? '' : '1' }), { key: 'd' }),
-          chip(fit, 'Fit to screen width', () => set({ cmfit: fit ? '' : '1' }), { key: 'f' }),
-          h('span', { key: 'c', 'data-segs': '', role: 'group', 'aria-label': 'Colour columns by' }, h('span', { 'data-seglab': '' }, 'Colour by'), seg(!byLevel, 'Status', () => set({ cmcol: '' })), seg(byLevel, 'Level', () => set({ cmcol: 'level' }))),
-          anyChange ? h('button', { key: 'r', type: 'button', 'data-reset': '', onClick: () => set({ cmh: '', cmr: '', cmdiff: '', cmfit: '', cmcol: '' }) }, 'Reset view') : null)))),
-    h('div', { tabIndex: 0, role: 'region', 'aria-label': 'Bill comparison, scrolls sideways', 'data-bmwrap': '' },
-      h('table', { 'data-bmt': '', style: { minWidth: fit ? 0 : 180 + bills.length * 220 } },
-        h('caption', { style: visuallyHidden }, 'Frontier AI bills compared duty by duty'),
-        h('thead', null, h('tr', null, h('th', { scope: 'col', 'data-bmdim': '' }, 'Duty'),
-          ...bills.map((x) => h('th', { key: x.id, scope: 'col', style: { boxShadow: `inset 0 3px 0 ${colour(x)}` } },
+          chip(fit, 'Fit to screen width', () => set({ tfit: fit ? '' : '1' }), { key: 'f' }),
+          chip(expAll, 'Expand all cells', () => set({ texp: expAll ? '' : '1' }), { key: 'e' }),
+          h('span', { key: 'c', 'data-segs': '', role: 'group', 'aria-label': 'Colour columns by' }, h('span', { 'data-seglab': '' }, 'Colour by'), seg(!byLevel, 'Status', () => set({ tcol: '' })), seg(byLevel, 'Level', () => set({ tcol: 'level' }))),
+          anyChange ? h('button', { key: 'r', type: 'button', 'data-reset': '', onClick: () => set({ cols: null, tq: '', tst: '', tlv: '', tsec: '', trh: '', tfit: '', texp: '', tcol: '' }) }, 'Reset view') : null,
+          h('button', { key: 'd', type: 'button', 'data-reset': '', onClick: () => ctx.download(pool) }, `Download CSV (${pool.length})`)))));
+  return h('div', { 'data-bm': '', 'data-fit': fit ? '1' : '0' },
+    h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)', maxWidth: '78ch' } },
+      'Each column is one entry. Add or remove entries below to compare them; long cells open with “Show all”.'),
+    controls,
+    h('div', { tabIndex: 0, role: 'region', 'aria-label': 'Entries side by side, scrolls sideways', 'data-bmwrap': '' },
+      h('table', { 'data-bmt': '', style: { minWidth: fit ? 0 : 180 + xs.length * 240 } },
+        h('caption', { style: visuallyHidden }, 'Tracker entries side by side: one column per entry, one row per field'),
+        h('thead', null, h('tr', null, h('th', { scope: 'col', 'data-bmdim': '' }, 'Field'),
+          ...xs.map((x) => h('th', { key: x.id, scope: 'col', style: { boxShadow: `inset 0 3px 0 ${colour(x)}` } },
             h('a', { href: '#/bill/' + x.id, 'data-bmname': '' }, x.short),
-            h('span', { 'data-bmsub': '' }, h('span', { 'aria-hidden': 'true', style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g + ' '), L.ST[x.status].l + ' · ' + (x.st ? L.SN[x.st] : 'Federal')))))),
-        h('tbody', null, ...rows.map((r) => (r.note
-          ? h('tr', { key: r.i }, h('th', { scope: 'row', 'data-bmdim': '' }, r.dim), h('td', { colSpan: bills.length, 'data-bmnote': '' }, ...mdInline(r.note)))
-          : h('tr', { key: r.i }, h('th', { scope: 'row', 'data-bmdim': '' }, r.dim), ...bills.map((x) => h('td', { key: x.id }, cell(r.m[x.id]))))))))),
-    rows.length ? null : h('p', { role: 'status', style: { margin: '14px 0 0', color: 'var(--ink-2)' } }, 'No rows match. Turn a row back on, or switch off “Only rows that differ”.'),
-    h('p', { 'data-bmkey': '' }, h('span', { 'data-cv': 'yes' }, '✓ Yes'), ' required or provided · ', h('span', { 'data-cv': 'no' }, '✕ None'), ' not in the bill · the coloured line on each column shows its ', byLevel ? 'level' : 'status', '. Not legal advice; check the bill text before relying on a cell.'),
-    K.clusters ? h('details', { 'data-bmmore': '' }, h('summary', null, 'How these bills are related (drafting clusters)'), h('div', { style: { padding: '4px 16px 14px' } }, mdP(K.clusters, null, { margin: 0, fontSize: 'calc(15px*var(--fs))' }))) : null,
-    K.assurance ? h('details', { 'data-bmmore': '' }, h('summary', null, K.assurance.heading || 'Assurance layers'),
-      h('div', { style: { padding: '4px 16px 16px' } }, ...(K.assurance.intro || []).map((t, i) => h('div', { key: i }, mdP(t, null, { color: 'var(--ink-2)', fontSize: 'calc(15px*var(--fs))' }))),
-        mdTable(K.assurance.columns, K.assurance.rows, { minWidth: 1000, firstWide: true, label: 'Assurance layers, scrolls sideways', caption: 'Assurance layers by jurisdiction or bill' }))) : null);
+            h('span', { 'data-bmsub': '' }, L.TYPES[x.type] + ' · ' + (x.st ? L.SN[x.st] : 'Federal')),
+            cols.length > 1 ? h('button', { type: 'button', 'data-etrm': '', 'aria-label': 'Remove ' + x.short, onClick: () => setCols(cols.filter((c) => c !== x.id)) }, '✕') : null)))),
+        h('tbody', null,
+          ...rows.map((r) => h('tr', { key: r.k }, h('th', { scope: 'row', 'data-bmdim': '' }, r.l), ...xs.map((x) => cell(x, r)))),
+          ...(kRows.length ? [h('tr', { key: 'kh' }, h('th', { scope: 'row', 'data-bmdim': '', 'data-etgroup': '' }, 'Key duties'), h('td', { colSpan: xs.length, 'data-bmnote': '' }, 'From the tracker’s duty-by-duty comparison of the seven key bills (section K).'))] : []),
+          ...kRows.map(([dim, m], i) => h('tr', { key: 'k' + i }, h('th', { scope: 'row', 'data-bmdim': '' }, dim), ...xs.map((x) => h('td', { key: x.id }, ...mdInline(m[x.id] || '—')))))))),
+    !kAll ? h('p', { 'data-bmkey': '' }, 'Duty-by-duty rows (thresholds, incident reporting, audits and more) appear when every column is one of the seven key bills. ',
+      h('button', { type: 'button', 'data-reset': '', onClick: () => setCols(L.K_IDS.filter((id) => D.byId[id])) }, 'Show the seven key bills')) : null,
+    h('p', { 'data-bmkey': '' }, 'How to read this table: “—” means the entry has nothing for that field. The coloured line on each column shows its ', byLevel ? 'level' : 'status', '. Not legal advice; open an entry for its full record and sources.'),
+    C ? compareExtras(C, L, D) : null);
 }
