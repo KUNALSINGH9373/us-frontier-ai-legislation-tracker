@@ -23,7 +23,8 @@ await Promise.all(Array.from({ length: 6 }, async () => {
     pages++;
     x.cells.forEach((c) => {
       if (SKIP.test(c.h)) return;
-      const t = c.h === 'State' && SN[c.t.trim()] ? SN[c.t.trim()] : c.t;
+      // Editors' notes in a title ("(moved from Section E, where …)") are dropped from the shown title on purpose.
+      const t = (c.h === 'State' && SN[c.t.trim()] ? SN[c.t.trim()] : c.t).replace(/\s*\((?:moved|formerly listed) from Section [^)]*\)/gi, '');
       clauses(t).forEach((cl) => { checked++; if (!page.includes(squash(cl))) missing.push(`#${x.id} [${c.h}] ${cl}`); });
     });
   }
