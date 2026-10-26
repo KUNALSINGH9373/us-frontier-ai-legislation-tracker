@@ -54,6 +54,13 @@ h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;
 [data-hbgrid]{grid-template-columns:minmax(0,1fr)}
 @media (min-width:1024px){[data-hbgrid]{grid-template-columns:260px minmax(0,1fr)!important}[data-hbside]{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}}
 [data-sr]{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+[data-hn]{display:grid;grid-template-columns:calc(46px*var(--fs)) minmax(0,1fr);column-gap:calc(14px*var(--ps));row-gap:2px;padding:calc(6px*var(--ps)) calc(8px*var(--ps));margin:0 calc(-8px*var(--ps));border-radius:var(--r);color:var(--ink);text-decoration:none}
+[data-hn]:hover{background:var(--accent-soft);color:var(--ink)}
+[data-hn-d]{grid-row:1/3;text-align:right;font-size:calc(13px*var(--fs));line-height:calc(19.5px*var(--fs));color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+[data-hn-t]{font-size:calc(14.5px*var(--fs));font-weight:650;line-height:1.35;text-wrap:pretty}
+[data-hn-one]{grid-template-columns:minmax(0,1fr)}
+[data-hn-one] [data-hn-k]{grid-column:1}
+[data-hn-k]{grid-column:2;font-size:calc(12px*var(--fs));font-weight:600;letter-spacing:.01em}
 [data-chip]{position:relative}@media (pointer:coarse),(max-width:1023px){[data-chip]::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
 [data-sidetoggle]{align-items:center;justify-content:center;gap:6px;height:calc(32px*var(--hs));margin:0 0 8px auto;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-weight:650;font-size:calc(13px*var(--fs));cursor:pointer}
 [data-sidetoggle]:hover{color:var(--ink);border-color:var(--line-2)}
@@ -239,15 +246,11 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <sc-if value="{{sideNews}}">
         <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:2px">
           <h2 id="hs-h" style="margin:0;font-size:calc(19px*var(--fs))">Latest news</h2>
-          <span style="font-size:calc(12.5px*var(--fs));color:var(--ink-3);white-space:nowrap">Through {{asofDay}}</span>
+          <span style="font-size:calc(12.5px*var(--fs));color:var(--ink-3);white-space:nowrap">Updated {{asofDay}}</span>
         </div>
-        <ol data-newslist style="position:relative;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;flex:1 1 0;min-height:0;overflow:hidden">
+        <ol data-newslist style="position:relative;list-style:none;margin:4px calc(-8px*var(--ps)) 0;padding:0 calc(8px*var(--ps));display:flex;flex-direction:column;flex:1 1 0;min-height:0;overflow:hidden">
           <sc-for list="{{homeNews}}" as="n" hint-placeholder-count="7">
-            <li style="flex-shrink:0;display:flex;flex-direction:column;gap:2px;padding:calc(10px*var(--ps)) 0;border-top:1px solid var(--line)">
-              <span style="font-size:calc(12.5px*var(--fs));color:var(--ink-3);font-variant-numeric:tabular-nums"><span aria-hidden="true" style="color:{{n.kc}}">{{n.kg}}</span> {{n.date}} · {{n.kl}}</span>
-              <sc-if value="{{n.hasEntry}}"><a href="{{n.entryHref}}" style="font-size:calc(14.5px*var(--fs));font-weight:650;line-height:1.35;color:var(--ink);text-decoration:none;text-wrap:pretty" style-hover="text-decoration:underline">{{n.title}}</a></sc-if>
-              <sc-if value="{{n.noEntry}}"><span style="font-size:calc(14.5px*var(--fs));font-weight:650;line-height:1.35;text-wrap:pretty">{{n.title}}</span></sc-if>
-            </li>
+            <li style="flex-shrink:0;margin-top:{{n.gap}}"><a data-hn href="{{n.href}}" aria-label="{{n.date}}: {{n.title}} ({{n.ks}})"><span data-hn-d aria-hidden="true">{{n.sd}}</span><span data-hn-t>{{n.title}}</span><span data-hn-k aria-hidden="true" style="color:{{n.kc}}">{{n.ks}}</span></a></li>
           </sc-for>
         </ol>
         <a href="#/updates" style="flex-shrink:0;padding-top:8px;border-top:1px solid var(--line);font-weight:650;font-size:calc(14px*var(--fs));min-height:calc(40px*var(--hs));display:flex;align-items:center">All news and updates →</a>
@@ -260,9 +263,9 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
           <span style="font-size:calc(13px*var(--fs));color:var(--ink-3)">{{panelSub}}</span>
         </div>
         <sc-if value="{{panelEmpty}}"><p style="margin:0;color:var(--ink-2);font-size:calc(14px*var(--fs))">Nothing here is tracked as frontier-AI regulation. Check Explore for adjacent laws that were checked and excluded.</p></sc-if>
-        <ul style="list-style:none;margin:0;padding:0 2px 2px 0;display:flex;flex-direction:column;gap:6px;flex:1 1 0;min-height:0;overflow:auto;scrollbar-width:thin">
+        <ul style="list-style:none;margin:0 calc(-8px*var(--ps));padding:0 calc(8px*var(--ps)) 2px;display:flex;flex-direction:column;gap:calc(6px*var(--ps));flex:1 1 0;min-height:0;overflow:auto;scrollbar-width:thin">
           <sc-for list="{{panelItems}}" as="x">
-            <li><a href="{{x.href}}" style="display:flex;flex-direction:column;gap:2px;padding:calc(9px*var(--ps)) calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--line-2);color:var(--ink)"><span style="font-size:calc(12.5px*var(--fs));font-weight:600;color:var(--ink-3)"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span> {{x.sl}} · {{x.kd}}</span><strong style="font-size:calc(14.5px*var(--fs));font-weight:650;line-height:1.35">{{x.short}}</strong></a></li>
+            <li><a data-hn data-hn-one href="{{x.href}}"><span data-hn-t>{{x.short}}</span><span data-hn-k style="color:var(--ink-3)"><span aria-hidden="true" style="color:{{x.sc}}">{{x.sg}}</span> {{x.sl}} · {{x.kd}}</span></a></li>
           </sc-for>
         </ul>
         <button onClick="{{panelExplore}}" style="flex-shrink:0;align-self:flex-start;min-height:calc(40px*var(--hs));padding:0;border:0;background:transparent;color:var(--accent-ink);font-weight:650;font-size:calc(14px*var(--fs));cursor:pointer;text-align:left">Open {{panelTitle}} in Explore →</button>
@@ -1080,7 +1083,12 @@ class Component extends DCLogic {
         onKey: e => this.tileKey(code, e), onEnter: () => this.setState({ hover: code, focusTile: code }) };
     });
     // federal strip: one count per federal section, linking to that section in Explore
-    const homeNews = D.N.slice().sort((a, b) => b.d - a.d || b.i - a.i).slice(0, mob ? 5 : 10).map(n => { const f = this.feedItem(n); return { ...f, noEntry: !f.hasEntry }; });
+    const KS = { federal: 'Congress', state: 'States', executive: 'White House', litigation: 'Courts', industry: 'Industry' }, yNow = new Date(L.ASOF).getFullYear();
+    const homeNews = D.N.slice().sort((a, b) => b.d - a.d || b.i - a.i).slice(0, mob ? 5 : 10).map((n, j, a) => {
+      const f = this.feedItem(n), d = new Date(n.d), same = j > 0 && L.fmt(a[j - 1].d) === f.date;
+      const sd = d.getUTCDate() + ' ' + 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[d.getUTCMonth()] + (d.getUTCFullYear() !== yNow ? ' ’' + String(d.getUTCFullYear()).slice(2) : '');
+      return { ...f, sd: same ? '' : sd, ks: KS[n.kind] || KS.industry, href: f.hasEntry ? f.entryHref : '#/updates', gap: j > 0 && !same ? 'calc(10px*var(--ps))' : '0' };
+    });
     const ms = t == null ? L.MILESTONES[L.MILESTONES.length - 1] : [...L.MILESTONES].reverse().find(m => +m.d <= t);
     const S0 = +L.REPLAY_START, E0 = +L.ASOF, tt = t == null ? E0 : t;
     const stc = this.csv(p.status);
