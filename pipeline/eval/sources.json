@@ -384,6 +384,54 @@
    "chars": 8474,
    "sha256": "a08242e2c952407322a3d323de8e1b19f38835a350ff98f6a5c1f0af9102294a",
    "fetched": "2026-10-16"
+  },
+  "s-5576-warner-schatz-kim-ai-risk-management-and-security-act": {
+   "kind": "congress_gov",
+   "bill": "119/s/5576",
+   "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+   "chars": 34838,
+   "sha256": "94e86eac77b4a583487695c7b4015b90a86769c872b1369ca00691ec3635e247",
+   "fetched": "2026-10-26"
+  },
+  "pa-h-r-637-frontier-ai-resolution": {
+   "kind": "legiscan",
+   "bill": "PA HR637 (2159278)",
+   "url": "https://www.palegis.us/legislation/bills/2025/hr637",
+   "chars": 4315,
+   "sha256": "bda716c6ba80ca5f07c57ba4941a6938149393a8412ffcbde37a101a677e655d",
+   "fetched": "2026-10-26"
+  },
+  "tn-hb-1898-sb-2171": {
+   "kind": "legiscan",
+   "bill": "TN HB1898 (2090126)",
+   "url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114",
+   "chars": 20892,
+   "sha256": "1f61440e3e8c07a3f11fd3286c321bba53cb5268617560c8e05576e1a4eb12a3",
+   "fetched": "2026-10-26"
+  },
+  "ut-hb-286": {
+   "kind": "legiscan",
+   "bill": "UT HB0286 (2085971)",
+   "url": "https://le.utah.gov/~2026/bills/static/HB0286.html",
+   "chars": 27490,
+   "sha256": "e6085749f57ae800cc0ec3e6f2fc69e2b47f24f6b86b0a90cf607495ff83d913",
+   "fetched": "2026-10-26"
+  },
+  "la-sb-474": {
+   "kind": "legiscan",
+   "bill": "LA SB474 (2139816)",
+   "url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y",
+   "chars": 35382,
+   "sha256": "7c41305bf7719dce6abd03a21dc0e5e49493a2ae0ac2d2cb04b08df59ddf2a71",
+   "fetched": "2026-10-26"
+  },
+  "ny-s-10701-terminator-act-withdrawn": {
+   "kind": "legiscan",
+   "bill": "NY S10701 (2158614)",
+   "url": "https://www.nysenate.gov/legislation/bills/2025/S10701",
+   "chars": 35690,
+   "sha256": "e15a337b12260df1576934ead9ad71114226b549e52208d39717d7394a54239a",
+   "fetched": "2026-10-26"
   }
  }
 }
