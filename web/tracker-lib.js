@@ -26,7 +26,12 @@ export const CONF = {
 };
 export const CONF_ORDER = ['HIGH','MED-HIGH','MED','SEARCH-QUALIFIED','LOW'];
 export const KINDS = {federal:{l:'Congress',g:'■',v:'var(--k-fed)'},state:{l:'States',g:'●',v:'var(--k-state)'},executive:{l:'White House and agencies',g:'▲',v:'var(--k-exec)'},litigation:{l:'Courts',g:'§',v:'var(--k-lit)'},industry:{l:'Industry and incidents',g:'◇',v:'var(--k-ind)'}};
-export const STATE_OVERRIDE = {57:'CA',58:'IL',59:'OR',68:'FL',69:'CA'};
+// Entries filed under a federal section that belong on a state's tile. Matched by title, not row id: row ids shift
+// whenever v1 inserts a row (the old id map drifted one row on Oct 8 and put California's order on Illinois).
+export const STATE_OVERRIDE = [[/Executive Order N-9-26/, 'CA'], [/Executive Order 2026-07/, 'IL'], [/Executive Order 26-26/, 'OR'], [/^Anthropic PBC v\. U\.S\. Department of War(?!.*D\.C\. Cir)/, 'CA'], [/^State of Florida v\. OpenAI/, 'FL']];
+// Titles as shown: v1's editing notes ("(moved from Section E, where …)") are for editors, not readers.
+const showTitle = (s) => clean(s).replace(/\s*\((?:moved|formerly listed) from Section [^)]*\)/gi, '');
+const stateOverride = (t) => (STATE_OVERRIDE.find(([re]) => re.test(t)) || [])[1];
 export let FED_GROUPS = [
   {k:'D',l:'Bills in Congress',sub:'Introduced. None enacted.'},
   {k:'F',l:'Related federal bills',sub:'Adjacent and sector-specific'},
@@ -182,20 +187,40 @@ function stepsOf(statusText, fy) {
   return { segs, dated, first, kd, verb };
 }
 
+// Explore's one-line lead: the first clauses of the mechanism, split at "; " or ". " outside brackets and not after an
+// abbreviation ("Dept.", "Gen. Bus. Law", "No.", "U.S.C."), skipping the research note some cells open with
+// ("Full text read (781 words).", "Introduced text read."), and topping up very short clauses with the next ones.
+const ABBR = /(?:^|[\s(])(?:Dept|Gen|Bus|Sec|Secs|Stat|Art|Ch|Inc|Co|Corp|St|Rev|Ann|Cal|Fla|Ill|Mass|Mich|Minn|Pa|Va|Wash|Cir|Gov|Sen|Rep|Reps|Mr|Ms|Dr|Jr|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Oct|Nov|Dec|[A-Z]|[A-Z](?:\.[A-Z])+|No|Nos|pp|p|v|vs|al|incl|approx|e\.g|i\.e|U\.S\.C|C\.F\.R)$/;
+export function leadOf(mech) {
+  const parts = []; let depth = 0, from = 0;
+  for (let i = 0; i < mech.length; i++) {
+    const c = mech[i];
+    if (c === '(' || c === '[') depth++; else if ((c === ')' || c === ']') && depth) depth--;
+    else if (!depth && (c === ';' || c === '.' || c === '|') && /\s/.test(mech[i + 1] || ' ') && !(c === '.' && ABBR.test(mech.slice(from, i)))) { parts.push(mech.slice(from, i).trim()); from = i + 1; }
+  }
+  parts.push(mech.slice(from).replace(/\.$/, '').trim());
+  const clauses = parts.filter(Boolean);
+  while (clauses.length > 1 && /\bread\b(?: in part)?(?:\s*\([^)]*\))?$|\bnot read\b/i.test(clauses[0])) clauses.shift();
+  let lead = (clauses.shift() || '').replace(/^[^:]{0,60}\bread:\s*/, '');
+  while (lead.length < 60 && clauses.length && (lead.length < 30 || lead.length + clauses[0].length < 180)) lead += '; ' + clauses.shift();
+  lead = lead.replace(/^[a-z]/, (m) => m.toUpperCase());
+  return lead.length > 190 ? lead.slice(0, 186).replace(/\s\S*$/, '') + '…' : lead;
+}
+
 export function build(entries, news, rel) {
   const anchorToId = {}; entries.forEach(x => { anchorToId[(x.permalink_old_site||'').split('#')[1]] = x.id; });
   const keyToId = {}, idToKey = {};
   Object.entries(rel.aliases).forEach(([k, a]) => { if (anchorToId[a]) { keyToId[k] = anchorToId[a]; idToKey[anchorToId[a]] = k; } });
   const events = [];
   const E = entries.map(x => {
-    const t = clean(x.title), st = STATE_OVERRIDE[x.id] || (/^[A-Z]{2}$/.test(x.jurisdiction) && x.jurisdiction !== 'US' ? x.jurisdiction : null);
+    const t = showTitle(x.title), st = stateOverride(t) || (/^[A-Z]{2}$/.test(x.jurisdiction) && x.jurisdiction !== 'US' ? x.jurisdiction : null);
     const fy = (x.years || []).find(y => /^\d{4}$/.test(y));
     const { segs, dated, first, kd, verb } = stepsOf(x.status_and_dates, fy);
     const key = idToKey[x.id];
     const short = (key && rel.short[key]) || t.split(' — ')[0];
     const status = deriveStatus(x);
     const mech = clean(x.mechanism);
-    let lead = mech.split(/;\s|\.\s/)[0]; if (lead.length > 190) lead = lead.slice(0, 186).replace(/\s\S*$/, '') + '…';
+    const lead = leadOf(mech);
     const o = { id:x.id, raw:x, title:t, short, key, section:x.section, sec:SEC[x.section], st, juris: st ? SN[st] : (x.section==='J' ? 'Not tracked' : 'Federal'), level: st ? 'state' : (x.section==='J' ? 'none' : 'federal'),
       status, type: TYPE_OF[x.section], conf: x.confidence_level || null, confNote: clean(x.confidence_note), sponsor: clean(x.sponsor), mech, thresholds: clean(x.thresholds), source: clean(x.source),
       years: x.years || [], U: /⟨U⟩/.test(x.title), R: /⟨R⟩/.test(x.title), NCSL: /⟨NCSL⟩/.test(x.title), segs, dated, first, kd, kdLabel: kd ? `${verb ? verb[0].toUpperCase()+verb.slice(1).toLowerCase()+' · ' : ''}${fmt(kd.d)}` : 'No dated event',
@@ -318,9 +343,9 @@ export function buildV2(entries, news, rel, site, content) {
     const fy = years.find((y) => /^\d{4}$/.test(y));
     const { segs, dated, first, kd, verb } = stepsOf(x.status_text, fy);
     const mech = clean(x.mechanism);
-    let lead = mech.split(/;\s|\.\s/)[0]; if (lead.length > 190) lead = lead.slice(0, 186).replace(/\s\S*$/, '') + '…';
+    const lead = leadOf(mech);
     const tags = x.tags || {}, conf = x.confidence || {};
-    const o = { id: x.id, v2key: x.key, raw: x, title: clean(x.title), short: x.short_name, key: idToKey[x.id], section: x.section, sec: SEC[x.section], st,
+    const o = { id: x.id, v2key: x.key, raw: x, title: showTitle(x.title), short: x.short_name, key: idToKey[x.id], section: x.section, sec: SEC[x.section], st,
       juris: st ? SN[st] : (x.section === 'J' ? 'Not tracked' : 'Federal'), level: x.level === 'state' || x.level === 'federal' ? x.level : (st ? 'state' : (x.section === 'J' ? 'none' : 'federal')),
       status: x.status, type: x.type, conf: conf.level || null, confNote: clean(conf.note || conf.level || ''), sponsor: clean(x.sponsor_text), mech, thresholds: clean(x.thresholds), source: clean(x.source_label),
       years, U: !!tags.updated_after_verification, R: tags.found_via === 'dedicated_search', NCSL: tags.found_via === 'ncsl', segs, dated, first, kd,

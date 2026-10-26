@@ -2,15 +2,71 @@
   "_note": "Which model does which job. Change a name here and no code changes. Prices are USD per million tokens; fill them in from Google's current price page and the run log will show an estimated cost (left null, it shows token counts only).",
   "provider": "gemini",
   "roles": {
-    "generator": { "model": "gemini-3.5-flash-lite", "temperature": 0, "max_output_tokens": 4000 },
-    "validator": { "model": "gemini-3.5-flash-lite", "temperature": 0, "max_output_tokens": 4000 }
+    "generator": {
+      "model": "gemini-3.5-flash-lite",
+      "temperature": 0,
+      "max_output_tokens": 4000
+    },
+    "validator": {
+      "model": "gemini-3.5-flash-lite",
+      "temperature": 0,
+      "max_output_tokens": 4000
+    },
+    "screener": {
+      "model": "gemini-3.5-flash-lite",
+      "temperature": 0,
+      "max_output_tokens": 16000
+    },
+    "scope_checker": {
+      "model": "gemini-3.5-flash-lite",
+      "temperature": 0,
+      "max_output_tokens": 2000
+    }
   },
   "prices_per_million_tokens": {
-    "gemini-3.5-flash-lite": { "input": null, "output": null }
+    "gemini-3.5-flash-lite": {
+      "input": null,
+      "output": null
+    },
+    "claude-haiku-5-5": {
+      "input": 0.1,
+      "output": 0.5
+    }
   },
   "limits": {
     "max_tokens_per_run": 400000,
     "max_tokens_per_item": 60000,
     "max_input_chars_per_call": 120000
+  },
+  "scope_check_limits": {
+    "_note": "Own limits for scope-check/run.mjs (the one-off LegiScan catch-up reads hundreds of bills).",
+    "max_tokens_per_run": 8000000,
+    "max_tokens_per_item": 60000,
+    "max_input_chars_per_call": 120000
+  },
+  "_note_provider": "provider \"gemini\" for building and testing; switch to \"anthropic\" for production (roles below, key ANTHROPIC_API_KEY). No temperature on Claude: current models reject non-default sampling; effort sets thinking depth.",
+  "anthropic": {
+    "roles": {
+      "generator": {
+        "model": "claude-haiku-5-5",
+        "max_output_tokens": 4000,
+        "effort": "medium"
+      },
+      "validator": {
+        "model": "claude-haiku-5-5",
+        "max_output_tokens": 4000,
+        "effort": "medium"
+      },
+      "screener": {
+        "model": "claude-haiku-5-5",
+        "max_output_tokens": 16000,
+        "effort": "low"
+      },
+      "scope_checker": {
+        "model": "claude-haiku-5-5",
+        "max_output_tokens": 2000,
+        "effort": "low"
+      }
+    }
   }
 }

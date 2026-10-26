@@ -10,6 +10,12 @@ export const FACT_FIELDS = ['title', 'sponsor_text', 'mechanism', 'thresholds', 
 const TEXT_FIELDS = ['title', 'short_name', 'sponsor_text', 'mechanism', 'thresholds', 'penalties', 'status_text', 'signed_text', 'effective_text'];
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
+// Letters outside Latin script (plus Latin accents) that the source itself never uses: returns them, empty when clean.
+export function foreignLetters(value, source) {
+  const seen = new Set(String(source || ''));
+  return [...String(value || '')].filter((c) => /\p{L}/u.test(c) && !/\p{Script=Latin}/u.test(c) && !seen.has(c)).join('');
+}
+
 // A date is supported when the source states it as a field or writes it out ("September 29, 2026", "Sept. 29, 2026").
 export function dateSupported(date, text) {
   if (norm(text).includes(date)) return true;
@@ -61,6 +67,10 @@ export function runChecks({ patch, before, after, assembleProblems, source, sour
   const DEBRIS = /[{}]|['"][a-z_]{3,}['"]\s*:|['"],\s*['"]|```|\\n|\\u[0-9a-f]{4}/i;
   const dirty = Object.entries(patch.fields).filter(([, v]) => typeof v === 'string' && DEBRIS.test(v)).map(([f, v]) => `${f} (…${v.slice(Math.max(0, v.search(DEBRIS) - 15), v.search(DEBRIS) + 25)}…)`);
   add('clean_text', dirty.length === 0, dirty.length ? `stray code or JSON syntax in the text of: ${dirty.join('; ')}. Write plain prose only.` : '');
+
+  // Letters from a writing system the source does not use (a model once ended a field with Bengali text) are noise.
+  const foreign = Object.entries(patch.fields).filter(([, v]) => typeof v === 'string' && foreignLetters(v, sourceText).length).map(([f, v]) => `${f} ("${foreignLetters(v, sourceText).slice(0, 12)}")`);
+  add('no_foreign_text', foreign.length === 0, foreign.length ? `letters that do not occur in the source in: ${foreign.join('; ')}. Write in the source's language only.` : '');
 
   const negatives = Object.entries(patch.fields).filter(([, v]) => typeof v === 'string' && NEGATIVE_FINDING.test(v)).map(([f]) => f);
   add('no_negative_findings', negatives.length === 0, negatives.length ? `a "none located" style claim in ${negatives.join(', ')}; only a person may write those` : '');

@@ -1,0 +1,277 @@
+{
+ "id": "2133932",
+ "search_hit": null,
+ "bill": {
+  "bill_id": 2133932,
+  "change_hash": "efdbc0ada09538905602d9f241280616",
+  "session_id": 2151,
+  "session": {
+   "session_id": 2151,
+   "state_id": 23,
+   "year_start": 2025,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 1,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2025-2026 Regular Session",
+   "session_name": "94th Legislature 2025-2026"
+  },
+  "url": "https://legiscan.com/MN/bill/SF4509/2025",
+  "state_link": "https://www.revisor.mn.gov/bills/94/2026/0/SF/4509/",
+  "completed": 0,
+  "status": 1,
+  "status_date": "2026-03-17",
+  "progress": [
+   {
+    "date": "2026-03-17",
+    "event": 1
+   },
+   {
+    "date": "2026-03-17",
+    "event": 9
+   }
+  ],
+  "state": "MN",
+  "state_id": 23,
+  "bill_number": "SF4509",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "S",
+  "body_id": 56,
+  "current_body": "S",
+  "current_body_id": 56,
+  "title": "Artificial intelligence safety and disclosure requirements establishment (RAISE Act)",
+  "description": "Artificial intelligence safety and disclosure requirements establishment (RAISE Act)",
+  "pending_committee_id": 1740,
+  "committee": {
+   "committee_id": 1740,
+   "chamber": "S",
+   "chamber_id": 56,
+   "name": "Commerce and Consumer Protection"
+  },
+  "referrals": [
+   {
+    "date": "2026-03-17",
+    "committee_id": 1740,
+    "chamber": "S",
+    "chamber_id": 56,
+    "name": "Commerce and Consumer Protection"
+   }
+  ],
+  "history": [
+   {
+    "date": "2026-03-17",
+    "action": "Introduction and first reading",
+    "chamber": "S",
+    "chamber_id": 56,
+    "importance": 1
+   },
+   {
+    "date": "2026-03-17",
+    "action": "Referred to Commerce and Consumer Protection",
+    "chamber": "S",
+    "chamber_id": 56,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-07",
+    "action": "Author added Boldon",
+    "chamber": "S",
+    "chamber_id": 56,
+    "importance": 0
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 18399,
+    "person_hash": "vm2rptri",
+    "party_id": "1",
+    "state_id": 23,
+    "party": "D",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Erin Maye Quade",
+    "first_name": "Erin",
+    "middle_name": "",
+    "last_name": "Maye Quade",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-056",
+    "ftm_eid": 39434111,
+    "votesmart_id": 171620,
+    "opensecrets_id": "",
+    "knowwho_pid": 534490,
+    "ballotpedia": "Erin_Maye_Quade",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "651-296-4120",
+      "district_phone": "",
+      "email": "sen.erin.mayequade@mnsenate.gov",
+      "webmail": "",
+      "biography": "https://www.senate.mn/members/member_bio.html?mem_id=1271",
+      "image": "https://www.senate.mn/graphics/56MayeQuade.jpg",
+      "ballotpedia": "https://ballotpedia.org/Erin_Maye_Quade",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/171620"
+     },
+     "capitol_address": {
+      "address1": "3227 Minnesota Senate Bldg.",
+      "address2": "",
+      "city": "St. Paul",
+      "state": "MN",
+      "zip": "55155"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/profile.php?id=61559146964078",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://www.senate.mn/members/member_bio.html?mem_id=1271",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/ErinMayeQuade",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   },
+   {
+    "people_id": 22140,
+    "person_hash": "nipvw3o2",
+    "party_id": "1",
+    "state_id": 23,
+    "party": "D",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Liz Boldon",
+    "first_name": "Liz",
+    "middle_name": "",
+    "last_name": "Boldon",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-025",
+    "ftm_eid": 50059772,
+    "votesmart_id": 194218,
+    "opensecrets_id": "",
+    "knowwho_pid": 743120,
+    "ballotpedia": "Liz_Boldon",
+    "bioguide_id": "",
+    "sponsor_type_id": 2,
+    "sponsor_order": 2,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "651-296-3903",
+      "district_phone": "",
+      "email": "sen.liz.boldon@mnsenate.gov",
+      "webmail": "",
+      "biography": "https://www.senate.mn/members/member_bio.html?mem_id=1259",
+      "image": "https://www.senate.mn/graphics/25Boldon.jpg",
+      "ballotpedia": "https://ballotpedia.org/Liz_Boldon",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/194218"
+     },
+     "capitol_address": {
+      "address1": "3205 Minnesota Senate Bldg.",
+      "address2": "",
+      "city": "St. Paul",
+      "state": "MN",
+      "zip": "55155"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/LizBoldonMN",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://www.senate.mn/members/member_bio.html?mem_id=1259",
+       "youtube": "https://www.youtube.com/@lizboldonmn"
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/liz.boldon",
+       "instagram": "https://www.instagram.com/lizboldon/",
+       "linkedin": "https://www.linkedin.com/in/sen-liz-boldon-rn-msn-8a137b9b/",
+       "tiktok": "",
+       "twitter": "https://www.twitter.com/LizBoldon",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [
+   {
+    "type_id": 2,
+    "type": "Similar To",
+    "sast_bill_number": "HF4532",
+    "sast_bill_id": 2136898
+   }
+  ],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3394587,
+    "date": "2026-03-13",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/MN/text/SF4509/id/3394587",
+    "state_link": "https://www.revisor.mn.gov/bills/94/2026/0/SF/4509/versions/0/pdf/",
+    "text_size": 253287,
+    "text_hash": "a2521f99078e0ab1308182d752aef6c8",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "votes": [],
+  "amendments": [],
+  "supplements": [],
+  "calendar": []
+ },
+ "derived": {
+  "status": "pending",
+  "events": [
+   {
+    "date": "2026-03-17",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduction and first reading",
+    "chamber": "S"
+   },
+   {
+    "date": "2026-03-17",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Referred to Commerce and Consumer Protection",
+    "chamber": "S"
+   }
+  ]
+ }
+}

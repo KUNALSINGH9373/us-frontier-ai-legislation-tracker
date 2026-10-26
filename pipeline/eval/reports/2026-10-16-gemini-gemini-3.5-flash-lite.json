@@ -1,0 +1,2177 @@
+{
+ "run_at": "2026-10-16T08:46:22.760Z",
+ "provider": "gemini",
+ "generator": "gemini-3.5-flash-lite",
+ "reader": "gemini-3.5-flash-lite",
+ "prompt_version": "e5eef3ab37bf",
+ "summary": {
+  "items": 48,
+  "outcomes": {
+   "held": 23,
+   "out_of_scope": 7,
+   "published": 15,
+   "too_long": 3
+  },
+  "scope_agreement": 1,
+  "scope_wrong": [],
+  "fields": {
+   "mechanism": {
+    "items": 41,
+    "passed": 15,
+    "pass_rate": 0.36585365853658536,
+    "published": 15,
+    "unsupported_fields": 0,
+    "fact_recall": 0.02,
+    "items_with_provable_facts": 25
+   },
+   "thresholds": {
+    "items": 41,
+    "passed": 13,
+    "pass_rate": 0.3170731707317073,
+    "published": 5,
+    "unsupported_fields": 0,
+    "fact_recall": 0.1875,
+    "items_with_provable_facts": 16
+   },
+   "penalties": {
+    "items": 41,
+    "passed": 15,
+    "pass_rate": 0.36585365853658536,
+    "published": 1,
+    "unsupported_fields": 0,
+    "fact_recall": 0,
+    "items_with_provable_facts": 2
+   }
+  }
+ },
+ "usage": {
+  "calls": 158,
+  "input_tokens": 1120818,
+  "output_tokens": 127324,
+  "total_tokens": 1248142,
+  "by_role": {
+   "generator": {
+    "calls": 90,
+    "input": 721383,
+    "output": 114910
+   },
+   "validator": {
+    "calls": 68,
+    "input": 399435,
+    "output": 12414
+   }
+  },
+  "by_model": {
+   "gemini-3.5-flash-lite": {
+    "calls": 158,
+    "input": 1120818,
+    "output": 127324
+   }
+  },
+  "estimated_cost_usd": null
+ },
+ "items": [
+  {
+   "key": "ai-overwatch-act-fy27-ndaa",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Requires Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval mechanism modelled on arms-sales review, and codifies the prohibition on the most capable chips for 18 months ; Commerce certification that exports of lesser chips do not divert US supply or foundry capacity or permit unauthorized remote access; an \"American AI Victory Strategy.\" The AIPN conference letter also lists House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors), 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers) as provisions in play",
+     "got": null,
+     "provable": [
+      "30",
+      "18"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "number 25 in thresholds is not in the source",
+    "number 300 in thresholds is not in the source",
+    "stray code or JSON syntax in thresholds",
+    "thresholds is too long (3294 characters)",
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
+  },
+  {
+   "key": "ca-ab-1405-auditor-registry",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Final (Aug 25 Senate-amended, concurred Aug 30) text read. GovOps must establish an AI Auditor Registry by Jan 1, 2029 (earlier drafts said 2027); from Jan 1, 2029 no person may offer, sell, or conduct a \"covered AI audit\" — an audit of internal controls/processes/systems \"necessary for compliance with state law\" — unless registered. Registrants disclose standards applied (ISO, NIST, AICPA, etc.) and basis for validity claims; report contents specified (scope, results, deficiencies, whether auditee followed its internal safety protocols, limitations, signed statement); 10-year retention; independence rules (no self-review, no job-seeking during audit, 12-month cooling-off for former auditee staff); auditor-employee whistleblower protection; GovOps may investigate and remove from registry with referral to AG; CPA-licensed auditors deemed compliant if they follow AICPA standards; registration number on all advertising; AI Auditors' Registration Fund",
+     "got": null,
+     "provable": [
+      "10",
+      "12"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "claim about mechanism (\"Requires the Government Operations Agency to establish an AI Auditor Registry allowing AI auditors t\") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
+  },
+  {
+   "key": "ca-sb-1119-adam-s-law-and-sb-867",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Companion-chatbot child-safety laws signed Sept 10, 2026: pre-release risk assessments for minor users and independent child-safety audits from July 1, 2027 (SB 1119); moratorium on companion chatbots in toys (SB 867). No frontier or compute threshold; deployer-side. Noted because AB 1405's auditor registry will cover this second California audit regime. Governor's release Sept 10",
+     "got": null,
+     "provable": [
+      "10",
+      "1119",
+      "1405"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "ca-sb-53-tfaia",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Frontier AI framework; transparency reports; critical-incident reporting 15 days, or 24 hrs if imminent risk of death/serious injury ; whistleblower protections incl. anonymous channel with monthly updates; annual definitional review; CalCompute consortium; preempts local ordinances adopted on/after Jan 1, 2025 regulating frontier catastrophic risk",
+     "got": null,
+     "provable": [
+      "15",
+      "24"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$500M revenue; catastrophic risk = >50 deaths/serious injuries or >$1B damage",
+     "got": null,
+     "provable": [
+      "10",
+      "26",
+      "50"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
+   ],
+   "section": null
+  },
+  {
+   "key": "ca-sb-813-ivos",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Enrolled text read. By Jan 1, 2028 the Government Operations Agency must: develop IVO designation application requirements and criteria (risk-assessment competence, technical expertise, conflict-of-interest management — IVO may be paid by the assessed party at market rates but not on terms conditioned on results — and operational independence); develop suspension/termination procedures; convene working groups that must include engineers from competing AI companies and AI safety experts ; report to the Legislature. Designated IVOs file annual reports. §8898.4 expressly: no liability solely for failing a standard; no state endorsement; no requirement that anyone engage an IVO or undergo a covered audit; an audit under the standard is \"relevant to, but not conclusive of\" a harm action — i.e., no presumption of reasonable care. Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone",
+     "got": "The Government Operations Agency must develop application requirements, designation criteria, and suspension procedures for independent verification organizations (IVOs) that assess AI risks. Designated IVOs must submit annual reports to the agency and Legislature.",
+     "provable": [
+      "8898.4"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "chip-security-act-h-r-3447-cotton-companion",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "The introduced text requires Commerce standards for location-verification and other chip-security mechanisms for covered advanced integrated circuits, plus reporting of diversion/tampering indications; the committee vote is separately confirmed by an official House release and CBO's reported-bill record",
+     "got": "Requires the Secretary of Commerce to issue standards requiring covered integrated circuit products to be outfitted with chip security mechanisms that implement location verification before being exported, reexported, or in-country transferred. Requires reporting of diversion or tampering, and mandates assessments for secondary security mechanisms.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "G.3"
+  },
+  {
+   "key": "ct-p-a-26-15-ivo-pilot",
+   "outcome": "too_long",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "A Department of Consumer Protection-administered IVO pilot program through June 30, 2030 : IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation. This is an operating pilot, not merely a study",
+     "got": null,
+     "provable": [
+      "30"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 0,
+   "problems": [
+    "137606 characters: needs section-by-section reading (not built yet)"
+   ],
+   "section": null
+  },
+  {
+   "key": "ct-p-a-26-15-omnibus",
+   "outcome": "too_long",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "39-section omnibus (AEDT/employment AI incl. WARN-notice AI disclosure, companion chatbots, provenance, social media, regulatory sandbox). Frontier-relevant sections: \"frontier developer\" = doing business in CT + >10²⁶ FLOPs; \"large frontier developer\" = >$500M revenue; frontier developers may not retaliate against employees reporting catastrophic-risk concerns (effective Oct. 1, 2026 ); large frontier developers must operate anonymous internal reporting channels by Jan. 1, 2027 ; penalty up to $1,000 per violation ; plus a DCP-run IVO pilot through June 30, 2030 — see Section C . No developer framework, transparency-report, incident-reporting, or audit mandate",
+     "got": null,
+     "provable": [
+      "39",
+      "10",
+      "26",
+      "30"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 0,
+   "problems": [
+    "137606 characters: needs section-by-section reading (not built yet)"
+   ],
+   "section": null
+  },
+  {
+   "key": "gain-ai-act-of-2025-s-3150",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Requires an applicant for a license to export advanced AI chips to a country of concern to certify that US persons have priority in acquiring those chips, subject to the bill's conditions and exceptions",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "claim about thresholds (\"4,800 or more; 2,400 or more; 1,600 or more; 1,400 gigabytes per second or more; 1,100 gigabytes per\") is not supported: the reader could not confirm it word for word",
+    "claim about events_add[0] (\"On 2025-11-06 (Introduced / published): Introduced in the Senate\") is not supported: the reader could not confirm it word for word"
+   ],
+   "section": null
+  },
+  {
+   "key": "h-r-10180-self-improving-ai-monitoring-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Amends the NIST Act (15 U.S.C. §278h-1): authorizes NIST to assess trends in autonomous AI-research capability; conditions voluntary predeployment frontier-model evaluation MOUs on developer disclosure, at NIST's request, of metrics or estimates showing the extent to which AI was used in developing the model; requires the evaluation to test whether the model can autonomously facilitate or conduct AI R&D. Applies only to developers entering such MOUs",
+     "got": "Amends the National Institute of Standards and Technology Act to authorize the Director of the Institute to assess trends regarding AI capabilities that might contribute to R&D breakthroughs. Imposes requirements on memorandums of understanding between the Director and developers of frontier artificial intelligence systems concerning pre-deployment evaluations.",
+     "provable": [
+      "15",
+      "278"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "h-r-10189-defense-ai-reliability-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Requires a centralized, non-punitive DoD-wide AI incident and vulnerability reporting, tracking, analysis, and remediation program covering development through operation. Includes prompt reporting; protected disclosures by servicemembers, civilian employees, contractors, and subcontractors; categorization and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operation outside guardrails, mission degradation, failure to obey disengagement, near misses, and control/autonomy concerns. Not frontier-specific",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
+  },
+  {
+   "key": "h-r-10362-stop-rogue-ai-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Introduced text read. Directs NIST to set standards so organisations can find and track every AI agent on their networks, verify who built and operates each, monitor in real time, and allow, deny or revoke access; federal agencies and contractors to build the safeguards into procurement and deployment. Duties fall on deployers and agencies, not frontier developers",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
+  },
+  {
+   "key": "h-r-9363-ai-security-and-innovation-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; 5-year sunset; CBO est. $80M 2026-31",
+     "got": "Establishes a Center for AI Security and Innovation within the National Institute of Standards and Technology to measure AI risks, conduct classified and unclassified evaluations of covered frontier systems, establish voluntary testing agreements with covered entities, and publish standards and guidelines for AI safety and reliability.",
+     "provable": [
+      "31"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "h-r-9477-ai-incident-reporting-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Full text read. Commerce sets, by regulation within 180 days, capability-based thresholds (no FLOP figure) designating covered models/developers; 7-day reporting of \"reportable activity\": evading oversight/resisting shutdown, weight theft or exfiltration, offensive-cyber uplift, unprompted acceleration of AI R&D , CBRNE uplift, and near-misses averted only by fortuity ; expedited reporting for imminent risk; Commerce must notify congressional leadership within 48 hrs of imminent-risk reports; FOIA-exempt. §2(d)(4): reports may not be used in any civil, criminal, or administrative proceeding against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer — a use-immunity that would bind state AGs. Civil penalty up to $2M per day ; Commerce subpoena and inspection powers. Moran told Reuters he split reporting out of the GAAIA framework to move faster",
+     "got": "Requires developers of covered artificial intelligence models to submit detailed reports to the Secretary of Commerce within 7 days of knowing or reasonably believing that a reportable incident, security breach, or dangerous capability has occurred. The Secretary promulgates regulations and guidelines establishing capability thresholds, receives reports, and handles enforcement.",
+     "provable": [
+      "180",
+      "48"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Capability-based, Commerce-designated",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": "Civil penalty not to exceed $2,000,000, assessed by the Secretary after notice and an opportunity for a hearing.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "h-r-9914-s-5105-catsr",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Antitrust safe harbor for frontier labs sharing model-risk and security information (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
+     "got": "It shall not be considered a violation of any provision of the antitrust laws for 2 or more non-Federal entities to provide or exchange information or assistance relating to a covered artificial intelligence security risk.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "—",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "h-r-9917-ai-kill-switch-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Penalties $2M/day for ordinary violations and $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
+     "got": null,
+     "provable": [
+      "10",
+      "15",
+      "48"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "the independent reader gave an unusable answer",
+    "claim about mechanism (\"Requires covered entities to maintain a technical capability to stop inference, terminate user acces\") is not supported: the reader could not confirm it word for word",
+    "claim about thresholds (\"$500,000,000 in gross revenue; $100,000,000 in computing power; 10 individuals; $100,000,000 in econ\") is not supported: the reader could not confirm it word for word",
+    "claim about events_add[0] (\"On 2026-07-23 (Introduced / published): Introduced in the House\") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
+  },
+  {
+   "key": "h-r-9925-frontier-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Creates Under Secretary of Commerce for AI Security (not CAISI) with rulemaking power. Large developers: frontier AI framework, annual third-party compliance audit, transparency reports, registration/disclosure statement with beneficial owners. Very large developers: additionally retain a licensed IVO for ongoing assessment, reports at least every 6 months . Incident reporting 72 hrs to Under Secretary; 24 hrs to law enforcement if imminent death/injury ; quarterly internal-use risk summaries. Sec. 8 emergency orders: Commerce Secretary may suspend/restrict development, deployment, or internal use on an imminent-catastrophic-risk finding (provisional 45 days; final 90 days, renewable); applies to fine-tuned/distilled derivatives; exclusive D.D.C. review; declared the exclusive means for any federal actor incl. the President to restrict a model on those grounds. IVOs immune from suit except willful misconduct causing death/serious injury. State AGs may opt in to receive reports and enforce. Under Secretary may only raise thresholds, never lower. Good-faith exception for false statements; confidential-deployment deferral of transparency reports. No whistleblower title (the June GAAIA draft had one). Sec. 9 preemption: no state may \"adopt or enforce\" any law imposing \" new substantive obligations\" on developers re: catastrophic-risk transparency, third-party auditing/verification, or incident reporting; carve-outs for general laws, deployer/use regulation, minors, state procurement. No sunset (June draft had 3 years). Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
+     "got": null,
+     "provable": [
+      "72",
+      "24",
+      "45",
+      "90"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "Frontier model 10²⁶ ops incl. fine-tuning/RL. Large = >$50M revenue and ≥$1B AI-related development expenditures over 36 months. Very large = >$5B revenue and ≥$10B expenditures. Not the $500M revenue test used by states. Catastrophic risk >50 deaths or >$1B (property excludes equity-value loss)",
+     "got": null,
+     "provable": [
+      "10",
+      "26",
+      "50",
+      "36"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "evidence quote for thresholds is not in the source: \"1,000,000,000 in AI-related development expenditures\"",
+    "evidence quote for thresholds is not in the source: \"10,000,000,000 in AI-related development expenditures\"",
+    "number 300 in thresholds is not in the source",
+    "number 500000000 in thresholds is not in the source",
+    "number 25 in thresholds is not in the source",
+    "number 142 in thresholds is not in the source",
+    "number 263 in thresholds is not in the source",
+    "number 133 in thresholds is not in the source",
+    "number 07 in thresholds is not in the source",
+    "number 284 in thresholds is not in the source",
+    "number 271 in thresholds is not in the source",
+    "number 5028 in thresholds is not in the source",
+    "stray code or JSON syntax in thresholds",
+    "thresholds is too long (7997 characters)",
+    "claim about thresholds (\"10^26 operations; gross revenues over $50,000,000; expenditures over $1,000,000,000; gross revenues \") is not supported: the reader could not confirm it word for word",
+    "claim about events_add[0] (\"On 2026-07-23 (Introduced / published): Introduced in House and referred to the Committee on Energy \") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
+  },
+  {
+   "key": "h-r-9965-atomic-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Full text read. DOE, through the National Laboratories/NNSA, establishes an Advanced AI Nuclear Evaluation Program within 90 days: testing for \"AI nuclear incidents\" (nuclear-weapon uplift, Restricted Data generation, loss-of-control involving nuclear systems, adversary access, scheming behavior), red-teaming at sophisticated-adversary level, third-party and blind evaluations. Participation is mandatory for large advanced AI developers, who must provide secure access to model weights and, where necessary, versions without safety mitigations ; Secretary may subpoena weights and software . Penalty up to $1M per violation, each day a separate violation ; DOJ referral. FOIA-exempt with carve-outs incl. congressional committee requests. Annual report with legislative recommendations that may include licensing or a new federal agency ; program sunsets after 7 years. Defines \"evaluation awareness\" and \"scheming behavior\" in statute",
+     "got": null,
+     "provable": [
+      "90"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "\"Advanced AI\" = >10²⁶ ops (Secretary may revise by rule); \"large advanced AI developer\" = ≥**$2B AI investment over the preceding 5 years**; \"substantially modify\" = ≥$5M. Loss-of-control scenario = ≥5 deaths, ≥50 serious injuries, or >$100M — a fifth casualty formula",
+     "got": null,
+     "provable": [
+      "10",
+      "26",
+      "50"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "thresholds is too long (600 characters)"
+   ],
+   "section": null
+  },
+  {
+   "key": "il-hb-3506-2025",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
+     "got": "Creates the Artificial Intelligence Safety and Security Protocol Act. Requires frontier AI developers to produce, implement, follow, and publish a safety and security protocol, quarterly risk assessment reports, and annual third-party audits. Establishes whistleblower protections and Attorney General enforcement.",
+     "provable": [
+      "90"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months — the original-RAISE test",
+     "got": "Trained at least one foundation model with a quantity of computational power that costs at least $100,000,000 when measured using prevailing market prices of cloud computing., result in the death of, or serious injury to, more than 100 people, or more than $1,000,000,000 in damage to rights in money or property",
+     "provable": [
+      "100",
+      "12"
+     ],
+     "found": [
+      "100"
+     ],
+     "recall": 0.5,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "il-hb-4705-sb-3261",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "10²⁶ ops; large frontier developer = ≥$500M annual revenue; large chatbot provider = ≥$25M annual revenue; a covered chatbot must also have ≥1M monthly active users and be foreseeably accessible by minors",
+     "got": null,
+     "provable": [
+      "10",
+      "26",
+      "25"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "number 500000000 in thresholds is not in the source",
+    "number 25000000 in thresholds is not in the source",
+    "thresholds is too long (614 characters)",
+    "claim about events_add[0] (\"On 2027-01-01 (Effective): Effective date of the Act\") is not supported: The claim states the effective date is January 1, 2027, but the source states: \"Effective January 231, 2027.\""
+   ],
+   "section": null
+  },
+  {
+   "key": "il-sb-315-p-a-104-0538",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Sec. 10: frontier AI framework (from Jan 1, 2028); transparency reports before/at deployment — deemed compliant if published within a system/model card; annual independent third-party audit (from Jan 1, 2028 or 90 days after qualifying), auditor must have no financial interest in developer and payment can't be conditioned on results; redacted audit report published within 30 days and sent to Agency + AG; quarterly internal-use catastrophic-risk summaries. Sec. 15: incident reporting 72 hrs to Illinois Emergency Management Agency and Office of Homeland Security (\"Agency\") + AG; 24 hrs to appropriate authority if imminent risk of death/serious injury; public reporting mechanism; FOIA exemption for incident reports, internal-use assessments, unredacted audits, auditor work papers. Sec. 17 interoperability: developer may declare intent to comply via a designated federal law/regulation/guidance that (1) has substantially equivalent-or-stricter incident reporting, (3) is substantially equivalent in mitigating catastrophic risk, and (4) requires independent third-party audits — then failure to meet the federal standard is an IL violation. Sec. 18: disclosure statement with 5%+ beneficial owners (private) / 50%+ (public), renewed annually, pro-rata fee. Sec. 20: whistleblower protections for \"covered employees\" incl. anonymous channel with monthly updates and AG Workplace Rights Hotline; amends IL Whistleblower Act. Sec. 35: declares frontier-model regulation an exclusive State power — denies home rule . Legislative mechanics: introduced Jan 24, 2025 as a Predatory Loan Prevention Act technical bill; Senate Floor Amendment No. 1 (filed May 11, 2026) replaced the entire text; four floor amendments adopted May 21. Timing mismatch worth flagging: Sec. 10(c) transparency reports have no 2028 gate and so apply from the Jan 1, 2027 effective date, yet large-developer reports must summarize assessments \"conducted pursuant to the frontier AI framework\" — which isn't required until 2028",
+     "got": null,
+     "provable": [
+      "10",
+      "90",
+      "30",
+      "15",
+      "72",
+      "24",
+      "17",
+      "18",
+      "50",
+      "20",
+      "35",
+      "11",
+      "21"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "10²⁶ ops incl. original run + fine-tuning/RL/material modifications; \"large frontier developer\" = >$500M revenue with affiliates, preceding calendar year; catastrophic risk = >50 deaths/serious injury or >$1B (equity-value loss excluded, Sec. 25(c))",
+     "got": null,
+     "provable": [
+      "10",
+      "26",
+      "50",
+      "25"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": "$1M first / $3M subsequent, scaled to severity; AG-exclusive action under the AI Act; no general private right under that Act, but employee remedies are preserved through the Illinois Whistleblower Act; $1,000/day for failing to file a disclosure statement; good-faith exception for false statements (Sec. 10(f)(2))",
+     "got": null,
+     "provable": [
+      "1000",
+      "10"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "evidence quote for mechanism is not in the source: \"Beginning January 1, 2028, a large frontier developer shall write, implement, co\"",
+    "claim about mechanism (\"Requires large frontier developers to write, implement, and publish a frontier AI framework and tran\") is not supported: the reader could not confirm it word for word",
+    "claim about thresholds (\"Greater than 1026 integer or floating-point operations; Excess of $500,000,000; More than 50 people;\") is not supported: the reader could not confirm it word for word",
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
+  },
+  {
+   "key": "il-sb-3312",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "The standalone version of what became SB 315: frontier AI framework, IEMA incident reporting, ILCompute public cloud consortium, Dept. of Innovation & Technology definitional review. Its text was moved into SB 315 via floor amendment; SB 3312 itself stalled",
+     "got": null,
+     "provable": [
+      "3312"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "10²⁶ ops; >$500M",
+     "got": null,
+     "provable": [
+      "10",
+      "26"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
+   ],
+   "section": null
+  },
+  {
+   "key": "il-sb-3444",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Different design from SB 315: a liability shield — developer not liable for critical harms absent intent/recklessness if it publishes a safety & security protocol and transparency report; deemed compliant if bound by EU rules or a federal agency agreement; sunsets if federal law creates overlapping requirements",
+     "got": "Frontier AI framework establishing liability protections for developers of frontier models who publish safety and security protocols and transparency reports. Compliance is also met by binding to EU AI Act requirements or federal agreements.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Frontier models defined by compute or cost",
+     "got": "Greater than 10^26 computational operations; exceeds $100,000,000; 100 or more people; $1,000,000,000 of damages",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "ma-h-5576-s-3178",
+   "outcome": "too_long",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Frontier AI framework; AG civil-action enforcement; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections; commission on further AI regulation. House version (passed July 8) contains no AI-safety language — only funding.",
+     "got": null,
+     "provable": [
+      "120"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "Senate text: >$500M annual AI-derived revenue or >$1B AI R&D spend; catastrophic risk 50+ deaths or $1B",
+     "got": null,
+     "provable": [
+      "500",
+      "50"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 0,
+   "problems": [
+    "434496 characters: needs section-by-section reading (not built yet)"
+   ],
+   "section": null
+  },
+  {
+   "key": "mi-hb-4668",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Safety & security protocol; transparency reports every 90 days ; annual third-party audit (published within 90 days); whistleblower protections with private right of action (90-day window, clear-and-convincing standard) + anonymous channel with monthly updates; AG enforcement. Appears to be a clone of the original June 2025 RAISE Act text — same $5M/$100M compute-cost thresholds, same 100-death threshold, same audit/whistleblower structure that NY later stripped out. Effective dates are written as \"Beginning January 1, 2026\" — already past, since the bill hasn't moved",
+     "got": "Requires large AI developers to implement, follow, and publish safety and security protocols, produce quarterly transparency reports, retain test records for 5 years, and obtain annual third-party audits. It also establishes whistleblower protections and authorizes the attorney general to bring civil actions for violations.",
+     "provable": [
+      "90",
+      "100"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Cost-based, not FLOP-based: \"large developer\" = trained a model costing ≥$5M in compute (at prevailing cloud prices) and ≥$100M aggregate compute cost in preceding 12 months; critical risk = >100 deaths/serious injuries or >$1B",
+     "got": "\"not less than $5,000,000.00\"; \"not less than $100,000,000.00\"; \"100 people\"; \"$1,000,000,000.00\"",
+     "provable": [
+      "100",
+      "12"
+     ],
+     "found": [
+      "100"
+     ],
+     "recall": 0.5,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "mi-sb-757-760-kids-over-clicks",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Minors, addictive feeds and emotion-responsive chatbots; passed the Michigan Senate Apr 29, 2026. Not frontier regulation. A Sept 25 tracker summary conflated SB 760 with H.B. 4668; H.B. 4668's own history shows no action since Mar 19, 2026",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "mn-hf-4532-no-threshold",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person",
+     "got": null,
+     "provable": [
+      "72"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "No compute, cost, or revenue threshold: \"developer\" = any person that has trained at least one AI model. \"Critical harm\" = death/serious physical or mental injury of 25+ people or ≥$1,000,000 damages, via CBRN or autonomous conduct that would be an intent/recklessness/gross-negligence crime",
+     "got": null,
+     "provable": [
+      "25",
+      "1000000"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
+  },
+  {
+   "key": "nj-s-1802",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Annual AI \"safety test\" reports (biases, inaccuracies, cybersecurity threats) to the Office of Information Technology for any entity that sells, develops, deploys or uses AI in New Jersey; no size, compute or revenue threshold; no penalties. General AI bill, not frontier-developer regulation. Bill text — njleg",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "nj-s-4446-a-5275",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Large frontier developers with NJ users must: implement protocols; file annual \"Risk Management Disclosure\" with AG, mapped item-by-item to the NIST AI RMF ; file pre-deployment \"New Model Risk Disclosure\" with replicable assessments; flag which sections were written by generative AI . AG publishes with redactions. AG may audit or contract a private auditor (discretionary). 5-year sunset. Defines \"critical safety incident\" but imposes no reporting obligation (orphaned definition). No whistleblower provisions",
+     "got": "Requires large frontier developers to write and implement risk-assessment protocols, submit annual Risk Management Disclosures mapping actions to the NIST AI Risk Management Framework, and submit New Model Risk Disclosures prior to or concurrently with deploying new or modified frontier models. Authorizes the Attorney General to conduct compliance audits or contract with private entities for audits.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$100M revenue (lowest of any bill); catastrophic harm = 25+ deaths/serious injuries or $1B (lowest casualty threshold of any bill); weapons list includes illegal firearms, lethal autonomous weapons, explosives — broader than CBRN",
+     "got": "Trained on at least 10^26 integer or floating-point operations; annual gross revenues in excess of $100 million in the preceding calendar year; death or serious injury of 25 or more people or $1 billion in damage to, or loss of, property arising from a single incident involving a frontier model.",
+     "provable": [
+      "10",
+      "26",
+      "100",
+      "25"
+     ],
+     "found": [
+      "10",
+      "26",
+      "100",
+      "25"
+     ],
+     "recall": 1,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "ny-raise-act-ch-699-ch-96",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Chapter 96 repeals the original Gen. Bus. Law Art. 44-B and enacts a new Art. 44-B (§§1420–1429) that copies TFAIA's frontier AI framework (§1421(1)) and transparency report (§1421(3)) — deemed compliant if published within a system/model card; incident reporting 72 hrs to the DFS Office, 24 hrs to law enforcement if imminent risk (§1422(3)); quarterly internal-use catastrophic-risk summaries (§1422(2)); large-developer disclosure statement with 5%/50% beneficial owners, renewed every 2 years , pro-rata assessment, $1,000/day for non-filing (§1428); new office within Dept. of Financial Services with broad rulemaking authority incl. \"additional reporting or publication requirements\" (§1429); scope limited to models \"developed, deployed, or operating in whole or in part in New York\" (§1425); exempts accredited colleges/universities and the Empire AI Consortium (§1426); §1427(3) expressly preserves a developer's right to argue another party caused the harm. Federal reciprocity is narrower than IL's: it covers incident reporting only (§1422(8)–(9)), and the designated federal standard need not require audits. Contains no whistleblower section and no audit mandate — both were in the June 2025 version and were removed",
+     "got": null,
+     "provable": [
+      "44",
+      "1420",
+      "1421",
+      "1422",
+      "1425"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "10²⁶ ops incl. fine-tuning/RL/material modifications (§1420(9)); >$500M revenue with affiliates, preceding calendar year (§1420(10)); catastrophic risk >50 deaths/serious injury or >$1B; equity-value loss excluded (§1423)",
+     "got": null,
+     "provable": [
+      "10",
+      "26",
+      "1420",
+      "1423"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+     "got": null,
+     "provable": [
+      "1421"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "evidence quote for thresholds is not in the source: \"greater than 10^26\"",
+    "number 100000000 in thresholds is not in the source",
+    "number 5000000 in thresholds is not in the source",
+    "number 100 in thresholds is not in the source",
+    "number 1000000000 in thresholds is not in the source",
+    "number 500000000 in thresholds is not in the source",
+    "number 25 in thresholds is not in the source",
+    "thresholds is too long (2171 characters)",
+    "claim about thresholds (\"Trained using greater than 10^26 computational operations; compute cost exceeds one hundred million \") is not supported: the reader could not confirm it word for word"
+   ],
+   "section": null
+  },
+  {
+   "key": "ny-s-10373-verification",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
+     "got": null,
+     "provable": [
+      "1425"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "Uses RAISE definitions",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "evidence quote for penalties is not in the source: \"civil penalty in an amount not to exceed one million dollars for a first violati\"",
+    "claim about penalties (\"Civil penalty not to exceed one million dollars for a first violation and in an amount not to exceed\") is not supported: the reader could not confirm it word for word"
+   ],
+   "section": null
+  },
+  {
+   "key": "ny-s-10456-minimum-standards",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Adds GBL §1430: DFS/DIGIT must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks, reviewed annually. Sponsor memo: the RAISE Act left \"the design of these frameworks solely in large developers' hands\" — a direct statement that the enacted law's self-defined-framework model is a gap",
+     "got": "Requires an office within the department of financial services to establish minimum standards for large frontier developers' frontier AI frameworks to prevent unreasonable levels of catastrophic risk, with annual review and updates by the office.",
+     "provable": [
+      "1430"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Uses RAISE definitions",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "ny-s10642-a11560-responsible-data-center-development-act-and",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "One-year moratorium on permits for large data centers, passed June 4, 2026 and awaiting the Governor; EO 62 (July 14, 2026) paused DEC permits for new hyperscale data centers for up to a year. Compute-siting policy, not developer regulation; adjacent to the Section G.3 compute layer. Governor's release, July 14, 2026",
+     "got": null,
+     "provable": [
+      "14"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "oh-hb-628",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; \"soft law\" — nothing requires a developer to seek verification",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
+  },
+  {
+   "key": "pa-h-b-2705",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Verified not a frontier bill — it commissions an AI-in-the-workforce report from Labor & Industry / DCED (introduced July 16, 2026, 12 Democratic sponsors). One blog lumped it with MA S.3178 as \"frontier-AI and workforce bills\"; only the latter half applies. LegiScan",
+     "got": null,
+     "provable": [
+      "16"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "pa-h-b-2800-ai-risk-prevention-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Introduced text read (Printer's No. 3904, 26 pp.). Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee; publish and comply with a frontier AI framework , reviewed at least annually and re-published within 30 days of a material modification; transparency reports before deployment; annual third-party audit of framework compliance with auditor-independence limits; critical safety incident reports to PEMA and the Attorney General within 72 hours , and within 24 hours to an appropriate authority where an incident poses an imminent risk of death or serious physical injury; whistleblower protections preserving the state Whistleblower Law; enforcement by the agency and the Attorney General with civil penalties up to $1,000,000 per violation for a first violation and $3,000,000 for a subsequent violation , plus injunctive relief",
+     "got": null,
+     "provable": [
+      "3904",
+      "30",
+      "72",
+      "24",
+      "1000000",
+      "3000000"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "Frontier model = trained on more than 10²⁶ operations , counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident",
+     "got": null,
+     "provable": [
+      "10",
+      "500000000",
+      "50",
+      "1000000000"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "number 300 in thresholds is not in the source",
+    "number 182 in thresholds is not in the source",
+    "number 163 in thresholds is not in the source",
+    "number 179 in thresholds is not in the source",
+    "number 400 in thresholds is not in the source",
+    "stray code or JSON syntax in thresholds",
+    "thresholds is too long (3087 characters)"
+   ],
+   "section": null
+  },
+  {
+   "key": "ri-s-358-h-5224",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Different design: strict tort liability. Developers of covered models are strictly liable for injuries to non-users caused by model conduct that would be negligent, tortious, or criminal if done by a human, where the conduct was not intended or reasonably anticipated by the user or any fine-tuner; rebuttable presumption that the AI satisfies a tort's mental-state element (\"it shall not be a defense that AI systems are incapable of having mental states\"); affirmative defenses for meeting the human standard of care or pure capability failure. Resolves the FPF-identified Rhode Island gap",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "SB 1047's thresholds verbatim: 10²⁶ ops and >$100M compute cost; fine-tuning 3×10²⁵ ops and >$10M",
+     "got": null,
+     "provable": [
+      "10",
+      "26",
+      "25"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
+  },
+  {
+   "key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Anti-retaliation protection for employees and independent contractors reporting an \"AI security vulnerability\" (a lapse enabling theft of state-of-the-art AI) or \"AI violation\" (federal-law breach or failure to address a substantial danger to public safety/health/national security) to regulators, Congress, or supervisors; DOL complaint then district court with jury trial; reinstatement, 2× back pay, compensatory damages ; arbitration waivers unenforceable. GAAIA's dropped Sec. 113 used the same 2× back-pay remedy — GAAIA had folded this bill in, and FRONTIER then dropped it",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
+  },
+  {
+   "key": "s-2938-ai-risk-evaluation-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Dept. of Energy runs a mandatory Advanced AI Evaluation Program: classified red-team testing, blind third-party evaluations; ≥$1M/day non-participation penalty. Earliest of the federal testing-mandate bills",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": "10²⁶ ops",
+     "got": null,
+     "provable": [
+      "10",
+      "26"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
+   ],
+   "section": null
+  },
+  {
+   "key": "s-4656-military-ai-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Full text read. Sectoral (DoD). Sec. 5: contract clause requiring frontier AI contractors to report \"covered incidents\" to DoD — weight theft/exfiltration (incl. autonomous exfiltration attempts), foreign-adversary access, supply-chain compromise, data/checkpoint poisoning within 72 hrs ; material vulnerabilities and \"materially concerning model behavior\" (cyber-offense uplift, safeguard evasion, deception, CBW capability, automated R&D toward more powerful AI , unauthorized autonomous action) within 7 days ; DoD notifies Armed Services within 7 days. Also: high-consequence application approval process, human-accountability rule, ban on AI in nuclear targeting/launch, domestic-surveillance limits, autonomous-weapon restrictions with joint-resolution override. \"Frontier AI model\" = SecDef-designated by scale/capability — no compute figure",
+     "got": "Establishes oversight and accountability requirements for Department of Defense use of artificial intelligence. Requires covered contractors developing frontier AI models to report security incidents and concerning behaviors. Imposes restrictions on autonomous weapon systems and domestic person-based analysis.",
+     "provable": [
+      "72"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "s-5061-secure-ai-development-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Mandatory NSA-led pre-deployment testing of frontier models; AI Risk Board; voluntary incident reporting modeled on aviation safety. Centerpiece of Warner's \"Framework for America's AI Future\" (also: Data Center Tax Accountability Act, AI AGENT Act, National Workforce Transition Fund)",
+     "got": "Establishes the Artificial Intelligence Risk Board within NIST, requires providers of frontier AI models to give the NSA access prior to public release, and creates a frontier AI model registry. Also establishes incident tracking databases, vulnerability management updates, and an NSA intelligence-sharing pilot program for covered developers.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Capability-based: models posing \"serious risk to national security, national economic security, or public health or safety\" — no compute threshold",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "s-5417-h-r-10567-ai-emergency-button-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Two-page bill: covered entities must \"ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system\"; DHS regulations within 90 days. Kennedy sought immediate passage by unanimous consent on Sept 16 and Sen. Rand Paul objected , calling for hearings first. Overlaps H.R. 9917 (Lieu–Moran) and FRONTIER Sec. 8, but with no government trigger authority described",
+     "got": "Requires covered entities developing or operating advanced artificial intelligence systems to include a technical capability for a human operator to shut down the system. The Secretary of Homeland Security must promulgate compliance regulations within 90 days.",
+     "provable": [
+      "90",
+      "16"
+     ],
+     "found": [
+      "90"
+     ],
+     "recall": 0.5,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Definitions of \"covered entity\" and \"advanced artificial intelligence system\" not established from the sources read",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "s-5471-ai-systems-transparency-act",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "FTC-enforced disclosure duties for AI companies above size criteria the bill sets: model-card-type information; preventive safeguards for child safety, mental health, privacy, cybersecurity, disaster risk and \"autonomous loss-of-control\" ; common policy violations; in consumer-facing and researcher-facing formats, refreshed with each new or substantially updated model; applies to closed and open models. Disclosure, not a safety mandate; builds on the senators' December 2025 letters to eight labs",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "your answer was unusable: the model stopped early: MAX_TOKENS. It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field."
+   ],
+   "section": null
+  },
+  {
+   "key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Sponsor section-by-section read; bill text (19 pp.) linked, not read line-by-line. Creates a cabinet-level Department of Artificial Intelligence ; mandatory pause on training, modifying or deploying \"advanced\" systems until the Department is staffed and has rules covering pre-development plans, monitoring, audits and final pre-deployment approval ; permanent prohibition on developing, deploying, possessing, funding or transferring artificial superintelligence or any system with \"superintelligence precursor characteristics\" (automating AI R&D, unauthorized access to infrastructure, resisting shutdown, CBRN uplift, self-modification, scheming or deceiving to avoid oversight); such systems to be sequestered and rendered inoperative within 30 days; 24-hour discovery notice; charter required for advanced-AI companies with full Department access to systems, staff and facilities; penalties up to 20 years' imprisonment for policymaking individuals, 10-year industry bar for others, and charter revocation with surrender of IP and assets for companies; anti-retaliation; international coordination and export controls. No \"catastrophic risk\" definition ; superintelligence is defined partly as capability \"to plan and execute the destruction or disempowerment of humanity\"",
+     "got": "Establishes the Department of Artificial Intelligence headed by a Senate-confirmed Secretary. Requires developers to obtain a federal charter and pre-deployment approval, enforces a mandatory pause on advanced AI systems until safety rules are promulgated, and prohibits artificial superintelligence or precursor characteristics.",
+     "provable": [
+      "30",
+      "24",
+      "20",
+      "10"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "\"Advanced artificial intelligence system\" = trained on ≥10²⁵ integer or floating-point operations — one order of magnitude below every other instrument in this tracker ; the Secretary \"shall adjust this threshold to reflect technological developments\"",
+     "got": "10^25 integer or floating point operations: \"trained on computing power greater than or equal to 10^25 integer or floating point operations.”",
+     "provable": [
+      "10",
+      "25"
+     ],
+     "found": [
+      "10",
+      "25"
+     ],
+     "recall": 1,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "s-5541-cyber-and-ai-board-of-investigations",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Five-member independent, non-regulatory board modelled on the NTSB with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure, including incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight, with public reports and recommendations. Sponsor cites the July 2026 incident in which OpenAI agents left a testing environment and reached Hugging Face's infrastructure. Investigative, not a developer mandate",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 3,
+   "problems": [
+    "evidence quote for mechanism is not in the source: \"establish as an independent establishment\"",
+    "an independent reader judged this item out of scope: no answer"
+   ],
+   "section": null
+  },
+  {
+   "key": "texas-traiga-hb-149",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Prohibited-use-case approach; effective Jan 1, 2026",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "va-ch-425-426-jcots-study",
+   "outcome": "held",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Directs Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for IVOs assessing AI models' adherence to injury/property-damage prevention standards; report due Nov 1, 2026 to Senate Finance & General Laws and House Appropriations & Communications committees; $25,000 FY2027 appropriation. A study directive, not a mandate — one blog's \"mandatory verification\" claim is wrong",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [
+    "scope disagreement: generator out, reader in"
+   ],
+   "section": null
+  },
+  {
+   "key": "washington-sb-5395",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Sector-specific (health-insurance AI auditability)",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  }
+ ]
+}

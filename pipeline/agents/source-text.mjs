@@ -29,6 +29,7 @@ export const containsQuote = (text, quote) => !!quote && norm(text).includes(nor
 // Every run of digits in a piece of text (commas removed, superscript digits read as digits), for the "numbers must come from the source" check.
 const SUP = { '²': '2', '³': '3', '¹': '1', '⁰': '0', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9' };
 export function digitRuns(text) {
-  const t = String(text || '').replace(/[²³¹⁰⁴-⁹]/g, (c) => SUP[c]).replace(/(\d),(?=\d{3}\b)/g, '$1');
+  // "10²⁶", "10^26" and GPO's "10\26\" all read as the runs 10 and 26, so an exponent matches however it is printed.
+  const t = String(text || '').replace(/[²³¹⁰⁴-⁹]+/g, (m) => '^' + [...m].map((c) => SUP[c]).join('')).replace(/(\d)\\(\d{1,3})\\/g, '$1^$2').replace(/(\d),(?=\d{3}\b)/g, '$1');
   return new Set(t.match(/\d+(?:\.\d+)?/g) || []);
 }

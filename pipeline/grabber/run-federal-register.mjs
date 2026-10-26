@@ -12,7 +12,7 @@ const hashOf = (d) => sha(JSON.stringify([d.title, d.publication_date, d.abstrac
 export async function runFederalRegister({ http, state, entries = [], scope, outDir, now = new Date(), since, docs = [], dryRun = false, log = () => {} }) {
   const fr = createFederalRegister(http);
   const cfg = scope.federal_register || { terms: ['artificial intelligence'], max_candidates_per_run: 40 };
-  const screen = makeScreen(scope);
+  const screen = makeScreen(cfg.screen_terms ? { title_terms: cfg.screen_terms } : scope); // its own list, so the wider Congress.gov net does not widen it
   const runId = makeRunId(now);
   const block = structuredClone(state.sources.federal_register || { last_success: FR_CUTOFF + 'T00:00:00Z', cursor: FR_CUTOFF, hashes: {} });
   block.hashes = block.hashes || {};

@@ -4,7 +4,7 @@
 //                                               (not the confidence key: confidence is hidden in the UI by the owner's decision,
 //                                               v3 change list step 4; it stays in content.json, the data and the CSV)
 //   build/aaf-crosscheck   → #/methodology      every AAF row, candidate, tracker-only item and caveat
-//   tracker.md K, K.2      → #/compare          every matrix cell, the clusters paragraph, K.2's intro and cells
+//   tracker.md K, K.2      → #/insights (Table) every matrix cell, the clusters paragraph, K.2's intro and cells
 //   tracker.md notes       → #/explore?sec=X    the paragraphs beside each section's table
 //   docs/index.html About  → #/about            every heading, paragraph and list item of v1's About section
 //   node web/scripts/check-v1-content.mjs [--chrome <path>]
@@ -31,8 +31,8 @@ const CHECKS = [
   ['Methodology: intro and definition', '#/methodology', piecesOf(introLines)],
   ['Methodology: section L', '#/methodology', piecesOf(section('L'))],
   ['Methodology: AAF cross-check', '#/methodology', [aaf.scope_note, ...aaf.in_both.flatMap((x) => [x.bill, x.title, x.tracker]), ...aaf.candidates.flatMap((x) => [x.bill, x.sponsor, x.title, x.aaf_summary, x.assessment, x.suggested].filter(Boolean)), ...aaf.tracker_only, ...aaf.caveats]],
-  ['Compare: section K', '#/compare', piecesOf(section('K'))],
-  ['Compare: section K.2', '#/compare', piecesOf(section('K.2'))],
+  ['Table: section K', '#/insights', piecesOf(section('K'))],
+  ['Table: section K.2', '#/insights', piecesOf(section('K.2'))],
   ...['A', 'B.2', 'C', 'G.2', 'G.3'].map((c) => [`Explore: section ${c} notes`, '#/explore?sec=' + c, piecesOf(notes(c))]),
   ['About this site', '#/about', [...about.matchAll(/<(h3|h4|p|li)\b[^>]*>([\s\S]*?)<\/\1>/g)].map((m) => plainHtml(m[2]).replace(/\s+/g, ' ').trim()).filter(Boolean)]
 ];

@@ -9,7 +9,7 @@
 // Nothing here changes the page apart from the hash and the theme, which are restored at the end.
 (function () {
   if (!window.__errs) { window.__errs = []; window.addEventListener('error', (e) => window.__errs.push(String(e.message))); const ce = console.error; console.error = (...a) => { window.__errs.push(a.join(' ')); ce.apply(console, a); }; }
-  const ROUTES = ['#/', '#/?view=list', '#/explore', '#/explore?sec=A', '#/insights', '#/insights?view=relations', '#/insights?view=relations&graph=entire', '#/insights?view=relations&c=SB53', '#/insights?view=table', '#/bill/1', '#/bill/4', '#/compare', '#/updates', '#/methodology', '#/handbook', '#/handbook?all=1', '#/about'];
+  const ROUTES = ['#/', '#/?view=list', '#/explore', '#/explore?sec=A', '#/insights', '#/insights?view=timeline', '#/insights?view=relations', '#/insights?view=relations&graph=entire', '#/insights?view=relations&c=SB53', '#/insights?cols=1,27,94,58,71', '#/bill/1', '#/bill/4', '#/compare?states=CA,NY,IL', '#/updates', '#/methodology', '#/handbook', '#/handbook?all=1', '#/about'];
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const vis = (el) => { const r = el.getBoundingClientRect(), cs = getComputedStyle(el); return r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none'; };
   const isControl = (el) => {

@@ -205,5 +205,28 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
   ok('a programming error while fetching text stops the run instead of being hidden', err instanceof TypeError && /real bug/.test(err.message), String(err));
 }
 
+// ---------- the AI intent check on new titles ----------
+{
+  const s2 = { precise_terms: ['frontier', 'superintelligen'], title_terms: ['artificial intelligence', '\\bAI\\b', 'chip', 'semiconductor', 'frontier'], max_candidates_per_run: 40 };
+  const judged = [];
+  const llm = { generate: async ({ prompt }) => { const rows = prompt.split('\n').slice(1).map((l) => l.split('\t')); judged.push(...rows.map((r) => r[1])); return { data: { results: rows.filter(([, t]) => /deepfake/i.test(t)).map(([id]) => ({ id, verdict: 'no', reason: 'deepfakes are excluded' })) } }; } };
+  const bills = [bill(50001, 'Frontier AI Safety Act', '2026-10-01T10:00:00Z'), bill(50002, 'Deepfake Labeling Act of 2026 (artificial intelligence)', '2026-10-02T10:00:00Z'),
+    bill(50003, 'To amend the Export Control Reform Act regarding advanced chips', '2026-10-03T10:00:00Z'), bill(50004, 'Farm Bill', '2026-10-04T10:00:00Z')];
+  const out = tmp();
+  const r = await runCongress({ http: mk(fakeServer({ bills })), llm, state: emptyState(), entries: [], scope: s2, outDir: out, now: NOW });
+  const got = new Set(r.changeset.items.map((i) => i.source_id));
+  ok('a frontier title is a candidate without the model', got.has('119/hr/50001') && !judged.some((t) => /Frontier AI Safety/.test(t)));
+  ok('a chip export title goes to the model and is kept', got.has('119/hr/50003') && judged.some((t) => /Export Control/.test(t)));
+  ok('a confident "no" is dropped and listed with the reason', !got.has('119/hr/50002') && r.dropped[0].reason === 'deepfakes are excluded' && fs.existsSync(path.join(out, r.runId, 'congress-screened-out.json')));
+  ok('a title with no AI word never reaches the model', !got.has('119/hr/50004') && !judged.some((t) => /Farm/.test(t)));
+  const r2 = await runCongress({ http: mk(fakeServer({ bills })), llm: { generate: async () => { throw new Error('HTTP 503'); } }, state: emptyState(), entries: [], scope: s2, outDir: tmp(), now: NOW });
+  ok('a failed model call drops nothing', r2.changeset.items.length === 3);
+  // budget runs out while fetching candidates: the next run resumes at the first bill not fetched
+  const many = []; for (let i = 0; i < 5; i++) many.push(bill(51000 + i, 'Artificial intelligence act ' + i, `2026-10-0${i + 1}T10:00:00Z`));
+  const r3 = await runCongress({ http: mk(fakeServer({ bills: many }), { maxRequests: 7 }), llm: null, state: emptyState(), entries: [], scope: s2, outDir: tmp(), now: NOW });
+  const r4 = await runCongress({ http: mk(fakeServer({ bills: many })), llm: null, state: r3.nextState, entries: [], scope: s2, outDir: tmp(), now: new Date(+NOW + 600e3) });
+  ok('a cut-off run loses no candidate', r3.truncated && new Set([...r3.changeset.items, ...r4.changeset.items].map((i) => i.source_id)).size === 5, `${r3.cursor} ${r3.changeset.items.length}+${r4.changeset.items.length}`);
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
