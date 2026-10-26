@@ -1,6 +1,6 @@
 {
  "title": "September–October 2026 developments",
- "asof": "October 8, 2026",
+ "asof": "October 26, 2026",
  "intro": "A dated record of what happened around frontier-AI law in the United States from September 2026 onward. It is wider than the tracker: it includes hearings, letters, investigations, executive statements and the industry incidents that lawmakers cited, none of which are legislation. Every legislative item here also has a tracker entry, linked from the item. Items were checked against the official page where one exists; where a source blocks automated access the item says so and names what corroborated it. Where the summary supplied to this site named the wrong sponsor or number, the correction is shown.",
  "bottom": "No federal frontier-AI bill became law in September or the first week of October 2026. California's SB 813 and AB 1405 were the period's enacted measures. New York's S.10701 was withdrawn on introduction and Pennsylvania's H.B. 2800 is in committee. Every federal bill above remains at the referral stage; the administration's response so far is a voluntary accord, a terminology executive order and a task force with a 120-day report.",
  "kinds": {
@@ -875,6 +875,29 @@
    }
   },
   {
+   "date": "2026-09-28",
+   "kind": "state",
+   "tracker": "pa-h-r-637-frontier-ai-resolution",
+   "title": "Pennsylvania House resolution H.R. 637 urges Congress to regulate frontier AI models",
+   "body": "Rep. Joseph Ciresi and 13 co-sponsors, from both parties, introduced H.R. 637 in the Pennsylvania House on Sept 28, 2026. The non-binding resolution urges Congress to pass federal legislation regulating frontier AI models, cites the federal FRONTIER Act and EO 14409, and affirms the state's right to legislate on AI. It was referred to the House Communications & Technology Committee.",
+   "links": [
+    {
+     "t": "H.R. 637 on palegis.us",
+     "u": "https://www.palegis.us/legislation/bills/2025/hr637"
+    },
+    {
+     "t": "Printer's No. 3941 (PDF)",
+     "u": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HR0637/PN3941"
+    }
+   ],
+   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-26T12:00:00Z"
+   }
+  },
+  {
    "date": "2026-09-29",
    "kind": "executive",
    "title": "White House meeting: voluntary \"Accord on Super Intelligence\" and a terminology executive order",
@@ -948,6 +971,25 @@
    }
   },
   {
+   "date": "2026-09-29",
+   "kind": "federal",
+   "tracker": "s-5601-insider-threat-reporting-act",
+   "title": "S. 5601 introduced: large AI contractors would report model-weight security and incidents to DoD",
+   "body": "Sen. Jim Banks introduced S. 5601, the Insider Threat Reporting and Security Guidance Act of 2026, on Sept 29, 2026; it was referred to Senate Armed Services. AI contractors with DoD contracts of at least $100 million and at least $1 billion in AI R&D would report their insider-threat and model-weight protections with every bid and notify DoD within 72 hours of an acute national security risk.",
+   "links": [
+    {
+     "t": "S. 5601 on Congress.gov",
+     "u": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
+    }
+   ],
+   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-26T12:00:00Z"
+   }
+  },
+  {
    "date": "2026-09-30",
    "kind": "federal",
    "title": "Senate hearing: \"Rogue AI: Securing the Homeland Against AI Agent Attacks\"",
@@ -1014,6 +1056,44 @@
    "verification": {
     "method": "author",
     "checked_at": "2026-10-04T00:00:00Z"
+   }
+  },
+  {
+   "date": "2026-10-07",
+   "kind": "state",
+   "tracker": "pa-h-r-637-frontier-ai-resolution",
+   "title": "Pennsylvania House committee reports H.R. 637, the frontier-AI resolution",
+   "body": "The Pennsylvania House Communications & Technology Committee reported H.R. 637 as committed on Oct 7, 2026, sending the resolution urging Congress to regulate frontier AI models to the full House.",
+   "links": [
+    {
+     "t": "H.R. 637 on palegis.us",
+     "u": "https://www.palegis.us/legislation/bills/2025/hr637"
+    }
+   ],
+   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-26T12:00:00Z"
+   }
+  },
+  {
+   "date": "2026-10-22",
+   "kind": "federal",
+   "tracker": "h-r-10873-ai-cyber-defense-act",
+   "title": "H.R. 10873 AI Cyber Defense Act introduced: NIST standards against model \"distillation attacks\"",
+   "body": "Rep. Pat Harrigan introduced H.R. 10873, the AI Cyber Defense Act, on Oct 22, 2026; it was referred to House Science, Space, and Technology. NIST would work with US AI developers to define \"artificial intelligence distillation attacks\" and publish voluntary standards to detect and prevent them.",
+   "links": [
+    {
+     "t": "H.R. 10873 on Congress.gov",
+     "u": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+    }
+   ],
+   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-26T12:00:00Z"
    }
   }
  ]

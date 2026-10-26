@@ -23,7 +23,7 @@ const problems = [];
 const v2entries = read(v2dir, 'entries.json'), v2news = read(v2dir, 'news.json').items;
 // Entries added after v1 froze (written in a Claude session, verification.method "session") have no v1 row either.
 const changed = new Set(v2entries.filter((e) => e.origin !== 'authored' || (e.verification && e.verification.method === 'session')).map((e) => e.id));
-const autoNews = new Set(v2news.filter((n) => n.origin !== 'authored').map((n) => n.date + '|' + n.title));
+const autoNews = new Set(v2news.filter((n) => n.origin !== 'authored' || (n.verification && n.verification.method === 'session')).map((n) => n.date + '|' + n.title));
 const authored = (e) => !changed.has(e.id);
 const norm = (v) => String(JSON.stringify(v, (k, x) => (x instanceof Date ? x.toISOString() : x)));
 const same = (what, a, b) => { if (norm(a) !== norm(b)) problems.push(`${what}\n    v1: ${norm(a).slice(0, 300)}\n    v2: ${norm(b).slice(0, 300)}`); };
