@@ -1,0 +1,76 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A covered model is one trained with more than 10^26 operations costing over $100,000,000, or a fine-tune of one using at least 3 times 10^25 operations costing over $10,000,000.",
+   "section": "9-1-55(a)(2)",
+   "quote": "An artificial intelligence model trained using a quantity of computing power greater than 10ˆ26 integer or floating-point operations",
+   "source_url": "https://status.rilegislature.gov/"
+  },
+  "revenue_threshold": {
+   "value": "partial",
+   "summary": "No revenue or user test; a covered model must also cost over $100,000,000 to train (or over $10,000,000 to fine-tune a covered model).",
+   "section": "9-1-55(a)(2)",
+   "quote": "the cost of which exceeds one hundred million dollars ($100,000,000) when calculated using the average market prices of cloud compute at the start of training",
+   "source_url": "https://status.rilegislature.gov/"
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "Liability turns on injuries meeting a negligence claim, with no death or dollar threshold."
+  },
+  "penalties": {
+   "value": "partial",
+   "summary": "Developers are strictly liable for injuries to non-users caused by a covered model; this is a private civil cause of action, with no fine or agency enforcement.",
+   "section": "9-1-55(b)",
+   "quote": "developers of covered models or covered model derivatives shall be strictly liable, regardless of the degree of care they exercised, for all injuries to a non-user",
+   "source_url": "https://status.rilegislature.gov/"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "The act takes effect upon passage.",
+   "section": "SECTION 2",
+   "quote": "SECTION 2. This act shall take effect upon passage.",
+   "source_url": "https://status.rilegislature.gov/"
+  }
+ },
+ "notes": "Liability-only bill: no safety duties. Compute and dollar figures appear in the covered-model definition (also the $100,000,000 cost). Entry names a companion (H 5224) whose text I did not read. harm_threshold marked not_in_bill although a definition of injuries exists; no numeric harm level.",
+ "key": "ri-s-358-h-5224",
+ "source_url": "https://status.rilegislature.gov/",
+ "basis": {
+  "source_url": "https://status.rilegislature.gov/",
+  "sha256": "6d54f6eedfe5d9ea5a55fee0f28a9bb6fcfc3bc2ea8922beb3a8a162682362e1",
+  "chars": 6143
+ }
+}

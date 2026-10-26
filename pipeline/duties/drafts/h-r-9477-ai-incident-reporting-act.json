@@ -1,0 +1,73 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no safety framework or plan."
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "Reports go only to the Secretary of Commerce and are shielded from disclosure; no public report is required."
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Covered model developers must send the Secretary of Commerce a detailed report within 7 days of knowing or reasonably believing reportable activity has occurred.",
+   "section": "Sec. 2(b)(1)",
+   "quote": "Not later than 7 days after the date on which a covered model developer knows, or reasonably believes, that reportable activity described in paragraph (2) has occurred related to a covered model, the developer shall submit to the Secretary a report",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+  },
+  "imminent_risk_reporting": {
+   "value": "partial",
+   "summary": "The Secretary must require expedited reports for activity presenting imminent or ongoing risk of serious harm; the bill sets no hour limit.",
+   "section": "Sec. 2(c)(1)(B)",
+   "quote": "expedited reporting for any reportable activity described in subsection (b)(2) that presents any imminent or ongoing risk of serious harm",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no independent audit or evaluation."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no employee protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The Secretary designates covered developers by regulation, but developers need not register or get a license."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability; a model resisting shutdown is only a reportable event."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "Coverage is set by Secretary-made capability thresholds, not by a training-compute figure in the bill."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "Coverage does not depend on revenue, spending or users."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "Reportable activity is defined by type of event and serious risk, with no death, injury or damage figures."
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Secretary of Commerce may assess a civil penalty up to $2,000,000 for a violation, each day a separate offense; the Attorney General can sue to collect or enjoin.",
+   "section": "Sec. 2(f)(2)(A)",
+   "quote": "the Secretary may assess a civil penalty for a violation of this section in an amount not to exceed $2,000,000",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; deadlines run from enactment."
+  }
+ },
+ "notes": "Covered models and developers, and the exact report window (outer limit 7 days), are set by Commerce regulations due within 180 days of enactment.",
+ "key": "h-r-9477-ai-incident-reporting-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+  "sha256": "28aa38c30b1b46749d77862ba2e3a95e588aa54721b47fed196087b9cc19aee4",
+  "chars": 16383
+ }
+}

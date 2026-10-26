@@ -1,0 +1,97 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers must write, follow and publish a frontier AI framework and review it at least once a year.",
+   "section": "R.S. 51:3111.3(A)",
+   "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its internet website a frontier AI framework",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Frontier developers must publish a transparency report before or when deploying a new or substantially modified frontier model; large developers add risk assessment summaries.",
+   "section": "R.S. 51:3111.3(C)(1)",
+   "quote": "a frontier developer shall clearly and conspicuously publish on its website a transparency report",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Frontier developers must report critical safety incidents to the Department of Justice within 15 days of discovery.",
+   "section": "R.S. 51:3111.4(C)(1)",
+   "quote": "to the department within fifteen days after discovering the critical safety incident",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "Incidents posing imminent risk of death, serious injury or an active cyberattack on critical infrastructure must be disclosed within 24 hours.",
+   "section": "R.S. 51:3111.4(C)(2)",
+   "quote": "poses an imminent risk of death, serious physical injury, or an active cyberattack on critical infrastructure, the frontier developer shall disclose that incident within twenty-four hours",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "From July 1, 2028, large frontier developers must hire an independent auditor each year to certify compliance with their framework and publish a summary within 30 days.",
+   "section": "R.S. 51:3111.3(F)(1)",
+   "quote": "a large frontier developer shall retain a third-party auditor to produce a report signed",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Frontier developers may not block or retaliate against covered employees who report catastrophic risk or violations; large developers need an anonymous internal reporting process.",
+   "section": "R.S. 51:3111.9(B)",
+   "quote": "enter into any policy or contract that prevents a covered employee from, or retaliates against a covered employee for, making a protected disclosure",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or kill-switch capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is one trained with more than 10^26 operations, including fine-tuning, or distilled from one at a compute cost over $5,000,000.",
+   "section": "R.S. 51:3111.2(A)(11)(a)",
+   "quote": "Was trained using a quantity of computing power greater than 10^26",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer, with its affiliates, had more than five hundred million dollars in annual gross revenues in the preceding calendar year.",
+   "section": "R.S. 51:3111.2(A)(13)",
+   "quote": "had more than five hundred million dollars in annual gross",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic risk means death or serious injury of more than 50 people or more than $1,000,000,000 in property damage from a single incident.",
+   "section": "R.S. 51:3111.2(A)(3)(a)",
+   "quote": "the death or serious injury of more than fifty",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Attorney General may sue large frontier developers for civil penalties up to $1,000,000 for a first violation and $10,000,000 for later violations of the same requirement.",
+   "section": "R.S. 51:3111.7(B)",
+   "quote": "a penalty not to exceed one million dollars per violation for a first violation or ten million dollars for a second or subsequent violation of the same requirement",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "The Act becomes effective on January 1, 2027.",
+   "section": "Sec. 2",
+   "quote": "This Act shall become effective on January 1, 2027.",
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+  }
+ },
+ "notes": "Text cross-references (e.g. R.S. 51:3111.2(F), 3111.5) are misnumbered in the bill itself. Whistleblower section cites 51:3112.",
+ "key": "la-sb-474",
+ "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y",
+ "basis": {
+  "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y",
+  "sha256": "7c41305bf7719dce6abd03a21dc0e5e49493a2ae0ac2d2cb04b08df59ddf2a71",
+  "chars": 35382
+ }
+}

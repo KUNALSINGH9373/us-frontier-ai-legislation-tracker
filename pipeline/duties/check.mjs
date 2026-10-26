@@ -20,16 +20,20 @@ const UNITS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, ei
 const TENS = { twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
 const MULT = { hundred: 100, thousand: 1000, million: 1e6, billion: 1e9 };
 export function wordNumbers(text) {
+  // Reads runs of number words as one number ("two thousand twenty-nine" = 2029, "one hundred" = 100) and also keeps each
+  // part on its own ("twenty-four" gives 24, 20 and 4), so a summary may use any of them.
   const out = new Set(), words = String(text || '').toLowerCase().replace(/[^a-z\s-]/g, ' ').split(/[\s-]+/);
-  for (let i = 0; i < words.length; i++) {
-    let w = words[i], n = null;
-    if (TENS[w] != null) { n = TENS[w]; if (UNITS[words[i + 1]] != null && UNITS[words[i + 1]] < 10) n += UNITS[words[i + 1]]; }
-    else if (UNITS[w] != null) n = UNITS[w];
-    if (n != null) {
-      out.add(String(n));
-      if (MULT[words[i + 1]] != null) out.add(String(n * MULT[words[i + 1]]));
-    } else if (MULT[w] != null) out.add(String(MULT[w]));
+  let total = 0, cur = 0, any = false;
+  const flush = () => { if (any) out.add(String(total + cur)); total = cur = 0; any = false; };
+  for (const w of words) {
+    if (UNITS[w] != null) { cur += UNITS[w]; out.add(String(UNITS[w])); any = true; }
+    else if (TENS[w] != null) { cur += TENS[w]; out.add(String(TENS[w])); any = true; }
+    else if (w === 'hundred') { cur = (cur || 1) * 100; any = true; }
+    else if (MULT[w] != null) { total += (cur || 1) * MULT[w]; cur = 0; any = true; }
+    else if (w === 'and' && any) continue;
+    else flush();
   }
+  flush();
   return out;
 }
 
@@ -44,6 +48,8 @@ export function checkDuties(duties, text, { sourceUrl } = {}) {
   const shape = v.check('duties', duties);
   if (shape.length) return shape.map((s) => 'format: ' + s);
   const textNums = digitRuns(text), wordNums = wordNumbers(text);
+  // A large figure followed by a stray footnote digit ("$500,000,000.8", printed that way in the Illinois text) also counts as the figure itself.
+  for (const n of [...textNums]) { const m = /^(\d{4,})\.\d+$/.exec(n); if (m) textNums.add(m[1]); }
   const inText = (n) => textNums.has(n) || wordNums.has(n);
   for (const [name, d] of Object.entries(duties)) {
     const at = (m) => problems.push(`${name}: ${m}`);

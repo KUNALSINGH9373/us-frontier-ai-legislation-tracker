@@ -1,0 +1,88 @@
+{
+ "duties": {
+  "framework": {
+   "value": "partial",
+   "summary": "The Secretary must consider basing the required shutdown capability on a graduated deployment-corrections framework (throttle, restrict, suspend, shut down); developers write no safety framework.",
+   "section": "Sec. 2220F(b)(2)(A)",
+   "quote": "Requiring a technical capability based on a graduated deployment-corrections framework that applies when there is evidence of a credible risk of a covered incident",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no public report or disclosure about a model."
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "The Secretary must by rule require covered entities to report a covered incident (shutdown sabotage, major deaths or damage, concealment, loss of control) within 15 days of becoming aware.",
+   "section": "Sec. 2220F(b)(1)(B)",
+   "quote": "Not later than 15 days after such covered entity becomes aware of a covered incident relating to such technology, submit to the Secretary a report regarding such incident.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no shorter reporting window for imminent risk."
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "After a shutdown order, the Secretary (a government body, not an independent auditor) must audit or inspect to verify compliance; developers need no independent audit.",
+   "section": "Sec. 2220F(c)(3)",
+   "quote": "shall through audit, telemetry, on-site inspection, or other forensic review verify compliance with the order that prompted such confirmation.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "yes",
+   "summary": "The Secretary must by rule require covered entities to keep the technical ability to stop inference, end or suspend user access, and shut down the technology.",
+   "section": "Sec. 2220F(b)(1)(A)",
+   "quote": "Shut down such technology.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "Covered technology is AI built with computing power that would cost more than $100,000,000 at market cloud prices, as the Secretary determines.",
+   "section": "Sec. 2220F(g)(6)",
+   "quote": "developed utilizing a quantity of computing power the cost of which would exceed $100,000,000 at the prevailing market price of cloud computing in the United States",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A covered entity must earn at least $500,000,000 in gross revenue from the technology, with affiliates, in the prior calendar year.",
+   "section": "Sec. 2220F(g)(4)(C)",
+   "quote": "Derives together with the affiliates, if any, of such person not less than $500,000,000 in gross revenue from such technology in the calendar year preceding the calendar year at issue.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "A covered incident includes unintended AI conduct causing at least 10 deaths or at least $100,000,000 in economic damages, plus shutdown sabotage, concealment and loss of control.",
+   "section": "Sec. 2220F(g)(5)(B)",
+   "quote": "causes the death of not fewer than 10 individuals or economic damages of not less than $100,000,000",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Secretary may assess civil penalties up to $2,000,000 per day, or up to $20,000,000 per day for violating a shutdown order; the Attorney General can also sue.",
+   "section": "Sec. 2220F(d)(2)",
+   "quote": "the Secretary may assess on such covered entity a civil penalty of not more than $2,000,000 for each day on which such violation occurs.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; it sets rulemaking deadlines of 90 days after enactment."
+  }
+ },
+ "notes": "Amends the Homeland Security Act; requirements take effect through Secretary rulemaking (90 days after enactment), so effective_date marked not_in_bill. Covered entity/technology definitions are updated annually by rule.",
+ "key": "h-r-9917-ai-kill-switch-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+  "sha256": "2f0bb8157dd21c91ab8efefae2cb5c07e1532f1f7a4a24fc5f02dd93bf76b90e",
+  "chars": 14045
+ }
+}

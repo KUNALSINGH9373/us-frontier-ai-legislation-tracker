@@ -1,0 +1,82 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Before deploying a model, a developer must implement a written safety and security protocol, publish a redacted copy, send it to the attorney general, and review it annually.",
+   "section": "325M.41 subd. 1",
+   "quote": "(1) implement a written safety and security protocol;",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "A developer must conspicuously publish a redacted copy of its safety and security protocol and republish it after material changes.",
+   "section": "325M.41 subd. 1(3)",
+   "quote": "conspicuously publish a copy of the safety and security protocol",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "A developer must disclose each safety incident to the attorney general within 72 hours of learning of it.",
+   "section": "325M.41 subd. 4",
+   "quote": "model to the attorney general within 72 hours of the date",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "No separate shorter window for imminent-risk incidents."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "No independent audit is required."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "registration": {
+   "value": "partial",
+   "summary": "Before deploying, a developer must send a redacted copy of its safety protocol to the attorney general; no licence or approval is required.",
+   "section": "325M.41 subd. 1(3)",
+   "quote": "redactions, and transmit a copy of the redacted safety and security protocol to the attorney",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill text is silent on this."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "Covers any developer that has trained at least one model; no compute threshold."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "No revenue or user threshold."
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Critical harm means death or serious injury of 25 or more people, or at least $1,000,000 in damages, from a CBRN weapon or autonomous criminal conduct.",
+   "section": "325M.40(d)",
+   "quote": "\"Critical harm\" means the death, serious physical injury, or mental injury of 25 or",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The attorney general may seek civil penalties up to $10,000,000 for a first violation and $30,000,000 for later ones; injured persons may also sue for damages.",
+   "section": "325M.42 subd. 1",
+   "quote": "a civil penalty in an amount not exceeding $10,000,000 for a first violation and in",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill text states no effective date."
+  }
+ },
+ "notes": "No compute or revenue threshold (matches key name). Critical harm: 25 or more people or at least $1,000,000 damages. Entry may name a companion whose text I did not read.",
+ "key": "mn-hf-4532-no-threshold",
+ "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+ "basis": {
+  "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+  "sha256": "96d1c1cd8fdb7d1f2150050e99e4939339276211dd87ac008f3d09f6e4ba9424",
+  "chars": 7848
+ }
+}

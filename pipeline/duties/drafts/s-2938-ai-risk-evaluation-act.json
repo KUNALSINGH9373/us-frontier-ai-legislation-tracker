@@ -1,0 +1,76 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill requires developers to write no safety framework or plan."
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "No public report is required; the Energy program gives test reports only to participating developers."
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "Developers have no duty to report incidents to a government body."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no shorter window for imminent-risk incidents."
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "Developers must take part in the Energy Department's testing program, which uses independent third-party assessments only to the extent feasible; no private audit is required.",
+   "section": "Sec. 5(b)(3)",
+   "quote": "to the extent feasible, establish and facilitate classified, independent third-party assessments and blind model evaluations",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no employee protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "No registration or licensing; developers must take part in the federal evaluation program and may not deploy without complying."
+  },
+  "shutdown": {
+   "value": "partial",
+   "summary": "The Energy program must only develop recommended containment protocols; developers have no duty to build a shutdown capability.",
+   "section": "Sec. 5(b)(5)",
+   "quote": "develop recommended containment protocols, contingency planning, and mitigation strategies informed by testing data to address identified risks",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "An advanced AI system is one trained with more than 10^26 operations; the Secretary may propose a new definition only if Congress approves by joint resolution.",
+   "section": "Sec. 3(1)(A)",
+   "quote": "trained using a quantity of computing power greater than 10^26 integer or floating-point operations",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "Coverage does not depend on revenue, spending or users."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "Adverse incidents are defined by type of event, with no death, injury or damage figures."
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "A person who violates the participation or deployment rules is fined at least $1,000,000 per day of violation; the bill does not name an enforcer.",
+   "section": "Sec. 4(c)",
+   "quote": "shall be fined not less than $1,000,000 per day of the violation",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; it sets deadlines counted from enactment."
+  }
+ },
+ "notes": "No enforcer named for the penalty. Deadlines run from enactment (program in 90 days, plan in 360 days, sunset 7 years); no effective-date clause.",
+ "key": "s-2938-ai-risk-evaluation-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+  "sha256": "36fb9a501eb6cfbed0530fcbc6a006b9aa1e027a38ac07a6e67b222cde6d5f69",
+  "chars": 13519
+ }
+}

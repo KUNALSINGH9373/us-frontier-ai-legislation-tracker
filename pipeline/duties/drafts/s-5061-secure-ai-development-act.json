@@ -1,0 +1,79 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill requires developers to write no safety framework or plan; the Board only develops best practices."
+  },
+  "transparency_report": {
+   "value": "partial",
+   "summary": "A federal Risk Board must develop best practices for standard model-card formats; providers have no duty to publish model cards.",
+   "section": "Sec. 3(b)(6)(A)(ii)(I)",
+   "quote": "standardize formats and processes for publishing model cards with technical details of artificial intelligence systems",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+  },
+  "incident_reporting": {
+   "value": "partial",
+   "summary": "NIST must set up a channel for voluntary sharing of AI security and safety incidents; no one is required to report.",
+   "section": "Sec. 4(a)(1)",
+   "quote": "may voluntarily share information with the National Institute of Standards and Technology on confirmed or suspected artificial intelligence security or artificial intelligence safety incidents",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no shorter reporting window for imminent risks."
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "Frontier model providers must give the NSA's AI Security Center access to the model 21 calendar days before release; this is government pre-release access, not an independent audit.",
+   "section": "Sec. 3(c)",
+   "quote": "Not later than 21 calendar days before a provider introduces into interstate or foreign commerce a frontier artificial intelligence model, the provider shall make available to the Artificial Intelligence Security Center",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no employee protections."
+  },
+  "registration": {
+   "value": "yes",
+   "summary": "Each provider must register a frontier model with a NIST registry before introducing it into interstate or foreign commerce.",
+   "section": "Sec. 3(d)(3)",
+   "quote": "Each provider of a frontier artificial intelligence model shall register that frontier artificial intelligence model with the registry established under paragraph (1) before introducing the frontier artificial intelligence model into interstate or foreign commerce.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or containment capability."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "Frontier models are defined by capability, not by training compute."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "Coverage does not depend on revenue, spending or users."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "Frontier models are defined by serious risk to security or public health, with no death, injury or damage figures."
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "A provider that violates the 21-day NSA access duty is fined at least $100,000 per day the model is on the market without the NSA security guidance; the Attorney General enforces after a 7-day chance to cure.",
+   "section": "Sec. 3(e)(3)",
+   "quote": "Whoever violates subsection (c) shall be fined an amount equal to not less than $100,000 per day",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; deadlines run from enactment."
+  }
+ },
+ "notes": "Penalty applies only to violations of the NSA-access duty in Sec. 3(c); no stated penalty for failing to register under Sec. 3(d)(3). The frontier model definition is capability-based and vague. Sec. 3(f) amends the 2025 Intelligence Authorization Act (test-bed); Sec. 5-7 are agency studies and a threat-sharing pilot.",
+ "key": "s-5061-secure-ai-development-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+  "sha256": "872bc071685643e65acf6ddf5efa491748a76c207bf4e4ac4d96a636f473c9d3",
+  "chars": 49067
+ }
+}

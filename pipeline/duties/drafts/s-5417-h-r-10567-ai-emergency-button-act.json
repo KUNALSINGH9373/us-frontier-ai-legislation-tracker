@@ -1,0 +1,67 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no safety or risk-management framework."
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no public report or disclosure."
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no incident reporting."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no audit or independent evaluation."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "yes",
+   "summary": "Entities that develop or operate an advanced AI system in the US must build in a technical capability for a human operator to shut it down.",
+   "section": "Sec. 2(b)",
+   "quote": "Each covered entity shall ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text"
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines coverage by no compute figure; 'advanced' AI is undefined."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines coverage by no revenue or user figure."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines no harm threshold."
+  },
+  "penalties": {
+   "value": "not_in_bill",
+   "summary": "The bill states no penalties or enforcement remedies."
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; regulations are due 90 days after enactment."
+  }
+ },
+ "notes": "Entry names companion H.R. 10567; its text was not read. 'Advanced artificial intelligence system' is not defined in this text.",
+ "key": "s-5417-h-r-10567-ai-emergency-button-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+  "sha256": "7b473d7e6287749a4b6411da01166158641a0da7b0f5c03db9c5b241716da203",
+  "chars": 1947
+ }
+}

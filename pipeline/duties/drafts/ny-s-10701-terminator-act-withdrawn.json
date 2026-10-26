@@ -1,0 +1,88 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers that give privileged access to a model must keep a written security program to stop that access raising catastrophic risk, and run risk-based post-deployment monitoring.",
+   "section": "Gen. Bus. Law 1434(1)",
+   "quote": "shall establish, implement, and maintain a written security program reasonably designed to prevent such access from materially increasing catastrophic risk",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Large frontier developers' transparency reports must also summarize independent safety evaluation findings, limitations and identified catastrophic risks.",
+   "section": "Gen. Bus. Law 1421(3)(b)(v)",
+   "quote": "a summary of the material findings, limitations, uncertainties,",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Large frontier developers must report a significant safety incident to the state office as soon as practicable and within seven days of learning of it.",
+   "section": "Gen. Bus. Law 1422(3-a)(a)",
+   "quote": "A large frontier developer shall report a significant safety",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk window of its own; it only refers to existing critical incident reporting."
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "Large frontier developers must have an accredited independent safety evaluator test a frontier model before first deploying it in New York and again after material changes.",
+   "section": "Gen. Bus. Law 1430(1)",
+   "quote": "conduct a technical evaluation of such model's capabilities, safeguards,",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Large frontier developers may not retaliate against employees or contractors who disclose violations, safety incidents or catastrophic risks.",
+   "section": "Gen. Bus. Law 1436(1)",
+   "quote": "No large frontier developer, or contractor or subcontractor thereof, shall discharge, demote, suspend, threaten, harass, discriminate, or otherwise retaliate against an employee or contractor",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "Developers need no registration or licence; the office only accredits independent evaluators."
+  },
+  "shutdown": {
+   "value": "partial",
+   "summary": "Developers must be able to promptly suspend or revoke privileged model access, but no model shutdown is required; the state office may temporarily restrict a risky capability or deployment on written findings.",
+   "section": "Gen. Bus. Law 1434(4)",
+   "quote": "shall promptly suspend or modify privileged frontier model access where it reasonably determines that continued access would create a material and",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no compute threshold of its own."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no revenue coverage threshold; revenue is used only to size penalties."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no harm figures of its own."
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Attorney General may seek civil penalties up to one-half of one percent of annual gross revenue for knowing concealment, and up to one percent for willful concealment of critical incidents.",
+   "section": "Gen. Bus. Law 1427(4)-(5)",
+   "quote": "attorney general may bring a civil action to recover a civil penalty not",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Takes effect one year after becoming law, or one year after chapter 96 of the laws of 2026 takes effect if that is later.",
+   "section": "Sec. 10",
+   "quote": "This act shall take effect one year after it shall have become a",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+  }
+ },
+ "notes": "Entry is marked withdrawn. Amends base law (Gen. Bus. Law art. 44-B, chapter 96 of 2026), not read; thresholds and the framework duty live there. Shutdown marked partial because the office, not the developer, may restrict deployment. Quotes for penalties and effective date are cut at line ends.",
+ "key": "ny-s-10701-terminator-act-withdrawn",
+ "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701",
+ "basis": {
+  "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701",
+  "sha256": "e15a337b12260df1576934ead9ad71114226b549e52208d39717d7394a54239a",
+  "chars": 35690
+ }
+}

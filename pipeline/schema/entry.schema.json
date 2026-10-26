@@ -328,6 +328,7 @@
         "source_url": { "$ref": "common.schema.json#/$defs/url" },
         "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
         "chars": { "type": "integer", "minimum": 1 },
+        "method": { "enum": ["agent", "session"], "description": "agent: written by the pipeline. session: written in a Claude session from the official text; every quote checked by code. Kept apart from verification.method so the rest of the entry keeps its own checks." },
         "checked_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
       }
     },

@@ -23,6 +23,7 @@ const base = () => ({
 const check = (d) => checkDuties(d, TEXT, { sourceUrl: URL });
 
 ok('number words read as numbers (twenty-four, fifteen, one hundred)', [...wordNumbers('twenty-four hours, fifteen days, one hundred')].sort().join() === '100,15,24,4,1,20'.split(',').sort().join() || ['24', '15', '100'].every((n) => wordNumbers('twenty-four hours, fifteen days, one hundred').has(n)));
+ok('spelled-out numbers read whole (two thousand twenty-nine = 2029, one hundred and twenty = 120)', wordNumbers('in two thousand twenty-nine, within one hundred and twenty days').has('2029') && wordNumbers('one hundred and twenty days').has('120'));
 ok('a faithful set of duties passes', check(base()).length === 0, check(base()).join('; '));
 ok('a number spelled out in the text may be written as digits (fifteen -> 15)', !check(base()).some((p) => /number 15/.test(p)));
 { const d = base(); delete d.shutdown; ok('a missing duty is rejected (all 13 must be answered)', check(d).some((p) => /format/.test(p) && /shutdown/.test(p))); }

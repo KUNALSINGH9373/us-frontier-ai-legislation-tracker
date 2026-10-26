@@ -1,0 +1,97 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers must write, implement, follow and publish a frontier AI framework within one year of enactment or 90 days of qualifying, and review it at least annually.",
+   "section": "Sec. 4(a)",
+   "quote": "a large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on a publicly available website of such developer a frontier AI framework",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Before or when deploying a new or substantially modified frontier model, the developer must publish a report on the model, including its catastrophic-risk assessments and results.",
+   "section": "Sec. 4(d)(1)",
+   "quote": "the frontier developer of such model shall publish on a publicly available website of such developer a report on such model",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "A frontier developer must report a critical safety incident to the Under Secretary of Commerce within 72 hours of learning facts that establish a reasonable belief it occurred.",
+   "section": "Sec. 4(h)(1)",
+   "quote": "not later than 72 hours after a frontier developer learns facts sufficient to establish a reasonable belief that a critical safety incident has occurred with respect to a frontier model of such developer, such developer shall submit",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "An incident posing an imminent risk of death or serious physical injury must be reported to a law enforcement agency within 24 hours of discovery.",
+   "section": "Sec. 4(h)(2)",
+   "quote": "Not later than 24 hours after a frontier developer discovers a critical safety incident that poses an imminent risk of death or serious physical injury, such developer shall report such incident to a law enforcement agency",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "Large frontier developers must hire a third party for an annual independent audit of compliance with their framework; the largest developers must also retain a licensed independent verification organization.",
+   "section": "Sec. 4(c)",
+   "quote": "a large frontier developer shall retain a third party to perform an independent audit of compliance with the frontier AI framework of such developer",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no employee whistleblower protections."
+  },
+  "registration": {
+   "value": "yes",
+   "summary": "A large frontier developer may not develop, deploy or operate a frontier model without a current disclosure statement filed with the Under Secretary and the fee paid.",
+   "section": "Sec. 4(k)(1)",
+   "quote": "a large frontier developer may not develop, deploy, or operate a frontier model, in whole or in part, without a current disclosure statement filed with the Under Secretary",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "shutdown": {
+   "value": "partial",
+   "summary": "The Secretary of Commerce may order a developer's development, deployment or internal use of a frontier model suspended or restricted on a finding of imminent catastrophic risk; developers need not build a kill switch.",
+   "section": "Sec. 8(a)(1)",
+   "quote": "The Secretary may issue an emergency order suspending or restricting a frontier developer's development, deployment, or internal use of a frontier model upon finding",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is a foundation model trained with more than 10^26 operations, including later fine-tuning and reinforcement learning; the Under Secretary may raise the figure.",
+   "section": "Sec. 2(12)",
+   "quote": "a foundation model that was trained using a quantity of computing power greater than 10^26 integer or floating-point operations",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer, with its affiliates over 36 months, has gross revenues over $50,000,000 and at least $1,000,000,000 in AI development spending; a very large one has over $5,000,000,000 and at least $10,000,000,000.",
+   "section": "Sec. 2(15)",
+   "quote": "had gross revenues in excess of $50,000,000",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic risk is a risk of death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident involving a frontier model.",
+   "section": "Sec. 2(6)(A)",
+   "quote": "will materially contribute to the death of, or serious injury to, more than 50 people, or more than $1,000,000,000 in damage to, or loss of, property",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Up to $1,000,000 per violation (each day separate); $10,000 a day for no disclosure statement; up to $10,000,000 for breaking an emergency order (willful breach is criminal). Attorney General enforces.",
+   "section": "Sec. 4(j)(1)",
+   "quote": "A frontier developer that violates this section shall be subject to a civil penalty of not more than $1,000,000 per violation.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; deadlines run from enactment."
+  }
+ },
+ "notes": "Very large developers must retain a licensed IVO (Sec. 5(b)) with reports at least every 6 months. Sec. 9 (state-law preemption, text not fully read past its definitions) was not summarized. Sec. 4(h) incident reports are made to the Under Secretary, imminent-risk reports to law enforcement. Bill is a preemption and licensing-regime design; owner should review Sec. 9.",
+ "key": "h-r-9925-frontier-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text",
+  "sha256": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
+  "chars": 79087
+ }
+}

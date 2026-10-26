@@ -1,0 +1,70 @@
+{
+ "duties": {
+  "framework": {
+   "value": "partial",
+   "summary": "The state office must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks; the bill itself does not require a framework.",
+   "section": "Gen. Bus. Law 1430(1)",
+   "quote": "developers' frontier AI frameworks to meet minimum standards in order to",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456"
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no public report or disclosure."
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no incident reporting duty."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no independent audit."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines no compute threshold."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines no revenue threshold."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines no harm threshold."
+  },
+  "penalties": {
+   "value": "not_in_bill",
+   "summary": "The bill states no penalties."
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Takes effect 30 days after becoming law, or 30 days after article 44-B of the general business law takes effect if that is later.",
+   "section": "Sec. 2",
+   "quote": "This act shall take effect on the thirtieth day after it shall",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456"
+  }
+ },
+ "notes": "Amends a base law (Gen. Bus. Law art. 44-B, chapter 96 of 2026) whose text was not read; frameworks and large frontier developer definitions come from it.",
+ "key": "ny-s-10456-minimum-standards",
+ "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+ "basis": {
+  "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+  "sha256": "8a28b76bc1a86c4a2a6eead05f65f756492384bc1c9f09be6375cef9b0b327ff",
+  "chars": 3703
+ }
+}

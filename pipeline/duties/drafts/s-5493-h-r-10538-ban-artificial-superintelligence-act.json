@@ -1,0 +1,91 @@
+{
+ "duties": {
+  "framework": {
+   "value": "partial",
+   "summary": "Department rules must require developers to report pre-development plans; the bill itself sets no developer-written safety framework.",
+   "section": "Sec. 8(c)(1)",
+   "quote": "Requirements for entities developing artificial intelligence to report pre-development plans to the Department.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no public report or disclosure about a model."
+  },
+  "incident_reporting": {
+   "value": "partial",
+   "summary": "Anyone who discovers a superintelligence, or an AI with superintelligence precursor traits, must notify the Secretary within 24 hours; this covers discoveries, not general safety incidents.",
+   "section": "Sec. 11",
+   "quote": "shall submit to the Secretary notice of the discovery within 24 hours.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The only reporting window is the 24-hour discovery notice; no separate shorter window for imminent risk of death or injury."
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "Department rules must include auditing of organizational safety practices; the text does not say an independent third party audits.",
+   "section": "Sec. 8(c)(3)",
+   "quote": "Auditing to evaluate and improve organizational safety practices relating to artificial intelligence development.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Employers may not retaliate against employees or contractors, current or former, who give information about a violation of the Act to the Department, law enforcement or Congress.",
+   "section": "Sec. 14(b)",
+   "quote": "No employer may, directly or indirectly, discharge, demote, suspend, threaten, blacklist, harass, or in any other manner discriminate against a covered individual",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "registration": {
+   "value": "yes",
+   "summary": "No one may develop or distribute an advanced AI model without a charter from the Secretary, and no advanced system may be deployed without pre-deployment approval.",
+   "section": "Sec. 12(b)",
+   "quote": "No person may develop or distribute an advanced artificial intelligence model without a charter issued by the Secretary under subsection (a).",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "shutdown": {
+   "value": "yes",
+   "summary": "The Secretary must pause and sequester any AI showing superintelligence precursor traits, and render it inoperative within 30 days if not cleared; superintelligences are destroyed immediately.",
+   "section": "Sec. 10(b)",
+   "quote": "is rendered inoperative before the date that is 30 days after the date on which the Secretary makes the identification described in such subsection with respect to such system",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "An advanced AI system is one trained on at least 10^25 operations, adjusted each year by the Secretary to keep the same equivalence.",
+   "section": "Sec. 3(1)(A)",
+   "quote": "trained on computing power greater than or equal to 10^25 integer or floating point operations",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines coverage by no revenue, spending or user figure."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines harm by capability (superintelligence, precursor traits), with no death, injury or damages figure."
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Reckless violators face up to 20 years in prison and fines (title 18); other individuals face 10-year industry bans; the Secretary can revoke charters and force forfeiture, subject to review by the Federal Circuit.",
+   "section": "Sec. 13(b)",
+   "quote": "recklessly violates section 8, 9, or 12 or a rule promulgated thereunder shall be fined under title 18, United States Code, and imprisoned for not more than 20 years.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  },
+  "effective_date": {
+   "value": "partial",
+   "summary": "The pause on advanced AI begins on the date of enactment and lasts until the Secretary finds the Department staffed and its rules issued.",
+   "section": "Sec. 8(b)",
+   "quote": "the period beginning on the date of the enactment of this Act and ending on the date on which the Secretary determines that",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+  }
+ },
+ "notes": "Entry names companion H.R. 10538; its text was not read. Bill bans superintelligence and imposes a development pause; most duties are Department rules still to be written (Sec. 8(c)). Effective_date marked partial because the pause starts on enactment but the rest awaits rulemaking.",
+ "key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+  "sha256": "af682a0a653602b8ef31ae35c36bd877cdb1de13050078aa61643ed212817360",
+  "chars": 20457
+ }
+}
