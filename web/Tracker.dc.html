@@ -61,6 +61,20 @@ h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;
 [data-hn-one]{grid-template-columns:minmax(0,1fr)}
 [data-hn-one] [data-hn-k]{grid-column:1}
 [data-hn-k]{grid-column:2;font-size:calc(12px*var(--fs));font-weight:600;letter-spacing:.01em}
+[data-fdet]{margin-top:12px}
+[data-fsum]{display:none}
+[data-frows]{display:flex;flex-direction:column;gap:8px}
+[data-frow]{display:flex;align-items:flex-start;gap:12px}
+[data-flabel]{flex:0 0 calc(56px*var(--fs));padding-top:calc(7px*var(--hs));font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-3)}
+[data-fopts]{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+[data-fchip]{display:inline-flex;align-items:center;gap:6px;height:calc(32px*var(--hs));padding:0 calc(11px*var(--ps));border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(13.5px*var(--fs));font-weight:600;cursor:pointer;white-space:nowrap}
+[data-fchip]:hover{border-color:var(--ink-3)}
+[data-fchip][aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+[data-fchip]:disabled{opacity:.45;cursor:default}
+[data-fn]{font-size:calc(12px*var(--fs));font-weight:600;color:var(--ink-3);font-variant-numeric:tabular-nums}
+[data-fchip][aria-pressed="true"] [data-fn]{color:inherit}
+[data-fbadge]{min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--accent-ink);color:var(--on-accent);font-size:calc(12px*var(--fs));font-weight:800;display:inline-grid;place-items:center}
+@media (max-width:767px){[data-fsum]{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 12px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--surface);font-weight:650;cursor:pointer;list-style:none}[data-fsum]::-webkit-details-marker{display:none}[data-fdet][open] [data-frows]{margin-top:12px}[data-frow]{flex-direction:column;gap:6px}[data-flabel]{flex:none;padding:0}}
 [data-chip]{position:relative}@media (pointer:coarse),(max-width:1023px){[data-chip]::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
 [data-sidetoggle]{align-items:center;justify-content:center;gap:6px;height:calc(32px*var(--hs));margin:0 0 8px auto;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-weight:650;font-size:calc(13px*var(--fs));cursor:pointer}
 [data-sidetoggle]:hover{color:var(--ink);border-color:var(--line-2)}
@@ -303,18 +317,15 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <label for="ex-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search the tracker</label>
       <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="{{qPh}}" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(16px*var(--fs));outline:none">
     </form>
-    <button onClick="{{toggleExF}}" aria-expanded="{{exFExpanded}}" aria-controls="ex-filters" style="flex-shrink:0;height:calc(44px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:{{exFBg}};color:var(--ink);font-weight:650;font-size:calc(14.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg>Filters<sc-if value="{{hasExFN}}"><span aria-hidden="true" style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--accent-ink);color:var(--on-accent);font-size:calc(12px*var(--fs));font-weight:800;display:grid;place-items:center">{{exFN}}</span></sc-if></button>
   </div>
-  <sc-if value="{{exFOpen}}">
-    <div id="ex-filters" role="group" aria-label="Filters" style="margin-top:10px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));gap:12px 14px">
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(13px*var(--fs));font-weight:600;color:var(--ink-2)">Level<select value="{{fLevel}}" onChange="{{onLevel}}" style="height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14.5px*var(--fs))"><option value="">Federal and state</option><option value="federal">Federal</option><option value="state">State</option></select></label>
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(13px*var(--fs));font-weight:600;color:var(--ink-2)">Status<select value="{{fStatus}}" onChange="{{onStatus}}" style="height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14.5px*var(--fs))"><option value="">Any status</option><sc-for list="{{statusOpts}}" as="o"><option value="{{o.k}}">{{o.l}}</option></sc-for></select></label>
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(13px*var(--fs));font-weight:600;color:var(--ink-2)">State<select value="{{fSt}}" onChange="{{onSt}}" style="height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14.5px*var(--fs))"><option value="">Any state</option><sc-for list="{{stOpts}}" as="o"><option value="{{o.k}}">{{o.l}}</option></sc-for></select></label>
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(13px*var(--fs));font-weight:600;color:var(--ink-2)">Type<select value="{{fType}}" onChange="{{onType}}" style="height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14.5px*var(--fs))"><option value="">Any type</option><sc-for list="{{typeOpts}}" as="o"><option value="{{o.k}}">{{o.l}}</option></sc-for></select></label>
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(13px*var(--fs));font-weight:600;color:var(--ink-2)">Year<select value="{{fYear}}" onChange="{{onYear}}" style="height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14.5px*var(--fs))"><option value="">All years</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027+">2027 and later</option></select></label>
-      <label style="display:flex;flex-direction:column;gap:4px;font-size:calc(13px*var(--fs));font-weight:600;color:var(--ink-2)">Group<select value="{{fGrp}}" onChange="{{onGrp}}" style="height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14.5px*var(--fs))"><option value="">All groups</option><sc-for list="{{grpOpts}}" as="o"><option value="{{o.k}}">{{o.l}}</option></sc-for></select></label>
+  <details data-fdet open="{{fdOpen}}">
+    <summary data-fsum>Filters<sc-if value="{{hasExFN}}"><span data-fbadge>{{exFN}}</span></sc-if><span aria-hidden="true" style="margin-left:auto;color:var(--ink-3)">▾</span></summary>
+    <div id="ex-filters" role="group" aria-label="Filters" data-frows>
+      <sc-for list="{{fRows}}" as="r">
+        <div data-frow role="group" aria-label="{{r.l}}"><span data-flabel aria-hidden="true">{{r.l}}</span><div data-fopts><sc-for list="{{r.opts}}" as="o"><button data-fchip aria-pressed="{{o.pressed}}" onClick="{{o.go}}" disabled="{{o.off}}"><sc-if value="{{o.hasG}}"><span aria-hidden="true" style="color:{{o.c}}">{{o.g}}</span></sc-if>{{o.l}}<span data-fn>{{o.n}}</span></button></sc-for></div></div>
+      </sc-for>
     </div>
-  </sc-if>
+  </details>
   <sc-if value="{{hasChips}}">
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
       <sc-for list="{{chips}}" as="c"><button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:calc(34px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);font-weight:600;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap">{{c.l}}<span aria-hidden="true" style="font-size:calc(12px*var(--fs));color:var(--ink-3)">✕</span></button></sc-for>
@@ -1193,11 +1204,19 @@ class Component extends DCLogic {
   }
   explore(p) {
     const L = this.L, D = this.D, s = this.state;
-    const exFN = ['level', 'status', 'st', 'type', 'year', 'grp'].filter(k => p[k]).length;
+    const exFN = ['level', 'status', 'type', 'year'].filter(k => p[k]).length;
     const f = this.filt(p);
     const { terms, res } = L.search(D.E.filter(f), s.q);
     const rows = s.q.trim() ? res : res.sort((a, b) => (b.x.kd ? +b.x.kd.d : 0) - (a.x.kd ? +a.x.kd.d : 0));
-    const chips = this.chips({ ...p, q: s.q.trim() || undefined }, ['q', 'sec', 'grp', 'level', 'status', 'type', 'year', 'st']);
+    const chips = this.chips({ ...p, q: s.q.trim() || undefined }, ['q', 'sec', 'grp', 'st']);
+    // Always-visible filter rows; each option shows how many entries it would leave, given the other filters.
+    const fOpt = (key, k, l, extra) => { const on = key === 'status' ? this.csv(p.status).includes(k) : p[key] === k, n = D.E.filter(this.filt({ ...p, [key]: on ? p[key] : k })).length;
+      return { l, n, pressed: on ? 'true' : 'false', off: !on && !n, hasG: !!(extra && extra.g), ...(extra || {}), go: () => this.setP({ [key]: on ? '' : k }, true) }; };
+    const fRows = [
+      { l: 'Level', opts: [['federal', 'Federal'], ['state', 'State']].map(([k, l]) => fOpt('level', k, l)) },
+      { l: 'Status', opts: L.STATUS_ORDER.filter(k => D.E.some(x => x.status === k)).map(k => fOpt('status', k, L.ST[k].l, { g: L.ST[k].g, c: `var(--st-${k})` })) },
+      { l: 'Type', opts: Object.keys(L.TYPES).filter(k => D.E.some(x => x.type === k)).map(k => fOpt('type', k, L.TYPES[k])) },
+      { l: 'Year', opts: [['2023', '2023'], ['2024', '2024'], ['2025', '2025'], ['2026', '2026'], ['2027+', '2027 and later']].map(([k, l]) => fOpt('year', k, l)) }];
     const out = {
       isExplore: true, secNotesEl: p.sec ? this.V.sectionNotes(D.content, p.sec, L) : null, hasSecNotes: !!(p.sec && D.content && D.content.section_notes[p.sec]), q: s.q, qPh: 'Bill, state or idea', qRef: this.qRef, ...this.sidebar(p, s.vw < 1024),
       onQ: e => { const q = e.target.value; this.setState({ q }); clearTimeout(this.qt); this.qt = setTimeout(() => { history.replaceState(null, '', '#/explore?' + new URLSearchParams(Object.entries({ ...this.state.route.p, q }).filter(([, v]) => v)).toString()); }, 300); },
@@ -1205,7 +1224,7 @@ class Component extends DCLogic {
       chips, hasChips: chips.length > 0, clearAll: () => { this.setState({ q: '' }); this.go('/explore', {}); },
       fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fSt: p.st || '', fYear: p.year || '', fGrp: p.grp || '', grpOpts: L.GROUPS.map(g => ({ k: g.k, l: g.l })),
       onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true), onYear: e => this.setP({ year: e.target.value }, true), onGrp: e => this.setP({ grp: e.target.value }, true),
-      exFOpen: s.exFOpen, exFExpanded: s.exFOpen ? 'true' : 'false', toggleExF: () => this.setState({ exFOpen: !this.state.exFOpen }), exFN, hasExFN: exFN > 0, exFBg: exFN || s.exFOpen ? 'var(--surface-2)' : 'var(--surface)',
+      fRows, fdOpen: s.vw >= 768 || !!s.exFOpen, exFN, hasExFN: exFN > 0,
       statusOpts: L.STATUS_ORDER.filter(k => D.E.some(x => x.status === k)).map(k => ({ k, l: L.ST[k].l })),
       stOpts: [...new Set(D.E.map(x => x.st).filter(c => c && L.SN[c]))].sort((a, b) => L.SN[a].localeCompare(L.SN[b])).map(c => ({ k: c, l: L.SN[c] })),
       typeOpts: Object.keys(L.TYPES).filter(k => D.E.some(x => x.type === k)).map(k => ({ k, l: L.TYPES[k] })),
