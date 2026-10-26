@@ -190,7 +190,7 @@ function stepsOf(statusText, fy) {
 // Explore's one-line lead: the first clauses of the mechanism, split at "; " or ". " outside brackets and not after an
 // abbreviation ("Dept.", "Gen. Bus. Law", "No.", "U.S.C."), skipping the research note some cells open with
 // ("Full text read (781 words).", "Introduced text read."), and topping up very short clauses with the next ones.
-const ABBR = /(?:^|[\s(])(?:[A-Z][a-z]{0,3}|[A-Z](?:\.[A-Z])+|No|Nos|pp|v|vs|al|incl|approx|e\.g|i\.e)$/;
+const ABBR = /(?:^|[\s(])(?:Dept|Gen|Bus|Sec|Secs|Stat|Art|Ch|Inc|Co|Corp|St|Rev|Ann|Cal|Fla|Ill|Mass|Mich|Minn|Pa|Va|Wash|Cir|Gov|Sen|Rep|Reps|Mr|Ms|Dr|Jr|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Oct|Nov|Dec|[A-Z]|[A-Z](?:\.[A-Z])+|No|Nos|pp|p|v|vs|al|incl|approx|e\.g|i\.e|U\.S\.C|C\.F\.R)$/;
 export function leadOf(mech) {
   const parts = []; let depth = 0, from = 0;
   for (let i = 0; i < mech.length; i++) {

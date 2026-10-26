@@ -1235,8 +1235,12 @@ class Component extends DCLogic {
     const rows = s.q.trim() ? res : res.sort((a, b) => (b.x.kd ? +b.x.kd.d : 0) - (a.x.kd ? +a.x.kd.d : 0));
     const chips = this.chips({ ...p, q: s.q.trim() || undefined }, ['q', 'sec', 'grp', 'st']);
     // Always-visible filter rows; each option shows how many entries it would leave, given the other filters.
-    const fOpt = (key, k, l, extra) => { const on = key === 'status' ? this.csv(p.status).includes(k) : p[key] === k, n = D.E.filter(this.filt({ ...p, [key]: on ? p[key] : k })).length;
-      return { l, n, pressed: on ? 'true' : 'false', off: !on && !n, hasG: !!(extra && extra.g), ...(extra || {}), go: () => this.setP({ [key]: on ? '' : k }, true) }; };
+    // Status takes several values (a comma list), so its chips add or remove one status; the others pick one value.
+    const fOpt = (key, k, l, extra) => {
+      const cur = key === 'status' ? this.csv(p.status) : null, on = cur ? cur.includes(k) : p[key] === k;
+      const next = cur ? (on ? cur.filter(c => c !== k) : [...cur, k]).join(',') : (on ? '' : k);
+      const n = D.E.filter(this.filt({ ...p, [key]: on ? p[key] : (cur ? next : k) })).length;
+      return { l, n, pressed: on ? 'true' : 'false', off: !on && !n, hasG: !!(extra && extra.g), ...(extra || {}), go: () => this.setP({ [key]: next }, true) }; };
     const fRows = [
       { l: 'Level', opts: [['federal', 'Federal'], ['state', 'State']].map(([k, l]) => fOpt('level', k, l)) },
       { l: 'Status', opts: L.STATUS_ORDER.filter(k => D.E.some(x => x.status === k)).map(k => fOpt('status', k, L.ST[k].l, { g: L.ST[k].g, c: `var(--st-${k})` })) },
@@ -1247,12 +1251,7 @@ class Component extends DCLogic {
       onQ: e => { const q = e.target.value; this.setState({ q }); clearTimeout(this.qt); this.qt = setTimeout(() => { history.replaceState(null, '', '#/explore?' + new URLSearchParams(Object.entries({ ...this.state.route.p, q }).filter(([, v]) => v)).toString()); }, 300); },
       submitQ: e => { e.preventDefault(); },
       chips, hasChips: chips.length > 0, clearAll: () => { this.setState({ q: '' }); this.go('/explore', {}); },
-      fLevel: p.level || '', fStatus: this.csv(p.status).length === 1 ? p.status : '', fType: p.type || '', fSt: p.st || '', fYear: p.year || '', fGrp: p.grp || '', grpOpts: L.GROUPS.map(g => ({ k: g.k, l: g.l })),
-      onLevel: e => this.setP({ level: e.target.value }, true), onStatus: e => this.setP({ status: e.target.value }, true), onType: e => this.setP({ type: e.target.value }, true), onSt: e => this.setP({ st: e.target.value }, true), onYear: e => this.setP({ year: e.target.value }, true), onGrp: e => this.setP({ grp: e.target.value }, true),
-      fRows, fdOpen: s.vw >= 768 || !!s.exFOpen, exFN, hasExFN: exFN > 0,
-      statusOpts: L.STATUS_ORDER.filter(k => D.E.some(x => x.status === k)).map(k => ({ k, l: L.ST[k].l })),
-      stOpts: [...new Set(D.E.map(x => x.st).filter(c => c && L.SN[c]))].sort((a, b) => L.SN[a].localeCompare(L.SN[b])).map(c => ({ k: c, l: L.SN[c] })),
-      typeOpts: Object.keys(L.TYPES).filter(k => D.E.some(x => x.type === k)).map(k => ({ k, l: L.TYPES[k] })),
+      fRows, fdOpen: s.vw >= 768, exFN, hasExFN: exFN > 0,
       showThresholds: p.type === 'law'
     };
     {
