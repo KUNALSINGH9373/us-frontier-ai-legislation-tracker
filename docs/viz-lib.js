@@ -284,11 +284,11 @@ export function sortRows(rows, L, key, dir) {
 }
 const confText = (x, L) => (x.confNote || (x.conf ? x.conf : ''));
 export function toCsv(rows, L) {
-  const head = ['Section', 'Entry', 'Jurisdiction', 'Sponsor', 'Core mechanism / description', 'Thresholds / scope', 'Status and dates', 'Penalties', 'Source', 'Source links', 'Confidence', 'Status', 'Type', 'Latest step', 'Years with dated events', 'Permalink', 'Entry number'];
+  const head = ['Section', 'Entry', 'Jurisdiction', 'Sponsor', 'Core mechanism / description', 'Thresholds / scope', 'Status and dates', 'Penalties', 'Source', 'Source links', 'Confidence', 'Status', 'Type', 'Latest step', 'Years with dated events', 'Permalink', 'Entry number', ...L.DUTIES.map((d) => 'Duty: ' + d.l)];
   const q = (s) => '"' + String(s == null ? '' : s).replace(/"/g, '""').replace(/\s+/g, ' ').trim() + '"';
   const base = location.href.split('#')[0];
   const lines = rows.map((x) => [x.section, x.title, x.juris, x.sponsor, x.mech, x.thresholds, L.clean(x.raw.status_text != null ? x.raw.status_text : x.raw.status_and_dates), x.penalties, x.source, x.srcLinks.map((l) => l.u).join(' '), confText(x, L) || 'Not rated',
-    L.ST[x.status].l, L.TYPES[x.type], x.kdLabel, x.years.filter((y) => y !== '*').join(' '), base + '#/bill/' + x.id, x.id].map(q).join(','));
+    L.ST[x.status].l, L.TYPES[x.type], x.kdLabel, x.years.filter((y) => y !== '*').join(' '), base + '#/bill/' + x.id, x.id, ...L.DUTIES.map((d) => { const v = x.raw.duties && x.raw.duties[d.k]; return v ? L.DUTY_VALUE[v.value].l + (v.value === 'not_in_bill' ? '' : ': ' + v.summary + ' [' + v.section + ']') : ''; })].map(q).join(','));
   return '﻿' + [head.map(q).join(','), ...lines].join('\r\n');
 }
 
@@ -844,6 +844,14 @@ export function entryTable(ctx) {
   const rows = ET_ROWS.filter((r) => !hidRows.has(r.k));
   const kAll = xs.length > 0 && xs.every((x) => L.K_IDS.includes(x.id));
   const kRows = kAll && !hidRows.has('duties') ? L.K_ROWS.filter((r) => !r[2]) : [];
+  // Duty rows read from each entry's own `duties` (bill text, quotes checked by code); shown when any column has them.
+  const anyDuties = xs.some((x) => x.raw && x.raw.duties), dutyOn = anyDuties && !hidRows.has('textduties');
+  const dutyCell = (x, d) => {
+    const v = x.raw && x.raw.duties && x.raw.duties[d.k];
+    if (!v) return h('td', { key: x.id }, '—');
+    return h('td', { key: x.id }, h('strong', null, h('span', { 'aria-hidden': 'true' }, L.DUTY_VALUE[v.value].g + ' '), L.DUTY_VALUE[v.value].l),
+      v.value === 'not_in_bill' ? null : h('span', { style: { display: 'block', marginTop: 2 } }, v.summary, v.section ? h('span', { 'data-bmsub': '', style: { display: 'block' } }, v.section) : null));
+  };
   const cell = (x, r) => {
     const key = x.id + ':' + r.k, isOpen = expAll || opened.has(key), v = value[r.k](x);
     // Only text long enough to pass five lines gets clamped and a Show all button.
@@ -877,7 +885,7 @@ export function entryTable(ctx) {
         pop('add', { label: 'Add an entry', el: addPanel }))),
     h('div', { 'data-tgrp': '' },
       h('div', { 'data-twrap': '' }, btn('rows', 'Rows'),
-        pop('rows', { label: 'Rows shown', el: h('div', { role: 'menu' }, ...[...ET_ROWS, ...(kAll ? [{ k: 'duties', l: 'Key duties (7 bills)' }] : [])].map((r) => check(!hidRows.has(r.k), r.l, () => set({ trh: toggleIn([...hidRows], r.k).join(',') }), r.k))) }, 'right')),
+        pop('rows', { label: 'Rows shown', el: h('div', { role: 'menu' }, ...[...ET_ROWS, ...(kAll ? [{ k: 'duties', l: 'Key duties (7 bills)' }] : []), ...(anyDuties ? [{ k: 'textduties', l: 'Duties from the bill text' }] : [])].map((r) => check(!hidRows.has(r.k), r.l, () => set({ trh: toggleIn([...hidRows], r.k).join(',') }), r.k))) }, 'right')),
       h('div', { 'data-twrap': '' }, btn('view', 'View'),
         pop('view', { label: 'View options', el: h('div', { role: 'menu' },
           check(fit, 'Fit to screen width', () => set({ tfit: fit ? '' : '1' }), 'f'),
@@ -903,7 +911,9 @@ export function entryTable(ctx) {
         h('tbody', null,
           ...rows.map((r) => h('tr', { key: r.k }, h('th', { scope: 'row', 'data-bmdim': '' }, r.l), ...xs.map((x) => cell(x, r)), h('td', { 'data-addcol': '' }))),
           ...(kRows.length ? [h('tr', { key: 'kh' }, h('th', { scope: 'row', 'data-bmdim': '', 'data-etgroup': '' }, 'Key duties'), h('td', { colSpan: xs.length + 1, 'data-bmnote': '' }, 'From the tracker’s duty-by-duty comparison of the seven key bills (section K).'))] : []),
-          ...kRows.map(([dim, m], i) => h('tr', { key: 'k' + i }, h('th', { scope: 'row', 'data-bmdim': '' }, dim), ...xs.map((x) => h('td', { key: x.id }, ...mdInline(m[x.id] || '—'))), h('td', { 'data-addcol': '' })))))),
+          ...kRows.map(([dim, m], i) => h('tr', { key: 'k' + i }, h('th', { scope: 'row', 'data-bmdim': '' }, dim), ...xs.map((x) => h('td', { key: x.id }, ...mdInline(m[x.id] || '—'))), h('td', { 'data-addcol': '' }))),
+          ...(dutyOn ? [h('tr', { key: 'dh' }, h('th', { scope: 'row', 'data-bmdim': '', 'data-etgroup': '' }, 'Duties from the bill text'), h('td', { colSpan: xs.length + 1, 'data-bmnote': '' }, 'Read from each bill’s official text; every quote is checked against it. Open an entry for the exact words.')),
+            ...L.DUTIES.map((d) => h('tr', { key: 'd' + d.k }, h('th', { scope: 'row', 'data-bmdim': '' }, d.l), ...xs.map((x) => dutyCell(x, d)), h('td', { 'data-addcol': '' })))] : [])))),
     !kAll ? h('p', { 'data-bmkey': '' }, 'Duty-by-duty rows (thresholds, incident reporting, audits and more) appear when every column is one of the seven compared bills. ',
       h('button', { type: 'button', 'data-reset': '', onClick: () => setCols(L.K_IDS.filter((id) => D.byId[id])) }, 'Show those seven')) : null,
     h('p', { 'data-bmkey': '' }, 'How to read this table: “—” means the entry has nothing for that field. The coloured line on each column shows its ', byLevel ? 'level' : 'status', '. Not legal advice; open an entry for its full record and sources.'),

@@ -72,6 +72,97 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-53-transparency-in-frontier-ai-act-tfaia",
    "section_name": "Enacted state frontier-developer laws"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, follow and publish a frontier AI framework, and review it at least once a year.",
+    "section": "Bus. & Prof. Code 22757.12(a)",
+    "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its internet website a frontier AI framework",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Every frontier developer must publish a transparency report when it deploys a new or substantially modified frontier model.",
+    "section": "Bus. & Prof. Code 22757.12(c)(1)",
+    "quote": "a frontier developer shall clearly and conspicuously publish on its internet website a transparency report",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Critical safety incidents must be reported to the Office of Emergency Services within 15 days of discovery.",
+    "section": "Bus. & Prof. Code 22757.13(c)(1)",
+    "quote": "shall report any critical safety incident pertaining to one or more of its frontier models to the Office of Emergency Services within 15 days of discovering the critical safety incident",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+    "section": "Bus. & Prof. Code 22757.13(c)(2)",
+    "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within 24 hours",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The framework must describe how the developer uses third parties to assess catastrophic risk; no independent audit is required.",
+    "section": "Bus. & Prof. Code 22757.12(a)(5)",
+    "quote": "Using third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks.",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers may not block or retaliate against employees who report catastrophic-risk dangers or violations of the Act.",
+    "section": "Labor Code 1107.1(a)",
+    "quote": "A frontier developer shall not make, adopt, enforce, or enter into a rule, regulation, policy, or contract that prevents a covered employee from disclosing, or retaliates against a covered employee for disclosing",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning.",
+    "section": "Bus. & Prof. Code 22757.11(i)",
+    "quote": "trained using a quantity of computing power greater than 10^26 integer or floating-point operations",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer has annual gross revenues above $500,000,000, with its affiliates, in the preceding calendar year.",
+    "section": "Bus. & Prof. Code 22757.11(j)",
+    "quote": "annual gross revenues in excess of five hundred million dollars ($500,000,000) in the preceding calendar year",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+    "section": "Bus. & Prof. Code 22757.11(c)(1)",
+    "quote": "more than 50 people or more than one billion dollars ($1,000,000,000) in damage to, or loss of, property arising from a single incident",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Civil penalty of up to $1,000,000 per violation, recovered only in a civil action by the Attorney General.",
+    "section": "Bus. & Prof. Code 22757.15",
+    "quote": "does not exceed one million dollars ($1,000,000) per violation",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill text states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+   "sha256": "db9ef56dea85fce788cbb85b9165c2c78122d9a5b706f7db4c2afa44d25acbde",
+   "chars": 45185,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -171,6 +262,100 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-raise-act-chapter-699-of-2025-s-6953-b-a-6453-b-repealed-and-replaced-",
    "section_name": "Enacted state frontier-developer laws"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, follow and publish a frontier AI framework, and review it at least once a year.",
+    "section": "Gen. Bus. Law 1421(1)",
+    "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its internet website a frontier AI framework",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Every frontier developer must publish a transparency report when it deploys a new or substantially modified frontier model.",
+    "section": "Gen. Bus. Law 1421(3)(a)",
+    "quote": "a frontier developer shall clearly and conspicuously publish on its internet website a transparency report",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Critical safety incidents must be reported to the state office within 72 hours of a determination or of learning enough facts to believe one occurred.",
+    "section": "Gen. Bus. Law 1422(3)(a)",
+    "quote": "shall report any critical safety incident pertaining to one or more of its frontier models to the office within seventy-two hours",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+    "section": "Gen. Bus. Law 1422(3)(b)",
+    "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within twenty-four hours",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The framework must describe how the developer uses third parties to assess catastrophic risk; no independent audit is required.",
+    "section": "Gen. Bus. Law 1421(1)(e)",
+    "quote": "using third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The text has no whistleblower provision."
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "A large frontier developer may not develop, deploy or operate a frontier model in New York without a current disclosure statement filed with the state office, renewed every two years.",
+    "section": "Gen. Bus. Law 1428(1)",
+    "quote": "no large frontier developer may develop, deploy, or operate a frontier model, in whole or in part in New York state, without having a current disclosure statement filed with the office",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The text requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning.",
+    "section": "Gen. Bus. Law 1420(9)(a)",
+    "quote": "a foundation model that was trained using a quantity of computing power greater than 10",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer has annual gross revenues above $500,000,000, with its affiliates, in the preceding calendar year.",
+    "section": "Gen. Bus. Law 1420(10)",
+    "quote": "annual gross revenues in excess of five hundred million dollars in the preceding calendar year",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+    "section": "Gen. Bus. Law 1420(3)(a)",
+    "quote": "more than fifty people or more than one billion dollars in damage to, or loss of, property arising from a single incident",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Attorney General may sue large frontier developers for up to $1,000,000 for a first violation and $3,000,000 per later one; the state office may also fine $1,000 a day for not filing the disclosure statement.",
+    "section": "Gen. Bus. Law 1427(1)",
+    "quote": "in an amount not to exceed one million dollars for a first violation and in an amount not to exceed three million dollars per subsequent violation",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Sec. 3 sets the 2025 Act's effective date to January 1, 2027; under Sec. 5 this bill takes effect immediately, but its new article takes effect when that 2025 Act does.",
+    "section": "Secs. 3 and 5",
+    "quote": "This act shall take effect immediately; provided, however that",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "sha256": "5f7a496c60c264afae64bf98d516228cedb9e3b9ca15d5c9dbac9721cf5c0ec6",
+   "chars": 28472,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -266,6 +451,103 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-315-ai-safety-measures-act-public-act-104-0538",
    "section_name": "Enacted state frontier-developer laws"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Beginning January 1, 2028, large frontier developers must write, follow and publish a frontier AI framework, and review it at least once per year.",
+    "section": "Sec. 10(a)",
+    "quote": "shall write, implement, comply with, and clearly and conspicuously publish on its website a frontier AI framework",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Every frontier developer must publish a transparency report before or when it deploys a new or substantially modified frontier model; large developers add machine-readable risk summaries.",
+    "section": "Sec. 10(c)(1)",
+    "quote": "a frontier developer shall clearly and conspicuously publish on its website a transparency report containing all of the following",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report each critical safety incident to the state emergency agency and the Attorney General within 72 hours of reasonably believing one occurred.",
+    "section": "Sec. 15(c)",
+    "quote": "within 72 hours of the frontier developer learning facts sufficient to establish a reasonable belief that a critical safety incident has occurred",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority such as law enforcement.",
+    "section": "Sec. 15(c)",
+    "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within 24 hours",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Beginning January 1, 2028, large frontier developers must each year hire an independent third party to audit compliance, then publish a summary and the redacted report within 30 days.",
+    "section": "Sec. 10(d)",
+    "quote": "a large frontier developer shall annually retain a third party to perform an independent audit of compliance with the requirements of this Section",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers may not block or retaliate against covered employees who report catastrophic-risk dangers or violations of the Act, and must give notice of those rights.",
+    "section": "Sec. 20(a)",
+    "quote": "A frontier developer shall not make, adopt, enforce, or enter into a rule, regulation, policy, or contract that prevents a covered employee from disclosing",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "Beginning January 1, 2027, large frontier developers may not develop, deploy or operate a frontier model in Illinois without a current disclosure statement on file with the Agency and fees paid.",
+    "section": "Sec. 18(a)",
+    "quote": "no large frontier developer may develop, deploy, or operate a frontier model, in whole or in part in this State, without having a current disclosure statement filed with the Agency and paying the required fee",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is a foundation model trained with computing power greater than 1026 (as printed) integer or floating-point operations, including fine-tuning.",
+    "section": "Sec. 5",
+    "quote": "using a quantity of computing power greater than 1026 integer or floating-point operations",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with its affiliates, had annual gross revenues above $500,000,000 in the preceding calendar year.",
+    "section": "Sec. 5",
+    "quote": "collectively had annual gross revenues in excess of $500,000,000 in the preceding calendar year",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+    "section": "Sec. 5",
+    "quote": "more than 50 people or more than $1,000,000,000 in damage to, or loss of, property arising from a single incident",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Attorney General civil action: up to $1,000,000 for a first violation and $3,000,000 for later ones (Sec. 25); the Agency may separately fine $1,000 a day for a missing disclosure (Sec. 18(e)).",
+    "section": "Sec. 25(a)",
+    "quote": "the civil penalty may not exceed $3,000,000 per violation",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The Act takes effect January 41, 2027 as printed in the stored text (a likely typo); the framework and audit duties begin January 1, 2028.",
+    "section": "Sec. 99",
+    "quote": "This Act takes effect January 41, 2027.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+   "sha256": "4fc4708fff1586060f053516960daa912c6275928d99ef9c6a3ae2dd5507f738",
+   "chars": 71883,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -388,6 +670,100 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-5576-an-act-relative-to-economic-development-in-the-commonwealth-sen",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, follow and publish a frontier AI framework, and review it at least annually.",
+    "section": "Ch. 93M sec. 2(a)-(b)",
+    "quote": "A large frontier developer shall write, implement, comply with and clearly",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Every frontier developer must publish a transparency report when it deploys a new or substantially modified model; large developers must also publish a catastrophic-risk report updated every 180 days.",
+    "section": "Ch. 93M sec. 2(c)(1) and (c 1/2)",
+    "quote": "conspicuously publish on its website a transparency report containing",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Critical safety incidents must be reported to the Attorney General within 15 days of discovery.",
+    "section": "Ch. 93M sec. 3(c)(1)",
+    "quote": "of its frontier models to the attorney general within 15 days of discovering the critical safety",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+    "section": "Ch. 93M sec. 3(c)(1)",
+    "quote": "that incident within 24 hours to an authority, including any law enforcement agency or public",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must each year retain an independent third party to audit compliance, and engage an independent evaluator of catastrophic risk at least every 120 days.",
+    "section": "Ch. 93M sec. 3A(a)",
+    "quote": "A large frontier developer shall annually retain a third party to perform an",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers may not block or retaliate against employees who report catastrophic-risk dangers or violations; large developers need an internal reporting process with monthly updates.",
+    "section": "Ch. 93M sec. 7(a)",
+    "quote": "regulation, policy or contract that prevents a covered employee from disclosing or retaliates",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement for developers."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning.",
+    "section": "Ch. 93M sec. 1",
+    "quote": "power greater than 10^26 integer or floating-point operations",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with its affiliates, has annual gross revenues above $500,000,000.",
+    "section": "Ch. 93M sec. 1",
+    "quote": "collectively has annual gross revenues greater than $500,000,000",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to at least 50 people, or at least $1,000,000,000 in property damage, from a single incident.",
+    "section": "Ch. 93M sec. 1",
+    "quote": "death of, or serious injury to, not less than 50 people or not less than $1,000,000,000 in damage",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Civil penalty up to $1,000,000 for a first violation and $3,000,000 for later ones, recovered only by the Attorney General in a civil action.",
+    "section": "Ch. 93M sec. 5(a)",
+    "quote": "$1,000,000 for a first violation and not more than $3,000,000 for subsequent violations",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Chapter 93M takes effect July 1, 2027 (Sec. 355). Secs. 346-347 date the annual audit and 120-day evaluation from January 1, 2027 or 180 days after qualifying, whichever is later, which conflicts with Sec. 355.",
+    "section": "Sec. 355",
+    "quote": "93M of the General Laws shall take effect on July 1, 2027.",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://malegislature.gov/Bills/194/S3228",
+   "sha256": "6b934d5737e6ed571d80ee5292a1c580dd43bda7c33796aa4e3c87a85aa838de",
+   "chars": 630351,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -464,6 +840,97 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-4668-artificial-intelligence-safety-and-security-transparency-act",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large developers must produce, follow and publish a safety and security protocol, and publish changes within 30 days.",
+    "section": "Sec. 7(1)(a)",
+    "quote": "Produce, implement, follow, and conspicuously publish a safety and security protocol.",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Large developers must publish a transparency report on risk assessments at least once every 90 days.",
+    "section": "Sec. 7(1)(c)",
+    "quote": "Not less than once every 90 days, produce and conspicuously publish a transparency report",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "incident_reporting": {
+    "value": "partial",
+    "summary": "The protocol must state when and to whom the developer will report incidents; the bill sets no reporting duty or deadline itself.",
+    "section": "Sec. 5(i)",
+    "quote": "The conditions under which the large developer will report an incident relevant to a critical risk",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no shorter reporting window for imminent risks."
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large developers must hire a reputable third-party auditor at least once per year to assess protocol compliance, and publish the report.",
+    "section": "Sec. 9(1)",
+    "quote": "not less than once per year, a large developer shall retain a reputable third-party auditor to produce a report",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Large developers may not retaliate against employees who report critical risks to authorities; employees may sue.",
+    "section": "Sec. 11(1)",
+    "quote": "A large developer shall not discharge, threaten, or otherwise discriminate against an employee",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "partial",
+    "summary": "Coverage is set by the cost of training compute ($5,000,000.00 for one model), not by operations count.",
+    "section": "Sec. 3(f)(i)",
+    "quote": "model with a quantity of computing power that costs not less than $5,000,000.00",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "revenue_threshold": {
+    "value": "partial",
+    "summary": "No revenue test; a large developer also needs $100,000,000.00 of compute spending on models in the prior 12 months.",
+    "section": "Sec. 3(f)(ii)",
+    "quote": "total quantity of computing power that costs not less than $100,000,000.00",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Critical risk means death or serious injury to more than 100 people, or more than $1,000,000,000.00 in damages, from listed incident kinds.",
+    "section": "Sec. 3(b)",
+    "quote": "more than 100 people, or will result in more than $1,000,000,000.00 in damages to rights in money or property",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may sue for a civil fine up to $1,000,000.00 per violation of the publication, reporting and audit duties (Sec. 7 and 9), plus injunctive relief; whistleblower violations carry a fine up to $500.00.",
+    "section": "Sec. 13(1)",
+    "quote": "A civil fine of not more than $1,000,000.00 per violation.",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The developer duties begin on January 1, 2026.",
+    "section": "Sec. 7(1)",
+    "quote": "Beginning on January 1, 2026, a large developer shall do all of the following",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+   "sha256": "7eb4fa7c20f6e75e84089072cc9bb0c38c14cc0bc97e49aae424671c399abc5b",
+   "chars": 14894,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -536,6 +1003,94 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-4446-a-5275-an-act-concerning-artificial-intelligence-safety-r",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers with New Jersey users must write and implement risk protocols and review them yearly.",
+    "section": "Sec. 2(a)",
+    "quote": "write and implement technical and organizational protocols to assess and reduce the risk",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Developers must file a yearly Risk Management Disclosure and a New Model Risk Disclosure with the Attorney General, who publishes them.",
+    "section": "Sec. 2(b)",
+    "quote": "annually submit to the Attorney General a \"Risk Management Disclosure\"",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no incident reporting."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The Attorney General may audit developers or hire a private auditor; developers themselves need not obtain an audit.",
+    "section": "Sec. 5",
+    "quote": "enter into a contract with a private entity to conduct an audit",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protection."
+   },
+   "registration": {
+    "value": "partial",
+    "summary": "Developers must file a New Model Risk Disclosure with the Attorney General before or when deploying a new model; this is notice, not a licence.",
+    "section": "Sec. 2(d)",
+    "quote": "before, or concurrently with, deploying a new frontier model",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier developer used at least 10^26 integer or floating-point operations to train a frontier model.",
+    "section": "Sec. 1",
+    "quote": "a quantity of computing power of at least 10^26 integer or floating-point operations to train a frontier model",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with affiliates, had annual gross revenues above $100 million in the preceding calendar year.",
+    "section": "Sec. 1",
+    "quote": "annual gross revenues in excess of $100 million in the preceding calendar year",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic harm means death or serious injury of 25 or more people, or $1 billion in property damage, from a single incident.",
+    "section": "Sec. 1",
+    "quote": "death or serious injury of 25 or more people or $1 billion in damage to, or loss of, property arising from a single incident",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "$100,000 civil penalty per violation for missing or materially false disclosures, collected by the Attorney General; no penalty for a materially false statement made in good faith and reasonable (Sec. 4(b)).",
+    "section": "Sec. 4(a)",
+    "quote": "shall be liable for a civil penalty in the amount of $100,000 for each violation",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Takes effect six months after enactment; sections 1 through 6 expire five years later.",
+    "section": "Sec. 8",
+    "quote": "This act shall take effect six months after the date of enactment.",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+   "sha256": "ec236d12979d692f80e3d33e11b49b31979d84427b3bb88577c5e077e458f3e9",
+   "chars": 14464,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -617,6 +1172,94 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-3506-artificial-intelligence-safety-and-security-protocol-act-2025",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "A developer must produce, follow and publish a safety and security protocol, and publish any material change within 30 days.",
+    "section": "Sec. 15(a)",
+    "quote": "A developer shall produce, implement, follow, and conspicuously publish a safety and security protocol.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "A developer must publish a risk assessment report at least every 90 days.",
+    "section": "Sec. 15(b)",
+    "quote": "No less than every 90 days, a developer shall produce and conspicuously publish a risk assessment report.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "incident_reporting": {
+    "value": "partial",
+    "summary": "The protocol must state when and to whom the developer will report incidents; the bill sets no reporting window or government recipient.",
+    "section": "Sec. 10 (safety and security protocol, item 10)",
+    "quote": "the conditions under which the developer will report incidents relevant to critical risk that have occurred in connection with one or more of its foundation models",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "At least once a year a developer must hire a reputable third-party auditor to assess its compliance with its protocol, and publish the report within 90 days.",
+    "section": "Sec. 25(a)",
+    "quote": "At least once every calendar year, a developer shall retain a reputable third-party auditor to produce a report assessing the following",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "The Whistleblower Act applies to employees who tell the Attorney General about critical risk, and developers must offer an anonymous internal reporting process.",
+    "section": "Sec. 30(b)",
+    "quote": "A developer shall provide a reasonable internal process through which an employee may anonymously disclose information to the developer",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "partial",
+    "summary": "A developer is covered by compute cost, not operation count: training a model with computing power costing at least $100,000,000.",
+    "section": "Sec. 10",
+    "quote": "has trained at least one foundation model with a quantity of computational power that costs at least $100,000,000",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A developer is covered by spending: it has trained a model with computing power costing at least $100,000,000; no revenue or user test.",
+    "section": "Sec. 10",
+    "quote": "has trained at least one foundation model with a quantity of computational power that costs at least $100,000,000",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Critical risk means a foreseeable risk of death or serious injury to more than 100 people, or more than $1,000,000,000 in damage.",
+    "section": "Sec. 10",
+    "quote": "will result in the death of, or serious injury to, more than 100 people, or more than $1,000,000,000 in damage to rights in money or property",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may sue for civil penalties up to $1,000,000 for violating Sec. 15 or 25, and seek injunctive or declaratory relief.",
+    "section": "Sec. 35(a)",
+    "quote": "may be assessed a civil penalty not to exceed $1,000,000",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill text states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+   "sha256": "d58e4015f54913be39beb85b9cce409b3d11e0dad0bb6c598ef1ffd3595f6828",
+   "chars": 15141,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -684,6 +1327,88 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-3444-artificial-intelligence-safety-act",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "partial",
+    "summary": "A developer that publishes and follows a safety and security protocol is shielded from liability for critical harms; publishing is a condition of that shield, not a flat duty.",
+    "section": "Sec. 10(a)(1)",
+    "quote": "published a safety and security protocol on its website that satisfies the requirements of Section",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+   },
+   "transparency_report": {
+    "value": "partial",
+    "summary": "A developer must publish a transparency report at release to get the liability shield; it is a condition of the shield, not a flat mandate.",
+    "section": "Sec. 10(a)(2)",
+    "quote": "published a transparency report on its website at the time of the frontier model's release",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no incident reporting."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The protocol must say whether and how the developer uses third parties to assess risk; no independent audit is required.",
+    "section": "Sec. 15(a)(4)",
+    "quote": "whether and how a developer will use third parties to assess risk of critical harm",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protection."
+   },
+   "registration": {
+    "value": "partial",
+    "summary": "A developer relying on a federal agency agreement must file a certification with the Attorney General; no pre-development registration is required.",
+    "section": "Sec. 10(c)",
+    "quote": "shall file a certification with the Attorney General, in a manner prescribed by the Attorney General",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 operations, or with a compute cost above $100,000,000.",
+    "section": "Sec. 5",
+    "quote": "is trained using greater than 10^26 computational operations",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A frontier model can also be defined by compute cost exceeding $100,000,000.",
+    "section": "Sec. 5",
+    "quote": "has a compute cost that exceeds $100,000,000",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Critical harm means death or serious injury of 100 or more people, or at least $1,000,000,000 in property damage.",
+    "section": "Sec. 5",
+    "quote": "the death or serious injury of 100 or more people or at least $1,000,000,000 of damages to rights in property",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "The bill states no fine or enforcement remedy; it only removes liability for critical harms when conditions are met, and calls a false certification a violation without a stated penalty."
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill text states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+   "sha256": "1808956f1fbece0904e392b61b7e169b7ede9bb189aac13d7996afcaecc49405",
+   "chars": 7964,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -748,7 +1473,95 @@
     "t": "ilga.gov",
     "u": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4799&DocTypeID=HB&GAID=18&SessionID=114"
    }
-  ]
+  ],
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, follow and publish a frontier AI framework, and review it at least once per year.",
+    "section": "Sec. 10(a)",
+    "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its Internet website a frontier AI framework",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Every frontier developer must publish a transparency report before or when it deploys a new or substantially modified frontier model; large developers add catastrophic-risk summaries.",
+    "section": "Sec. 10(c)(1)",
+    "quote": "a frontier developer shall clearly and conspicuously publish on its Internet website a transparency report",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report critical safety incidents to the Illinois Emergency Management Agency and Office of Homeland Security within 15 days of discovery.",
+    "section": "Sec. 15(c)",
+    "quote": "A frontier developer shall report any critical safety incident pertaining to one or more of its frontier models to the Agency within 15 days of discovering the critical safety incident.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority such as law enforcement.",
+    "section": "Sec. 15(c)",
+    "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within 24 hours",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The framework must describe how the developer uses third parties to assess catastrophic risk; no independent audit is required.",
+    "section": "Sec. 10(a)(5)",
+    "quote": "using third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protection."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is a foundation model trained with computing power greater than 1026 (as printed) integer or floating-point operations, including fine-tuning and reinforcement learning.",
+    "section": "Sec. 5",
+    "quote": "using a quantity of computing power greater than 1026 integer or floating-point operations",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with its affiliates, had annual gross revenues above $500,000,000 in the preceding calendar year.",
+    "section": "Sec. 5",
+    "quote": "collectively had annual gross revenues in excess of $500,000,000 in the preceding calendar year",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+    "section": "Sec. 5",
+    "quote": "more than 50 people or more than $1,000,000,000 in damage to, or loss of, property arising from a single incident",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Large frontier developers face a civil penalty up to $1,000,000 per violation, recovered only by the Attorney General.",
+    "section": "Sec. 25",
+    "quote": "shall be subject to a civil penalty in an amount dependent upon the severity of the violation that does not exceed $1,000,000 per violation",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill text states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
+   "sha256": "733edf175505f96f8395bb1cd08df29f641f36d247f7be29c5df8648afada090",
+   "chars": 62687,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
+  }
  },
  {
   "id": 10,
@@ -826,7 +1639,101 @@
     "t": "ILGA",
     "u": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3261&DocTypeID=SB&GA=104&GAID=18&SessionID=114"
    }
-  ]
+  ],
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers and large chatbot providers must write, follow and publish a public safety and child protection plan.",
+    "section": "Section 15(a)",
+    "quote": "shall write, implement, comply with, and clearly and conspicuously publish on its website a public safety and child protection plan",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before deploying a new or substantially modified frontier model, a large frontier developer must publish summaries of its risk assessments and results.",
+    "section": "Section 15(e)",
+    "quote": "conspicuously publish on its website summaries of the following",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report critical safety incidents to the Attorney General within 15 days of discovery.",
+    "section": "Section 20(b)",
+    "quote": "A frontier developer shall report any critical safety incident pertaining to one of its frontier models to the Attorney General within 15 days after discovering the critical safety incident.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "A critical incident posing imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+    "section": "Section 20(c)",
+    "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within 24 hours",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must hire a reputable third-party auditor every calendar year to assess compliance with their plan.",
+    "section": "Section 35(a)",
+    "quote": "At least once every calendar year, a large frontier developer shall retain a reputable third-party auditor to produce a report",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Developers may not block protected disclosures by employees, and large frontier developers must offer an anonymous internal reporting process.",
+    "section": "Section 30(a)",
+    "quote": "shall not make, adopt, enforce, or enter into a rule, regulation, policy, or contract that prevents an employee from making a disclosure protected under the Whistleblower Act",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 integer or floating-point operations, including fine-tuning.",
+    "section": "Section 10",
+    "quote": "trained using a quantity of computing power greater than 10^26 integer or floating-point operations",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer (with affiliates) has annual revenue of at least $500,000,000; a large chatbot provider, at least $25,000,000.",
+    "section": "Section 10",
+    "quote": "collectively have an annual revenue of at least $500,000,000",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "A critical safety incident includes death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a catastrophic risk.",
+    "section": "Section 10",
+    "quote": "more than 50 people or more than $1,000,000,000 in damage to, or loss of, property",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Civil penalty up to $1,000,000 per violation for large frontier developers ($50,000 for chatbot providers), recovered by the Attorney General.",
+    "section": "Section 40(a)",
+    "quote": "does not exceed $1,000,000 per violation",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Takes effect in 2027; the stored text reads garbled as January 231, 2027.",
+    "section": "Section 99",
+    "quote": "This Act takes effect January 231, 2027.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+   "sha256": "13ee257db4d3ac55491211b104c8c0e5974d97eccea71f8b9bfd0b7eb55fcadf",
+   "chars": 28196,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
+  }
  },
  {
   "id": 11,
@@ -917,6 +1824,97 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-1898-s-b-2171-artificial-intelligence-public-safety-and-child-prot",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, follow and publish a public safety plan; large chatbot providers a child safety plan.",
+    "section": "68-107-103(a)(1)",
+    "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its internet website a public safety plan",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before deploying a new or substantially modified frontier model, a large frontier developer must publish summaries of its risk assessments and results.",
+    "section": "68-107-103(d)(1)",
+    "quote": "the large frontier developer shall conspicuously publish on the large frontier developer's internet website summaries of",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report critical safety incidents to the attorney general within 15 days of discovery.",
+    "section": "68-107-104(b)",
+    "quote": "A frontier developer shall report any critical safety incident pertaining to one (1) or more of the frontier developer's frontier models to the attorney general and reporter within fifteen (15) days of discovering the critical safety incident.",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "A critical incident posing imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+    "section": "68-107-104(c)",
+    "quote": "the frontier developer shall disclose the incident within twenty-four (24) hours to an authority",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "Plans must describe how developers use third parties to assess risk; no independent audit is required.",
+    "section": "68-107-103(a)(1)(D)",
+    "quote": "Uses third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no employee whistleblower protection."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 integer or floating-point operations, including fine-tuning.",
+    "section": "68-107-102(13)",
+    "quote": "a quantity of computing power greater than 10^26 integer or floating-point",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer has annual revenue of $500,000,000 or more with affiliates; a large chatbot provider, $25,000,000 or more.",
+    "section": "68-107-102(15)",
+    "quote": "annual revenue of five hundred million dollars ($500,000,000) or more",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+    "section": "68-107-102(3)(A)",
+    "quote": "more than fifty (50) people or more than one billion dollars ($1,000,000,000)",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Civil penalty up to $1,000,000 for a first violation and $3,000,000 for each later one for large frontier developers; up to $50,000 per violation for large chatbot providers; only the attorney general enforces.",
+    "section": "68-107-105(a)",
+    "quote": "of not more than one million dollars ($1,000,000) per violation for a first violation",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Takes effect January 1, 2027 and applies to conduct on or after that date.",
+    "section": "Section 4",
+    "quote": "This act takes effect January 1, 2027, the public welfare requiring it",
+    "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114",
+   "sha256": "1f61440e3e8c07a3f11fd3286c321bba53cb5268617560c8e05576e1a4eb12a3",
+   "chars": 20892,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1012,6 +2010,100 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-286-1st-substitute-artificial-intelligence-transparency-amendments",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, follow and publish a public safety plan, and a child protection plan if they run a covered chatbot.",
+    "section": "13-72b-102(1)",
+    "quote": "shall write, implement, comply with, and clearly and conspicuously publish on the large frontier developer's internet website a public safety plan",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before deploying a new or substantially modified frontier model, a large frontier developer must publish summaries of its risk assessments.",
+    "section": "13-72b-104(2)",
+    "quote": "A large frontier developer shall conspicuously publish on the large frontier developer's website summaries of the following before deploying a new frontier model",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Large frontier developers must report a safety incident to the Office of Artificial Intelligence Policy within 15 days of discovery.",
+    "section": "13-72b-106(2)",
+    "quote": "A large frontier developer shall report a safety incident to the office within 15 days after the day on which the large frontier developer discovers the incident.",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "A critical incident posing imminent risk of death or serious physical injury must be disclosed to law enforcement or a public safety agency within 24 hours.",
+    "section": "13-72b-106(3)",
+    "quote": "imminent risk of death or serious physical injury, shall disclose that incident within 24",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The plan must describe how the developer uses third parties to assess catastrophic risk; no independent audit is required.",
+    "section": "13-72b-102(1)(e)",
+    "quote": "uses third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers may not take adverse action against employees who report safety threats or violations; employees may sue.",
+    "section": "13-72b-203(1)",
+    "quote": "A frontier developer may not take adverse action against an employee because of a lawful act of the employee",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier developer has used at least 10^26 integer or floating-point operations to train a frontier model, including fine-tuning.",
+    "section": "13-72b-101(13)(a)",
+    "quote": "a quantity of computing power of at least 10^26 integer or floating-point operations to train a frontier model",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with affiliates, had annual revenue of at least $500,000,000 in the preceding calendar year.",
+    "section": "13-72b-101(15)",
+    "quote": "had annual revenue of at least $500,000,000 in the preceding calendar year",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic loss means death or serious bodily injury of more than 50 individuals, or property damage over $1,000,000,000.",
+    "section": "13-72b-101(3)(a)",
+    "quote": "the death or serious bodily injury of more than 50 individuals",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Civil penalty up to $1,000,000 for a first violation and $3,000,000 for each later one, sued for by the attorney general.",
+    "section": "13-72b-107(1)",
+    "quote": "A large frontier developer that violates this part is subject to a civil penalty that does not",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The bill takes effect on May 6, 2026.",
+    "section": "Section 14",
+    "quote": "This bill takes effect on May 6, 2026.",
+    "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html",
+   "sha256": "e6085749f57ae800cc0ec3e6f2fc69e2b47f24f6b86b0a90cf607495ff83d913",
+   "chars": 27490,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1116,6 +2208,100 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-474-protecting-louisiana-s-infrastructure-from-artificial-intellig",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, follow and publish a frontier AI framework and review it at least once a year.",
+    "section": "R.S. 51:3111.3(A)",
+    "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its internet website a frontier AI framework",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Frontier developers must publish a transparency report before or when deploying a new or substantially modified frontier model; large developers add risk assessment summaries.",
+    "section": "R.S. 51:3111.3(C)(1)",
+    "quote": "a frontier developer shall clearly and conspicuously publish on its website a transparency report",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report critical safety incidents to the Department of Justice within 15 days of discovery.",
+    "section": "R.S. 51:3111.4(C)(1)",
+    "quote": "to the department within fifteen days after discovering the critical safety incident",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "Incidents posing imminent risk of death, serious injury or an active cyberattack on critical infrastructure must be disclosed within 24 hours.",
+    "section": "R.S. 51:3111.4(C)(2)",
+    "quote": "poses an imminent risk of death, serious physical injury, or an active cyberattack on critical infrastructure, the frontier developer shall disclose that incident within twenty-four hours",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "From July 1, 2028, large frontier developers must hire an independent auditor each year to certify compliance with their framework and publish a summary within 30 days.",
+    "section": "R.S. 51:3111.3(F)(1)",
+    "quote": "a large frontier developer shall retain a third-party auditor to produce a report signed",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers may not block or retaliate against covered employees who report catastrophic risk or violations; large developers need an anonymous internal reporting process.",
+    "section": "R.S. 51:3111.9(B)",
+    "quote": "enter into any policy or contract that prevents a covered employee from, or retaliates against a covered employee for, making a protected disclosure",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 operations, including fine-tuning, or distilled from one at a compute cost over $5,000,000.",
+    "section": "R.S. 51:3111.2(A)(11)(a)",
+    "quote": "Was trained using a quantity of computing power greater than 10^26",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with its affiliates, had more than five hundred million dollars in annual gross revenues in the preceding calendar year.",
+    "section": "R.S. 51:3111.2(A)(13)",
+    "quote": "had more than five hundred million dollars in annual gross",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury of more than 50 people or more than $1,000,000,000 in property damage from a single incident.",
+    "section": "R.S. 51:3111.2(A)(3)(a)",
+    "quote": "the death or serious injury of more than fifty",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may sue large frontier developers for civil penalties up to $1,000,000 for a first violation and $10,000,000 for later violations of the same requirement.",
+    "section": "R.S. 51:3111.7(B)",
+    "quote": "a penalty not to exceed one million dollars per violation for a first violation or ten million dollars for a second or subsequent violation of the same requirement",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The Act becomes effective on January 1, 2027.",
+    "section": "Sec. 2",
+    "quote": "This Act shall become effective on January 1, 2027.",
+    "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.legis.la.gov/legis/BillInfo.aspx?s=26rs&b=SB474&sbi=y",
+   "sha256": "7c41305bf7719dce6abd03a21dc0e5e49493a2ae0ac2d2cb04b08df59ddf2a71",
+   "chars": 35382,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1206,6 +2392,79 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-358-h-5224-r",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A covered model is one trained with more than 10^26 operations costing over $100,000,000, or a fine-tune of one using at least 3 times 10^25 operations costing over $10,000,000.",
+    "section": "9-1-55(a)(2)",
+    "quote": "An artificial intelligence model trained using a quantity of computing power greater than 10ˆ26 integer or floating-point operations",
+    "source_url": "https://status.rilegislature.gov/"
+   },
+   "revenue_threshold": {
+    "value": "partial",
+    "summary": "No revenue or user test; a covered model must also cost over $100,000,000 to train (or over $10,000,000 to fine-tune a covered model).",
+    "section": "9-1-55(a)(2)",
+    "quote": "the cost of which exceeds one hundred million dollars ($100,000,000) when calculated using the average market prices of cloud compute at the start of training",
+    "source_url": "https://status.rilegislature.gov/"
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Liability turns on injuries meeting a negligence claim, with no death or dollar threshold."
+   },
+   "penalties": {
+    "value": "partial",
+    "summary": "Developers are strictly liable for injuries to non-users caused by a covered model; this is a private civil cause of action, with no fine or agency enforcement.",
+    "section": "9-1-55(b)",
+    "quote": "developers of covered models or covered model derivatives shall be strictly liable, regardless of the degree of care they exercised, for all injuries to a non-user",
+    "source_url": "https://status.rilegislature.gov/"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The act takes effect upon passage.",
+    "section": "SECTION 2",
+    "quote": "SECTION 2. This act shall take effect upon passage.",
+    "source_url": "https://status.rilegislature.gov/"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://status.rilegislature.gov/",
+   "sha256": "6d54f6eedfe5d9ea5a55fee0f28a9bb6fcfc3bc2ea8922beb3a8a162682362e1",
+   "chars": 6143,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1273,6 +2532,79 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-10373-a-11636-third-party-verification-of-raise-compliance-r",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no new framework; it verifies compliance with a framework required by existing law."
+   },
+   "transparency_report": {
+    "value": "partial",
+    "summary": "The third party verifier, not the developer, must publish a summary of its compliance report within 60 days; the developer must link to it on its website within 15 days.",
+    "section": "Gen. Bus. Law 1425(6)",
+    "quote": "The third party verifier shall conspicuously publish a summary of the verifier's report within sixty days of such report's completion.",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill adds no incident reporting duty."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must each year engage a third party verifier to report on their compliance with their own framework; from January 1, 2029 the verifier must be state accredited.",
+    "section": "Gen. Bus. Law 1425(1)",
+    "quote": "A large frontier developer shall annually retain, contract, or otherwise engage a third party verifier to produce a report assessing the following:",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "No registration of developers; the state office only accredits third party verifiers."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no compute threshold."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no revenue threshold."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no harm threshold."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may sue for up to $1,000,000 for a first violation and $3,000,000 per later violation, including failing to obtain the verification.",
+    "section": "Gen. Bus. Law 1428(1)",
+    "quote": "The attorney general may bring a civil action to recover a civil",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Takes effect 30 days after becoming law, or 30 days after article 44-B of the general business law takes effect if that is later.",
+    "section": "Sec. 6",
+    "quote": "This act shall take effect on the thirtieth day after it shall",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+   "sha256": "ba807645c0143ce92f09ebfb51a2c452ffd94da593f7391403b21402367a1e2a",
+   "chars": 10229,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1331,6 +2663,73 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-10456-minimum-standards-for-frontier-ai-frameworks-r",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "partial",
+    "summary": "The state office must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks; the bill itself does not require a framework.",
+    "section": "Gen. Bus. Law 1430(1)",
+    "quote": "developers' frontier AI frameworks to meet minimum standards in order to",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456"
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no public report or disclosure."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no incident reporting duty."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no independent audit."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no compute threshold."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no revenue threshold."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no harm threshold."
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "The bill states no penalties."
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Takes effect 30 days after becoming law, or 30 days after article 44-B of the general business law takes effect if that is later.",
+    "section": "Sec. 2",
+    "quote": "This act shall take effect on the thirtieth day after it shall",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+   "sha256": "8a28b76bc1a86c4a2a6eead05f65f756492384bc1c9f09be6375cef9b0b327ff",
+   "chars": 3703,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1394,6 +2793,91 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-10701-terminator-act-technical-evaluation-risk-monitoring-incident-n",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers that give privileged access to a model must keep a written security program to stop that access raising catastrophic risk, and run risk-based post-deployment monitoring.",
+    "section": "Gen. Bus. Law 1434(1)",
+    "quote": "shall establish, implement, and maintain a written security program reasonably designed to prevent such access from materially increasing catastrophic risk",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Large frontier developers' transparency reports must also summarize independent safety evaluation findings, limitations and identified catastrophic risks.",
+    "section": "Gen. Bus. Law 1421(3)(b)(v)",
+    "quote": "a summary of the material findings, limitations, uncertainties,",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Large frontier developers must report a significant safety incident to the state office as soon as practicable and within seven days of learning of it.",
+    "section": "Gen. Bus. Law 1422(3-a)(a)",
+    "quote": "A large frontier developer shall report a significant safety",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk window of its own; it only refers to existing critical incident reporting."
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must have an accredited independent safety evaluator test a frontier model before first deploying it in New York and again after material changes.",
+    "section": "Gen. Bus. Law 1430(1)",
+    "quote": "conduct a technical evaluation of such model's capabilities, safeguards,",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Large frontier developers may not retaliate against employees or contractors who disclose violations, safety incidents or catastrophic risks.",
+    "section": "Gen. Bus. Law 1436(1)",
+    "quote": "No large frontier developer, or contractor or subcontractor thereof, shall discharge, demote, suspend, threaten, harass, discriminate, or otherwise retaliate against an employee or contractor",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "Developers need no registration or licence; the office only accredits independent evaluators."
+   },
+   "shutdown": {
+    "value": "partial",
+    "summary": "Developers must be able to promptly suspend or revoke privileged model access, but no model shutdown is required; the state office may temporarily restrict a risky capability or deployment on written findings.",
+    "section": "Gen. Bus. Law 1434(4)",
+    "quote": "shall promptly suspend or modify privileged frontier model access where it reasonably determines that continued access would create a material and",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no compute threshold of its own."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no revenue coverage threshold; revenue is used only to size penalties."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no harm figures of its own."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may seek civil penalties up to one-half of one percent of annual gross revenue for knowing concealment, and up to one percent for willful concealment of critical incidents.",
+    "section": "Gen. Bus. Law 1427(4)-(5)",
+    "quote": "attorney general may bring a civil action to recover a civil penalty not",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Takes effect one year after becoming law, or one year after chapter 96 of the laws of 2026 takes effect if that is later.",
+    "section": "Sec. 10",
+    "quote": "This act shall take effect one year after it shall have become a",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10701",
+   "sha256": "e15a337b12260df1576934ead9ad71114226b549e52208d39717d7394a54239a",
+   "chars": 35690,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1475,6 +2959,103 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-2800-artificial-intelligence-risk-prevention-act-u",
    "section_name": "Pending, stalled and failed state bills"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must develop a frontier AI framework, implement and publish it from January 1, 2028, comply with it, and review it each year.",
+    "section": "Sec. 501(d)",
+    "quote": "Each large frontier developer shall comply with the frontier AI framework that the large frontier developer",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Every frontier developer must publish a transparency report before or when deploying a new or substantially modified frontier model; large developers add risk assessment summaries.",
+    "section": "Sec. 502(a)",
+    "quote": "a frontier developer shall clearly and conspicuously publish on its publicly",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report a critical safety incident to the Pennsylvania Emergency Management Agency and the Attorney General within 72 hours.",
+    "section": "Sec. 902(a)",
+    "quote": "the frontier developer shall report the critical",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority such as law enforcement.",
+    "section": "Sec. 902(c)",
+    "quote": "poses an imminent risk of death or serious physical injury, the",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must hire an independent third party each year to audit compliance with the act, and publish a summary and redacted report within 30 days.",
+    "section": "Sec. 701",
+    "quote": "a large frontier developer shall annually retain a third",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers may not block or retaliate against covered employees who disclose catastrophic-risk dangers or violations; large developers need an internal reporting process.",
+    "section": "Sec. 1302(c)",
+    "quote": "Make, adopt, enforce or enter into a rule, regulation, policy or contract that prevents a covered employee from making a disclosure",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "From January 1, 2027, large frontier developers must file a registration form, a disclosure statement and a fee before developing, deploying or operating a frontier model in Pennsylvania.",
+    "section": "Sec. 302(a)",
+    "quote": "a large frontier developer may not develop, deploy or operate a frontier",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 1,026 operations (as printed), counting fine-tuning and reinforcement learning.",
+    "section": "Sec. 102",
+    "quote": "computing power greater than 1,026 integer or floating-point",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with its affiliates, had annual gross revenues above $500,000,000 in the preceding calendar year.",
+    "section": "Sec. 102",
+    "quote": "revenues in excess of $500,000,000 in the preceding calendar",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident.",
+    "section": "Sec. 102",
+    "quote": "serious injury to, more than 50 people or more than",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Agency penalties up to $1,000 per day; large developers up to $1,000,000 for a first and $3,000,000 for later violations, recovered by the Attorney General.",
+    "section": "Sec. 1304(a)",
+    "quote": "The payment of a civil penalty not exceeding",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "Section 1504 and this section take effect immediately; the rest takes effect one year after notice of temporary regulations is published.",
+    "section": "Sec. 1505",
+    "quote": "The remainder of this act shall take effect one year",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+   "sha256": "d4cbe078587500869cf3f59f49e2d93020ceb1708ccb474e386f6e3650a61209",
+   "chars": 35692,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -1538,6 +3119,85 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-f-4532-s-f-4509-titled-the-responsible-artificial-intelligence-safet",
    "section_name": "Catastrophic-risk regulation without a frontier threshold"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Before deploying a model, a developer must implement a written safety and security protocol, publish a redacted copy, send it to the attorney general, and review it annually.",
+    "section": "325M.41 subd. 1",
+    "quote": "(1) implement a written safety and security protocol;",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "A developer must conspicuously publish a redacted copy of its safety and security protocol and republish it after material changes.",
+    "section": "325M.41 subd. 1(3)",
+    "quote": "conspicuously publish a copy of the safety and security protocol",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "A developer must disclose each safety incident to the attorney general within 72 hours of learning of it.",
+    "section": "325M.41 subd. 4",
+    "quote": "model to the attorney general within 72 hours of the date",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "No separate shorter window for imminent-risk incidents."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "No independent audit is required."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "registration": {
+    "value": "partial",
+    "summary": "Before deploying, a developer must send a redacted copy of its safety protocol to the attorney general; no licence or approval is required.",
+    "section": "325M.41 subd. 1(3)",
+    "quote": "redactions, and transmit a copy of the redacted safety and security protocol to the attorney",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill text is silent on this."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Covers any developer that has trained at least one model; no compute threshold."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "No revenue or user threshold."
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Critical harm means death or serious injury of 25 or more people, or at least $1,000,000 in damages, from a CBRN weapon or autonomous criminal conduct.",
+    "section": "325M.40(d)",
+    "quote": "\"Critical harm\" means the death, serious physical injury, or mental injury of 25 or",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The attorney general may seek civil penalties up to $10,000,000 for a first violation and $30,000,000 for later ones; injured persons may also sue for damages.",
+    "section": "325M.42 subd. 1",
+    "quote": "a civil penalty in an amount not exceeding $10,000,000 for a first violation and in",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill text states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+   "sha256": "96d1c1cd8fdb7d1f2150050e99e4939339276211dd87ac008f3d09f6e4ba9424",
+   "chars": 7848,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2082,6 +3742,79 @@
      "119/s/2938"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires developers to write no safety framework or plan."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "No public report is required; the Energy program gives test reports only to participating developers."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "Developers have no duty to report incidents to a government body."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no shorter window for imminent-risk incidents."
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "Developers must take part in the Energy Department's testing program, which uses independent third-party assessments only to the extent feasible; no private audit is required.",
+    "section": "Sec. 5(b)(3)",
+    "quote": "to the extent feasible, establish and facilitate classified, independent third-party assessments and blind model evaluations",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no employee protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "No registration or licensing; developers must take part in the federal evaluation program and may not deploy without complying."
+   },
+   "shutdown": {
+    "value": "partial",
+    "summary": "The Energy program must only develop recommended containment protocols; developers have no duty to build a shutdown capability.",
+    "section": "Sec. 5(b)(5)",
+    "quote": "develop recommended containment protocols, contingency planning, and mitigation strategies informed by testing data to address identified risks",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "An advanced AI system is one trained with more than 10^26 operations; the Secretary may propose a new definition only if Congress approves by joint resolution.",
+    "section": "Sec. 3(1)(A)",
+    "quote": "trained using a quantity of computing power greater than 10^26 integer or floating-point operations",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage does not depend on revenue, spending or users."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Adverse incidents are defined by type of event, with no death, injury or damage figures."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "A person who violates the participation or deployment rules is fined at least $1,000,000 per day of violation; the bill does not name an enforcer.",
+    "section": "Sec. 4(c)",
+    "quote": "shall be fined not less than $1,000,000 per day of the violation",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; it sets deadlines counted from enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+   "sha256": "36fb9a501eb6cfbed0530fcbc6a006b9aa1e027a38ac07a6e67b222cde6d5f69",
+   "chars": 13519,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2199,6 +3932,100 @@
      "119/hr/9925"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, implement, follow and publish a frontier AI framework within one year of enactment or 90 days of qualifying, and review it at least annually.",
+    "section": "Sec. 4(a)",
+    "quote": "a large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on a publicly available website of such developer a frontier AI framework",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before or when deploying a new or substantially modified frontier model, the developer must publish a report on the model, including its catastrophic-risk assessments and results.",
+    "section": "Sec. 4(d)(1)",
+    "quote": "the frontier developer of such model shall publish on a publicly available website of such developer a report on such model",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "A frontier developer must report a critical safety incident to the Under Secretary of Commerce within 72 hours of learning facts that establish a reasonable belief it occurred.",
+    "section": "Sec. 4(h)(1)",
+    "quote": "not later than 72 hours after a frontier developer learns facts sufficient to establish a reasonable belief that a critical safety incident has occurred with respect to a frontier model of such developer, such developer shall submit",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent risk of death or serious physical injury must be reported to a law enforcement agency within 24 hours of discovery.",
+    "section": "Sec. 4(h)(2)",
+    "quote": "Not later than 24 hours after a frontier developer discovers a critical safety incident that poses an imminent risk of death or serious physical injury, such developer shall report such incident to a law enforcement agency",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must hire a third party for an annual independent audit of compliance with their framework; the largest developers must also retain a licensed independent verification organization.",
+    "section": "Sec. 4(c)",
+    "quote": "a large frontier developer shall retain a third party to perform an independent audit of compliance with the frontier AI framework of such developer",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no employee whistleblower protections."
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "A large frontier developer may not develop, deploy or operate a frontier model without a current disclosure statement filed with the Under Secretary and the fee paid.",
+    "section": "Sec. 4(k)(1)",
+    "quote": "a large frontier developer may not develop, deploy, or operate a frontier model, in whole or in part, without a current disclosure statement filed with the Under Secretary",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "shutdown": {
+    "value": "partial",
+    "summary": "The Secretary of Commerce may order a developer's development, deployment or internal use of a frontier model suspended or restricted on a finding of imminent catastrophic risk; developers need not build a kill switch.",
+    "section": "Sec. 8(a)(1)",
+    "quote": "The Secretary may issue an emergency order suspending or restricting a frontier developer's development, deployment, or internal use of a frontier model upon finding",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is a foundation model trained with more than 10^26 operations, including later fine-tuning and reinforcement learning; the Under Secretary may raise the figure.",
+    "section": "Sec. 2(12)",
+    "quote": "a foundation model that was trained using a quantity of computing power greater than 10^26 integer or floating-point operations",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with its affiliates over 36 months, has gross revenues over $50,000,000 and at least $1,000,000,000 in AI development spending; a very large one has over $5,000,000,000 and at least $10,000,000,000.",
+    "section": "Sec. 2(15)",
+    "quote": "had gross revenues in excess of $50,000,000",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk is a risk of death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident involving a frontier model.",
+    "section": "Sec. 2(6)(A)",
+    "quote": "will materially contribute to the death of, or serious injury to, more than 50 people, or more than $1,000,000,000 in damage to, or loss of, property",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Up to $1,000,000 per violation (each day separate); $10,000 a day for no disclosure statement; up to $10,000,000 for breaking an emergency order (willful breach is criminal). Attorney General enforces.",
+    "section": "Sec. 4(j)(1)",
+    "quote": "A frontier developer that violates this section shall be subject to a civil penalty of not more than $1,000,000 per violation.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; deadlines run from enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text",
+   "sha256": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
+   "chars": 79087,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2265,6 +4092,82 @@
      "119/s/5061"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires developers to write no safety framework or plan; the Board only develops best practices."
+   },
+   "transparency_report": {
+    "value": "partial",
+    "summary": "A federal Risk Board must develop best practices for standard model-card formats; providers have no duty to publish model cards.",
+    "section": "Sec. 3(b)(6)(A)(ii)(I)",
+    "quote": "standardize formats and processes for publishing model cards with technical details of artificial intelligence systems",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+   },
+   "incident_reporting": {
+    "value": "partial",
+    "summary": "NIST must set up a channel for voluntary sharing of AI security and safety incidents; no one is required to report.",
+    "section": "Sec. 4(a)(1)",
+    "quote": "may voluntarily share information with the National Institute of Standards and Technology on confirmed or suspected artificial intelligence security or artificial intelligence safety incidents",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no shorter reporting window for imminent risks."
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "Frontier model providers must give the NSA's AI Security Center access to the model 21 calendar days before release; this is government pre-release access, not an independent audit.",
+    "section": "Sec. 3(c)",
+    "quote": "Not later than 21 calendar days before a provider introduces into interstate or foreign commerce a frontier artificial intelligence model, the provider shall make available to the Artificial Intelligence Security Center",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no employee protections."
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "Each provider must register a frontier model with a NIST registry before introducing it into interstate or foreign commerce.",
+    "section": "Sec. 3(d)(3)",
+    "quote": "Each provider of a frontier artificial intelligence model shall register that frontier artificial intelligence model with the registry established under paragraph (1) before introducing the frontier artificial intelligence model into interstate or foreign commerce.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or containment capability."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Frontier models are defined by capability, not by training compute."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage does not depend on revenue, spending or users."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Frontier models are defined by serious risk to security or public health, with no death, injury or damage figures."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "A provider that violates the 21-day NSA access duty is fined at least $100,000 per day the model is on the market without the NSA security guidance; the Attorney General enforces after a 7-day chance to cure.",
+    "section": "Sec. 3(e)(3)",
+    "quote": "Whoever violates subsection (c) shall be fined an amount equal to not less than $100,000 per day",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; deadlines run from enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+   "sha256": "872bc071685643e65acf6ddf5efa491748a76c207bf4e4ac4d96a636f473c9d3",
+   "chars": 49067,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2337,6 +4240,70 @@
      "119/s/5105"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no safety framework or plan."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no public report or disclosure."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no incident reporting."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no audit or independent evaluation."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no employee protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no registration or licensing; it only conditions an antitrust exemption on notice to the Antitrust Division."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage does not depend on training compute."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage does not depend on revenue, spending or users."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Covered risks are described by type, with no death, injury or damage figures."
+   },
+   "penalties": {
+    "value": "partial",
+    "summary": "The Attorney General may seek an injunction against entities whose coordination violates antitrust law; no fines are set.",
+    "section": "Sec. 4(a)",
+    "quote": "The Attorney General may seek, in a court of competent jurisdiction, an injunction against the non-Federal entities",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill text states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+   "sha256": "a8271e54fc2b582f31d561dccae9bd85835d3c0756f60b557b89f7642dfbe3e3",
+   "chars": 9208,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2417,6 +4384,76 @@
      "119/hr/9477"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no safety framework or plan."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "Reports go only to the Secretary of Commerce and are shielded from disclosure; no public report is required."
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Covered model developers must send the Secretary of Commerce a detailed report within 7 days of knowing or reasonably believing reportable activity has occurred.",
+    "section": "Sec. 2(b)(1)",
+    "quote": "Not later than 7 days after the date on which a covered model developer knows, or reasonably believes, that reportable activity described in paragraph (2) has occurred related to a covered model, the developer shall submit to the Secretary a report",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "partial",
+    "summary": "The Secretary must require expedited reports for activity presenting imminent or ongoing risk of serious harm; the bill sets no hour limit.",
+    "section": "Sec. 2(c)(1)(B)",
+    "quote": "expedited reporting for any reportable activity described in subsection (b)(2) that presents any imminent or ongoing risk of serious harm",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no independent audit or evaluation."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no employee protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The Secretary designates covered developers by regulation, but developers need not register or get a license."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown capability; a model resisting shutdown is only a reportable event."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage is set by Secretary-made capability thresholds, not by a training-compute figure in the bill."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage does not depend on revenue, spending or users."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Reportable activity is defined by type of event and serious risk, with no death, injury or damage figures."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Secretary of Commerce may assess a civil penalty up to $2,000,000 for a violation, each day a separate offense; the Attorney General can sue to collect or enjoin.",
+    "section": "Sec. 2(f)(2)(A)",
+    "quote": "the Secretary may assess a civil penalty for a violation of this section in an amount not to exceed $2,000,000",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; deadlines run from enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+   "sha256": "28aa38c30b1b46749d77862ba2e3a95e588aa54721b47fed196087b9cc19aee4",
+   "chars": 16383,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2506,6 +4543,91 @@
      "119/hr/9917"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "partial",
+    "summary": "The Secretary must consider basing the required shutdown capability on a graduated deployment-corrections framework (throttle, restrict, suspend, shut down); developers write no safety framework.",
+    "section": "Sec. 2220F(b)(2)(A)",
+    "quote": "Requiring a technical capability based on a graduated deployment-corrections framework that applies when there is evidence of a credible risk of a covered incident",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no public report or disclosure about a model."
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "The Secretary must by rule require covered entities to report a covered incident (shutdown sabotage, major deaths or damage, concealment, loss of control) within 15 days of becoming aware.",
+    "section": "Sec. 2220F(b)(1)(B)",
+    "quote": "Not later than 15 days after such covered entity becomes aware of a covered incident relating to such technology, submit to the Secretary a report regarding such incident.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no shorter reporting window for imminent risk."
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "After a shutdown order, the Secretary (a government body, not an independent auditor) must audit or inspect to verify compliance; developers need no independent audit.",
+    "section": "Sec. 2220F(c)(3)",
+    "quote": "shall through audit, telemetry, on-site inspection, or other forensic review verify compliance with the order that prompted such confirmation.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "yes",
+    "summary": "The Secretary must by rule require covered entities to keep the technical ability to stop inference, end or suspend user access, and shut down the technology.",
+    "section": "Sec. 2220F(b)(1)(A)",
+    "quote": "Shut down such technology.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "Covered technology is AI built with computing power that would cost more than $100,000,000 at market cloud prices, as the Secretary determines.",
+    "section": "Sec. 2220F(g)(6)",
+    "quote": "developed utilizing a quantity of computing power the cost of which would exceed $100,000,000 at the prevailing market price of cloud computing in the United States",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A covered entity must earn at least $500,000,000 in gross revenue from the technology, with affiliates, in the prior calendar year.",
+    "section": "Sec. 2220F(g)(4)(C)",
+    "quote": "Derives together with the affiliates, if any, of such person not less than $500,000,000 in gross revenue from such technology in the calendar year preceding the calendar year at issue.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "A covered incident includes unintended AI conduct causing at least 10 deaths or at least $100,000,000 in economic damages, plus shutdown sabotage, concealment and loss of control.",
+    "section": "Sec. 2220F(g)(5)(B)",
+    "quote": "causes the death of not fewer than 10 individuals or economic damages of not less than $100,000,000",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Secretary may assess civil penalties up to $2,000,000 per day, or up to $20,000,000 per day for violating a shutdown order; the Attorney General can also sue.",
+    "section": "Sec. 2220F(d)(2)",
+    "quote": "the Secretary may assess on such covered entity a civil penalty of not more than $2,000,000 for each day on which such violation occurs.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; it sets rulemaking deadlines of 90 days after enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+   "sha256": "2f0bb8157dd21c91ab8efefae2cb5c07e1532f1f7a4a24fc5f02dd93bf76b90e",
+   "chars": 14045,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2572,6 +4694,82 @@
      "119/hr/9965"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires developers to write no safety framework; the Energy Secretary develops containment recommendations."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "Developers must publish nothing; test reports go privately to each participant and the Secretary reports to Congress."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires developers to report no incidents to government."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The Energy Secretary, through the National Laboratories, tests AI and must facilitate third-party assessments where practicable; developers need not commission an independent audit.",
+    "section": "Sec. 2(a)(3)",
+    "quote": "Facilitate to the extent practicable independent, third-party assessments and blind model evaluations of such artificial intelligence.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "No registration or licensing; developers must only take part in the federal testing program."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability; it only has the Secretary recommend containment protocols."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "Advanced AI means AI trained with more than 10^26 operations, or another amount the Secretary sets by rule.",
+    "section": "Sec. 2(i)(1)(A)(i)",
+    "quote": "Artificial intelligence trained utilizing a quantity of computing power greater than 10^26 integer or floating-point operations",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large developer must have spent at least $2,000,000,000, with affiliates, on developing or modifying AI over the prior five calendar years.",
+    "section": "Sec. 2(i)(13)(B)",
+    "quote": "not less than $2,000,000,000 on investments to develop or modify artificial intelligence",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "A loss-of-control scenario means AI behavior causing at least 5 deaths, serious injury to at least 50 people, or more than $100,000,000 in damages.",
+    "section": "Sec. 2(i)(14)",
+    "quote": "results in the death of not fewer than five individuals, serious bodily injury to not fewer than 50 individuals, or more than $100,000,000 in damages.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Energy Secretary may assess civil penalties up to $1 million per violation, each continuing day a separate violation; may subpoena model weights; the Attorney General may sue.",
+    "section": "Sec. 2(d)(1)(A)",
+    "quote": "the Secretary may assess on such developer a civil penalty of not more than $1 million for such violation.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; the Program must be set up within 90 days of enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text",
+   "sha256": "6ee73705b0dd28aeffe038c54777c26889a5ac13f3ca80c7fcaf3c8afac0033c",
+   "chars": 16712,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2663,6 +4861,94 @@
      "119/hr/10538"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "partial",
+    "summary": "Department rules must require developers to report pre-development plans; the bill itself sets no developer-written safety framework.",
+    "section": "Sec. 8(c)(1)",
+    "quote": "Requirements for entities developing artificial intelligence to report pre-development plans to the Department.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no public report or disclosure about a model."
+   },
+   "incident_reporting": {
+    "value": "partial",
+    "summary": "Anyone who discovers a superintelligence, or an AI with superintelligence precursor traits, must notify the Secretary within 24 hours; this covers discoveries, not general safety incidents.",
+    "section": "Sec. 11",
+    "quote": "shall submit to the Secretary notice of the discovery within 24 hours.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The only reporting window is the 24-hour discovery notice; no separate shorter window for imminent risk of death or injury."
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "Department rules must include auditing of organizational safety practices; the text does not say an independent third party audits.",
+    "section": "Sec. 8(c)(3)",
+    "quote": "Auditing to evaluate and improve organizational safety practices relating to artificial intelligence development.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Employers may not retaliate against employees or contractors, current or former, who give information about a violation of the Act to the Department, law enforcement or Congress.",
+    "section": "Sec. 14(b)",
+    "quote": "No employer may, directly or indirectly, discharge, demote, suspend, threaten, blacklist, harass, or in any other manner discriminate against a covered individual",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "No one may develop or distribute an advanced AI model without a charter from the Secretary, and no advanced system may be deployed without pre-deployment approval.",
+    "section": "Sec. 12(b)",
+    "quote": "No person may develop or distribute an advanced artificial intelligence model without a charter issued by the Secretary under subsection (a).",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "shutdown": {
+    "value": "yes",
+    "summary": "The Secretary must pause and sequester any AI showing superintelligence precursor traits, and render it inoperative within 30 days if not cleared; superintelligences are destroyed immediately.",
+    "section": "Sec. 10(b)",
+    "quote": "is rendered inoperative before the date that is 30 days after the date on which the Secretary makes the identification described in such subsection with respect to such system",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "An advanced AI system is one trained on at least 10^25 operations, adjusted each year by the Secretary to keep the same equivalence.",
+    "section": "Sec. 3(1)(A)",
+    "quote": "trained on computing power greater than or equal to 10^25 integer or floating point operations",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines coverage by no revenue, spending or user figure."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines harm by capability (superintelligence, precursor traits), with no death, injury or damages figure."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Reckless violators face up to 20 years in prison and fines (title 18); other individuals face 10-year industry bans; the Secretary can revoke charters and force forfeiture, subject to review by the Federal Circuit.",
+    "section": "Sec. 13(b)",
+    "quote": "recklessly violates section 8, 9, or 12 or a rule promulgated thereunder shall be fined under title 18, United States Code, and imprisoned for not more than 20 years.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   },
+   "effective_date": {
+    "value": "partial",
+    "summary": "The pause on advanced AI begins on the date of enactment and lasts until the Secretary finds the Department staffed and its rules issued.",
+    "section": "Sec. 8(b)",
+    "quote": "the period beginning on the date of the enactment of this Act and ending on the date on which the Secretary determines that",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+   "sha256": "af682a0a653602b8ef31ae35c36bd877cdb1de13050078aa61643ed212817360",
+   "chars": 20457,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2762,6 +5048,91 @@
      "119/s/5576"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Each frontier developer must develop, publish and follow a Model Safety Plan with a risk assessment, mitigation measures and a responsible corporate officer for each model it creates or substantially modifies.",
+    "section": "Sec. 4(a)",
+    "quote": "Each developer shall develop, publish, and follow a safety plan (referred to in this section as the ``Model Safety Plan'') for each artificial intelligence system or model",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Developers must publish their Model Safety Plan, which includes a capabilities or risk assessment for the model.",
+    "section": "Sec. 4(a)",
+    "quote": "Each developer shall develop, publish, and follow a safety plan",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers and critical-infrastructure operators using AI must report confirmed AI safety or security incidents within 30 days of confirmation.",
+    "section": "Sec. 5(a)(3)(A)",
+    "quote": "shall report any confirmed artificial intelligence safety incident or artificial intelligence security incident within 30 days of confirmation of such incident",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent threat to national security, critical infrastructure or public safety must be reported within 72 hours.",
+    "section": "Sec. 5(a)(3)(A)",
+    "quote": "within 72 hours if such incident poses an imminent threat to national security, critical infrastructure, or public safety",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "Developers must give a federal Safety Board access to a frontier model, including weights, 45 days before release; this is government evaluation, not an independent audit.",
+    "section": "Sec. 3(f)",
+    "quote": "Not later than 45 calendar days before a developer introduces into interstate or foreign commerce a frontier artificial intelligence model, the developer shall make available to the Board access to the frontier artificial intelligence model",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protections."
+   },
+   "registration": {
+    "value": "partial",
+    "summary": "Each Model Safety Plan must be filed with the Commerce Secretary; there is no license or approval to develop or deploy.",
+    "section": "Sec. 4(c)",
+    "quote": "Each Model Safety Plan shall be submitted to the Secretary in the form and manner determined by the Secretary.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "shutdown": {
+    "value": "partial",
+    "summary": "Board standards, still to be written, must cover prompt termination of risky AI evaluations; no kill switch for deployed models.",
+    "section": "Sec. 3(a)(6)(A)(iv)(VI)",
+    "quote": "prompt termination of any evaluation",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage is by capability for frontier models, with no compute figure."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines coverage by no revenue, spending or user figure."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no death, injury or damages threshold; incidents are defined as events that materially increase risk."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "A developer that violates a Board standard faces a civil penalty up to $250,000 per violation, each day a separate violation; the Commerce Secretary enforces and the Attorney General may sue.",
+    "section": "Sec. 3(d)(2)",
+    "quote": "A developer that violates subsection (c) shall be liable to the United States for a civil penalty of not more than $250,000 for each violation.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; deadlines run from enactment (Board within 30 days)."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+   "sha256": "94e86eac77b4a583487695c7b4015b90a86769c872b1369ca00691ec3635e247",
+   "chars": 34838,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {
@@ -2848,6 +5219,70 @@
      "119/hr/10567"
     ]
    }
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no safety or risk-management framework."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no public report or disclosure."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no incident reporting."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no imminent-risk reporting window."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no audit or independent evaluation."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no registration or licensing requirement."
+   },
+   "shutdown": {
+    "value": "yes",
+    "summary": "Entities that develop or operate an advanced AI system in the US must build in a technical capability for a human operator to shut it down.",
+    "section": "Sec. 2(b)",
+    "quote": "Each covered entity shall ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text"
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines coverage by no compute figure; 'advanced' AI is undefined."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines coverage by no revenue or user figure."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no harm threshold."
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "The bill states no penalties or enforcement remedies."
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; regulations are due 90 days after enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+   "sha256": "7b473d7e6287749a4b6411da01166158641a0da7b0f5c03db9c5b241716da203",
+   "chars": 1947,
+   "method": "session",
+   "checked_at": "2026-10-26T17:18:08Z"
   }
  },
  {

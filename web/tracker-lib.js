@@ -24,6 +24,16 @@ export const CONF = {
   'SEARCH-QUALIFIED':{n:2,l:'Search-qualified',d:'A dated “none located” finding. It means nothing was found by that date, not proof that nothing exists.'},
   'LOW':{n:1,l:'Low',d:'A single source or thin details. Treat as a lead, not a fact.'}
 };
+// The 13 duties an entry can carry (entry.schema.json "duties"), in reading order. `l` is the label, `kind` groups them on the page.
+export const DUTIES = [
+  { k: 'framework', l: 'Safety framework', kind: 'duty' }, { k: 'transparency_report', l: 'Transparency report', kind: 'duty' },
+  { k: 'incident_reporting', l: 'Incident reporting', kind: 'duty' }, { k: 'imminent_risk_reporting', l: 'Imminent-risk reporting', kind: 'duty' },
+  { k: 'third_party_audit', l: 'Third-party audit', kind: 'duty' }, { k: 'whistleblower', l: 'Whistleblower protection', kind: 'duty' },
+  { k: 'registration', l: 'Registration or notice', kind: 'duty' }, { k: 'shutdown', l: 'Shutdown capability', kind: 'duty' },
+  { k: 'compute_threshold', l: 'Compute threshold', kind: 'covers' }, { k: 'revenue_threshold', l: 'Revenue or spending threshold', kind: 'covers' },
+  { k: 'harm_threshold', l: 'Harm threshold', kind: 'covers' }, { k: 'penalties', l: 'Penalties', kind: 'enforce' }, { k: 'effective_date', l: 'Effective date', kind: 'when' }
+];
+export const DUTY_VALUE = { yes: { g: '●', l: 'Yes' }, partial: { g: '◐', l: 'Partly' }, no: { g: '○', l: 'Expressly not' }, not_in_bill: { g: '–', l: 'Not in the text' } };
 export const CONF_ORDER = ['HIGH','MED-HIGH','MED','SEARCH-QUALIFIED','LOW'];
 export const KINDS = {federal:{l:'Congress',g:'■',v:'var(--k-fed)'},state:{l:'States',g:'●',v:'var(--k-state)'},executive:{l:'White House and agencies',g:'▲',v:'var(--k-exec)'},litigation:{l:'Courts',g:'§',v:'var(--k-lit)'},industry:{l:'Industry and incidents',g:'◇',v:'var(--k-ind)'}};
 // Entries filed under a federal section that belong on a state's tile. Matched by title, not row id: row ids shift
@@ -320,7 +330,7 @@ export function applySite(site, idOfKey) {
 export function headline(E) {
   const n = (f) => E.filter(f).length, B = (st) => n((x) => (x.section === 'B' || x.section === 'B.2') && x.status === st);
   return { enacted: n((x) => x.section === 'A'), pending: B('pending'), stalled: B('stalled'), failed: B('failed'), stalledOrFailed: B('stalled') + B('failed'), ivo: n((x) => x.section === 'C'),
-    fed: n((x) => x.section === 'D'), exec: n((x) => x.section === 'G'), lit: n((x) => x.section === 'G.2'), total: E.length,
+    fed: n((x) => x.section === 'D'), fedEnacted: n((x) => x.section === 'D' && x.status === 'enacted'), exec: n((x) => x.section === 'G'), lit: n((x) => x.section === 'G.2'), total: E.length,
     sources: E.reduce((t, x) => t + x.srcLinks.length, 0), events: E.reduce((t, x) => t + x.v2events.length, 0) };
 }
 
@@ -366,5 +376,7 @@ export function buildV2(entries, news, rel, site, content) {
   const tev = [];
   E.forEach((x) => x.v2events.forEach((e, i) => tev.push({ id: x.id, date: e.date, precision: e.precision, inferredYear: !!e.inferred_year, type: e.type, column: i, clause: e.clause, match: e.text, d: noonOf(e.date) })));
   HC = headline(E);
+  // "None enacted" is counted, not typed: it changes the day a federal frontier bill becomes law.
+  FED_GROUPS = FED_GROUPS.map((g) => (g.k === 'D' ? { ...g, sub: 'Introduced. ' + (HC.fedEnacted ? HC.fedEnacted + ' enacted.' : 'None enacted.') } : g));
   return { E, byId, keyToId, idToKey, idOfKey, N, edges, rel: R, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom, tev, site, content: content || null, v2: true };
 }
