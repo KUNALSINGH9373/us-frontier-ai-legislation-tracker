@@ -803,32 +803,38 @@ export function linksPanel(ctx) {
 }
 
 // Insights → Table: every entry the tracker has, one column per entry and one row per field (the reference design the
-// reviewer asked for). Readers pick the columns; the rows are the full table's fields, so nothing is limited to the
-// seven bills of section K. When every column is one of those seven, their duty-by-duty rows are added below.
-// ctx: { L, D, C, p (route params), set(params), mob, open: [cell keys], toggleCell(key), download(rows) }.
-// URL state: cols (entry ids shown), tq (picker search), tst (statuses), tlv (level), tsec (section), trh (hidden
-// rows), tfit, texp, tcol.
+// reviewer asked for). One slim toolbar: a starting set, "+ Add entry", and Rows / View menus; columns are removed
+// from their own header. When every column is one of the seven section K bills, their duty rows are added below.
+// ctx: { L, D, C, p (route params), set(params), mob, open: [cell keys], toggleCell(key), download(rows),
+//        menu ('' | 'set' | 'add' | 'rows' | 'view'), setMenu(name), q (add-entry search), setQ(text) }.
+// URL state: cols (entry ids shown), trh (hidden rows), tfit, texp, tcol.
 const ET_ROWS = [
   { k: 'status', l: 'Status and dates', long: true }, { k: 'mech', l: 'Core mechanism / description', long: true },
   { k: 'thresholds', l: 'Thresholds / scope', long: true }, { k: 'penalties', l: 'Penalties', long: true },
   { k: 'sponsor', l: 'Sponsor', long: true }, { k: 'where', l: 'Jurisdiction' }, { k: 'section', l: 'Section' },
   { k: 'latest', l: 'Latest step' }, { k: 'source', l: 'Source', long: true }];
 export const ET_DEFAULT = [1, 2, 3, 27];
+// Starting sets: a sensible group of columns in one click (newest activity first within a set).
+const ET_SETS = [
+  { k: 'key', l: 'Key frontier laws', ids: () => ET_DEFAULT },
+  { k: 'k7', l: 'The seven compared bills', ids: (L) => L.K_IDS },
+  { k: 'enacted', l: 'Enacted state laws', secs: ['A'] },
+  { k: 'state', l: 'State bills', secs: ['B', 'B.2'] },
+  { k: 'federal', l: 'Federal bills', secs: ['D'] },
+  { k: 'exec', l: 'Executive actions', secs: ['G'] },
+  { k: 'lit', l: 'Lawsuits', secs: ['G.2'] }];
 export function entryTable(ctx) {
   const { L, D, C, p, set } = ctx, csv = (v) => String(v || '').split(',').filter(Boolean);
-  const tst = csv(p.tst), tlv = p.tlv || '', tsec = p.tsec || '', tq = (p.tq || '').trim().toLowerCase();
-  const pool = sortRows(D.E.filter((x) => (!tst.length || tst.includes(x.status)) && (!tlv || x.level === tlv) && (!tsec || x.section === tsec)
-    && (!tq || (x.short + ' ' + x.title + ' ' + x.juris).toLowerCase().includes(tq))), L, 'latest', 'desc');
+  const byRecent = sortRows(D.E, L, 'latest', 'desc');
+  const setIds = (st) => (st.ids ? st.ids(L) : byRecent.filter((x) => st.secs.includes(x.section)).map((x) => x.id)).filter((id) => D.byId[id]);
   const cols = (p.cols != null ? csv(p.cols).map(Number) : ET_DEFAULT).filter((id) => D.byId[id]);
   const hidRows = new Set(csv(p.trh)), fit = p.tfit === '1', expAll = p.texp === '1', byLevel = p.tcol === 'level';
   const xs = cols.map((id) => D.byId[id]), opened = new Set(ctx.open || []);
-  const setCols = (ids) => set({ cols: ids.join(',') });
-  const more = pool.find((x) => !cols.includes(x.id));
+  const setCols = (ids) => { set({ cols: ids.join(',') }); ctx.setMenu(''); };
+  const current = ET_SETS.find((st) => { const ids = setIds(st); return ids.length === cols.length && ids.every((id, i) => id === cols[i]); });
   const colour = (x) => (byLevel ? (x.st ? 'var(--k-state)' : 'var(--k-fed)') : `var(--st-${x.status})`);
-  const chip = (on, label, onClick, extra) => h('button', { type: 'button', 'data-fchip': '', 'aria-pressed': on ? 'true' : 'false', onClick, ...extra }, ...[].concat(label));
-  const seg = (on, label, onClick) => h('button', { type: 'button', 'aria-pressed': on ? 'true' : 'false', onClick, 'data-seg': '' }, label);
-  const label = (t) => h('span', { 'data-flabel': '' }, t);
   const toggleIn = (list, v) => (list.includes(v) ? list.filter((z) => z !== v) : [...list, v]);
+  const menu = ctx.menu || '', open = (m) => ctx.setMenu(menu === m ? '' : m);
   const sources = (x) => (x.srcLinks.length ? h('span', null, ...x.srcLinks.map((l, i) => h('span', { key: i }, i ? ' · ' : '', h('a', { href: l.u, target: '_blank', rel: 'noopener noreferrer' }, l.t)))) : (x.source || '—'));
   const value = {
     status: (x) => h('span', null, h('strong', null, h('span', { 'aria-hidden': 'true', style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g + ' '), L.ST[x.status].l), statusLine(x) ? h('span', { style: { display: 'block', marginTop: 2 } }, statusLine(x)) : null),
@@ -839,61 +845,67 @@ export function entryTable(ctx) {
   const kAll = xs.length > 0 && xs.every((x) => L.K_IDS.includes(x.id));
   const kRows = kAll && !hidRows.has('duties') ? L.K_ROWS.filter((r) => !r[2]) : [];
   const cell = (x, r) => {
-    const key = x.id + ':' + r.k, open = expAll || opened.has(key), v = value[r.k](x);
+    const key = x.id + ':' + r.k, isOpen = expAll || opened.has(key), v = value[r.k](x);
     // Only text long enough to pass five lines gets clamped and a Show all button.
     const raw = r.k === 'status' ? statusLine(x) : r.k === 'source' ? x.srcLinks.map((l) => l.t).join(' · ') || x.source : x[r.k];
     if (!r.long || String(raw || '').length < 220) return h('td', { key: x.id }, v);
-    return h('td', { key: x.id, 'data-etcell': open ? 'open' : 'shut' },
-      h('div', { 'data-etclamp': open ? '0' : '1' }, v),
-      expAll ? null : h('button', { type: 'button', 'data-etmore': '', 'aria-expanded': open ? 'true' : 'false', onClick: () => ctx.toggleCell(key) }, open ? 'Show less' : 'Show all'));
+    return h('td', { key: x.id }, h('div', { 'data-etclamp': isOpen ? '0' : '1' }, v),
+      expAll ? null : h('button', { type: 'button', 'data-etmore': '', 'aria-expanded': isOpen ? 'true' : 'false', onClick: () => ctx.toggleCell(key) }, isOpen ? 'Show less' : 'Show all'));
   };
-  const anyChange = p.cols != null || tst.length || tlv || tsec || tq || hidRows.size || fit || expAll || byLevel;
-  const controls = h('details', { 'data-fdet': '', open: !ctx.mob, style: { margin: '0 0 14px' } },
-    h('summary', { 'data-fsum': '' }, 'Entries, rows and view', anyChange ? h('span', { 'data-fbadge': '' }, '•') : null, h('span', { 'aria-hidden': 'true', style: { marginLeft: 'auto', color: 'var(--ink-3)' } }, '▾')),
-    h('div', { 'data-frows': '' },
-      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Entries shown' }, label('Shown'),
-        h('div', { 'data-fopts': '', style: { alignItems: 'center' } },
-          h('span', { 'data-segs': '' },
-            h('button', { type: 'button', 'data-seg': '', 'aria-label': 'Show one fewer entry', disabled: cols.length <= 1, onClick: () => setCols(cols.slice(0, -1)) }, '−'),
-            h('span', { 'data-seglab': '', 'aria-live': 'polite' }, `${cols.length} of ${D.E.length}`),
-            h('button', { type: 'button', 'data-seg': '', 'aria-label': 'Show one more entry', disabled: !more, onClick: () => more && setCols([...cols, more.id]) }, '+')),
-          h('label', { style: { display: 'contents' } }, h('span', { style: visuallyHidden }, 'Find entries to add'),
-            h('input', { type: 'search', 'data-etq': '', value: p.tq || '', placeholder: 'Find an entry', autoComplete: 'off', onChange: (e) => set({ tq: e.target.value }) })))),
-      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Include entries by status' }, label('Status'),
-        h('div', { 'data-fopts': '' }, ...L.STATUS_ORDER.filter((k) => D.E.some((x) => x.status === k)).map((k) => chip(tst.includes(k), [h('span', { key: 'g', 'aria-hidden': 'true', style: { color: `var(--st-${k})` } }, L.ST[k].g), ' ' + L.ST[k].l], () => set({ tst: toggleIn(tst, k).join(',') }), { key: k })))),
-      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Include entries by level' }, label('Level'),
-        h('div', { 'data-fopts': '' }, chip(tlv === 'federal', 'Federal', () => set({ tlv: tlv === 'federal' ? '' : 'federal' }), { key: 'f' }), chip(tlv === 'state', 'State', () => set({ tlv: tlv === 'state' ? '' : 'state' }), { key: 's' }),
-          h('label', { key: 'sec', style: { display: 'contents' } }, h('span', { style: visuallyHidden }, 'Section'),
-            h('select', { 'data-etsel': '', value: tsec, onChange: (e) => set({ tsec: e.target.value }) }, h('option', { value: '' }, 'All sections'), ...Object.keys(L.SEC).filter((k) => D.E.some((x) => x.section === k)).map((k) => h('option', { key: k, value: k }, k + '. ' + L.SEC[k])))))),
-      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Pick entries' }, label('Pick'),
-        h('div', { 'data-fopts': '', 'data-etpick': '' }, pool.length ? [...pool.filter((x) => cols.includes(x.id)), ...pool.filter((x) => !cols.includes(x.id))].map((x) => chip(cols.includes(x.id), [h('span', { key: 'g', 'aria-hidden': 'true', style: { color: colour(x) } }, L.ST[x.status].g), ' ' + x.short], () => { if (!cols.includes(x.id) || cols.length > 1) setCols(toggleIn(cols, x.id)); }, { key: x.id })) : h('span', { style: { color: 'var(--ink-3)', fontSize: 'calc(13.5px*var(--fs))' } }, 'No entries match. Clear a status, level or section.'))),
-      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'Rows shown' }, label('Rows'),
-        h('div', { 'data-fopts': '' }, ...[...ET_ROWS, ...(kAll ? [{ k: 'duties', l: 'Key duties (7 bills)' }] : [])].map((r) => chip(!hidRows.has(r.k), r.l, () => set({ trh: toggleIn([...hidRows], r.k).join(',') }), { key: r.k })))),
-      h('div', { 'data-frow': '', role: 'group', 'aria-label': 'View' }, label('View'),
-        h('div', { 'data-fopts': '' },
-          chip(fit, 'Fit to screen width', () => set({ tfit: fit ? '' : '1' }), { key: 'f' }),
-          chip(expAll, 'Expand all cells', () => set({ texp: expAll ? '' : '1' }), { key: 'e' }),
-          h('span', { key: 'c', 'data-segs': '', role: 'group', 'aria-label': 'Colour columns by' }, h('span', { 'data-seglab': '' }, 'Colour by'), seg(!byLevel, 'Status', () => set({ tcol: '' })), seg(byLevel, 'Level', () => set({ tcol: 'level' }))),
-          anyChange ? h('button', { key: 'r', type: 'button', 'data-reset': '', onClick: () => set({ cols: null, tq: '', tst: '', tlv: '', tsec: '', trh: '', tfit: '', texp: '', tcol: '' }) }, 'Reset view') : null,
-          h('button', { key: 'd', type: 'button', 'data-reset': '', onClick: () => ctx.download(pool) }, `Download CSV (${pool.length})`)))));
+
+  // ---- toolbar pieces ----
+  const btn = (m, labelEl, extra) => h('button', { type: 'button', 'data-tbtn': '', 'aria-haspopup': 'true', 'aria-expanded': menu === m ? 'true' : 'false', onClick: () => open(m), ...extra }, ...[].concat(labelEl), h('span', { 'aria-hidden': 'true', 'data-caret': '' }, '▾'));
+  const pop = (m, body, align) => (menu === m ? h('div', { 'data-tpop': '', 'data-align': align || 'left', role: 'dialog', 'aria-label': body.label, onKeyDown: (e) => { if (e.key === 'Escape') ctx.setMenu(''); } }, body.el) : null);
+  const check = (on, label, onClick, key) => h('button', { key, type: 'button', role: 'menuitemcheckbox', 'aria-checked': on ? 'true' : 'false', 'data-titem': '', onClick }, h('span', { 'data-tcheck': '', 'aria-hidden': 'true' }, on ? '✓' : ''), label);
+  const q = (ctx.q || '').trim().toLowerCase();
+  const found = byRecent.filter((x) => !cols.includes(x.id) && (!q || (x.short + ' ' + x.title + ' ' + x.juris + ' ' + (x.st ? L.SN[x.st] : 'federal')).toLowerCase().includes(q))).slice(0, 8);
+  const addPanel = h('div', null,
+    h('input', { type: 'search', 'data-tsearch': '', autoFocus: true, value: ctx.q || '', placeholder: 'Search bills, states, executive actions…', 'aria-label': 'Search entries to add', autoComplete: 'off', onChange: (e) => ctx.setQ(e.target.value),
+      onKeyDown: (e) => { if (e.key === 'Enter' && found[0]) { setCols([...cols, found[0].id]); ctx.setQ(''); } } }),
+    h('ul', { 'data-tlist': '', role: 'listbox', 'aria-label': 'Entries' },
+      found.length ? found.map((x) => h('li', { key: x.id }, h('button', { type: 'button', role: 'option', 'aria-selected': 'false', 'data-titem': '', onClick: () => { setCols([...cols, x.id]); ctx.setQ(''); } },
+        h('span', { 'aria-hidden': 'true', style: { color: `var(--st-${x.status})`, width: 16, flex: 'none' } }, L.ST[x.status].g),
+        h('span', { style: { minWidth: 0 } }, h('span', { style: { display: 'block', fontWeight: 650 } }, x.short), h('span', { 'data-tsub': '' }, [L.ST[x.status].l, x.st ? L.SN[x.st] : 'Federal', L.TYPES[x.type] !== L.ST[x.status].l ? L.TYPES[x.type] : null].filter(Boolean).join(' · '))))))
+        : h('li', { 'data-tsub': '', style: { padding: '10px 12px' } }, q ? 'No entries match.' : 'Every entry is already shown.')));
+  const anyChange = p.cols != null || hidRows.size || fit || expAll || byLevel;
+  const toolbar = h('div', { 'data-tbar': '' },
+    menu ? h('div', { 'data-tveil': '', 'aria-hidden': 'true', onClick: () => ctx.setMenu('') }) : null,
+    h('div', { 'data-tgrp': '' },
+      h('div', { 'data-twrap': '' }, btn('set', [h('span', { key: 'l', 'data-tlab': '' }, 'Compare'), h('strong', { key: 's' }, current ? current.l : 'Custom selection')]),
+        pop('set', { label: 'Starting sets', el: h('div', { role: 'menu' }, ...ET_SETS.map((st) => check(current === st, st.l + ' (' + setIds(st).length + ')', () => setCols(setIds(st)), st.k))) })),
+      h('div', { 'data-twrap': '' }, h('button', { type: 'button', 'data-tbtn': '', 'data-tprimary': '', 'aria-haspopup': 'dialog', 'aria-expanded': menu === 'add' ? 'true' : 'false', onClick: () => open('add') }, '+ Add entry'),
+        pop('add', { label: 'Add an entry', el: addPanel }))),
+    h('div', { 'data-tgrp': '' },
+      h('div', { 'data-twrap': '' }, btn('rows', 'Rows'),
+        pop('rows', { label: 'Rows shown', el: h('div', { role: 'menu' }, ...[...ET_ROWS, ...(kAll ? [{ k: 'duties', l: 'Key duties (7 bills)' }] : [])].map((r) => check(!hidRows.has(r.k), r.l, () => set({ trh: toggleIn([...hidRows], r.k).join(',') }), r.k))) }, 'right')),
+      h('div', { 'data-twrap': '' }, btn('view', 'View'),
+        pop('view', { label: 'View options', el: h('div', { role: 'menu' },
+          check(fit, 'Fit to screen width', () => set({ tfit: fit ? '' : '1' }), 'f'),
+          check(expAll, 'Expand all cells', () => set({ texp: expAll ? '' : '1' }), 'e'),
+          h('div', { key: 'sep', 'data-tsep': '' }, 'Colour columns by'),
+          check(!byLevel, 'Status', () => set({ tcol: '' }), 'cs'), check(byLevel, 'Level (federal or state)', () => set({ tcol: 'level' }), 'cl'),
+          anyChange ? h('button', { key: 'r', type: 'button', 'data-titem': '', 'data-treset': '', onClick: () => { set({ cols: null, trh: '', tfit: '', texp: '', tcol: '' }); ctx.setMenu(''); } }, 'Reset view') : null) }, 'right')),
+      h('button', { type: 'button', 'data-tbtn': '', 'aria-label': `Download these ${D.E.length} entries as CSV`, title: 'Download CSV', onClick: () => ctx.download(byRecent) }, '⤓ CSV')));
+
   return h('div', { 'data-bm': '', 'data-fit': fit ? '1' : '0' },
-    h('p', { style: { margin: '0 0 14px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)', maxWidth: '78ch' } },
-      'Each column is one entry. Add or remove entries below to compare them; long cells open with “Show all”.'),
-    controls,
+    h('p', { style: { margin: '0 0 12px', fontSize: 'calc(15px*var(--fs))', color: 'var(--ink-2)', maxWidth: '78ch' } }, 'Each column is one entry. Add entries to compare them side by side.'),
+    toolbar,
     h('div', { tabIndex: 0, role: 'region', 'aria-label': 'Entries side by side, scrolls sideways', 'data-bmwrap': '' },
-      h('table', { 'data-bmt': '', style: { minWidth: fit ? 0 : 180 + xs.length * 240 } },
+      h('table', { 'data-bmt': '', style: { minWidth: fit ? 0 : 180 + xs.length * 240 + 120 } },
         h('caption', { style: visuallyHidden }, 'Tracker entries side by side: one column per entry, one row per field'),
+        h('colgroup', null, h('col', { 'data-cdim': '' }), ...xs.map((x) => h('col', { key: x.id })), h('col', { 'data-cadd': '' })),
         h('thead', null, h('tr', null, h('th', { scope: 'col', 'data-bmdim': '' }, 'Field'),
           ...xs.map((x) => h('th', { key: x.id, scope: 'col', style: { boxShadow: `inset 0 3px 0 ${colour(x)}` } },
+            cols.length > 1 ? h('button', { type: 'button', 'data-etrm': '', 'aria-label': 'Remove ' + x.short, title: 'Remove', onClick: () => setCols(cols.filter((c) => c !== x.id)) }, '✕') : null,
             h('a', { href: '#/bill/' + x.id, 'data-bmname': '' }, x.short),
-            h('span', { 'data-bmsub': '' }, L.TYPES[x.type] + ' · ' + (x.st ? L.SN[x.st] : 'Federal')),
-            cols.length > 1 ? h('button', { type: 'button', 'data-etrm': '', 'aria-label': 'Remove ' + x.short, onClick: () => setCols(cols.filter((c) => c !== x.id)) }, '✕') : null)))),
+            h('span', { 'data-bmsub': '' }, h('span', { 'aria-hidden': 'true', style: { color: `var(--st-${x.status})` } }, L.ST[x.status].g + ' '), L.ST[x.status].l + ' · ' + (x.st ? L.SN[x.st] : 'Federal')))),
+          h('th', { scope: 'col', 'data-addcol': '' }, h('button', { type: 'button', 'data-addbtn': '', onClick: () => open('add') }, h('span', { 'aria-hidden': 'true', 'data-plus': '' }, '+'), 'Add entry')))),
         h('tbody', null,
-          ...rows.map((r) => h('tr', { key: r.k }, h('th', { scope: 'row', 'data-bmdim': '' }, r.l), ...xs.map((x) => cell(x, r)))),
-          ...(kRows.length ? [h('tr', { key: 'kh' }, h('th', { scope: 'row', 'data-bmdim': '', 'data-etgroup': '' }, 'Key duties'), h('td', { colSpan: xs.length, 'data-bmnote': '' }, 'From the tracker’s duty-by-duty comparison of the seven key bills (section K).'))] : []),
-          ...kRows.map(([dim, m], i) => h('tr', { key: 'k' + i }, h('th', { scope: 'row', 'data-bmdim': '' }, dim), ...xs.map((x) => h('td', { key: x.id }, ...mdInline(m[x.id] || '—')))))))),
-    !kAll ? h('p', { 'data-bmkey': '' }, 'Duty-by-duty rows (thresholds, incident reporting, audits and more) appear when every column is one of the seven key bills. ',
-      h('button', { type: 'button', 'data-reset': '', onClick: () => setCols(L.K_IDS.filter((id) => D.byId[id])) }, 'Show the seven key bills')) : null,
+          ...rows.map((r) => h('tr', { key: r.k }, h('th', { scope: 'row', 'data-bmdim': '' }, r.l), ...xs.map((x) => cell(x, r)), h('td', { 'data-addcol': '' }))),
+          ...(kRows.length ? [h('tr', { key: 'kh' }, h('th', { scope: 'row', 'data-bmdim': '', 'data-etgroup': '' }, 'Key duties'), h('td', { colSpan: xs.length + 1, 'data-bmnote': '' }, 'From the tracker’s duty-by-duty comparison of the seven key bills (section K).'))] : []),
+          ...kRows.map(([dim, m], i) => h('tr', { key: 'k' + i }, h('th', { scope: 'row', 'data-bmdim': '' }, dim), ...xs.map((x) => h('td', { key: x.id }, ...mdInline(m[x.id] || '—'))), h('td', { 'data-addcol': '' })))))),
+    !kAll ? h('p', { 'data-bmkey': '' }, 'Duty-by-duty rows (thresholds, incident reporting, audits and more) appear when every column is one of the seven compared bills. ',
+      h('button', { type: 'button', 'data-reset': '', onClick: () => setCols(L.K_IDS.filter((id) => D.byId[id])) }, 'Show those seven')) : null,
     h('p', { 'data-bmkey': '' }, 'How to read this table: “—” means the entry has nothing for that field. The coloured line on each column shows its ', byLevel ? 'level' : 'status', '. Not legal advice; open an entry for its full record and sources.'),
     C ? compareExtras(C, L, D) : null);
 }

@@ -99,17 +99,41 @@ h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;
 [data-seg]{height:calc(28px*var(--hs));padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--ink-2);font:inherit;font-size:calc(13px*var(--fs));font-weight:650;cursor:pointer}
 [data-seg][aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 [data-reset]{height:calc(32px*var(--hs));padding:0 6px;border:0;background:transparent;color:var(--accent-ink);font:inherit;font-size:calc(13.5px*var(--fs));font-weight:650;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-[data-etpick]{max-height:calc(84px*var(--hs));overflow:auto;padding:2px;scrollbar-width:thin}
-[data-etq],[data-etsel]{height:calc(32px*var(--hs));padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(13.5px*var(--fs));min-width:0}
-[data-etq]{width:min(240px,100%)}
-[data-etq]:focus,[data-etsel]:focus{outline:2px solid var(--accent);outline-offset:1px}
 [data-etclamp="1"]{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 [data-etmore]{margin-top:6px;padding:0;border:0;background:transparent;color:var(--accent-ink);font:inherit;font-size:calc(12.5px*var(--fs));font-weight:650;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-[data-etrm]{float:right;margin:-4px -6px 0 6px;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:var(--ink-3);cursor:pointer;font-size:13px}
+[data-etrm]{float:right;margin:-6px -8px 0 6px;width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:var(--ink-3);cursor:pointer;font-size:13px}
 [data-etrm]:hover{background:var(--surface-2);color:var(--ink)}
 [data-etgroup]{color:var(--ink)!important}
-[data-seg][aria-label$=" entry"]{width:calc(32px*var(--hs));height:calc(32px*var(--hs));padding:0;font-size:calc(16px*var(--fs))}
-[data-seg]:disabled{opacity:.4;cursor:default}
+[data-tbar]{position:relative;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin:0 0 12px}
+[data-tgrp]{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+[data-twrap]{position:relative}
+[data-tbtn]{display:inline-flex;align-items:center;gap:8px;height:calc(38px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));font-weight:600;cursor:pointer;white-space:nowrap}
+[data-tbtn]:hover{border-color:var(--ink-3)}
+[data-tbtn][aria-expanded="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+[data-tprimary]{background:var(--accent-ink);border-color:var(--accent-ink);color:var(--on-accent);font-weight:700}
+[data-tprimary]:hover{border-color:var(--accent-ink);filter:brightness(1.08)}
+[data-tlab]{color:var(--ink-3);font-weight:600}
+[data-caret]{color:var(--ink-3);font-size:11px}
+[data-tveil]{position:fixed;inset:0;z-index:20}
+[data-tpop]{position:absolute;top:calc(100% + 6px);left:0;z-index:21;min-width:240px;max-width:min(380px,calc(100vw - 32px));padding:6px;border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);box-shadow:0 12px 32px rgba(4,8,18,.22)}
+[data-tpop][data-align="right"]{left:auto;right:0}
+[data-titem]{display:flex;align-items:center;gap:10px;width:100%;min-height:calc(38px*var(--hs));padding:6px 10px;border:0;border-radius:calc(var(--r) - 2px);background:transparent;color:var(--ink);font:inherit;font-size:calc(14px*var(--fs));text-align:left;cursor:pointer}
+[data-titem]:hover,[data-titem]:focus-visible{background:var(--accent-soft)}
+[data-tcheck]{width:16px;flex:none;color:var(--accent-ink);font-weight:800}
+[data-tsep]{padding:10px 10px 4px;font-size:calc(12px*var(--fs));font-weight:700;color:var(--ink-3);border-top:1px solid var(--line);margin-top:4px}
+[data-treset]{color:var(--accent-ink);font-weight:650;border-top:1px solid var(--line);border-radius:0;margin-top:4px}
+[data-tsearch]{width:100%;height:calc(40px*var(--hs));padding:0 12px;margin-bottom:6px;border-radius:calc(var(--r) - 2px);border:1px solid var(--line-2);background:var(--bg);color:var(--ink);font:inherit;font-size:calc(14.5px*var(--fs))}
+[data-tsearch]:focus{outline:2px solid var(--accent);outline-offset:0}
+[data-tlist]{list-style:none;margin:0;padding:0;max-height:min(360px,50vh);overflow:auto}
+[data-tsub]{display:block;font-size:calc(12.5px*var(--fs));color:var(--ink-3)}
+[data-bmt] [data-cdim]{width:calc(170px*var(--fs))}
+[data-bmt] [data-cadd]{width:120px}
+[data-bmt] [data-addcol]{min-width:0!important;border-left:1px dashed var(--line);vertical-align:middle;text-align:center}
+[data-addbtn]{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:8px;border:0;background:transparent;color:var(--ink-3);font:inherit;font-size:calc(13px*var(--fs));font-weight:650;cursor:pointer}
+[data-addbtn]:hover{color:var(--accent-ink)}
+[data-plus]{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1px dashed var(--line-2);font-size:20px;line-height:1}
+[data-addbtn]:hover [data-plus]{border-color:var(--accent-ink)}
+@media (max-width:767px){[data-tbar]{flex-direction:column;align-items:stretch}[data-tgrp]{justify-content:flex-start}[data-tgrp] > button:last-child{margin-left:auto}[data-tpop]{z-index:61;position:fixed;top:auto;bottom:0;left:0;right:0;max-width:none;border-radius:16px 16px 0 0;padding:12px 12px max(12px,env(safe-area-inset-bottom));max-height:75vh;overflow:auto}[data-tpop][data-align="right"]{left:0}[data-tveil]{z-index:60;background:rgba(4,8,18,.45)}}
 [data-chip]{position:relative}@media (pointer:coarse),(max-width:1023px){[data-chip]::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
 [data-sidetoggle]{align-items:center;justify-content:center;gap:6px;height:calc(32px*var(--hs));margin:0 0 8px auto;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-weight:650;font-size:calc(13px*var(--fs));cursor:pointer}
 [data-sidetoggle]:hover{color:var(--ink);border-color:var(--line-2)}
@@ -787,12 +811,12 @@ const L_lanes = (self, ids, p) => { const s = self.state; return self.V.lanes({ 
   select: k => { if (self.state.tlSel !== k) self.setState({ tlSel: k }); }, setRange: k => self.setP({ rng: k === 'recent' ? '' : k }, true),
   toggleKind: k => self.setState({ kindOff: s.kindOff.includes(k) ? s.kindOff.filter(z => z !== k) : [...s.kindOff, k] }) }); };
 class Component extends DCLogic {
-  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], etOpen: [], lkTab: '', lkAll: false, lkOpen: [], resOpen: false, exFOpen: false };
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], etOpen: [], etMenu: '', etQ: '', lkTab: '', lkAll: false, lkOpen: [], resOpen: false, exFOpen: false };
   mainRef = React.createRef(); resBtnRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
     this.mq = matchMedia('(prefers-color-scheme: dark)'); this.onMq = () => this.forceUpdate(); this.mq.addEventListener && this.mq.addEventListener('change', this.onMq);
-    this.onHash = () => { if (location.hash === '#main') { history.replaceState(null, '', this.lastHash || '#/'); this.focusMain(); return; } this.lastHash = location.hash || '#/'; if (this.redirectOld()) return; const route = this.parse(); if (this.ret) this.ret.resOpen = null; this.setState({ route, q: route.p.q || '', limit: 20, resOpen: false, filtersOpen: this.lastPath === route.path ? this.state.filtersOpen : false }); if (!route.p.state && !route.p.fed) this.fromRect = null; if (this.lastPath !== route.path) { window.scrollTo(0, 0); this.lastPath = route.path; this.wantRouteFocus = true; } };
+    this.onHash = () => { if (location.hash === '#main') { history.replaceState(null, '', this.lastHash || '#/'); this.focusMain(); return; } this.lastHash = location.hash || '#/'; if (this.redirectOld()) return; const route = this.parse(); if (this.ret) this.ret.resOpen = null; this.setState({ route, q: route.p.q || '', limit: 20, etMenu: '', resOpen: false, filtersOpen: this.lastPath === route.path ? this.state.filtersOpen : false }); if (!route.p.state && !route.p.fed) this.fromRect = null; if (this.lastPath !== route.path) { window.scrollTo(0, 0); this.lastPath = route.path; this.wantRouteFocus = true; } };
     this.onResize = () => this.setState({ vw: window.innerWidth });
     this.onNet = () => this.setState({ online: navigator.onLine });
     this.onKey = e => {
@@ -1250,6 +1274,7 @@ class Component extends DCLogic {
     }
     if (view === 'relations') Object.assign(out, this.map(p));
     if (view === 'table') out.tableEl = this.V.entryTable({ L, D, C: D.content, p, mob: s.vw < 768, set: ch => this.setP(ch, true), open: s.etOpen,
+      menu: s.etMenu, setMenu: m => this.setState({ etMenu: m, ...(m === 'add' ? {} : { etQ: '' }) }), q: s.etQ, setQ: v => this.setState({ etQ: v }),
       toggleCell: k => this.setState(st => ({ etOpen: st.etOpen.includes(k) ? st.etOpen.filter(z => z !== k) : [...st.etOpen, k] })),
       download: rows => { const V = this.V, b = new Blob([V.toCsv(rows, L)], { type: 'text/csv;charset=utf-8' }), a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'us-frontier-law-' + L.ASOF.toISOString().slice(0, 10) + '.csv'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); this.toastMsg('CSV downloaded'); } });
     return out;
