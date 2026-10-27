@@ -1,0 +1,76 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no new framework; it verifies compliance with a framework required by existing law."
+  },
+  "transparency_report": {
+   "value": "partial",
+   "summary": "The third party verifier, not the developer, must publish a summary of its compliance report within 60 days; the developer must link to it on its website within 15 days.",
+   "section": "Gen. Bus. Law 1425(6)",
+   "quote": "The third party verifier shall conspicuously publish a summary of the verifier's report within sixty days of such report's completion.",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill adds no incident reporting duty."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "Large frontier developers must each year engage a third party verifier to report on their compliance with their own framework; from January 1, 2029 the verifier must be state accredited.",
+   "section": "Gen. Bus. Law 1425(1)",
+   "quote": "A large frontier developer shall annually retain, contract, or otherwise engage a third party verifier to produce a report assessing the following:",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "No registration of developers; the state office only accredits third party verifiers."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines no compute threshold."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines no revenue threshold."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines no harm threshold."
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Attorney General may sue for up to $1,000,000 for a first violation and $3,000,000 per later violation, including failing to obtain the verification.",
+   "section": "Gen. Bus. Law 1428(1)",
+   "quote": "The attorney general may bring a civil action to recover a civil",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Takes effect 30 days after becoming law, or 30 days after article 44-B of the general business law takes effect if that is later.",
+   "section": "Sec. 6",
+   "quote": "This act shall take effect on the thirtieth day after it shall",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+  }
+ },
+ "notes": "Amends base law (Gen. Bus. Law art. 44-B, chapter 96 of 2026) not read. Companion A11636 not read. Quotes for registration, penalties and effective date are cut at line ends.",
+ "key": "ny-s-10373-verification",
+ "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+ "basis": {
+  "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+  "sha256": "ba807645c0143ce92f09ebfb51a2c452ffd94da593f7391403b21402367a1e2a",
+  "chars": 10229
+ }
+}

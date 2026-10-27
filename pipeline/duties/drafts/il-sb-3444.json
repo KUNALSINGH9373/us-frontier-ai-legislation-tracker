@@ -1,0 +1,85 @@
+{
+ "duties": {
+  "framework": {
+   "value": "partial",
+   "summary": "A developer that publishes and follows a safety and security protocol is shielded from liability for critical harms; publishing is a condition of that shield, not a flat duty.",
+   "section": "Sec. 10(a)(1)",
+   "quote": "published a safety and security protocol on its website that satisfies the requirements of Section",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+  },
+  "transparency_report": {
+   "value": "partial",
+   "summary": "A developer must publish a transparency report at release to get the liability shield; it is a condition of the shield, not a flat mandate.",
+   "section": "Sec. 10(a)(2)",
+   "quote": "published a transparency report on its website at the time of the frontier model's release",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no incident reporting."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "The protocol must say whether and how the developer uses third parties to assess risk; no independent audit is required.",
+   "section": "Sec. 15(a)(4)",
+   "quote": "whether and how a developer will use third parties to assess risk of critical harm",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protection."
+  },
+  "registration": {
+   "value": "partial",
+   "summary": "A developer relying on a federal agency agreement must file a certification with the Attorney General; no pre-development registration is required.",
+   "section": "Sec. 10(c)",
+   "quote": "shall file a certification with the Attorney General, in a manner prescribed by the Attorney General",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is one trained with more than 10^26 operations, or with a compute cost above $100,000,000.",
+   "section": "Sec. 5",
+   "quote": "is trained using greater than 10^26 computational operations",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A frontier model can also be defined by compute cost exceeding $100,000,000.",
+   "section": "Sec. 5",
+   "quote": "has a compute cost that exceeds $100,000,000",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Critical harm means death or serious injury of 100 or more people, or at least $1,000,000,000 in property damage.",
+   "section": "Sec. 5",
+   "quote": "the death or serious injury of 100 or more people or at least $1,000,000,000 of damages to rights in property",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114"
+  },
+  "penalties": {
+   "value": "not_in_bill",
+   "summary": "The bill states no fine or enforcement remedy; it only removes liability for critical harms when conditions are met, and calls a false certification a violation without a stated penalty."
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill text states no effective date."
+  }
+ },
+ "notes": "Liability safe-harbor bill, not a mandate. Penalties marked no is a judgment call: no fines are stated, but Sec. 10(c) calls a false certification a violation with no remedy given; owner may prefer not_in_bill. Text is one run-on paragraph.",
+ "key": "il-sb-3444",
+ "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+ "basis": {
+  "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+  "sha256": "1808956f1fbece0904e392b61b7e169b7ede9bb189aac13d7996afcaecc49405",
+  "chars": 7964
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers with New Jersey users must write and implement risk protocols and review them yearly.",
+   "section": "Sec. 2(a)",
+   "quote": "write and implement technical and organizational protocols to assess and reduce the risk",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Developers must file a yearly Risk Management Disclosure and a New Model Risk Disclosure with the Attorney General, who publishes them.",
+   "section": "Sec. 2(b)",
+   "quote": "annually submit to the Attorney General a \"Risk Management Disclosure\"",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no incident reporting."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "The Attorney General may audit developers or hire a private auditor; developers themselves need not obtain an audit.",
+   "section": "Sec. 5",
+   "quote": "enter into a contract with a private entity to conduct an audit",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protection."
+  },
+  "registration": {
+   "value": "partial",
+   "summary": "Developers must file a New Model Risk Disclosure with the Attorney General before or when deploying a new model; this is notice, not a licence.",
+   "section": "Sec. 2(d)",
+   "quote": "before, or concurrently with, deploying a new frontier model",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier developer used at least 10^26 integer or floating-point operations to train a frontier model.",
+   "section": "Sec. 1",
+   "quote": "a quantity of computing power of at least 10^26 integer or floating-point operations to train a frontier model",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer, with affiliates, had annual gross revenues above $100 million in the preceding calendar year.",
+   "section": "Sec. 1",
+   "quote": "annual gross revenues in excess of $100 million in the preceding calendar year",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic harm means death or serious injury of 25 or more people, or $1 billion in property damage, from a single incident.",
+   "section": "Sec. 1",
+   "quote": "death or serious injury of 25 or more people or $1 billion in damage to, or loss of, property arising from a single incident",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "$100,000 civil penalty per violation for missing or materially false disclosures, collected by the Attorney General; no penalty for a materially false statement made in good faith and reasonable (Sec. 4(b)).",
+   "section": "Sec. 4(a)",
+   "quote": "shall be liable for a civil penalty in the amount of $100,000 for each violation",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Takes effect six months after enactment; sections 1 through 6 expire five years later.",
+   "section": "Sec. 8",
+   "quote": "This act shall take effect six months after the date of enactment.",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+  }
+ },
+ "notes": "Entry key names Assembly companion A5275; its text was not read.",
+ "key": "nj-s-4446-a-5275",
+ "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+ "basis": {
+  "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+  "sha256": "ec236d12979d692f80e3d33e11b49b31979d84427b3bb88577c5e077e458f3e9",
+  "chars": 14464
+ }
+}

@@ -1,0 +1,79 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill requires developers to write no safety framework; the Energy Secretary develops containment recommendations."
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "Developers must publish nothing; test reports go privately to each participant and the Secretary reports to Congress."
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill requires developers to report no incidents to government."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "The Energy Secretary, through the National Laboratories, tests AI and must facilitate third-party assessments where practicable; developers need not commission an independent audit.",
+   "section": "Sec. 2(a)(3)",
+   "quote": "Facilitate to the extent practicable independent, third-party assessments and blind model evaluations of such artificial intelligence.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "No registration or licensing; developers must only take part in the federal testing program."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or kill-switch capability; it only has the Secretary recommend containment protocols."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "Advanced AI means AI trained with more than 10^26 operations, or another amount the Secretary sets by rule.",
+   "section": "Sec. 2(i)(1)(A)(i)",
+   "quote": "Artificial intelligence trained utilizing a quantity of computing power greater than 10^26 integer or floating-point operations",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large developer must have spent at least $2,000,000,000, with affiliates, on developing or modifying AI over the prior five calendar years.",
+   "section": "Sec. 2(i)(13)(B)",
+   "quote": "not less than $2,000,000,000 on investments to develop or modify artificial intelligence",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "A loss-of-control scenario means AI behavior causing at least 5 deaths, serious injury to at least 50 people, or more than $100,000,000 in damages.",
+   "section": "Sec. 2(i)(14)",
+   "quote": "results in the death of not fewer than five individuals, serious bodily injury to not fewer than 50 individuals, or more than $100,000,000 in damages.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Energy Secretary may assess civil penalties up to $1 million per violation, each continuing day a separate violation; may subpoena model weights; the Attorney General may sue.",
+   "section": "Sec. 2(d)(1)(A)",
+   "quote": "the Secretary may assess on such developer a civil penalty of not more than $1 million for such violation.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; the Program must be set up within 90 days of enactment."
+  }
+ },
+ "notes": "Program-style bill (federal testing program, terminates 7 years after enactment). Duties on developers are participation and access (including model weights); registration marked partial for that reason, reviewer may prefer not_in_bill.",
+ "key": "h-r-9965-atomic-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text",
+  "sha256": "6ee73705b0dd28aeffe038c54777c26889a5ac13f3ca80c7fcaf3c8afac0033c",
+  "chars": 16712
+ }
+}

@@ -25,8 +25,12 @@ const il = readJson(path.join(P, 'config', 'identifiers-legiscan.json')).legisca
 const J_BILLS = {
   'pa-h-b-2705': ['PA', 'HB2705'], 'texas-traiga-hb-149': ['TX', 'HB149'], 'washington-sb-5395': ['WA', 'SB5395'],
   'ca-sb-1119-adam-s-law-and-sb-867': ['CA', 'SB1119'], 'nj-s-1802': ['NJ', 'S1802'],
-  'ny-s10642-a11560-responsible-data-center-development-act-and': ['NY', 'S10642'], 'mi-sb-757-760-kids-over-clicks': ['MI', 'SB757']
+  'ny-s10642-a11560-responsible-data-center-development-act-and': ['NY', 'S10642'], 'mi-sb-757-760-kids-over-clicks': ['MI', 'SB757'],
+  // Failed state bills the tracker lists but does not follow (no LegiScan mapping); fetched for the duty backfill.
+  'tn-hb-1898-sb-2171': ['TN', 'HB1898'], 'ut-hb-286': ['UT', 'HB286'], 'la-sb-474': ['LA', 'SB474'], 'ny-s-10701-terminator-act-withdrawn': ['NY', 'S10701']
 };
+// Entries whose description follows a later bill than the first mapped one (NY RAISE: Ch. 699 was repealed and replaced by Ch. 96 = S.8828).
+const USE_BILL = { 'ny-raise-act-ch-699-ch-96': ['NY', 'S8828'], 'ma-h-5576-s-3178': ['MA', 'S3228'] };
 const only = (() => { const i = process.argv.indexOf('--only'); return i > 0 ? process.argv[i + 1].split(',') : null; })();
 const outDir = path.join(P, 'data', 'eval', 'texts'), cacheDir = path.join(P, 'data', 'text-cache');
 fs.mkdirSync(outDir, { recursive: true });
@@ -64,7 +68,11 @@ let ok = 0, missing = 0;
 for (const e of entries.filter((x) => x.origin === 'authored' && (!only || only.includes(x.key)))) {
   let rec = null;
   try {
-    if (ic[e.key] && ic[e.key].congress_gov && ic[e.key].congress_gov.length) {
+    if (USE_BILL[e.key]) {
+      const id = await findStateBill(...USE_BILL[e.key]);
+      if (!id) rec = { kind: 'legiscan', text: null, why: `${USE_BILL[e.key].join(' ')} not found in the two newest sessions` };
+      else { const s = await stateText(id); rec = { kind: 'legiscan', bill: `${s.bill.state} ${s.bill.bill_number} (${id})`, url: officialUrl(s.bill), text: s.text, why: s.text ? null : s.why, pdf_warnings: s.pdf_warnings }; }
+    } else if (ic[e.key] && ic[e.key].congress_gov && ic[e.key].congress_gov.length) {
       const id = ic[e.key].congress_gov[0], b = parseBillId(id);
       const text = await cg.getText(b);
       rec = { kind: 'congress_gov', bill: id, url: billUrl(b) + '/text', text, why: text ? null : 'no text published on Congress.gov yet' };

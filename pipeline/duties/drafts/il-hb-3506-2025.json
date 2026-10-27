@@ -1,0 +1,91 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "A developer must produce, follow and publish a safety and security protocol, and publish any material change within 30 days.",
+   "section": "Sec. 15(a)",
+   "quote": "A developer shall produce, implement, follow, and conspicuously publish a safety and security protocol.",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "A developer must publish a risk assessment report at least every 90 days.",
+   "section": "Sec. 15(b)",
+   "quote": "No less than every 90 days, a developer shall produce and conspicuously publish a risk assessment report.",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "incident_reporting": {
+   "value": "partial",
+   "summary": "The protocol must state when and to whom the developer will report incidents; the bill sets no reporting window or government recipient.",
+   "section": "Sec. 10 (safety and security protocol, item 10)",
+   "quote": "the conditions under which the developer will report incidents relevant to critical risk that have occurred in connection with one or more of its foundation models",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "At least once a year a developer must hire a reputable third-party auditor to assess its compliance with its protocol, and publish the report within 90 days.",
+   "section": "Sec. 25(a)",
+   "quote": "At least once every calendar year, a developer shall retain a reputable third-party auditor to produce a report assessing the following",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "The Whistleblower Act applies to employees who tell the Attorney General about critical risk, and developers must offer an anonymous internal reporting process.",
+   "section": "Sec. 30(b)",
+   "quote": "A developer shall provide a reasonable internal process through which an employee may anonymously disclose information to the developer",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability."
+  },
+  "compute_threshold": {
+   "value": "partial",
+   "summary": "A developer is covered by compute cost, not operation count: training a model with computing power costing at least $100,000,000.",
+   "section": "Sec. 10",
+   "quote": "has trained at least one foundation model with a quantity of computational power that costs at least $100,000,000",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A developer is covered by spending: it has trained a model with computing power costing at least $100,000,000; no revenue or user test.",
+   "section": "Sec. 10",
+   "quote": "has trained at least one foundation model with a quantity of computational power that costs at least $100,000,000",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Critical risk means a foreseeable risk of death or serious injury to more than 100 people, or more than $1,000,000,000 in damage.",
+   "section": "Sec. 10",
+   "quote": "will result in the death of, or serious injury to, more than 100 people, or more than $1,000,000,000 in damage to rights in money or property",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Attorney General may sue for civil penalties up to $1,000,000 for violating Sec. 15 or 25, and seek injunctive or declaratory relief.",
+   "section": "Sec. 35(a)",
+   "quote": "may be assessed a civil penalty not to exceed $1,000,000",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill text states no effective date."
+  }
+ },
+ "notes": "Text has gaps (Sec. 35(a) lists 'Sections or 25', Sec. 25 refers to 'Section 20.5', Sec. 30(c) has a missing number of years). The summary says the Sec. 15 and 25 are the penalized sections as the following sentence reads. Compute and revenue both rest on the same cost-of-compute definition; owner may prefer compute=partial, revenue=not_in_bill.",
+ "key": "il-hb-3506-2025",
+ "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+ "basis": {
+  "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+  "sha256": "d58e4015f54913be39beb85b9cce409b3d11e0dad0bb6c598ef1ffd3595f6828",
+  "chars": 15141
+ }
+}

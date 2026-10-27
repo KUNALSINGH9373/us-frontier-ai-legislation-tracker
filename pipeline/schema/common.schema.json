@@ -75,6 +75,29 @@
       }
     },
 
+    "dutyValue": {
+      "enum": ["yes", "partial", "no", "not_in_bill"],
+      "description": "yes: the bill imposes or sets it. partial: it does, with limits the line explains. no: the bill expressly excludes or negates it (quote required). not_in_bill: the text says nothing on it (no quote)."
+    },
+    "duty": {
+      "type": "object",
+      "required": ["value", "summary"],
+      "additionalProperties": false,
+      "description": "One duty or figure of a bill. Every one except not_in_bill needs a section number and a word-for-word quote from the official text; the duty checker confirms both in code.",
+      "properties": {
+        "value": { "$ref": "#/$defs/dutyValue" },
+        "summary": { "type": "string", "minLength": 3, "maxLength": 240, "description": "One plain-English line. Every number in it must appear in the official text." },
+        "section": { "type": "string", "minLength": 1, "maxLength": 80, "description": "Section as the bill numbers it, e.g. 22757.12(a) or Sec. 4." },
+        "quote": { "type": "string", "minLength": 8, "maxLength": 400, "description": "One exact span of the official text." },
+        "source_url": { "$ref": "#/$defs/url" }
+      },
+      "allOf": [
+        { "if": { "properties": { "value": { "const": "not_in_bill" } }, "required": ["value"] },
+          "then": { "not": { "anyOf": [{ "required": ["quote"] }, { "required": ["section"] }, { "required": ["source_url"] }] } },
+          "else": { "required": ["section", "quote", "source_url"] } }
+      ]
+    },
+
     "link": {
       "type": "object",
       "required": ["t", "u"],

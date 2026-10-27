@@ -1,0 +1,67 @@
+{
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no safety framework or plan."
+  },
+  "transparency_report": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no public report or disclosure."
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no incident reporting."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no imminent-risk reporting window."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no audit or independent evaluation."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no employee protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no registration or licensing; it only conditions an antitrust exemption on notice to the Antitrust Division."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "Coverage does not depend on training compute."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "Coverage does not depend on revenue, spending or users."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "Covered risks are described by type, with no death, injury or damage figures."
+  },
+  "penalties": {
+   "value": "partial",
+   "summary": "The Attorney General may seek an injunction against entities whose coordination violates antitrust law; no fines are set.",
+   "section": "Sec. 4(a)",
+   "quote": "The Attorney General may seek, in a court of competent jurisdiction, an injunction against the non-Federal entities",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill text states no effective date."
+  }
+ },
+ "notes": "Antitrust-exemption bill, not a developer-duty bill. Entry names a Senate companion (S. 5105) whose text I did not read. Sec. 3(a)(2) requires written notice to the Assistant Attorney General before a coordinated delay, as a condition of the exemption; I did not count this as registration.",
+ "key": "h-r-9914-s-5105-catsr",
+ "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+  "sha256": "a8271e54fc2b582f31d561dccae9bd85835d3c0756f60b557b89f7642dfbe3e3",
+  "chars": 9208
+ }
+}

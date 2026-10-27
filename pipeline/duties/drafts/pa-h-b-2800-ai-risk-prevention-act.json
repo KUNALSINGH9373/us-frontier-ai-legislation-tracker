@@ -1,0 +1,100 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers must develop a frontier AI framework, implement and publish it from January 1, 2028, comply with it, and review it each year.",
+   "section": "Sec. 501(d)",
+   "quote": "Each large frontier developer shall comply with the frontier AI framework that the large frontier developer",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Every frontier developer must publish a transparency report before or when deploying a new or substantially modified frontier model; large developers add risk assessment summaries.",
+   "section": "Sec. 502(a)",
+   "quote": "a frontier developer shall clearly and conspicuously publish on its publicly",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Frontier developers must report a critical safety incident to the Pennsylvania Emergency Management Agency and the Attorney General within 72 hours.",
+   "section": "Sec. 902(a)",
+   "quote": "the frontier developer shall report the critical",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "An incident posing imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority such as law enforcement.",
+   "section": "Sec. 902(c)",
+   "quote": "poses an imminent risk of death or serious physical injury, the",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "Large frontier developers must hire an independent third party each year to audit compliance with the act, and publish a summary and redacted report within 30 days.",
+   "section": "Sec. 701",
+   "quote": "a large frontier developer shall annually retain a third",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Frontier developers may not block or retaliate against covered employees who disclose catastrophic-risk dangers or violations; large developers need an internal reporting process.",
+   "section": "Sec. 1302(c)",
+   "quote": "Make, adopt, enforce or enter into a rule, regulation, policy or contract that prevents a covered employee from making a disclosure",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "registration": {
+   "value": "yes",
+   "summary": "From January 1, 2027, large frontier developers must file a registration form, a disclosure statement and a fee before developing, deploying or operating a frontier model in Pennsylvania.",
+   "section": "Sec. 302(a)",
+   "quote": "a large frontier developer may not develop, deploy or operate a frontier",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or kill-switch capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is one trained with more than 1,026 operations (as printed), counting fine-tuning and reinforcement learning.",
+   "section": "Sec. 102",
+   "quote": "computing power greater than 1,026 integer or floating-point",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer, with its affiliates, had annual gross revenues above $500,000,000 in the preceding calendar year.",
+   "section": "Sec. 102",
+   "quote": "revenues in excess of $500,000,000 in the preceding calendar",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic risk means death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident.",
+   "section": "Sec. 102",
+   "quote": "serious injury to, more than 50 people or more than",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Agency penalties up to $1,000 per day; large developers up to $1,000,000 for a first and $3,000,000 for later violations, recovered by the Attorney General.",
+   "section": "Sec. 1304(a)",
+   "quote": "The payment of a civil penalty not exceeding",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Section 1504 and this section take effect immediately; the rest takes effect one year after notice of temporary regulations is published.",
+   "section": "Sec. 1505",
+   "quote": "The remainder of this act shall take effect one year",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800"
+  }
+ },
+ "notes": "Compute threshold prints as 1,026 (garbled 10^26 superscript); reviewer should confirm. Several quotes are cut at line ends.",
+ "key": "pa-h-b-2800-ai-risk-prevention-act",
+ "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+ "basis": {
+  "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+  "sha256": "d4cbe078587500869cf3f59f49e2d93020ceb1708ccb474e386f6e3650a61209",
+  "chars": 35692
+ }
+}

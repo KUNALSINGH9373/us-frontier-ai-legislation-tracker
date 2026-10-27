@@ -1,0 +1,97 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers must write, follow and publish a public safety plan, and a child protection plan if they run a covered chatbot.",
+   "section": "13-72b-102(1)",
+   "quote": "shall write, implement, comply with, and clearly and conspicuously publish on the large frontier developer's internet website a public safety plan",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Before deploying a new or substantially modified frontier model, a large frontier developer must publish summaries of its risk assessments.",
+   "section": "13-72b-104(2)",
+   "quote": "A large frontier developer shall conspicuously publish on the large frontier developer's website summaries of the following before deploying a new frontier model",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Large frontier developers must report a safety incident to the Office of Artificial Intelligence Policy within 15 days of discovery.",
+   "section": "13-72b-106(2)",
+   "quote": "A large frontier developer shall report a safety incident to the office within 15 days after the day on which the large frontier developer discovers the incident.",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "A critical incident posing imminent risk of death or serious physical injury must be disclosed to law enforcement or a public safety agency within 24 hours.",
+   "section": "13-72b-106(3)",
+   "quote": "imminent risk of death or serious physical injury, shall disclose that incident within 24",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "The plan must describe how the developer uses third parties to assess catastrophic risk; no independent audit is required.",
+   "section": "13-72b-102(1)(e)",
+   "quote": "uses third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Frontier developers may not take adverse action against employees who report safety threats or violations; employees may sue.",
+   "section": "13-72b-203(1)",
+   "quote": "A frontier developer may not take adverse action against an employee because of a lawful act of the employee",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or kill-switch capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier developer has used at least 10^26 integer or floating-point operations to train a frontier model, including fine-tuning.",
+   "section": "13-72b-101(13)(a)",
+   "quote": "a quantity of computing power of at least 10^26 integer or floating-point operations to train a frontier model",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer, with affiliates, had annual revenue of at least $500,000,000 in the preceding calendar year.",
+   "section": "13-72b-101(15)",
+   "quote": "had annual revenue of at least $500,000,000 in the preceding calendar year",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic loss means death or serious bodily injury of more than 50 individuals, or property damage over $1,000,000,000.",
+   "section": "13-72b-101(3)(a)",
+   "quote": "the death or serious bodily injury of more than 50 individuals",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Civil penalty up to $1,000,000 for a first violation and $3,000,000 for each later one, sued for by the attorney general.",
+   "section": "13-72b-107(1)",
+   "quote": "A large frontier developer that violates this part is subject to a civil penalty that does not",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "The bill takes effect on May 6, 2026.",
+   "section": "Section 14",
+   "quote": "This bill takes effect on May 6, 2026.",
+   "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html"
+  }
+ },
+ "notes": "Text is the 1st Substitute (Buff) of HB 286, not necessarily the latest version.",
+ "key": "ut-hb-286",
+ "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html",
+ "basis": {
+  "source_url": "https://le.utah.gov/~2026/bills/static/HB0286.html",
+  "sha256": "e6085749f57ae800cc0ec3e6f2fc69e2b47f24f6b86b0a90cf607495ff83d913",
+  "chars": 27490
+ }
+}

@@ -1,0 +1,100 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Beginning January 1, 2028, large frontier developers must write, follow and publish a frontier AI framework, and review it at least once per year.",
+   "section": "Sec. 10(a)",
+   "quote": "shall write, implement, comply with, and clearly and conspicuously publish on its website a frontier AI framework",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Every frontier developer must publish a transparency report before or when it deploys a new or substantially modified frontier model; large developers add machine-readable risk summaries.",
+   "section": "Sec. 10(c)(1)",
+   "quote": "a frontier developer shall clearly and conspicuously publish on its website a transparency report containing all of the following",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Frontier developers must report each critical safety incident to the state emergency agency and the Attorney General within 72 hours of reasonably believing one occurred.",
+   "section": "Sec. 15(c)",
+   "quote": "within 72 hours of the frontier developer learning facts sufficient to establish a reasonable belief that a critical safety incident has occurred",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "An incident posing imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority such as law enforcement.",
+   "section": "Sec. 15(c)",
+   "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within 24 hours",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "Beginning January 1, 2028, large frontier developers must each year hire an independent third party to audit compliance, then publish a summary and the redacted report within 30 days.",
+   "section": "Sec. 10(d)",
+   "quote": "a large frontier developer shall annually retain a third party to perform an independent audit of compliance with the requirements of this Section",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Frontier developers may not block or retaliate against covered employees who report catastrophic-risk dangers or violations of the Act, and must give notice of those rights.",
+   "section": "Sec. 20(a)",
+   "quote": "A frontier developer shall not make, adopt, enforce, or enter into a rule, regulation, policy, or contract that prevents a covered employee from disclosing",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "registration": {
+   "value": "yes",
+   "summary": "Beginning January 1, 2027, large frontier developers may not develop, deploy or operate a frontier model in Illinois without a current disclosure statement on file with the Agency and fees paid.",
+   "section": "Sec. 18(a)",
+   "quote": "no large frontier developer may develop, deploy, or operate a frontier model, in whole or in part in this State, without having a current disclosure statement filed with the Agency and paying the required fee",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is a foundation model trained with computing power greater than 1026 (as printed) integer or floating-point operations, including fine-tuning.",
+   "section": "Sec. 5",
+   "quote": "using a quantity of computing power greater than 1026 integer or floating-point operations",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer, with its affiliates, had annual gross revenues above $500,000,000 in the preceding calendar year.",
+   "section": "Sec. 5",
+   "quote": "collectively had annual gross revenues in excess of $500,000,000 in the preceding calendar year",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+   "section": "Sec. 5",
+   "quote": "more than 50 people or more than $1,000,000,000 in damage to, or loss of, property arising from a single incident",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Attorney General civil action: up to $1,000,000 for a first violation and $3,000,000 for later ones (Sec. 25); the Agency may separately fine $1,000 a day for a missing disclosure (Sec. 18(e)).",
+   "section": "Sec. 25(a)",
+   "quote": "the civil penalty may not exceed $3,000,000 per violation",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "The Act takes effect January 41, 2027 as printed in the stored text (a likely typo); the framework and audit duties begin January 1, 2028.",
+   "section": "Sec. 99",
+   "quote": "This Act takes effect January 41, 2027.",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114"
+  }
+ },
+ "notes": "Enrolled SB 315 (P.A. 104-0538). Stored text has garbles: effective date prints 'January 41, 2027' (likely Jan 1, 2027), compute prints '1026' (likely 10^26), Sec. 10(e) 'every months' (number missing). Text includes Sec. 18 registration/fee regime and Sec. 17 federal-equivalence safe harbor; owner should compare with the existing entry, which may predate these (also differs from introduced SB 3312: 72h vs 15 days, audit, registration).",
+ "key": "il-sb-315-p-a-104-0538",
+ "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+ "basis": {
+  "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+  "sha256": "4fc4708fff1586060f053516960daa912c6275928d99ef9c6a3ae2dd5507f738",
+  "chars": 71883
+ }
+}

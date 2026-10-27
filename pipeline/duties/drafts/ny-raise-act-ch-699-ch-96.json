@@ -1,0 +1,97 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers must write, follow and publish a frontier AI framework, and review it at least once a year.",
+   "section": "Gen. Bus. Law 1421(1)",
+   "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its internet website a frontier AI framework",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Every frontier developer must publish a transparency report when it deploys a new or substantially modified frontier model.",
+   "section": "Gen. Bus. Law 1421(3)(a)",
+   "quote": "a frontier developer shall clearly and conspicuously publish on its internet website a transparency report",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Critical safety incidents must be reported to the state office within 72 hours of a determination or of learning enough facts to believe one occurred.",
+   "section": "Gen. Bus. Law 1422(3)(a)",
+   "quote": "shall report any critical safety incident pertaining to one or more of its frontier models to the office within seventy-two hours",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "An incident posing an imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+   "section": "Gen. Bus. Law 1422(3)(b)",
+   "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within twenty-four hours",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "The framework must describe how the developer uses third parties to assess catastrophic risk; no independent audit is required.",
+   "section": "Gen. Bus. Law 1421(1)(e)",
+   "quote": "using third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The text has no whistleblower provision."
+  },
+  "registration": {
+   "value": "yes",
+   "summary": "A large frontier developer may not develop, deploy or operate a frontier model in New York without a current disclosure statement filed with the state office, renewed every two years.",
+   "section": "Gen. Bus. Law 1428(1)",
+   "quote": "no large frontier developer may develop, deploy, or operate a frontier model, in whole or in part in New York state, without having a current disclosure statement filed with the office",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The text requires no shutdown or kill-switch capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning.",
+   "section": "Gen. Bus. Law 1420(9)(a)",
+   "quote": "a foundation model that was trained using a quantity of computing power greater than 10",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer has annual gross revenues above $500,000,000, with its affiliates, in the preceding calendar year.",
+   "section": "Gen. Bus. Law 1420(10)",
+   "quote": "annual gross revenues in excess of five hundred million dollars in the preceding calendar year",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+   "section": "Gen. Bus. Law 1420(3)(a)",
+   "quote": "more than fifty people or more than one billion dollars in damage to, or loss of, property arising from a single incident",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Attorney General may sue large frontier developers for up to $1,000,000 for a first violation and $3,000,000 per later one; the state office may also fine $1,000 a day for not filing the disclosure statement.",
+   "section": "Gen. Bus. Law 1427(1)",
+   "quote": "in an amount not to exceed one million dollars for a first violation and in an amount not to exceed three million dollars per subsequent violation",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Sec. 3 sets the 2025 Act's effective date to January 1, 2027; under Sec. 5 this bill takes effect immediately, but its new article takes effect when that 2025 Act does.",
+   "section": "Secs. 3 and 5",
+   "quote": "This act shall take effect immediately; provided, however that",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+  }
+ },
+ "notes": "Redrafted 26 Oct 2026 from S.8828 (Chapter 96 of 2026, the law in force); the first draft was read from the repealed Chapter 699 (S.6953). Stored text is the introduced S.8828 (Jan 8, 2026), not necessarily the signed version; the exponent in the compute definition is lost in the stored text (prints 10<garbled>26). Penalty line combines Sec. 1427(1) with 1428(5)(a) ($1,000 a day), quote is 1427(1).",
+ "key": "ny-raise-act-ch-699-ch-96",
+ "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+ "basis": {
+  "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+  "sha256": "5f7a496c60c264afae64bf98d516228cedb9e3b9ca15d5c9dbac9721cf5c0ec6",
+  "chars": 28472
+ }
+}

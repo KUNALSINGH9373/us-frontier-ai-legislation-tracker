@@ -1,0 +1,88 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Each frontier developer must develop, publish and follow a Model Safety Plan with a risk assessment, mitigation measures and a responsible corporate officer for each model it creates or substantially modifies.",
+   "section": "Sec. 4(a)",
+   "quote": "Each developer shall develop, publish, and follow a safety plan (referred to in this section as the ``Model Safety Plan'') for each artificial intelligence system or model",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Developers must publish their Model Safety Plan, which includes a capabilities or risk assessment for the model.",
+   "section": "Sec. 4(a)",
+   "quote": "Each developer shall develop, publish, and follow a safety plan",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Frontier developers and critical-infrastructure operators using AI must report confirmed AI safety or security incidents within 30 days of confirmation.",
+   "section": "Sec. 5(a)(3)(A)",
+   "quote": "shall report any confirmed artificial intelligence safety incident or artificial intelligence security incident within 30 days of confirmation of such incident",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "An incident posing an imminent threat to national security, critical infrastructure or public safety must be reported within 72 hours.",
+   "section": "Sec. 5(a)(3)(A)",
+   "quote": "within 72 hours if such incident poses an imminent threat to national security, critical infrastructure, or public safety",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "Developers must give a federal Safety Board access to a frontier model, including weights, 45 days before release; this is government evaluation, not an independent audit.",
+   "section": "Sec. 3(f)",
+   "quote": "Not later than 45 calendar days before a developer introduces into interstate or foreign commerce a frontier artificial intelligence model, the developer shall make available to the Board access to the frontier artificial intelligence model",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no whistleblower protections."
+  },
+  "registration": {
+   "value": "partial",
+   "summary": "Each Model Safety Plan must be filed with the Commerce Secretary; there is no license or approval to develop or deploy.",
+   "section": "Sec. 4(c)",
+   "quote": "Each Model Safety Plan shall be submitted to the Secretary in the form and manner determined by the Secretary.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "shutdown": {
+   "value": "partial",
+   "summary": "Board standards, still to be written, must cover prompt termination of risky AI evaluations; no kill switch for deployed models.",
+   "section": "Sec. 3(a)(6)(A)(iv)(VI)",
+   "quote": "prompt termination of any evaluation",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "Coverage is by capability for frontier models, with no compute figure."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill defines coverage by no revenue, spending or user figure."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no death, injury or damages threshold; incidents are defined as events that materially increase risk."
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "A developer that violates a Board standard faces a civil penalty up to $250,000 per violation, each day a separate violation; the Commerce Secretary enforces and the Attorney General may sue.",
+   "section": "Sec. 3(d)(2)",
+   "quote": "A developer that violates subsection (c) shall be liable to the United States for a civil penalty of not more than $250,000 for each violation.",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; deadlines run from enactment (Board within 30 days)."
+  }
+ },
+ "notes": "Penalties in Sec. 3(d) attach only to violating adopted Board standards (Sec. 3(c)); no penalty is stated for Sec. 4 safety plan or Sec. 5 incident reporting duties. Standards (Sec. 3(a)(6)) are still to be written. Incident database submissions in Sec. 5(a)(1) are voluntary, Sec. 5(a)(3) mandatory.",
+ "key": "s-5576-warner-schatz-kim-ai-risk-management-and-security-act",
+ "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+ "basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+  "sha256": "94e86eac77b4a583487695c7b4015b90a86769c872b1369ca00691ec3635e247",
+  "chars": 34838
+ }
+}

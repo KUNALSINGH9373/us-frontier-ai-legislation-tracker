@@ -227,7 +227,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 <sc-if value="{{isHome}}">
 <div data-screen-label="Home" style="max-width:1600px;width:100%;margin:0 auto;padding:clamp(18px,2.4vw,28px) clamp(16px,3vw,32px) clamp(32px,4vw,48px)">
-  <h1 id="story-h" aria-label="{{h3}} states have enacted frontier-AI laws. Congress has introduced {{h10}} bills and passed none." style="margin:0 0 clamp(14px,1.8vw,20px);font-size:clamp(22px,2.5vw,32px);line-height:1.2;text-wrap:balance;max-width:1000px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="{{h3}}" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="{{h10}}" style="color:var(--accent-ink)">{{h10}}</span> bills and passed none.</span></h1>
+  <h1 id="story-h" aria-label="{{h3}} states have enacted frontier-AI laws. Congress has introduced {{h10}} bills and {{hPassed}}." style="margin:0 0 clamp(14px,1.8vw,20px);font-size:clamp(22px,2.5vw,32px);line-height:1.2;text-wrap:balance;max-width:1000px;font-variant-numeric:tabular-nums"><span aria-hidden="true"><span data-cu="{{h3}}" style="color:var(--st-enacted)">{{h3}}</span> states have enacted frontier-AI laws. Congress has introduced <span data-cu="{{h10}}" style="color:var(--accent-ink)">{{h10}}</span> bills and {{hPassed}}.</span></h1>
   <sc-if value="{{hasChecked}}"><p data-checked style="margin:calc(-6px*var(--ps)) 0 12px;font-size:calc(13px*var(--fs));color:var(--ink-3);font-variant-numeric:tabular-nums">{{checkedLine}}</p></sc-if>
 
   <div data-hometools style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:12px">
@@ -483,6 +483,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
       <span style="display:inline-flex;align-items:center;gap:7px;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line);font-size:calc(14px*var(--fs));font-weight:750"><span aria-hidden="true" style="color:{{bSc}}">{{bSg}}</span>{{bSl}}</span>
       <span style="font-size:calc(14px*var(--fs));font-weight:650;color:var(--ink-3)">{{bJuris}} · {{bType}}</span>
+      <sc-if value="{{hasAutoBadge}}"><span title="{{autoTitle}}" style="font-size:calc(12.5px*var(--fs));font-weight:750;padding:3px calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--line-2);color:var(--ink-2)">Auto-updated</span></sc-if>
     </div>
     <h1 style="margin:0;font-size:clamp(26px,3vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.03em;text-wrap:balance;overflow-wrap:anywhere;max-width:960px">{{bShort}}</h1>
     <p style="margin:0;font-size:calc(15px*var(--fs));color:var(--ink-3);max-width:860px;overflow-wrap:anywhere">{{bTitle}}</p>
@@ -499,6 +500,40 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <section aria-labelledby="b-sum" style="padding:calc(22px*var(--ps));border-radius:min(22px,var(--r));background:var(--surface);border:1px solid var(--line)">
         <h2 id="b-sum" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">In plain English</h2>
         <sc-if value="{{hasSummary}}"><p style="margin:0;font-size:calc(clamp(18px,1.9vw,22px)*var(--fs));line-height:1.45;font-weight:550;text-wrap:pretty">{{bSummary}}</p><p style="margin:12px 0 0;display:inline-flex;font-size:calc(12.5px*var(--fs));font-weight:750;padding:4px calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--line-2);color:var(--ink-2)">Draft copy for author review · derived only from the tracker’s text</p></sc-if>
+      </section>
+      </sc-if>
+
+      <sc-if value="{{hasDuties}}">
+      <section aria-labelledby="b-cards" data-duty-cards>
+        <h2 id="b-cards" style="margin:0 0 12px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">At a glance</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px">
+          <sc-for list="{{dCards}}" as="c"><div style="padding:calc(16px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)">
+            <h3 style="margin:0 0 8px;font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">{{c.h}}</h3>
+            <sc-for list="{{c.items}}" as="i"><p style="margin:0 0 6px;font-size:calc(15px*var(--fs));line-height:1.45;overflow-wrap:anywhere;text-wrap:pretty"><sc-if value="{{i.hasL}}"><strong>{{i.l}}: </strong></sc-if>{{i.t}}</p></sc-for>
+          </div></sc-for>
+        </div>
+      </section>
+      <section aria-labelledby="b-req" data-duty-list>
+        <h2 id="b-req" style="margin:0 0 4px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">What it requires</h2>
+        <p style="margin:0 0 12px;font-size:calc(14px*var(--fs));color:var(--ink-3)">Read from the bill’s official text. Open a row to see the exact words and where they sit.</p>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{dRows}}" as="d"><li style="border-radius:min(16px,var(--r));border:1px solid var(--line);background:var(--surface)">
+            <details>
+              <summary style="cursor:pointer;list-style:none;padding:calc(14px*var(--ps)) calc(16px*var(--ps));min-height:calc(44px*var(--hs));display:flex;gap:12px;align-items:flex-start">
+                <span aria-hidden="true" style="color:var(--accent-ink);width:16px;flex:none;line-height:1.4">{{d.g}}</span>
+                <span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">{{d.l}} · {{d.vl}}</span><span style="font-size:calc(15px*var(--fs));line-height:1.45;overflow-wrap:anywhere;text-wrap:pretty">{{d.t}}</span></span>
+                <span aria-hidden="true" style="margin-left:auto;flex:none;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3);white-space:nowrap;padding-left:8px">Exact words ▾</span>
+              </summary>
+              <div style="padding:0 calc(16px*var(--ps)) calc(14px*var(--ps)) calc(44px*var(--ps))">
+                <p style="margin:0 0 6px;font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{d.sec}}</p>
+                <blockquote style="margin:0;padding:2px 0 2px calc(12px*var(--ps));border-left:3px solid var(--line-2);font-size:calc(14px*var(--fs));line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere">“{{d.q}}”</blockquote>
+                <a href="{{d.u}}" target="_blank" rel="noopener" style="margin-top:6px;font-weight:700;font-size:calc(13.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Official text ↗</a>
+              </div>
+            </details>
+          </li></sc-for>
+        </ul>
+        <sc-if value="{{hasDNot}}"><p style="margin:12px 0 0;font-size:calc(14px*var(--fs));color:var(--ink-2)"><strong>Not in the bill text:</strong> {{dNot}}.</p></sc-if>
+        <p data-duty-basis style="margin:8px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{dBasis}}</p>
       </section>
       </sc-if>
 
@@ -791,7 +826,6 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         <circle class="pop" style="animation-delay:2.1s" fill="#D4A43A" stroke="none" cx="32" cy="7" r="2.2"></circle>
       </g></svg>
       <span data-serif data-wordmark style="font-size:clamp(26px,5vw,32px);line-height:1.1;color:var(--ink);animation:gxRise 600ms var(--ease-out) 700ms both"><span data-us>US</span> Frontier Law</span>
-      <span style="font-size:13px;font-weight:600;color:var(--ink-3);animation:gxFade 400ms ease 1000ms both">{{bootLabel}}</span>
     </div>
   </div>
 </sc-if>
@@ -1047,8 +1081,8 @@ class Component extends DCLogic {
     const v = {
       loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
       ...(this.L && this.D ? (() => { const L = this.L, MNL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        return { verLabel: L.fmt(L.VERIFIED), asofLabel: L.fmt(L.ASOF), asofDay: L.fmt(L.ASOF).replace(/ \d{4}$/, ''), asofMonth: MNL[L.ASOF.getMonth()] + ' ' + L.ASOF.getFullYear(), updLabel: L.fmtShort(L.ASOF), nEntries: String(this.D.E.length), bootLabel: 'Verified as of ' + L.fmt(L.VERIFIED), ...this.checkedVals() }; })()
-        : { verLabel: '', asofLabel: '', asofDay: '', asofMonth: '', updLabel: '', nEntries: '', bootLabel: 'Loading the tracker', hasChecked: false, checkedLine: '' }),
+        return { verLabel: L.fmt(L.VERIFIED), asofLabel: L.fmt(L.ASOF), asofDay: L.fmt(L.ASOF).replace(/ \d{4}$/, ''), asofMonth: MNL[L.ASOF.getMonth()] + ' ' + L.ASOF.getFullYear(), updLabel: L.fmtShort(L.ASOF), nEntries: String(this.D.E.length), ...this.checkedVals() }; })()
+        : { verLabel: '', asofLabel: '', asofDay: '', asofMonth: '', updLabel: '', nEntries: '', hasChecked: false, checkedLine: '' }),
       showTopNav: !mob, showBottomNav: mob, mainPadBottom: mob ? '88px' : '0px', footerPadBottom: mob ? '104px' : '28px', toastBottom: mob ? '96px' : '28px',
       nav: NAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-3)', ul: sec === k ? 'inset 0 -2px 0 var(--accent-ink)' : 'none' })),
       mnav: MNAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-3)', bg: sec === k ? 'var(--accent-soft)' : 'transparent' })),
@@ -1119,7 +1153,7 @@ class Component extends DCLogic {
       filterN: fN, hasFilterN: fN > 0, filtersAria: fN ? `Filters, ${fN} active` : 'Filters', filtersBg: fN ? 'var(--accent-soft)' : 'var(--surface)',
       filtersOpen: s.filtersOpen, openFilters: () => this.setState({ filtersOpen: true }), closeFilters: () => this.setState({ filtersOpen: false }),
       filtersDone: live.length ? `Show ${live.length} ${live.length === 1 ? 'instrument' : 'instruments'}` : 'No matches · close',
-      h3: num(HC.enacted), h10: num(HC.fed), t5: num(HC.pending), t11: num(HC.stalled + HC.failed), t6: num(HC.ivo), t10b: num(HC.exec), t9: num(HC.lit),
+      h3: num(HC.enacted), h10: num(HC.fed), hPassed: HC.fedEnacted ? 'passed ' + num(HC.fedEnacted) : 'passed none', t5: num(HC.pending), t11: num(HC.stalled + HC.failed), t6: num(HC.ivo), t10b: num(HC.exec), t9: num(HC.lit),
       q: s.q, qRef: this.qRef, onQ: e => this.setState({ q: e.target.value }), submitQ: e => { e.preventDefault(); this.go('/explore', { q: s.q.trim() }); },
       tiles, statusChips, boardChips, hasBoardChips: boardChips.length > 0,
       clearBoard: () => { const n = { ...p }; ['status', 'type', 'year'].forEach(k => delete n[k]); this.go('/', n, true); },
@@ -1303,6 +1337,21 @@ class Component extends DCLogic {
       h('text', { key: 'lab', x: 200, y: 205, textAnchor: 'middle', fill: '#FFFFFF', fontSize: 'calc(13px*var(--fs))', fontWeight: 800 }, es.length + ' links'));
     return { cGraph, cName: nameOf(c), cHref: cid ? '#/bill/' + cid : '', cIsEntry: !!cid, cLines: lines, cNodes: nodes, cTypes: types, cN: es.length, cHubs: hubs, cEmpty: !es.length };
   }
+  // What the bill requires, from entry.duties (each answer carries its section and an exact quote that code has checked).
+  dutyView(x) {
+    const L = this.L, dts = x.raw && x.raw.duties;
+    if (!dts) return { hasDuties: false, dCards: [], dRows: [], hasDNot: false, dNot: '', dBasis: '' };
+    const card = (h, kind, none) => {
+      const items = L.DUTIES.filter(d => d.kind === kind && dts[d.k].value !== 'not_in_bill').map(d => ({ hasL: kind === 'covers', l: d.l, t: dts[d.k].summary }));
+      return { h, items: items.length ? items : [{ hasL: false, l: '', t: none }] };
+    };
+    const dCards = [card('Who it covers', 'covers', 'The text sets no compute, revenue or harm threshold.'), card('When it takes effect', 'when', 'The text states no effective date.'), card('Enforcement', 'enforce', 'The text states no penalty.')];
+    const dRows = L.DUTIES.filter(d => d.kind === 'duty' && dts[d.k].value !== 'not_in_bill').map(d => { const v = dts[d.k]; return { g: L.DUTY_VALUE[v.value].g, l: d.l, vl: L.DUTY_VALUE[v.value].l, t: v.summary, sec: v.section, q: v.quote, u: v.source_url }; });
+    const notIn = L.DUTIES.filter(d => d.kind === 'duty' && dts[d.k].value === 'not_in_bill').map(d => d.l.toLowerCase());
+    const b = x.raw.duties_basis;
+    return { hasDuties: true, dCards, dRows, hasDNot: notIn.length > 0, dNot: notIn.join(', '),
+      dBasis: b ? 'Read from the official bill text on ' + L.fmt(new Date(b.checked_at)) + '. Every quote above is checked against that text by code; the plain-English lines are not legal advice.' : '' };
+  }
   bill(id) {
     const L = this.L, D = this.D, x = D.byId[id];
     if (!x) return { isBill: false };
@@ -1323,6 +1372,8 @@ class Component extends DCLogic {
       steps, hasSteps: steps.length > 0, noSteps: !steps.length && !stx.text,
       statusText: stx.text, hasStatusText: !!stx.text, statusLabel: x.raw && x.raw.verification && x.raw.verification.method === 'session' ? 'Status as recorded (read from the official record on ' + L.fmt(new Date(x.raw.verification.checked_at)) + '; added after the 15 Oct verification)' : 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
       relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0,
+      ...this.dutyView(x),
+      hasAutoBadge: !!x.raw && x.raw.origin !== 'authored', autoTitle: 'The latest official actions on this entry were added automatically from the official record and checked by code.',
       marks, hasMarks: marks.length > 0,
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',
       toggleFollowB: () => this.toggleFollow(id),

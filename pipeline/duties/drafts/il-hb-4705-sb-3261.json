@@ -1,0 +1,97 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers and large chatbot providers must write, follow and publish a public safety and child protection plan.",
+   "section": "Section 15(a)",
+   "quote": "shall write, implement, comply with, and clearly and conspicuously publish on its website a public safety and child protection plan",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Before deploying a new or substantially modified frontier model, a large frontier developer must publish summaries of its risk assessments and results.",
+   "section": "Section 15(e)",
+   "quote": "conspicuously publish on its website summaries of the following",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Frontier developers must report critical safety incidents to the Attorney General within 15 days of discovery.",
+   "section": "Section 20(b)",
+   "quote": "A frontier developer shall report any critical safety incident pertaining to one of its frontier models to the Attorney General within 15 days after discovering the critical safety incident.",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "A critical incident posing imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+   "section": "Section 20(c)",
+   "quote": "poses an imminent risk of death or serious physical injury, the frontier developer shall disclose that incident within 24 hours",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "Large frontier developers must hire a reputable third-party auditor every calendar year to assess compliance with their plan.",
+   "section": "Section 35(a)",
+   "quote": "At least once every calendar year, a large frontier developer shall retain a reputable third-party auditor to produce a report",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Developers may not block protected disclosures by employees, and large frontier developers must offer an anonymous internal reporting process.",
+   "section": "Section 30(a)",
+   "quote": "shall not make, adopt, enforce, or enter into a rule, regulation, policy, or contract that prevents an employee from making a disclosure protected under the Whistleblower Act",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or kill-switch capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is one trained with more than 10^26 integer or floating-point operations, including fine-tuning.",
+   "section": "Section 10",
+   "quote": "trained using a quantity of computing power greater than 10^26 integer or floating-point operations",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer (with affiliates) has annual revenue of at least $500,000,000; a large chatbot provider, at least $25,000,000.",
+   "section": "Section 10",
+   "quote": "collectively have an annual revenue of at least $500,000,000",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "A critical safety incident includes death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a catastrophic risk.",
+   "section": "Section 10",
+   "quote": "more than 50 people or more than $1,000,000,000 in damage to, or loss of, property",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Civil penalty up to $1,000,000 per violation for large frontier developers ($50,000 for chatbot providers), recovered by the Attorney General.",
+   "section": "Section 40(a)",
+   "quote": "does not exceed $1,000,000 per violation",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Takes effect in 2027; the stored text reads garbled as January 231, 2027.",
+   "section": "Section 99",
+   "quote": "This Act takes effect January 231, 2027.",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+  }
+ },
+ "notes": "Effective date text is garbled (January 231, 2027); synopsis says Effective January 1, 2027. Revenue figures carry stray footnote digits (5, 8) in the stored text. Entry names a Senate companion SB3261 whose text was not read. Revenue figures in the stored text carry stray footnote digits (.8, .5); the summary states the plain figures.",
+ "key": "il-hb-4705-sb-3261",
+ "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+ "basis": {
+  "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+  "sha256": "13ee257db4d3ac55491211b104c8c0e5974d97eccea71f8b9bfd0b7eb55fcadf",
+  "chars": 28196
+ }
+}

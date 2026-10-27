@@ -298,6 +298,40 @@
         "$ref": "common.schema.json#/$defs/evidence"
       }
     },
+    "duties": {
+      "type": "object",
+      "description": "What the bill requires, one answer for each of the 13 duties (not_in_bill when the text is silent). Only bills that impose duties carry this. Each answer is checked word for word against the official text by pipeline/duties/check.mjs.",
+      "required": ["framework", "transparency_report", "incident_reporting", "imminent_risk_reporting", "third_party_audit", "whistleblower", "registration", "shutdown", "compute_threshold", "revenue_threshold", "harm_threshold", "penalties", "effective_date"],
+      "additionalProperties": false,
+      "properties": {
+        "framework": { "$ref": "common.schema.json#/$defs/duty", "description": "Safety / risk-management framework or protocol" },
+        "transparency_report": { "$ref": "common.schema.json#/$defs/duty", "description": "Published transparency or model report" },
+        "incident_reporting": { "$ref": "common.schema.json#/$defs/duty", "description": "Incident reporting, with its window" },
+        "imminent_risk_reporting": { "$ref": "common.schema.json#/$defs/duty", "description": "Shorter window for imminent risk of death or serious injury" },
+        "third_party_audit": { "$ref": "common.schema.json#/$defs/duty", "description": "Third-party audit, evaluation or verification" },
+        "whistleblower": { "$ref": "common.schema.json#/$defs/duty", "description": "Whistleblower protection" },
+        "registration": { "$ref": "common.schema.json#/$defs/duty", "description": "Registration, licensing or notification of the developer or model" },
+        "shutdown": { "$ref": "common.schema.json#/$defs/duty", "description": "Shutdown / kill-switch capability" },
+        "compute_threshold": { "$ref": "common.schema.json#/$defs/duty", "description": "Training-compute threshold that brings a model in scope" },
+        "revenue_threshold": { "$ref": "common.schema.json#/$defs/duty", "description": "Revenue or spending threshold that brings a developer in scope" },
+        "harm_threshold": { "$ref": "common.schema.json#/$defs/duty", "description": "Harm threshold (deaths, injuries, damages) that defines catastrophic risk" },
+        "penalties": { "$ref": "common.schema.json#/$defs/duty", "description": "Penalties and who enforces them" },
+        "effective_date": { "$ref": "common.schema.json#/$defs/duty", "description": "When the duties take effect" }
+      }
+    },
+    "duties_basis": {
+      "type": "object",
+      "required": ["source_url", "sha256", "checked_at"],
+      "additionalProperties": false,
+      "description": "Which official text the duties were read from, so a changed text can be detected and the duties re-checked.",
+      "properties": {
+        "source_url": { "$ref": "common.schema.json#/$defs/url" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "chars": { "type": "integer", "minimum": 1 },
+        "method": { "enum": ["agent", "session"], "description": "agent: written by the pipeline. session: written in a Claude session from the official text; every quote checked by code. Kept apart from verification.method so the rest of the entry keeps its own checks." },
+        "checked_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
+      }
+    },
     "origin": {
       "$ref": "common.schema.json#/$defs/origin"
     },

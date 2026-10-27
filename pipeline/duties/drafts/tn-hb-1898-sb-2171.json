@@ -1,0 +1,94 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large frontier developers must write, follow and publish a public safety plan; large chatbot providers a child safety plan.",
+   "section": "68-107-103(a)(1)",
+   "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish on its internet website a public safety plan",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Before deploying a new or substantially modified frontier model, a large frontier developer must publish summaries of its risk assessments and results.",
+   "section": "68-107-103(d)(1)",
+   "quote": "the large frontier developer shall conspicuously publish on the large frontier developer's internet website summaries of",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "incident_reporting": {
+   "value": "yes",
+   "summary": "Frontier developers must report critical safety incidents to the attorney general within 15 days of discovery.",
+   "section": "68-107-104(b)",
+   "quote": "A frontier developer shall report any critical safety incident pertaining to one (1) or more of the frontier developer's frontier models to the attorney general and reporter within fifteen (15) days of discovering the critical safety incident.",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "imminent_risk_reporting": {
+   "value": "yes",
+   "summary": "A critical incident posing imminent risk of death or serious physical injury must be disclosed to an appropriate authority within 24 hours.",
+   "section": "68-107-104(c)",
+   "quote": "the frontier developer shall disclose the incident within twenty-four (24) hours to an authority",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "third_party_audit": {
+   "value": "partial",
+   "summary": "Plans must describe how developers use third parties to assess risk; no independent audit is required.",
+   "section": "68-107-103(a)(1)(D)",
+   "quote": "Uses third parties to assess the potential for catastrophic risks and the effectiveness of mitigations of catastrophic risks",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no employee whistleblower protection."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or kill-switch capability."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is one trained with more than 10^26 integer or floating-point operations, including fine-tuning.",
+   "section": "68-107-102(13)",
+   "quote": "a quantity of computing power greater than 10^26 integer or floating-point",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large frontier developer has annual revenue of $500,000,000 or more with affiliates; a large chatbot provider, $25,000,000 or more.",
+   "section": "68-107-102(15)",
+   "quote": "annual revenue of five hundred million dollars ($500,000,000) or more",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Catastrophic risk means death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+   "section": "68-107-102(3)(A)",
+   "quote": "more than fifty (50) people or more than one billion dollars ($1,000,000,000)",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "Civil penalty up to $1,000,000 for a first violation and $3,000,000 for each later one for large frontier developers; up to $50,000 per violation for large chatbot providers; only the attorney general enforces.",
+   "section": "68-107-105(a)",
+   "quote": "of not more than one million dollars ($1,000,000) per violation for a first violation",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "Takes effect January 1, 2027 and applies to conduct on or after that date.",
+   "section": "Section 4",
+   "quote": "This act takes effect January 1, 2027, the public welfare requiring it",
+   "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114"
+  }
+ },
+ "notes": "Entry names House companion HB1898; text read is the combined SB2171/HB1898 text.",
+ "key": "tn-hb-1898-sb-2171",
+ "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114",
+ "basis": {
+  "source_url": "https://wapp.capitol.tn.gov/apps/Billinfo/Default?BillNumber=HB1898&ga=114",
+  "sha256": "1f61440e3e8c07a3f11fd3286c321bba53cb5268617560c8e05576e1a4eb12a3",
+  "chars": 20892
+ }
+}

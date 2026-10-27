@@ -19,6 +19,7 @@ export function makeValidator() {
   const P = 'https://tracker.local/schema/pipeline.schema.json#/$defs/';
   const ids = {
     entry: 'https://tracker.local/schema/entry.schema.json',
+    duties: 'https://tracker.local/schema/entry.schema.json#/properties/duties',
     news: 'https://tracker.local/schema/news.schema.json',
     relationships: 'https://tracker.local/schema/relationships.schema.json',
     site: 'https://tracker.local/schema/site.schema.json',

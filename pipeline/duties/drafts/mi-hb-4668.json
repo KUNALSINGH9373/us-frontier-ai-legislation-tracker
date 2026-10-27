@@ -1,0 +1,94 @@
+{
+ "duties": {
+  "framework": {
+   "value": "yes",
+   "summary": "Large developers must produce, follow and publish a safety and security protocol, and publish changes within 30 days.",
+   "section": "Sec. 7(1)(a)",
+   "quote": "Produce, implement, follow, and conspicuously publish a safety and security protocol.",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Large developers must publish a transparency report on risk assessments at least once every 90 days.",
+   "section": "Sec. 7(1)(c)",
+   "quote": "Not less than once every 90 days, produce and conspicuously publish a transparency report",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "incident_reporting": {
+   "value": "partial",
+   "summary": "The protocol must state when and to whom the developer will report incidents; the bill sets no reporting duty or deadline itself.",
+   "section": "Sec. 5(i)",
+   "quote": "The conditions under which the large developer will report an incident relevant to a critical risk",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no shorter reporting window for imminent risks."
+  },
+  "third_party_audit": {
+   "value": "yes",
+   "summary": "Large developers must hire a reputable third-party auditor at least once per year to assess protocol compliance, and publish the report.",
+   "section": "Sec. 9(1)",
+   "quote": "not less than once per year, a large developer shall retain a reputable third-party auditor to produce a report",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "whistleblower": {
+   "value": "yes",
+   "summary": "Large developers may not retaliate against employees who report critical risks to authorities; employees may sue.",
+   "section": "Sec. 11(1)",
+   "quote": "A large developer shall not discharge, threaten, or otherwise discriminate against an employee",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no registration or licensing requirement."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no shutdown or kill-switch capability."
+  },
+  "compute_threshold": {
+   "value": "partial",
+   "summary": "Coverage is set by the cost of training compute ($5,000,000.00 for one model), not by operations count.",
+   "section": "Sec. 3(f)(i)",
+   "quote": "model with a quantity of computing power that costs not less than $5,000,000.00",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "revenue_threshold": {
+   "value": "partial",
+   "summary": "No revenue test; a large developer also needs $100,000,000.00 of compute spending on models in the prior 12 months.",
+   "section": "Sec. 3(f)(ii)",
+   "quote": "total quantity of computing power that costs not less than $100,000,000.00",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Critical risk means death or serious injury to more than 100 people, or more than $1,000,000,000.00 in damages, from listed incident kinds.",
+   "section": "Sec. 3(b)",
+   "quote": "more than 100 people, or will result in more than $1,000,000,000.00 in damages to rights in money or property",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The Attorney General may sue for a civil fine up to $1,000,000.00 per violation of the publication, reporting and audit duties (Sec. 7 and 9), plus injunctive relief; whistleblower violations carry a fine up to $500.00.",
+   "section": "Sec. 13(1)",
+   "quote": "A civil fine of not more than $1,000,000.00 per violation.",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "The developer duties begin on January 1, 2026.",
+   "section": "Sec. 7(1)",
+   "quote": "Beginning on January 1, 2026, a large developer shall do all of the following",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+  }
+ },
+ "notes": "Whistleblower civil fine is only $500.00 (Sec. 11(7)); not in penalties summary.",
+ "key": "mi-hb-4668",
+ "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+ "basis": {
+  "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+  "sha256": "7eb4fa7c20f6e75e84089072cc9bb0c38c14cc0bc97e49aae424671c399abc5b",
+  "chars": 14894
+ }
+}
