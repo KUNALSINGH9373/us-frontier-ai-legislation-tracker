@@ -90,7 +90,8 @@ const bad = [
   ['penalties outside section A', { ...goodFix(E1).corrections[0], field: 'penalties', new_text: 'Report within 72 hours.' }, /may not be corrected/],
   ['no evidence', { ...goodFix(E1).corrections[0], evidence: [] }, /no evidence quote/],
   ['unchanged text', { ...goodFix(E1).corrections[0], new_text: E1.mechanism }, /same as the current/],
-  ['date without a year', { ...goodFix(E1).corrections[0], new_text: `${E1.mechanism} Report within 72 hours from Sept 30.` }, /without its year/]
+  ['a claim about what the bill lacks', { ...goodFix(E1).corrections[0], new_text: `${E1.mechanism} Report within 72 hours; no numeric compute or revenue threshold is set in the bill.` }, /does not contain/],
+  ['date without a year',{ ...goodFix(E1).corrections[0], new_text: `${E1.mechanism} Report within 72 hours from Sept 30.` }, /without its year/]
 ];
 for (const [name, c, re] of bad) {
   const sb = sandbox(), confirmer = scripted(yes);
@@ -98,6 +99,13 @@ for (const [name, c, re] of bad) {
   ok(`2 ${name}: refused by code`, r.corrected.length === 0 && r.rejected.length === 1 && re.test(r.rejected[0].why), JSON.stringify(r.rejected));
   ok(`2 ${name}: confirmer never asked, nothing written`, confirmer.calls.length === 0 && JSON.stringify(readEntry(sb.dataDir, E1.key)) === JSON.stringify(E1));
   ok(`2 ${name}: retried next time`, state(sb).items[E1.key].retry === true && state(sb).items[E1.key].outcome === 'rejected');
+}
+{
+  // too long the first time: the reader is told why, rewrites once, and the shorter text goes on to the confirmer
+  const sb = sandbox(), long = { ...goodFix(E1).corrections[0], new_text: `${E1.mechanism} ${'Critical safety incidents must be reported within 72 hours. '.repeat(12)}` };
+  const reviewer = scripted((req, n) => (n === 1 ? { corrections: [long] } : goodFix(E1)));
+  const r = await run(sb, { factory: factoryOf(reviewer, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1) }) });
+  ok('2 rewrite: told the exact problem, then accepted', reviewer.calls.length === 2 && /REFUSED BY CODE[\s\S]*over 700/.test(reviewer.calls[1].prompt) && r.corrected.length === 1 && r.status === 'written');
 }
 {
   const sb = sandbox();
