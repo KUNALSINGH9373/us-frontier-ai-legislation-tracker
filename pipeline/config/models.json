@@ -60,12 +60,12 @@
     "roles": {
       "generator": {
         "model": "claude-haiku-5-5",
-        "max_output_tokens": 4000,
+        "max_output_tokens": 16000,
         "effort": "medium"
       },
       "validator": {
         "model": "claude-haiku-5-5",
-        "max_output_tokens": 4000,
+        "max_output_tokens": 16000,
         "effort": "medium"
       },
       "screener": {

@@ -25,6 +25,11 @@ Event types, use exactly one of: ${EVENT_TYPES.join(' | ')}.
 Return JSON only, with exactly these keys: operation, in_scope, scope_reason, fields, events_add, evidence, notes. Here is one example of the exact shape (the facts are made up; yours come from SOURCE):
 {"operation":"update","in_scope":true,"scope_reason":"Already tracked; the update reports a committee action.","fields":{"status_text":"Introduced Mar 3, 2026; referred to Senate Commerce. Markup held Apr 9, 2026"},"events_add":[{"date":"2026-04-09","precision":"day","type":"Passed / advanced","text":"Committee markup held"}],"evidence":[{"field":"status_text","quote":"Committee markup held."},{"field":"events_add[0]","quote":"Committee markup held."}],"notes":""}`;
 
+// The scope test, said the same way to both readers. Types (2) to (7) need not name a frontier developer or threshold: a whistleblower
+// law, an investigative board or a study of AI auditors is in scope as it stands. Only the OUT list rules an item out.
+export const SCOPE_TEST = 'Scope: go through IN-scope types (1) to (7) of the scope definition one by one before ruling the item out. An item that matches any one type is in scope, even if it never mentions frontier developers, compute or a size threshold: types (2) to (7) do not need one. Set in_scope false only when it matches none of the seven types (for example it falls only under the OUT list), and then give an empty "fields" object.';
+export const SCOPE_CLAIM = `This item falls within at least one of the IN-scope types (1) to (7) of this scope definition (types (2) to (7) need no frontier, compute or size threshold): ${SCOPE_DEFINITION}`;
+
 // Gemini's structured-output schema for the patch: the API itself then refuses to leave out a required key.
 const S = (extra = {}) => ({ type: 'STRING', ...extra });
 // The shape differs by task. For a new entry the model may only write mechanism, thresholds and penalties, and must give a section
@@ -63,7 +68,7 @@ In "fields" give ONLY:
 - penalties: the amounts and who enforces them, at most 300 characters (e.g. "Civil penalty up to $1,000,000 per violation, enforced by the Attorney General"). Only if SOURCE states them; otherwise null.
 - section (a top-level key, next to "fields", not inside it): REQUIRED for a bill, and it must be exactly D or F. D = the bill itself puts binding duties on frontier or advanced AI developers or on their models (mandatory testing or evaluation, safety frameworks, developer incident reporting, shutdown capability, bans or licensing), or creates a regulator with power over them. F = every other in-scope bill: voluntary or non-regulatory programs, standards, studies or guidance (for example an agency writing a security playbook or standards for developers to adopt), rules for one department's own AI or its contractors (such as the Defense Department), whistleblower protections, and investigative boards. If in doubt, choose F. For other documents use G = executive action or G.3 = compute or AI-chip export control rule (executive orders are G automatically).
 Each field value is final text: never explain, think aloud or reconsider inside a field. Every field you give needs an evidence quote. Add events_add only for dated steps in SOURCE that the system cannot know, such as a deadline stated in the text ("within 60 days"), and only when the source gives the date.
-If the item is not about frontier / large-scale AI developers, set in_scope false and give an empty "fields" object.`);
+${SCOPE_TEST}`);
     parts.push(`WHAT THE COMPARISON CODE FOUND:\n${reasons.map((r) => `- ${r.kind}: ${r.detail}`).join('\n')}`);
   }
   if (styleExamples && styleExamples.length) parts.push(`STYLE EXAMPLES (existing entries, for tone and density only; do not copy their facts):\n${styleExamples.map((e, i) => `Example ${i + 1}\n${fmtEntry(e)}`).join('\n\n')}`);

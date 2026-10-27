@@ -21,7 +21,7 @@ import { createHttp } from '../grabber/lib/http.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { createLlmFromConfig, LlmOutputError, InputTooLarge } from '../llm/index.mjs';
 import { generatePatch } from '../agents/generator.mjs';
-import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_DEFINITION } from '../agents/prompts.mjs';
+import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from '../agents/prompts.mjs';
 import { buildClaims } from '../agents/validator.mjs';
 import { containsQuote, digitRuns } from '../agents/source-text.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
@@ -103,7 +103,7 @@ async function runItem({ gold, text, generator, validator, styleExamples }) {
     if (!g.patch) { feedback = g.problems; continue; }
     const patch = g.patch; previousPatch = patch;
     if (patch.in_scope === false) {
-      const scopeClaim = [{ field: 'in_scope', claim: `This item regulates or directly concerns frontier / large-scale AI developers or models, as defined here: ${SCOPE_DEFINITION}` }];
+      const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let r = null; try { r = (await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: text, claims: scopeClaim }), itemId: gold.key })).data.results[0]; } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       if (r && r.supported === false) return { outcome: 'out_of_scope', in_scope: false, rounds: round, fields: {}, problems: [] };
       return { outcome: 'held', in_scope: null, rounds: round, fields: {}, problems: ['scope disagreement: generator out, reader in'] };

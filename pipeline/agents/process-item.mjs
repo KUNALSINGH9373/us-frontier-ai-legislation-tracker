@@ -6,7 +6,7 @@ import { sourceText } from './source-text.mjs';
 import { generatePatch } from './generator.mjs';
 import { assembleEntry } from './assemble.mjs';
 import { validateDraft, complaints } from './validator.mjs';
-import { SCOPE_DEFINITION, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
+import { SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
 import { LlmOutputError, InputTooLarge, BudgetExceeded } from '../llm/gemini.mjs';
 import { deriveCreate } from './derive.mjs';
 import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
@@ -53,7 +53,7 @@ async function processItemInner({ generator, validator, item, raw, diff, entry =
     const note = { kind: 'candidate', detail: `NOTE: SOURCE below is incomplete: ${why}. Decide ONLY in_scope and scope_reason; leave "fields" empty.` };
     const g = await generatePatch({ llm: generator, item, source: head, entry, reasons: [...diff.reasons, note], operation, styleExamples: [], feedback: [], previousPatch: null });
     if (g.patch && g.patch.in_scope === false) {
-      const scopeClaim = [{ field: 'in_scope', claim: `This item regulates or directly concerns frontier / large-scale AI developers or models, as defined here: ${SCOPE_DEFINITION}` }];
+      const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let res; try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: head, claims: scopeClaim }), itemId: item.item_id }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
       if (r && r.supported === false) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on ${textMissing ? 'the title and actions, as the text is not published yet' : `the first ${TRIAGE_CHARS} characters of a ${source.length}-character text`})` };
@@ -76,7 +76,7 @@ async function processItemInner({ generator, validator, item, raw, diff, entry =
 
     // The Generator says "not about frontier AI": let the independent reader confirm before anything is dropped.
     if (operation === 'create' && patch.in_scope === false) {
-      const scopeClaim = [{ field: 'in_scope', claim: `This item regulates or directly concerns frontier / large-scale AI developers or models, as defined here: ${SCOPE_DEFINITION}` }];
+      const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let res;
       try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: scopeClaim }), itemId: item.item_id }); }
       catch (e) { if (!(e instanceof LlmOutputError)) throw e; }

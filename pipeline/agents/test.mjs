@@ -305,6 +305,8 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   ok('and correct labels are left exactly as they are', normField('mechanism') === 'mechanism' && normField('events_add[0]') === 'events_add[0]' && normField('status_text') === 'status_text');
   const p = normalisePatch({ operation: 'create', in_scope: true, scope_reason: 'x', section: 'D', fields: { mechanism: 'Does a thing', title: null, thresholds: '' }, events_add: [], evidence: [{ field: 'fields.mechanism', quote: 'Does a thing' }, { field: 'scope_reason', quote: 'because of the title' }, { field: 'section', quote: 'D bill here' }] });
   ok('a top-level section is moved into fields; nulls are dropped; evidence for labels such as scope_reason and section is discarded', p.fields.section === 'D' && !('title' in p.fields) && p.section === undefined && p.evidence.length === 1 && p.evidence[0].field === 'mechanism', JSON.stringify(p));
+  const q = normalisePatch({ operation: 'create', in_scope: true, scope_reason: 'Duties on frontier developers.', reasoning: 'thinking aloud', summary: 'y', fields: { mechanism: 'Does a thing' }, events_add: [], evidence: [{ field: 'mechanism', quote: 'Does a thing' }], notes: 'n' });
+  ok('an extra top-level key (the model\'s own "reasoning") is dropped; the known keys stay', !('reasoning' in q) && !('summary' in q) && q.notes === 'n' && q.fields.mechanism === 'Does a thing' && makeValidator().check('patch', q).length === 0, JSON.stringify(q));
 }
 {
   // New bill whose text is not published yet: nothing can be described or verified. Only a scope check on its title and actions is possible.
