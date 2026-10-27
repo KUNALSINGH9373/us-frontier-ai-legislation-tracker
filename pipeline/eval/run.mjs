@@ -58,6 +58,8 @@ export function codeChecks(patch, text) {
 export function scoreItem({ gold, text, result }) {
   // Scope: an in-scope bill must not be dropped as out of scope; an excluded bill must not be published (held is safe).
   const out = { key: gold.key, outcome: result.outcome, scope_ok: gold.in_scope ? result.outcome !== 'out_of_scope' : result.outcome !== 'published', fields: {} };
+  // Section: scored only where the model chooses it (a published federal bill, D or F in the tracker).
+  if (['D', 'F'].includes(gold.section) && result.outcome === 'published') out.section_ok = result.section === gold.section;
   for (const f of FIELDS) {
     const want = gold[f], got = result.outcome === 'published' ? result.fields[f] || null : null;
     const provable = [...factNumbers(want)].filter((n) => digitRuns(text).has(n));
@@ -86,7 +88,9 @@ export function summarise(scored) {
     }];
   }));
   const outcomes = scored.reduce((n, s) => ({ ...n, [s.outcome]: (n[s.outcome] || 0) + 1 }), {});
-  return { items: scored.length, outcomes, scope_agreement: scored.filter((s) => s.scope_ok).length / (scored.length || 1), scope_wrong: scored.filter((s) => !s.scope_ok).map((s) => s.key), fields };
+  const sec = scored.filter((s) => s.section_ok !== undefined);
+  return { items: scored.length, outcomes, scope_agreement: scored.filter((s) => s.scope_ok).length / (scored.length || 1), scope_wrong: scored.filter((s) => !s.scope_ok).map((s) => s.key), fields,
+    section_items: sec.length, section_agreement: sec.length ? sec.filter((s) => s.section_ok).length / sec.length : null, section_wrong: sec.filter((s) => !s.section_ok).map((s) => s.key) };
 }
 
 // One item: up to 3 Generator rounds, each checked by code and by the independent reader; complaints fed back.
@@ -175,6 +179,7 @@ export function renderReport(r) {
   const pct = (x) => (x == null ? 'n/a' : `${Math.round(x * 100)}%`), s = r.summary;
   const L = [`# Accuracy test set: latest report`, '', `Run ${r.run_at.slice(0, 16).replace('T', ' ')} UTC · provider **${r.provider}** · generator \`${r.generator}\` · reader \`${r.reader}\` · prompts ${r.prompt_version} · ${s.items} items · ${r.usage.total_tokens.toLocaleString('en-US')} tokens`, '',
     `Outcomes: ${Object.entries(s.outcomes).map(([k, v]) => `${k} ${v}`).join(', ')}. Scope agreement ${pct(s.scope_agreement)}${s.scope_wrong.length ? ` (wrong: ${s.scope_wrong.join(', ')})` : ''}.`, '',
+    ...(s.section_items ? [`Section (D or F, published federal bills): ${pct(s.section_agreement)} of ${s.section_items}${s.section_wrong.length ? ` (wrong: ${s.section_wrong.join(', ')})` : ''}.`, ''] : []),
     '| Field | In-scope items | Passed | Pass rate | Published | Unsupported | Fact recall (items with provable facts) |', '|---|---|---|---|---|---|---|',
     ...FIELDS.map((f) => { const x = s.fields[f]; return `| ${f} | ${x.items} | ${x.passed} | **${pct(x.pass_rate)}** | ${x.published} | ${x.unsupported_fields} | ${pct(x.fact_recall)} (${x.items_with_provable_facts}) |`; }), '',
     'A field passes when the item was published (every code check and every claim confirmed by the independent reader), nothing in it is unsupported, and every number of the author\'s field that the official text contains is stated. Fact recall counts only numbers (thresholds, amounts, deadlines): it does not judge the wording of a mechanism.', '',
