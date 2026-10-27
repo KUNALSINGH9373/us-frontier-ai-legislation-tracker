@@ -50,7 +50,8 @@ function done(rep) {
   if (updated.length) L.push(`<b>Bills updated (${updated.length})</b>`, ...bullets(updated, 6, (e) => { const d = clip(detailOf(rep, e.entry_key), 42); return `▸ ${esc(clip(names[e.entry_key] || e.entry_key, 34))}${d ? `\n      <i>${esc(d)}</i>` : ''}`; }), '');
   else L.push('<b>Bills updated (0)</b>', '');
   if (added.length) L.push(`<b>New bills added (${added.length})</b>`, ...bullets(added, 6, (e) => `▸ ${esc(clip(names[e.entry_key] || e.entry_key, 34))}`), '');
-  const found = rep.sources.flatMap((s) => s.new_candidates.map((c) => clip(c.title, 34)));
+  const addedIds = new Set(added.map((e) => e.item_id));
+  const found = rep.sources.flatMap((s) => s.new_candidates.filter((c) => !addedIds.has(c.item_id)).map((c) => clip(c.title, 34)));
   if (found.length) L.push(`<b>New bills spotted (${found.length})</b>`, '<i>not published yet</i>', ...bullets(found, 4, (t) => `▸ ${esc(t)}`), '');
   L.push(numbers(rep));
   if (rep.held.length || watch.length) {

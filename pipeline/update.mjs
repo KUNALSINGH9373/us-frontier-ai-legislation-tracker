@@ -1,5 +1,5 @@
 // The whole chain in one command, as the 4-hourly schedule will run it:
-//   grab (Congress.gov, Federal Register, LegiScan) -> compare -> AI step (agents) -> publish (Tier A) -> site check -> status.json -> report -> commit
+//   grab (Congress.gov, Federal Register, LegiScan) -> compare -> AI step (agents) -> publish (Tier A, then Tier B new entries) -> site check -> status.json -> report -> commit
 //   node update.mjs [--dry-run] [--commit] [--source <congress_gov|federal_register|legiscan|all>] [--no-search] [--no-ai] [--no-notify] [--notify]
 // --dry-run: fetch and compare, but save no state, write no site data and make no AI calls. --commit: one local git commit when the data
 // changed (never pushes). A run that changes nothing rewrites only web/data/v2/status.json ("checked N minutes ago").
@@ -12,7 +12,7 @@ import path from 'path';
 import { execFileSync, spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { compareRun } from './compare/run.mjs';
-import { publishRun } from './publish/run.mjs';
+import { publishRun, IDENTIFIERS_FILE } from './publish/run.mjs';
 import { runAgents } from './agents/run.mjs';
 import { makeValidator } from './schema/validate.mjs';
 import { loadEnv } from './grabber/lib/env.mjs';
@@ -50,7 +50,11 @@ if (fs.existsSync(lock) && Date.now() - fs.statSync(lock).mtimeMs < 6 * 3600e3) 
 fs.mkdirSync(path.dirname(lock), { recursive: true });
 fs.writeFileSync(lock, String(process.pid));
 const snapshot = Object.fromEntries(DATA_FILES.map((k) => [k, fs.existsSync(path.join(dataDir, k + '.json')) ? fs.readFileSync(path.join(dataDir, k + '.json')) : null]));
-const restore = () => { for (const [k, b] of Object.entries(snapshot)) for (const d of [dataDir, ...(config.copy_to_docs ? [docsDir] : [])]) { const f = path.join(d, k + '.json'); if (b) fs.writeFileSync(f, b); else if (fs.existsSync(f)) fs.rmSync(f); } };
+const idsSnapshot = fs.existsSync(IDENTIFIERS_FILE) ? fs.readFileSync(IDENTIFIERS_FILE) : null; // new bills join the tracked list; put back with the data
+const restore = () => {
+  for (const [k, b] of Object.entries(snapshot)) for (const d of [dataDir, ...(config.copy_to_docs ? [docsDir] : [])]) { const f = path.join(d, k + '.json'); if (b) fs.writeFileSync(f, b); else if (fs.existsSync(f)) fs.rmSync(f); }
+  if (idsSnapshot) fs.writeFileSync(IDENTIFIERS_FILE, idsSnapshot);
+};
 
 let code = 0;
 try {
@@ -96,15 +100,13 @@ try {
 
     step = 'publish';
     const newsBefore = (readJson(path.join(dataDir, 'news.json'), { items: [] }).items || []).length;
-    const r = publishRun({ runDir, dataDir, docsDir: config.copy_to_docs ? docsDir : null, dry, config });
+    const r = publishRun({ runDir, dataDir, docsDir: config.copy_to_docs ? docsDir : null, dry, config, idsFile: IDENTIFIERS_FILE });
     console.log(`publish ${id}: ${r.status}`);
     if (r.status === 'stopped') { process.stdout.write(r.summary); throw new Error(`publish stopped for ${id}; nothing from it was written`); }
     const newsAfter = r.result && r.result.data ? (r.result.data.news.items || []).length : newsBefore;
     rep.publish.runs.push(publishEntry({ result: r.result, newsBefore, newsAfter, status: r.status }));
-    if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length) { published.push(id); summaries.push(r.summary); } }
+    if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length || r.result.added.length) { published.push(id); summaries.push(r.summary); } }
   }
-  const aiDrafts = rep.ai.runs.reduce((k, a) => k + a.publishable, 0);
-  if (aiDrafts) rep.notes.push(`${aiDrafts} AI-drafted entr${aiDrafts === 1 ? 'y is' : 'ies are'} ready but not published: publishing new bills comes in the next build step`);
 
   // ---- 5. the site check: v1 and v2 still build the same model for every entry the pipeline has not changed ----
   if (published.length && !dry) {
@@ -135,7 +137,7 @@ try {
   // ---- 7. commit (local only) ----
   if (flag('--commit') && !dry) {
     step = 'commit';
-    const files = ['status', ...(published.length ? DATA_FILES : [])].flatMap((k) => [path.join(dataDir, k + '.json'), ...(config.copy_to_docs ? [path.join(docsDir, k + '.json')] : [])]).filter((f) => fs.existsSync(f));
+    const files = ['status', ...(published.length ? DATA_FILES : [])].flatMap((k) => [path.join(dataDir, k + '.json'), ...(config.copy_to_docs ? [path.join(docsDir, k + '.json')] : [])]).concat(published.length ? [IDENTIFIERS_FILE] : []).filter((f) => fs.existsSync(f));
     execFileSync('git', ['add', ...files], { cwd: root, stdio: 'inherit' });
     const msg = published.length ? `data: ${summaries.join('\n')}` : `status only: checked ${SOURCES.join(', ')} at ${now}, no change`;
     try { execFileSync('git', ['commit', '-q', '-F', '-'], { cwd: root, input: msg, stdio: ['pipe', 'inherit', 'inherit'] }); console.log('committed (not pushed)'); }
@@ -152,7 +154,7 @@ try {
 // ---- the run report, and the message (even when the run failed) ----
 try {
   const entries = readJson(path.join(dataDir, 'entries.json'), []);
-  rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => p.entries_updated.some((u) => u.entry_key === e.key))).map((e) => [e.key, e.short_name]));
+  rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key))).map((e) => [e.key, e.short_name]));
   const finished = new Date();
   finalize(rep, { now: finished, spend: summarize(factory.spend.between(startedAt, finished)), month: factory.monthStatus() });
   const file = writeReport(rep, path.join(pipelineDir, 'data', 'updates', rep.id));

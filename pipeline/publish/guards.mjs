@@ -2,6 +2,24 @@
 // stopped, not published. Each check returns readable problems; empty means the run may be written.
 import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
+import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING } from '../agents/rules.mjs';
+import { FACT_FIELDS } from '../agents/checks.mjs';
+
+// Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
+export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
+
+// The stricter path for a new entry (Tier B): everything the rules decide must match the rules, and every reading field
+// must carry evidence. The quotes themselves are checked against the stored record in tier-b.mjs, which can read it.
+export function checkNewEntry(e) {
+  const problems = [], rule = SECTION_RULES[e.section];
+  if (!AUTO_CREATE_SECTIONS.includes(e.section)) problems.push(`section ${e.section} needs a person`);
+  else if (e.type !== rule.type || e.level !== rule.level) problems.push(`type/level ${e.type}/${e.level} do not follow the rule for section ${e.section}`);
+  if (e.status !== statusFor(e.section, e.status)) problems.push(`status ${e.status} does not follow the rule for section ${e.section}`);
+  if (e.origin !== 'automated' || !e.verification || e.verification.method !== 'agent') problems.push('not marked as written and checked by the pipeline');
+  READING_FIELDS.filter((f) => e[f] && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
+  FACT_FIELDS.filter((f) => e[f] && NEGATIVE_FINDING.test(e[f])).forEach((f) => problems.push(`${f} states a search finding ("none located"), which only a person may write`));
+  return problems;
+}
 
 // A status may only move forward. Authored judgement calls ("stalled") may still become law or fail.
 const FORWARD = { pending: ['stalled', 'enacted', 'failed'], stalled: ['pending', 'enacted', 'failed'] };
@@ -10,7 +28,8 @@ const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked'
 const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
-export function checkPublish({ before, after, runDate, maxEntries, rawHashOk = [] }) {
+// newKeys: the entries Tier B added this run (any other new entry stops the run); maxNew: the per-run limit on them.
+export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [] }) {
   const problems = [];
   // 1. every output file passes its schema, and the files agree with each other
   const v = makeValidator();
@@ -38,7 +57,13 @@ export function checkPublish({ before, after, runDate, maxEntries, rawHashOk = [
     // 6. no event in the future unless it is marked scheduled
     n.events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));
   }
-  for (const key of now.keys()) if (!old.has(key)) problems.push(`new entry ${key}: Tier A does not create entries`);
+  const added = [...now.keys()].filter((key) => !old.has(key));
+  for (const key of added) {
+    if (!newKeys.includes(key)) { problems.push(`new entry ${key}: not created by Tier B`); continue; }
+    checkNewEntry(now.get(key)).forEach((p) => problems.push(`new entry ${key}: ${p}`));
+    now.get(key).events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));
+  }
+  if (added.length > maxNew) problems.push(`${added.length} new entries, over the limit of ${maxNew} per run`);
   const oldNews = new Set(before.news.items.map((x) => JSON.stringify(x)));
   const keptNews = after.news.items.filter((x) => oldNews.has(JSON.stringify(x))).length;
   if (keptNews < before.news.items.length) problems.push(`news items deleted or edited: ${before.news.items.length - keptNews}`);

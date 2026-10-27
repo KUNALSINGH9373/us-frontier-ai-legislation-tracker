@@ -137,5 +137,16 @@ ok('a dry run is labelled and says it saves nothing', /dry run, nothing saved/.t
   ok('a long list is cut at 6 with "and N more"', /Bills updated \(9\)/.test(hm) && /▸ and 3 more/.test(hm), hm);
 }
 
+// ---- a new bill added (Tier B) ----
+{
+  const add = newReport({ id: 'update-20261027-2000', now: new Date('2026-10-27T20:00:00Z') });
+  add.sources.push(sourceEntry({ runDir: diffDir, source: 'congress_gov' }));
+  add.publish.runs.push(publishEntry({ result: { applied: [], skipped: [], log: [], added: [{ item_id: 'congress_gov:119/hr/1', entry_key: 'h-r-1-frontier-test-act', section: 'D' }] }, newsBefore: 48, newsAfter: 49, status: 'published' }));
+  finalize(add, { now: new Date('2026-10-27T20:00:30Z'), spend: SPEND0 });
+  const names = { 'h-r-1-frontier-test-act': 'H.R. 1 Frontier Test Act' }, h = formatHtml({ ...add, names }).text, t = formatDone(add, names);
+  ok('an added bill counts as a change and is named under "New bills added"', add.changed && add.totals.entries_added === 1 && /<b>New bills added \(1\)<\/b>\n▸ H\.R\. 1 Frontier Test Act/.test(h) && /New bills added: 1 \(H\.R\. 1 Frontier Test Act\)/.test(t), h);
+  ok('the added bill is no longer listed as spotted; the other one still is', /New bills spotted \(1\)/.test(h) && !/▸ Frontier Test Act/.test(h) && /▸ Another Act/.test(h) && /New bills spotted: 1 \(Another Act\)/.test(t), h + '\n' + t);
+}
+
 console.log(`report: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

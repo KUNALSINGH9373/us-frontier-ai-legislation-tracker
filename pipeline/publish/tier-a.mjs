@@ -15,7 +15,7 @@ const sourceName = (item, e) => SOURCE_NAME[item.source] || (item.source === 'le
 // Only these reason kinds are facts Tier A may write. Anything else is reported and left for a person or Tier B.
 const TIER_A = { congress_gov: ['new_action', 'status_change'], legiscan: ['new_action', 'status_change'] };
 
-const newsKind = (e) => (e.level === 'state' ? 'state' : e.section === 'G.2' ? 'litigation' : /^G/.test(e.section) && e.section !== 'G.3' ? 'executive' : 'federal');
+export const newsKind = (e) => (e.level === 'state' ? 'state' : e.section === 'G.2' ? 'litigation' : /^G/.test(e.section) && e.section !== 'G.3' ? 'executive' : 'federal');
 const clean = (t) => String(t || '').replace(/\s+/g, ' ').trim().replace(/(?<!\b[a-z]\.[a-z])\.$/i, ''); // keep "4 p.m."
 const cut = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 
@@ -98,14 +98,15 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
     }
   }
 
-  if (touched.size) {
-    // The cut-off moves to the run date, so every event's "scheduled" flag is recomputed against it.
-    if (runDate > out.site.updates_through) out.site.updates_through = runDate;
-    for (const e of out.entries) for (const v of e.events) if (v.scheduled !== undefined || v.date > out.site.updates_through) v.scheduled = v.date > out.site.updates_through;
-    out.news.items.sort((a, b) => a.date.localeCompare(b.date));
-    const [y, m, dd] = out.site.updates_through.split('-').map(Number);
-    out.news.asof = `${FULL_MONTH[m - 1]} ${dd}, ${y}`; // never moves back when an older run is replayed
-    out.changes.items.push(...log);
-  }
+  if (touched.size) { advanceCutoff(out, runDate); out.changes.items.push(...log); }
   return { data: out, applied, skipped, touched: [...touched], log };
+}
+
+// The cut-off moves to the run date, so every event's "scheduled" flag is recomputed against it.
+export function advanceCutoff(out, runDate) {
+  if (runDate > out.site.updates_through) out.site.updates_through = runDate;
+  for (const e of out.entries) for (const v of e.events) if (v.scheduled !== undefined || v.date > out.site.updates_through) v.scheduled = v.date > out.site.updates_through;
+  out.news.items.sort((a, b) => a.date.localeCompare(b.date));
+  const [y, m, dd] = out.site.updates_through.split('-').map(Number);
+  out.news.asof = `${FULL_MONTH[m - 1]} ${dd}, ${y}`; // never moves back when an older run is replayed
 }

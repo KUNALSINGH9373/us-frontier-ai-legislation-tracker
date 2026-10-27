@@ -17,7 +17,7 @@
   "scope_agreement": 1
  },
  "ai_step": {
-  "_note": "The AI step of update.mjs (agents on material changes and new-bill candidates). max_items_per_run bounds one run; the monthly cap in config/models.json bounds the month. New-bill publishing is not built yet, so the drafts are produced and reported but not published.",
+  "_note": "The AI step of update.mjs (agents on material changes and new-bill candidates). max_items_per_run bounds one run; the monthly cap in config/models.json bounds the month. New-bill drafts are published by Tier B (publish/tier-b.mjs) only when auto_publish.new_entries is on, at most max_new_entries_per_run per run; while it is off they are reported as ready.",
   "enabled": true,
   "max_items_per_run": 10
  },

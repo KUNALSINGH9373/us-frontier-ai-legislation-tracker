@@ -56,7 +56,8 @@ export function formatDone(rep, names = {}) {
   const L = [title(rep, true, rep.changed ? 'Update done' : 'Update done, no changes'), ''];
   L.push(`Bills updated: ${t.entries_updated}${updated.length ? ' (' + list(updated) + ')' : ''}`);
   if (added.length) L.push(`New bills added: ${added.length} (${list(added)})`);
-  const found = rep.sources.flatMap((s) => s.new_candidates.map((c) => clip(c.title, 60)));
+  const addedIds = new Set(rep.publish.runs.flatMap((p) => p.entries_added.map((e) => e.item_id)));
+  const found = rep.sources.flatMap((s) => s.new_candidates.filter((c) => !addedIds.has(c.item_id)).map((c) => clip(c.title, 60)));
   if (found.length) L.push(`New bills spotted: ${found.length} (${list(found, 3)}) — not published yet`);
   L.push(costLine(rep), queriesLine(rep));
   const w = watchLines(rep);
