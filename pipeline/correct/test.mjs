@@ -105,7 +105,7 @@ for (const [name, c, re] of bad) {
   const sb = sandbox(), long = { ...goodFix(E1).corrections[0], new_text: `${E1.mechanism} ${'Critical safety incidents must be reported within 72 hours. '.repeat(12)}` };
   const reviewer = scripted((req, n) => (n === 1 ? { corrections: [long] } : goodFix(E1)));
   const r = await run(sb, { factory: factoryOf(reviewer, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1) }) });
-  ok('2 rewrite: told the exact problem, then accepted', reviewer.calls.length === 2 && /REFUSED BY CODE[\s\S]*over 700/.test(reviewer.calls[1].prompt) && r.corrected.length === 1 && r.status === 'written');
+  ok('2 rewrite: told the exact problem, then accepted', reviewer.calls.length === 2 && /REFUSED BY CODE[\s\S]*characters, over \d+/.test(reviewer.calls[1].prompt) && r.corrected.length === 1 && r.status === 'written');
 }
 {
   const sb = sandbox();

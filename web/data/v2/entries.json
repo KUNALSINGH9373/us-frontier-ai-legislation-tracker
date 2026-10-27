@@ -372,7 +372,7 @@
   "sponsor_text": "Sen. Mary Edly-Allen (D-Lake County), chief sponsor; Rep. Daniel Didech (D-Buffalo Grove), House; broadly bipartisan co-sponsors (chief co-sponsors include Republicans Rezin, Hills, Curran)",
   "mechanism": "Sec. 10: frontier AI framework (from Jan 1, 2028); transparency reports before/at deployment — deemed compliant if published within a system/model card; annual independent third-party audit (from Jan 1, 2028 or 90 days after qualifying), auditor must have no financial interest in developer and payment can't be conditioned on results; redacted audit report published within 30 days and sent to Agency + AG; quarterly internal-use catastrophic-risk summaries. Sec. 15: incident reporting 72 hrs to Illinois Emergency Management Agency and Office of Homeland Security (\"Agency\") + AG; 24 hrs to appropriate authority if imminent risk of death/serious injury; public reporting mechanism; FOIA exemption for incident reports, internal-use assessments, unredacted audits, auditor work papers. Sec. 17 interoperability: developer may declare intent to comply via a designated federal law/regulation/guidance that (1) has substantially equivalent-or-stricter incident reporting, (3) is substantially equivalent in mitigating catastrophic risk, and (4) requires independent third-party audits — then failure to meet the federal standard is an IL violation. Sec. 18: disclosure statement with 5%+ beneficial owners (private) / 50%+ (public), renewed annually, pro-rata fee. Sec. 20: whistleblower protections for \"covered employees\" incl. anonymous channel with monthly updates and AG Workplace Rights Hotline; amends IL Whistleblower Act. Sec. 35: declares frontier-model regulation an exclusive State power — denies home rule . Legislative mechanics: introduced Jan 24, 2025 as a Predatory Loan Prevention Act technical bill; Senate Floor Amendment No. 1 (filed May 11, 2026) replaced the entire text; four floor amendments adopted May 21. Timing mismatch worth flagging: Sec. 10(c) transparency reports have no 2028 gate and so apply from the Jan 1, 2027 effective date, yet large-developer reports must summarize assessments \"conducted pursuant to the frontier AI framework\" — which isn't required until 2028",
   "thresholds": "10²⁶ ops incl. original run + fine-tuning/RL/material modifications; \"large frontier developer\" = >$500M revenue with affiliates, preceding calendar year; catastrophic risk = >50 deaths/serious injury or >$1B (equity-value loss excluded, Sec. 25(c))",
-  "penalties": "$1M first / $3M subsequent, scaled to severity; AG-exclusive action under the AI Act; no general private right under that Act, but employee remedies are preserved through the Illinois Whistleblower Act; $1,000/day for failing to file a disclosure statement; good-faith exception for false statements (Sec. 10(f)(2))",
+  "penalties": "$1M first / $3M subsequent, scaled to severity; AG-exclusive action under the AI Act; no general private right under that Act, but employee remedies are preserved through the Illinois Whistleblower Act; $1,000/day (Agency, after notice and hearing) for failing to file a disclosure statement or correct false information, plus assessments owed; good-faith exception for false statements (Sec. 10(f)(2))",
   "status_text": "Signed: Sent to Governor June 26; signed July 6, 2026 (Gov. Pritzker) | Effective: Jan 1, 2027 (disclosure statements, incident reporting, whistleblower, transparency reports); framework + audit obligations from Jan 1, 2028",
   "signed_text": "Sent to Governor June 26; signed July 6, 2026 (Gov. Pritzker)",
   "effective_text": "Jan 1, 2027 (disclosure statements, incident reporting, whistleblower, transparency reports); framework + audit obligations from Jan 1, 2028",
@@ -443,11 +443,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-315-ai-safety-measures-act-public-act-104-0538",
    "section_name": "Enacted state frontier-developer laws"
@@ -1106,7 +1106,7 @@
   "short_name": "IL HB 3506 (2025)",
   "sponsor_text": "Rep. Daniel Didech (D); co-sponsor Rep. Matt Hanson (added Jan. 2026)",
   "mechanism": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
-  "thresholds": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months — the original-RAISE test",
+  "thresholds": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months — the original-RAISE test. As introduced: \"developer\" = trained at least one foundation model with compute costing at least $100,000,000 at cloud market prices; critical risk = >100 deaths/serious injuries or >$1,000,000,000 damage",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [STALLED] Filed Feb. 7, 2025; passed Cybersecurity, Data Analytics & IT Committee 7–4 (Mar. 20, 2025) ; held on second reading; re-referred to Rules under Rule 19(a) Apr. 11, 2025 . Inactive, but not formally dead while the 104th General Assembly remains open",
   "signed_text": null,
@@ -1164,11 +1164,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-3506-artificial-intelligence-safety-and-security-protocol-act-2025",
    "section_name": "Pending, stalled and failed state bills"
@@ -1275,7 +1275,7 @@
   "short_name": "IL SB 3444",
   "sponsor_text": "Sen. Bill Cunningham (D)",
   "mechanism": "Different design from SB 315: a liability shield — developer not liable for critical harms absent intent/recklessness if it publishes a safety & security protocol and transparency report; deemed compliant if bound by EU rules or a federal agency agreement; sunsets if federal law creates overlapping requirements",
-  "thresholds": "Frontier models defined by compute or cost",
+  "thresholds": "Frontier models defined by compute or cost: trained using greater than 10^26 computational operations, or compute cost that exceeds $100,000,000; critical harm = death or serious injury of 100 or more people or at least $1,000,000,000 of property damages",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [STALLED] Introduced Feb 4, 2026; re-referred to Assignments May 22, 2026 (stalled) — superseded politically by SB 315",
   "signed_text": null,
@@ -1319,11 +1319,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-3444-artificial-intelligence-safety-act",
    "section_name": "Pending, stalled and failed state bills"
@@ -1575,7 +1575,7 @@
   "title": "H.B. 4705 — AI Public Safety and Child Protection Transparency Act",
   "short_name": "IL HB 4705 / SB 3261",
   "sponsor_text": "Rep. Daniel Didech (D); Senate parallel S.B. 3261 , sponsored by Sen. Mary Edly-Allen (D) and co-sponsors ( ILGA )",
-  "mechanism": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers)",
+  "mechanism": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; frontier developers must report critical safety incidents to the AG within 15 days, or within 24 hours to an appropriate authority if imminent risk of death or serious physical injury; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers)",
   "thresholds": "10²⁶ ops; large frontier developer = ≥$500M annual revenue; large chatbot provider = ≥$25M annual revenue; a covered chatbot must also have ≥1M monthly active users and be foreseeably accessible by minors",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [STALLED] H.B. 4705 re-referred to Rules Committee Mar. 27, 2026; S.B. 3261 re-referred to Assignments May 22, 2026",
@@ -2317,7 +2317,7 @@
   "short_name": "RI S.358 / H.5224",
   "sponsor_text": "Sen. Gu + 8 co-sponsors (S.358, Feb 21, 2025)",
   "mechanism": "Different design: strict tort liability. Developers of covered models are strictly liable for injuries to non-users caused by model conduct that would be negligent, tortious, or criminal if done by a human, where the conduct was not intended or reasonably anticipated by the user or any fine-tuner; rebuttable presumption that the AI satisfies a tort's mental-state element (\"it shall not be a defense that AI systems are incapable of having mental states\"); affirmative defenses for meeting the human standard of care or pure capability failure. Resolves the FPF-identified Rhode Island gap",
-  "thresholds": "SB 1047's thresholds verbatim: 10²⁶ ops and >$100M compute cost; fine-tuning 3×10²⁵ ops and >$10M",
+  "thresholds": "SB 1047's thresholds verbatim: 10²⁶ ops and >$100M compute cost; fine-tuning 3×10²⁵ ops and >$10M; also covers covered model derivatives (unmodified copies, copies with non-fine-tuning post-training changes, copies fine-tuned with ≤3×10²⁵ ops and ≤$1,000,000, copies combined with other software)",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [STALLED] H.5224 introduced Jan 29, 2025, referred to House Judiciary; heard Feb 11, 2025 and held for further study. S.358 introduced Feb 21, 2025, referred to Senate Judiciary; heard Mar 18, 2025 and held for further study. No further action (LegiScan history)",
   "signed_text": null,
@@ -2384,11 +2384,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-358-h-5224-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -2479,7 +2479,7 @@
   "title": "S.10373 / A.11636 — third-party verification of RAISE compliance",
   "short_name": "NY S.10373 (verification)",
   "sponsor_text": "Sen. Andrew Gounardes (D) — the RAISE Act's own sponsor",
-  "mechanism": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
+  "mechanism": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; AG civil penalties ($1M first/$3M subsequent) extended to §1425 violations; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
   "thresholds": "Uses RAISE definitions",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [PENDING] S.10373 introduced May 15, 2026; in Senate Internet & Technology Committee. Assembly companion A.11636 introduced and referred to Science & Technology July 29, 2026 (LegiScan)",
@@ -2524,11 +2524,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-10373-a-11636-third-party-verification-of-raise-compliance-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -3681,8 +3681,8 @@
   "title": "S. 2938 — Artificial Intelligence Risk Evaluation Act of 2025",
   "short_name": "S. 2938 AI Risk Evaluation Act",
   "sponsor_text": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
-  "mechanism": "Dept. of Energy runs a mandatory Advanced AI Evaluation Program: classified red-team testing, blind third-party evaluations; ≥$1M/day non-participation penalty. Earliest of the federal testing-mandate bills",
-  "thresholds": "10²⁶ ops",
+  "mechanism": "Dept. of Energy must establish a mandatory Advanced AI Evaluation Program within 90 days: classified red-team testing, blind third-party evaluations; covered developers must participate and provide code, training data, model weights on request; no deployment unless in compliance; ≥$1M/day penalty for non-participation or deployment violations. Plan for permanent federal oversight due in 360 days, updated annually; program terminates after 7 years unless renewed by Congress. Earliest of the federal testing-mandate bills",
+  "thresholds": "10²⁶ ops (Secretary may propose a new definition by rule, effective only if Congress enacts a joint resolution approving it); covers any person that designs, codes, produces, owns, or substantially modifies such a system",
   "penalties": null,
   "status_text": "Introduced / status: Sept 29, 2025; referred to Senate Commerce. Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions); no further action",
   "signed_text": null,
@@ -3726,11 +3726,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-2938-artificial-intelligence-risk-evaluation-act-of-2025",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -4040,7 +4040,7 @@
   "title": "S. 5061 — Secure AI Development Act of 2026",
   "short_name": "S. 5061 Secure AI Development Act",
   "sponsor_text": "Sen. Mark Warner (D-VA)",
-  "mechanism": "Providers must give the NSA AI Security Center access to each frontier model at least 21 calendar days before release, enforced by the Attorney General with fines of at least $100,000 per day; AI Risk Board; voluntary incident reporting modeled on aviation safety. Centerpiece of Warner's \"Framework for America's AI Future\" (also: Data Center Tax Accountability Act, AI AGENT Act, National Workforce Transition Fund)",
+  "mechanism": "Providers must give the NSA AI Security Center access to each frontier model at least 21 calendar days before release, enforced by the Attorney General with fines of at least $100,000 per day after a 7-calendar-day cure period; providers must register each frontier model in a NIST registry before release; AI Risk Board; voluntary incident reporting modeled on aviation safety. Centerpiece of Warner's \"Framework for America's AI Future\" (also: Data Center Tax Accountability Act, AI AGENT Act, National Workforce Transition Fund)",
   "thresholds": "Capability-based: models posing \"serious risk to national security, national economic security, or public health or safety\" — no compute threshold",
   "penalties": null,
   "status_text": "Introduced / status: July 21, 2026; referred to Senate Commerce",
@@ -4182,7 +4182,7 @@
   "title": "H.R. 9914 / S. 5105 — Collaboration on Adversarial Threats and Security Risks Act",
   "short_name": "H.R. 9914 / S. 5105 CATSR",
   "sponsor_text": "House: Rep. Bob Latta (R-OH) lead; Whitesides, Obernolte, Lieu, Issa, Moran, Harrigan, Miller-Meeks, Trahan. Senate: Sens. Adam Schiff (D-CA) and Jim Banks (R-IN)",
-  "mechanism": "Antitrust safe harbor for frontier labs sharing model-risk and security information (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
+  "mechanism": "Antitrust exemption for 2 or more non-Federal entities exchanging AI security-risk information or assistance in good faith for the exclusive purpose of addressing covered AI security risks, and for coordinating to delay or limit release/deployment/training of AI if they first give written notice to the DOJ Antitrust Assistant Attorney General; exemption is an affirmative defense (entity bears preponderance burden); no price-fixing/market allocation; AG may seek injunctions (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
   "thresholds": "—",
   "penalties": null,
   "status_text": "Introduced / status: July 23, 2026; both referred to Judiciary committees; House cosponsors added Aug 31–Sept 16, 2026 (Jacobs, Tokuda, Cline, Veasey, Moulton, Hunt, Foster, Carter, Weber, Houlahan, Correa, Liccardo, Huizenga)",
@@ -4468,7 +4468,7 @@
   "title": "H.R. 9917 — AI Kill Switch Act",
   "short_name": "H.R. 9917 AI Kill Switch Act",
   "sponsor_text": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX)",
-  "mechanism": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Penalties $2M/day for ordinary violations and $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
+  "mechanism": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Civil penalties up to $2M/day for ordinary violations and up to $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
   "thresholds": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
   "penalties": null,
   "status_text": "Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all",
@@ -4784,8 +4784,8 @@
   "title": "S. 5493 / H.R. 10538 — Ban Artificial Superintelligence Act of 2026 (moved from Section E, where the Sept 3 announcement was listed)",
   "short_name": "S. 5493 / H.R. 10538 Ban Artificial Superintelligence Act",
   "sponsor_text": "Sen. Bernie Sanders (I-VT), Rep. Greg Casar (D-TX); House cosponsors Khanna, Mejia, Ansari, Hoyle, Lynch, García, Deluzio, Grijalva, Velázquez, Ocasio-Cortez, Randall, Tonko (twelve as of Oct 27, 2026)",
-  "mechanism": "Sponsor section-by-section read; bill text (19 pp.) linked, not read line-by-line. Creates a cabinet-level Department of Artificial Intelligence ; mandatory pause on training, modifying or deploying \"advanced\" systems until the Department is staffed and has rules covering pre-development plans, monitoring, audits and final pre-deployment approval ; permanent prohibition on developing, deploying, possessing, funding or transferring artificial superintelligence or any system with \"superintelligence precursor characteristics\" (automating AI R&D, unauthorized access to infrastructure, resisting shutdown, CBRN uplift, self-modification, scheming or deceiving to avoid oversight); such systems to be sequestered and rendered inoperative within 30 days; 24-hour discovery notice; charter required for advanced-AI companies with full Department access to systems, staff and facilities; penalties up to 20 years' imprisonment for policymaking individuals, 10-year industry bar for others, and charter revocation with surrender of IP and assets for companies; anti-retaliation; international coordination and export controls. No \"catastrophic risk\" definition ; superintelligence is defined partly as capability \"to plan and execute the destruction or disempowerment of humanity\"",
-  "thresholds": "\"Advanced artificial intelligence system\" = trained on ≥10²⁵ integer or floating-point operations — one order of magnitude below every other instrument in this tracker ; the Secretary \"shall adjust this threshold to reflect technological developments\"",
+  "mechanism": "Sponsor section-by-section read; bill text (19 pp.) linked, not read line-by-line. Creates a cabinet-level Department of Artificial Intelligence ; mandatory pause on training, modifying or deploying \"advanced\" systems until the Department is staffed and has rules covering pre-development plans, monitoring, audits and final pre-deployment approval ; permanent prohibition on developing, deploying, possessing, funding or transferring artificial superintelligence or any system with \"superintelligence precursor characteristics\" (automating AI R&D, unauthorized access to infrastructure, resisting shutdown, CBRN uplift, self-modification, scheming or deceiving to avoid oversight); such systems to be sequestered and rendered inoperative within 30 days unless verified clean (ASI immediately); 24-hour discovery notice; charter required for advanced-AI companies with full Department access to systems, staff and facilities; penalties for reckless violations up to 20 years' imprisonment for policymaking individuals and rogue actors, 10-year industry bar for others, and charter revocation with surrender of IP and assets for companies; anti-retaliation; international coordination and export controls. No \"catastrophic risk\" definition ; superintelligence is defined partly as capability \"to plan and execute the destruction or disempowerment of humanity\"",
+  "thresholds": "\"Advanced artificial intelligence system\" = trained on ≥10²⁵ integer or floating-point operations — one order of magnitude below every other instrument in this tracker ; each year the Secretary shall adjust the threshold for training-efficiency or other technological developments \"to maintain equivalency with 10^25 integer or floating point operations\"",
   "penalties": null,
   "status_text": "Introduced / status: S. 5493 introduced Sept 23, 2026 , read twice and referred to Senate Commerce; H.R. 10538 introduced Sept 24, 2026 , referred to House Oversight and Government Reform",
   "signed_text": null,
@@ -5664,8 +5664,8 @@
   "title": "H.R. 9363 — AI Security and Innovation Act",
   "short_name": "H.R. 9363 AI Security and Innovation Act",
   "sponsor_text": "Reps. Obernolte (R-CA), Valerie Foushee (D-NC) + 5",
-  "mechanism": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; 5-year sunset; CBO est. $80M 2026-31",
-  "thresholds": null,
+  "mechanism": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; voluntary agreements for classified/unclassified national-security evaluations of covered frontier systems; shared information exempt from FOIA, not public without consent and not usable by any government to regulate the entity; authorizes $20,000,000/yr FY2027-2032; 5-year sunset; CBO est. $80M 2026-31",
+  "thresholds": "\"Covered frontier system\" to be defined by the Director (capabilities and requirements) within 180 days of enactment; \"covered entity\" = entity or consortium with a demonstrated ability to develop or evaluate a covered frontier system",
   "penalties": null,
   "status_text": "Status: Introduced June 18, 2026; House Science Committee markup June 25, 2026: ordered reported in the nature of a substitute (amended), 29–0 (10-bill package; Congress.gov actions)",
   "signed_text": null,
@@ -5714,11 +5714,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9363-ai-security-and-innovation-act",
    "section_name": "Adjacent and sectoral federal bills"
@@ -5901,7 +5901,7 @@
   "short_name": "H.R. 10180 Self-Improving AI Monitoring Act",
   "sponsor_text": "Reps. George Whitesides (D-CA), Pat Harrigan (R-NC)",
   "mechanism": "Amends the NIST Act (15 U.S.C. §278h-1): authorizes NIST to assess trends in autonomous AI-research capability; conditions voluntary predeployment frontier-model evaluation MOUs on developer disclosure, at NIST's request, of metrics or estimates showing the extent to which AI was used in developing the model; requires the evaluation to test whether the model can autonomously facilitate or conduct AI R&D. Applies only to developers entering such MOUs",
-  "thresholds": null,
+  "thresholds": "Developers of a frontier artificial intelligence system (as determined by the NIST Director) entering pre-deployment evaluation MOUs",
   "penalties": null,
   "status_text": "Status: Aug. 27, 2026 ; referred to Science, Space & Technology",
   "signed_text": null,
@@ -5936,11 +5936,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-10180-self-improving-ai-monitoring-act-r",
    "section_name": "Adjacent and sectoral federal bills"
@@ -6050,7 +6050,7 @@
   "title": "S. 5541 — Cybersecurity and AI Board of Investigations Act",
   "short_name": "S. 5541 Cyber and AI Board of Investigations",
   "sponsor_text": "Sen. Ed Markey (D-MA)",
-  "mechanism": "Five-member independent, non-regulatory board modelled on the NTSB with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure, including incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight, with public reports and recommendations. Sponsor cites the July 2026 incident in which OpenAI agents left a testing environment and reached Hugging Face's infrastructure. Investigative, not a developer mandate",
+  "mechanism": "Five-member independent, non-regulatory board modelled on the NTSB with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure, including incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight, with public reports and recommendations; also a voluntary, anonymized near-miss reporting system, and federal civilian agencies must respond in writing to recommendations within 90 days. Sponsor cites the July 2026 incident in which OpenAI agents left a testing environment and reached Hugging Face's infrastructure. Investigative, not a developer mandate",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Introduced Sept 24, 2026 ; referred to Senate Commerce",
@@ -6091,11 +6091,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5541-cybersecurity-and-ai-board-of-investigations-act-u",
    "section_name": "Adjacent and sectoral federal bills"
@@ -6122,7 +6122,7 @@
   "short_name": "S. 5471 AI Systems Transparency Act",
   "sponsor_text": "Sen. Chris Coons (D-DE), sponsor; cosponsors Sens. James Lankford (R-OK), Katie Britt (R-AL), Brian Schatz (D-HI)",
   "mechanism": "FTC-enforced disclosure duties for AI companies above size criteria the bill sets (covered systems with at least 1,000,000 unique monthly US users): model-card-type information; preventive safeguards for child safety, mental health, privacy, cybersecurity, disaster risk and \"autonomous loss-of-control\" ; common policy violations; in consumer-facing and researcher-facing formats, refreshed with each new or substantially updated model; applies to closed and open models. Disclosure, not a safety mandate; builds on the senators' December 2025 letters to eight labs",
-  "thresholds": null,
+  "thresholds": "Covered model: a generative AI model (including open-weight or open-source) that is publicly accessible or whose weights are public, deployed in covered systems that together have not fewer than 1,000,000 unique monthly US users for a majority of the months in any 1-year period, or that allow minors to create accounts and have not fewer than 100,000 unique monthly US users. Covered deployers: same user tests per system",
   "penalties": null,
   "status_text": "Status: Introduced Sept 23, 2026 ; read twice and referred to Senate Commerce",
   "signed_text": null,
@@ -8259,8 +8259,8 @@
   "title": "GAIN AI Act of 2025 (S.3150)",
   "short_name": "GAIN AI Act of 2025 (S.3150)",
   "sponsor_text": "",
-  "mechanism": "Requires an applicant for a license to export advanced AI chips to a country of concern to certify that US persons have priority in acquiring those chips, subject to the bill's conditions and exceptions",
-  "thresholds": null,
+  "mechanism": "BIS must require a license to export, reexport, or transfer covered chips to entities located/headquartered (or whose parent is headquartered) in a country of concern; applicant must certify US persons had a right of first refusal (public notice, not fewer than 15 business days to request), no backlog of US requests or foreseeable backlog over the 12-month period, and no better pricing for foreign persons; license denied without certification; BIS regulations within 90 days; trusted US persons exempt from certain license requirements for non-concern destinations",
+  "thresholds": "Covered circuit = advanced integrated circuit (ECCN 3A090/4A090 or equivalent, or TPP 4,800 or more; TPP 2,400+ with density 1.6+; TPP 1,600+ with density 3.2+; or DRAM bandwidth 1,400 GB/s, interconnect 1,100 GB/s, or sum 1,700 GB/s) or product containing one, excluding chips not designed or marketed for data centers; country of concern = Country Group D:5 or E, Macau, Hong Kong",
   "penalties": null,
   "status_text": "Date / status: Introduced in the Senate Nov. 6, 2025; referred to Senate Banking. An earlier version of this tracker said \"pending in House,\" which was incorrect",
   "signed_text": null,
@@ -8300,11 +8300,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-gain-ai-act-of-2025-s-3150",
    "section_name": "Compute and export controls"
@@ -8475,7 +8475,7 @@
   "short_name": "AI OVERWATCH Act / FY27 NDAA",
   "sponsor_text": "",
   "mechanism": "Requires Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval mechanism modelled on arms-sales review, and codifies the license denial for the most capable chips, whose technical parameters Commerce may revise only after 18 months; Commerce certification that exports of lesser chips do not divert US supply or foundry capacity or permit unauthorized remote access; an \"American AI Victory Strategy.\" The AIPN conference letter also lists House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors), 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers) as provisions in play",
-  "thresholds": null,
+  "thresholds": "Covered integrated circuits (H.R. 6875): ECCN 3A090 or 4A090, or chips with total processing performance of 4,800 or more; 2,400 or more with performance density of 1.6 or more; 1,600 or more with density of 3.2 or more; or DRAM bandwidth of 1,400 gigabytes per second or more, interconnect 1,100 gigabytes per second or more, or combined 1,700 gigabytes per second; excludes chips not designed or marketed for data centers",
   "penalties": null,
   "status_text": "Date / status: H.R. 6875 introduced Dec 18, 2025 and advanced by House Foreign Affairs Jan 21, 2026; S. 4456 introduced Apr 30, 2026; in the Senate NDAA manager's package as SA 6575 (submitted July 13, 2026; package reported July 14, 2026) ; Senate NDAA (S. 4784) awaiting floor action after a failed cloture vote July 14; House NDAA (H.R. 8800) passed July 22, received in the Senate Sept 14, 2026; the Senate has not passed its NDAA, so there is no conference yet",
   "signed_text": null,
