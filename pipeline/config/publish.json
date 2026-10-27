@@ -15,5 +15,14 @@
   "pass_rate": 1,
   "unsupported_fields": 0,
   "scope_agreement": 1
+ },
+ "ai_step": {
+  "_note": "The AI step of update.mjs (agents on material changes and new-bill candidates). max_items_per_run bounds one run; the monthly cap in config/models.json bounds the month. New-bill publishing is not built yet, so the drafts are produced and reported but not published.",
+  "enabled": true,
+  "max_items_per_run": 10
+ },
+ "notify": {
+  "_note": "Telegram run report after every run (needs TELEGRAM_BOT_TOKEN or TELEGRAM_ACCESS_TOKEN and TELEGRAM_CHAT_ID). A dry run sends one only with --notify.",
+  "telegram": true
  }
 }

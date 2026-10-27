@@ -1,6 +1,6 @@
 {
   "_note": "Which model does which job. Change a name here and no code changes. Prices are USD per million tokens; fill them in from Google's current price page and the run log will show an estimated cost (left null, it shows token counts only).",
-  "provider": "gemini",
+  "provider": "anthropic",
   "roles": {
     "generator": {
       "model": "gemini-3.5-flash-lite",
@@ -30,7 +30,18 @@
     },
     "claude-haiku-5-5": {
       "input": 0.1,
-      "output": 0.5
+      "output": 0.5,
+      "long_prompt_tokens": 100000,
+      "long_input": 0.5,
+      "long_output": 2.5
+    },
+    "claude-sonnet-5-5": {
+      "input": 2,
+      "output": 10
+    },
+    "claude-opus-5-5": {
+      "input": 4,
+      "output": 20
     }
   },
   "limits": {
@@ -68,5 +79,8 @@
         "effort": "low"
       }
     }
-  }
+  },
+  "monthly_cost_cap_usd": 25,
+  "monthly_warn_fraction": 0.8,
+  "_note_cost": "Prices are USD per million tokens (Claude, 26 Oct 2026). Haiku 5.5 is $0.10 in / $0.50 out up to 100K prompt tokens and $0.50 / $2.50 above that (the whole call). monthly_cost_cap_usd stops all AI work for the rest of the month; a warning goes out at monthly_warn_fraction of it."
 }
