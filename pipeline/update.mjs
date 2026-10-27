@@ -20,6 +20,7 @@ import { createLlmFactory } from './llm/make.mjs';
 import { summarize } from './llm/spend.mjs';
 import { newReport, sourceEntry, aiEntry, publishEntry, finalize, writeReport } from './report/build.mjs';
 import { formatReport } from './report/format.mjs';
+import { formatHtml } from './report/html.mjs';
 import { createTelegram, tokenFromEnv } from './notify/telegram.mjs';
 
 const pipelineDir = path.dirname(fileURLToPath(import.meta.url)), root = path.resolve(pipelineDir, '..');
@@ -161,8 +162,14 @@ try {
   if (!wantsNotify) console.log(`\n--- message (not sent: ${flag('--no-notify') ? '--no-notify' : dry ? 'dry run; add --notify to send' : 'turned off in config/publish.json'}) ---\n${text}\n---`);
   else if (!tokenFromEnv() || !process.env.TELEGRAM_CHAT_ID) console.log(`\n--- message (not sent: no Telegram token or chat id configured) ---\n${text}\n---`);
   else {
-    try { const n = await createTelegram().send(text); console.log(`telegram: sent ${n} message${n === 1 ? '' : 's'}`); }
-    catch (e) { console.error('telegram: could not send the report: ' + scrub(e.message)); console.log(`\n--- message (not delivered) ---\n${text}\n---`); }
+    const tg = createTelegram(), pretty = formatHtml(rep);
+    try { const n = await tg.send(pretty.text, { html: true, silent: pretty.silent }); console.log(`telegram: sent ${n} message${n === 1 ? '' : 's'}${pretty.silent ? ' (silent)' : ''}`); }
+    catch (e) {
+      // Telegram refused the formatted version (or the network dipped): the plain-text report always goes out, so no report is lost.
+      console.error('telegram: formatted report not delivered (' + scrub(e.message) + '); trying plain text');
+      try { const n = await tg.send(text); console.log(`telegram: sent ${n} plain message${n === 1 ? '' : 's'}`); }
+      catch (e2) { console.error('telegram: could not send the report: ' + scrub(e2.message)); console.log(`\n--- message (not delivered) ---\n${text}\n---`); }
+    }
   }
 } catch (e) {
   console.error('could not write or send the run report: ' + scrub(e.message));

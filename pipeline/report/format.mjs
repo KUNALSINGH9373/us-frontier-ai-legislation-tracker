@@ -1,96 +1,70 @@
-// The Telegram message for one run report. Pure: report in, text out. Three kinds:
-//   "✅ Updated ..."      the data changed: what changed, field by field
-//   "✅ No changes ..."   nothing changed: counts, queries and cost, so a quiet run still proves it looked
-//   "❌ FAILED at <step>" the run stopped: where, why, and that nothing was written
+// The Telegram message for one run report: short, plain English. Pure: report in, text out.
+//   ✅ Update done      what was updated, new bills found, AI cost, free queries used, and a ⚠️ line only if something needs a look
+//   ❌ Update FAILED    the step and the exact error, and that nothing was changed
 // Plain text (no markup), so nothing in a bill title can break the message.
 
-const clip = (v, max = 90) => {
-  const s = typeof v === 'string' ? v : v == null ? '(none)' : JSON.stringify(v);
-  const one = s.replace(/\s+/g, ' ').trim();
-  return one.length > max ? one.slice(0, max - 1) + '…' : one;
-};
 const num = (v) => (v == null ? '?' : Number(v).toLocaleString('en-US'));
-const usd = (v) => (v == null ? 'unknown' : '$' + (v < 0.01 && v > 0 ? v.toFixed(4) : v.toFixed(2)));
+const usd = (v) => (v == null ? 'unknown' : '$' + (v > 0 && v < 0.01 ? v.toFixed(4) : v.toFixed(2)));
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-export const when = (iso) => { const d = new Date(iso); return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}, ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')} UTC`; };
+export const when = (iso) => { const d = new Date(iso); return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}, ${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')} UTC`; };
 export const took = (s) => (s == null ? '' : s >= 60 ? `${Math.floor(s / 60)}m ${s % 60}s` : `${s}s`);
-const plural = (k, one, many = one + 's') => `${num(k)} ${k === 1 ? one : many}`;
+const clip = (s, max) => { const t = String(s || '').replace(/\s+/g, ' ').trim(); return t.length > max ? t.slice(0, max - 1) + '…' : t; };
+const list = (items, max = 4) => (items.length > max ? items.slice(0, max).join(', ') + ` and ${items.length - max} more` : items.join(', '));
 
-function sourceLine(s) {
-  const c = s.counts, bits = [];
-  if (c.listed) bits.push(`${num(c.listed)} listed`);
-  if (c.tracked_checked != null) bits.push(`${num(c.tracked_checked)} tracked checked`);
-  bits.push(`${num(s.verdicts.material + s.verdicts.minor)} tracked changed`);
-  bits.push(`${num(s.verdicts.new_entry_candidate)} new candidates`);
-  if (c.screened_out) bits.push(`${num(c.screened_out)} screened out`);
-  if (c.waiting) bits.push(`${num(c.waiting)} waiting for the next run`);
-  if (c.errors) bits.push(`${num(c.errors)} errors`);
-  const q = s.requests != null ? ` · ${num(s.requests)} ${s.source === 'legiscan' ? 'queries' : 'requests'}` : '';
-  return `• ${s.name}: ${bits.join(', ')}${q}${s.truncated ? ' · ⏸ stopped early, resumes next run' : ''}`;
+const title = (rep, ok, text) => `${ok ? '✅' : '❌'} ${text} · ${when(rep.finished_at || rep.started_at)}${rep.duration_s != null ? ' · ' + took(rep.duration_s) : ''}${rep.dry_run ? ' · 🧪 dry run, nothing saved' : ''}`;
+
+// "Free API queries": every source's requests (Congress.gov, Federal Register, LegiScan all have free tiers).
+function queriesLine(rep) {
+  const ss = rep.sources.filter((s) => s.requests != null);
+  if (!ss.length) return 'Free API queries used: none';
+  const total = ss.reduce((t, s) => t + s.requests, 0);
+  return `Free API queries used: ${num(total)} (${ss.map((s) => `${s.name.replace(' (states)', '')} ${num(s.requests)}`).join(', ')})`;
 }
 
-function costLines(rep) {
-  const c = rep.ai_cost, L = [];
-  const tok = c.calls ? `${num(c.calls)} call${c.calls === 1 ? '' : 's'}, ${num(c.input_tokens)} in / ${num(c.output_tokens)} out tokens, ${c.unpriced_calls ? 'cost unknown (a model has no price set)' : usd(c.cost_usd)}` : 'no AI calls';
-  const steps = Object.entries(c.by_step || {}).map(([k, v]) => `${k} ${usd(v.cost_usd)}`).join(', ');
-  L.push(`• AI: ${tok}${steps ? ` (${steps})` : ''}`);
-  const m = rep.month;
-  if (m) {
-    L.push(`• AI this month: ${usd(m.spent)}${m.cap ? ` of ${usd(m.cap)} (${Math.round((m.spent / m.cap) * 100)}%)` : ''}`);
-    if (m.over) L.push('⛔ The monthly AI cap is reached: AI work is paused until next month.');
-    else if (m.warn) L.push('⚠️ AI spending passed the warning level for this month.');
-  }
-  if (rep.legiscan && rep.legiscan.month_cap) L.push(`• LegiScan this month: ${num(rep.legiscan.month_used)} of ${num(rep.legiscan.month_cap)} queries`);
-  return L;
+function costLine(rep) {
+  const c = rep.ai_cost, m = rep.month;
+  const run = c.unpriced_calls ? 'unknown (a model has no price set)' : usd(c.cost_usd);
+  return `AI cost: ${run} this run${m ? ` · ${usd(m.spent)}${m.cap ? ` of ${usd(m.cap)}` : ''} this month` : ''}`;
 }
 
-const head = (rep, icon, text) => `${icon} ${text}${rep.dry_run ? ' · 🧪 dry run, nothing written' : ''}`.replace(/\s+/g, ' ').trim();
-const foot = (rep) => `Run ${rep.id} · ${when(rep.finished_at || rep.started_at)}${rep.duration_s != null ? ` · took ${took(rep.duration_s)}` : ''}`;
+// Only what needs a look. Silence means everything is fine.
+export function watchLines(rep) {
+  const w = [], m = rep.month, t = rep.totals || {};
+  if (m && m.over) w.push('⚠️ The monthly AI limit is reached: AI work is paused until next month.');
+  else if (m && m.warn) w.push(`⚠️ AI spending is at ${Math.round((m.spent / m.cap) * 100)}% of the monthly limit.`);
+  const ls = rep.legiscan;
+  if (ls && ls.month_cap && ls.month_used / ls.month_cap >= 0.8) w.push(`⚠️ LegiScan queries are at ${Math.round((ls.month_used / ls.month_cap) * 100)}% of this month's limit (${num(ls.month_used)} of ${num(ls.month_cap)}).`);
+  else if (ls && ls.month_cap) w.push(`LegiScan this month: ${num(ls.month_used)} of ${num(ls.month_cap)} queries`);
+  for (const s of rep.sources) if (s.truncated) w.push(`⚠️ ${s.name} stopped early and will carry on next run.`);
+  const errs = rep.sources.reduce((k, s) => k + (s.counts.errors || 0), 0);
+  if (errs) w.push(`⚠️ ${num(errs)} item${errs === 1 ? '' : 's'} had a read error while checking sources.`);
+  if (rep.held.length) w.push(`⚠️ ${rep.held.length} item${rep.held.length === 1 ? '' : 's'} on hold: ${list(rep.held.map((h) => `${clip(h.title || h.item_id, 40)} (${clip(h.reason, 70)})`), 3)}`);
+  if (rep.ai.skipped_why && !rep.dry_run && !/--no-ai|turned off/.test(rep.ai.skipped_why)) w.push(`⚠️ The AI step did not run: ${rep.ai.skipped_why}.`);
+  for (const n of rep.notes || []) w.push(`ℹ️ ${n}`);
+  return w;
+}
 
 export function formatFailed(rep) {
-  const L = [head(rep, '❌', `FAILED at ${rep.failed_step || 'the update'}: ${clip(rep.error, 300)}`)];
-  L.push(rep.dry_run ? 'A dry run writes nothing.' : 'Nothing was written: the site data was left as it was, and the next run starts from the same point.');
-  if (rep.sources.length) { L.push('', 'Done before it stopped:', ...rep.sources.map(sourceLine)); }
-  L.push('', ...costLines(rep), '', foot(rep));
+  const L = [title(rep, false, `Update FAILED at ${rep.failed_step || 'an unknown step'}`), '', `Error: ${clip(rep.error, 1500)}`, ''];
+  L.push(rep.dry_run ? 'A dry run saves nothing.' : 'Nothing was changed. The next run starts from the same point.');
+  L.push('', costLine(rep), queriesLine(rep));
   return L.join('\n');
 }
 
-export function formatNoChange(rep) {
-  const t = rep.totals || {};
-  const L = [head(rep, '✅', 'No changes')];
-  L.push(`Looked at ${plural(rep.sources.length, 'source')}: nothing new to publish.`, '', ...rep.sources.map(sourceLine));
-  const aiRan = rep.ai.runs.length;
-  if (aiRan) L.push(`• AI step: ${t.ai_in_scope} in scope, ${t.ai_out_of_scope} out of scope, ${t.held} held`);
-  else if (rep.ai.skipped_why) L.push(`• AI step skipped: ${rep.ai.skipped_why}`);
-  L.push(...costLines(rep), '', foot(rep));
+export function formatDone(rep, names = {}) {
+  const t = rep.totals, updated = rep.publish.runs.flatMap((p) => p.entries_updated.map((e) => names[e.entry_key] || e.entry_key)), added = rep.publish.runs.flatMap((p) => p.entries_added.map((e) => names[e.entry_key] || e.entry_key));
+  const L = [title(rep, true, rep.changed ? 'Update done' : 'Update done, no changes'), ''];
+  L.push(`Bills updated: ${t.entries_updated}${updated.length ? ' (' + list(updated) + ')' : ''}`);
+  if (added.length) L.push(`New bills added: ${added.length} (${list(added)})`);
+  const found = rep.sources.flatMap((s) => s.new_candidates.map((c) => clip(c.title, 60)));
+  if (found.length) L.push(`New bills spotted: ${found.length} (${list(found, 3)}) — not published yet`);
+  L.push(costLine(rep), queriesLine(rep));
+  const w = watchLines(rep);
+  if (w.length) L.push('', ...w);
   return L.join('\n');
 }
 
-export function formatChanged(rep, names = {}) {
-  const t = rep.totals, L = [];
-  const parts = [t.entries_updated && plural(t.entries_updated, 'entry', 'entries') + ' updated', t.entries_added && plural(t.entries_added, 'new entry', 'new entries'), t.news_added && plural(t.news_added, 'news item') + ' added', t.links_added && plural(t.links_added, 'link') + ' added'].filter(Boolean);
-  L.push(head(rep, '✅', `Updated: ${parts.join(', ')}`), '');
-  for (const p of rep.publish.runs) {
-    for (const e of p.entries_updated) {
-      L.push(`• ${names[e.entry_key] || e.entry_key}${e.status ? ` (now ${e.status})` : ''}`);
-      for (const a of e.actions.slice(0, 3)) L.push(`    ${a.date}: ${clip(a.text, 110)}`);
-      for (const f of p.fields_changed.filter((x) => x.entry_key === e.entry_key).slice(0, 4)) L.push(`    ${f.field}: ${clip(f.old, 60)} → ${clip(f.new, 80)}`);
-    }
-    for (const e of p.entries_added) L.push(`• NEW: ${names[e.entry_key] || e.entry_key}`);
-  }
-  const cands = rep.sources.reduce((k, s) => k + s.verdicts.new_entry_candidate, 0);
-  L.push('', 'Counts:', ...rep.sources.map(sourceLine));
-  if (rep.ai.runs.length) L.push(`• AI step: ${t.ai_in_scope} in scope, ${t.ai_out_of_scope} out of scope, ${t.held} held${rep.ai.runs.some((a) => a.deferred) ? `, ${rep.ai.runs.reduce((k, a) => k + a.deferred, 0)} deferred (per-run limit)` : ''}`);
-  else if (cands && rep.ai.skipped_why) L.push(`• AI step skipped: ${rep.ai.skipped_why}`);
-  if (rep.held.length) { L.push('', `Held (${rep.held.length}):`, ...rep.held.slice(0, 8).map((h) => `• ${clip(h.item_id, 50)}: ${clip(h.reason, 120)}`)); if (rep.held.length > 8) L.push(`  …and ${rep.held.length - 8} more (see run-report.json)`); }
-  L.push('', ...costLines(rep), '', foot(rep));
-  return L.join('\n');
-}
-
-// Held items alone do not make a run "changed", but they are worth saying even on a quiet run.
 export function formatReport(rep, { names = rep.names || {} } = {}) {
-  if (rep.outcome === 'failed') return formatFailed(rep);
-  const text = rep.changed ? formatChanged(rep, names) : formatNoChange(rep);
-  if (!rep.changed && rep.held.length) return text.replace('\n\n' + foot(rep), `\n\nHeld (${rep.held.length}):\n${rep.held.slice(0, 5).map((h) => `• ${clip(h.item_id, 50)}: ${clip(h.reason, 120)}`).join('\n')}\n\n${foot(rep)}`);
-  return text;
+  return rep.outcome === 'failed' ? formatFailed(rep) : formatDone(rep, names);
 }
+export const formatChanged = formatDone, formatNoChange = formatDone;

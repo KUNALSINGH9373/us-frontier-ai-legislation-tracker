@@ -44,10 +44,12 @@ export function createTelegram({ token = tokenFromEnv(), chatId = process.env.TE
       return [...seen.values()];
     },
     // Sends a report, split into as many messages as needed. Returns how many were sent.
-    async send(text) {
+    //   html: true    the text uses Telegram's HTML tags (<b> <i> <code> <pre>); the caller escapes the rest
+    //   silent: true  delivered without a sound or buzz
+    async send(text, { html = false, silent = false } = {}) {
       if (!chatId) throw new Error('no TELEGRAM_CHAT_ID set');
       const parts = chunk(text);
-      for (const p of parts) await call('sendMessage', { chat_id: chatId, text: p, disable_web_page_preview: true });
+      for (const p of parts) await call('sendMessage', { chat_id: chatId, text: p, disable_web_page_preview: true, ...(html ? { parse_mode: 'HTML' } : {}), ...(silent ? { disable_notification: true } : {}) });
       return parts.length;
     }
   };

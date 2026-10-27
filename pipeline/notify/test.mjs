@@ -54,5 +54,14 @@ ok('no token is a clear error, not a call', (() => { try { createTelegram({ toke
   ok('a network failure is an error with the token scrubbed', !!err && !String(err.message).includes('SECRET-token_value'));
 }
 
+{
+  const { f, calls } = fake(() => reply({ ok: true, result: {} }));
+  const tg = createTelegram({ token: TOKEN, chatId: '42', fetchImpl: f, sleep: noSleep });
+  await tg.send('plain');
+  await tg.send('<b>x</b>', { html: true, silent: true });
+  ok('a plain send has no parse mode and makes a sound', !('parse_mode' in calls[0].body) && !('disable_notification' in calls[0].body));
+  ok('an html send uses HTML mode, and silent turns the notification off', calls[1].body.parse_mode === 'HTML' && calls[1].body.disable_notification === true);
+}
+
 console.log(`telegram: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

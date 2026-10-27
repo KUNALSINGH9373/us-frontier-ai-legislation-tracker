@@ -74,6 +74,10 @@ export function finalize(rep, { now = new Date(), spend = null, month = null } =
     fields_changed: pubs.reduce((t, p) => t + p.fields_changed.length, 0)
   };
   rep.held = [...ais.flatMap((a) => a.held_items.map((h) => ({ ...h, kind: 'ai' }))), ...pubs.flatMap((p) => p.not_applied.map((x) => ({ item_id: x.ref, reason: x.why, kind: 'publish' })))];
+  // A readable name for each held item: the candidate's title, or the tracked entry's key.
+  const nameOf = {};
+  for (const s of rep.sources) { s.new_candidates.forEach((c) => { nameOf[c.item_id] = c.title; }); s.material.forEach((m) => { nameOf[m.item_id] = m.entry_key; }); }
+  rep.held = rep.held.map((h) => ({ ...h, title: nameOf[h.item_id] || null }));
   rep.changed = rep.totals.entries_updated + rep.totals.entries_added + rep.totals.news_added + rep.totals.links_added > 0;
   rep.ai_cost = spend ? { calls: spend.calls, input_tokens: spend.input_tokens, output_tokens: spend.output_tokens, cost_usd: spend.cost_usd, unpriced_calls: spend.unpriced_calls, by_step: spend.by_step, by_model: spend.by_model } : { calls: 0, input_tokens: 0, output_tokens: 0, cost_usd: 0, unpriced_calls: 0, by_step: {}, by_model: {} };
   rep.month = month;
