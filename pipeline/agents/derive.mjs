@@ -23,6 +23,10 @@ export const eventFor = (action) => {
   return null;
 };
 
+// A bill on export controls for advanced AI chips cites their export classifications (ECCN 3A090 / 4A090). It is filed under
+// G.3 (compute and export controls) by rule; a model chose D or F for all three such bills in the 27 Oct 2026 test.
+export const exportControlBill = (text, title = '') => /\b[34]A090\b/.test(text || '') && /\b(?:export|reexport|licen[cs]e)/i.test(`${title} ${text}`);
+
 // Returns { fields, events, section } with everything the record states exactly. section is null when it cannot be decided by rule.
 export function deriveCreate({ item, raw }) {
   if (item.source === 'federal_register') {
@@ -54,7 +58,7 @@ export function deriveCreate({ item, raw }) {
         title: `${num} — ${b.title}`, short_name: trunc(`${num} ${b.title}`, 100), sponsor_text: sponsorText(b.sponsors),
         status_text: `Introduced / status: ${b.introducedDate ? longDate(b.introducedDate) : 'date not stated'}${la ? `; ${la.text.replace(/\.$/, '')} (${longDate(la.actionDate)})` : ''}`
       },
-      events, section: null
+      events, section: exportControlBill(raw.text, b.title) ? 'G.3' : null
     };
   }
   throw new Error('no derivation for ' + item.source);

@@ -61,12 +61,18 @@
       "generator": {
         "model": "claude-haiku-5-5",
         "max_output_tokens": 16000,
-        "effort": "medium"
+        "effort": "low"
       },
       "validator": {
         "model": "claude-haiku-5-5",
         "max_output_tokens": 16000,
-        "effort": "medium"
+        "effort": "low"
+      },
+      "referee": {
+        "_note": "Second opinion on scope, asked only when the generator and the validator rule a bill out or disagree. Its answer is final (no person reviews held items).",
+        "model": "claude-sonnet-5-5",
+        "max_output_tokens": 8000,
+        "effort": "low"
       },
       "screener": {
         "model": "claude-haiku-5-5",

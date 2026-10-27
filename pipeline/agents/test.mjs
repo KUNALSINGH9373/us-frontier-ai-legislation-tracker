@@ -340,6 +340,36 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   ok('the reader\'s scope objection is phrased for the generator as an invitation to set in_scope false', /judged this item OUT of scope/.test(g.calls[1].prompt) && /set in_scope to false/.test(g.calls[1].prompt));
 }
 
+// ---------- 10d. lessons from the 27 Oct 2026 review: text rules, the export-control rule, the scope referee ----------
+{
+  const { repairExponents } = await import('./source-text.mjs');
+  ok('a garbled exponent before a compute word is repaired ("1026 integer", "10�26", "10ˆ26")', repairExponents('greater than 1026 integer or') === 'greater than 10^26 integer or' && repairExponents('10�26 operations') === '10^26 operations' && repairExponents('10ˆ26 operations') === '10^26 operations');
+  ok('and nothing else is touched (years, counts, an exponent already written)', repairExponents('In 2026 operations began; 1026 people; 10^26 operations') === 'In 2026 operations began; 1026 people; 10^26 operations');
+  const { textProblems } = await import('./checks.mjs');
+  const src = 'A developer shall publish a "safety and security protocol" before deployment.';
+  ok('text rule: a garbled exponent in a field is refused', textProblems('thresholds', 'Trained on more than 1026 operations', src).some((p) => /garbled exponent/.test(p)));
+  ok('text rule: a date without its year is refused, a full date or a range with a year is not', textProblems('status_text', 'Received in the Senate Sept 14', src).some((p) => /without its year/.test(p)) && !textProblems('status_text', 'Received Sept 14, 2026; cosponsors added Sept 3–16, 2026 and Sept 3–Oct 1, 2026; May 1, 2026', src).length);
+  ok('text rule: words in quotation marks must be in the source; correct ones pass', textProblems('mechanism', 'Disclaims "mandatory governmental review of models"', src).some((p) => /quotation marks/.test(p)) && !textProblems('mechanism', 'Requires a "safety and security protocol"', src).length);
+  ok('text rule: "not established from the sources" is refused', textProblems('thresholds', 'Definitions of "covered entity" not established from the sources read', 'covered entity').some((p) => /definitions section/.test(p)));
+  const { exportControlBill } = await import('./derive.mjs');
+  ok('a bill citing ECCN 3A090 and export licensing is an export-control bill (G.3 by rule); others are not', exportControlBill('license for the export of items classified under ECCN 3A090') && !exportControlBill('A developer shall publish a framework') && !exportControlBill('3A090 appears in a definition only', 'Data center safety'));
+}
+{
+  const referee = (supported) => ({ calls: [], async generate(req) { this.calls.push(req); return { usage: {}, data: { results: [{ n: 1, supported, quote: Q1, reason: supported ? null : 'Only terminology.' }] } }; } });
+  const out = () => ({ operation: 'create', in_scope: false, scope_reason: 'It is a terminology order, not regulation of developers.', fields: {}, events_add: [], evidence: [] });
+  // Both readers say out, the referee says in: the item is written up, and the reader's later scope objection is overruled.
+  const ref1 = referee(true), g1 = scriptedGenerator([out(), goodCreate()]);
+  const r1 = await runEo({ generator: g1, validator: scriptedValidator({ unsupported: { in_scope: 'Not about developers.' }, answerFor: (f) => (f === 'mechanism' ? Q2 : Q3) }), referee: ref1 });
+  ok('referee: both readers say out but the referee says in, so the entry is written and published', r1.outcome === 'publishable' && /judged this item IN scope/.test(g1.calls[1].prompt), `${r1.outcome} ${r1.reason}`);
+  ok('referee: it is asked once per item, not on every round', ref1.calls.length === 1);
+  // The readers disagree and the referee says out: dropped, with the reason recorded.
+  const r2 = await runEo({ generator: scriptedGenerator([out()]), validator: scriptedValidator({ answerFor: () => Q1 }), referee: referee(false) });
+  ok('referee: when the readers disagree and the referee says out, it is dropped as out of scope, not held', r2.outcome === 'out_of_scope' && /confirmed by the referee/.test(r2.reason), `${r2.outcome} ${r2.reason}`);
+  // The generator writes it up, the reader objects to the scope, the referee says out.
+  const r3 = await runEo({ generator: scriptedGenerator([goodCreate()]), validator: scriptedValidator({ unsupported: { in_scope: 'It only renames terminology.' }, answerFor: (f) => (f === 'mechanism' ? Q2 : Q3) }), referee: referee(false) });
+  ok('referee: when the reader objects to the scope and the referee agrees, it is dropped in the same round', r3.outcome === 'out_of_scope' && r3.attempts === 1 && /terminology/.test(r3.reason), `${r3.outcome} ${r3.reason}`);
+}
+
 // ---------- 11. pieces ----------
 {
   const claims = buildClaims({ patch: goodUpdate(), operation: 'update' });
