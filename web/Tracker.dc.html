@@ -826,7 +826,6 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         <circle class="pop" style="animation-delay:2.1s" fill="#D4A43A" stroke="none" cx="32" cy="7" r="2.2"></circle>
       </g></svg>
       <span data-serif data-wordmark style="font-size:clamp(26px,5vw,32px);line-height:1.1;color:var(--ink);animation:gxRise 600ms var(--ease-out) 700ms both"><span data-us>US</span> Frontier Law</span>
-      <span style="font-size:13px;font-weight:600;color:var(--ink-3);animation:gxFade 400ms ease 1000ms both">{{bootLabel}}</span>
     </div>
   </div>
 </sc-if>
@@ -1082,8 +1081,8 @@ class Component extends DCLogic {
     const v = {
       loading: s.loading, loadError: s.err, offline: !s.online, toast: s.toast, mob,
       ...(this.L && this.D ? (() => { const L = this.L, MNL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        return { verLabel: L.fmt(L.VERIFIED), asofLabel: L.fmt(L.ASOF), asofDay: L.fmt(L.ASOF).replace(/ \d{4}$/, ''), asofMonth: MNL[L.ASOF.getMonth()] + ' ' + L.ASOF.getFullYear(), updLabel: L.fmtShort(L.ASOF), nEntries: String(this.D.E.length), bootLabel: 'Verified as of ' + L.fmt(L.VERIFIED), ...this.checkedVals() }; })()
-        : { verLabel: '', asofLabel: '', asofDay: '', asofMonth: '', updLabel: '', nEntries: '', bootLabel: 'Loading the tracker', hasChecked: false, checkedLine: '' }),
+        return { verLabel: L.fmt(L.VERIFIED), asofLabel: L.fmt(L.ASOF), asofDay: L.fmt(L.ASOF).replace(/ \d{4}$/, ''), asofMonth: MNL[L.ASOF.getMonth()] + ' ' + L.ASOF.getFullYear(), updLabel: L.fmtShort(L.ASOF), nEntries: String(this.D.E.length), ...this.checkedVals() }; })()
+        : { verLabel: '', asofLabel: '', asofDay: '', asofMonth: '', updLabel: '', nEntries: '', hasChecked: false, checkedLine: '' }),
       showTopNav: !mob, showBottomNav: mob, mainPadBottom: mob ? '88px' : '0px', footerPadBottom: mob ? '104px' : '28px', toastBottom: mob ? '96px' : '28px',
       nav: NAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-3)', ul: sec === k ? 'inset 0 -2px 0 var(--accent-ink)' : 'none' })),
       mnav: MNAV.map(([k, l, href, ic]) => ({ l, href, ic, cur: sec === k ? 'page' : undefined, fg: sec === k ? 'var(--ink)' : 'var(--ink-3)', bg: sec === k ? 'var(--accent-soft)' : 'transparent' })),
