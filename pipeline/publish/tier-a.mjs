@@ -35,7 +35,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
   const cutoff = runDate > data.site.updates_through ? runDate : data.site.updates_through;
 
   for (const d of diff.items) {
-    if (d.verdict !== 'material') { if (d.verdict === 'new_entry_candidate') skipped.push({ item_id: d.item_id, why: 'new entry candidate: not created in Tier A' }); continue; }
+    if (d.verdict !== 'material') continue; // new-bill candidates are the AI step's and Tier B's, which report on them
     const item = itemById.get(d.item_id), e = byKey.get(d.entry_key);
     if (!item || !e) { skipped.push({ item_id: d.item_id, why: 'no matching change-set item or entry (matched by key)' }); continue; }
     const allowed = TIER_A[item.source] || [];
