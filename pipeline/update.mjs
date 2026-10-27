@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url';
 import { compareRun } from './compare/run.mjs';
 import { publishRun, IDENTIFIERS_FILE } from './publish/run.mjs';
 import { runAgents } from './agents/run.mjs';
+import { correctRun, STATE_FILE as CORRECT_STATE } from './correct/run.mjs';
 import { makeValidator } from './schema/validate.mjs';
 import { loadEnv } from './grabber/lib/env.mjs';
 import { createLlmFactory } from './llm/make.mjs';
@@ -51,9 +52,11 @@ fs.mkdirSync(path.dirname(lock), { recursive: true });
 fs.writeFileSync(lock, String(process.pid));
 const snapshot = Object.fromEntries(DATA_FILES.map((k) => [k, fs.existsSync(path.join(dataDir, k + '.json')) ? fs.readFileSync(path.join(dataDir, k + '.json')) : null]));
 const idsSnapshot = fs.existsSync(IDENTIFIERS_FILE) ? fs.readFileSync(IDENTIFIERS_FILE) : null; // new bills join the tracked list; put back with the data
+const correctSnapshot = fs.existsSync(CORRECT_STATE) ? fs.readFileSync(CORRECT_STATE) : null; // a rolled-back correction is checked again
 const restore = () => {
   for (const [k, b] of Object.entries(snapshot)) for (const d of [dataDir, ...(config.copy_to_docs ? [docsDir] : [])]) { const f = path.join(d, k + '.json'); if (b) fs.writeFileSync(f, b); else if (fs.existsSync(f)) fs.rmSync(f); }
   if (idsSnapshot) fs.writeFileSync(IDENTIFIERS_FILE, idsSnapshot);
+  if (correctSnapshot) fs.writeFileSync(CORRECT_STATE, correctSnapshot); else fs.rmSync(CORRECT_STATE, { force: true });
 };
 
 let code = 0;
@@ -108,6 +111,13 @@ try {
     if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length || r.result.added.length) { published.push(id); summaries.push(r.summary); } }
   }
 
+  // ---- 4b. self-correction: once a day, re-read tracked bills and fix confirmed errors and omissions in the reading fields ----
+  step = 'self-correction';
+  const c = await correctRun({ dataDir, docsDir: config.copy_to_docs ? docsDir : null, config, factory, aiOff: aiOff || (factory.monthStatus().over ? 'the monthly AI cost cap is reached' : null), dry, today: new Date().toISOString().slice(0, 10), now: new Date(), runId: rep.id, log: (m) => console.log('  ' + m) });
+  rep.corrections = c;
+  console.log(`self-correction: ${c.skipped_why ? 'skipped (' + c.skipped_why + ')' : `${c.checked.length} checked, ${c.corrected.length} field(s) corrected, ${c.status}`}`);
+  if (c.status === 'written') { published.push('self-correction'); summaries.push(c.summary); }
+
   // ---- 5. the site check: v1 and v2 still build the same model for every entry the pipeline has not changed ----
   if (published.length && !dry) {
     step = 'site check';
@@ -137,7 +147,7 @@ try {
   // ---- 7. commit (local only) ----
   if (flag('--commit') && !dry) {
     step = 'commit';
-    const files = ['status', ...(published.length ? DATA_FILES : [])].flatMap((k) => [path.join(dataDir, k + '.json'), ...(config.copy_to_docs ? [path.join(docsDir, k + '.json')] : [])]).concat(published.length ? [IDENTIFIERS_FILE] : []).filter((f) => fs.existsSync(f));
+    const files = ['status', ...(published.length ? DATA_FILES : [])].flatMap((k) => [path.join(dataDir, k + '.json'), ...(config.copy_to_docs ? [path.join(docsDir, k + '.json')] : [])]).concat(published.length ? [IDENTIFIERS_FILE] : [], [CORRECT_STATE]).filter((f) => fs.existsSync(f));
     execFileSync('git', ['add', ...files], { cwd: root, stdio: 'inherit' });
     const msg = published.length ? `data: ${summaries.join('\n')}` : `status only: checked ${SOURCES.join(', ')} at ${now}, no change`;
     try { execFileSync('git', ['commit', '-q', '-F', '-'], { cwd: root, input: msg, stdio: ['pipe', 'inherit', 'inherit'] }); console.log('committed (not pushed)'); }
@@ -154,7 +164,7 @@ try {
 // ---- the run report, and the message (even when the run failed) ----
 try {
   const entries = readJson(path.join(dataDir, 'entries.json'), []);
-  rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key))).map((e) => [e.key, e.short_name]));
+  rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key)) || (rep.corrections && rep.corrections.corrected.some((x) => x.entry_key === e.key))).map((e) => [e.key, e.short_name]));
   const finished = new Date();
   finalize(rep, { now: finished, spend: summarize(factory.spend.between(startedAt, finished)), month: factory.monthStatus() });
   const file = writeReport(rep, path.join(pipelineDir, 'data', 'updates', rep.id));

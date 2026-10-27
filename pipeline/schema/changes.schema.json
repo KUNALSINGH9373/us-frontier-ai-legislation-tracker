@@ -21,7 +21,7 @@
      "date": { "$ref": "common.schema.json#/$defs/isoDate" },
      "run_id": { "type": "string", "minLength": 1 },
      "source_url": { "$ref": "common.schema.json#/$defs/url" },
-     "tier": { "enum": ["A", "B"] },
+     "tier": { "enum": ["A", "B", "C"], "description": "A: official facts by code. B: a new entry. C: a self-correction of a reading field (correct/), confirmed by a second model, quotes checked by code." },
      "note": { "type": "string" }
     }
    }

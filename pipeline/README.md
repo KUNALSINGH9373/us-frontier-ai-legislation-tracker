@@ -204,6 +204,16 @@ Nothing is published here. It writes `results/<item>.json`, `results.json` and `
 
 Both resolved every item without crashing. Held items are the safe outcome. With the default thinking setting `gemini-3.5-flash` failed (`RECITATION`, then runaway thinking), so it must be run at thinking `low`. **Borderline scope calls differ between runs and models** (for example H.R. 9183, an AI data-centre environmental-reporting bill; and EO 14434, which only renames "AI" as "Super Intelligence" in federal communications). Those are for the author's scope rule to settle.
 
+## Self-correction (`correct/`)
+
+No person reviews published entries, so the pipeline re-reads them and fixes confirmed mistakes in the reading fields, on every entry, hand-written ones included (owner, 27 Oct 2026). `update.mjs` runs it after publishing, at most once a day (`config/publish.json` `self_correction`); by hand: `node correct/run.mjs [--dry-run] [--only k1,k2] [--max n] [--force]`.
+
+- **Texts** (`correct/texts.mjs`, shared with `eval/fetch-texts.mjs`): every tracked bill's official text from Congress.gov or LegiScan (free; LegiScan queries count toward the monthly cap). 46 of the 97 entries have one (27 Oct 2026); executive actions, lawsuits, drafts and section J have none. Texts over 110,000 characters (MA S.3228, the CT omnibus) wait for section-by-section reading.
+- **Which entries** (`correct/select.mjs`): the bill text changed since the last check (SHA-256 in `state/corrections.json`), then a failed check (up to 3 retries), then never checked (an empty reading field first), then the one checked longest ago (after 30 days). At most `max_entries_per_run` (3) a day.
+- **Review** (`correct/review.mjs`): the reader (role `reviewer`, Haiku low) lists errors and omissions with the corrected field and quotes. Code checks: the field is mechanism, thresholds, or penalties in section A; every quote is in the text; every number is in the text or the old field; the text rules (`textProblems`), length, no debris. The confirmer (role `confirmer`, Sonnet low) must agree, and its own quote must be in the text.
+- **Apply** (`correct/apply.mjs`): new text and evidence, entry becomes `mixed` / `agent`, one `changes.json` record per field (tier `C`, old -> new, the problem and the quote). The publisher's stop rules (`checkPublish` with `corrected`) still run: anything else changed stops the write and the entry is retried. The Telegram report lists each correction under "Self-check".
+- Tests: `npm run test:correct` (56), scripted models on a copy of the real data.
+
 ## Tests
 
 ```bash

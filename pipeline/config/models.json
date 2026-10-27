@@ -74,6 +74,18 @@
         "max_output_tokens": 8000,
         "effort": "low"
       },
+      "reviewer": {
+        "_note": "Self-correction (correct/): re-reads a bill against its current entry and lists errors and omissions, each with a quote.",
+        "model": "claude-haiku-5-5",
+        "max_output_tokens": 8000,
+        "effort": "low"
+      },
+      "confirmer": {
+        "_note": "Self-correction: must confirm each proposed correction before code applies it.",
+        "model": "claude-sonnet-5-5",
+        "max_output_tokens": 4000,
+        "effort": "low"
+      },
       "screener": {
         "model": "claude-haiku-5-5",
         "max_output_tokens": 16000,

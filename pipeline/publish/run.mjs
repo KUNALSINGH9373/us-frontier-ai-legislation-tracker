@@ -47,7 +47,7 @@ export function loadData(dir) {
 }
 
 // Writes each file to a temp name first, then renames, so a crash never leaves half a file.
-function writeData(dir, data, keys) {
+export function writeData(dir, data, keys) {
   fs.mkdirSync(dir, { recursive: true });
   for (const k of keys) { const f = path.join(dir, k + '.json'), t = f + '.tmp'; fs.writeFileSync(t, JSON.stringify(data[k], null, 1)); fs.renameSync(t, f); }
 }

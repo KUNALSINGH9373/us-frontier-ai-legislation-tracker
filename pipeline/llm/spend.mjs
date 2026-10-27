@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 
 // What each model role is called in reports.
-export const STEP_LABEL = { screener: 'title screen', scope_checker: 'scope check', generator: 'writer', validator: 'checker', smoke: 'smoke test' };
+export const STEP_LABEL = { screener: 'title screen', scope_checker: 'scope check', generator: 'writer', validator: 'checker', referee: 'scope referee', reviewer: 'self-check reader', confirmer: 'self-check confirmer', smoke: 'smoke test' };
 export const stepOf = (role) => STEP_LABEL[role] || role;
 
 export const monthOf = (d) => new Date(d).toISOString().slice(0, 7);

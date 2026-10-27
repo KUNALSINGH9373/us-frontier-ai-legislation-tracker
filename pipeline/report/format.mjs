@@ -40,6 +40,9 @@ export function watchLines(rep) {
   if (errs) w.push(`⚠️ ${num(errs)} item${errs === 1 ? '' : 's'} had a read error while checking sources.`);
   if (rep.held.length) w.push(`⚠️ ${rep.held.length} item${rep.held.length === 1 ? '' : 's'} on hold: ${list(rep.held.map((h) => `${clip(h.title || h.item_id, 40)} (${clip(h.reason, 70)})`), 3)}`);
   if (rep.ai.skipped_why && !rep.dry_run && !/--no-ai|turned off/.test(rep.ai.skipped_why)) w.push(`⚠️ The AI step did not run: ${rep.ai.skipped_why}.`);
+  const c = rep.corrections;
+  if (c && c.status === 'stopped') w.push(`⚠️ Self-check corrections were not written (a stop rule failed: ${clip(c.problems[0], 120)}); they are retried next run.`);
+  else if (c && c.problems && c.problems.length) w.push(`⚠️ Self-check: ${clip(c.problems[0], 140)}`);
   for (const n of rep.notes || []) w.push(`ℹ️ ${n}`);
   return w;
 }
@@ -59,6 +62,12 @@ export function formatDone(rep, names = {}) {
   const addedIds = new Set(rep.publish.runs.flatMap((p) => p.entries_added.map((e) => e.item_id)));
   const found = rep.sources.flatMap((s) => s.new_candidates.filter((c) => !addedIds.has(c.item_id)).map((c) => clip(c.title, 60)));
   if (found.length) L.push(`New bills spotted: ${found.length} (${list(found, 3)}) — not published yet`);
+  const c = rep.corrections;
+  if (c && c.ran) {
+    const fixed = c.status === 'written' || c.status === 'dry-run' ? c.corrected : [];
+    L.push(`Self-check: ${c.checked.length} entr${c.checked.length === 1 ? 'y' : 'ies'} re-read against the bill text, ${fixed.length} field${fixed.length === 1 ? '' : 's'} corrected`);
+    fixed.forEach((x) => L.push(`- ${clip(names[x.entry_key] || x.entry_key, 40)}, ${x.field} (${x.kind}): ${clip(x.problem, 160)}`));
+  }
   L.push(costLine(rep), queriesLine(rep));
   const w = watchLines(rep);
   if (w.length) L.push('', ...w);

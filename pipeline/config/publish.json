@@ -21,6 +21,14 @@
   "enabled": true,
   "max_items_per_run": 10
  },
+ "self_correction": {
+  "_note": "The self-correction step of update.mjs (correct/run.mjs). Once a day it reads every tracked bill's official text (free APIs), and re-checks up to max_entries_per_run entries against it: text changed first, then failed checks (up to max_retries), then entries never checked, then the one checked longest ago (after recheck_after_days). The reader (role reviewer) proposes; the confirmer (role confirmer) must agree; code checks quotes and numbers. Only mechanism, thresholds and penalties change. Every entry may be corrected, hand-written ones included (owner, 27 Oct 2026).",
+  "enabled": true,
+  "once_per_day": true,
+  "max_entries_per_run": 3,
+  "recheck_after_days": 30,
+  "max_retries": 3
+ },
  "notify": {
   "_note": "Telegram run report after every run (needs TELEGRAM_BOT_TOKEN or TELEGRAM_ACCESS_TOKEN and TELEGRAM_CHAT_ID). A dry run sends one only with --notify.",
   "telegram": true

@@ -53,6 +53,11 @@ function done(rep) {
   const addedIds = new Set(added.map((e) => e.item_id));
   const found = rep.sources.flatMap((s) => s.new_candidates.filter((c) => !addedIds.has(c.item_id)).map((c) => clip(c.title, 34)));
   if (found.length) L.push(`<b>New bills spotted (${found.length})</b>`, '<i>not published yet</i>', ...bullets(found, 4, (t) => `▸ ${esc(t)}`), '');
+  const c = rep.corrections;
+  if (c && c.ran) {
+    const fixed = c.status === 'written' || c.status === 'dry-run' ? c.corrected : [];
+    L.push(`<b>Self-check (${fixed.length} fixed)</b>`, `<i>${c.checked.length} entr${c.checked.length === 1 ? 'y' : 'ies'} re-read</i>`, ...bullets(fixed, 4, (x) => `▸ ${esc(clip(names[x.entry_key] || x.entry_key, 30))}, ${esc(x.field)}\n      <i>${esc(clip(x.problem, 80))}</i>`), '');
+  }
   L.push(numbers(rep));
   if (rep.held.length || watch.length) {
     L.push('', '<b>⚠️ Watch</b>');

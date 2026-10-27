@@ -28,8 +28,12 @@ const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked'
 const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
+// Fields a self-correction (correct/) may also change, on the entries and fields it names. Never a fact the record states exactly.
+const CORRECTABLE = new Set(READING_FIELDS);
+
 // newKeys: the entries Tier B added this run (any other new entry stops the run); maxNew: the per-run limit on them.
-export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [] }) {
+// corrected: { entry key: [fields] } the self-correction step changed this run (correct/apply.mjs); only reading fields are allowed.
+export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [], corrected = {} }) {
   const problems = [];
   // 1. every output file passes its schema, and the files agree with each other
   const v = makeValidator();
@@ -52,7 +56,11 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
     // 2. no status goes backwards
     if (o.status !== n.status && !(FORWARD[o.status] || []).includes(n.status)) problems.push(`status went backwards on ${key}: ${o.status} -> ${n.status}`);
     // only Tier A fields may change
-    Object.keys({ ...o, ...n }).filter((f) => !TIER_A_FIELDS.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: Tier A may not change it`));
+    // A corrected entry may also gain the bill text as a source (removing one is caught by the deleted-link check above).
+    const fixed = new Set((corrected[key] || []).filter((f) => CORRECTABLE.has(f)));
+    (corrected[key] || []).filter((f) => !CORRECTABLE.has(f)).forEach((f) => problems.push(`self-correction named ${f} on ${key}: only ${READING_FIELDS.join(', ')} may be corrected`));
+    if (fixed.size) fixed.add('sources');
+    Object.keys({ ...o, ...n }).filter((f) => !TIER_A_FIELDS.has(f) && !fixed.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: ${fixed.size ? 'a self-correction' : 'Tier A'} may not change it`));
     if (!same(o, n)) changed++;
     // 6. no event in the future unless it is marked scheduled
     n.events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));
