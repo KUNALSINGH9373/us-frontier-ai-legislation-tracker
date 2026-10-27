@@ -28,7 +28,8 @@ const authored = (e) => !changed.has(e.id);
 const norm = (v) => String(JSON.stringify(v, (k, x) => (x instanceof Date ? x.toISOString() : x)));
 const same = (what, a, b) => { if (norm(a) !== norm(b)) problems.push(`${what}\n    v1: ${norm(a).slice(0, 300)}\n    v2: ${norm(b).slice(0, 300)}`); };
 
-same('entry count', D1.E.length, D2.E.filter(authored).length);
+// Both sides leave out the entries v2 marks as changed: an updated entry still exists in v1, an added one does not.
+same('entry count', D1.E.filter(authored).length, D2.E.filter(authored).length);
 if (changed.size) console.log(`${changed.size} entries updated by the pipeline or added after v1 are not compared with v1: ${v2entries.filter((e) => changed.has(e.id)).map((e) => e.key).join(', ')}`);
 const SKIP = new Set(['raw', 'v2key', 'origin', 'lastChecked', 'v2events']);
 D1.E.filter(authored).forEach((a) => {
@@ -42,8 +43,9 @@ const newsRow = (n) => [n.date, n.kind, n.title, n.entryId, n.tracker];
 same('news', D1.N.map(newsRow), D2.N.filter((n) => !autoNews.has(n.date + '|' + n.title)).map(newsRow));
 // Links and map nodes for entries added after v1 have no v1 counterpart.
 const oldEdge = (e) => !changed.has(e.fromId) && !changed.has(e.toId);
-same('links', D1.edges.map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]), D2.edges.filter(oldEdge).map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]));
-same('link node → entry', D1.keyToId, Object.fromEntries(Object.entries(D2.keyToId).filter(([, id]) => !changed.has(id))));
+same('links', D1.edges.filter(oldEdge).map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]), D2.edges.filter(oldEdge).map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]));
+const unchangedIds = (m) => Object.fromEntries(Object.entries(m).filter(([, id]) => !changed.has(id)));
+same('link node → entry', unchangedIds(D1.keyToId), unchangedIds(D2.keyToId));
 same('actors', D1.rel.actors, D2.rel.actors);
 // v1 also lists names for link keys that have no node in v2 (they were never drawn); compare only the ones in use
 const used = new Set(D1.edges.flatMap((e) => [e.from, e.to]));

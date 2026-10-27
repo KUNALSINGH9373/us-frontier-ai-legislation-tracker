@@ -12,7 +12,12 @@ const clauses = (t) => t.replace(/\\(.)/g, '$1').split(/;\s+|\.\s+(?=[A-Z(])|\s+
 
 const v1 = JSON.parse(fs.readFileSync(path.join(web, 'data', 'entries.json'), 'utf8'));
 const only = (arg('--only') || '').split(',').filter(Boolean).map(Number);
-const todo = only.length ? v1.filter((x) => only.includes(x.id)) : v1;
+// Entries changed after v1 froze (by the pipeline, or corrected in a Claude session) differ from their v1 cells on purpose;
+// they are left out, as in parity-v2.mjs.
+const v2 = JSON.parse(fs.readFileSync(path.join(web, 'data', 'v2', 'entries.json'), 'utf8'));
+const changed = new Set(v2.filter((e) => e.origin !== 'authored' || (e.verification && e.verification.method === 'session')).map((e) => e.id));
+const todo = (only.length ? v1.filter((x) => only.includes(x.id)) : v1).filter((x) => !changed.has(x.id));
+if (changed.size) console.log(`${v1.filter((x) => changed.has(x.id)).length} v1 entries changed since v1 are not compared (see parity-v2.mjs)`);
 const { dump, close } = await startServer();
 const missing = []; let checked = 0, pages = 0;
 const queue = [...todo];
