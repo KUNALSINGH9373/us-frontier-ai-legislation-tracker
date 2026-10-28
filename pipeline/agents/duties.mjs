@@ -17,6 +17,9 @@ export const DUTY_ROUNDS = 2;
 // Bills and laws; only they impose duties. The session-written duty sets (duties/drafts) cover federal bills (D, F) and every state
 // frontier entry: enacted laws (A), pending, stalled and failed bills (B) and the no-threshold bill (B.2). C (IVO / auditor measures) has none.
 export const DUTY_SECTIONS = ['A', 'B', 'B.2', 'D', 'F'];
+// A and B entries are frontier laws and bills: they never go out without their duty answers (held instead; agents/process-item.mjs,
+// publish/tier-b.mjs).
+export const DUTY_REQUIRED_SECTIONS = ['A', 'B'];
 const schema = makeValidator();
 
 // Code knows the URL the text came from: every answer that quotes gets it, and a silence answer carries no section, quote or URL.
@@ -33,12 +36,12 @@ export function normaliseDuties(duties, sourceUrl) {
 }
 
 // The reader's verdict on every answer that asserts something. Returns { name: problem } for each one it did not confirm.
-export async function confirmDuties({ llm, sourceText, duties, itemId }) {
+export async function confirmDuties({ llm, sourceText, readText = sourceText, duties, itemId }) {
   const list = DUTY_NAMES.filter((k) => duties[k] && duties[k].value !== 'not_in_bill').map((k) => ({ field: k, claim: dutyClaim(k, duties[k]) }));
   const rejected = {};
   if (!list.length) return rejected;
   let res;
-  try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: sourceText, claims: list }), itemId }); }
+  try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: readText, claims: list }), itemId }); }
   catch (e) {
     if (!(e instanceof LlmOutputError)) throw e;
     list.forEach((c) => { rejected[c.field] = `the independent reader gave an unusable answer (${e.message}); treated as unsupported`; });
@@ -55,9 +58,9 @@ export async function confirmDuties({ llm, sourceText, duties, itemId }) {
 }
 
 // One round: ask, normalise, check every answer in code and with the reader. Returns { duties, problems: { name: [problem] }, notes }.
-async function dutyRound({ generator, validator, entry, sourceText, sourceUrl, itemId, feedback, previous }) {
+async function dutyRound({ generator, validator, entry, sourceText, readText = sourceText, sourceUrl, itemId, feedback, previous }) {
   let res;
-  try { res = await generator.generate({ system: DUTIES_SYSTEM, prompt: dutiesPrompt({ entry, source: sourceText, sourceUrl, feedback, previous }), itemId }); }
+  try { res = await generator.generate({ system: DUTIES_SYSTEM, prompt: dutiesPrompt({ entry, source: readText, sourceUrl, feedback, previous }), itemId }); }
   catch (e) { if (e instanceof LlmOutputError) return { duties: null, problems: { answer: [`your answer was unusable: ${e.message}`] } }; throw e; }
   const data = res && res.data;
   if (!data || typeof data !== 'object' || !data.duties || typeof data.duties !== 'object') return { duties: null, problems: { answer: ['your answer had no "duties" object'] } };
@@ -70,17 +73,18 @@ async function dutyRound({ generator, validator, entry, sourceText, sourceUrl, i
   Object.keys(data.duties).filter((k) => !DUTY_NAMES.includes(k)).forEach((k) => add(k, `${k}: not one of the 13 duties`));
   // Only answers that passed the code checks go to the reader; a failed one is already out.
   const passed = Object.fromEntries(DUTY_NAMES.filter((k) => duties[k] && !problems[k]).map((k) => [k, duties[k]]));
-  const rejected = await confirmDuties({ llm: validator, sourceText, duties: passed, itemId });
+  const rejected = await confirmDuties({ llm: validator, sourceText, readText, duties: passed, itemId });
   Object.entries(rejected).forEach(([k, why]) => add(k, `${k}: ${why}`));
   return { duties, problems };
 }
 
 // Returns { duties, duties_basis } to put on the entry, or { duties: null } with the reason; dropped lists the answers that failed.
-export async function writeDuties({ generator, validator, entry, sourceText, sourceUrl, itemId, now = new Date(), maxRounds = DUTY_ROUNDS, log = () => {} }) {
+// readText: what the models read (a long bill's frontier sections, agents/sections.mjs); every code check still runs on sourceText.
+export async function writeDuties({ generator, validator, entry, sourceText, readText = sourceText, sourceUrl, itemId, now = new Date(), maxRounds = DUTY_ROUNDS, log = () => {} }) {
   let feedback = [], previous = null, last = null;
   try {
     for (let round = 1; round <= maxRounds; round++) {
-      const r = await dutyRound({ generator, validator, entry, sourceText, sourceUrl, itemId, feedback, previous });
+      const r = await dutyRound({ generator, validator, entry, sourceText, readText, sourceUrl, itemId, feedback, previous });
       last = r;
       const failed = Object.keys(r.problems);
       log(`duties round ${round}: ${failed.length ? failed.length + ' answer(s) failed' : 'every answer proved'}`);

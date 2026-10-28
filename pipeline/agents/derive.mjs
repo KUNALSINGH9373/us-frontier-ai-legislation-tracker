@@ -36,16 +36,36 @@ export function stateNumber(billNumber) {
 
 // LegiScan sponsors -> "Rep. Anastasia Travers (D) with 3 co-sponsors; joint sponsor Rep. Matthew Gwynn (R)". Primary sponsors first, in
 // LegiScan's order (sponsor_type_id 1; when none is marked primary, the first listed). Co-sponsors (2) are counted, joint sponsors (3) named.
-// A party is written only when it is a party letter (Nebraska's nonpartisan "N" is left out); a committee sponsor is its name alone.
+// A party is written only when it is a party letter (Nebraska's nonpartisan "N" is left out). A committee sponsor is labelled as one
+// ("Legislative Modernization (committee)") unless its name already says so ("General Law Committee").
+// LegiScan's role is not trusted on its own: a primary sponsor's chamber is the bill's (S... = Senate; H... or A... = House or Assembly).
+// When LegiScan's role names the other chamber (NJ SR52: "Rep" for two Senators), the bill text decides ("Senator RAJ MUKHERJI"); when
+// the text does not say either, no title is written (never a guess). bill: { bill_number, text } (optional).
 const PARTY = new Set(['D', 'R', 'I', 'L', 'G']);
-const stateSponsor = (s) => (s.committee_sponsor ? s.name : `${s.role ? s.role + '. ' : ''}${s.name}${PARTY.has(s.party) ? ` (${s.party})` : ''}`);
-export function stateSponsorText(sponsors) {
+const chamberOf = (billNumber) => { const n = normNumber(billNumber) || ''; return /^S/.test(n) ? 'Sen' : /^[HA]/.test(n) ? 'Rep' : null; };
+const titleInText = (text, last) => {
+  if (!text || !last) return null;
+  const esc = String(last).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (new RegExp(`\\bSenators?\\s+(?:[A-Z][A-Za-z.'-]*\\s+){0,3}${esc}\\b`, 'i').test(text)) return 'Sen';
+  if (new RegExp(`\\b(?:Representatives?|Assembly(?:man|woman|member|men|women|members)|Delegates?)\\s+(?:[A-Z][A-Za-z.'-]*\\s+){0,3}${esc}\\b`, 'i').test(text)) return 'Rep';
+  return null;
+};
+const roleFor = (s, primary, bill) => {
+  if (!primary || !bill) return s.role;
+  const want = chamberOf(bill.bill_number);
+  if (!want || !s.role || !['Sen', 'Rep'].includes(s.role) || s.role === want) return s.role;
+  const t = titleInText(bill.text, s.last_name || String(s.name || '').split(/\s+/).pop());
+  return t === want ? t : null;
+};
+const committeeName = (n) => (/\bcommittee\b/i.test(n || '') ? n : `${n} (committee)`);
+const stateSponsor = (s, primary, bill) => { if (s.committee_sponsor) return committeeName(s.name); const r = roleFor(s, primary, bill); return `${r ? r + '. ' : ''}${s.name}${PARTY.has(s.party) ? ` (${s.party})` : ''}`; };
+export function stateSponsorText(sponsors, bill = null) {
   const all = [...(sponsors || [])].sort((a, b) => (a.sponsor_order || 0) - (b.sponsor_order || 0));
   let primary = all.filter((s) => s.sponsor_type_id === 1);
   if (!primary.length) primary = all.slice(0, 1);
   if (!primary.length) return null;
   const co = all.filter((s) => s.sponsor_type_id === 2 && !primary.includes(s)).length, joint = all.filter((s) => s.sponsor_type_id === 3 && !primary.includes(s));
-  return primary.map(stateSponsor).join('; ') + (co ? ` with ${co} co-sponsor${co === 1 ? '' : 's'}` : '') + (joint.length ? `; joint sponsor${joint.length === 1 ? '' : 's'} ${joint.map(stateSponsor).join(', ')}` : '');
+  return primary.map((s) => stateSponsor(s, true, bill)).join('; ') + (co ? ` with ${co} co-sponsor${co === 1 ? '' : 's'}` : '') + (joint.length ? `; joint sponsor${joint.length === 1 ? '' : 's'} ${joint.map((s) => stateSponsor(s, false, bill)).join(', ')}` : '');
 }
 
 // A state bill's status, by the same rule the comparison step uses for tracked state bills (compare/legiscan.mjs, from LegiScan's status
@@ -103,7 +123,7 @@ export function deriveCreate({ item, raw }) {
     const intro = events.find((e) => e.type === 'Introduced / published') || ((b.history || [])[0] && { date: b.history[0].date }), last = events[events.length - 1];
     const status_text = `Status: Introduced ${intro && intro.date ? longDate(intro.date) : 'date not stated'}${last && last !== intro ? `; ${last.text} (${longDate(last.date)})` : ''}`;
     return {
-      fields: { title: `${num.dotted} — ${b.title}`, short_name: trunc(`${b.state} ${num.short}`, 100), sponsor_text: stateSponsorText(b.sponsors), status_text },
+      fields: { title: `${num.dotted} — ${b.title}`, short_name: trunc(`${b.state} ${num.short}`, 100), sponsor_text: stateSponsorText(b.sponsors, { bill_number: b.bill_number, text: raw.text }), status_text },
       events, section: null, sections: stateSections(status), status, jurisdiction: b.state, state: b.state, session: b.session && b.session.session_name
     };
   }

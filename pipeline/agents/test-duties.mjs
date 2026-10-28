@@ -121,7 +121,7 @@ for (const [what, name, answer, reject, re] of cases) {
     fields: { mechanism: 'A person who violates the participation or deployment rules shall be fined not less than $1,000,000 per day of the violation.', thresholds: 'Trained using more than 10^26 integer or floating-point operations', penalties: 'Fined not less than $1,000,000 per day of the violation' },
     evidence: [{ field: 'mechanism', quote: M }, { field: 'thresholds', quote: T }, { field: 'penalties', quote: M }] };
   const entries = J('fixtures', 'entries.sample.json').filter((e) => !e.key.startsWith('s-2938'));
-  const go = (dutyAnswers) => processItem({ generator: scriptedGenerator([clone(patch), ...dutyAnswers]), validator: scriptedValidator({ quote: M }), item, raw, diff, entry: null, entries, today: '2026-10-28', runId: 'run-test', now: new Date('2026-10-28T05:00:00Z') });
+  const go = (dutyAnswers) => processItem({ generator: scriptedGenerator([clone(patch), ...dutyAnswers]), validator: scriptedValidator({ quote: M }), referee: scriptedValidator({ quote: M }), item, raw, diff, entry: null, entries, today: '2026-10-28', runId: 'run-test', now: new Date('2026-10-28T05:00:00Z') });
   const r = await go([good()]);
   ok('a new section D bill is publishable with its duties attached', r.outcome === 'publishable' && r.entry.section === 'D' && r.entry.duties && r.entry.duties_basis.method === 'agent' && r.duties.added === true, JSON.stringify({ o: r.outcome, reason: r.reason, d: r.duties, c: r.verdicts.map((x) => x.code_checks.filter((c) => !c.passed)) }));
   ok('the published entry with duties passes the entry schema', r.entry && v.check('entry', r.entry).length === 0, r.entry && v.check('entry', r.entry).join('; '));

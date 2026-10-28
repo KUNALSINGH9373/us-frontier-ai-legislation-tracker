@@ -41,3 +41,25 @@ export function confidenceFor(sourceKinds) {
   if (sourceKinds.includes('primary')) return { level: 'MED-HIGH', basis: 'corroborated' };
   return { level: 'MED', basis: 'secondary' };
 }
+
+// Section A holds enacted state laws that put binding duties on frontier or large AI developers or their models. A law whose only
+// in-scope part is something else (CT H.B. 5222: an independent-verification pilot inside a consumer-protection act) is not an A law.
+// Code checks the enacted text for both: a frontier definition or threshold, and a duty ("shall" / "must" / "may not") on a developer of
+// such models in the same passage. No such passage: A is refused (the Generator is told why, and may choose C; otherwise it is held).
+const FRONTIER_TERM = /\b(?:large\s+)?frontier\s+(?:developers?|models?|artificial intelligence)\b|\bfoundation\s+models?\b|\b10\^2\d\b|\bfloating[- ]point\s+operations\b|\blarge\s+developers?\b|\bcovered\s+(?:frontier\s+)?models?\b/gi;
+const DUTY_ON_DEVELOPER = /\b(?:developers?|deployers?)\b[^.;]{0,200}\b(?:shall|must|may not)\b|\b(?:shall|must)\b[^.;]{0,120}\b(?:frontier|large)\s+developers?\b/i;
+export function frontierDutyPassage(text) {
+  const t = String(text || '').replace(/\s+/g, ' ');
+  for (const m of t.matchAll(FRONTIER_TERM)) {
+    const w = t.slice(Math.max(0, m.index - 1500), m.index + 1500);
+    if (DUTY_ON_DEVELOPER.test(w)) return w.slice(0, 300);
+  }
+  return null;
+}
+// Problems with a state section for a record of this kind ('bill' | 'resolution' | 'memorial' | 'other', agents/record-kind.mjs) and text.
+export function stateSectionProblems(section, kind, text) {
+  const out = [];
+  if (['A', 'B', 'B.2'].includes(section) && kind && kind !== 'bill') out.push(`a ${kind} never goes in section ${section} (A, B and B.2 hold bills and laws)`);
+  if (section === 'A' && text != null && !frontierDutyPassage(text)) out.push('section A needs an enacted text with binding duties on frontier or large AI developers or their models, and none was found in this text; choose C if its subject is independent verification or AI auditors');
+  return out;
+}

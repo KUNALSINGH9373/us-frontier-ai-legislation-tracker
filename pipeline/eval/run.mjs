@@ -27,7 +27,7 @@ import { containsQuote, digitRuns, repairExponents } from '../agents/source-text
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { foreignLetters, textProblems } from '../agents/checks.mjs';
 import { exportControlBill } from '../agents/derive.mjs';
-import { refereeSays } from '../agents/process-item.mjs';
+import { refereeSays, refereeVerdict } from '../agents/process-item.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 const args = process.argv.slice(2), opt = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : null; };
@@ -135,6 +135,12 @@ async function runItem({ gold, text, generator, validator, referee = null, style
       if (objected) problems.push(c.field === 'in_scope' ? `an independent reader judged this item out of scope: ${(r && r.reason) || 'no answer'}` : `claim about ${c.field} ("${c.claim.slice(0, 100)}") is not supported: ${(r && r.reason) || 'the reader could not confirm it word for word'}`);
     }
     last = { patch, problems, round };
+    // As in production (agents/process-item.mjs): a new entry is published only when the referee also rules it in scope, with a quote
+    // code finds in the text. No referee or no confirmation: held.
+    if (!problems.length) {
+      const ref = referee ? await refereeVerdict(referee, text, gold.key) : { in: null };
+      if (ref.in !== true) return { outcome: 'held', in_scope: ref.in === false ? false : null, rounds: round, fields: {}, problems: [ref.in === false ? 'the referee ruled it out of scope after both readers said in' : 'the referee did not confirm the scope with a quote found in the text'] };
+    }
     if (!problems.length) return { outcome: 'published', in_scope: true, rounds: round, fields: patch.fields, section: ruleSection || patch.fields.section || null, problems: [] };
     feedback = problems;
   }

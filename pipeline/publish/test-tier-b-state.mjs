@@ -24,12 +24,12 @@ const CANDIDATES = { az: 'AZ-HB4098-2112241.json', ne: 'NE-LB1185-2088052.json' 
 const PATCHES = {
   az: {
     operation: 'create', in_scope: true, scope_reason: 'Duties on businesses using a frontier model owned or operated by a large developer.', events_add: [],
-    fields: { section: 'B', mechanism: 'An artificial intelligence business must submit a transparency report to the attorney general before using or selling a high risk AI system and conduct a quarterly audit.', thresholds: 'A large developer has spent more than $5,000,000 developing and more than $100,000,000 training the frontier model.', penalties: 'Civil penalty of not more than $50,000 per violation, enforced by the attorney general.' },
+    fields: { section: 'B.2', mechanism: 'An artificial intelligence business must submit a transparency report to the attorney general before using or selling a high risk AI system and conduct a quarterly audit.', thresholds: 'A large developer has spent more than $5,000,000 developing and more than $100,000,000 training the frontier model.', penalties: 'Civil penalty of not more than $50,000 per violation, enforced by the attorney general.' },
     evidence: [{ field: 'mechanism', quote: 'shall submit a transparency report to the attorney general' }, { field: 'thresholds', quote: 'has spent more than $5,000,000 in developing the frontier model and more than $100,000,000 in training the frontier model' }, { field: 'penalties', quote: 'civil penalty of not more than $50,000 per violation' }]
   },
   ne: {
     operation: 'create', in_scope: true, scope_reason: 'Safety duties for conversational AI services.', events_add: [],
-    fields: { section: 'B', mechanism: 'An operator must clearly and conspicuously disclose to each minor account holder that the account holder is interacting with artificial intelligence.' },
+    fields: { section: 'B.2', mechanism: 'An operator must clearly and conspicuously disclose to each minor account holder that the account holder is interacting with artificial intelligence.' },
     evidence: [{ field: 'mechanism', quote: 'An operator shall clearly and conspicuously disclose to each minor account holder' }]
   }
 };
@@ -65,11 +65,16 @@ function setup({ bills = ['az'], edit = () => {}, tweak = () => {}, lsIds = { _n
 const publish = (s, over = {}) => publishRun({ runDir: s.runDir, dataDir: s.dataDir, docsDir: s.docsDir, idsFile: s.idsFile, lsIdsFile: s.lsIdsFile, config: { ...ON, ...over } });
 const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'automated');
 
+// The fixtures are filed in B.2 (duties optional). In A or B the entry must carry proved duty answers: without them it is never created.
+{
+  const s = setup({ edit: (r) => { r.entry.section = 'B'; r.entry.legacy.section_name = 'Pending, stalled and failed state bills'; } }), r = publish(s);
+  ok('state: a B entry without proved duty answers is not created', r.result.added.length === 0 && r.result.skipped.some((x) => /needs its duty answers/.test(x.why)), JSON.stringify(r.result.skipped));
+}
 // ---------- a new state bill is added ----------
 {
   const s = setup(), r = publish(s), d = loadData(s.dataDir), e = d.entries.find((x) => x.origin === 'automated');
   ok('state: the run publishes, with one new entry', r.status === 'published' && r.result.added.length === 1 && !!e, r.summary);
-  ok('state: section, type, level, jurisdiction, state and status by rule', e.section === 'B' && e.type === 'bill' && e.level === 'state' && e.jurisdiction === 'AZ' && e.state === 'AZ' && e.status === 'pending');
+  ok('state: section, type, level, jurisdiction, state and status by rule', e.section === 'B.2' && e.type === 'bill' && e.level === 'state' && e.jurisdiction === 'AZ' && e.state === 'AZ' && e.status === 'pending');
   ok('state: facts from the record in fixed wording', e.title === 'H.B. 4098 — Artificial intelligence business; attorney general' && e.short_name === 'AZ HB 4098' && e.key === 'az-hb-4098' && e.sponsor_text === 'Rep. Anastasia Travers (D)' && /^Status: Introduced Feb 10, 2026/.test(e.status_text));
   ok('state: tracked by its LegiScan id and session', e.identifiers.external.legiscan[0] === 2112241 && e.identifiers.session === 'Fifty-seventh Legislature - Second Regular Session (2026)');
   const n = d.news.items.find((x) => x.tracker === e.key);
@@ -88,7 +93,7 @@ function az() { return j(path.join(FX, 'legiscan', 'candidates', CANDIDATES.az))
 // ---------- a dead bill ----------
 {
   const s = setup({ bills: ['ne'] }), r = publish(s), e = newOnes(s.dataDir)[0];
-  ok('dead state bill: added with status failed, as the record gives it', r.status === 'published' && e && e.status === 'failed' && e.section === 'B' && /Indefinitely postponed \(Apr 17, 2026\)/.test(e.status_text), r.summary);
+  ok('dead state bill: added with status failed, as the record gives it', r.status === 'published' && e && e.status === 'failed' && e.section === 'B.2' && /Indefinitely postponed \(Apr 17, 2026\)/.test(e.status_text), r.summary);
   const nb = j(s.lsIdsFile).legiscan[e.key].bills[0];
   ok('dead state bill: joins the LegiScan list with its session (109th Legislature, last year 2026)', nb.bill_id === 2088052 && nb.session_name === '109th Legislature' && nb.year_end === 2026 && nb.session_open === true, JSON.stringify(nb));
 }

@@ -2,7 +2,7 @@
 // stopped, not published. Each check returns readable problems; empty means the run may be written.
 import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
-import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING } from '../agents/rules.mjs';
+import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems } from '../agents/rules.mjs';
 import { FACT_FIELDS } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 
@@ -11,8 +11,19 @@ export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
 
 // The stricter path for a new entry (Tier B): everything the rules decide must match the rules, and every reading field
 // must carry evidence. The quotes themselves are checked against the stored record in tier-b.mjs, which can read it.
-export function checkNewEntry(e) {
+// ctx (optional, from tier-b.mjs, which holds the stored record): { kind } the measure's kind (agents/record-kind.mjs measureKind) and
+// { text } the record's text; with them the section is checked against the kind of measure and, for A, against the enacted text.
+export function checkNewEntry(e, ctx = {}) {
   const problems = [], rule = SECTION_RULES[e.section];
+  if (rule && rule.level === 'state') stateSectionProblems(e.section, ctx.kind || null, ctx.text != null ? ctx.text : null).forEach((p) => problems.push(p));
+  // A resolution or memorial named as one in its own title ("H.R. 6023 — Opposing ...", "S.C.R. 14", "A RESOLUTION") is never A, B or B.2.
+  if (['A', 'B', 'B.2'].includes(e.section) && /^(?:[HSA]\.\s?(?:[CJ]\.\s?)?[RM]\.\s?\d|[HSA](?:C|J)?[RM]\s?\d)/.test(String(e.title || '')) && !(ctx.kind === 'bill')) problems.push(`"${String(e.title).slice(0, 30)}" is numbered as a resolution or memorial, which never goes in section ${e.section}`);
+  // Events: none that contradicts the status, and no day with the same event twice.
+  const ev = e.events || [];
+  if (['pending', 'failed', 'stalled'].includes(e.status)) ev.filter((x) => x.type === 'Signed / enacted' || x.type === 'Effective').forEach((x) => problems.push(`a ${e.status} bill has a "${x.type}" event (${x.date})`));
+  if (e.status === 'failed') ev.filter((x) => x.scheduled).forEach((x) => problems.push(`a failed bill has a scheduled event (${x.date}: ${String(x.text).slice(0, 60)})`));
+  const seen = new Set();
+  for (const x of ev) { const k = `${x.date}|${String(x.text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()}`; if (seen.has(k)) problems.push(`the same event is listed twice on ${x.date} ("${String(x.text).slice(0, 60)}")`); seen.add(k); }
   if (!AUTO_CREATE_SECTIONS.includes(e.section)) problems.push(`section ${e.section} needs a person`);
   else if (e.type !== rule.type || e.level !== rule.level) problems.push(`type/level ${e.type}/${e.level} do not follow the rule for section ${e.section}`);
   if (e.status !== statusFor(e.section, e.status)) problems.push(`status ${e.status} does not follow the rule for section ${e.section}`);

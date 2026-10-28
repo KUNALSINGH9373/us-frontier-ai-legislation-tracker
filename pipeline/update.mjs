@@ -45,12 +45,39 @@ import { newReport, sourceEntry, aiEntry, publishEntry, finalize, writeReport } 
 import { formatReport } from './report/format.mjs';
 import { formatHtml } from './report/html.mjs';
 import { createTelegram, tokenFromEnv } from './notify/telegram.mjs';
+import { gatedPublishConfig, readGateInputs } from './eval/gate.mjs';
 
 const pipelineDir = path.dirname(fileURLToPath(import.meta.url)), root = path.resolve(pipelineDir, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
 // The site data files a run may change. status.json is written every run but committed alone at most once a day.
 export const DATA_FILES = ['entries', 'news', 'site', 'changes', 'relationships'];
 export const ALL_SOURCES = ['congress_gov', 'federal_register', 'legiscan'];
+
+// The raw records behind the entries a run touched: { entry_key: [{ item_id, source, raw }] }, read from each publish run's change set
+// (an item published from a held replay carries no raw file and is left out). Unreadable records are skipped, never fatal.
+export function runRecords(itemsByKey, keys) {
+  const out = {};
+  for (const key of keys) for (const x of itemsByKey[key] || []) {
+    try {
+      if (!x.runDir) continue;
+      const cs = readJson(path.join(x.runDir, 'changeset.json'), { items: [] }), it = cs.items.find((i) => i.item_id === x.item_id);
+      if (!it || !it.raw_path) continue;
+      (out[key] = out[key] || []).push({ item_id: x.item_id, source: it.source, raw: JSON.parse(fs.readFileSync(path.join(x.runDir, it.raw_path), 'utf8')) });
+    } catch { /* a missing or unreadable record only costs the links step that record */ }
+  }
+  return out;
+}
+
+// The gate (eval/gate.mjs gatedPublishConfig) over the publish config. With no model config the gate cannot be read: every switch is off.
+export function applyGate(config, models, inputs = null) {
+  if (!config || !config.auto_publish) return { config, gate: null, off: [] };
+  if (!models || !(models.anthropic || models.roles)) {
+    const out = JSON.parse(JSON.stringify(config)), off = Object.keys(out.auto_publish).filter((f) => out.auto_publish[f]).map((field) => ({ field, why: 'no model config, so the gate cannot be read' }));
+    off.forEach((x) => (out.auto_publish[x.field] = false));
+    return { config: out, gate: null, off };
+  }
+  return gatedPublishConfig({ config, models, ...(inputs || readGateInputs()) });
+}
 
 export const defaultPaths = () => ({
   pipelineDir, root, dataDir: path.join(root, 'web', 'data', 'v2'), docsDir: path.join(root, 'docs', 'data', 'v2'),
@@ -265,12 +292,18 @@ function commitCounters({ P, git, usageFile, ledgerDir, log }) {
 }
 
 // One update run. Returns { code, rep }. deps replaces any step (tests run the whole chain on fixtures with no network).
-export async function runUpdate({ P = defaultPaths(), config, models, factory, flags = {}, env = process.env, now = () => new Date(), deps = {}, log = (m) => console.log(m), logErr = (m) => console.error(m) } = {}) {
+export async function runUpdate({ P = defaultPaths(), config: publishConfig, models, factory, flags = {}, env = process.env, now = () => new Date(), deps = {}, log = (m) => console.log(m), logErr = (m) => console.error(m) } = {}) {
   const dry = !!flags.dry, source = flags.source || 'all';
   const SOURCES = source === 'all' ? ALL_SOURCES : [source];
   const startedAt = now();
   const stamp = startedAt.toISOString().replace(/[-:]/g, '').slice(0, 13).replace('T', '-');
   const rep = newReport({ id: 'update-' + stamp, now: startedAt, dry, sources: SOURCES });
+  // ---- the accuracy gate, enforced: an auto_publish switch (new entries, relationships, news, the reading fields) is used only when the
+  // latest full test-set report for the production model meets eval_bar (eval/gate.mjs); otherwise it is OFF for this run, and why is
+  // written in the run report. config/publish.json itself is never changed.
+  const { config, gate: gateNow, off: gatedOff } = applyGate(publishConfig, models, deps.gateInputs);
+  rep.gate = { model: gateNow ? gateNow.model : null, report: gateNow ? gateNow.report : null, off: gatedOff };
+  gatedOff.forEach((x) => rep.notes.push(`auto_publish.${x.field} is on in config/publish.json but treated as OFF this run: ${x.why}`));
   const scrub = scrubWith(env), today = startedAt.toISOString().slice(0, 10);
   const git = deps.git || runGit, parity = deps.parity || defaultParity(P);
   const usageFile = path.join(P.stateDir, path.basename(LEGISCAN_USAGE_FILE)), ledgerDir = path.join(P.stateDir, path.basename(LEDGER_DIR));
@@ -466,7 +499,10 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
     // ---- 4c. links: propose links for the entries this run added or changed (code only); added only when auto_publish.relationships is on ----
     step = 'links';
     const touchedKeys = [...new Set([...rep.publish.runs.flatMap((p) => [...p.entries_updated, ...p.entries_added].map((u) => u.entry_key)), ...(c.corrected || []).map((x) => x.entry_key)])];
-    const l = await (deps.linkRun || linkRun)({ dataDir: S.v2, docsDir: null, changed: touchedKeys, config, runDate: today, maxEntries: config.max_entries_changed_per_run, dry, log: (m) => log('  ' + m) });
+    // records: the official records this run read for those entries (sponsors by Congress.gov bioguideId / LegiScan people_id);
+    // created: the entries Tier B created this run. Extra keys are harmless to a linkRun that does not read them yet.
+    const records = runRecords(itemsByKey, touchedKeys), created = [...newKeys];
+    const l = await (deps.linkRun || linkRun)({ dataDir: S.v2, docsDir: null, changed: touchedKeys, config, runDate: today, maxEntries: config.max_entries_changed_per_run, dry, records, created, log: (m) => log('  ' + m) });
     rep.links = l;
     log(`links: ${l.proposed.length} proposed, ${l.applied.length} added (${l.status})`);
     if (l.status === 'stopped') rep.notes.push('links were not added (a stop rule failed: ' + l.problems[0] + ')');

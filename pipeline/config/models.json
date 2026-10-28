@@ -98,6 +98,11 @@
       }
     }
   },
+  "escalation": {
+    "_note": "agents/run.mjs: an item held because it used up max_tokens_per_item or ran out of rounds (a long bill) is tried ONCE more in the same run, written by the generator_role model (the validator stays the independent reader), reading a long bill section by section, within max_tokens_per_item below (spent under the item's own sub-keys, so the run limit and the monthly cap still apply). Still held after that: escalate: true in results, read again only when its record changes.",
+    "generator_role": "referee",
+    "max_tokens_per_item": 200000
+  },
   "monthly_cost_cap_usd": 25,
   "monthly_warn_fraction": 0.8,
   "_note_cost": "Prices are USD per million tokens (Claude, 26 Oct 2026). Haiku 5.5 is $0.10 in / $0.50 out up to 100K prompt tokens and $0.50 / $2.50 above that (the whole call). monthly_cost_cap_usd stops all AI work for the rest of the month; a warning goes out at monthly_warn_fraction of it."

@@ -139,3 +139,23 @@ export function relevantSections(source, { maxChars = SECTION_CHARS } = {}) {
   if (text.length > maxChars) text = body + note(`${omitted.length} sections`);
   return { text, chunks, selected: inOrder.map((u) => u.label), omitted, sections: all.length };
 }
+
+// A long text whose section headings could not be read (IL H.B. 2949, a 1.25-million-character budget bill printed with its line
+// numbers run into the text, so "Section 40-15." never starts a line) is not judged on its opening: the WHOLE text is searched for
+// frontier-AI markers, and the passages around them are read instead, each copied word for word. Same shape as relevantSections;
+// no marker anywhere: text '' and no chunks.
+const MARKERS = /\bfrontier\b|foundation models?\b|\b10\^2\d\b|floating[- ]point operations|catastrophic risks?\b|general[- ]purpose (?:AI|artificial intelligence)|large language models?\b|artificial intelligence safety|\bAI safety\b|independent verification organi[sz]ation|model weights|advanced (?:AI|artificial intelligence) (?:chips?|models?|systems?)/gi;
+export function markerPassages(source, { maxChars = SECTION_CHARS, before = 2000, after = 6000 } = {}) {
+  const s = String(source || ''), spans = [];
+  for (const m of s.matchAll(MARKERS)) {
+    const a = Math.max(0, m.index - before), b = Math.min(s.length, m.index + after), last = spans[spans.length - 1];
+    if (last && a <= last[1]) last[1] = Math.max(last[1], b); else spans.push([a, b]);
+  }
+  if (!spans.length) return { text: '', chunks: [], selected: [], omitted: [], sections: 0 };
+  const room = maxChars - 600, picked = [];
+  let used = 0;
+  for (const [a, b] of spans) { const n = Math.min(b - a, room - used); if (n <= 200) break; picked.push([a, a + n]); used += n + 7; }
+  const chunks = picked.map(([a, b]) => s.slice(a, b));
+  const text = chunks.join('\n\n[...]\n\n') + `\n\n[NOTE: SOURCE above is ${picked.length} passage(s) from a ${s.length}-character text, chosen because they name frontier-AI terms; each is copied word for word and "[...]" marks omitted text${picked.length < spans.length ? `; ${spans.length - picked.length} more passage(s) did not fit` : ''}.]`;
+  return { text, chunks, selected: picked.map(([a, b]) => `characters ${a}-${b}`), omitted: [], sections: 0 };
+}

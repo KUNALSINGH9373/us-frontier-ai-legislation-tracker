@@ -12,6 +12,7 @@ import { createHttp } from '../grabber/lib/http.mjs';
 import { createLlmFromConfig, BudgetExceeded } from '../llm/gemini.mjs';
 import { createLlmFactory } from '../llm/make.mjs';
 import { processItem } from './process-item.mjs';
+import { escalationBudget } from './budget.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
@@ -28,12 +29,20 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
   const byKey = new Map(entries.map((e) => [e.key, e]));
   // A thinking model with a large output budget can take a minute or more, so the timeout is generous.
-  let generator, validator, referee = null, ledger;
+  let generator, validator, referee = null, ledger, escalation = null;
   if (factory) {
     generator = factory.make('generator'); validator = factory.make('validator'); ledger = factory.ledger;
     // The scope referee (a stronger model, asked only on disputed scope calls). A provider with no "referee" role runs without one.
     try { referee = factory.make('referee'); } catch { referee = null; }
     if (!generator) throw new Error(`${factory.keyName} is not set`);
+    // The escalated pass (config/models.json "escalation"): an item held for its token budget or for running out of rounds is tried once
+    // more, written by the stronger model of escalation.generator_role, within escalation.max_tokens_per_item (and the monthly cap).
+    const esc = config && config.escalation;
+    if (esc && esc.max_tokens_per_item) {
+      let g = null; try { g = factory.make(esc.generator_role || 'referee'); } catch { g = null; }
+      const perItem = (config.limits && config.limits.max_tokens_per_item) || 60000;
+      if (g) escalation = { generator: g, validator, budget: escalationBudget({ ledger, perItem, total: esc.max_tokens_per_item }) };
+    }
   } else {
     const http = createHttp({ fetchImpl, headers: { 'x-goog-api-key': apiKey }, secrets: [apiKey], maxRequests: 400, timeoutMs: 180000, log });
     ({ llm: generator, ledger } = createLlmFromConfig({ config, apiKey, http, role: 'generator', log }));
@@ -52,17 +61,17 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
     const raw = JSON.parse(fs.readFileSync(path.join(runDir, item.raw_path), 'utf8'));
     let r;
     try {
-      r = await processItem({ generator, validator, referee, item, raw, diff: d, entry: d.entry_key ? byKey.get(d.entry_key) : null, entries, today, runId: changeset.run_id, now, log });
+      r = await processItem({ generator, validator, referee, escalation, item, raw, diff: d, entry: d.entry_key ? byKey.get(d.entry_key) : null, entries, today, runId: changeset.run_id, now, log });
     } catch (e) {
       if (e instanceof BudgetExceeded) { summary.stopped_by_budget = true; if (e.scope === 'month') summary.stopped_by_month_cap = true; summary.items.push({ item_id: d.item_id, outcome: 'not_processed', reason: e.message }); summary.outcomes.not_processed = (summary.outcomes.not_processed || 0) + 1; log(`stopped: ${e.message}`); break; }
       throw e;
     }
-    r.tokens = ledger.itemTokens(d.item_id);
+    r.tokens = ledger.itemTokens(d.item_id) + (escalation ? escalation.budget.spent(d.item_id) : 0);
     // Circuit breaker: if the model service keeps failing, stop instead of spending minutes retrying every remaining item.
     consecutiveServiceErrors = r.service_error ? consecutiveServiceErrors + 1 : 0;
     if (consecutiveServiceErrors >= 3) { summary.stopped_by_service_errors = true; log('stopped: the model service failed 3 items in a row'); fs.writeFileSync(path.join(runDir, 'results', safe(d.item_id) + '.json'), JSON.stringify(r, null, 1) + '\n'); summary.items.push({ item_id: d.item_id, outcome: r.outcome, operation: r.operation, attempts: r.attempts, tokens: r.tokens, reason: r.reason }); summary.outcomes[r.outcome] = (summary.outcomes[r.outcome] || 0) + 1; break; }
     fs.writeFileSync(path.join(runDir, 'results', safe(d.item_id) + '.json'), JSON.stringify(r, null, 1) + '\n');
-    summary.items.push({ item_id: d.item_id, outcome: r.outcome, operation: r.operation, attempts: r.attempts, tokens: r.tokens, reason: r.reason });
+    summary.items.push({ item_id: d.item_id, outcome: r.outcome, operation: r.operation, attempts: r.attempts, tokens: r.tokens, reason: r.reason, ...(r.escalate ? { escalate: true } : {}), ...(r.escalated ? { escalated: true } : {}) });
     summary.outcomes[r.outcome] = (summary.outcomes[r.outcome] || 0) + 1;
   }
   summary.llm = ledger.totals();
