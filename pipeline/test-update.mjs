@@ -10,7 +10,7 @@ import { runUpdate } from './update.mjs';
 import { publishRun } from './publish/run.mjs';
 import { compareRun } from './compare/run.mjs';
 import { writeChangeset, sha } from './grabber/lib/run-common.mjs';
-import { heldDue } from './update.mjs';
+import { heldDue, namedIn, isLimit } from './update.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FX = path.join(here, 'fixtures', 'publish');
@@ -113,7 +113,6 @@ const cases = [
   ['the site check fails', { parity: () => { throw new Error('exit 1'); } }, {}, 'site check'],
   ['the final check finds a problem that names no entry (a step changed the site file)', { correctRun: async (o) => { const f = path.join(o.dataDir, 'site.json'), x = j(f); x.extra_field = 1; fs.writeFileSync(f, JSON.stringify(x, null, 1)); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; } }, {}, 'final check'],
   ['a publish stop that names no entry or item (unexplained)', { publishRun: (o) => { const r = publishRun({ ...o, dry: true }); return { ...r, status: 'stopped', summary: 'stopped\n', check: { problems: ['3 entries would change, over the limit of 2 per run'] } }; } }, {}, 'publish'],
-  ['the per-run limit is crossed over the whole run, not in one step', { courtsRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f), e = es.find((x) => x.key === 'h-r-9925-frontier-act'); e.status_text += '; x'; e.last_checked = '2026-10-28'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { status: 'published', summary: 'x', requests: 0, errors: [], read: [], result: { touched: [], data: null } }; } }, { max_entries_changed_per_run: 1 }, 'final check'],
   ['the grabber stops', { grab: boom('the grabber') }, {}, 'grab'],
   ['a docs file cannot be written', { io: { ...fs, writeFileSync: (f, b) => { if (/docs[\\/]data[\\/]v2[\\/]entries\.json\.tmp$/.test(f)) throw new Error('EACCES: docs not writable'); return fs.writeFileSync(f, b); } } }, {}, 'promote'],
   ['a docs file cannot be renamed into place (after web was)', { io: { ...fs, renameSync: (a, b) => { if (/docs[\\/]data[\\/]v2[\\/]news\.json$/.test(b)) throw new Error('EBUSY'); return fs.renameSync(a, b); } } }, {}, 'promote']
@@ -148,7 +147,8 @@ for (const [name, over, config, stepName] of cases) {
   ok('final check: the run goes on without the refused entry (exit 0)', code === 0, rep && rep.error);
   ok('final check: nothing the check rejected is promoted (entries byte-identical)', fs.readFileSync(path.join(P.dataDir, 'entries.json')).toString('base64') === b[path.join(P.dataDir, 'entries.json')] && !/edited/.test(e.title));
   ok('final check: the entry\'s item is held with its stored copy', h['final check:congress_gov:119/s/2938'] && h['final check:congress_gov:119/s/2938'].replay && h['final check:congress_gov:119/s/2938'].tries === 1, JSON.stringify(Object.keys(h)));
-  ok('final check: the rest is promoted (grabber state)', j(path.join(P.stateDir, 'state.json')).sources.congress_gov.cursor === '2026-10-28T11:58:00Z');
+  const cg = j(path.join(P.stateDir, 'state.json')).sources.congress_gov;
+  ok('final check: the rest is promoted (grabber state), the cursor moved back to the held bill\'s own date so it is fetched again', cg.last_success === '2026-10-28T12:00:00Z' && cg.cursor === '2026-10-02T11:03:19Z', JSON.stringify(cg));
   ok('final check: the hold is reported', rep.held.some((x) => x.kind === 'stop' && /final check/.test(x.reason)) && rep.notes.some((n) => /held/.test(n)), JSON.stringify(rep.held));
 }
 {
@@ -157,10 +157,14 @@ for (const [name, over, config, stepName] of cases) {
   const RAW = JSON.stringify({ bill: { number: '9925', latestAction: { actionDate: '2026-10-01', text: 'Committee on Science, Space, and Technology. Hearings held.' } } });
   const poisonGrab = (withPoison) => (o) => {
     const ids = fakeGrab(o), dir = path.join(o.P.workDir, 'runs', RUN);
-    if (!withPoison) return ids;
+    if (!withPoison) {
+      // not fetched this run (a bill fetched again with no material change would leave the held list)
+      for (const f of ['changeset.json', 'diff.json']) { const x = j(path.join(dir, f)); x.items = x.items.filter((i) => i.item_id !== P9925); fs.writeFileSync(path.join(dir, f), JSON.stringify(x)); }
+      return ids;
+    }
     fs.mkdirSync(path.join(dir, 'raw', 'congress_gov'), { recursive: true });
     fs.writeFileSync(path.join(dir, 'raw', 'congress_gov', '119-hr-9925.json'), RAW);
-    const cs = j(path.join(dir, 'changeset.json')); cs.items.find((i) => i.item_id === P9925).raw_hash = sha(RAW); fs.writeFileSync(path.join(dir, 'changeset.json'), JSON.stringify(cs));
+    const cs = j(path.join(dir, 'changeset.json')); Object.assign(cs.items.find((i) => i.item_id === P9925), { raw_hash: sha(RAW), fetched_at: '2026-10-28T11:59:00Z' }); fs.writeFileSync(path.join(dir, 'changeset.json'), JSON.stringify(cs));
     const df = j(path.join(dir, 'diff.json')); Object.assign(df.items.find((d) => d.item_id === P9925), { verdict: 'material', reasons: [{ kind: 'new_action', detail: '2026-10-01: Committee on Science, Space, and Technology. Hearings held.', api_value: 'Committee on Science, Space, and Technology. Hearings held.' }] });
     fs.writeFileSync(path.join(dir, 'diff.json'), JSON.stringify(df));
     return ids;
@@ -233,6 +237,137 @@ for (const [name, over, config, stepName] of cases) {
   const { code } = await run(P, { newsRun: async (o) => { fs.writeFileSync(path.join(o.dataDir, 'stray.json'), '{}'); return { skipped_why: null, status: 'quiet', leads: [], drafted: [], summary: '' }; } });
   ok('stray *.json.tmp removed at startup', code === 0 && !fs.existsSync(path.join(P.dataDir, 'entries.json.tmp')) && !fs.existsSync(path.join(P.stateDir, 'state.json.tmp')));
   ok('only the data files and status.json are promoted', !fs.existsSync(path.join(P.dataDir, 'stray.json')) && !fs.existsSync(path.join(P.docsDir, 'stray.json')));
+}
+
+// ---------- BL-1: a per-run limit holds the entries over it and promotes the rest ----------
+const HEARING = 'Committee on Science, Space, and Technology. Hearings held.';
+// The fixture run with `n` more tracked bills (one per entry) each bringing a hearing; `drop`: items not fetched this run.
+const manyGrab = (n, drop = []) => (o) => {
+  const ids = fakeGrab(o), dir = path.join(o.P.workDir, 'runs', RUN);
+  const cs = j(path.join(dir, 'changeset.json')), df = j(path.join(dir, 'diff.json')), seen = new Set([KEY]);
+  const extra = df.items.filter((d) => d.entry_key && !seen.has(d.entry_key) && seen.add(d.entry_key)).slice(0, n);
+  for (const d of extra) {
+    const raw = JSON.stringify({ bill: { latestAction: { actionDate: '2026-10-01', text: HEARING } } }), item = cs.items.find((i) => i.item_id === d.item_id);
+    item.raw_path = `raw/congress_gov/${d.item_id.replace(/\W+/g, '-')}.json`;
+    fs.mkdirSync(path.join(dir, 'raw', 'congress_gov'), { recursive: true }); fs.writeFileSync(path.join(dir, item.raw_path), raw);
+    Object.assign(item, { raw_hash: sha(raw), fetched_at: '2026-10-28T11:59:00Z' });
+    Object.assign(d, { verdict: 'material', reasons: [{ kind: 'new_action', detail: `2026-10-01: ${HEARING}`, api_value: HEARING }] });
+  }
+  cs.items = cs.items.filter((i) => !drop.includes(i.item_id)); df.items = df.items.filter((i) => !drop.includes(i.item_id));
+  fs.writeFileSync(path.join(dir, 'changeset.json'), JSON.stringify(cs)); fs.writeFileSync(path.join(dir, 'diff.json'), JSON.stringify(df));
+  o.extra = extra; return ids;
+};
+{
+  const P = setup(), at = (iso, grab) => runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date(iso), deps: { ...okSteps, grab }, log: () => {}, logErr: () => {} });
+  let extra = [];
+  const r1 = await at('2026-10-28T12:00:00Z', (o) => { const ids = manyGrab(15)(o); extra = o.extra; return ids; });
+  const start = j(path.join(FX, 'data-2026-10-08', 'entries.json')), e1 = j(path.join(P.dataDir, 'entries.json'));
+  const changed = e1.filter((e) => JSON.stringify(e) !== JSON.stringify(start.find((x) => x.key === e.key))).map((e) => e.key);
+  const all = [KEY, ...extra.map((d) => d.entry_key)].sort(), last = all[all.length - 1], heldItem = extra.find((d) => d.entry_key === last);
+  const h1 = j(path.join(P.stateDir, 'held-items.json')).items;
+  ok('limit: 16 material items in one run, exit 0', r1.code === 0, r1.rep.error);
+  ok('limit: 15 entries promoted, the last in rank order (same rank: by key) held', changed.length === 15 && !changed.includes(last), JSON.stringify(changed));
+  ok('limit: the held item is listed at the limit step and reported', h1['limit:' + heldItem.item_id] && r1.rep.held.some((x) => x.kind === 'stop' && /over the limit of 15/.test(x.reason)), JSON.stringify(Object.keys(h1)));
+  ok('limit: the commit summary does not claim the held entry', !r1.rep.publish.runs.some((p) => p.entries_updated.some((u) => u.entry_key === last)));
+  const r2 = await at('2026-10-28T16:00:00Z', manyGrab(0, extra.map((d) => d.item_id)));
+  const e2 = j(path.join(P.dataDir, 'entries.json')).find((x) => x.key === last), ch = j(path.join(P.dataDir, 'changes.json')).items.filter((x) => x.entry_key === last);
+  ok('limit: the next run publishes the held one from its copy (less than a day old)', r2.code === 0 && e2.events.some((v) => v.date === '2026-10-01' && /Hearings held/.test(v.text)) && !Object.keys(j(path.join(P.stateDir, 'held-items.json')).items).length, `${r2.rep.error} ${JSON.stringify(r2.rep.notes)} ${JSON.stringify(j(path.join(P.stateDir, 'held-items.json')).items, (k, v) => (k === 'replay' ? '-' : v))}`);
+  ok('replay: the change log of a replayed item names the run that published it', ch.length && ch.every((x) => x.run_id === r2.rep.id), JSON.stringify(ch.map((x) => x.run_id)));
+}
+{
+  // the whole-run limit crossed by a later step: the lower-ranked entry is put back and held, the rest promoted
+  const P = setup();
+  const { code, rep } = await run(P, { courtsRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f), e = es.find((x) => x.key === 'h-r-9925-frontier-act'); e.status_text += '; x'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { status: 'published', summary: 'x', requests: 0, errors: [], read: [], result: { touched: [], data: null } }; } }, { max_entries_changed_per_run: 1 });
+  const es = j(path.join(P.dataDir, 'entries.json')), h = j(path.join(P.stateDir, 'held-items.json')).items;
+  ok('whole-run limit: exit 0, the hearing (rank 40) is promoted', code === 0 && es.find((x) => x.key === KEY).events.some((v) => v.date === '2026-09-30'), rep.error);
+  ok('whole-run limit: the unranked change is put back and held', !/; x$/.test(es.find((x) => x.key === 'h-r-9925-frontier-act').status_text) && h['limit:h-r-9925-frontier-act'], JSON.stringify(Object.keys(h)));
+}
+
+// ---------- SF-1: an entry put back takes the links to it along ----------
+{
+  const P = setup(), b = files(P), rel = path.join(P.dataDir, 'relationships.json'), NEW = 'zz-new-test-entry', NITEM = 'congress_gov:119/hr/1';
+  const r0 = j(rel), oldNode = Object.keys(r0.nodes)[0];
+  const tierB = (o) => {
+    const r = publishRun(o);
+    if (!/run-20261006/.test(o.runDir)) return r;
+    const f = path.join(o.dataDir, 'entries.json'), es = j(f), e = JSON.parse(JSON.stringify(es.find((x) => x.key === KEY)));
+    Object.assign(e, { key: NEW, id: NEW, section: 'J' }); es.push(e); fs.writeFileSync(f, JSON.stringify(es, null, 1));
+    r.result.added = [{ entry_key: NEW, item_id: NITEM, section: 'J' }];
+    return r;
+  };
+  const node = { name: 'New', column: 0, kind: 'entry', entry_key: NEW }, edge = { from: 'NEWN', to: oldNode, type: Object.keys(r0.types)[0], label: 'related', quote: 'a quote long enough', source_url: 'https://example.com/a', origin: 'automated', src: 'pipeline:links:code' };
+  const { code, rep } = await run(P, {
+    publishRun: tierB,
+    linkRun: async (o) => { const f = path.join(o.dataDir, 'relationships.json'), r = j(f); r.nodes.NEWN = node; r.edges.push(edge); fs.writeFileSync(f, JSON.stringify(r, null, 1)); return { status: 'written', proposed: [edge], applied: [edge], added: { edges: [edge], nodes: { NEWN: node } }, companions: [], dropped: [], problems: [], summary: 'links' }; }
+  }, { max_new_entries_per_run: 1 });
+  const r1 = j(rel), h = j(path.join(P.stateDir, 'held-items.json')).items;
+  ok('links: a refused new entry is put back with its node and edge (exit 0)', code === 0 && !r1.nodes.NEWN && r1.edges.length === r0.edges.length && fs.readFileSync(rel).toString('base64') === b[rel], `${rep.error} ${JSON.stringify(rep.final_check)}`);
+  ok('links: the entry is gone and its item held; the rest promoted', !j(path.join(P.dataDir, 'entries.json')).some((x) => x.key === NEW) && h['final check:' + NITEM] && j(path.join(P.dataDir, 'entries.json')).find((x) => x.key === KEY).events.some((v) => v.date === '2026-09-30'), JSON.stringify(Object.keys(h)));
+}
+
+// ---------- SF-2: held items are retried from fresh data, or expire with a report line ----------
+{
+  // a held item's copy is three days old: it is not published as current; its hash and cursor are forgotten so the grab fetches it again
+  const P = setup(), P9925 = 'congress_gov:119/hr/9925';
+  const raw = JSON.stringify({ bill: { updateDate: '2026-10-25T10:00:00Z', latestAction: { actionDate: '2026-10-01', text: HEARING } } });
+  const replay = { run_id: 'run-old', item: { item_id: P9925, source: 'congress_gov', source_id: '119/hr/9925', entry_key: 'h-r-9925-frontier-act', change: 'changed', raw_path: 'raw/congress_gov/x.json', raw_hash: sha(raw), fetched_at: '2026-10-25T10:00:00Z' }, diff: { item_id: P9925, entry_key: 'h-r-9925-frontier-act', verdict: 'material', reasons: [{ kind: 'new_action', detail: `2026-10-01: ${HEARING}`, api_value: HEARING }] }, raw, result: null };
+  fs.writeFileSync(path.join(P.stateDir, 'held-items.json'), JSON.stringify({ items: { ['publish:' + P9925]: { item_id: P9925, entry_key: 'h-r-9925-frontier-act', step: 'publish', reason: 'x', first_seen: '2026-10-25T10:00:00Z', last_tried: '2026-10-27T10:00:00Z', tries: 3, replay }, 'publish:legiscan:77': { item_id: 'legiscan:77', step: 'publish', reason: 'y', first_seen: '2026-10-27T10:00:00Z', last_tried: '2026-10-27T10:00:00Z', tries: 1 } } }));
+  const grab = (o) => { const ids = fakeGrab(o); const dir = path.join(o.P.workDir, 'runs', RUN); for (const f of ['changeset.json', 'diff.json']) { const x = j(path.join(dir, f)); x.items = x.items.filter((i) => i.item_id !== P9925); fs.writeFileSync(path.join(dir, f), JSON.stringify(x)); } fs.writeFileSync(path.join(o.stateDir, 'state.json'), JSON.stringify({ version: 1, sources: { congress_gov: { last_success: '2026-10-28T12:00:00Z', cursor: '2026-10-28T11:58:00Z', hashes: { '119/hr/9925': 'abc', '119/s/1': 'def' } }, legiscan: { last_success: '2026-10-28T12:00:00Z', hashes: { 77: 'h' } } } })); fs.writeFileSync(path.join(o.stateDir, 'legiscan-seen.json'), '{"77":{"hash":"h"},"78":{"hash":"g"}}'); return ids; };
+  const { code, rep } = await run(P, { grab });
+  const e = j(path.join(P.dataDir, 'entries.json')).find((x) => x.key === 'h-r-9925-frontier-act'), st = j(path.join(P.stateDir, 'state.json')), h = j(path.join(P.stateDir, 'held-items.json')).items;
+  ok('stale copy: not published as current facts', code === 0 && !e.events.some((v) => v.date === '2026-10-01'), rep.error);
+  ok('stale copy: still held, waiting for the fresh fetch', h['publish:' + P9925] && h['publish:legiscan:77'], JSON.stringify(Object.keys(h)));
+  ok('stale copy: its hash forgotten and the cursor moved back to its date', !('119/hr/9925' in st.sources.congress_gov.hashes) && st.sources.congress_gov.hashes['119/s/1'] === 'def' && st.sources.congress_gov.cursor === '2026-10-25T09:59:59Z', JSON.stringify(st.sources.congress_gov));
+  ok('no copy at all: the LegiScan item is fetched again (hash and screening record forgotten)', !('77' in st.sources.legiscan.hashes) && !j(path.join(P.stateDir, 'legiscan-seen.json'))['77'] && j(path.join(P.stateDir, 'legiscan-seen.json'))['78']);
+  // fourteen days on, still not published: dropped with a report line
+  const r2 = await runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-11-08T12:00:00Z'), deps: { ...okSteps, grab }, log: () => {}, logErr: () => {} });
+  ok('expiry: an item held 14 days is dropped and reported, never silently', r2.code === 0 && !j(path.join(P.stateDir, 'held-items.json')).items['publish:' + P9925] && r2.rep.notes.some((n) => n.includes(P9925) && /expired/.test(n)), JSON.stringify(r2.rep.notes));
+}
+{
+  // a held item fetched again with no material change leaves the list, with a report line
+  const P = setup(), P9925 = 'congress_gov:119/hr/9925';
+  fs.writeFileSync(path.join(P.stateDir, 'held-items.json'), JSON.stringify({ items: { ['publish:' + P9925]: { item_id: P9925, step: 'publish', reason: 'x', first_seen: '2026-10-28T08:00:00Z', last_tried: '2026-10-28T08:00:00Z', tries: 1 } } }));
+  const { code, rep } = await run(P);
+  ok('fetched again, nothing left: no longer held, reported', code === 0 && !j(path.join(P.stateDir, 'held-items.json')).items['publish:' + P9925] && rep.notes.some((n) => n.includes(P9925) && /nothing left to publish/.test(n)), JSON.stringify(rep.notes));
+}
+
+{
+  // a fresh copy retried that has nothing left to publish (its fact is already there) leaves the list with a report line
+  const P = setup();
+  await run(P);
+  const cs = j(path.join(FX, 'run-20261006', 'changeset.json')), item = { ...cs.items.find((i) => i.item_id === 'congress_gov:119/s/2938'), fetched_at: '2026-10-28T11:00:00Z' };
+  const replay = { run_id: RUN, item, diff: j(path.join(FX, 'run-20261006', 'diff.json')).items.find((d) => d.item_id === item.item_id), raw: fs.readFileSync(path.join(FX, 'run-20261006', item.raw_path), 'utf8'), result: null };
+  fs.writeFileSync(path.join(P.stateDir, 'held-items.json'), JSON.stringify({ items: { ['publish:' + item.item_id]: { item_id: item.item_id, step: 'publish', reason: 'x', first_seen: '2026-10-28T11:00:00Z', last_tried: '2026-10-28T11:00:00Z', tries: 1, replay } } }));
+  const { code, rep } = await runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T16:00:00Z'), deps: { ...okSteps, grab: quietGrab }, log: () => {}, logErr: () => {} });
+  ok('retried, nothing left: no longer held, never silently', code === 0 && !Object.keys(j(path.join(P.stateDir, 'held-items.json')).items).length && rep.notes.some((n) => n.includes(item.item_id) && /nothing left to publish/.test(n)), `${rep.error} ${JSON.stringify(rep.notes)}`);
+}
+
+// ---------- SF-5: nothing reverted leaves a trace ----------
+{
+  const P = setup(), g = fakeGit({ add: 0, diff: [1, 1], log: { status: 0, stdout: '2026-10-27\n' }, commit: 0 });
+  fs.writeFileSync(path.join(P.stateDir, 'news-seen.json'), '{"items":{"old":{"first_seen":"2026-10-01","outcome":"drafted"}}}\n');
+  fs.writeFileSync(path.join(P.stateDir, 'corrections.json'), JSON.stringify({ last_run: null, items: { [KEY]: { sha: 'old' } } }) + '\n');
+  const { code, rep } = await run(P, {
+    git: g.git,
+    correctRun: async (o) => { fs.writeFileSync(o.stateFile, JSON.stringify({ last_run: '2026-10-28', items: { [KEY]: { sha: 'new' }, other: { sha: 'o' } } })); const f = path.join(o.dataDir, 'entries.json'), es = j(f); es.find((x) => x.key === KEY).title += ' (edited)'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; },
+    newsRun: async (o) => { fs.writeFileSync(o.seenFile, '{"items":{"old":{"first_seen":"2026-10-01","outcome":"drafted"},"lead1":{"first_seen":"2026-10-28","outcome":"drafted"},"lead2":{"first_seen":"2026-10-28","outcome":"not_newsworthy"}}}\n'); return { skipped_why: null, status: 'written', leads: [], drafted: [{ tracker: KEY, written: true }], summary: 'news' }; }
+  }, {}, { commit: true });
+  const st = j(path.join(P.dataDir, 'status.json')), seen = j(path.join(P.stateDir, 'news-seen.json')).items, corr = j(path.join(P.stateDir, 'corrections.json')), commit = g.calls.find((c) => c.args[0] === 'commit');
+  ok('revert leftovers: status.json last_change is not the reverted change\'s date, and the entry is not marked checked', code === 0 && st.last_change !== '2026-09-30' && !st.checked[KEY], `${rep.error} ${JSON.stringify(st)}`);
+  ok('revert leftovers: the commit message does not claim the reverted entry', commit && !commit.input.includes(KEY), commit && commit.input);
+  ok('revert leftovers: the self-correction record of the reverted entry goes back (others kept)', corr.items[KEY].sha === 'old' && corr.items.other && corr.last_run === '2026-10-28', JSON.stringify(corr));
+  ok('revert leftovers: leads drafted this run are not marked seen; older and other marks kept', !seen.lead1 && seen.old && seen.lead2, JSON.stringify(seen));
+}
+
+// ---------- namedIn: only the guards' own positions name an entry ----------
+{
+  const K = 'h-r-9925-frontier-act', O = 's-2938-ai-risk-evaluation-act';
+  const t = (p, want) => { const r = namedIn([p], [K, O]); return JSON.stringify([...r.named.keys()]) === JSON.stringify(want); };
+  ok('namedIn: "deleted event on KEY: <text>" names KEY only, not a key quoted in the text', t(`deleted event on ${K}: 2026-01-01 Referred on ${O}: x`, [K]));
+  ok('namedIn: "existing event edited: <text> on KEY" names the closing KEY', t(`existing event edited: 2026-01-01 see ${O} on ${K}`, [K]));
+  ok('namedIn: schema, new-entry, integrity positions', t(`schema: entry ${K}: /x must be string`, [K]) && t(`new entry ${K}: no evidence quote for mechanism`, [K]) && t(`integrity: relationship node X: no such entry ${K}`, [K]) && t(`integrity: ${K} events[2]: out of order`, [K]));
+  ok('namedIn: a key only inside quoted text names nothing', t(`news items deleted or edited: 1 (${K})`, []) && t(`new news item 2026-10-01 About ${K}: needs evidence quoted from one of its own links`, []));
+  ok('namedIn: limits are not attributed by name', isLimit('16 entries would change, over the limit of 15 per run') && isLimit('2 new entries, over the limit of 1 per run') && !isLimit(`field title changed on ${K}: Tier A may not change it`));
 }
 
 // ---------- the commit ----------

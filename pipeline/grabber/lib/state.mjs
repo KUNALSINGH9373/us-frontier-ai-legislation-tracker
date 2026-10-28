@@ -44,3 +44,35 @@ export function writeState(file, state) {
   fs.writeFileSync(tmp, JSON.stringify(state, null, 1) + '\n');
   fs.renameSync(tmp, file);
 }
+
+// Makes the grabber fetch one item again on its next run. update.mjs calls it on the staged state for an item a stop rule held, so the
+// item is retried from a fresh copy, never from one fetched days ago: the item's hash and its LegiScan screening record are dropped, and
+// the Congress.gov or Federal Register cursor moves back to the item's own date (from its stored record), so the next listing brings it
+// again. A new Congress bill whose record has no date goes back on the waiting-for-text list, which fetches it on the next run.
+// raw: the stored record (text) the item was fetched as, or null. Returns what was changed ('hash', 'cursor', 'seen', 'waiting').
+export function forgetItem(stateDir, { item_id, raw = null, change = null, title = null, today }) {
+  const [source, ...rest] = String(item_id).split(':'), sid = rest.join(':'), done = [];
+  let rec = null;
+  try { rec = raw ? JSON.parse(raw) : null; } catch { rec = null; }
+  const at = !rec ? null : source === 'congress_gov' ? (rec.list_item && rec.list_item.updateDate) || (rec.bill && rec.bill.updateDate) || null : source === 'federal_register' ? (rec.document && rec.document.publication_date) || null : null;
+  const sf = path.join(stateDir, 'state.json'), st = readState(sf), block = st.sources[source];
+  if (block) {
+    if (block.hashes && Object.hasOwn(block.hashes, sid)) { delete block.hashes[sid]; done.push('hash'); }
+    if (at && block.cursor && Date.parse(at) < Date.parse(block.cursor)) {
+      block.cursor = source === 'federal_register' ? String(at).slice(0, 10) : new Date(Date.parse(at) - 1000).toISOString().replace(/\.\d{3}Z$/, 'Z');
+      done.push('cursor');
+    }
+    if (done.length) writeState(sf, st);
+  }
+  const seenFile = path.join(stateDir, path.basename(LEGISCAN_SEEN_FILE));
+  if (source === 'legiscan' && fs.existsSync(seenFile)) {
+    const seen = JSON.parse(fs.readFileSync(seenFile, 'utf8'));
+    if (Object.hasOwn(seen, sid)) { delete seen[sid]; fs.writeFileSync(seenFile, JSON.stringify(seen, null, 1) + '\n'); done.push('seen'); }
+  }
+  if (source === 'congress_gov' && change === 'new' && !at) {
+    const wf = path.join(stateDir, path.basename(WAITING_FILE)), w = fs.existsSync(wf) ? JSON.parse(fs.readFileSync(wf, 'utf8')) : { items: {} };
+    w.items = w.items || {};
+    if (!w.items[item_id]) { w.items[item_id] = { source_id: sid, title, since: today, last_checked: '', checks: 0 }; fs.writeFileSync(wf, JSON.stringify(w, null, 1) + '\n'); done.push('waiting'); }
+  }
+  return done;
+}
