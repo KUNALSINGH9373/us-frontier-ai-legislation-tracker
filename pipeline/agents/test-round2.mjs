@@ -97,6 +97,10 @@ const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate
   memoRecord(memo, item, raw, { outcome: 'held', escalate: true, reason: 'duties unproved', proposal: 'p' }, '2026-10-29');
   ok('6 a held item is remembered; same record: skipped', !!memoSkip(memo, item, raw));
   ok('6 a dead bill is not read again while it stays dead, even if its record changes', !!memoSkip(memo, { ...item, raw_hash: 'h2' }, raw) && !memoSkip(memo, { ...item, raw_hash: 'h2' }, { bill: { status: 1 } }));
+  { // a draft held only because new entries were switched off is not read again while they stay off, and is read again once they are on
+    const m = { items: {} }; memoRecord(m, item, raw, { outcome: 'held', escalate: true, unconfirmed: true, reason: 'not confirmed: new entries are switched off', proposal: 'p' }, '2026-10-29');
+    ok('6 an unconfirmed draft (new entries off) is skipped while off, read again when on', !!memoSkip(m, item, raw, { newEntriesOn: false }) && !memoSkip(m, item, raw, { newEntriesOn: true }) && !memoSkip(m, item, raw));
+  }
   ok('6 a model-service failure is never remembered', (() => { const m = { items: {} }; memoRecord(m, item, raw, { outcome: 'held', escalate: false, service_error: true }, 'x'); return !m.items['legiscan:1']; })());
   // runAgents end to end: the CT duplicate spends a generator call on run 1, nothing on run 2, and is read again when its record changes.
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'r2-memo-')), memoFile = path.join(dir, 'memo.json'), r = rec('CT-HB5222'), ct = draft('CT-HB5222');

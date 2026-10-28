@@ -26,16 +26,18 @@ const WORK = new Set(['material', 'new_entry_candidate']);
 // failed) is not read again while it stays dead, even if LegiScan touches its record. A model-service failure is never remembered.
 export const MEMO_FILE = 'agent-memo.json';
 const deadBill = (item, raw) => item.source === 'legiscan' && raw && raw.bill && [5, 6].includes(Number(raw.bill.status));
-export function memoSkip(memo, item, raw) {
+export function memoSkip(memo, item, raw, { newEntriesOn = true } = {}) {
   const m = memo && memo.items && memo.items[item.item_id];
   if (!m) return null;
+  // a draft held only because new entries were off is read again once they are on (record unchanged or not)
+  if (m.unconfirmed && newEntriesOn !== false) return null;
   if (m.raw_hash && item.raw_hash && m.raw_hash === item.raw_hash) return `its record is unchanged since it was held on ${m.date} (${String(m.reason || '').slice(0, 120)})`;
   if (m.dead && deadBill(item, raw)) return `a dead bill (held on ${m.date}); it is not read again while it stays dead`;
   return null;
 }
 export function memoRecord(memo, item, raw, r, today) {
   memo.items = memo.items || {};
-  if (r.outcome === 'held' && r.escalate && !r.service_error) { const first = !memo.items[item.item_id]; memo.items[item.item_id] = { raw_hash: item.raw_hash || null, reason: String(r.reason || '').slice(0, 300), proposal: r.proposal || null, date: today, dead: deadBill(item, raw) }; return first; }
+  if (r.outcome === 'held' && r.escalate && !r.service_error) { const first = !memo.items[item.item_id]; memo.items[item.item_id] = { raw_hash: item.raw_hash || null, reason: String(r.reason || '').slice(0, 300), proposal: r.proposal || null, date: today, dead: deadBill(item, raw), ...(r.unconfirmed ? { unconfirmed: true } : {}) }; return first; }
   delete memo.items[item.item_id];
   return false;
 }
@@ -44,7 +46,7 @@ const CODE_ONLY = new Set(['cosponsors_change']);
 // factory (llm/make.mjs) is how production runs get their AI clients (provider from config/models.json, spend saved, monthly cap);
 // config + apiKey + fetchImpl is the older direct Gemini path the tests use.
 // maxItems caps how many items one run sends to the AI (material changes first, then new-bill candidates); the rest wait for the next run.
-export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, factory, today, now = new Date(), only, maxItems, memoFile = null, log = () => {} }) {
+export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, factory, today, now = new Date(), only, maxItems, memoFile = null, newEntriesOn = true, log = () => {} }) {
   const memo = memoFile && fs.existsSync(memoFile) ? (() => { try { return JSON.parse(fs.readFileSync(memoFile, 'utf8')); } catch { return { items: {} }; } })() : { items: {} };
   const changeset = JSON.parse(fs.readFileSync(path.join(runDir, 'changeset.json'), 'utf8'));
   const diffs = JSON.parse(fs.readFileSync(path.join(runDir, 'diff.json'), 'utf8')).items;
@@ -63,7 +65,7 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
     if (esc && esc.max_tokens_per_item) {
       let g = null; try { g = factory.make(esc.generator_role || 'referee'); } catch { g = null; }
       const perItem = (config.limits && config.limits.max_tokens_per_item) || 60000;
-      if (g) escalation = { generator: g, validator, budget: escalationBudget({ ledger, perItem, total: esc.max_tokens_per_item }) };
+      if (g && newEntriesOn !== false) escalation = { generator: g, validator, budget: escalationBudget({ ledger, perItem, total: esc.max_tokens_per_item }) };
     }
   } else {
     const http = createHttp({ fetchImpl, headers: { 'x-goog-api-key': apiKey }, secrets: [apiKey], maxRequests: 400, timeoutMs: 180000, log });
@@ -81,7 +83,7 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
   for (const d of todo) {
     const item = itemById.get(d.item_id);
     const raw = JSON.parse(fs.readFileSync(path.join(runDir, item.raw_path), 'utf8'));
-    const memoWhy = d.verdict === 'new_entry_candidate' ? memoSkip(memo, item, raw) : null;
+    const memoWhy = d.verdict === 'new_entry_candidate' ? memoSkip(memo, item, raw, { newEntriesOn }) : null;
     if (memoWhy) {
       const r0 = { item_id: d.item_id, outcome: 'held', operation: 'create', attempts: 0, entry: null, patch: null, verdicts: [], reason: `not read again: ${memoWhy}`, escalate: true, not_reread: true, tokens: 0 };
       fs.writeFileSync(path.join(runDir, 'results', safe(d.item_id) + '.json'), JSON.stringify(r0, null, 1) + '\n');
@@ -91,14 +93,14 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
     }
     let r;
     try {
-      r = await processItem({ generator, validator, referee, escalation, item, raw, diff: d, entry: d.entry_key ? byKey.get(d.entry_key) : null, entries, today, runId: changeset.run_id, now, log });
+      r = await processItem({ generator, validator, referee, escalation, item, raw, diff: d, entry: d.entry_key ? byKey.get(d.entry_key) : null, entries, today, runId: changeset.run_id, now, newEntriesOn, log });
     } catch (e) {
       if (e instanceof BudgetExceeded) { summary.stopped_by_budget = true; if (e.scope === 'month') summary.stopped_by_month_cap = true; summary.items.push({ item_id: d.item_id, outcome: 'not_processed', reason: e.message }); summary.outcomes.not_processed = (summary.outcomes.not_processed || 0) + 1; log(`stopped: ${e.message}`); break; }
       throw e;
     }
     r.tokens = ledger.itemTokens(d.item_id) + (escalation ? escalation.budget.spent(d.item_id) : 0);
     // Circuit breaker: if the model service keeps failing, stop instead of spending minutes retrying every remaining item.
-    consecutiveServiceErrors = r.service_error ? consecutiveServiceErrors + 1 : 0;
+    consecutiveServiceErrors = r.service_error && !r.fetch_error ? consecutiveServiceErrors + 1 : 0; // a record fetch failure is not the model service
     if (consecutiveServiceErrors >= 3) { summary.stopped_by_service_errors = true; log('stopped: the model service failed 3 items in a row'); fs.writeFileSync(path.join(runDir, 'results', safe(d.item_id) + '.json'), JSON.stringify(r, null, 1) + '\n'); summary.items.push({ item_id: d.item_id, outcome: r.outcome, operation: r.operation, attempts: r.attempts, tokens: r.tokens, reason: r.reason }); summary.outcomes[r.outcome] = (summary.outcomes[r.outcome] || 0) + 1; break; }
     fs.writeFileSync(path.join(runDir, 'results', safe(d.item_id) + '.json'), JSON.stringify(r, null, 1) + '\n');
     summary.items.push({ item_id: d.item_id, outcome: r.outcome, operation: r.operation, attempts: r.attempts, tokens: r.tokens, reason: r.reason, ...(r.escalate ? { escalate: true } : {}), ...(r.escalated ? { escalated: true } : {}) });

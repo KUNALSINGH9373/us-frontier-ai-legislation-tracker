@@ -81,6 +81,7 @@ ok('exponents read the same however printed; years and single digits are not fac
     const missing = must.filter((f) => fs.existsSync(path.join(root, f)) && !files.includes(f));
     ok('hash r3: checks_hash covers case sets, gold, config, llm, grabber, compare, publish, agents, links, news, schema', missing.length === 0 && files.includes('config/models.json') && files.some((f) => f.startsWith('eval/tierb-set/records/')) && files.some((f) => f.startsWith('grabber/sources/')), missing.join());
     ok('hash r3: what a run writes is not hashed (data, state, reports)', !files.some((f) => /^(data|state|node_modules|eval\/reports)\//.test(f)));
+    ok('hash: the tracked-bill lists a run rewrites (config/identifiers*.json) are not hashed', fs.existsSync(path.join(root, 'config', 'identifiers.json')) && !files.some((f) => /^config\/identifiers.*\.json$/.test(f)) && files.includes('config/models.json'), files.filter((f) => f.startsWith('config/')).join());
     const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'hash-'));
     fs.mkdirSync(path.join(tmpRoot, 'config'), { recursive: true }); fs.mkdirSync(path.join(tmpRoot, 'eval', 'tierb-set'), { recursive: true });
     fs.writeFileSync(path.join(tmpRoot, 'config', 'publish.json'), '{"a":1,"auto_publish":{"news":false}}'); fs.writeFileSync(path.join(tmpRoot, 'eval', 'tierb-set', 'cases.json'), '{"cases":[]}');
