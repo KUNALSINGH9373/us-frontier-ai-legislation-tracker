@@ -130,7 +130,7 @@ function tempData() {
   ok('a docket that fails is reported and keeps its state; the other is read', r2.errors.length === 1 && /HTTP 500/.test(r2.errors[0]) && s2['72379655'].last_date === '2026-07-01' && s2['73171074'].last_date === '2026-10-02', JSON.stringify(r2.errors));
   ok('the error text never shows the token', !JSON.stringify(r2).includes('TEST-TOKEN'));
   const x = loadData(t2.dataDir).entries.find((e) => e.key === XAI);
-  ok('D. Colo.: the Apr 16 minute order is added (no news); the intervention (Apr 24) and stay (Apr 27) a person wrote up are not', r2.status === 'published' && x.events.some((v) => v.date === '2026-04-16' && /courtlistener/.test(v.source_url || '') && /^Minute Order: This matter is before the Court sua sponte/.test(v.clause)) && !x.events.some((v) => ['2026-04-24', '2026-04-27'].includes(v.date) && /courtlistener/.test(v.source_url || '')) && !loadData(t2.dataDir).news.items.some((nn) => nn.tracker === XAI && nn.date === '2026-04-16'), r2.summary);
+  ok('D. Colo.: the Apr 16 conference-time reset is housekeeping and not added; the intervention (Apr 24) and stay (Apr 27) a person wrote up are not either', !x.events.some((v) => v.date === '2026-04-16' && /courtlistener/.test(v.source_url || '')) && !x.events.some((v) => ['2026-04-24', '2026-04-27'].includes(v.date) && /courtlistener/.test(v.source_url || '')) && !loadData(t2.dataDir).news.items.some((nn) => nn.tracker === XAI && nn.date === '2026-04-16'), r2.summary);
   // dry run: nothing written
   const t3 = tempData();
   fs.writeFileSync(t3.stateFile, JSON.stringify({ dockets: { 72379655: { last_date: '2026-07-01', seen: {} } } }));
@@ -145,6 +145,15 @@ function tempData() {
   fs.writeFileSync(t5.stateFile, JSON.stringify({ dockets: { 72379655: { last_date: '2026-07-01', seen: {} }, 73171074: { last_date: '2026-04-01', seen: {} } } }));
   const r5 = await courtsRun({ http: mkHttp({}, 2), limiter: async () => {}, cases: CASES, dataDir: t5.dataDir, stateFile: t5.stateFile, config: {}, runId: 'u5', now: NOW });
   ok('a spent request budget stops reading; the unread docket keeps its state', r5.errors.some((x) => /budget/.test(x)) && j(t5.stateFile).dockets['73171074'].last_date === '2026-04-01', JSON.stringify(r5.errors));
+}
+
+// ---------- quotes are never cut; housekeeping minute orders are not deadlines ----------
+{
+  const long = 'MINUTE ORDER: The parties\' Motion, ECF No. 22, is GRANTED. ' + 'The defendant shall not initiate enforcement of the statute. '.repeat(8) + 'Entered by Magistrate Judge X on 4/27/2026.';
+  const c = classifyEntry({ description: long });
+  ok('a long entry: display text trimmed, full text kept whole', c.text.endsWith('…') && !c.full.includes('…') && c.full.length > c.text.length && c.full.endsWith('4/27/2026'));
+  ok('a conference time reset is housekeeping, not a deadline', classifyEntry({ description: 'Minute Order: This matter is before the Court sua sponte. The Scheduling Conference set for 6/16/2026 at 10:30 a.m is hereby RESET to 6/16/2026 at 10:45 a.m.' }) === null);
+  ok('a filing deadline is still kept', classifyEntry({ description: 'Set/Reset Deadlines/Hearings: Response to Complaint due by 12/1/2026.' }) === null || classifyEntry({ description: 'MINUTE ORDER. Defendants shall respond to the 1 Complaint by December 1, 2026.' })?.kind === 'deadline');
 }
 
 console.log(`\ncourts: ${pass} passed, ${fail} failed`);

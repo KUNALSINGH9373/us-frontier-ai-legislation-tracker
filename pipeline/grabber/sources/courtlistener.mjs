@@ -70,8 +70,12 @@ export function classifyEntry(x) {
   if (!raw) return null; // an entry with no docket text (the RSS stub of a fuller entry the same day) is never used
   if (ROUTINE.some((re) => re.test(raw))) return null;
   const k = KINDS.find((c) => c.re.test(raw));
-  return k ? { kind: k.kind, news: k.news, label: k.label, text: trimDescription(raw) } : null;
+  // A minute order that only sets or moves a conference or hearing time is housekeeping, not a deadline anyone must meet.
+  if (k && k.kind === 'deadline' && !FILING_DEADLINE.test(raw)) return null;
+  // text: the court's words, trimmed for display; full: the same words untrimmed, for every quote (a quote is never cut).
+  return k ? { kind: k.kind, news: k.news, label: k.label, text: trimDescription(raw), full: trimDescription(raw, Infinity) } : null;
 }
+const FILING_DEADLINE = /\b(due|deadline|shall (file|respond|submit|answer)|response to|reply to|status report)\b/i;
 export function trimDescription(t, max = 300) {
   const s = String(t).replace(/\s+/g, ' ').replace(/^\W*\*+\s*/, '')
     .replace(/\s*\((Filed on|Entered:)[^)]*\)/gi, '').replace(/\s*\([a-z0-9]{2,12}, COURT STAFF\)/gi, '').replace(/\s*\(Main Document[^)]*\)/gi, '')

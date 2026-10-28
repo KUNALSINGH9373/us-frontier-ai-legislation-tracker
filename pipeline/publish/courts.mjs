@@ -35,9 +35,9 @@ export function applyCourts({ data, found, runDate, runId, config = {} }) {
     // Already on the entry: the same words, the same docket number, or a person's own account of that day's ruling.
     const dup = e.events.some((v) => v.date === date && v.type === 'Litigation' && (v.text === cut(c.text, 200) || (n != null && new RegExp(`\\bDkt\\.? ?${n}\\b`).test(v.text + ' ' + (v.clause || ''))) || !/courtlistener\.com/.test(v.source_url || '')));
     if (dup) { skipped.push({ entry_key: e.key, why: `docket entry ${n ?? f.entry.id} (${date}) is already on the entry` }); continue; }
-    const quote = c.text.replace(/…$/, '');
-    e.events.push({ date, precision: 'day', type: 'Litigation', text: cut(c.text, 200), clause: c.text, scheduled: date > cutoff, source_url: url });
-    log.push({ entry_key: e.key, field: 'events', old: null, new: { date, type: 'Litigation', text: c.text }, date: runDate, run_id: runId, source_url: url, tier: 'A' });
+    const quote = c.full; // the whole docket text: a quote is never cut
+    e.events.push({ date, precision: 'day', type: 'Litigation', text: cut(c.text, 200), clause: c.full, scheduled: date > cutoff, source_url: url });
+    log.push({ entry_key: e.key, field: 'events', old: null, new: { date, type: 'Litigation', text: c.full }, date: runDate, run_id: runId, source_url: url, tier: 'A' });
     (e.evidence = e.evidence || []).push({ field: 'events', quote, source_url: url });
     if (c.news) {
       const add = `${c.label}${n != null ? ` (Dkt. ${n})` : ''} (${longDate(date)}, ${SOURCE})`;
@@ -50,7 +50,7 @@ export function applyCourts({ data, found, runDate, runId, config = {} }) {
       if (config.news_from_official_actions !== false && !out.news.items.some((y) => y.tracker === e.key && y.date === date)) {
         out.news.items.push({
           date, kind: 'litigation', title: cut(`${e.short_name}: ${c.label}`, 140),
-          body: `The court docket (${f.court}) records this entry in ${e.title} on ${longDate(date)}: "${c.text}".`,
+          body: `The court docket (${f.court}) records this entry in ${e.title} on ${longDate(date)}: "${c.full}".`,
           links: [{ t: `${e.short_name} docket on CourtListener`, u: url }],
           check: 'From the court docket (CourtListener), copied word for word by code; no AI was used.',
           tracker: e.key, origin: 'automated', verification: { method: 'agent', checked_at: at, run_id: runId, rounds: 0 },
