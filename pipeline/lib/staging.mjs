@@ -10,9 +10,11 @@ const jsonIn = (dir) => (fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => 
 
 // dir: the staging folder (made fresh). dataDir: web/data/v2. idsFiles: { name: real path } (the tracked-bill lists).
 // stateDir + stateFiles: the run-to-run state promoted with the data (grabber/lib/state.mjs PROMOTED_STATE).
+// dataFiles: the only site data files (names without .json) a run may promote; any other file a step drops into staging is never promoted.
 // Returns where each step writes, and `pairs`: every staged file with the real files it is promoted to and their bytes at run start.
-export function createStaging({ dir, dataDir, docsDir = null, idsFiles = {}, stateDir, stateFiles = [] }) {
+export function createStaging({ dir, dataDir, docsDir = null, idsFiles = {}, stateDir, stateFiles = [], dataFiles = null }) {
   fs.rmSync(dir, { recursive: true, force: true });
+  cleanTmp([dataDir, docsDir, stateDir, ...Object.values(idsFiles).map((f) => path.dirname(f))]);
   const v2 = path.join(dir, 'v2'), config = path.join(dir, 'config'), state = path.join(dir, 'state');
   for (const d of [v2, config, state]) fs.mkdirSync(d, { recursive: true });
   const pairs = [], start = new Map();
@@ -22,10 +24,23 @@ export function createStaging({ dir, dataDir, docsDir = null, idsFiles = {}, sta
   for (const [name, real] of Object.entries(idsFiles)) { ids[name] = path.join(config, path.basename(real)); if (fs.existsSync(real)) fs.copyFileSync(real, ids[name]); pair(ids[name], [real]); }
   for (const f of stateFiles) { const real = path.join(stateDir, f); if (fs.existsSync(real)) fs.copyFileSync(real, path.join(state, f)); pair(path.join(state, f), [real]); }
   // data files: the ones there now, and any a step adds (listed again at promotion)
-  const dataPairs = () => jsonIn(v2).map((f) => ({ staged: path.join(v2, f), reals: [path.join(dataDir, f), ...(docsDir ? [path.join(docsDir, f)] : [])] }));
+  const dataPairs = () => jsonIn(v2).filter((f) => !dataFiles || dataFiles.includes(f.replace(/\.json$/, ''))).map((f) => ({ staged: path.join(v2, f), reals: [path.join(dataDir, f), ...(docsDir ? [path.join(docsDir, f)] : [])] }));
   dataPairs().forEach((p) => p.reals.forEach((r) => start.set(r, read(r))));
   for (const f of jsonIn(docsDir)) start.set(path.join(docsDir, f), read(path.join(docsDir, f)));
   return { dir, v2, ids, stateDir: state, stateFile: (f) => path.join(state, f), pairs: () => [...dataPairs(), ...pairs], start };
+}
+
+// A crash mid-write can leave <name>.json.tmp next to a real file; such leftovers are removed before a run starts (files only).
+function cleanTmp(dirs) {
+  for (const d of dirs) if (d && fs.existsSync(d)) for (const f of fs.readdirSync(d)) {
+    const p = path.join(d, f);
+    if (f.endsWith('.json.tmp') && fs.statSync(p).isFile()) fs.rmSync(p, { force: true });
+  }
+}
+
+// Puts every written file back as it was before a promotion (its recorded bytes, or removed when it did not exist).
+export function rollback(writes) {
+  for (const w of writes) { if (w.was) fs.writeFileSync(w.to, w.was); else fs.rmSync(w.to, { force: true }); }
 }
 
 // The writes a promotion would make: each real file whose bytes differ from its staged copy (a staged file that does not exist is
@@ -59,7 +74,7 @@ export function promote(writes, io = fs) {
     for (const w of writes) if (!fs.readFileSync(w.to).equals(w.bytes)) throw new Error(`${w.to}: the promoted file differs from the staged one`);
   } catch (e) {
     for (const t of tmps) fs.rmSync(t, { force: true });
-    for (const w of done) { if (w.was) fs.writeFileSync(w.to, w.was); else fs.rmSync(w.to, { force: true }); }
+    rollback(done);
     throw new Error(`promotion failed, every file put back as it was: ${e.message}`);
   }
   return writes.map((w) => w.to);

@@ -7,6 +7,7 @@ import { longDate } from '../agents/derive.mjs';
 import { datesMentioned, COSPONSOR_SUFFIX, cosponsorSuffix, actionKind } from '../compare/congress.mjs';
 import { stateActionKind } from '../grabber/sources/legiscan.mjs';
 import { statusFor } from '../agents/rules.mjs';
+import { STALE } from './guards.mjs';
 
 const FULL_MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -68,8 +69,8 @@ function saidNearby(statusText, a) {
   }
   return null;
 }
-// "No action in 11+ months", "no further action since July 30": out of date once a new action is added. Only a whole clause is dropped.
-const STALE = /(^|[;,.])\s*no (further )?action (in|for|since)\b[^;.]*/gi;
+// "No action in 11+ months", "no further action since July 30": out of date once a new action is added. Only a whole clause is dropped,
+// ended by ; , . or the end of the text (the rule is the guard's own, publish/guards.mjs STALE).
 const dropStale = (t) => String(t || '').replace(STALE, '$1').replace(/^[\s;,.]+/, '').replace(/([;,.])(\s*[;,.])+/g, '$1');
 // "...; nine more joined Oct 1-19, 2026, for 12 cosponsors in all": the author's running total in the status text.
 const TOTAL_IN_TEXT = /\bfor (\d+) cosponsors? in all\b/g;

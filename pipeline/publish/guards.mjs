@@ -62,6 +62,7 @@ export function sponsorTextProblem(o, n) {
   if (o.sponsor_text === n.sponsor_text) return null;
   const f = n.record_facts && n.record_facts.cosponsors;
   if (!f || !Number.isInteger(f.count)) return 'sponsor_text changed without a cosponsor total in record_facts';
+  if (typeof n.sponsor_text !== 'string') return 'sponsor_text removed (only its fixed-wording end may change)';
   if (!n.sponsor_text.endsWith(cosponsorSuffix(f.count))) return `sponsor_text does not end with the fixed wording for ${f.count} cosponsors`;
   if (handPart(n.sponsor_text) !== handPart(o.sponsor_text)) return 'sponsor_text: the hand-written part changed';
   return null;
@@ -72,16 +73,43 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const OVERRIDE = /\bover(ridden|ride\b|.{0,40}\bveto)|became public law|became law/i;
 
 // The status text is the author's; the pipeline may only add to its end. The new text must start with the old one (its closing
-// punctuation aside), allowing exactly the two edits Tier A makes inside it (publish/tier-a.mjs): a stale "No (further) action
-// in/for/since …" clause is dropped once a new action is added, and the total in "for N cosponsors in all" follows the record.
-const STALE = /(^|[;,.])\s*no (further )?action (in|for|since)\b[^;.]*/gi;
+// punctuation aside), allowing exactly the two edits Tier A makes inside it (publish/tier-a.mjs): a stale "No (further) action in N
+// months / since <date>" clause is dropped, only on an entry that gained a new event in this change, and the total in "for N cosponsors
+// in all" becomes the record's total, only when record_facts.cosponsors changed in this change.
+// Only a whole clause, ended by ; , . or the end of the text: "no action in the House since, because ..." is never matched.
+const MONTH = '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)';
+export const STALE = new RegExp(`(^|[;,.])\\s*no (further )?action (?:(?:in|for) \\d+\\+? ?(?:months?|weeks?|years?)|since (?:${MONTH}\\.? \\d{1,2}(?:, \\d{4})?|\\d{4}-\\d{2}-\\d{2}))\\s*(?=[;,.]|$)`, 'gi');
 const COSPONSORS_IN_ALL = /\bfor \d+ cosponsors? in all\b/gi;
-const tidy = (t) => String(t || '').replace(/^[\s;,.]+/, '').replace(/([;,.])(\s*[;,.])+/g, '$1').replace(COSPONSORS_IN_ALL, 'for # cosponsors in all');
+const tidy = (t) => String(t || '').replace(/^[\s;,.]+/, '').replace(/([;,.])(\s*[;,.])+/g, '$1');
+const newEvent = (o, n) => { const had = new Set((o.events || []).map(evKey)); return (n.events || []).some((x) => !had.has(evKey(x))); };
 export function statusTextProblem(o, n) {
   if (o.status_text === n.status_text || !o.status_text) return null;
-  const now = tidy(n.status_text);
-  for (const old of [o.status_text, String(o.status_text).replace(STALE, '$1')]) if (now.startsWith(tidy(old).replace(/[\s.;,:]+$/, ''))) return null;
+  const now = tidy(n.status_text), f = n.record_facts && n.record_facts.cosponsors;
+  const olds = [String(o.status_text)];
+  if (newEvent(o, n)) olds.push(olds[0].replace(STALE, '$1'));
+  if (f && Number.isInteger(f.count) && !same(o.record_facts && o.record_facts.cosponsors, f)) olds.push(...olds.map((t) => t.replace(COSPONSORS_IN_ALL, `for ${f.count} cosponsor${f.count === 1 ? '' : 's'} in all`)));
+  for (const old of olds) if (now.startsWith(tidy(old).replace(/[\s.;,:]+$/, ''))) return null;
   return 'status_text: the existing text was rewritten (only additions at its end are allowed)';
+}
+
+// Existing events and evidence are append-only. An event (matched by date, type and text) keeps every field; only "scheduled" may flip,
+// and only to what the data's cut-off says (publish/tier-a.mjs advanceCutoff). Evidence items are never edited or removed, except the
+// evidence of a field a self-correction replaced (correct/apply.mjs).
+const bare = (v) => { const { scheduled, ...rest } = v; return rest; };
+export function appendOnlyProblems(o, n, { updatesThrough, fixed = new Set() } = {}) {
+  const problems = [], pool = [...(n.events || [])];
+  for (const x of o.events || []) {
+    const i = pool.findIndex((y) => evKey(y) === evKey(x) && same(bare(y), bare(x)) && (y.scheduled === x.scheduled || y.scheduled === (y.date > updatesThrough)));
+    if (i >= 0) { pool.splice(i, 1); continue; }
+    if (pool.some((y) => evKey(y) === evKey(x))) problems.push(`existing event edited: ${x.date} ${String(x.text).slice(0, 60)}`);
+  }
+  const ev = (n.evidence || []).map((x) => JSON.stringify(x));
+  for (const x of o.evidence || []) {
+    if (fixed.has(x.field)) continue;
+    const i = ev.indexOf(JSON.stringify(x));
+    if (i >= 0) ev.splice(i, 1); else problems.push(`existing evidence edited or removed (${x.field}: "${String(x.quote || '').slice(0, 50)}")`);
+  }
+  return problems;
 }
 
 // Identifiers are set once (absent -> set, when an entry first becomes mixed) and afterwards only gain ids: nothing is edited or removed.
@@ -144,6 +172,7 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
     if (fixed.size) fixed.add('sources');
     Object.keys({ ...o, ...n }).filter((f) => f !== 'sponsor_text' && !TIER_A_FIELDS.has(f) && !fixed.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: ${fixed.size ? 'a self-correction' : 'Tier A'} may not change it`));
     const sp = sponsorTextProblem(o, n); if (sp) problems.push(`${sp} on ${key}`);
+    appendOnlyProblems(o, n, { updatesThrough: after.site.updates_through, fixed }).forEach((p) => problems.push(`${p} on ${key}`));
     if (!same(o, n)) changed++;
     // 6. no event in the future unless it is marked scheduled
     n.events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));

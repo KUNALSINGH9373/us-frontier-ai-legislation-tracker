@@ -8,6 +8,9 @@
 // data. Only then is everything promoted at once: the same bytes to web/data/v2 and docs/data/v2, the lists to config/, the state to
 // state/. Any failure anywhere leaves every one of those files as it was (the LegiScan usage counter and the AI ledger in state/ count
 // what was really spent, so they are written at once).
+// A stop that names what it refused (a source's publish, the court dockets, the final check) does not stop the run: those items or
+// entries are left out and held in state/held-items.json (retried every run for a day, then daily, and reported every run), and the rest
+// is promoted. A stop that names nothing it refused promotes nothing, as any other failure.
 // --dry-run: fetch and compare, but promote nothing and make no AI calls. --commit: one local git commit when anything changed (never
 // pushes): the data files, their docs copies, the tracked-bill lists and state/. status.json alone ("checked N minutes ago") is
 // committed at most once a day. Only one update runs at a time (data/update.lock). Exit code 1 on any failure, including a git failure.
@@ -19,7 +22,7 @@ import path from 'path';
 import { execFileSync, spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { compareRun } from './compare/run.mjs';
-import { publishRun, loadData, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } from './publish/run.mjs';
+import { publishRun, loadData, writeData, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } from './publish/run.mjs';
 import { checkPublish } from './publish/guards.mjs';
 import { runAgents } from './agents/run.mjs';
 import { correctRun } from './correct/run.mjs';
@@ -31,7 +34,7 @@ import { newsRun } from './news/run.mjs';
 import { makeValidator } from './schema/validate.mjs';
 import { loadEnv } from './grabber/lib/env.mjs';
 import { STATE_DIR, WORK_DIR, PROMOTED_STATE, LEGISCAN_USAGE_FILE, LEDGER_DIR } from './grabber/lib/state.mjs';
-import { createStaging, plan, promote } from './lib/staging.mjs';
+import { createStaging, plan, promote, rollback } from './lib/staging.mjs';
 import { createLlmFactory } from './llm/make.mjs';
 import { summarize } from './llm/spend.mjs';
 import { newReport, sourceEntry, aiEntry, publishEntry, finalize, writeReport } from './report/build.mjs';
@@ -49,6 +52,70 @@ export const defaultPaths = () => ({
   pipelineDir, root, dataDir: path.join(root, 'web', 'data', 'v2'), docsDir: path.join(root, 'docs', 'data', 'v2'),
   idsFile: IDENTIFIERS_FILE, lsIdsFile: LEGISCAN_IDS_FILE, stateDir: STATE_DIR, workDir: WORK_DIR
 });
+
+// Items a stop rule refused (state/held-items.json, promoted with the run): { items: { "<step>:<item id or entry key>": { item_id?,
+// entry_key?, step, reason, first_seen, last_tried, tries, replay? } } }. The run leaves them out and publishes the rest; a held item is
+// tried again every run for its first day, then once a day, and leaves the list when it passes. replay: the stored item (change-set
+// item, diff, raw record, the AI result for a new entry), because the grabber will not fetch an unchanged item again.
+export const HELD_FILE = 'held-items.json';
+export const heldDue = (h, now) => +now - Date.parse(h.first_seen) < 86400e3 || String(h.last_tried).slice(0, 10) < now.toISOString().slice(0, 10);
+const heldId = (h) => `${h.step}:${h.item_id || h.entry_key || 'step'}`;
+const safe = (id) => id.replace(/[^A-Za-z0-9._-]+/g, '-'); // the file name agents/run.mjs gives each result
+const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// Which of `names` (entry keys, item ids) each problem names. A problem that names none is unexplained: the run then stops as before.
+export function namedIn(problems, names) {
+  const named = new Map(), unexplained = [];
+  for (const p of problems) {
+    const hit = names.filter((k) => new RegExp(`(^|[^A-Za-z0-9_-])${escRe(k)}([^A-Za-z0-9_-]|$)`).test(p));
+    if (!hit.length) unexplained.push(p);
+    hit.forEach((k) => { if (!named.has(k)) named.set(k, p); });
+  }
+  return { named, unexplained };
+}
+// One item of a grabber run, kept so it can be published again later on its own.
+function replayOf(runDir, id) {
+  const cs = readJson(path.join(runDir, 'changeset.json'), { items: [] }), item = cs.items.find((i) => i.item_id === id);
+  if (!item || !item.raw_path || !fs.existsSync(path.join(runDir, item.raw_path))) return null;
+  const df = readJson(path.join(runDir, 'diff.json'), { items: [] }), res = readJson(path.join(runDir, 'results.json'));
+  const r = res && res.items.find((i) => i.item_id === id), rf = path.join(runDir, 'results', safe(id) + '.json');
+  return { run_id: cs.run_id, item, diff: df.items.find((d) => d.item_id === id) || null, raw: fs.readFileSync(path.join(runDir, item.raw_path), 'utf8'), result: r && fs.existsSync(rf) ? { summary: r, draft: readJson(rf) } : null };
+}
+// A one-item run folder from a stored item, dated today.
+function writeReplay(dir, r, generatedAt) {
+  fs.rmSync(dir, { recursive: true, force: true });
+  const w = (f, x) => { fs.mkdirSync(path.dirname(path.join(dir, f)), { recursive: true }); fs.writeFileSync(path.join(dir, f), typeof x === 'string' ? x : JSON.stringify(x, null, 1)); };
+  w('changeset.json', { run_id: r.run_id, generated_at: generatedAt, items: [r.item] });
+  w('diff.json', { items: r.diff ? [r.diff] : [] });
+  w(r.item.raw_path, r.raw);
+  if (r.result) { w('results.json', { items: [r.result.summary] }); w(path.join('results', safe(r.item.item_id) + '.json'), r.result.draft); }
+  return dir;
+}
+// Puts entries back as they were at the start of the run (a new one is removed), with their news items and change-log records from this
+// run; the court-docket state of those entries goes back too, so the docket is read again.
+function revertEntries({ S, before, keys, courtsStart }) {
+  const cur = loadData(S.v2), set = new Set(keys), was = new Map(before.entries.map((e) => [e.key, e]));
+  cur.entries = cur.entries.flatMap((e) => (!set.has(e.key) ? [e] : was.has(e.key) ? [JSON.parse(JSON.stringify(was.get(e.key)))] : []));
+  const ut = cur.site.updates_through;
+  cur.entries.filter((e) => set.has(e.key)).forEach((e) => e.events.forEach((v) => { if (v.scheduled !== undefined || v.date > ut) v.scheduled = v.date > ut; }));
+  const oldNews = new Set(before.news.items.map((x) => JSON.stringify(x)));
+  cur.news.items = cur.news.items.filter((x) => oldNews.has(JSON.stringify(x)) || !set.has(x.tracker));
+  const n0 = (before.changes.items || []).length;
+  cur.changes.items = [...cur.changes.items.slice(0, n0), ...cur.changes.items.slice(n0).filter((x) => !set.has(x.entry_key))];
+  writeData(S.v2, cur, ['entries', 'news', 'changes']);
+  for (const f of Object.values(S.ids)) {
+    const ids = readJson(f);
+    if (!ids) continue;
+    let hit = false;
+    for (const list of Object.values(ids)) if (list && typeof list === 'object') for (const k of keys) if (!was.has(k) && list[k]) { delete list[k]; hit = true; }
+    if (hit) fs.writeFileSync(f, JSON.stringify(ids, null, 1) + '\n');
+  }
+  const cf = S.stateFile('courts-state.json');
+  if (fs.existsSync(cf)) {
+    const st = readJson(cf), old = courtsStart ? JSON.parse(courtsStart.toString('utf8')) : { dockets: {} };
+    for (const [id, d] of Object.entries(st.dockets || {})) if (set.has(d.entry_key)) { if (old.dockets && old.dockets[id]) st.dockets[id] = old.dockets[id]; else delete st.dockets[id]; }
+    fs.writeFileSync(cf, JSON.stringify(st, null, 1) + '\n');
+  }
+}
 
 // Anything that looks like a key or token is removed from error text before it is saved or sent.
 const secretValues = (env) => Object.entries(env).filter(([k, v]) => /(KEY|TOKEN|SECRET)/i.test(k) && v && v.length > 8).map(([, v]) => v);
@@ -125,6 +192,7 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
   const usageFile = path.join(P.stateDir, path.basename(LEGISCAN_USAGE_FILE)), ledgerDir = path.join(P.stateDir, path.basename(LEDGER_DIR));
   const validateStatus = deps.validateStatus || ((s) => makeValidator().check('status', s));
   let step = 'start', code = 0, S = null;
+  const stamped = startedAt.toISOString().replace(/\.\d{3}Z$/, 'Z');
 
   // ---- one run at a time ----
   const lock = path.join(P.workDir, 'update.lock');
@@ -135,8 +203,21 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
   try {
     // ---- 0. the staging copy: every step below writes here, nothing else ----
     step = 'staging';
-    S = createStaging({ dir: path.join(P.workDir, 'staging', rep.id), dataDir: P.dataDir, docsDir: config.copy_to_docs ? P.docsDir : null, idsFiles: { ids: P.idsFile, lsIds: P.lsIdsFile }, stateDir: P.stateDir, stateFiles: PROMOTED_STATE });
+    S = createStaging({ dir: path.join(P.workDir, 'staging', rep.id), dataDir: P.dataDir, docsDir: config.copy_to_docs ? P.docsDir : null, idsFiles: { ids: P.idsFile, lsIds: P.lsIdsFile }, stateDir: P.stateDir, stateFiles: [...PROMOTED_STATE, HELD_FILE], dataFiles: [...DATA_FILES, 'status'] });
     const before = loadData(S.v2); // the data as it was at the start: the final check compares the whole run with it
+    // ---- held items: what a stop rule refused on earlier runs, and what it refuses now ----
+    const held = readJson(S.stateFile(HELD_FILE), { items: {} }); held.items = held.items || {};
+    const heldNow = [], tried = new Set(), isDue = (h) => heldDue(h, startedAt);
+    const hold = (x, reason) => {
+      const same = Object.entries(held.items).filter(([, h]) => (x.item_id ? h.item_id === x.item_id : !h.item_id && h.entry_key === x.entry_key && h.step === x.step));
+      const prev = same.map(([, h]) => h).sort((a, b) => a.first_seen.localeCompare(b.first_seen))[0];
+      same.forEach(([id]) => delete held.items[id]);
+      const replay = x.replay || (prev && prev.replay) || null;
+      const h = { ...(x.item_id ? { item_id: x.item_id } : {}), ...(x.entry_key ? { entry_key: x.entry_key } : {}), step: x.step, reason: String(reason).slice(0, 300), first_seen: prev ? prev.first_seen : stamped, last_tried: stamped, tries: (prev ? prev.tries : 0) + 1, ...(replay ? { replay } : {}) };
+      held.items[heldId(h)] = h; heldNow.push(h);
+      return h;
+    };
+    const itemsByKey = {}; // entry key -> the publish items that changed it this run ({ item_id, runDir } or { item_id, replay })
 
     // ---- 1. grab ----
     step = 'grab';
@@ -152,7 +233,15 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
 
     // ---- 2. compare, 3. AI step, 4. publish: one run after another (each publish reads the staged data the previous one wrote) ----
     const published = [], summaries = [], newKeys = [], checked = {};
-    const stamped = startedAt.toISOString().replace(/\.\d{3}Z$/, 'Z');
+    const seenFresh = new Set();
+    // One publish result into the report and the run's lists.
+    const recordPublish = (r, label, newsBefore, src) => {
+      const newsAfter = r.result && r.result.data ? (r.result.data.news.items || []).length : newsBefore;
+      rep.publish.runs.push(publishEntry({ result: r.result, newsBefore, newsAfter, status: r.status }));
+      if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length || r.result.added.length) { published.push(label); summaries.push(r.summary); } }
+      if (r.result && r.result.added) newKeys.push(...r.result.added.map((x) => x.entry_key));
+      if (r.result) [...(r.result.applied || []), ...(r.result.added || [])].forEach((a) => (itemsByKey[a.entry_key] = itemsByKey[a.entry_key] || []).push({ item_id: a.item_id, ...src }));
+    };
     for (const id of runs) {
       const runDir = runDirOf(id);
       step = 'compare';
@@ -175,13 +264,40 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
 
       step = 'publish';
       const newsBefore = (readJson(path.join(S.v2, 'news.json'), { items: [] }).items || []).length;
-      const r = (deps.publishRun || publishRun)({ runDir, dataDir: S.v2, docsDir: null, dry, config, idsFile: S.ids.ids, lsIdsFile: S.ids.lsIds });
-      log(`publish ${id}: ${r.status}`);
-      if (r.status === 'stopped') { log(r.summary); throw new Error(`publish stopped for ${id}; nothing from this run was promoted`); }
-      const newsAfter = r.result && r.result.data ? (r.result.data.news.items || []).length : newsBefore;
-      rep.publish.runs.push(publishEntry({ result: r.result, newsBefore, newsAfter, status: r.status }));
-      if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length || r.result.added.length) { published.push(id); summaries.push(r.summary); } }
-      if (r.result && r.result.added) newKeys.push(...r.result.added.map((x) => x.entry_key));
+      // A held item that comes again with something to publish: the fresh copy replaces the stored one; before it is due it is left out.
+      const runItems = new Set([...readJson(path.join(runDir, 'diff.json'), { items: [] }).items.filter((d) => d.verdict === 'material').map((d) => d.item_id), ...(readJson(path.join(runDir, 'results.json'), { items: [] }).items || []).filter((i) => i.outcome === 'publishable').map((i) => i.item_id)]);
+      runItems.forEach((x) => seenFresh.add(x));
+      const waiting = Object.values(held.items).filter((h) => h.item_id && runItems.has(h.item_id));
+      waiting.filter((h) => !isDue(h)).forEach((h) => { const rp = replayOf(runDir, h.item_id); if (rp) h.replay = rp; });
+      const skip = waiting.filter((h) => !isDue(h)).map((h) => h.item_id);
+      waiting.filter(isDue).forEach((h) => tried.add(heldId(h)));
+      let r;
+      // A stop names the entries (or items) it refused: those items are held and the rest of the run is published without them.
+      for (let round = 0; ; round++) {
+        r = (deps.publishRun || publishRun)({ runDir, dataDir: S.v2, docsDir: null, dry, config, idsFile: S.ids.ids, lsIdsFile: S.ids.lsIds, skip: [...skip] });
+        log(`publish ${id}: ${r.status}${skip.length ? ` (${skip.length} held item(s) left out)` : ''}`);
+        if (r.status !== 'stopped') break;
+        const diffItems = readJson(path.join(runDir, 'diff.json'), { items: [] }).items.filter((d) => !skip.includes(d.item_id) && d.verdict === 'material');
+        const cands = [...diffItems.map((d) => ({ item_id: d.item_id, entry_key: d.entry_key })), ...((r.result && r.result.added) || []).map((a) => ({ item_id: a.item_id, entry_key: a.entry_key }))];
+        const { named, unexplained } = namedIn((r.check && r.check.problems) || [], [...new Set(cands.flatMap((c) => [c.item_id, c.entry_key]))]);
+        const off = cands.filter((c) => named.has(c.item_id) || named.has(c.entry_key));
+        if (!named.size || unexplained.length || !off.length || round >= 5) { log(r.summary); throw new Error(`publish stopped for ${id}; nothing from this run was promoted`); }
+        off.forEach((c) => { if (skip.includes(c.item_id)) return; hold({ ...c, step: 'publish', replay: replayOf(runDir, c.item_id) }, named.get(c.item_id) || named.get(c.entry_key)); skip.push(c.item_id); });
+      }
+      recordPublish(r, id, newsBefore, { runDir });
+    }
+
+    // ---- 4'. held items due for another try that no grabber run brought again: each published alone from its stored copy ----
+    for (const [hid, h] of Object.entries(held.items).filter(([, x]) => x.item_id && x.replay && isDue(x) && !seenFresh.has(x.item_id) && !heldNow.includes(x))) {
+      step = 'publish (held items)';
+      tried.add(hid);
+      const newsBefore = (readJson(path.join(S.v2, 'news.json'), { items: [] }).items || []).length;
+      let r;
+      try { r = (deps.publishRun || publishRun)({ runDir: writeReplay(path.join(S.dir, 'held', safe(h.item_id)), h.replay, stamped), dataDir: S.v2, docsDir: null, dry, config, idsFile: S.ids.ids, lsIdsFile: S.ids.lsIds }); }
+      catch (e) { r = { status: 'stopped', check: { problems: [e.message] } }; }
+      log(`publish held ${h.item_id}: ${r.status}`);
+      if (r.status === 'stopped') { hold(h, ((r.check && r.check.problems) || [])[0] || 'stopped again'); continue; }
+      recordPublish(r, 'held ' + h.item_id, newsBefore, { replay: h.replay });
     }
 
     // ---- 4a. court dockets: material entries on the tracked federal cases (config/courts.json), as Tier A facts ----
@@ -192,9 +308,21 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
       else {
         const http = deps.courtsHttp || createHttp({ headers: { Authorization: 'Token ' + token }, secrets: [token], maxRequests: config.courts.max_requests_per_run || 12, log: (m) => log('  ' + m) });
         const newsBefore = (readJson(path.join(S.v2, 'news.json'), { items: [] }).items || []).length;
-        const k = await (deps.courtsRun || courtsRun)({ http, limiter: createRateLimiter({ perMinute: 5 }), cases: readJson(path.join(P.pipelineDir, 'config', 'courts.json'), {}), dataDir: S.v2, docsDir: null, stateFile: S.stateFile('courts-state.json'), config, runId: rep.id, now: startedAt, dry, log: (m) => log('  ' + m) });
-        log(`court dockets: ${k.status}; ${k.requests} request(s)`);
-        if (k.status === 'stopped') { log(k.summary); throw new Error('court-docket publish stopped; nothing from this run was promoted'); }
+        const allCases = readJson(path.join(P.pipelineDir, 'config', 'courts.json'), {}), limiter = createRateLimiter({ perMinute: 5 });
+        const heldCases = Object.values(held.items).filter((h) => h.step === 'court dockets');
+        const skipKeys = heldCases.filter((h) => !isDue(h)).map((h) => h.entry_key);
+        let k;
+        // A stop names the cases it refused: those are held (their docket state stays, so they are read again) and the rest is read again.
+        for (let round = 0; ; round++) {
+          const cases = Object.fromEntries(Object.entries(allCases).filter(([key]) => !skipKeys.includes(key)));
+          k = await (deps.courtsRun || courtsRun)({ http, limiter, cases, dataDir: S.v2, docsDir: null, stateFile: S.stateFile('courts-state.json'), config, runId: rep.id, now: startedAt, dry, log: (m) => log('  ' + m) });
+          log(`court dockets: ${k.status}; ${k.requests} request(s)${skipKeys.length ? ` (${skipKeys.length} held case(s) left out)` : ''}`);
+          if (k.status !== 'stopped') break;
+          const { named, unexplained } = namedIn((k.check && k.check.problems) || [], Object.keys(cases).filter((x) => !x.startsWith('_')));
+          if (!named.size || unexplained.length || round >= 3) { log(k.summary); throw new Error('court-docket publish stopped; nothing from this run was promoted'); }
+          named.forEach((reason, key) => { hold({ entry_key: key, step: 'court dockets' }, reason); skipKeys.push(key); });
+        }
+        heldCases.filter((h) => isDue(h) && (k.read || []).some((x) => x.entry_key === h.entry_key)).forEach((h) => tried.add(heldId(h)));
         k.errors.forEach((x) => rep.notes.push(`court docket not read: ${x}`));
         (k.read || []).forEach((x) => { checked[x.entry_key] = stamped; });
         const newsAfter = k.result.data ? (k.result.data.news.items || []).length : newsBefore;
@@ -245,11 +373,51 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
     if (!dry) {
       // ---- 6. the final check: the whole run against the data at its start, with the union of what each step was allowed to change ----
       step = 'final check';
-      const after = loadData(S.v2);
-      const added = { edges: after.relationships.edges.slice(before.relationships.edges.length), nodes: Object.fromEntries(Object.entries(after.relationships.nodes).filter(([k]) => !before.relationships.nodes[k])) };
-      const linksAdded = l.status === 'written' && l.applied.length ? added : null;
-      const check = checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run, maxNew: config.max_new_entries_per_run ?? 0, newKeys, corrected, links: linksAdded });
-      if (check.problems.length) { rep.final_check = check.problems.slice(0, 20); throw new Error(`the final check over the whole run failed (${check.problems.length} problem(s)): ${check.problems.slice(0, 3).join('; ')}`); }
+      // The links allowance is what the links step itself applied (its edges, in order, and only the nodes those edges need), never
+      // whatever the data happens to hold: an edge another step appended is refused.
+      const brief = (e) => [e.from, e.to, e.type, e.label].join('|');
+      let linksOn = l.status === 'written' && l.applied.length > 0;
+      const linksAllowance = (after) => {
+        if (!linksOn) return null;
+        const tail = after.relationships.edges.slice(before.relationships.edges.length);
+        const edges = l.added ? l.added.edges : tail.length === l.applied.length && tail.every((e, i) => brief(e) === brief(l.applied[i])) ? tail : l.applied;
+        const ends = new Set(edges.flatMap((e) => [e.from, e.to]));
+        return { edges, nodes: l.added ? l.added.nodes : Object.fromEntries(Object.entries(after.relationships.nodes).filter(([key]) => !before.relationships.nodes[key] && ends.has(key))) };
+      };
+      // A problem that names entries holds those entries (put back as they were; their items retried later); a problem in the link
+      // network holds the links step (the network put back). Anything else is unexplained and nothing is promoted.
+      for (let round = 0; ; round++) {
+        const after = loadData(S.v2);
+        const check = checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run, maxNew: config.max_new_entries_per_run ?? 0, newKeys, corrected, links: linksAllowance(after) });
+        if (!check.problems.length) break;
+        const linkProblems = check.problems.filter((p) => /^(relationships changed|added link)/.test(p));
+        const keys = [...new Set([...before.entries, ...after.entries].map((e) => e.key))];
+        const { named, unexplained } = namedIn(check.problems.filter((p) => !linkProblems.includes(p)), keys);
+        if (unexplained.length || (!named.size && !linkProblems.length) || round >= 3) { rep.final_check = check.problems.slice(0, 20); throw new Error(`the final check over the whole run failed (${check.problems.length} problem(s)): ${check.problems.slice(0, 3).join('; ')}`); }
+        if (linkProblems.length) {
+          writeData(S.v2, before, ['relationships']);
+          hold({ step: 'links' }, linkProblems[0]);
+          linksOn = false; rep.links = { ...l, status: 'held', applied: [] };
+          const i = published.indexOf('links'); if (i >= 0) { published.splice(i, 1); summaries.splice(i, 1); }
+        }
+        if (named.size) {
+          revertEntries({ S, before, keys: [...named.keys()], courtsStart: S.start.get(path.join(P.stateDir, 'courts-state.json')) });
+          named.forEach((reason, key) => {
+            delete corrected[key];
+            const ni = newKeys.indexOf(key); if (ni >= 0) newKeys.splice(ni, 1);
+            const items = itemsByKey[key] || [];
+            if (items.length) items.forEach((x) => hold({ item_id: x.item_id, entry_key: key, step: 'final check', replay: x.replay || (x.runDir && replayOf(x.runDir, x.item_id)) }, reason));
+            else hold({ entry_key: key, step: 'final check' }, reason);
+            rep.publish.runs.forEach((pr) => { pr.entries_updated = pr.entries_updated.filter((u) => u.entry_key !== key); pr.entries_added = pr.entries_added.filter((u) => u.entry_key !== key); });
+          });
+        }
+      }
+      // Held items tried again this run that no check refused leave the list; an entry or step held by the final check leaves it once a
+      // run that was due to retry it passes.
+      Object.entries(held.items).filter(([id, h]) => !heldNow.includes(h) && (tried.has(id) || (['final check', 'links'].includes(h.step) && !h.item_id && isDue(h)))).forEach(([id]) => delete held.items[id]);
+      if (Object.keys(held.items).length || fs.existsSync(S.stateFile(HELD_FILE))) fs.writeFileSync(S.stateFile(HELD_FILE), JSON.stringify(held, null, 1) + '\n');
+      rep.stops = Object.values(held.items).map(({ replay, ...h }) => h);
+      if (heldNow.length) rep.notes.push(`${heldNow.length} item(s) refused by a stop rule and held (state/held-items.json): ${heldNow.map((h) => `${h.item_id || h.entry_key || h.step} at ${h.step}`).join(', ')}; everything else was promoted`);
 
       // ---- 7. the site check on the staged data: v1 and v2 still build the same model for every entry the pipeline has not changed ----
       if (published.length) {
@@ -262,8 +430,10 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
       const p = plan(S);
       if (p.problems.length) throw new Error('nothing promoted: ' + p.problems.slice(0, 3).join('; '));
       const written = promote(p.writes, deps.io);
-      if (config.copy_to_docs) for (const f of fs.readdirSync(S.v2).filter((x) => x.endsWith('.json'))) {
-        if (!fs.readFileSync(path.join(P.dataDir, f)).equals(fs.readFileSync(path.join(P.docsDir, f)))) throw new Error(`after promotion web and docs differ in ${f}`);
+      // web and docs must hold the same bytes; if not, every promoted file goes back to the bytes it had before the promotion
+      if (config.copy_to_docs) for (const f of [...DATA_FILES, 'status'].map((x) => x + '.json').filter((x) => fs.existsSync(path.join(S.v2, x)))) {
+        const w = path.join(P.dataDir, f), d = path.join(P.docsDir, f);
+        if (!fs.existsSync(w) || !fs.existsSync(d) || !(deps.readBack || fs.readFileSync)(w).equals(fs.readFileSync(d))) { rollback(p.writes); throw new Error(`after promotion web and docs differ in ${f}; every promoted file was put back`); }
       }
       rep.promoted = written.map((f) => path.relative(P.root, f).split(path.sep).join('/'));
       log(`promoted ${written.length} file(s)`);
@@ -289,6 +459,8 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
     rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key)) || (rep.corrections && rep.corrections.corrected.some((x) => x.entry_key === e.key))).map((e) => [e.key, e.short_name]));
     const finished = now();
     finalize(rep, { now: finished, spend: summarize(factory.spend.between(startedAt, finished)), month: factory.monthStatus() });
+    // Items a stop rule holds go at the top of the "on hold" list (and so into the Telegram message), every run until they pass.
+    if (rep.stops && rep.stops.length) rep.held = [...rep.stops.map((h) => ({ item_id: h.item_id || h.entry_key || h.step, reason: `stopped at ${h.step} (${h.tries} tr${h.tries === 1 ? 'y' : 'ies'} since ${h.first_seen.slice(0, 10)}): ${h.reason}`, kind: 'stop', title: h.entry_key || null })), ...rep.held];
     const file = writeReport(rep, path.join(P.workDir, 'updates', rep.id));
     log(`run report: ${path.relative(P.root, file)}`);
   } catch (e) {
