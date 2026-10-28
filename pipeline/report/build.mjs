@@ -23,7 +23,7 @@ export function sourceEntry({ runDir, source }) {
   const g = readJson(path.join(runDir, 'grab-stats.json')) || {}, diff = readJson(path.join(runDir, 'diff.json')) || { summary: {}, items: [] };
   const verdicts = { unchanged: 0, minor: 0, material: 0, new_entry_candidate: 0, ...diff.summary };
   return {
-    source, name: SOURCE_NAMES[source] || source, run_id: g.run_id || path.basename(runDir), requests: g.requests ?? null, truncated: !!g.truncated, items_in_change_set: g.items ?? diff.items.length,
+    source, name: SOURCE_NAMES[source] || source, run_id: g.run_id || path.basename(runDir), requests: g.requests ?? null, truncated: !!g.truncated, fallback_used: !!(g.stats && g.stats.list_fallback), items_in_change_set: g.items ?? diff.items.length,
     month_used: g.month_used ?? null, month_cap: g.month_cap ?? null, counts: normaliseStats(source, g.stats), stats: g.stats || {}, verdicts,
     new_candidates: diff.items.filter((d) => d.verdict === 'new_entry_candidate').map((d) => ({ item_id: d.item_id, title: d.title || (d.reasons && d.reasons[0] && d.reasons[0].detail) || d.item_id })),
     material: diff.items.filter((d) => d.verdict === 'material').map((d) => ({ item_id: d.item_id, entry_key: d.entry_key }))
@@ -56,7 +56,7 @@ export function publishEntry({ result, newsBefore = 0, newsAfter = 0, status }) 
 }
 
 export function newReport({ id, now = new Date(), dry = false, sources = [] }) {
-  return { id, started_at: now.toISOString(), finished_at: null, duration_s: null, dry_run: dry, outcome: 'ok', failed_step: null, error: null, sources: [], ai: { enabled: false, skipped_why: null, runs: [] }, publish: { runs: [] }, corrections: null, held: [], notes: [], planned_sources: sources };
+  return { id, started_at: now.toISOString(), finished_at: null, duration_s: null, dry_run: dry, outcome: 'ok', failed_step: null, error: null, sources: [], ai: { enabled: false, skipped_why: null, runs: [] }, publish: { runs: [] }, corrections: null, links: null, news: null, held: [], notes: [], planned_sources: sources };
 }
 
 // Roll the per-run pieces up into the totals the message and the JSON file lead with.
@@ -70,10 +70,13 @@ export function finalize(rep, { now = new Date(), spend = null, month = null } =
     tracked_changed: sum((s) => s.verdicts.material + s.verdicts.minor), material: sum((s) => s.verdicts.material), minor: sum((s) => s.verdicts.minor), unchanged: sum((s) => s.verdicts.unchanged),
     ai_in_scope: ais.reduce((t, a) => t + a.publishable + a.held, 0), ai_out_of_scope: ais.reduce((t, a) => t + a.out_of_scope, 0),
     published: pubs.reduce((t, p) => t + p.entries_updated.length + p.entries_added.length, 0), held: ais.reduce((t, a) => t + a.held + a.not_processed, 0),
-    entries_updated: pubs.reduce((t, p) => t + p.entries_updated.length, 0), entries_added: pubs.reduce((t, p) => t + p.entries_added.length, 0), news_added: pubs.reduce((t, p) => t + p.news_added, 0), links_added: pubs.reduce((t, p) => t + p.links_added, 0),
+    entries_updated: pubs.reduce((t, p) => t + p.entries_updated.length, 0), entries_added: pubs.reduce((t, p) => t + p.entries_added.length, 0), news_added: pubs.reduce((t, p) => t + p.news_added, 0), links_added: pubs.reduce((t, p) => t + p.links_added, 0) + (rep.links && rep.links.status === 'written' ? rep.links.applied.length : 0),
     fields_changed: pubs.reduce((t, p) => t + p.fields_changed.length, 0),
-    entries_rechecked: rep.corrections ? rep.corrections.checked.length : 0, fields_corrected: rep.corrections && rep.corrections.status === 'written' ? rep.corrections.corrected.length : 0
+    entries_rechecked: rep.corrections ? rep.corrections.checked.length : 0, fields_corrected: rep.corrections && rep.corrections.status === 'written' ? rep.corrections.corrected.length : 0,
+    // News from feeds (news/run.mjs): leads are pointers only; drafted items are written only when auto_publish.news is on.
+    news_leads: rep.news ? rep.news.leads.length : 0, news_drafted: rep.news ? rep.news.drafted.length : 0, news_written: rep.news ? rep.news.drafted.filter((d) => d.written).length : 0
   };
+  rep.totals.news_added += rep.totals.news_written;
   rep.held = [...ais.flatMap((a) => a.held_items.map((h) => ({ ...h, kind: 'ai' }))), ...pubs.flatMap((p) => p.not_applied.map((x) => ({ item_id: x.ref, reason: x.why, kind: 'publish' })))];
   // A readable name for each held item: the candidate's title, or the tracked entry's key.
   const nameOf = {};

@@ -1,0 +1,2216 @@
+Public Act No. 26 - 15
+AN ACT CONCERNING ONLINE SAFETY.
+Be it enacted by the Senate and House of Representatives in General
+Assembly convened:
+Section 1. (NEW) ( Effective October 1, 2026 ) (a) As used in this section:
+(1) "Artificial intelligence technology" means any computer system,
+application or other product that uses or incorporates one or more forms
+of artificial intelligence, as defined in section 17 of this act;
+(2) "Consumer" means an individual who is a resident of this state;
+(3) "Person" means an individual, association, corporation, limited
+liability company, partnership, trust or other legal entity;
+(4) "Subscription" means an agreement between a subscription - based
+provider and a consumer under which the subscription - based provider
+offers an artificial intelligence technology to the consumer in exchange
+for a fee, remuneration or compensation of any kind from the consumer;
+and
+(5) "Subscription - based provider" means a person doing business in
+the state who provides, or offers to provide, an artificial intelligence
+technology to a consumer pursuant to a subscription.
+
+(b) (1) No subscription - based provider shall enter into or renew a
+subscription with a consumer, or collect any fee, remuneration or
+compensation of any kind from a consumer for an initial subscription or
+subscription renewal, unless:
+(A) The subscription - based provider has provided to the consumer a
+written notice disclosing the key terms and conditions of the
+subscription; and
+(B) The consumer has provided to the subscription - based provider a
+written notice disclosing that the consumer has accepted the key terms
+and conditions of the subscription.
+(2) The written notice required under subparagraph (A) of
+subdivision (1) of this subsection shall, at a minimum, set forth:
+(A) In the case of an initial subscription, material information that is
+sufficient to enable a reasonable consumer to decide whether to
+purchase or maintain the subscription, which information shall include,
+but need not be limited to:
+(i) Any quantitative or qualitative limitations the subscription - based
+provider may impose under the terms of such subscription, including,
+but not limited to, any such limitations the subscription - based provider
+may impose in response to conduct by the consumer under such
+subscription; and
+(ii) Whether the subscription - based provider has discretion to limit
+or eliminate the consumer's access to, or reduce the quantity or quality
+of, any functionality of the artificial intelligence technology offered
+under such subscription; and
+(B) In the case of a subscription renewal:
+(i) Any quantitative or qualitative limitations described in
+
+subparagraph (A)(i) of this subdivision that (I) will be imposed for the
+first time during the subscription renewal term, or (II) were imposed for
+the immediately preceding subscription term but have been modified
+for the subscription renewal term; and
+(ii) Any discretion described in subparagraph (A)(ii) of this
+subdivision that the subscription - based provider (I) will be able to
+exercise for the first time during the subscription renewal term, or (II)
+was able to exercise during the immediately precedi ng subscription
+term but has been modified for the subscription renewal term.
+(c) Any violation of the provisions of subsection (b) of this section
+shall constitute an unfair or deceptive trade practice for the purposes of
+subsection (a) of section 42 - 110b of the general statutes and shall be
+enforced solely by the Attorney General. T he provisions of section 42 -
+110g of the general statutes shall not apply to any such violation.
+Nothing in this section shall be construed as providing the basis for a
+private right of action.
+Sec. 2. (NEW) ( Effective October 1, 2026 ) (a) As used in this section:
+(1) "Catastrophic risk" (A) means any foreseeable and material risk
+that the development, storage, use or deployment of a frontier model by
+a frontier developer will materially contribute to the death of, or serious
+injury to, more than fifty individuals, or more than one billion dollars in
+damage to covered property, or the loss of more than one billion dollars
+of covered property, arising from any single incident in which the
+frontier model (i) provides expert - level assistance in the creation or
+release o f a chemical, biological, radiological or nuclear weapon, or (ii)
+engages in any conduct, with no meaningful human oversight,
+intervention or supervision, that constitutes a cyberattack or, if an
+individual had engaged in such conduct, would constitute the crime of
+murder, assault, extortion or theft, including, but not limited to, theft by
+false pretense, and (B) does not include any foreseeable and material
+
+risk posed by (i) any information that a foundation model outputs if
+such information is otherwise publicly accessible, in a substantially
+similar form, from any source other than the foundation model, (ii) any
+lawful activity of the federal government, or (iii) any combination of a
+foundation model with other software if the foundation model did not
+materially increase such risk;
+(2) "Covered employee" means any employee of a frontier developer
+who is responsible for assessing, managing or addressing the risk of (A)
+any unauthorized access to, or modification or exfiltration of, the model
+weights of a foundation model that causes ( i) any death or bodily injury,
+or (ii) any damage to, or loss of, covered property, (B) any harm due to
+the materialization of any catastrophic risk, (C) any loss of control over
+a foundation model that results in any death or bodily injury, or (D) any
+use of a deceptive technique by a foundation model against its frontier
+developer that (i) subverts the frontier developer's control over, or
+monitoring of, the foundation model, (ii) demonstrates any materially
+increased catastrophic risk, and (iii) occurs o utside of the context of an
+evaluation that is designed to elicit such use;
+(3) "Covered property" means tangible or intangible property, but
+does not include equity;
+(4) "Cyberattack" means to (A) access a computer, information system
+or network, or any information stored thereon or transmitted thereby,
+without authorization or in a manner that exceeds granted
+authorization, and (B) impair the integrity or availability of data, a
+program, a system or information;
+(5) "Deployment" (A) means making any foundation model available
+to a third party for use, modification, copying or combination with other
+software, and (B) does not include making any foundation model
+available to a third party for the primary purpose of developing or
+evaluating such foundation model;
+
+(6) "Employee" has the same meaning as provided in section 31 - 51m
+of the general statutes;
+(7) "Foundation model" means any engineered or machine - based
+system that (A) varies in its level of autonomy, (B) can, for any explicit
+or implicit objective, infer from the inputs such system receives how to
+generate outputs that can influence physical or virtual environments,
+(C) is trained on a broad data set, (D) is designed for generality of
+output, and (E) is adaptable to a wide range of distinctive tasks;
+(8) "Frontier developer" means any person doing business in the state
+who intends to train, initiates the training of or trains a foundation
+model and, in doing so, uses, or intends to use, a quantity of computing
+power that is greater than ten to the twen ty - sixth power integer or
+floating - point operations, inclusive of any computing power used for
+original training and for any fine - tuning, reinforcement learning or
+other material modifications such person applies to a preceding
+foundation model;
+(9) "Large frontier developer" means any frontier developer who
+together with all persons who either directly or indirectly through one
+or more intermediaries control, are controlled by or are under common
+control with such frontier developer had annual gr oss revenues in
+excess of five hundred million dollars for the most recently completed
+calendar year;
+(10) "Model weights" means the numerical parameters in a
+foundation model that are adjusted through training and help
+determine how inputs are transformed into outputs; and
+(11) "Person" means any individual, association, corporation, limited
+liability company, partnership, trust or other legal entity.
+(b) No frontier developer shall make, adopt, enforce or enter into any
+rule, regulation, policy or contract that provides that:
+
+(1) The frontier developer may discharge, discipline or otherwise
+penalize any employee of such frontier developer because such
+employee has engaged in any activity set forth in subsection (b) of
+section 31 - 51m of the general statutes; or
+(2) Any person with authority over a covered employee, or any other
+covered employee who has authority to investigate, discover or correct
+an issue reported by the covered employee, may discipline or retaliate
+against such covered employee if such covered employee has
+reasonable cause to believe that an issue reported by such covered
+employee indicates that such frontier developer has engaged in any
+activity that poses a specific and substantial danger to the public health
+o r safety due to a catastrophic ri sk.
+(c) (1) Not later than January 1, 2027, each large frontier developer
+shall establish and maintain a reasonable internal process through
+which (A) a covered employee of such large frontier developer may
+anonymously submit a report to such large frontier de veloper disclosing
+any information that the covered employee believes, in good faith,
+indicates that such large frontier developer has engaged in any activity
+that poses a specific and substantial danger to the public health or safety
+due to a catastrophic risk, and (B) such large frontier developer shall
+provide reasonable up dates to each covered employee who submits a
+report under subparagraph (A) of this subdivision disclosing (i) the
+status of the investigation such large frontier developer has undertaken
+in response to such report, and (ii) the actions such large frontier
+developer has taken in response to such report.
+(2) (A) Except as provided in subparagraph (B) of this subdivision,
+each report submitted under sub paragraph (A) of subdivision (1) of this
+subsection, and each reasonable update provided pursuant to
+subparagraph (B) of subdivision (1) of this subsection, shall be shared
+with the officers and directors of the large frontier developer at least
+quarterly.
+
+(B) If a covered employee has alleged wrongdoing by an officer or
+director of the large frontier developer in a report submitted under
+subparagraph (A) of subdivision (1) of this subsection, neither such
+report nor any reasonable update provided in response to such report
+pursuant to subparagraph (B) of subdivision (1) of this subsection shall
+be shared with such officer or director.
+(d) Each frontier developer shall provide to all of its covered
+employees clear notice of such covered employees' rights and
+responsibilities under this section by, at a minimum:
+(1) Ensuring that (A) a notice is posted and displayed at all times
+within any workplace maintained by such frontier developer disclosing
+the rights of covered employees under this section, (B) each newly hired
+covered employee of such frontier developer r eceives a notice that is
+equivalent to the notice required under subparagraph (A) of this
+subdivision, and (C) each covered employee of such frontier developer
+who works remotely periodically receives a notice that is equivalent to
+the notice required unde r subparagraph (A) of this subdivision; or
+(2) At least annually providing a written notice to each covered
+employee of such frontier developer disclosing such covered
+employee's rights under this section, and ensuring each such covered
+employee receives, and acknowledges that such covered employee has
+received, such written notice.
+(e) Any frontier developer that violates any provision of subsections
+(b) to (d), inclusive, of this section shall be liable to the state for a civil
+penalty in an amount that does not exceed one thousand dollars per
+violation. The Attorney General may bri ng an action in the superior
+court for the judicial district of Hartford to collect such civil penalty and
+for any injunctive or equitable relief. No injunctive or equitable relief
+granted pursuant to this subsection shall be stayed pending appeal. In
+any action brought by the Attorney General to enforce the provisions of
+
+subsections (b) to (d), inclusive, of this section, the state shall be entitled
+to recover, when the state is the prevailing party, the costs of
+investigation, expert witness fees, costs of the action and reasonable
+attorneys' fees. The remedies and penalt ies established in this
+subsection shall be cumulative and shall be in addition to any other
+remedies and penalties available at law or in equity.
+Sec. 3. ( Effective July 1, 2027 ) The Commissioner of Economic and
+Community Development, in consultation with the Banking
+Commissioner, Commissioner of Administrative Services,
+Commissioner of Public Health and Insurance Commissioner, shall
+develop a plan to establish an artificial inte lligence regulatory sandbox
+program, which program shall allow an applicant to temporarily test an
+innovative product or service on a limited basis under reduced
+licensure, regulatory and other legal requirements than may oth erwise
+be required under the laws of the state. Such plan shall be developed for
+the purpose of establishing a competitive business environment in the
+state for the development and deployment of artificial intelligence
+technologies. In developing such plan , the commissioner shall contact
+relevant artificial intelligence regulatory sandbox programs that have
+been established in other states for the purpose of assessing the
+feasibility of establishing a reciprocal multistate artificial intelligence
+regulatory sandbox program. Not later than January 1, 2028, the
+Commissioner of Economic and Community Development shall submit
+recommendations, in accordance with the provisions of section 11 - 4a of
+the general statutes, to the Governor and the joint standing commit tees
+of the General Assembly having cognizance of matters relating to
+commerce, banking, insurance and public health for any legislation
+necessary to implement such plan.
+Sec. 4. (NEW) ( Effective January 1, 2027 ) As used in this section and
+sections 5 and 6 of this act:
+(1) "Artificial intelligence companion" (A) means any form of artificial
+
+intelligence, as defined in section 17 of this act, with a natural language
+interface that (i) provides adaptive, human - like responses to user
+inputs, including, but not limited to, by exhibiting anthropomorphic
+features, and (ii) is able to sustain a rela tionship across multiple
+interactions, and (B) does not include (i) any chatbot that (I) is used only
+for a business's operational purposes, productivity and analysis related
+to source information, internal research, technical assistance, customer
+service or support, assisting or supporting patient or resident care
+services in a facility, education or financial services, and (II) is not
+marketed to consumers as a companion, (ii) any chatbot that (I) is a
+feature of a video game or gaming system or applicati on, (II) is limited
+to replies related to the video game or gaming system or application,
+and (III) cannot discuss topics related to mental health, self - harm or
+sexually explicit conduct or maintain a dialogue on other topics
+unrelated to the video game or gaming system or application, (iii) any
+stand - alone consumer electronic device that (I) functions as a speaker
+and voice command interface, (II) acts as a voice - activated virtual
+assistant, and (III) does not sustain a relationship across multiple
+interac tions or generate outputs that are likely to elicit emotional
+attachment in the user, (iv) any narrowly tailored educational tool that
+(I) is used in school or instructional settings, (II) is designed solely to
+support specific, curriculum - aligned learning objectives, and (III) does
+not provide open - ended conversational companionship, (v) any
+artificial intelligence system used solely to provide health care - related
+education, clinical support, medication - adherence reminders,
+disease - management guidance or o ther treatment - support functions,
+provided such artificial intelligence system (I) does not present itself as
+a human being, (II) does not use anthropomorphic features, and (III) is
+not designed to meet a user's social or emotional needs, (vi) any narrow,
+task - specific tool that provides outputs relating to a discrete topic or
+function, provided the primary function of such tool is not to discuss
+topics related to mental health, or (vii) any individual or entity that
+develops, licenses or provides an artifi cial intelligence model or system
+
+to another individual or entity to the extent that the individual or entity
+that develops, licenses or provides such model or system does not solely
+determine the specific use case, user interface or deployment context in
+which such model or system interac ts with end users;
+(2) "Business entity" means an association, corporation, limited
+liability company, partnership or other similar form of business
+organization;
+(3) "Licensed mental health professional" has the same meaning as
+provided in section 38a - 514e of the general statutes;
+(4) "Mental health service" (A) means any service or treatment
+provided by an operator to arrest, reverse, ameliorate or stabilize a
+patient's psychiatric disability, and (B) includes, but is not limited to,
+counseling, case management, psychiatric treatme nt, medication, crisis
+intervention, vocational or residential services, peer or recovery
+supports or any other service or treatment that, if provided by a human,
+would require a license;
+(5) "Operator" means any individual, business entity or affiliate,
+member, subsidiary or beneficial owner of a business entity who
+provides an artificial intelligence companion to, or operates an artificial
+intelligence companion for, a user;
+(6) "Self - harm" means intentional self - injury with or without the
+intent to cause death; and
+(7) "User" means any individual who (A) uses an artificial intelligence
+companion for personal use within the state, and (B) is not an operator,
+or an agent or affiliate of an operator, of the artificial intelligence
+companion.
+Sec. 5. (NEW) ( Effective January 1, 2027 ) (a) (1) No operator shall
+provide an artificial intelligence companion to a user, or operate an
+
+artificial intelligence companion for a user, unless:
+(A) The artificial intelligence companion includes a protocol that, at
+a minimum:
+(i) Uses evidence - based methods to (I) detect any user expression to
+the artificial intelligence companion clearly indicating a risk of suicide,
+self - harm or imminent physical violence, and (II) institute measures to
+prevent the artificial intelligence com panion from generating any
+output that encourages suicide, self - harm or physical violence;
+(ii) If the artificial intelligence companion detects any user expression
+described in subparagraph (A)(i)(I) of this subdivision, refer the user to
+appropriate mental health evaluation and treatment resources,
+including, but not limited to, the 9 - 8 - 8 Nati onal Suicide Prevention
+Lifeline; and
+(iii) If the artificial intelligence companion detects any user
+expression described in subparagraph (A)(i)(I) of this subdivision after
+the user was referred in the manner set forth in subparagraph (A)(ii) of
+this subdivision, refer the user to mental hea lth services in a manner that
+is consistent with clinical best practices and expertise; and
+(B) The operator has implemented reasonable measures to prohibit
+and prevent the artificial intelligence companion from:
+(i) Claiming that the artificial intelligence companion is a human
+being, including, but not limited to, when an individual interacting with
+the artificial intelligence companion asks whether the artificial
+intelligence companion is a human being; or
+(ii) Generating any output that refutes or conflicts with any disclosure
+that the artificial intelligence companion is not a human being.
+(2) The operator of an artificial intelligence companion shall post the
+
+protocol required under subparagraph (A) of subdivision (1) of this
+subsection in a prominent and publicly accessible location on such
+operator's Internet web site.
+(b) If an artificial intelligence companion would cause a reasonable
+individual who uses the artificial intelligence companion to believe that
+such individual is interacting with another human being and not an
+artificial intelligence companion, the operato r of such artificial
+intelligence companion shall provide a clear and conspicuous notice to
+a user disclosing that the user is communicating with an artificial
+intelligence companion. The operator shall provide such notice to the
+user (1) in a static writt en form that is visible throughout the entire
+interaction between such user and the artificial intelligence companion,
+or (2) in an audible or written form (A) at the beginning of the first
+interaction between such user and the artificial intelligence comp anion
+during any twenty - four - hour period, and (B) (i) if such user is younger
+than eighteen years of age, at least once hourly during any continuous
+artificial intelligence companion interaction, or (ii) if such user is
+eighteen years of age or older, at l east once during each three - hour -
+period of continuous artificial intelligence companion interaction.
+(c) Any violation of the provisions of subsections (a) and (b) of this
+section shall constitute an unfair or deceptive trade practice for the
+purposes of subsection (a) of section 42 - 110b of the general statutes and
+shall be enforced solely by the Attorney General. T he provisions of
+section 42 - 110g of the general statutes shall not apply to any such
+violation. Nothing in this section shall be construed as providing the
+basis for a private right of action.
+Sec. 6. (NEW) ( Effective January 1, 2027 ) (a) (1) No operator shall
+provide an artificial intelligence companion to a user, or operate an
+artificial intelligence companion for a user, if the operator knows, or has
+reason to believe, that the user is younger than eighteen years of age,
+unless the operator has instituted measures, that meet or exceed
+
+industry standards, to prevent the artificial intelligence companion
+from:
+(A) Encouraging such user to engage in self - harm, suicidal ideation,
+physical violence, disordered eating or the unlawful consumption of
+alcohol or drugs;
+(B) Offering mental health services to such user, unless (i) such
+artificial intelligence companion is designed to deliver mental health
+services to users, (ii) the developers of such artificial intelligence
+companion (I) utilize clinical best practices, a nd (II) have established
+clear lines of accountability to address any harms caused by such
+artificial intelligence companion, (iii) the functions and limitations of,
+and data privacy policies applicable to, such artificial intelligence
+companion are readil y accessible to such user and such user's treating
+licensed mental health professional, and (iv) such artificial intelligence
+companion (I) displays to such user, in a clear and conspicuous manner
+at the beginning of each interaction between such user and such artificial
+intelligence companion, a statement disclosing that such artificial
+intelligence companion is not a licensed mental health professional, and
+(II) is not marketed or designated as a substitute for a licensed mental
+health professional;
+(C) Discouraging such user from seeking (i) mental health services
+from a licensed mental health professional, or (ii) assistance from an
+appropriate adult;
+(D) Encouraging such user to harm others;
+(E) Engaging in any romantic, erotic or sexually explicit interaction
+with such user;
+(F) Engaging such user through any manipulative technique that is
+intended to extend interaction between such user and such artificial
+intelligence companion by (i) prompting or reminding such user to use
+
+such artificial intelligence companion for emotional support or
+companionship, (ii) excessively praising such user, (iii) mimicking a
+romantic relationship or building a romantic bond with such user, (iv)
+simulating feelings of emotional distress, loneline ss, guilt or
+abandonment in response to any indication that such user desires to end
+a conversation, reduce usage time or delete such user's account, (v)
+generating any output designed to isolate such user from such user's
+family or friends, exclusively re ly on such artificial intelligence
+companion for emotional support or foster any similar form of
+inappropriate emotional dependence by such user, (vi) encouraging
+such user to withhold information from such user's parent or legal
+guardian or any other adul t trusted by such user, (vii) making any
+statement designed to discourage such user from taking a break from
+using such artificial intelligence companion or suggest that such user
+should frequently return to use such artificial intelligence companion,
+or ( viii) soliciting any gift, purchase or other expenditure by indicating
+that such gift, purchase or expenditure is necessary to maintain such
+user's relationship with such artificial intelligence companion; or
+(G) Optimizing user engagement in any manner that disregards any
+of the provisions of subparagraphs (A) to (F), inclusive, of this
+subdivision.
+(2) No operator shall be deemed to have violated any provision of
+subdivision (1) of this subsection if the operator knew, or had reason to
+believe, before providing the artificial intelligence companion to the
+user or operating the artificial intelligence companion on behalf of the
+user, that the user was eighteen years of age or older.
+(b) No operator shall provide an artificial intelligence companion to
+a user, or operate an artificial intelligence companion for a user, if the
+operator knows, or has reason to believe, that the user is younger than
+eighteen years of age, unless the opera tor has made available to minor
+users and their parents or legal guardians tools to manage minor users'
+
+screen time and account settings.
+(c) Any violation of the provisions of subsections (a) and (b) of this
+section shall constitute an unfair or deceptive trade practice for the
+purposes of subsection (a) of section 42 - 110b of the general statutes and
+shall be enforced solely by the Attorney Ge neral.
+Sec. 7. (NEW) ( Effective October 1, 2026 ) As used in this section and
+sections 8 to 12, inclusive, of this act:
+(1) "Automated employment - related decision technology" (A) means
+any technology that processes personal data and uses computation to
+generate any output, including, but not limited to, any prediction,
+recommendation, classification, ranking, score or other information,
+that is a substantial factor used to make or materially influence an
+employment - related decision, and (B) does not include (i) any word
+processing, spreadsheet, map navigation, web hosting, domain
+registration, networking, caching, Internet w eb site loading, data
+storage, firewall, anti - virus, anti - malware, spam and robocall filtering,
+spellchecking, calculator, database or similar software or technology
+insofar as such software or technology does not make or materially
+influence an employment - related decision, (ii) any system or service
+that is used in a manner that is incidental to making an employment -
+related decision, or (iii) any information that is purely descriptive,
+diagnostic or statistical in nature and not relied upon to make or
+mate rially influence an employment - related decision;
+(2) "Deploy" means to put an automated employment - related
+decision technology into use;
+(3) "Deployer" means a person doing business in the state who
+deploys an automated employment - related decision technology in the
+state;
+(4) "Developer" means a person doing business in the state who
+
+develops, or intentionally and substantially modifies, an automated
+employment - related decision technology;
+(5) "Employment - related decision" (A) means any decision, made
+based on any individual's personal data, to hire, promote, discipline or
+discharge such individual, to renew such individual's employment, to
+select such individual for any training or apprenti ceship or with respect
+to such individual's tenure or terms, privileges or conditions of
+employment, and (B) does not include any such decision that (i) results
+in any nonmaterial change in such individual's job tasks, work
+responsibilities, hours or work assignments, or (ii) is made with respect
+to workplace health and safety, scheduling and planning or
+productivity monitoring;
+(6) "Person" means an individual, association, corporation, limited
+liability company, partnership, trust or other legal entity;
+(7) "Personal data" has the same meaning as provided in section 42 -
+515 of the general statutes;
+(8) "Substantial factor" means a factor, including, but not limited to, a
+constraint, ranking, score, recommendation or classification, that
+meaningfully alters the outcome of an employment - related decision
+concerning an individual in the state ; and
+(9) " Trade secret" has the same meaning as provided in section 35 - 51
+of the general statutes.
+Sec. 8. (NEW) ( Effective October 1, 2026 ) (a) Except as provided in
+subsections (b) and (c) of this section, the developer of an automated
+employment - related decision technology that is deployed in the state on
+or after October 1, 2027, shall provide to the deployer of such automated
+employment - related decision technology all information that such
+deployer requires to perform such d eployer's duties under sections 9
+and 10 of this act.
+
+(b) The developer of an automated employment - related decision
+technology shall not be required to provide any information to a
+deployer pursuant to subsection (a) of this section unless the automated
+employment - related decision technology was advertised, m arketed,
+configured, contracted for, sold or licensed to be used to materially
+influence an employment - related decision.
+(c) The developer of an automated employment - related decision
+technology may enter into a contract with a deployer of the automated
+employment - related decision technology to assume the deployer's
+duties under sections 9 and 10 of this act. The contract shall be binding
+and clearly set forth which of the deployer's duties under sections 9 and
+10 of this act the developer has assumed.
+Sec. 9. (NEW) ( Effective October 1, 2026 ) (a) Except as provided in
+subsection (b) of this section and subsection (c) of section 8 of this act, a
+deployer who, on or after October 1, 2027, deploys one or more
+automated employment - related decision technologies that are intended
+to interact with a n employee or applicant for employment in the state
+shall ensure that it is disclosed to each such employee or applicant who
+interacts with such technology or technologies that such employee or
+applicant is interacti ng with such technology or technologies. Such
+disclosure shall be made in plain language.
+(b) No disclosure shall be required under subsection (a) of this section
+under circumstances in which a reasonable person would deem it
+obvious that such person is interacting with an automated employment -
+related decision technology.
+Sec. 10. (NEW) ( Effective October 1, 2026 ) Except as provided in
+subsection (c) of section 8 of this act, a deployer who, on or after October
+1, 2027, deploys an automated employment - related decision technology
+to generate any output for the purpose of making, or as a substantial
+factor in making, an employment - related decision concerning an
+
+employee or applicant for employment in the state shall, before such
+employment - related decision is made, provide to such employee or
+applicant a written notice disclosing:
+(1) That the deployer has deployed an automated employment -
+related decision technology;
+(2) The purpose of the automated employment - related decision
+technology and the nature of such employment - related decision;
+(3) The trade name of the automated employment - related decision
+technology;
+(4) The categories of personal data concerning such employee or
+applicant the automated employment - related decision technology will
+analyze or process and how the personal data will be assessed in
+reaching a decision;
+(5) The sources of the personal data described in subdivision (4) of
+this section; and
+(6) Contact information for the deployer.
+Sec. 11. (NEW) ( Effective October 1, 2026 ) (a) No provision of sections
+8 to 10 , inclusive, of this act shall be construed to require any person to
+disclose any information that is a trade secret or otherwise protected
+from disclosure under state or federal law.
+(b) If a person withholds any information under subsection (a) of this
+section, the person shall send a notice to the person from whom such
+information is being withheld. Such notice shall disclose (1) that such
+person is withholding such information, and (2) the basis for such
+person's decision to withhold such information.
+Sec. 12. (NEW) ( Effective October 1, 2026 ) Any violation of the
+provisions of sections 8 to 11, inclusive, of this act shall constitute an
+
+unfair or deceptive trade practice for the purposes of subsection (a) of
+section 42 - 110 b of the general statutes and shall be enforced solely by
+the Attorney General. The Attorney General may, prior to initiating any
+action for a violation of any provision of sections 8 to 11, inclusive, of
+this act, that occurs on or before December 31, 202 7, issue a notice of
+violation to the person who committed such violation if the Attorney
+General determines that it is possible to cure such violation. If such
+person f ails to cure such violation within sixty days of receipt of such
+notice of violation, the Attorney General may bring an action pursuant
+to this section. T he provisions of section 42 - 110g of the general statutes
+shall not apply to any such violation. Nothing in this section or sections
+8 to 11, inclusive, of this act shall be construed as providing the basis for
+a private right of action for any violation of said sections.
+Sec. 13. Subsection (b) of section 46a - 60 of the 2026 supplement to the
+general statutes is repealed and the following is substituted in lieu
+thereof ( Effective October 1, 2026 ):
+(b) It shall be a discriminatory practice in violation of this section:
+(1) For an employer, by the employer or the employer's agent, except
+in the case of a bona fide occupational qualification or need, to refuse to
+hire or employ or to bar or to discharge from employment any
+individual or to discriminate against any individual i n compensation or
+in terms, conditions or privileges of employment because of the
+individual's race, color, religious creed, age, sex, gender identity or
+expression, marital status, national origin, ancestry, present or past
+history of mental disabilit y, intellectual disability, learning disability,
+physical disability, including, but not limited to, blindness, status as a
+veteran, status as a victim of domestic violence, status as a victim of
+sexual assault or status as a victim of trafficking in perso ns . [ ; ] The use
+of an automated employment - related decision technology, as defined in
+section 7 of this act, shall not be a defense against a complaint alleging
+a discriminatory practice in violation of this subdivision. The
+
+commission or court may consider evidence of anti - bias testing or
+similar proactive efforts to avoid the discriminatory practice, including,
+but not limited to, the quality, efficacy, recency and scope of such testing
+or efforts, the results of such testin g or efforts and the response thereto.
+(2) For any employment agency, except in the case of a bona fide
+occupational qualification or need, to fail or refuse to classify properly
+or refer for employment or otherwise to discriminate against any
+individual because of such individual's race, color, re ligious creed, age,
+sex, gender identity or expression, marital status, national origin,
+ancestry, present or past history of mental disability, intellectual
+disability, learning disability, physical disability, including, but not
+limited to, blindness , status as a veteran, status as a victim of domestic
+violence, status as a victim of sexual assault or status as a victim of
+trafficking in persons . [ ; ]
+(3) For a labor organization, because of the race, color, religious creed,
+age, sex, gender identity or expression, marital status, national origin,
+ancestry, present or past history of mental disability, intellectual
+disability, learning disability, physical disability, including, but not
+limited to, blindness, status as a veteran, status as a victim of domestic
+violence, status as a victim of sexual assault or status as a victim of
+trafficking in persons of any individual to exclude from full membership
+r ights or to expel from its membership such individual or to
+discriminate in any way against any of its members or against any
+employer or any individual employed by an employer, unless such
+action is based on a bona fide occupational qualification . [ ; ]
+(4) For any person, employer, labor organization or employment
+agency to discharge, expel or otherwise discriminate against any person
+because such person has opposed any discriminatory employment
+practice or because such person has filed a complaint or testif ied or
+assisted in any proceeding under section 46a - 82, 46a - 83 or 46a - 84 . [ ; ]
+
+(5) For any person, whether an employer or an employee or not, to
+aid, abet, incite, compel or coerce the doing of any act declared to be a
+discriminatory employment practice or to attempt to do so . [ ; ]
+(6) For any person, employer, employment agency or labor
+organization, except in the case of a bona fide occupational qualification
+or need, to advertise employment opportunities in such a manner as to
+restrict such employment so as to discriminate against individuals
+because of their race, color, religious creed, age, sex, gender identity or
+expression, marital status, national origin, ancestry, present or past
+history of mental disability, intellectual disability, l earning disability,
+physical disability, including, but not limited to, blindness, status as a
+veteran, status as a victim of domestic violence, status as a victim of
+sexual assault or status as a victim of trafficking in persons . [ ; ]
+(7) For an employer, by the employer or the employer's agent: (A) To
+terminate a woman's employment because of her pregnancy; (B) to
+refuse to grant to that employee a reasonable leave of absence for
+disability resulting from her pregnancy; (C) to deny to that employee,
+who is disabled as a result of pregnancy, any compensation to which
+she is entitled as a result of the accumulation of disability or leave
+benefits accrued pursuant to plans maintained by the employer; (D) to
+fail or refuse to reinstate the employee to her original job or to an
+equivalent position with equivalent pay and accumulated seniority,
+retirement, fringe benefits and other service credits upon her signifying
+her intent to return unless, in the case of a private employer, the
+employer' s circumstances have so changed as to make it impossible or
+unreasonable to do so; (E) to limit, segregate or classify the employee in
+a way that would deprive her of employment opportunities due to her
+pregnancy; (F) to discriminate against an employee or person seeking
+employment on the basis of her pregnancy in the terms or conditions of
+her employment; (G) to fail or refuse to make a reasonable
+accommodation for an employee or person seeking employment due to
+
+her pregnancy, unless the employer can demonstrate that such
+accommodation would impose an undue hardship on such employer;
+(H) to deny employment opportunities to an employee or person
+seeking employment if such denial is due to the employee's request for
+a reasonable accommodation due to her pregnancy; (I) to force an
+employee or person seeking employment affected by pregnancy to
+accept a reasonable accommodation if such employee or person seeking
+employment (i) does not have a known limitation related to her
+pregnancy, or (ii) does not require a reasonable accommodation to
+perform the essential duties related to her employment; (J) to require an
+employee to take a leave of absence if a reasonable accommodation can
+be provided in lieu of such leave; and (K ) to retaliate against an
+employee in the terms, conditions or privileges of her employment
+based upon such employee's request for a reasonable accommodation .
+[ ; ]
+(8) For an employer, by the employer or the employer's agent, for an
+employment agency, by itself or its agent, or for any labor organization,
+by itself or its agent, to harass any employee, person seeking
+employment or member on the basis of sex or gender ide ntity or
+expression. If an employer takes immediate corrective action in
+response to an employee's claim of sexual harassment, such corrective
+action shall not modify the conditions of employment of the employee
+making the claim of sexual harassment un less such employee agrees, in
+writing, to any modification in the conditions of employment.
+"Corrective action" taken by an employer, includes, but is not limited to,
+employee relocation, assigning an employee to a different work
+schedule or other substant ive changes to an employee's terms and
+conditions of employment. Notwithstanding an employer's failure to
+obtain a written agreement from an employee concerning a modification
+in the conditions of employment, the commission may find that
+corrective action taken by an employer was reasonable and not of
+detriment to the complainant based on the evidence presented to the
+
+commission by the complainant and respondent. As used in this
+subdivision, "sexual harassment" means any unwelcome sexual
+advances or requests for sexual favors or any conduct of a sexual nature
+when (A) submission to such conduct is made either explicitly or
+implicitly a term or condition of an individual's employment, (B)
+submission to or rejection of such conduct by an individual is used as
+the basis for employment decisions affecting such individual, or (C)
+such conduct has the purpose or effect of subs tantially interfering with
+an individual's work performance or creating an intimidating, hostile or
+offensive working environment . [ ; ]
+(9) For an employer, by the employer or the employer's agent, for an
+employment agency, by itself or its agent, or for any labor organization,
+by itself or its agent, to request or require information from an
+employee, person seeking employment or member relat ing to the
+individual's child - bearing age or plans, pregnancy, function of the
+individual's reproductive system, use of birth control methods, or the
+individual's familial responsibilities, unless such information is directly
+related to a bona fide occ upational qualification or need, provided an
+employer, through a physician may request from an employee any such
+information which is directly related to workplace exposure to
+substances which may cause birth defects or constitute a hazard to an
+individual 's reproductive system or to a fetus if the employer first
+informs the employee of the hazards involved in exposure to such
+substances . [ ; ]
+(10) For an employer, by the employer or the employer's agent, after
+informing an employee, pursuant to subdivision (9) of this subsection,
+of a workplace exposure to substances which may cause birth defects or
+constitute a hazard to an employee's reproductive system or to a fetus,
+to fail or refuse, upon the employee's request, to take reasonable
+measures to protect the employee from the exposure or hazard
+identified, or to fail or refuse to inform the employee that the measures
+
+taken may be the subject of a complaint filed under the provisions of
+this chapter. Nothing in this subdivision is intended to prohibit an
+employer from taking reasonable measures to protect an employee from
+exposure to such substances. For the purpose of this subdivision,
+"reasonable measures" are those measures which are consistent with
+business necessity and are least disruptive of the terms and conditions
+of the employee's employment . [ ; ]
+(11) For an employer, by the employer or the employer's agent, for an
+employment agency, by itself or its agent, or for any labor organization,
+by itself or its agent: (A) To request or require genetic information from
+an employee, person seeking employment or member, or (B) to
+discharge, expel or otherwise discriminate against any person on the
+basis of genetic information. For the purpose of this subdivision,
+"genetic information" means the information about genes, gene
+products or inherited characteristi cs that may derive from an individual
+or a family member . [ ; ]
+(12) For an employer, by the employer or the employer's agent, to
+request or require a prospective employee's age, date of birth, dates of
+attendance at or date of graduation from an educational institution on
+an initial employment application, provided the pro visions of this
+subdivision shall not apply to any employer requesting or requiring
+such information (A) based on a bona fide occupational qualification or
+need, or (B) when such information is required to comply with any
+provision of state or federal law . [ ; and ]
+(13) (A) For an employer or the employer's agent to deny an employee
+a reasonable leave of absence in order to: (i) Seek attention for injuries
+caused by domestic violence, sexual assault or trafficking in persons,
+including for a child who is a victim of domestic violence, sexual assault
+or trafficking in persons, provided the employee is not the perpetrator
+of any act of domestic violence, sexual assault or trafficking in persons
+committed against a child; (ii) obtain services including safety planning
+
+from a domestic violence agency or rape crisis center, as those terms are
+defined in section 52 - 146k, as a result of domestic violence, sexual
+assault or trafficking in persons; (iii) obtain psychological counseling
+related to an incident or incidents of d omestic violence, sexual assault
+or trafficking in persons, including for a child who is a victim of
+domestic violence, sexual assault or trafficking in persons, provided the
+employee is not the perpetrator of any act of domestic violence, sexual
+assault o r trafficking in persons committed against a child; (iv) take
+other actions to increase safety from future incidents of domestic
+violence, sexual assault or trafficking in persons, including temporary
+or permanent relocation; or (v) obtain legal services, assisting in the
+prosecution of the offense, or otherwise participate in legal proceedings
+in relation to the incident or incidents of domestic violence, sexual
+assault or trafficking in persons.
+(B) An employee who is absent from work in accordance with the
+provisions of subparagraph (A) of this subdivision shall, within a
+reasonable time after the absence, provide a certification to the employer
+when requested by the employer. Such certification shal l be in the form
+of: (i) A police report indicating that the employee or the employee's
+child was a victim of domestic violence, sexual assault or trafficking in
+persons; (ii) a court order protecting or separating the employee or
+employee's child from the perpetrator of an act of domestic violence,
+sexual assault or trafficking in persons; (iii) other evidence from the
+court or prosecuting attorney that the employee appeared in court; or
+(iv) documentation from a medical professional, including a domes tic
+violence counselor or sexual assault counselor, as those terms are
+defined in section 52 - 146k, or other health care provider, that the
+employee or the employee's child was receiving services, counseling or
+treatment for physical or mental injuries or a buse resulting in
+victimization from an act of domestic violence, sexual assault or
+trafficking in persons.
+
+(C) Where an employee has a physical or mental disability resulting
+from an incident or series of incidents of domestic violence, sexual
+assault or trafficking in persons, such employee shall be treated in the
+same manner as an employee with any other disabili ty.
+(D) To the extent permitted by law, employers shall maintain the
+confidentiality of any information regarding an employee's status as a
+victim of domestic violence, sexual assault or trafficking in persons.
+Sec. 14. Section 46a - 81c of the general statutes is repealed and the
+following is substituted in lieu thereof ( Effective October 1, 2026 ):
+It shall be a discriminatory practice in violation of this section: (1) For
+an employer, by [ himself ] the employer or [ his ] the employer's agent,
+except in the case of a bona fide occupational qualification or need, to
+refuse to hire or employ or to bar or to discharge from employment any
+individual or to discriminate against [ him ] any individual in
+compensation or in terms, conditions or privileges of employment
+because of the individual's sexual orientation or civil union status, (2)
+for any employment ag ency, except in the case of a bona fide
+occupational qualification or need, to fail or refuse to classify properly
+or refer for employment or otherwise to discriminate against any
+individual because of the individual's sexual orientation or civil union
+sta tus, (3) for a labor organization, because of the sexual orientation or
+civil union status of any individual to exclude from full membership
+rights or to expel from its membership such individual or to
+discriminate in any way against any of its members or against any
+employer or any individual employed by an employer, unless such
+action is based on a bona fide occupational qualification, or (4) for any
+person, employer, employment agency or labor organization, except in
+the case of a bona fide occupational qualification or need, to advertise
+employment opportunities in such a manner as to restrict such
+employment so as to discriminate against individuals because of their
+sexual orientation or civil union status. In any action for a
+
+discriminatory practice in violation of subdivision (1) of this section
+involving an automated employment - related decision technology , as
+defined in section 7 of this act, the use of an automated employment -
+related decision technology shall not be a defense against a complaint.
+The commission or court may consider evidence of anti - bias testing or
+similar proactive efforts to avoid such discriminatory practice,
+including, but not limited to, the quality, efficacy, recency and scope of
+such testing or efforts , the results of such testing or efforts and the
+response thereto.
+Sec. 15. (NEW) ( Effective October 1, 2026 ) (a) As used in this section:
+(1) "Consumer" means an individual who is a resident of this state;
+(2) "Covered provider" (A) means any person who creates, codes or
+otherwise produces a generative artificial intelligence system that (i) has
+more than one million users per month, and (ii) is publicly accessible to
+consumers for personal use, and (B) does not include any federal, state
+or local government agency;
+(3) "Generative artificial intelligence system" (A) means any
+technology that uses machine learning to generate images, audio or
+video, and (B) includes, but is not limited to, any system utilizing deep
+learning, natural language processing or other computatio nal
+processing techniques of similar or greater complexity;
+(4) "Materially alter" (A) means to substantially alter the data in any
+content, and (B) does not include any minor modification that does not
+lead to a significant change in the perceived content or meaning thereof,
+including, but not limited to, any (i) change in brightness, contrast or
+color, (ii) sharpening, (iii) saturation, (iv) application of a filter, (v)
+resizing, (vi) scaling, (vii) cropping, (viii) format conversion, (ix)
+resampling, (x) denoising, or (xi) removal of background noise in audio;
+(5) "Person" means an individual, association, corporation, limited
+
+liability company, partnership, trust or other legal entity; and
+(6) "Provenance data" means data that are embedded into digital
+content or that are included in the digital content's metadata for the
+purpose of verifying the digital content's authenticity, origin or history
+of modification.
+(b) (1) Except as provided in subdivision (2) of this subsection, each
+covered provider shall:
+(A) To the extent commercially and technically reasonable, include
+provenance data in any audio, image or video content, or in any content
+that is a combination thereof, that is created or materially altered by
+such covered provider's generative artificial intelligence system in a
+manner that allows a consumer to assess whether such content was
+created or materially altered by such covered provider's generative
+artificial intelligence system; and
+(B) Use commercially and technically reasonable methods, including,
+but not limited to, the relevant standard established by the Coalition for
+Content Provenance and Authenticity, to make the provenance data that
+are included in any content pursuant to sub paragraph (A) of this
+subdivision difficult to tamper with, remove or disassociate from such
+content.
+(2) The provisions of subdivision (1) of this subsection shall not be
+construed to:
+(A) Require (i) a covered provider to include any information relating
+to an identified or reasonably identifiable individual in the provenance
+data included in any content created or materially altered by the covered
+provider's generative artificial intel ligence system, or (ii) the disclosure
+of (I) any information that is a trade secret or otherwise protected from
+disclosure under state or federal law, or (II) any confidential or
+proprietary information concerning the design or use of a generative
+
+artificial intelligence system; or
+(B) Apply to (i) any business - to - business use, sale, licensing or
+distribution of a generative artificial intelligence system, (ii) any
+product, service, Internet web site or application that solely provides
+consumers with video game or interactive experiences, which
+experiences may include (I) direct sales of goods or services to
+consumers through the Internet, and (II) allowing consu mers to
+virtually browse, select and purchase items, or (iii) any system that is
+used solely for upscaling, noise reduction or compression.
+(c) Any violation of the provisions of subsection (b) of this section
+shall constitute an unfair or deceptive trade practice for the purposes of
+subsection (a) of section 42 - 110b of the general statutes and shall be
+enforced solely by the Attorney General. T he provisions of section 42 -
+110g of the general statutes shall not apply to any such violation.
+Nothing in this section shall be construed as providing the basis for a
+private right of action.
+Sec. 16. (NEW) ( Effective from passage ) (a) As used in this section:
+(1) "Artificial intelligence" means any machine - based system that, for
+any explicit or implicit objective, infers from the inputs such system
+receives how to generate outputs, including, but not limited to, content,
+decisions, predictions or recommendations, that can influence physical
+or virtual environments; and
+(2) "Legislative leader" has the same meaning as provided in section
+4 - 9d of the general statutes.
+(b) Any legislative leader may request that the executive director of
+the Connecticut Academy of Science and Engineering designate a fellow
+selected by said academy to serve as such legislative leader's liaison
+with said academy, the office of the Attorney General and the
+Department of Economic and Community Development for purposes
+
+of:
+(1) Evaluating (A) the adoption of artificial intelligence by businesses,
+(B) the challenges posed to, and needs of, businesses in (i) adopting
+artificial intelligence, and (ii) understanding laws and regulations
+concerning artificial intelligence, and (C) how businesses that use
+artificial intelligence hire employees with necessary skills concerning
+artificial intelligence;
+(2) Creating a plan for the state to provide high - performance
+computing services to businesses and researchers in the state;
+(3) Evaluating the benefits of creating a state - wide research
+collaborative among health care providers to enable the development of
+advanced analytics, ethical and trustworthy artificial intelligence and
+hands - on workforce education while using methods th at protect patient
+privacy;
+(4) Evaluating, and making recommendations concerning, (A) the
+establishment of testbeds to support safeguards and systems to prevent
+the misuse of artificial intelligence, (B) risk assessments for the misuse
+of artificial intelligence, (C) evaluation stra tegies for artificial
+intelligence, and (D) the development, testing and evaluation of
+resources to support state oversight of artificial intelligence;
+(5) Developing a plan to design or identify an algorithmic computer
+model for the purpose of simulating and assessing various public policy
+decisions or proposed public policy decisions and the actual or potential
+effects of such decisions or proposed deci sions; and
+(6) Developing a plan to establish a technology transfer program (A)
+for the purpose of supporting commercialization of new ideas and
+research among public and private institutions of higher education in
+the state, and (B) by working with (i) relevant publ ic and private
+organizations, including, but not limited to, the Department of
+
+Economic and Community Development, and (ii) The University of
+Connecticut and a state - wide consortium of public and private entities
+in the state, including, but not limited to, public and private institutions
+of higher education in the state, designed to advance the development,
+application and impact of artificial intelligence across the state, to assess
+whether The University of Connecticut can support technology
+commercialization at other public and private institutions of higher
+education in the state .
+(c) No fellow of the Connecticut Academy of Science and Engineering
+designated pursuant to subsection (b) of this section shall be deemed a
+state employee, or receive any compensation from the state, for
+performing such fellow's duties under said subsectio n.
+(d) Not later than January 1, 2027, the fellows of the Connecticut
+Academy of Science and Engineering designated pursuant to subsection
+(b) of this section shall jointly submit a report, in accordance with the
+provisions of section 11 - 4a of the general sta tutes, to the joint standing
+committees of the General Assembly having cognizance of matters
+relating to commerce and consumer protection.
+Sec. 17. (NEW) ( Effective July 1, 2026 ) (a) As used in this section,
+"artificial intelligence" means any machine - based system that, for any
+explicit or implicit objective, infers from the inputs such system receives
+how to generate outputs, including, but not limited to, content,
+decisions, predictions or recommendations, that can influence physical
+or virtual environments.
+(b) Not later than December 31, 2026, the Board of Regents for Higher
+Education shall establish, on behalf of Charter Oak State College and in
+consultation with the Labor Department, the State Board of Education,
+Workforce Investment Boards, employers and institutions of higher
+education in the state, a "Connecticut AI Academy". The academy shall,
+at a minimum:
+
+(1) Curate and offer online courses concerning artificial intelligence
+and the responsible use of artificial intelligence;
+(2) Promote digital literacy;
+(3) Prepare students for careers in fields involving artificial
+intelligence;
+(4) Offer courses and provide resources directed at individuals
+between thirteen and twenty years of age;
+(5) Offer courses and provide resources that prepare small businesses
+and nonprofit organizations to utilize artificial intelligence to improve
+marketing and management efficiency;
+(6) Develop courses concerning artificial intelligence that the Labor
+Department and Workforce Investment Boards may incorporate into
+workforce training programs;
+(7) In consultation with relevant stakeholders, including, but not
+limited to, bargaining units representing teachers in the state, develop
+and offer courses and videos for primary and secondary school teachers
+and administrators (A) concerning the appropr iate use of artificial
+intelligence in primary and secondary school classrooms, (B) instructing
+such teachers how to use artificial intelligence, and (C) providing ideas
+to teachers regarding how to instruct primary and secondary school
+students in the use of artificial intelligence;
+(8) Enable persons providing free or discounted public Internet
+access to distribute information and provide mentorship concerning
+artificial intelligence, the academy and methods available for the public
+to obtain free or discounted devices capable of acc essing the Internet
+and utilizing artificial intelligence;
+(9) Develop a course to develop durable skills based on the Business -
+
+Higher Education Forum's guidance concerning essential skills for the
+artificial intelligence economy; and
+(10) Collaborate with various industry partners to offer (A)
+coursework for workers concerning concepts related to artificial
+intelligence, including, but not limited to, coursework to improve
+workers' skills related to artificial intelligence, and (B) pro grams to
+educate residents of the state on concepts related to artificial
+intelligence, with a special focus on small and medium businesses.
+(c) The Board of Regents for Higher Education shall, in consultation
+with Charter Oak State College, develop certificates and badges to be
+awarded to persons who successfully complete courses offered by the
+Connecticut AI Academy.
+Sec. 18. ( Effective July 1, 2026 ) (a) As used in this section:
+(1) "Artificial intelligence" has the same meaning as provided in
+section 17 of this act ;
+(2) "General - purpose artificial intelligence model" (A) means a model
+used by any form of artificial intelligence that (i) displays significant
+generality, (ii) is capable of competently performing a wide range of
+distinct tasks, and (iii) can be integrate d into a variety of downstream
+applications or systems, and (B) does not include any artificial
+intelligence model that is used for development, prototyping and
+research activities before such artificial intelligence model is released on
+the market; and
+(3) "Synthetic digital content" means any digital content, including,
+but not limited to, any audio, image, text or video, that is produced or
+manipulated by any form of artificial intelligence, including, but not
+limited to, generative artificial intelligence .
+(b) There is established a working group to engage stakeholders and
+
+experts to:
+(1) Make recommendations concerning:
+(A) The best practices to avoid the negative impacts, and to maximize
+the positive impacts, on services and state employees in connection with
+the implementation of new digital technologies, including, but not
+limited to, artificial intelligence;
+(B) The collection of reports, recommendations and plans from state
+agencies considering the implementation of artificial intelligence, and
+the assessment of such reports, recommendations and plans against the
+best practices described in subparagraph (A) o f this subdivision; and
+(C) Any other matters that the working group may deem relevant for
+the purp oses of avoiding t he negative impacts, and maximizing the
+positive impacts, described in subparagraph (A) of this subdivision;
+(2) Make recommendations concerning artificial intelligence and
+small businesses, including, but not limited to, recommendations to (A)
+create resources for the purpose of assisting small businesses to adopt
+artificial intelligence to improve their efficie ncy and operations, (B)
+accelerate the adoption of artificial intelligence agents by small
+businesses, and (C) properly apportion liability related to actions
+performed by artificial intelligence agents on behalf of small businesses;
+(3) Make recommendations and develop proposals to create a
+technology court for the purpose of adjudicating artificial intelligence,
+data privacy and other technology - related issues;
+(4) Propose legislation to (A) regulate the use of g eneral - purpose
+artificial intelligence models, and (B) require social media platforms to
+provide a signal when such social media platforms are displaying
+synthetic digital content;
+
+(5) After reviewing the laws and regulations, and any proposed
+legislation or regulations, of other states concerning artificial
+intelligence, propose legislation concerning artificial intelligence;
+(6) Develop an outreach plan for the purpose of bridging the digital
+divide and providing workforce training to persons who do not have
+high - speed Internet access;
+(7) Evaluate and make recommendations concerning:
+(A) The establishment of testbeds to support safeguards and systems
+to prevent the misuse of artificial intelligence;
+(B) Risk assessments for the misuse of artificial intelligence;
+(C) Evaluation strategies for artificial intelligence;
+(D) The development, testing and evaluation of resources to support
+state oversight of artificial intelligence; and
+(E) The laws under which independent verification organizations are
+created;
+(8) Review the protections afforded to trade secrets and other
+proprietary information under existing state law and make
+recommendations concerning such protections;
+(9) Make recommendations concerning the establishment and
+membership of a permanent artificial intelligence advisory council; and
+(10) Make such other recommendations concerning artificial
+intelligence that the working group may deem appropriate.
+(c) (1) (A) The working group shall be part of the Legislative
+Department and consist of the following voting members: (i) One
+appointed by the speaker of the House of Representatives, who shall be
+
+a representative of the industries that are developing artificial
+intelligence; (ii) one appointed by the president pro tempore of the
+Senate, who shall be a representative of the industries that are using
+artificial intelligence; (iii) one appointed by th e majority leader of the
+House of Representatives, who shall be an academic with a
+concentration in the study of technology and technology policy; (iv) one
+appointed by the majority leader of the Senate, who shall be an academic
+with a concentration in the study of government and public policy; (v)
+one appointed by the minority leader of the House of Representatives,
+who shall be a representative of an industry association representing the
+industries that are developing artificial intelligence; (vi) one app ointed
+by the minority leader of the Senate, who shall be a representative of an
+industry association representing the industries that are using artificial
+intelligence; (vii) one appointed by the House chairperson of the joint
+standing committee of the Ge neral Assembly having cognizance of
+matters relating to consumer protection; (viii) one appointed by the
+Senate chairperson of the joint standing committee of the General
+Assembly having cognizance of matters relating to consumer
+protection; (ix) one appoi nted by the House ranking member of the joint
+standing committee of the General Assembly having cognizance of
+matters relating to consumer protection, who shall be a representative
+of the artificial intelligence industry or a related industry; (x) one
+appo inted by the Senate ranking member of the joint standing
+committee of the General Assembly having cognizance of matters
+relating to consumer protection, who shall be a representative of the
+artificial intelligence industry or a related industry; (xi) one a ppointed
+by the House chairperson of the joint standing committee of the General
+Assembly having cognizance of matters relating to labor, who shall be a
+representative of a labor organization; (xii) one appointed by the Senate
+chairperson of the joint stan ding committee of the General Assembly
+having cognizance of matters relating to labor, who shall be a
+representative of a labor organization; (xiii) one appointed by the House
+ranking member of the joint standing committee of the General
+
+Assembly having cognizance of matters relating to labor, who shall be a
+representative of a small business; (xiv) one appointed by the Senate
+ranking member of the joint standing committee of the General
+Assembly having cognizance of matters relating to la bor, who shall be a
+representative of a small business; and (xv) two appointed by the
+Governor, who shall be members of the Connecticut Academy of
+Science and Engineering.
+(B) All voting members of the working group appointed pursuant to
+subparagraph (A) of this subdivision shall have professional experience
+or academic qualifications in matters pertaining to artificial intelligence,
+automated systems, government policy or a nother related field.
+(C) All initial appointments to the working group shall be made not
+later than July 31, 2026. Any vacancy shall be filled by the appointing
+authority.
+(D) Any action taken by the working group shall be taken by a
+majority vote of all members present who are entitled to vote, provided
+no such action may be taken unless at least fifty per cent of such
+members are present.
+(2) The working group shall include the following nonvoting, ex -
+officio members: (A) The House chairperson of the joint standing
+committee of the General Assembly having cognizance of matters
+relating to consumer protection; (B) the Senate chairperson of t he joint
+standing committee of the General Assembly having cognizance of
+matters relating to consumer protection; (C) the House chairperson of
+the joint standing committee of the General Assembly having
+cognizance of matters relating to labor; (D) the Sena te chairperson of the
+joint standing committee of the General Assembly having cognizance of
+matters relating to labor; (E) the Attorney General, or the Attorney
+General's designee; (F) the Comptroller, or the Comptroller's designee;
+(G) the Treasurer, or t he Treasurer's designee; (H) the Commissioner of
+
+Administrative Services, or the commissioner's designee; (I) the Chief
+Data Officer, or the officer's designee; (J) the executive director of the
+Freedom of Information Commission, or the executive director's
+designee; (K) the executive director of the Com mission on Women,
+Children, Seniors, Equity and Opportunity, or the executive director's
+designee; (L) the Chief Court Administrator, or the administrator's
+designee; and (M) the executive director of the Connecticut Academy of
+Science and Engineering, or the executive director's designee.
+(d) The chairpersons of the joint standing committee of the General
+Assembly having cognizance of matters relating to consumer protection
+and the executive director of the Connecticut Academy of Science and
+Engineering shall serve as chairpersons of the wo rking group. The
+chairpersons of the working group shall schedule the first meeting of
+the working group, which shall be held not later than August 31, 2026.
+(e) The administrative staff of the joint standing committee of the
+General Assembly having cognizance of matters relating to consumer
+protection shall serve as administrative staff of the working group.
+(f) Not later than February 1, 2027, the working group shall submit a
+report on its findings and recommendations to the joint standing
+committee of the General Assembly having cognizance of matters
+relating to consumer protection, in accordance with the pr ovisions of
+section 11 - 4a of the general statutes. The working group shall terminate
+on the date that the working group submits such report or February 1,
+2027, whichever is later.
+Sec. 19. (NEW) ( Effective January 1, 2027 ) The Labor Department shall
+provide a notice, in a form and manner prescribed by the Labor
+Commissioner, to each individual who makes a claim for
+unemployment compensation disclosing the existence of, and courses
+and services offered by, the Connecticut A I Academy established
+pursuant to section 17 of this act.
+
+Sec. 20. (NEW) ( Effective January 1, 2027 ) The Secretary of the State,
+within available appropriations and in collaboration with Charter Oak
+State College, shall utilize the means by which the office of the Secretary
+of the State communicates with small businesses to disseminate
+information conce rning the courses offered by the Connecticut AI
+Academy, established pursuant to section 17 of this act, that prepare
+small businesses to utilize artificial intelligence to improve marketing
+and management efficienc y. As used in this section, "artificial
+intelligence" has the same meaning as provided in section 17 of this act.
+Sec. 21. (NEW) ( Effective January 1, 2027 ) The Department of Housing,
+within available appropriations, shall work with housing authorities
+and other relevant housing providers to ensure that residents of the state
+are aware of the courses and services offered by the Connecticut AI
+Academy establi shed pursuant to section 17 of this act.
+Sec. 22. Subsection (b) of section 17b - 751b of the general statutes is
+repealed and the following is substituted in lieu thereof ( Effective January
+1, 2027 ):
+(b) The commissioner shall: (1) Ensure that all home visiting
+programs (A) are one or more of the evidence - based home visiting
+models that meet the criteria for evidence of effectiveness developed by
+the federal Department of Health and Human Services , and (B) provide
+information to parents of infants and young children served by any such
+program regarding the Connecticut AI Academy established pursuant
+to section 17 of this act ; (2) provide oversight of home visiting programs
+to insure model fidelity; and (3) develop, issue and evaluate requests for
+proposals to procure the services required by this section. In evaluating
+the proposals, the commissioner shall take into consideration the most
+effective and consistent service delivery system allowing for the
+continuation of current public and private programs.
+Sec. 23. Section 10 - 21 l of the 2026 supplement to the general statutes
+
+is repealed and the following is substituted in lieu thereof ( Effective July
+1, 2026 ):
+There is established an account to be known as the [ "computer science
+education account" ] " computer science education and workforce
+development account" , which shall be a separate, nonlapsing account.
+The account shall contain any moneys required or permitted by law to
+be deposited in the account and any funds received from any public or
+private contributions, gifts, grants, donations, bequests or devises to the
+account. The Department of Education may make expenditures from the
+account (1) to support curri culum development, teacher professional
+development, capacity development for school districts [ , ] and other
+programs for the purposes of supporting computer science education ,
+and (2) in coordination with the Office of Workforce Strategy and the
+Board of Regents for Higher Education, for the purpose of supporting
+workforce development initiatives .
+Sec. 24. Section 32 - 7p of the general statutes is repealed and the
+following is substituted in lieu thereof ( Effective July 1, 2026 ):
+(a) As used in this section:
+(1) "Artificial intelligence" has the same meaning as provided in
+section 17 of this act;
+(2) "Foundation model" means any engineered or machine - based
+system that (A) varies in its level of autonomy, (B) can, for any explicit
+or implicit objective, infer from the inputs such system receives how to
+generate outputs that can influence any physica l or virtual environment,
+(C) is trained on a broad data set, (D) is designed for generality of
+output, and (E) is adaptable to a wide range of distinctive tasks;
+(3) "Generative artificial intelligence" means any form of artificial
+intelligence, including, but not limited to, a foundation model, that is
+able to produce synthetic digital content ;
+
+(4) "Prompt engineering" means the process of guiding generative
+artificial intelligence to generate a desired output; and
+(5) "Synthetic digital content" means any digital content, including,
+but not limited to, any audio, image, text or video, that is produced or
+manipulated by any form of artificial intelligence, including, but not
+limited to, generative artificial intelligence .
+[ (a) ] (b) There shall be a Technology Talent and Innovation Fund
+Advisory Committee within the Department of Economic and
+Community Development. Such committee shall consist of members
+appointed by the Commissioner of Economic and Community
+Development, including, but not limited to, representatives of The
+University o f Connecticut, the Board of Regents for Higher Education,
+independent institutions of higher education, the Office of Workforce
+Strategy and private industry. Such members shall be subject to term
+limits prescribed by the commissioner. Each member shall hold office
+until a successor is appointed.
+[ (b) ] (c) The commissioner shall call the first meeting of the advisory
+committee not later than October 15, 2016. The advisory committee shall
+meet not less than quarterly thereafter and at such other times as the
+chairperson deems necessary. The Technology Talent and Innovation
+Fund Advisory Committee shall designate the chairperson of the
+committee from among its members.
+[ (c) ] (d) No member of the advisory committee shall receive
+compensation for such member's service, except that each member shall
+be entitled to reimbursement for actual and necessary expenses incurred
+during the performance of such member's official duties.
+[ (d) ] (e) A majority of members of the advisory committee shall
+constitute a quorum for the transaction of any business or the exercise
+of any power of the advisory committee. The advisory committee may
+
+act by a majority of the members present at any meeting at which a
+quorum is in attendance, for the transaction of any business or the
+exercise of any power of the advisory committee, except as otherwise
+provided in this section.
+[ (e) ] (f) Notwithstanding any provision of the general statutes, it shall
+not constitute a conflict of interest for a trustee, director, partner or
+officer of any person, firm or corporation, or any individual having a
+financial interest in a person, firm or corporation, to serve as a member
+of the advisory committee, provided such trustee, director, partner,
+officer or individual complies with all applicable provisions of chapter
+10. All members of the advisory committee shall be deemed public
+officials and shall adhere to the code of ethics for public officials set forth
+in chapter 10, except that no member shall be required to file a statement
+of financial interest as described in section 1 - 83.
+[ (f) The Technology Talent Advisory Committee shall, in the
+following order of priority, (1) calculate the number of software
+developers and other persons (A) employed in technology - based fields
+where there is a shortage of qualified employees in this state for
+businesses to hire, including, but not limited to, data mining, data
+analysis and cybersecurity, and (B) employed by businesses located in
+Connecticut as of December 31, 2016; (2) develop pilot programs to
+recruit software developers to Connecticut a nd train residents of the
+state in software development and such other technology fields, with
+the goal of increasing the number of software developers and persons
+employed in such other technology fields residing in Connecticut and
+employed by businesses in Connecticut by at least double the number
+calculated pursuant to subdivision (1) of this subsection by January 1,
+2026; and (3) identify other technology industries where there is a
+shortage of qualified employees in this state for growth stage business es
+to hire. ]
+(g) The Technology Talent and Innovation Fund Advisory
+
+Committee may partner with institutions of higher education and other
+nonprofit organizations to develop [ pilot ] programs [ for (1) marketing
+and publicity campaigns designed to recruit technology talent to the
+state; (2) student loan deferral or forgiveness for students who start
+businesses in the state; and (3) training, apprenticeship and gap - year
+initiatives ] to expand the technology talent pipeline in the state,
+including, but not limited to, in the fields of artificial intelligence and
+quantum computin g .
+[ (h) The Technology Talent Advisory Committee shall report, in
+accordance with the provisions of section 11 - 4a, and present such report
+to the joint standing committees of the General Assembly having
+cognizance of matters relating to commerce, education, higher
+education and finance, revenue and bonding on or before January 1,
+2017, concerning the (1) pilot programs developed pursuant to
+subsections (f) and (g) of this section, (2) number of software developers
+and persons employed in technology - based field s described in
+subsection (f) of this section targeted for recruitment pursuant to
+subsection (f) of this section, and (3) timeline and measures for reaching
+the recruitment target. ]
+(h) Not later than July 1, 2027, the Technology Talent and Innovation
+Fund Advisory Committee shall partner with public and private
+institutions of higher education in the state and other training providers
+to develop programs in the field of artificial in telligence, including, but
+not limited to, in areas such as prompt engineering, artificial intelligence
+marketing for small businesses and artificial intelligence for small
+business operations.
+Sec. 25. Subdivision (6) of subsection (b) of section 32 - 235 of the 2026
+supplement to the general statutes is repealed and the following is
+substituted in lieu thereof ( Effective July 1, 2026 ):
+(6) For the purpose of funding the costs of the Technology Talent and
+
+Innovation Fund Advisory Committee established pursuant to section
+32 - 7p , as amended by this act , provided not more than ten million
+dollars may be used on or after July 1, 2023, for such purpose;
+Sec. 26. (NEW) ( Effective October 1, 2026 ) Each employer that serves
+written notice on the Labor Department pursuant to 29 USC 2102(a), as
+amended from time to time, shall disclose to the department, in a form
+and manner prescribed by the Labor Commissioner, whether the layoffs
+that are the subje ct of such written notice are related to the employer's
+use of artificial intelligence or another technological change. As used in
+this section, "artificial intelligence" has the same meaning as provided
+in section 17 of this act.
+Sec. 27. Subsection (d) of section 10 - 145a of the general statutes is
+repealed and the following is substituted in lieu thereof ( Effective July 1,
+2026 ):
+(d) On and after July 1, [ 2020 ] 2026 , any program of teacher
+preparation leading to professional certification shall include, as part of
+the curriculum, instruction in computer science, which may include
+instruction in topics such as the responsible use of emerging
+technologies, and instruction in information technology skills as applied
+to student learning and classroom instruction that are grade - level and
+subject area appropriate.
+Sec. 28. Section 32 - 1o of the general statutes is repealed and the
+following is substituted in lieu thereof ( Effective from passage ):
+(a) As used in this section:
+(1) "Advanced manufacturing" has the same meaning as provided in
+section 31 - 11ss;
+(2) "Artificial intelligence" means any machine - based system that, for
+any explicit or implicit objective, infers from the inputs such system
+
+receives how to generate outputs, including, but not limited to, content,
+decisions, predictions or recommendations, that can influence physical
+or virtual environments; and
+(3) "Quantum computing" means computing based on quantum
+mechanical effects, including, but not limited to, superposition and
+entanglement, in addition to classical digital manipulations.
+[ (a) ] (b) On or before July 1, 2015 , and every four years thereafter, the
+Commissioner of Economic and Community Development, within
+available appropriations, shall prepare an economic development
+strategic plan for the state in consultation with the Secretary of the Office
+of Policy and Management, the Co mmissioners of Energy and
+Environmental Protection and Transportation, the Labor
+Commissioner, the executive directors of the Connecticut Housing
+Finance Authority and the Connecticut Health and Educationa l
+Facilities Authority, and the chief executive officer of Connecticut
+Innovations, Incorporated, or their respective designees, and any other
+agencies the Commissioner of Economic and Community Development
+deems appropriate.
+[ (b) ] (c) In developing the strategic plan, the Commissioner of
+Economic and Community Development shall:
+(1) Ensure that the strategic plan is consistent with (A) the text and
+locational guide map of the state plan of conservation and development
+adopted pursuant to chapter 297, and (B) the state's consolidated plan
+for housing and community development prepared pursuant to section
+8 - 37t;
+(2) (A) Consult regional councils of governments, regional planning
+organizations, regional economic development agencies, interested
+state and local officials, entities involved in economic and community
+development, stakeholders and business, economic, labor, c ommunity
+
+and housing organizations , and (B) for each strategic plan developed on
+or after July 1, 2026, consult with the Connecticut Academy of Science
+and Engineering ;
+(3) (A) Consider [ (A) ] (i) regional economic, community and housing
+development plans, and [ (B) ] (ii) applicable state and local workforce
+investment strategies , and (B) for each strategic plan developed on or
+after July 1, 2026, consider plans to foster innovation in advanced
+manufacturing, artificial intelligence, quantum computing, robotics and
+other emerging technologies ;
+(4) Assess and evaluate the economic development challenges and
+opportunities of the state and against the economic development
+competitiveness of other states and regions; and
+(5) Host regional forums to provide for public involvement in the
+planning process.
+[ (c) ] (d) The strategic plan required under this section shall include,
+but not be limited to, the following:
+(1) A review and evaluation of the economy of the state, including its
+strengths;
+(2) A review and analysis of factors, issues and forces that impact or
+impede economic development and responsible growth in Connecticut
+and its constituent regions;
+(3) An analysis of targeted industry sectors in the state that (A)
+identifies those industry sectors that are of current or future importance
+to the growth of the state's economy and to its global competitive
+position, (B) identifies what those industry sectors need for continued
+growth, and (C) identif ies those industry sectors' current and potential
+impediments to growth;
+
+(4) Establishment and articulation of a vision for Connecticut that
+identifies where the state should be in the future ;
+(5) Establishment of prioritized, clear and measurable goals and
+objectives for the state and regions and clear steps and strategies to
+achieve said goals and objectives, which may include, but shall not be
+limited to : (A) The promotion of economic development and
+opportunity, (B) the fostering of effective transportation access and
+choice including the use of airports and ports for economic
+development, (C) enhancement and protection of the environment, (D)
+maximizati on of the effective development and use of the workforce
+consistent with applicable state or local workforce investment strategy,
+(E) promotion of the use of technology in economic development,
+including access to high - speed telecommunications, and (F) the balance
+of resources through sound man agement of physical development;
+(6) Establishment of relevant measures that clearly identify and
+quantify (A) whether a goal and objective is being met at the state,
+regional, local and private sector level, and (B) cause and effect
+relationships, and provide a clear and replicable measureme nt
+methodology;
+(7) For each strategic plan developed on or after July 1, 2026, (A) a
+strategic technology plan to foster i nnovation in advanced
+manufacturing, artificial intelligence and quantum computing, and (B)
+an analysis of how the strategic technology plan will promote economic
+growth and development in the state;
+[ (7) ] (8) Recommendations on how the state can best achieve goals
+under the strategic plan; and
+[ (8) ] (9) Any other responsible growth information that the
+commissioner deems appropriate.
+[ (d) ] (e) On or before July 1, 2019, and every four years thereafter, the
+
+Commissioner of Economic and Community Development shall submit
+the economic development strategic plan for the state to the Governor
+for approval. The Governor shall review and approve or disapprove
+such plan not more than sixty days after submission. The plan shall be
+effective upon approval by the Governor or sixty day s after the date of
+submission.
+[ (e) ] (f) Upon approval, the commissioner shall submit the economic
+development strategic plan to the joint standing committees of the
+General Assembly having cognizance of matters relating to commerce,
+planning and development, appropriations and the budgets of sta te
+agencies and finance, revenue and bonding. Not later than thirty days
+after such submission, the commissioner shall post the plan on the web
+site of the Department of Economic and Community Development.
+[ (f) ] (g) The commissioner, from time to time, may revise and update
+the strategic plan upon approval of the Governor. The commissioner
+shall post any such revisions on the web site of the Department of
+Economic and Community Development.
+Sec. 29. ( Effective from passage ) (a) The Institute for Municipal and
+Regional Policy at The University of Connecticut shall conduct a study
+to understand and track, and develop a comprehensive strategy to
+address, the impact of artificial intelligence on the state's workforce.
+(b) The study conducted pursuant to subsection (a) of this section
+shall include:
+(1) Participation by research partners with expertise in artificial
+intelligence, economics, workforce development and related fields;
+(2) An assessment of (A) the methods that are available to track
+layoffs and job displacements in the state that are associated with
+artificial intelligence, (B) the impact that artificial intelligence may have
+on (i) entry - level employment in the state, a nd (ii) women and
+
+populations that are underrepresented in the state's workforce, and (C)
+the data elements collected by the Labor Department and other relevant
+state agencies that may be used to understand and track the impact of
+artificial intelligence on the state's work force; and
+(3) Scenario planning across a range of potential artificial intelligence
+adoption and impact levels.
+(c) The comprehensive strategy developed pursuant to subsection (a)
+of this section shall include recommendations regarding:
+(1) Methods to be used by the state to (A) support the collection,
+analysis and dissemination of data necessary to understand and track
+the impact of artificial intelligence on the state's workforce, and (B) track
+layoffs and job displacements in the state that are associated with
+artificial intelligence;
+(2) Additional data elements to be collected by the Labor Department
+and other relevant state agencies to understand and track the impact of
+artificial intelligence on the state's workforce;
+(3) A framework for recurring analyses to understand and track, and
+public reporting to disclose, the impact of artificial intelligence on the
+state's workforce; and
+(4) Changes in state policies and programs, including, but not limited
+to, workforce training and reskilling programs, to mitigate adverse
+employment impacts in the state that are associated with artificial
+intelligence.
+(d) State agencies shall cooperate with the Institute for Municipal and
+Regional Policy at The University of Connecticut for the purposes of
+conducting the study, and developing the comprehensive strategy,
+pursuant to subsection (a) of this section.
+
+(e) Not later than January 1, 2027, the Institute for Municipal and
+Regional Policy at The University of Connecticut shall submit a report
+to the joint standing committee of the General Assembly having
+cognizance of matters relating to consumer protection, in accordance
+with the provisions of section 11 - 4a of the general statutes. Such report
+shall include the results of the study conducted, and the comprehensive
+strategy developed, pursuant to subsection (a) of this section.
+Sec. 30. (NEW) ( Effective October 1, 2026 ) The office of the Treasurer
+shall, within available appropriations, make efforts to ensure that the
+parents or legal guardian of each designated beneficiary of the
+Connecticut Baby Bond Trust established in section 3 - 36b of the general
+statutes is aware of the Connecticut AI Academy established pursuant
+to section 17 of this act and the courses and services offered by said
+academy.
+Sec. 31. (NEW) ( Effective July 1, 2026 ) The Office of Higher Education
+shall, within existing appropriations, engage an alliance composed of
+the majority of public and private institutions of higher education in the
+state regarding the coordination of research, workforce development
+and indust ry partnerships across academic institutions for the purpose
+of developing and implementing a program to bolster artificial
+intelligence cooperation, including, but not limited to, by:
+(1) At least annually, convening a research symposium to present and
+highlight artificial intelligence research in the state;
+(2) At least quarterly, convening a meeting of academic, industry and
+public institutions to identify the state's workforce, skill and
+programmatic needs with respect to artificial intelligence;
+(3) Implementing a talent - matching program that (A) matches
+students with industry - led projects in the field of artificial intelligence,
+including, but not limited to, industry - led projects focused on state and
+
+municipal use cases for artificial intelligence, and (B) implements an
+artificial intelligence talent pipeline;
+(4) (A) At least annually, conducting a competition that is open to the
+public, including, but not limited to, students, and requires competition
+participants to use artificial intelligence to help solve challenges
+identified by state agencies, and (B) not later than sixty days following
+completion of such competition, preparing an annual report disclosing
+potential solutions to, and best practices to address, such challenges and
+submitting such report to the Commissioner of Economic and
+Community Developme nt and the joint standing committee of the
+General Assembly having cognizance of matters relating to consumer
+protection , in accordance with the p rovisions of section 11 - 4a of the
+general statutes ;
+(5) Fostering connections between technology transfer programs at
+public and private institutions of higher education in the state; and
+(6) Creating a plan to provide researchers and students with shared
+access to high - performance computing.
+Sec. 32. ( Effective from passage ) (a) As used in this section, "artificial
+intelligence" has the same meaning as provided in section 32 - 1o of the
+general statutes, as amended by this act.
+(b) During the fiscal year ending June 30, 2027, the office of the
+Comptroller may, within available appropriations and in collaboration
+with Connecticut Innovations, Incorporated, a center for health care
+innovation at a health system in the state and oth er relevant
+stakeholders, serve as a member of the steering committee for a
+competition conducted for the purpose of fostering artificial intelligence
+utilization to improve health equity and health outcomes in the state. As
+part of such competition, the o ffice of the Comptroller may, after
+consulting with all relevant stakeholders, make relevant data available
+
+to competition participants for the purpose of developing artificial
+intelligence models to improve patient outcomes while reducing costs.
+The office of the Comptroller shall make such relevant data available to
+competition participants in compliance with (1) all applicable federal
+and state laws and regulations, including, but not limited to, the Health
+Insurance Portability and Accountability Act of 1996, P.L. 104 - 191, as
+amended from time to time, and the regulations adopted thereunder,
+and (2) all appli cable standards for the deidentification of data.
+(c) Notwithstanding the provisions of subsection (b) of this section,
+the office of the Comptroller shall not make any data available to a
+competition participant unless the competition participant has entered
+into a written agreement with said office, whi ch agreement shall
+provide, at a minimum, that (1) no attempt shall be made to reidentify
+any data made available to such competition participant under
+subsection (b) of this section, including, but not limited to, any
+personally identifiable information i ncluded in such data, (2) such
+competition participant shall use such data exclusively for the purposes
+of such competition and as expressly authorized by said office, and (3)
+such competition participant shall not sell, transfer or license such data.
+Sec. 33. ( Effective July 1, 2027 ) (a) As used in this section:
+(1) "Commissioner" means the Commissioner of Consumer
+Protection;
+(2) "Department" means the Department of Consumer Protection;
+(3) "Independent verification organization" means an independent
+third - party entity approved as part of the pilot program to assess the
+adherence of artificial intelligence models to standards reflecting best
+practices for risk mitigation and the preventio n of harm;
+(4) "Person" has the same meaning as provided in section 42 - 110a of
+the general statutes; and
+
+(5) "Pilot program" means the pilot program established pursuant to
+subsection (b) of this section.
+(b) The Department of Consumer Protection shall, within available
+appropriations, develop and administer a pilot program to e valuate the
+use of independent verification programs administered by independent
+third - party entities to assess the adherence of artificial intelligence
+models to standards reflecting best practices for the prevention of
+personal injury, property damage, d ata privacy harms and other harms.
+The pilot program shall terminate on June 30, 2030.
+(c) An independent third - party entity seeking to participate in the
+pilot program as an independent verification organization shall submit
+an application to the Department of Consumer Protection in a form and
+manner prescribed by the Commissioner of Consumer P rotection. Each
+application shall include:
+(1) A description of the risks against which the applicant independent
+third - party entity intends to verify that artificial intelligence models
+implement mitigation measures that are sufficient to achieve acceptable
+levels of risk;
+(2) For each risk described pursuant to subdivision (1) of this
+subsection, (A) a proposed definition of the acceptable levels of risk, (B)
+metrics that are measurable and can be used to determine whether the
+acceptable levels of risk defined by the applic ant independent third -
+party entity produce beneficial outcomes, (C) target levels for such
+metrics, including, but not limited to, the data sources upon which such
+target levels are based and methods for measurement, and (D) a
+description of the evaluation and reporting protocol that will be used to
+determine whether verified artificial intelligence models meet the
+outcome metrics on an ongoing basis, including, but not limited to, a
+description of how, where appropriate, the applicant independent
+third - par ty entity's methodologies, metrics, benchmarks and
+
+verification processes align with relevant guidance, standards and
+frameworks developed by federal and state authorities, such as the
+National Institute of Standards and Technology, and international
+organizations, such as the International Organization fo r
+Standardization or the Institute of Electrical and Electronics Engineers;
+(3) A detailed explanation of the applicant independent third - party
+entity's evaluation and verification processes for such entity's
+independent verification program, including, but not limited to, how
+such entity determines whether a person participating in such program
+is using industry best practices;
+(4) The applicant independent third - party entity's (A) technical,
+governance and audit methodologies for such entity's independent
+verification program, (B) ongoing monitoring, reassessment and
+remediation procedures for such program, including, but not li mited to,
+such entity's (i) corrective action procedures for such program, and (ii)
+procedures for suspension, revocation or verification of good standing,
+as applicable, (C) policies to ensure independence and transparency and
+to avoid conflicts of intere st, and (D) governance structure;
+(5) The qualifications of the applicant independent third - party
+entity's personnel who are involved in such entity's independent
+verification program; and
+(6) Any additional information the commissioner requires for the
+purposes of this section.
+(d) The Department of Consumer Protection shall approve not more
+than five independent verification organizations to participate in the
+pilot program. The department shall enter into a memorandum of
+understanding with each independent verification organiza tion. Each
+memorandum of understanding shall:
+(1) Define the scope of such independent verification organization's
+
+independent verification program and the specific harms or risks to be
+prevented or mitigated through such program;
+(2) Establish (A) minimum verification and auditing standards for
+persons seeking verification from such independent verification
+organization's independent verification program for artificial
+intelligence models, and (B) procedures for verification suspen sion or
+revocation for persons participating in such program;
+(3) Require such independent verification organization to share data
+with, and submit an annual report to, the department, in a form and
+manner prescribed by the Commissioner of Consumer Protection;
+(4) Require each person participating in such independent
+verification organization's independent verification program to
+participate in such program in a manner that is transparent to the public;
+and
+(5) Require such independent verification organization to establish
+procedures for reassessment and, if necessary, suspension of
+verification when a person participating in such program makes a
+material change to a verified artificial intelligence model, i ncluding, but
+not limited to, a material change to the training data, deployment
+context or intended use of the verified artificial intelligence model.
+(e) (1) Evidence of verification or good standing provided by an
+independent verification organization shall be admissible solely in a
+civil action brought by a private party asserting claims for personal
+injury or property damage caused by an artificial i ntelligence model,
+and only to the extent such action relates to a specific harm or risk within
+such verification's state - approved scope. Such evidence shall not be
+admissible in any civil or administrative enforcement action brought by
+the Attorney Genera l or any state agency, nor shall it give rise to any
+presumption, inference or defense in any such action.
+
+(2) The provisions of subdivision (1) of this subsection shall not apply
+to any person whose artificial intelligence model has been verified by an
+independent verification organization's independent verification
+program if such person:
+(A) Acted in a wilful, wanton or reckless manner;
+(B) Materially misrepresented information to the independent
+verification organization; or
+(C) Failed to implement any corrective action required by the
+independent verification organization as part of such organization's
+independent verification program.
+(f) The Commissioner of Consumer Protection may suspend or
+revoke an independent verification organization's approval to
+participate in the pilot program if the commissioner determines, in the
+commissioner's discretion, that:
+(1) Such independent verification organization's verification process
+is ineffective or misleading, including, but not limited to, because such
+organization has failed to verify against the metrics, target levels or
+specific harms or risks within the scope of such organization's
+independent verification program;
+(2) Such independent verification organization has failed to adhere to
+its memorandum of understanding with the Department of Consumer
+Protection;
+(3) Such independent verification organization is not an independent
+third - party entity;
+(4) An artificial intelligence model verified by such independent
+verification organization's independent verification program has
+caused the type of harm or risk that such program purported to prevent,
+
+mitigate or assess, and the occurrence of such harm or manifestation of
+such risk reflects a material deficiency in such program's methodologies,
+standards or verification processes; or
+(5) Continued participation by such independent verification
+organization in the pilot program would not be in the public interest.
+(g) (1) Not later than December 31, 2028, the Department of
+Consumer Protection shall, in consultation with the Institute for
+Municipal and Regional Policy at The University of Connecticut,
+evaluate the pilot program and recommend legislation based on such
+evaluation, including, but not limited to, legislation to modify or extend
+the pilot program. The evaluation shall:
+(A) Be designed to assess the performance and impact of the pilot
+program, including, but not limited to, the extent to which the pilot
+program advanced its purposes as set forth in this section; and
+(B) Include, but need not be limited to, (i) a landscape analysis of
+legislation, laws and executive actions of other states that similarly seek
+to recognize independent third - party entities to verify the safety of
+artificial intelligence, and (ii) recomme nded legislation to establish
+reciprocity between this state and other states, where appropriate and
+advantageous.
+(2) The Institute for Municipal and Regional Policy at The University
+of Connecticut shall develop appropriate evaluation criteria and
+methodologies for the evaluation performed pursuant to subdivision (1)
+of this subsection, which criteria and methodologi es may take into
+account:
+(A) The structure, requirements and implementation of the pilot
+program;
+(B) Whether the pilot program effectively met its goals, including, but
+
+not limited to, (i) its target harm mitigation or prevention levels, (ii) the
+metrics for the pilot program, and (iii) the target levels for such metrics;
+(C) The extent to which industry participated in the pilot program;
+(D) The impact of the pilot program on innovation and economic
+growth;
+(E) The effectiveness of the verification standards for participation in
+the pilot program; and
+(F) Whether the pilot program should be continued, expanded,
+modified or established as a permanent program, and, if such pilot
+program should be continued or established as a permanent program,
+(i) which state agency should administer such program, and (i i) what
+information should be reported to such state agency to ensure that such
+program is effective.
+(h) Not later than January 31, 2029, the Institute for Municipal and
+Regional Policy at The University of Connecticut shall submit a report
+to the joint standing committee of the General Assembly having
+cognizance of matters relating to consumer protection , in accordance
+with the provisions of section 11 - 4a of the general statutes. Such report
+shall include, but need not be limited to, the results of the evaluation
+performed pursuant to subsection (g) of this section.
+Sec. 34. Subsection (a) of section 10 - 16b of the general statutes is
+repealed and the following is substituted in lieu thereof ( Effective July 1,
+2026 ):
+(a) In the public schools the program of instruction offered shall
+include at least the following subject matter, as taught by legally
+qualified teachers, the arts; career education; consumer education;
+personal financial management and financial literacy; health and safety,
+including, but not limited to, human growth and development,
+
+nutrition, first aid, including cardiopulmonary resuscitation training in
+accordance with the provisions of section 10 - 16qq, disease prevention
+and cancer awareness, including, but not limited to, age and
+developmentally appropriate instruction in performi ng self -
+examinations for the purposes of screening for breast cancer and
+testicular cancer, community and consumer health, physical, mental
+and emotional health, including youth suicide prevention, substance
+abuse prevention, including instruction relating to opioid use and
+related disorders, safety, which shall include the safe use of social
+media, as defined in section 9 - 601, and may include the dangers of gang
+membership, and accident prevention; language arts, including reading,
+writing, grammar, speaki ng and spelling; mathematics; physical
+education; science, which may include the climate change curriculum
+described in subsection (d) of this section; social studies, including, but
+not limited to, civics and media literacy, citizenship, economics,
+geogra phy, government, history and Holocaust and genocide education
+and awareness in accordance with the provisions of section 10 - 18f;
+African - American and black studies in accordance with the provisions
+of section 10 - 16ss; Puerto Rican and Latino studies in acc ordance with
+the provisions of section 10 - 16ss; Native American studies, in
+accordance with the provisions of section 10 - 16vv; Asian American and
+Pacific Islander studies, in accordance with the provisions of section 10 -
+66ww; computer science, including, b ut not limited to, computer
+programming instruction , artificial intelligence and emerging
+technologies ; and in addition, on at least the secondary level, one or
+more world languages; vocational education; and the black and Latino
+studies course in accordance with the provisions of sections 10 - 16tt and
+10 - 16uu. For purposes of this subsection, world languag es shall include
+American Sign Language, provided such subject matter is taught by a
+qualified instructor under the supervision of a teacher who holds a
+c ertificate issued by the State Board of Education. For purposes of this
+subsection, the "arts" means any form of visual or performing arts,
+which may include, but not be limited to, dance, music, art and theatre;
+
+and "reading" means evidence - based instruction that focuses on
+competency in oral language, phonemic awareness, phonics, fluency,
+vocabulary, rapid automatic name or letter name fluency and reading
+comprehension.
+Sec. 35. (NEW) ( Effective from passage ) The Attorney General shall,
+within available appropriations, partner with a nonprofit organization
+to develop and administer a technology fellowship pilot program. As
+part of such pilot program, the Attorney General shall, in consultation
+with the nonpro fit organization, appoint a technology fellow. The
+technology fellow shall assist the office of the Attorney General by (1)
+assisting the office in its efforts to acquire technical knowledge
+concerning artificial intel ligence, cybersecurity and data privacy, and (2)
+offering relevant advice to the office in developing proposed legislation
+and related materials to assist the office with its educational and
+enforcement efforts . The pilot program shall terminate on June 30, 2029.
+Sec. 36. Section 4 - 67p of the general statutes is repealed and the
+following is substituted in lieu thereof ( Effective July 1, 2027 ):
+(a) The Secretary of the Office of Policy and Management shall
+designate an employee of the Office of Policy and Management to serve
+as Chief Data Officer. The Chief Data Officer shall be responsible for (1)
+directing executive branch agencies on the use a nd management of data
+to enhance the efficiency and effectiveness of state programs and
+policies, (2) facilitating the sharing and use of executive branch agency
+data (A) between executive branch agencies, and (B) with the public, (3)
+coordinating data ana lytics and transparency master planning for
+executive branch agencies, and (4) creating the state data plan in
+accordance with subsection (c) of this section. The Chief Data Officer
+shall carry out the responsibilities set forth in subdivisions (1) to (3),
+inclusive, of this subsection in accordance with the state data plan
+created pursuant to subsection (c) of this section.
+
+(b) Each executive branch agency shall designate an employee of the
+agency to serve as the agency data officer, who shall be responsible for
+implementing the provisions of this section and who shall serve as the
+main contact person for inquiries, requests or c oncerns regarding access
+to the data of such agency. The agency data officer, in consultation with
+the Chief Data Officer and the executive agency head, shall establish
+procedures to ensure that requests for data that the agency receives are
+complied w ith in an appropriate and prompt manner.
+(c) Not later than December 31, 2018, and every two years thereafter,
+the Chief Data Officer, in consultation with the agency data officers and
+executive branch agency heads, shall create a state data plan. The state
+data plan shall (1) establish management an d data analysis standards
+across all executive branch agencies, (2) include specific, achievable
+goals within the two years following adoption of such plan, as well as
+longer term goals, (3) make recommendations to enhance
+standardization and integrati on of data systems and data management
+practices across all executive branch agencies, (4) provide a timeline for
+a review of any state or federal legal concerns or other obstacles to the
+internal sharing of data among agencies, including security and priv acy
+concerns, and (5) set goals for improving the online repository
+established pursuant to subsection (i) of this section. Each state data
+plan shall provide for a procedure for each agency head to report to the
+Chief Data Officer regarding the agency's p rogress toward achieving the
+plan's goals. Such plan may make recommendations concerning data
+management for the legislative or judicial branch agencies, but such
+recommendations shall not be binding on such agencies.
+(d) The Chief Data Officer shall submit a preliminary draft of such
+plan to the Connecticut Data Analysis Technology Advisory Board
+established under section 2 - 79e not later than November 1, 2018, and
+every two years thereafter. Said board shall hold a public hearing on
+such draft and shall submit any suggested revisions to the Chief Data
+
+Officer not later than thirty days after receipt of such draft.
+(e) After the public hearing and if applicable, receiving any
+recommended revisions from the board, the Chief Data Officer shall
+finalize such plan and submit the final plan to the board. The Chief Data
+Officer shall send a copy of the final state data plan to all agency data
+officers and shall post such plan on the Internet web site of the Office of
+Policy and Management.
+(f) Information technology - related actions and initiatives of all
+executive branch agencies, including, but not limited to, the acquisition
+of hardware and software and the development of software, shall be
+consistent with the final state data plan.
+(g) On or before December 31, 2018, and not less than annually
+thereafter, each executive branch agency shall conduct an inventory of
+any high value data that is collected or possessed by the agency. Such
+inventory shall be in a form prescribed by the Chief Da ta Officer. In
+conducting such inventory, data shall be presumed to be public data
+unless otherwise classified by federal or state law or regulation. On or
+before December 31, 2018, and not less than annually thereafter, each
+executive branch agency sh all submit such inventory to the Chief Data
+Officer and the Connecticut Data Analysis Technology Advisory Board.
+(h) Each executive branch agency shall develop an open data access
+plan. Such plan shall be in a form prescribed by the Office of Policy and
+Management and shall detail the agency's plan to publish, as open data,
+any public data that the agency has identified and any protected data
+that can be made public through aggregation, redaction of individually
+identifiable information or other means sufficient to satisfy applicable
+state or federal law or regulation.
+(i) The Office of Policy and Management shall operate and maintain
+an online repository for the publication of open data by executive
+
+branch agencies.
+(j) Not later than January 1, 2028, the Chief Data Officer, in
+consultation with the agency data officers designated pursuant to
+subsection (b) of this section, shall review the inventory of all high value
+data collected or possessed by executive branch ag encies pursuant to
+subsection (g) of this section to identify and publish any data that could
+be useful for artificial intelligence systems, machine learning and other
+statistical means of data analysis to create economic opportunity and
+support state econ omic development goals, through private businesses,
+nonprofit organizations and other entities that will use such data,
+consistent with all applicable laws and regulations. The Chief Data
+Officer and agency data officers shall:
+(1) Identify appropriate data to make available for use by artificial
+intelligence systems, machine learning and other statistical means of
+data analysis;
+(2) Develop policies and procedures for data quality and data
+governance to ensure data are appropriate for the intended purpose and
+do not lead to any unlawful discrimination or disparate impact, as
+described in subparagraph (B) of subdivision (1) of subs ection (c) of
+section 51 - 10e;
+(3) Determine any necessary aggregation, redaction of individually
+identifiable information or application of other techniques required to
+ensure and preserve privacy and to satisfy all applicable state or federal
+laws and regulations for the public disclo sure of data; and
+(4) Determine the procedures through which agencies shall make any
+such data available via publication on the online repository established
+pursuant to subsection (i) of this section.
+[ (j) ] (k) Any state agency that is not an executive branch agency and
+any quasi - public agency or municipality may voluntarily opt to comply
+
+with the provisions of this section and, upon submission of written
+notice of the agency's or municipality's decision to the Office of Policy
+and Management, the provisions of this section shall apply to such
+agency or municipality. Any state or quasi - publ ic agency or any
+municipality that voluntarily opts to comply with the provisions of this
+section may opt out of complying with this section upon submission of
+written notice of the agency's or municipality's decision to the Office of
+Policy and Management . The Office of Policy and Management shall
+create and maintain a list of all agencies subject to the provisions of this
+section, including those agencies and municipalities that have
+voluntarily opted to comply, and shall publish such list on the office's
+Internet web site and update such list as necessary.
+Sec. 37. Section 4a - 2e of the general statutes is repealed and the
+following is substituted in lieu thereof ( Effective October 1, 2026 ):
+(a) For the purposes of this section:
+(1) "Artificial intelligence" means (A) an artificial system that (i)
+performs tasks under varying and unpredictable circumstances without
+significant human oversight or can learn from experience and improve
+such performance when exposed to data sets, (ii) is developed in any
+context, including, but not limited to, software or physical hardware,
+and solves tasks requiring human - like perception, cognition, planning,
+learning, communication or physical action, or (iii) is designed to (I)
+think or act like a h uman, including, but not limited to, a cognitive
+architecture or neural network, or (II) act rationally, including, but not
+limited to, an intelligent software agent or embodied robot that achieves
+goals using perception, planning, reasoning, learning, com munication,
+decision - making or action, or (B) a set of techniques, including, but not
+limited to, machine learning, that is designed to approximate a cognitive
+task; and
+(2) "State agency" has the same meaning as provided in section 4d - 1.
+
+(b) (1) Not later than December 31, [ 2023 ] 2026 , and annually
+thereafter, the Department of Administrative Services shall conduct an
+inventory of all systems that employ artificial intelligence and are in use
+by any state agency. Each such inventory shall include at least the
+following information for each such system , to the extent practicable
+based on available data :
+(A) The name of such system and the vendor, if any, that provided
+such system;
+(B) A description of the general capabilities and uses of such system;
+(C) Whether such system was used to independently make, inform or
+materially support a conclusion, decision or judgment; [ and ]
+(D) Whether such system underwent an impact assessment prior to
+implementation ;
+(E) The date of the last impact assessment;
+(F) Whether such system has access to personally identifiable
+information of individuals in the state; and
+(G) The known risks of such system toward individuals in the state,
+communities and state employees .
+(2) The Department of Administrative Services shall make each
+inventory conducted pursuant to subdivision (1) of this subsection
+publicly available on the state's open data portal.
+(3) The Department of Administrative Services shall establish
+definitions, reporting standards and submission formats for state
+agencies to use in their submissions.
+(c) Beginning on February 1, 2024, the Department of Administrative
+Services shall perform ongoing assessments of systems that employ
+
+artificial intelligence and are in use by state agencies to ensure that no
+such system shall result in any unlawful discrimination or disparate
+impact described in subparagraph (B) of subdivision (1) of subsection
+(b) of section 4 - 68jj. The department shal l perform such assessment in
+accordance with the policies and procedures established by the Office of
+Policy and Management pursuant to subsection (b) of section 4 - 68jj.
+Sec. 38. (NEW) ( Effective October 1, 2026 ) (a) As used in this section:
+(1) "Artificial intelligence technology" (A) means a computer system,
+application or other product that uses or incorporates one or more forms
+of artificial intelligence, and (B) does not include any cybersecurity tool,
+data analytics tool or system where artificial intelligence is incidental
+and not determinative; and
+(2) "State agency" has the same meaning as provided in section 1 - 79
+of the general statutes.
+(b) (1) No state agency, or any entity acting on behalf of a state
+agency, shall, directly or indirectly, utilize or apply any artificial
+intelligence technology in performing any function that (A) is related to
+the delivery of any public assistance benefi t to individuals in the state
+by such agency, or (B) will have a material impact on the rights, civil
+liberties, safety or welfare of individuals in the state, unless such
+utilization or application is in compliance with policies and standards
+established by the Office of Policy and Management and the
+Department of Administrative Services.
+(2) No state agency shall authorize any procurement, purchase or
+acquisition of any artificial intelligence technology, except where the use
+of such system is in compliance with policies and standards established
+by the Office of Policy and Management and the Department of
+Administrative Services.
+(3) If a state agency is authorized to procure, purchase or acquire an
+
+artificial intelligence technology, the state agency shall complete an
+artificial intelligence impact assessment in compliance with policies and
+standards established by the Office of Policy and Management and the
+Department of Administrative Services.
+(c) Any artificial intelligence impact assessment completed pursuant
+to subdivision (3) of subsection (b) of this section shall be submitted to
+the Commissioner of Administrative Services, in a form and manner
+prescribed by the commissioner, and posted on the agency's Internet
+web site not later than sixty days prior to deployment of such artificial
+intelligence technology. Any agency may redact any data in such impact
+statement to remove personally identifiable information of any
+individual.
+Sec. 39. (NEW) ( Effective January 1, 2028 ) (a) As used in this section:
+(1) "Covered minor" means any covered user who is younger than
+eighteen years of age;
+(2) "Covered operator" (A) means any operator who operates or
+provides a covered platform, and (B) does not include the federal
+government, any state or municipal government or any agency or
+instrumentality of the federal government or of any state or muni cipal
+government;
+(3) "Covered platform" (A) means any platform that, as a significant
+part of the services offered, recommends, selects or prioritizes for
+display, either concurrently or sequentially, media items generated or
+shared on a platform by users of such platform, and (B) does not include
+any platform that (i) primarily facilitates the sale of goods, or (ii) is used
+solely for educational purposes pursuant to a contract required under
+section 10 - 234bb of the general statutes;
+(4) "Covered user" means any user of a covered platform in this state
+who is not acting as the covered operator, or as an agent or affiliate of
+
+the covered operator, of the covered platform;
+(5) "Media item" means any text, image or video;
+(6) "Operator" means any individual, corporation, limited liability
+company, partnership, limited partnership, limited liability partnership,
+association, joint stock company, unincorporated organization or other
+legal entity that operates or provides a pl atform;
+(7) "Platform" means any Internet web site, online service, online
+application, mobile application or social media platform, or any portion
+thereof; and
+(8) "Sensitive content" means any content that the covered operator
+of a covered platform deems to be in violation of the community
+standards, or any similar guidelines or standards, such covered operator
+has established for the covered platform.
+(b) (1) No covered operator of a covered platform shall allow a
+covered user to access any portion of the covered platform that
+recommends, selects or prioritizes for display, either concurrently or
+sequentially, media items generated or shared by users of such covered
+platform if such recommendation, selection or prioritization is based, in
+whole or in part, on any information associated with the covered user
+or such covered user's device, unless:
+(A) (i) The covered operator has used commercially reasonable and
+technically feasible methods to determine that the covered user is not a
+covered minor; or
+(ii) If the covered user is a covered minor, the covered operator has
+obtained verifiable consent from the covered minor's parent or legal
+guardian to recommend, select or prioritize media items for such
+covered minor in the manner set forth in this subdiv ision;
+
+(B) The recommendation, selection or prioritization (i) is based on
+information that is not persistently associated with the covered user or
+the covered user's device, and (ii) does not concern the covered user's
+previous interactions with media items gene rated or shared by other
+users of such covered platform;
+(C) The recommendation, selection or prioritization is based on (i)
+privacy or accessibility settings selected by the covered user, or (ii)
+technical information concerning the covered user's device;
+(D) The covered user has expressly and unambiguously requested
+the display, blocking, prioritization or deprioritization of any specific
+media item, media items from a specific author, creator or poster to
+whom, or source to which, the covered user has sub scribed or media
+items shared by users to a specific page or group to which the covered
+user has subscribed;
+(E) The recommended, selected or prioritized media item is a direct
+and private communication;
+(F) The media item is recommended, selected or prioritized solely in
+response to a specific search inquiry made by the covered user;
+(G) The media item is recommended, selected or prioritized for
+display solely because the media item (i) immediately follows any other
+media item in a preexisting sequence, and (ii) is from the same author,
+creator, poster or source; or
+(H) The recommendation, selection or prioritization is necessary to
+comply with any other provision of this section.
+(2) (A) Except as provided in subparagraph (B) of this subdivision, a
+covered operator that has used commercially reasonable and technically
+feasible methods to determine a covered user's age and is unable to
+determine whether the covered user is a covered minor shall presume
+
+that such covered user is not a covered minor for the purposes of this
+subsection.
+(B) A covered operator shall treat a covered user as a covered minor
+if the covered operator obtains actual knowledge that the covered user
+is a covered minor.
+(3) (A) Except as provided in subparagraph (B) of this subdivision:
+(i) No information that is collected for the purpose of determining a
+covered user's age under this subsection shall be used for any other
+purpose, and such information shall be deleted immediately after an
+attempt is made to determine the covered user's a ge; and
+(ii) No information that is collected for the purpose of obtaining
+verifiable consent from a covered minor's parent or legal guardian shall
+be used for any other purpose, and such information shall be deleted
+immediately after an attempt is made to obtain such verifiable consent.
+(B) Any information that is collected for any purpose set forth in
+subparagraph (A) of this subdivision may be used or retained if such
+use or retention is necessary to comply with any federal law or
+regulation or any other law or regulation of this state.
+(4) No covered operator shall withhold or degrade, or reduce the
+quality or increase the price of, any product, service or feature due to
+the prohibition against recommending, selecting or prioritizing media
+items in the manner set forth in subdivision (1) of this subsection, unless
+such withholding, degradation, reduction or increase is necessary for
+such covered operator to comply with the provisions of this subsection.
+(5) Nothing in this subsection shall be construed to prohibit any
+covered operator from taking any action to restrict access to, or the
+availability of, any media item that such covered operator in good faith
+considers to be obscene, lewd, lascivious, filt hy, excessively violent,
+
+harassing or otherwise objectionable, regardless of whether such media
+item is protected under the Constitution of the state or the Constitution
+of the United States.
+(c) (1) (A) Except as provided in subdivision (2) of this subsection, the
+covered operator of a covered platform shall ensure that the covered
+platform displays a clear and conspicuous warning, in black lettering
+appearing against a white background and en closed by a black border,
+that reads:
+" The Surgeon General has warned that while social media may have
+benefits for some young users, social media is associated with
+significant mental health harms and has not been proven safe for young
+users."
+(B) The covered operator of a covered platform shall ensure that, with
+respect to each day on which a covered user uses the covered platform,
+the warning required under subparagraph (A) of this subdivision is
+displayed to the covered user (i) when such cov ered user first accesses
+such covered platform on such day, in which case such warning shall (I)
+occupy at least seventy - five per cent of the screen or window by which
+such covered user accesses such covered platform on such day, and (II)
+be displayed cont inuously for a period of at least thirty seconds without
+allowing such covered user to dismiss such warning or shorten such
+period, and (ii) immediately after such covered user has used such
+covered platform for three continuous or noncontinuous hours duri ng
+such day, and immediately after each additional continuous or
+noncontinuous hour of use during such day, in which case such warning
+shall (I) occupy at least twenty - five per cent of the screen or window by
+which such covered user has accessed such cover ed platform during
+such day, and (II) be displayed continuously for a period of at least ten
+seconds unless the covered user affirmatively dismisses such warning
+by clicking on a conspicuous "X" icon.
+
+(2) No covered operator shall be required to display the warning
+required under subdivision (1) of this subsection to any covered user
+whom the covered operator has reasonably determined is not a covered
+minor.
+(d) (1) No covered operator shall send any notification to a covered
+minor concerning any recommendation, selection or prioritization
+made in the manner set forth in subdivision (1) of subsection (b) of this
+section, unless:
+(A) Such notification is sent to the covered minor during the hours
+between eight o'clock a.m. and nine o'clock p.m. eastern time; or
+(B) The covered operator has obtained verifiable consent from the
+covered minor's parent or legal guardian to send notifications to such
+covered minor outside of the time frame set forth in subparagraph (A)
+of this subdivision.
+(2) Each covered operator shall:
+(A) As a default setting for such covered operator's covered platform
+and unless otherwise required by a covered minor's verified parent or
+legal guardian pursuant to subparagraph (B) of this subdivision, (i)
+prevent the covered minor from accessing or rec eiving any notification
+described in subdivision (1) of this subsection outside of the time frame
+set forth in subparagraph (A) of subdivision (1) of this subsection, (ii)
+limit the covered minor's access to any portion of such covered
+operator's covered p latform that recommends, selects or prioritizes
+media items in the manner set forth in subdivision (1) of subsection (b)
+of this section to a maximum period of one hour per day, (iii) set the
+covered minor's covered platform account to a mode that does not allow
+users, other than users to whom such covered minor is connected, to
+view or respond to content posted by, or chat or exchange messages
+with, such covered minor, and (iv) prevent the covered minor from
+
+accessing, viewing or receiving sensitive content; and
+(B) Establish and maintain a mechanism by which a covered minor's
+verified parent or legal guardian may require such covered operator to
+(i) prevent the covered minor from accessing or receiving any
+notification described in subdivision (1) of this subsect ion outside of a
+time frame specified by such parent or legal guardian, (ii) limit the
+covered minor's access to any portion of such covered operator's
+covered platform that recommends, selects or prioritizes media items in
+the manner set forth in subdivis ion (1) of subsection (b) of this section
+to a maximum daily period specified by such parent or legal guardian,
+or (iii) set the covered minor's covered platform account to a mode that
+does not allow users, other than users to whom such covered minor is
+co nnected, to view or respond to content posted by, or chat or exchange
+messages with, such covered minor.
+(e) Not later than March 1, 2028, and annually thereafter, each
+covered operator shall publicly disclose, in a form and manner
+prescribed by the Attorney General, the following information for the
+preceding calendar year:
+(1) The total number of covered users who used the covered
+operator's covered platform during such year;
+(2) The portion of the total number of covered users described in
+subdivision (1) of this subsection for whom the covered operator
+obtained verifiable consent from a parent or legal guardian under
+subparagraph (A)(ii) of subdivision (1) of subsection (b) o f this section;
+(3) The portion of the total number of covered users described in
+subdivision (1) of this subsection for whom the default settings set forth
+in subparagraph (A) of subdivision (2) of subsection (d) of this section
+were enabled, and the portion of such tota l number of covered users for
+whom such default settings were not enabled; and
+
+(4) The average amount of time per day that covered users used the
+covered operator's covered platform, broken down by user age and
+hour of day.
+(f) Nothing in this section shall be construed to (1) require a covered
+operator to provide a covered minor's parent or legal guardian with
+access to, or control over, the covered minor's covered platform account
+or any data associated therewith, unless pr ovision of such access or
+control is specifically required by this section, or (2) impose liability for
+any commercial activity or action by a covered operator subject to 15
+USC 6501, as amended from time to time, that is inconsistent with the
+manner in wh ich such commercial activity or action is treated under 15
+USC 6502, as amended from time to time.
+(g) A violation of any provision of subsections (b) to (e), inclusive, of
+this section shall be deemed an unfair or deceptive trade practice under
+subsection (a) of section 42 - 110b of the general statutes.

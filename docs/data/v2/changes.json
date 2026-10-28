@@ -1,0 +1,67 @@
+{
+ "items": [
+  {
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "field": "penalties",
+   "old": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+   "new": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); DFS Office, after notice and hearing: one thousand dollars per day for failure to file or correct a disclosure, plus an amount equal to the assessments owed (§1428(5)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+   "date": "2026-10-28",
+   "run_id": "update-20261028-0711",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "tier": "C",
+   "note": "self-correction (omission): The penalties field omits the DFS Office civil penalty under §1428(5): after notice and hearing, one thousand dollars per day for failing to file or correct a disclosure, plus an amount equal to assessments owed. Quote: \"the office may, after notice and hearing, levy civil penalties, fees, and costs as follows\""
+  },
+  {
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-10-28",
+   "run_id": "update-20261028-0711",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ct-p-a-26-15-omnibus",
+   "field": "mechanism",
+   "old": "39-section omnibus (AEDT/employment AI incl. WARN-notice AI disclosure, companion chatbots, provenance, social media, regulatory sandbox). Frontier-relevant sections: \"frontier developer\" = doing business in CT + >10²⁶ FLOPs; \"large frontier developer\" = >$500M revenue; frontier developers may not retaliate against employees reporting catastrophic-risk concerns (effective Oct. 1, 2026 ); large frontier developers must operate anonymous internal reporting channels by Jan. 1, 2027 ; civil penalty up to $1,000 per violation for the whistleblower duties, in an AG action in Hartford superior court ; plus a DCP-run IVO pilot through June 30, 2030 — see Section C . No developer framework, transparency-report, incident-reporting, or audit mandate",
+   "new": "39-section omnibus (AEDT/employment AI incl. WARN-notice AI disclosure, companion chatbots, provenance, social media, regulatory sandbox). Frontier-relevant sections: frontier developers may not retaliate against covered employees reporting catastrophic-risk concerns or adopt contracts barring such reporting (effective Oct. 1, 2026); large frontier developers must operate anonymous internal reporting channels by Jan. 1, 2027, with quarterly sharing of reports with officers and directors; frontier developers must give covered employees notice of their rights; civil penalty up to $1,000 per violation of subsections (b) to (d), in an AG action in Hartford superior court, with state recovery of investigation costs and attorneys' fees when prevailing; plus a DCP-run IVO pilot through June 30, 2030 — see Section C.",
+   "date": "2026-10-28",
+   "run_id": "update-20261028-0711",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "tier": "C",
+   "note": "self-correction (omission): The penalty covers all of subsections (b) to (d), including the employee-notice duty, not only the whistleblower duties, and the state can recover investigation costs and attorneys' fees. The entry also ends with a 'does not contain' statement, which the rules forbid. Quote: \"Any frontier developer that violates any provision of subsections\""
+  },
+  {
+   "entry_key": "ct-p-a-26-15-omnibus",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-10-28",
+   "run_id": "update-20261028-0711",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "field": "penalties",
+   "old": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+   "new": "$1M first / $3M subsequent violation, scaled to severity (AG civil action, §1427(1)); DFS office may, after notice and hearing, levy one thousand dollars per day for no disclosure statement or uncorrected false information, plus assessments owed (§1428(5)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+   "date": "2026-10-28",
+   "run_id": "update-20261028-0733",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the Office's own civil penalty tier in §1428(5): after notice and hearing, the DFS office may levy one thousand dollars per day for failing to file a disclosure or correct false information, plus assessments owed. The source writes this amount as 'one thousand dollars', so the numeral is not used. Quote: \"a civil penalty of one thousand dollars for each day the entity\""
+  },
+  {
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-10-28",
+   "run_id": "update-20261028-0733",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "tier": "C"
+  }
+ ]
+}

@@ -49,6 +49,12 @@ ok('exponents read the same however printed; years and single digits are not fac
   ok('gate: a partial run does not count', g2.report === null);
   const g3 = gate({ config, models: { provider: 'anthropic', anthropic: { roles: { generator: { model: 'claude' } } } }, reports: [{ generator: 'm', run_at: '2026-10-16', summary: sum }], goldItems: 2 });
   ok('gate: a report for another model does not count', g3.report === null);
+  // The news switch is not a bill field: it neither passes nor fails the bar, and it does not hold new_entries to a bar no report can meet.
+  const all = { pass_rate: 1, unsupported_fields: 0, items: 2 };
+  const g4 = gate({ config: { ...config, auto_publish: { mechanism: true, thresholds: true, penalties: true, new_entries: true, news: true } }, models, reports: [{ generator: 'm', run_at: '2026-10-16', summary: { items: 2, scope_agreement: 1, fields: { mechanism: all, thresholds: all, penalties: all } } }], goldItems: 2 });
+  ok('gate: the news switch is reported but not judged by the bill test set', g4.fields.news.meets === null && g4.fields.new_entries.meets === true && g4.violations.length === 0, JSON.stringify(g4.violations));
+  const g5 = gate({ config: { ...config, auto_publish: { ...config.auto_publish, news: true } }, models, reports: [{ generator: 'm', run_at: '2026-10-16', summary: sum }], goldItems: 2 });
+  ok('gate: bill fields below the bar are still violations with the news switch present', g5.violations.includes('mechanism') && !g5.violations.includes('news'));
 }
 
 console.log(`eval: ${pass} passed, ${fail} failed`);

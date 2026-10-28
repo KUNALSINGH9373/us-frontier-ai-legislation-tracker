@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { deriveCreate, sponsorText, longDate } from './derive.mjs';
+import { deriveCreate, sponsorText, longDate, stateNumber, stateSponsorText, stateStatus, stateSections, eventFor, actionKind } from './derive.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const J = (...p) => JSON.parse(fs.readFileSync(path.join(here, '..', 'fixtures', ...p), 'utf8'));
@@ -42,8 +42,32 @@ ok('bill: the introduction is an event; a same-day referral is not duplicated', 
   const lawRaw = J('congress', '119-s-5061.json'); lawRaw.bill.latestAction = { actionDate: '2026-10-05', text: 'Became Public Law No: 119-77.' };
   ok('bill: becoming law is a Signed / enacted event', deriveCreate({ item: { source: 'congress_gov' }, raw: lawRaw }).events.some((e) => e.type === 'Signed / enacted'));
 }
+{ // procedural Congress actions are never "Passed / advanced" (eventFor uses compare/congress.mjs actionKind)
+  ok('eventFor: cloture, a rejected amendment and a motion to reconsider are not events', [
+    'Cloture motion on the motion to proceed not agreed to in Senate by Yea-Nay Vote. 45 - 52.', 'Amendment SA 1234 not agreed to in Senate by Yea-Nay Vote. 45 - 52.', 'Motion to reconsider laid on the table Agreed to without objection.',
+    'Held at the desk.', 'Message on Senate action sent to the House.', 'Sponsor introductory remarks on measure. (CR S4512)'].every((t) => eventFor({ text: t }) === null));
+  ok('eventFor: milestones keep their event types', eventFor({ text: 'On passage Passed by the Yeas and Nays: 300 - 120.' }) === 'Passed / advanced' && eventFor({ text: 'Ordered to be Reported by the Yeas and Nays: 22 - 0.' }) === 'Passed / advanced' && eventFor({ text: 'Committee on Energy and Natural Resources. Hearings held.' }) === 'Referred / stalled / hearing' && eventFor({ text: 'Became Public Law No: 119-77.' }) === 'Signed / enacted' && eventFor({ text: 'Vetoed by President.' }) === 'Vetoed / failed / rescinded' && eventFor({ text: 'On passage Failed by the Yeas and Nays: 190 - 230.' }) === 'Vetoed / failed / rescinded');
+  ok('actionKind is re-exported for tier-a', actionKind('Held at the desk.').milestone === false && actionKind('Passed Senate with an amendment by Unanimous Consent.').importance === 80);
+  const desk = J('congress', '119-s-2938.json'); desk.bill.latestAction = { actionDate: '2026-10-02', text: 'Held at the desk.' };
+  const d = deriveCreate({ item: { source: 'congress_gov' }, raw: desk });
+  ok('bill: a procedural latest action is neither the status line nor an event; the latest milestone is', /Hearings held/.test(d.fields.status_text) && !/desk/.test(d.fields.status_text) && !d.events.some((e) => /desk/.test(e.text)), d.fields.status_text);
+}
 let err; try { deriveCreate({ item: { source: 'unknown' }, raw: {} }); } catch (e) { err = e; }
 ok('an unknown source is an error, not a guess', !!err);
+
+// ---------- state bills (LegiScan records saved by the grabber, fixtures/legiscan) ----------
+ok('state bill numbers in the tracker\'s styles', JSON.stringify([stateNumber('SB00086'), stateNumber('S10373'), stateNumber('HB4098'), stateNumber('LB1185')]) === JSON.stringify([{ dotted: 'S.B. 86', short: 'SB 86' }, { dotted: 'S.10373', short: 'S.10373' }, { dotted: 'H.B. 4098', short: 'HB 4098' }, { dotted: 'L.B. 1185', short: 'LB 1185' }]));
+{
+  const bills = J('legiscan', 'bills.json'), ut = J('legiscan', 'candidates', 'UT-SB0205-2094829.json').bill;
+  ok('state sponsors: primary first with party, co-sponsors counted, joint sponsors named', stateSponsorText(bills['NY-S10373'].sponsors) === 'Sen. Andrew Gounardes (D)' && stateSponsorText(ut.sponsors) === 'Sen. Stephanie Pitcher (D); joint sponsor Rep. Matthew Gwynn (R)', `${stateSponsorText(bills['NY-S10373'].sponsors)} | ${stateSponsorText(ut.sponsors)}`);
+  ok('state sponsors: co-sponsors are counted in fixed wording, a committee is named alone, none gives null', stateSponsorText([{ role: 'Rep', name: 'A B', party: 'R', sponsor_type_id: 1, sponsor_order: 1 }, { role: 'Rep', name: 'C D', party: 'D', sponsor_type_id: 2, sponsor_order: 2 }, { role: 'Rep', name: 'E F', party: 'D', sponsor_type_id: 2, sponsor_order: 3 }]) === 'Rep. A B (R) with 2 co-sponsors' && stateSponsorText([{ name: 'General Law Committee', committee_sponsor: 1, sponsor_type_id: 1 }]) === 'General Law Committee' && stateSponsorText([]) === null);
+  ok('state status by the comparison step\'s rule: passed = enacted, vetoed or failed = failed, else pending', stateStatus(bills['CA-SB53']) === 'enacted' && stateStatus({ status: 5 }) === 'failed' && stateStatus({ status: 6 }) === 'failed' && stateStatus(bills['NY-S10373']) === 'pending' && stateStatus({ status: 2 }) === 'pending');
+  ok('state sections by status: an enacted bill A or C, any other B, B.2 or C', stateSections('enacted').join() === 'A,C' && stateSections('pending').join() === 'B,B.2,C' && stateSections('failed').join() === 'B,B.2,C');
+  const ca = deriveCreate({ item: { source: 'legiscan' }, raw: { bill: bills['CA-SB53'] } });
+  ok('an enacted state bill: status enacted, its sections A or C, the chaptering as the last action', ca.status === 'enacted' && ca.sections.join() === 'A,C' && ca.section === null && /Chaptered by Secretary of State\. Chapter 138, Statutes of 2025 \(Sept 29, 2025\)$/.test(ca.fields.status_text) && ca.events.some((e) => e.type === 'Signed / enacted' && e.date === '2025-09-29'), ca.fields.status_text);
+  const ny = deriveCreate({ item: { source: 'legiscan' }, raw: { bill: bills['NY-S10373'] } });
+  ok('a one-action state bill: introduced and referred the same day, one status clause', ny.fields.title.startsWith('S.10373 — ') && ny.fields.short_name === 'NY S.10373' && ny.jurisdiction === 'NY' && ny.state === 'NY' && ny.session === '2025-2026 General Assembly' && /^Status: Introduced May 15, 2026/.test(ny.fields.status_text), `${ny.fields.short_name} | ${ny.fields.status_text} | ${ny.session}`);
+}
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

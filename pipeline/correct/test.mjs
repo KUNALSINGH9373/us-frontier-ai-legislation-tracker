@@ -172,5 +172,87 @@ for (const [name, c, re] of bad) {
   ok('5 a correction may not name a fact field', p3.some((p) => /only mechanism, thresholds, penalties may be corrected/.test(p)));
 }
 
+// ---------- 6. nothing true is lost (the 28 Oct live run's CT rewrite dropped the 10^26 and $500M definitions) ----------
+{
+  const { droppedFacts, expandAmounts } = await import('./review.mjs');
+  const old = '"frontier developer" = doing business in CT + >10²⁶ FLOPs; "large frontier developer" = >$500M revenue; civil penalty up to $1,000 per violation';
+  const ct = droppedFacts({ c: { kind: 'omission', problem: 'adds the employee notice duty' }, old, v: 'frontier developers must give notice; civil penalty up to $1,000 per violation, with investigation costs' });
+  ok('6 an omission fix that drops figures is refused', ct.some((x) => /drops figures/.test(x) && /26/.test(x) && /500000000/.test(x)));
+  ok('6 ... and one that drops a defined term', ct.some((x) => /drops defined terms/.test(x) && /large frontier developer/.test(x)));
+  ok('6 the same figure written out in full is kept ($500M = $500,000,000)', droppedFacts({ c: { kind: 'omission', problem: '' }, old: '>$500M revenue; $1B damage', v: '>$500,000,000 annual gross revenues; $1,000,000,000 damage' }).length === 0);
+  ok('6 an error fix may drop a figure its problem names as wrong', droppedFacts({ c: { kind: 'error', problem: 'The deadline is 15 days, not 30 days.' }, old: 'report within 30 days', v: 'report within 15 days' }).length === 0);
+  ok('6 ... but not one its problem does not name', droppedFacts({ c: { kind: 'error', problem: 'Wrong deadline.' }, old: 'report within 30 days', v: 'report within 15 days' }).length === 1);
+  ok('6 amounts are expanded', expandAmounts('$500M, $1.5 billion') === '$500000000, $1500000000');
+  const e = { ...E1, mechanism: `${E1.mechanism} Large developers are those with revenue over $500M.` };
+  ok('6 checkCorrection refuses a rewrite that loses a figure', checkCorrection({ c: { field: 'mechanism', kind: 'omission', problem: 'adds the 72-hour deadline', new_text: `${E1.mechanism} Critical safety incidents must be reported within 72 hours.`, evidence: [{ quote: ADD }] }, entry: e, fields: fieldsFor(e), source: TEXT(e) + ' revenue over $500M.' }).some((x) => /drops figures/.test(x)));
+}
+
+// ---------- 7. multi-bill entries, small figures, legal force, the confirmer's quote ----------
+{
+  const { droppedFacts, multiBillEntry, unquotedChanges } = await import('./review.mjs');
+  const errFix = { field: 'mechanism', kind: 'error', problem: 'The deadline is wrong.', new_text: `${E1.mechanism} Critical safety incidents must be reported within 72 hours.`, evidence: [{ quote: ADD }] };
+  const two = { ...E1, identifiers: { external: { congress_gov: ['119/hr/1', '119/s/2'] } } };
+  ok('7 multi-bill: more than one Congress.gov or LegiScan id, otherBills, or the reader\'s list', multiBillEntry(two) && multiBillEntry({ identifiers: { external: { legiscan: [1, 2] } } }) && multiBillEntry({ otherBills: ['S. 2'] }) && multiBillEntry({}, ['S. 2']) && !multiBillEntry({ identifiers: { external: { congress_gov: ['119/hr/1'] } } }) && !multiBillEntry(E1));
+  ok('7 multi-bill: an error correction is refused with a reason', checkCorrection({ c: errFix, entry: two, fields: fieldsFor(two), source: TEXT(two), multiBill: true }).some((x) => /more than one bill.*only an omission/.test(x)));
+  ok('7 multi-bill: an omission still passes', checkCorrection({ c: goodFix(two).corrections[0], entry: two, fields: fieldsFor(two), source: TEXT(two), multiBill: true }).length === 0);
+  const mb = sandbox(), mrev = scripted(() => ({ corrections: [errFix] })), mcon = scripted(yes);
+  const mr = await run(mb, { factory: factoryOf(mrev, mcon), texts: fakeTexts({ [E1.key]: TEXT(E1) }), ic: { [E1.key]: { congress_gov: ['119/hr/1', '119/s/2'] } }, only: [E1.key] });
+  ok('7 multi-bill through the step: refused, never confirmed, nothing written', mr.corrected.length === 0 && mcon.calls.length === 0 && JSON.stringify(readEntry(mb.dataDir, E1.key)) === JSON.stringify(E1), JSON.stringify(mr.rejected));
+  ok('7 multi-bill: the reader is told only omissions are allowed', /only "omission" corrections are allowed/.test(mrev.calls[0].prompt));
+
+  const om = (old, v, problem = '') => droppedFacts({ c: { kind: 'omission', problem }, old, v });
+  ok('7 a single-digit figure with its unit is kept ("within 3 years" removed is caught)', om('report within 3 years of enactment', 'report after enactment').some((x) => /3 year/.test(x)));
+  ok('7 ... days, hours, people, percent too', ['5 days', '2 hours', '4 people', '7%', '9 percent'].every((f) => om(`within ${f} of notice`, 'after notice').length === 1));
+  ok('7 ... kept in another notation is not flagged ("3-year", "three years", "15 percent")', om('within 3 years', 'a 3-year deadline').length === 0 && om('within 3 years', 'within three years').length === 0 && om('15% of revenue', '15 percent of revenue').length === 0);
+  ok('7 ... the expanded-amount equivalence still holds', om('fines of $5M', 'fines of $5,000,000').length === 0);
+  ok('7 ... an error fix may drop one its problem names', droppedFacts({ c: { kind: 'error', problem: 'The deadline is 5 days, not 3 years.' }, old: 'within 3 years', v: 'within 5 days' }).length === 0);
+  ok('7 ... a bare single digit with no unit is not compared', om('Tier 2 developers', 'covered developers').length === 0);
+
+  const uq = (old, v, quotes, kind = 'omission', problem = '') => unquotedChanges({ c: { kind, problem }, old, v, quotes });
+  ok('7 "shall" changed to "may" with no quote containing "may" is refused', uq('The developer shall publish a framework.', 'The developer may publish a framework.', ['The developer shall publish'], 'error', 'It is a power, the developer shall not be required.').some((x) => /power wording/.test(x)));
+  ok('7 ... with a quote containing it, and the dropped word named, it passes', uq('The developer shall publish a framework.', 'The developer may publish a framework.', ['The developer may publish a framework'], 'error', 'shall is wrong: SOURCE gives a power').length === 0);
+  ok('7 an omission may not drop a legal-force word', uq('Developers must report incidents; audits are voluntary.', 'Developers report incidents; audits are voluntary; whistleblowers are protected.', ['whistleblowers are protected']).some((x) => /drops the legal-force word "must"/.test(x)));
+  ok('7 the month "May" is not a power', uq('Effective Jan 1, 2027.', 'Effective May 1, 2027.', ['takes effect May 1, 2027'], 'error', 'wrong month').length === 0);
+  ok('7 a figure already in the old text used again for another step needs a quote', uq('Report within 72 hours.', 'Report within 72 hours; audit within 72 hours.', ['an annual audit']).some((x) => /uses again.*72/.test(x)));
+  ok('7 ... so does a small figure with its unit', uq('Report within 3 days.', 'Report within 3 days; publish within 3 days.', ['publish the report']).some((x) => /3 day/.test(x)));
+  ok('7 ... and a new figure the quotes do not contain', uq('Report incidents.', 'Report incidents within 15 days.', ['report each incident']).some((x) => /15/.test(x)) && uq('Report incidents.', 'Report incidents within 15 days.', ['report each incident within 15 days']).length === 0);
+
+  const nq = sandbox(), nqr = await run(nq, { factory: factoryOf(scripted(() => goodFix(E1)), scripted(() => ({ confirmed: true, quote: null, reason: 'looks right' }))), texts: fakeTexts({ [E1.key]: TEXT(E1) }), only: [E1.key] });
+  ok('7 a confirmation with no quote is not a confirmation', nqr.corrected.length === 0 && /confirmer gave no quote/.test(nqr.rejected[0].why) && JSON.stringify(readEntry(nq.dataDir, E1.key)) === JSON.stringify(E1));
+  const eq = sandbox(), eqr = await run(eq, { factory: factoryOf(scripted(() => goodFix(E1)), scripted(() => ({ confirmed: true, quote: '   ', reason: 'x' }))), texts: fakeTexts({ [E1.key]: TEXT(E1) }), only: [E1.key] });
+  ok('7 ... nor one with a blank quote', eqr.corrected.length === 0 && /no quote/.test(eqr.rejected[0].why));
+}
+
+// ---------- 8. nothing qualitative is lost: an omission only adds; an error changes only what its problem names ----------
+{
+  const { droppedWords, multiBillEntry } = await import('./review.mjs');
+  const om = (old, v) => droppedWords({ c: { kind: 'omission', problem: 'x' }, old, v });
+  const er = (old, v, problem) => droppedWords({ c: { kind: 'error', problem }, old, v });
+  const ca = 'Developers must publish a framework; applies only to developers in California; AG enforces.';
+  ok('8 an omission that drops a qualitative clause is refused, naming the first dropped words', om(ca, 'Developers must publish a framework; AG enforces; incidents within 72 hours.').some((x) => /may only add/.test(x) && /"applies only to developers in california"/.test(x)));
+  ok('8 ... additions anywhere, case, punctuation and spacing are fine', om(ca, 'Large developers MUST publish a framework within 90 days -- applies only to developers in California (§2); the AG enforces, with civil penalties.').length === 0);
+  ok('8 ... the old figures in another notation are kept ($500M = $500,000,000, 10²⁶ = 10^26, three = 3)', om('>$500M revenue; 10²⁶ ops; within three years', '>$500,000,000 revenue; 10^26 ops; within 3 years').length === 0);
+  ok('8 ... a reworded word is a drop ("runs" -> "must establish")', om('DOE runs a program', 'DOE must establish a program within 90 days').some((x) => /starting "runs"/.test(x)));
+  ok('8 ... reordering is a drop', om('audits and reports', 'reports and audits').length === 1);
+  ok('8 an error fix may change the part its problem names', er('report within 30 days to the AG', 'report within 15 days to the AG', 'The deadline is 15 days, not 30 days.').length === 0);
+  ok('8 ... but not drop a clause its problem does not name', er(ca, 'Developers must publish a framework by Jan 1, 2027; AG enforces.', 'The framework deadline is missing and wrong.').some((x) => /problem does not name/.test(x) && /california/.test(x)));
+  ok('8 ... "not" and "only" are never function words', er('applies only to large developers', 'applies to large developers', 'wrong scope').length === 1 && er('does not apply to universities', 'does apply to universities', 'wrong').length === 1);
+  ok('8 ... small function words around the named part may go', er('safe harbor for the labs', 'exemption for labs', 'It is an exemption, not a safe harbor.').length === 0);
+  const e = { ...E1, mechanism: `${E1.mechanism} Applies only to developers in California.` }, src = TEXT(e);
+  ok('8 checkCorrection runs it', checkCorrection({ c: { field: 'mechanism', kind: 'omission', problem: 'adds the 72-hour deadline', new_text: `${E1.mechanism} Critical safety incidents must be reported within 72 hours.`, evidence: [{ quote: ADD }] }, entry: e, fields: fieldsFor(e), source: src }).some((x) => /may only add.*applies only to developers in california/.test(x)));
+  // the past week's hand fixes that the rule refuses as omissions (each removed or reworded something, so each is an error fix)
+  ok('8 history: removing "and the designated federal standard need not require audits" is not an omission', om('it covers incident reporting only (§1422(8)–(9)), and the designated federal standard need not require audits.', 'it covers incident reporting only (§1422(8)–(9)).').length === 1);
+  ok('8 history: dropping "independent reviews; whistleblower protections" is refused even as an error about something else', er('incident reporting 15 days; independent reviews; whistleblower protections; AG enforcement', 'incident reporting 15 days; plans must describe third-party assessments; AG enforcement', 'The plan content is missing.').length === 1);
+
+  const mrev = scripted(() => ({ corrections: [] }));
+  ok('8 multi-bill from the identifier files: two Congress.gov ids or two LegiScan bills', multiBillEntry(E1, [], { congress_gov: ['119/hr/1', '119/s/2'] }) && multiBillEntry(E1, [], { legiscan: [1, 2] }) && !multiBillEntry(E1, [], { congress_gov: ['119/hr/1'], legiscan: [1] }) && !multiBillEntry(E1, [], { legiscan: [1, 1] }));
+  const sb = sandbox();
+  await run(sb, { factory: factoryOf(mrev, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1) }), il: { [E1.key]: { bills: [{ bill_id: 1, state: 'CA', number: 'SB1' }, { bill_id: 2, state: 'CA', number: 'AB2' }] } }, only: [E1.key] });
+  ok('8 ... passed in by the step: two LegiScan bills make the reader see the multi-bill note', /only "omission" corrections are allowed/.test(mrev.calls[0].prompt) && /keep the current text intact and only add/.test(mrev.calls[0].prompt));
+  const rrev = scripted(() => ({ corrections: [] }));
+  await run(sandbox(), { factory: factoryOf(rrev, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1) }), il: { [E1.key]: { status: 'rejected', bills: [{ bill_id: 1 }] } }, only: [E1.key] });
+  ok('8 ... a single bill is not multi-bill; the reviewer prompt says omissions keep the old text', !/NOTE: this entry covers more than one bill/.test(rrev.calls[0].prompt) && /An "omission" only ADDS/.test(rrev.calls[0].system));
+}
+
 console.log(`\ncorrect: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

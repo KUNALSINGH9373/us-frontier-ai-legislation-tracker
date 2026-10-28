@@ -11,6 +11,7 @@ import { checkPublish, checkNewEntry } from './guards.mjs';
 import { assembleEntry } from '../agents/assemble.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { publishEntry } from '../report/build.mjs';
+import { sourceText } from '../agents/source-text.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FX = path.join(here, '..', 'fixtures', 'publish');
@@ -156,13 +157,43 @@ const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'autom
   ok('the published data passes every rule', variant(() => {}).length === 0, variant(() => {}).join('; '));
   ok('stop: a new entry Tier B did not create', variant(() => {}, { newKeys: [] }).some((p) => /not created by Tier B/.test(p)));
   ok('stop: more new entries than the per-run limit', variant(() => {}, { maxNew: 0 }).some((p) => /over the limit of 0 per run/.test(p)));
-  ok('stop: a new entry in a section that needs a person', variant((a, e) => { e.section = 'B'; e.type = 'bill'; e.level = 'state'; }).some((p) => /section B needs a person/.test(p)));
+  ok('stop: a new entry in a section that needs a person', variant((a, e) => { e.section = 'E'; e.type = 'draft'; }).some((p) => /section E needs a person/.test(p)));
+  const asState = variant((a, e) => { e.section = 'B'; e.type = 'bill'; e.level = 'state'; });
+  ok('stop: a federal bill filed in a state section', asState.some((p) => /a state entry needs its two-letter state/.test(p)) && asState.some((p) => /needs its LegiScan id and session/.test(p)));
   ok('stop: a type that does not follow the section rule', variant((a, e) => { e.type = 'law'; }).some((p) => /do not follow the rule for section D/.test(p)));
   ok('stop: a reading field without evidence', variant((a, e) => { e.evidence = e.evidence.filter((x) => x.field !== 'mechanism'); }).some((p) => /no evidence quote for mechanism/.test(p)));
   ok('stop: a "none located" finding written by the pipeline', variant((a, e) => { e.penalties = 'No penalties located.'; }).some((p) => /search finding/.test(p)));
   ok('stop: a new entry not marked as the pipeline\'s', variant((a, e) => { e.origin = 'authored'; }).some((p) => /not marked as written and checked by the pipeline/.test(p)));
   ok('stop: a future event on a new entry not marked scheduled', variant((a, e) => { e.events.push({ date: '2026-12-01', precision: 'day', type: 'Passed / advanced', text: 'x', scheduled: false }); }).some((p) => /future event not marked scheduled on h-r-9990/.test(p)));
   ok('checkNewEntry passes a well-formed draft', checkNewEntry(after.entries.find((x) => x.key === key)).length === 0);
+}
+
+// ---------- duties written by the agents' duty step (agents/duties.mjs) ----------
+{
+  const url = 'https://www.congress.gov/bill/119th-congress/house-bill/9990', text = sourceText(bill(9990, 'Frontier Model Safety Testing Act'), 'congress_gov');
+  const none = (summary) => ({ value: 'not_in_bill', summary });
+  const duties = () => ({
+    framework: { value: 'yes', summary: 'Developers of frontier models must publish a safety and security protocol before deployment.', section: 'Sec. 2', quote: 'shall publish a safety and security protocol before deployment', source_url: url },
+    transparency_report: none('No public model report is required.'), incident_reporting: none('No incident reporting.'), imminent_risk_reporting: none('No shorter window.'),
+    third_party_audit: none('No audit.'), whistleblower: none('No employee protections.'), registration: none('No registration.'), shutdown: none('No shutdown duty.'),
+    compute_threshold: { value: 'yes', summary: 'Covers models trained using more than 10^26 operations.', section: 'Sec. 2', quote: 'trained using more than 10^26 integer or floating-point operations', source_url: url },
+    revenue_threshold: none('No revenue test.'), harm_threshold: none('No harm figures.'),
+    penalties: { value: 'yes', summary: 'Civil penalty of not more than $1,000,000 for each violation.', section: 'Sec. 4', quote: 'civil penalty of not more than $1,000,000 for each violation', source_url: url },
+    effective_date: none('No effective date stated.')
+  });
+  const basis = () => ({ source_url: url, sha256: sha(text), chars: text.length, method: 'agent', checked_at: '2026-10-06T16:00:00Z' });
+  const withDuties = (change = () => {}) => setup({ edit: (r) => { r.entry.duties = duties(); r.entry.duties_basis = basis(); change(r.entry); } });
+  {
+    const s = withDuties(), r = publish(s), e = newOnes(s.dataDir)[0];
+    ok('duties: a new entry with proved duties is published with them and their basis', r.status === 'published' && e && e.duties && e.duties.penalties.value === 'yes' && e.duties_basis.method === 'agent', r.summary);
+  }
+  const skippedFor = (change, re, name) => { const s = withDuties(change), r = publish(s); ok(name, newOnes(s.dataDir).length === 0 && r.result.skipped.some((x) => re.test(x.why)), JSON.stringify(r.result.skipped)); };
+  skippedFor((e) => { e.duties.penalties.quote = 'civil penalty of not more than $5,000,000 for each violation'; }, /duty penalties: the quote is not in the official text/, 'duties: an answer whose quote is not in the stored record stops the new entry');
+  skippedFor((e) => { e.duties.framework.section = 'Sec. 77'; }, /duty framework: the section "Sec. 77"/, 'duties: a section number the record does not have stops the new entry');
+  skippedFor((e) => { e.duties_basis.sha256 = 'a'.repeat(64); }, /different text than the stored record/, 'duties: duties read from another text (hash differs) stop the new entry');
+  skippedFor((e) => { delete e.duties.shutdown; }, /duty format/, 'duties: a duty set missing an answer stops the new entry');
+  skippedFor((e) => { delete e.duties_basis; }, /duties without a duties_basis/, 'duties: duties with no basis from the pipeline stop the new entry');
+  skippedFor((e) => { e.duties_basis.method = 'session'; }, /duties without a duties_basis from the pipeline/, 'duties: duties marked as session-written are not accepted on a new entry');
 }
 
 console.log(`tier B publish: ${pass} passed, ${fail} failed`);

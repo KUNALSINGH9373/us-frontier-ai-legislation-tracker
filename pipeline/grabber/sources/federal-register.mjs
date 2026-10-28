@@ -3,6 +3,7 @@
 export const BASE = 'https://www.federalregister.gov/api/v1';
 const FIELDS = ['document_number', 'title', 'type', 'publication_date', 'html_url', 'abstract', 'agency_names', 'executive_order_number', 'signing_date', 'effective_on', 'citation', 'raw_text_url'];
 
+import fs from 'fs';
 import { htmlToText } from '../lib/text.mjs';
 export { htmlToText };
 
@@ -26,12 +27,26 @@ export function createFederalRegister(http) {
   };
 }
 
-// Phrases that identify a tracked entry inside a Federal Register title or abstract: executive order numbers
-// and any name in quotation marks in the entry's title.
-export function watchPhrases(entry) {
-  const text = `${entry.title} ${entry.short_name}`;
+// The scope's own search terms (config/scope.draft.json Congress and Federal Register terms, config/legiscan.json precise phrases).
+// A quoted phrase that is one of them, or part of one, matches every document the search finds, so it never identifies an entry.
+const readJson = (f) => { try { return JSON.parse(fs.readFileSync(new URL(`../../config/${f}`, import.meta.url), 'utf8')); } catch { return {}; } };
+const plain = (s) => String(s).toLowerCase().replace(/\\b|\\./g, '').replace(/[^a-z0-9 -]/g, ' ').replace(/\s+/g, ' ').trim();
+export const SCOPE_TERMS = (() => {
+  const s = readJson('scope.draft.json'), l = readJson('legiscan.json'), fr = s.federal_register || {};
+  return [...new Set([...(s.precise_terms || []), ...(fr.terms || []), ...(fr.screen_terms || []), ...(l.precise_phrases || [])].map(plain).filter(Boolean))];
+})();
+
+// What identifies a tracked entry inside a Federal Register title or abstract, taken from the entry's title only (a short name is
+// the tracker's own shorthand, e.g. "Super Intelligence" for EO 14434): its executive order numbers, and a full title written in
+// quotation marks, unless that phrase equals or is contained in a scope search term. A match needs the order number or that full title.
+export function watchPhrases(entry, scopeTerms = SCOPE_TERMS) {
+  const text = String(entry.title || '');
   const eo = new Set([...text.matchAll(/\b(?:EO|E\.O\.|Executive Order)\s*(?:No\.\s*)?(1\d{4})\b/gi)].map((m) => m[1]));
   const phrases = [...eo].flatMap((n) => [`executive order ${n}`, `eo ${n}`, `e.o. ${n}`]);
-  for (const m of text.matchAll(/[“"]([^”"]{8,80})[”"]/g)) phrases.push(m[1].toLowerCase());
+  const terms = scopeTerms.map(plain);
+  for (const m of text.matchAll(/[“"]([^”"]{8,120})[”"]/g)) {
+    const p = m[1].toLowerCase().trim(), q = plain(p);
+    if (!terms.some((t) => t === q || t.includes(q))) phrases.push(p);
+  }
   return { eo, phrases };
 }

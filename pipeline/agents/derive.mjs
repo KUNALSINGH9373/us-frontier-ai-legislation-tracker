@@ -4,6 +4,8 @@
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']; // the tracker's own spellings
 export const longDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${MON[m - 1]} ${d}, ${y}`; };
 const trunc = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
+import { eventsFrom, trackerStatus, normNumber } from '../grabber/sources/legiscan.mjs';
+import { actionKind } from '../compare/congress.mjs';
 const TYPE_LABEL = { hr: 'H.R.', s: 'S.', hjres: 'H.J.Res.', sjres: 'S.J.Res.', hres: 'H.Res.', sres: 'S.Res.', hconres: 'H.Con.Res.', sconres: 'S.Con.Res.' };
 
 // "Sen. Sanders, Bernard [I-VT]"  ->  "Sen. Bernard Sanders (I-VT)"
@@ -14,18 +16,47 @@ export function sponsorText(sponsors) {
   }).join('; ') || null;
 }
 
-export const eventFor = (action) => {
-  const t = action.text || '';
-  if (/became public law|signed by president/i.test(t)) return 'Signed / enacted';
-  if (/vetoed/i.test(t)) return 'Vetoed / failed / rescinded';
-  if (/passed|agreed to|ordered to be reported|reported by/i.test(t)) return 'Passed / advanced';
-  if (/referred to|hearing/i.test(t)) return 'Referred / stalled / hearing';
-  return null;
-};
+// A Congress.gov action -> the tracker's event type, or null for a procedural step (cloture, amendments, motions, held at the desk,
+// messages between chambers). The rules are compare/congress.mjs actionKind, the same ones the comparison step uses.
+export { actionKind };
+export const eventFor = (action) => actionKind(action && action.text).type;
 
 // A bill on export controls for advanced AI chips cites their export classifications (ECCN 3A090 / 4A090). It is filed under
 // G.3 (compute and export controls) by rule; a model chose D or F for all three such bills in the 27 Oct 2026 test.
 export const exportControlBill = (text, title = '') => /\b[34]A090\b/.test(text || '') && /\b(?:export|reexport|licen[cs]e)/i.test(`${title} ${text}`);
+
+// A state bill's number in the tracker's two styles. LegiScan "SB00086" -> title "S.B. 86", short name "CT SB 86"; one-letter
+// prefixes keep the tracker's existing spelling without a space: "S10373" -> "S.10373" in both (as in "NY S.10373").
+export function stateNumber(billNumber) {
+  const n = normNumber(billNumber), m = n && /^([A-Z]+)(\d+)$/.exec(n);
+  if (!m) return { dotted: String(billNumber), short: String(billNumber) };
+  const [, l, d] = m;
+  return l.length === 1 ? { dotted: `${l}.${d}`, short: `${l}.${d}` } : { dotted: `${[...l].join('.')}. ${d}`, short: `${l} ${d}` };
+}
+
+// LegiScan sponsors -> "Rep. Anastasia Travers (D) with 3 co-sponsors; joint sponsor Rep. Matthew Gwynn (R)". Primary sponsors first, in
+// LegiScan's order (sponsor_type_id 1; when none is marked primary, the first listed). Co-sponsors (2) are counted, joint sponsors (3) named.
+// A party is written only when it is a party letter (Nebraska's nonpartisan "N" is left out); a committee sponsor is its name alone.
+const PARTY = new Set(['D', 'R', 'I', 'L', 'G']);
+const stateSponsor = (s) => (s.committee_sponsor ? s.name : `${s.role ? s.role + '. ' : ''}${s.name}${PARTY.has(s.party) ? ` (${s.party})` : ''}`);
+export function stateSponsorText(sponsors) {
+  const all = [...(sponsors || [])].sort((a, b) => (a.sponsor_order || 0) - (b.sponsor_order || 0));
+  let primary = all.filter((s) => s.sponsor_type_id === 1);
+  if (!primary.length) primary = all.slice(0, 1);
+  if (!primary.length) return null;
+  const co = all.filter((s) => s.sponsor_type_id === 2 && !primary.includes(s)).length, joint = all.filter((s) => s.sponsor_type_id === 3 && !primary.includes(s));
+  return primary.map(stateSponsor).join('; ') + (co ? ` with ${co} co-sponsor${co === 1 ? '' : 's'}` : '') + (joint.length ? `; joint sponsor${joint.length === 1 ? '' : 's'} ${joint.map(stateSponsor).join(', ')}` : '');
+}
+
+// A state bill's status, by the same rule the comparison step uses for tracked state bills (compare/legiscan.mjs, from LegiScan's status
+// code): enacted when LegiScan marks it passed into law, failed when vetoed or failed, otherwise pending. "stalled" is a person's judgement.
+export const stateStatus = (bill) => trackerStatus(bill && bill.status);
+
+// The sections a new state bill may be filed in, by rule from its status (the tracker's own sections): an enacted bill is a law (A, enacted
+// state frontier-developer laws) or an IVO / AI-auditor measure (C); a pending or failed one is a bill (B, pending, stalled and failed state
+// bills; B.2, catastrophic-risk regulation without a frontier threshold) or an IVO / AI-auditor measure (C). Which one needs a reading of the
+// text, so the Generator chooses within these, and code refuses anything else.
+export const stateSections = (status) => (status === 'enacted' ? ['A', 'C'] : ['B', 'B.2', 'C']);
 
 // Returns { fields, events, section } with everything the record states exactly. section is null when it cannot be decided by rule.
 export function deriveCreate({ item, raw }) {
@@ -51,7 +82,11 @@ export function deriveCreate({ item, raw }) {
     const b = raw.bill, num = `${TYPE_LABEL[String(b.type).toLowerCase()] || b.type} ${b.number}`;
     const events = [];
     if (b.introducedDate) events.push({ date: b.introducedDate, precision: 'day', type: 'Introduced / published', text: `${num} introduced` });
-    const la = b.latestAction;
+    // The latest action when it is a milestone; else the latest milestone after the introduction (the most important one on its date).
+    // A procedural latest action ("Held at the desk") is never the status line.
+    const la = (b.latestAction && actionKind(b.latestAction.text).milestone ? b.latestAction : null) || (raw.actions || [])
+      .filter((a) => a && a.actionDate && actionKind(a.text).milestone && actionKind(a.text).kind !== 'introduced')
+      .sort((x, y) => y.actionDate.localeCompare(x.actionDate) || actionKind(y.text).importance - actionKind(x.text).importance)[0] || null;
     if (la && la.actionDate !== b.introducedDate && eventFor(la)) events.push({ date: la.actionDate, precision: 'day', type: eventFor(la), text: la.text.replace(/\.$/, '') });
     return {
       fields: {
@@ -59,6 +94,17 @@ export function deriveCreate({ item, raw }) {
         status_text: `Introduced / status: ${b.introducedDate ? longDate(b.introducedDate) : 'date not stated'}${la ? `; ${la.text.replace(/\.$/, '')} (${longDate(la.actionDate)})` : ''}`
       },
       events, section: exportControlBill(raw.text, b.title) ? 'G.3' : null
+    };
+  }
+  if (item.source === 'legiscan') {
+    const b = raw.bill, num = stateNumber(b.bill_number), status = stateStatus(b);
+    // Every non-routine history action is an event (grabber/sources/legiscan.mjs eventsFrom, the rules Tier A uses for tracked state bills).
+    const events = eventsFrom(b).map(({ date, precision, type, text }) => ({ date, precision, type, text: text.replace(/\.$/, '') }));
+    const intro = events.find((e) => e.type === 'Introduced / published') || ((b.history || [])[0] && { date: b.history[0].date }), last = events[events.length - 1];
+    const status_text = `Status: Introduced ${intro && intro.date ? longDate(intro.date) : 'date not stated'}${last && last !== intro ? `; ${last.text} (${longDate(last.date)})` : ''}`;
+    return {
+      fields: { title: `${num.dotted} — ${b.title}`, short_name: trunc(`${b.state} ${num.short}`, 100), sponsor_text: stateSponsorText(b.sponsors), status_text },
+      events, section: null, sections: stateSections(status), status, jurisdiction: b.state, state: b.state, session: b.session && b.session.session_name
     };
   }
   throw new Error('no derivation for ' + item.source);

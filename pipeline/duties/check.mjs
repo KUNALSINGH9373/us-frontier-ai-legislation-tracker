@@ -43,25 +43,41 @@ const foreign = (s) => /[Ͱ-ϿЀ-ӿ֐-ۿऀ-෿฀-࿿぀-ヿ一-鿿가-힯]/.te
 // "1" in a summary is usually the word "one" ("a single report"), not a figure the text must state.
 const trivial = new Set(['1']);
 
-export function checkDuties(duties, text, { sourceUrl } = {}) {
-  const problems = [], v = makeValidator();
-  const shape = v.check('duties', duties);
-  if (shape.length) return shape.map((s) => 'format: ' + s);
+// The numbers a text states, in digits or in words, as a test function.
+function numbersOf(text) {
   const textNums = digitRuns(text), wordNums = wordNumbers(text);
   // A large figure followed by a stray footnote digit ("$500,000,000.8", printed that way in the Illinois text) also counts as the figure itself.
   for (const n of [...textNums]) { const m = /^(\d{4,})\.\d+$/.exec(n); if (m) textNums.add(m[1]); }
-  const inText = (n) => textNums.has(n) || wordNums.has(n);
-  for (const [name, d] of Object.entries(duties)) {
-    const at = (m) => problems.push(`${name}: ${m}`);
-    if (foreign(d.summary) || foreign(d.quote || '')) at('contains letters from a script the text does not use');
-    for (const n of digitRuns(d.summary)) if (!trivial.has(n) && !inText(n)) at(`the summary has the number ${n}, which is not in the official text`);
-    if (d.value === 'not_in_bill') continue;
-    if (!containsQuote(text, d.quote)) at(`the quote is not in the official text: "${d.quote.slice(0, 80)}"`);
-    if (sourceUrl && d.source_url !== sourceUrl) at(`source_url ${d.source_url} is not the text's own URL ${sourceUrl}`);
-    for (const n of digitRuns(d.quote)) if (!inText(n)) at(`the quote has the number ${n}, which is not in the official text`);
-    // The section label need not match the bill's punctuation, but any number in it must occur in the text.
-    for (const n of digitRuns(d.section)) if (!inText(n)) at(`the section "${d.section}" has the number ${n}, which is not in the official text`);
-  }
+  return (n) => textNums.has(n) || wordNums.has(n);
+}
+
+export function checkDuties(duties, text, { sourceUrl } = {}) {
+  const v = makeValidator();
+  const shape = v.check('duties', duties);
+  if (shape.length) return shape.map((s) => 'format: ' + s);
+  const inText = numbersOf(text);
+  return Object.entries(duties).flatMap(([name, d]) => answerProblems(name, d, text, { sourceUrl, inText }));
+}
+
+let dutyShape;
+// One answer on its own (the agents' duty step drops answers one by one): its format against common.schema.json "duty", then the same text checks.
+export function checkAnswer(name, d, text, { sourceUrl } = {}) {
+  const shape = (dutyShape ||= makeValidator()).check('duty', d);
+  if (shape.length) return shape.map((s) => `${name}: format: ${s}`);
+  return answerProblems(name, d, text, { sourceUrl, inText: numbersOf(text) });
+}
+
+function answerProblems(name, d, text, { sourceUrl, inText }) {
+  const problems = [];
+  const at = (m) => problems.push(`${name}: ${m}`);
+  if (foreign(d.summary) || foreign(d.quote || '')) at('contains letters from a script the text does not use');
+  for (const n of digitRuns(d.summary)) if (!trivial.has(n) && !inText(n)) at(`the summary has the number ${n}, which is not in the official text`);
+  if (d.value === 'not_in_bill') return problems;
+  if (!containsQuote(text, d.quote)) at(`the quote is not in the official text: "${d.quote.slice(0, 80)}"`);
+  if (sourceUrl && d.source_url !== sourceUrl) at(`source_url ${d.source_url} is not the text's own URL ${sourceUrl}`);
+  for (const n of digitRuns(d.quote)) if (!inText(n)) at(`the quote has the number ${n}, which is not in the official text`);
+  // The section label need not match the bill's punctuation, but any number in it must occur in the text.
+  for (const n of digitRuns(d.section)) if (!inText(n)) at(`the section "${d.section}" has the number ${n}, which is not in the official text`);
   return problems;
 }
 

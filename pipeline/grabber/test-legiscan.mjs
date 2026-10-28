@@ -8,7 +8,7 @@ import { runLegiScan, readUsage, addUsage, trackedBills, preciseQuery, frontierM
 import { classifyTitles, fetchIt, INTENT_SYSTEM } from './intent.mjs';
 import { pdfToText, stripLineNumbers, stripRepeats, pageLines, textWarnings } from './lib/pdf.mjs';
 import { createOfficial } from './sources/official.mjs';
-import { normNumber, billNumbersIn, trackerStatus, eventType, eventsFrom, latestText, officialUrl } from './sources/legiscan.mjs';
+import { normNumber, billNumbersIn, trackerStatus, eventType, stateActionKind, eventsFrom, latestText, officialUrl } from './sources/legiscan.mjs';
 import { createHttp } from './lib/http.mjs';
 import { emptyState } from './lib/state.mjs';
 import { makeValidator } from '../schema/validate.mjs';
@@ -35,6 +35,40 @@ ok('second-chamber first reading is not an introduction', eventType('In Assembly
 ok('concurrence and agreement are passage', eventType('Assembly amendments concurred in. (Ayes 29. Noes 8.)') === 'Passed / advanced' && eventType('Senate substitute agreed to by House (84-Y 14-N 0-A)') === 'Passed / advanced');
 ok('signing', eventType('Approved by the Governor.') === 'Signed / enacted' && eventType('Approved by Governor-Chapter 425 (effective 7/1/2026)') === 'Signed / enacted' && eventType('Chaptered by Secretary of State. Chapter 138, Statutes of 2025.') === 'Signed / enacted');
 ok('failure', eventType('Vetoed by Governor') === 'Vetoed / failed / rescinded' && eventType('Failed passage in committee') === 'Vetoed / failed / rescinded' && eventType('Veto overridden') === 'Passed / advanced');
+{ // failure, veto and enactment are the bill's own; amendments, motions, withdrawals and tabling are procedural (stateActionKind)
+  const K = (t, first = false) => stateActionKind(t, first).kind;
+  const proc = ['Amendment No. 2 failed', 'Motion to reconsider failed', 'Withdrawn from committee.', 'Amendment tabled', 'Amend Tabled A2', 'Senate Floor Amendment No. 2 Tabled Pursuant to Rule 5-4(a)', 'Senate Committee on Transportation & Energy Lay Over Unamended - Amendment(s) Failed',
+    'Failed Concur In S Com Sub', 'Am. withdrawn. (Amendment 1 - HA0860)', 'Jacobson AM1710 withdrawn', 'McKinney MO508 Indefinitely postpone pursuant to Rule 6, Sec. 3(f) filed', 'Motion to Reconsider Vote - Withdrawn Rep. Daniel Didech', 'Motion withdrawn',
+    'House Withdrawn from Committee on Federal and State Affairs and re-referred to Committee of the Whole', 'House Withdrawn from Calendar; Referred to Committee on Federal and State Affairs', 'Withdrawn From Com', 'Withdrawn from Rules Committee', 'Senate Withdrawn & Recommitted',
+    'Laid on the table', 'Laid on the table (Pursuant to House Rule 71)', 'Removed from table', 'Amendment HA 2 to HB 306 - Stricken in House', 'Amendment HA 1 to HB 306 - Passed In House by Voice Vote', 'Senate proposal of amendment not concurred in and Committee of Conference requested upon motion of Rep. Black of Essex',
+    'Consideration of Governor\'s veto pending.', 'tabled line veto memo.1', 'line veto memo.1', 'Chapter 157, 2026 Laws.', 'Acts of Assembly Chapter text (CHAP0425)', 'Minority; do not pass.', 'House Committee of the Whole - Amendment by Representative Hoheisel was adopted', 'On agreeing to the amendment'];
+  const badProc = proc.filter((t) => K(t) !== 'procedural' || eventType(t) !== null);
+  ok('amendment and motion "failed" / "tabled", "withdrawn from committee", a line veto and a bare "Chapter N" are procedural', !badProc.length, badProc.map((t) => `${t} -> ${K(t)}`).join(' | '));
+  const failed = ['Failed passage in committee', 'Second reading, failed to pass, yeas 13 nays 33', 'Read third time. Refused passage. (Ayes 13. Noes 24. Page 3448.)', 'Died In Committee', 'DIED IN SENATE', 'died in assembly', 'Died in Messages', 'Indefinitely postponed', 'Action Postponed Indefinitely',
+    'Senate Committee on Transportation & Energy Postpone Indefinitely', 'Inexpedient to Legislate: Motion Adopted Voice Vote 02/19/2026 House Journal 5 P. 7', 'Enacting clause stricken', 'RECOMMIT, ENACTING CLAUSE STRICKEN', 'Senate/ failed in Senate Secretary', 'House/ filed in House file for bills not passed'];
+  const badFailed = failed.filter((t) => K(t) !== 'failed');
+  ok('the bill\'s own failure: failed passage, died, indefinitely postponed, inexpedient to legislate', !badFailed.length, badFailed.map((t) => `${t} -> ${K(t)}`).join(' | '));
+  ok('vetoed by the governor', K('Vetoed by Governor.') === 'vetoed' && K('Vetoed by Governor') === 'vetoed' && eventType('Vetoed by Governor.') === 'Vetoed / failed / rescinded');
+  ok('a committee recommending "inexpedient to legislate" is not yet the bill\'s failure', K('Committee Report: Inexpedient to Legislate 02/04/2026 (Vote 16-0; Consent Calendar) House Calendar 7 P. 6') !== 'failed');
+  const enacted = ['Chaptered by Secretary of State - Chapter 116, Statutes of 2026.', 'Chaptered by Secretary of State. Chapter 138, Statutes of 2025.', 'Approved by Governor-Chapter 425 (effective 7/1/2026)', 'Approved by the Governor - Chapter 634', 'Signed by Governor on June 17, 2026', 'Governor Signed', 'Governor signed.',
+    'House message: Governor approved bill on June 17, 2026', 'House Approved by Governor on Tuesday, April 8, 2025', 'Public Act 26-100', 'Public Act . . . . . . . . . 104-0466', 'SIGNED CHAP.55', 'signed chap.579'];
+  const badEnacted = enacted.filter((t) => K(t) !== 'enacted');
+  ok('enactment: chaptered, Secretary of State, signed or approved by the governor, public act, NY "signed chap."', !badEnacted.length, badEnacted.map((t) => `${t} -> ${K(t)}`).join(' | '));
+  ok('"Chapter N" without chaptered / Secretary of State / governor is not enactment', K('Chapter 157, 2026 Laws.') !== 'enacted' && K('Session Law Chapter 249 Effective: 07/01/2027') !== 'enacted' && K('Reported signed by the Speaker & ordered delivered to Governor') !== 'enacted');
+  ok('milestone flag and importance: enacted > override > veto > passage > failure > committee report > hearing > introduced > referred > procedural',
+    [['Chaptered by Secretary of State. Chapter 138, Statutes of 2025.', 100], ['Veto overridden', 95], ['Vetoed by Governor.', 90], ['Passed Senate as amended, Ayes 31, Nays 0', 80], ['Died In Committee', 70], ['From committee: Do pass as amended. (Ayes 11. Noes 0.) (July 1).', 60], ['Hearing Conducted S General Laws Committee', 40], ['Introduced in House', 30], ['Referred to Committee on General Laws and Technology', 20], ['Motion withdrawn', 0]]
+      .every(([t, n]) => stateActionKind(t).importance === n && stateActionKind(t).milestone === n > 0));
+  ok('final failures the text states: a pocket veto, a sustained veto, a failed override', K('Pocket veto') === 'vetoed' && K('Pocket vetoed by Governor') === 'vetoed' && K("Governor's veto sustained") === 'failed' && K('Veto sustained') === 'failed' && K('House sustained the Governor\'s veto') === 'failed' && K('Veto override failed in Senate') === 'failed' && stateActionKind("Governor's veto sustained").milestone === true);
+  ok('returned without signature is not a failure or a veto (in some states the bill becomes law)', !['failed', 'vetoed'].includes(K('Governor returned without signature')) && !['failed', 'vetoed'].includes(K('Returned by Governor without signature')));
+  ok('a line-item or partial veto is not a bill veto (the bill usually became law)', ['Vetoed in part', 'Vetoed in part by Governor', 'Line-item veto', 'Line item veto message received', 'Partial veto by Governor'].every((t) => K(t) === 'procedural'));
+  ok('a cancelled or postponed hearing is not a hearing', ['Committee hearing cancelled', 'Hearing postponed by committee.', 'Hearing canceled', 'April 21 hearing postponed by committee.', 'June 17 set for first hearing canceled at the request of author.'].every((t) => K(t) === 'procedural') && K('Hearing Conducted S General Laws Committee') === 'hearing');
+  const kinds = JSON.parse(fs.readFileSync(path.join(here, '..', 'fixtures', 'legiscan', 'action-kinds.json'), 'utf8')).kinds;
+  const all = Object.entries(kinds).flatMap(([k, texts]) => texts.map((t) => [k, t]));
+  const wrong = all.filter(([k, t]) => K(t) !== k);
+  ok(`every distinct history action in the stored LegiScan records (${all.length}) has its reviewed kind`, all.length >= 2000 && !wrong.length, wrong.slice(0, 10).map(([k, t]) => `${t} -> ${K(t)}, want ${k}`).join(' | '));
+  ok('over every stored action: nothing about an amendment, a motion or a withdrawal is a failure, a veto or an enactment', all.filter(([, t]) => /\bamend(ment)?s?\b|\bmotion\b|\bwithdrawn\b|\btabled?\b/i.test(t) && !/enacting clause stricken|inexpedient to legislate/i.test(t)).every(([, t]) => !['failed', 'vetoed', 'enacted'].includes(K(t))));
+  ok('over every stored action: "Chapter N" is enactment only beside chaptered, Secretary of State, a governor or NY "signed chap."', all.filter(([, t]) => /chapter \d+/i.test(t) && K(t) === 'enacted').every(([, t]) => /chaptered|secretary of state|governor/i.test(t)));
+}
 {
   const sb53 = eventsFrom(BILLS['CA-SB53']), types = sb53.map((e) => e.type);
   ok('CA SB 53 history: introduced first, signed last', types[0] === 'Introduced / published' && types.at(-1) === 'Signed / enacted' && types.filter((t) => t === 'Introduced / published').length === 1, types.join(','));
@@ -155,6 +189,7 @@ ok('precise query is one OR of quoted phrases', preciseQuery({ precise_phrases: 
   const items = r.changeset.items, got = (id) => items.find((i) => i.source_id === String(id));
   const rawOf = (id) => JSON.parse(fs.readFileSync(path.join(out, r.runId, got(id).raw_path), 'utf8'));
   ok('both open-session tracked bills fetched on the first run', r.stats.tracked_changed === 2 && items.filter((i) => i.reason === 'updated_since_cursor').length === 2, JSON.stringify(r.stats));
+  ok('checked: every tracked entry whose bills were read (master list or closed session)', JSON.stringify([...r.checked].sort()) === JSON.stringify([...new Set(trackedBills(ids).map((t) => t.entry_key))].sort()), JSON.stringify(r.checked));
   ok('a session whose last year is over costs nothing', r.stats.sessions_skipped_closed === 1 && api.calls.filter((c) => c === 'getMasterListRaw').length === 2);
   ok('two bulk searches, no page limit', api.calls.filter((c) => c === 'getSearchRaw').length === 2 && r.stats.precise_hits === 3 && r.stats.wide_hits === 7, JSON.stringify(r.stats));
   ok('a precise hit is fetched without any title screen', got(ab.bill_id) && got(ab.bill_id).reason === 'discovery');

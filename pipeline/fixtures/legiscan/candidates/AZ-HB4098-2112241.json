@@ -1,0 +1,261 @@
+{
+ "id": "2112241",
+ "search_hit": {
+  "search": "precise",
+  "relevance": 15,
+  "intent": null
+ },
+ "bill": {
+  "bill_id": 2112241,
+  "change_hash": "eff38d1b3afa0319dbbabf1495558365",
+  "session_id": 2235,
+  "session": {
+   "session_id": 2235,
+   "state_id": 3,
+   "year_start": 2026,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 1,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2026 Regular Session",
+   "session_name": "Fifty-seventh Legislature - Second Regular Session (2026)"
+  },
+  "url": "https://legiscan.com/AZ/bill/HB4098/2026",
+  "state_link": "https://apps.azleg.gov/BillStatus/BillOverview/85620",
+  "completed": 0,
+  "status": 1,
+  "status_date": "2026-02-10",
+  "progress": [
+   {
+    "date": "2026-02-10",
+    "event": 1
+   }
+  ],
+  "state": "AZ",
+  "state_id": 3,
+  "bill_number": "HB4098",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "H",
+  "body_id": 15,
+  "current_body": "H",
+  "current_body_id": 15,
+  "title": "Artificial intelligence business; attorney general",
+  "description": "Artificial intelligence business; attorney general",
+  "pending_committee_id": 5243,
+  "committee": {
+   "committee_id": 5243,
+   "chamber": "H",
+   "chamber_id": 15,
+   "name": "Artificial Intelligent and Innovation"
+  },
+  "referrals": [
+   {
+    "date": "2026-02-10",
+    "committee_id": 5243,
+    "chamber": "H",
+    "chamber_id": 15,
+    "name": "Artificial Intelligent and Innovation"
+   },
+   {
+    "date": "2026-02-10",
+    "committee_id": 1101,
+    "chamber": "H",
+    "chamber_id": 15,
+    "name": "Rules"
+   }
+  ],
+  "history": [
+   {
+    "date": "2026-02-10",
+    "action": "Introduced in House and read first time",
+    "chamber": "H",
+    "chamber_id": 15,
+    "importance": 1
+   },
+   {
+    "date": "2026-02-10",
+    "action": "Assigned to House AII Committee",
+    "chamber": "H",
+    "chamber_id": 15,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-10",
+    "action": "Assigned to House RULES Committee",
+    "chamber": "H",
+    "chamber_id": 15,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-11",
+    "action": "House read second time",
+    "chamber": "H",
+    "chamber_id": 15,
+    "importance": 0
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 24246,
+    "person_hash": "xewqg8pr",
+    "party_id": "1",
+    "state_id": 3,
+    "party": "D",
+    "role_id": 1,
+    "role": "Rep",
+    "name": "Anastasia Travers",
+    "first_name": "Anastasia",
+    "middle_name": "",
+    "last_name": "Travers",
+    "suffix": "",
+    "nickname": "Stacey",
+    "district": "HD-012",
+    "ftm_eid": 55437914,
+    "votesmart_id": 205596,
+    "opensecrets_id": "",
+    "knowwho_pid": 0,
+    "ballotpedia": "Anastasia_Travers",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "602-926-3917",
+      "district_phone": "",
+      "email": "",
+      "webmail": "https://www.azleg.gov/emailazleg/?legislatorId=2340",
+      "biography": "",
+      "image": "https://www.azleg.gov/alisImages/MemberPhotos/57leg/House/TRAVERS.jpg",
+      "ballotpedia": "https://ballotpedia.org/Anastasia_Travers",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/205596"
+     },
+     "capitol_address": {
+      "address1": "1700 W Washington St",
+      "address2": "Room 322",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zip": "85007"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://www.azleg.gov/house-member/?legislature=56&amp;session=127&amp;legislator=2203",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "https://www.facebook.com/StaceTravers",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/stacey-travers-446226229/",
+       "tiktok": "",
+       "twitter": "",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [],
+  "subjects": [
+   {
+    "subject_id": 410323,
+    "subject_name": "Artificial Intelligence Business"
+   },
+   {
+    "subject_id": 182344,
+    "subject_name": "Attorney General"
+   },
+   {
+    "subject_id": 366260,
+    "subject_name": "Commerce"
+   },
+   {
+    "subject_id": 410324,
+    "subject_name": "Risk Assessment"
+   },
+   {
+    "subject_id": 256088,
+    "subject_name": "Trade And Commerce - Title 44"
+   }
+  ],
+  "texts": [
+   {
+    "doc_id": 3353568,
+    "date": "2026-02-09",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "text/html",
+    "mime_id": 1,
+    "url": "https://legiscan.com/AZ/text/HB4098/id/3353568",
+    "state_link": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm",
+    "text_size": 12230,
+    "text_hash": "23459d164be6bcaeec82f386a11f075b",
+    "alt_bill_text": 1,
+    "alt_mime": "application/pdf",
+    "alt_mime_id": 2,
+    "alt_state_link": "https://apps.azleg.gov/BillStatus/GetDocumentPdf/536642",
+    "alt_text_size": 23677,
+    "alt_text_hash": "417ebd593fbd0e2dedcf4fbf36427920"
+   }
+  ],
+  "votes": [],
+  "amendments": [],
+  "supplements": [],
+  "calendar": []
+ },
+ "derived": {
+  "status": "pending",
+  "events": [
+   {
+    "date": "2026-02-10",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced in House and read first time",
+    "chamber": "H"
+   },
+   {
+    "date": "2026-02-10",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Assigned to House AII Committee",
+    "chamber": "H"
+   },
+   {
+    "date": "2026-02-10",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Assigned to House RULES Committee",
+    "chamber": "H"
+   }
+  ]
+ },
+ "text": "HB4098 - 572R - I Ver\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nREFERENCE TITLE: artificial intelligence business; attorney general\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nState of Arizona\r\nHouse of Representatives\r\nFifty-seventh Legislature\r\nSecond Regular Session\r\n2026\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nHB 4098\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nIntroduced by \r\nRepresentative\r\nTravers\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nAN\r\nACT\r\n\r\n\r\n\r\namending title 44, chapter 9, arizona\r\nrevised statutes, by adding article 27; relating to commerce. \r\n\r\n\r\n\r\n\r\n\r\n(TEXT OF BILL BEGINS ON NEXT PAGE)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nBe it enacted by the Legislature of the State of Arizona:\r\n\r\nSection 1. Title 44, chapter 9, Arizona Revised\r\nStatutes, is amended by adding article 27, to read:\r\n\r\nARTICLE 27. ARTIFICIAL\r\nINTELLIGENCE BUSINESS\r\n\r\nSTART_STATUTE44-1383. Artificial intelligence business; risk assessment; report;\r\nposting; quarterly audit; violation; civil penalty; definitions\r\n\r\nA. An artificial intelligence\r\nbusiness shall conduct a comprehensive risk assessment for each of the\r\nbusiness's high risk AI systems before using or selling a high risk AI system.\r\n\r\nB. An artificial intelligence\r\nbusiness shall evaluate a high risk AI system for all of the following: \r\n\r\n1. The potential for discrimination\r\nor bias.\r\n\r\n2. Any safety risks to children and\r\nvulnerable populations.\r\n\r\n3. Any privacy and data protection\r\nrisks.\r\n\r\n4. assessing catastrophic risks.\r\n\r\nC. An artificial intelligence\r\nbusiness shall submit a transparency report to the attorney general before\r\nusing or selling a high risk AI system.� THe transparency report must include\r\nall of the following:\r\n\r\n1. The purposes and operation of the\r\nartificial intelligence system.\r\n\r\n2. The results from any internal risk\r\nassessment evaluations.\r\n\r\n3. The measures that were implemented\r\nto mitigate bias and harmful outcomes.\r\n\r\nD. The transparency reports shall be\r\npublicly posted on the artificial intelligence business's website.\r\n\r\nE. An artificial intelligence\r\nbusiness shall implement bias mitigation measures that include any technical or\r\nprocedural methods that were implemented to reduce discriminatory outcomes.\r\n\r\nF. An artificial intelligence\r\nbusiness shall conduct a quarterly audit to identify and correct any instances\r\nof discrimination, harmful outputs or unsafe behavior.\r\n\r\nG. If a high risk AI system may be\r\naccessed by a child, the artificial intelligence business shall include\r\nparental monitoring tools, content filtering and mechanisms to report harmful\r\ncontent.\r\n\r\nH. The attorney general shall issue a\r\ncertification before an ARTIFICIAL intelligence business enters the stream of\r\ncommerce.\r\n\r\nI. The attorney general shall enforce\r\nthis section and review the transparency reports for compliance with this\r\nsection.� The attorney general may impose a civil penalty of not more than\r\n$50,000 per violation for a violation of this section.� Each day a violation\r\noccurs constitutes a separate violation.\r\n\r\nJ. An artificial intelligence\r\nbusiness that implements recognized standards for and complies with the\r\nchildren's online privacy protection act of 1998 (P.L. 105-277) advisory\r\nservices may receive a reduced civil penalty for inadvertent violations.\r\n\r\nK. For the purposes of this section:\r\n\r\n1. \"Artificial intelligence\r\nbusiness\" means an entity that creates, uses, sells or provides access to\r\nartificial intelligence systems that interact with the public and that uses a\r\nfrontier model of artificial intelligence that is owned or operated by a large\r\ndeveloper. \r\n\r\n2. \"frontier model\" means\r\nan artificial intelligence model that is trained by either of the following: \r\n\r\n(a) using\r\ngreater than 10.26 computational operations to compute costs of more than\r\n$100,000,000. \r\n\r\n(b) applying\r\nknowledge distillation to a frontier model. \r\n\r\n3. \"High risk AI system\"\r\nmeans an artificial intelligence system that:\r\n\r\n(a) May impact\r\nchildren, health care, employment, public safety or education.\r\n\r\n(b) Is likely\r\nto cause discrimination, bias or significant privacy violations.\r\n\r\n4. \"Large developer\":\r\n\r\n(a) Means a\r\nperson or entity that has trained one or more frontier models and has spent\r\nmore than $5,000,000 in developing the frontier model and more than\r\n$100,000,000 in training the frontier model. \r\n\r\n(b) Does not\r\ninclude an accredited college or a university that engages in academic research\r\ninvolving frontier models.\r\n\r\n(c) Creates a\r\nFORESEEABLE and material risk that a large developer's development, storage or\r\ndeployment of a foundation model will result in the death of or serious injury\r\nto more than one hundred people by an incident of either of the following:\r\n\r\n(i) creating\r\nand releasing a chemical, biological, radiological or nuclear weapon. \r\n\r\n(ii) through\r\nthe use of A FOUNDATION model, engaging in conduct that is performed with\r\nlimited human intervention and, if the conduct was committed by an individual,\r\nwould constitute a crime that requires intent, recklessness or gross negligence\r\nor the SOLICITATION or aiding and abetting of a crime. END_STATUTE",
+ "text_truncated": false,
+ "text_missing": false,
+ "text_version": {
+  "doc_id": 3353568,
+  "date": "2026-02-09",
+  "type": "Introduced",
+  "mime": "text/html",
+  "state_link": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm",
+  "from": "official"
+ },
+ "frontier_markers": [
+  "frontier model",
+  "foundation model",
+  "large developer",
+  "catastrophic risk"
+ ]
+}

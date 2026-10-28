@@ -78,6 +78,10 @@ const baseBills = () => [
   const r2 = await runCongress({ http: mk(srv2), state: r.nextState, entries: trackedEntries, scope, outDir: out, now: new Date(+NOW + 3600e3), since: '2026-09-29T00:00:00Z' });
   ok('a second run over the same data yields an empty change set', r2.changeset.items.length === 0 && r2.stats.unchanged === 2, JSON.stringify(r2.stats));
   ok('and costs only the list call', r2.requests === 1, String(r2.requests));
+  ok('checked: a run that listed the whole window counts every tracked entry as checked', JSON.stringify(r.checked) === JSON.stringify(['us-hr-9925']) && JSON.stringify(r2.checked) === JSON.stringify(['us-hr-9925']), JSON.stringify([r.checked, r2.checked]));
+  // the budget runs out on the list call itself: nothing was read, so nothing counts as checked
+  const r0 = await runCongress({ http: mk(fakeServer({ bills: baseBills() }), { maxRequests: 0 }), state: emptyState(), entries: trackedEntries, scope, outDir: out, now: NOW });
+  ok('checked: a run stopped before listing marks no entry as checked', r0.truncated && r0.checked.length === 0, JSON.stringify([r0.truncated, r0.checked]));
   // ---------- 3. a bill changes ----------
   const moved = baseBills(); moved[0] = { ...moved[0], updateDate: '2026-10-06T08:00:00Z', updateDateIncludingText: '2026-10-06T08:00:00Z', latestAction: { actionDate: '2026-10-06', text: 'Passed House' } };
   const r3 = await runCongress({ http: mk(fakeServer({ bills: moved })), state: r.nextState, entries: trackedEntries, scope, outDir: out, now: new Date(+NOW + 7200e3), since: '2026-09-29T00:00:00Z' });
@@ -226,6 +230,30 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
   const r3 = await runCongress({ http: mk(fakeServer({ bills: many }), { maxRequests: 7 }), llm: null, state: emptyState(), entries: [], scope: s2, outDir: tmp(), now: NOW });
   const r4 = await runCongress({ http: mk(fakeServer({ bills: many })), llm: null, state: r3.nextState, entries: [], scope: s2, outDir: tmp(), now: new Date(+NOW + 600e3) });
   ok('a cut-off run loses no candidate', r3.truncated && new Set([...r3.changeset.items, ...r4.changeset.items].map((i) => i.source_id)).size === 5, `${r3.cursor} ${r3.changeset.items.length}+${r4.changeset.items.length}`);
+}
+
+// ---------- the LegiScan monthly cap, through the real command: exit 0, an empty change set, no state written, no query made ----------
+{
+  const { spawnSync } = await import('child_process');
+  const { fileURLToPath } = await import('url');
+  const { WORK_DIR } = await import('./lib/state.mjs');
+  const pipelineDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+  const cap = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'legiscan.json'), 'utf8')).monthly_cap;
+  // The counter is a temporary file (TRACKER_LEGISCAN_USAGE_FILE), so the real state/legiscan-usage.json is never touched, even if this test dies.
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cap-')), counterDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cap-usage-'));
+  const LEGISCAN_USAGE_FILE = path.join(counterDir, 'legiscan-usage.json');
+  try {
+    fs.writeFileSync(LEGISCAN_USAGE_FILE, JSON.stringify({ month: new Date().toISOString().slice(0, 7), used: cap, runs: 1 }) + '\n');
+    const g = spawnSync(process.execPath, ['grabber/run.mjs', '--source', 'legiscan', '--state-dir', stateDir, '--no-search'], { cwd: pipelineDir, encoding: 'utf8', env: { ...process.env, LEGISCAN_API_KEY: 'test-key-not-real-123456', TRACKER_LEGISCAN_USAGE_FILE: LEGISCAN_USAGE_FILE } });
+    const id = (/legiscan run (run-[0-9]{8}-[0-9]{4}-[0-9a-f]{4}): skipped/.exec(g.stdout || '') || [])[1];
+    const cs = id && JSON.parse(fs.readFileSync(path.join(WORK_DIR, 'runs', id, 'changeset.json'), 'utf8'));
+    const stats = id && JSON.parse(fs.readFileSync(path.join(WORK_DIR, 'runs', id, 'grab-stats.json'), 'utf8'));
+    ok('LegiScan cap (real command): exit 0 with an empty change set', g.status === 0 && cs && cs.items.length === 0, `${g.status} ${(g.stderr || '').slice(-300)}`);
+    ok('LegiScan cap (real command): skipped_why says so; no state written; the counter unchanged', stats && /monthly cap reached/.test(stats.skipped_why) && fs.readdirSync(stateDir).length === 0 && JSON.parse(fs.readFileSync(LEGISCAN_USAGE_FILE, 'utf8')).used === cap);
+    if (id) fs.rmSync(path.join(WORK_DIR, 'runs', id), { recursive: true, force: true });
+  } finally {
+    fs.rmSync(stateDir, { recursive: true, force: true }); fs.rmSync(counterDir, { recursive: true, force: true });
+  }
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

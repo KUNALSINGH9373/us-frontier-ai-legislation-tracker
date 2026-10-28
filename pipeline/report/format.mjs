@@ -43,6 +43,10 @@ export function watchLines(rep) {
   const c = rep.corrections;
   if (c && c.status === 'stopped') w.push(`⚠️ Self-check corrections were not written (a stop rule failed: ${clip(c.problems[0], 120)}); they are retried next run.`);
   else if (c && c.problems && c.problems.length) w.push(`⚠️ Self-check: ${clip(c.problems[0], 140)}`);
+  const nw = rep.news;
+  if (nw && nw.feeds_failed && nw.feeds_failed.length) w.push(`⚠️ ${nw.feeds_failed.length} news feed${nw.feeds_failed.length === 1 ? '' : 's'} could not be read: ${list(nw.feeds_failed.map((f) => f.id), 3)}`);
+  if (nw && nw.status === 'stopped') w.push(`⚠️ News items were not written (a stop rule failed: ${clip(nw.problems[0], 120)}); they are retried next run.`);
+  else if (nw && nw.problems && nw.problems.length) w.push(`⚠️ News: ${clip(nw.problems[0], 140)}`);
   for (const n of rep.notes || []) w.push(`ℹ️ ${n}`);
   return w;
 }
@@ -67,6 +71,21 @@ export function formatDone(rep, names = {}) {
     const fixed = c.status === 'written' || c.status === 'dry-run' ? c.corrected : [];
     L.push(`Self-check: ${c.checked.length} entr${c.checked.length === 1 ? 'y' : 'ies'} re-read against the bill text, ${fixed.length} field${fixed.length === 1 ? '' : 's'} corrected`);
     fixed.forEach((x) => L.push(`- ${clip(names[x.entry_key] || x.entry_key, 40)}, ${x.field} (${x.kind}): ${clip(x.problem, 160)}`));
+  }
+  const lk = rep.links;
+  if (lk && (lk.proposed.length || lk.companions.length)) {
+    L.push(`Links proposed: ${lk.proposed.length}${lk.applied.length ? `, ${lk.applied.length} added to the network` : lk.status === 'proposed' ? ' (reported only; adding links is switched off)' : ''}`);
+    lk.proposed.slice(0, 6).forEach((p) => L.push(`- ${clip(p.names[0], 30)} → ${clip(p.names[1], 30)}: ${clip(p.label, 80)}`));
+    lk.companions.forEach((x) => L.push(`- companion bill: ${clip(names[x.entry_key] || x.entry_key, 40)} = ${x.bill} (${x.companion_of})`));
+  }
+  const nw = rep.news;
+  if (nw && nw.ran) {
+    if (nw.drafted.length) {
+      const live = nw.drafted.filter((d) => d.written).length;
+      L.push(`News drafted: ${nw.drafted.length} from official releases, ${live ? `${live} published` : 'not published (news publishing is switched off)'}`);
+      nw.drafted.slice(0, 4).forEach((d) => L.push(`- ${clip(d.title, 80)} (${clip(d.publisher, 30)})`));
+    }
+    if (nw.leads.length) L.push(`News leads: ${nw.leads.length} (${list(nw.leads.map((l) => `${clip(l.title, 50)}, ${clip(l.publisher, 24)}`), 3)}) — not published`);
   }
   L.push(costLine(rep), queriesLine(rep));
   const w = watchLines(rep);

@@ -4,11 +4,12 @@
 // - every call is counted on the shared ledger and checked against the budget BEFORE it is made
 // - the key comes from the environment and never appears in logs (the SDK sends it in a header)
 // Production runs on Claude; build and tests run on Gemini (owner's decision, 15 Oct 2026).
+// Each attempt times out after 2 minutes (the SDK default is 10), so a stuck call cannot hold a scheduled run for an hour.
 import Anthropic from '@anthropic-ai/sdk';
 import { LlmOutputError, InputTooLarge } from './gemini.mjs';
 
 export function createAnthropic({ apiKey, client, role, model, maxOutputTokens = 4000, effort = null, ledger, maxInputChars = 120000, log = () => {} }) {
-  const api = client || new Anthropic({ apiKey, maxRetries: 3 });
+  const api = client || new Anthropic({ apiKey, maxRetries: 3, timeout: 120000 });
   const parseJson = (text) => {
     const clean = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
     try { return JSON.parse(clean); } catch (e) { throw new LlmOutputError('the model did not return valid JSON', clean.slice(0, 300)); }

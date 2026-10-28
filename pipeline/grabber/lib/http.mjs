@@ -41,5 +41,5 @@ export function createHttp({ fetchImpl = globalThis.fetch, sleep = (ms) => new P
     throw lastErr;
   }
   const postJson = (url, body) => request(url, 'json', { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
-  return { getJson: (url) => request(url, 'json'), getText: (url) => request(url, 'text'), postJson, used: () => used, maxRequests };
+  return { getJson: (url) => request(url, 'json'), getText: (url, init) => request(url, 'text', init), postJson, used: () => used, maxRequests };
 }

@@ -5,7 +5,7 @@ import os from 'os';
 import path from 'path';
 import { runFederalRegister } from './run-federal-register.mjs';
 import { createHttp, HttpError } from './lib/http.mjs';
-import { htmlToText, watchPhrases } from './sources/federal-register.mjs';
+import { htmlToText, watchPhrases, SCOPE_TERMS } from './sources/federal-register.mjs';
 import { emptyState } from './lib/state.mjs';
 import { makeValidator } from '../schema/validate.mjs';
 
@@ -131,6 +131,9 @@ const baseDocs = () => [
   ok('fetching a named document marks it reconcile, keeps its entry key and does not move the cursor', r.changeset.items.length === 1 && r.changeset.items[0].reason === 'reconcile' && r.changeset.items[0].entry_key === 'eo-14365-state-law-framework' && r.cursor === '2026-09-29');
 }
 ok('watchPhrases finds order numbers and quoted names', (() => { const w = watchPhrases({ title: 'BIS "Framework for AI Diffusion" (Biden-era rule); EO 14110', short_name: 'x' }); return w.eo.has('14110') && w.phrases.includes('framework for ai diffusion') && w.phrases.includes('executive order 14110'); })());
+ok('watchPhrases reads the title only, not the short name', (() => { const w = watchPhrases({ title: 'Some rule', short_name: 'EO 14999 "Quoted Shorthand Name"' }); return w.eo.size === 0 && w.phrases.length === 0; })());
+ok('watchPhrases drops a quoted phrase that equals or is contained in a scope search term', (() => { const w = watchPhrases({ title: 'EO 14434 "Super Intelligence"; "frontier model"; "Artificial General Intelligence"; "Inaugurating the Era of Super Intelligence"', short_name: 'x' }); return !w.phrases.includes('super intelligence') && !w.phrases.includes('frontier model') && !w.phrases.includes('artificial general intelligence') && w.phrases.includes('inaugurating the era of super intelligence'); })());
+ok('watchPhrases: the scope terms come from config/scope.draft.json and config/legiscan.json', SCOPE_TERMS.includes('super intelligence') && SCOPE_TERMS.includes('frontier developer') && SCOPE_TERMS.includes('superintelligen'));
 ok('htmlToText strips tags and decodes entities', htmlToText('<html><body><pre>A &amp; B &quot;c&quot; &#8212; <a href="x">d</a></pre></body></html>') === 'A & B "c" — d');
 
 console.log(`\n${pass} passed, ${fail} failed`);

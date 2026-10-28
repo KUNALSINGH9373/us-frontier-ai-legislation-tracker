@@ -65,6 +65,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       const cs = await tg.chats();
       console.log(cs.length ? cs.map((c) => `chat id ${c.id}  (${c.type}${c.name ? ', ' + c.name : ''})`).join('\n') : 'No messages found. Open the bot in Telegram, press Start (or send any message; for a group, add the bot and post once), then run this again.');
     } else if (flag === '--test') { const n = await tg.send('✅ US Frontier Law: Telegram reports are connected.'); console.log(`sent ${n} message`); }
-    else console.log('usage: node notify/telegram.mjs --whoami | --find-chat | --test');
+    else if (flag === '--send' && process.argv[3]) { const n = await tg.send(process.argv[3]); console.log(`sent ${n} message`); } // the workflow's staleness alert
+    else { console.log('usage: node notify/telegram.mjs --whoami | --find-chat | --test | --send "<text>"'); if (flag) process.exit(2); }
   } catch (e) { console.error('FAILED:', e.message); process.exit(1); }
 }

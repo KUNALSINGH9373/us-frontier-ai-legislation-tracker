@@ -179,7 +179,7 @@
   "sponsor_text": "Sen. Andrew Gounardes (D); Asm. Alex Bores (D)",
   "mechanism": "Chapter 96 repeals the original Gen. Bus. Law Art. 44-B and enacts a new Art. 44-B (§§1420–1429) that copies TFAIA's frontier AI framework (§1421(1)) and transparency report (§1421(3)) — deemed compliant if published within a system/model card; incident reporting 72 hrs to the DFS Office, 24 hrs to law enforcement if imminent risk (§1422(3)); quarterly internal-use catastrophic-risk summaries (§1422(2)); large-developer disclosure statement with 5%/50% beneficial owners, renewed every 2 years , pro-rata assessment, $1,000/day for non-filing (§1428); new office within Dept. of Financial Services with broad rulemaking authority incl. \"additional reporting or publication requirements\" (§1429); scope limited to models \"developed, deployed, or operating in whole or in part in New York\" (§1425); exempts accredited colleges/universities and the Empire AI Consortium (§1426); §1427(3) expressly preserves a developer's right to argue another party caused the harm. Federal reciprocity is narrower than IL's: it covers incident reporting only (§1422(8)–(9)). Contains no whistleblower section and no audit mandate — both were in the June 2025 version and were removed",
   "thresholds": "10²⁶ ops incl. fine-tuning/RL/material modifications (§1420(9)); >$500M revenue with affiliates, preceding calendar year (§1420(10)); catastrophic risk >50 deaths/serious injury or >$1B; equity-value loss excluded (§1423)",
-  "penalties": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+  "penalties": "$1M first / $3M subsequent violation, scaled to severity (AG civil action, §1427(1)); DFS office may, after notice and hearing, levy one thousand dollars per day for no disclosure statement or uncorrected false information, plus assessments owed (§1428(5)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
   "status_text": "Signed: Original Dec 19, 2025; S.8828 passed Senate 58-1 (Jan 28, 2026), passed Assembly Mar 11, signed Mar 27, 2026 | Effective: Jan 1, 2027 (Chapter 96 §3 replaced the original \"90th day\" effective clause)",
   "signed_text": "Original Dec 19, 2025; S.8828 passed Senate 58-1 (Jan 28, 2026), passed Assembly Mar 11, signed Mar 27, 2026",
   "effective_text": "Jan 1, 2027 (Chapter 96 §3 replaced the original \"90th day\" effective clause)",
@@ -252,10 +252,12 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-10-28T07:39:12Z",
+   "run_id": "update-20261028-0733",
+   "rounds": 1
   },
   "last_checked": "2026-10-28",
   "last_changed": "2026-10-28",
@@ -356,6 +358,29 @@
    "chars": 28472,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "evidence": [
+   {
+    "field": "penalties",
+    "quote": "a civil penalty of one thousand dollars for each day the entity",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   },
+   {
+    "field": "penalties",
+    "quote": "the office may, after notice and hearing, levy civil penalties",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828"
+   }
+  ],
+  "identifiers": {
+   "session": "2025-2026 General Assembly",
+   "external": {
+    "legiscan": [
+     2015571,
+     1991849,
+     2068637,
+     2066205
+    ]
+   }
   }
  },
  {
@@ -781,7 +806,7 @@
   "mechanism": "Safety & security protocol; transparency reports every 90 days ; annual third-party audit (published within 90 days); whistleblower protections with private right of action (90-day window, clear-and-convincing standard) + anonymous channel with monthly updates; AG enforcement with civil fines up to $1,000,000 per violation (and up to $500 under one section). Appears to be a clone of the original June 2025 RAISE Act text — same $5M/$100M compute-cost thresholds, same 100-death threshold, same audit/whistleblower structure that NY later stripped out. Effective dates are written as \"Beginning January 1, 2026\" — already past, since the bill hasn't moved",
   "thresholds": "Cost-based, not FLOP-based: \"large developer\" = trained a model costing ≥$5M in compute (at prevailing cloud prices) and ≥$100M aggregate compute cost in preceding 12 months; critical risk = >100 deaths/serious injuries or >$1B",
   "penalties": null,
-  "status_text": "Status (as of Sept 5, 2026): [STALLED] Introduced June 24, 2025 (referred to Judiciary); re-referred to Communications & Technology Mar 19, 2026. No hearings/votes found; legislature.mi.gov history re-checked Sept 28, 2026: no change",
+  "status_text": "Status (as of Sept 5, 2026): [STALLED] Introduced June 24, 2025 (referred to Judiciary); committee voted 10–0 on Sept 11, 2025 to recommend referral to Communications & Technology; referred to Regulatory Reform Sept 18, 2025; re-referred to Communications & Technology Mar 19, 2026. No floor vote recorded; legislature.mi.gov history re-checked Sept 28, 2026: no change",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -795,11 +820,20 @@
     "scheduled": false
    },
    {
+    "date": "2025-09-11",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Committee voted 10–0 to recommend referral to Communications & Technology",
+    "clause": "Reported With Recommendation For Referral To Committee On Communications And Technology",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2026-03-19",
     "precision": "day",
     "type": "Referred / stalled / hearing",
-    "text": "re-referred to Communications & Technology Mar 19, 2026. No hearings/votes found",
-    "clause": "re-referred to Communications & Technology Mar 19, 2026. No hearings/votes found",
+    "text": "re-referred to Communications & Technology Mar 19, 2026.",
+    "clause": "re-referred to Communications & Technology Mar 19, 2026.",
     "inferred_year": false,
     "scheduled": false
    },
@@ -833,10 +867,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-4668-artificial-intelligence-safety-and-security-transparency-act",
    "section_name": "Pending, stalled and failed state bills"
@@ -3310,7 +3344,7 @@
   "mechanism": "Enrolled text read. By Jan 1, 2028 the Government Operations Agency must: develop IVO designation application requirements and criteria (risk-assessment competence, technical expertise, conflict-of-interest management — IVO may be paid by the assessed party at market rates but not on terms conditioned on results — and operational independence); develop suspension/termination procedures; convene working groups that must include engineers from competing AI companies and AI safety experts ; report to the Legislature. Designated IVOs file annual reports. §8898.4 expressly: no liability solely for failing a standard; no state endorsement; no requirement that anyone engage an IVO or undergo a covered audit; an audit under the standard is \"relevant to, but not conclusive of\" a harm action — i.e., no presumption of reasonable care. Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Passed Assembly Aug 30 (53–4); Senate concurred Aug 30 (37–0); enrolled Sept 1, 2026 ; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 179, Statutes of 2026. Executive Order N-9-26 (Section G) directs GovOps to complete the IVO application requirements by May 1, 2027, ahead of the statutory Jan 1, 2028 date",
+  "status_text": "Status: Passed Assembly Aug 30, 2026 (67–6); Senate concurred Aug 30, 2026 (37–0); enrolled and presented to the Governor Sept 8, 2026; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 179, Statutes of 2026. Executive Order N-9-26 (Section G) directs GovOps to complete the IVO application requirements by May 1, 2027, ahead of the statutory Jan 1, 2028 date",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -3318,17 +3352,17 @@
     "date": "2026-08-30",
     "precision": "day",
     "type": "Passed / advanced",
-    "text": "Passed Assembly Aug 30 (53–4)",
-    "clause": "Passed Assembly Aug 30 (53–4)",
+    "text": "Passed Assembly Aug 30, 2026 (67–6)",
+    "clause": "Read third time. Passed. (Ayes 67. Noes 6. Page 6872.) Ordered to the Senate.",
     "inferred_year": true,
     "scheduled": false
    },
    {
-    "date": "2026-09-01",
+    "date": "2026-09-08",
     "precision": "day",
     "type": "Passed / advanced",
-    "text": "enrolled Sept 1, 2026",
-    "clause": "enrolled Sept 1, 2026",
+    "text": "Enrolled and presented to the Governor Sept 8, 2026",
+    "clause": "Enrolled and presented to the Governor at 4 p.m.",
     "inferred_year": false,
     "scheduled": false
    },
@@ -3390,10 +3424,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-813-independent-verification-organizations-gov-code-8898-8898-4",
    "section_name": "State IVO / AI-auditor licensing measures"
@@ -3545,7 +3579,7 @@
   "mechanism": "Directs Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for IVOs assessing AI models' adherence to injury/property-damage prevention standards; report due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees; $25,000 FY2027 general-fund appropriation in the 2026 Appropriation Act (HB 30, 2026 Sp. Sess. I, Ch. 1), Item 8 (conference amendment 8 #1c). A study directive, not a mandate — one blog's \"mandatory verification\" claim is wrong",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: HB 797 approved by Governor Apr 8, 2026 (Ch. 425, eff. July 1, 2026); SB 384 signed Apr 13, 2026 (Ch. 426); passed 84-14 / 40-0. Funded through the 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8: $25,000 FY2027 general fund added to JCOTS for Chapter 426",
+  "status_text": "Status: HB 797 approved by Governor Apr 8, 2026 (Ch. 425, eff. July 1, 2026); SB 384 approved by Governor Apr 8, 2026 (Ch. 426); passed 84-14 / 40-0. Funded through the 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8: $25,000 FY2027 general fund added to JCOTS for Chapter 426",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -3559,11 +3593,11 @@
     "scheduled": false
    },
    {
-    "date": "2026-04-13",
+    "date": "2026-04-08",
     "precision": "day",
     "type": "Signed / enacted",
-    "text": "SB 384 signed Apr 13 (Ch. 426)",
-    "clause": "SB 384 signed Apr 13 (Ch. 426)",
+    "text": "SB 384 approved by Governor Apr 8, 2026 (Ch. 426)",
+    "clause": "Approved by Governor-Chapter 426 (effective 7/1/2026)",
     "inferred_year": true,
     "scheduled": false
    },

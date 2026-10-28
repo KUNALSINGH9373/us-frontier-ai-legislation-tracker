@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 import { createHttp } from '../grabber/lib/http.mjs';
 import { createCongress } from '../grabber/sources/congress.mjs';
 import { createLegiScan } from '../grabber/sources/legiscan.mjs';
-import { readUsage, addUsage } from '../grabber/run-legiscan.mjs';
+import { readUsage, addUsage, LEGISCAN_USAGE_FILE } from '../grabber/run-legiscan.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { BudgetExceeded } from '../llm/gemini.mjs';
 import { loadData, writeData } from '../publish/run.mjs';
@@ -33,7 +33,7 @@ const eligible = (e) => e.section !== 'J' && !(e.confidence && e.confidence.basi
 function liveTexts({ ic, il, log }) {
   const ck = process.env.CONGRESS_API_KEY, lk = process.env.LEGISCAN_API_KEY;
   const lsCfg = readJson(path.join(pipelineDir, 'config', 'legiscan.json'), {});
-  const usageFile = path.join(pipelineDir, 'data', 'legiscan-usage.json'), now = new Date();
+  const usageFile = LEGISCAN_USAGE_FILE, now = new Date();
   const lsLeft = lk ? Math.max(0, Math.min(150, (lsCfg.monthly_cap || 0) - readUsage(usageFile, now).used)) : 0;
   const cgHttp = createHttp({ headers: { 'X-Api-Key': ck }, secrets: [ck], maxRequests: ck ? 300 : 0, log });
   const lsHttp = createHttp({ secrets: [lk], maxRequests: lsLeft, log });
@@ -81,7 +81,7 @@ export async function correctRun({ dataDir, docsDir = null, stateFile = STATE_FI
   let serviceErrors = 0;
   for (const c of picked) {
     let r;
-    try { r = await reviewEntry({ reviewer, confirmer, entry: c.entry, text: c.text, url: c.url, otherBills: otherBills(c.key, ic, il), log }); }
+    try { r = await reviewEntry({ reviewer, confirmer, entry: c.entry, text: c.text, url: c.url, otherBills: otherBills(c.key, ic, il), mapped: mappedIds(c.key, ic, il), log }); }
     catch (e) {
       if (!(e instanceof BudgetExceeded)) throw e;
       if (e.scope !== 'item') { rep.problems.push(`stopped: ${e.message}`); break; }
@@ -125,8 +125,13 @@ export async function correctRun({ dataDir, docsDir = null, stateFile = STATE_FI
 function otherBills(key, ic, il) {
   return [...((ic[key] && ic[key].congress_gov) || []).slice(1), ...((il[key] && il[key].bills) || []).slice(1).map((b) => `${b.state || ''} ${b.number || b.bill_id}`.trim())];
 }
+// The entry's ids in the two identifier files, for multiBillEntry (a rejected LegiScan mapping is not the entry's bill).
+function mappedIds(key, ic, il) {
+  return { congress_gov: (ic[key] && ic[key].congress_gov) || [], legiscan: il[key] && il[key].status !== 'rejected' ? (il[key].bills || []).map((b) => b.bill_id) : [] };
+}
 
-function summaryOf(rep) {
+// Exported: update.mjs rebuilds it from the corrections the final check did not put back, so the commit message counts what is promoted.
+export function summaryOf(rep) {
   const L = [`Self-correction: ${rep.checked.length} entr${rep.checked.length === 1 ? 'y' : 'ies'} re-checked, ${rep.corrected.length} field${rep.corrected.length === 1 ? '' : 's'} corrected`];
   for (const c of rep.corrected) L.push(`- ${c.entry_key} ${c.field} (${c.kind}): ${c.problem}`);
   return L.join('\n');

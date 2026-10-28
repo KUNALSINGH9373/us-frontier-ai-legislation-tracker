@@ -12,19 +12,20 @@ What counts:
 
 Rules:
 1. Use ONLY SOURCE. No outside knowledge. Do not report style, wording, length or order: only facts that are wrong or missing.
-2. Do not remove a statement just because SOURCE does not mention it: the entry may also cover a companion bill or later events. Change only what SOURCE contradicts, and add only what SOURCE states.
-3. new_text is the COMPLETE new value of the field: the current text with the correction made, every other fact kept as it was, in the same dense style. HARD LIMITS, checked by code (longer text is thrown away): the character limit given for each field under CURRENT ENTRY. Count before you answer. Fix the most important problem first; when space runs out, drop minor detail, never a fact the current text has.
-4. Every fact you add or change needs an item in "evidence": a quote copied EXACTLY, word for word, from SOURCE (at least 8 characters, from inside one sentence, no "..."), containing the number or words that prove it.
+2. Do not remove a statement just because SOURCE does not mention it: the entry may also cover a companion bill or later events. Change only what SOURCE contradicts, and add only what SOURCE states. Keep every figure and every quoted defined term of the current text (code checks this); if one is wrong, mark the correction "error" and name the wrong figure or term in "problem".
+   An "omission" only ADDS: its new_text must contain the current text word for word, in the same order, with your additions placed anywhere (code checks this and refuses an omission that drops, rewords or reorders any word). An "error" may change only the wrong part: every word it removes must be named in "problem"; everything else stays word for word.
+3. new_text is the COMPLETE new value of the field: the current text with the correction made, every other fact kept as it was, in the same dense style. HARD LIMITS, checked by code (longer text is thrown away): the character limit given for each field under CURRENT ENTRY. Count before you answer. Fix the most important problem first; when space runs out, leave out minor detail of what you add, never a word the current text has.
+4. Every fact you add or change needs an item in "evidence": a quote copied EXACTLY, word for word, from SOURCE (at least 8 characters, from inside one sentence, no "..."), containing the number or words that prove it. Code checks that every figure you add, and every "shall", "must", "may" or "voluntary" you add, is in one of your quotes.
 5. Every number you write must appear in SOURCE or in the current text, written as SOURCE writes it (10^26, $500,000,000). Every date has its year ("Sept 30, 2026"). Never write that something is "not found", "none" or "undefined": read the definitions section. Never state what the bill does NOT contain ("no compute threshold is set", "does not define"): if SOURCE sets no figure, just leave figures out.
 6. Only the fields listed under FIELDS YOU MAY CORRECT. At most one correction per field. If the entry is right, return an empty list: that is the expected answer for most entries.
 
 Return JSON only: {"corrections":[{"field":"mechanism","kind":"error","problem":"one sentence: what is wrong or missing and what SOURCE says","new_text":"...","evidence":[{"quote":"..."}]}]}`;
 
-export function reviewerPrompt({ entry, fields, source, url, otherBills = [] }) {
+export function reviewerPrompt({ entry, fields, source, url, otherBills = [], multiBill = otherBills.length > 0 }) {
   const cur = fields.map((f) => `${f} (now ${String(entry[f] || '').length} characters; yours at most ${limitFor(f, entry[f]) - 50}): ${entry[f] == null || entry[f] === '' ? '(empty)' : entry[f]}`).join('\n');
   return [
     `ENTRY: ${entry.title} (${entry.short_name}), section ${entry.section}, ${entry.jurisdiction}.`,
-    otherBills.length ? `NOTE: this entry also covers ${otherBills.join(', ')}. SOURCE is the text of one bill only, so leave facts about the others alone.` : null,
+    multiBill ? `NOTE: this entry covers more than one bill${otherBills.length ? ` (also ${otherBills.join(", ")})` : ""}. SOURCE is the text of one bill only, so leave facts about the others alone: only "omission" corrections are allowed here (code refuses "error"), and nothing may be removed or changed: keep the current text intact and only add.` : null,
     `FIELDS YOU MAY CORRECT: ${fields.join(', ')}.${fields.includes('penalties') ? '' : ' (In this section penalties belong in the mechanism text.)'}`,
     `CURRENT ENTRY:\n${cur}`,
     `SOURCE (${url}):\n<<<SOURCE\n${source}\nSOURCE>>>`
@@ -39,7 +40,7 @@ Confirm the proposal only if BOTH are true:
 Facts the current text already had and the proposal keeps unchanged are not yours to judge (the entry may cover a companion bill or later events).
 
 Do not be generous: when in doubt, do not confirm. Use only SOURCE, no outside knowledge.
-Return JSON only: {"confirmed":true,"quote":"one short span under 25 words copied EXACTLY from SOURCE that best proves the change","reason":"one sentence"}. When not confirmed, quote may be null and reason says exactly what is wrong.`;
+Return JSON only: {"confirmed":true,"quote":"one short span under 25 words copied EXACTLY from SOURCE that best proves the change","reason":"one sentence"}. A confirmation without a quote that SOURCE contains word for word is refused by code. When not confirmed, quote may be null and reason says exactly what is wrong.`;
 
 export const confirmerPrompt = ({ source, field, current, proposed, problem }) =>
   `SOURCE:\n<<<SOURCE\n${source}\nSOURCE>>>\n\nFIELD: ${field}\nCURRENT: ${current == null || current === '' ? '(empty)' : current}\nPROPOSED: ${proposed}\nPROBLEM FOUND: ${problem}`;

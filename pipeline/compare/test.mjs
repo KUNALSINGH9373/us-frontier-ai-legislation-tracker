@@ -5,8 +5,9 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { compareCongress, datesMentioned, statusFromAction, surname } from './congress.mjs';
+import { compareCongress, datesMentioned, statusFromAction, surname, actionKind } from './congress.mjs';
 import { compareRun } from './run.mjs';
+import { compareLegiScan } from './legiscan.mjs';
 import { makeValidator } from '../schema/validate.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -72,6 +73,74 @@ ok('reads ranges such as "Sept 3–16"', dm('13 House cosponsors added Sept 3–
 ok('includes the entry\'s structured event dates', dm('', [{ date: '2026-01-02' }]) === '2026-01-02');
 ok('empty text gives no dates', dm('') === '' && dm(null) === '');
 ok('statusFromAction recognises law, veto and everything else', statusFromAction('Became Public Law No: 119-1.') === 'enacted' && statusFromAction('Vetoed by President.') === 'failed' && statusFromAction('Referred to committee') === 'pending' && statusFromAction(undefined) === 'pending');
+
+// ---------- which Congress actions are milestones (actionKind) ----------
+{
+  const kinds = JSON.parse(fs.readFileSync(fx('congress', 'action-kinds.json'), 'utf8')).kinds;
+  const all = Object.entries(kinds).flatMap(([k, texts]) => texts.map((t) => [k, t]));
+  const wrong = all.filter(([k, t]) => actionKind(t).kind !== k);
+  ok(`every distinct action text in the stored Congress.gov records (${all.length}) has its reviewed kind`, all.length >= 90 && !wrong.length, wrong.map(([k, t]) => `${t} -> ${actionKind(t).kind}, want ${k}`).join(' | '));
+  ok('procedural kinds are never milestones and have no event type; milestone kinds always have one', all.every(([k, t]) => { const a = actionKind(t); return k === 'procedural' ? !a.milestone && a.type === null && a.importance === 0 : a.milestone && !!a.type && a.importance > 0; }));
+  const K = (t) => actionKind(t).kind;
+  const proc = ['Cloture motion on the motion to proceed not agreed to', 'Amendment SA 1234 not agreed to in Senate by Yea-Nay Vote. 45 - 52.', 'Motion to reconsider laid on the table Agreed to without objection.', 'Held at the desk.', 'Message on Senate action sent to the House.',
+    'Sponsor introductory remarks on measure. (CR S4512)', 'Star Print ordered on the reported bill.', 'Cloture on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 68 - 30.', 'Motion to proceed to consideration of measure agreed to in Senate by Unanimous Consent.',
+    'S.Amdt.3001 Amendment SA 3001 proposed by Senator Cruz.', 'Amendment SA 3001 agreed to in Senate by Unanimous Consent.', 'H.Amdt.512 Amendment (A003) offered by Mr. Obernolte.', 'On agreeing to the Obernolte amendment (A003) Agreed to by voice vote.', 'Motion to table the motion to recommit agreed to.',
+    'On motion to recommit Failed by the Yeas and Nays: 200 - 215.', 'Motion to reconsider laid on the table Agreed to without objection.', 'Presented to President.', 'Placed on the Union Calendar, Calendar No. 741.', 'Received in the Senate.', 'Veto message received in Senate.'];
+  const badProc = proc.filter((t) => K(t) !== 'procedural');
+  ok('procedural steps from the review (cloture, amendments, motions, held at the desk, messages, remarks, star prints) are not milestones', !badProc.length, badProc.join(' | '));
+  ok('"not agreed to" and "failed" never mean passage', ['Cloture motion on the motion to proceed not agreed to', 'Amendment SA 1234 not agreed to', 'On motion to recommit Failed by the Yeas and Nays: 200 - 215.', 'On passage Failed by the Yeas and Nays: 190 - 230.', 'On motion to suspend the rules and pass the bill Failed by the Yeas and Nays: 250 - 170.', 'Resolution not agreed to in Senate by Yea-Nay Vote. 40 - 58.'].every((t) => K(t) !== 'passed' && actionKind(t).type !== 'Passed / advanced'));
+  ok('a failed vote on the bill itself is a failed passage (a milestone), not a procedural step', K('On passage Failed by the Yeas and Nays: 190 - 230.') === 'failed_passage' && K('On motion to suspend the rules and pass the bill Failed by the Yeas and Nays: 250 - 170.') === 'failed_passage' && K('Failed of passage in Senate by Yea-Nay Vote. 45 - 53.') === 'failed_passage');
+  ok('chamber passage, in Senate and House wordings', ['Passed Senate with an amendment by Unanimous Consent.', 'Passed/agreed to in House: On passage Passed by the Yeas and Nays: 300 - 120.', 'On passage Passed without objection.', 'Passed House (Amended) by Yea-Nay Vote. 250 - 170.', 'On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 380 - 30.', 'Submitted in the Senate, considered, and agreed to without amendment and with a preamble by Unanimous Consent.', 'Resolution agreed to in House.'].every((t) => K(t) === 'passed'));
+  ok('an amendment or substitute agreed to is procedural, never passage (it would compete with the real "Passed Senate")', ['Senate amendment agreed to by unanimous consent.', 'The committee substitute as amended agreed to by Unanimous Consent.', 'House amendment agreed to by voice vote.', 'Committee amendment in the nature of a substitute agreed to without objection.', 'The committee substitute agreed to by Unanimous Consent.'].every((t) => K(t) === 'procedural'));
+  ok('deemed passage and passage after a discharge are passage, not procedural', ['Pursuant to the provisions of H. Res. 1234, the bill is considered as passed.', 'Pursuant to H. Res. 88, H.R. 5 is deemed passed.', 'Senate Committee on Commerce, Science, and Transportation discharged by Unanimous Consent. Passed Senate without amendment by Unanimous Consent.'].every((t) => K(t) === 'passed')
+    && ['Senate Committee on Commerce discharged by Unanimous Consent.', 'Motion to concur in the Senate amendment agreed to.', 'On motion that the House agree to the Senate amendment Failed by voice vote.'].every((t) => !['passed', 'cleared'].includes(K(t))));
+  // Final clearance: the second chamber takes the first chamber's amendment as it stands, or the bill is cleared for the White House.
+  const clear = ['House agreed to Senate amendment.', 'Senate agreed to House amendment.', 'Cleared for White House.', 'Cleared for the White House.', 'House agreed to Senate amendments by recorded vote.', 'House agreed to the Senate amendment by voice vote.',
+    'Senate agreed to the House amendment to the Senate amendment by Unanimous Consent.', 'Resolving differences -- Senate actions: Senate agreed to the House amendment by Unanimous Consent.', 'Senate concurred in the House amendment by Unanimous Consent.', 'On motion that the House agree to the Senate amendment Agreed to without objection.'];
+  const badClear = clear.filter((t) => K(t) !== 'cleared' || actionKind(t).type !== 'Passed / advanced' || !actionKind(t).milestone);
+  ok('final clearance (the other chamber\'s amendment agreed to as it stands, cleared for the White House) is a milestone', !badClear.length, badClear.join(' | '));
+  ok('final clearance outranks a chamber passage on the same date, below a veto or a law', actionKind('Cleared for White House.').importance > actionKind('Passed Senate with an amendment by Unanimous Consent.').importance && actionKind('Cleared for White House.').importance < actionKind('Vetoed by President.').importance);
+  const notClear = ['House agreed to Senate amendment with an amendment.', 'Senate agreed to House amendment to Senate amendment with an amendment (SA 2244) by Unanimous Consent.', 'On motion that the House agree to the Senate amendment with an amendment Agreed to by voice vote.', 'Motion to concur in the House amendment agreed to.',
+    'Senate amendment agreed to by unanimous consent.', 'House amendment agreed to by voice vote.', 'Amendment SA 4 agreed to in Senate by Voice Vote.', 'On agreeing to the Senate amendment Agreed to by voice vote.', 'House disagreed to Senate amendment.', 'Senate disagreed to House amendment and asked for a conference.',
+    'Senate insisted on its amendment.', 'Senate agreed to House amendment not agreed to.', 'On motion that the House agree to the Senate amendments Failed by the Yeas and Nays: 200 - 215.', 'Presented to President.', 'Message on House action received in Senate and at desk: House amendment to Senate bill.'];
+  const badNotClear = notClear.filter((t) => K(t) !== 'procedural');
+  ok('an amendment vote, a chamber sending the bill back "with an amendment", disagreeing or insisting is procedural, never clearance', !badNotClear.length, badNotClear.map((t) => `${t} -> ${K(t)}`).join(' | '));
+  ok('reported and ordered reported', K('Ordered to be Reported by the Yeas and Nays: 22 - 0.') === 'reported' && K('Committee on Commerce, Science, and Transportation. Reported by Senator Cruz with amendments. With written report No. 119-154.') === 'reported' && K('Reported (Amended) by the Committee on Small Business. H. Rept. 119-851.') === 'reported' && K('Committee on Energy and Natural Resources. Ordered to be reported without amendment favorably.') === 'reported');
+  ok('hearings and markups', K('Committee on Homeland Security and Governmental Affairs. Hearings held.') === 'hearing' && K('Subcommittee Hearings Held') === 'hearing' && K('Committee Consideration and Mark-up Session Held') === 'markup' && K('Subcommittee Consideration and Mark-up Session Held') === 'markup');
+  ok('introduced and referred', K('Introduced in House') === 'introduced' && K('Submitted in Senate') === 'introduced' && K('Read twice and referred to the Committee on Finance.') === 'referred' && K('Referred to the Subcommittee on Oversight and Investigations.') === 'referred');
+  ok('signed, became law, vetoed and veto override', K('Became Public Law No: 119-77.') === 'enacted' && K('Signed by President.') === 'enacted' && K('Vetoed by President.') === 'vetoed' && K('Pocket Vetoed by President.') === 'vetoed' && K('Passed Senate over veto by Yea-Nay Vote. 70 - 28.') === 'veto_override' && K('On passage, the objections of the President to the contrary notwithstanding Passed by the Yeas and Nays: (2/3 required): 300 - 120.') === 'veto_override' && K('On passage, the objections of the President to the contrary notwithstanding Failed by the Yeas and Nays: (2/3 required): 250 - 170.') === 'failed_passage');
+  const imp = (t) => actionKind(t).importance;
+  ok('importance orders a date: law > override > veto > passage > failed vote > reported > markup > hearing > introduced > referred > procedural', imp('Became Public Law No: 119-77.') > imp('Passed Senate over veto by Yea-Nay Vote. 70 - 28.') && imp('Passed Senate over veto by Yea-Nay Vote. 70 - 28.') > imp('Vetoed by President.') && imp('Vetoed by President.') > imp('Passed Senate with an amendment by Unanimous Consent.') && imp('Passed Senate with an amendment by Unanimous Consent.') > imp('On passage Failed by the Yeas and Nays: 190 - 230.') && imp('On passage Failed by the Yeas and Nays: 190 - 230.') > imp('Ordered to be Reported by the Yeas and Nays: 22 - 0.') && imp('Ordered to be Reported by the Yeas and Nays: 22 - 0.') > imp('Committee Consideration and Mark-up Session Held') && imp('Committee Consideration and Mark-up Session Held') > imp('Committee on Energy and Natural Resources. Hearings held.') && imp('Committee on Energy and Natural Resources. Hearings held.') > imp('Introduced in House') && imp('Introduced in House') > imp('Referred to the House Committee on Armed Services.') && imp('Referred to the House Committee on Armed Services.') > imp('Held at the desk.'));
+  ok('statusFromAction: a failed override and a veto message are not a veto; an override is not a veto', statusFromAction('Passed Senate over veto by Yea-Nay Vote. 70 - 28.') === 'pending' && statusFromAction('Veto message received in Senate.') === 'pending' && statusFromAction('Pocket Vetoed by President.') === 'failed');
+}
+{ // compareCongress: only milestones are material; a veto on a multi-bill entry is minor; a veto followed by an override is not final
+  const r = raw('119-s-5061'), e = entry('s-5061'), item = { item_id: 'x' };
+  const proc = clone(r); proc.bill.updateDate = '2026-10-06T00:00:00Z'; proc.actions.unshift({ actionDate: '2026-10-05', text: 'Held at the desk.' }, { actionDate: '2026-10-05', text: 'Message on Senate action sent to the House.' }, { actionDate: '2026-10-06', text: 'Cloture motion on the motion to proceed not agreed to in Senate by Yea-Nay Vote. 45 - 52.' });
+  const dp = compareCongress({ item, raw: proc, entry: e });
+  ok('procedural actions alone are minor (a record_updated note), never material', dp.verdict === 'minor' && dp.reasons.filter((x) => x.kind === 'record_updated' && /procedural step/.test(x.detail)).length === 3 && !dp.reasons.some((x) => x.kind === 'new_action'), JSON.stringify(dp));
+  const mix = clone(r); mix.actions.unshift({ actionDate: '2026-10-05', text: 'Motion to reconsider laid on the table Agreed to without objection.' }, { actionDate: '2026-10-05', text: 'Passed Senate with an amendment by Unanimous Consent.' }, { actionDate: '2026-10-05', text: 'Amendment SA 1234 not agreed to in Senate by Voice Vote.' });
+  const dm2 = compareCongress({ item, raw: mix, entry: e });
+  ok('on a date with a passage and procedural lines, only the passage is material', dm2.verdict === 'material' && dm2.reasons.filter((x) => x.kind === 'new_action').length === 1 && /Passed Senate/.test(dm2.reasons.find((x) => x.kind === 'new_action').api_value), JSON.stringify(dm2.reasons));
+  const vet = clone(r); vet.bill.latestAction = { actionDate: '2026-10-05', text: 'Vetoed by President.' }; vet.actions.unshift({ actionDate: '2026-10-05', text: 'Vetoed by President.' });
+  const two = clone(e); two.identifiers = { session: '119th Congress', external: { congress_gov: ['119/s/5061', '119/hr/9999'] } };
+  const dv = compareCongress({ item, raw: vet, entry: two });
+  ok('a veto of one bill on a multi-bill entry is minor (companion_status), not a status change', !dv.reasons.some((x) => x.kind === 'status_change') && dv.reasons.some((x) => x.kind === 'companion_status'), JSON.stringify(dv));
+  ok('billsOfEntry > 1 also makes a veto minor', !compareCongress({ item, raw: vet, entry: e, billsOfEntry: 2 }).reasons.some((x) => x.kind === 'status_change'));
+  ok('a veto of the entry\'s only bill is still a status change to failed', compareCongress({ item, raw: vet, entry: e }).reasons.some((x) => x.kind === 'status_change' && x.api_value === 'failed'));
+  const ov = clone(vet); ov.actions.unshift({ actionDate: '2026-10-05', text: 'Passed Senate over veto by Yea-Nay Vote. 70 - 28.' });
+  const dov = compareCongress({ item, raw: ov, entry: e });
+  ok('a veto followed by an override vote is not final: no status change to failed, the override is material', !dov.reasons.some((x) => x.kind === 'status_change') && dov.reasons.some((x) => x.kind === 'new_action' && /over veto/.test(x.api_value)), JSON.stringify(dov.reasons));
+  ok('every new verdict passes its schema', [dp, dm2, dv, dov].every((d) => v.check('diff', d).length === 0), [dp, dm2, dv, dov].map((d) => v.check('diff', d).join(';')).join(' | '));
+}
+{ // compareLegiScan re-derives events with the current rules: an old record's "Amendment No. 2 failed" event is not material
+  const e = { key: 'x', status: 'pending', last_checked: '2026-10-01', status_text: 'Introduced Jan 5, 2026', events: [] };
+  const old = { bill: { state: 'CA', bill_number: 'SB1', status: 1, history: [{ date: '2026-10-05', action: 'Amendment No. 2 failed', chamber: 'S' }, { date: '2026-10-05', action: 'Withdrawn from committee.', chamber: 'S' }] },
+    derived: { status: 'pending', events: [{ date: '2026-10-05', type: 'Vetoed / failed / rescinded', text: 'Amendment No. 2 failed' }] } };
+  const d = compareLegiScan({ item: { item_id: 'legiscan:1' }, raw: old, entry: e });
+  ok('LegiScan: an amendment failing and a withdrawal from committee are minor, even when an old record calls them failures', d.verdict === 'minor' && !d.reasons.some((x) => x.kind === 'new_action'), JSON.stringify(d));
+  const real = clone(old); real.bill.history.push({ date: '2026-10-05', action: 'Failed passage in committee', chamber: 'S' });
+  ok('LegiScan: the bill\'s own failed passage on that date is material', compareLegiScan({ item: { item_id: 'legiscan:1' }, raw: real, entry: e }).reasons.some((x) => x.kind === 'new_action' && /Failed passage/.test(x.api_value)));
+}
 ok('surname handles titles, accents and brackets', surname('Rep. Velázquez, Nydia [D-NY-7]') === 'velázquez' || surname('Rep. Velázquez, Nydia [D-NY-7]').startsWith('vel'));
 
 // ---------- the runner writes a valid diff.json ----------

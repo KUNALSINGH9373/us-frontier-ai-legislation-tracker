@@ -21,8 +21,12 @@ export function compareRun({ runDir, entries }) {
   const idFile = path.join(pipelineDir, 'config', 'identifiers-legiscan.json');
   const lsIds = fs.existsSync(idFile) ? JSON.parse(fs.readFileSync(idFile, 'utf8')).legiscan || {} : {};
   const legiscanBills = (entry) => (entry && lsIds[entry.key] ? lsIds[entry.key].bills.length : 1);
+  // The same for Congress (an entry may track a House bill and its Senate companion without listing both in its own identifiers).
+  const cgFile = path.join(pipelineDir, 'config', 'identifiers.json');
+  const cgIds = fs.existsSync(cgFile) ? JSON.parse(fs.readFileSync(cgFile, 'utf8')).congress_gov || {} : {};
+  const congressBills = (entry) => (entry && cgIds[entry.key] && cgIds[entry.key].congress_gov ? cgIds[entry.key].congress_gov.length : 1);
   const diffs = changeset.items.map((item) => {
-    const compare = { congress_gov: compareCongress, federal_register: compareFederalRegister, legiscan: (o) => compareLegiScan({ ...o, billsOfEntry: legiscanBills(o.entry) }) }[item.source];
+    const compare = { congress_gov: (o) => compareCongress({ ...o, billsOfEntry: congressBills(o.entry) }), federal_register: compareFederalRegister, legiscan: (o) => compareLegiScan({ ...o, billsOfEntry: legiscanBills(o.entry) }) }[item.source];
     if (!compare) throw new Error(`no comparer for source ${item.source}`);
     const raw = JSON.parse(fs.readFileSync(path.join(runDir, item.raw_path), 'utf8'));
     const d = compare({ item, raw, entry: item.entry_key ? byKey.get(item.entry_key) : null });

@@ -9,7 +9,7 @@ import { loadEnv } from './lib/env.mjs';
 import { createHttp } from './lib/http.mjs';
 import { createLegiScan, normNumber, billNumbersIn, officialUrl } from './sources/legiscan.mjs';
 import { score } from './map-ids.mjs';
-import { readUsage, addUsage } from './run-legiscan.mjs';
+import { readUsage, addUsage, LEGISCAN_USAGE_FILE } from './run-legiscan.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
@@ -61,7 +61,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const key = process.env.LEGISCAN_API_KEY;
   if (!key) { console.error('LEGISCAN_API_KEY is not set'); process.exit(2); }
   const cfg = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'legiscan.json'), 'utf8'));
-  const usageFile = path.join(pipelineDir, 'data', 'legiscan-usage.json'), now = new Date();
+  const usageFile = LEGISCAN_USAGE_FILE, now = new Date();
   const left = cfg.monthly_cap - readUsage(usageFile, now).used;
   const entries = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'out', 'entries.v2.json'), 'utf8'));
   const http = createHttp({ secrets: [key], maxRequests: Math.min(150, left), log: (m) => console.log('  ' + m) });
