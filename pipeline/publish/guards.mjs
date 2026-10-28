@@ -7,6 +7,7 @@ import { FACT_FIELDS } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
 import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem } from '../links/rules.mjs';
+import { linkKey } from '../news/feeds.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
 export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
@@ -58,6 +59,18 @@ export function checkNewsAdded({ before, after, expected, checkLine }) {
     if (n.origin !== 'automated' || !n.verification || n.verification.method !== 'agent') problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: not marked as written and checked by the pipeline`);
     if (!(n.evidence || []).length || n.evidence.some((x) => !(n.links || []).some((l) => l.u === x.source_url))) problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: evidence must come from its own linked release`);
     if (checkLine && n.check !== checkLine(n)) problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: check line is not the fixed wording`);
+  }
+  // A tracker must name a tracked entry (never the excluded list), and no added item may repeat a release already on the page, or one
+  // another added item links, by any form of its URL (http or https, www, trailing slash, tracking parameters).
+  const entryOf = new Map((after.entries || []).map((e) => [e.key, e]));
+  const onPage = new Set(before.news.items.flatMap((x) => (x.links || []).map((l) => linkKey(l.u)))), thisRun = new Set();
+  for (const n of added) {
+    if (n.tracker != null && (!entryOf.has(n.tracker) || entryOf.get(n.tracker).section === 'J')) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: tracker ${n.tracker} is not a tracked entry`);
+    for (const k of new Set((n.links || []).map((l) => linkKey(l.u)))) {
+      if (onPage.has(k)) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: its release ${k} is already on the news page`);
+      if (thisRun.has(k)) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: its release ${k} is linked by another item added in this run`);
+      thisRun.add(k);
+    }
   }
   if (added.length !== expected.length) problems.push(`${added.length} news items added, expected ${expected.length}`);
   if (JSON.stringify(before.entries) !== JSON.stringify(after.entries)) problems.push('entries changed: the news step may not change them');

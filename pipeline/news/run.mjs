@@ -15,7 +15,7 @@ import { BudgetExceeded } from '../llm/gemini.mjs';
 import { loadData, writeData } from '../publish/run.mjs';
 import { checkPublish, checkNewsAdded } from '../publish/guards.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
-import { findLeads } from './leads.mjs';
+import { findLeads, entryIndex, NEWS_TERMS } from './leads.mjs';
 import { robotsAllows, releaseText } from './feeds.mjs';
 import { draftNews, duplicateOf, checkLine } from './write.mjs';
 
@@ -52,7 +52,21 @@ export function createReader({ userAgent, fetchImpl, log = () => {}, maxRequests
 }
 
 // Style examples for the writer: the most recent hand-checked items about a tracked entry.
-const examplesFrom = (news) => news.filter((n) => n.tracker && n.origin !== 'automated').slice(-3).map((n) => ({ date: n.date, title: n.title, body: n.body }));
+// They calibrate what counts as news as well as the style, so they cover the kinds of item the site publishes: the latest bill items,
+// the latest letters and demands by members, and the latest agency or executive actions.
+const LETTER = /\b(letter|urg\w+|demand\w*|ask\w*|call(?:s|ed)? on)\b/i;
+export function examplesFrom(news) {
+  const hand = news.filter((n) => n.origin !== 'automated' && n.title && n.body), pick = [];
+  const take = (xs, k) => xs.slice(-k).forEach((n) => { if (!pick.includes(n)) pick.push(n); });
+  take(hand.filter((n) => n.tracker), 3);
+  take(hand.filter((n) => !n.tracker && n.kind === 'federal' && LETTER.test(n.title)), 2);
+  take(hand.filter((n) => n.kind === 'executive'), 1);
+  return pick.sort((a, b) => a.date.localeCompare(b.date)).map((n) => ({ date: n.date, title: n.title, body: n.body }));
+}
+// An AI-safety release on a member's own feed that the writer calls "not newsworthy" gets one second opinion (role "referee") before it
+// is marked seen: a 107-member AI-safety letter was once refused and lost for good.
+const AI_SAFETY = /\b(safety|safeguards?|catastroph\w*|kill switch|rogue|frontier|super ?intelligen\w*|existential|guardrails?|risks?)\b/i;
+const aiSafety = (l, release) => { const t = `${l.title} ${l.summary || ''} ${String(release || '').slice(0, 4000)}`; return NEWS_TERMS.test(t) && AI_SAFETY.test(t); };
 
 // config: config/publish.json. sources: config/news-sources.json. factory: llm/make.mjs. aiOff: why AI may not run (null when it may).
 // reader: test hook ({ get(url, accept), used() }). Returns the report section (see report/build.mjs).
@@ -67,7 +81,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
   const screener = aiOff ? null : factory.make('screener');
 
   // 1. leads
-  const found = await findLeads({ sources: sources.sources, fetchFeed: (u) => rd.get(u, 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'), news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log });
+  const found = await findLeads({ sources: sources.sources, fetchFeed: (u, accept) => rd.get(u, accept || 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'), news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log });
   rep.feeds_checked = found.feeds.length; rep.feeds_failed = found.feeds.filter((f) => !f.ok).map((f) => ({ id: f.id, why: f.why }));
   rep.screened_out = found.screened_out.length; rep.duplicates = found.duplicates.length;
   const mark = { ...found.seen_add };
@@ -76,6 +90,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
   // 2. primary leads become drafts; press leads are reported
   const writer = aiOff ? null : factory.make('generator'), checker = aiOff ? null : factory.make('validator');
   const byKey = new Map(before.entries.map((e) => [e.key, e]));
+  const index = entryIndex(before.entries), kindOf = (k) => (byKey.get(k) ? newsKind(byKey.get(k)) : null);
   const feedHost = new Map(sources.sources.map((s) => [s.id, host(s.url)]));
   const items = [], max = cfg.max_drafts_per_run ?? 3;
   let drafts = 0, serviceErrors = 0;
@@ -88,7 +103,13 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
     let r;
     try {
       const release = releaseText(await rd.get(l.release_url, 'text/html'));
-      r = await draftNews({ lead: l, release, writer, checker, examples: examplesFrom(before.news.items), today, runId, now, maxRounds: cfg.max_rounds || 2, entryKind: l.tracker && byKey.get(l.tracker) ? newsKind(byKey.get(l.tracker)) : null });
+      const args = { lead: l, release, writer, checker, examples: examplesFrom(before.news.items), today, runId, now, maxRounds: cfg.max_rounds || 2, index, kindOf, maxAgeDays: cfg.max_age_days || 14 };
+      r = await draftNews(args);
+      if (r.outcome === 'not_newsworthy' && l.sponsor && aiSafety(l, release)) {
+        let referee = null; try { referee = factory.make('referee'); } catch { referee = null; } // a configuration without the role: no second opinion
+        if (referee) r = { ...(await draftNews({ ...args, writer: referee })), refereed: true };
+        else r = { outcome: 'error', retry: true, rounds: r.rounds, problems: [], reason: 'an AI-safety release called not newsworthy, and no second opinion (role referee) was available: retried later' };
+      }
     } catch (e) {
       if (e instanceof BudgetExceeded) { rep.problems.push(`stopped: ${e.message}`); if (e.scope !== 'item') break; r = { outcome: 'error', retry: true, reason: e.message }; }
       else if (/robots\.txt|HTTP \d|request budget|fetch|network|abort/i.test(e.message)) r = { outcome: 'error', retry: true, reason: `the release could not be read: ${e.message}` };
@@ -102,7 +123,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
       rep.drafted.push({ title: r.item.title, publisher: l.publisher, link: l.release_url, date: r.item.date, tracker: r.item.tracker, rounds: r.rounds, written: false, item: r.item });
       mark[l.key] = { first_seen: today, outcome: 'drafted', title: l.title };
     } else if (r.outcome === 'not_newsworthy') {
-      rep.screened_out++; mark[l.key] = { first_seen: today, outcome: 'not_newsworthy', title: l.title };
+      rep.screened_out++; mark[l.key] = { first_seen: today, outcome: 'not_newsworthy', title: l.title, ...(r.refereed ? { refereed: true } : {}) };
     } else {
       lead(l, r.outcome === 'rejected' ? `draft refused: ${r.reason}` : r.reason);
       mark[l.key] = { first_seen: today, outcome: r.outcome, title: l.title, tries, ...(r.retry && tries < MAX_TRIES ? { retry: true } : {}) };

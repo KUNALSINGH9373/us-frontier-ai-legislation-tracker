@@ -28,7 +28,9 @@ Rules, checked by code (an item that breaks one is thrown away):
 4. Every date has its year ("Sept 22, 2026"). Use the date RELEASE gives for the action; if RELEASE says an action "will" happen, say it was announced, never that it happened.
 5. Keep legal force as written: "would" for a bill's proposals, "shall" is a duty, "may" is a power. A bill that is announced is not introduced; one introduced has not passed.
 6. "evidence": 1 to 3 short quotes (8 to 200 characters, from inside one sentence, no "...") copied EXACTLY from RELEASE that prove the title and body.
-7. Set "newsworthy" to false (and leave the other fields empty) if RELEASE is not about frontier-AI law or policy as described in SCOPE.
+7. Set "newsworthy" to false (and leave the other fields empty) only if RELEASE is plainly not about frontier-AI law or policy as described in SCOPE.
+   The news page reports more than bills: as EXAMPLES show, it also publishes letters and demands by members of Congress, senators, governors or attorneys general about AI safety or frontier AI (to the President, congressional leaders, agencies or AI companies, however many members sign), hearings and briefings, agency actions and evaluations of advanced AI models (NIST, CAISI, Commerce, export controls), and executive orders. Those are newsworthy.
+   Not newsworthy: AI in one sector only (jobs and workforce training, schools, health, hiring), children's online safety, deepfakes and elections, data-centre siting or energy, or a release about something else that mentions AI or a bill in passing.
 
 Return JSON only: {"newsworthy":true,"date":"YYYY-MM-DD","title":"...","body":"...","evidence":[{"quote":"..."}]}`;
 
