@@ -37,6 +37,12 @@ function scriptedValidator({ unsupported = {}, quotes = {}, answerFor } = {}) {
   };
 }
 
+// The referee confirms a new item's scope with a quote it copies from the source it was shown (the first line of 8+ characters).
+// Every new entry needs the referee's confirmation (agents/process-item.mjs), so tests of publishable creates pass one.
+function confirmingReferee() {
+  return { calls: [], async generate(req) { this.calls.push(req); const src = (/<<<SOURCE\n([\s\S]*?)\nSOURCE>>>/.exec(req.prompt) || [, ''])[1]; const line = src.split('\n').map((l) => l.trim()).find((l) => l.length >= 8 && !/^\[/.test(l)) || ''; return { usage: {}, data: { results: [{ n: 1, supported: true, quote: line.slice(0, 80), reason: null }] } }; } };
+}
+
 // ---------- real records ----------
 const s2938 = J(fx('congress', '119-s-2938.json'));
 const e2938 = entries.find((e) => e.key.startsWith('s-2938'));
@@ -189,7 +195,7 @@ const goodCreate = () => ({
   events_add: [{ date: '2026-09-29', precision: 'day', type: 'Signed / enacted', text: 'Executive Order 14434 signed' }],
   evidence: [{ field: 'title', quote: Q1, source_url: itemEo.source_url }, { field: 'sponsor_text', quote: 'By the authority vested in me as President by the Constitution', source_url: itemEo.source_url }, { field: 'mechanism', quote: Q2, source_url: itemEo.source_url }, { field: 'status_text', quote: Q3, source_url: itemEo.source_url }, { field: 'events_add[0]', quote: Q3, source_url: itemEo.source_url }], notes: ''
 });
-const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z'), ...o });
+const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, raw: eo, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z'), ...o });
 {
   const val = scriptedValidator({ answerFor: (f) => (f === 'in_scope' ? Q1 : f === 'mechanism' ? Q2 : Q3) });
   const r = await runEo({ generator: scriptedGenerator([goodCreate()]), validator: val });
@@ -223,7 +229,7 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   const rs = await processItem({ generator: scriptedGenerator([st, st, st]), validator: scriptedValidator(), item: itemEo, raw: notice, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
   ok('a federal item may not go in a state section', rs.outcome === 'held' && rs.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /section B is for state items; this is a federal item/.test(c.detail)));
   const bis = clone(notice); bis.document.agency_names = ['Commerce Department', 'Industry and Security Bureau']; const g3 = goodCreate(); delete g3.fields.section;
-  const r2 = await processItem({ generator: scriptedGenerator([g3]), validator: scriptedValidator({ answerFor: (f) => (f === 'in_scope' ? Q1 : f === 'mechanism' ? Q2 : Q3) }), item: itemEo, raw: bis, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
+  const r2 = await processItem({ generator: scriptedGenerator([g3]), validator: scriptedValidator({ answerFor: (f) => (f === 'in_scope' ? Q1 : f === 'mechanism' ? Q2 : Q3) }), referee: confirmingReferee(), item: itemEo, raw: bis, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
   ok('a rule from the Bureau of Industry and Security is placed in G.3 by rule', r2.outcome === 'publishable' && r2.entry.section === 'G.3' && r2.entry.status === 'export', `${r2.outcome} ${r2.entry && r2.entry.section}`);
 }
 {
@@ -239,7 +245,7 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
 {
   const out = goodCreate(); out.in_scope = false; out.scope_reason = 'It sets terminology for agencies and does not regulate AI developers.'; out.fields = {}; out.events_add = []; out.evidence = [];
   const val = { calls: [], async generate(req) { this.calls.push(req); return { usage: {}, data: { results: [{ n: 1, supported: false, quote: null, reason: 'The order only renames AI as Super Intelligence in agency communications; it imposes no duty on AI developers.' }] } }; } };
-  const r = await runEo({ generator: scriptedGenerator([out]), validator: val });
+  const r = await runEo({ generator: scriptedGenerator([out]), validator: val, referee: null });
   ok('when the generator and the independent reader both say out of scope, nothing is published', r.outcome === 'out_of_scope' && r.entry === null && /terminology/.test(r.reason));
 }
 {
@@ -283,10 +289,19 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   ok('and only the opening was sent to the models, never the whole text', g.calls[0].prompt.length < 60000 && val.calls[0].prompt.length < 60000 && /cut off after its first 30000 characters/.test(g.calls[0].prompt));
 }
 {
-  const long = clone(eo); long.text = 'Section 1. ' + 'This order concerns frontier AI safety. '.repeat(5000);
+  const long = clone(eo); long.text = 'Section 1. ' + 'This order concerns agency terminology. '.repeat(5000);
   const inScope = { operation: 'create', in_scope: true, scope_reason: 'Frontier AI safety order.', fields: {}, events_add: [], evidence: [] };
   const r = await processItem({ generator: scriptedGenerator([inScope]), validator: scriptedValidator(), item: itemEo, raw: long, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
-  ok('a very long source that may be in scope is held for a person, not published or dropped', r.outcome === 'held' && /needs a person/.test(r.reason));
+  ok('a very long source with no frontier-AI term anywhere that may be in scope is held for a person, not published or dropped', r.outcome === 'held' && /needs a person/.test(r.reason));
+}
+{
+  // IL H.B. 2949: a 1.25-million-character budget bill whose headings cannot be read; its frontier part is deep inside (Sec. 40-15).
+  // The whole text is searched for frontier-AI terms and those passages are read, never just the opening.
+  const long = clone(eo); long.text = 'BUDGET IMPLEMENTATION. ' + 'Appropriations for roads and bridges 123 Sec. 5-10. '.repeat(4000) + ' Section 40-15. the Artificial Intelligence Safety Measures Act is amended: no large frontier developer may develop a frontier model without a disclosure. ' + 'More appropriations for parks. '.repeat(2000);
+  const inScope = { operation: 'create', in_scope: true, scope_reason: 'Amends frontier duties.', fields: {}, events_add: [], evidence: [] };
+  const g = scriptedGenerator([inScope]);
+  const r = await processItem({ generator: g, validator: scriptedValidator(), item: itemEo, raw: long, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
+  ok('a long text with unreadable headings is read at its frontier-AI passages, wherever they are, not judged on its opening', /large frontier developer may develop/.test(g.calls[0].prompt) && /passage\(s\) from a/.test(g.calls[0].prompt) && !/cut off after its first/.test(g.calls[0].prompt) && g.calls[0].prompt.length < 110000, `${r.outcome} ${r.reason}`);
 }
 {
   const withNulls = goodCreate(); withNulls.fields.title = null; withNulls.fields.section = ''; withNulls.fields.sponsor_text = null;
@@ -313,19 +328,27 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   ok('an extra top-level key (the model\'s own "reasoning") is dropped; the known keys stay', !('reasoning' in q) && !('summary' in q) && q.notes === 'n' && q.fields.mechanism === 'Does a thing' && makeValidator().check('patch', q).length === 0, JSON.stringify(q));
 }
 {
-  // New bill whose text is not published yet: nothing can be described or verified. Only a scope check on its title and actions is possible.
+  // New bill whose text is not published yet: nothing can be described or verified, and its scope is never judged from its title alone
+  // (NJ S4934 was ruled out on its title). It is held, with no AI call, and read again when its record changes.
   const bill = clone(J(fx('congress', '119-s-5493.json'))); bill.text_missing = true;
-  const it = itemOf('119/s/5493', 'congress_gov', 'https://www.congress.gov/bill/119th-congress/senate-bill/5493');
+  const it = itemOf('119/s/9999', 'congress_gov', 'https://www.congress.gov/bill/119th-congress/senate-bill/9999');
   const run1 = (g, val) => processItem({ generator: g, validator: val, item: it, raw: bill, diff: { item_id: it.item_id, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] }, entry: null, entries, today: '2026-10-07', runId: 'r' });
   const inScope = { operation: 'create', in_scope: true, scope_reason: 'Title says it bans superintelligence.', fields: {}, events_add: [], evidence: [], section: 'D' };
   const g1 = scriptedGenerator([inScope]), v1 = scriptedValidator();
   const r1 = await run1(g1, v1);
-  ok('a possibly-relevant new bill with no published text is held to be retried, and no entry is written', r1.outcome === 'held' && /not available yet/.test(r1.reason) && r1.entry === null && v1.calls.length === 0, r1.reason);
-  ok('the one model call told it the source is incomplete and asked only for the scope', /the bill text is not published yet/.test(g1.calls[0].prompt) && /Decide ONLY in_scope/.test(g1.calls[0].prompt) && g1.calls.length === 1);
+  ok('a new bill with no published text is held to be retried, and no entry is written', r1.outcome === 'held' && /not available yet/.test(r1.reason) && r1.entry === null && v1.calls.length === 0, r1.reason);
+  ok('no model is asked about a bill with no text', g1.calls.length === 0);
   const outScope = { operation: 'create', in_scope: false, scope_reason: 'The title is about worker retraining.', fields: {}, events_add: [], evidence: [], section: 'F' };
   const val2 = { calls: [], async generate(req) { this.calls.push(req); return { usage: {}, data: { results: [{ n: 1, supported: false, quote: null, reason: 'Not about frontier developers.' }] } }; } };
   const r2 = await run1(scriptedGenerator([outScope]), val2);
-  ok('a clearly irrelevant new bill is ruled out from its title even without text', r2.outcome === 'out_of_scope' && /the text is not published yet/.test(r2.reason));
+  ok('a new bill with no text is never ruled out from its title alone: it is held', r2.outcome === 'held' && r2.text_missing === true, `${r2.outcome} ${r2.reason}`);
+  const st = clone(J(fx('legiscan', 'bills.json')))['NY-S10373'] || null;
+  if (st) {
+    const rawLs = { bill: { ...st, bill_id: 99990001, bill_number: 'S4934', state: 'NJ', bill_type_id: '1', title: 'Requires Chief Innovation Officer to conduct study and issue report on AI auditors.', sasts: [] }, text: '', text_missing: false };
+    const itLs = itemOf('99990001', 'legiscan', 'https://legiscan.com/NJ/bill/S4934/2026');
+    const r3 = await processItem({ generator: scriptedGenerator([outScope]), validator: val2, item: itLs, raw: rawLs, diff: { item_id: itLs.item_id, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] }, entry: null, entries, today: '2026-10-28', runId: 'r' });
+    ok('NJ S4934: a state bill whose text is empty is held like a Congress bill with no text, not ruled out from its title', r3.outcome === 'held' && r3.text_missing === true, `${r3.outcome} ${r3.reason}`);
+  }
 }
 {
   // The generator keeps saying "out of scope" while the reader says "in scope": one firm retry, then stop.
@@ -339,7 +362,7 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   // The generator says "in scope" but the reader says "out" twice.
   const val = scriptedValidator({ unsupported: { in_scope: 'It only renames terminology; no duty on developers.' }, answerFor: (f) => (f === 'mechanism' ? Q2 : Q3) });
   const g = scriptedGenerator([goodCreate(), goodCreate(), goodCreate()]);
-  const r = await runEo({ generator: g, validator: val });
+  const r = await runEo({ generator: g, validator: val, referee: null });
   ok('the opposite disagreement also stops after the second objection, and the reader\'s reason is kept', r.outcome === 'held' && /scope disagreement/.test(r.reason) && /terminology/.test(r.reason) && g.calls.length === 2, `${r.outcome} calls=${g.calls.length}`);
   ok('the reader\'s scope objection is phrased for the generator as an invitation to set in_scope false', /judged this item OUT of scope/.test(g.calls[1].prompt) && /set in_scope to false/.test(g.calls[1].prompt));
 }
@@ -402,7 +425,7 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   const az = lsRaw('AZ-HB4098-2112241.json'), ne = lsRaw('NE-LB1185-2088052.json'), ut = lsRaw('UT-SB0205-2094829.json');
   const itemLs = (raw) => ({ item_id: `legiscan:${raw.id}`, source: 'legiscan', source_id: raw.id, entry_key: null, change: 'new', reason: 'discovery', source_url: raw.bill.state_link, fetched_at: '2026-10-13T07:14:00Z', raw_hash: 'x', raw_path: 'x' });
   const diffLs = (raw) => ({ item_id: `legiscan:${raw.id}`, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: `New state bill ${raw.bill.state} ${raw.bill.bill_number} "${raw.bill.title}" is not in the tracker.` }] });
-  const runLs = (raw, o) => processItem({ item: itemLs(raw), raw, diff: diffLs(raw), entry: null, entries, today: '2026-10-13', runId: 'run-test', now: new Date('2026-10-13T08:00:00Z'), ...o });
+  const runLs = (raw, o) => processItem({ referee: confirmingReferee(), item: itemLs(raw), raw, diff: diffLs(raw), entry: null, entries, today: '2026-10-13', runId: 'run-test', now: new Date('2026-10-13T08:00:00Z'), ...o });
   const AZ = {
     mechanism: 'shall submit a transparency report to the attorney general', thresholds: 'has spent more than $5,000,000 in developing the frontier model and more than $100,000,000 in training the frontier model',
     penalties: 'civil penalty of not more than $50,000 per violation', in_scope: 'frontier model of artificial intelligence that is owned or operated by a large developer'
@@ -436,11 +459,14 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
     ok('state create: the reader checked the reading fields only, never the record\'s own facts', /\[mechanism\]/.test(val.calls[0].prompt) && !/\[title\]|\[sponsor_text\]|\[status_text\]/.test(val.calls[0].prompt));
   }
   {
-    const nePatch = { operation: 'create', in_scope: true, scope_reason: 'Safety duties for conversational AI services.', section: 'B', fields: { mechanism: 'An operator must clearly and conspicuously disclose to each minor account holder that the account holder is interacting with artificial intelligence.' }, events_add: [], evidence: [{ field: 'mechanism', quote: 'An operator shall clearly and conspicuously disclose to each minor account holder' }], notes: '' };
+    const nePatch = { operation: 'create', in_scope: true, scope_reason: 'Safety duties for conversational AI services.', section: 'B.2', fields: { mechanism: 'An operator must clearly and conspicuously disclose to each minor account holder that the account holder is interacting with artificial intelligence.' }, events_add: [], evidence: [{ field: 'mechanism', quote: 'An operator shall clearly and conspicuously disclose to each minor account holder' }], notes: '' };
     const r = await runLs(ne, { generator: scriptedGenerator([nePatch]), validator: scriptedValidator({ answerFor: () => 'An operator shall clearly and conspicuously disclose' }) });
     ok('dead state bill: status failed, from the record, with the action that ended it in the status line', r.outcome === 'publishable' && r.entry.status === 'failed' && r.entry.status_text === 'Status: Introduced Jan 21, 2026; Indefinitely postponed (Apr 17, 2026)' && r.entry.events.some((x) => x.type === 'Vetoed / failed / rescinded' && x.date === '2026-04-17'), r.reason || (r.entry && r.entry.status_text));
     ok('dead state bill: a nonpartisan sponsor carries no party letter', r.entry.sponsor_text === 'Sen. Eliot Bostar');
-    ok('dead state bill: duties that cannot be proved are left off, the entry still goes out', !r.entry.duties && r.duties && r.duties.added === false);
+    ok('dead state bill (B.2): duties that cannot be proved are left off, the entry still goes out', !r.entry.duties && r.duties && r.duties.added === false);
+    // In A or B (a frontier law or bill) the duty step is never skipped silently: without proved duties the entry is held, not published.
+    const rB = await runLs(ne, { generator: scriptedGenerator([{ ...clone(nePatch), fields: { ...clone(nePatch.fields), section: 'B' } }]), validator: scriptedValidator({ answerFor: () => 'An operator shall clearly and conspicuously disclose' }) });
+    ok('a B entry whose duties cannot be proved is held, never published without them', rB.outcome === 'held' && rB.entry === null && /not published without its duty answers/.test(rB.reason) && rB.escalate === true, `${rB.outcome} ${rB.reason}`);
   }
   {
     const r = await runLs(az, { generator: scriptedGenerator([azPatch('D'), azPatch('D'), azPatch('D')]), validator: scriptedValidator({ answerFor: quoteFor }) });
@@ -454,7 +480,7 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
     ok('invented quote: a state draft whose quote is not in the bill is never publishable', r.outcome === 'held' && r.verdicts.every((x) => x.code_checks.some((c) => c.name === 'evidence_quotes_are_in_the_source' && !c.passed)), r.reason);
   }
   {
-    const out = await runLs(ut, { generator: scriptedGenerator([{ operation: 'create', in_scope: false, scope_reason: 'Policies for police use of generative AI; nothing on frontier developers.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator({ unsupported: { in_scope: 'law enforcement AI policies only' } }) });
+    const out = await runLs(ut, { generator: scriptedGenerator([{ operation: 'create', in_scope: false, scope_reason: 'Policies for police use of generative AI; nothing on frontier developers.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator({ unsupported: { in_scope: 'law enforcement AI policies only' } }), referee: null });
     ok('out of scope: a state bill both readers rule out is dropped', out.outcome === 'out_of_scope' && out.entry === null);
     const missing = clone(az); missing.text = null; missing.text_missing = true;
     const held = await runLs(missing, { generator: scriptedGenerator([{ operation: 'create', in_scope: true, scope_reason: 'Title names artificial intelligence businesses.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator() });

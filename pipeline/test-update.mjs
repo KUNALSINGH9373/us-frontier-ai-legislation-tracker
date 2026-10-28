@@ -225,6 +225,18 @@ for (const [name, over, config, stepName] of cases) {
   ok('links: an extra edge from another step is refused by the final check and not promoted', code === 0 && fs.readFileSync(rel).toString('base64') === b[rel] && rep.held.some((x) => x.kind === 'stop' && /links/.test(x.reason)), `${code} ${rep.error} ${JSON.stringify(rep.held)}`);
 }
 {
+  // The accuracy gate is enforced at run time: a switch that is on in config/publish.json is OFF for the run unless the latest full
+  // test-set report for the production model passes; the run report says why. The links step gets the run's records and new entries.
+  const P = setup(); let seenCfg = null, linkOpts = null;
+  const models = { provider: 'anthropic', anthropic: { roles: { generator: { model: 'claude-haiku-5-5' } } } };
+  const { code, rep } = await runUpdate({ P, config: { ...CONFIG, auto_publish: { mechanism: false, new_entries: true, relationships: true, news: true }, eval_bar: { pass_rate: 1, unsupported_fields: 0, scope_agreement: 1 } }, models, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T12:00:00Z'),
+    deps: { ...okSteps, gateInputs: { reports: [{ generator: 'claude-haiku-5-5', run_at: '2026-10-27T00:00:00Z', summary: { items: 5, scope_agreement: 1, fields: { mechanism: { pass_rate: 1, unsupported_fields: 0 } } } }], goldItems: 48 },
+      publishRun: (o) => { seenCfg = o.config; return (okSteps.publishRun || publishRun)(o); }, linkRun: async (o) => { linkOpts = o; return okSteps.linkRun(o); } }, log: () => {}, logErr: () => {} });
+  ok('gate: new_entries, relationships and news are OFF for the run without a passing full test-set report', code === 0 && seenCfg && seenCfg.auto_publish.new_entries === false && seenCfg.auto_publish.relationships === false && seenCfg.auto_publish.news === false, `${code} ${rep.error} ${JSON.stringify(seenCfg && seenCfg.auto_publish)}`);
+  ok('gate: the run report says which switches were turned off and why', rep.gate && rep.gate.off.map((x) => x.field).sort().join() === 'new_entries,news,relationships' && rep.notes.some((n) => /auto_publish\.new_entries is on in config\/publish\.json but treated as OFF/.test(n) && /no full test-set report/.test(n)), JSON.stringify(rep.gate));
+  ok('links: the links step is given the records of the run and the entries created this run', linkOpts && typeof linkOpts.records === 'object' && Array.isArray(linkOpts.created));
+}
+{
   // web and docs differ after promotion: every promoted file goes back to its bytes before the promotion
   const P = setup(), b = files(P);
   const { code, rep } = await run(P, { readBack: (f) => (/web[\\/]data[\\/]v2[\\/]entries\.json$/.test(f) ? Buffer.from('x') : fs.readFileSync(f)) });

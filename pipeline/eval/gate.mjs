@@ -26,11 +26,32 @@ export function gate({ config, models, reports, goldItems }) {
   return { model: prod, report: latest ? latest.run_at : null, bar, fields, violations };
 }
 
+// The gate at run time (update.mjs): every auto_publish switch whose field does not meet the bar on the latest FULL test-set report for
+// the production model is treated as OFF for the run, whatever config/publish.json says; a field the test set does not measure (news)
+// never meets it, so its switch stays off. Returns { config: a copy with the switches the run may use, gate, off: [{ field, why }] }.
+// The owner makes a report that counts by running the whole test set with the production models (no --only, no --limit):
+//   cd pipeline && node eval/fetch-texts.mjs && node eval/run.mjs --provider anthropic && node eval/gate.mjs
+export function gatedPublishConfig({ config, models, reports, goldItems }) {
+  const g = gate({ config, models, reports, goldItems });
+  const out = JSON.parse(JSON.stringify(config)), off = [];
+  for (const [f, x] of Object.entries(g.fields)) {
+    if (!x.on || x.meets === true) continue;
+    out.auto_publish[f] = false;
+    off.push({ field: f, why: !g.report ? `no full test-set report for ${g.model} (eval/reports), so the gate cannot pass` : x.meets === null ? x.note : `the latest full test-set report for ${g.model} (${g.report}) is below the bar for ${f === 'new_entries' ? 'every reading field' : f}` });
+  }
+  return { config: out, gate: g, off };
+}
+// Reads the inputs of the gate from disk: the reports in eval/reports and the size of the test set.
+export function readGateInputs(dir = path.join(here, 'reports')) {
+  const read = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
+  const reports = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => read(path.join(dir, f))) : [];
+  return { reports, goldItems: read(path.join(here, 'gold.json')).items.length };
+}
+
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const read = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
-  const dir = path.join(here, 'reports');
-  const reports = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => read(path.join(dir, f))) : [];
-  const g = gate({ config: read(path.join(P, 'config', 'publish.json')), models: read(path.join(P, 'config', 'models.json')), reports, goldItems: read(path.join(here, 'gold.json')).items.length });
+  const { reports, goldItems } = readGateInputs();
+  const g = gate({ config: read(path.join(P, 'config', 'publish.json')), models: read(path.join(P, 'config', 'models.json')), reports, goldItems });
   console.log(`production model ${g.model}; latest report ${g.report || 'none'}; bar ${JSON.stringify(g.bar)}`);
   for (const [f, x] of Object.entries(g.fields)) console.log(`  ${f}: switch ${x.on ? 'ON' : 'off'}, ${x.meets === null ? x.note : x.meets ? 'meets the bar' : 'below the bar'}${x.pass_rate != null ? ` (pass rate ${Math.round(x.pass_rate * 100)}%)` : ''}`);
   if (g.violations.length) { console.error(`switched on without a passing report: ${g.violations.join(', ')}`); process.exit(1); }

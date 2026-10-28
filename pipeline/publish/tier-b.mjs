@@ -13,17 +13,18 @@ import { checkNewEntry } from './guards.mjs';
 import { checkDuties } from '../duties/check.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { newsKind, advanceCutoff } from './tier-a.mjs';
-import { billNumbersIn, normNumber } from '../grabber/sources/legiscan.mjs';
+import { trackerIndex, duplicateOf, relatedUnread, idsOf } from '../agents/dedupe.mjs';
+import { recordRefusals, measureKind } from '../agents/record-kind.mjs';
+import { DUTY_REQUIRED_SECTIONS } from '../agents/duties.mjs';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
 const cut = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 // The status the record itself gives, worked out as agents/assemble.mjs does it.
 const recordStatus = (e, item, raw) => statusFor(e.section, item.source === 'congress_gov' && raw.bill && raw.bill.latestAction ? statusFromAction(raw.bill.latestAction.text) : item.source === 'legiscan' ? stateStatus(raw.bill) : 'pending');
-// Every record an entry is tracked by, in the item_id form the grabber uses.
-const idsOf = (e) => { const x = (e.identifiers && e.identifiers.external) || {}; return [...(x.congress_gov || []).map((i) => 'congress_gov:' + i), ...(x.federal_register_doc ? ['federal_register:' + x.federal_register_doc] : []), ...(x.legiscan || []).map((i) => 'legiscan:' + i)]; };
-// Most state entries were written by hand before LegiScan ids were recorded on them: their bills are known by state and number
-// ("LA:SB474"), read from the title and short name the way the LegiScan grabber reads them.
-const stateNumbersOf = (e) => (e.level === 'state' && e.state ? billNumbersIn(`${e.title} ${e.short_name}`).map((n) => `${e.state}:${n}`) : []);
+// Duplicates are found by agents/dedupe.mjs: every id and every bill number an entry holds, at any level (J and "none" entries too),
+// LegiScan's links between bills (companions, other-chamber twins, the bill an amendment was folded into), Congress.gov "Identical bill"
+// related bills, and a state bill whose text names a tracked bill. A match is never created.
+export { idsOf };
 
 // The facts a state entry takes from its LegiScan record, checked again against the stored record: the state, the session and the bill id.
 function stateProblems(e, item, raw) {
@@ -71,18 +72,24 @@ export function applyTierB({ data, drafts, itemById, readRaw, runId, runDate, co
     return { data: out, added, skipped, log };
   }
   const cap = config.max_new_entries_per_run ?? 0, at = runDate + 'T00:00:00Z';
-  const known = new Set([...out.entries.flatMap(idsOf), ...tracked]), knownNumbers = new Set(out.entries.flatMap(stateNumbersOf));
+  const idx = trackerIndex(out.entries, tracked);
 
   for (const r of ready) {
     const skip = (why) => skipped.push({ item_id: r.item_id, why });
     if (added.length >= cap) { skip(`over the limit of ${cap} new entries per run; added on a later run`); continue; }
     const item = itemById.get(r.item_id);
     if (!item) { skip('no matching change-set item'); continue; }
-    if (known.has(r.item_id)) { skip('already tracked'); continue; }
     const e = clone(r.entry), raw = readRaw(item), text = sourceText(raw, item.source);
-    const stateKey = item.source === 'legiscan' && raw.bill ? `${raw.bill.state}:${normNumber(raw.bill.bill_number)}` : null;
-    if (stateKey && knownNumbers.has(stateKey)) { skip(`already tracked (an entry covers ${stateKey.replace(':', ' ')})`); continue; }
-    const problems = [...checkNewEntry(e), ...(item.source === 'legiscan' ? stateProblems(e, item, raw) : []), ...(e.evidence || []).filter((x) => !containsQuote(text, x.quote)).map((x) => `the quote for ${x.field} is not in the stored record: "${cut(String(x.quote || ''), 60)}"`)];
+    const dup = duplicateOf({ item, raw, idx });
+    if (dup) { skip(`${dup.why}${dup.key && !dup.key.startsWith('(') ? ` (entry ${dup.key})` : ''}; not created`); continue; }
+    const unread = relatedUnread(item, raw);
+    if (unread) { skip(`${unread}; not created`); continue; }
+    const refused = item.source === 'legiscan' ? recordRefusals(raw) : [];
+    if (refused.length) { skip('not created: ' + refused.join('; ')); continue; }
+    const ctx = item.source === 'legiscan' ? { kind: measureKind(raw.bill, raw.text), text: raw.text || '' } : {};
+    const problems = [...checkNewEntry(e, ctx), ...(item.source === 'legiscan' ? stateProblems(e, item, raw) : []), ...(e.evidence || []).filter((x) => !containsQuote(text, x.quote)).map((x) => `the quote for ${x.field} is not in the stored record: "${cut(String(x.quote || ''), 60)}"`)];
+    // An A or B entry (a frontier law or bill) goes out only with its duty answers, proved against this record.
+    if (DUTY_REQUIRED_SECTIONS.includes(e.section) && (item.source === 'legiscan' || item.source === 'congress_gov') && !e.duties) problems.push(`a section ${e.section} entry needs its duty answers, and the duty step did not prove them`);
     if (e.status !== recordStatus(e, item, raw)) problems.push(`status ${e.status} is not what the record gives (${recordStatus(e, item, raw)})`);
     // Duties, when the agents wrote them: read from this very record (same URL, same text hash) and every answer passes duties/check.mjs again.
     if (e.duties && e.duties_basis) {
@@ -98,7 +105,7 @@ export function applyTierB({ data, drafts, itemById, readRaw, runId, runDate, co
     e.last_checked = runDate; e.last_changed = runDate;
     e.verification = { ...e.verification, run_id: runId };
     out.entries.push(e);
-    idsOf(e).forEach((id) => known.add(id)); stateNumbersOf(e).forEach((n) => knownNumbers.add(n));
+    idx.add(e);
     log.push({ entry_key: e.key, field: 'entry', old: null, new: { title: e.title, section: e.section, status: e.status }, date: runDate, run_id: runId, source_url: item.source_url, tier: 'B', note: 'new entry; reading fields written by the AI with quotes checked by code' });
 
     const n = config.news_from_official_actions !== false && newsFor(e, item, raw, runId, at);
