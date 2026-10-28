@@ -45,15 +45,18 @@ function setup({ bills = [[9990, 'Frontier Model Safety Testing Act']], edit = (
   const changeset = j(path.join(runDir, 'changeset.json')), diff = j(path.join(runDir, 'diff.json')), entries = j(path.join(dataDir, 'entries.json'));
   const summary = { run_id: changeset.run_id, outcomes: { publishable: bills.length }, items: [] };
   fs.mkdirSync(path.join(runDir, 'results'), { recursive: true });
-  for (const [n, title] of bills) {
-    const raw = bill(n, title), text = JSON.stringify(raw, null, 1), rel = `raw/congress_gov/119-hr-${n}.json`;
+  for (const [n, title, ownText, ownPatch] of bills) {
+    const raw = bill(n, title); if (ownText) raw.text = ownText;
+    const text = JSON.stringify(raw, null, 1), rel = `raw/congress_gov/119-hr-${n}.json`;
     fs.writeFileSync(path.join(runDir, rel), text);
     const item = { item_id: `congress_gov:119/hr/${n}`, source: 'congress_gov', source_id: `119/hr/${n}`, entry_key: null, change: 'new', reason: 'search', source_url: `https://www.congress.gov/bill/119th-congress/house-bill/${n}`, fetched_at: '2026-10-06T15:53:30Z', raw_hash: sha(text), raw_path: rel, title };
     changeset.items.push(item);
     diff.items.push({ item_id: item.item_id, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: `New bill "${title}"` }] });
     // Each draft is assembled against the same data, as the agents do it: so two drafts get the same id.
-    const asm = assembleEntry({ entry: null, patch: JSON.parse(JSON.stringify(PATCH)), item, raw, today: '2026-10-06', runId: changeset.run_id, rounds: 1, entries, now: new Date('2026-10-06T16:00:00Z') });
+    const asm = assembleEntry({ entry: null, patch: JSON.parse(JSON.stringify(ownPatch || PATCH)), item, raw, today: '2026-10-06', runId: changeset.run_id, rounds: 1, entries, now: new Date('2026-10-06T16:00:00Z') });
     if (asm.problems.length) throw new Error('fixture draft did not assemble: ' + asm.problems.join('; '));
+    // As agents/process-item.mjs adds it: the referee's quote showing section D's criterion (round 3: federal D and F are checked too).
+    asm.entry.evidence.push({ field: 'section', quote: ownText ? 'frontier developer of a model trained using more than 10^26 integer or floating-point operations shall report' : 'A developer of a frontier model trained using more than 10^26 integer or floating-point operations shall publish', source_url: item.source_url });
     const r = { item_id: item.item_id, outcome: 'publishable', operation: 'create', attempts: 1, entry: asm.entry, patch: PATCH, verdicts: [], reason: null };
     edit(r, n);
     w(path.join(runDir, 'results', item.item_id.replace(/[^A-Za-z0-9._-]+/g, '-') + '.json'), r);
@@ -113,9 +116,13 @@ const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'autom
 
 // ---------- two drafts from one run, and the per-run limit ----------
 {
-  const two = [[9990, 'Frontier Model Safety Testing Act'], [9991, 'Frontier Model Transparency Act']];
+  // Two different bills (round 3: identical texts or descriptions are companions or refiles, and the second is never created).
+  const T2 = 'SEC. 2. REPORTS. A large frontier developer of a model trained using more than 10^26 integer or floating-point operations shall report each critical safety incident to the Attorney General within 15 days. SEC. 5. PENALTY. A large frontier developer that fails to report is subject to a fine of up to $250,000 per incident, recovered by the Attorney General.';
+  const P2 = { ...PATCH, fields: { section: 'D', mechanism: 'Large frontier developers report each critical safety incident to the Attorney General within 15 days.', thresholds: 'Models trained using more than 10^26 operations.', penalties: 'A fine of up to $250,000 per incident.' },
+    evidence: [{ field: 'mechanism', quote: 'shall report each critical safety incident to the Attorney General within 15 days' }, { field: 'thresholds', quote: 'trained using more than 10^26 integer or floating-point operations' }, { field: 'penalties', quote: 'subject to a fine of up to $250,000 per incident' }] };
+  const two = [[9990, 'Frontier Model Safety Testing Act'], [9991, 'Frontier Model Transparency Act', T2, P2]];
   const s = setup({ bills: two }), r = publish(s), e = newOnes(s.dataDir);
-  ok('two drafts numbered alike by the agents get their own ids', r.result.added.length === 2 && e.length === 2 && e[0].id !== e[1].id && e[0].key !== e[1].key, e.map((x) => x.id + ' ' + x.key).join(', '));
+  ok('two drafts numbered alike by the agents get their own ids', r.result.added.length === 2 && e.length === 2 && e[0].id !== e[1].id && e[0].key !== e[1].key, e.map((x) => x.id + ' ' + x.key).join(', ') + ' ' + JSON.stringify(r.result.skipped));
   const s2 = setup({ bills: two }), r2 = publish(s2, { max_new_entries_per_run: 1 });
   ok('over the per-run limit, the rest wait for a later run', r2.status === 'published' && r2.result.added.length === 1 && r2.result.skipped.some((x) => x.item_id === 'congress_gov:119/hr/9991' && /over the limit of 1/.test(x.why)) && newOnes(s2.dataDir).length === 1);
 }

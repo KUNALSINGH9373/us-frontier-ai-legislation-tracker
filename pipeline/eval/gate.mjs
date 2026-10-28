@@ -28,18 +28,24 @@ export const HOW = [
 // The latest report of a non-field measure (kind tierb | links | news) that was made by the current code.
 const latestOf = (measures, kind) => (measures || []).filter((r) => r && r.measure === kind).sort((a, b) => String(a.run_at).localeCompare(String(b.run_at))).pop() || null;
 
-export function gate({ config, models, reports = [], goldItems, measures = [], hashes = null, error = null }) {
+// The production model of a role (generator, validator, referee) in config/models.json; null when the provider has no such role.
+export const roleModel = (models, role) => { if (!models) return null; const roles = models.provider === 'anthropic' ? models.anthropic && models.anthropic.roles : models.roles; return roles && roles[role] ? roles[role].model : null; };
+
+export function gate({ config, models, reports = [], goldItems, measures = [], hashes = null, expected = {}, error = null }) {
   const bar = config.eval_bar || { pass_rate: 1, unsupported_fields: 0, scope_agreement: 1 };
-  const prod = models && (models.provider === 'anthropic' ? models.anthropic.roles.generator.model : models.roles.generator.model);
+  const prod = roleModel(models, 'generator'), prodReader = roleModel(models, 'validator'), prodReferee = roleModel(models, 'referee');
   const auto = config.auto_publish || {};
   if (error) {
     const fields = Object.fromEntries(Object.keys(auto).filter((f) => !f.startsWith('_')).map((f) => [f, { on: !!auto[f], meets: false, note: `the gate inputs could not be read (${error}); every switch is off this run` }]));
     return { model: prod, report: null, bar, fields, violations: Object.entries(fields).filter(([, x]) => x.on).map(([f]) => f), error };
   }
-  const hashOk = (r, m) => !hashes || (r && r.checks_hash && r.checks_hash === hashes[m]);
-  // Only a run over the whole test set counts (a run limited with --only or --limit proves nothing about the rest), for the production
-  // model, made by the current prompts and checks.
-  const latest = reports.filter((r) => r.generator === prod && (!goldItems || (r.summary && r.summary.items === goldItems)) && hashOk(r, 'fields')).sort((a, b) => a.run_at.localeCompare(b.run_at)).pop() || null;
+  // Fail closed: no current hashes (or none for the measure) means no report counts.
+  const hashOk = (r, m) => !!(hashes && hashes[m] && r && r.checks_hash && r.checks_hash === hashes[m]);
+  // Only a run over the whole test set counts (a run limited with --only or --limit proves nothing about the rest), made by the production
+  // generator, reader (validator) AND referee, by the current code. A report that does not name its reader and referee does not count.
+  const sameModels = (r) => r.generator === prod && (r.validator || r.reader) === prodReader && 'referee' in r && (r.referee || null) === prodReferee;
+  const fullSet = (r) => r.partial !== true && Number(goldItems) > 0 && !!r.summary && r.summary.items === goldItems;
+  const latest = reports.filter((r) => r && sameModels(r) && fullSet(r) && hashOk(r, 'fields')).sort((a, b) => String(a.run_at).localeCompare(String(b.run_at))).pop() || null;
   const fieldOf = (f) => {
     const s = latest && latest.summary.fields[f];
     const meets = !!s && s.pass_rate >= bar.pass_rate && s.unsupported_fields <= bar.unsupported_fields && latest.summary.scope_agreement >= bar.scope_agreement;
@@ -48,19 +54,31 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
   const fields = Object.fromEntries(Object.keys(auto).filter((f) => !f.startsWith('_') && !(f in MEASURED)).map((f) => [f, fieldOf(f)]));
   const fieldsMeet = FIELD_SWITCHES.every((f) => (fields[f] || fieldOf(f)).meets);
   const measured = (kind, m) => { const r = latestOf(measures, kind); return r && hashOk(r, m) ? r : null; };
-  const zero = (r) => !!r && Number(r.cases) > 0 && r.wrong === 0 && (!('errors' in r) || r.errors === 0);
+  // A measure counts only over its whole case set: never a partial run (--only), never fewer cases than the set holds. The links measure
+  // has no fixed case file: its cases must add up (backtest both ways + the whole synthetic suite, read) and none may be missing.
+  const complete = (r, kind) => {
+    if (!r || r.partial === true || !(Number(r.cases) > 0)) return false;
+    if (kind === 'links') {
+      const b = r.backtest || {}, sum = Number(b.proposals) + Number(b.as_new_proposals) + Number(r.suite_passed) + Number(r.suite_failed);
+      return r.suite_note == null && r.applied_wrong === 0 && Number(b.proposals) > 0 && Number(r.suite_passed) > 0 && sum === Number(r.cases) && (expected.links == null || Number(r.cases) >= expected.links);
+    }
+    return Number(expected[kind]) > 0 && Number(r.cases) >= Number(expected[kind]);
+  };
+  // links: wrong record-proved (applied) edges are counted on their own and must be 0 (a report without the count does not count).
+  const zeroOf = (kind) => (r) => complete(r, kind) && r.wrong === 0 && (!('errors' in r) || r.errors === 0);
+  const incomplete = (r, kind) => `the latest ${kind} report is not over the whole case set (${r.partial === true ? 'partial run' : `${r.cases} cases${expected[kind] ? ` of ${expected[kind]}` : ''}`})`;
   // new_entries: the reading fields AND the Tier B replay set. Relationships are their own measure, never part of this.
   if ('new_entries' in auto) {
-    const t = measured('tierb', 'new_entries');
-    fields.new_entries = { on: !!auto.new_entries, meets: fieldsMeet && zero(t), report: t ? t.run_at : null, note: !fieldsMeet ? 'every reading field must meet the bar on the field eval' : !t ? 'no Tier B replay report made by the current code (eval/tierb-set.mjs)' : zero(t) ? null : `the Tier B replay set has ${t.wrong} wrong of ${t.cases}` };
+    const t = measured('tierb', 'new_entries'), zero = zeroOf('tierb');
+    fields.new_entries = { on: !!auto.new_entries, meets: fieldsMeet && zero(t), report: t ? t.run_at : null, note: !fieldsMeet ? 'every reading field must meet the bar on the field eval' : !t ? 'no Tier B replay report made by the current code (eval/tierb-set.mjs)' : zero(t) ? null : !complete(t, 'tierb') ? incomplete(t, 'tierb') : `the Tier B replay set has ${t.wrong} wrong of ${t.cases}` };
   }
   if ('relationships' in auto) {
-    const l = measured('links', 'relationships');
-    fields.relationships = { on: !!auto.relationships, meets: zero(l), report: l ? l.run_at : null, note: !l ? 'no links report made by the current code (eval/links-measure.mjs)' : zero(l) ? null : `links: ${l.wrong} wrong (backtest ${l.backtest_errors}, synthetic suite ${l.suite_failed} failed)` };
+    const l = measured('links', 'relationships'), zero = zeroOf('links');
+    fields.relationships = { on: !!auto.relationships, meets: zero(l), report: l ? l.run_at : null, note: !l ? 'no links report made by the current code (eval/links-measure.mjs)' : zero(l) ? null : !complete(l, 'links') ? incomplete(l, 'links') : `links: ${l.wrong} wrong (backtest ${l.backtest_errors}, synthetic suite ${l.suite_failed} failed)` };
   }
   if ('news' in auto) {
-    const n = measured('news', 'news');
-    fields.news = { on: !!auto.news, meets: zero(n), report: n ? n.run_at : null, note: !n ? 'no news-set report made by the current code (eval/news-set.mjs)' : zero(n) ? null : `the news set has ${n.wrong} wrong of ${n.cases}` };
+    const n = measured('news', 'news'), zero = zeroOf('news');
+    fields.news = { on: !!auto.news, meets: zero(n), report: n ? n.run_at : null, note: !n ? 'no news-set report made by the current code (eval/news-set.mjs)' : zero(n) ? null : !complete(n, 'news') ? incomplete(n, 'news') : `the news set has ${n.wrong} wrong of ${n.cases}` };
   }
   const violations = Object.entries(fields).filter(([, x]) => x.on && !x.meets).map(([f]) => f);
   return { model: prod, report: latest ? latest.run_at : null, bar, fields, violations };
@@ -68,9 +86,9 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
 
 // The gate at run time (update.mjs): every auto_publish switch whose measure does not meet the bar is treated as OFF for the run, whatever
 // config/publish.json says. Returns { config: a copy with the switches the run may use, gate, off: [{ field, why }] }. Never throws.
-export function gatedPublishConfig({ config, models, reports, goldItems, measures, hashes, error }) {
+export function gatedPublishConfig({ config, models, reports, goldItems, measures, hashes, expected, error }) {
   let g;
-  try { g = gate({ config, models, reports, goldItems, measures, hashes, error }); }
+  try { g = gate({ config, models, reports, goldItems, measures, hashes, expected, error }); }
   catch (e) { g = gate({ config, models, error: `the gate failed: ${e.message}` }); }
   const out = JSON.parse(JSON.stringify(config)), off = [];
   for (const [f, x] of Object.entries(g.fields)) {
@@ -89,7 +107,10 @@ export function readGateInputs(dir = path.join(here, 'reports'), goldFile = path
     const all = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => { try { return read(path.join(dir, f)); } catch (e) { throw new Error(`${path.basename(f)} is unreadable: ${e.message}`); } }) : [];
     const gold = read(goldFile);
     if (!gold || !Array.isArray(gold.items)) throw new Error('gold.json has no items list');
-    return { reports: all.filter((r) => !r.measure || r.measure === 'fields'), measures: all.filter((r) => r.measure && r.measure !== 'fields'), goldItems: gold.items.length, hashes: currentHashes() };
+    // The size of each fixed case set: a measure report with fewer cases does not count.
+    const setSize = (f) => { const s = read(f); if (!s || !Array.isArray(s.cases)) throw new Error(`${path.basename(path.dirname(f))}/cases.json has no cases list`); return s.cases.length; };
+    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), links: null };
+    return { expected, reports: all.filter((r) => !r.measure || r.measure === 'fields'), measures: all.filter((r) => r.measure && r.measure !== 'fields'), goldItems: gold.items.length, hashes: currentHashes() };
   } catch (e) { return { reports: [], measures: [], goldItems: 0, hashes: null, error: String(e.message || e).slice(0, 200) }; }
 }
 

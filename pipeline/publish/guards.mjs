@@ -2,7 +2,7 @@
 // stopped, not published. Each check returns readable problems; empty means the run may be written.
 import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
-import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems, SECTION_MARKERS, SECTION_CRITERIA, quoteMeetsSection } from '../agents/rules.mjs';
+import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems, SECTION_MARKERS, SECTION_CRITERIA, quoteMeetsSection, FEDERAL_CHECKED_SECTIONS } from '../agents/rules.mjs';
 import { FACT_FIELDS, thresholdNumberProblems } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
@@ -15,6 +15,54 @@ import { entryIndex } from '../news/leads.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
 export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
+
+// ---------- a reading field against its own quotes (round 3, audit item 10) ----------
+// Figures: each number (with "million" / "billion" read as its value, commas removed, a power of ten read however printed) in a field must
+// be one of the numbers of that field's quotes. Single digits, four-digit years and section citations are not figures.
+const SCALE = { thousand: 1e3, million: 1e6, billion: 1e9, trillion: 1e12 };
+const CITE = /§+\s*[\d.]+(?:\([0-9a-z]+\))*(?:\s*[–-]\s*[\d.]+)?|\b(?:Secs?\.|sections?|U\.S\.C\.|title|chapter|paragraph|subsection|clause|Public\s+Law|P\.L\.)\s*[\d.\-()a-z]*\d[\d.\-()a-z]*/gi;
+export function figuresIn(text, { all = false } = {}) {
+  const t = String(text || '').replace(CITE, ' ').replace(/[²³¹⁰⁴-⁹]+/g, (m) => '^' + [...m].map((c) => ({ '²': '2', '³': '3', '¹': '1', '⁰': '0', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9' })[c]).join(''))
+    .replace(/\b10[.,]?(2\d)(?=\s+(?:integer|floating|computational|operations|FLOPs?\b))/gi, '10^$1');
+  const out = new Set();
+  for (const m of t.matchAll(/(\d[\d,]*(?:\.\d+)?)(?:\s*(thousand|million|billion|trillion)\b)?/gi)) {
+    const raw = m[1].replace(/,(?=\d{3}\b)/g, ''), n = Number(raw.replace(/,/g, ''));
+    if (!all && (raw.replace('.', '').length < 2 || /^(19|20)\d\d$/.test(raw))) continue;
+    out.add(String(m[2] ? n * SCALE[m[2].toLowerCase()] : n));
+  }
+  return out;
+}
+const DUTY_SENTENCE = /\b(?:must|shall|is required to|are required to|requires?|prohibit\w*|may not|bars?|mandat\w+)\b/i;
+const GENERIC = new Set('developer developers model models artificial intelligence secretary within after before under provides provide require requires required shall which their there these those other entity entities person persons covered system systems large frontier also including include includes each every annually federal state section their about'.split(' '));
+const stems = (s) => new Set(String(s || '').toLowerCase().replace(/[^a-z\s]/g, ' ').split(/\s+/).filter((w) => w.length >= 5 && !GENERIC.has(w)).map((w) => w.slice(0, 5)));
+// Duties: a sentence of the mechanism or penalties that states a duty must be anchored in a quote (one quote shares at least two of its
+// distinctive words) and its words must be the bill's own (at least 80% of them in the record's text when tier-b.mjs passes it; without the
+// text, two thirds of them in the quotes). An invented duty ("Developers must also pause training ...") has neither.
+export function quoteMatchProblems(e, sourceText = null) {
+  const out = [], ev = e.evidence || [];
+  for (const f of READING_FIELDS) {
+    if (!e[f]) continue;
+    const quotes = ev.filter((x) => x.field === f && x.quote).map((x) => x.quote).join(' \n ');
+    if (!quotes) continue; // "no evidence quote" is reported on its own
+    const have = figuresIn(quotes, { all: true });
+    const missing = [...figuresIn(e[f])].filter((n) => !have.has(n));
+    if (missing.length) out.push(`${f} gives ${missing.slice(0, 4).join(', ')}, which ${missing.length > 1 ? 'are' : 'is'} not in its quotes`);
+  }
+  const quoteStems = ev.filter((x) => x.quote).map((x) => stems(x.quote)), allQuotes = new Set(quoteStems.flatMap((q) => [...q]));
+  const src = sourceText != null ? stems(sourceText) : null;
+  for (const f of ['mechanism', 'penalties']) {
+    if (!e[f]) continue;
+    for (const s of String(e[f]).split(/(?<=[.;])\s+/)) {
+      if (!DUTY_SENTENCE.test(s)) continue;
+      const w = [...stems(s)];
+      if (w.length < 2) continue;
+      const anchored = quoteStems.some((q) => w.filter((x) => q.has(x)).length >= 2);
+      const own = src ? w.filter((x) => src.has(x)).length / w.length >= 0.8 : w.filter((x) => allQuotes.has(x)).length / w.length >= 2 / 3;
+      if (!anchored || !own) out.push(`${f} states a duty no quote backs ("${s.slice(0, 90)}")`);
+    }
+  }
+  return out;
+}
 
 // The stricter path for a new entry (Tier B): everything the rules decide must match the rules, and every reading field
 // must carry evidence. The quotes themselves are checked against the stored record in tier-b.mjs, which can read it.
@@ -47,10 +95,16 @@ export function checkNewEntry(e, ctx = {}) {
   READING_FIELDS.filter((f) => e[f] && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
   // A state section is published only with the referee's quote that shows that section's own criterion (agents/rules.mjs SECTION_CRITERIA);
   // tier-b.mjs checks that the quote is in the stored record.
-  if (rule && rule.level === 'state' && SECTION_MARKERS[e.section]) {
+  // Round 3: a federal D or F entry too (the federal sections' criteria; H.R. 10502, a report on agency use of AI, meets neither).
+  if (rule && (rule.level === 'state' || FEDERAL_CHECKED_SECTIONS.includes(e.section)) && SECTION_MARKERS[e.section]) {
     const q = (e.evidence || []).find((x) => x.field === 'section');
-    if (!q || !quoteMeetsSection(e.section, q.quote)) problems.push(`no evidence quote showing section ${e.section}'s criterion (${SECTION_CRITERIA[e.section]})`);
+    if (!q || !quoteMeetsSection(e.section, q.quote, ctx.source != null ? ctx.source : null)) problems.push(`no evidence quote showing section ${e.section}'s criterion (${SECTION_CRITERIA[e.section]})`);
   }
+  // A Congress resolution (S.Res., H.Res., S.Con.Res., H.Con.Res., S.J.Res., H.J.Res.) is never a D or F entry.
+  if (rule && rule.level === 'federal' && /^\s*(?:[HS]\.\s?(?:Con\.\s?|J\.\s?)?Res\.|[HS]\.?\s?(?:Con|J)\.?\s?Res\b|[HS]RES\b|[HS](?:CON|J)RES\b)/i.test(String(e.title || ''))) problems.push(`"${String(e.title).slice(0, 30)}" is a congressional resolution, which never goes in section ${e.section}`);
+  // Round 3 (audit item 10): every figure in a reading field is in that field's own quotes (10^25 written against a quoted 10^26, $500,000
+  // against a quoted $50,000, are refused), and every duty the mechanism or penalties state is backed by a quote.
+  quoteMatchProblems(e, ctx.source != null ? ctx.source : null).forEach((p) => problems.push(p));
   // Compute thresholds parse to a plausible magnitude (a lost exponent, "10.26 computational operations", is never published).
   READING_FIELDS.forEach((f) => thresholdNumberProblems(f, e[f]).forEach((p) => problems.push(p)));
   FACT_FIELDS.filter((f) => e[f] && NEGATIVE_FINDING.test(e[f])).forEach((f) => problems.push(`${f} states a search finding ("none located"), which only a person may write`));

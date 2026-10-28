@@ -124,6 +124,8 @@ function sponsorProposals(entry, node, rel, records, notes, actorIds) {
   const at = nodeOfId(p.id, actorIds), a = at && actors.find((x) => x.k === at);
   if (!at) return proseProposal(`${p.first} ${p.last} (${p.id}) has no stored official id on any actor node (config/actor-ids.json): the sponsor link is reported, not applied`);
   if (!a || !matches(p, a, entry) || !matches(lead, a, entry)) { note(`${p.id} is stored for ${at}, which is not ${p.first} ${p.last} of this ${entry.level === 'federal' ? 'Congress' : 'state'}; nothing proposed`); return []; }
+  // Only a sponsor is record-proved: a "Draft author" (or any other label) link is reported, never applied.
+  if (label !== LABEL.sponsor) return proseProposal(`the entry's lead is labelled "${label}", not "${LABEL.sponsor}": only a sponsor link is proved by the record, so it is reported, not applied`);
   if (!p.url) return proseProposal(`the record for ${p.first} ${p.last} has no public URL to cite: the sponsor link is reported, not applied`);
   return [{ from: at, to: node, type: 'actor', label, basis: 'record', record_id: p.id, evidence: [{ entry_key: entry.key, node, field: 'record', quote: p.quote, source_url: p.url }], method: 'code' }];
 }

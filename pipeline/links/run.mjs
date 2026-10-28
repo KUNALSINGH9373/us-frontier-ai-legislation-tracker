@@ -54,10 +54,12 @@ export async function linkRun({ dataDir, docsDir = null, changed, created = [], 
     if (!dry && a.added.edges.length) { writeData(dataDir, after, ['relationships']); if (docsDir) writeData(docsDir, after, ['relationships']); }
   }
   rep.summary = summaryOf(rep);
+  // What the edges were proved against, for the final check of update.mjs (not part of the report: not enumerable).
+  Object.defineProperty(rep, 'proof', { value: { records, actorIds, created, texts: textsByUrl }, enumerable: false });
   return rep;
 }
 
-function summaryOf(rep) {
+export function summaryOf(rep) {
   const can = rep.proposed.filter((p) => p.applies).length;
   const L = [`Links: ${rep.proposed.length} proposed, ${can} proved by an official record${rep.applied.length ? `, ${rep.applied.length} added to the network` : rep.status === 'proposed' && rep.proposed.length ? ' (reported only)' : ''}`];
   rep.proposed.forEach((p) => L.push(`- ${p.applies ? 'record-proved' : `proposal only (${p.why})`}: ${p.names[0]} -> ${p.names[1]} (${p.type}, ${p.method}): ${p.label}`));

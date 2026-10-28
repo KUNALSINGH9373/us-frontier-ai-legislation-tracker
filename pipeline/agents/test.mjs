@@ -334,6 +334,8 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   // New bill whose text is not published yet: nothing can be described or verified, and its scope is never judged from its title alone
   // (NJ S4934 was ruled out on its title). It is held, with no AI call, and read again when its record changes.
   const bill = clone(J(fx('congress', '119-s-5493.json'))); bill.text_missing = true;
+  // Another sponsor: with S. 5493's own sponsor and title it would be held as a possible duplicate of the tracked S. 5493 (round 3).
+  bill.bill.sponsors = [{ fullName: 'Sen. Example, Pat [D-XX]', firstName: 'Pat', lastName: 'Example' }];
   const it = itemOf('119/s/9999', 'congress_gov', 'https://www.congress.gov/bill/119th-congress/senate-bill/9999');
   const run1 = (g, val) => processItem({ generator: g, validator: val, item: it, raw: bill, diff: { item_id: it.item_id, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] }, entry: null, entries, today: '2026-10-07', runId: 'r' });
   const inScope = { operation: 'create', in_scope: true, scope_reason: 'Title says it bans superintelligence.', fields: {}, events_add: [], evidence: [], section: 'D' };

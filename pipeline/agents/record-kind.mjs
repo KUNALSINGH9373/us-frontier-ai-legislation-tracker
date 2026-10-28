@@ -10,6 +10,12 @@ const BILL_TYPES = new Set([1, 21, 23]), RESOLUTION_TYPES = new Set([2, 3, 4, 5]
 // A state resolution or memorial number: HR, SR, AR, HCR, SCR, ACR, HJR, SJR, AJR, HM, SM, HJM, SJM, HCM, SCM (any leading zeros).
 const RESOLUTION_NUMBER = /^(?:[HSA])(?:C|J)?R\d+$/, MEMORIAL_NUMBER = /^(?:[HSA])(?:C|J)?M\d+$/;
 const RESOLUTION_TEXT = /\b(?:(?:HOUSE|SENATE|ASSEMBLY|JOINT|CONCURRENT)\s+)?R\s?E\s?S\s?O\s?L\s?U\s?T\s?I\s?O\s?N\b(?:\s+No\.)?|\bBE IT RESOLVED\b/;
+// The explicit form: a title that IS a resolution or memorial ("A Resolution urging ...", "House Joint Memorial ..."; not "the Dispute
+// Resolution Act" or "Memorial Highway"), a MEMORIAL heading, and the resolving clause ("BE IT RESOLVED", "RESOLVED, That", "Resolved, That").
+const RESOLUTION_FORM = /^\s*(?:(?:a|an)\s+)?(?:(?:house|senate|assembly|joint|concurrent|legislative|simple)\s+)*resolution\b|\b(?:house|senate|assembly|joint|concurrent)\s+(?:joint\s+|concurrent\s+)?resolution\b/i;
+const MEMORIAL_FORM = /^\s*(?:(?:a|an)\s+)?(?:(?:house|senate|assembly|joint|concurrent)\s+)*memorial\b(?!\s+(?:highway|bridge|road|park|day|hospital|fund))|\b(?:house|senate|assembly)\s+(?:joint\s+|concurrent\s+)?memorial\b/i;
+const MEMORIAL_HEAD = /\b(?:HOUSE|SENATE|ASSEMBLY|JOINT|CONCURRENT)\s+(?:JOINT\s+|CONCURRENT\s+)?MEMORIAL\b/;
+const RESOLVED_CLAUSE = /\bBE\s+IT\s+(?:FURTHER\s+)?RESOLVED\b|\bRESOLVED\b|\bResolved,\s+That\b/;
 
 // 'bill' | 'resolution' | 'memorial' | 'other' (an executive order, a petition, a study request ...).
 export function measureKind(bill = {}, text = '') {
@@ -17,9 +23,14 @@ export function measureKind(bill = {}, text = '') {
   // resolution or memorial is one whatever bill_type_id says (code review S3). These are state numbering rules: this function is only
   // used on LegiScan (state) records, never on a Congress "H.R." bill (code review S2).
   const n = String(bill.bill_number || '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([A-Z]+)0+/, '$1');
-  if (RESOLUTION_NUMBER.test(n)) return 'resolution';
+  if (RESOLUTION_NUMBER.test(n) || /^LR\d+[A-Z]?$/.test(n)) return 'resolution';
   if (MEMORIAL_NUMBER.test(n)) return 'memorial';
-  if (RESOLUTION_TEXT.test(String(text).slice(0, 1500)) && !/\bA\s+BILL\b|\bAN\s+ACT\b/i.test(String(text).slice(0, 1500))) return 'resolution';
+  // An explicit resolution or memorial form wins over "a bill" / "an act" in the opening (round 3, audit item 8: a memorial "urging
+  // Congress to enact a bill" is still a memorial): a title that names the form, a MEMORIAL heading, or the resolving clause.
+  const head = String(text).slice(0, 1500), title = String(bill.title || '');
+  if (MEMORIAL_FORM.test(title) || MEMORIAL_HEAD.test(head)) return 'memorial';
+  if (RESOLUTION_FORM.test(title) || RESOLVED_CLAUSE.test(head)) return 'resolution';
+  if (RESOLUTION_TEXT.test(head) && !/\bA\s+BILL\b|\bAN\s+ACT\b/i.test(head)) return 'resolution';
   const t = Number(bill.bill_type_id);
   if (BILL_TYPES.has(t)) return 'bill';
   if (RESOLUTION_TYPES.has(t)) return 'resolution';
@@ -41,6 +52,24 @@ export function amendmentRecord(bill = {}, text = '') {
   if (h.length && h.every((x) => /^\s*see\s+[A-Z]{1,3}\s?\d+\s*$/i.test(x.action || ''))) return `its only history is a pointer to another bill ("${h[0].action}")`;
   if (/^\s*amendment\b/i.test(String(bill.title || ''))) return 'LegiScan titles it as an amendment';
   return null;
+}
+
+// A Congress record that is not a bill: a simple, concurrent or joint resolution (S.Res., H.Res., S.Con.Res., H.Con.Res., S.J.Res.,
+// H.J.Res.). The tracker's federal sections D and F hold bills only (tracker.md lists no resolution in D or F), so none is ever created,
+// like a state resolution, and no AI is spent on it (round 3, audit item 6: S.Res. 918 was published in F).
+const FEDERAL_RESOLUTION_TYPES = new Set(['SRES', 'HRES', 'SCONRES', 'HCONRES', 'SJRES', 'HJRES']);
+const FEDERAL_RES_LABEL = { SRES: 'S.Res.', HRES: 'H.Res.', SCONRES: 'S.Con.Res.', HCONRES: 'H.Con.Res.', SJRES: 'S.J.Res.', HJRES: 'H.J.Res.' };
+export function federalType(item = {}, raw = {}) {
+  const t = String((raw.bill && raw.bill.type) || '').toUpperCase().replace(/[^A-Z]/g, '');
+  if (t) return t;
+  const m = /^congress_gov:\d+\/([a-z]+)\/\d+/.exec(String(item.item_id || ''));
+  return m ? m[1].toUpperCase() : '';
+}
+export function federalRefusals(item = {}, raw = {}) {
+  const t = federalType(item, raw), title = String((raw.bill && raw.bill.title) || item.title || '');
+  if (FEDERAL_RESOLUTION_TYPES.has(t)) return [`a ${FEDERAL_RES_LABEL[t]} resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)`];
+  if (/^\s*(?:a|an)\s+(?:joint\s+|concurrent\s+)?resolution\b/i.test(title)) return ['titled as a resolution, not a bill: sections D and F hold bills only (reported)'];
+  return [];
 }
 
 // Every reason code refuses to create an entry from this state record ([] when none). raw: the stored LegiScan record.

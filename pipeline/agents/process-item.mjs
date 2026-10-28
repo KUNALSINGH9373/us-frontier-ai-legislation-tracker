@@ -15,9 +15,9 @@ import { deriveCreate } from './derive.mjs';
 import { relevantSections, markerPassages } from './sections.mjs';
 import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
 import { writeDuties, DUTY_SECTIONS, DUTY_REQUIRED_SECTIONS } from './duties.mjs';
-import { recordRefusals } from './record-kind.mjs';
-import { trackerIndex, duplicateOf, relatedUnread, programmeDuplicateOf } from './dedupe.mjs';
-import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES } from './rules.mjs';
+import { recordRefusals, federalRefusals } from './record-kind.mjs';
+import { trackerIndex, duplicateOf, relatedUnread, programmeDuplicateOf, refileOf } from './dedupe.mjs';
+import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES, sectionPassage, FEDERAL_CHECKED_SECTIONS } from './rules.mjs';
 import { normaliseExponents } from './checks.mjs';
 
 export const MAX_ROUNDS = 3;
@@ -39,7 +39,7 @@ export async function refereeVerdict(referee, source, itemId, fullText = source)
 // The referee on a state entry's SECTION: it must confirm the section's own criterion (agents/rules.mjs SECTION_CRITERIA) with a quote
 // that code finds in the source AND that carries the section's marker (a frontier threshold for A/B, a catastrophic-risk term without
 // one for B.2, IVO / auditor licensing for C). { ok, quote, why }.
-export const sectionClaim = (section) => `This item belongs in section ${section} of the tracker: it is ${SECTION_CRITERIA[section]}. Support this claim ONLY with a word-for-word quote from SOURCE that itself shows that criterion (for example the definition or duty that states the threshold, the catastrophic-risk duty, or the auditor or verification-organization provision).`;
+export const sectionClaim = (section) => `This item belongs in section ${section}: it is ${SECTION_CRITERIA[section]}. HOW TO JUDGE THIS CLAIM: it is a classification that you make yourself from what the provisions of SOURCE do; SOURCE will not mention any tracker, section letter or classification, and that is never a reason to mark this claim unsupported (round 3: a federal bill's referee refused "section F" for that reason alone). Support this claim ONLY with a word-for-word quote from SOURCE that itself shows that criterion (for example the definition or duty that states the threshold, the catastrophic-risk duty, or the auditor or verification-organization provision).`;
 export async function refereeSection(referee, source, section, itemId, fullText = source) {
   if (!referee) return { ok: false, quote: null, why: 'no referee is configured' };
   try {
@@ -47,7 +47,7 @@ export async function refereeSection(referee, source, section, itemId, fullText 
     const x = r && r.data && r.data.results && r.data.results[0];
     if (!x || x.supported !== true) return { ok: false, quote: null, why: `the referee did not confirm section ${section}${x && x.reason ? ` ("${String(x.reason).slice(0, 140)}")` : ''}` };
     if (!containsQuote(fullText, x.quote) || String(x.quote).trim().length < 8) return { ok: false, quote: null, why: `the referee's quote for section ${section} is not in the source` };
-    if (!quoteMeetsSection(section, x.quote)) return { ok: false, quote: null, why: `the referee's quote for section ${section} does not show that section's criterion ("${String(x.quote).slice(0, 100)}")` };
+    if (!quoteMeetsSection(section, x.quote, fullText)) return { ok: false, quote: null, why: `the referee's quote for section ${section} does not show that section's criterion ("${String(x.quote).slice(0, 100)}")` };
     return { ok: true, quote: x.quote };
   } catch (e) { if (e instanceof LlmOutputError) return { ok: false, quote: null, why: 'the referee gave an unusable answer' }; throw e; }
 }
@@ -122,6 +122,8 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   if (operation === 'create') {
     // Code first, before any AI is spent: a record that is not a bill (a resolution, a memorial, an amendment filed as its own record, a
     // placeholder title) and an item the tracker already has under another id or number are never written up.
+    // A Congress resolution (S.Res., H.Res., Con.Res., J.Res.) is not a bill: never in D or F, no AI spent (round 3, audit item 6).
+    if (item.source === 'congress_gov') { const refused = federalRefusals(item, raw); if (refused.length) return held(`not created: ${refused.join('; ')}`, { proposal: `${item.item_id}: not a bill (${refused[0]}); not created` }); }
     if (item.source === 'legiscan') { const refused = recordRefusals(raw); if (refused.length) return held(`not created: ${refused.join('; ')}`, { proposal: `${item.item_id}: not a bill (${refused[0]}); not created` }); }
     const dup = duplicateOf({ item, raw, idx: trackerIndex(entries) });
     if (dup && dup.possible) return held(`${dup.why}${dup.key ? ` (entry ${dup.key})` : ''}: not created`, { possible_duplicate: dup.key, proposal: `${item.item_id} may be a duplicate or update of entry ${dup.key}: ${dup.why}` });
@@ -155,6 +157,12 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   if (operation === 'create' && item.source === 'legiscan' && sections && !sections.length) {
     const t = raw.bill && raw.bill.title;
     return held(`not created: no passage of the text meets the criterion of section ${derivedNow.allowed.join(', ')} (${derivedNow.allowed.map((s) => `${s}: ${SECTION_CRITERIA[s]}`).join('; ')})`, { no_section: true, proposal: `${item.item_id}${t ? ` ("${String(t).slice(0, 80)}")` : ''} meets no state section's criterion; not created` });
+  }
+
+  // A federal bill no passage of which meets section D's or F's criterion (agents/rules.mjs): it cannot be filed in either, so no AI is
+  // spent on it. Held (read again only when its record changes) and reported, as for a state bill.
+  if (operation === 'create' && item.source === 'congress_gov' && !sectionPassage('D', source) && !sectionPassage('F', source)) {
+    return held(`not created: no passage of the text meets the criterion of section D or F (D: ${SECTION_CRITERIA.D}; F: ${SECTION_CRITERIA.F})`, { no_section: true, proposal: `${item.item_id}${item.title ? ` ("${String(item.title).slice(0, 80)}")` : ''} meets neither federal section's criterion; not created` });
   }
 
   // A very long source in which no frontier-AI section or passage was found: whether it is in scope is judged on its opening. If both
@@ -205,6 +213,11 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     const asm = assembleEntry({ entry, patch, item, raw, today, runId, rounds: attempt, entries, now });
     // The same programme as a tracked entry of its state, under another bill (CT H.B. 5222 re-enacting P.A. 26-15's IVO pilot): never
     // created, and no more AI is spent on it. Held until its record changes and reported as a possible duplicate or update.
+    // A refile under a new number (a later session) or a companion with no record link: its description is nearly a tracked entry's.
+    if (operation === 'create' && asm.entry) {
+      const p = refileOf(asm.entry, entries);
+      if (p) return { ...held(`${p.why} (entry ${p.key}); not created`, { possible_duplicate: p.key, proposal: `${item.item_id} (${asm.entry.short_name}) may duplicate or update entry ${p.key}: ${p.why}` }), attempts: attempt, patch, verdicts };
+    }
     if (operation === 'create' && asm.entry && asm.entry.state) {
       const p = programmeDuplicateOf(asm.entry, entries);
       if (p) return { ...held(`${p.why} (entry ${p.key}); not created`, { possible_duplicate: p.key, proposal: `${item.item_id} (${asm.entry.short_name}) may duplicate or update entry ${p.key}: ${p.why}` }), attempts: attempt, patch, verdicts };
@@ -238,7 +251,8 @@ async function processItemInner({ generator, validator, referee = null, item, ra
         if (ref.in !== true) return { ...held(ref.in === false ? `the referee rules it out of scope after both readers said in ("${String(ref.reason || '').slice(0, 160)}"); held until its record changes` : `the referee did not confirm the scope with a quote found in the source${ref.why ? ` (${ref.why})` : referee ? '' : ' (no referee is configured)'}`, { proposal: `${item.item_id}: the readers say in scope, the referee ${ref.in === false ? 'says out' : 'gave no quote'}; not created` }), attempts: attempt, patch, verdicts };
         asm.entry.evidence = [...(asm.entry.evidence || []), { field: 'in_scope', quote: ref.quote, source_url: item.source_url }];
         // A state entry's section is published only with the referee's quote meeting that section's own criterion (checked by code).
-        if (SECTION_RULES[asm.entry.section] && SECTION_RULES[asm.entry.section].level === 'state') {
+        // So is a federal D or F entry (round 3: the federal sections' criteria, agents/rules.mjs).
+        if (SECTION_RULES[asm.entry.section] && (SECTION_RULES[asm.entry.section].level === 'state' || FEDERAL_CHECKED_SECTIONS.includes(asm.entry.section))) {
           const s = await refereeSection(referee, read, asm.entry.section, item.item_id, source);
           if (!s.ok) return { ...held(`section ${asm.entry.section} not proved: ${s.why}`, { proposal: `${item.item_id} (${asm.entry.short_name}): section ${asm.entry.section} not proved (${s.why}); not created` }), attempts: attempt, patch, verdicts };
           asm.entry.evidence.push({ field: 'section', quote: s.quote, source_url: item.source_url });
