@@ -5,6 +5,7 @@ import { gate, gatedPublishConfig, readGateInputs } from './gate.mjs';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 let pass = 0, fail = 0;
 const ok = (name, cond, detail) => { if (cond) pass++; else { fail++; console.log('FAIL ', name, detail || ''); } };
@@ -55,12 +56,42 @@ ok('exponents read the same however printed; years and single digits are not fac
   // Round 2 gate (code review B1-B3, S6, S7): every Lane 2 switch has its own measure, made by the current code (checks_hash).
   const all = { pass_rate: 1, unsupported_fields: 0, items: 2 };
   const H = { fields: 'hf', new_entries: 'ht', relationships: 'hl', news: 'hn' };
-  const fieldsRep = { generator: 'm', run_at: '2026-10-16', checks_hash: 'hf', summary: { items: 2, scope_agreement: 1, fields: { mechanism: all, thresholds: all, penalties: all } } };
+  const modelsR = { provider: 'gemini', roles: { generator: { model: 'm' }, validator: { model: 'v' }, referee: { model: 'r' } } };
+  const EXP = { tierb: 12, news: 6, links: null };
+  const fieldsRep = { generator: 'm', reader: 'v', validator: 'v', referee: 'r', run_at: '2026-10-16', checks_hash: 'hf', summary: { items: 2, scope_agreement: 1, fields: { mechanism: all, thresholds: all, penalties: all } } };
   const ON = { mechanism: true, thresholds: true, penalties: true, new_entries: true, relationships: true, news: true };
   const tierb = (o = {}) => ({ measure: 'tierb', run_at: '2026-10-29', checks_hash: 'ht', cases: 12, wrong: 0, ...o });
-  const links = (o = {}) => ({ measure: 'links', run_at: '2026-10-29', checks_hash: 'hl', cases: 300, wrong: 0, backtest_errors: 0, suite_failed: 0, ...o });
+  const links = (o = {}) => ({ measure: 'links', run_at: '2026-10-29', checks_hash: 'hl', cases: 300, wrong: 0, errors: 0, backtest_errors: 0, backtest: { proposals: 50, as_new_proposals: 50 }, suite_passed: 200, suite_failed: 0, suite_note: null, applied_wrong: 0, ...o });
   const newsR = (o = {}) => ({ measure: 'news', run_at: '2026-10-29', checks_hash: 'hn', cases: 6, wrong: 0, ...o });
-  const G = (measures, extra = {}) => gate({ config: { ...config, auto_publish: ON }, models, reports: [fieldsRep], goldItems: 2, measures, hashes: H, ...extra });
+  const G = (measures, extra = {}) => gate({ config: { ...config, auto_publish: ON }, models: modelsR, reports: [fieldsRep], goldItems: 2, measures, hashes: H, expected: EXP, ...extra });
+  // Round 3 gate (audit items 1-4).
+  ok('gate r3: a partial measure report (partial: true) never counts, for every measure', !G([tierb({ partial: true }), links(), newsR()]).fields.new_entries.meets && !G([tierb(), links({ partial: true }), newsR()]).fields.relationships.meets && !G([tierb(), links(), newsR({ partial: true })]).fields.news.meets);
+  ok('gate r3: fewer cases than the case set holds never count', !G([tierb({ cases: 11 }), links(), newsR()]).fields.new_entries.meets && !G([tierb(), links(), newsR({ cases: 5 })]).fields.news.meets && /whole case set/.test(G([tierb({ cases: 3 }), links(), newsR()]).fields.new_entries.note));
+  ok('gate r3: links cases must add up (no suite read, or a missing part, does not count)', !G([tierb(), links({ cases: 299 }), newsR()]).fields.relationships.meets && !G([tierb(), links({ suite_passed: 0, cases: 100 }), newsR()]).fields.relationships.meets && !G([tierb(), links({ suite_note: 'x' }), newsR()]).fields.relationships.meets);
+  ok('gate r3: a links report with a wrong record-proved edge, or without that count, does not count', !G([tierb(), links({ applied_wrong: 1 }), newsR()]).fields.relationships.meets && !G([tierb(), links({ applied_wrong: undefined }), newsR()]).fields.relationships.meets);
+  ok('gate r3: no known case-set size fails closed', !G([tierb(), links(), newsR()], { expected: {} }).fields.new_entries.meets && !G([tierb(), links(), newsR()], { expected: {} }).fields.news.meets);
+  ok('gate r3: a partial field report (partial: true) never counts', G([tierb(), links(), newsR()], { reports: [{ ...fieldsRep, partial: true }] }).report === null);
+  ok('gate r3: the field report must match the production reader and referee too', G([], { reports: [{ ...fieldsRep, reader: 'x', validator: 'x' }] }).report === null && G([], { reports: [{ ...fieldsRep, referee: 'x' }] }).report === null && G([], { reports: [(({ referee, ...r }) => r)(fieldsRep)] }).report === null && G([], {}).report === '2026-10-16');
+  ok('gate r3: hashes null fails closed (no report counts)', G([tierb(), links(), newsR()], { hashes: null }).violations.length === 6 && G([], { hashes: null }).report === null);
+  {
+    const { checksHash, pipelineFiles } = await import('./hash.mjs');
+    const files = pipelineFiles();
+    const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+    const must = ['eval/tierb-set/cases.json', 'eval/news-set/cases.json', 'eval/gold.json', 'config/models.json', 'config/publish.json', 'llm/anthropic.mjs', 'grabber/run.mjs', 'compare/run.mjs', 'publish/run.mjs', 'agents/run.mjs', 'links/run.mjs', 'news/run.mjs', 'schema/validate.mjs'];
+    const missing = must.filter((f) => fs.existsSync(path.join(root, f)) && !files.includes(f));
+    ok('hash r3: checks_hash covers case sets, gold, config, llm, grabber, compare, publish, agents, links, news, schema', missing.length === 0 && files.includes('config/models.json') && files.some((f) => f.startsWith('eval/tierb-set/records/')) && files.some((f) => f.startsWith('grabber/sources/')), missing.join());
+    ok('hash r3: what a run writes is not hashed (data, state, reports)', !files.some((f) => /^(data|state|node_modules|eval\/reports)\//.test(f)));
+    const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'hash-'));
+    fs.mkdirSync(path.join(tmpRoot, 'config'), { recursive: true }); fs.mkdirSync(path.join(tmpRoot, 'eval', 'tierb-set'), { recursive: true });
+    fs.writeFileSync(path.join(tmpRoot, 'config', 'publish.json'), '{"a":1,"auto_publish":{"news":false}}'); fs.writeFileSync(path.join(tmpRoot, 'eval', 'tierb-set', 'cases.json'), '{"cases":[]}');
+    const h0 = checksHash('new_entries', tmpRoot);
+    fs.writeFileSync(path.join(tmpRoot, 'config', 'publish.json'), '{"a":1,"auto_publish":{"news":true}}');
+    const h1 = checksHash('new_entries', tmpRoot);
+    fs.writeFileSync(path.join(tmpRoot, 'eval', 'tierb-set', 'cases.json'), '{"cases":[1]}');
+    const h2 = checksHash('new_entries', tmpRoot);
+    fs.writeFileSync(path.join(tmpRoot, 'config', 'publish.json'), '{"a":2,"auto_publish":{"news":true}}');
+    ok('hash r3: a changed case set or publish setting changes the hash; flipping a switch does not', h0 === h1 && h1 !== h2 && h2 !== checksHash('new_entries', tmpRoot));
+  }
   const g4 = G([tierb(), links(), newsR()]);
   ok('gate: every switch meets its own measure at zero wrong, made by the current code', g4.violations.length === 0 && g4.fields.new_entries.meets && g4.fields.relationships.meets && g4.fields.news.meets, JSON.stringify(g4.fields));
   const g5 = G([links(), newsR()]);

@@ -29,7 +29,7 @@ import { publishRun, loadData, writeData, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } 
 import { checkPublish } from './publish/guards.mjs';
 import { runAgents, MEMO_FILE as AGENT_MEMO_FILE } from './agents/run.mjs';
 import { correctRun, summaryOf as correctSummary } from './correct/run.mjs';
-import { linkRun } from './links/run.mjs';
+import { linkRun, summaryOf as linksSummaryOf } from './links/run.mjs';
 import { courtsRun } from './publish/courts.mjs';
 import { createRateLimiter } from './grabber/sources/courtlistener.mjs';
 import { createHttp } from './grabber/lib/http.mjs';
@@ -46,6 +46,7 @@ import { formatReport } from './report/format.mjs';
 import { formatHtml } from './report/html.mjs';
 import { createTelegram, tokenFromEnv } from './notify/telegram.mjs';
 import { gatedPublishConfig, readGateInputs } from './eval/gate.mjs';
+import { loadActorIds } from './links/records.mjs';
 
 const pipelineDir = path.dirname(fileURLToPath(import.meta.url)), root = path.resolve(pipelineDir, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -369,8 +370,10 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
       const newsAfter = r.result && r.result.data ? (r.result.data.news.items || []).length : newsBefore;
       rep.publish.runs.push(publishEntry({ result: r.result, newsBefore, newsAfter, status: r.status }));
       if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length || r.result.added.length) { published.push(label); summaries.push(r.summary); partKeys.push([...r.result.touched, ...r.result.added.map((x) => x.entry_key)]); } }
-      if (r.result && r.result.added) newKeys.push(...r.result.added.map((x) => x.entry_key));
-      if (r.result) [...(r.result.applied || []), ...(r.result.added || [])].forEach((a) => (itemsByKey[a.entry_key] = itemsByKey[a.entry_key] || []).push({ item_id: a.item_id, ...src }));
+      // only what was published (or would be, in a dry run) counts as new or as an item's entry
+      const promoted = r.status === 'published' || r.status === 'dry-run';
+      if (promoted && r.result && r.result.added) newKeys.push(...r.result.added.map((x) => x.entry_key));
+      if (promoted && r.result) [...(r.result.applied || []), ...(r.result.added || [])].forEach((a) => (itemsByKey[a.entry_key] = itemsByKey[a.entry_key] || []).push({ item_id: a.item_id, ...src }));
     };
     for (const id of runs) {
       const runDir = runDirOf(id);
@@ -551,7 +554,9 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
         const tail = after.relationships.edges.slice(before.relationships.edges.length), applied = l.applied.filter(keep);
         const edges = l.added ? l.added.edges.filter(keep) : tail.length === applied.length && tail.every((e, i) => brief(e) === brief(applied[i])) ? tail : applied;
         const ends = new Set(edges.flatMap((e) => [e.from, e.to]));
-        return { edges, nodes: l.added ? Object.fromEntries(Object.entries(l.added.nodes).filter(([key]) => !goneNodes.has(key))) : Object.fromEntries(Object.entries(after.relationships.nodes).filter(([key]) => !before.relationships.nodes[key] && ends.has(key))) };
+        // records, created and actorIds: what the links step proved its record-proved sponsor edges against (guards.mjs checkLinks needs them)
+        const proof = l.proof || { records, created, actorIds: loadActorIds() };
+        return { records: proof.records, created: proof.created, actorIds: proof.actorIds, texts: proof.texts, edges, nodes: l.added ? Object.fromEntries(Object.entries(l.added.nodes).filter(([key]) => !goneNodes.has(key))) : Object.fromEntries(Object.entries(after.relationships.nodes).filter(([key]) => !before.relationships.nodes[key] && ends.has(key))) };
       };
       // Entries put back are taken out of everything that would still claim them: the commit message, the report, the status checks.
       const reverted = new Set();
@@ -573,6 +578,10 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
         if (nw.status === 'written') rebuild('news', (nw.drafted || []).some((d) => d.written) ? newsSummary(nw) : null);
         if (linksOn && !linksAllowance(loadData(S.v2)).edges.length) {
           linksOn = false; rep.links = { ...l, status: 'held', applied: [] };
+        } else if (linksOn) {
+          // a partial revert: the report lists only the edges still promoted, and the links summary is rebuilt from them
+          const still = l.applied.filter(keep);
+          if (still.length !== l.applied.length) { rep.links = { ...rep.links, applied: still }; const i = published.indexOf('links'); if (i >= 0) summaries[i] = linksSummaryOf({ ...rep.links, applied: still }); }
           const i = published.indexOf('links'); if (i >= 0) { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); }
         }
       };

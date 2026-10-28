@@ -38,7 +38,7 @@ function newEntry(o) {
 }
 const withEntry = (e) => ({ ...clone(real), entries: [...clone(real.entries), e] });
 // Official records shaped like the raw ones (trimmed to the fields the links step reads; no keys or tokens).
-const lsRec = (state, people, billId = 99001) => ({ bill: { bill_id: billId, url: `https://legiscan.com/${state}/bill/S99999/2025`, state, sponsors: people.map((p, i) => ({ sponsor_type_id: 1, committee_sponsor: 0, name: `${p.first_name} ${p.last_name}`, ...p, sponsor_order: i + 1 })) } });
+const lsRec = (state, people, billId = 99001) => ({ bill: { bill_id: billId, bill_number: 'S99999', url: `https://legiscan.com/${state}/bill/S99999/2025`, state, sponsors: people.map((p, i) => ({ sponsor_type_id: 1, committee_sponsor: 0, name: `${p.first_name} ${p.last_name}`, ...p, sponsor_order: i + 1 })) } });
 const cgRec = (people, number = 99999, type = 'S') => ({ bill: { congress: 119, type, number, sponsors: people } });
 const GOUNARDES = { people_id: 20262, first_name: 'Andrew', last_name: 'Gounardes', role: 'Sen', party: 'D' };
 const WIENER = { people_id: 18068, first_name: 'Scott', last_name: 'Wiener', role: 'Sen', party: 'D' };
@@ -597,5 +597,8 @@ async function appliedFor(e, records) {
   ok('11 news: items waiting for the official record are shown', /News waiting for the official record: 1 \(Release X, Sen\. Y\) — retried next run/.test(nWait), nWait);
 }
 
+// Round 3 (relationships audit item 6): a LegiScan record URL must be that record's own bill page; a Draft author is never record-proved.
+ok('r3 recordUrl takes only the record own LegiScan bill page', recordUrl({ bill: { bill_id: 1, state: 'CA', bill_number: 'SB53', url: 'https://legiscan.com/CA/bill/SB53/2025' } }) === 'https://legiscan.com/CA/bill/SB53/2025' && recordUrl({ bill: { bill_id: 1, state: 'CA', bill_number: 'SB53', url: 'https://legiscan.com/NY/bill/S1/2025' } }) === null && recordUrl({ bill: { bill_id: 1, state: 'CA', bill_number: 'SB53', url: 'https://legiscan.com/gaits/search?x=1' } }) === null && recordUrl({ bill: { bill_id: 1, state: 'CA', bill_number: 'SB53', url: 'https://legiscan.com/CA/bill/SB54/2025' } }) === null);
+{ const src = fs.readFileSync(new URL('./propose.mjs', import.meta.url), 'utf8'); ok('r3 a record-proved edge needs the Sponsor label (a Draft author is reported only)', /if \(label !== LABEL\.sponsor\) return proseProposal/.test(src)); }
 console.log(`\nlinks: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

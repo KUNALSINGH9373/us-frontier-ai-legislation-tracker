@@ -31,7 +31,11 @@ const ord = (n) => { const s = ['th', 'st', 'nd', 'rd'], v = n % 100; return n +
 export function recordUrl(rec) {
   const b = billOf(rec);
   if (b.congress && b.type && b.number && CG_TYPE[String(b.type).toUpperCase()]) return `https://www.congress.gov/bill/${ord(Number(b.congress))}-congress/${CG_TYPE[String(b.type).toUpperCase()]}/${b.number}`;
-  if (b.bill_id && /^https:\/\/legiscan\.com\//.test(String(b.url || ''))) return b.url;
+  // LegiScan: only the record's own bill page, https://legiscan.com/{state}/bill/{bill_number}/{year}, matching the record's state and number.
+  if (b.bill_id && b.state && b.bill_number) {
+    const m = /^https:\/\/legiscan\.com\/([A-Z]{2})\/bill\/([A-Za-z0-9]+)\/\d{4}\/?$/.exec(String(b.url || ''));
+    if (m && m[1] === String(b.state).toUpperCase() && m[2].toUpperCase() === String(b.bill_number).toUpperCase()) return b.url;
+  }
   return null;
 }
 

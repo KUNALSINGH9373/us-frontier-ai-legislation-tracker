@@ -73,7 +73,7 @@ const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate
   ok('4 a bill related (not identical) to a tracked bill is held as a possible duplicate', d && d.possible, JSON.stringify(d));
   const r = rec('HR9442'), g = trap(), out = await processItem({ generator: g, validator: trap(), referee: trap(), item: r.item, raw: r.raw, diff: diffOf(r.item), entries: ENTRIES, today: '2026-10-29', runId: 't' });
   ok('4 related bills not read: held before any AI is spent', out.outcome === 'held' && g.calls === 0 && /not read/.test(out.reason));
-  const r2 = JSON.parse(JSON.stringify(r)); r2.raw.related_bills = [];
+  const r2 = JSON.parse(JSON.stringify(r)); r2.raw.related_bills = Array.from({ length: r2.raw.bill.relatedBills.count }, (_, k) => ({ congress: 119, type: 'HR', number: 1 + k, relationshipDetails: [{ type: 'Related bill' }] })); // round 3: the whole list, as many as the count
   const g2 = trap(); let reached = false; try { await processItem({ generator: g2, validator: trap(), referee: trap(), item: r2.item, raw: r2.raw, diff: diffOf(r2.item), entries: ENTRIES, today: '2026-10-29', runId: 't' }); } catch { reached = true; }
   ok('4 with its related bills stored (none tracked), it goes on to the readers', reached && g2.calls === 1);
 }

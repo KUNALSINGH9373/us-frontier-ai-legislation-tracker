@@ -13,8 +13,8 @@ import { checkNewEntry } from './guards.mjs';
 import { checkDuties } from '../duties/check.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { newsKind, advanceCutoff } from './tier-a.mjs';
-import { trackerIndex, duplicateOf, relatedUnread, idsOf, programmeDuplicateOf } from '../agents/dedupe.mjs';
-import { recordRefusals, measureKind } from '../agents/record-kind.mjs';
+import { trackerIndex, duplicateOf, relatedUnread, idsOf, programmeDuplicateOf, refileOf, companionOf, textKey } from '../agents/dedupe.mjs';
+import { recordRefusals, measureKind, federalRefusals } from '../agents/record-kind.mjs';
 import { DUTY_REQUIRED_SECTIONS } from '../agents/duties.mjs';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -87,7 +87,7 @@ export function applyTierB({ data, drafts, itemById, readRaw, runId, runDate, co
     return { data: out, added, skipped, log };
   }
   const cap = config.max_new_entries_per_run ?? 0, at = runDate + 'T00:00:00Z';
-  const idx = trackerIndex(out.entries, tracked);
+  const idx = trackerIndex(out.entries, tracked), seenThisRun = [];
 
   for (const r of ready) {
     const skip = (why) => skipped.push({ item_id: r.item_id, why });
@@ -102,9 +102,15 @@ export function applyTierB({ data, drafts, itemById, readRaw, runId, runDate, co
     // The same programme as a tracked entry of its state under another bill (agents/dedupe.mjs programmeDuplicateOf): never created.
     const prog = item.source === 'legiscan' ? programmeDuplicateOf(e, out.entries) : null;
     if (prog) { skip(`${prog.why} (entry ${prog.key}); not created`); continue; }
-    const refused = item.source === 'legiscan' ? recordRefusals(raw) : [];
+    // Round 3: a refile or companion of a tracked entry with no record link (its description nearly the same), and a companion or the
+    // same text added earlier in this run (agents/dedupe.mjs refileOf, companionOf).
+    const refile = refileOf(e, out.entries);
+    if (refile) { skip(`${refile.why} (entry ${refile.key}); not created`); continue; }
+    const twin = companionOf(raw, seenThisRun);
+    if (twin) { skip(`${twin.why} (entry ${twin.key}); not created`); continue; }
+    const refused = item.source === 'legiscan' ? recordRefusals(raw) : item.source === 'congress_gov' ? federalRefusals(item, raw) : [];
     if (refused.length) { skip('not created: ' + refused.join('; ')); continue; }
-    const ctx = item.source === 'legiscan' ? { kind: measureKind(raw.bill, raw.text), text: raw.text || '' } : {};
+    const ctx = { ...(item.source === 'legiscan' ? { kind: measureKind(raw.bill, raw.text), text: raw.text || '' } : {}), source: text };
     const problems = [...checkNewEntry(e, ctx), ...(item.source === 'legiscan' ? stateProblems(e, item, raw) : []), ...(e.evidence || []).filter((x) => !containsQuote(text, x.quote)).map((x) => `the quote for ${x.field} is not in the stored record: "${cut(String(x.quote || ''), 60)}"`)];
     // An A or B entry (a frontier law or bill) goes out only with its duty answers, proved against this record.
     if (DUTY_REQUIRED_SECTIONS.includes(e.section) && (item.source === 'legiscan' || item.source === 'congress_gov') && !e.duties) problems.push(`a section ${e.section} entry needs its duty answers, and the duty step did not prove them`);
@@ -124,6 +130,7 @@ export function applyTierB({ data, drafts, itemById, readRaw, runId, runDate, co
     e.verification = { ...e.verification, run_id: runId };
     out.entries.push(e);
     idx.add(e);
+    seenThisRun.push({ key: e.key, label: e.short_name || e.key, text: String(raw.text || ''), textKey: textKey(raw.text) });
     log.push({ entry_key: e.key, field: 'entry', old: null, new: { title: e.title, section: e.section, status: e.status }, date: runDate, run_id: runId, source_url: item.source_url, tier: 'B', note: 'new entry; reading fields written by the AI with quotes checked by code' });
 
     const n = config.news_from_official_actions !== false && newsFor(e, item, raw, runId, at);

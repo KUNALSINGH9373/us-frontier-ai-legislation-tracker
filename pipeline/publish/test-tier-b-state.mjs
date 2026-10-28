@@ -39,7 +39,8 @@ const PATCHES = {
   az: {
     operation: 'create', in_scope: true, scope_reason: 'Duties on businesses using a frontier model owned or operated by a large developer.', events_add: [],
     fields: { section: 'B', mechanism: 'An artificial intelligence business must submit a transparency report to the attorney general before using or selling a high risk AI system and conduct a quarterly audit.', thresholds: 'A large developer has spent more than $5,000,000 developing and more than $100,000,000 training the frontier model.', penalties: 'Civil penalty of not more than $50,000 per violation, enforced by the attorney general.' },
-    evidence: [{ field: 'mechanism', quote: 'shall submit a transparency report to the attorney general' }, { field: 'thresholds', quote: 'has spent more than $5,000,000 in developing the frontier model and more than $100,000,000 in training the frontier model' }, { field: 'penalties', quote: 'civil penalty of not more than $50,000 per violation' }]
+    // Round 3: every duty the mechanism states has a quote (the quarterly audit too).
+    evidence: [{ field: 'mechanism', quote: 'shall submit a transparency report to the attorney general before using or selling a high risk AI system' }, { field: 'mechanism', quote: 'An artificial intelligence business shall conduct a quarterly audit' },{ field: 'thresholds', quote: 'has spent more than $5,000,000 in developing the frontier model and more than $100,000,000 in training the frontier model' }, { field: 'penalties', quote: 'civil penalty of not more than $50,000 per violation' }]
   },
   ne: {
     operation: 'create', in_scope: true, scope_reason: 'Safety duties for conversational AI services.', events_add: [],

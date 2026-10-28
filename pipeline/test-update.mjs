@@ -512,5 +512,27 @@ function fakeGit(answers) {
   ok('expiry: the item changed (new hash) is a new item: held afresh (1 try, first seen now), marker gone', r3.code === 0 && h3i && h3i.tries === 1 && h3i.first_seen === '2026-11-10T12:00:00Z' && !(h3.expired && h3.expired[P9925]), `${r3.rep.error} ${JSON.stringify(h3, (k, v) => (k === 'replay' ? '-' : v))}`);
 }
 
+{
+  // Round 3 (relationships audit item 1, blocker): with relationships ON (the gate passing), one record-proved sponsor edge goes through
+  // the REAL links step and the final check of the whole run and is promoted: the final check is given the records, created entries and
+  // actor ids the links step proved it against (before, it got only the edges and nodes and refused every record-proved edge).
+  const P = setup(), rel = path.join(P.dataDir, 'relationships.json');
+  for (const d of [P.dataDir, P.docsDir]) {
+    const ef = path.join(d, 'entries.json'), E = j(ef), list = Array.isArray(E) ? E : E.entries;
+    list.find((e) => e.key === KEY).origin = 'automated';
+    fs.writeFileSync(ef, JSON.stringify(E, null, 1));
+    const rf = path.join(d, 'relationships.json'), R = j(rf); R.edges = R.edges.filter((e) => !(e.from === 'act-hawley' && e.to === 'S2938')); fs.writeFileSync(rf, JSON.stringify(R, null, 1));
+  }
+  const edgesBefore = j(rel).edges.length;
+  const models = { provider: 'anthropic', anthropic: { roles: { generator: { model: 'g' }, validator: { model: 'v' }, referee: { model: 'r' } } } };
+  const { readGateInputs } = await import('./eval/gate.mjs');
+  const real = readGateInputs();
+  const linksRep = { measure: 'links', run_at: '2026-10-28T00:00:00Z', checks_hash: real.hashes.relationships, cases: 4, wrong: 0, errors: 0, applied_wrong: 0, backtest: { proposals: 1, as_new_proposals: 1 }, suite_passed: 2, suite_failed: 0, suite_note: null };
+  let linkOut = null;
+  const { code, rep } = await runUpdate({ P, config: { ...CONFIG, auto_publish: { mechanism: false, new_entries: false, relationships: true, news: false }, eval_bar: { pass_rate: 1, unsupported_fields: 0, scope_agreement: 1 } }, models, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T12:00:00Z'),
+    deps: { ...okSteps, gateInputs: { reports: [], goldItems: 1, measures: [linksRep], hashes: real.hashes, expected: real.expected }, linkRun: async (o) => (linkOut = await (await import('./links/run.mjs')).linkRun(o)) }, log: () => {}, logErr: () => {} });
+  const after = j(rel);
+  ok('links e2e: relationships ON, one record-proved sponsor edge is added by the real links step and promoted past the final check', code === 0 && linkOut && linkOut.status === 'written' && linkOut.applied.length === 1 && after.edges.length === edgesBefore + 1 && after.edges.some((e) => e.from === 'act-hawley' && e.to === 'S2938' && e.col === 'record') && !rep.held.some((x) => /links/.test(x.reason || '')), `${code} ${rep.error} ${linkOut && linkOut.status} ${JSON.stringify(linkOut && linkOut.problems)} ${JSON.stringify(rep.held)} ${JSON.stringify(rep.final_check)}`);
+}
 console.log(`update: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

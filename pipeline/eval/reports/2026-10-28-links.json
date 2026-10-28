@@ -1,18 +1,21 @@
 {
  "measure": "links",
- "run_at": "2026-10-28T20:04:48.612Z",
- "checks_hash": "0ba6528f244fc61e36deeebbaf07aabc3cff26a783e9004fc2aa16ccac37b974",
- "cases": 250,
+ "run_at": "2026-10-28T20:34:31.970Z",
+ "checks_hash": "e2fcfcdd9870b8ce31cf6c752b2ed9afe8d34d084ab14491171f2a22fd2e0a5c",
+ "cases": 246,
  "wrong": 0,
+ "applied_wrong": 0,
+ "applied_proposals": 16,
+ "records_entries": 26,
  "errors": 0,
  "backtest_errors": 0,
  "backtest": {
-  "proposals": 25,
-  "recovered": 24,
+  "proposals": 22,
+  "recovered": 21,
   "edges": 138,
-  "as_new_proposals": 25
+  "as_new_proposals": 22
  },
- "suite_passed": 200,
+ "suite_passed": 202,
  "suite_failed": 0,
  "suite_note": null
 }

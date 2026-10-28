@@ -36,7 +36,41 @@ function rawSourceText(raw, source) {
 
 // Quotes are compared after the same light normalisation on both sides: case, whitespace, curly quotes and dashes.
 export const norm = (s) => String(s || '').toLowerCase().replace(/[‘’‛]/g, "'").replace(/[“”„]/g, '"').replace(/[‐-―−]/g, '-').replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
-export const containsQuote = (text, quote) => !!quote && norm(text).includes(norm(quote));
+// Line-numbered texts (NY and MA print a line number every line: "a frontier 1136 developer's") and PDF hyphenation ("devel- oper",
+// "floating - point") would make a faithful quote fail. As a second try both sides are compared without the printed line numbers and
+// without hyphen spacing. Only numbers that form the line-number run are removed (consecutive integers, each 15 to 400 characters after
+// the one before, at least 3 in a row), so a real figure in the text never disappears, and nothing else is loosened.
+export function lineNumbers(text) {
+  const t = String(text || ''), toks = [...t.matchAll(/(?<=^|\s)(\d{1,4})(?=\s)/g)].map((m) => ({ v: +m[1], i: m.index, len: m[1].length }));
+  const last = new Map(), chain = new Array(toks.length).fill(1), prevOf = new Array(toks.length).fill(-1), keep = new Set();
+  toks.forEach((k, j) => {
+    const p = last.get(k.v - 1);
+    if (p != null && k.i - toks[p].i >= 15 && k.i - toks[p].i <= 400) { chain[j] = chain[p] + 1; prevOf[j] = p; }
+    last.set(k.v, j);
+    if (chain[j] >= 3) for (let x = j; x >= 0 && !keep.has(x); x = prevOf[x]) keep.add(x);
+  });
+  return { positions: [...keep].map((j) => toks[j]).sort((a, b) => a.i - b.i), values: new Set([...keep].map((j) => toks[j].v)) };
+}
+const looseForm = (s) => norm(s).replace(/\s*-\s*/g, '').replace(/\s+/g, ' ');
+const stripCache = new Map();
+function strippedSource(text) {
+  if (stripCache.has(text)) return stripCache.get(text);
+  const { positions, values } = lineNumbers(text);
+  let out = '', at = 0; for (const p of positions) { out += text.slice(at, p.i) + ' '; at = p.i + p.len; } out += text.slice(at);
+  const r = { loose: looseForm(out), values };
+  if (stripCache.size > 8) stripCache.clear(); stripCache.set(text, r);
+  return r;
+}
+export const containsQuote = (text, quote) => {
+  if (!quote) return false;
+  if (norm(text).includes(norm(quote))) return true;
+  const s = strippedSource(String(text || '')), q1 = looseForm(quote);
+  if (q1.length < 8) return false;
+  if (s.loose.includes(q1)) return true;
+  // The quote copied the printed line numbers too: drop those numbers from it (only values that are line numbers in this text).
+  const q2 = looseForm(String(quote).replace(/(?<=^|\s)(\d{1,4})(?=\s|$)/g, (m) => (s.values.has(+m) ? ' ' : m)));
+  return q2 !== q1 && q2.length >= 8 && s.loose.includes(q2);
+};
 
 // Every run of digits in a piece of text (commas removed, superscript digits read as digits), for the "numbers must come from the source" check.
 const SUP = { '²': '2', '³': '3', '¹': '1', '⁰': '0', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9' };

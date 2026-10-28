@@ -35,13 +35,13 @@ function scriptedGenerator(queue) {
   return { calls: [], async generate(req) { this.calls.push(req); const r = queue.shift(); if (r instanceof Error) throw r; return { data: typeof r === 'function' ? r(req) : r, usage: {} }; } };
 }
 // Reads the numbered claims out of the prompt as a real reader would; rejects the duties named in `reject`.
-function scriptedValidator({ reject = {}, quote = READER_Q } = {}) {
+function scriptedValidator({ reject = {}, quote = READER_Q, quotes = {} } = {}) {
   return {
     calls: [],
     async generate(req) {
       this.calls.push(req);
       const claims = [...req.prompt.matchAll(/^(\d+)\. \[([^\]]+)\] (.*)$/gm)].map((m) => ({ n: +m[1], field: m[2] }));
-      return { usage: {}, data: { results: claims.map((c) => reject[c.field] ? { n: c.n, supported: false, quote: null, reason: reject[c.field] } : { n: c.n, supported: true, quote, reason: null }) } };
+      return { usage: {}, data: { results: claims.map((c) => reject[c.field] ? { n: c.n, supported: false, quote: null, reason: reject[c.field] } : { n: c.n, supported: true, quote: quotes[c.field] || quote, reason: null }) } };
     }
   };
 }
@@ -117,11 +117,13 @@ for (const [what, name, answer, reject, re] of cases) {
   const item = { item_id: 'congress_gov:119/s/2938', source: 'congress_gov', source_id: '119/s/2938', entry_key: null, change: 'new', source_url: URL, fetched_at: '2026-10-07T04:00:00Z', raw_hash: 'x', raw_path: 'x' };
   const diff = { item_id: item.item_id, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'New bill "Artificial Intelligence Risk Evaluation Act of 2025"' }] };
   const M = 'shall be fined not less than $1,000,000 per day of the violation', T = READER_Q;
+  // Round 3: a federal D entry needs the referee's section quote to show D's criterion (an advanced-AI developer definition).
+  const SECTION_D_Q = 'covered advanced artificial intelligence system developer';
   const patch = { operation: 'create', in_scope: true, scope_reason: 'Sets mandatory evaluation duties on developers of advanced AI systems.', section: 'D', events_add: [], notes: '',
     fields: { mechanism: 'A person who violates the participation or deployment rules shall be fined not less than $1,000,000 per day of the violation.', thresholds: 'Trained using more than 10^26 integer or floating-point operations', penalties: 'Fined not less than $1,000,000 per day of the violation' },
     evidence: [{ field: 'mechanism', quote: M }, { field: 'thresholds', quote: T }, { field: 'penalties', quote: M }] };
   const entries = J('fixtures', 'entries.sample.json').filter((e) => !e.key.startsWith('s-2938'));
-  const go = (dutyAnswers) => processItem({ generator: scriptedGenerator([clone(patch), ...dutyAnswers]), validator: scriptedValidator({ quote: M }), referee: scriptedValidator({ quote: M }), item, raw, diff, entry: null, entries, today: '2026-10-28', runId: 'run-test', now: new Date('2026-10-28T05:00:00Z') });
+  const go = (dutyAnswers) => processItem({ generator: scriptedGenerator([clone(patch), ...dutyAnswers]), validator: scriptedValidator({ quote: M }), referee: scriptedValidator({ quote: M, quotes: { section: SECTION_D_Q } }), item, raw, diff, entry: null, entries, today: '2026-10-28', runId: 'run-test', now: new Date('2026-10-28T05:00:00Z') });
   const r = await go([good()]);
   ok('a new section D bill is publishable with its duties attached', r.outcome === 'publishable' && r.entry.section === 'D' && r.entry.duties && r.entry.duties_basis.method === 'agent' && r.duties.added === true, JSON.stringify({ o: r.outcome, reason: r.reason, d: r.duties, c: r.verdicts.map((x) => x.code_checks.filter((c) => !c.passed)) }));
   ok('the published entry with duties passes the entry schema', r.entry && v.check('entry', r.entry).length === 0, r.entry && v.check('entry', r.entry).join('; '));
