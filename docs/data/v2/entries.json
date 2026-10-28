@@ -7497,7 +7497,7 @@
   "mechanism": "The only federal-state AI litigation to date targets a consequential-decision law, not catastrophic-risk regulation; the legal theories used (Equal Protection, compelled speech) do not map cleanly onto SB 53-style disclosure mandates. Also a precedent: DOJ chose to ride a private suit rather than file its own",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: xAI sued Apr 9, 2026 to enjoin Colorado SB 24-205 (the ADMT/algorithmic-discrimination law — Section I, not a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division; Equal Protection theory) — the first federal court action against any state AI law. Enforcement of the Colorado law was suspended; the legislature then repealed and replaced it with SB 26-189 (May 14, 2026)",
+  "status_text": "Status: xAI sued Apr 9, 2026 to enjoin Colorado SB 24-205 (the ADMT/algorithmic-discrimination law — Section I, not a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division; Equal Protection theory) — the first federal court action against any state AI law. On Apr 27, 2026 the court granted the parties' joint stipulation: the Colorado AG may not initiate enforcement, including investigations, of SB 24-205 (or legislation replacing or amending it) for conduct on or before 14 days after a ruling on xAI's forthcoming preliminary-injunction motion, which xAI must file within 28 days after final adoption of implementing rules; all case deadlines are stayed; the legislature then repealed and replaced it with SB 26-189 (May 14, 2026)",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7516,6 +7516,15 @@
     "type": "Litigation",
     "text": "…tion I, *not* a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division",
     "clause": "…tion I, *not* a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-04-27",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Court grants the joint stipulation staying enforcement of SB 24-205 and all case deadlines pending xAI's preliminary-injunction motion",
+    "clause": "Court grants the joint stipulation staying enforcement of SB 24-205 and all case deadlines pending xAI's preliminary-injunction motion",
     "inferred_year": false,
     "scheduled": false
    },
@@ -7539,6 +7548,11 @@
     "label": "Barnes & Thornburg",
     "url": "https://btlaw.com/en/insights/alerts/2026/doj-intervenes-in-lawsuit-challenging-colorados-algorithmic-discrimination-law",
     "kind": "secondary"
+   },
+   {
+    "label": "Docket, D. Colo. No. 1:26-cv-01515 (CourtListener)",
+    "url": "https://www.courtlistener.com/docket/73171074/",
+    "kind": "primary"
    }
   ],
   "source_label": "Norton Rose Fulbright · Barnes & Thornburg",
@@ -7553,11 +7567,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-x-ai-llc-v-weiser-no-1-26-cv-01515-d-colo",
    "section_name": "Litigation and enforcement"
@@ -7578,7 +7592,7 @@
   "mechanism": "First direct court challenge in the tracker involving federal treatment of a frontier-model developer. It concerns procurement, national-security designation, and alleged retaliation — not the validity of a state frontier statute. Legally notable for the paper: the complaint pleads that a \"supply chain risk\" designation under § 3252 had never before been applied to a domestic company",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Complaint read. Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against DoW, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President, and named officials. Five counts: (I) APA / 10 U.S.C. § 3252 — the supply-chain-risk order exceeds § 3252, which is limited to adversary sabotage/subversion risk, skipped the statute's consultation, written-determination, and congressional-notification steps, and is arbitrary given DoD's simultaneous six-month continued-use order; (II) First Amendment retaliation for protected speech and petitioning; (III) ultra vires presidential directive; (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic , holding the § 3252 designation and related measures \"illegal and baseless\" — First Amendment retaliation, Fifth Amendment due process, and APA violations (in excess of statutory authority; arbitrary and capricious) — while rejecting the ultra vires/separation-of-powers count; concurring accounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit; no post-judgment appeal located through Sept 28, 2026",
+  "status_text": "Status: Complaint read. Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against DoW, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President, and named officials. Five counts: (I) APA / 10 U.S.C. § 3252 — the supply-chain-risk order exceeds § 3252, which is limited to adversary sabotage/subversion risk, skipped the statute's consultation, written-determination, and congressional-notification steps, and is arbitrary given DoD's simultaneous six-month continued-use order; (II) First Amendment retaliation for protected speech and petitioning; (III) ultra vires presidential directive; (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic , holding the § 3252 designation and related measures \"illegal and baseless\" — First Amendment retaliation, Fifth Amendment due process, and APA violations (in excess of statutory authority; arbitrary and capricious) — while rejecting the ultra vires/separation-of-powers count; concurring accounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit; the government filed a notice of appeal to the Ninth Circuit on Oct 26, 2026 (Dkt. 253), appealing the Aug 27, 2026 summary-judgment order, order of final relief and judgment",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7626,6 +7640,15 @@
     "clause": "no post-judgment appeal located through Sept 28, 2026",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-10-26",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Government files a notice of appeal to the Ninth Circuit from the Aug 27, 2026 judgment (Dkt. 253)",
+    "clause": "Government files a notice of appeal to the Ninth Circuit from the Aug 27, 2026 judgment (Dkt. 253)",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -7648,6 +7671,11 @@
     "label": "Docket chronology — Civil Rights Litigation Clearinghouse",
     "url": "https://clearinghouse.net/case/47876/",
     "kind": "secondary"
+   },
+   {
+    "label": "Docket, N.D. Cal. No. 3:26-cv-01996 (CourtListener)",
+    "url": "https://www.courtlistener.com/docket/72379655/",
+    "kind": "primary"
    }
   ],
   "source_label": "Complaint and docket — Justia · Taft Law bulletin on the Aug 27 judgment · Nextgov, Aug 28, 2026 · Docket chronology — Civil Rights Litigation Clearinghouse",
@@ -7662,11 +7690,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-et-al-no-3-26-cv-01996-n-d-cal",
    "section_name": "Litigation and enforcement"
@@ -7796,7 +7824,7 @@
   "mechanism": "Directly tests transparency around the executive pre-release review regime described in Section G, but does not challenge a developer mandate",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: FOIA suit filed Sept. 1, 2026 against ONCD, Commerce, Treasury, and OSTP, with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before release, participating-company information, and the claimed legal authority. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026; no ruling located through Sept 28, 2026",
+  "status_text": "Status: FOIA suit filed Sept. 1, 2026 against ONCD, OSTP, Commerce, the Bureau of Industry and Security, and Treasury (D.D.C. No. 1:26-cv-03064, Judge Ana C. Reyes), with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before release, participating-company information, and the claimed legal authority. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026. Protect Democracy withdrew that motion on Sept 15, 2026 and the hearing was vacated; the defendants' response to the complaint is due Dec 1, 2026 and a joint status report Nov 13, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7819,6 +7847,15 @@
     "scheduled": false
    },
    {
+    "date": "2026-09-15",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Protect Democracy withdraws its preliminary-injunction motion; the hearing is vacated",
+    "clause": "Protect Democracy withdraws its preliminary-injunction motion; the hearing is vacated",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2026-09-28",
     "precision": "day",
     "type": "Search date / deadline / scheduled",
@@ -7835,6 +7872,24 @@
     "clause": "…rity. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-11-13",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "Joint status report due",
+    "clause": "Joint status report due",
+    "inferred_year": false,
+    "scheduled": true
+   },
+   {
+    "date": "2026-12-01",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "Defendants' response to the complaint due",
+    "clause": "Defendants' response to the complaint due",
+    "inferred_year": false,
+    "scheduled": true
    }
   ],
   "sources": [
@@ -7842,6 +7897,11 @@
     "label": "Case page and documents — Protect Democracy",
     "url": "https://protectdemocracy.org/work/uncovering-the-trump-administrations-secret-rules-for-ai-model-release/",
     "kind": "secondary"
+   },
+   {
+    "label": "Docket, D.D.C. No. 1:26-cv-03064 (CourtListener)",
+    "url": "https://www.courtlistener.com/docket/74734757/",
+    "kind": "primary"
    }
   ],
   "source_label": "Case page and documents — Protect Democracy",
@@ -7856,11 +7916,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-protect-democracy-project-v-office-of-the-national-cyber-director",
    "section_name": "Litigation and enforcement"
