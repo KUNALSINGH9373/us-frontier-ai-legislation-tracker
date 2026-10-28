@@ -233,13 +233,24 @@ function tierA({ key = KEY, editEntry = () => {}, latest = null, actions = [], r
   ok('status text: a chamber clause ("no action in the House since, because …") is never dropped, even with a new event', !st(SPK, 'Passed Senate Sept 9; Hearings held (Sept 30, 2026)', {}, { events: ev1 }));
   ok('status text: Tier A leaves a chamber clause untouched', SPK.replace((await import('./guards.mjs')).STALE, '$1') === SPK);
   const rf = (c) => ({ record_facts: { cosponsors: { count: c, as_of: '2026-10-08', source_url: 'u' } } });
-  ok('status text: the "for N cosponsors in all" total may follow a changed record total', st('Reintroduced for 10 cosponsors in all', 'Reintroduced for 11 cosponsors in all', rf(10), rf(11)));
+  ok('status text: the author\'s "for N cosponsors in all" may never be edited, even to the record total', !st('Reintroduced for 10 cosponsors in all', 'Reintroduced for 11 cosponsors in all', rf(10), rf(11)));
+  ok('status text: a dated new total appended after it is allowed', st('Reintroduced for 10 cosponsors in all', 'Reintroduced for 10 cosponsors in all; 11 cosponsors in all as of Oct 29, 2026 (Congress.gov)', rf(10), rf(11)));
   ok('status text: a total changed to any other number is refused (3 -> 300, no record total)', !st('Reintroduced for 3 cosponsors in all', 'Reintroduced for 300 cosponsors in all'));
   ok('status text: a total changed to a number other than the record\'s is refused', !st('Reintroduced for 10 cosponsors in all', 'Reintroduced for 12 cosponsors in all', rf(10), rf(11)));
   ok('status text: a total changed when record_facts did not change is refused', !st('Reintroduced for 10 cosponsors in all', 'Reintroduced for 11 cosponsors in all', rf(11), rf(11)));
   ok('status text: rewriting a fact is refused', !allowed('Introduced Mar 3, 2026; referred to Commerce', 'Introduced Mar 3, 2026; referred to Judiciary'));
   ok('status text: changing any other number is refused', !allowed('Passed 53-4 on Aug 30, 2026', 'Passed 67-6 on Aug 30, 2026'));
   ok('status text: deleting a clause that is not stale is refused', !allowed('Introduced Mar 3; referred to Commerce; hearing Apr 2', 'Introduced Mar 3; hearing Apr 2'));
+}
+
+// ---------- the author's punctuation is never touched (round-3 review: a global tidy turned "Act..." into "Act.") ----------
+{
+  const { removeStale, statusTextProblem: stp } = await import('./guards.mjs');
+  ok('removeStale drops only the stale clause', removeStale('Introduced Sept 29, 2025; referred to Senate Commerce. No action in 11+ months') === 'Introduced Sept 29, 2025; referred to Senate Commerce');
+  ok('removeStale leaves other punctuation exactly as written', removeStale('the Act... was referred; OpenAI, Inc., and Anthropic') === 'the Act... was referred; OpenAI, Inc., and Anthropic');
+  const ev = [{ date: '2026-09-30', type: 'Referred / stalled / hearing', text: 'Hearings held' }];
+  ok('guard: an addition after the author\'s "..." is allowed', stp({ status_text: 'Introduced Jan 5... referred', events: [] }, { status_text: 'Introduced Jan 5... referred; Hearings held (Sept 30, 2026)', events: ev }) === null);
+  ok('guard: changing the author\'s punctuation is refused', stp({ status_text: 'Introduced Jan 5... referred', events: [] }, { status_text: 'Introduced Jan 5. referred; Hearings held (Sept 30, 2026)', events: ev }) !== null);
 }
 
 console.log(`publisher: ${pass} passed, ${fail} failed`);

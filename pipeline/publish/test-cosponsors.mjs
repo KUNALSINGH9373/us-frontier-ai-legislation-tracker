@@ -159,7 +159,7 @@ function setup17({ editEntry = () => {}, runDate = '2026-10-16' } = {}) {
   const ST10 = ST_9917.replace('for 12 cosponsors in all', 'for 10 cosponsors in all');
   const { r, e } = setup17({ editEntry: (x) => { x.sponsor_text = 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 10 cosponsors in all (Congress.gov)'; x.status_text = ST10; } });
   ok('9917: a rising total updates the sponsor text\'s fixed end', r.status === 'published' && e.sponsor_text === 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 11 cosponsors in all (Congress.gov)' && e.record_facts.cosponsors.count === 11, r.summary);
-  ok('9917: the status text\'s "for N cosponsors in all" says the same total', e.status_text === ST10.replace('for 10 cosponsors in all', 'for 11 cosponsors in all'), e.status_text);
+  ok('9917: the author\'s dated "for 10 cosponsors in all" is never edited; the new total is appended, dated', e.status_text.startsWith(ST10.replace(/[\s.;]+$/, '')) && e.status_text.includes('for 10 cosponsors in all') && /; 11 cosponsors in all as of Oct 16, 2026 \(Congress\.gov\)$/.test(e.status_text), e.status_text);
   ok('9917: the entry passes its schema', makeValidator().check('entry', e).length === 0);
   const amb = setup17({ editEntry: (x) => { x.sponsor_text = 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 10 cosponsors in all (Congress.gov)'; x.status_text = ST10 + '; earlier, for 9 cosponsors in all'; } });
   ok('9917: two different totals in the status text: nothing written, reported', amb.r.status === 'quiet' && /more than one total \(10, 9\)/.test(amb.r.summary) && /10 cosponsors in all \(Congress/.test(amb.e.sponsor_text), amb.r.summary);

@@ -7,7 +7,7 @@ import { longDate } from '../agents/derive.mjs';
 import { datesMentioned, COSPONSOR_SUFFIX, cosponsorSuffix, actionKind } from '../compare/congress.mjs';
 import { stateActionKind } from '../grabber/sources/legiscan.mjs';
 import { statusFor } from '../agents/rules.mjs';
-import { STALE } from './guards.mjs';
+import { removeStale } from './guards.mjs';
 
 const FULL_MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -71,7 +71,7 @@ function saidNearby(statusText, a) {
 }
 // "No action in 11+ months", "no further action since July 30": out of date once a new action is added. Only a whole clause is dropped,
 // ended by ; , . or the end of the text (the rule is the guard's own, publish/guards.mjs STALE).
-const dropStale = (t) => String(t || '').replace(STALE, '$1').replace(/^[\s;,.]+/, '').replace(/([;,.])(\s*[;,.])+/g, '$1');
+const dropStale = removeStale; // publish/guards.mjs: drops stale clauses only, never the author's punctuation elsewhere
 // "...; nine more joined Oct 1-19, 2026, for 12 cosponsors in all": the author's running total in the status text.
 const TOTAL_IN_TEXT = /\bfor (\d+) cosponsors? in all\b/g;
 // How many bills the entry covers (its own identifiers, or those it is about to get).
@@ -179,11 +179,14 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
           e.sponsor_text = (m ? oldText.slice(0, m.index) : oldText.replace(/[\s.;]+$/, '')) + cosponsorSuffix(n);
           log.push({ entry_key: e.key, field: 'sponsor_text', old: oldText, new: e.sponsor_text, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
         }
-        // The author's running total in the status text says the same number.
+        // The author's running total ("nine more joined Oct 1–19, 2026, for 12 cosponsors in all") is a dated narrative: never edited. The new
+        // total is added after it, dated, so the two never contradict (the round-3 replay found an in-place swap read as "14 by Oct 19").
         if (totals.length && Number(totals[0]) !== n) {
-          const oldSt = e.status_text;
-          e.status_text = oldSt.replace(TOTAL_IN_TEXT, `for ${n} cosponsor${n === 1 ? '' : 's'} in all`);
-          log.push({ entry_key: e.key, field: 'status_text', old: oldSt, new: e.status_text, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
+          const oldSt = e.status_text, add = `${n} cosponsor${n === 1 ? '' : 's'} in all as of ${longDate(runDate)} (Congress.gov)`;
+          if (!oldSt.includes(add)) {
+            e.status_text = `${oldSt.replace(/[\s.;]+$/, '')}; ${add}`;
+            log.push({ entry_key: e.key, field: 'status_text', old: oldSt, new: e.status_text, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
+          }
         }
       }
       if (r.kind === 'status_change') {

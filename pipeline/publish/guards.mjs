@@ -79,16 +79,18 @@ const OVERRIDE = /\bover(ridden|ride\b|.{0,40}\bveto)|became public law|became l
 // Only a whole clause, ended by ; , . or the end of the text: "no action in the House since, because ..." is never matched.
 const MONTH = '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)';
 export const STALE = new RegExp(`(^|[;,.])\\s*no (further )?action (?:(?:in|for) \\d+\\+? ?(?:months?|weeks?|years?)|since (?:${MONTH}\\.? \\d{1,2}(?:, \\d{4})?|\\d{4}-\\d{2}-\\d{2}))\\s*(?=[;,.]|$)`, 'gi');
-const COSPONSORS_IN_ALL = /\bfor \d+ cosponsors? in all\b/gi;
-const tidy = (t) => String(t || '').replace(/^[\s;,.]+/, '').replace(/([;,.])(\s*[;,.])+/g, '$1');
+// Drops stale clauses and nothing else: each match carries its own leading separator, so the author's text around it is untouched (no
+// punctuation is collapsed anywhere else: "the Act... was referred" stays as written). Shared with publish/tier-a.mjs.
+export const removeStale = (t) => { const s = String(t || ''), r = s.replace(STALE, ''); return r === s ? s : r.replace(/^[\s;,.]+/, ''); };
 const newEvent = (o, n) => { const had = new Set((o.events || []).map(evKey)); return (n.events || []).some((x) => !had.has(evKey(x))); };
 export function statusTextProblem(o, n) {
   if (o.status_text === n.status_text || !o.status_text) return null;
-  const now = tidy(n.status_text), f = n.record_facts && n.record_facts.cosponsors;
+  // Compared against the author's exact text (no tidying on either side), so no change to their punctuation can slip through.
+  const now = String(n.status_text || '');
   const olds = [String(o.status_text)];
-  if (newEvent(o, n)) olds.push(olds[0].replace(STALE, '$1'));
-  if (f && Number.isInteger(f.count) && !same(o.record_facts && o.record_facts.cosponsors, f)) olds.push(...olds.map((t) => t.replace(COSPONSORS_IN_ALL, `for ${f.count} cosponsor${f.count === 1 ? '' : 's'} in all`)));
-  for (const old of olds) if (now.startsWith(tidy(old).replace(/[\s.;,:]+$/, ''))) return null;
+  if (newEvent(o, n)) olds.push(removeStale(olds[0]));
+  // (No exception for the author's "for N cosponsors in all": Tier A never edits it; a new total is appended, dated.)
+  for (const old of olds) if (now.startsWith(old.replace(/[\s.;,:]+$/, ''))) return null;
   return 'status_text: the existing text was rewritten (only additions at its end are allowed)';
 }
 
