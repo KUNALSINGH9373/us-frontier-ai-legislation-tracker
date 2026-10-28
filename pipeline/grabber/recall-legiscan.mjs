@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 import { loadEnv } from './lib/env.mjs';
 import { createHttp } from './lib/http.mjs';
 import { createLegiScan, normNumber, billNumbersIn } from './sources/legiscan.mjs';
-import { preciseQuery, readUsage, addUsage } from './run-legiscan.mjs';
+import { preciseQuery, readUsage, addUsage, LEGISCAN_USAGE_FILE } from './run-legiscan.mjs';
 import { classifyTitles, fetchIt, INTENT_PROMPT_VERSION } from './intent.mjs';
 import { createLlmFactory, roleModel } from '../llm/make.mjs';
 
@@ -69,7 +69,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const models = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'models.json'), 'utf8'));
   const ids = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'identifiers-legiscan.json'), 'utf8'));
   const entries = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'out', 'entries.v2.json'), 'utf8'));
-  const usageFile = path.join(pipelineDir, 'data', 'legiscan-usage.json'), now = new Date();
+  const usageFile = LEGISCAN_USAGE_FILE, now = new Date();
   const http = createHttp({ secrets: [key], maxRequests: Math.min(80, cfg.monthly_cap - readUsage(usageFile, now).used), log: (m) => console.log('  ' + m) });
   const factory = createLlmFactory({ models });
   if (!factory.hasKey) { console.error(`${factory.keyName} is not set`); process.exit(2); }

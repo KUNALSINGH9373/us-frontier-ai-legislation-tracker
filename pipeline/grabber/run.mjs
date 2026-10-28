@@ -5,13 +5,16 @@
 //   node grabber/run.mjs --dry-run            do everything except save state
 //   node grabber/run.mjs --bill 119/hr/9925   fetch one or more specific bills (repeatable); used for reconciliation
 //   node grabber/run.mjs --since 2026-09-29T00:00:00Z --max-requests 300
+//   node grabber/run.mjs ... --state-dir <dir>    read and write the next state (state.json, waiting-for-text.json, legiscan-seen.json) in <dir>
+//                                             instead of pipeline/state/; update.mjs passes its staging folder and promotes the files only
+//                                             when the whole run succeeded (the LegiScan usage counter and the AI ledger are always the real ones)
 //   node grabber/run.mjs --source legiscan [--dry-run] [--no-search] [--only precise,yes] [--max-candidates N] [--legiscan-bill <bill_id>]   state bills (see run-legiscan.mjs)
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadEnv } from './lib/env.mjs';
 import { createHttp, QuotaExceeded, HttpError, NetworkError } from './lib/http.mjs';
-import { readState, writeState } from './lib/state.mjs';
+import { readState, writeState, STATE_DIR, WORK_DIR, LEGISCAN_USAGE_FILE } from './lib/state.mjs';
 import { createCongress, billId, billUrl, parseBillId } from './sources/congress.mjs';
 import { makeScreen } from './screen.mjs';
 import { classifyTitles, fetchIt } from './intent.mjs';
@@ -28,7 +31,7 @@ export const CONGRESS = 119; // the current Congress: every tracked bill and eve
 const hashOf = (b) => sha(JSON.stringify([b.updateDate, b.updateDateIncludingText, b.latestAction && b.latestAction.actionDate, b.latestAction && b.latestAction.text]));
 const safeName = (id) => id.replace(/\//g, '-');
 const MAX_TEXT = 1_500_000; // characters of bill text kept
-// New bills held because their text is not published yet (data/waiting-for-text.json). A bill whose text appears later is often not
+// New bills held because their text is not published yet (state/waiting-for-text.json). A bill whose text appears later is often not
 // listed again (the date filter follows updateDate, which publishing a text need not move), so each run asks up to WAITING_CHECKS of
 // them directly, least recently asked first, and collects the ones that now have a text. One that waited WAITING_DAYS is let go.
 export const WAITING_CHECKS = 10, WAITING_DAYS = 365;
@@ -50,7 +53,8 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
 
   const items = [], stats = { listed: 0, tracked_changed: 0, candidates: 0, screened_out: 0, unchanged: 0, over_candidate_cap: 0, errors: 0 };
   let lastProcessed = null, truncated = false, candidatesTaken = 0, resumeAt = null, inFlight = null;
-  const pending = [], dropped = [];
+  const pending = [], dropped = [], seenTracked = new Set(); // seenTracked: tracked bills listed (and fetched when changed) this run
+  let listedAll = false;
   const nextWaiting = structuredClone(waiting), collected = new Set(), today = isoZ(now).slice(0, 10);
 
   async function collect(ref, reason, entryKey, listItem) {
@@ -89,12 +93,14 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
         if (tracked.has(id)) {
           if (block.hashes[id] === newHash) { stats.unchanged++; }
           else { await collect(ref, 'updated_since_cursor', tracked.get(id), b); stats.tracked_changed++; }
+          seenTracked.add(id);
         } else if (precise(b.title) || screen(b.title)) {
           if (block.hashes[id] === newHash) { stats.unchanged++; }
           else pending.push({ ref, id, b, newHash, precise: precise(b.title) }); // judged after the listing, in one model call
         } else stats.screened_out++;
         lastProcessed = b.updateDate;
       }
+      listedAll = true; // every bill updated in the window was listed: a tracked bill not in it has not changed
       // the AI intent check on the word-matched titles, then fetch in list order (so a cut-off run resumes at the first bill not fetched)
       const judge = pending.filter((p) => !p.precise);
       const v = judge.length ? await classifyTitles({ llm, items: judge.map((p) => ({ id: p.id, title: p.b.title })), log }) : new Map();
@@ -141,7 +147,10 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
 
   const next = { ...state, sources: { ...state.sources, congress_gov: { ...block, last_success: isoZ(new Date()), cursor, quota: { period: 'run', used: http.used(), limit: http.maxRequests } } } };
   if (dropped.length) fs.writeFileSync(path.join(outDir, runId, 'congress-screened-out.json'), JSON.stringify(dropped, null, 1) + '\n');
-  return { runId, changeset, stats, truncated, cursor, requests: http.used(), nextState: next, nextWaiting, dropped, saved: !dryRun };
+  // The entries checked this run (status.json): every tracked one when the whole window was listed, else only those listed or fetched.
+  const read = (id) => (listedAll && !bills.length) || seenTracked.has(id) || collected.has(id);
+  const checked = [...new Set(tracked.values())].filter((k) => [...tracked].filter(([, x]) => x === k).every(([id]) => read(id)));
+  return { runId, changeset, stats, truncated, cursor, requests: http.used(), nextState: next, nextWaiting, dropped, checked, saved: !dryRun };
 }
 
 // ---------- command line ----------
@@ -152,7 +161,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const source = opt('source') || 'congress_gov';
   if (!['congress_gov', 'federal_register', 'legiscan', 'all'].includes(source)) { console.error('--source must be congress_gov, federal_register, legiscan or all'); process.exit(2); }
   const dryRun = args.includes('--dry-run');
-  const stateFile = path.join(pipelineDir, 'data', 'state.json'), outDir = path.join(pipelineDir, 'data', 'runs');
+  const stateDir = opt('state-dir') ? path.resolve(opt('state-dir')) : STATE_DIR;
+  const stateFile = path.join(stateDir, 'state.json'), outDir = path.join(WORK_DIR, 'runs');
   // The live site data (v1 is frozen; the publisher writes web/data/v2). --entries <file> replays against another copy.
   const entriesFile = opt('entries') ? path.resolve(opt('entries')) : path.join(pipelineDir, '..', 'web', 'data', 'v2', 'entries.json');
   const entries = fs.existsSync(entriesFile) ? JSON.parse(fs.readFileSync(entriesFile, 'utf8')) : [];
@@ -169,16 +179,17 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   // What each source did, saved next to its change set so the run report can read it (the numbers are otherwise only printed).
   const saveStats = (source, r, extra = {}) => {
     const dir = path.join(outDir, r.runId);
-    if (fs.existsSync(dir)) fs.writeFileSync(path.join(dir, 'grab-stats.json'), JSON.stringify({ source, run_id: r.runId, items: r.changeset.items.length, stats: r.stats, requests: r.requests ?? null, truncated: !!r.truncated, cursor: r.cursor ?? null, dry_run: dryRun, ...extra }, null, 1) + String.fromCharCode(10));
+    // checked_keys: the tracked entries whose bills were read without error this run (status.json marks only these as checked).
+    if (fs.existsSync(dir)) fs.writeFileSync(path.join(dir, 'grab-stats.json'), JSON.stringify({ source, run_id: r.runId, items: r.changeset.items.length, stats: r.stats, requests: r.requests ?? null, truncated: !!r.truncated, cursor: r.cursor ?? null, dry_run: dryRun, checked_keys: r.checked || [], ...extra }, null, 1) + String.fromCharCode(10));
   };
-  const report = (name, r) => console.log(`${name} run ${r.runId}: ${r.changeset.items.length} item(s) in the change set; ${JSON.stringify(r.stats)}; ${r.requests} request(s); ${r.truncated ? 'STOPPED EARLY (resumes next run); ' : ''}cursor ${r.cursor}${dryRun ? '; state NOT saved' : '; state saved'}`);
+  const report = (name, r) => console.log(`${name} run ${r.runId}: ${r.changeset.items.length} item(s) in the change set; ${JSON.stringify(r.stats)}; ${r.requests} request(s); ${r.truncated ? 'STOPPED EARLY (resumes next run); ' : ''}cursor ${r.cursor}${dryRun ? '; state NOT saved' : `; state written to ${stateDir}`}`);
   try {
     if (source === 'congress_gov' || source === 'all') {
       const key = process.env.CONGRESS_API_KEY;
       if (!key) { console.error('CONGRESS_API_KEY is not set (looked for a .env file upward from pipeline/; found: ' + (env.path || 'none') + ')'); process.exit(2); }
       console.log(`congress.gov: ${multi('bill').length ? 'specific bills ' + multi('bill').join(', ') : 'changes since ' + (opt('since') || (state.sources.congress_gov && state.sources.congress_gov.cursor) || DATA_CUTOFF)}${dryRun ? ' (dry run)' : ''}`);
       const http = createHttp({ headers: { 'X-Api-Key': key }, secrets: [key], maxRequests, log: (m) => console.log('  ' + m) });
-      const waitingFile = path.join(pipelineDir, 'data', 'waiting-for-text.json');
+      const waitingFile = path.join(stateDir, 'waiting-for-text.json');
       const waiting = fs.existsSync(waitingFile) ? JSON.parse(fs.readFileSync(waitingFile, 'utf8')).items || {} : {};
       const r = await runCongress({ http, llm, state, entries, scope, outDir, since: opt('since'), bills: multi('bill'), waiting, dryRun, log: (m) => console.log('  ' + m) });
       report('congress.gov', r); saveStats('congress_gov', r, { waiting_for_text: Object.keys(r.nextWaiting).length });
@@ -196,21 +207,28 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       const cfg = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'legiscan.json'), 'utf8'));
       const idsFile = path.join(pipelineDir, 'config', 'identifiers-legiscan.json');
       const ids = fs.existsSync(idsFile) ? JSON.parse(fs.readFileSync(idsFile, 'utf8')) : { legiscan: {} };
-      const usageFile = path.join(pipelineDir, 'data', 'legiscan-usage.json'), now = new Date();
+      const usageFile = LEGISCAN_USAGE_FILE, now = new Date();
       const usage = readUsage(usageFile, now), left = cfg.monthly_cap - usage.used;
-      if (left <= 0) { console.error(`LegiScan monthly cap reached (${usage.used}/${cfg.monthly_cap} in ${usage.month}); skipping`); process.exit(1); }
-      const budget = Math.min(Number(opt('max-requests')) || cfg.per_run_budget, left);
-      console.log(`legiscan: ${multi('legiscan-bill').length ? 'specific bills ' + multi('legiscan-bill').join(', ') : 'tracked bills + frontier search'}${dryRun ? ' (dry run)' : ''}; budget ${budget}; used this month ${usage.used}/${cfg.monthly_cap}`);
-      const http = createHttp({ secrets: [key], maxRequests: budget, log: (m) => console.log('  ' + m) });
-      const seenFile = path.join(pipelineDir, 'data', 'legiscan-seen.json');
-      const seen = fs.existsSync(seenFile) ? JSON.parse(fs.readFileSync(seenFile, 'utf8')) : {};
-      let r;
-      try { r = await runLegiScan({ http, apiKey: key, llm, official: createOfficial(), only: opt('only') ? opt('only').split(',') : null, state, seen, ids, entries, cfg: opt('max-candidates') ? { ...cfg, max_candidates_per_run: Number(opt('max-candidates')) } : cfg, outDir, now, bills: multi('legiscan-bill'), noSearch: args.includes('--no-search'), dryRun, log: (m) => console.log('  ' + m) }); }
-      finally { const u = addUsage(usageFile, now, http.used()); console.log(`  legiscan queries this run ${http.used()}; this month ${u.used}/${cfg.monthly_cap}`); }
-      if (!dryRun) fs.writeFileSync(seenFile, JSON.stringify(r.nextSeen, null, 1) + '\n');
-      console.log(`legiscan run ${r.runId}: ${r.changeset.items.length} item(s) in the change set; ${JSON.stringify(r.stats)}; ${r.truncated ? 'STOPPED EARLY; ' : ''}${dryRun ? 'state NOT saved' : 'state saved'}`);
-      saveStats('legiscan', r, { requests: http.used(), month_used: readUsage(usageFile, now).used, month_cap: cfg.monthly_cap });
-      if (!dryRun) writeState(stateFile, r.nextState);
+      if (left <= 0) {
+        // The month's queries are spent: LegiScan is skipped until next month, with an empty change set so the run still has one run per source.
+        const skipped = `LegiScan monthly cap reached (${usage.used}/${cfg.monthly_cap} in ${usage.month}); state bills not checked this run`;
+        const runId = makeRunId(now), r = { runId, changeset: writeChangeset({ outDir, runId, items: [] }), stats: {}, requests: 0, truncated: false, checked: [] };
+        console.log(`legiscan run ${runId}: skipped (${skipped})`);
+        saveStats('legiscan', r, { skipped_why: skipped, month_used: usage.used, month_cap: cfg.monthly_cap });
+      } else {
+        const budget = Math.min(Number(opt('max-requests')) || cfg.per_run_budget, left);
+        console.log(`legiscan: ${multi('legiscan-bill').length ? 'specific bills ' + multi('legiscan-bill').join(', ') : 'tracked bills + frontier search'}${dryRun ? ' (dry run)' : ''}; budget ${budget}; used this month ${usage.used}/${cfg.monthly_cap}`);
+        const http = createHttp({ secrets: [key], maxRequests: budget, log: (m) => console.log('  ' + m) });
+        const seenFile = path.join(stateDir, 'legiscan-seen.json');
+        const seen = fs.existsSync(seenFile) ? JSON.parse(fs.readFileSync(seenFile, 'utf8')) : {};
+        let r;
+        try { r = await runLegiScan({ http, apiKey: key, llm, official: createOfficial(), only: opt('only') ? opt('only').split(',') : null, state, seen, ids, entries, cfg: opt('max-candidates') ? { ...cfg, max_candidates_per_run: Number(opt('max-candidates')) } : cfg, outDir, now, bills: multi('legiscan-bill'), noSearch: args.includes('--no-search'), dryRun, log: (m) => console.log('  ' + m) }); }
+        finally { const u = addUsage(usageFile, now, http.used()); console.log(`  legiscan queries this run ${http.used()}; this month ${u.used}/${cfg.monthly_cap}`); }
+        if (!dryRun) { fs.mkdirSync(stateDir, { recursive: true }); const t = seenFile + '.tmp'; fs.writeFileSync(t, JSON.stringify(r.nextSeen, null, 1) + '\n'); fs.renameSync(t, seenFile); }
+        console.log(`legiscan run ${r.runId}: ${r.changeset.items.length} item(s) in the change set; ${JSON.stringify(r.stats)}; ${r.truncated ? 'STOPPED EARLY; ' : ''}${dryRun ? 'state NOT saved' : `state written to ${stateDir}`}`);
+        saveStats('legiscan', r, { requests: http.used(), month_used: readUsage(usageFile, now).used, month_cap: cfg.monthly_cap });
+        if (!dryRun) writeState(stateFile, r.nextState);
+      }
     }
   } catch (e) {
     console.error('FAILED: ' + e.message + ' (state not saved, the next run starts from the same point)');

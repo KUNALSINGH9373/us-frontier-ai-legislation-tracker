@@ -3,3 +3,5 @@ out/
 .env
 .env.*
 data/
+# state/ is committed (run-to-run memory); a temp file left by a crash is not
+state/**/*.tmp

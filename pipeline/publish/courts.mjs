@@ -98,7 +98,7 @@ export function applyCourts({ data, found, runDate, runId, config = {} }) {
   return { data: out, applied, skipped, touched: [...touched], log };
 }
 
-// The step. cases: config/courts.json; stateFile: data/courts-state.json ({ dockets: { id: { last_date, seen: { entry id: date } } } }).
+// The step. cases: config/courts.json; stateFile: state/courts-state.json ({ dockets: { id: { last_date, seen: { entry id: date } } } }).
 // A docket never read before starts from its entry's last_checked date (what the entry already says is not read again).
 export async function courtsRun({ http, limiter, cases, dataDir, docsDir = null, stateFile, config = {}, runId, now = new Date(), dry = false, maxPages = 10, log = () => {} }) {
   const runDate = now.toISOString().slice(0, 10);

@@ -5,11 +5,12 @@
 // 3. config/publish.json auto_publish.news: off -> drafted items are reported, not written; on -> added to news.json (never an edit
 //    or a deletion: publish/guards.mjs checkPublish and checkNewsAdded must pass, or nothing is written)
 // Press (secondary) leads are never published; the Telegram report lists them as "News leads".
-// What was seen is kept in data/news-seen.json, so a headline is reported once.
+// What was seen is kept in state/news-seen.json, so a headline is reported once.
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createHttp, HttpError } from '../grabber/lib/http.mjs';
+import { NEWS_SEEN_FILE } from '../grabber/lib/state.mjs';
 import { BudgetExceeded } from '../llm/gemini.mjs';
 import { loadData, writeData } from '../publish/run.mjs';
 import { checkPublish, checkNewsAdded } from '../publish/guards.mjs';
@@ -20,7 +21,7 @@ import { draftNews, duplicateOf, checkLine } from './write.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
-export const SEEN_FILE = path.join(pipelineDir, 'data', 'news-seen.json');
+export const SEEN_FILE = NEWS_SEEN_FILE;
 export const SOURCES_FILE = path.join(pipelineDir, 'config', 'news-sources.json');
 const MAX_TRIES = 3, KEEP_DAYS = 120;
 const host = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return null; } };
