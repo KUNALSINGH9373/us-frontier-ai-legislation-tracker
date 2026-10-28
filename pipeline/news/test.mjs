@@ -161,7 +161,16 @@ const LEAD = { id: 'abc', key: 'k', source_id: 'rep-liccardo', publisher: 'Rep. 
   ok('5 a reader\'s "yes" with a quote not in the release does not count', (await draftNews({ lead: LEAD, release: RELEASE, writer: writerOf(GOOD), checker: fakeQuoteChecker, today: TODAY, runId: 'r', now: NOW })).outcome === 'rejected');
   ok('5 a date neither in the release nor the feed is refused; so is a future one', checkNewsDraft({ draft: { ...GOOD, date: '2026-09-21' }, release: RELEASE, lead: LEAD, today: TODAY }).some((p) => /neither in RELEASE/.test(p)) && checkNewsDraft({ draft: { ...GOOD, date: '2026-11-02' }, release: RELEASE, lead: { ...LEAD, date: '2026-11-02' }, today: TODAY }).some((p) => /future/.test(p)));
   ok('5 a date without its year is refused', checkNewsDraft({ draft: { ...GOOD, body: GOOD.body.replace('Sept 22, 2026', 'Sept 22') }, release: RELEASE, lead: LEAD, today: TODAY }).some((p) => /without its year/.test(p)));
-  const sw = writerOf(GOOD), rs = await draftNews({ lead: { ...LEAD, primary: false }, release: RELEASE, writer: sw, checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
+  const chk = (body) => checkNewsDraft({ draft: { ...GOOD, body }, release: RELEASE, lead: LEAD, today: TODAY });
+  ok('5 a date in the body that is not in the release is refused (release date vs event date)', chk(GOOD.body.replace('Sept 22, 2026', 'Sept 22, 2026, with a hearing on Oct 5, 2026,')).some((p) => /2026-10-05 written in the item is not in RELEASE/.test(p)));
+  ok('5 ... the release\'s own date and the feed\'s listing date pass', chk(GOOD.body).length === 0 && chk(GOOD.body.replace('Sept 22, 2026', 'Sept 25, 2026')).length === 0);
+  const red = 'By establishing red lines now';
+  ok('5 a quotation given to the person the release gives it to passes', chk(`${GOOD.body} "${red}," Liccardo said.`).length === 0, JSON.stringify(chk(`${GOOD.body} "${red}," Liccardo said.`)));
+  ok('5 ... given to someone else is refused', chk(`${GOOD.body} "${red}," Kiley said.`).some((p) => /given to Kiley/.test(p)) && chk(`${GOOD.body} Rep. Kevin Kiley said "${red}".`).some((p) => /given to Kiley/.test(p)));
+  ok('5 a statement sourced to a press outlet the release does not name is refused', chk(`${GOOD.body} According to Politico, the bill has support.`).some((p) => /"Politico", whom RELEASE does not name/.test(p)) && chk(`${GOOD.body} Axios reported the bill has support.`).some((p) => /"Axios"/.test(p)));
+  const own = await draftNews({ lead: LEAD, release: RELEASE, writer: writerOf({ ...GOOD, check: 'Official statement, verified.' }), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
+  ok('5 the check line is code\'s, never the writer\'s', own.item && own.item.check === checkLine(LEAD.publisher));
+  const sw = writerOf(GOOD), rs =await draftNews({ lead: { ...LEAD, primary: false }, release: RELEASE, writer: sw, checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
   ok('5 a press (secondary) lead is never written, and the writer is never asked', rs.outcome === 'secondary' && sw.calls.length === 0);
   const nn = await draftNews({ lead: LEAD, release: RELEASE, writer: writerOf({ newsworthy: false }), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
   ok('5 a release the writer finds off-topic is not drafted', nn.outcome === 'not_newsworthy');

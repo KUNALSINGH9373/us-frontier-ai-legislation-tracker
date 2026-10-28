@@ -39,6 +39,9 @@ export function checkNewsDraft({ draft, release, lead, today }) {
   }
   const ok = allowedDigits(release, lead), bad = [...digitRuns(`${title} ${body}`)].filter((n) => !ok.has(n));
   if (bad.length) p.push(`numbers not in RELEASE: ${bad.join(', ')}`);
+  // Every date written in the item is the release's own (or the feed's listing date): a release dated one day may describe an event on another.
+  for (const iso of datesIn(`${title} ${body}`)) if (iso !== lead.date && !dateSupported(iso, release)) p.push(`the date ${iso} written in the item is not in RELEASE`);
+  p.push(...attributionProblems(`${title} ${body}`, release));
   const ev = (d.evidence || []).filter((x) => x && x.quote);
   if (!ev.length) p.push('no evidence quote');
   ev.filter((x) => !containsQuote(release, x.quote)).forEach((x) => p.push(`evidence quote not in RELEASE: "${String(x.quote).slice(0, 60)}"`));
@@ -47,6 +50,43 @@ export function checkNewsDraft({ draft, release, lead, today }) {
   else {
     if (d.date > today) p.push(`date ${d.date} is in the future`);
     if (d.date !== lead.date && !dateSupported(d.date, release)) p.push(`date ${d.date} is neither in RELEASE nor the date the feed lists it under (${lead.date})`);
+  }
+  return p;
+}
+
+// Dates written out in the item ("Sept 22, 2026", "September 22 2026"), as YYYY-MM-DD. A date without its year is textProblems' to refuse.
+const MON = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+const DATE = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+(\d{1,2}),?\s+(\d{4})\b/g;
+export const datesIn = (s) => [...String(s || '').matchAll(DATE)].map((m) => `${m[3]}-${String(MON.indexOf(m[1].slice(0, 3).toLowerCase()) + 1).padStart(2, '0')}-${m[2].padStart(2, '0')}`);
+
+// Who said it. A quotation is given to the person RELEASE gives it to: the speaker's name must stand within NEAR characters of those words
+// in RELEASE (the release may quote two members). "according to X" / "X reported" must name someone RELEASE names, so a press story is never
+// passed off as the official body's statement.
+const NEAR = 300;
+const NAME = "((?:[A-Z][a-z'’-]+\\s+){0,2}[A-Z][a-z'’-]+)";
+const TITLES = '(?:(?:Reps?|Sens?|Gov|Lt|Dr|Mr|Mrs|Ms)\\.\\s+|(?:Congress(?:man|woman)|Senator|Representative|Governor|Secretary|Director|Chair(?:man|woman)?)\\s+)?';
+const VERB = '(?:said|says|added|stated|wrote|called|warned|urged|noted|declared)';
+const SPEAKER_AFTER = new RegExp(`\\b${VERB}\\s+${TITLES}${NAME}`, 'g'), SPEAKER_BEFORE = new RegExp(`${NAME}\\s+${VERB}\\b`, 'g');
+const SOURCED = new RegExp(`\\b[Aa]ccording to\\s+(?:the\\s+)?${TITLES}${NAME}|${NAME}\\s+(?:reported|reports)\\b`, 'g');
+const NOT_NAMES = /^(?:The|It|He|She|They|This|That|Today|Rep|Reps|Sen|Sens|Congressman|Congresswoman|Senator|Representative|Governor|Secretary|Director|Chair|Chairman|Chairwoman|A|An|And|But)$/;
+const surname = (n) => { const w = n.trim().split(/\s+/).filter((x) => !NOT_NAMES.test(x)); return w.length ? w[w.length - 1].replace(/['’]s$/, '') : null; };
+export function attributionProblems(text, release) {
+  const p = [], R = norm(release);
+  for (const s of sentences(text)) {
+    const quotes = [...s.matchAll(QUOTED)].map((m) => m[1]);
+    const speakers = [...s.matchAll(SPEAKER_AFTER), ...s.matchAll(SPEAKER_BEFORE)].map((m) => surname(m[1])).filter(Boolean);
+    for (const q of quotes) {
+      const at = R.indexOf(norm(q));
+      if (at < 0) continue; // an invented quotation is refused by the quotation check
+      for (const who of speakers) {
+        const near = R.slice(Math.max(0, at - NEAR), at + norm(q).length + NEAR);
+        if (!new RegExp(`\\b${norm(who).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(near)) p.push(`the quotation "${q.slice(0, 50)}" is given to ${who}, but RELEASE does not name ${who} next to those words`);
+      }
+    }
+    for (const m of s.matchAll(SOURCED)) {
+      const who = surname(m[1] || m[2]);
+      if (who && !R.includes(norm(who))) p.push(`the item attributes a statement to "${who}", whom RELEASE does not name: write only what the official release itself states`);
+    }
   }
   return p;
 }
