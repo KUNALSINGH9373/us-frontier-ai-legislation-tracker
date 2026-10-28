@@ -175,6 +175,17 @@ function tierA({ key = KEY, editEntry = () => {}, latest = null, actions = [], r
   ok('same date: it passes every guard', problems.length === 0, problems.join('; '));
 }
 {
+  // one clearance, two actions the same day (the chamber's vote and the clerk's "Cleared for White House."): one event, one news
+  // item, for the chamber action, in either API order
+  const agr = 'House agreed to Senate amendment.', clr = 'Cleared for White House.';
+  for (const order of [[agr, clr], [clr, agr]]) {
+    const { e, news, problems } = tierA({ actions: order.map((t) => ['2026-10-02', t]), reasons: order.map((t) => act('2026-10-02', t)) });
+    const evs = e.events.filter((v) => v.date === '2026-10-02');
+    ok(`same-day clearance (${order[0]} first): one event, one news item, both for the chamber action`, evs.length === 1 && evs[0].clause === agr.replace(/.$/, '') && news.length === 1 && news[0].title.includes(agr.replace(/.$/, '')) && !e.status_text.includes('Cleared for White House'), JSON.stringify({ evs, news: news.map((n) => n.title), st: e.status_text }));
+    ok(`same-day clearance (${order[0]} first): passes every guard`, problems.length === 0, problems.join('; '));
+  }
+}
+{
   // procedural steps: never a status line or news
   const tab = 'Motion to reconsider laid on the table Agreed to without objection.', msg = 'Message on Senate action sent to the House.';
   const { a, e, before, news } = tierA({ actions: [['2026-10-02', tab], ['2026-10-02', msg]], reasons: [act('2026-10-02', tab), act('2026-10-02', msg)] });
