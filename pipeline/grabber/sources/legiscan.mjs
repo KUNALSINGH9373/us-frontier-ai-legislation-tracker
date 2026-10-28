@@ -40,7 +40,8 @@ const PUBLIC_ACT = /^\W*public act\b[\s.]*\d/i;
 // Readings and the CT Legislative Commissioners' Office are routine steps, not passage: "Passed First Reading", "Reported Out of
 // Legislative Commissioners' Office", "Filed with Legislative Commissioners' Office".
 // (Hawaii's "Passed Second Reading ... and referred to the committee(s)" is a committee passage there and stays one.)
-const ROUTINE_STEP = /\bpassed (?:on )?first reading\b|\bfirst reading,? passed\b|\blegislative commissioners'? office\b/i;
+// Hawaii writes it "Pass First Reading" and "Introduced and Pass First Reading.", so "pass" and "passed" both match.
+const ROUTINE_STEP = /\bpass(?:ed)? (?:on )?first reading\b|\bfirst reading,? pass(?:ed)?\b|\blegislative commissioners'? office\b/i;
 // A carry-over to the next session ("Continued to next session", "Carried over to the next session") keeps the bill alive: an event of
 // the stalled type, kept so the entry shows the bill was carried over.
 const CARRY_OVER = /\bcontinued to (?:the )?next (?:regular )?session\b|\bcarr(?:y|ied)[- ]?over\b/i;

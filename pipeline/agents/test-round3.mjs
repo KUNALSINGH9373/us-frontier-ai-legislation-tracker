@@ -93,5 +93,22 @@ const ok = (name, cond, detail) => { if (cond) pass++; else { fail++; console.lo
   ok('11 only the line-number run is removed (50 is a real figure)', !lineNumbers(MA).values.has(50) && lineNumbers(MA).values.has(1136));
 }
 
+// A related-bills or text fetch that failed (often a transient network error) is retried next run: never memoed, never counted as a
+// model-service failure, never escalated, no AI spent.
+{
+  const { processItem } = await import('./process-item.mjs');
+  const { memoRecord } = await import('./run.mjs');
+  const boom = { generate: async () => { throw new Error('no AI may be spent'); } };
+  const go = (raw) => processItem({ generator: boom, validator: boom, referee: boom, item: { item_id: 'congress_gov:119/hr/77', source: 'congress_gov', source_id: '119/hr/77', raw_hash: 'h1' }, raw, diff: { item_id: 'congress_gov:119/hr/77', verdict: 'new_entry_candidate', reasons: [] }, entries: [], today: '2026-10-29', runId: 'r' });
+  const bill = { type: 'HR', number: '77', congress: 119, title: 'Frontier Model Safety Act', relatedBills: { count: 2 } };
+  const rel = await go({ bill, text: 'Sec. 1. A frontier model developer shall ...', text_missing: false });
+  const txt = await go({ bill: { ...bill, relatedBills: { count: 0 } }, text: null, text_missing: true });
+  for (const [name, r] of [['related bills unread', rel], ['text not fetched', txt]]) {
+    const m = { items: {} };
+    memoRecord(m, { item_id: 'congress_gov:119/hr/77', raw_hash: 'h1' }, {}, r, '2026-10-29');
+    ok(`fetch failure (${name}): held as a retryable fetch error, not escalated, not memoed`, r.outcome === 'held' && r.service_error === true && r.fetch_error === true && !r.escalate && !m.items['congress_gov:119/hr/77'], JSON.stringify(r));
+  }
+}
+
 console.log(`round 3: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

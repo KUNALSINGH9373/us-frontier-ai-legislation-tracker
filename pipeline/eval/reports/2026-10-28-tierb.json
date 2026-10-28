@@ -1,7 +1,7 @@
 {
  "measure": "tierb",
- "run_at": "2026-10-28T20:34:27.646Z",
- "checks_hash": "fcb81e0f0a1f6bf013e6cde6234d6a27be178fd7c80074130a7abd7b0eda5c2e",
+ "run_at": "2026-10-28T21:02:10.042Z",
+ "checks_hash": "1d3dbe13cf7e06837abe2b1c5a6066c9eb928ea39de57c9004ffd91e930596cb",
  "cases": 19,
  "wrong": 0,
  "missed": 0,
@@ -140,7 +140,7 @@
    "created": null,
    "wrong": false,
    "missed": false,
-   "why": "Congress.gov lists 1 related bill(s) that were not read, so an identical tracked bill cannot be ruled out; not created"
+   "why": "Congress.gov lists 1 related bill(s) that were not read, so an identical tracked bill cannot be ruled out; not created; read again next run"
   },
   {
    "id": "HR10152",

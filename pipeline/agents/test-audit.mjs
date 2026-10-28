@@ -106,6 +106,10 @@ ok('SCOPE_CLAIM: the classification is the reader\'s own judgement from the prov
   ok('the referee says in scope with a quote code cannot find: held', r3.outcome === 'held' && /did not confirm/.test(r3.reason), `${r3.outcome} ${r3.reason}`);
   const r4 = await go(null);
   ok('no referee configured: a new entry is never published on one model\'s word', r4.outcome === 'held' && /no referee/.test(r4.reason));
+  // Gated new entries OFF: the draft can never publish, so no referee call is made; it is reported as an unconfirmed proposal.
+  const rf = ref(true, Q);
+  const r5 = await processItem({ generator: gen(), validator: val, referee: rf, item, raw, diff, entries: ENTRIES, today: '2026-10-28', runId: 'r', now: new Date('2026-10-28T00:00:00Z'), newEntriesOn: false });
+  ok('new entries switched off: no referee call, held (never publishable), reported as not confirmed', rf.calls.length === 0 && r5.outcome === 'held' && r5.escalate === true && r5.unconfirmed === true && /not confirmed: new entries are switched off/.test(r5.reason) && /not confirmed: new entries are switched off/.test(r5.proposal) && !(r5.entry && r5.entry.evidence || []).some((e) => e.field === 'in_scope'), JSON.stringify({ calls: rf.calls.length, o: r5.outcome, reason: r5.reason, p: r5.proposal }));
 }
 
 // ---------- 7. big bills: one escalated pass, within its own budget ----------
@@ -135,6 +139,9 @@ ok('SCOPE_CLAIM: the classification is the reader\'s own judgement from the prov
   ok('a bill held for its token budget is written by the escalated pass', r.outcome === 'publishable' && r.escalated === true && strong.calls >= 1, `${r.outcome} ${r.reason}`);
   const r2 = await processItem({ generator: broke, validator: val, referee: val, escalation: { generator: broke, validator: val, budget }, item, raw, diff, entries: ENTRIES, today: '2026-10-28', runId: 'r' });
   ok('still held after the escalated pass: escalate is set, and it is not retried again in a loop', r2.outcome === 'held' && r2.escalated === true && r2.escalate === true, JSON.stringify(r2));
+  const strong2 = { calls: 0, async generate() { this.calls++; return { usage: {}, data: clone(okPatch) }; } };
+  const r3 = await processItem({ generator: broke, validator: val, referee: val, escalation: { generator: strong2, validator: val, budget }, item, raw, diff, entries: ENTRIES, today: '2026-10-28', runId: 'r', newEntriesOn: false });
+  ok('new entries switched off: the escalated pass is never run', strong2.calls === 0 && r3.outcome === 'held' && !r3.escalated, JSON.stringify(r3));
 }
 
 console.log(`audit regressions: ${pass} passed, ${fail} failed`);

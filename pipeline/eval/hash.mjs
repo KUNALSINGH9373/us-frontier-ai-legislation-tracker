@@ -13,7 +13,8 @@ const P = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const SKIP_DIRS = new Set(['node_modules', 'data', 'out', 'state', 'eval/reports', '.git']);
 const SKIP_FILES = new Set(['eval/report.md']);
-const skipFile = (rel) => SKIP_FILES.has(rel) || /(^|\/)\.env(\..*)?$/.test(rel) || /\.tmp$/.test(rel);
+// config/identifiers*.json (the tracked-bill lists) are rewritten by every run, so they never change a measure's hash.
+const skipFile = (rel) => SKIP_FILES.has(rel) || /^config\/identifiers[^/]*\.json$/.test(rel) || /(^|\/)\.env(\..*)?$/.test(rel) || /\.tmp$/.test(rel);
 
 // Every file under root that can change a measured outcome, as sorted paths relative to root (forward slashes).
 export function pipelineFiles(root = P) {

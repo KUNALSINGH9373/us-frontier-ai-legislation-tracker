@@ -76,7 +76,11 @@ const heldResult = (item, operation, reason, extra = {}) => ({ item_id: item.ite
 // One item can fail without taking the run down: a source that is too long, or an item that has used its own token budget, is held
 // with a clear reason. Only the run-wide budget (BudgetExceeded with scope "run" or "month") and real bugs propagate to the caller.
 // escalation (optional): { generator, validator, budget } from agents/run.mjs: the second, stronger pass for an item held as retryable.
+// newEntriesOn (default true): the GATED auto_publish.new_entries. When false a new entry can never publish, so no Sonnet is spent on
+// it: no escalated pass at all, and no referee scope/section confirmation; a draft the cheaper readers pass is held as an unconfirmed
+// proposal ("not confirmed: new entries are switched off"). When true, behaviour is unchanged.
 export async function processItem(args) {
+  if (args.newEntriesOn === false) args = { ...args, escalation: null };
   const first = await guarded(args);
   if (!(first.outcome === 'held' && first.retryable && args.escalation)) return finish({ ...first, retryable: false });
   const esc = args.escalation;
@@ -114,7 +118,10 @@ function selectionOf(source, maxChars) {
   return p.chunks.length ? p : null;
 }
 
-async function processItemInner({ generator, validator, referee = null, item, raw, diff, entry = null, entries = [], today, runId, now = new Date(), maxRounds = MAX_ROUNDS, escalated = false, log = () => {} }) {
+async function processItemInner({ generator, validator, referee = null, item, raw, diff, entry = null, entries = [], today, runId, now = new Date(), maxRounds = MAX_ROUNDS, escalated = false, newEntriesOn = true, log = () => {} }) {
+  // New entries switched off: no referee call is made on a new bill (its drafts can never publish).
+  const unconfirmedOnly = newEntriesOn === false && diff.verdict === 'new_entry_candidate';
+  if (unconfirmedOnly) referee = null;
   const operation = diff.verdict === 'new_entry_candidate' ? 'create' : 'update';
   const source = sourceText(raw, item.source);
   const held = (reason, extra = {}) => heldResult(item, operation, reason, extra);
@@ -130,11 +137,13 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     if (dup) return held(`${dup.why}${dup.key ? ` (entry ${dup.key})` : ''}: not created; the id belongs on that entry`, { duplicate_of: dup.key, proposal: `add ${item.item_id} to entry ${dup.key} (${dup.why})` });
     // A Congress bill whose related bills were not read: an identical tracked bill cannot be ruled out, so no AI is spent on it.
     const unread = relatedUnread(item, raw);
-    if (unread) return held(`${unread}; not created`, { proposal: `${item.item_id}: ${unread}; read again when its record changes` });
+    // A failed fetch (often a transient network error) is not a verdict on the bill: held as a fetch error (service_error, so it is
+    // never memoed or escalated; fetch_error, so it is not counted as a model-service failure) and read again on the next run.
+    if (unread) return held(`${unread}; not created; read again next run`, { service_error: true, fetch_error: true });
     // A new bill whose text is not published (or could not be fetched): nothing can be described or checked, and its scope is never
     // judged from the title alone (NJ S4934 was ruled out on its title). It is held and read again when its record changes.
     const textMissing = raw.text_missing === true || ((item.source === 'congress_gov' || item.source === 'legiscan') && !String(raw.text || '').trim());
-    if (textMissing) return held('the full text is not available yet (not published, or could not be fetched), so nothing can be verified and its scope is not judged from the title; read again when its record changes', { text_missing: true });
+    if (textMissing) return held('the full text is not available yet (not published, or could not be fetched), so nothing can be verified and its scope is not judged from the title; read again next run', { text_missing: true, service_error: true, fetch_error: true });
   }
 
   const styleExamples = styleExamplesFor({ source: item.source, entry, entries });
@@ -233,7 +242,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
       else {
         const ref = await askReferee();
         if (ref.in === true) settle(ref.quote);
-        else return { ...held(`the scope was not proved: the independent reader said in scope twice without a quote found in the source, and the referee ${ref.in === false ? `ruled it out ("${String(ref.reason || '').slice(0, 140)}")` : `did not confirm it with a quote${ref.why ? ` (${ref.why})` : referee ? '' : ' (no referee is configured)'}`}`, { proposal: `${item.item_id}: scope not proved (the readers' quotes were not in the source${ref.in === false ? '; the referee says out' : ''}); not created` }), attempts: attempt, patch, verdicts: [...verdicts, verdict] };
+        else return { ...held(`the scope was not proved: the independent reader said in scope twice without a quote found in the source, and the referee ${ref.in === false ? `ruled it out ("${String(ref.reason || '').slice(0, 140)}")` : `did not confirm it with a quote${ref.why ? ` (${ref.why})` : referee ? '' : unconfirmedOnly ? ' (not asked: new entries are switched off)' : ' (no referee is configured)'}`}`, { proposal: `${item.item_id}: scope not proved (the readers' quotes were not in the source${ref.in === false ? '; the referee says out' : ''}); not created` }), attempts: attempt, patch, verdicts: [...verdicts, verdict] };
       }
     } else if (objection && referee) {
       // The reader objects to the scope of an item the generator wrote up: the referee decides, once per item.
@@ -247,6 +256,8 @@ async function processItemInner({ generator, validator, referee = null, item, ra
       if (operation === 'create') {
         // The generator and the reader may be the same model: a new entry is published only when the referee (a different, stronger
         // model) also rules it in scope, with a quote code finds in the source. No referee, no usable answer, or "out": held and reported.
+        // New entries switched off: the readers' draft is reported as a proposal, never as confirmed, and no referee is asked.
+        if (unconfirmedOnly) return { ...held('the readers say in scope, but it is not confirmed: new entries are switched off, so the referee was not asked and nothing is created', { unconfirmed: true, proposal: `${item.item_id} (${asm.entry.short_name}, section ${asm.entry.section}): proposal from the readers, not confirmed: new entries are switched off; not created` }), attempts: attempt, patch, verdicts };
         const ref = await askReferee();
         if (ref.in !== true) return { ...held(ref.in === false ? `the referee rules it out of scope after both readers said in ("${String(ref.reason || '').slice(0, 160)}"); held until its record changes` : `the referee did not confirm the scope with a quote found in the source${ref.why ? ` (${ref.why})` : referee ? '' : ' (no referee is configured)'}`, { proposal: `${item.item_id}: the readers say in scope, the referee ${ref.in === false ? 'says out' : 'gave no quote'}; not created` }), attempts: attempt, patch, verdicts };
         asm.entry.evidence = [...(asm.entry.evidence || []), { field: 'in_scope', quote: ref.quote, source_url: item.source_url }];

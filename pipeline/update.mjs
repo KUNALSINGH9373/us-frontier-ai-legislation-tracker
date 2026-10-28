@@ -77,7 +77,15 @@ export function applyGate(config, models, inputs = null) {
     off.forEach((x) => (out.auto_publish[x.field] = false));
     return { config: out, gate: null, off };
   }
-  return gatedPublishConfig({ config, models, ...(inputs || readGateInputs()) });
+  // A bug in the gate (or its inputs) never crashes the run before the report: every switch is off this run, with why.
+  try {
+    return gatedPublishConfig({ config, models, ...(inputs || readGateInputs()) });
+  } catch (err) {
+    const out = JSON.parse(JSON.stringify(config)), why = `the gate could not be read (${String(err && err.message || err).slice(0, 200)}), so every switch is off`;
+    const off = Object.keys(out.auto_publish).filter((f) => out.auto_publish[f]).map((field) => ({ field, why }));
+    off.forEach((x) => (out.auto_publish[x.field] = false));
+    return { config: out, gate: null, off };
+  }
 }
 
 export const defaultPaths = () => ({
@@ -390,7 +398,9 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
       if (!aiOff && (diff.summary.material || diff.summary.new_entry_candidate)) {
         step = 'AI step';
         log(`agents ${id}: up to ${ai.max_items_per_run || 10} item(s)`);
-        const s = await (deps.runAgents || runAgents)({ runDir, entries, config: models, factory, today, maxItems: ai.max_items_per_run || 10, memoFile: S.stateFile(AGENT_MEMO_FILE), log: (m) => log('  ' + m) });
+        const s = await (deps.runAgents || runAgents)({ runDir, entries, config: models, factory, today, maxItems: ai.max_items_per_run || 10, memoFile: S.stateFile(AGENT_MEMO_FILE), newEntriesOn: !!(config.auto_publish && config.auto_publish.new_entries), log: (m) => log('  ' + m) });
+        // newEntriesOn: the GATED switch. Off, no new entry can publish, so the escalated pass and the referee's scope/section confirmation
+        // are skipped; a draft the readers pass is reported below as a proposal, "not confirmed: new entries are switched off".
         // Items held for good are reported once each, as proposals (production has no reviewer); they are not read again until their record changes.
         (s.proposals || []).forEach((p) => rep.notes.push(`proposal (held, not created): ${p}`));
         if (s.not_reread) rep.notes.push(`AI step: ${s.not_reread} held item(s) not read again (record unchanged)`);
@@ -578,11 +588,11 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
         if (nw.status === 'written') rebuild('news', (nw.drafted || []).some((d) => d.written) ? newsSummary(nw) : null);
         if (linksOn && !linksAllowance(loadData(S.v2)).edges.length) {
           linksOn = false; rep.links = { ...l, status: 'held', applied: [] };
+          const i = published.indexOf('links'); if (i >= 0) { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); }
         } else if (linksOn) {
           // a partial revert: the report lists only the edges still promoted, and the links summary is rebuilt from them
           const still = l.applied.filter(keep);
           if (still.length !== l.applied.length) { rep.links = { ...rep.links, applied: still }; const i = published.indexOf('links'); if (i >= 0) summaries[i] = linksSummaryOf({ ...rep.links, applied: still }); }
-          const i = published.indexOf('links'); if (i >= 0) { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); }
         }
       };
       // Entries put back and held: each item that changed them is held (retried from a fresh copy), or the entry itself when no item did.

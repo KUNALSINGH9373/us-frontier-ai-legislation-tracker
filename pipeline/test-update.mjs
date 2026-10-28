@@ -10,7 +10,7 @@ import { runUpdate } from './update.mjs';
 import { publishRun } from './publish/run.mjs';
 import { compareRun } from './compare/run.mjs';
 import { writeChangeset, sha } from './grabber/lib/run-common.mjs';
-import { heldDue, namedIn, isLimit } from './update.mjs';
+import { heldDue, namedIn, isLimit, applyGate } from './update.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FX = path.join(here, 'fixtures', 'publish');
@@ -322,6 +322,26 @@ const manyGrab = (n, drop = []) => (o) => {
   ok('links: the entry is gone and its item held; the rest promoted', !j(path.join(P.dataDir, 'entries.json')).some((x) => x.key === NEW) && h['final check:' + NITEM] && j(path.join(P.dataDir, 'entries.json')).find((x) => x.key === KEY).events.some((v) => v.date === '2026-09-30'), JSON.stringify(Object.keys(h)));
 }
 
+// ---------- new entries switched off by the gate: the AI step is told, so no escalation or referee confirmation is spent ----------
+{
+  const P = setup();
+  let opts = null;
+  const runAgents = async (o) => { opts = o; return { items: [], outcomes: {}, proposals: ['congress_gov:119/hr/1 (X, section F): proposal from the readers, not confirmed: new entries are switched off; not created'], llm: { calls: 0 } }; };
+  // auto_publish.new_entries is on in the config, but the gate cannot be read (no model config): treated as off
+  const { code, rep } = await runUpdate({ P, config: { ...CONFIG, ai_step: { enabled: true }, auto_publish: { new_entries: true } }, models: {}, factory: { ...factory, hasKey: true }, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T12:00:00Z'), deps: { ...okSteps, runAgents }, log: () => {}, logErr: () => {} });
+  ok('gated new entries off: the AI step is run with newEntriesOn false', code === 0 && opts && opts.newEntriesOn === false, `${code} ${rep && rep.error} ${opts && opts.newEntriesOn}`);
+  ok('gated new entries off: the unconfirmed draft is reported as a proposal, not as confirmed', rep.notes.some((n) => /proposal \(held, not created\): .*not confirmed: new entries are switched off/.test(n)), JSON.stringify(rep.notes));
+}
+
+// ---------- applyGate: a gate bug forces every switch off, never throws ----------
+{
+  const cfg = { auto_publish: { new_entries: true, relationships: true, news: false } };
+  let out, threw = null;
+  try { out = applyGate(cfg, { anthropic: {} }, { get reports() { throw new Error('gate bug'); } }); } catch (e) { threw = e; }
+  ok('applyGate: a throwing gate does not throw', !threw, threw && threw.message);
+  ok('applyGate: a throwing gate turns every switch off with a note', out && Object.values(out.config.auto_publish).every((v) => v === false) && out.off.length === 2 && out.off.every((x) => /gate bug/.test(x.why)) && cfg.auto_publish.new_entries === true, JSON.stringify(out));
+}
+
 // ---------- SF-2: held items are retried from fresh data, or expire with a report line ----------
 {
   // a held item's copy is three days old: it is not published as current; its hash and cursor are forgotten so the grab fetches it again
@@ -533,6 +553,46 @@ function fakeGit(answers) {
     deps: { ...okSteps, gateInputs: { reports: [], goldItems: 1, measures: [linksRep], hashes: real.hashes, expected: real.expected }, linkRun: async (o) => (linkOut = await (await import('./links/run.mjs')).linkRun(o)) }, log: () => {}, logErr: () => {} });
   const after = j(rel);
   ok('links e2e: relationships ON, one record-proved sponsor edge is added by the real links step and promoted past the final check', code === 0 && linkOut && linkOut.status === 'written' && linkOut.applied.length === 1 && after.edges.length === edgesBefore + 1 && after.edges.some((e) => e.from === 'act-hawley' && e.to === 'S2938' && e.col === 'record') && !rep.held.some((x) => /links/.test(x.reason || '')), `${code} ${rep.error} ${linkOut && linkOut.status} ${JSON.stringify(linkOut && linkOut.problems)} ${JSON.stringify(rep.held)} ${JSON.stringify(rep.final_check)}`);
+}
+{
+  // A partial links revert: a new entry is refused at the final check and put back with its own sponsor edge; the other record-proved
+  // edge survives, so the links summary stays in the commit message (before, 'links' was dropped on every partial revert).
+  const P = setup(), rel = path.join(P.dataDir, 'relationships.json'), NEW = 'zz-new-test-entry', NITEM = 'congress_gov:119/hr/1';
+  for (const d of [P.dataDir, P.docsDir]) {
+    const ef = path.join(d, 'entries.json'), E = j(ef), list = Array.isArray(E) ? E : E.entries;
+    list.find((e) => e.key === KEY).origin = 'automated';
+    fs.writeFileSync(ef, JSON.stringify(E, null, 1));
+    const rf = path.join(d, 'relationships.json'), R = j(rf); R.edges = R.edges.filter((e) => !(e.from === 'act-hawley' && e.to === 'S2938')); fs.writeFileSync(rf, JSON.stringify(R, null, 1));
+  }
+  const tierB = (o) => {
+    const r = publishRun(o);
+    if (!/run-20261006/.test(o.runDir)) return r;
+    const f = path.join(o.dataDir, 'entries.json'), es = j(f), e = JSON.parse(JSON.stringify(es.find((x) => x.key === KEY)));
+    Object.assign(e, { key: NEW, id: 990001, jurisdiction: 'Federal', state: null }); es.push(e); fs.writeFileSync(f, JSON.stringify(es, null, 1));
+    r.result.added = [{ entry_key: NEW, item_id: NITEM, section: 'J' }];
+    return r;
+  };
+  const edgesBefore = j(rel).edges.length, g = fakeGit({ add: 0, diff: [1, 1], log: { status: 0, stdout: '2026-10-27\n' }, commit: 0 });
+  const models = { provider: 'anthropic', anthropic: { roles: { generator: { model: 'g' }, validator: { model: 'v' }, referee: { model: 'r' } } } };
+  const { readGateInputs } = await import('./eval/gate.mjs');
+  const real = readGateInputs();
+  const linksRep = { measure: 'links', run_at: '2026-10-28T00:00:00Z', checks_hash: real.hashes.relationships, cases: 4, wrong: 0, errors: 0, applied_wrong: 0, backtest: { proposals: 1, as_new_proposals: 1 }, suite_passed: 2, suite_failed: 0, suite_note: null };
+  const linkRun = async (o) => {
+    const l = await (await import('./links/run.mjs')).linkRun(o);
+    if (l.status !== 'written' || l.applied.length !== 1) return l;
+    // a second record-proved edge, on the new entry (same sponsor, same record): it goes when the entry is put back
+    const e = j(path.join(o.dataDir, 'relationships.json')).edges.slice(-1)[0], node = { name: 'New', column: 0, kind: 'entry', entry_key: NEW };
+    const gone = { ...e, to: 'NEWN', src: 'NEWN' };
+    const f = path.join(o.dataDir, 'relationships.json'), r = j(f); r.nodes.NEWN = node; r.edges.push(gone); fs.writeFileSync(f, JSON.stringify(r, null, 1));
+    const out = { ...l, applied: [...l.applied, gone], added: { edges: [...(l.added ? l.added.edges : [e]), gone], nodes: { ...(l.added ? l.added.nodes : {}), NEWN: node } }, proposed: [...l.proposed, { ...l.proposed[0], names: [l.proposed[0].names[0], 'New'] }] };
+    Object.defineProperty(out, 'proof', { value: { ...l.proof, records: { ...l.proof.records, [NEW]: l.proof.records[KEY] }, created: [...(l.proof.created || []), NEW] }, enumerable: false });
+    return out;
+  };
+  const { code, rep } = await runUpdate({ P, config: { ...CONFIG, max_new_entries_per_run: 0, auto_publish: { mechanism: false, new_entries: false, relationships: true, news: false }, eval_bar: { pass_rate: 1, unsupported_fields: 0, scope_agreement: 1 } }, models, factory, flags: { source: 'all', commit: true }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T12:00:00Z'),
+    deps: { ...okSteps, git: g.git, publishRun: tierB, gateInputs: { reports: [], goldItems: 1, measures: [linksRep], hashes: real.hashes, expected: real.expected }, linkRun }, log: () => {}, logErr: () => {} });
+  const after = j(rel), commit = g.calls.find((c) => c.args[0] === 'commit');
+  ok('links partial revert: the new entry and its edge are put back, the other edge promoted', code === 0 && !after.nodes.NEWN && after.edges.length === edgesBefore + 1 && after.edges.some((e) => e.from === 'act-hawley' && e.to === 'S2938'), `${code} ${rep.error} ${after.edges.length - edgesBefore} ${JSON.stringify(rep.held)} ${rep.links.status} ${JSON.stringify(rep.links.applied)} ${JSON.stringify(rep.links.problems)} ${JSON.stringify(rep.gate)}`);
+  ok('links partial revert: the commit message keeps the links summary of the surviving edge', commit && /Links: .*1 added to the network/.test(commit.input), commit && commit.input);
 }
 console.log(`update: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
