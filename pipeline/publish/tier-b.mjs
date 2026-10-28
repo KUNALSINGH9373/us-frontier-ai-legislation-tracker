@@ -10,6 +10,8 @@ import { statusFor } from '../agents/rules.mjs';
 import { sourceText, containsQuote } from '../agents/source-text.mjs';
 import { statusFromAction } from '../compare/congress.mjs';
 import { checkNewEntry } from './guards.mjs';
+import { checkDuties } from '../duties/check.mjs';
+import { sha } from '../grabber/lib/run-common.mjs';
 import { newsKind, advanceCutoff } from './tier-a.mjs';
 
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -57,6 +59,12 @@ export function applyTierB({ data, drafts, itemById, readRaw, runId, runDate, co
     const e = clone(r.entry), raw = readRaw(item), text = sourceText(raw, item.source);
     const problems = [...checkNewEntry(e), ...(e.evidence || []).filter((x) => !containsQuote(text, x.quote)).map((x) => `the quote for ${x.field} is not in the stored record: "${cut(String(x.quote || ''), 60)}"`)];
     if (e.status !== recordStatus(e, item, raw)) problems.push(`status ${e.status} is not what the record gives (${recordStatus(e, item, raw)})`);
+    // Duties, when the agents wrote them: read from this very record (same URL, same text hash) and every answer passes duties/check.mjs again.
+    if (e.duties && e.duties_basis) {
+      if (e.duties_basis.source_url !== item.source_url) problems.push(`duties were read from ${e.duties_basis.source_url}, not this record`);
+      if (e.duties_basis.sha256 !== sha(text)) problems.push('duties were read from a different text than the stored record (hash differs)');
+      checkDuties(e.duties, text, { sourceUrl: item.source_url }).forEach((p) => problems.push('duty ' + p));
+    }
     if (problems.length) { skip('not proved: ' + problems.join('; ')); continue; }
 
     // Numbered against the data as it is now: the agents numbered each draft on its own, so two drafts in one run can share an id or key.
