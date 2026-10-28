@@ -6,7 +6,8 @@ import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, state
 import { FACT_FIELDS } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
-import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem } from '../links/rules.mjs';
+import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem, AMEND_PREFIX } from '../links/rules.mjs';
+import { sponsorQuoteProblem, amendsLaw } from '../links/propose.mjs';
 import { linkKey } from '../news/feeds.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
@@ -235,6 +236,21 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
 // also mean what it says (links/rules.mjs): both ends are nodes, the ends' kinds and the entry's type fit the label, the quote is
 // word for word in the source it names (the entry's field at src, with that entry's tracker page as source_url; or the official
 // text at source_url for an AI link), the entry it is for was made by the automation, and no edge joins the pair the other way.
+// What the quote of a code link must say, not only where it sits: a Sponsor / Draft author edge quotes exactly the lead sponsor
+// clause of the sponsored entry's sponsor text, naming the legislator at `from`; a "Would amend" edge quotes, from the amending
+// entry's title or mechanism, an operative amend clause (the bill itself amends) whose object names the law at `to`.
+function linkMeaningProblem(e, ent, nodes, entryOf) {
+  if (e.type === 'actor') {
+    if (e.col !== 'sponsor_text' || e.src !== e.to) return ['a sponsor link must quote the lead sponsor clause of the sponsored entry\'s sponsor text'];
+    const p = sponsorQuoteProblem(ent.sponsor_text, e.quote, nodes[e.from] && nodes[e.from].name);
+    return p ? [p] : [];
+  }
+  if (e.type === 'succession' && String(e.label || '').startsWith(AMEND_PREFIX)) {
+    const law = nodes[e.to] && entryOf(nodes[e.to].entry_key);
+    if (!['title', 'mechanism'].includes(e.col) || e.src !== e.from || !law || !amendsLaw(e.quote, law)) return [`the quote is not an operative amend clause of ${e.from} naming the law at ${e.to}`];
+  }
+  return [];
+}
 export function checkLinks(b, a, links, entries = []) {
   const problems = [], addE = links.edges || [], addN = links.nodes || {}, texts = links.texts || {}, created = links.created || [];
   if (!same(b.types, a.types) || !same(b.columns, a.columns)) problems.push('relationships changed: link types or columns may not change');
@@ -261,6 +277,7 @@ export function checkLinks(b, a, links, entries = []) {
     } else if (e.col === 'text') {
       if (!texts[e.source_url] || !containsQuote(texts[e.source_url], e.quote)) problems.push(`${at}: the quote is not in the official text at ${e.source_url}`);
     } else problems.push(`${at}: col ${e.col} is not a source the pipeline quotes`);
+    linkMeaningProblem(e, ent, a.nodes, entryOf).forEach((p) => problems.push(`${at}: ${p}`));
     if (ent.origin !== 'automated' && !created.includes(ent.key)) problems.push(`${at}: entry ${ent.key} is hand-written (origin ${ent.origin}); its links are reported, never added automatically`);
   });
   return problems;

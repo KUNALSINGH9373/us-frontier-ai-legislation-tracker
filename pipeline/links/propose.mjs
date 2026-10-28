@@ -66,13 +66,13 @@ export function leadSponsor(text) {
 export const leadSponsors = (s) => { const l = leadSponsor(s); return l ? l.quote : ''; };
 
 // Primary sponsors from an official record: Congress.gov (bill.sponsors, each with a bioguideId) or LegiScan (bill.sponsors with
-// people_id, sponsor_type_id 1 = primary; when none is marked primary, the first listed).
+// people_id, sponsor_type_id 1 = primary; when none is marked primary, none: the first listed is never assumed to be the lead).
 export function recordSponsors(rec, entry) {
   const b = (rec && (rec.bill || rec)) || {}, s = Array.isArray(b.sponsors) ? b.sponsors : [];
   if (s.some((x) => x && x.bioguideId)) return s.filter((x) => x && x.bioguideId && x.firstName && x.lastName).map((x) => ({ id: 'bioguide:' + x.bioguideId, chamber: chamberOf(x.fullName), first: x.firstName, last: x.lastName, party: x.party || null, state: x.state || null }));
   const ls = s.filter((x) => x && x.people_id && !x.committee_sponsor);
   const prim = ls.filter((x) => x.sponsor_type_id === 1);
-  return (prim.length ? prim : ls.slice(0, 1)).filter((x) => x.first_name && x.last_name).map((x) => ({ id: 'legiscan:' + x.people_id, chamber: chamberOf(x.role), first: x.first_name, last: x.last_name, party: x.party || null, state: entry.state || null }));
+  return prim.filter((x) => x.first_name && x.last_name).map((x) => ({ id: 'legiscan:' + x.people_id, chamber: chamberOf(x.role), first: x.first_name, last: x.last_name, party: x.party || null, state: entry.state || null }));
 }
 
 const same = (a, b) => String(a || '').toLowerCase() === String(b || '').toLowerCase();
@@ -86,26 +86,36 @@ function matches(person, actor, entry) {
   if (actor.party && !same(actor.party, person.party)) return false;
   return actor.chamber === person.chamber && same(actor.first, person.first) && same(actor.last, person.last) && actor.state === state;
 }
+// A sponsor edge is drawn only for the entry's stated lead sponsor (leadSponsor), quoting that lead clause. With an official
+// record, the record's primary sponsor must BE that lead (same first and last name and chamber, both matching the same node); a
+// record whose primary is someone else, or that marks no primary, draws nothing (reported).
 function sponsorProposals(entry, node, rel, records, notes) {
   const label = sponsorLabel(entry); if (!label) return [];
   const actors = Object.entries(rel.nodes).filter(([, n]) => n.kind === 'actor').map(([k, n]) => ({ k, ...legislatorOf(n.name) })).filter((a) => a.chamber);
   const recs = (records && records[entry.key]) || [];
-  const fromRecord = recs.flatMap((r) => recordSponsors(r, entry));
   const lead = leadSponsor(entry.sponsor_text);
-  const people = recs.length ? fromRecord : lead ? [lead] : [];
-  const out = [];
-  for (const p of people) {
-    const hit = actors.filter((a) => matches(p, a, entry));
-    if (hit.length > 1) { notes.push({ entry_key: entry.key, kind: 'sponsor', why: `ambiguous: ${p.first} ${p.last} matches ${hit.map((a) => a.k).join(', ')}; nothing proposed` }); continue; }
-    if (!hit.length) continue;
-    // the quote: the entry's own words naming this person in full
-    let quote = null;
-    if (lead && same(lead.first, p.first) && same(lead.last, p.last)) quote = lead.quote;
-    else if (recs.length) { const m = String(entry.sponsor_text || '').match(new RegExp(`\\b${esc(p.first)}\\s+(?:[A-Z]\\.\\s+)?${esc(p.last)}\\b`)); quote = m && m[0]; }
-    if (!quote || !String(entry.sponsor_text || '').includes(quote)) { notes.push({ entry_key: entry.key, kind: 'sponsor', why: `the record's sponsor ${p.first} ${p.last} is not named in the entry's sponsor text; nothing proposed` }); continue; }
-    out.push({ from: hit[0].k, to: node, type: 'actor', label, evidence: [entryEvidence(entry, node, 'sponsor_text', quote)], method: 'code', ...(p.id ? { record_id: p.id } : {}) });
+  const note = (why) => notes.push({ entry_key: entry.key, kind: 'sponsor', why });
+  if (!lead) { if (recs.length) note('the record\'s sponsor is not named as the lead sponsor: the entry\'s sponsor text names no lead ("Sen./Rep. First Last (Party)" at its start); nothing proposed'); return []; }
+  let person = lead, id = null;
+  if (recs.length) {
+    const prim = recs.flatMap((r) => recordSponsors(r, entry));
+    if (!prim.length) { note(`the official record marks no primary sponsor, so the entry's lead ${lead.first} ${lead.last} is not confirmed; nothing proposed`); return []; }
+    const hits = prim.filter((p) => same(p.first, lead.first) && same(p.last, lead.last) && p.chamber === lead.chamber);
+    if (hits.length !== 1) { note(`the record's primary sponsor ${prim.map((p) => p.first + ' ' + p.last).join(', ')} is not named as the entry's lead sponsor (${lead.first} ${lead.last}); nothing proposed`); return []; }
+    person = hits[0]; id = person.id;
   }
-  return out;
+  const hit = actors.filter((a) => matches(person, a, entry) && matches(lead, a, entry));
+  if (hit.length > 1) { note(`ambiguous: ${lead.first} ${lead.last} matches ${hit.map((a) => a.k).join(', ')}; nothing proposed`); return []; }
+  if (!hit.length) return [];
+  return [{ from: hit[0].k, to: node, type: 'actor', label, evidence: [entryEvidence(entry, node, 'sponsor_text', lead.quote)], method: 'code', ...(id ? { record_id: id } : {}) }];
+}
+// The meaning check checkLinks runs on a Sponsor edge: its quote is exactly the lead clause of the sponsor text, and that lead is
+// the legislator at the edge's `from` (null when it is; otherwise the problem).
+export function sponsorQuoteProblem(sponsorText, quote, actorName) {
+  const lead = leadSponsor(sponsorText), a = legislatorOf(actorName);
+  if (!lead || quote !== lead.quote) return 'the quote is not the lead sponsor clause at the start of the sponsor text';
+  if (!a || a.chamber !== lead.chamber || !same(a.first, lead.first) || !same(a.last, lead.last)) return `the lead sponsor in the quote is not ${actorName}`;
+  return null;
 }
 
 // ---------- amendments ----------
@@ -115,6 +125,10 @@ const CODES = [
   { id: 'bpc', re: /\bBus(?:\.|iness)\s+(?:&|and)\s+Prof(?:\.|essions)\s+Code\b/gi }
 ];
 const num = (s) => parseFloat(String(s).replace(/^\./, '0.'));
+// A section number as its dot-separated integer parts ("8898.10" -> [8898, 10]): §8898.10 follows §8898.9, so sections are
+// compared part by part, never as decimals (8898.10 is not 8898.1). A shorter number sorts before its own subdivisions.
+const parts = (s) => String(s).split('.').map((x) => parseInt(x, 10));
+const cmpParts = (a, b) => { for (let i = 0; i < Math.max(a.length, b.length); i++) { if (a[i] === undefined) return -1; if (b[i] === undefined) return 1; if (a[i] !== b[i]) return a[i] - b[i]; } return 0; };
 // Code citations in one clause: [{ code, art } | { code, from, to } | { code: 'chapter', chapter } | { code: 'usc:<title>', sec }].
 export function citations(clause) {
   const out = [];
@@ -123,17 +137,18 @@ export function citations(clause) {
     const art = win.match(/\bArt(?:icle|\.)\s*([0-9]+(?:-[A-Z])?)/i); if (art) out.push({ code: c.id, art: art[1].toUpperCase() });
     for (const s of win.matchAll(/§+\s*([0-9]+(?:\.[0-9]+)?)(?:\s*[–-]\s*(\.?[0-9]+(?:\.[0-9]+)?))?/g)) {
       const from = num(s[1]); let to = s[2] ? num(s[2]) : from;
-      if (s[2] && /^\./.test(s[2])) to = Math.floor(from) + num(s[2]); // "§§11549.80–.86"
-      out.push({ code: c.id, from, to });
+      const fromP = parts(s[1]); let toP = s[2] ? parts(s[2]) : fromP;
+      if (s[2] && /^\./.test(s[2])) { to = Math.floor(from) + num(s[2]); toP = [fromP[0], ...parts(s[2].slice(1))]; } // "§§11549.80–.86"
+      out.push({ code: c.id, from, to, fromP, toP });
     }
-    const sec = before.match(/\bSection\s+([0-9]+(?:\.[0-9]+)?)\s+of\s+the\s*$/i); if (sec) out.push({ code: c.id, from: num(sec[1]), to: num(sec[1]) });
+    const sec = before.match(/\bSection\s+([0-9]+(?:\.[0-9]+)?)\s+of\s+the\s*$/i); if (sec) out.push({ code: c.id, from: num(sec[1]), to: num(sec[1]), fromP: parts(sec[1]), toP: parts(sec[1]) });
   }
   for (const m of clause.matchAll(/\bchapter\s+([0-9]+[A-Z]{1,2})\b/gi)) out.push({ code: 'chapter', chapter: m[1].toUpperCase() });
   // "15 U.S.C. §278h-1", "15 U.S.C. § 278h–1(a)", "15 U.S.C. 278h-1": the section, with an en dash read as a hyphen
   for (const m of clause.matchAll(/\b([0-9]+)\s+U\.\s?S\.\s?C\.?\s*(?:§+\s*)?([0-9]+[a-z]*(?:[-–‑][0-9]+[a-z]*)*)/g)) out.push({ code: 'usc:' + m[1], sec: m[2].replace(/[–‑]/g, '-') });
   return out;
 }
-const covers = (own, c) => own.code === c.code && ((own.art && c.art === own.art) || (own.chapter && c.chapter === own.chapter) || (own.sec && c.sec === own.sec) || (own.from != null && c.from != null && c.from >= own.from && c.to <= own.to));
+const covers = (own, c) => own.code === c.code && ((own.art && c.art === own.art) || (own.chapter && c.chapter === own.chapter) || (own.sec && c.sec === own.sec) || (own.fromP && c.fromP && cmpParts(c.fromP, own.fromP) >= 0 && cmpParts(c.toP, own.toP) <= 0));
 
 // Clauses of a text, split at ";", ":" and sentence ends; abbreviations ("Gen. Bus.", "Art.", "Sen.") do not end a sentence.
 export function clauses(text) {
@@ -178,31 +193,70 @@ const REPEAL_VERB = /\b(?:repeals|would repeal|repealing|to repeal)\b/gi;
 const NEGATED = /\b(?:not|cannot|no|never|without|nor)\b/i;
 // The object names law t: its name at the head of the object (after "the" and an optional "Section N of the"), or a code
 // citation in the object that law t occupies.
+// The name must be the WHOLE name: followed only by the end of the object or a parenthesis ("the RAISE Act (GBL Art. 44-B)"),
+// never by more title words ("the RAISE Act for Kids of 2024" is another act). Citations are read only in the object's head: the
+// first law it cites and that law's own section, article or parenthesis ("Public Health Law § 2805 cross-referenced in GBL
+// Art. 44-B" amends the Public Health Law, not GBL Art. 44-B).
 function objectNames(obj, t, own, names) {
   const head = String.raw`^\s*(?:the\s+)?(?:(?:[Ss]ections?|§§?)\s*[0-9][\w.–-]*(?:\s*(?:,|and|through|to|–|-)\s*[0-9][\w.–-]*)*\s+of\s+(?:the\s+)?)?`;
-  if (names.some((n) => new RegExp(head + esc(n) + String.raw`(?![A-Za-z])`).test(obj))) return { by: 'name' };
-  const cites = citations(obj), o = own.find((x) => cites.some((c) => covers(x, c)));
+  if (names.some((n) => new RegExp(head + esc(n) + String.raw`\s*(?:\(|$)`).test(obj))) return { by: 'name' };
+  const cites = citations(objectHead(obj)), o = own.find((x) => cites.some((c) => covers(x, c)));
   return o ? { by: 'citation', own: o } : null;
+}
+const LAW_WORD = /\b(?:Law|Code|Act|GBL|U\.\s?S\.\s?C\.?)(?![A-Za-z])/;
+const CITE_TAIL = /^(?:\s*(?:§+\s*[0-9][\w.]*(?:\([\w]+\))*(?:\s*(?:[–‑-]|through|to|,)\s*\.?[0-9][\w.]*(?:\([\w]+\))*)*|[0-9]+[a-z]*(?:[–‑-][0-9]+[a-z]*)*(?:\([\w]+\))*|Art(?:icle|\.)\s*[0-9]+(?:-[A-Z])?|chapter\s+[0-9]+[A-Z]{0,2}|\([^()]*(?:\([^()]*\)[^()]*)*\)))+/i;
+function objectHead(obj) {
+  const m = obj.match(LAW_WORD); if (!m) return obj;
+  const end = m.index + m[0].length, tail = obj.slice(end).match(CITE_TAIL);
+  return obj.slice(0, end + (tail ? tail[0].length : 0));
+}
+// An operative verb has the bill itself as its subject: it opens the clause ("Amends ...", "This act amends ...", "This bill
+// would amend ...", "It adds ..."), or is joined by "and" / "by" to such an opening verb ("Amends X by adding §...", "(and
+// amending § 1429)"). A verb anywhere else ("directs the AG to report on whether to amend", "rules adopted by the Department
+// amending") is not the bill acting.
+const SUBJECT = /^\s*(?:(?:this|the)\s+(?:act|bill|measure|legislation|section)\s+|it\s+)?(?:also\s+)?$/i;
+const OPENS = /^\s*(?:(?:this|the)\s+(?:act|bill|measure|legislation|section)\s+|it\s+)?(?:also\s+)?(?:amends|would amend|adds|would add|repeals|would repeal)\b/i;
+const JOINED = /(?:\band|\bby|\(and)\s*$/i;
+const operative = (cl, at) => SUBJECT.test(cl.slice(0, at)) || (OPENS.test(cl) && JOINED.test(cl.slice(0, at)));
+const verbsOf = (cl) => {
+  const verbs = (re, kind) => [...cl.matchAll(re)].map((m) => ({ kind, at: m.index, obj: objectAfter(cl.slice(m.index + m[0].length)) }));
+  return [...verbs(REPEAL_VERB, 'repeal'), ...verbs(AMEND_VERB, 'amend'), ...verbs(ADD_VERB, 'add')]// a repeal is kept wherever it stands: it only ever stops a link
+    .filter((v) => (v.kind === 'repeal' || operative(cl, v.at)) && !NEGATED.test(cl.slice(0, v.at)));
+};
+const lawOf = (t) => ({ t, own: ownedCitations(t), names: t.status === 'enacted' ? aliases(t) : [] });
+// Does clause `cl` amend law entry t: an operative, un-negated amend (or add, by citation) whose object names t, with no repeal
+// of t in the same clause? Returns the hit ({ by, own? }) or null. checkLinks runs it on every added "Would amend" quote.
+export function amendsLaw(cl, t, law = lawOf(t)) {
+  const all = verbsOf(cl), { own, names } = law;
+  if (all.some((w) => w.kind === 'repeal' && objectNames(w.obj, t, own, names))) return null;
+  for (const v of all) {
+    if (v.kind === 'repeal') continue;
+    const hit = objectNames(v.obj, t, own, names); if (!hit) continue;
+    if (v.kind === 'add' && hit.by !== 'citation') continue;
+    return hit;
+  }
+  return null;
 }
 
 function amendProposals(entry, node, entries, rel, nodeOf, notes) {
   const out = [];
   const laws = entries.filter((t) => t.key !== entry.key && nodeOf[t.key] && t.level === entry.level && (t.level === 'federal' || t.state === entry.state))
-    .map((t) => ({ t, own: ownedCitations(t), names: t.status === 'enacted' ? aliases(t) : [] })).filter((x) => x.own.length || x.names.length);
+    .map(lawOf).filter((x) => x.own.length || x.names.length);
   if (!laws.length) return out;
   const done = new Set();
   for (const field of ['title', 'mechanism']) for (const cl of clauses(entry[field])) {
-    const verbs = (re, kind) => [...cl.matchAll(re)].map((m) => ({ kind, at: m.index, obj: objectAfter(cl.slice(m.index + m[0].length)) }));
-    const all = [...verbs(REPEAL_VERB, 'repeal'), ...verbs(AMEND_VERB, 'amend'), ...verbs(ADD_VERB, 'add')];
+    const all = verbsOf(cl);
     for (const v of all) {
-      if (NEGATED.test(cl.slice(0, v.at))) continue;
-      for (const { t, own, names } of laws) {
+      for (const law of laws) {
+        const { t, own, names } = law;
         const hit = objectNames(v.obj, t, own, names); if (!hit) continue;
         if (v.kind === 'add' && hit.by !== 'citation') continue;
         if (v.kind === 'repeal') { notes.push({ entry_key: entry.key, kind: 'amendment', law: t.key, why: `"${cut(cl)}" repeals ${t.short_name}; a repeal is not drawn as "would amend"` }); done.add('repeal:' + t.key); continue; }
         if (done.has(t.key) || done.has('repeal:' + t.key)) continue;
         // a clause that also repeals this law is reported above, never drawn
         if (all.some((w) => w.kind === 'repeal' && objectNames(w.obj, t, own, names))) continue;
+        // the quote as published (cut to length) must itself show the amendment, as checkLinks will check
+        if (!amendsLaw(cut(cl), t, law)) { notes.push({ entry_key: entry.key, kind: 'amendment', law: t.key, why: `the quotable part of "${cut(cl)}" does not show the amendment of ${t.short_name}; nothing proposed` }); continue; }
         done.add(t.key);
         const ev = [entryEvidence(entry, node, field, cl)];
         if (hit.own) ev.push(entryEvidence(t, nodeOf[t.key], hit.own.field, hit.own.quote));

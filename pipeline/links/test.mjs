@@ -221,7 +221,11 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
   const recNat = { bill: { sponsors: [{ bioguideId: 'M001224', firstName: 'Nathaniel', lastName: 'Moran', fullName: 'Rep. Moran, Nathaniel [R-TX-1]', party: 'R', state: 'TX' }] } };
   const e2 = fedBill({ sponsor_text: 'Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX)' });
   const r2 = code(e2, { records: { [e2.key]: [recNat] } });
-  ok('8.1 the record\'s primary sponsor is linked (quote: his full name in the entry text), the text\'s first name is not', r2.proposals.some((x) => x.from === 'act-moran' && x.record_id === 'bioguide:M001224' && x.evidence[0].quote === 'Nathaniel Moran') && !r2.proposals.some((x) => x.from === 'act-jacobs'), JSON.stringify(r2.proposals));
+  // 29 Oct 2026: the record's primary sponsor must BE the entry's stated lead sponsor; when they differ nothing is drawn (reported)
+  ok('8.1 the record\'s primary sponsor (Moran) is not the entry\'s stated lead (Jacobs): no sponsor link at all, reported', !r2.proposals.some((x) => x.type === 'actor') && r2.notes.some((n) => n.kind === 'sponsor'), JSON.stringify(r2.proposals));
+  const e2b = fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-TX), with Rep. Sara Jacobs (D-CA)' });
+  const r2b = code(e2b, { records: { [e2b.key]: [recNat] } });
+  ok('8.1 the record\'s primary sponsor who is the stated lead is linked, quoting the lead clause', r2b.proposals.some((x) => x.from === 'act-moran' && x.record_id === 'bioguide:M001224' && x.evidence[0].quote === 'Rep. Nathaniel Moran (R-TX)') && !r2b.proposals.some((x) => x.from === 'act-jacobs'), JSON.stringify(r2b.proposals));
   const e3 = fedBill({ sponsor_text: 'Rep. Moran (R-TX)' });
   const r3 = code(e3, { records: { [e3.key]: [recNat] } });
   ok('8.1 a record sponsor the entry text does not name in full: nothing proposed, reported', !r3.proposals.some((x) => x.type === 'actor') && r3.notes.some((n) => /not named/.test(n.why)));
@@ -338,6 +342,53 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
   ok('8.7 an edge the network has the other way round (S10373 -> RAISE) stops the run', chk([back]).some((p) => /other way/.test(p)));
   ok('8.7 two added edges joining the same pair both ways stop the run', chk([am, { ...am, from: am.to, to: am.from, type: 'template', label: LABEL.copies, dashed: true }]).some((p) => /other way/.test(p)));
   ok('8.7 a label the pipeline never writes stops the run', chk([{ ...am, label: 'Related bill' }]).some((p) => /not one the pipeline writes/.test(p)));
+}
+
+// ---------- 9. second audit (29 Oct 2026, synthetic cases): each a wrong link the code made, kept as a permanent test ----------
+{
+  const noAmend = (m, why) => { const r = code(newEntry({ mechanism: m })); ok(`9 ${why}: "${m}" draws no amendment link`, !r.proposals.some((x) => x.type === 'succession'), JSON.stringify(r.proposals.filter((x) => x.type === 'succession'))); };
+  // case 17: "to amend" in a study clause; case 23: an agency (not the bill) is the subject of "amending"
+  noAmend('Directs the Attorney General to report by 2027 on whether to amend the RAISE Act. Creates no duties.', 'case 17, a study of whether to amend');
+  noAmend('Requires developers to follow rules adopted by the Department amending GBL §1425 reporting forms.', 'case 23, the Department amends, not the bill');
+  // case 22: the object is the first law cited (Public Health Law), not a law cross-referenced after it
+  noAmend('Amends Public Health Law § 2805 cross-referenced in GBL Art. 44-B for hospitals.', 'case 22, the object is the Public Health Law');
+  // case 28: a different act whose name starts with the law's name
+  noAmend('Amends the RAISE Act for Kids of 2024 (Education Law §3038).', 'case 28, a different act named "RAISE Act for Kids"');
+  // case 29: negation earlier in the sentence, verb not at the head of a clause the bill is the subject of
+  noAmend('This bill is not a revision of earlier statutes but amends the RAISE Act to add whistleblower rules.', 'case 29, negated sentence');
+  // operative forms still link
+  for (const m of ['Amends the RAISE Act to add a whistleblower channel', 'This act amends the RAISE Act to add a whistleblower channel', 'This bill would amend the RAISE Act to add a whistleblower channel', 'Amends the RAISE Act (GBL Article 44-B) by adding GBL §1431'])
+    ok(`9 operative "${m}" links to the RAISE Act`, code(newEntry({ mechanism: m })).proposals.some((x) => x.to === 'RAISE' && x.type === 'succession'));
+  // case 24: §8898.10 is not §8898.1 and lies outside SB 813's §§8898–8898.4
+  const ca = newEntry({ jurisdiction: 'CA', state: 'CA', title: 'S.B. 999 — test', short_name: 'CA SB 999', sponsor_text: 'Sen. Jane Doe (D)', mechanism: 'Amends Gov. Code §8898.10 to add a new fund.' });
+  ok('9 case 24, "Gov. Code §8898.10" is outside §§8898–8898.4: no link to SB 813', !code(ca).proposals.some((x) => x.type === 'succession'), JSON.stringify(code(ca).proposals));
+  const c = citations('Gov. Code §8898.10').find((x) => x.code === 'gov');
+  ok('9 citations keep the section parts as integers (8898.10 -> [8898, 10])', c && JSON.stringify(c.fromP) === '[8898,10]');
+}
+{
+  // cases 13, 14, 16: the record's sponsor must be the entry's stated lead sponsor
+  const caE = (s) => newEntry({ jurisdiction: 'CA', state: 'CA', title: 'S.B. 999 — test', short_name: 'CA SB 999', sponsor_text: s });
+  const e13 = caE('Asm. Jane Doe (D); opposed by Sen. Scott Wiener');
+  const r13 = code(e13, { records: { [e13.key]: [{ bill: { sponsors: [{ people_id: 1, sponsor_type_id: 1, first_name: 'Scott', last_name: 'Wiener', role: 'Sen', party: 'D' }] } }] } });
+  ok('9 case 13, record primary Wiener whom the entry names only as an opponent: no link', !r13.proposals.some((x) => x.type === 'actor'), JSON.stringify(r13.proposals));
+  const e14 = caE('Asm. Jane Doe (D), coauthor Sen. Scott Wiener (D)');
+  const r14 = code(e14, { records: { [e14.key]: [{ bill: { sponsors: [{ people_id: 1, sponsor_type_id: 2, first_name: 'Scott', last_name: 'Wiener', role: 'Sen' }, { people_id: 2, sponsor_type_id: 2, first_name: 'Jane', last_name: 'Doe', role: 'Rep' }] } }] } });
+  ok('9 case 14, LegiScan marks no primary: the first-listed coauthor is never used', !r14.proposals.some((x) => x.type === 'actor'), JSON.stringify(r14.proposals));
+  const e16 = fedBill({ sponsor_text: 'Sen. Tim Kaine (D-VA), with Sen. Mark Warner (D-VA)' });
+  const r16 = code(e16, { records: { [e16.key]: [{ bill: { sponsors: [{ bioguideId: 'W000805', firstName: 'Mark', lastName: 'Warner', fullName: 'Sen. Warner, Mark R. [D-VA]', party: 'D', state: 'VA' }] } }] } });
+  ok('9 case 16, record primary Warner whom the entry names only after "with": no link', !r16.proposals.some((x) => x.type === 'actor'), JSON.stringify(r16.proposals));
+}
+{
+  // checkLinks checks the quote's meaning: the lead-sponsor clause for Sponsor, an operative amend clause naming the law for Would amend
+  const e = newEntry({ mechanism: 'Amends Section 1422 of the General Business Law to shorten the incident deadline to 48 hours. Directs the Attorney General to report on whether to amend the RAISE Act', sponsor_text: 'Sen. Andrew Gounardes (D), with Sen. Kristen Gonzalez (D)' });
+  const d = withEntry(e), r = code(e), a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
+  const [sp, am] = [a.added.edges.find((x) => x.type === 'actor'), a.added.edges.find((x) => x.type === 'succession')];
+  const chk = (edges) => checkLinks(d.relationships, { ...a.relationships, edges: [...d.relationships.edges, ...edges] }, { edges, nodes: a.added.nodes, created: [e.key] }, d.entries);
+  ok('9 checkLinks: the proposer\'s own edges pass the meaning check', sp && am && chk(a.added.edges).length === 0, chk(a.added.edges).join('; '));
+  ok('9 checkLinks: a Sponsor quote that is not the lead clause stops the run', chk([{ ...sp, quote: 'Sen. Kristen Gonzalez (D)' }, am]).some((p) => /lead sponsor/.test(p)));
+  ok('9 checkLinks: a Sponsor quote that is only the name stops the run', chk([{ ...sp, quote: 'Andrew Gounardes' }, am]).some((p) => /lead sponsor/.test(p)));
+  ok('9 checkLinks: a Would amend quote that is a study clause stops the run', chk([sp, { ...am, quote: 'Directs the Attorney General to report on whether to amend the RAISE Act' }]).some((p) => /operative/.test(p)));
+  ok('9 checkLinks: a Would amend quote from the sponsor text stops the run', chk([sp, { ...am, col: 'sponsor_text', quote: 'Sen. Andrew Gounardes (D)' }]).some((p) => /operative/.test(p)));
 }
 
 console.log(`\nlinks: ${pass} passed, ${fail} failed`);
