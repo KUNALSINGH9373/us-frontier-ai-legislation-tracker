@@ -67,12 +67,14 @@ const RULING_ORDER = new RegExp(String.raw`^\W*((memorandum|opinion) (and|&) )?(
 // order that rules on a dispositive motion, an injunction, a stay, summary judgment, dismissal or final relief; other orders are events
 // without news). An ORDER granting a voluntary dismissal is an order (the case is dismissed), not a party's withdrawal.
 // "Case dismissed" and "Withdrawn" say the whole case ended, so they need the court's or party's words to say so: never when the entry
-// names one party, one claim, count or counterclaim, a part, or a denial (NOT_WHOLE_CASE); such an entry is a plain "Court order" or nothing.
-const NOT_WHOLE_CASE = String.raw`^(?![\s\S]*\b(as to|den(y|ies|ied|ying)|counter-?claims?|cross-?claims?|claims?|counts?|defendants?|in part|partial(ly)?|only)\b)`;
+// names one party, one claim, count or counterclaim, a part, an exception or a denial, or lets the plaintiff amend ("with leave to
+// amend", "amended complaint": the case goes on) (NOT_WHOLE_CASE); such an entry is a plain "Court order" or nothing. "As to all
+// defendants" / "as to all parties" names no one party and does not count against a whole-case dismissal.
+const NOT_WHOLE_CASE = String.raw`^(?![\s\S]*\b(as to(?! all (defendants|parties)\b)|(?<!as to all )defendants?|den(y|ies|ied|ying)|counter-?claims?|cross-?claims?|claims?|counts?|in part|partial(ly)?|only|except|(?<!without )leave to (file an )?amend|with leave(?! of (the )?court)|(file|filing|submit) an amended complaint)\b)`;
 const KINDS = [
   { kind: 'appeal', news: true, label: 'Notice of appeal filed', re: /^\W*(amended )?notice of (interlocutory )?appeal\b/i },
   { kind: 'judgment', news: true, label: 'Judgment entered', re: /^\W*(final |amended |clerk'?s )?judgment\b/i },
-  { kind: 'order', news: true, label: 'Case dismissed', re: new RegExp(NOT_WHOLE_CASE + String.raw`(^\W*((memorandum|opinion) (and|&) )?(minute )?order\b[^.]{0,120}?\b(granting|approving)\b[^.]{0,80}?\bvoluntary dismissal\b|^\W*order (of )?dismissal( of (the )?(case|action|complaint))?\b|^\W*order dismissing (the )?(case|action|complaint)\b)`, 'i') },
+  { kind: 'order', news: true, label: 'Case dismissed', re: new RegExp(NOT_WHOLE_CASE + String.raw`(^\W*((memorandum|opinion) (and|&) )?(minute )?order\b[^.]{0,120}?\b(granting|approving)\b[^.]{0,80}?\bvoluntary dismissal\b|^\W*order (of )?dismissal( of (the )?(case|action|complaint))?\b|^\W*order dismissing (the )?(case|action|((first|second|third) )?(amended )?complaint)\b)`, 'i') },
   { kind: 'order', news: 'ruling', label: 'Court order', re: /^\W*minute order\b[\s\S]*\b(granted|denied|granting|denying)\b/i }, // a minute order that rules on a motion
   { kind: 'deadline', news: false, label: 'Minute order setting a deadline', re: /^\W*minute (order|entry)\b(?=[\s\S]*\b(due|deadline|shall (file|respond|submit)|set for|reset|by (january|february|march|april|may|june|july|august|september|october|november|december) \d))/i },
   { kind: 'order', news: 'ruling', label: 'Court order', re: /^\W*((memorandum|opinion) (and|&) )?order\b|^\W*(stipulated|protective) order\b/i },

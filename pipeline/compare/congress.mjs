@@ -30,9 +30,9 @@ const words = (s) => new Set((norm(s).match(/[a-z]{4,}/g) || []));
 // A Congress.gov action -> { kind, type, milestone, importance }. type is the tracker's event type (null for a procedural step);
 // milestone: whether the action belongs in status_text and news; importance orders actions on the same date (highest first).
 // Milestones: introduced, referred, hearing held, markup, reported / ordered reported, forwarded by a subcommittee, passage of a
-// chamber, a failed passage vote, vetoed, veto override, signed / became law. Everything else is procedural: cloture, amendments,
-// motions to proceed / reconsider / table / recommit, held at the desk, messages between chambers, calendars, introductory remarks,
-// star prints, cosponsors, presentation to the President. "Not agreed to" and "failed" never mean passage.
+// chamber, final clearance, a failed passage vote, vetoed, veto override, signed / became law. Everything else is procedural:
+// cloture, amendments, motions to proceed / reconsider / table / recommit, held at the desk, messages between chambers, calendars,
+// introductory remarks, star prints, cosponsors, presentation to the President. "Not agreed to" and "failed" never mean passage.
 // Checked against every action text in the stored Congress.gov records (compare/test.mjs). Order matters: the first rule that fits wins.
 const PROCEDURAL = { kind: 'procedural', type: null, milestone: false, importance: 0 };
 const ACTION_RULES = [
@@ -42,13 +42,17 @@ const ACTION_RULES = [
   [/^(?!.*\bveto message\b)(?!.*\bover (the )?veto\b).*\b(pocket )?vetoed\b/i, 'vetoed', 'Vetoed / failed / rescinded', 90],
   // A failed vote on the bill itself, or a failed override (the veto stands). Not a failed cloture, amendment or motion.
   [/^(?!.*\b(cloture|motion to (proceed|reconsider|table|recommit|instruct|discharge|concur)|amendment (SA|S\.? ?Amdt|H\.? ?Amdt|No\.)|amdt\.)).*(\b(on |failed of )passage\b|suspend the rules and pass|over (the )?veto|objections of the president|veto overrid)[^.]*\b(failed|not agreed to|not sustained)\b|^\W*failed of passage\b/i, 'failed_passage', 'Vetoed / failed / rescinded', 70],
+  // Final clearance: the second chamber accepts the first chamber's amendment as it stands ("House agreed to Senate amendment.",
+  // "Senate concurred in the House amendment"), or the clerk's "Cleared for White House.". It ends Congress's work on the bill, so it
+  // outranks a chamber passage on the same date. Accepting it "with an amendment" sends the bill back: that is not clearance.
+  [/^(?!.*\b(not agreed to|failed|motion to|with (an |further )?amendments?)\b).*(\b(house|senate) (agreed to|concurred in) (the )?(house|senate) amendments?\b|\bagree to the (senate|house) amendments?\b(?! with)[^.]*\bagreed to\b|^\W*cleared for (the )?white house\b)/i, 'cleared', 'Passed / advanced', 85],
   // Passage stated outright, checked before the procedural words it may sit next to: a chamber agreeing to the other chamber's
-  // amendment (final clearance), a bill "considered as passed" / "deemed passed" under a rule, "discharged ... Passed Senate".
-  [/^(?!.*\b(not agreed to|failed|motion to)\b).*(\bagreed to the (house|senate) amendments?\b|\bagree to the (senate|house) amendments?\b[^.]*\bagreed to\b|\b(considered|deemed) (as )?passed\b|\bpassed (the )?(house|senate)\b|\bpassed\/agreed to in (house|senate)\b)/i, 'passed', 'Passed / advanced', 80]
+  // amendment in a wording the clearance rule above does not name, a bill "considered as passed" / "deemed passed" under a rule, "discharged ... Passed Senate".
+  [/^(?!.*\b(not agreed to|failed|motion to)\b).*(\bagreed to the (house|senate) amendments?\b(?! with)|\bagree to the (senate|house) amendments?\b(?! with)[^.]*\bagreed to\b|\b(considered|deemed) (as )?passed\b|\bpassed (the )?(house|senate)\b|\bpassed\/agreed to in (house|senate)\b)/i, 'passed', 'Passed / advanced', 80]
 ];
 const PROCEDURAL_RE = /\bnot agreed to\b|\bfailed\b|\bcloture\b|\bmotion to (proceed|reconsider|table|recommit|instruct|discharge|concur)\b|\blaid on the table\b|\btabled\b|^\W*(S\.?|H\.?) ?Amdt\.?|\bamendment (SA|S\.? ?Amdt|H\.? ?Amdt|No\.)\s*\d|^\W*amendment\b|\bon agreeing to the [^.]*\bamendments?\b|\bheld at the desk\b|\bmessage on (senate|house) action\b|\bintroductory remarks\b|\bstar print\b|\bcosponsor|\bplaced on (the )?(senate legislative|union|house) calendar\b|\breceived in the (house|senate)\b|\blaid before (the )?(senate|house)\b|\bpresented to (the )?president\b|\bcleared for (the )?white house\b|\bsubstitute withdrawn\b|\bdischarged\b|\b(senate|house|committee) (amendment|substitute)\b|\bcommittee substitute\b/i;
 const MILESTONE_RULES = [
-  [/\bpassed (the )?(house|senate)\b|\bpassed\/agreed to in (house|senate)\b|\bon passage\b[^.]*\b(passed|agreed to)\b|suspend the rules and pass[^.]*\bagreed to\b|\b(considered,? and )?agreed to (without amendment|with (an )?amendments?|by (unanimous consent|voice vote|yea-nay vote|recorded vote|the yeas and nays))|\bresolution agreed to\b|\bagree to the (senate|house) amendments?\b[^.]*\bagreed to\b/i, 'passed', 'Passed / advanced', 80],
+  [/\bpassed (the )?(house|senate)\b|\bpassed\/agreed to in (house|senate)\b|\bon passage\b[^.]*\b(passed|agreed to)\b|suspend the rules and pass[^.]*\bagreed to\b|\b(considered,? and )?agreed to (without amendment|with (an )?amendments?|by (unanimous consent|voice vote|yea-nay vote|recorded vote|the yeas and nays))|\bresolution agreed to\b|\bagree to the (senate|house) amendments?\b(?! with)[^.]*\bagreed to\b/i, 'passed', 'Passed / advanced', 80],
   [/\bordered to be reported\b|\breported (\(amended\) )?(by|with|favorabl|without)\b/i, 'reported', 'Passed / advanced', 60],
   [/\bmark-?up session held\b|\bmarkup\b/i, 'markup', 'Referred / stalled / hearing', 50],
   [/\bforwarded by subcommittee\b/i, 'forwarded', 'Passed / advanced', 45],
