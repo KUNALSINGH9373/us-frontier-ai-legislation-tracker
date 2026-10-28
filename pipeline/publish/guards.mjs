@@ -72,11 +72,16 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const OVERRIDE = /\bover(ridden|ride\b|.{0,40}\bveto)|became public law|became law/i;
 
 // The status text is the author's; the pipeline may only add to its end. The new text must start with the old one (its closing
-// punctuation aside).
+// punctuation aside), allowing exactly the two edits Tier A makes inside it (publish/tier-a.mjs): a stale "No (further) action
+// in/for/since …" clause is dropped once a new action is added, and the total in "for N cosponsors in all" follows the record.
+const STALE = /(^|[;,.])\s*no (further )?action (in|for|since)\b[^;.]*/gi;
+const COSPONSORS_IN_ALL = /\bfor \d+ cosponsors? in all\b/gi;
+const tidy = (t) => String(t || '').replace(/^[\s;,.]+/, '').replace(/([;,.])(\s*[;,.])+/g, '$1').replace(COSPONSORS_IN_ALL, 'for # cosponsors in all');
 export function statusTextProblem(o, n) {
   if (o.status_text === n.status_text || !o.status_text) return null;
-  const keep = String(o.status_text).replace(/[\s.;,:]+$/, '');
-  return String(n.status_text || '').startsWith(keep) ? null : 'status_text: the existing text was rewritten (only additions at its end are allowed)';
+  const now = tidy(n.status_text);
+  for (const old of [o.status_text, String(o.status_text).replace(STALE, '$1')]) if (now.startsWith(tidy(old).replace(/[\s.;,:]+$/, ''))) return null;
+  return 'status_text: the existing text was rewritten (only additions at its end are allowed)';
 }
 
 // Identifiers are set once (absent -> set, when an entry first becomes mixed) and afterwards only gain ids: nothing is edited or removed.

@@ -119,7 +119,8 @@ const entry = (dir, key = KEY) => loadData(dir).entries.find((e) => e.key === ke
   const url = 'https://www.congress.gov/bill/119th-congress/senate-bill/2938/all-actions';
   const quote = (e, field, q, u = url) => (e.evidence = e.evidence || []).push({ field, quote: q, source_url: u });
   ok('allowed: an action added at the end of the status text', variant((a) => { at(a, S).status_text += '; Hearings held (Sept 30, 2026, Congress.gov)'; }).length === 0, variant((a) => { at(a, S).status_text += '; x'; }).join('; '));
-  ok('stop: the status text rewritten', variant((a) => { at(a, S).status_text = at(a, S).status_text.replace('No action in 11+ months', 'Hearings held'); }).some((p) => /status_text: the existing text was rewritten .* on s-2938/.test(p)));
+  ok('stop: the status text rewritten', variant((a) => { at(a, S).status_text = at(a, S).status_text.replace('referred to Senate Commerce', 'referred to Senate Judiciary'); }).some((p) => /status_text: the existing text was rewritten .* on s-2938/.test(p)));
+  ok('allowed: the stale "No action in 11+ months" clause replaced by a new action (Tier A\'s own edit)', variant((a) => { at(a, S).status_text = 'Introduced / status: Sept 29, 2025; referred to Senate Commerce; Hearings held (Sept 30, 2026, Congress.gov)'; }).every((p) => !/status_text/.test(p)));
   ok('stop: the status text cut short', variant((a) => { at(a, S).status_text = at(a, S).status_text.slice(0, 20); }).some((p) => /status_text: the existing text was rewritten/.test(p)));
   ok('allowed: an id added to identifiers', variant((a) => { at(a, S).identifiers.external.congress_gov.push('119/hr/1'); }).length === 0);
   ok('stop: an id in identifiers edited', variant((a) => { at(a, S).identifiers.external.congress_gov[0] = '119/s/1'; }).some((p) => /identifiers edited: ids removed or changed in congress_gov .* on s-2938/.test(p)));
@@ -209,6 +210,18 @@ function tierA({ key = KEY, editEntry = () => {}, latest = null, actions = [], r
   const s = setup((d, run) => { run.diff.items.find((i) => i.entry_key === KEY).entry_key = K; run.changeset.items.find((i) => i.entry_key === KEY).entry_key = K; d.entries.find((x) => x.key === K).status_text = 'Introduced / status: Oct 1, 2025'; });
   const before = entry(path.join(FX, 'data-2026-10-08'), K), r = publish(s), e = entry(s.dataDir, K);
   ok('an authored Congress entry with no identifiers publishes, with identifiers from config/identifiers.json, and passes its schema', !before.identifiers && r.status === 'published' && e.origin === 'mixed' && JSON.stringify(e.identifiers) === JSON.stringify({ session: '119th Congress', external: { congress_gov: ['119/s/5576'] } }) && makeValidator().check('entry', e).length === 0, r.summary);
+}
+
+// ---------- the status text guard: additions only, plus exactly Tier A's two edits inside the text ----------
+{
+  const { statusTextProblem: stp } = await import('./guards.mjs');
+  const allowed = (o, n) => stp({ status_text: o }, { status_text: n }) === null;
+  ok('status text: an addition at the end is allowed', allowed('Introduced Mar 3, 2026', 'Introduced Mar 3, 2026; Hearings held (Sept 30, 2026)'));
+  ok('status text: a stale "No action in …" clause may be dropped when an action is added', allowed('Introduced Mar 3, 2026. No action in 11+ months', 'Introduced Mar 3, 2026; Hearings held (Sept 30, 2026)'));
+  ok('status text: the "for N cosponsors in all" total may follow the record', allowed('Reintroduced for 12 cosponsors in all', 'Reintroduced for 13 cosponsors in all'));
+  ok('status text: rewriting a fact is refused', !allowed('Introduced Mar 3, 2026; referred to Commerce', 'Introduced Mar 3, 2026; referred to Judiciary'));
+  ok('status text: changing any other number is refused', !allowed('Passed 53-4 on Aug 30, 2026', 'Passed 67-6 on Aug 30, 2026'));
+  ok('status text: deleting a clause that is not stale is refused', !allowed('Introduced Mar 3; referred to Commerce; hearing Apr 2', 'Introduced Mar 3; hearing Apr 2'));
 }
 
 console.log(`publisher: ${pass} passed, ${fail} failed`);
