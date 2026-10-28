@@ -2,7 +2,9 @@
 // never changed or removed: new edges go after the old ones, new nodes after the old ones, and only the nodes a new edge needs.
 // Returns { relationships, added: { edges, nodes }, skipped: [{ proposal, why }], problems } ; problems non-empty = do not write.
 import { checkIntegrity } from '../schema/integrity.mjs';
-import { pairKey } from './propose.mjs';
+import { pairKey, isApplicable } from './propose.mjs';
+// Only a sponsor link proved by an official record (propose.mjs isApplicable) is ever added; any other proposal is skipped as
+// report-only, whatever the caller passes.
 
 // One proposal as a network edge: the first quote is the link's quote, src / col say where it sits (the entry's node and field, or
 // the bill's node and 'text' for an AI link quoting the official text), and the pipeline is its origin.
@@ -17,7 +19,8 @@ export function applyLinks({ data, proposals, nodes = {} }) {
   const seen = new Set(rel.edges.map((e) => pairKey(e.from, e.to, e.type)));
   const added = { edges: [], nodes: {} }, skipped = [];
   for (const p of proposals) {
-    const why = !rel.types[p.type] ? `unknown type ${p.type}`
+    const why = !isApplicable(p) ? 'report-only: only a sponsor link proved by an official record is ever added'
+      : !rel.types[p.type] ? `unknown type ${p.type}`
       : !(p.evidence || []).length || !p.evidence.every((x) => x.quote && String(x.quote).trim().length >= 8 && x.source_url && x.node && x.field) ? 'every link needs a quote, a source URL and where the quote sits'
       : String(p.label || '').length < 3 ? 'no label'
       : p.from === p.to ? 'a link to itself'

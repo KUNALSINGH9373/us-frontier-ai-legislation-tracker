@@ -85,7 +85,7 @@ const FURNITURE = /^(?:Skip to main content|Official websites use \.gov|A \.gov 
 // either starts at its "main-content" anchor when it has one; the .gov banner, share and feedback blocks and furniture lines are dropped,
 // so quotes are checked against the article's own words.
 export function releaseText(html) {
-  let h = String(html || '').replace(/<(script|style|noscript|svg)[\s\S]*?<\/\1>/gi, ' ');
+  let h = stripHidden(html).replace(/<(script|style|noscript|svg)[\s\S]*?<\/\1>/gi, ' ');
   const main = /<main[\s>][\s\S]*?<\/main>/i.exec(h) || /<article[\s>][\s\S]*?<\/article>/i.exec(h);
   if (main) h = main[0];
   else {
@@ -95,6 +95,51 @@ export function releaseText(html) {
   }
   h = h.replace(/<(nav|header|footer|aside|form)[\s>][\s\S]*?<\/\1>/gi, ' ').replace(/<\/(p|div|h\d|li|br|tr)>|<br\s*\/?>/gi, '$&\n');
   return htmlToText(h).replace(/[ \t]+\n/g, '\n').split('\n').map((l) => l.trim()).filter((l) => l && !FURNITURE.test(l)).join('\n').trim();
+}
+
+// Text a reader of the page never sees is not part of the release (audit R12, 29 Oct 2026: a display:none paragraph announced a bill
+// and penalties the visible release does not). Removed before anything is read: HTML comments, <template>, <noscript>, and every
+// element (with all it contains) that is hidden by the `hidden` attribute, aria-hidden="true", an inline style (display:none,
+// visibility:hidden or collapse, opacity:0, font-size:0, zero width or height with overflow hidden, clip / clip-path to nothing,
+// text-indent or left/top far off-screen), a class the page's own <style> hides that way, or a common hiding class (sr-only,
+// visually-hidden, screen-reader-text, hidden, d-none, invisible). Unclosed hidden elements remove the rest of the page (safe side).
+const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
+const HIDING_CLASS = new Set(['sr-only', 'visually-hidden', 'visuallyhidden', 'screen-reader-text', 'screenreader-only', 'hidden', 'd-none', 'invisible', 'hide', 'element-invisible', 'offscreen']);
+function hiddenStyle(css) {
+  const s = String(css || '').toLowerCase().replace(/\s+/g, '');
+  return /(?:^|;|\{)display:none/.test(s) || /visibility:(?:hidden|collapse)/.test(s) || /(?:^|;|\{)opacity:0(?:\.0*)?(?:;|$|!|\})/.test(s)
+    || /font-size:0(?:px|em|rem|%|pt)?(?:;|$|!|\})/.test(s) || /(?:^|;|\{)(?:max-)?(?:width|height):0(?:px)?(?:;|$|!|\})/.test(s)
+    || /clip:rect\(0(?:px)?,?0(?:px)?,?0(?:px)?,?0(?:px)?\)/.test(s) || /clip:rect\(1px,?1px,?1px,?1px\)/.test(s) || /clip-path:inset\(50%\)|clip-path:circle\(0/.test(s)
+    || /(?:text-indent|left|top|right|margin-left):-\d{3,}/.test(s) || /transform:scale\(0\)/.test(s);
+}
+export function stripHidden(html) {
+  let h = String(html || '').replace(/<!--[\s\S]*?(?:-->|$)/g, ' ').replace(/<(template|noscript)\b[\s\S]*?(?:<\/\1\s*>|$)/gi, ' ');
+  // classes the page's own stylesheet hides
+  const hiddenClasses = new Set(HIDING_CLASS);
+  for (const st of h.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)) for (const rule of st[1].matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    if (!hiddenStyle(rule[2])) continue;
+    for (const sel of rule[1].split(',')) { const m = sel.trim().match(/^(?:[a-z0-9]*)\.([\w-]+)$/i); if (m) hiddenClasses.add(m[1].toLowerCase()); }
+  }
+  const isHidden = (attrs) => {
+    if (/(?:^|\s)hidden(?:\s|=|$|\/)/i.test(attrs.replace(/"[^"]*"|'[^']*'/g, '""'))) return true;
+    if (/\baria-hidden\s*=\s*["']?true/i.test(attrs)) return true;
+    const st = attrs.match(/\bstyle\s*=\s*(?:"([^"]*)"|'([^']*)')/i); if (st && hiddenStyle(st[1] || st[2])) return true;
+    const cl = attrs.match(/\bclass\s*=\s*(?:"([^"]*)"|'([^']*)')/i);
+    return !!cl && (cl[1] || cl[2] || '').split(/\s+/).some((c) => hiddenClasses.has(c.toLowerCase()));
+  };
+  const TAG = /<(\/?)([a-zA-Z][\w-]*)((?:[^>"']|"[^"]*"|'[^']*')*)>/g;
+  let out = '', i = 0, m;
+  while ((m = TAG.exec(h))) {
+    const [all, close, name0, attrs] = m, name = name0.toLowerCase();
+    if (close || !isHidden(attrs)) continue;
+    out += h.slice(i, m.index) + ' ';
+    if (VOID.has(name) || /\/\s*$/.test(attrs)) { i = m.index + all.length; continue; }
+    // skip to the matching close tag of the same name
+    let depth = 1, n; const inner = new RegExp(`<(/?)${name}\\b(?:[^>"']|"[^"]*"|'[^']*')*>`, 'gi'); inner.lastIndex = m.index + all.length;
+    while (depth && (n = inner.exec(h))) depth += n[1] ? -1 : 1;
+    i = depth ? h.length : inner.lastIndex; TAG.lastIndex = i;
+  }
+  return out + h.slice(i);
 }
 
 // The release's own date: a line that is only a date ("Tuesday, September 22, 2026", "October 16, 2026", "Released October 16, 2026"),
@@ -111,10 +156,23 @@ const DATE_LINE = new RegExp(`^(?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\\
 const DATELINE_AFTER = new RegExp(`^[A-Z][A-Z .,'’]{1,40}?[,(]?\\s*${DAY}${WRITTEN.source}\\)?\\s*[–—-]\\s`);
 const DATELINE_BEFORE = new RegExp(`^${DAY}${WRITTEN.source}\\s*[–—-]\\s*[A-Z]{3,}`);
 const gapDays = (a, b) => Math.abs(Date.parse(a + 'T00:00:00Z') - Date.parse(b + 'T00:00:00Z')) / 864e5;
+// A date line may carry an update note: "September 3, 2026 (updated October 25, 2026)" is a release of September 3 (audit R11): the
+// first date is the release's own, never the update's.
+const DATE_LINE_UPDATED = new RegExp(`^(?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\\s+|Released\\s+|Posted\\s+(?:on\\s+)?)?${WRITTEN.source}\\s*[(\\[]\\s*(?:last\\s+)?(?:updated|revised|modified|amended)\\b[^)\\]]*[)\\]]\\.?$`, 'i');
+// A year typo in the release's own date (audit R06: "October 21, 2025" on a release the feed lists on 2026-10-21): when the year is one
+// less than the feed date's and the month and day are within RELEASE_DATE_FEED_DAYS days of the feed date, the feed's year is used.
+// Anything else is taken as written (and an old date is refused as old news).
+function yearTypo(iso, feedDate) {
+  if (!feedDate || !/^\d{4}-\d{2}-\d{2}$/.test(feedDate)) return iso;
+  const fy = Number(feedDate.slice(0, 4));
+  if (Number(iso.slice(0, 4)) !== fy - 1) return iso;
+  const fixed = fy + iso.slice(4);
+  return Number.isFinite(Date.parse(fixed + 'T00:00:00Z')) && gapDays(fixed, feedDate) <= RELEASE_DATE_FEED_DAYS ? fixed : iso;
+}
 export function releaseDate(text, feedDate = null) {
   const lines = String(text || '').split('\n').slice(0, 25).map((l) => l.trim());
-  for (const l of lines) { const m = DATE_LINE.exec(l); if (m) return isoOf(m); }
-  for (const l of lines) { const m = DATELINE_AFTER.exec(l) || DATELINE_BEFORE.exec(l); if (m) return isoOf(m); }
+  for (const l of lines) { const m = DATE_LINE.exec(l) || DATE_LINE_UPDATED.exec(l); if (m) return yearTypo(isoOf(m), feedDate); }
+  for (const l of lines) { const m = DATELINE_AFTER.exec(l) || DATELINE_BEFORE.exec(l); if (m) return yearTypo(isoOf(m), feedDate); }
   const m = WRITTEN.exec(String(text || '').slice(0, 600));
   if (!m || !feedDate) return null;
   return gapDays(isoOf(m), feedDate) <= RELEASE_DATE_FEED_DAYS ? isoOf(m) : null;

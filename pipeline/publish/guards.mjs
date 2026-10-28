@@ -7,7 +7,8 @@ import { FACT_FIELDS } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
 import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem, AMEND_PREFIX } from '../links/rules.mjs';
-import { sponsorQuoteProblem, amendsLaw } from '../links/propose.mjs';
+import { sponsorQuoteProblem, amendsLaw, recordProofProblem } from '../links/propose.mjs';
+import { loadActorIds } from '../links/records.mjs';
 import { linkKey } from '../news/feeds.mjs';
 import { eventDisagreements, sameEvent } from '../news/write.mjs';
 import { entryIndex } from '../news/leads.mjs';
@@ -242,7 +243,9 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
 }
 
 // The network after a links step: the old network unchanged, plus exactly the edges and nodes links/apply.mjs added, each from the
-// pipeline with a quote and a source URL. Any edit, deletion, reordering or other addition stops the run. Each added edge must
+// pipeline with a quote and a source URL. Any edit, deletion, reordering or other addition stops the run. Since 29 Oct 2026 the
+// only edge that may be added is a SPONSOR edge proved by the entry's official record (links.records; ids from
+// config/actor-ids.json or links.actorIds): any other added edge stops the run, however well its prose reads. Each added edge must
 // also mean what it says (links/rules.mjs): both ends are nodes, the ends' kinds and the entry's type fit the label, the quote is
 // word for word in the source it names (the entry's field at src, with that entry's tracker page as source_url; or the official
 // text at source_url for an AI link), the entry it is for was made by the automation, and no edge joins the pair the other way.
@@ -251,6 +254,7 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
 // entry's title or mechanism, an operative amend clause (the bill itself amends) whose object names the law at `to`.
 function linkMeaningProblem(e, ent, nodes, entryOf) {
   if (e.type === 'actor') {
+    if (e.col === 'record') return []; // checked against the record itself (recordProofProblem)
     if (e.col !== 'sponsor_text' || e.src !== e.to) return ['a sponsor link must quote the lead sponsor clause of the sponsored entry\'s sponsor text'];
     const p = sponsorQuoteProblem(ent.sponsor_text, e.quote, nodes[e.from] && nodes[e.from].name);
     return p ? [p] : [];
@@ -263,6 +267,7 @@ function linkMeaningProblem(e, ent, nodes, entryOf) {
 }
 export function checkLinks(b, a, links, entries = []) {
   const problems = [], addE = links.edges || [], addN = links.nodes || {}, texts = links.texts || {}, created = links.created || [];
+  const records = links.records || {}, actorIds = links.actorIds || loadActorIds();
   if (!same(b.types, a.types) || !same(b.columns, a.columns)) problems.push('relationships changed: link types or columns may not change');
   Object.keys(b.nodes).filter((k) => !same(b.nodes[k], a.nodes[k])).forEach((k) => problems.push(`relationships changed: node ${k} edited or deleted`));
   Object.keys(a.nodes).filter((k) => !b.nodes[k] && !same(a.nodes[k], addN[k])).forEach((k) => problems.push(`relationships changed: node ${k} was not added by links/apply.mjs`));
@@ -281,7 +286,14 @@ export function checkLinks(b, a, links, entries = []) {
     // where the quote sits
     const src = a.nodes[e.src], ent = src && src.kind === 'entry' ? entryOf(src.entry_key) : null;
     if (!ent || (e.src !== e.from && e.src !== e.to)) { problems.push(`${at}: src ${e.src} is not the entry at one end of the link`); return; }
-    if (ENTRY_FIELDS.includes(e.col)) {
+    // Only a sponsor edge proved by the entry's official record is ever applied: its quote is the record's own sponsor field, its
+    // source the record's URL, and the record's sponsor id is the one stored for the actor at `from` (links/propose.mjs
+    // recordProofProblem). Any other edge (a sponsor read from prose, an amendment, an AI link) is report-only and stops the run.
+    if (e.type !== 'actor' || e.col !== 'record') problems.push(`${at}: only a sponsor link proved by an official record may be added; this one (${e.type}, quoting ${e.col || 'nothing'}) is report-only`);
+    if (e.col === 'record') {
+      if (e.src !== e.to) problems.push(`${at}: a record-proved sponsor link must sit on the sponsored entry (src ${e.src})`);
+      const why = recordProofProblem(e, ent, a.nodes, records, actorIds); if (why) problems.push(`${at}: not proved by the official record: ${why}`);
+    } else if (ENTRY_FIELDS.includes(e.col)) {
       if (typeof ent[e.col] !== 'string' || !e.quote || !ent[e.col].includes(e.quote)) problems.push(`${at}: the quote is not word for word in ${ent.key} ${e.col}`);
       if (e.source_url !== trackerUrl(ent)) problems.push(`${at}: the quote is the tracker's own text, so its source must be the entry's tracker page (${trackerUrl(ent)}), not ${e.source_url}`);
     } else if (e.col === 'text') {

@@ -13,7 +13,9 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { proposeByCode, pairKey, aliases } from './propose.mjs';
+import { proposeByCode, pairKey, aliases, isApplicable } from './propose.mjs';
+import { loadRunRecords } from './records.mjs';
+import { loadData } from '../publish/run.mjs';
 import { AMEND_PREFIX } from './rules.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -40,41 +42,46 @@ export function selfContradicting(edge, rel, entries) {
 // Returns { runs, edges, edgesByType, recovered: Set of edge keys, falseLinks, wrongDirection, wrongLabel, conflicts, proposals, byType }.
 // asNew: also remove the entry's node, as for a bill the network has never seen (the proposer then places a new node, which is
 // mapped back to the old key for scoring). proposer: the function to score (default proposeByCode).
-export function backtest({ entries, relationships: rel, sample = null, asNew = false, proposer = proposeByCode }) {
+// records: { entry key: [raw official records] } (links/records.mjs loadRunRecords), so record-proved sponsor links can be scored.
+// Every proposal is also scored in its bucket: `applied` (record-proved sponsor links, the only kind ever added; the bar is zero
+// wrong) and `reportOnly` (everything else: proposals in the run report).
+export function backtest({ entries, relationships: rel, sample = null, asNew = false, proposer = proposeByCode, records = {}, actorIds = undefined }) {
   const nodeOf = {}; Object.entries(rel.nodes).forEach(([k, n]) => { if (n.kind === 'entry') nodeOf[n.entry_key] = k; });
   const keys = (sample || entries.map((e) => e.key)).filter((k) => nodeOf[k] && rel.edges.some((e) => e.from === nodeOf[k] || e.to === nodeOf[k]));
   const exact = new Map(rel.edges.map((e) => [e.from + '>' + e.to + '|' + e.type, e]));
   const recovered = new Set(), falseLinks = [], wrongDirection = [], wrongLabel = [], conflicts = [], byType = {};
   let proposals = 0;
+  const bucket = () => ({ proposals: 0, right: 0, wrong: [], conflicts: 0, recovered: new Set() });
+  const applied = bucket(), reportOnly = bucket();
   for (const key of keys) {
     const n = nodeOf[key], stripped = { ...rel, nodes: { ...rel.nodes }, edges: rel.edges.filter((e) => e.from !== n && e.to !== n) };
     if (asNew) delete stripped.nodes[n];
-    const r = proposer({ entries, relationships: stripped, changed: [key] });
+    const r = proposer({ entries, relationships: stripped, changed: [key], records, ...(actorIds ? { actorIds } : {}) });
     const back = (k) => (r.nodes[k] && r.nodes[k].entry_key === key ? n : k);
     for (const p0 of r.proposals) {
-      const p = { ...p0, from: back(p0.from), to: back(p0.to) };
-      proposals++;
+      const p = { ...p0, from: back(p0.from), to: back(p0.to) }, bk = isApplicable(p0) ? applied : reportOnly;
+      proposals++; bk.proposals++;
       const t = (byType[p.type] = byType[p.type] || { proposed: 0, right: 0 });
       t.proposed++;
       const same = exact.get(p.from + '>' + p.to + '|' + p.type), rev = exact.get(p.to + '>' + p.from + '|' + p.type);
-      if (same && labelOk(p.label, same.label, p.type)) { recovered.add(pairKey(p.from, p.to, p.type)); t.right++; }
-      else if (same) wrongLabel.push({ entry: key, ...p, existing: same.label });
-      else if (rev && selfContradicting(rev, rel, entries)) conflicts.push({ entry: key, ...p, existing: rev });
-      else if (rev) wrongDirection.push({ entry: key, ...p, existing: rev.label });
-      else falseLinks.push({ entry: key, ...p });
+      if (same && labelOk(p.label, same.label, p.type)) { recovered.add(pairKey(p.from, p.to, p.type)); bk.recovered.add(pairKey(p.from, p.to, p.type)); t.right++; bk.right++; }
+      else if (same) { wrongLabel.push({ entry: key, ...p, existing: same.label }); bk.wrong.push({ entry: key, ...p, why: 'wrong label', existing: same.label }); }
+      else if (rev && selfContradicting(rev, rel, entries)) { conflicts.push({ entry: key, ...p, existing: rev }); bk.conflicts++; if (bk === applied) bk.wrong.push({ entry: key, ...p, why: 'conflict' }); }
+      else if (rev) { wrongDirection.push({ entry: key, ...p, existing: rev.label }); bk.wrong.push({ entry: key, ...p, why: 'wrong direction', existing: rev.label }); }
+      else { falseLinks.push({ entry: key, ...p }); bk.wrong.push({ entry: key, ...p, why: 'false link' }); }
     }
   }
   // recall over the links that touch a sampled entry (each counted once)
   const sampled = new Set(keys.map((k) => nodeOf[k]));
   const reachable = rel.edges.filter((e) => sampled.has(e.from) || sampled.has(e.to));
   const edgesByType = {}; reachable.forEach((e) => { edgesByType[e.type] = (edgesByType[e.type] || 0) + 1; });
-  return { runs: keys.length, edges: new Set(reachable.map((e) => pairKey(e.from, e.to, e.type))).size, edgesByType, recovered, falseLinks, wrongDirection, wrongLabel, conflicts, proposals, byType };
+  return { runs: keys.length, edges: new Set(reachable.map((e) => pairKey(e.from, e.to, e.type))).size, edgesByType, recovered, falseLinks, wrongDirection, wrongLabel, conflicts, proposals, byType, applied, reportOnly };
 }
 export const errorsOf = (b) => b.falseLinks.length + b.wrongDirection.length + b.wrongLabel.length;
 
-export function printBacktest(dir, entries, relationships, proposer = proposeByCode, log = console.log) {
-  const fresh = backtest({ entries, relationships, asNew: true, proposer });
-  const b = backtest({ entries, relationships, proposer });
+export function printBacktest(dir, entries, relationships, proposer = proposeByCode, log = console.log, records = {}) {
+  const fresh = backtest({ entries, relationships, asNew: true, proposer, records });
+  const b = backtest({ entries, relationships, proposer, records });
   const right = b.proposals - errorsOf(b) - b.conflicts.length;
   const pct = (a, n) => (n ? ((100 * a) / n).toFixed(1) + '%' : 'n/a');
   log(`Backtest of the code link proposer on ${dir} (strict: same direction, same type, same meaning of label)`);
@@ -90,11 +97,20 @@ export function printBacktest(dir, entries, relationships, proposer = proposeByC
   b.wrongDirection.forEach((f) => log(`  WRONG DIRECTION ${f.from} -> ${f.to} (${f.type}, "${f.label}"); the network has ${f.to} -> ${f.from} "${f.existing}"`));
   b.wrongLabel.forEach((f) => log(`  WRONG LABEL ${f.from} -> ${f.to} (${f.type}): "${f.label}"; the network says "${f.existing}"`));
   b.conflicts.forEach((f) => log(`  CONFLICT ${f.from} -> ${f.to} (${f.type}, "${f.label}"); the hand-written ${f.existing.from} -> ${f.existing.to} "${f.existing.label}" names its own from as the amended law`));
+  for (const [name, x] of [['APPLIED (record-proved sponsor links, the only kind ever added)', b.applied], ['REPORT-ONLY proposals', b.reportOnly], ['as new bills, APPLIED', fresh.applied], ['as new bills, REPORT-ONLY', fresh.reportOnly]]) {
+    log(`  ${name}: ${x.proposals} proposals, ${x.right} right, ${x.wrong.length} wrong, ${x.conflicts} conflicts`);
+    if (x === b.applied || x === fresh.applied) x.wrong.forEach((f) => log(`    WRONG APPLIED ${f.from} -> ${f.to} (${f.label}, ${f.why}) from ${f.entry}: "${f.evidence[0].quote}"`));
+  }
   return { b, fresh };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const dir = arg('--data', path.join(here, '..', '..', 'web', 'data', 'v2'));
-  const { b, fresh } = printBacktest(dir, read(dir, 'entries.json'), read(dir, 'relationships.json'));
-  process.exit(errorsOf(b) || errorsOf(fresh) ? 1 : 0);
+  const d = loadData(dir), runs = arg('--runs', path.join(here, '..', 'data', 'runs'));
+  const records = loadRunRecords(runs, d.entries);
+  console.log(`official records read from ${runs} for ${Object.keys(records).length} entries`);
+  const { b, fresh } = printBacktest(dir, d.entries, d.relationships, proposeByCode, console.log, records);
+  // the bar: zero wrong among applied links; report-only proposals are scored and listed, and the code proposer's own bar (zero
+  // false links over all proposals) still holds
+  process.exit(b.applied.wrong.length || fresh.applied.wrong.length || errorsOf(b) || errorsOf(fresh) ? 1 : 0);
 }
