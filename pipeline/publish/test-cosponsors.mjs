@@ -149,13 +149,20 @@ function setup17({ editEntry = () => {}, runDate = '2026-10-16' } = {}) {
   ok('9917: a stored total dated after the run is never overwritten', t.r.status === 'quiet' && t.e.record_facts.cosponsors.count === 12 && /total as of 2026-10-20/.test(t.r.summary), t.r.summary);
 }
 {
-  // the same record on an entry last changed before it: the total and the status text's own total both become 11
+  // a FALLING total (12 on the entry, 11 on the record): someone withdrew, whom the hand-written text may still name. Reported, never written.
   const { r, e } = setup17();
-  ok('9917: a newer record updates the sponsor text\'s fixed end', r.status === 'published' && e.sponsor_text === 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 11 cosponsors in all (Congress.gov)' && e.record_facts.cosponsors.count === 11, r.summary);
-  ok('9917: the status text\'s "for 12 cosponsors in all" says the same total', e.status_text === ST_9917.replace('for 12 cosponsors in all', 'for 11 cosponsors in all'), e.status_text);
+  ok('9917: a falling total (12 -> 11) is reported, not written', r.status === 'quiet' && /12 cosponsors in all \(Congress/.test(e.sponsor_text) && !e.record_facts && /cosponsor total fell from 12 to 11/.test(r.summary), r.summary);
+  ok('9917: ... and the disagreement is recorded', r.result.disagreements.some((x) => x.entry_key === K17 && x.field === 'cosponsors' && x.said === 12 && x.record === 11));
+}
+{
+  // a RISING total (10 on the entry, 11 on the record): the sponsor text's fixed end and the status text's own total both become 11
+  const ST10 = ST_9917.replace('for 12 cosponsors in all', 'for 10 cosponsors in all');
+  const { r, e } = setup17({ editEntry: (x) => { x.sponsor_text = 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 10 cosponsors in all (Congress.gov)'; x.status_text = ST10; } });
+  ok('9917: a rising total updates the sponsor text\'s fixed end', r.status === 'published' && e.sponsor_text === 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 11 cosponsors in all (Congress.gov)' && e.record_facts.cosponsors.count === 11, r.summary);
+  ok('9917: the status text\'s "for N cosponsors in all" says the same total', e.status_text === ST10.replace('for 10 cosponsors in all', 'for 11 cosponsors in all'), e.status_text);
   ok('9917: the entry passes its schema', makeValidator().check('entry', e).length === 0);
-  const amb = setup17({ editEntry: (x) => { x.status_text = ST_9917 + '; earlier, for 10 cosponsors in all'; } });
-  ok('9917: two different totals in the status text: nothing written, reported', amb.r.status === 'quiet' && /more than one total \(12, 10\)/.test(amb.r.summary) && /12 cosponsors in all \(Congress/.test(amb.e.sponsor_text), amb.r.summary);
+  const amb = setup17({ editEntry: (x) => { x.sponsor_text = 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 10 cosponsors in all (Congress.gov)'; x.status_text = ST10 + '; earlier, for 9 cosponsors in all'; } });
+  ok('9917: two different totals in the status text: nothing written, reported', amb.r.status === 'quiet' && /more than one total \(10, 9\)/.test(amb.r.summary) && /10 cosponsors in all \(Congress/.test(amb.e.sponsor_text), amb.r.summary);
 }
 
 console.log(`\ncosponsors: ${pass} passed, ${fail} failed`);

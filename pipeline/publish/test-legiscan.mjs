@@ -45,17 +45,13 @@ const ok = (name, cond, detail) => { if (cond) pass++; else { fail++; console.lo
   fs.cpSync(RUN, runDir, { recursive: true });
   const r = publishRun({ runDir, dataDir, docsDir: null, config: { max_entries_changed_per_run: 15, news_from_official_actions: true } });
   const e = loadData(dataDir).entries.find((x) => x.key === 'ca-sb-813-ivos'), d = loadData(dataDir);
-  ok('the state run publishes one entry', r.status === 'published' && r.result.touched.length === 1 && r.result.touched[0] === 'ca-sb-813-ivos', r.summary);
+  // the author wrote "enrolled Sept 1" (the record says Sept 8): the same step on a nearby date. Reported, and nothing is written twice:
+  // no second event, no status line, no news. (The replay of 28 Oct 2026 found the event was still being added.)
+  ok('enrolled Sept 8 vs the author\'s "enrolled Sept 1": nothing written, the run is quiet', r.status === 'quiet' && r.result.touched.length === 0, r.summary);
   const e8 = data8.entries.find((x) => x.key === 'ca-sb-813-ivos');
-  ok('the step becomes an event typed by the state rules, in the official words only (one bill: no bill number), with the legislature page', e.events.some((v) => v.date === '2026-09-08' && v.type === 'Passed / advanced' && v.text === 'Enrolled and presented to the Governor at 4 p.m.' && /leginfo\.legislature\.ca\.gov/.test(v.source_url)));
-  // the author wrote "enrolled Sept 1" (the record says Sept 8) and "signed Sept 9": said already, and earlier than the latest date
-  ok('enrolled Sept 8 vs the author\'s "enrolled Sept 1": not written twice into the status text', e.status_text === e8.status_text && (e.status_text.match(/enrolled/gi) || []).length === 1);
-  ok('the date disagreement is reported in the run summary', r.result.disagreements.some((x) => x.entry_key === 'ca-sb-813-ivos' && x.date === '2026-09-08' && x.said === '2026-09-01') && /disagreement: the record dates "Enrolled and presented to the Governor at 4 p\.m\." Sept 8, 2026, the status text says Sept 1, 2026/.test(r.summary), r.summary);
-  ok('the entry gets its LegiScan identifiers when it becomes mixed', e.origin === 'mixed' && e.identifiers && e.identifiers.external.legiscan.includes(1980543));
-  ok('the status is unchanged (already enacted)', e.status === 'enacted');
-  const n = d.news.items.filter((x) => x.origin === 'automated');
-  ok('no news item: the action is earlier than the latest date already in the status text (back-fill is not news)', n.length === 0, JSON.stringify(n));
-  ok('the cut-off moves to the run date', d.site.updates_through === '2026-10-16' && d.news.asof === 'October 16, 2026');
+  ok('no second enrolment event, and the entry is unchanged', !e.events.some((v) => v.date === '2026-09-08') && JSON.stringify(e) === JSON.stringify(e8));
+  ok('the date disagreement is reported in the run summary', r.result.disagreements.some((x) => x.entry_key === 'ca-sb-813-ivos' && x.date === '2026-09-08' && x.said === '2026-09-01') && /disagreement: the record dates "Enrolled and presented to the Governor at 4 p.m." Sept 8, 2026, the entry says Sept 1, 2026/.test(r.summary), r.summary);
+  ok('no news item', d.news.items.filter((x) => x.origin === 'automated').length === 0);
 }
 
 // ---------- quotes and titles: the official words only in quotes; the bill number outside, and only for a multi-bill entry ----------
@@ -66,6 +62,7 @@ function sb813(edit) {
   const f = path.join(dataDir, 'entries.json'), all = JSON.parse(fs.readFileSync(f, 'utf8'));
   const e = all.find((x) => x.key === 'ca-sb-813-ivos');
   e.status_text = 'Status: Passed Assembly Aug 30, 2026 (Ayes 67, Noes 6)'; // nothing about Sept 8 yet
+  e.events = e.events.filter((v) => v.date !== '2026-09-01'); // and no author event on a nearby date: the step is genuinely new
   edit(e);
   fs.writeFileSync(f, JSON.stringify(all, null, 1));
   const r = publishRun({ runDir, dataDir, docsDir: null, config: { max_entries_changed_per_run: 15, news_from_official_actions: true } });

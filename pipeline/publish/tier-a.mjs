@@ -50,6 +50,14 @@ export const actionRank = (text, source) => kindOf(text, source).importance;
 // another date. Returns that date (ISO) or null.
 const VERBS = ['enrolled', 'passed', 'signed', 'reported', 'vetoed'];
 const DAY = 86400000;
+// An existing event of the same type whose text uses the same verb, on another date within 14 days (an author's "enrolled Sept 1" against
+// the record's Sept 8): returns its date, or null.
+function nearbyEvent(events, a, type) {
+  const verb = VERBS.find((v) => new RegExp(`\\b${v}\\b`, 'i').test(a.text));
+  if (!verb || !type) return null;
+  const v = (events || []).find((x) => x.type === type && x.date !== a.date && Math.abs(Date.parse(x.date) - Date.parse(a.date)) <= 14 * DAY && new RegExp(`\\b${verb}\\b`, 'i').test(`${x.text} ${x.clause || ''}`));
+  return v ? v.date : null;
+}
 function saidNearby(statusText, a) {
   const verb = VERBS.find((v) => new RegExp(`\\b${v}\\b`, 'i').test(a.text));
   if (!verb) return null;
@@ -114,16 +122,21 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
         const type = typeOf(a.text, item.source), milestone = isMilestone(a.text, item.source); // each source's own rules
         if (!type && !milestone) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `procedural action, not written: ${a.text}` }); continue; }
         const shown = multi && a.bill ? `${a.bill}: ${a.text}` : a.text;
+        // Already said, perhaps in the author's own words: the status text names that date or the words; or the same verb within 14 days in
+        // the status text or on an existing event of the same type. Then the dates disagree: that is reported, and nothing is written twice
+        // (neither a status line nor a second event).
+        const exact = (e.status_text || '').includes(a.text) || datesMentioned(e.status_text, [], +(e.last_checked || runDate).slice(0, 4)).has(a.date);
+        const near = exact ? null : saidNearby(e.status_text, a) || nearbyEvent(e.events, a, type);
+        if (near) {
+          disagreements.push({ entry_key: e.key, date: a.date, said: near, text: a.text, source_url: item.source_url });
+          skipped.push({ item_id: d.item_id, entry_key: e.key, why: `disagreement: the record dates "${a.text}" ${longDate(a.date)}, the entry says ${longDate(near)}; not written twice` });
+          continue;
+        }
         if (type && !e.events.some((v) => v.date === a.date && v.type === type)) {
           e.events.push({ date: a.date, precision: 'day', type, text: cut(shown, 200), clause: a.text, scheduled: a.date > cutoff, source_url: item.source_url });
           log.push({ entry_key: e.key, field: 'events', old: null, new: { date: a.date, type, text: a.text }, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
         }
         (e.evidence = e.evidence || []).push({ field: 'events', quote: a.text, source_url: item.source_url });
-        // Already said, perhaps in the author's own words: the status text names that date or the words; or the same verb within 14 days
-        // (then the dates disagree, which is reported, never written twice).
-        const exact = (e.status_text || '').includes(a.text) || datesMentioned(e.status_text, [], +(e.last_checked || runDate).slice(0, 4)).has(a.date);
-        const near = exact ? null : saidNearby(e.status_text, a);
-        if (near) { const x = { entry_key: e.key, date: a.date, said: near, text: a.text, source_url: item.source_url }; disagreements.push(x); skipped.push({ item_id: d.item_id, entry_key: e.key, why: `disagreement: the record dates "${a.text}" ${longDate(a.date)}, the status text says ${longDate(near)}; not written twice` }); }
         const backfill = a.date < latestSaid;
         const why = !milestone ? 'not a milestone' : backfill ? `earlier than ${longDate(latestSaid)}, the latest date in the status text (back-fill)` : lineDates.has(a.date) ? 'a more important action that day has the line' : near ? 'already said on a nearby date' : null;
         if (why) { notes.push({ date: a.date, text: `${shown} [event only: ${why}]`, quote: a.text, news: false }); continue; }
@@ -145,6 +158,10 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
         const fetched = String(item.fetched_at || '').slice(0, 10), asOf = e.record_facts && e.record_facts.cosponsors && e.record_facts.cosponsors.as_of;
         if ((fetched && e.last_changed && fetched < e.last_changed) || (asOf && asOf > runDate)) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `cosponsor total ${n} is from a record of ${fetched || runDate}, older than the entry (changed ${e.last_changed}${asOf ? `, total as of ${asOf}` : ''})` }); continue; }
         const totals = [...String(e.status_text || '').matchAll(TOTAL_IN_TEXT)].map((x) => x[1]);
+        // A falling total means someone withdrew, whom the hand-written text may still name: reported, never written.
+        const suffix = COSPONSOR_SUFFIX.exec(String(e.sponsor_text || ''));
+        const was = (e.record_facts && e.record_facts.cosponsors && e.record_facts.cosponsors.count) ?? (suffix ? +suffix[1] : totals.length ? +totals[0] : null);
+        if (was !== null && n < was) { disagreements.push({ entry_key: e.key, field: 'cosponsors', said: was, record: n, source_url: item.source_url }); skipped.push({ item_id: d.item_id, entry_key: e.key, why: `cosponsor total fell from ${was} to ${n} (a withdrawal): reported, not written` }); continue; }
         if (new Set(totals).size > 1) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `cosponsor total ${n}: the status text gives more than one total (${totals.join(', ')}); not written` }); continue; }
         const old = e.record_facts && e.record_facts.cosponsors ? clone(e.record_facts.cosponsors) : null;
         if (old && old.count === n && !(totals.length && Number(totals[0]) !== n)) continue;
