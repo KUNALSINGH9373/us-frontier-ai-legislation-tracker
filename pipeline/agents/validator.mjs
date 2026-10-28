@@ -20,7 +20,7 @@ export function buildClaims({ patch, operation }) {
   return claims;
 }
 
-export async function validateDraft({ llm, patch, before, after, assembleProblems, source, sourceText, entries, operation, itemId, run_id, attempt }) {
+export async function validateDraft({ llm, patch, before, after, assembleProblems, source, sourceText, readText = sourceText, entries, operation, itemId, run_id, attempt }) {
   const code_checks = runChecks({ patch, before, after, assembleProblems, source, sourceText, entries, operation });
   const claims = [], verdict = { run_id, item_id: itemId, attempt, passed: false, code_checks, claims };
   const codePassed = code_checks.every((c) => c.passed);
@@ -29,7 +29,7 @@ export async function validateDraft({ llm, patch, before, after, assembleProblem
   const list = after ? buildClaims({ patch, operation }) : [];
   if (list.length) {
     let res;
-    try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: sourceText, claims: list }), itemId }); }
+    try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: readText, claims: list }), itemId }); }
     catch (e) {
       if (!(e instanceof LlmOutputError)) throw e;
       list.forEach((c) => claims.push({ field: c.field, claim: c.claim, supported: false, evidence_quote: null, reason: `the independent reader gave an unusable answer (${e.message}); treated as unsupported` }));
