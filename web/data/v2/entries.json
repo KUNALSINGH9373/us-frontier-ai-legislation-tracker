@@ -3335,7 +3335,7 @@
   "mechanism": "Enrolled text read. By Jan 1, 2028 the Government Operations Agency must: develop IVO designation application requirements and criteria (risk-assessment competence, technical expertise, conflict-of-interest management — IVO may be paid by the assessed party at market rates but not on terms conditioned on results — and operational independence); develop suspension/termination procedures; convene working groups that must include engineers from competing AI companies and AI safety experts ; report to the Legislature. Designated IVOs file annual reports. §8898.4 expressly: no liability solely for failing a standard; no state endorsement; no requirement that anyone engage an IVO or undergo a covered audit; an audit under the standard is \"relevant to, but not conclusive of\" a harm action — i.e., no presumption of reasonable care. Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Passed Assembly Aug 30 (53–4); Senate concurred Aug 30 (37–0); enrolled Sept 1, 2026 ; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 179, Statutes of 2026. Executive Order N-9-26 (Section G) directs GovOps to complete the IVO application requirements by May 1, 2027, ahead of the statutory Jan 1, 2028 date",
+  "status_text": "Status: Passed Assembly Aug 30, 2026 (67–6); Senate concurred Aug 30, 2026 (37–0); enrolled and presented to the Governor Sept 8, 2026; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 179, Statutes of 2026. Executive Order N-9-26 (Section G) directs GovOps to complete the IVO application requirements by May 1, 2027, ahead of the statutory Jan 1, 2028 date",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -3343,17 +3343,17 @@
     "date": "2026-08-30",
     "precision": "day",
     "type": "Passed / advanced",
-    "text": "Passed Assembly Aug 30 (53–4)",
-    "clause": "Passed Assembly Aug 30 (53–4)",
+    "text": "Passed Assembly Aug 30, 2026 (67–6)",
+    "clause": "Read third time. Passed. (Ayes 67. Noes 6. Page 6872.) Ordered to the Senate.",
     "inferred_year": true,
     "scheduled": false
    },
    {
-    "date": "2026-09-01",
+    "date": "2026-09-08",
     "precision": "day",
     "type": "Passed / advanced",
-    "text": "enrolled Sept 1, 2026",
-    "clause": "enrolled Sept 1, 2026",
+    "text": "Enrolled and presented to the Governor Sept 8, 2026",
+    "clause": "Enrolled and presented to the Governor at 4 p.m.",
     "inferred_year": false,
     "scheduled": false
    },
@@ -3415,10 +3415,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-813-independent-verification-organizations-gov-code-8898-8898-4",
    "section_name": "State IVO / AI-auditor licensing measures"
