@@ -9,6 +9,8 @@ import { containsQuote } from '../agents/source-text.mjs';
 import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem, AMEND_PREFIX } from '../links/rules.mjs';
 import { sponsorQuoteProblem, amendsLaw } from '../links/propose.mjs';
 import { linkKey } from '../news/feeds.mjs';
+import { eventDisagreements, sameEvent } from '../news/write.mjs';
+import { entryIndex } from '../news/leads.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
 export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
@@ -73,6 +75,14 @@ export function checkNewsAdded({ before, after, expected, checkLine }) {
       thisRun.add(k);
     }
   }
+  // A dated bill event must agree with the entry's record, and no added item may report an event already on the page or reported by
+  // another added item in other words (news/write.mjs eventDisagreements, sameEvent): the drafting step's checks, repeated here.
+  const ix = entryIndex(after.entries || []);
+  added.forEach((n, i) => {
+    for (const x of eventDisagreements({ text: `${n.title}. ${n.body || ''}`, date: n.date, index: ix })) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: ${x}`);
+    const twin = [...before.news.items, ...added.slice(0, i)].find((o) => sameEvent(n, o));
+    if (twin) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: reports the same event as "${String(twin.title).slice(0, 60)}" (${twin.date})`);
+  });
   if (added.length !== expected.length) problems.push(`${added.length} news items added, expected ${expected.length}`);
   if (JSON.stringify(before.entries) !== JSON.stringify(after.entries)) problems.push('entries changed: the news step may not change them');
   return problems;

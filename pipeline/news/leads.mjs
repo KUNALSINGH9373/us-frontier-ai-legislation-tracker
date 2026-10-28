@@ -19,8 +19,8 @@ const titleKey = (t) => norm(t).replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').
 const BILL = /\b(H\.?\s?R|S\.?\s?B|H\.?\s?B|A\.?\s?B|H\.?\s?F|S\.?\s?F|S|A)\.?\s?(\d{1,5})\b/g;
 // Bill numbers in a headline or a release, read more strictly: a one-letter prefix needs its full stop ("S. 2938", "A.5275"; a bare
 // "S 12" or "A 5" is too common in ordinary text), and the "S." of "U.S." is not a bill.
-const BILL_TEXT = /(?<![.\w])(?:(H\.?\s?R|S\.?\s?B|H\.?\s?B|A\.?\s?B|H\.?\s?F|S\.?\s?F)\.?|(S|A)\.)\s?(\d{1,5})\b/g;
-const numOf = (prefix, n) => prefix.replace(/[.\s]/g, '').toUpperCase() + n;
+export const BILL_TEXT = /(?<![.\w])(?:(H\.?\s?R|S\.?\s?B|H\.?\s?B|A\.?\s?B|H\.?\s?F|S\.?\s?F)\.?|(S|A)\.)\s?(\d{1,5})\b/g;
+export const numOf = (prefix, n) => prefix.replace(/[.\s]/g, '').toUpperCase() + n;
 export const billNumbers = (s) => new Set([...String(s || '').matchAll(BILL_TEXT)].map((m) => numOf(m[1] || m[2], m[3])));
 const STATES = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming' };
 const CODE_OF = Object.fromEntries(Object.entries(STATES).map(([c, n]) => [n.toLowerCase(), c]));
@@ -55,14 +55,14 @@ export function entryIndex(entries) {
     const bills = new Set([...String(`${e.short_name} ${e.title}`).matchAll(BILL)].map((m) => numOf(m[1], m[2])));
     // jurisdiction: "US" for a federal entry (even one filed under a state, like a California court case), else the state's code.
     const jur = e.jurisdiction && e.jurisdiction !== 'US' && e.jurisdiction !== 'Federal' ? e.jurisdiction : (e.level === 'state' && e.state) ? e.state : 'US';
-    return { key: e.key, short_name: e.short_name, bills, names: actNames(e), sponsors: surnames(e), state: e.state || null, jur };
+    return { key: e.key, short_name: e.short_name, bills, names: actNames(e), sponsors: surnames(e), state: e.state || null, jur, events: (e.events || []).filter((v) => v && /^\d{4}-\d{2}-\d{2}$/.test(String(v.date || ''))).map((v) => ({ date: v.date, type: v.type })) };
   });
 }
 
 // A bill number in the text names this entry only in the entry's own jurisdiction: a federal entry needs a federal number ("H.R." or
 // "S.") with no state written before it; a state entry needs its own state written before the number ("Nevada SB 53" is never
 // California's SB 53), or no state written and the feed being that state's own (source config "state").
-const billHit = (x, mentions, srcState) => mentions.some((b) => x.bills.has(b.num) && (x.jur === 'US' ? b.state === null && /^(HR|S)\d/.test(b.num) : b.state === x.jur || (b.state === null && srcState === x.jur)));
+export const billHit = (x, mentions, srcState) => mentions.some((b) => x.bills.has(b.num) && (x.jur === 'US' ? b.state === null && /^(HR|S)\d/.test(b.num) : b.state === x.jur || (b.state === null && srcState === x.jur)));
 const nameHit = (x, text, low, srcState) => x.names.some((n) => low.includes(norm(n))) && (x.jur === 'US' || srcState === x.jur || namesState(text, x.jur));
 
 // Which tracked entries a text (a headline, or a release) is about: by bill number or by the bill's name, in the entry's own
