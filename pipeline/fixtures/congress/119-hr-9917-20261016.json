@@ -1,0 +1,119 @@
+{
+ "id": "119/hr/9917",
+ "list_item": null,
+ "bill": {
+  "actions": {
+   "count": 4,
+   "url": "https://api.congress.gov/v3/bill/119/hr/9917/actions?format=json"
+  },
+  "committees": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/hr/9917/committees?format=json"
+  },
+  "congress": 119,
+  "constitutionalAuthorityStatementText": "<pre>\n[Congressional Record Volume 172, Number 121 (Thursday, July 23, 2026)]\n[House]\nFrom the Congressional Record Online through the Government Publishing Office [<a href=\"https://www.gpo.gov\">www.gpo.gov</a>]\nBy Mr. LIEU:\nH.R. 9917.\nCongress has the power to enact this legislation pursuant\nto the following:\nArticle 1, Section 8\n[Page H5198]\n</pre>",
+  "cosponsors": {
+   "count": 11,
+   "countIncludingWithdrawnCosponsors": 11,
+   "url": "https://api.congress.gov/v3/bill/119/hr/9917/cosponsors?format=json"
+  },
+  "introducedDate": "2026-07-23",
+  "latestAction": {
+   "actionDate": "2026-07-24",
+   "text": "Referred to the Subcommittee on Cybersecurity and Infrastructure Protection."
+  },
+  "legislationUrl": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+  "number": "9917",
+  "originChamber": "House",
+  "originChamberCode": "H",
+  "policyArea": {
+   "name": "Government Operations and Politics"
+  },
+  "sponsors": [
+   {
+    "bioguideId": "L000582",
+    "district": 36,
+    "firstName": "Ted",
+    "fullName": "Rep. Lieu, Ted [D-CA-36]",
+    "isByRequest": "N",
+    "lastName": "Lieu",
+    "party": "D",
+    "state": "CA",
+    "url": "https://api.congress.gov/v3/member/L000582?format=json"
+   }
+  ],
+  "subjects": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/hr/9917/subjects?format=json"
+  },
+  "textVersions": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/hr/9917/text?format=json"
+  },
+  "title": "AI Kill Switch Act",
+  "titles": {
+   "count": 3,
+   "url": "https://api.congress.gov/v3/bill/119/hr/9917/titles?format=json"
+  },
+  "type": "HR",
+  "updateDate": "2026-10-06T08:05:55Z",
+  "updateDateIncludingText": "2026-10-06T08:05:55Z"
+ },
+ "actions": [
+  {
+   "actionCode": "H11000",
+   "actionDate": "2026-07-24",
+   "committees": [
+    {
+     "name": "Cybersecurity and Infrastructure Protection Subcommittee",
+     "systemCode": "hshm08",
+     "url": "https://api.congress.gov/v3/committee/house/hshm08?format=json"
+    }
+   ],
+   "sourceSystem": {
+    "code": 1,
+    "name": "House committee actions"
+   },
+   "text": "Referred to the Subcommittee on Cybersecurity and Infrastructure Protection.",
+   "type": "Committee"
+  },
+  {
+   "actionCode": "H11100",
+   "actionDate": "2026-07-23",
+   "committees": [
+    {
+     "name": "Homeland Security Committee",
+     "systemCode": "hshm00",
+     "url": "https://api.congress.gov/v3/committee/house/hshm00?format=json"
+    }
+   ],
+   "sourceSystem": {
+    "code": 2,
+    "name": "House floor actions"
+   },
+   "text": "Referred to the House Committee on Homeland Security.",
+   "type": "IntroReferral"
+  },
+  {
+   "actionCode": "Intro-H",
+   "actionDate": "2026-07-23",
+   "sourceSystem": {
+    "code": 9,
+    "name": "Library of Congress"
+   },
+   "text": "Introduced in House",
+   "type": "IntroReferral"
+  },
+  {
+   "actionCode": "1000",
+   "actionDate": "2026-07-23",
+   "sourceSystem": {
+    "code": 9,
+    "name": "Library of Congress"
+   },
+   "text": "Introduced in House",
+   "type": "IntroReferral"
+  }
+ ],
+ "summaries": []
+}

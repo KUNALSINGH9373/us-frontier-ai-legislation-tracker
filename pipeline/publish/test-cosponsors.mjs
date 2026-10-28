@@ -114,5 +114,49 @@ const entry = (dir) => loadData(dir).entries.find((e) => e.key === KEY);
   ok('a malformed record fact fails the schema', checkPublish({ before, after: bad, runDate: '2026-10-28', maxEntries: 15 }).problems.some((p) => /schema/.test(p)));
 }
 
+// ---------- 5. no sponsor text: the record fact is still stored, no fixed-wording end is added (S8) ----------
+{
+  const s = setup({ editEntry: (e) => { e.sponsor_text = ''; e.record_facts = { cosponsors: { count: 9, as_of: '2026-10-01', source_url: URL_9925 } }; } });
+  const r = publish(s), e = entry(s.dataDir);
+  ok('an entry with no sponsor text publishes the total as a record fact only', r.status === 'published' && e.sponsor_text === '' && e.record_facts.cosponsors.count === 11 && makeValidator().check('entry', e).length === 0, r.summary);
+}
+
+// ---------- 6. H.R. 9917: the real record fetched 16 Oct 2026 (11 cosponsors) against the entry as written 28 Oct (12) ----------
+// R3 #1 (an older run overwrote a newer hand-written total) and #2 (the status text's own "for 12 cosponsors in all").
+const K17 = 'h-r-9917-ai-kill-switch-act', URL_9917 = 'https://www.congress.gov/bill/119th-congress/house-bill/9917';
+const ST_9917 = 'Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all';
+function setup17({ editEntry = () => {}, runDate = '2026-10-16' } = {}) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cosponsors-')), dataDir = path.join(dir, 'data'), runDir = path.join(dir, 'run');
+  fs.cpSync(path.join(FX, 'publish', 'data-2026-10-08'), dataDir, { recursive: true });
+  const entries = j(path.join(dataDir, 'entries.json')), e = entries.find((x) => x.key === K17);
+  e.sponsor_text = 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 12 cosponsors in all (Congress.gov)'; e.status_text = ST_9917;
+  editEntry(e);
+  w(path.join(dataDir, 'entries.json'), entries);
+  const raw = fs.readFileSync(path.join(FX, 'congress', '119-hr-9917-20261016.json'), 'utf8');
+  fs.mkdirSync(path.join(runDir, 'raw', 'congress_gov'), { recursive: true });
+  fs.writeFileSync(path.join(runDir, 'raw', 'congress_gov', '119-hr-9917.json'), raw);
+  w(path.join(runDir, 'changeset.json'), { run_id: 'run-20261016-0639-d7e3', generated_at: runDate + 'T06:39:27Z', items: [{ item_id: 'congress_gov:119/hr/9917', source: 'congress_gov', source_id: '119/hr/9917', entry_key: K17, change: 'changed', reason: 'updated_since_cursor', source_url: URL_9917, fetched_at: '2026-10-16T06:39:27Z', raw_hash: sha(raw), raw_path: 'raw/congress_gov/119-hr-9917.json', title: 'AI Kill Switch Act' }] });
+  const diff = compareRun({ runDir, entries });
+  const r = publishRun({ runDir, dataDir, docsDir: null, config: CONFIG });
+  return { diff, r, e: loadData(dataDir).entries.find((x) => x.key === K17) };
+}
+{
+  // the replay that went wrong: the entry was last changed 28 Oct, the record is of 16 Oct
+  const { diff, r, e } = setup17({ editEntry: (x) => { x.last_changed = '2026-10-28'; } });
+  ok('9917: compare sees 12 -> 11', diff.items[0].reasons.some((x) => x.kind === 'cosponsors_change' && x.api_value === '11' && x.our_value === '12'), JSON.stringify(diff.items[0]));
+  ok('9917: a record older than the entry\'s last change never overwrites it (stale total skipped, with the reason)', r.status === 'quiet' && /12 cosponsors in all/.test(e.sponsor_text) && !e.record_facts && /cosponsor total 11 is from a record of 2026-10-16, older than the entry \(changed 2026-10-28\)/.test(r.summary), r.summary);
+  const t = setup17({ editEntry: (x) => { x.record_facts = { cosponsors: { count: 12, as_of: '2026-10-20', source_url: URL_9917 } }; } });
+  ok('9917: a stored total dated after the run is never overwritten', t.r.status === 'quiet' && t.e.record_facts.cosponsors.count === 12 && /total as of 2026-10-20/.test(t.r.summary), t.r.summary);
+}
+{
+  // the same record on an entry last changed before it: the total and the status text's own total both become 11
+  const { r, e } = setup17();
+  ok('9917: a newer record updates the sponsor text\'s fixed end', r.status === 'published' && e.sponsor_text === 'Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 11 cosponsors in all (Congress.gov)' && e.record_facts.cosponsors.count === 11, r.summary);
+  ok('9917: the status text\'s "for 12 cosponsors in all" says the same total', e.status_text === ST_9917.replace('for 12 cosponsors in all', 'for 11 cosponsors in all'), e.status_text);
+  ok('9917: the entry passes its schema', makeValidator().check('entry', e).length === 0);
+  const amb = setup17({ editEntry: (x) => { x.status_text = ST_9917 + '; earlier, for 10 cosponsors in all'; } });
+  ok('9917: two different totals in the status text: nothing written, reported', amb.r.status === 'quiet' && /more than one total \(12, 10\)/.test(amb.r.summary) && /12 cosponsors in all \(Congress/.test(amb.e.sponsor_text), amb.r.summary);
+}
+
 console.log(`\ncosponsors: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
