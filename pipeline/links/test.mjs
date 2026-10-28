@@ -9,8 +9,8 @@ import { fileURLToPath, pathToFileURL } from 'url';
 import { proposeByCode, proposeByAI, propose, citations, clauses, leadSponsors, nodeFor, companions, LABEL } from './propose.mjs';
 import { applyLinks } from './apply.mjs';
 import { linkRun } from './run.mjs';
-import { backtest } from './backtest.mjs';
-import { checkPublish } from '../publish/guards.mjs';
+import { backtest, errorsOf, labelOk } from './backtest.mjs';
+import { checkPublish, checkLinks } from '../publish/guards.mjs';
 import { loadData } from '../publish/run.mjs';
 import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
@@ -39,11 +39,12 @@ const withEntry = (e) => ({ ...clone(real), entries: [...clone(real.entries), e]
 // ---------- 1. the backtest on the real network: zero false links ----------
 {
   const b = backtest({ entries: real.entries, relationships: real.relationships });
-  ok('1 the code proposer makes no false link on the real network', b.falseLinks.length === 0, b.falseLinks.map((f) => `${f.from} -> ${f.to}`).join(', '));
-  ok('1 it recovers at least the 36 links it recovered when built (33 sponsors, 3 amendments)', b.recovered.size >= 36, `recovered ${b.recovered.size}`);
+  ok('1 the code proposer makes no false link, no wrong direction and no wrong label on the real network (strict scoring)', errorsOf(b) === 0, [...b.falseLinks, ...b.wrongDirection, ...b.wrongLabel].map((f) => `${f.from} -> ${f.to} ${f.label}`).join(', '));
+  ok('1 the only conflict is NYTERM -> RAISE against the hand-written RAISE -> NYTERM, whose label names its own from', b.conflicts.length === 1 && b.conflicts[0].from === 'NYTERM' && b.conflicts[0].to === 'RAISE', JSON.stringify(b.conflicts.map((c) => c.from + '>' + c.to)));
+  ok('1 it recovers at least the 24 links it recovered on 28 Oct 2026 with full-name sponsor matching (23 sponsors, 1 amendment)', b.recovered.size >= 24, `recovered ${b.recovered.size}`);
   ok('1 every succession link it recovers is a bill amending the RAISE Act', [...b.recovered].filter((k) => k.endsWith('|succession')).every((k) => k.includes('RAISE')));
   const fresh = backtest({ entries: real.entries, relationships: real.relationships, asNew: true });
-  ok('1 as brand-new bills (their node removed too) still no false link and the same recall', fresh.falseLinks.length === 0 && fresh.recovered.size === b.recovered.size);
+  ok('1 as brand-new bills (their node removed too) still no false link and the same recall', errorsOf(fresh) === 0 && fresh.recovered.size === b.recovered.size);
   const all = proposeByCode({ entries: real.entries, relationships: real.relationships, changed: real.entries.map((e) => e.key) });
   ok('1 on the full network nothing new is proposed (every true link is already there)', all.proposals.length === 0, JSON.stringify(all.proposals[0]));
 }
@@ -131,7 +132,7 @@ const QA = 'shall write, implement, comply with, and clearly and conspicuously p
   const d = withEntry(e);
   const r = proposeByCode({ entries: d.entries, relationships: d.relationships, changed: [e.key] });
   const dup = { ...clone(r.proposals[0]) }, old = real.relationships.edges[0];
-  const reverse = { from: old.to, to: old.from, type: old.type, label: 'Same link the other way', evidence: [{ entry_key: 'x', quote: 'a quote that is long', source_url: 'https://example.gov/x' }], method: 'code' };
+  const reverse = { from: old.to, to: old.from, type: old.type, label: 'Same link the other way', evidence: [{ entry_key: 'x', node: old.to, field: 'mechanism', quote: 'a quote that is long', source_url: 'https://example.gov/x' }], method: 'code' };
   const noQuote = { ...clone(r.proposals[0]), type: 'template', evidence: [{ entry_key: e.key, quote: '', source_url: null }] };
   const a = applyLinks({ data: d, proposals: [...r.proposals, dup, reverse, noQuote], nodes: { ...r.nodes, UNUSED: { name: 'never used', column: 4, kind: 'entry', entry_key: e.key } } });
   ok('5 the sponsor and amendment links are added', a.added.edges.length === 2 && a.added.edges.every((x) => x.origin === 'automated' && x.source_url && x.quote.length >= 8), JSON.stringify(a.skipped.map((s) => s.why)));
@@ -146,7 +147,7 @@ const QA = 'shall write, implement, comply with, and clearly and conspicuously p
 
   // ---------- 6. the stop rules: the network may only grow by exactly what apply added ----------
   const before = d, after = { ...d, relationships: a.relationships };
-  const run = (aft, links) => checkPublish({ before, after: aft, runDate: '2026-10-28', maxEntries: 15, newKeys: [e.key], maxNew: 1, links }).problems.filter((p) => /relationships|added link/.test(p));
+  const run = (aft, links) => checkPublish({ before, after: aft, runDate: '2026-10-28', maxEntries: 15, newKeys: [e.key], maxNew: 1, links: links && { ...links, created: [e.key] } }).problems.filter((p) => /relationships|added link/.test(p));
   ok('6 additions from links/apply.mjs pass', run(after, a.added).length === 0, run(after, a.added).join('; '));
   ok('6 without the links list, any change still stops the run', run(after, null).some((p) => /relationships changed: Tier A/.test(p)));
   const edited = clone(after); edited.relationships.edges[0].label = 'edited';
@@ -173,22 +174,170 @@ function sandbox() {
 }
 {
   const sb = sandbox(), relFile = path.join(sb.dataDir, 'relationships.json'), was = fs.readFileSync(relFile, 'utf8');
-  const off = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], config: { auto_publish: { relationships: false } }, runDate: '2026-10-28' });
+  const off = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: false } }, runDate: '2026-10-28' });
   ok('7 switched off: the links are proposed and nothing is written', off.status === 'proposed' && off.proposed.length === 2 && !off.applied.length && fs.readFileSync(relFile, 'utf8') === was);
   ok('7 the report names both ends and the quote', off.proposed.every((p) => p.names[0] && p.names[1] && p.quote) && /reported only/.test(off.summary));
   const rep = newReport({ id: 'update-test', now: new Date('2026-10-28T06:00:00Z') }); rep.links = off; finalize(rep, { now: new Date('2026-10-28T06:01:00Z') });
   const text = formatReport(rep);
   ok('7 the Telegram report lists them under "Links proposed"', /Links proposed: 2 \(reported only/.test(text) && /NY S\.99999 \(test\) → NY RAISE Act/.test(text), text);
-  const on = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
+  const on = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
   const written = JSON.parse(fs.readFileSync(relFile, 'utf8')), docs = JSON.parse(fs.readFileSync(path.join(sb.docsDir, 'relationships.json'), 'utf8'));
   ok('7 switched on: the links are added to the data and the live copy', on.status === 'written' && on.applied.length === 2 && written.edges.length === real.relationships.edges.length + 2 && docs.edges.length === written.edges.length, on.problems.join('; '));
   ok('7 the written network keeps every old edge in place', JSON.stringify(written.edges.slice(0, real.relationships.edges.length)) === JSON.stringify(real.relationships.edges));
-  const again = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
+  const again = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
   ok('7 a second run adds nothing (dedupe)', again.status === 'nothing' && JSON.parse(fs.readFileSync(relFile, 'utf8')).edges.length === written.edges.length);
   const dry = sandbox();
-  const dr = await linkRun({ dataDir: dry.dataDir, changed: [dry.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', dry: true });
+  const dr = await linkRun({ dataDir: dry.dataDir, changed: [dry.key], created: [dry.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', dry: true });
   ok('7 a dry run checks but writes nothing', dr.status === 'dry-run' && JSON.parse(fs.readFileSync(path.join(dry.dataDir, 'relationships.json'), 'utf8')).edges.length === real.relationships.edges.length);
   for (const s of [sb, dry]) fs.rmSync(s.dir, { recursive: true, force: true });
+}
+
+// ---------- 8. audit cases (28 Oct 2026): each a false link the old code made, kept as a permanent test ----------
+const code = (e, extra = {}) => proposeByCode({ ...withEntry(e), relationships: extra.relationships || real.relationships, changed: [e.key], ...extra });
+const fedBill = (o) => newEntry({ level: 'federal', state: null, jurisdiction: 'US', section: 'D', type: 'bill', title: 'S. 99999 — test', short_name: 'S. 99999 test', ...o });
+const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9999 — test', short_name: 'IL HB 9999', ...o });
+{
+  // 8.1 sponsors are matched on the whole person, never the surname alone
+  const jerry = code(fedBill({ sponsor_text: 'Sen. Jerry Moran (R-KS)' }));
+  ok('8.1 "Sen. Jerry Moran (R-KS)" is not linked to "Rep. Nathaniel Moran (R-TX)"', !jerry.proposals.some((x) => x.from === 'act-moran'), JSON.stringify(jerry.proposals));
+  const kelly = code(ilBill({ sponsor_text: 'Rep. Kelly Cunningham (D)' }));
+  ok('8.1 IL "Rep. Kelly Cunningham" is not linked to "Sen. Bill Cunningham"', !kelly.proposals.some((x) => x.from === 'act-cunningham'));
+  const bill = code(ilBill({ sponsor_text: 'Sen. Bill Cunningham (D)' }));
+  ok('8.1 IL "Sen. Bill Cunningham (D)" is linked to him', bill.proposals.some((x) => x.from === 'act-cunningham' && x.label === 'Sponsor'));
+  const party = code(fedBill({ sponsor_text: 'Rep. Nathaniel Moran (D-TX)' }));
+  ok('8.1 the same name with another party is not linked (the node states R)', !party.proposals.some((x) => x.from === 'act-moran'));
+  const st = code(fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-OK)' }));
+  ok('8.1 the same name from another state is not linked', !st.proposals.some((x) => x.from === 'act-moran'));
+  const nat = code(fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-TX)' }));
+  ok('8.1 the full match "Rep. Nathaniel Moran (R-TX)" is linked', nat.proposals.some((x) => x.from === 'act-moran'));
+  // two nodes for the same person: ambiguous, nothing proposed, reported
+  const twin = clone(real.relationships); twin.nodes['act-moran2'] = { ...twin.nodes['act-moran'] };
+  const amb = code(fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-TX)' }), { relationships: twin });
+  ok('8.1 two matching actor nodes: no proposal, a note says why', !amb.proposals.some((x) => x.type === 'actor') && amb.notes.some((n) => /ambiguous/.test(n.why)));
+  // from the official record: Congress.gov sponsors with bioguideId decide; the text is not used for identity
+  const recJerry = { bill: { sponsors: [{ bioguideId: 'M000934', firstName: 'Jerry', lastName: 'Moran', fullName: 'Sen. Moran, Jerry [R-KS]', party: 'R', state: 'KS' }] } };
+  const e1 = fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-TX)' });
+  ok('8.1 the Congress.gov record\'s sponsor (Jerry Moran, bioguide M000934) overrides the text: no link to Nathaniel Moran', !code(e1, { records: { [e1.key]: [recJerry] } }).proposals.some((x) => x.from === 'act-moran'));
+  const recNat = { bill: { sponsors: [{ bioguideId: 'M001224', firstName: 'Nathaniel', lastName: 'Moran', fullName: 'Rep. Moran, Nathaniel [R-TX-1]', party: 'R', state: 'TX' }] } };
+  const e2 = fedBill({ sponsor_text: 'Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX)' });
+  const r2 = code(e2, { records: { [e2.key]: [recNat] } });
+  ok('8.1 the record\'s primary sponsor is linked (quote: his full name in the entry text), the text\'s first name is not', r2.proposals.some((x) => x.from === 'act-moran' && x.record_id === 'bioguide:M001224' && x.evidence[0].quote === 'Nathaniel Moran') && !r2.proposals.some((x) => x.from === 'act-jacobs'), JSON.stringify(r2.proposals));
+  const e3 = fedBill({ sponsor_text: 'Rep. Moran (R-TX)' });
+  const r3 = code(e3, { records: { [e3.key]: [recNat] } });
+  ok('8.1 a record sponsor the entry text does not name in full: nothing proposed, reported', !r3.proposals.some((x) => x.type === 'actor') && r3.notes.some((n) => /not named/.test(n.why)));
+  const ls = { bill: { sponsors: [{ people_id: 1, first_name: 'Rebecca', last_name: 'Bauer-Kahan', role: 'Rep', party: 'D', sponsor_type_id: 2 }, { people_id: 18068, first_name: 'Scott', last_name: 'Wiener', role: 'Sen', party: 'D', sponsor_type_id: 1 }] } };
+  const e4 = newEntry({ jurisdiction: 'CA', state: 'CA', title: 'S.B. 999 — test', short_name: 'CA SB 999', sponsor_text: 'Sen. Scott Wiener (D); coauthor Asm. Rebecca Bauer-Kahan (D)' });
+  const r4 = code(e4, { records: { [e4.key]: [ls] } });
+  ok('8.1 LegiScan: only the primary sponsor (sponsor_type_id 1, people_id) is linked, not the co-sponsor', r4.proposals.some((x) => x.from === 'act-wiener' && x.record_id === 'legiscan:18068') && !r4.proposals.some((x) => x.from === 'act-bauerkahan'));
+}
+{
+  // 8.2 only the lead sponsor as stated
+  for (const t of ['Cosponsored by Sen. Josh Hawley (R-MO)', 'Opposed by Sen. Josh Hawley (R-MO)', 'Supported by Sen. Josh Hawley (R-MO)', 'Introduced by request; cosponsored by Hawley', 'Sen. Chuck Grassley (R-IA), cosponsored by Sen. Josh Hawley (R-MO)', 'Sen. Chuck Grassley (R-IA); opposed by Sen. Josh Hawley (R-MO)', 'Sen. Chuck Grassley (R-IA), Sen. Josh Hawley (R-MO), Sen. Mark Warner (D-VA)']) {
+    const r = code(fedBill({ sponsor_text: t }));
+    ok(`8.2 "${t}": no Sponsor link to Hawley or Warner`, !r.proposals.some((x) => x.from === 'act-hawley' || x.from === 'act-warner'), JSON.stringify(r.proposals.map((x) => x.from)));
+  }
+  ok('8.2 leadSponsors reads only the first person', leadSponsors('Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)') === 'Sens. Josh Hawley (R-MO)' && leadSponsors('Opposed by Sen. Josh Hawley (R-MO)') === '');
+}
+{
+  // 8.3 amendments: an explicit amend verb whose object is the law
+  const ca = (m) => newEntry({ jurisdiction: 'CA', state: 'CA', title: 'S.B. 999 — test', short_name: 'CA SB 999', sponsor_text: 'Sen. Jane Doe (D)', mechanism: m });
+  for (const m of ['Unlike TFAIA, adds duties for large developers', 'Adds duties that TFAIA lacks', 'Amends the Labor Code, unlike TFAIA, to protect whistleblowers', 'Builds on TFAIA and adds an audit duty', 'Amends the Labor Code to add duties like those in TFAIA']) {
+    ok(`8.3 "${m}": no amendment link to SB 53`, !code(ca(m)).proposals.some((x) => x.type === 'succession'), JSON.stringify(code(ca(m)).proposals));
+  }
+  const rep = newEntry({ mechanism: 'Repeals the RAISE Act and replaces it with a licensing regime' });
+  const rr = code(rep);
+  ok('8.3 a repeal is not drawn as "would amend"; it is reported', !rr.proposals.some((x) => x.type === 'succession') && rr.notes.some((n) => n.kind === 'amendment' && /repeal/.test(n.why)), JSON.stringify(rr));
+  const both = newEntry({ mechanism: 'Amends and repeals the RAISE Act' });
+  ok('8.3 a clause that amends and repeals the same law draws nothing', !code(both).proposals.some((x) => x.type === 'succession'));
+  ok('8.3 "Amends the RAISE Act" still links', code(newEntry({ mechanism: 'Amends the RAISE Act to add a whistleblower channel' })).proposals.some((x) => x.to === 'RAISE'));
+  ok('8.3 "Adds GBL §1425" (a section the RAISE Act occupies) still links', code(newEntry({ mechanism: 'Adds GBL §1425: annual third-party verification' })).proposals.some((x) => x.to === 'RAISE'));
+  // federal: a tracked law that occupies a U.S. Code section, and a bill amending it (en dash, "§ ", subsection)
+  const base = clone(real.entries.find((e) => e.key === 's-2938-ai-risk-evaluation-act'));
+  const law = { ...base, id: 9001, key: 'test-fed-law', status: 'enacted', type: 'law', title: 'National AI Initiative Act (15 U.S.C. §278h-1)', short_name: 'NAII Act', mechanism: 'Creates an office.' };
+  const rel = clone(real.relationships); rel.nodes.NAII = { name: 'NAII Act', column: 2, kind: 'entry', entry_key: law.key };
+  for (const m of ['Amends 15 U.S.C. §278h-1 to add reporting', 'Amends 15 U.S.C. § 278h–1(b) to add reporting', 'Amends section 5 of the NAII Act to add reporting']) {
+    const b = fedBill({ mechanism: m, sponsor_text: 'Rep. Nobody (D-OH)' });
+    const r = proposeByCode({ entries: [...real.entries, law, b], relationships: rel, changed: [b.key] });
+    ok(`8.3 federal "${m}" links to the law that occupies that section`, r.proposals.some((x) => x.to === 'NAII' && x.type === 'succession' && x.label === 'Would amend NAII Act'), JSON.stringify(r.proposals));
+  }
+  const cod = { ...law, key: 'test-fed-law2', title: 'National AI Initiative Act', mechanism: 'Codified at 15 U.S.C. 278h-1.' };
+  const rel2 = clone(real.relationships); rel2.nodes.NAII = { name: 'NAII Act', column: 2, kind: 'entry', entry_key: cod.key };
+  const b2 = fedBill({ mechanism: 'Amends 15 U.S.C. 278h-1 to add reporting' });
+  ok('8.3 a law "codified at" a section owns it', proposeByCode({ entries: [...real.entries, cod, b2], relationships: rel2, changed: [b2.key] }).proposals.some((x) => x.to === 'NAII'));
+  const b3 = fedBill({ mechanism: 'Unlike 15 U.S.C. §278h-1, adds an audit duty' });
+  ok('8.3 a federal citation without an amend verb tied to it draws nothing', !proposeByCode({ entries: [...real.entries, law, b3], relationships: rel, changed: [b3.key] }).proposals.some((x) => x.type === 'succession'));
+}
+{
+  // 8.4 evidence is honest: the quote is the tracker's own text, so the source is the entry's tracker page, and checkLinks verifies it
+  const e = newEntry({ mechanism: 'Amends Section 1422 of the General Business Law to shorten the incident deadline to 48 hours', sponsor_text: 'Sen. Andrew Gounardes (D)' });
+  const d = withEntry(e), r = code(e);
+  ok('8.4 every code proposal quotes the entry and cites its tracker page, never the bill URL', r.proposals.length === 2 && r.proposals.every((p) => p.evidence[0].source_url === 'https://usfrontierlaw.com/#/bill/' + e.id && e[p.evidence[0].field].includes(p.evidence[0].quote) && p.evidence[0].node === (p.type === 'actor' ? p.to : p.from)), JSON.stringify(r.proposals.map((p) => p.evidence[0])));
+  const a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
+  ok('8.4 the edge says where its quote sits (src = the entry\'s node, col = the field)', a.added.edges.every((x) => x.src && x.col && ['sponsor_text', 'mechanism'].includes(x.col) && x.source_url.startsWith('https://usfrontierlaw.com/#/bill/')));
+  const chk = (edges, extra = {}) => checkLinks(d.relationships, { ...a.relationships, edges: [...d.relationships.edges, ...edges] }, { edges, nodes: a.added.nodes, created: [e.key], ...extra }, d.entries);
+  ok('8.4 the applied edges pass checkLinks', chk(a.added.edges).length === 0, chk(a.added.edges).join('; '));
+  const billUrl = a.added.edges.map((x) => ({ ...x, source_url: 'https://www.nysenate.gov/legislation/bills/2025/S99999' }));
+  ok('8.4 entry prose with the bill URL as its source stops the run', chk(billUrl).some((p) => /tracker page/.test(p)));
+  const notThere = a.added.edges.map((x) => ({ ...x, quote: x.quote + ' and more words' }));
+  ok('8.4 a quote not word for word in the stated field stops the run', chk(notThere).some((p) => /not word for word/.test(p)));
+  const noSrc = a.added.edges.map(({ src, ...x }) => x);
+  ok('8.4 an edge that does not say where its quote sits stops the run', chk(noSrc).some((p) => /src/.test(p)));
+  const ai = [{ from: a.added.edges[1].from, to: 'SB53', type: 'template', label: LABEL.copies, dashed: true, quote: QA, source_url: 'https://www.nysenate.gov/legislation/bills/2025/S99999', src: a.added.edges[1].from, col: 'text', origin: 'automated' }];
+  ok('8.4 an AI edge whose quote is not in an official text the step read stops the run', chk(ai).some((p) => /official text/.test(p)));
+  ok('8.4 the same AI edge with that text passes', chk(ai, { texts: { 'https://www.nysenate.gov/legislation/bills/2025/S99999': A_TEXT } }).length === 0, chk(ai, { texts: { 'https://www.nysenate.gov/legislation/bills/2025/S99999': A_TEXT } }).join('; '));
+}
+{
+  // 8.5 hand-written entries never gain links automatically: reported only
+  const sb = sandbox(), relFile = path.join(sb.dataDir, 'relationships.json'), was = fs.readFileSync(relFile, 'utf8');
+  const on = await linkRun({ dataDir: sb.dataDir, changed: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
+  ok('8.5 an entry not created by automation (origin authored): its links are reported only, nothing written', on.applied.length === 0 && on.proposed.length === 0 && on.report_only.length === 2 && fs.readFileSync(relFile, 'utf8') === was && /report only/.test(on.summary), JSON.stringify(on));
+  const gou = await linkRun({ dataDir: realData, changed: ['ny-s-10373-verification'], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', dry: true });
+  ok('8.5 a hand-written entry Tier A touched gains nothing', gou.applied.length === 0 && gou.status !== 'written');
+  const d = loadData(sb.dataDir), r = proposeByCode({ entries: d.entries, relationships: d.relationships, changed: [sb.key] }), a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
+  ok('8.5 checkLinks stops an added link for a hand-written entry', checkLinks(d.relationships, a.relationships, a.added, d.entries).some((p) => /hand-written/.test(p)));
+  fs.rmSync(sb.dir, { recursive: true, force: true });
+}
+{
+  // 8.6 one direction and label convention (links/rules.mjs)
+  const draft = newEntry({ level: 'federal', state: null, jurisdiction: 'US', section: 'E', type: 'draft', status: 'pending', title: 'Draft — test', short_name: 'Test draft', sponsor_text: 'Sen. Marsha Blackburn (R-TN)' });
+  const rd = code(draft);
+  ok('8.6 a discussion draft\'s author is labelled "Draft author", not "Sponsor"', rd.proposals.some((x) => x.from === 'act-blackburn' && x.label === 'Draft author') && !rd.proposals.some((x) => x.label === 'Sponsor'));
+  const exec = newEntry({ level: 'federal', state: null, jurisdiction: 'US', section: 'G', type: 'executive', status: 'executive', title: 'Order — test', short_name: 'Test order', sponsor_text: 'Sen. Marsha Blackburn (R-TN)' });
+  ok('8.6 no sponsor link for an executive action', !code(exec).proposals.some((x) => x.type === 'actor'));
+  const am = code(newEntry({ mechanism: 'Amends the RAISE Act to add a whistleblower channel' })).proposals.find((x) => x.type === 'succession');
+  ok('8.6 an amendment goes from the amending bill to the law', am && am.to === 'RAISE' && am.from !== 'RAISE');
+  // the reverse already exists: never proposed, reported
+  const n = clone(real.relationships), e = newEntry({ mechanism: 'Amends the RAISE Act to add a whistleblower channel' });
+  const placed = proposeByCode({ ...withEntry(e), changed: [e.key] }).nodes, nk = Object.keys(placed)[0];
+  n.nodes[nk] = placed[nk]; n.edges.push({ from: 'RAISE', to: nk, type: 'succession', label: 'Would amend the RAISE Act', quote: 'Amends the RAISE Act', origin: 'authored' });
+  const rv = code(e, { relationships: n });
+  ok('8.6 an edge whose reverse exists is not proposed, and the note says so', !rv.proposals.some((x) => x.type === 'succession') && rv.notes.some((x) => x.kind === 'reverse'), JSON.stringify(rv));
+  // backtest scores direction and label
+  const fake = (p) => ({ entries, relationships, changed }) => ({ proposals: [p(relationships)], nodes: {}, companions: [], notes: [] });
+  const entries = real.entries, sample = ['ny-s-10373-verification'];
+  const wrongDir = backtest({ entries, relationships: real.relationships, sample, proposer: fake(() => ({ from: 'RAISE', to: 'S10373', type: 'succession', label: 'Would amend S10373', evidence: [{ quote: 'x' }] })) });
+  ok('8.6 backtest: the right pair the wrong way round is a wrong direction, not right', wrongDir.wrongDirection.length === 1 && !wrongDir.recovered.size);
+  const wrongLab = backtest({ entries, relationships: real.relationships, sample: ['gaaia-discussion-draft'], proposer: fake(() => ({ from: 'act-obernolte', to: 'GAAIA', type: 'actor', label: 'Sponsor', evidence: [{ quote: 'x' }] })) });
+  ok('8.6 backtest: "Sponsor" where the network says "Draft author" is a wrong label', wrongLab.wrongLabel.length === 1 && !wrongLab.recovered.size);
+  ok('8.6 labelOk: "Sponsor" is not "Cosponsor" or "Coauthor"; "Chief sponsor" is', !labelOk('Sponsor', 'Cosponsor', 'actor') && !labelOk('Sponsor', 'Coauthor', 'actor') && !labelOk('Sponsor', 'House cosponsor', 'actor') && labelOk('Sponsor', 'Chief sponsor', 'actor'));
+}
+{
+  // 8.7 checkLinks checks meaning, not only shape
+  const e = newEntry({ mechanism: 'Amends Section 1422 of the General Business Law to shorten the incident deadline to 48 hours', sponsor_text: 'Sen. Andrew Gounardes (D)' });
+  const d = withEntry(e), r = code(e), a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
+  const [sp, am] = [a.added.edges.find((x) => x.type === 'actor'), a.added.edges.find((x) => x.type === 'succession')];
+  const chk = (edges, nodes = a.added.nodes) => checkLinks(d.relationships, { ...a.relationships, nodes: { ...a.relationships.nodes, ...nodes }, edges: [...d.relationships.edges, ...edges] }, { edges, nodes, created: [e.key] }, d.entries);
+  ok('8.7 an edge to a node that does not exist stops the run', chk([{ ...am, to: 'NO-SUCH' }]).some((p) => /not a node/.test(p)));
+  ok('8.7 a sponsor edge from an entry (not an actor) stops the run', chk([{ ...sp, from: 'SB53' }]).some((p) => /from an actor/.test(p)));
+  ok('8.7 a sponsor edge from a non-legislator actor stops the run', chk([{ ...sp, from: 'act-anthropic' }]).some((p) => /not a legislator/.test(p)));
+  ok('8.7 a "Sponsor" label on a draft stops the run', chk([{ ...sp, to: 'GAAIA', src: 'GAAIA' }]).some((p) => /Draft author/.test(p)));
+  ok('8.7 an amendment label that does not name the law at its end stops the run', chk([{ ...am, label: 'Would amend CA SB 53' }]).some((p) => /does not name/.test(p)));
+  ok('8.7 an amendment across jurisdictions stops the run', chk([{ ...am, to: 'SB53', label: 'Would amend ' + real.relationships.nodes.SB53.name }]).some((p) => /one jurisdiction/.test(p)));
+  const s10373 = real.entries.find((x) => x.key === 'ny-s-10373-verification');
+  const back = { from: 'RAISE', to: 'S10373', type: 'template', label: LABEL.copies, dashed: true, quote: s10373.mechanism.slice(0, 40), source_url: 'https://usfrontierlaw.com/#/bill/' + s10373.id, src: 'S10373', col: 'mechanism', origin: 'automated' };
+  ok('8.7 an edge the network has the other way round (S10373 -> RAISE) stops the run', chk([back]).some((p) => /other way/.test(p)));
+  ok('8.7 two added edges joining the same pair both ways stop the run', chk([am, { ...am, from: am.to, to: am.from, type: 'template', label: LABEL.copies, dashed: true }]).some((p) => /other way/.test(p)));
+  ok('8.7 a label the pipeline never writes stops the run', chk([{ ...am, label: 'Related bill' }]).some((p) => /not one the pipeline writes/.test(p)));
 }
 
 console.log(`\nlinks: ${pass} passed, ${fail} failed`);

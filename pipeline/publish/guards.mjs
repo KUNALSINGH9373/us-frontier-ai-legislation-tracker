@@ -5,6 +5,8 @@ import { checkIntegrity } from '../schema/integrity.mjs';
 import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { FACT_FIELDS } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
+import { containsQuote } from '../agents/source-text.mjs';
+import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem } from '../links/rules.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
 export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
@@ -131,7 +133,8 @@ const CORRECTABLE = new Set(READING_FIELDS);
 
 // newKeys: the entries Tier B added this run (any other new entry stops the run); maxNew: the per-run limit on them.
 // corrected: { entry key: [fields] } the self-correction step changed this run (correct/apply.mjs); only reading fields are allowed.
-// links: { edges, nodes } links/apply.mjs added this run; the network may grow by exactly these and nothing else.
+// links: { edges, nodes, texts?, created? } links/apply.mjs added this run; the network may grow by exactly these and nothing
+// else (texts: { url: official text } for AI links; created: entry keys created this run).
 export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [], corrected = {}, links = null }) {
   const problems = [];
   // 1. every output file passes its schema, and the files agree with each other
@@ -195,7 +198,7 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
   });
   if ((after.changes.items || []).length < (before.changes.items || []).length) problems.push('change log entries deleted');
   if (!links) { if (!same(before.relationships, after.relationships)) problems.push('relationships changed: Tier A does not change them'); }
-  else checkLinks(before.relationships, after.relationships, links).forEach((p) => problems.push(p));
+  else checkLinks(before.relationships, after.relationships, links, after.entries).forEach((p) => problems.push(p));
   // 4. a run that changes too much at once is an anomaly
   if (changed > maxEntries) problems.push(`${changed} entries would change, over the limit of ${maxEntries} per run`);
   // 5. the source text read now is the text fetched at grab time
@@ -204,20 +207,37 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
 }
 
 // The network after a links step: the old network unchanged, plus exactly the edges and nodes links/apply.mjs added, each from the
-// pipeline with a quote and a source URL. Any edit, deletion, reordering or other addition stops the run.
-export function checkLinks(b, a, links) {
-  const problems = [], addE = links.edges || [], addN = links.nodes || {};
+// pipeline with a quote and a source URL. Any edit, deletion, reordering or other addition stops the run. Each added edge must
+// also mean what it says (links/rules.mjs): both ends are nodes, the ends' kinds and the entry's type fit the label, the quote is
+// word for word in the source it names (the entry's field at src, with that entry's tracker page as source_url; or the official
+// text at source_url for an AI link), the entry it is for was made by the automation, and no edge joins the pair the other way.
+export function checkLinks(b, a, links, entries = []) {
+  const problems = [], addE = links.edges || [], addN = links.nodes || {}, texts = links.texts || {}, created = links.created || [];
   if (!same(b.types, a.types) || !same(b.columns, a.columns)) problems.push('relationships changed: link types or columns may not change');
   Object.keys(b.nodes).filter((k) => !same(b.nodes[k], a.nodes[k])).forEach((k) => problems.push(`relationships changed: node ${k} edited or deleted`));
   Object.keys(a.nodes).filter((k) => !b.nodes[k] && !same(a.nodes[k], addN[k])).forEach((k) => problems.push(`relationships changed: node ${k} was not added by links/apply.mjs`));
   Object.keys(addN).filter((k) => b.nodes[k]).forEach((k) => problems.push(`relationships changed: added node ${k} already existed`));
   b.edges.forEach((e, i) => { if (!same(e, a.edges[i])) problems.push(`relationships changed: edge #${i} (${e.from} -> ${e.to}) edited, moved or deleted`); });
   if (!same(a.edges.slice(b.edges.length), addE)) problems.push('relationships changed: the new edges are not exactly the ones links/apply.mjs added');
-  const pair = (e) => [e.from, e.to].sort().join('|') + '|' + e.type, old = new Set(b.edges.map(pair));
+  const pair = (e) => [e.from, e.to].sort().join('|') + '|' + e.type, old = new Set(b.edges.map(pair)), dir = new Set(b.edges.map((e) => e.from + '>' + e.to));
+  const byKey = new Map(entries.map((e) => [e.key, e])), entryOf = (k) => byKey.get(k);
   addE.forEach((e) => {
-    if (e.origin !== 'automated' || !e.source_url || !e.quote) problems.push(`added link ${e.from} -> ${e.to}: not marked automated with a quote and source URL`);
-    if (old.has(pair(e))) problems.push(`added link ${e.from} -> ${e.to}: the network already has it`);
-    old.add(pair(e));
+    const at = `added link ${e.from} -> ${e.to}`;
+    if (e.origin !== 'automated' || !e.source_url || !e.quote) problems.push(`${at}: not marked automated with a quote and source URL`);
+    if (old.has(pair(e))) problems.push(`${at}: the network already has it`);
+    if (dir.has(e.to + '>' + e.from)) problems.push(`${at}: the network already links them the other way`);
+    old.add(pair(e)); dir.add(e.from + '>' + e.to);
+    const shape = edgeShapeProblem(e, a.nodes, entryOf); if (shape) problems.push(`${at}: ${shape}`);
+    // where the quote sits
+    const src = a.nodes[e.src], ent = src && src.kind === 'entry' ? entryOf(src.entry_key) : null;
+    if (!ent || (e.src !== e.from && e.src !== e.to)) { problems.push(`${at}: src ${e.src} is not the entry at one end of the link`); return; }
+    if (ENTRY_FIELDS.includes(e.col)) {
+      if (typeof ent[e.col] !== 'string' || !e.quote || !ent[e.col].includes(e.quote)) problems.push(`${at}: the quote is not word for word in ${ent.key} ${e.col}`);
+      if (e.source_url !== trackerUrl(ent)) problems.push(`${at}: the quote is the tracker's own text, so its source must be the entry's tracker page (${trackerUrl(ent)}), not ${e.source_url}`);
+    } else if (e.col === 'text') {
+      if (!texts[e.source_url] || !containsQuote(texts[e.source_url], e.quote)) problems.push(`${at}: the quote is not in the official text at ${e.source_url}`);
+    } else problems.push(`${at}: col ${e.col} is not a source the pipeline quotes`);
+    if (ent.origin !== 'automated' && !created.includes(ent.key)) problems.push(`${at}: entry ${ent.key} is hand-written (origin ${ent.origin}); its links are reported, never added automatically`);
   });
   return problems;
 }
