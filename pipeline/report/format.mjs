@@ -74,7 +74,7 @@ export function formatDone(rep, names = {}) {
   }
   const lk = rep.links;
   if (lk && (lk.proposed.length || lk.companions.length)) {
-    L.push(`Links proposed: ${lk.proposed.length}${lk.applied.length ? `, ${lk.applied.length} added to the network` : lk.status === 'proposed' ? ' (reported only; adding links is switched off)' : ''}`);
+    L.push(`Links proposed: ${lk.proposed.length}${lk.applied.length ? `, ${lk.applied.length} added to the network` : lk.status === 'proposed' ? ' (reported only: links are added only when an official record proves them, and only when adding is switched on)' : ''}`);
     lk.proposed.slice(0, 6).forEach((p) => L.push(`- ${clip(p.names[0], 30)} → ${clip(p.names[1], 30)}: ${clip(p.label, 80)}`));
     lk.companions.forEach((x) => L.push(`- companion bill: ${clip(names[x.entry_key] || x.entry_key, 40)} = ${x.bill} (${x.companion_of})`));
   }
