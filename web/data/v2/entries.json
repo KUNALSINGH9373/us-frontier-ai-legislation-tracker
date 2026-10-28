@@ -562,8 +562,8 @@
   "title": "H.5576 — \"An Act relative to economic development in the commonwealth\" (Senate AI language = amendment S.3178; lineage: S.37 → S.2630 → S.3178)",
   "short_name": "MA H.5576 / S.3178",
   "sponsor_text": "Sen. Barry Finegold (D); Sen. Mike Rush amendment for stronger evaluations",
-  "mechanism": "Frontier AI framework; AG civil-action enforcement; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections; commission on further AI regulation. House version (passed July 8) contains no AI-safety language — only funding.",
-  "thresholds": "Senate text: >$500M annual AI-derived revenue or >$1B AI R&D spend; catastrophic risk 50+ deaths or $1B",
+  "mechanism": "Frontier AI framework; risk reports every 180 days; critical safety incidents reported to AG within 15 days (24 hours if imminent risk of death); annual independent third-party audit; AG civil-action enforcement, up to $1,000,000 first violation, $3,000,000 subsequent; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections; commission on further AI regulation. Chapter 93M effective July 1, 2027. House version (passed July 8) contains no AI-safety language — only funding.",
+  "thresholds": "Senate text: frontier model = foundation model trained using >10^26 integer or floating-point operations (including fine-tuning and other modifications); large frontier developer = >$500,000,000 annual gross revenues together with affiliates; catastrophic risk 50+ deaths or $1B",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [PENDING] House passed 148-2 July 8; Senate struck all after the enacting clause and inserted S.3178 text July 24 (reprinted as S.3228); House non-concurred July 30; conference committee appointed July 30 (Senate: Finegold-Rodrigues-Durant; House: Michlewitz-Fiola-Soter). Official bill history checked live Sept 4, 2026: no action since July 30. Formal session ended July 31; informal sessions can still act but can't override a veto. Not enacted. Bill history re-checked Sept 28, 2026: still no action since July 30. OpenAI lobbying for IL-style annual audits; Anthropic for the stronger Rush amendment",
   "signed_text": null,
@@ -662,11 +662,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-27",
+  "last_changed": "2026-10-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-5576-an-act-relative-to-economic-development-in-the-commonwealth-sen",
    "section_name": "Pending, stalled and failed state bills"
@@ -3623,7 +3623,7 @@
   "title": "S.B. 5 / Public Act 26-15 — IVO pilot program",
   "short_name": "CT P.A. 26-15 IVO pilot",
   "sponsor_text": "Sen. Martin M. Looney (D), lead sponsor, with co-sponsors",
-  "mechanism": "A Department of Consumer Protection-administered IVO pilot program through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation. This is an operating pilot, not merely a study",
+  "mechanism": "A Department of Consumer Protection-administered IVO pilot program (Sec. 33, effective July 1, 2027) through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation (admissible solely in private personal-injury or property-damage actions; not in AG or state-agency enforcement actions). DCP must evaluate the pilot by Dec. 31, 2028 with UConn's Institute for Municipal and Regional Policy. This is an operating pilot, not merely a study",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Enacted May 27, 2026",
@@ -3828,7 +3828,7 @@
   "status": "pending",
   "title": "H.R. 9925 — FRONTIER Act (Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act)",
   "short_name": "H.R. 9925 FRONTIER Act",
-  "sponsor_text": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
+  "sponsor_text": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA); 11 cosponsors in all (Congress.gov)",
   "mechanism": "Creates Under Secretary of Commerce for AI Security (not CAISI) with rulemaking power. Large developers: frontier AI framework, annual third-party compliance audit, transparency reports, registration/disclosure statement with beneficial owners. Very large developers: additionally retain a licensed IVO for ongoing assessment, reports at least every 6 months . Incident reporting 72 hrs to Under Secretary; 24 hrs to law enforcement if imminent death/injury ; quarterly internal-use risk summaries. Sec. 8 emergency orders: Commerce Secretary may suspend/restrict development, deployment, or internal use on an imminent-catastrophic-risk finding (provisional 45 days; final 90 days, renewable); applies to fine-tuned/distilled derivatives; exclusive D.D.C. review; declared the exclusive means for any federal actor incl. the President to restrict a model on those grounds. IVOs immune from suit except willful misconduct causing death/serious injury. Civil penalties up to $1,000,000 per violation, and up to $10,000,000 per violation (each day a separate violation) for breaching an emergency order; a wilful breach of an emergency order is a crime (up to 10 years). State AGs may opt in to receive reports and enforce. Under Secretary may only raise thresholds, never lower. Good-faith exception for false statements; confidential-deployment deferral of transparency reports. No whistleblower title (the June GAAIA draft had one). Sec. 9 preemption: no state may \"adopt or enforce\" any law imposing \" new substantive obligations\" on developers re: catastrophic-risk transparency, third-party auditing/verification, or incident reporting; carve-outs for general laws, deployer/use regulation, minors, state procurement. No sunset (June draft had 3 years). Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
   "thresholds": "Frontier model 10²⁶ ops incl. fine-tuning/RL. Large = >$50M revenue and ≥$1B AI-related development expenditures over 36 months. Very large = >$5B revenue and ≥$10B expenditures. Not the $500M revenue test used by states. Catastrophic risk >50 deaths or >$1B (property excludes equity-value loss)",
   "penalties": null,
@@ -3917,10 +3917,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9925-frontier-act-frontier-risk-oversight-national-transparency-in",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -4181,7 +4181,7 @@
   "status": "pending",
   "title": "H.R. 9914 / S. 5105 — Collaboration on Adversarial Threats and Security Risks Act",
   "short_name": "H.R. 9914 / S. 5105 CATSR",
-  "sponsor_text": "House: Rep. Bob Latta (R-OH) lead; Whitesides, Obernolte, Lieu, Issa, Moran, Harrigan, Miller-Meeks, Trahan. Senate: Sens. Adam Schiff (D-CA) and Jim Banks (R-IN)",
+  "sponsor_text": "House: Rep. Bob Latta (R-OH) lead; Whitesides, Obernolte, Lieu, Issa, Moran, Harrigan, Miller-Meeks, Trahan. Senate: Sens. Adam Schiff (D-CA) and Jim Banks (R-IN); 25 House cosponsors in all (Congress.gov)",
   "mechanism": "Antitrust exemption for 2 or more non-Federal entities exchanging AI security-risk information or assistance in good faith for the exclusive purpose of addressing covered AI security risks, and for coordinating to delay or limit release/deployment/training of AI if they first give written notice to the DOJ Antitrust Assistant Attorney General; exemption is an affirmative defense (entity bears preponderance burden); no price-fixing/market allocation; AG may seek injunctions (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
   "thresholds": "—",
   "penalties": null,
@@ -4224,10 +4224,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9914-s-5105-collaboration-on-adversarial-threats-and-security-risk",
    "section_name": "Adjacent and sectoral federal bills"
@@ -4317,7 +4317,7 @@
   "status": "pending",
   "title": "H.R. 9477 — AI Incident Reporting Act",
   "short_name": "H.R. 9477 AI Incident Reporting Act",
-  "sponsor_text": "Rep. Nathaniel Moran (R-TX)",
+  "sponsor_text": "Rep. Nathaniel Moran (R-TX); 3 cosponsors (Congress.gov)",
   "mechanism": "Full text read. Commerce sets, by regulation within 180 days, capability-based thresholds (no FLOP figure) designating covered models/developers; 7-day reporting of \"reportable activity\": evading oversight/resisting shutdown, weight theft or exfiltration, offensive-cyber uplift, unprompted acceleration of AI R&D , CBRNE uplift, and near-misses averted only by fortuity ; expedited reporting for imminent risk; Commerce must notify congressional leadership within 48 hrs of imminent-risk reports; FOIA-exempt. §2(d)(4): reports may not be used in any civil, criminal, or administrative proceeding against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer — a use-immunity that would bind state AGs. Civil penalty up to $2M per day ; Commerce subpoena and inspection powers. Moran told Reuters he split reporting out of the GAAIA framework to move faster",
   "thresholds": "Capability-based, Commerce-designated",
   "penalties": null,
@@ -4368,11 +4368,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9477-ai-incident-reporting-act-r",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -4467,7 +4467,7 @@
   "status": "pending",
   "title": "H.R. 9917 — AI Kill Switch Act",
   "short_name": "H.R. 9917 AI Kill Switch Act",
-  "sponsor_text": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX)",
+  "sponsor_text": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 12 cosponsors in all (Congress.gov)",
   "mechanism": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Civil penalties up to $2M/day for ordinary violations and up to $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
   "thresholds": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
   "penalties": null,
@@ -4528,10 +4528,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9917-ai-kill-switch-act-r",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5663,7 +5663,7 @@
   "status": "pending",
   "title": "H.R. 9363 — AI Security and Innovation Act",
   "short_name": "H.R. 9363 AI Security and Innovation Act",
-  "sponsor_text": "Reps. Obernolte (R-CA), Valerie Foushee (D-NC) + 5",
+  "sponsor_text": "Reps. Obernolte (R-CA), Valerie Foushee (D-NC) + 5; 7 cosponsors in all (Congress.gov)",
   "mechanism": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; voluntary agreements for classified/unclassified national-security evaluations of covered frontier systems; shared information exempt from FOIA, not public without consent and not usable by any government to regulate the entity; authorizes $20,000,000/yr FY2027-2032; 5-year sunset; CBO est. $80M 2026-31",
   "thresholds": "\"Covered frontier system\" to be defined by the Director (capabilities and requirements) within 180 days of enactment; \"covered entity\" = entity or consortium with a demonstrated ability to develop or evaluate a covered frontier system",
   "penalties": null,
@@ -5715,10 +5715,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9363-ai-security-and-innovation-act",
    "section_name": "Adjacent and sectoral federal bills"
@@ -5743,7 +5743,7 @@
   "status": "pending",
   "title": "S. 1792 / H.R. 3460 — AI Whistleblower Protection Act",
   "short_name": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
-  "sponsor_text": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz; House companion",
+  "sponsor_text": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz; House companion; 13 Senate and 9 House cosponsors in all (Congress.gov)",
   "mechanism": "Anti-retaliation protection for employees and independent contractors reporting an \"AI security vulnerability\" (a lapse enabling theft of state-of-the-art AI) or \"AI violation\" (federal-law breach or failure to address a substantial danger to public safety/health/national security) to regulators, Congress, or supervisors; DOL complaint then district court with jury trial; reinstatement, 2× back pay, compensatory damages ; arbitration waivers unenforceable. GAAIA's dropped Sec. 113 used the same 2× back-pay remedy — GAAIA had folded this bill in, and FRONTIER then dropped it",
   "thresholds": null,
   "penalties": null,
@@ -5804,10 +5804,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-1792-h-r-3460-ai-whistleblower-protection-act-r",
    "section_name": "Adjacent and sectoral federal bills"

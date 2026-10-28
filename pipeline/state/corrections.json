@@ -345,6 +345,22 @@
    "outcome": "session",
    "retry": false,
    "retries": 0
+  },
+  "ma-h-5576-s-3178": {
+   "text_sha": "32ef365b4c8ea2f070f94a17d4209720f59dfe22559ae813e110f3ed572dfc48",
+   "text_url": "https://malegislature.gov/Bills/194/S3228",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ct-p-a-26-15-ivo-pilot": {
+   "text_sha": "9c7c31309ca9ff903f258c7f46f94cd737dfcff20d55ae413e1f4647816cb5b1",
+   "text_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
   }
  }
 }
