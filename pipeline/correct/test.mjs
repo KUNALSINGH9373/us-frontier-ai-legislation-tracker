@@ -187,5 +187,41 @@ for (const [name, c, re] of bad) {
   ok('6 checkCorrection refuses a rewrite that loses a figure', checkCorrection({ c: { field: 'mechanism', kind: 'omission', problem: 'adds the 72-hour deadline', new_text: `${E1.mechanism} Critical safety incidents must be reported within 72 hours.`, evidence: [{ quote: ADD }] }, entry: e, fields: fieldsFor(e), source: TEXT(e) + ' revenue over $500M.' }).some((x) => /drops figures/.test(x)));
 }
 
+// ---------- 7. multi-bill entries, small figures, legal force, the confirmer's quote ----------
+{
+  const { droppedFacts, multiBillEntry, unquotedChanges } = await import('./review.mjs');
+  const errFix = { field: 'mechanism', kind: 'error', problem: 'The deadline is wrong.', new_text: `${E1.mechanism} Critical safety incidents must be reported within 72 hours.`, evidence: [{ quote: ADD }] };
+  const two = { ...E1, identifiers: { external: { congress_gov: ['119/hr/1', '119/s/2'] } } };
+  ok('7 multi-bill: more than one Congress.gov or LegiScan id, otherBills, or the reader\'s list', multiBillEntry(two) && multiBillEntry({ identifiers: { external: { legiscan: [1, 2] } } }) && multiBillEntry({ otherBills: ['S. 2'] }) && multiBillEntry({}, ['S. 2']) && !multiBillEntry({ identifiers: { external: { congress_gov: ['119/hr/1'] } } }) && !multiBillEntry(E1));
+  ok('7 multi-bill: an error correction is refused with a reason', checkCorrection({ c: errFix, entry: two, fields: fieldsFor(two), source: TEXT(two), multiBill: true }).some((x) => /more than one bill.*only an omission/.test(x)));
+  ok('7 multi-bill: an omission still passes', checkCorrection({ c: goodFix(two).corrections[0], entry: two, fields: fieldsFor(two), source: TEXT(two), multiBill: true }).length === 0);
+  const mb = sandbox(), mrev = scripted(() => ({ corrections: [errFix] })), mcon = scripted(yes);
+  const mr = await run(mb, { factory: factoryOf(mrev, mcon), texts: fakeTexts({ [E1.key]: TEXT(E1) }), ic: { [E1.key]: { congress_gov: ['119/hr/1', '119/s/2'] } }, only: [E1.key] });
+  ok('7 multi-bill through the step: refused, never confirmed, nothing written', mr.corrected.length === 0 && mcon.calls.length === 0 && JSON.stringify(readEntry(mb.dataDir, E1.key)) === JSON.stringify(E1), JSON.stringify(mr.rejected));
+  ok('7 multi-bill: the reader is told only omissions are allowed', /only "omission" corrections are allowed/.test(mrev.calls[0].prompt));
+
+  const om = (old, v, problem = '') => droppedFacts({ c: { kind: 'omission', problem }, old, v });
+  ok('7 a single-digit figure with its unit is kept ("within 3 years" removed is caught)', om('report within 3 years of enactment', 'report after enactment').some((x) => /3 year/.test(x)));
+  ok('7 ... days, hours, people, percent too', ['5 days', '2 hours', '4 people', '7%', '9 percent'].every((f) => om(`within ${f} of notice`, 'after notice').length === 1));
+  ok('7 ... kept in another notation is not flagged ("3-year", "three years", "15 percent")', om('within 3 years', 'a 3-year deadline').length === 0 && om('within 3 years', 'within three years').length === 0 && om('15% of revenue', '15 percent of revenue').length === 0);
+  ok('7 ... the expanded-amount equivalence still holds', om('fines of $5M', 'fines of $5,000,000').length === 0);
+  ok('7 ... an error fix may drop one its problem names', droppedFacts({ c: { kind: 'error', problem: 'The deadline is 5 days, not 3 years.' }, old: 'within 3 years', v: 'within 5 days' }).length === 0);
+  ok('7 ... a bare single digit with no unit is not compared', om('Tier 2 developers', 'covered developers').length === 0);
+
+  const uq = (old, v, quotes, kind = 'omission', problem = '') => unquotedChanges({ c: { kind, problem }, old, v, quotes });
+  ok('7 "shall" changed to "may" with no quote containing "may" is refused', uq('The developer shall publish a framework.', 'The developer may publish a framework.', ['The developer shall publish'], 'error', 'It is a power, the developer shall not be required.').some((x) => /power wording/.test(x)));
+  ok('7 ... with a quote containing it, and the dropped word named, it passes', uq('The developer shall publish a framework.', 'The developer may publish a framework.', ['The developer may publish a framework'], 'error', 'shall is wrong: SOURCE gives a power').length === 0);
+  ok('7 an omission may not drop a legal-force word', uq('Developers must report incidents; audits are voluntary.', 'Developers report incidents; audits are voluntary; whistleblowers are protected.', ['whistleblowers are protected']).some((x) => /drops the legal-force word "must"/.test(x)));
+  ok('7 the month "May" is not a power', uq('Effective Jan 1, 2027.', 'Effective May 1, 2027.', ['takes effect May 1, 2027'], 'error', 'wrong month').length === 0);
+  ok('7 a figure already in the old text used again for another step needs a quote', uq('Report within 72 hours.', 'Report within 72 hours; audit within 72 hours.', ['an annual audit']).some((x) => /uses again.*72/.test(x)));
+  ok('7 ... so does a small figure with its unit', uq('Report within 3 days.', 'Report within 3 days; publish within 3 days.', ['publish the report']).some((x) => /3 day/.test(x)));
+  ok('7 ... and a new figure the quotes do not contain', uq('Report incidents.', 'Report incidents within 15 days.', ['report each incident']).some((x) => /15/.test(x)) && uq('Report incidents.', 'Report incidents within 15 days.', ['report each incident within 15 days']).length === 0);
+
+  const nq = sandbox(), nqr = await run(nq, { factory: factoryOf(scripted(() => goodFix(E1)), scripted(() => ({ confirmed: true, quote: null, reason: 'looks right' }))), texts: fakeTexts({ [E1.key]: TEXT(E1) }), only: [E1.key] });
+  ok('7 a confirmation with no quote is not a confirmation', nqr.corrected.length === 0 && /confirmer gave no quote/.test(nqr.rejected[0].why) && JSON.stringify(readEntry(nq.dataDir, E1.key)) === JSON.stringify(E1));
+  const eq = sandbox(), eqr = await run(eq, { factory: factoryOf(scripted(() => goodFix(E1)), scripted(() => ({ confirmed: true, quote: '   ', reason: 'x' }))), texts: fakeTexts({ [E1.key]: TEXT(E1) }), only: [E1.key] });
+  ok('7 ... nor one with a blank quote', eqr.corrected.length === 0 && /no quote/.test(eqr.rejected[0].why));
+}
+
 console.log(`\ncorrect: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

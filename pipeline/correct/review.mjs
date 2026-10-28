@@ -22,10 +22,13 @@ const DEBRIS =/[{}]|['"][a-z_]{3,}['"]\s*:|['"],\s*['"]|```|\\n|\\u[0-9a-f]{4}/i
 export const fieldsFor = (e) => ['mechanism', 'thresholds', ...(e.section === 'A' || e.penalties ? ['penalties'] : [])];
 
 // Plain-code checks on one proposed correction. Returns readable problems; empty means it may go to the confirmer.
-export function checkCorrection({ c, entry, fields, source }) {
+// multiBill: the entry covers more than one bill (multiBillEntry below). SOURCE is then one bill's text, and a figure it lacks may be
+// true for the companion or the enacted version, so only omissions are allowed: nothing is removed or changed.
+export function checkCorrection({ c, entry, fields, source, multiBill = false }) {
   const p = [], f = c && c.field, old = entry[f] == null ? '' : String(entry[f]), v = String((c && c.new_text) || '').trim();
   if (!fields.includes(f)) return [`field "${f}" may not be corrected`];
   if (!v) return [`no new text for ${f}`];
+  if (multiBill && c.kind !== 'omission') return [`this entry covers more than one bill and SOURCE is one bill's text: only an omission may be added, nothing removed or changed (kind "${c.kind}")`];
   if (norm(v) === norm(old)) return [`the new ${f} is the same as the current one`];
   if (v.length > limitFor(f, old)) p.push(`${f} is ${v.length} characters, over ${limitFor(f, old)}`);
   const ev = (c.evidence || []).filter((x) => x && x.quote);
@@ -43,7 +46,40 @@ export function checkCorrection({ c, entry, fields, source }) {
   if (NEGATIVE_FINDING.test(v) && !NEGATIVE_FINDING.test(old)) p.push('a "none located" style claim');
   if (ABSENCE.test(v) && !ABSENCE.test(old)) p.push(`it states what the bill does not contain ("${v.match(ABSENCE)[0]}"): say only what SOURCE states`);
   p.push(...droppedFacts({ c, old, v }));
+  p.push(...unquotedChanges({ c, old, v, quotes: ev.map((x) => String(x.quote)) }));
   return p;
+}
+
+// The entry covers more than one bill: the reader's other-bills list, more than one official id, or a hand-set otherBills list.
+export function multiBillEntry(entry, otherBills = []) {
+  const x = (entry && entry.identifiers && entry.identifiers.external) || {};
+  const ids = new Set([...(x.congress_gov || []).map((i) => 'c' + i), ...(x.legiscan || []).map((i) => 'l' + i), ...(x.legiscan_bill_id ? ['l' + x.legiscan_bill_id] : [])]);
+  return otherBills.length > 0 || ids.size > 1 || ((entry && entry.otherBills) || []).length > 0;
+}
+
+// Legal force: "shall"/"must"/"required" is a duty, "may" a power, "voluntary" voluntary. Lower case only, so the month "May" is not a power.
+const FORCE = { duty: /\b(?:shall|must|required?|requires)\b/g, power: /\bmay\b/g, voluntary: /\bvoluntar(?:y|ily)\b/gi };
+const count = (s, re) => (String(s || '').match(re) || []).length;
+// What a correction adds must be proved by its own quotes, not only by the confirmer's reading: a legal-force word the new text uses more
+// often than the current one ("shall" -> "may"), and a figure it uses more often (a new number, or one moved to another step).
+// An omission may not drop a legal-force word; an error fix may, only when its problem names that word.
+export function unquotedChanges({ c, old, v, quotes }) {
+  const out = [], q = quotes.join(' \n ');
+  for (const [k, re] of Object.entries(FORCE)) {
+    const a = count(old, re), b = count(v, re);
+    if (b > a && !count(q, re)) out.push(`the new text adds ${k} wording ("${v.match(re)[0]}") that no evidence quote contains`);
+    if (b < a) {
+      const w = old.match(re)[0];
+      if (c.kind !== 'error') out.push(`the new text drops the legal-force word "${w}" the current text has`);
+      else if (!count(String(c.problem || ''), re)) out.push(`the new text drops the legal-force word "${w}"; name it in the problem if it is wrong`);
+    }
+  }
+  const tally = (s) => { const m = new Map(); for (const n of figureList(s)) m.set(n, (m.get(n) || 0) + 1); return m; };
+  const was = tally(old), inQ = figures(q), inQPairs = unitPairs(q), pw = unitPairs(old, true);
+  const added = [...tally(v)].filter(([n, k]) => n.length > 1 && k > (was.get(n) || 0) && !inQ.has(n)).map(([n]) => n);
+  for (const [pair, k] of unitPairs(v, true)) if (k > (pw.get(pair) || 0) && !inQPairs.has(pair)) added.push(pair);
+  if (added.length) out.push(`figures the new text adds or uses again that no evidence quote contains: ${[...new Set(added)].join(', ')}`);
+  return out;
 }
 
 // Nothing true may be lost. An omission fix keeps every figure and every quoted defined term of the current text; an error fix may drop a
@@ -54,9 +90,23 @@ const TERM = /[“"]([^”"]{3,80})[”"]/g;
 const SCALE = { k: 1e3, thousand: 1e3, m: 1e6, mn: 1e6, million: 1e6, b: 1e9, bn: 1e9, billion: 1e9, t: 1e12, trillion: 1e12 };
 export const expandAmounts = (s) => String(s || '').replace(/(\d+(?:\.\d+)?)\s*(thousand|million|billion|trillion|mn|bn|[kmbt])\b/gi, (m, n, u) => String(Math.round(Number(n) * SCALE[u.toLowerCase()])));
 const figures = (s) => new Set([...digitRuns(s), ...digitRuns(expandAmounts(String(s || '').replace(/(\d),(?=\d{3}\b)/g, '$1')))]);
+// Every figure with its repeats (for counting), amounts written out in full; exponents are left to digitRuns.
+const figureList = (s) => (expandAmounts(String(s || '').replace(/(\d),(?=\d{3}\b)/g, '$1')).match(/\d+(?:\.\d+)?/g) || []);
+// A small figure means something only with its unit ("3 years", "5 days", "15%"): number + unit pairs, number words read as digits.
+const WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
+const UNIT = /\b(\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten)(?:\s*-\s*|\s*)(days?|years?|months?|hours?|weeks?|people|persons?|deaths|members?|times|percent|per cent|%)(?![a-z])/gi;
+const unitName = (u) => { u = u.toLowerCase().replace(/\s+/g, ' '); return ['%', 'percent', 'per cent'].includes(u) ? '%' : /^persons?$/.test(u) ? 'people' : ['people', 'deaths', 'times'].includes(u) ? u : u.replace(/s$/, ''); };
+export function unitPairs(s, counted = false) {
+  const m = new Map();
+  for (const x of String(s || '').matchAll(UNIT)) { const k = `${WORDS[x[1].toLowerCase()] || x[1]} ${unitName(x[2])}`; m.set(k, (m.get(k) || 0) + 1); }
+  return counted ? m : new Set(m.keys());
+}
 export function droppedFacts({ c, old, v }) {
   const out = [], now = figures(v), named = figures(String((c && c.problem) || ''));
+  const nowPairs = unitPairs(v), namedPairs = unitPairs(String((c && c.problem) || ''));
   const lost = [...digitRuns(expandAmounts(old))].filter((n) => n.length > 1 && !now.has(n) && !(c.kind === 'error' && named.has(n)));
+  // Single-digit figures by their unit: "within 3 years" -> removed is lost; "3-year" or "three years" in the new text keeps it.
+  for (const pair of unitPairs(old)) if (pair.split(' ')[0].length === 1 && !nowPairs.has(pair) && !(c.kind === 'error' && namedPairs.has(pair))) lost.push(pair);
   if (lost.length) out.push(`the new text drops figures the current text has: ${lost.join(', ')}; keep every fact that is not wrong${c.kind === 'error' ? ', and name a figure in the problem if it is the wrong one' : ''}`);
   const terms = [...old.matchAll(TERM)].map((m) => m[1]).filter((t) => !norm(v).includes(norm(t)) && !(c.kind === 'error' && norm(String(c.problem || '')).includes(norm(t))));
   if (terms.length) out.push(`the new text drops defined terms the current text has: "${terms.slice(0, 3).join('", "')}"`);
@@ -69,6 +119,7 @@ export function droppedFacts({ c, old, v }) {
 // 'rejected' = the reader proposed something but none of it survived; the entry is retried on a later run.
 export async function reviewEntry({ reviewer, confirmer, entry, text, url, otherBills = [], log = () => {} }) {
   const itemId = 'correct:' + entry.key, fields = fieldsFor(entry);
+  const multiBill = multiBillEntry(entry, otherBills);
   const out = { outcome: 'clean', corrections: [], rejected: [], reason: null };
   // A longer text (an omnibus bill) is read section by section: the models see only its frontier-AI sections, copied word for word,
   // and every code check below still runs on the FULL text. With no such section found it stays too long.
@@ -80,14 +131,14 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
   }
   try {
     let r;
-    try { r = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills }), itemId }); }
+    try { r = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills, multiBill }), itemId }); }
     catch (e) { if (e instanceof LlmOutputError) return { ...out, outcome: 'error', reason: `the reader gave an unusable answer: ${e.message}` }; throw e; }
     const proposed = ((r.data && r.data.corrections) || []).filter((c) => c && typeof c === 'object');
     const seen = new Set(), failed = [];
     for (const c of proposed) {
       if (seen.has(c.field)) { out.rejected.push({ field: c.field, problem: c.problem || '', why: 'a second correction for the same field' }); continue; }
       seen.add(c.field);
-      const problems = checkCorrection({ c, entry, fields, source: text });
+      const problems = checkCorrection({ c, entry, fields, source: text, multiBill });
       if (problems.length) { failed.push({ c, problems }); continue; }
       await confirm(c);
     }
@@ -95,12 +146,12 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
     if (failed.length) {
       let again = [];
       try {
-        const r2 = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills }) + `\n\nYOUR PREVIOUS CORRECTIONS WERE REFUSED BY CODE. Return corrected versions of ONLY these fields, fixing exactly these problems (or leave a field out if it cannot be fixed):\n${failed.map((f) => `- ${f.c.field}: ${f.problems.join('; ')}\n  your text was: ${String(f.c.new_text || '').slice(0, 1200)}`).join('\n')}`, itemId: itemId + ':rewrite' });
+        const r2 = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills, multiBill }) + `\n\nYOUR PREVIOUS CORRECTIONS WERE REFUSED BY CODE. Return corrected versions of ONLY these fields, fixing exactly these problems (or leave a field out if it cannot be fixed):\n${failed.map((f) => `- ${f.c.field}: ${f.problems.join('; ')}\n  your text was: ${String(f.c.new_text || '').slice(0, 1200)}`).join('\n')}`, itemId: itemId + ':rewrite' });
         again = ((r2.data && r2.data.corrections) || []).filter((c) => c && typeof c === 'object');
       } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       for (const f of failed) {
         const c = again.find((x) => x.field === f.c.field);
-        const problems = c ? checkCorrection({ c, entry, fields, source: text }) : f.problems;
+        const problems = c ? checkCorrection({ c, entry, fields, source: text, multiBill }) : f.problems;
         if (problems.length) { out.rejected.push({ field: f.c.field, problem: f.c.problem || '', why: 'code check: ' + problems.join('; ') }); log(`${entry.key} ${f.c.field}: rejected by code (${problems[0]})`); continue; }
         await confirm(c);
       }
@@ -122,7 +173,9 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
     catch (e) { if (!(e instanceof LlmOutputError)) throw e; out.rejected.push({ field: c.field, problem: c.problem || '', why: `the confirmer gave an unusable answer (${e.message})` }); return; }
     const d = v.data || {};
     if (d.confirmed !== true) { out.rejected.push({ field: c.field, problem: c.problem || '', why: 'not confirmed: ' + String(d.reason || 'no reason given').slice(0, 300) }); log(`${entry.key} ${c.field}: not confirmed`); return; }
-    if (d.quote && !containsQuote(text, d.quote)) { out.rejected.push({ field: c.field, problem: c.problem || '', why: "the confirmer's quote is not in the source" }); return; }
+    // A confirmation needs its proof: no quote, or one SOURCE does not contain, is not a confirmation.
+    if (!d.quote || !String(d.quote).trim()) { out.rejected.push({ field: c.field, problem: c.problem || '', why: "the confirmer gave no quote" }); return; }
+    if (!containsQuote(text, d.quote)) { out.rejected.push({ field: c.field, problem: c.problem || '', why: "the confirmer's quote is not in the source" }); return; }
     out.corrections.push({ field: c.field, kind: c.kind === 'omission' ? 'omission' : 'error', problem: String(c.problem || '').slice(0, 400), old: entry[c.field] == null ? null : entry[c.field], new: c.new_text.trim(), evidence: c.evidence.filter((x) => x && x.quote).map((x) => x.quote), confirmer_quote: d.quote || null, url });
     log(`${entry.key} ${c.field}: confirmed (${c.kind})`);
   }
