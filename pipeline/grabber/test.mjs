@@ -236,15 +236,15 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
 {
   const { spawnSync } = await import('child_process');
   const { fileURLToPath } = await import('url');
-  const { LEGISCAN_USAGE_FILE, WORK_DIR } = await import('./lib/state.mjs');
+  const { WORK_DIR } = await import('./lib/state.mjs');
   const pipelineDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
   const cap = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'legiscan.json'), 'utf8')).monthly_cap;
-  const was = fs.existsSync(LEGISCAN_USAGE_FILE) ? fs.readFileSync(LEGISCAN_USAGE_FILE) : null; // the real counter, put back below
-  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cap-'));
+  // The counter is a temporary file (TRACKER_LEGISCAN_USAGE_FILE), so the real state/legiscan-usage.json is never touched, even if this test dies.
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cap-')), counterDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cap-usage-'));
+  const LEGISCAN_USAGE_FILE = path.join(counterDir, 'legiscan-usage.json');
   try {
-    fs.mkdirSync(path.dirname(LEGISCAN_USAGE_FILE), { recursive: true });
     fs.writeFileSync(LEGISCAN_USAGE_FILE, JSON.stringify({ month: new Date().toISOString().slice(0, 7), used: cap, runs: 1 }) + '\n');
-    const g = spawnSync(process.execPath, ['grabber/run.mjs', '--source', 'legiscan', '--state-dir', stateDir, '--no-search'], { cwd: pipelineDir, encoding: 'utf8', env: { ...process.env, LEGISCAN_API_KEY: 'test-key-not-real-123456' } });
+    const g = spawnSync(process.execPath, ['grabber/run.mjs', '--source', 'legiscan', '--state-dir', stateDir, '--no-search'], { cwd: pipelineDir, encoding: 'utf8', env: { ...process.env, LEGISCAN_API_KEY: 'test-key-not-real-123456', TRACKER_LEGISCAN_USAGE_FILE: LEGISCAN_USAGE_FILE } });
     const id = (/legiscan run (run-[0-9]{8}-[0-9]{4}-[0-9a-f]{4}): skipped/.exec(g.stdout || '') || [])[1];
     const cs = id && JSON.parse(fs.readFileSync(path.join(WORK_DIR, 'runs', id, 'changeset.json'), 'utf8'));
     const stats = id && JSON.parse(fs.readFileSync(path.join(WORK_DIR, 'runs', id, 'grab-stats.json'), 'utf8'));
@@ -252,8 +252,7 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
     ok('LegiScan cap (real command): skipped_why says so; no state written; the counter unchanged', stats && /monthly cap reached/.test(stats.skipped_why) && fs.readdirSync(stateDir).length === 0 && JSON.parse(fs.readFileSync(LEGISCAN_USAGE_FILE, 'utf8')).used === cap);
     if (id) fs.rmSync(path.join(WORK_DIR, 'runs', id), { recursive: true, force: true });
   } finally {
-    if (was) fs.writeFileSync(LEGISCAN_USAGE_FILE, was); else fs.rmSync(LEGISCAN_USAGE_FILE, { force: true });
-    fs.rmSync(stateDir, { recursive: true, force: true });
+    fs.rmSync(stateDir, { recursive: true, force: true }); fs.rmSync(counterDir, { recursive: true, force: true });
   }
 }
 

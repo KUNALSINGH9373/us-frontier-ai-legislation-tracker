@@ -14,7 +14,8 @@ export const STATE_DIR = path.join(PIPELINE_DIR, 'state');
 export const WORK_DIR = path.join(PIPELINE_DIR, 'data');
 export const STATE_FILE = path.join(STATE_DIR, 'state.json');
 export const LEGISCAN_SEEN_FILE = path.join(STATE_DIR, 'legiscan-seen.json');
-export const LEGISCAN_USAGE_FILE = path.join(STATE_DIR, 'legiscan-usage.json');
+// TRACKER_LEGISCAN_USAGE_FILE: tests point the counter at a temporary file, so the real monthly count is never touched.
+export const LEGISCAN_USAGE_FILE = process.env.TRACKER_LEGISCAN_USAGE_FILE || path.join(STATE_DIR, 'legiscan-usage.json');
 export const NEWS_SEEN_FILE = path.join(STATE_DIR, 'news-seen.json');
 export const COURTS_STATE_FILE = path.join(STATE_DIR, 'courts-state.json');
 export const WAITING_FILE = path.join(STATE_DIR, 'waiting-for-text.json');
