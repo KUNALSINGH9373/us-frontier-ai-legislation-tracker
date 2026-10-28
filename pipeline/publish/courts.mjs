@@ -19,6 +19,33 @@ const clone = (x) => JSON.parse(JSON.stringify(x));
 const cut = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 const SOURCE = 'court docket via CourtListener';
 
+// "NOTICE OF APPEAL to the 9th Circuit ... filed by Paul S. Atkins, ..., Chris Wright. Appeal of Order on ..., Judgment 252 (Appeal fee ...)"
+//   -> { head: "NOTICE OF APPEAL to the 9th Circuit Court of Appeals", filers: [names], rest: "Appeal of Order on ..., Judgment 252" }
+// head and rest are the court's own words, unaltered. The filer list ends at the first full stop that is not an initial ("Paul S.",
+// "U.S.") or "Jr". Null when the text names no filers.
+export function partsOf(full) {
+  const m = /^(.+?)\s+filed by\s+(.+)$/is.exec(full || '');
+  if (!m) return null;
+  const end = /(?<!\b[A-Z]|\bJr|\bInc|\bCo)\.\s+(?=[A-Z])|\.?\s*$/.exec(m[2]);
+  const list = m[2].slice(0, end.index), after = m[2].slice(end.index + end[0].length);
+  return { head: m[1].replace(/[\s.;,]+$/, ''), filers: list.split(/,(?!\s*(?:Jr|Inc)\b)\s*/).map((x) => x.trim()).filter(Boolean), rest: after.split(/\s+\(/)[0].replace(/[\s.;,]+$/, '') };
+}
+// Who filed it, by rule: a short list as written; a long one with federal agencies is "the federal defendants" ("plaintiffs" when
+// the filing says the filers are plaintiffs).
+export function partiesOf(filers, full = '') {
+  if (filers.length <= 3) return filers.join(filers.length === 2 ? ' and ' : ', ');
+  if (filers.some((x) => /\b(United States|U\.S\.|Department|Agency|Administration|Executive Office|Commission|Federal)\b/.test(x))) return /\bfiled by (Intervenor )?Plaintiffs?\b/i.test(full) ? 'the federal plaintiffs' : 'the federal defendants';
+  return `${filers[0]} and ${filers.length - 1} others`;
+}
+// The event's display text: the classifier's operative clause when it gives one, else the label and the court's (trimmed) words.
+export const eventText = (c) => { const p = partsOf(c.full); return cut(c.operative || `${c.label}: ${p ? `${p.head}${p.rest ? `. ${p.rest}` : ''}` : c.text}`, 200); };
+// The news body: the operative clause quoted word for word, the parties named by rule outside the quotes.
+export function bodyQuote(c) {
+  if (c.operative) return `"${c.operative}"`;
+  const p = partsOf(c.full);
+  return p ? `"${p.head}", filed by ${partiesOf(p.filers, c.full)}${p.rest ? `: "${p.rest}"` : ''}` : `"${c.full}"`;
+}
+
 // found: [{ entry_key, docket_id, court, entry (a CourtListener docket entry) }]. Pure: returns new data plus the change log.
 export function applyCourts({ data, found, runDate, runId, config = {} }) {
   const out = { entries: clone(data.entries), news: clone(data.news), site: clone(data.site), changes: clone(data.changes || { items: [] }) };
@@ -33,10 +60,10 @@ export function applyCourts({ data, found, runDate, runId, config = {} }) {
     if (!c) continue; // routine
     const date = f.entry.date_filed, url = docketUrl(f.docket_id), n = f.entry.entry_number;
     // Already on the entry: the same words, the same docket number, or a person's own account of that day's ruling.
-    const dup = e.events.some((v) => v.date === date && v.type === 'Litigation' && (v.text === cut(c.text, 200) || (n != null && new RegExp(`\\bDkt\\.? ?${n}\\b`).test(v.text + ' ' + (v.clause || ''))) || !/courtlistener\.com/.test(v.source_url || '')));
+    const dup = e.events.some((v) => v.date === date && v.type === 'Litigation' && (v.text === cut(c.text, 200) || v.text === eventText(c) || v.clause === c.full || (n != null && new RegExp(`\\bDkt\\.? ?${n}\\b`).test(v.text + ' ' + (v.clause || ''))) || !/courtlistener\.com/.test(v.source_url || '')));
     if (dup) { skipped.push({ entry_key: e.key, why: `docket entry ${n ?? f.entry.id} (${date}) is already on the entry` }); continue; }
     const quote = c.full; // the whole docket text: a quote is never cut
-    e.events.push({ date, precision: 'day', type: 'Litigation', text: cut(c.text, 200), clause: c.full, scheduled: date > cutoff, source_url: url });
+    e.events.push({ date, precision: 'day', type: 'Litigation', text: eventText(c), clause: c.full, scheduled: date > cutoff, source_url: url });
     log.push({ entry_key: e.key, field: 'events', old: null, new: { date, type: 'Litigation', text: c.full }, date: runDate, run_id: runId, source_url: url, tier: 'A' });
     (e.evidence = e.evidence || []).push({ field: 'events', quote, source_url: url });
     if (c.news) {
@@ -50,7 +77,7 @@ export function applyCourts({ data, found, runDate, runId, config = {} }) {
       if (config.news_from_official_actions !== false && !out.news.items.some((y) => y.tracker === e.key && y.date === date)) {
         out.news.items.push({
           date, kind: 'litigation', title: cut(`${e.short_name}: ${c.label}`, 140),
-          body: `The court docket (${f.court}) records this entry in ${e.title} on ${longDate(date)}: "${c.full}".`,
+          body: `The court docket (${f.court}) records this entry in ${e.title} on ${longDate(date)}: ${bodyQuote(c)}.`,
           links: [{ t: `${e.short_name} docket on CourtListener`, u: url }],
           check: 'From the court docket (CourtListener), copied word for word by code; no AI was used.',
           tracker: e.key, origin: 'automated', verification: { method: 'agent', checked_at: at, run_id: runId, rounds: 0 },
@@ -64,7 +91,7 @@ export function applyCourts({ data, found, runDate, runId, config = {} }) {
     e.last_checked = runDate; e.last_changed = runDate;
     e.events.sort((x, y) => x.date.localeCompare(y.date));
     touched.add(e.key);
-    (notes.get(e.key) || notes.set(e.key, []).get(e.key)).push({ date, text: `${c.label}: ${cut(c.text, 160)}` });
+    (notes.get(e.key) || notes.set(e.key, []).get(e.key)).push({ date, text: cut(eventText(c), 160) });
   }
   for (const [k, a] of notes) applied.push({ item_id: `courtlistener:${found.find((f) => f.entry_key === k).docket_id}`, entry_key: k, actions: a, status: null });
   if (touched.size) { advanceCutoff(out, runDate); out.changes.items.push(...log); }

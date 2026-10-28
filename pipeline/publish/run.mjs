@@ -102,7 +102,11 @@ export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsF
 
   const lsFile = lsIdsFile || LEGISCAN_IDS_FILE;
   const ls = fs.existsSync(lsFile) ? JSON.parse(fs.readFileSync(lsFile, 'utf8')).legiscan || {} : {};
-  const identifiersFor = (key) => (ls[key] && ls[key].status !== 'rejected' ? { session: ls[key].bills[0].session_name, external: { legiscan: ls[key].bills.map((b) => b.bill_id) } } : null);
+  // A tracked Congress bill (config/identifiers.json; read even when idsFile is null, never written then) is found the same way.
+  const cgFile = idsFile || IDENTIFIERS_FILE;
+  const cg = fs.existsSync(cgFile) ? JSON.parse(fs.readFileSync(cgFile, 'utf8')).congress_gov || {} : {};
+  const identifiersFor = (key) => (ls[key] && ls[key].status !== 'rejected' ? { session: ls[key].bills[0].session_name, external: { legiscan: ls[key].bills.map((b) => b.bill_id) } }
+    : cg[key] && cg[key].status !== 'rejected' && (cg[key].congress_gov || []).length ? { session: '119th Congress', external: { congress_gov: [...cg[key].congress_gov] } } : null);
   const a = applyTierA({ data: before, diff, changeset, readRaw, runId, runDate, config, identifiersFor });
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
   // A draft whose stored record changed since it was fetched is not used (the run stops below, stop rule 5).
