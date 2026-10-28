@@ -7,7 +7,8 @@
   "thresholds": false,
   "penalties": false,
   "new_entries": false,
-  "relationships": false
+  "relationships": false,
+  "news": false
  },
  "links": {
   "_note": "The links step of update.mjs (links/run.mjs). For every entry added or changed in a run, code proposes links (a lead sponsor already in the network, a bill amending a tracked law). AI links need a quote from both bills found by code and the validator's agreement. While auto_publish.relationships is off, proposals are only listed in the run report under Links proposed; when on, links/apply.mjs adds them (additions only, checked by publish/guards.mjs). Code-only backtest: node links/backtest.mjs."
@@ -37,6 +38,13 @@
   "_note": "The court-docket step of update.mjs (publish/courts.mjs): reads the docket entries of the cases in config/courts.json filed since the last run (state in data/courts-state.json) from CourtListener (COURTLISTENER_API_TOKEN; at most 5 requests a minute, max_requests_per_run per run) and writes the material ones as Tier A facts: events, and for orders, judgments and appeals a status-text line and a fixed-wording news item.",
   "enabled": true,
   "max_requests_per_run": 12
+ },
+ "news_leads": {
+  "_note": "The news step of update.mjs (news/run.mjs). Reads the feeds in config/news-sources.json (items from the last max_age_days days), screens headlines (code words, then the AI role screener), and drafts up to max_drafts_per_run items from OFFICIAL releases only (writer role generator, second reader role validator, up to max_rounds rounds; code checks every quote and number against the release). Drafts are written to news.json only when auto_publish.news is on; while it is off they are reported. Press (secondary) leads are never published, only reported.",
+  "enabled": true,
+  "max_age_days": 14,
+  "max_drafts_per_run": 3,
+  "max_rounds": 2
  },
  "notify": {
   "_note": "Telegram run report after every run (needs TELEGRAM_BOT_TOKEN or TELEGRAM_ACCESS_TOKEN and TELEGRAM_CHAT_ID). A dry run sends one only with --notify.",

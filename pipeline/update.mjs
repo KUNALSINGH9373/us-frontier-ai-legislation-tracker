@@ -1,5 +1,5 @@
 // The whole chain in one command, as the 4-hourly schedule will run it:
-//   grab (Congress.gov, Federal Register, LegiScan) -> compare -> AI step (agents) -> publish (Tier A, then Tier B new entries) -> site check -> status.json -> report -> commit
+//   grab (Congress.gov, Federal Register, LegiScan) -> compare -> AI step (agents) -> publish (Tier A, then Tier B new entries) -> self-correction -> news -> site check -> status.json -> report -> commit
 //   node update.mjs [--dry-run] [--commit] [--source <congress_gov|federal_register|legiscan|all>] [--no-search] [--no-ai] [--no-notify] [--notify]
 // --dry-run: fetch and compare, but save no state, write no site data and make no AI calls. --commit: one local git commit when the data
 // changed (never pushes). A run that changes nothing rewrites only web/data/v2/status.json ("checked N minutes ago").
@@ -19,6 +19,7 @@ import { linkRun } from './links/run.mjs';
 import { courtsRun } from './publish/courts.mjs';
 import { createRateLimiter } from './grabber/sources/courtlistener.mjs';
 import { createHttp } from './grabber/lib/http.mjs';
+import { newsRun } from './news/run.mjs';
 import { makeValidator } from './schema/validate.mjs';
 import { loadEnv } from './grabber/lib/env.mjs';
 import { createLlmFactory } from './llm/make.mjs';
@@ -151,6 +152,13 @@ try {
   console.log(`links: ${l.proposed.length} proposed, ${l.applied.length} added (${l.status})`);
   if (l.status === 'stopped') rep.notes.push('links were not added (a stop rule failed: ' + l.problems[0] + ')');
   if (l.status === 'written' && l.applied.length) { published.push('links'); summaries.push(l.summary); }
+
+  // ---- 4d. news: feed leads, and items written from official releases (added only when auto_publish.news is on) ----
+  step = 'news';
+  const nw = await newsRun({ dataDir, docsDir: config.copy_to_docs ? docsDir : null, config, factory, aiOff: aiOff || (factory.monthStatus().over ? 'the monthly AI cost cap is reached' : null), dry, today: new Date().toISOString().slice(0, 10), now: new Date(), runId: rep.id, log: (m) => console.log('  ' + m) });
+  rep.news = nw;
+  console.log(`news: ${nw.skipped_why ? 'skipped (' + nw.skipped_why + ')' : `${nw.leads.length} lead(s), ${nw.drafted.length} drafted, ${nw.status}`}`);
+  if (nw.status === 'written') { published.push('news'); summaries.push(nw.summary); }
 
   // ---- 5. the site check: v1 and v2 still build the same model for every entry the pipeline has not changed ----
   if (published.length && !dry) {
