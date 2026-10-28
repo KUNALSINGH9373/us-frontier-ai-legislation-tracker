@@ -35,6 +35,31 @@ export function recordUrl(rec) {
   return null;
 }
 
+// The bill a record is for, as the entry's identifiers write it: Congress.gov 'congress_gov:119/hr/9917', LegiScan 'legiscan:2015571'.
+// null when the record does not name its bill.
+export function recordBillId(rec) {
+  const b = billOf(rec);
+  if (b.congress && b.type && b.number) return 'congress_gov:' + [Number(b.congress), String(b.type).toLowerCase(), String(b.number).toLowerCase()].join('/');
+  if (b.bill_id != null && /^\d+$/.test(String(b.bill_id))) return 'legiscan:' + String(b.bill_id);
+  return null;
+}
+// Is the record for one of the entry's own bills (entry.identifiers.external)? A record attached to the entry for another bill (a
+// companion, an older session, a mismatched item) proves nothing about this entry's sponsor, and its URL is the wrong bill's page.
+// LegiScan: the bill_id is one of the entry's legiscan ids, and the record's state, where it gives one, is the entry's state.
+// null when it is; else why not.
+export function recordBillProblem(rec, entry = {}) {
+  const id = recordBillId(rec), b = billOf(rec);
+  if (!id) return 'the record does not name its bill (Congress.gov congress/type/number or LegiScan bill_id)';
+  const ext = (entry.identifiers && entry.identifiers.external) || {};
+  const src = id.slice(0, id.indexOf(':')), v = id.slice(id.indexOf(':') + 1);
+  const own = (ext[src] || []).map((x) => String(x).toLowerCase());
+  const shown = src === 'congress_gov' ? `${String(b.type).toUpperCase()} ${b.number} (${b.congress}th Congress)` : `LegiScan bill ${v}${b.state ? ` (${b.state}${b.number ? ' ' + b.number : ''})` : ''}`;
+  const mine = Object.entries(ext).flatMap(([s, ids]) => (ids || []).map((x) => `${s} ${x}`)).join(', ') || 'none';
+  if (!own.includes(v)) return `the record is for ${shown}, which is not one of the entry's bills (${mine})`;
+  if (src === 'legiscan' && b.state && entry.state && String(b.state).toUpperCase() !== String(entry.state).toUpperCase()) return `the record is for a ${b.state} bill, the entry is a ${entry.state} bill`;
+  return null;
+}
+
 // Primary sponsors with their official id, the record's own words for them (`quote`: Congress.gov fullName, LegiScan name) and
 // the party the record gives. LegiScan: sponsor_type_id 1 only (no primary marked: none; the first listed is never assumed).
 export const chamberOfTitle = (t) => (/^sen/i.test(String(t)) ? 'upper' : /^(rep|asm|assembly)/i.test(String(t)) ? 'lower' : /^del/i.test(String(t)) ? 'delegate' : null);

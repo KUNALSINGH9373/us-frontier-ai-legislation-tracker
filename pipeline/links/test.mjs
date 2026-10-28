@@ -6,8 +6,8 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import { proposeByCode, proposeByAI, propose, citations, clauses, leadSponsors, nodeFor, companions, LABEL, isApplicable } from './propose.mjs';
-import { recordUrl, loadActorIds, nodeOfId } from './records.mjs';
+import { proposeByCode, proposeByAI, propose, citations, clauses, leadSponsors, nodeFor, companions, LABEL, isApplicable, recordProofProblem } from './propose.mjs';
+import { recordUrl, loadActorIds, nodeOfId, recordBillProblem } from './records.mjs';
 import { matchActorIds } from './actor-ids.mjs';
 import { applyLinks, edgeOf } from './apply.mjs';
 import { linkRun } from './run.mjs';
@@ -34,7 +34,7 @@ const RAISE = real.entries.find((e) => e.key === 'ny-raise-act-ch-699-ch-96');
 function newEntry(o) {
   const base = clone(real.entries.find((e) => e.key === 'ny-s-10373-verification'));
   const ids = real.entries.map((e) => e.id);
-  return { ...base, id: Math.max(...ids) + 1, key: 'test-new-bill', title: 'S.99999 — test bill', short_name: 'NY S.99999 (test)', sponsor_text: 'Sen. Jane Doe (D)', mechanism: 'Requires reports.', thresholds: null, sources: [{ label: 'text', url: 'https://www.nysenate.gov/legislation/bills/2025/S99999', kind: 'primary' }], ...o };
+  return { ...base, id: Math.max(...ids) + 1, key: 'test-new-bill', title: 'S.99999 — test bill', short_name: 'NY S.99999 (test)', sponsor_text: 'Sen. Jane Doe (D)', mechanism: 'Requires reports.', thresholds: null, sources: [{ label: 'text', url: 'https://www.nysenate.gov/legislation/bills/2025/S99999', kind: 'primary' }], identifiers: { ...base.identifiers, external: { legiscan: [99001] } }, ...o };
 }
 const withEntry = (e) => ({ ...clone(real), entries: [...clone(real.entries), e] });
 // Official records shaped like the raw ones (trimmed to the fields the links step reads; no keys or tokens).
@@ -210,7 +210,7 @@ function sandbox() {
 
 // ---------- 8. audit cases (28 Oct 2026): each a false link the old code made, kept as a permanent test ----------
 const code = (e, extra = {}) => proposeByCode({ ...withEntry(e), relationships: extra.relationships || real.relationships, changed: [e.key], ...extra });
-const fedBill = (o) => newEntry({ level: 'federal', state: null, jurisdiction: 'US', section: 'D', type: 'bill', title: 'S. 99999 — test', short_name: 'S. 99999 test', ...o });
+const fedBill = (o) => newEntry({ level: 'federal', state: null, jurisdiction: 'US', section: 'D', type: 'bill', title: 'S. 99999 — test', short_name: 'S. 99999 test', identifiers: { external: { congress_gov: ['119/s/99999', '119/hr/99999', '119/hr/99998'] }, session: '119th Congress' }, ...o });
 const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9999 — test', short_name: 'IL HB 9999', ...o });
 {
   // 8.1 sponsors are matched on the whole person, never the surname alone
@@ -244,7 +244,7 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
   ok('8.1 the record\'s primary sponsor who is the stated lead is linked, record-proved, quoting the record\'s sponsor field and citing the record', r2b.proposals.some((x) => x.from === 'act-moran' && x.record_id === 'bioguide:M001224' && isApplicable(x) && x.evidence[0].quote === 'Rep. Moran, Nathaniel [R-TX-1]' && x.evidence[0].source_url === 'https://www.congress.gov/bill/119th-congress/senate-bill/99999') && !r2b.proposals.some((x) => x.from === 'act-jacobs'), JSON.stringify(r2b.proposals));
   const e3 = fedBill({ sponsor_text: 'Rep. Moran (R-TX)' });
   const r3 = code(e3, { records: { [e3.key]: [recNat] } });
-  ok('8.1 a record sponsor the entry text does not name in full: nothing proposed, reported', !r3.proposals.some((x) => x.type === 'actor') && r3.notes.some((n) => /not named/.test(n.why)));
+  ok('8.1 a record sponsor the entry text does not name in full: nothing proposed, reported', !r3.proposals.some((x) => x.type === 'actor') && r3.notes.some((n) => /names no lead sponsor/.test(n.why)));
   const ls = lsRec('CA', [{ people_id: 1, first_name: 'Rebecca', last_name: 'Bauer-Kahan', role: 'Rep', party: 'D', sponsor_type_id: 2 }, WIENER]);
   const e4 = newEntry({ jurisdiction: 'CA', state: 'CA', title: 'S.B. 999 — test', short_name: 'CA SB 999', sponsor_text: 'Sen. Scott Wiener (D); coauthor Asm. Rebecca Bauer-Kahan (D)' });
   const r4 = code(e4, { records: { [e4.key]: [ls] } });
@@ -473,7 +473,7 @@ async function appliedFor(e, records) {
     ['13 record primary McNerney, entry lead Wiener', caE({ sponsor_text: 'Sen. Scott Wiener (D) (original author; removed as author June 2026), now authored by Sen. Jerry McNerney (D)' }), lsRec('CA', [{ people_id: 25355, first_name: 'Jerry', last_name: 'McNerney', role: 'Sen', party: 'D' }]), /not named as the entry's lead/],
     ['06 record names only the committee', caE({ sponsor_text: 'Sen. Scott Wiener (D), Chair, on behalf of the Senate Housing Committee (committee bill)' }), lsRec('CA', [{ people_id: 0, first_name: '', last_name: '', committee_sponsor: 1, committee_id: 7, name: 'Senate Housing Committee' }]), /marks no primary/],
     ['R2 record party D, entry "(R)"', caE({ sponsor_text: 'Sen. Scott Wiener (R)' }), lsRec('CA', [WIENER]), /party R, the record gives D/],
-    ['R2 record "Rep. Lieu", entry "Del. Ted Lieu"', fedBill({ sponsor_text: 'Del. Ted Lieu (D-CA)' }), cgRec([LIEU]), /not named as the entry's lead/]
+    ['R2 record "Rep. Lieu", entry "Del. Ted Lieu"', fedBill({ sponsor_text: 'Del. Ted Lieu (D-CA)' }), cgRec([LIEU]), /^chamber mismatch: .*House\/Assembly.*Delegate/]
   ];
   for (const [name, e, rec, why] of withRec) {
     const { r, same } = await appliedFor(e, { [e.key]: [rec] });
@@ -489,7 +489,34 @@ async function appliedFor(e, records) {
   const twoRecs = await appliedFor(fed, { [fed.key]: [cgRec([LIEU], 99999, 'HR'), cgRec([{ bioguideId: 'M001224', firstName: 'Nathaniel', lastName: 'Moran', fullName: 'Rep. Moran, Nathaniel [R-TX-1]', party: 'R', state: 'TX' }], 99998, 'HR')] });
   ok('10 two records naming different primary sponsors: nothing applied', twoRecs.r.applied.length === 0 && twoRecs.same);
   const noUrl = await appliedFor(fed, { [fed.key]: [{ bill: { sponsors: [LIEU] } }] });
-  ok('10 a record with no public URL to cite: a proposal only', noUrl.r.applied.length === 0 && noUrl.same && noUrl.r.proposed.some((p) => p.type === 'actor' && !p.applies));
+  ok('10 a record that names no bill (so no URL and no bill identity): nothing applied, nothing proposed, a note says why', noUrl.r.applied.length === 0 && noUrl.same && !noUrl.r.proposed.some((p) => p.type === 'actor') && noUrl.r.notes.some((n) => /does not name its bill/.test(n.why)));
+  // a LegiScan record of the entry's own bill whose URL is not a LegiScan page: still a proposal only (no URL to cite)
+  const caNoUrl = caE({ sponsor_text: 'Sen. Scott Wiener (D)' });
+  const lsNoUrl = await appliedFor(caNoUrl, { [caNoUrl.key]: [{ bill: { ...lsRec('CA', [WIENER]).bill, url: 'https://legiscan.com.evil.example/x' } }] });
+  ok('10 a record of the entry\'s own bill with no public URL to cite: a proposal only', lsNoUrl.r.applied.length === 0 && lsNoUrl.same && lsNoUrl.r.proposed.some((p) => p.type === 'actor' && !p.applies), JSON.stringify(lsNoUrl.r));
+  // bill identity (audit L02, L12): a record attached to the entry for ANOTHER bill proves nothing and cites nothing
+  const l02 = await appliedFor(fed, { [fed.key]: [cgRec([LIEU], 4242, 'HR')] });
+  ok('10 L02: a Congress.gov record of HR 4242 on an entry whose bills are S/HR 99999: nothing applied or proposed, the note names the wrong bill', l02.r.applied.length === 0 && l02.same && !l02.r.proposed.some((p) => p.type === 'actor') && l02.r.notes.some((n) => /HR 4242 \(119th Congress\), which is not one of the entry's bills/.test(n.why)), JSON.stringify(l02.r.notes));
+  const l12e = caE({ sponsor_text: 'Sen. Scott Wiener (D)' });
+  const l12 = await appliedFor(l12e, { [l12e.key]: [{ bill: { ...lsRec('CA', [WIENER], 12345).bill, url: 'https://legiscan.com/CA/bill/SB1047/2024' } }] });
+  ok('10 L12: the LegiScan record of CA SB 1047 (2024, bill 12345) on an entry whose bill is 99001: nothing applied or proposed, with a note', l12.r.applied.length === 0 && l12.same && !l12.r.proposed.some((p) => p.type === 'actor') && l12.r.notes.some((n) => /LegiScan bill 12345 \(CA\), which is not one of the entry's bills \(legiscan 99001\)/.test(n.why)), JSON.stringify(l12.r.notes));
+  const mixed = await appliedFor(l12e, { [l12e.key]: [lsRec('CA', [WIENER]), { bill: { ...lsRec('CA', [WIENER], 12345).bill, url: 'https://legiscan.com/CA/bill/SB1047/2024' } }] });
+  ok('10 the right record plus one for another bill: nothing applied (any foreign record refuses)', mixed.r.applied.length === 0 && mixed.same);
+  const otherState = await appliedFor(l12e, { [l12e.key]: [lsRec('NY', [WIENER])] });
+  ok('10 a LegiScan record with the entry\'s bill_id but another state: refused, with a note', otherState.r.applied.length === 0 && otherState.same && otherState.r.notes.some((n) => /NY bill, the entry is a CA bill/.test(n.why)));
+  // the guard refuses the same thing on its own: a record-proved edge whose entry's records include another bill's record
+  {
+    const ge = caE({ sponsor_text: 'Sen. Scott Wiener (D)' }), gd = withEntry(ge), good = { [ge.key]: [lsRec('CA', [WIENER])] };
+    const gp = proposeByCode({ entries: gd.entries, relationships: gd.relationships, changed: [ge.key], records: good });
+    const ga = applyLinks({ data: gd, proposals: gp.proposals.filter(isApplicable), nodes: gp.nodes });
+    const after = ga.relationships;
+    const okRun = checkLinks(gd.relationships, after, { ...ga.added, created: [ge.key], records: good }, gd.entries);
+    const foreign = { [ge.key]: [{ bill: { ...lsRec('CA', [WIENER], 12345).bill, url: 'https://legiscan.com/CA/bill/S99999/2025' } }] };
+    const bad = checkLinks(gd.relationships, after, { ...ga.added, created: [ge.key], records: foreign }, gd.entries);
+    const ent = gd.entries.find((x) => x.key === ge.key), edge = ga.added.edges[0];
+    ok('10 guard: the same edge passes with its own bill\'s record and stops the run when the record is for another bill (same URL, other bill_id)', ga.added.edges.length === 1 && okRun.length === 0 && bad.some((p) => /not proved by the official record: the record is for LegiScan bill 12345/.test(p)), JSON.stringify({ okRun, bad }));
+    ok('10 guard helper: recordProofProblem names the bill mismatch', /not one of the entry's bills/.test(recordProofProblem(edge, ent, after.nodes, foreign, loadActorIds()) || ''));
+  }
   const unstored = proposeByCode({ ...withEntry(fed), relationships: real.relationships, changed: [fed.key], records: { [fed.key]: [cgRec([LIEU], 99999, 'HR')] }, actorIds: {} });
   ok('10 a record sponsor with no stored official id: a prose proposal only, with a note', unstored.proposals.every((p) => !isApplicable(p)) && unstored.notes.some((n) => /no stored official id/.test(n.why)));
   // "Del." is its own chamber: never read as a Representative
@@ -516,13 +543,58 @@ async function appliedFor(e, records) {
 {
   // backtest: applied (record-proved) and report-only proposals scored separately; applied must be 0 wrong
   const records = { 'h-r-9917-ai-kill-switch-act': [cgRec([LIEU], 9917, 'HR')], 'ca-sb-53-tfaia': [lsRec('CA', [WIENER])] };
-  const b = backtest({ entries: real.entries, relationships: real.relationships, records });
+  // the test record for SB 53 is LegiScan bill 99001: the entry is given that id so the record is for its own bill
+  const withIds = real.entries.map((x) => (x.key === 'ca-sb-53-tfaia' ? { ...x, identifiers: { ...(x.identifiers || {}), external: { ...((x.identifiers && x.identifiers.external) || {}), legiscan: [99001] } } } : x));
+  const b = backtest({ entries: withIds, relationships: real.relationships, records });
+  const other = backtest({ entries: real.entries.map((x) => (x.key === 'ca-sb-53-tfaia' ? { ...x, identifiers: { external: { legiscan: [12345] } } } : x)), relationships: real.relationships, records });
+  ok('10 backtest: a record for another bill (LegiScan 99001 on an entry whose bill is 12345) proves nothing', other.applied.proposals === b.applied.proposals - 1 && other.applied.wrong.length === 0, JSON.stringify(other.applied));
   ok('10 backtest with records: the record-proved sponsor links are applied and right, 0 wrong', b.applied.proposals >= 2 && b.applied.right === b.applied.proposals && b.applied.wrong.length === 0, JSON.stringify(b.applied));
   ok('10 backtest: every other proposal is scored as report-only', b.reportOnly.proposals === b.proposals - b.applied.proposals && b.reportOnly.wrong.length === 0);
   const none = backtest({ entries: real.entries, relationships: real.relationships });
   ok('10 backtest without records: nothing is applied', none.applied.proposals === 0 && none.reportOnly.proposals === none.proposals);
   const lie = backtest({ entries: real.entries, relationships: real.relationships, records: { 'h-r-9917-ai-kill-switch-act': [cgRec([{ ...LIEU, party: 'R' }], 9917, 'HR')] }, sample: ['h-r-9917-ai-kill-switch-act'] });
   ok('10 backtest: a record whose party contradicts the entry proves nothing', lie.applied.proposals === 0);
+}
+
+{
+  // recordBillProblem: the record's bill must be one of the entry's own bills
+  const ent = { state: 'CA', identifiers: { external: { congress_gov: ['119/s/5105', '119/hr/9914'], legiscan: [2015571] } } };
+  ok('11 recordBillProblem: a companion bill the entry lists is its own; another number, Congress or LegiScan id is not', recordBillProblem(cgRec([], 9914, 'HR'), ent) === null && recordBillProblem(cgRec([], 5105, 'S'), ent) === null && /not one of/.test(recordBillProblem(cgRec([], 9915, 'HR'), ent)) && /not one of/.test(recordBillProblem({ bill: { congress: 118, type: 'HR', number: 9914 } }, ent)) && recordBillProblem(lsRec('CA', [], 2015571), ent) === null && /not one of/.test(recordBillProblem(lsRec('CA', [], 1), ent)) && /does not name its bill/.test(recordBillProblem({ bill: {} }, ent)));
+}
+{
+  // the Telegram links and news lines say what really happened
+  const P = (applies, why) => ({ names: ['Sen. A', 'Bill B'], label: 'Sponsor', applies, why, type: 'actor', method: 'code' });
+  const lines = (links, news, extra = {}) => { const rep = newReport({ id: 'u', now: new Date('2026-10-29T06:00:00Z') }); rep.links = links; if (news) rep.news = news; Object.assign(rep, extra); finalize(rep, { now: new Date('2026-10-29T06:01:00Z') }); return formatReport(rep); };
+  const base = { proposed: [P(true), P(false, 'sponsor read from the tracker\'s prose, not proved by an official record: a proposal, never added automatically')], applied: [], report_only: [], notes: [], companions: [], problems: [] };
+  const w = lines({ ...base, status: 'written', applied: [{ from: 'a', to: 'b' }] });
+  ok('11 report, written: "1 added", the proved link marked added, the other "proposal only (reason)"', /Links proposed: 2, 1 added to the network/.test(w) && /Sponsor — added/.test(w) && /Sponsor — proposal only \(sponsor read from the tracker's prose/.test(w), w);
+  const off = lines({ ...base, status: 'proposed' });
+  ok('11 report, switched off: says so, and the proved link is "not added (adding links is switched off)"', /Links proposed: 2 \(reported only: 1 proved by an official record, not added: adding links is switched off\)/.test(off) && /not added \(adding links is switched off\)/.test(off), off);
+  const gated = lines({ ...base, status: 'proposed' }, null, { gate: { off: [{ field: 'relationships', why: 'pass rate 0.9 below 1' }] } });
+  ok('11 report, switched off by the gate: names the gate and its reason', /switched off this run by the accuracy gate: pass rate 0\.9 below 1/.test(gated), gated);
+  const st = lines({ ...base, status: 'stopped', problems: ['added link a -> b: not proved'] });
+  ok('11 report, stopped: "none added (stopped by a check: ...)", never "switched off"', /none added \(stopped by a check: added link a -> b: not proved\)/.test(st) && !/switched off/.test(st), st);
+  const held = lines({ ...base, status: 'held' });
+  ok('11 report, held: "put back by the final check"', /none added \(put back by the final check\)/.test(held) && !/switched off/.test(held), held);
+  const dry = lines({ ...base, status: 'dry-run' });
+  ok('11 report, dry run: "would be added (dry run)"', /1 would be added \(dry run, nothing saved\)/.test(dry) && /Sponsor — would be added \(dry run\)/.test(dry) && !/switched off/.test(dry), dry);
+  const none = lines({ ...base, proposed: [base.proposed[1]], status: 'proposed', notes: [{ entry_key: 'k', kind: 'sponsor', why: 'chamber mismatch: the record gives ...' }] });
+  ok('11 report: nothing record-proved says so, and a refusal note gives its real reason', /reported only: none is proved by an official record/.test(none) && /not proposed: k: chamber mismatch/.test(none) && !/switched off/.test(none), none);
+  // news
+  const d = (written) => ({ title: 'T', publisher: 'P', written });
+  const N = (o) => ({ ran: true, status: 'reported', publishing: false, drafted: [d(false)], leads: [], waiting_record: [], feeds_failed: [], problems: [], ...o });
+  const nOff = lines({ ...base, proposed: [], status: 'nothing' }, N({}));
+  ok('11 news, switch off: "news publishing is switched off"', /not published \(news publishing is switched off\)/.test(nOff), nOff);
+  const nGate = lines({ ...base, proposed: [], status: 'nothing' }, N({}), { gate: { off: [{ field: 'news', why: 'below the bar' }] } });
+  ok('11 news, gate: names the gate', /switched off this run by the accuracy gate: below the bar/.test(nGate), nGate);
+  const nDry = lines({ ...base, proposed: [], status: 'nothing' }, N({ status: 'dry-run', publishing: true }));
+  ok('11 news, dry run with the switch on: "dry run", never "switched off"', /not published \(dry run, nothing saved\)/.test(nDry) && !/switched off/.test(nDry), nDry);
+  const nStop = lines({ ...base, proposed: [], status: 'nothing' }, N({ status: 'stopped', publishing: true, problems: ['duplicate event'] }));
+  ok('11 news, stopped: the stop rule, never "switched off"', /not published \(stopped by a check: duplicate event\)/.test(nStop) && !/news publishing is switched off/.test(nStop), nStop);
+  const nBack = lines({ ...base, proposed: [], status: 'nothing' }, N({ status: 'written', publishing: true, drafted: [d(true), d(false)] }));
+  ok('11 news, final check put one back: "1 published, 1 not published (put back by the final check)"', /1 published, 1 not published \(put back by the final check\)/.test(nBack), nBack);
+  const nWait = lines({ ...base, proposed: [], status: 'nothing' }, N({ drafted: [], waiting_record: [{ title: 'Release X', publisher: 'Sen. Y', release_date: '2026-10-28' }] }));
+  ok('11 news: items waiting for the official record are shown', /News waiting for the official record: 1 \(Release X, Sen\. Y\) — retried next run/.test(nWait), nWait);
 }
 
 console.log(`\nlinks: ${pass} passed, ${fail} failed`);
