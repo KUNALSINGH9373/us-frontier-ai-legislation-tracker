@@ -10,6 +10,7 @@ import { SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
 import { LlmOutputError, InputTooLarge, BudgetExceeded } from '../llm/gemini.mjs';
 import { deriveCreate } from './derive.mjs';
 import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
+import { writeDuties, DUTY_SECTIONS } from './duties.mjs';
 
 export const MAX_ROUNDS = 3;
 const TRIAGE_OVER = 100000, TRIAGE_CHARS = 30000; // sources longer than this are triaged on their opening
@@ -112,7 +113,15 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     }
     verdicts.push(verdict); last = { patch, asm, verdict };
     log(`attempt ${attempt}: ${verdict.passed ? 'passed' : 'rejected (' + complaints(verdict).length + ' problem(s))'}`);
-    if (verdict.passed) return { item_id: item.item_id, outcome: 'publishable', operation, attempts: attempt, entry: asm.entry, patch, verdicts, reason: null };
+    if (verdict.passed) {
+      // A new bill also gets its 13 duty answers, each proved on its own (agents/duties.mjs); when any cannot be proved the entry goes out without them.
+      if (operation === 'create' && item.source === 'congress_gov' && DUTY_SECTIONS.includes(asm.entry.section)) {
+        const d = await writeDuties({ generator, validator, entry: asm.entry, sourceText: source, sourceUrl: item.source_url, itemId: item.item_id, now, log });
+        if (d.duties) Object.assign(asm.entry, { duties: d.duties, duties_basis: d.duties_basis });
+        return { item_id: item.item_id, outcome: 'publishable', operation, attempts: attempt, entry: asm.entry, patch, verdicts, reason: null, duties: { added: !!d.duties, rounds: d.rounds, dropped: d.dropped, reason: d.reason } };
+      }
+      return { item_id: item.item_id, outcome: 'publishable', operation, attempts: attempt, entry: asm.entry, patch, verdicts, reason: null };
+    }
     // The generator says "in scope" and the reader says "out" (twice): stop, do not keep arguing.
     if (verdict.claims.some((c) => c.field === 'in_scope' && !c.supported) && ++scopeObjections >= 2) {
       return { item_id: item.item_id, outcome: 'held', operation, attempts: attempt, entry: null, patch, verdicts, reason: `scope disagreement: the generator says in scope but the independent reader says out of scope ("${(verdict.claims.find((c) => c.field === 'in_scope').reason || '').slice(0, 160)}"). The author's scope rule needs to decide cases like this.` };

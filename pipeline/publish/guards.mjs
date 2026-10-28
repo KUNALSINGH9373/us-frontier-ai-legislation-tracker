@@ -18,6 +18,10 @@ export function checkNewEntry(e) {
   if (e.origin !== 'automated' || !e.verification || e.verification.method !== 'agent') problems.push('not marked as written and checked by the pipeline');
   READING_FIELDS.filter((f) => e[f] && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
   FACT_FIELDS.filter((f) => e[f] && NEGATIVE_FINDING.test(e[f])).forEach((f) => problems.push(`${f} states a search finding ("none located"), which only a person may write`));
+  // Duties on a new entry come only from the agents' duty step, with the text they were read from (tier-b.mjs re-checks them against it).
+  if (e.duties && !(e.duties_basis && e.duties_basis.method === 'agent')) problems.push('duties without a duties_basis from the pipeline (method agent)');
+  if (!e.duties && e.duties_basis) problems.push('duties_basis without duties');
+  if (e.duties && e.duties_basis && e.sources && !e.sources.some((s) => s.url === e.duties_basis.source_url)) problems.push(`duties read from ${e.duties_basis.source_url}, which is not one of the entry's sources`);
   return problems;
 }
 
