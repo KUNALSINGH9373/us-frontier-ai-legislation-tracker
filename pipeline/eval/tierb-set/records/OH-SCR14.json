@@ -1,0 +1,198 @@
+{
+ "item": {
+  "item_id": "legiscan:2059491",
+  "source": "legiscan",
+  "source_id": "2059491",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.legislature.ohio.gov/legislation/136/scr14",
+  "fetched_at": "2026-10-13T07:26:01Z",
+  "raw_hash": "49ca59d01a5818d9f166ac193f1dca274670a2afb180cfcf15007a4f1c207cbc",
+  "raw_path": "x",
+  "title": "OH SCR14: Urge Congress to reject moratorium on state regulation of AI"
+ },
+ "raw": {
+  "id": "2059491",
+  "search_hit": {
+   "search": "wide",
+   "relevance": 16,
+   "intent": {
+    "verdict": "yes",
+    "reason": "Preemption of state AI laws",
+    "by": "model"
+   }
+  },
+  "bill": {
+   "bill_id": 2059491,
+   "change_hash": "38581dd80a864ff3bef3499da55b377f",
+   "session_id": 2190,
+   "session": {
+    "session_id": 2190,
+    "state_id": 35,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "136th General Assembly"
+   },
+   "url": "https://legiscan.com/OH/bill/SCR14/2025",
+   "state_link": "https://www.legislature.ohio.gov/legislation/136/scr14",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2025-12-17",
+   "progress": [
+    {
+     "date": "2025-12-17",
+     "event": 1
+    }
+   ],
+   "state": "OH",
+   "state_id": 35,
+   "bill_number": "SCR14",
+   "bill_type": "CR",
+   "bill_type_id": "3",
+   "body": "S",
+   "body_id": 6,
+   "current_body": "S",
+   "current_body_id": 6,
+   "title": "Urge Congress to reject moratorium on state regulation of AI",
+   "description": "To urge the Congress of the United States to reject any moratorium on state laws regulating artificial intelligence.",
+   "pending_committee_id": 5085,
+   "committee": {
+    "committee_id": 5085,
+    "chamber": "S",
+    "chamber_id": 6,
+    "name": "Financial Institutions, Insurance and Technology"
+   },
+   "referrals": [
+    {
+     "date": "2026-02-11",
+     "committee_id": 5085,
+     "chamber": "S",
+     "chamber_id": 6,
+     "name": "Financial Institutions, Insurance and Technology"
+    }
+   ],
+   "history": [
+    {
+     "date": "2025-12-17",
+     "action": "Offered",
+     "chamber": "S",
+     "chamber_id": 6,
+     "importance": 0
+    },
+    {
+     "date": "2026-02-11",
+     "action": "Referred to committee: Financial Institutions, Insurance and Technology",
+     "chamber": "S",
+     "chamber_id": 6,
+     "importance": 0
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 14653,
+     "person_hash": "eftow5c0",
+     "party_id": "2",
+     "state_id": 35,
+     "party": "R",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Louis Blessing",
+     "first_name": "Louis",
+     "middle_name": "W.",
+     "last_name": "Blessing",
+     "suffix": "III",
+     "nickname": "",
+     "district": "SD-008",
+     "ftm_eid": 10238815,
+     "votesmart_id": 136568,
+     "opensecrets_id": "",
+     "knowwho_pid": 458728,
+     "ballotpedia": "Louis_W._Blessing,_III",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0
+    }
+   ],
+   "sasts": [],
+   "subjects": [
+    {
+     "subject_id": 385560,
+     "subject_name": "Commerce : Technology"
+    },
+    {
+     "subject_id": 386309,
+     "subject_name": "Senate Financial Institutions, Insurance and Technology Committee"
+    }
+   ],
+   "texts": [
+    {
+     "doc_id": 3291423,
+     "date": "0000-00-00",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/OH/text/SCR14/id/3291423",
+     "state_link": "https://search-prod.lis.state.oh.us/api/v2/general_assembly_136/legislation/scr14/00_IN/pdf/",
+     "text_size": 47898,
+     "text_hash": "e85824249081f996a385083308d46bf5",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "amendments": [],
+   "supplements": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2025-12-17",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Offered",
+     "chamber": "S"
+    },
+    {
+     "date": "2026-02-11",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Referred to committee: Financial Institutions, Insurance and Technology",
+     "chamber": "S"
+    }
+   ]
+  },
+  "text": "As Introduced\n136th General Assembly\nRegular Session S. C. R. No. 14\n2025-2026\nSenator Blessing\nA C O N C U R R E N T R E S O L U T I O N\nTo urge the Congress of the United States to reject any 1\nmoratorium on state laws regulating artificial 2\nintelligence. 3\nBE IT RESOLVED BY THE SENATE OF THE STATE OF OHIO (THE HOUSE OF\nREPRESENTATIVES CONCURRING):\nWHEREAS, The United States Congress rejected an effort to 4\ninsert a moratorium on artificial intelligence regulation in the 5\nNational Defense Authorization Act; and 6\nWHEREAS, A similar moratorium was stricken by the Senate 7\nfrom the One Big Beautiful Bill Act; and 8\nWHEREAS, The Tenth Amendment of the United States 9\nConstitution provides that powers not explicitly delegated to 10\nthe federal government remain with the states; and 11\nWHEREAS, The power to regulate artificial intelligence is 12\nnot explicitly delegated to the federal government; and 13\nWHEREAS, The states, as the laboratories of democracy, are 14\nbest positioned to respond quickly to emerging harms and tailor 15\npolicy to local needs; and 16\nWHEREAS, Congress currently has no plan to regulate 17\nartificial intelligence on a federal level; and 18\nWHEREAS, Large artificial intelligence companies and their 19\n\nS. C. R. No. 14 Page 2\nAs Introduced\ntrade associations support and have lobbied for a moratorium on 20\nstate laws regulating artificial intelligence; and 21\nWHEREAS, A moratorium on state laws regulating artificial 22\nintelligence places profits over the health, safety, and welfare 23\nof Americans; and 24\nWHEREAS, Executive orders attempting to legislate 25\nartificial intelligence policy are blatantly unconstitutional; 26\nnow therefore be it 27\nRESOLVED, That we, the members of the 136th General 28\nAssembly of the State of Ohio, condemn the idea of an artificial 29\nintelligence legislation moratorium in all of its iterations and 30\nurge members of Congress to reject inclusion of such language as 31\npart of any federal legislation and executive orders; and be it 32\nfurther 33\nRESOLVED, That the Clerk of the Senate transmit duly 34\nauthenticated copies of this resolution to the President Pro 35\nTempore and Secretary of the United States Senate and the 36\nSpeaker and Clerk of the United States House of Representatives. 37",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3291423,
+   "date": "0000-00-00",
+   "type": "Introduced",
+   "mime": "application/pdf",
+   "state_link": "https://search-prod.lis.state.oh.us/api/v2/general_assembly_136/legislation/scr14/00_IN/pdf/",
+   "from": "legiscan",
+   "saved_file": "raw/legiscan/OH-SCR14-2059491.pdf",
+   "pdf": {
+    "pages": 2,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": []
+ }
+}

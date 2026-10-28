@@ -1,0 +1,253 @@
+{
+ "id": 98,
+ "key": "ct-hb-5222",
+ "section": "C",
+ "type": "auditor",
+ "level": "state",
+ "jurisdiction": "CT",
+ "state": "CT",
+ "status": "enacted",
+ "title": "H.B. 5222 — An Act Concerning Consumer Protection, Cannabis, Data Privacy, Fire Inspections, Criminal Mischief And Artificial Intelligence.",
+ "short_name": "CT HB 5222",
+ "sponsor_text": "General Law Committee with 4 co-sponsors",
+ "mechanism": "Sec. 46 (effective Oct 1, 2026): no subscription-based provider shall enter into or renew a subscription, or collect a fee, without written notice of key terms and the consumer's written acceptance; enforced solely by the Attorney General, with no private right of action. Sec. 47 (effective Oct 1, 2027): the Department of Consumer Protection shall develop and administer a pilot program approving independent verification organizations; their evidence is admissible only in private injury or property damage suits, with no presumption in Attorney General or state enforcement. The pilot terminates March 31, 2031.",
+ "thresholds": "Sec. 46: generative AI systems with more than one million users per month, offered to consumers by subscription. Sec. 47: covers artificial intelligence models assessed for adherence to best-practice standards.",
+ "penalties": "Violation of Sec. 46(b) is an unfair or deceptive trade practice under section 42-110b(a); enforced solely by the Attorney General; section 42-110g does not apply. No private right of action.",
+ "status_text": "Status: Introduced Feb 18, 2026; Signed by the Governor (June 2, 2026)",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-02-18",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "Referred to Joint Committee on General Law",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-02-19",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Public Hearing 02/23",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-03-20",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Referred to Office of Legislative Research and Office of Fiscal Analysis 03/25/26 5:00 PM",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-03-26",
+   "precision": "day",
+   "type": "Passed / advanced",
+   "text": "Reported Out of Legislative Commissioners' Office",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-04-14",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Referred by House to Committee on Judiciary",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-04-20",
+   "precision": "day",
+   "type": "Passed / advanced",
+   "text": "Reported Out of Legislative Commissioners' Office",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-04-20",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "No New File by Committee on Judiciary",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-05-05",
+   "precision": "day",
+   "type": "Passed / advanced",
+   "text": "House Passed as Amended by House Amendment Schedule A",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-05-19",
+   "precision": "day",
+   "type": "Signed / enacted",
+   "text": "Public Act 26-100",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-06-02",
+   "precision": "day",
+   "type": "Signed / enacted",
+   "text": "Signed by the Governor",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-10-01",
+   "precision": "day",
+   "type": "Effective",
+   "text": "Sec. 46 subscription disclosure rules take effect",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2027-10-01",
+   "precision": "day",
+   "type": "Effective",
+   "text": "Sec. 47 independent verification pilot program takes effect",
+   "inferred_year": false,
+   "scheduled": true
+  },
+  {
+   "date": "2028-12-31",
+   "precision": "day",
+   "type": "Search date / deadline / scheduled",
+   "text": "Department of Consumer Protection evaluation of pilot program due",
+   "inferred_year": false,
+   "scheduled": true
+  }
+ ],
+ "sources": [
+  {
+   "label": "CT Legislature record: An Act Concerning Consumer Protection, Cannabis, Data Privacy, Fire Inspections, Criminal Mischief And Artificial Intelligence.",
+   "url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026",
+   "kind": "primary",
+   "retrieved_at": "2026-10-13T07:20:48Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "No subscription - based provider shall enter into or renew a",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "mechanism",
+   "quote": "shall be enforced solely by the Attorney General",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "mechanism",
+   "quote": "Nothing in this section shall be construed as providing the basis for a private right of action.",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "mechanism",
+   "quote": "develop and administer a pilot program",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "mechanism",
+   "quote": "submit an annual report to, the department",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "mechanism",
+   "quote": "shall be admissible solely in a civil action brought by a private party",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "mechanism",
+   "quote": "nor shall it give rise to any presumption, inference or defense",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "mechanism",
+   "quote": "The pilot program shall terminate on March 31, 2031.",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "thresholds",
+   "quote": "has more than one million users per month",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "thresholds",
+   "quote": "adherence of artificial intelligence models to standards reflecting best",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "penalties",
+   "quote": "shall constitute an unfair or deceptive trade practice",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "penalties",
+   "quote": "shall be enforced solely by the Attorney General",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "penalties",
+   "quote": "shall not apply to any such violation",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "events_add[0]",
+   "quote": "Signed by the Governor",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "events_add[1]",
+   "quote": "( Effective October 1, 2026 )",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "events_add[2]",
+   "quote": "( Effective October 1, 2027 )",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "events_add[3]",
+   "quote": "Not later than December 31, 2028, the Department of",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  },
+  {
+   "field": "in_scope",
+   "quote": "The Department of Consumer Protection shall approve not more than five independent verification organizations to participate in the pilot program.",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=HB05222&which_year=2026"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "legiscan": [
+    2118487
+   ]
+  },
+  "session": "2026 General Assembly"
+ },
+ "legacy": {
+  "section_name": "State IVO / AI-auditor licensing measures"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261013-0714-e97e",
+  "rounds": 2
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28"
+}

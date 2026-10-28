@@ -8,6 +8,10 @@ export const parseBillId = (id) => { const m = /^(\d+)\/([a-z]+)\/(\d+)$/.exec(i
 export const billId = (b) => `${b.congress}/${String(b.type).toLowerCase()}/${b.number}`;
 export const billUrl = (b) => `https://www.congress.gov/bill/${b.congress}th-congress/${({ hr: 'house-bill', s: 'senate-bill', hjres: 'house-joint-resolution', sjres: 'senate-joint-resolution', hres: 'house-resolution', sres: 'senate-resolution', hconres: 'house-concurrent-resolution', sconres: 'senate-concurrent-resolution' })[String(b.type).toLowerCase()] || 'bill'}/${b.number}`;
 
+// One Congress.gov related bill as the raw record stores it (agents/dedupe.mjs reads it; relationshipDetails is kept under its API name).
+export const relatedBill = (r) => ({ congress: r.congress, type: String(r.type || '').toLowerCase(), number: r.number, title: r.title || null,
+  relationshipDetails: (r.relationshipDetails || []).map((d) => ({ type: d.type || null, identifiedBy: d.identifiedBy || null })) });
+
 export function createCongress(http) {
   const q = (o) => Object.entries(o).filter(([, v]) => v !== undefined && v !== null).map(([k, v]) => `${k}=${encodeURIComponent(v).replace(/%2B/g, '+')}`).join('&');
   const get = (path, params = {}) => http.getJson(`${BASE}${path}?${q({ format: 'json', ...params })}`);
@@ -57,6 +61,17 @@ export function createCongress(http) {
         all.push(...(r.actions || []));
         if ((r.actions || []).length < 250) return all;
       }
+    },
+    // Congress.gov's related bills, reduced to what dedupe needs: [{ congress, type, number, title, relationships: [{ type, identifiedBy }] }]
+    // (type: "Identical bill", "Related bill", "Procedurally-related", ...). Every page is read, so "count" and the list always agree.
+    async getRelatedBills({ congress, type, number }) {
+      const all = [];
+      for (let offset = 0; ; offset += 250) {
+        const r = await get(`/bill/${congress}/${type}/${number}/relatedbills`, { limit: 250, offset });
+        all.push(...(r.relatedBills || []));
+        if ((r.relatedBills || []).length < 250) break;
+      }
+      return all.map(relatedBill);
     },
     async getSummaries({ congress, type, number }) { return (await get(`/bill/${congress}/${type}/${number}/summaries`)).summaries || []; },
     // Whether any text version with a formatted text has been published yet (one cheap call; the text itself is not fetched).

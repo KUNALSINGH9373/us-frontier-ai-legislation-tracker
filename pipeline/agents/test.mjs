@@ -40,7 +40,10 @@ function scriptedValidator({ unsupported = {}, quotes = {}, answerFor } = {}) {
 // The referee confirms a new item's scope with a quote it copies from the source it was shown (the first line of 8+ characters).
 // Every new entry needs the referee's confirmation (agents/process-item.mjs), so tests of publishable creates pass one.
 function confirmingReferee() {
-  return { calls: [], async generate(req) { this.calls.push(req); const src = (/<<<SOURCE\n([\s\S]*?)\nSOURCE>>>/.exec(req.prompt) || [, ''])[1]; const line = src.split('\n').map((l) => l.trim()).find((l) => l.length >= 8 && !/^\[/.test(l)) || ''; return { usage: {}, data: { results: [{ n: 1, supported: true, quote: line.slice(0, 80), reason: null }] } }; } };
+  return { calls: [], async generate(req) { this.calls.push(req); const src = (/<<<SOURCE\n([\s\S]*?)\nSOURCE>>>/.exec(req.prompt) || [, ''])[1]; const lines = src.split('\n').map((l) => l.trim()).filter((l) => l.length >= 8 && !/^\[/.test(l)); const line = lines[0] || '';
+    // On a section claim it quotes the first passage that shows a section criterion (as a careful referee would), else its first line.
+    const sec = (/belongs in section (B\.2|[A-C])\b/.exec(req.prompt) || [])[1]; if (sec) { const M = { A: /frontier|large developer|floating-point|computational operations/i, B: /frontier|large developer|floating-point|computational operations/i, 'B.2': /catastrophic|critical harm/i, C: /independent verification|auditor/i }[sec]; const hit = lines.find((l) => M.test(l)); if (hit) { const i = hit.search(M); return { usage: {}, data: { results: [{ n: 1, supported: true, quote: hit.slice(Math.max(0, i - 20), i + 60).trim(), reason: null }] } }; } }
+    return { usage: {}, data: { results: [{ n: 1, supported: true, quote: line.slice(0, 80), reason: null }] } }; } };
 }
 
 // ---------- real records ----------
@@ -224,7 +227,7 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   const notice = clone(eo); notice.document.type = 'Notice'; notice.document.executive_order_number = null; notice.document.signing_date = null; notice.document.agency_names = ['Commerce Department'];
   const bad = goodCreate(); bad.fields.section = 'E';
   const r = await processItem({ generator: scriptedGenerator([bad, bad, bad]), validator: scriptedValidator(), item: itemEo, raw: notice, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
-  ok('the agents may not create entries in sections that need a person (drafts)', r.outcome === 'held' && r.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /need a person/.test(c.detail)));
+  ok('the agents may not create entries in sections that need a person (drafts)', r.outcome === 'held' && r.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /never auto-created/.test(c.detail)));
   const st = goodCreate(); st.fields.section = 'B';
   const rs = await processItem({ generator: scriptedGenerator([st, st, st]), validator: scriptedValidator(), item: itemEo, raw: notice, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
   ok('a federal item may not go in a state section', rs.outcome === 'held' && rs.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /section B is for state items; this is a federal item/.test(c.detail)));
@@ -292,7 +295,7 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   const long = clone(eo); long.text = 'Section 1. ' + 'This order concerns agency terminology. '.repeat(5000);
   const inScope = { operation: 'create', in_scope: true, scope_reason: 'Frontier AI safety order.', fields: {}, events_add: [], evidence: [] };
   const r = await processItem({ generator: scriptedGenerator([inScope]), validator: scriptedValidator(), item: itemEo, raw: long, diff: diffEo, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
-  ok('a very long source with no frontier-AI term anywhere that may be in scope is held for a person, not published or dropped', r.outcome === 'held' && /needs a person/.test(r.reason));
+  ok('a very long source with no frontier-AI term anywhere that may be in scope is held and reported, not published or dropped', r.outcome === 'held' && /held until its record changes/.test(r.reason) && !!r.proposal);
 }
 {
   // IL H.B. 2949: a 1.25-million-character budget bill whose headings cannot be read; its frontier part is deep inside (Sec. 40-15).
@@ -416,7 +419,7 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   const diff = { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'new_entry_candidate', detail: 'New state bill CT SB00086' }] };
   ok('a LegiScan record is readable', /Bill: CT SB00086/.test(sourceText(raw, 'legiscan')) && /2026-02-10: Referred/.test(sourceText(raw, 'legiscan')));
   const inScope = await processItem({ generator: scriptedGenerator([{ operation: 'create', in_scope: true, scope_reason: 'Duties on frontier developers.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator(), item, raw, diff, entries, today: '2026-10-28', runId: 'run-test' });
-  ok('a state bill the generator never writes up (no section, no mechanism) is held, never published', inScope.outcome === 'held' && inScope.entry === null && inScope.verdicts.some((x) => x.code_checks.some((c) => c.name === 'assembled' && /needs "section"/.test(c.detail))), inScope.reason);
+  ok('a state bill the generator never writes up (no section, no mechanism) is held, never published', inScope.outcome === 'held' && inScope.entry === null && inScope.verdicts.some((x) => x.code_checks.some((c) => c.name === 'assembled' && /needs "(?:section|mechanism)"/.test(c.detail))), inScope.reason);
 }
 {
   // Real candidates the LegiScan grabber saved on 13 Oct 2026 (fixtures/legiscan/candidates): AZ HB 4098 (pending, frontier wording),
@@ -448,7 +451,8 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
     const gen = scriptedGenerator([azPatch(), { duties: azDuties, notes: '' }]), val = scriptedValidator({ answerFor: quoteFor });
     const r = await runLs(az, { generator: gen, validator: val }), e = r.entry;
     ok('state create: a pending state bill is drafted, checked and publishable', r.outcome === 'publishable' && !!e, r.reason || JSON.stringify(r.verdicts.map((x) => complaints(x))));
-    ok('state create: the generator chooses only among the state sections its status allows', gen.calls[0].responseSchema.required.includes('section') && gen.calls[0].responseSchema.properties.section.enum.join() === 'B,B.2,C' && /exactly one of B, B\.2, C/.test(gen.calls[0].prompt));
+    // Only B's criterion (a frontier threshold with duties) is met by AZ HB 4098's text, so code files it in B; the generator is not asked.
+    ok('state create: code decides the section when exactly one section\'s criterion is met (no section asked of the generator)', !(gen.calls[0].responseSchema.required || []).includes('section') && e.evidence.some((x) => x.field === 'section' && /frontier|large developer/i.test(x.quote)), JSON.stringify(gen.calls[0].responseSchema.required));
     ok('state create: section, type, level, jurisdiction, state and status by rule', e.section === 'B' && e.type === 'bill' && e.level === 'state' && e.jurisdiction === 'AZ' && e.state === 'AZ' && e.status === 'pending', `${e.section} ${e.type} ${e.level} ${e.jurisdiction} ${e.state} ${e.status}`);
     ok('state create: title, short name, sponsor and status line come from the record in fixed wording', e.title === 'H.B. 4098 — Artificial intelligence business; attorney general' && e.short_name === 'AZ HB 4098' && e.key === 'az-hb-4098' && e.sponsor_text === 'Rep. Anastasia Travers (D)' && e.status_text === 'Status: Introduced Feb 10, 2026; Assigned to House RULES Committee (Feb 10, 2026)', `${e.title} | ${e.short_name} | ${e.sponsor_text} | ${e.status_text}`);
     ok('state create: events are the history actions the Tier A rules keep', e.events.length >= 2 && e.events[0].date === '2026-02-10' && e.events[0].type === 'Introduced / published' && e.events.some((x) => x.type === 'Referred / stalled / hearing') && !e.events.some((x) => /read second time/i.test(x.text)), e.events.map((x) => x.type + ' ' + x.text).join(' | '));
@@ -460,19 +464,31 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   }
   {
     const nePatch = { operation: 'create', in_scope: true, scope_reason: 'Safety duties for conversational AI services.', section: 'B.2', fields: { mechanism: 'An operator must clearly and conspicuously disclose to each minor account holder that the account holder is interacting with artificial intelligence.' }, events_add: [], evidence: [{ field: 'mechanism', quote: 'An operator shall clearly and conspicuously disclose to each minor account holder' }], notes: '' };
-    const r = await runLs(ne, { generator: scriptedGenerator([nePatch]), validator: scriptedValidator({ answerFor: () => 'An operator shall clearly and conspicuously disclose' }) });
-    ok('dead state bill: status failed, from the record, with the action that ended it in the status line', r.outcome === 'publishable' && r.entry.status === 'failed' && r.entry.status_text === 'Status: Introduced Jan 21, 2026; Indefinitely postponed (Apr 17, 2026)' && r.entry.events.some((x) => x.type === 'Vetoed / failed / rescinded' && x.date === '2026-04-17'), r.reason || (r.entry && r.entry.status_text));
+    // NE LB 1185 as filed (a chatbot disclosure duty for minors) meets no state section's criterion: held before any AI is spent (round 2:
+    // the B.2 filing the generator chose for bills like this was the misfiling of WA HB 2503 and VA SB 365).
+    const g0 = scriptedGenerator([nePatch]), r0 = await runLs(ne, { generator: g0, validator: scriptedValidator() });
+    ok('a state bill meeting no section\'s criterion is held before any AI is spent, and reported', r0.outcome === 'held' && r0.no_section === true && g0.calls.length === 0 && r0.escalate === true && /meets no state section/.test(r0.proposal || ''), `${r0.outcome} ${r0.reason}`);
+    // The same record with a catastrophic-risk duty on developers (and no frontier threshold) meets B.2 only.
+    const ne2 = clone(ne); ne2.text += '\nSection 9. A developer shall assess the catastrophic risk of each model it makes available to operators.';
+    const r = await runLs(ne2, { generator: scriptedGenerator([nePatch]), validator: scriptedValidator({ answerFor: () => 'An operator shall clearly and conspicuously disclose' }) });
+    ok('dead state bill: status failed, from the record, with the action that ended it in the status line', r.outcome === 'publishable' && r.entry.section === 'B.2' && r.entry.status === 'failed' && r.entry.status_text === 'Status: Introduced Jan 21, 2026; Indefinitely postponed (Apr 17, 2026)' && r.entry.events.some((x) => x.type === 'Vetoed / failed / rescinded' && x.date === '2026-04-17'), r.reason || (r.entry && r.entry.status_text));
     ok('dead state bill: a nonpartisan sponsor carries no party letter', r.entry.sponsor_text === 'Sen. Eliot Bostar');
     ok('dead state bill (B.2): duties that cannot be proved are left off, the entry still goes out', !r.entry.duties && r.duties && r.duties.added === false);
     // In A or B (a frontier law or bill) the duty step is never skipped silently: without proved duties the entry is held, not published.
-    const rB = await runLs(ne, { generator: scriptedGenerator([{ ...clone(nePatch), fields: { ...clone(nePatch.fields), section: 'B' } }]), validator: scriptedValidator({ answerFor: () => 'An operator shall clearly and conspicuously disclose' }) });
+    const ne3 = clone(ne); ne3.text += '\nSection 9. A large developer shall publish a safety framework for each frontier model.';
+    const rB = await runLs(ne3, { generator: scriptedGenerator([{ ...clone(nePatch), fields: { ...clone(nePatch.fields), section: 'B' } }]), validator: scriptedValidator({ answerFor: () => 'An operator shall clearly and conspicuously disclose' }) });
     ok('a B entry whose duties cannot be proved is held, never published without them', rB.outcome === 'held' && rB.entry === null && /not published without its duty answers/.test(rB.reason) && rB.escalate === true, `${rB.outcome} ${rB.reason}`);
   }
   {
-    const r = await runLs(az, { generator: scriptedGenerator([azPatch('D'), azPatch('D'), azPatch('D')]), validator: scriptedValidator({ answerFor: quoteFor }) });
+    // AZ HB 4098 meets B's criterion only, so code sets B and a generator's D or A is dropped. Where code cannot decide (several sections
+    // qualify), the generator's choice is still bounded: a federal section or A for a pending bill is refused.
+    const asmD = assembleEntry({ entry: null, patch: { ...azPatch('D'), fields: { ...azPatch('D').fields, section: 'D' } }, item: itemLs(az), raw: az, today: '2026-10-13', runId: 'r', rounds: 1, entries });
+    ok('code decides the section: a generator\'s D for AZ HB 4098 is replaced by B', asmD.entry && asmD.entry.section === 'B', JSON.stringify(asmD.problems));
+    const both = clone(az); both.text += '\nSec. 9. The attorney general shall license independent verification organizations.';
+    const r = await runLs(both, { generator: scriptedGenerator([azPatch('D'), azPatch('D'), azPatch('D')]), validator: scriptedValidator({ answerFor: quoteFor }) });
     ok('wrong section: a state bill may not go in a federal section', r.outcome === 'held' && r.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /section D is for federal items; this is a state bill/.test(c.detail)), r.reason);
-    const r2 = await runLs(az, { generator: scriptedGenerator([azPatch('A'), azPatch('A'), azPatch('A')]), validator: scriptedValidator({ answerFor: quoteFor }) });
-    ok('wrong section: a pending state bill may not go in A (enacted laws)', r2.outcome === 'held' && r2.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /a pending state bill goes in section B, B\.2, C, not A/.test(c.detail)), r2.reason);
+    const r2 = await runLs(both, { generator: scriptedGenerator([azPatch('A'), azPatch('A'), azPatch('A')]), validator: scriptedValidator({ answerFor: quoteFor }) });
+    ok('wrong section: a pending state bill may not go in A (enacted laws)', r2.outcome === 'held' && r2.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /a pending state bill goes in section B, C, not A/.test(c.detail)), r2.reason);
   }
   {
     const bad = () => { const p = azPatch(); p.evidence[0].quote = 'shall submit a transparency report to the attorney general within 30 days'; return p; };
@@ -480,7 +496,11 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
     ok('invented quote: a state draft whose quote is not in the bill is never publishable', r.outcome === 'held' && r.verdicts.every((x) => x.code_checks.some((c) => c.name === 'evidence_quotes_are_in_the_source' && !c.passed)), r.reason);
   }
   {
-    const out = await runLs(ut, { generator: scriptedGenerator([{ operation: 'create', in_scope: false, scope_reason: 'Policies for police use of generative AI; nothing on frontier developers.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator({ unsupported: { in_scope: 'law enforcement AI policies only' } }), referee: null });
+    const g0 = scriptedGenerator([]), held0 = await runLs(ut, { generator: g0, validator: scriptedValidator(), referee: null });
+    ok('UT SB 205 (police use of generative AI) meets no section\'s criterion: nothing created, no AI spent', held0.outcome === 'held' && held0.no_section === true && g0.calls.length === 0);
+    // A text that does meet a criterion still goes to the readers, and both ruling it out drops it.
+    const ut2 = clone(ut); ut2.text += '\nSection 9. A large developer shall report to the department.';
+    const out = await runLs(ut2, { generator: scriptedGenerator([{ operation: 'create', in_scope: false, scope_reason: 'Policies for police use of generative AI; nothing on frontier developers.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator({ unsupported: { in_scope: 'law enforcement AI policies only' } }), referee: null });
     ok('out of scope: a state bill both readers rule out is dropped', out.outcome === 'out_of_scope' && out.entry === null);
     const missing = clone(az); missing.text = null; missing.text_missing = true;
     const held = await runLs(missing, { generator: scriptedGenerator([{ operation: 'create', in_scope: true, scope_reason: 'Title names artificial intelligence businesses.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator() });

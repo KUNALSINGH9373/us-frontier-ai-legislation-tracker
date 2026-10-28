@@ -1,0 +1,156 @@
+{
+ "item": {
+  "item_id": "congress_gov:119/hr/9442",
+  "source": "congress_gov",
+  "source_id": "119/hr/9442",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442",
+  "fetched_at": "2026-10-07T03:40:48Z",
+  "raw_hash": "aed8076587461c20386200683a968c4a202e483999019494c4e8d72d18921f3a",
+  "raw_path": "raw/congress_gov/119-hr-9442.json",
+  "title": "Artificial Intelligence Data Center Moratorium Act"
+ },
+ "raw": {
+  "id": "119/hr/9442",
+  "list_item": {
+   "congress": 119,
+   "introducedDate": "2026-06-24",
+   "latestAction": {
+    "actionDate": "2026-06-24",
+    "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+   },
+   "number": "9442",
+   "originChamber": "House",
+   "originChamberCode": "H",
+   "title": "Artificial Intelligence Data Center Moratorium Act",
+   "type": "HR",
+   "updateDate": "2026-10-06",
+   "updateDateIncludingText": "2026-10-06",
+   "url": "https://api.congress.gov/v3/bill/119/hr/9442?format=json"
+  },
+  "bill": {
+   "actions": {
+    "count": 4,
+    "url": "https://api.congress.gov/v3/bill/119/hr/9442/actions?format=json"
+   },
+   "committees": {
+    "count": 2,
+    "url": "https://api.congress.gov/v3/bill/119/hr/9442/committees?format=json"
+   },
+   "congress": 119,
+   "constitutionalAuthorityStatementText": "<pre>\n[Congressional Record Volume 172, Number 106 (Wednesday, June 24, 2026)]\n[House]\nFrom the Congressional Record Online through the Government Publishing Office [<a href=\"https://www.gpo.gov\">www.gpo.gov</a>]\nBy Ms. OCASIO-CORTEZ:\nH.R. 9442.\nCongress has the power to enact this legislation pursuant\nto the following:\nClause 3 of section 8 of article I of the Constitution and\nclause 18 of section 8 of article I of the Constitution.\n[Page H4246]\n</pre>",
+   "cosponsors": {
+    "count": 19,
+    "countIncludingWithdrawnCosponsors": 19,
+    "url": "https://api.congress.gov/v3/bill/119/hr/9442/cosponsors?format=json"
+   },
+   "introducedDate": "2026-06-24",
+   "latestAction": {
+    "actionDate": "2026-06-24",
+    "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned."
+   },
+   "legislationUrl": "https://www.congress.gov/bill/119th-congress/house-bill/9442",
+   "number": "9442",
+   "originChamber": "House",
+   "originChamberCode": "H",
+   "policyArea": {
+    "name": "Science, Technology, Communications"
+   },
+   "relatedBills": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/hr/9442/relatedbills?format=json"
+   },
+   "sponsors": [
+    {
+     "bioguideId": "O000172",
+     "district": 14,
+     "firstName": "Alexandria",
+     "fullName": "Rep. Ocasio-Cortez, Alexandria [D-NY-14]",
+     "isByRequest": "N",
+     "lastName": "Ocasio-Cortez",
+     "party": "D",
+     "state": "NY",
+     "url": "https://api.congress.gov/v3/member/O000172?format=json"
+    }
+   ],
+   "subjects": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/hr/9442/subjects?format=json"
+   },
+   "textVersions": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/hr/9442/text?format=json"
+   },
+   "title": "Artificial Intelligence Data Center Moratorium Act",
+   "titles": {
+    "count": 3,
+    "url": "https://api.congress.gov/v3/bill/119/hr/9442/titles?format=json"
+   },
+   "type": "HR",
+   "updateDate": "2026-10-06T08:05:59Z",
+   "updateDateIncludingText": "2026-10-06T08:05:59Z"
+  },
+  "actions": [
+   {
+    "actionCode": "H11100",
+    "actionDate": "2026-06-24",
+    "committees": [
+     {
+      "name": "Foreign Affairs Committee",
+      "systemCode": "hsfa00",
+      "url": "https://api.congress.gov/v3/committee/house/hsfa00?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 2,
+     "name": "House floor actions"
+    },
+    "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+    "type": "IntroReferral"
+   },
+   {
+    "actionCode": "H11100",
+    "actionDate": "2026-06-24",
+    "committees": [
+     {
+      "name": "Energy and Commerce Committee",
+      "systemCode": "hsif00",
+      "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 2,
+     "name": "House floor actions"
+    },
+    "text": "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+    "type": "IntroReferral"
+   },
+   {
+    "actionCode": "Intro-H",
+    "actionDate": "2026-06-24",
+    "sourceSystem": {
+     "code": 9,
+     "name": "Library of Congress"
+    },
+    "text": "Introduced in House",
+    "type": "IntroReferral"
+   },
+   {
+    "actionCode": "1000",
+    "actionDate": "2026-06-24",
+    "sourceSystem": {
+     "code": 9,
+     "name": "Library of Congress"
+    },
+    "text": "Introduced in House",
+    "type": "IntroReferral"
+   }
+  ],
+  "summaries": [],
+  "text": "[Congressional Bills 119th Congress]\n[From the U.S. Government Publishing Office]\n[H.R. 9442 Introduced in House (IH)]\n\n<DOC>\n\n119th CONGRESS\n2d Session\nH. R. 9442\n\nTo impose a moratorium on the construction of new data centers until \nlegislation is enacted that safeguards the public from the dangers of \nartificial intelligence.\n\n_______________________________________________________________________\n\nIN THE HOUSE OF REPRESENTATIVES\n\nJune 24, 2026\n\nMs. Ocasio-Cortez (for herself, Mr. McGovern, Ms. Tlaib, Mrs. Watson \nColeman, Mrs. Grijalva, Ms. Sewell, Mr. Garcia of Illinois, Mr. Goldman \nof New York, Mr. Cohen, and Mr. Carson) introduced the following bill; \nwhich was referred to the Committee on Energy and Commerce, and in \naddition to the Committee on Foreign Affairs, for a period to be \nsubsequently determined by the Speaker, in each case for consideration \nof such provisions as fall within the jurisdiction of the committee \nconcerned\n\n_______________________________________________________________________\n\nA BILL\n\nTo impose a moratorium on the construction of new data centers until \nlegislation is enacted that safeguards the public from the dangers of \nartificial intelligence.\n\nBe it enacted by the Senate and House of Representatives of the \nUnited States of America in Congress assembled,\n\nSECTION 1. SHORT TITLE.\n\nThis Act may be cited as the ``Artificial Intelligence Data Center \nMoratorium Act''.\n\nSEC. 2. FINDINGS.\n\nCongress finds that--\n(1) leading experts and industry leaders have warned about \ncatastrophic consequences from unchecked artificial \nintelligence development and deployment, including--\n(A) Elon Musk, the wealthiest person alive, and \nworth $826,600,000,000 as of the date of introduction \nof this Act, who stated that ``AI and robots will \nreplace all jobs. Working will be optional.'' and that \nartificial intelligence is akin to ``summoning the \ndemon'';\n(B) Dario Amodei, the CEO of Anthropic, who \npredicted that ``AI could displace half of all entry-\nlevel white collar jobs in the next 1 to 5 years.'' and \nthat ``humanity is about to be handed almost \nunimaginable power, and it is deeply unclear whether \nour social, political, and technological systems \npossess the maturity to wield it.'';\n(C) Demis Hassabis, the head of Google's Deepmind, \nwho stated that the AI revolution will be 10 times \nbigger than the industrial revolution and 10 times \nfaster;\n(D) Jeff Bezos, the fourth-richest person in the \nworld and worth $233,000,000,000 as of the date of \nintroduction of this Act, who has reportedly pushed his \nstaff for years to think big and envision what it would \ntake for Amazon to fully automate its operations with \nplans to replace at least 600,000 warehouse workers \nwith robots;\n(E) Bill Gates, worth $101,000,000,000 as of the \ndate of introduction of this Act, who predicted that \nhumans ``won't be needed for most things,'' such as \nmanufacturing products, delivering packages, or growing \nfood over the next decade due to artificial \nintelligence;\n(F) Mustafa Suleyman, the CEO of Microsoft AI, who \nsaid that most white-collar work ``will be fully \nautomated by an AI within the next 12 to 18 months'';\n(G) Jim Farley, the CEO of Ford, who predicted that \nartificial intelligence will eliminate ``literally half \nof all white-collar jobs in the U.S.'' within the next \ndecade;\n(H) Larry Ellison, the sixth-richest person in the \nworld and worth $203,000,000,000 as of the date of \nintroduction of this Act, who said that there will be \nan artificial intelligence-powered surveillance state \nwhere ``citizens will be on their best behavior, \nbecause we're constantly recording and reporting \neverything that is going on.'';\n(I) Dr. Geoffrey Hinton, considered to be the \n``godfather'' of artificial intelligence, who stated \nthat he believes there is a ``10 to 20 percent chance \n[for artificial intelligence] to wipe us out.''; and\n(J) Mark Zuckerberg, the fifth-richest person in \nthe world and worth $214,000,000,000 as of the date of \nintroduction of this Act, is building a data center in \nthe State of Louisiana that is the size of Manhattan \nand will use 3 times the quantity of electricity that \nthe entire city of New Orleans uses every year; and\n(2) leading experts and the heads of the major artificial \nintelligence companies have called for regulation and \nreasonable pauses to the development of artificial intelligence \nto ensure the safety of humanity, including--\n(A) Elon Musk, the head of xAI, who stated--\n(i) in 2018 the following: ``Mark my words. \nAI is far more dangerous than nukes. So why do \nwe have no regulatory oversight? This is \ninsane.''; and\n(ii) in 2025 that he had ``a lot of AI \nnightmares'' and would ``certainly slow down AI \nand robotics'' if he could;\n(B) Demis Hassabis, the head of Google's Deepmind, \nwho said in 2026 that he would support an AI pause if \nhe knew other countries and companies also paused \ndevelopment;\n(C) Dario Amodei, the head of Anthropic, who said \nin 2026 that he would be ``absolutely in favor of \ntrying'' to slow down AI development if other countries \nalso slowed down;\n(D) Sam Altman, the head of OpenAI, who, in 2023, \nwrote that ``we need some degree of coordination among \nthe leading development efforts to ensure that the \ndevelopment of superintelligence occurs in a manner \nthat allows us to both maintain safety and help smooth \nintegration of these systems with society'' and that \n``an effective global regulatory framework including \ndemocratic governance'' is needed;\n(E) more than 1,000 business leaders in the Big \nTech industry, prominent scientists, and artificial \nintelligence researchers and academics, including Elon \nMusk, Steve Wozniak (co-founder of Apple), and Evan \nSharp (co-founder of Pinterest), who, in March 2023, \ncosigned an open letter entitled ``Pause Giant AI \nExperiments'' which stated the following: ``We must ask \nourselves: Should we let machines flood our information \nchannels with propaganda and untruth? Should we \nautomate away all the jobs, including the fulfilling \nones? Should we develop nonhuman minds that might \neventually outnumber, outsmart, obsolete and replace \nus? Should we risk loss of control of our civilization? \nSuch decisions must not be delegated to unelected tech \nleaders. . .Therefore, we call on all AI labs to \nimmediately pause for at least 6 months the training of \nAI systems more powerful than GPT-4. This pause should \nbe public and verifiable, and include all key actors. \nIf such a pause cannot be enacted quickly, governments \nshould step in and institute a moratorium.''; and\n(F) artificial intelligence pioneers Geoffrey \nHinton and Yoshua Bengio and other technology leaders, \nwho have called for ``a prohibition on the development \nof superintelligence, not lifted before there is broad \nscientific consensus that it will be done safely and \ncontrollably, and strong public buy-in''.\n\nSEC. 3. MORATORIUM ON CONSTRUCTION OF NEW ARTIFICIAL INTELLIGENCE DATA \nCENTERS.\n\n(a) Definition of Artificial Intelligence Data Center.--In this \nsection, the term ``artificial intelligence data center'' means all the \nbuildings, equipment, structures, and other stationary items, such as \nserver racks, that--\n(1) are located on a single site or on contiguous, \nadjacent, or otherwise connected sites;\n(2) are owned or operated by the same entity or by any \nentity that controls, is controlled by, or is under the common \ncontrol of that entity, regardless of whether the site is a \nsingle-occupant or multi-occupant facility; and\n(3)(A) are used for the development or operation of \nartificial intelligence models at scale; or\n(B)(i) have a maximum rated power capacity or total peak \npower load in excess of 20 megawatts; and\n(ii) are designed or equipped--\n(I) to deliver 20 kilowatts or more of electrical \npower to a single server rack; or\n(II) to utilize cooling systems that circulate \nliquid to individual hardware components or submerge \nelectronic hardware in liquid.\n(b) Moratorium.--Beginning on the date of enactment of this Act, \nthe construction or upgrading of new or existing artificial \nintelligence data centers may not commence or proceed until--\n(1) 1 or more laws are enacted that ensure that--\n(A) the Federal Government shall review and approve \nartificial intelligence products before those products \nare released, for the purpose of ensuring that those \nproducts are safe and effective and do not threaten the \nhealth and well-being of working families, privacy and \ncivil rights, and the future of humanity;\n(B) the economic gains of artificial intelligence \nand robotics will benefit workers, not just the wealthy \nowners of Big Tech companies, including by--\n(i) putting policies in place to prevent \njob displacement due to artificial \nintelligence; and\n(ii) ensuring the wealth generated by those \ncompanies is shared with the people of the \nUnited States; and\n(C) with respect to any artificial intelligence \ndata center built or upgraded after the termination of \nthe moratorium under this subsection--\n(i) the artificial intelligence data center \ndoes not increase utility or electricity bills \nof consumers;\n(ii) the artificial intelligence data \ncenter does not exacerbate the threat of \nclimate change or harm the environment;\n(iii) communities that would be affected by \nthe artificial intelligence data center are \nempowered to approve or reject the construction \nor upgrading of that artificial intelligence \ndata center;\n(iv) no government subsidy is provided for \nthe construction, upgrading, or operation of \nthat artificial intelligence data center; and\n(v) the artificial intelligence data center \ncreates union jobs with strong labor standards, \nincluding payment of prevailing wages and use \nof registered apprenticeship programs and \nproject labor agreements; and\n(2) a provision in the 1 or more laws described in \nparagraph (1) expressly terminates the moratorium under this \nsubsection.\n(c) Reports.--\n(1) In general.--The Secretary of Energy shall--\n(A) submit to Congress quarterly reports on \nartificial intelligence data centers; and\n(B) make those quarterly reports publicly available \non the website of the Department of Energy.\n(2) Contents.--A report submitted by the Secretary of \nEnergy under paragraph (1) shall include, at a minimum, for the \nperiod covered by the report and with respect to each \nartificial intelligence data center--\n(A) all financial vehicles involved in the \noperation of the artificial intelligence data center;\n(B) the water usage of the artificial intelligence \ndata center;\n(C) the energy usage and infrastructure needs of \nthe artificial intelligence data center;\n(D) the on- and off-site greenhouse gas emissions \nof the artificial intelligence data center, including \nthe results of fenceline air quality monitoring;\n(E) the wastewater discharge and thermal outputs of \nthe artificial intelligence data center;\n(F) the cooling chemicals used at the artificial \nintelligence data center;\n(G) the noise levels at the artificial intelligence \ndata center;\n(H) information on wages and benefits provided to \nworkers at the artificial intelligence data center;\n(I) the number of temporary and permanent jobs \ncreated at the artificial intelligence data center;\n(J) agreements entered into by the artificial \nintelligence data center relating to land acquisitions, \nutilities, or government entities, if any; and\n(K) a certification that the artificial \nintelligence data center has not utilized any Federal, \nState, or local subsidies.\n(3) Verification.--The Secretary of Energy may obtain and \nverify information relating to the moratorium under subsection \n(b) and reporting requirements described in paragraph (2), \nincluding by--\n(A) issuing subpoenas;\n(B) requiring written interrogatories;\n(C) conducting inspections; and\n(D) conditioning future permitting on compliance \nwith this section.\n\nSEC. 4. EXPORT CONTROLS ON COMPUTING INFRASTRUCTURE HARDWARE.\n\n(a) Definitions.--In this section:\n(1) Computing infrastructure hardware.--The term \n``computing infrastructure hardware'' means semiconductors, \nintegrated circuits, and products containing integrated \ncircuits, including computers, networking equipment, and data \nstorage systems.\n(2) Export; in-country transfer; reexport.--The terms \n``export'', ``in-country transfer'', and ``reexport'' have the \nmeanings given those terms in section 1742 of the Export \nControl Reform Act of 2018 (50 U.S.C. 4801).\n(b) Export Controls.--On and after the date of the enactment of \nthis Act, the Secretary of Commerce shall prohibit the export, \nreexport, or in-country transfer of computing infrastructure hardware \nfor an end-use described in subsection (c)--\n(1) to or in any country that does not have in effect \nstatutes or regulations that are comparable to the laws \ndescribed in section 3(b)(1); or\n(2) to any person in a country described in paragraph (1).\n(c) End-Uses Described.--An end-use referred to in subsection (b) \nis use--\n(1) in an artificial intelligence data center; or\n(2) otherwise in the training or deployment of artificial \nintelligence models at scale.\n<all>",
+  "text_truncated": false,
+  "text_missing": false
+ }
+}

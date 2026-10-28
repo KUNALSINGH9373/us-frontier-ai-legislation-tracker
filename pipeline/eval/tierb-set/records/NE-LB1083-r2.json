@@ -1,0 +1,408 @@
+{
+ "item": {
+  "item_id": "legiscan:2081898",
+  "source": "legiscan",
+  "source_id": "2081898",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=63049",
+  "fetched_at": "2026-10-13T07:18:49Z",
+  "raw_hash": "6dd92dacebc2511331ef3bf849061ae74e8267ff983430dadb7dc78d87ddfc48",
+  "raw_path": "raw/legiscan/NE-LB1083-2081898.json",
+  "title": "NE LB1083: Adopt the Transparency in Artificial Intelligence Risk Management Act, create a fund, and change provisions relating to records which may be withheld from the public"
+ },
+ "raw": {
+  "id": "2081898",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 30,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 2081898,
+   "change_hash": "032f6109d95dca4ceb022d67042c9235",
+   "session_id": 2185,
+   "session": {
+    "session_id": 2185,
+    "state_id": 27,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "109th Legislature"
+   },
+   "url": "https://legiscan.com/NE/bill/LB1083/2025",
+   "state_link": "https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=63049",
+   "completed": 1,
+   "status": 6,
+   "status_date": "2026-04-17",
+   "progress": [
+    {
+     "date": "2026-01-15",
+     "event": 1
+    },
+    {
+     "date": "2026-01-20",
+     "event": 9
+    },
+    {
+     "date": "2026-04-17",
+     "event": 6
+    }
+   ],
+   "state": "NE",
+   "state_id": 27,
+   "bill_number": "LB1083",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "L",
+   "body_id": 64,
+   "current_body": "L",
+   "current_body_id": 64,
+   "title": "Adopt the Transparency in Artificial Intelligence Risk Management Act, create a fund, and change provisions relating to records which may be withheld from the public",
+   "description": "Adopt the Transparency in Artificial Intelligence Risk Management Act, create a fund, and change provisions relating to records which may be withheld from the public",
+   "pending_committee_id": 0,
+   "committee": [],
+   "referrals": [
+    {
+     "date": "2026-01-20",
+     "committee_id": 1438,
+     "chamber": "L",
+     "chamber_id": 64,
+     "name": "Banking, Commerce and Insurance"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-01-15",
+     "action": "Date of introduction",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 1
+    },
+    {
+     "date": "2026-01-16",
+     "action": "Kauth FA742 filed",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 0
+    },
+    {
+     "date": "2026-01-20",
+     "action": "Referred to Banking, Commerce and Insurance Committee",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 1
+    },
+    {
+     "date": "2026-01-23",
+     "action": "Notice of hearing for February 09, 2026",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 0
+    },
+    {
+     "date": "2026-02-19",
+     "action": "Storer priority bill",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 0
+    },
+    {
+     "date": "2026-03-24",
+     "action": "Placed on General File with AM2618",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 0
+    },
+    {
+     "date": "2026-03-24",
+     "action": "Banking, Commerce and Insurance AM2618 filed",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 0
+    },
+    {
+     "date": "2026-04-17",
+     "action": "Indefinitely postponed",
+     "chamber": "L",
+     "chamber_id": 64,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 26047,
+     "person_hash": "ud5h21nz",
+     "party_id": "6",
+     "state_id": 27,
+     "party": "N",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Tanya Storer",
+     "first_name": "Tanya",
+     "middle_name": "",
+     "last_name": "Storer",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-043",
+     "ftm_eid": 49286788,
+     "votesmart_id": 164067,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Tanya_Storer",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "402-471-2628",
+       "district_phone": "",
+       "email": "tstorer@leg.ne.gov",
+       "webmail": "",
+       "biography": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=43",
+       "image": "https://www.nebraskalegislature.gov/media/images/senators/dist43/highres/dist43.jpg",
+       "ballotpedia": "https://ballotpedia.org/Tanya_Storer",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/164067"
+      },
+      "capitol_address": {
+       "address1": "Room 1401",
+       "address2": "P.O. Box 94604",
+       "city": "Lincoln",
+       "state": "NE",
+       "zip": "68509"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/tanya.storer.1",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/tanya-storer-8b57ab299/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3319074,
+     "date": "2026-01-15",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NE/text/LB1083/id/3319074",
+     "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf",
+     "text_size": 124153,
+     "text_hash": "64e6c615ca51838821ac109979f49b0a",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [],
+   "amendments": [
+    {
+     "amendment_id": 267133,
+     "adopted": 0,
+     "chamber": "L",
+     "chamber_id": 64,
+     "date": "2026-01-16",
+     "title": "Kauth FA742 ",
+     "description": "Kauth FA742 ",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NE/amendment/LB1083/id/267133",
+     "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/AM/FA742.pdf",
+     "amendment_size": 26947,
+     "amendment_hash": "2332b97b0749924d1dd313b34e23a9c3",
+     "alt_amendment": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_amendment_size": 0,
+     "alt_amendment_hash": ""
+    },
+    {
+     "amendment_id": 289433,
+     "adopted": 0,
+     "chamber": "L",
+     "chamber_id": 64,
+     "date": "2026-03-24",
+     "title": "Banking, Commerce and Insurance AM2618 ",
+     "description": "Banking, Commerce and Insurance AM2618 ",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NE/amendment/LB1083/id/289433",
+     "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/AM/AM2618.pdf",
+     "amendment_size": 66149,
+     "amendment_hash": "9bdc9839dbb2536b5a989019a0befd31",
+     "alt_amendment": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_amendment_size": 0,
+     "alt_amendment_hash": ""
+    }
+   ],
+   "supplements": [
+    {
+     "supplement_id": 643937,
+     "date": "2026-01-26",
+     "type": "Analysis",
+     "type_id": 2,
+     "title": "Analysis",
+     "description": "Statement of Intent",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NE/supplement/LB1083/id/643937",
+     "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/SI/LB1083.pdf",
+     "supplement_size": 6907,
+     "supplement_hash": "c64cf70ea1a84a9b266cd12f70e590b7",
+     "alt_supplement": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_supplement_size": 0,
+     "alt_supplement_hash": ""
+    },
+    {
+     "supplement_id": 660182,
+     "date": "2026-02-06",
+     "type": "Fiscal Note",
+     "type_id": 1,
+     "title": "Fiscal Note",
+     "description": "Fiscal Note for LB1083",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NE/supplement/LB1083/id/660182",
+     "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/FN/LB1083_20260206-130031.pdf",
+     "supplement_size": 1023836,
+     "supplement_hash": "a43f64a140a3d191747ab2a7217b5ef6",
+     "alt_supplement": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_supplement_size": 0,
+     "alt_supplement_hash": ""
+    },
+    {
+     "supplement_id": 702152,
+     "date": "2026-03-24",
+     "type": "Analysis",
+     "type_id": 2,
+     "title": "Analysis",
+     "description": "Committee Statement",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NE/supplement/LB1083/id/702152",
+     "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/CS/LB1083.pdf",
+     "supplement_size": 112579,
+     "supplement_hash": "0c0c33e11970235ceaa15f3dcc4cd222",
+     "alt_supplement": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_supplement_size": 0,
+     "alt_supplement_hash": ""
+    }
+   ],
+   "calendar": [
+    {
+     "type_id": 1,
+     "event_hash": "71cd9105",
+     "type": "Hearing",
+     "date": "2026-02-09",
+     "time": "13:30",
+     "location": "Room 1507",
+     "description": "Banking, Commerce and Insurance Hearing"
+    }
+   ]
+  },
+  "derived": {
+   "status": "failed",
+   "events": [
+    {
+     "date": "2026-01-15",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Date of introduction",
+     "chamber": "L"
+    },
+    {
+     "date": "2026-01-20",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Referred to Banking, Commerce and Insurance Committee",
+     "chamber": "L"
+    },
+    {
+     "date": "2026-01-23",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Notice of hearing for February 09, 2026",
+     "chamber": "L"
+    },
+    {
+     "date": "2026-04-17",
+     "precision": "day",
+     "type": "Vetoed / failed / rescinded",
+     "text": "Indefinitely postponed",
+     "chamber": "L"
+    }
+   ]
+  },
+  "text": "LEGISLATURE OF NEBRASKA\nONE HUNDRED NINTH LEGISLATURE\nSECOND SESSION\nLEGISLATIVE BILL 1083\nIntroduced by Storer, 43; Bosn, 25.\nRead first time January 15, 2026\nCommittee:\nA BILL FOR AN ACT relating to consumer protection; to amend section\n84-712.05, Reissue Revised Statutes of Nebraska; to adopt the\nTransparency in Artificial Intelligence Risk Management Act; to\ncreate a fund; to change provisions relating to records which may be\nwithheld from the public; to provide an operative date; to provide\nseverability; and to repeal the original section.\nBe it enacted by the people of the State of Nebraska,\n\nSection 1. Sections 1 to 9 of this act shall be known and may be\ncited as the Transparency in Artificial Intelligence Risk Management Act.\nSec. 2. The Legislature finds and declares:\n(1) Artificial intelligence has great potential to vastly improve\nthe lives of all Nebraskans by accelerating our economic growth and\ncontributing to scientific research;\n(2) Experts within the artificial intelligence industry have warned\nthat artificial intelligence could pose grave and catastrophic risks, and\nthe State of Nebraska has a strong interest in understanding how the\nlargest artificial intelligence companies are assessing and mitigating\nsuch risks;\n(3) Recent events have illuminated the potential for artificialintelligence systems to pose serious risks to minors interacting with\nsuch systems; and\n(4) It is the intent of the Legislature to create more transparency\naround artificial intelligence, but collective safety will depend in part\non large frontier developers taking due care proportional to the scale of\nthe foreseeable risks.\nSec. 3. For purposes of the Transparency in Artificial Intelligence\nRisk Management Act:\n(1) Affiliate means a person controlling, controlled by, or under\ncommon control with, a specified person, directly or indirectly, through\none or more intermediaries;\n(2) Artificial intelligence model means an engineered or machinebased system that varies in its level of autonomy and that can, for\nexplicit or implicit objectives, infer from the input it receives how to\ngenerate outputs that can influence physical or virtual environments;\n(3)(a) Catastrophic risk means a foreseeable and material risk that\na frontier developer's development, storage, use, or deployment of a\nfrontier model will materially contribute to the death of, or serious\ninjury to, more than fifty people or more than one billion dollars in\n\ndamage to, or loss of, property arising from a single incident involving\na frontier model doing any of the following:\n(i) Providing expert-level assistance in the creation or release of\na chemical, biological, radiological, or nuclear weapon;\n(ii) Engaging in conduct with no meaningful human oversight,\nintervention, or supervision that is either a cyberattack or, if the\nconduct had been committed by a human, would constitute the crime of\nmurder, assault, extortion, or theft, including theft by deception; or\n(iii) Evading the control of its frontier developer or user.\n(b) Catastrophic risk does not include a foreseeable and material\nrisk from any of the following:\n(i) Information that a frontier model outputs if the information is\notherwise publicly accessible in a substantially similar form from a\nsource other than a foundation model;\n(ii) Lawful activity of the federal government; or\n(iii) Harm caused by a frontier model in combination with other\nsoftware if the frontier model did not materially contribute to the harm;\n(4) Child safety incident means a covered chatbot engaging in\nbehavior when interacting with a minor that, if it had been engaged in by\na human, would be deemed to intentionally or recklessly cause death or\nbodily injury to such minor or damage the mental health of such minor in\na way that constitutes severe emotional distress;\n(5) Child safety risk means a material and foreseeable risk that a\ncovered chatbot will engage in behavior when interacting with a minor\nthat, if it had been engaged in by a human, would be deemed to\nintentionally or recklessly do any of the following:\n(a) Cause death or bodily injury to such minor, including as a\nresult of self-harm; or\n(b) Cause damage to the mental health of such minor that constitutes\nsevere emotional distress;\n(6) Covered chatbot means a service that:\n\n(a) Allows an ordinary person to have conversations in which humanlike responses are generated by a foundation model;\n(b) Is foreseeably likely to be accessed by minors; and\n(c) Has at least one million active users monthly;\n(7) Covered risk means a catastrophic risk or a child safety risk;\n(8) Critical safety incident means any of the following:\n(a) Unauthorized access to, modification of, inadvertent release of,\nor exfiltration of, the model weights of a frontier model;\n(b) The death of, or serious injury to, more than fifty people, or\nmore than one billion dollars in damage to, or loss of, property\nresulting from the materialization of a catastrophic risk;\n(c) Loss of control of a frontier model that causes death, bodily\ninjury, or that demonstrates materially increased catastrophic risk; or\n(d) A frontier model that uses deceptive techniques against the\nfrontier developer to subvert the controls or monitoring of its frontier\ndeveloper outside of the context of an evaluation designed to elicit this\nbehavior and in a manner that demonstrates materially increased\ncatastrophic risk;\n(9)(a) Deploy means to make a frontier model available to a third\nparty for use, modification, copying, or combination with other software.\n(b) Deploy does not include making a frontier model available to a\nthird party for the primary purpose of developing or evaluating the\nfrontier model;\n(10) Foundation model means an artificial intelligence model that is\nall of the following:\n(a) Trained on a broad data set;\n(b) Designed for generality of output; and\n(c) Adaptable to a wide range of distinctive tasks;\n(11) Frontier developer means a person who has trained, or initiated\nthe training of, a frontier model, with respect to which the person has\nused, or intends to use, at least as much computing power to train the\n\nfrontier model as would meet the technical specifications found in\nsubdivision (12) of this section, except as otherwise provided by rules\nand regulations adopted and promulgated pursuant to section 6 of this\nact. Accredited postsecondary educational institutions shall not be\nconsidered frontier developers under the act to the extent that such\ninstitutions are developing or using frontier models exclusively for\nacademic research purposes. If a person subsequently transfers full\nintellectual property rights of a frontier model to another person,\nincluding the right to resell the model, and retains none of those rights\nfor themself, then the receiving person shall be considered the frontier\ndeveloper with respect to that frontier model on and after such transfer;\n(12) Frontier model means a foundation model that was trained using\na quantity of computing power greater than 10^26 integer or floatingpoint operations, except as otherwise provided by rules and regulations\nadopted and promulgated pursuant to section 6 of this act. The quantity\nof computing power described in this subdivision shall include computing\nfor the original training run and for any subsequent fine-tuning,\nreinforcement learning, or other material modifications the developer\napplies to a preceding foundation model;\n(13) Large chatbot provider means a person who makes a covered\nchatbot available in this state and who, together with its affiliates,\ncollectively had an annual revenue in the preceding calendar year of\ntwenty-five million dollars or more, except as otherwise specified by\nrules and regulations adopted and promulgated pursuant to section 6 of\nthis act.\n(14) Large frontier developer means, unless otherwise provided by\nrules and regulations adopted and promulgated pursuant to section 6 of\nthis act, a frontier developer who together with its affiliates had a\ncollective annual revenue in the preceding calender year of five hundred\nmillion dollars or more;\n(15) Minor means an individual younger than eighteen years of age;\n\n(16) Model weight means a numerical parameter in a frontier model\nthat is adjusted through training and that helps determine how inputs are\ntransformed into outputs;\n(17) Property means tangible or intangible property;\n(18) Public safety and child protection plan means a documented\ntechnical and organizational protocol to manage, assess, and mitigate\ncovered risks; and\n(19) Safety incident means a child safety incident or a critical\nsafety incident.\nSec. 4. (1) A large frontier developer or large chatbot provider\nshall write, implement, comply with, and clearly and conspicuously\npublish on its website a public safety and child protection plan that\ndescribes in detail:\n(a) For a large frontier developer, how the large frontier\ndeveloper:\n(i) Defines and assesses thresholds used by the large frontier\ndeveloper to identify and assess whether a frontier model has\ncapabilities that could pose a catastrophic risk, which may include\nmultiple-tiered thresholds;\n(ii) Applies mitigations to address the potential for catastrophic\nrisks based on the results of the assessments undertaken pursuant to\nsubdivision (1)(a)(i) of this section;\n(iii) Reviews assessments of catastrophic risk and adequacy of\nmitigations of catastrophic risk as part of the decision to deploy a\nfrontier model or use it extensively internally;\n(iv) Uses third parties to assess the potential for catastrophic\nrisks and the effectiveness of mitigations of catastrophic risks;\n(v) Implements cybersecurity practices to secure unreleased frontier\nmodel weights from unauthorized modification or transfer by internal or\nexternal parties; and\n(vi) Assesses and manages catastrophic risk resulting from the\n\ninternal use of its frontier models, including risks resulting from a\nfrontier model circumventing oversight mechanisms;\n(b) For a large chatbot provider, how the large chatbot provider:\n(i) Assesses potential for child safety risks.\n(ii) Applies mitigations to address the potential for child safety\nrisks based on the results of the assessments undertaken pursuant to\nsubdivision (1)(b)(i) of this section; and\n(iii) Uses third parties to assess the potential for child safety\nrisks and the effectiveness of mitigations of child safety risks; and\n(c) For both large frontier developers and large chatbot providers,\nhow the large frontier developer or large chatbot provider:\n(i) Incorporates national standards, international standards, and\nindustry-consensus best practices into its public safety and child\nprotection plan;\n(ii) Revisits and updates the public safety and child protection\nplan, including any criteria that trigger updates and how such developer\nor provider determines when its foundation models or frontier models are\nsubstantially modified enough to require disclosures pursuant to\nsubsection (3) or subsection (4) of this section;\n(iii) Identifies and responds to safety incidents; and\n(iv) Institutes internal governance practices to ensure\nimplementation of its public safety and child protection plan.\n(2) If a large frontier developer or large chatbot provider makes a\nmaterial modification to its public safety and child protection plan, the\nlarge frontier developer or large chatbot provider shall clearly and\nconspicuously publish on such developer's or provider's website the\nmodified public safety and child protection plan and a justification for\nsuch modification within thirty days after such material modification.\n(3) Before, or concurrently with, integrating a new foundation\nmodel, or a version of an existing foundation model that has been\nsubstantially modified, into a covered chatbot operated by the large\n\nchatbot provider, a large chatbot provider shall conspicuously publish on\nits website summaries of all of the following:\n(i) Assessments of child safety risks conducted pursuant to the\nlarge chatbot provider's public safety and child protection plan;\n(ii) The results of such assessments;\n(iii) The extent to which third-party evaluators were involved in\nsuch assessments; and\n(iv) Other steps taken to fulfill the requirements of the public\nsafety and child protection plan with respect to child safety risks.\n(4)(a) Before, or concurrently with, deploying a new frontier model\nor a version of an existing frontier model that the large frontier\ndeveloper has substantially modified, a large frontier developer shall\nconspicuously publish on its website summaries of all of the following:\n(i) Assessments of catastrophic risks from the frontier model\nconducted pursuant to the large frontier developer's public safety and\nchild protection plan;\n(ii) The results of such assessments;\n(iii) The extent to which third-party evaluators were involved in\nsuch assessments; and\n(iv) Other steps taken to fulfill the requirements of the public\nsafety and child protection plan with respect to catastrophic risks from\nthe frontier model.\n(b) A large frontier developer that publishes the information\ndescribed in subdivision (5)(a) of this section as part of a larger\ndocument, including a system card or model card, shall be deemed in\ncompliance with this subsection.\n(5)(a)(i) A large frontier developer or large chatbot provider shall\nnot make a materially false or misleading statement or omission about\ncovered risks from its activities or its management of covered risks.\n(ii) A large frontier developer or large chatbot provider shall not\nmake a materially false or misleading statement or omission about its\n\nimplementation of, or compliance with, its public safety and child\nprotection plan.\n(b) Subdivision (5)(a) of this section does not apply to a statement\nthat was made in good faith and was reasonable under the circumstances.\n(6)(a) When a large frontier developer or large chatbot provider\npublishes documents to comply with this section, the large frontier\ndeveloper or large chatbot provider may make redactions to those\ndocuments that are necessary to protect the large frontier developer's\ntrade secrets, the large frontier developer's or large chatbot provider's\ncybersecurity, public safety, or the national security of the United\nStates or to comply with any federal or state law.\n(b) If a large frontier developer or large chatbot provider redacts\ninformation in a document pursuant to subdivision (6)(a) of this section,\nthe large frontier developer or large chatbot provider shall describe the\ncharacter and justification of the redaction in any published version of\nthe document to the extent permitted by the concerns that justify\nredaction and shall retain the unredacted information for five years.\nSec. 5. (1) The Attorney General shall establish a mechanism to be\nused by a frontier developer, a large chatbot provider, or a member of\nthe public to report a safety incident that includes all of the\nfollowing:\n(a) The date of the safety incident;\n(b) The reasons the incident qualifies as a safety incident; and\n(c) A short and plain statement describing the safety incident.\n(2) A frontier developer shall report any critical safety incident\npertaining to one of its frontier models to the Attorney General within\nfifteen days after discovering the critical safety incident.\n(3) If a frontier developer discovers that a critical safety\nincident poses an imminent risk of death or serious physical injury, the\nfrontier developer shall disclose that incident within twenty-four hours\nto an authority, including any law enforcement agency or public safety\n\nagency with jurisdiction, that is appropriate based on the nature of that\nincident and as required by law.\n(4) A large chatbot provider shall report any child safety incident\npertaining to one of its covered chatbots to the Attorney General within\nfifteen days after discovering the child safety incident.\n(5) The Attorney General shall establish a mechanism to be used by a\nlarge frontier developer to confidentially submit summaries of any\nassessments of the potential for catastrophic risk resulting from\ninternal use of its frontier models.\n(6) A large frontier developer shall transmit to the Attorney\nGeneral a summary of any assessment of catastrophic risk resulting from\ninternal use of its frontier models no less frequently than every three\nmonths.\n(7)(a) The Attorney General may transmit reports of safety\nincidents, summaries of assessments of the potential for catastrophic\nrisk from internal use, and reports from employees made pursuant to\nsection 6 of this act to the Legislature, the Governor, the federal\ngovernment, or appropriate state agencies.\n(b) The Attorney General shall strongly consider any risks related\nto trade secrets, public safety, cybersecurity of a frontier developer or\nlarge chatbot provider, or national security when transmitting reports.\n(8) The Attorney General may adopt and promulgate rules and\nregulations designating one or more federal laws, regulations, or\nguidance documents that meet all of the following conditions for the\npurposes of subsection (9) of this section:\n(a) The law, regulation, or guidance document imposes or states\nstandards or requirements for safety incident reporting that are\nsubstantially equivalent to, or stricter than, those required by this\nsection for critical safety incidents, child safety incidents, or both. A\nlaw, regulation, or guidance document may satisfy this subdivision even\nif it does not require safety incident reporting to the State of\n\nNebraska; and\n(b) The law, regulation, or guidance document is intended to assess,\ndetect, or mitigate catastrophic risk, child safety risk, or both.\n(9)(a) A frontier developer or large chatbot provider that intends\nto comply with all or part of this section by complying with the\nrequirements of, or meeting the standards stated by, a federal law,\nregulation, or guidance document designated pursuant to subsection (8) of\nthis section by the Attorney General shall declare its intent to do so to\nthe Attorney General.\n(b) After a frontier developer or large chatbot provider has\ndeclared its intent pursuant to subdivision (9)(a) of this section, the\nfollowing shall apply:\n(i) To the extent that such developer or provider meets the\nstandards of, or complies with the requirements imposed or stated by, the\ndesignated federal law, regulation, or guidance document, such developer\nor provider shall be deemed in compliance with the obligations under this\nsection pertaining to:\n(A) Critical safety incidents, if such designated law, regulation,\nor document is intended to assess, detect, or mitigate catastrophic risk;\nand\n(B) Child safety incidents, if such designated law, regulation, or\ndocument is intended to assess, detect, or mitigate child safety risk;\nand\n(ii) The failure by such developer or provider to meet the standards\nof, or comply with the requirements stated by, such designated law,\nregulation, or document, shall be considered a violation of the\nTransparency in Artificial Intelligence Risk Management Act.\n(c) Subdivision (9)(b) of this section shall not apply to a frontier\ndeveloper or large chatbot provider to the extent that:\n(i) Such developer or provider makes a declaration of intent to the\nAttorney General to modify or revoke a declaration of intent under\n\nsubdivision (9)(a) of this section; or\n(ii) The Attorney General revokes a rule or regulation pursuant to\nsubsection (10) of this section.\n(10) The Attorney General shall revoke a rule or regulation adopted\nunder or promulgated under subsection (8) of this section if the\nrequirements of subsection (8) are no longer met.\nSec. 6. (1) On or before January 1, 2027, and annually thereafter,\nthe Attorney General shall assess recent evidence and developments\nrelevant to the purposes of the Transparency in Artificial Intelligence\nRisk Management Act and may adopt and promulgate rules and regulations to\nupdate definitions for any of the following terms for the purposes of the\nact to ensure that such definitions accurately reflect technological\ndevelopments, scientific literature, and widely accepted national and\ninternational standards:\n(a) Frontier model, so that such definition applies to foundation\nmodels at the frontier of artificial intelligence development;\n(b) Frontier developer, so that such definition applies to\ndevelopers of frontier models who are themselves at the frontier of\nartificial intelligence development;\n(c) Large frontier developer so that such definition applies to\nwell-resourced frontier developers; and\n(d) Large chatbot provider so that such definition applies to wellresourced companies developing covered chatbots that may pose child\nsafety risks.\n(2) In adopting and promulgating rules and regulations pursuant to\nthis section, the Attorney General shall take into account all of the\nfollowing:\n(a) Similar thresholds used in international standards or federal\nlaw, guidance, or regulations for the management of catastrophic risks or\nchild safety risks. The Attorney General shall align any updated\ndefinition with a definition adopted in a federal law or regulation to\n\nthe extent that it is consistent with the purposes of the Transparency in\nArtificial Intelligence Risk Management Act;\n(b) Input from stakeholders, such as academic and technology\nindustry professionals, the open-source community, and governmental\nentities;\n(c) The extent to which a person will be able to determine, before\nbeginning to train or deploy a foundation model, whether that person will\nbe subject to the definition as a frontier developer or as a large\nfrontier developer with an aim toward allowing earlier determinations if\npossible;\n(d) The complexity of determining whether a person or foundation\nmodel is covered, with an aim toward allowing simpler determinations if\npossible;\n(e) The external verifiability of determining whether a person or\nfoundation model is covered, with an aim toward definitions that are\nverifiable by parties other than the frontier developer; and\n(f) Thresholds used by other states in similar laws.\nSec. 7. (1) For purposes of this section:\n(a) Adverse action means the discharge of an employee, a threat\nagainst an employee, or any other act against an employee that negatively\naffects the employee's employment;\n(b) Applicant means a prospective employee applying for employment;\nand\n(c) Employee means an individual employed by a large frontier\ndeveloper or large chatbot provider.\n(2) A frontier developer or large chatbot provider shall not take\nadverse action against or otherwise penalize an employee for disclosing\ninformation to the Attorney General, a federal authority, a person with\nauthority over the employee, or another employee who has authority to\ninvestigate, discover, or correct the reported issue, if the employee has\nreasonable cause to believe that the information discloses either of the\n\nfollowing:\n(a) The frontier developer's or large chatbot provider's activities\npose a specific and substantial danger to the public health or safety or\nto the health or safety of a minor; or\n(b) The frontier developer or large chatbot provider has violated\nthe Transparency in Artificial Intelligence Risk Management Act.\n(3) A frontier developer or large chatbot provider shall not require\nan employee or applicant to waive or limit any protection granted under\nthis section as a condition of continued employment or of applying for or\nreceiving an offer of employment. Any agreement to waive any right or\nprotection under the act is against the public policy of this state and\nis void and unenforceable.\n(4) A frontier developer or large chatbot provider shall not\nretaliate, discriminate or take adverse action against an employee or\napplicant because the employee or applicant testifies, assists, or\nparticipates in an investigation, proceeding, or action concerning a\nviolation of the Transparency in Artificial Intelligence Risk Management\nAct.\n(5)(a) A large frontier developer shall provide a reasonable\ninternal process through which an employee may anonymously disclose\ninformation to the large frontier developer if the employee believes in\ngood faith that the information indicates that the large frontier\ndeveloper's activities (i) pose a specific and substantial threat to the\npublic health or safety or to the health or safety of a minor or (b) that\nthe large frontier developer or large chatbot provider has violated the\nTransparency in Artificial Intelligence Risk Management Act. Such\ninternal process shall include providing a monthly update to the person\nwho made the disclosure regarding the status of the large frontier\ndeveloper's investigation of the disclosure and the actions taken by the\nlarge frontier developer in response to the disclosure. Except as\nprovided in subdivision (ii) of this subsection, the disclosures and\n\nresponses of the process required by this subdivision shall be shared\nwith officers and directors of the large frontier developer at least once\neach quarter.\n(b) If an employee has alleged wrongdoing by an officer or director\nof the large frontier developer in a disclosure or response, subdivision\n(a) of this subsection shall not apply with respect to that officer or\ndirector.\n(6) Upon violation of this section, an aggrieved employee or\napplicant may, in addition to any other available remedy, institute a\ncivil action within one year after the date of the alleged violation or\nthe discovery of the alleged violation, whichever is later. The employee\nor applicant shall file an action directly in the district court of the\ncounty where such alleged violation occurred. The district court shall\nfile and try such case as any other civil action, and any successful\ncomplainant shall be entitled to appropriate relief, including temporary\nor permanent injunctive relief, general and special damages, and\nreasonable attorney's fees and court costs.\nSec. 8. (1) The Attorney General may bring an action to enforce the\nTransparency in Artificial Intelligence Risk Management Act. A large\nfrontier developer that violates the act shall be subject to a civil\npenalty in an amount dependent upon the severity of the violation that\ndoes not exceed one million dollars per violation. A large chatbot\nprovider that violates the act shall be subject to a civil penalty in an\namount dependent upon the severity of the violation that does not exceed\nfifty thousand dollars per violation.\n(2) Any penalties collected under this section shall be remitted to\nthe State Treasurer for distribution in accordance with Article VII,\nsection 5, of the Constitution of Nebraska.\nSec. 9. The duties and obligations imposed by the Transparency in\nArtificial Intelligence Risk Management Act are cumulative with any other\nduties or obligations imposed under other law and shall not be construed\n\nto relieve any party from any duties or obligations imposed under another\nlaw and do not limit any rights or remedies under existing law.\nSec. 10. The Juvenile Mental Health Support Fund is created. The\nfund shall be administered by the Department of Health and Human Services\nand shall be used for the programming and facilities associated with\nproviding juvenile mental health services. Any money in the fund\navailable for investment shall be invested by the state investment\nofficer pursuant to the Nebraska Capital Expansion Act and the Nebraska\nState Funds Investment Act.\nSec. 11. Section 84-712.05, Reissue Revised Statutes of Nebraska, is\namended to read:\n84-712.05 The following records, unless publicly disclosed in an\nopen court, open administrative proceeding, or open meeting or disclosed\nby a public entity pursuant to its duties, may be withheld from the\npublic by the lawful custodian of the records:\n(1) Personal information in records regarding a student, prospective\nstudent, or former student of any educational institution or exempt\nschool that has effectuated an election not to meet state approval or\naccreditation requirements pursuant to section 79-1601 when such records\nare maintained by and in the possession of a public entity, other than\nroutine directory information specified and made public consistent with\n20 U.S.C. 1232g, as such section existed on February 1, 2013, and\nregulations adopted thereunder;\n(2) Medical records, other than records of births and deaths and\nexcept as provided in subdivisions (5) and (27) of this section, in any\nform concerning any person; records of elections filed under section\n44-2821; and patient safety work product under the Patient Safety\nImprovement Act;\n(3) Trade secrets, academic and scientific research work which is in\nprogress and unpublished, and other proprietary or commercial information\nwhich if released would give advantage to business competitors and serve\n\nno public purpose;\n(4) Records which represent the work product of an attorney and the\npublic body involved which are related to preparation for litigation,\nlabor negotiations, or claims made by or against the public body or which\nare confidential communications as defined in section 27-503;\n(5) Records developed or received by law enforcement agencies and\nother public bodies charged with duties of investigation or examination\nof persons, institutions, or businesses, when the records constitute a\npart of the examination, investigation, intelligence information,\ncomplaints or inquiries from residents of this state or other interested\npersons, informant identification, or strategic or tactical information\nused in law enforcement training, except that this subdivision shall not\napply to records so developed or received:\n(a) Relating to the presence of and amount or concentration of\nalcohol or drugs in any body fluid of any person; or\n(b) Relating to the cause of or circumstances surrounding the death\nof an employee arising from or related to his or her employment if, after\nan investigation is concluded, a family member of the deceased employee\nmakes a request for access to or copies of such records. This subdivision\ndoes not require access to or copies of informant identification, the\nnames or identifying information of members of the public making\ncomplaints or inquiries, other information which would compromise an\nongoing criminal investigation, or information which may be withheld from\nthe public under another provision of law. For purposes of this\nsubdivision, family member means a spouse, child, parent, sibling,\ngrandchild, or grandparent by blood, marriage, or adoption;\n(6) The identity and personal identifying information of an alleged\nvictim of sexual assault or sex trafficking as provided in section\n29-4316;\n(7) Appraisals or appraisal information and negotiation records\nconcerning the purchase or sale, by a public body, of any interest in\n\nreal or personal property, prior to completion of the purchase or sale;\n(8) Personal information in records regarding personnel of public\nbodies other than salaries and routine directory information;\n(9) Information solely pertaining to protection of the security of\npublic property and persons on or within public property, such as\nspecific, unique vulnerability assessments or specific, unique response\nplans, either of which is intended to prevent or mitigate criminal acts\nthe public disclosure of which would create a substantial likelihood of\nendangering public safety or property; computer or communications network\nschema, passwords, and user identification names; guard schedules; lock\ncombinations; or public utility infrastructure specifications or design\ndrawings the public disclosure of which would create a substantial\nlikelihood of endangering public safety or property, unless otherwise\nprovided by state or federal law;\n(10) Information that relates details of physical and cyber assets\nof critical energy infrastructure or critical electric infrastructure,\nincluding (a) specific engineering, vulnerability, or detailed design\ninformation about proposed or existing critical energy infrastructure or\ncritical electric infrastructure that (i) relates details about the\nproduction, generation, transportation, transmission, or distribution of\nenergy, (ii) could be useful to a person in planning an attack on such\ncritical infrastructure, and (iii) does not simply give the general\nlocation of the critical infrastructure and (b) the identity of personnel\nwhose primary job function makes such personnel responsible for (i)\nproviding or granting individuals access to physical or cyber assets or\n(ii) operating and maintaining physical or cyber assets, if a reasonable\nperson, knowledgeable of the electric utility or energy industry, would\nconclude that the public disclosure of such identity could create a\nsubstantial likelihood of risk to such physical or cyber assets.\nSubdivision (10)(b) of this section shall not apply to the identity of a\nchief executive officer, general manager, vice president, or board member\n\nof a public entity that manages critical energy infrastructure or\ncritical electric infrastructure. The lawful custodian of the records\nmust provide a detailed job description for any personnel whose identity\nis withheld pursuant to subdivision (10)(b) of this section. For purposes\nof subdivision (10) of this section, critical energy infrastructure and\ncritical electric infrastructure mean existing and proposed systems and\nassets, including a system or asset of the bulk-power system, whether\nphysical or virtual, the incapacity or destruction of which would\nnegatively affect security, economic security, public health or safety,\nor any combination of such matters;\n(11) The security standards, procedures, policies, plans,\nspecifications, diagrams, access lists, and other security-related\nrecords of the Lottery Division of the Department of Revenue and those\npersons or entities with which the division has entered into contractual\nrelationships. Nothing in this subdivision shall allow the division to\nwithhold from the public any information relating to:\n(a) Amounts paid persons or entities with which the division has\nentered into contractual relationships;\n(b) Amounts of prizes paid; or\n(c) The name of any prize winner awarded a prize of less than two\nhundred fifty thousand dollars, and the city, village, or county where\nthe prize winner resides;\n(12) With respect to public utilities and except as provided in\nsections 43-512.06 and 70-101, personally identified private customer\naccount payment and customer use information, credit information on\nothers supplied in confidence, and customer lists;\n(13) Records or portions of records kept by a publicly funded\nlibrary which, when examined with or without other records, reveal the\nidentity of any library patron using the library's materials or services;\n(14) Correspondence, memoranda, and records of telephone calls\nrelated to the performance of duties by a member of the Legislature in\n\nwhatever form. The lawful custodian of the correspondence, memoranda, and\nrecords of telephone calls, upon approval of the Executive Board of the\nLegislative Council, shall release the correspondence, memoranda, and\nrecords of telephone calls which are not designated as sensitive or\nconfidential in nature to any person performing an audit of the\nLegislature. A member's correspondence, memoranda, and records of\nconfidential telephone calls related to the performance of his or her\nlegislative duties shall only be released to any other person with the\nexplicit approval of the member;\n(15) Records or portions of records kept by public bodies which\nwould reveal the location, character, or ownership of any known\narchaeological, historical, or paleontological site in Nebraska when\nnecessary to protect the site from a reasonably held fear of theft,\nvandalism, or trespass. This section shall not apply to the release of\ninformation for the purpose of scholarly research, examination by other\npublic bodies for the protection of the resource or by recognized tribes,\nthe Unmarked Human Burial Sites and Skeletal Remains Protection Act, or\nthe federal Native American Graves Protection and Repatriation Act;\n(16) Records or portions of records kept by public bodies which\nmaintain collections of archaeological, historical, or paleontological\nsignificance which reveal the names and addresses of donors of such\narticles of archaeological, historical, or paleontological significance\nunless the donor approves disclosure, except as the records or portions\nthereof may be needed to carry out the purposes of the Unmarked Human\nBurial Sites and Skeletal Remains Protection Act or the federal Native\nAmerican Graves Protection and Repatriation Act;\n(17) Library, archive, and museum materials acquired from\nnongovernmental entities and preserved solely for reference, research, or\nexhibition purposes, for the duration specified in subdivision (17)(b) of\nthis section, if:\n(a) Such materials are received by the public custodian as a gift,\n\npurchase, bequest, or transfer; and\n(b) The donor, seller, testator, or transferor conditions such gift,\npurchase, bequest, or transfer on the materials being kept confidential\nfor a specified period of time;\n(18) Job application materials submitted by applicants, other than\nfinalists or a priority candidate for a position described in section\n85-106.06 selected using the enhanced public scrutiny process in section\n85-106.06, who have applied for employment by any public body as defined\nin section 84-1409. For purposes of this subdivision, (a) job application\nmaterials means employment applications, resumes, reference letters, and\nschool transcripts and (b) finalist means any applicant who is not an\napplicant for a position described in section 85-106.06 and (i) who\nreaches the final pool of applicants, numbering four or more, from which\nthe successful applicant is to be selected, (ii) who is an original\napplicant when the final pool of applicants numbers less than four, or\n(iii) who is an original applicant and there are four or fewer original\napplicants;\n(19)(a) Records obtained by the Public Employees Retirement Board\npursuant to section 84-1512 and (b) records maintained by the board of\neducation of a Class V school district and obtained by the board of\ntrustees or the Public Employees Retirement Board for the administration\nof a retirement system provided for under the Class V School Employees\nRetirement Act pursuant to section 79-989;\n(20) Social security numbers; credit card, charge card, or debit\ncard numbers and expiration dates; and financial account numbers supplied\nto state and local governments;\n(21) Information exchanged between a jurisdictional utility and city\npursuant to section 66-1867;\n(22) Draft records obtained by the Nebraska Retirement Systems\nCommittee of the Legislature and the Governor from Nebraska Public\nEmployees Retirement Systems pursuant to subsection (4) of section\n\n84-1503;\n(23) All prescription drug information submitted pursuant to section\n71-2454, all data contained in the prescription drug monitoring system,\nand any report obtained from data contained in the prescription drug\nmonitoring system;\n(24) Information obtained by any government entity, whether federal,\nstate, county, or local, regarding firearm registration, possession,\nsale, or use that is obtained for purposes of an application permitted or\nrequired by law or contained in a permit or license issued by such\nentity. Such information shall be available upon request to any federal,\nstate, county, or local law enforcement agency;\n(25) The security standards, procedures, policies, plans,\nspecifications, diagrams, and access lists and other security-related\nrecords of the State Racing and Gaming Commission, those persons or\nentities with which the commission has entered into contractual\nrelationships, and the names of any individuals placed on the list of\nself-excluded persons with the commission as provided in section 9-1118.\nNothing in this subdivision shall allow the commission to withhold from\nthe public any information relating to the amount paid any person or\nentity with which the commission has entered into a contractual\nrelationship, the amount of any prize paid, the name of the prize winner,\nand the city, village, or county where the prize winner resides;\n(26) Records relating to the nature, location, or function of\ncybersecurity by the State of Nebraska or any of its political\nsubdivisions or any other public entity subject to sections 84-712 to\n84-712.09, including, but not limited to, devices, programs, or systems\ndesigned to protect computer, information technology, or communications\nsystems against terrorist or other attacks. The Nebraska Information\nTechnology Commission shall adopt and promulgate rules and regulations to\nimplement this subdivision;\n(27) Vital event records, unless all information designated as\n\nconfidential under the Vital Statistics Act or all personally\nidentifiable information is redacted by the Department of Health and\nHuman Services;\n(28) Information or records from historical indexes within one\nhundred years after the event date of the information or record; and\n(29) The certificate number for any vital event certificate; and .\n(30) A notification or summary of assessment submitted under section\n5 of this act or a disclosure made pursuant to section 7 of this act.\nSec. 12. This act becomes operative on January 1, 2027.\nSec. 13. If any section in this act or any part of any section is\ndeclared invalid or unconstitutional, the declaration shall not affect\nthe validity or constitutionality of the remaining portions.\nSec. 14. Original section 84-712.05, Reissue Revised Statutes of\nNebraska, is repealed.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3319074,
+   "date": "2026-01-15",
+   "type": "Introduced",
+   "mime": "application/pdf",
+   "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf",
+   "from": "legiscan",
+   "saved_file": "raw/legiscan/NE-LB1083-2081898.pdf",
+   "pdf": {
+    "pages": 23,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": [
+   "frontier developer",
+   "foundation model",
+   "10^26",
+   "integer or floating",
+   "critical safety incident",
+   "catastrophic risk"
+  ]
+ }
+}

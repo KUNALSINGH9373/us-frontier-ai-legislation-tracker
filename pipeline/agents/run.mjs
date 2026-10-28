@@ -18,12 +18,34 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
 const safe = (id) => id.replace(/[^A-Za-z0-9._-]+/g, '-');
 const WORK = new Set(['material', 'new_entry_candidate']);
+
+// ---------- items not read again until their record changes ----------
+// An item the AI step held for good (escalate: a duplicate, no section, a scope or section not proved, duties that cannot be proved) is
+// remembered by its record's hash in state/agent-memo.json (update.mjs keeps it with the promoted state). While the record is unchanged
+// it is not read again (no tokens), and its proposal is reported only the first time. A dead state bill (LegiScan status vetoed or
+// failed) is not read again while it stays dead, even if LegiScan touches its record. A model-service failure is never remembered.
+export const MEMO_FILE = 'agent-memo.json';
+const deadBill = (item, raw) => item.source === 'legiscan' && raw && raw.bill && [5, 6].includes(Number(raw.bill.status));
+export function memoSkip(memo, item, raw) {
+  const m = memo && memo.items && memo.items[item.item_id];
+  if (!m) return null;
+  if (m.raw_hash && item.raw_hash && m.raw_hash === item.raw_hash) return `its record is unchanged since it was held on ${m.date} (${String(m.reason || '').slice(0, 120)})`;
+  if (m.dead && deadBill(item, raw)) return `a dead bill (held on ${m.date}); it is not read again while it stays dead`;
+  return null;
+}
+export function memoRecord(memo, item, raw, r, today) {
+  memo.items = memo.items || {};
+  if (r.outcome === 'held' && r.escalate && !r.service_error) { const first = !memo.items[item.item_id]; memo.items[item.item_id] = { raw_hash: item.raw_hash || null, reason: String(r.reason || '').slice(0, 300), proposal: r.proposal || null, date: today, dead: deadBill(item, raw) }; return first; }
+  delete memo.items[item.item_id];
+  return false;
+}
 const CODE_ONLY = new Set(['cosponsors_change']);
 
 // factory (llm/make.mjs) is how production runs get their AI clients (provider from config/models.json, spend saved, monthly cap);
 // config + apiKey + fetchImpl is the older direct Gemini path the tests use.
 // maxItems caps how many items one run sends to the AI (material changes first, then new-bill candidates); the rest wait for the next run.
-export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, factory, today, now = new Date(), only, maxItems, log = () => {} }) {
+export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, factory, today, now = new Date(), only, maxItems, memoFile = null, log = () => {} }) {
+  const memo = memoFile && fs.existsSync(memoFile) ? (() => { try { return JSON.parse(fs.readFileSync(memoFile, 'utf8')); } catch { return { items: {} }; } })() : { items: {} };
   const changeset = JSON.parse(fs.readFileSync(path.join(runDir, 'changeset.json'), 'utf8'));
   const diffs = JSON.parse(fs.readFileSync(path.join(runDir, 'diff.json'), 'utf8')).items;
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
@@ -54,11 +76,19 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
   const todo = maxItems ? all.slice(0, maxItems) : all;
   fs.mkdirSync(path.join(runDir, 'results'), { recursive: true });
 
-  const summary = { run_id: changeset.run_id, started_at: now.toISOString(), outcomes: {}, items: [], eligible_items: all.length, deferred_items: all.length - todo.length, stopped_by_budget: false, stopped_by_service_errors: false };
+  const summary = { run_id: changeset.run_id, started_at: now.toISOString(), outcomes: {}, items: [], eligible_items: all.length, deferred_items: all.length - todo.length, stopped_by_budget: false, stopped_by_service_errors: false, proposals: [], not_reread: 0 };
   let consecutiveServiceErrors = 0;
   for (const d of todo) {
     const item = itemById.get(d.item_id);
     const raw = JSON.parse(fs.readFileSync(path.join(runDir, item.raw_path), 'utf8'));
+    const memoWhy = d.verdict === 'new_entry_candidate' ? memoSkip(memo, item, raw) : null;
+    if (memoWhy) {
+      const r0 = { item_id: d.item_id, outcome: 'held', operation: 'create', attempts: 0, entry: null, patch: null, verdicts: [], reason: `not read again: ${memoWhy}`, escalate: true, not_reread: true, tokens: 0 };
+      fs.writeFileSync(path.join(runDir, 'results', safe(d.item_id) + '.json'), JSON.stringify(r0, null, 1) + '\n');
+      summary.items.push({ item_id: d.item_id, outcome: 'held', operation: 'create', attempts: 0, tokens: 0, reason: r0.reason, escalate: true, not_reread: true });
+      summary.outcomes.held = (summary.outcomes.held || 0) + 1; summary.not_reread++;
+      continue;
+    }
     let r;
     try {
       r = await processItem({ generator, validator, referee, escalation, item, raw, diff: d, entry: d.entry_key ? byKey.get(d.entry_key) : null, entries, today, runId: changeset.run_id, now, log });
@@ -73,7 +103,9 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
     fs.writeFileSync(path.join(runDir, 'results', safe(d.item_id) + '.json'), JSON.stringify(r, null, 1) + '\n');
     summary.items.push({ item_id: d.item_id, outcome: r.outcome, operation: r.operation, attempts: r.attempts, tokens: r.tokens, reason: r.reason, ...(r.escalate ? { escalate: true } : {}), ...(r.escalated ? { escalated: true } : {}) });
     summary.outcomes[r.outcome] = (summary.outcomes[r.outcome] || 0) + 1;
+    if (d.verdict === 'new_entry_candidate' && memoRecord(memo, item, raw, r, today) && r.proposal) summary.proposals.push(r.proposal);
   }
+  if (memoFile) { fs.mkdirSync(path.dirname(memoFile), { recursive: true }); fs.writeFileSync(memoFile, JSON.stringify(memo, null, 1) + '\n'); }
   summary.llm = ledger.totals();
   summary.finished_at = new Date().toISOString();
   fs.writeFileSync(path.join(runDir, 'results.json'), JSON.stringify(summary, null, 1) + '\n');

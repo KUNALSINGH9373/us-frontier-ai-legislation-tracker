@@ -1,0 +1,105 @@
+{
+ "id": 98,
+ "key": "va-sb-365",
+ "section": "B.2",
+ "type": "bill",
+ "level": "state",
+ "jurisdiction": "VA",
+ "state": "VA",
+ "status": "pending",
+ "title": "S.B. 365 — Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act; established.",
+ "short_name": "VA SB 365",
+ "sponsor_text": "Sen. Stella Pekarsky (D)",
+ "mechanism": "A developer of a base artificial intelligence model shall disclose in its terms of service the model name, developer, place of incorporation, latest release date, training data update date, supported languages and a terms of service link. Providing the disclosure shall not be a defense to liability for any harm caused to a plaintiff. Creates the FAIR AI Enforcement Fund for state agency enforcement. In actions over harm, it shall not be a defense that the AI system autonomously caused the harm.",
+ "thresholds": "Capability-based, no figure: \"a large-scale artificial intelligence system model trained on broad and diverse data to learn general patterns and relationships\"",
+ "penalties": null,
+ "status_text": "Status: Introduced Jan 13, 2026; Referred to Committee on General Laws and Technology (Jan 13, 2026)",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-01-13",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "Prefiled and ordered printed; Offered 01-14-2026 26104938D",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-01-13",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Referred to Committee on General Laws and Technology",
+   "inferred_year": false,
+   "scheduled": false
+  }
+ ],
+ "sources": [
+  {
+   "label": "VA Legislature record: Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act; established.",
+   "url": "https://lis.virginia.gov/bill-details/20261/SB365",
+   "kind": "primary",
+   "retrieved_at": "2026-10-28T07:14:45Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "A developer of a base artificial intelligence model shall clearly and conspicuously disclose",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/SB365"
+  },
+  {
+   "field": "mechanism",
+   "quote": "The provision of such disclosure to a user shall not be a defense to liability for any harm caused to a plaintiff.",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/SB365"
+  },
+  {
+   "field": "mechanism",
+   "quote": "There is hereby created in the state treasury a special nonreverting fund to be known as the FAIR AI Enforcement Fund.",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/SB365"
+  },
+  {
+   "field": "mechanism",
+   "quote": "it shall not be a defense that the artificial intelligence system autonomously caused such harm to the plaintiff",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/SB365"
+  },
+  {
+   "field": "thresholds",
+   "quote": "a large-scale artificial intelligence system model trained on broad and diverse data to learn general patterns and relationships",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/SB365"
+  },
+  {
+   "field": "in_scope",
+   "quote": "A developer of a base artificial intelligence model shall clearly and conspicuously disclose, in a manner that is appropriate for the medium of the content",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/SB365"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "legiscan": [
+    2085502
+   ]
+  },
+  "session": "2026 Regular Session"
+ },
+ "legacy": {
+  "section_name": "Catastrophic-risk regulation without a frontier threshold"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261028-0712-4ed1",
+  "rounds": 1
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28"
+}

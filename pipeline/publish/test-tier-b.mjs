@@ -89,7 +89,8 @@ const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'autom
   ok('it is tracked by its Congress.gov id, so the grabber keeps it current', e.identifiers.external.congress_gov.includes('119/hr/9990'));
   ok('it is dated by the run and marked as the pipeline\'s', e.last_checked === '2026-10-06' && e.last_changed === '2026-10-06' && e.origin === 'automated' && e.verification.method === 'agent' && e.verification.run_id === 'run-20261006-1553-c59a');
   const n = d.news.items.find((x) => x.tracker === e.key);
-  ok('one "introduced" news item in fixed wording, dated by the record', n && n.date === '2026-10-02' && n.kind === 'federal' && n.title === `${e.short_name}: introduced` && /^Congress\.gov records that H\.R\. 9990 .* was introduced on Oct 2, 2026, sponsored by Rep\. Jane Doe \(D-CA\)\.$/.test(n.body) && /no AI/.test(n.check), n && n.body);
+  // Dated the day it is added and describing the current status (here: just introduced), in clean fixed wording (round 2).
+  ok('one "added" news item in fixed wording, dated the day it is added, describing its current status', n && n.date === '2026-10-06' && n.kind === 'federal' && n.title === `${e.short_name}: introduced` && n.body === 'As of Oct 6, 2026, Congress.gov records that H.R. 9990 ("Frontier Model Safety Testing Act") was introduced on Oct 2, 2026. It is sponsored by Rep. Jane Doe (D-CA).' && /no AI/.test(n.check), n && n.body);
   ok('the news item quotes the official title', n && n.evidence[0].quote === 'Frontier Model Safety Testing Act');
   ok('the change log records the new entry as Tier B', d.changes.items.some((c) => c.entry_key === e.key && c.field === 'entry' && c.old === null && c.tier === 'B'));
   ok('the Tier A update in the same run is still applied', d.entries.find((x) => x.key === 's-2938-ai-risk-evaluation-act').origin === 'mixed');
@@ -157,7 +158,7 @@ const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'autom
   ok('the published data passes every rule', variant(() => {}).length === 0, variant(() => {}).join('; '));
   ok('stop: a new entry Tier B did not create', variant(() => {}, { newKeys: [] }).some((p) => /not created by Tier B/.test(p)));
   ok('stop: more new entries than the per-run limit', variant(() => {}, { maxNew: 0 }).some((p) => /over the limit of 0 per run/.test(p)));
-  ok('stop: a new entry in a section that needs a person', variant((a, e) => { e.section = 'E'; e.type = 'draft'; }).some((p) => /section E needs a person/.test(p)));
+  ok('stop: a new entry in a section that needs a person', variant((a, e) => { e.section = 'E'; e.type = 'draft'; }).some((p) => /section E is never auto-created/.test(p)));
   const asState = variant((a, e) => { e.section = 'B'; e.type = 'bill'; e.level = 'state'; });
   ok('stop: a federal bill filed in a state section', asState.some((p) => /a state entry needs its two-letter state/.test(p)) && asState.some((p) => /needs its LegiScan id and session/.test(p)));
   ok('stop: a type that does not follow the section rule', variant((a, e) => { e.type = 'law'; }).some((p) => /do not follow the rule for section D/.test(p)));

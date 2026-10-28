@@ -13,15 +13,18 @@ const RESOLUTION_TEXT = /\b(?:(?:HOUSE|SENATE|ASSEMBLY|JOINT|CONCURRENT)\s+)?R\s
 
 // 'bill' | 'resolution' | 'memorial' | 'other' (an executive order, a petition, a study request ...).
 export function measureKind(bill = {}, text = '') {
+  // The bill's own number and text come first: LegiScan's type field is not trusted on its own, so a record numbered or worded as a
+  // resolution or memorial is one whatever bill_type_id says (code review S3). These are state numbering rules: this function is only
+  // used on LegiScan (state) records, never on a Congress "H.R." bill (code review S2).
+  const n = String(bill.bill_number || '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([A-Z]+)0+/, '$1');
+  if (RESOLUTION_NUMBER.test(n)) return 'resolution';
+  if (MEMORIAL_NUMBER.test(n)) return 'memorial';
+  if (RESOLUTION_TEXT.test(String(text).slice(0, 1500)) && !/\bA\s+BILL\b|\bAN\s+ACT\b/i.test(String(text).slice(0, 1500))) return 'resolution';
   const t = Number(bill.bill_type_id);
   if (BILL_TYPES.has(t)) return 'bill';
   if (RESOLUTION_TYPES.has(t)) return 'resolution';
   if (MEMORIAL_TYPES.has(t)) return 'memorial';
   if (t) return 'other';
-  const n = String(bill.bill_number || '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([A-Z]+)0+/, '$1');
-  if (RESOLUTION_NUMBER.test(n)) return 'resolution';
-  if (MEMORIAL_NUMBER.test(n)) return 'memorial';
-  if (RESOLUTION_TEXT.test(String(text).slice(0, 1500)) && !/\bA\s+BILL\b|\bAN\s+ACT\b/i.test(String(text).slice(0, 1500))) return 'resolution';
   return 'bill';
 }
 
@@ -47,7 +50,7 @@ export function recordRefusals(raw = {}) {
   const a = amendmentRecord(b, text);
   if (a) out.push(`an amendment record, not a bill: ${a}`);
   const k = measureKind(b, text);
-  if (k === 'resolution' || k === 'memorial') out.push(`a ${k} (${b.bill_number}), not a bill: resolutions and memorials never go in sections A, B or B.2, and the sections they may go in are a person's call`);
+  if (k === 'resolution' || k === 'memorial') out.push(`a ${k} (${b.bill_number}), not a bill: resolutions and memorials never go in sections A, B or B.2, and the pipeline creates no entry for them (reported)`);
   else if (k === 'other') out.push(`LegiScan type ${b.bill_type || b.bill_type_id} (${b.bill_number}) is not a bill`);
   return out;
 }
