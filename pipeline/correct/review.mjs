@@ -42,7 +42,25 @@ export function checkCorrection({ c, entry, fields, source }) {
   if (foreignLetters(v, source)) p.push('letters the source does not use');
   if (NEGATIVE_FINDING.test(v) && !NEGATIVE_FINDING.test(old)) p.push('a "none located" style claim');
   if (ABSENCE.test(v) && !ABSENCE.test(old)) p.push(`it states what the bill does not contain ("${v.match(ABSENCE)[0]}"): say only what SOURCE states`);
+  p.push(...droppedFacts({ c, old, v }));
   return p;
+}
+
+// Nothing true may be lost. An omission fix keeps every figure and every quoted defined term of the current text; an error fix may drop a
+// figure only when its stated problem names that figure as the wrong one. (A live run on 28 Oct 2026 rewrote the CT entry and dropped its
+// 10^26 and $500M definitions while adding true facts; every added fact checked out, so only this check catches that.)
+const TERM = /[“"]([^”"]{3,80})[”"]/g;
+// "$500M", "$500 million" and "$500,000,000" are one figure: amounts are written out in full before figures are compared.
+const SCALE = { k: 1e3, thousand: 1e3, m: 1e6, mn: 1e6, million: 1e6, b: 1e9, bn: 1e9, billion: 1e9, t: 1e12, trillion: 1e12 };
+export const expandAmounts = (s) => String(s || '').replace(/(\d+(?:\.\d+)?)\s*(thousand|million|billion|trillion|mn|bn|[kmbt])\b/gi, (m, n, u) => String(Math.round(Number(n) * SCALE[u.toLowerCase()])));
+const figures = (s) => new Set([...digitRuns(s), ...digitRuns(expandAmounts(String(s || '').replace(/(\d),(?=\d{3}\b)/g, '$1')))]);
+export function droppedFacts({ c, old, v }) {
+  const out = [], now = figures(v), named = figures(String((c && c.problem) || ''));
+  const lost = [...digitRuns(expandAmounts(old))].filter((n) => n.length > 1 && !now.has(n) && !(c.kind === 'error' && named.has(n)));
+  if (lost.length) out.push(`the new text drops figures the current text has: ${lost.join(', ')}; keep every fact that is not wrong${c.kind === 'error' ? ', and name a figure in the problem if it is the wrong one' : ''}`);
+  const terms = [...old.matchAll(TERM)].map((m) => m[1]).filter((t) => !norm(v).includes(norm(t)) && !(c.kind === 'error' && norm(String(c.problem || '')).includes(norm(t))));
+  if (terms.length) out.push(`the new text drops defined terms the current text has: "${terms.slice(0, 3).join('", "')}"`);
+  return out;
 }
 
 // reviewer, confirmer: AI clients (generate({ system, prompt, itemId }) -> { data }). text: the bill's official text; url: where it is.

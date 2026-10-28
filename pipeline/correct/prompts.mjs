@@ -12,7 +12,7 @@ What counts:
 
 Rules:
 1. Use ONLY SOURCE. No outside knowledge. Do not report style, wording, length or order: only facts that are wrong or missing.
-2. Do not remove a statement just because SOURCE does not mention it: the entry may also cover a companion bill or later events. Change only what SOURCE contradicts, and add only what SOURCE states.
+2. Do not remove a statement just because SOURCE does not mention it: the entry may also cover a companion bill or later events. Change only what SOURCE contradicts, and add only what SOURCE states. Keep every figure and every quoted defined term of the current text (code checks this); if one is wrong, mark the correction "error" and name the wrong figure or term in "problem".
 3. new_text is the COMPLETE new value of the field: the current text with the correction made, every other fact kept as it was, in the same dense style. HARD LIMITS, checked by code (longer text is thrown away): the character limit given for each field under CURRENT ENTRY. Count before you answer. Fix the most important problem first; when space runs out, drop minor detail, never a fact the current text has.
 4. Every fact you add or change needs an item in "evidence": a quote copied EXACTLY, word for word, from SOURCE (at least 8 characters, from inside one sentence, no "..."), containing the number or words that prove it.
 5. Every number you write must appear in SOURCE or in the current text, written as SOURCE writes it (10^26, $500,000,000). Every date has its year ("Sept 30, 2026"). Never write that something is "not found", "none" or "undefined": read the definitions section. Never state what the bill does NOT contain ("no compute threshold is set", "does not define"): if SOURCE sets no figure, just leave figures out.

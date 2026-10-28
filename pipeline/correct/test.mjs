@@ -172,5 +172,20 @@ for (const [name, c, re] of bad) {
   ok('5 a correction may not name a fact field', p3.some((p) => /only mechanism, thresholds, penalties may be corrected/.test(p)));
 }
 
+// ---------- 6. nothing true is lost (the 28 Oct live run's CT rewrite dropped the 10^26 and $500M definitions) ----------
+{
+  const { droppedFacts, expandAmounts } = await import('./review.mjs');
+  const old = '"frontier developer" = doing business in CT + >10²⁶ FLOPs; "large frontier developer" = >$500M revenue; civil penalty up to $1,000 per violation';
+  const ct = droppedFacts({ c: { kind: 'omission', problem: 'adds the employee notice duty' }, old, v: 'frontier developers must give notice; civil penalty up to $1,000 per violation, with investigation costs' });
+  ok('6 an omission fix that drops figures is refused', ct.some((x) => /drops figures/.test(x) && /26/.test(x) && /500000000/.test(x)));
+  ok('6 ... and one that drops a defined term', ct.some((x) => /drops defined terms/.test(x) && /large frontier developer/.test(x)));
+  ok('6 the same figure written out in full is kept ($500M = $500,000,000)', droppedFacts({ c: { kind: 'omission', problem: '' }, old: '>$500M revenue; $1B damage', v: '>$500,000,000 annual gross revenues; $1,000,000,000 damage' }).length === 0);
+  ok('6 an error fix may drop a figure its problem names as wrong', droppedFacts({ c: { kind: 'error', problem: 'The deadline is 15 days, not 30 days.' }, old: 'report within 30 days', v: 'report within 15 days' }).length === 0);
+  ok('6 ... but not one its problem does not name', droppedFacts({ c: { kind: 'error', problem: 'Wrong deadline.' }, old: 'report within 30 days', v: 'report within 15 days' }).length === 1);
+  ok('6 amounts are expanded', expandAmounts('$500M, $1.5 billion') === '$500000000, $1500000000');
+  const e = { ...E1, mechanism: `${E1.mechanism} Large developers are those with revenue over $500M.` };
+  ok('6 checkCorrection refuses a rewrite that loses a figure', checkCorrection({ c: { field: 'mechanism', kind: 'omission', problem: 'adds the 72-hour deadline', new_text: `${E1.mechanism} Critical safety incidents must be reported within 72 hours.`, evidence: [{ quote: ADD }] }, entry: e, fields: fieldsFor(e), source: TEXT(e) + ' revenue over $500M.' }).some((x) => /drops figures/.test(x)));
+}
+
 console.log(`\ncorrect: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
