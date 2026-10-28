@@ -2,7 +2,9 @@
 # commits the result to main (served by GitHub Pages from docs/). Runs one at a time. See pipeline/README.md, "How one update run writes".
 #
 # Manual runs default to a dry run (fetch and compare, promote nothing, no AI calls, Telegram report sent). Scheduled runs publish.
-# Secrets needed: ANTHROPIC_API_KEY, CONGRESS_API_KEY, LEGISCAN_API_KEY, COURTLISTENER_API_TOKEN, TELEGRAM_ACCESS_TOKEN, TELEGRAM_CHAT_ID.
+# Secrets: ANTHROPIC_API_KEY, CONGRESS_API_KEY, LEGISCAN_API_KEY, COURTLISTENER_API_TOKEN, TELEGRAM_ACCESS_TOKEN, TELEGRAM_CHAT_ID,
+# and optionally HEALTHCHECK_URL (an outside dead-man's switch, e.g. healthchecks.io, period 4 h + grace 4 h: it alerts when no run
+# succeeds for 8 hours, which also catches a schedule GitHub stopped; the staleness alert below cannot, as it runs inside this workflow).
 name: update
 
 on:
@@ -16,7 +18,7 @@ on:
         default: true
 
 concurrency:
-  group: tracker-update # never two runs at once; a new run waits for the one in progress
+  group: tracker-update # never two runs at once; one more may wait (a third trigger replaces the waiting one)
   cancel-in-progress: false
 
 permissions:
@@ -29,12 +31,6 @@ jobs:
     env:
       TZ: UTC
       NODE_OPTIONS: --max-old-space-size=4096
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-      CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
-      LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
-      COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
-      TELEGRAM_ACCESS_TOKEN: ${{ secrets.TELEGRAM_ACCESS_TOKEN }}
-      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       DRY: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
     steps:
       - uses: actions/checkout@v4
@@ -50,7 +46,7 @@ jobs:
 
       - name: Install
         working-directory: pipeline
-        run: npm ci
+        run: npm ci # no secrets in this step's environment
 
       - name: Git identity
         run: |
@@ -60,38 +56,68 @@ jobs:
 
       - name: Staleness alert (the last successful check is over 12 hours old)
         working-directory: pipeline
+        env:
+          TELEGRAM_ACCESS_TOKEN: ${{ secrets.TELEGRAM_ACCESS_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
+          set +e
           node -e "
             const s = JSON.parse(require('fs').readFileSync('../web/data/v2/status.json', 'utf8'));
-            const h = (Date.now() - Date.parse(s.last_checked)) / 36e5;
+            const t = Date.parse(s.last_checked); if (!Number.isFinite(t)) process.exit(4);
+            const h = (Date.now() - t) / 36e5;
             if (h > 12) { console.log('STALE ' + h.toFixed(1) + 'h'); process.exit(3); }
-          " || node notify/telegram.mjs --send "⚠️ US Frontier Law: the last successful check was over 12 hours ago (before this run). Check the Actions log." || true
+          "
+          rc=$?
+          if [ $rc -eq 3 ]; then node notify/telegram.mjs --send "⚠️ US Frontier Law: the last successful check was over 12 hours ago (before this run). Check the Actions log." || true
+          elif [ $rc -ne 0 ]; then echo "::warning::status.json is missing or unreadable (rc=$rc)"; fi
+          exit 0
 
       - name: Update
         working-directory: pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
+          LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
+          COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
+          TELEGRAM_ACCESS_TOKEN: ${{ secrets.TELEGRAM_ACCESS_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           if [ "$DRY" = "true" ]; then node update.mjs --dry-run --notify; else node update.mjs --commit; fi
 
-      - name: Push (only if main did not change data meanwhile)
-        if: env.DRY != 'true'
+      # Runs after a failed update too: a failed run still commits its spend counters (LegiScan queries, AI cost), which must reach main
+      # or the monthly caps under-count. The job stays red when Update failed.
+      - name: Push (only if main did not change data or the checking code meanwhile)
+        if: ${{ !cancelled() && env.DRY != 'true' }}
+        env:
+          TELEGRAM_ACCESS_TOKEN: ${{ secrets.TELEGRAM_ACCESS_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           if [ "$(git rev-parse HEAD)" = "$START_SHA" ]; then echo "nothing committed"; exit 0; fi
           for attempt in 1 2; do
             git fetch origin main
             if [ "$(git rev-parse origin/main)" != "$START_SHA" ]; then
-              # Someone pushed to main during this run. If they touched site data, tracked lists or pipeline state, this run's commit was
-              # checked against data that is no longer current: drop it; the next run starts from the new main. Never rebase checked
-              # data onto unchecked data, never force-push.
-              if git diff --name-only "$START_SHA" origin/main -- web/data docs/data pipeline/config pipeline/state | grep -q .; then
-                echo "::warning::main changed site data or state during this run; this run's commit is dropped and the next run starts fresh"
+              # Someone pushed to main during this run. If they touched site data, tracked lists, pipeline state, or the code that checks
+              # the data (anything under pipeline/ or web/), this run's commit was checked against something no longer current: drop it;
+              # the next run starts from the new main. Never rebase checked data onto changed data, never force-push. (No pipe here: under
+              # pipefail a pipe into grep -q can fail on SIGPIPE and answer the unsafe way.)
+              if ! git diff --quiet "$START_SHA" origin/main -- web pipeline docs/data; then
+                echo "::warning::main changed data or the pipeline during this run; this run's commit is dropped and the next run starts fresh"
+                (cd pipeline && node notify/telegram.mjs --send "⚠️ US Frontier Law: run ${GITHUB_RUN_ID} was dropped because main changed data or the pipeline meanwhile; its spend counters were not saved. The next run starts fresh.") || true
                 exit 0
               fi
-              git rebase origin/main
+              git rebase origin/main || { git rebase --abort; echo "::error::rebase onto main conflicted; nothing pushed"; exit 1; }
             fi
             if git push origin HEAD:main; then exit 0; fi
             echo "push rejected; retrying once"
           done
           echo "::error::push failed twice"; exit 1
+
+      - name: Heartbeat (outside dead-man's switch)
+        if: ${{ success() && env.DRY != 'true' }}
+        env:
+          HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
+        run: |
+          if [ -n "$HEALTHCHECK_URL" ]; then curl -fsS -m 10 --retry 3 "$HEALTHCHECK_URL" > /dev/null || true; else echo "no HEALTHCHECK_URL set"; fi
 
       - name: Keep the run report
         if: always()
