@@ -18,7 +18,7 @@ import { classifyTitles, fetchIt } from './intent.mjs';
 import { runFederalRegister, FR_CUTOFF } from './run-federal-register.mjs';
 import { runLegiScan, readUsage, addUsage } from './run-legiscan.mjs';
 import { createOfficial } from './sources/official.mjs';
-import { createLlmFromConfig } from '../llm/gemini.mjs';
+import { createLlmFactory, roleModel } from '../llm/make.mjs';
 import { sha, isoZ, makeRunId, saveRaw, writeChangeset } from './lib/run-common.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -129,10 +129,18 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const scope = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'scope.draft.json'), 'utf8'));
   let state = readState(stateFile);
   // The AI intent check on new titles. Without a key it still runs: every title then counts as "maybe" (nothing is dropped).
-  const gkey = process.env.GEMINI_API_KEY, models = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'models.json'), 'utf8'));
-  const llm = gkey ? createLlmFromConfig({ config: models, apiKey: gkey, role: 'screener', http: createHttp({ headers: { 'x-goog-api-key': gkey }, secrets: [gkey], maxRequests: 60, timeoutMs: 180000, log: (m) => console.log('  ' + m) }) }).llm : null;
-  if (!llm) console.log('  GEMINI_API_KEY not set: the intent check treats every new title as "maybe"');
+  const models = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'models.json'), 'utf8'));
+  const factory = createLlmFactory({ models });
+  const llm = factory.make('screener');
+  if (!llm) console.log(`  ${factory.keyName} not set: the intent check treats every new title as "maybe"`);
+  const ms = factory.monthStatus();
+  if (llm && ms.over) { console.log(`  monthly AI cost cap reached ($${ms.spent} of $${ms.cap}): the intent check treats every new title as "maybe"`); }
   const maxRequests = Number(opt('max-requests')) || 400;
+  // What each source did, saved next to its change set so the run report can read it (the numbers are otherwise only printed).
+  const saveStats = (source, r, extra = {}) => {
+    const dir = path.join(outDir, r.runId);
+    if (fs.existsSync(dir)) fs.writeFileSync(path.join(dir, 'grab-stats.json'), JSON.stringify({ source, run_id: r.runId, items: r.changeset.items.length, stats: r.stats, requests: r.requests ?? null, truncated: !!r.truncated, cursor: r.cursor ?? null, dry_run: dryRun, ...extra }, null, 1) + String.fromCharCode(10));
+  };
   const report = (name, r) => console.log(`${name} run ${r.runId}: ${r.changeset.items.length} item(s) in the change set; ${JSON.stringify(r.stats)}; ${r.requests} request(s); ${r.truncated ? 'STOPPED EARLY (resumes next run); ' : ''}cursor ${r.cursor}${dryRun ? '; state NOT saved' : '; state saved'}`);
   try {
     if (source === 'congress_gov' || source === 'all') {
@@ -141,13 +149,13 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       console.log(`congress.gov: ${multi('bill').length ? 'specific bills ' + multi('bill').join(', ') : 'changes since ' + (opt('since') || (state.sources.congress_gov && state.sources.congress_gov.cursor) || DATA_CUTOFF)}${dryRun ? ' (dry run)' : ''}`);
       const http = createHttp({ headers: { 'X-Api-Key': key }, secrets: [key], maxRequests, log: (m) => console.log('  ' + m) });
       const r = await runCongress({ http, llm, state, entries, scope, outDir, since: opt('since'), bills: multi('bill'), dryRun, log: (m) => console.log('  ' + m) });
-      report('congress.gov', r); if (!dryRun) { writeState(stateFile, r.nextState); state = r.nextState; }
+      report('congress.gov', r); saveStats('congress_gov', r); if (!dryRun) { writeState(stateFile, r.nextState); state = r.nextState; }
     }
     if (source === 'federal_register' || source === 'all') {
       console.log(`federal register: ${multi('doc').length ? 'specific documents ' + multi('doc').join(', ') : 'documents since ' + (opt('since') || (state.sources.federal_register && state.sources.federal_register.cursor) || FR_CUTOFF)}${dryRun ? ' (dry run)' : ''}`);
       const http = createHttp({ maxRequests, log: (m) => console.log('  ' + m) });
       const r = await runFederalRegister({ http, state, entries, scope, outDir, since: opt('since'), docs: multi('doc'), dryRun, log: (m) => console.log('  ' + m) });
-      report('federal register', r); if (!dryRun) { writeState(stateFile, r.nextState); state = r.nextState; }
+      report('federal register', r); saveStats('federal_register', r); if (!dryRun) { writeState(stateFile, r.nextState); state = r.nextState; }
     }
     if (source === 'legiscan' || source === 'all') {
       const key = process.env.LEGISCAN_API_KEY;
@@ -168,6 +176,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       finally { const u = addUsage(usageFile, now, http.used()); console.log(`  legiscan queries this run ${http.used()}; this month ${u.used}/${cfg.monthly_cap}`); }
       if (!dryRun) fs.writeFileSync(seenFile, JSON.stringify(r.nextSeen, null, 1) + '\n');
       console.log(`legiscan run ${r.runId}: ${r.changeset.items.length} item(s) in the change set; ${JSON.stringify(r.stats)}; ${r.truncated ? 'STOPPED EARLY; ' : ''}${dryRun ? 'state NOT saved' : 'state saved'}`);
+      saveStats('legiscan', r, { requests: http.used(), month_used: readUsage(usageFile, now).used, month_cap: cfg.monthly_cap });
       if (!dryRun) writeState(stateFile, r.nextState);
     }
   } catch (e) {

@@ -2,6 +2,24 @@
 // stopped, not published. Each check returns readable problems; empty means the run may be written.
 import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
+import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING } from '../agents/rules.mjs';
+import { FACT_FIELDS } from '../agents/checks.mjs';
+
+// Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
+export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
+
+// The stricter path for a new entry (Tier B): everything the rules decide must match the rules, and every reading field
+// must carry evidence. The quotes themselves are checked against the stored record in tier-b.mjs, which can read it.
+export function checkNewEntry(e) {
+  const problems = [], rule = SECTION_RULES[e.section];
+  if (!AUTO_CREATE_SECTIONS.includes(e.section)) problems.push(`section ${e.section} needs a person`);
+  else if (e.type !== rule.type || e.level !== rule.level) problems.push(`type/level ${e.type}/${e.level} do not follow the rule for section ${e.section}`);
+  if (e.status !== statusFor(e.section, e.status)) problems.push(`status ${e.status} does not follow the rule for section ${e.section}`);
+  if (e.origin !== 'automated' || !e.verification || e.verification.method !== 'agent') problems.push('not marked as written and checked by the pipeline');
+  READING_FIELDS.filter((f) => e[f] && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
+  FACT_FIELDS.filter((f) => e[f] && NEGATIVE_FINDING.test(e[f])).forEach((f) => problems.push(`${f} states a search finding ("none located"), which only a person may write`));
+  return problems;
+}
 
 // A status may only move forward. Authored judgement calls ("stalled") may still become law or fail.
 const FORWARD = { pending: ['stalled', 'enacted', 'failed'], stalled: ['pending', 'enacted', 'failed'] };
@@ -10,7 +28,12 @@ const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked'
 const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
-export function checkPublish({ before, after, runDate, maxEntries, rawHashOk = [] }) {
+// Fields a self-correction (correct/) may also change, on the entries and fields it names. Never a fact the record states exactly.
+const CORRECTABLE = new Set(READING_FIELDS);
+
+// newKeys: the entries Tier B added this run (any other new entry stops the run); maxNew: the per-run limit on them.
+// corrected: { entry key: [fields] } the self-correction step changed this run (correct/apply.mjs); only reading fields are allowed.
+export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [], corrected = {} }) {
   const problems = [];
   // 1. every output file passes its schema, and the files agree with each other
   const v = makeValidator();
@@ -33,12 +56,22 @@ export function checkPublish({ before, after, runDate, maxEntries, rawHashOk = [
     // 2. no status goes backwards
     if (o.status !== n.status && !(FORWARD[o.status] || []).includes(n.status)) problems.push(`status went backwards on ${key}: ${o.status} -> ${n.status}`);
     // only Tier A fields may change
-    Object.keys({ ...o, ...n }).filter((f) => !TIER_A_FIELDS.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: Tier A may not change it`));
+    // A corrected entry may also gain the bill text as a source (removing one is caught by the deleted-link check above).
+    const fixed = new Set((corrected[key] || []).filter((f) => CORRECTABLE.has(f)));
+    (corrected[key] || []).filter((f) => !CORRECTABLE.has(f)).forEach((f) => problems.push(`self-correction named ${f} on ${key}: only ${READING_FIELDS.join(', ')} may be corrected`));
+    if (fixed.size) fixed.add('sources');
+    Object.keys({ ...o, ...n }).filter((f) => !TIER_A_FIELDS.has(f) && !fixed.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: ${fixed.size ? 'a self-correction' : 'Tier A'} may not change it`));
     if (!same(o, n)) changed++;
     // 6. no event in the future unless it is marked scheduled
     n.events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));
   }
-  for (const key of now.keys()) if (!old.has(key)) problems.push(`new entry ${key}: Tier A does not create entries`);
+  const added = [...now.keys()].filter((key) => !old.has(key));
+  for (const key of added) {
+    if (!newKeys.includes(key)) { problems.push(`new entry ${key}: not created by Tier B`); continue; }
+    checkNewEntry(now.get(key)).forEach((p) => problems.push(`new entry ${key}: ${p}`));
+    now.get(key).events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));
+  }
+  if (added.length > maxNew) problems.push(`${added.length} new entries, over the limit of ${maxNew} per run`);
   const oldNews = new Set(before.news.items.map((x) => JSON.stringify(x)));
   const keptNews = after.news.items.filter((x) => oldNews.has(JSON.stringify(x))).length;
   if (keptNews < before.news.items.length) problems.push(`news items deleted or edited: ${before.news.items.length - keptNews}`);

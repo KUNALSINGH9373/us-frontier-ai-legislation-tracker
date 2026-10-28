@@ -3,7 +3,13 @@
 
 const stripTags = (s) => String(s || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
 
-export function sourceText(raw, source) {
+// Texts printed from PDFs lose superscripts: 10²⁶ arrives as "1026", "10�26" or "10ˆ26". Put the exponent back before anyone reads
+// it, so the models, the reader and the quote checks all see "10^26". Only before a compute word, so a year or a count is never touched.
+export const repairExponents = (s) => String(s || '').replace(/\b10(?:�|ˆ|\^)?(2[0-9])(?=\s+(?:integer|floating|operations|computational|FLOP))/g, '10^$1');
+
+export function sourceText(raw, source) { return repairExponents(rawSourceText(raw, source)); }
+
+function rawSourceText(raw, source) {
   if (source === 'congress_gov') {
     const b = raw.bill || {}, out = [];
     out.push(`Title: ${b.title || ''}`, `Introduced: ${b.introducedDate || ''}`, `Origin: ${b.originChamber || ''}`);

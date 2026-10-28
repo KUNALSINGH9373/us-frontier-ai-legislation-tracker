@@ -1,6 +1,6 @@
 {
   "_note": "Which model does which job. Change a name here and no code changes. Prices are USD per million tokens; fill them in from Google's current price page and the run log will show an estimated cost (left null, it shows token counts only).",
-  "provider": "gemini",
+  "provider": "anthropic",
   "roles": {
     "generator": {
       "model": "gemini-3.5-flash-lite",
@@ -30,7 +30,18 @@
     },
     "claude-haiku-5-5": {
       "input": 0.1,
-      "output": 0.5
+      "output": 0.5,
+      "long_prompt_tokens": 100000,
+      "long_input": 0.5,
+      "long_output": 2.5
+    },
+    "claude-sonnet-5-5": {
+      "input": 2,
+      "output": 10
+    },
+    "claude-opus-5-5": {
+      "input": 4,
+      "output": 20
     }
   },
   "limits": {
@@ -49,13 +60,31 @@
     "roles": {
       "generator": {
         "model": "claude-haiku-5-5",
-        "max_output_tokens": 4000,
-        "effort": "medium"
+        "max_output_tokens": 16000,
+        "effort": "low"
       },
       "validator": {
         "model": "claude-haiku-5-5",
+        "max_output_tokens": 16000,
+        "effort": "low"
+      },
+      "referee": {
+        "_note": "Second opinion on scope, asked only when the generator and the validator rule a bill out or disagree. Its answer is final (no person reviews held items).",
+        "model": "claude-sonnet-5-5",
+        "max_output_tokens": 8000,
+        "effort": "low"
+      },
+      "reviewer": {
+        "_note": "Self-correction (correct/): re-reads a bill against its current entry and lists errors and omissions, each with a quote.",
+        "model": "claude-haiku-5-5",
+        "max_output_tokens": 8000,
+        "effort": "low"
+      },
+      "confirmer": {
+        "_note": "Self-correction: must confirm each proposed correction before code applies it.",
+        "model": "claude-sonnet-5-5",
         "max_output_tokens": 4000,
-        "effort": "medium"
+        "effort": "low"
       },
       "screener": {
         "model": "claude-haiku-5-5",
@@ -68,5 +97,8 @@
         "effort": "low"
       }
     }
-  }
+  },
+  "monthly_cost_cap_usd": 25,
+  "monthly_warn_fraction": 0.8,
+  "_note_cost": "Prices are USD per million tokens (Claude, 26 Oct 2026). Haiku 5.5 is $0.10 in / $0.50 out up to 100K prompt tokens and $0.50 / $2.50 above that (the whole call). monthly_cost_cap_usd stops all AI work for the rest of the month; a warning goes out at monthly_warn_fraction of it."
 }

@@ -11,7 +11,7 @@ import { createHttp } from './lib/http.mjs';
 import { createLegiScan, normNumber, billNumbersIn } from './sources/legiscan.mjs';
 import { preciseQuery, readUsage, addUsage } from './run-legiscan.mjs';
 import { classifyTitles, fetchIt, INTENT_PROMPT_VERSION } from './intent.mjs';
-import { createLlmFromConfig } from '../llm/gemini.mjs';
+import { createLlmFactory, roleModel } from '../llm/make.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
@@ -63,21 +63,23 @@ export async function negatives({ llm, entries }) {
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   loadEnv(pipelineDir);
-  const key = process.env.LEGISCAN_API_KEY, gkey = process.env.GEMINI_API_KEY;
-  if (!key || !gkey) { console.error('LEGISCAN_API_KEY and GEMINI_API_KEY are both needed'); process.exit(2); }
+  const key = process.env.LEGISCAN_API_KEY;
+  if (!key) { console.error('LEGISCAN_API_KEY is needed'); process.exit(2); }
   const cfg = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'legiscan.json'), 'utf8'));
   const models = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'models.json'), 'utf8'));
   const ids = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'identifiers-legiscan.json'), 'utf8'));
   const entries = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'out', 'entries.v2.json'), 'utf8'));
   const usageFile = path.join(pipelineDir, 'data', 'legiscan-usage.json'), now = new Date();
   const http = createHttp({ secrets: [key], maxRequests: Math.min(80, cfg.monthly_cap - readUsage(usageFile, now).used), log: (m) => console.log('  ' + m) });
-  const { llm } = createLlmFromConfig({ config: models, apiKey: gkey, role: 'screener', http: createHttp({ headers: { 'x-goog-api-key': gkey }, secrets: [gkey], maxRequests: 20, timeoutMs: 180000 }) });
+  const factory = createLlmFactory({ models });
+  if (!factory.hasKey) { console.error(`${factory.keyName} is not set`); process.exit(2); }
+  const llm = factory.make('screener');
   let rows, neg;
   try { rows = await recall({ ls: createLegiScan(http, key), llm, entries, ids, cfg, log: (m) => console.log('  ' + m) }); neg = await negatives({ llm, entries }); }
   finally { const u = addUsage(usageFile, now, http.used()); console.log(`legiscan queries: ${http.used()}; this month ${u.used}/${cfg.monthly_cap}`); }
   const missed = rows.filter((r) => /MISSED/.test(r.result));
   const outOfWindow = rows.filter((r) => /not in current|not on LegiScan/.test(r.result));
-  const md = [`# LegiScan recall test (${now.toISOString().slice(0, 10)}, ${INTENT_PROMPT_VERSION}, ${models.roles.screener.model})`, '',
+  const md = [`# LegiScan recall test (${now.toISOString().slice(0, 10)}, ${INTENT_PROMPT_VERSION}, ${roleModel(models, 'screener')})`, '',
     `Every state bill on the site, treated as if it were new today. **Caught ${rows.filter((r) => /caught/.test(r.result)).length} / ${rows.length - outOfWindow.length}** bills in current sessions; **missed ${missed.length}**. ${outOfWindow.length} are outside the current-session search (older sessions), so discovery does not apply to them; they are listed for completeness.`, '',
     '| Entry | Bill | LegiScan id | Session | Title on LegiScan | Result | Intent reason |', '| --- | --- | --- | --- | --- | --- | --- |',
     ...rows.map((r) => `| ${r.short_name} | ${r.state} ${r.number} | ${r.bill_id || ''} | ${r.session || ''} | ${String(r.title || '').replace(/\|/g, '/').slice(0, 90)} | ${/MISSED/.test(r.result) ? '**' + r.result + '**' : r.result} | ${r.intent ? r.intent.reason : ''} |`),

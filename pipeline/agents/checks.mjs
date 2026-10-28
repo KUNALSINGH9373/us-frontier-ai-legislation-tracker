@@ -24,6 +24,23 @@ export function dateSupported(date, text) {
   return re.test(text);
 }
 
+// Rules learned from the 27 Oct 2026 review of all entries. Each returns readable problems for one text field.
+const GARBLED = /\b10(2[0-9])\s+(?:integer|floating|operations|computational)|�/i; // 10²⁶ printed as "1026" or "10�26"
+const MONTH = '(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\\.?';
+// A month and day with no year after it (ranges such as "Sept 3–16, 2026" and "Sept 3–Oct 1, 2026" count as having one).
+const NO_YEAR = new RegExp(`\\b${MONTH}\\s+\\d{1,2}\\b(?!(?:\\s*[–-]\\s*(?:${MONTH}\\s+)?\\d{1,2})?,?\\s*\\d{4})`);
+const UNDEFINED = /\bnot (?:established|defined|specified|stated)\b[^.;]{0,40}\b(?:sources?|text)\b/i;
+const QUOTED = /[“"]([^”"]{8,})[”"]/g;
+export function textProblems(field, value, sourceText) {
+  const v = String(value || ''), out = [];
+  if (GARBLED.test(v)) out.push(`${field} has a garbled exponent ("${(v.match(GARBLED) || [''])[0]}"): write 10^26, not 1026`);
+  const d = v.match(NO_YEAR);
+  if (d) out.push(`${field} gives a date without its year ("${d[0]}"): write every date with its year, e.g. "Sept 30, 2026"`);
+  if (UNDEFINED.test(v)) out.push(`${field} says a term is not established or defined: read the definitions section and give the definition, or leave the field out`);
+  for (const m of v.matchAll(QUOTED)) if (!containsQuote(sourceText, m[1])) out.push(`${field} puts words in quotation marks that SOURCE does not contain: "${m[1].slice(0, 60)}". Quote word for word, or drop the quotation marks`);
+  return out;
+}
+
 export function runChecks({ patch, before, after, assembleProblems, source, sourceText, entries = [], operation }) {
   const checks = [], add = (name, passed, detail = '') => checks.push({ name, passed, ...(detail ? { detail } : {}) });
   add('assembled', assembleProblems.length === 0, assembleProblems.join('; '));
@@ -74,6 +91,9 @@ export function runChecks({ patch, before, after, assembleProblems, source, sour
 
   const negatives = Object.entries(patch.fields).filter(([, v]) => typeof v === 'string' && NEGATIVE_FINDING.test(v)).map(([f]) => f);
   add('no_negative_findings', negatives.length === 0, negatives.length ? `a "none located" style claim in ${negatives.join(', ')}; only a person may write those` : '');
+
+  const rules = Object.entries(patch.fields).filter(([f, v]) => typeof v === 'string' && TEXT_FIELDS.includes(f)).flatMap(([f, v]) => textProblems(f, v, sourceText));
+  add('text_rules', rules.length === 0, rules.join('; '));
 
   add('in_scope_is_explained', patch.in_scope === false || patch.scope_reason.length >= 10);
   return checks;

@@ -1,0 +1,285 @@
+{
+ "run_at": "2026-10-27T16:55:52.574Z",
+ "provider": "anthropic",
+ "generator": "claude-haiku-5-5",
+ "reader": "claude-haiku-5-5",
+ "prompt_version": "146f8413e04b",
+ "summary": {
+  "items": 5,
+  "outcomes": {
+   "published": 2,
+   "out_of_scope": 3
+  },
+  "scope_agreement": 1,
+  "scope_wrong": [],
+  "fields": {
+   "mechanism": {
+    "items": 2,
+    "passed": 2,
+    "pass_rate": 1,
+    "published": 2,
+    "unsupported_fields": 0,
+    "fact_recall": null,
+    "items_with_provable_facts": 0
+   },
+   "thresholds": {
+    "items": 2,
+    "passed": 2,
+    "pass_rate": 1,
+    "published": 2,
+    "unsupported_fields": 0,
+    "fact_recall": null,
+    "items_with_provable_facts": 0
+   },
+   "penalties": {
+    "items": 2,
+    "passed": 2,
+    "pass_rate": 1,
+    "published": 0,
+    "unsupported_fields": 0,
+    "fact_recall": null,
+    "items_with_provable_facts": 0
+   }
+  },
+  "section_items": 2,
+  "section_agreement": 1,
+  "section_wrong": []
+ },
+ "usage": {
+  "calls": 17,
+  "input_tokens": 236740,
+  "output_tokens": 17637,
+  "total_tokens": 254377,
+  "by_role": {
+   "generator": {
+    "calls": 7,
+    "input": 99356,
+    "output": 11247,
+    "cost": 0.015559099999999998
+   },
+   "validator": {
+    "calls": 7,
+    "input": 79527,
+    "output": 5870,
+    "cost": 0.0108877
+   },
+   "referee": {
+    "calls": 3,
+    "input": 57857,
+    "output": 520,
+    "cost": 0.120914
+   }
+  },
+  "by_model": {
+   "claude-haiku-5-5": {
+    "calls": 14,
+    "input": 178883,
+    "output": 17117,
+    "cost": 0.026446800000000003
+   },
+   "claude-sonnet-5-5": {
+    "calls": 3,
+    "input": 57857,
+    "output": 520,
+    "cost": 0.120914
+   }
+  },
+  "estimated_cost_usd": 0.147361
+ },
+ "items": [
+  {
+   "key": "h-r-10189-defense-ai-reliability-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Requires a centralized, non-punitive DoD-wide AI incident and vulnerability reporting, tracking, analysis, and remediation program covering development through operation. Includes prompt reporting; protected disclosures by servicemembers, civilian employees, contractors, and subcontractors; categorization and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operation outside guardrails, mission degradation, failure to obey disengagement, near misses, and control/autonomy concerns. Not frontier-specific",
+     "got": "Amends 10 U.S.C. 2224b. The Secretary of Defense shall establish a Department-wide program for reporting, tracking, analysis and remediation of covered AI incidents and vulnerabilities. The Secretary shall require prompt reporting of each incident and vulnerability. For Department-wide incidents, the Secretary shall require a documented corrective action plan and validation of mitigations before continued operational use. A protected disclosure process covers good-faith reports, and such a report alone may not lead to adverse contract or personnel action. Annual reports to the congressional defense committees cover 2027 through 2031.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": null,
+     "got": "No figure set. Covers covered AI incidents and covered AI vulnerabilities arising from AI systems in Department of Defense development, testing, procurement, fielding or operation, with incidents defined by system behavior and harms.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "section_ok": true,
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [],
+   "section": "F"
+  },
+  {
+   "key": "h-r-10362-stop-rogue-ai-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Introduced text read. Directs NIST to set standards so organisations can find and track every AI agent on their networks, verify who built and operates each, monitor in real time, and allow, deny or revoke access; federal agencies and contractors to build the safeguards into procurement and deployment. Duties fall on deployers and agencies, not frontier developers",
+     "got": "NIST, with the Assistant Secretary for Communications and Information, shall develop, publish and maintain standards, guidelines and best practices for the secure development, deployment and operation of AI agents by an organization, not later than 1 year after enactment and annually thereafter. Those standards shall provide that deploying organizations maintain a continuous, machine-readable inventory of all AI agents. The FAR Council shall propose revisions requiring contractors and Federal agencies to comply, not later than 18 months after publication of the standards.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": null,
+     "got": "Capability-based, no figure: \"uses an AI model to perceive, plan, or make decisions;\" applies to AI agents that act autonomously with minimal or no human interaction.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "section_ok": true,
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [],
+   "section": "F"
+  },
+  {
+   "key": "nj-s-1802",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Annual AI \"safety test\" reports (biases, inaccuracies, cybersecurity threats) to the Office of Information Technology for any entity that sells, develops, deploys or uses AI in New Jersey; no size, compute or revenue threshold; no penalties. General AI bill, not frontier-developer regulation. Bill text — njleg",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "ny-s10642-a11560-responsible-data-center-development-act-and",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "One-year moratorium on permits for large data centers, passed June 4, 2026 and awaiting the Governor; EO 62 (July 14, 2026) paused DEC permits for new hyperscale data centers for up to a year. Compute-siting policy, not developer regulation; adjacent to the Section G.3 compute layer. Governor's release, July 14, 2026",
+     "got": null,
+     "provable": [
+      "14"
+     ],
+     "found": [],
+     "recall": 0,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  },
+  {
+   "key": "texas-traiga-hb-149",
+   "outcome": "out_of_scope",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Prohibited-use-case approach; effective Jan 1, 2026",
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "thresholds": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": false
+    }
+   },
+   "gold_in_scope": false,
+   "rounds": 1,
+   "problems": [],
+   "section": null
+  }
+ ]
+}

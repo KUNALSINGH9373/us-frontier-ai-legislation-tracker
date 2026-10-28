@@ -1,0 +1,366 @@
+{
+ "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
+ "last_run": null,
+ "items": {
+  "h-r-9925-frontier-act": {
+   "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ny-raise-act-ch-699-ch-96": {
+   "text_sha": "087698fc807189aa846bf430e73b650d8896533f68f1beb62ffca1e817e16e71",
+   "text_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-9965-atomic-act": {
+   "text_sha": "6ee73705b0dd28aeffe038c54777c26889a5ac13f3ca80c7fcaf3c8afac0033c",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "il-hb-3506-2025": {
+   "text_sha": "d58e4015f54913be39beb85b9cce409b3d11e0dad0bb6c598ef1ffd3595f6828",
+   "text_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-2938-ai-risk-evaluation-act": {
+   "text_sha": "36fb9a501eb6cfbed0530fcbc6a006b9aa1e027a38ac07a6e67b222cde6d5f69",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ny-s-10373-verification": {
+   "text_sha": "ba807645c0143ce92f09ebfb51a2c452ffd94da593f7391403b21402367a1e2a",
+   "text_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-3919-advanced-ai-security-readiness-act": {
+   "text_sha": "e99f8af7c3b4cecd7aef716b8ee38a6d44b848f371edcd8c85a41f03b4c929e9",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-10180-self-improving-ai-monitoring-act": {
+   "text_sha": "ffef7bfac4ee84871db682e0057943c236ec8e57ea5adfc0f2d32248b16e6ec7",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/10180/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "il-sb-315-p-a-104-0538": {
+   "text_sha": "864e04d099df1987fe19a0f5a299b211c86e31f40f97a48e177cdaf66bcdc37b",
+   "text_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-5541-cyber-and-ai-board-of-investigations": {
+   "text_sha": "021e50f089d277aacc522ea27196c7eb8d9c892aa043e6f06e6df03fc399b2c2",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-5493-h-r-10538-ban-artificial-superintelligence-act": {
+   "text_sha": "af682a0a653602b8ef31ae35c36bd877cdb1de13050078aa61643ed212817360",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-9363-ai-security-and-innovation-act": {
+   "text_sha": "845b140febc2dd346cac49db5b1ee2cde4d5f7df58db8d94bde83be52378cbef",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-10362-stop-rogue-ai-act": {
+   "text_sha": "0829c8d042c21d9470cef2b0e07e725e371e88e5185b2061667150a5f563cd4a",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-9914-s-5105-catsr": {
+   "text_sha": "a8271e54fc2b582f31d561dccae9bd85835d3c0756f60b557b89f7642dfbe3e3",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "mn-hf-4532-no-threshold": {
+   "text_sha": "96d1c1cd8fdb7d1f2150050e99e4939339276211dd87ac008f3d09f6e4ba9424",
+   "text_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "pa-h-r-637-frontier-ai-resolution": {
+   "text_sha": "bda716c6ba80ca5f07c57ba4941a6938149393a8412ffcbde37a101a677e655d",
+   "text_url": "https://www.palegis.us/legislation/bills/2025/hr637",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "il-sb-3312": {
+   "text_sha": "ef6e0c611bc1c846cc6de8930eeebf5945396bb4f9dc065e4658dbf792079808",
+   "text_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-4656-military-ai-act": {
+   "text_sha": "9c5fdaf2b61487b31ab91daa6c6118fe49ca5c6088feb97882a3c542a34375fc",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/4656/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "oh-hb-628": {
+   "text_sha": "ac1e4ee748371f50d29971a96a93101ebd8f809c576a81c270f623e3f50ed9bf",
+   "text_url": "https://www.legislature.ohio.gov/legislation/136/hb628",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-9477-ai-incident-reporting-act": {
+   "text_sha": "28aa38c30b1b46749d77862ba2e3a95e588aa54721b47fed196087b9cc19aee4",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "nj-s-4446-a-5275": {
+   "text_sha": "ec236d12979d692f80e3d33e11b49b31979d84427b3bb88577c5e077e458f3e9",
+   "text_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "chip-security-act-h-r-3447-cotton-companion": {
+   "text_sha": "0cc10e8f15161d5c3ce1a4716c91c5b72627fe1a13dc62bbe9c8ed873e4c5a66",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "il-sb-3444": {
+   "text_sha": "1808956f1fbece0904e392b61b7e169b7ede9bb189aac13d7996afcaecc49405",
+   "text_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-10873-ai-cyber-defense-act": {
+   "text_sha": "b1e8d8c45b531bdcf90568d70226edf99d1a03fbd76670595854f374b5681b4a",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-5061-secure-ai-development-act": {
+   "text_sha": "872bc071685643e65acf6ddf5efa491748a76c207bf4e4ac4d96a636f473c9d3",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-5576-warner-schatz-kim-ai-risk-management-and-security-act": {
+   "text_sha": "94e86eac77b4a583487695c7b4015b90a86769c872b1369ca00691ec3635e247",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-5471-ai-systems-transparency-act": {
+   "text_sha": "1390855f6c74789f6446f79fd50dd681241be00764e3482fc3a21a56814f5615",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-5601-insider-threat-reporting-act": {
+   "text_sha": "f158a606b470fe64e323693c858de360d4d5d2ae49aea998d78dd34fa6bb5651",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ai-overwatch-act-fy27-ndaa": {
+   "text_sha": "f6912685c417b534e53f2c81691f3bdeccb25d223766e4c7ca25b04bda441566",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/6875/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-9917-ai-kill-switch-act": {
+   "text_sha": "2f0bb8157dd21c91ab8efefae2cb5c07e1532f1f7a4a24fc5f02dd93bf76b90e",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-1792-h-r-3460-ai-whistleblower-protection-act": {
+   "text_sha": "ffa312d8075386d7d4f908250c57dd50697f931f591dd8fa929a954bbaddddcd",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-10189-defense-ai-reliability-act": {
+   "text_sha": "294e189ef1c58bf3dab91ef7b2c25c441b0cf45c74eea7b0ee5dfdc48e94cb86",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "va-ch-425-426-jcots-study": {
+   "text_sha": "2f80972dc59d61cb8b409004a82a78f22854c025dd3e8407f49c912d5e70a13b",
+   "text_url": "https://lis.virginia.gov/bill-details/20261/HB797",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "s-5417-h-r-10567-ai-emergency-button-act": {
+   "text_sha": "7b473d7e6287749a4b6411da01166158641a0da7b0f5c03db9c5b241716da203",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ca-sb-53-tfaia": {
+   "text_sha": "db9ef56dea85fce788cbb85b9165c2c78122d9a5b706f7db4c2afa44d25acbde",
+   "text_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "pa-h-b-2800-ai-risk-prevention-act": {
+   "text_sha": "d4cbe078587500869cf3f59f49e2d93020ceb1708ccb474e386f6e3650a61209",
+   "text_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "il-hb-4705-sb-3261": {
+   "text_sha": "13ee257db4d3ac55491211b104c8c0e5974d97eccea71f8b9bfd0b7eb55fcadf",
+   "text_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ca-ab-1405-auditor-registry": {
+   "text_sha": "70025db06cf606861b3b4baee6405739d6f354c1a34d3c722c03233c1ad94fbb",
+   "text_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "mi-hb-4668": {
+   "text_sha": "7eb4fa7c20f6e75e84089072cc9bb0c38c14cc0bc97e49aae424671c399abc5b",
+   "text_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "gain-ai-act-of-2025-s-3150": {
+   "text_sha": "edabe6800ed3077bc9afa55202f5b4b5341a61a08d5278c2b0e6a6ac0a830d6a",
+   "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ca-sb-813-ivos": {
+   "text_sha": "5452a531b5368b1df5694307831c33b92c917f0eae67eca4442e69d6d5f97602",
+   "text_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ri-s-358-h-5224": {
+   "text_sha": "6c9b7f955c62d6f99915d5b200ecb5402033161a65cf9bfb43c33a800a22cb96",
+   "text_url": "https://status.rilegislature.gov/",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ny-s-10456-minimum-standards": {
+   "text_sha": "8a28b76bc1a86c4a2a6eead05f65f756492384bc1c9f09be6375cef9b0b327ff",
+   "text_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ma-h-5576-s-3178": {
+   "text_sha": "32ef365b4c8ea2f070f94a17d4209720f59dfe22559ae813e110f3ed572dfc48",
+   "text_url": "https://malegislature.gov/Bills/194/S3228",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  },
+  "ct-p-a-26-15-ivo-pilot": {
+   "text_sha": "9c7c31309ca9ff903f258c7f46f94cd737dfcff20d55ae413e1f4647816cb5b1",
+   "text_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
+  }
+ }
+}

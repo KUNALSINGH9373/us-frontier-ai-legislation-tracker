@@ -9,7 +9,7 @@ import { loadEnv } from './lib/env.mjs';
 import { createHttp } from './lib/http.mjs';
 import { makeScreen } from './screen.mjs';
 import { classifyTitles, fetchIt, INTENT_PROMPT_VERSION } from './intent.mjs';
-import { createLlmFromConfig } from '../llm/gemini.mjs';
+import { createLlmFactory, roleModel } from '../llm/make.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
@@ -28,14 +28,14 @@ export async function recallCongress({ llm, ids, scope }) {
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   loadEnv(pipelineDir);
-  const gkey = process.env.GEMINI_API_KEY;
-  if (!gkey) { console.error('GEMINI_API_KEY is not set'); process.exit(2); }
   const read = (f) => JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', f), 'utf8'));
   const models = read('models.json');
-  const { llm } = createLlmFromConfig({ config: models, apiKey: gkey, role: 'screener', http: createHttp({ headers: { 'x-goog-api-key': gkey }, secrets: [gkey], maxRequests: 10, timeoutMs: 180000 }) });
+  const factory = createLlmFactory({ models });
+  if (!factory.hasKey) { console.error(`${factory.keyName} is not set`); process.exit(2); }
+  const llm = factory.make('screener');
   const rows = await recallCongress({ llm, ids: read('identifiers.json'), scope: read('scope.draft.json') });
   const missed = rows.filter((r) => /MISSED/.test(r.result));
-  fs.writeFileSync(path.join(pipelineDir, 'out', 'recall-congress.md'), [`# Congress.gov recall test (${new Date().toISOString().slice(0, 10)}, ${INTENT_PROMPT_VERSION}, ${models.roles.screener.model})`, '',
+  fs.writeFileSync(path.join(pipelineDir, 'out', 'recall-congress.md'), [`# Congress.gov recall test (${new Date().toISOString().slice(0, 10)}, ${INTENT_PROMPT_VERSION}, ${roleModel(models, 'screener')})`, '',
     `Every federal bill on the site, treated as if it were new today. **Caught ${rows.length - missed.length} / ${rows.length}; missed ${missed.length}.**`, '',
     '| Bill | Official title | Result | Intent reason |', '| --- | --- | --- | --- |', ...rows.map((r) => `| ${r.id} | ${r.title} | ${/MISSED/.test(r.result) ? '**' + r.result + '**' : r.result} | ${r.intent ? r.intent.reason : ''} |`)].join('\n') + '\n');
   console.log(`congress recall: caught ${rows.length - missed.length}/${rows.length}`);

@@ -16,7 +16,7 @@ import { createOfficial } from '../grabber/sources/official.mjs';
 import { latestText, officialUrl, trackerStatus, createLegiScan } from '../grabber/sources/legiscan.mjs';
 import { pdfToText } from '../grabber/lib/pdf.mjs';
 import { readUsage, addUsage } from '../grabber/run-legiscan.mjs';
-import { createLlmFromConfig } from '../llm/gemini.mjs';
+import { createLlmFactory, roleModel } from '../llm/make.mjs';
 import { SCOPE_DEFINITION } from '../agents/prompts.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
 
@@ -108,11 +108,11 @@ const md = (rows, title) => {
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   loadEnv(pipelineDir);
-  const gkey = process.env.GEMINI_API_KEY;
-  if (!gkey) { console.error('GEMINI_API_KEY is not set'); process.exit(2); }
   const args = process.argv.slice(2), validate = args.includes('--validate'), dirsArg = args.filter((a) => !a.startsWith('--'));
   const models = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'models.json'), 'utf8'));
-  const { llm, ledger } = createLlmFromConfig({ config: { ...models, limits: models.scope_check_limits }, apiKey: gkey, role: 'scope_checker', http: createHttp({ headers: { 'x-goog-api-key': gkey }, secrets: [gkey], maxRequests: 2000, timeoutMs: 180000 }) });
+  const factory = createLlmFactory({ models, limits: models.scope_check_limits });
+  if (!factory.hasKey) { console.error(`${factory.keyName} is not set`); process.exit(2); }
+  const llm = factory.make('scope_checker'), ledger = factory.ledger;
   const runsDir = path.join(pipelineDir, 'data', 'runs');
   const dirs = dirsArg.length ? dirsArg.map((d) => path.resolve(d)) : fs.readdirSync(runsDir).map((d) => path.join(runsDir, d));
   const rows = [];

@@ -16,8 +16,20 @@ export function htmlToText(html) {
 // from the bill then never matches. A number is removed only when it continues the count (the last one + 1, or a
 // new page starting at 1 or 2), and only when the document is mostly numbered that way, so the bill's own numbers
 // (sections, amounts, "(1)") stay. Then words split across a line break ("intelli-\ngence") are rejoined.
+// Massachusetts numbers every line of a bill continuously ("3219 “Catastrophic risk”, ..."), up to five digits, at the start of
+// the line. Taken off only when most numbered lines follow the one before, so a list of amounts or years is never touched.
+function stripContinuousNumbering(t) {
+  const lines = t.split('\n'), nums = lines.map((l) => { const m = /^(\d{1,5}) \S/.exec(l); return m ? +m[1] : null; });
+  const numbered = nums.filter((n) => n !== null);
+  if (numbered.length < 40) return t;
+  let steps = 0;
+  for (let i = 1; i < numbered.length; i++) if (numbered[i] === numbered[i - 1] + 1) steps++;
+  if (steps < numbered.length * 0.8) return t;
+  return lines.map((l, i) => (nums[i] !== null ? l.replace(/^\d{1,5} /, '') : l)).join('\n');
+}
+
 export function stripLineNumbering(text) {
-  const t = String(text || '');
+  const t = stripContinuousNumbering(String(text || ''));
   const re = /(?<![\d(,$§^\-\/])(?<!\d\.)(\d{1,2})(?![\d,.:%)\-\/]|\s*(?:st|nd|rd|th)\b)/g;
   const cut = [];
   let last = 0, m;

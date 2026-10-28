@@ -21,11 +21,13 @@ import { createHttp } from '../grabber/lib/http.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { createLlmFromConfig, LlmOutputError, InputTooLarge } from '../llm/index.mjs';
 import { generatePatch } from '../agents/generator.mjs';
-import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_DEFINITION } from '../agents/prompts.mjs';
+import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from '../agents/prompts.mjs';
 import { buildClaims } from '../agents/validator.mjs';
-import { containsQuote, digitRuns } from '../agents/source-text.mjs';
+import { containsQuote, digitRuns, repairExponents } from '../agents/source-text.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
-import { foreignLetters } from '../agents/checks.mjs';
+import { foreignLetters, textProblems } from '../agents/checks.mjs';
+import { exportControlBill } from '../agents/derive.mjs';
+import { refereeSays } from '../agents/process-item.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 const args = process.argv.slice(2), opt = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : null; };
@@ -34,7 +36,9 @@ export const FIELDS = ['mechanism', 'thresholds', 'penalties'];
 const MAX_ROUNDS = 3;
 
 // Numbers worth checking: amounts, thresholds, deadlines. Single digits and 4-digit years are too common to mean anything.
-export const factNumbers = (s) => new Set([...digitRuns(s || '')].filter((n) => n.replace('.', '').length > 1 && !/^(19|20)\d\d$/.test(n)));
+// Section citations in the author's entries ("§1420(9)", "Sec. 8", "Secs. 1652–1655") are references, not facts, and are not counted.
+const CITATION = /§+\s*[\d.]+(?:\([0-9a-z]+\))*(?:\s*[–-]\s*[\d.]+)?|\bSecs?\.\s*[\d.]+(?:\([0-9a-z]+\))*(?:\s*[–-]\s*[\d.]+)?/gi;
+export const factNumbers = (s) => new Set([...digitRuns(String(s || '').replace(CITATION, ' '))].filter((n) => n.replace('.', '').length > 1 && !/^(19|20)\d\d$/.test(n)));
 
 // Code checks on one patch (the same rules as agents/checks.mjs, without the parts that need an assembled entry).
 export function codeChecks(patch, text) {
@@ -50,6 +54,7 @@ export function codeChecks(patch, text) {
     if (/[{}]|```|\\n/.test(v)) problems.push(`stray code or JSON syntax in ${f}`);
     if (foreignLetters(v, text)) problems.push(`letters that do not occur in the source in ${f}`);
     if (v.length > (f === 'mechanism' ? 700 : 400)) problems.push(`${f} is too long (${v.length} characters)`);
+    problems.push(...textProblems(f, v, text));
   }
   return problems;
 }
@@ -58,6 +63,8 @@ export function codeChecks(patch, text) {
 export function scoreItem({ gold, text, result }) {
   // Scope: an in-scope bill must not be dropped as out of scope; an excluded bill must not be published (held is safe).
   const out = { key: gold.key, outcome: result.outcome, scope_ok: gold.in_scope ? result.outcome !== 'out_of_scope' : result.outcome !== 'published', fields: {} };
+  // Section: scored only where the model chooses it (a published federal bill, D or F in the tracker).
+  if (['D', 'F', 'G.3'].includes(gold.section) && gold.level === 'federal' && result.outcome === 'published') out.section_ok = result.section === gold.section;
   for (const f of FIELDS) {
     const want = gold[f], got = result.outcome === 'published' ? result.fields[f] || null : null;
     const provable = [...factNumbers(want)].filter((n) => digitRuns(text).has(n));
@@ -86,35 +93,49 @@ export function summarise(scored) {
     }];
   }));
   const outcomes = scored.reduce((n, s) => ({ ...n, [s.outcome]: (n[s.outcome] || 0) + 1 }), {});
-  return { items: scored.length, outcomes, scope_agreement: scored.filter((s) => s.scope_ok).length / (scored.length || 1), scope_wrong: scored.filter((s) => !s.scope_ok).map((s) => s.key), fields };
+  const sec = scored.filter((s) => s.section_ok !== undefined);
+  return { items: scored.length, outcomes, scope_agreement: scored.filter((s) => s.scope_ok).length / (scored.length || 1), scope_wrong: scored.filter((s) => !s.scope_ok).map((s) => s.key), fields,
+    section_items: sec.length, section_agreement: sec.length ? sec.filter((s) => s.section_ok).length / sec.length : null, section_wrong: sec.filter((s) => !s.section_ok).map((s) => s.key) };
 }
 
 // One item: up to 3 Generator rounds, each checked by code and by the independent reader; complaints fed back.
-async function runItem({ gold, text, generator, validator, styleExamples }) {
+async function runItem({ gold, text, generator, validator, referee = null, styleExamples }) {
   const item = { item_id: gold.key, source: gold.kind, source_url: gold.url };
   const reasons = [{ kind: 'candidate', detail: 'Describe this bill for the tracker from its official text.' }];
-  let feedback = [], previousPatch = null, last = null;
+  // As in production (agents/derive.mjs): an export-control bill is filed under G.3 by rule, not by the model.
+  const ruleSection = gold.kind === 'congress_gov' && exportControlBill(text) ? 'G.3' : null;
+  let feedback = [], previousPatch = null, last = null, refereeIn = null, scopeRetries = 0;
+  const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, text, gold.key)) : refereeIn);
   for (let round = 1; round <= MAX_ROUNDS; round++) {
-    const g = await generatePatch({ llm: generator, item, source: text, entry: null, reasons, operation: 'create', styleExamples, feedback, previousPatch, needsSection: gold.level === 'federal' });
+    const g = await generatePatch({ llm: generator, item, source: text, entry: null, reasons, operation: 'create', styleExamples, feedback, previousPatch, needsSection: gold.level === 'federal' && !ruleSection });
     if (!g.patch) { feedback = g.problems; continue; }
     const patch = g.patch; previousPatch = patch;
     if (patch.in_scope === false) {
-      const scopeClaim = [{ field: 'in_scope', claim: `This item regulates or directly concerns frontier / large-scale AI developers or models, as defined here: ${SCOPE_DEFINITION}` }];
+      const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let r = null; try { r = (await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: text, claims: scopeClaim }), itemId: gold.key })).data.results[0]; } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
-      if (r && r.supported === false) return { outcome: 'out_of_scope', in_scope: false, rounds: round, fields: {}, problems: [] };
-      return { outcome: 'held', in_scope: null, rounds: round, fields: {}, problems: ['scope disagreement: generator out, reader in'] };
+      // Same rule as agents/process-item.mjs: the referee decides when the readers rule it out or disagree.
+      const ref = await askReferee();
+      if (ref === false || (ref === null && r && r.supported === false)) return { outcome: 'out_of_scope', in_scope: false, rounds: round, fields: {}, problems: [], referee: ref };
+      if (ref === null || scopeRetries++ >= 1) return { outcome: 'held', in_scope: null, rounds: round, fields: {}, problems: [ref === true ? 'scope: the generator still says out after the referee ruled it in' : 'scope disagreement: generator out, reader in'] };
+      feedback = ['An independent reader judged this item IN scope for the tracker. Set in_scope to true and write the entry now: mechanism, thresholds and penalties only if the source states them, and section. Do not return an empty "fields" object.']; continue;
     }
     const problems = codeChecks(patch, text);
     const claims = buildClaims({ patch, operation: 'create' });
     let res = null;
     try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: text, claims }), itemId: gold.key }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; problems.push('the independent reader gave an unusable answer'); }
     const byN = new Map(((res && res.data && res.data.results) || []).map((r) => [r.n, r]));
-    claims.forEach((c, i) => {
+    for (const [i, c] of claims.entries()) {
       const r = byN.get(i + 1);
-      if (!r || r.supported !== true || !containsQuote(text, r.quote)) problems.push(c.field === 'in_scope' ? `an independent reader judged this item out of scope: ${(r && r.reason) || 'no answer'}` : `claim about ${c.field} ("${c.claim.slice(0, 100)}") is not supported: ${(r && r.reason) || 'the reader could not confirm it word for word'}`);
-    });
+      const objected = !r || r.supported !== true || !containsQuote(text, r.quote);
+      if (objected && c.field === 'in_scope' && referee) {
+        const ref = await askReferee();
+        if (ref === false) return { outcome: 'out_of_scope', in_scope: false, rounds: round, fields: {}, problems: [], referee: false };
+        if (ref === true) continue; // the referee overrules the reader on scope
+      }
+      if (objected) problems.push(c.field === 'in_scope' ? `an independent reader judged this item out of scope: ${(r && r.reason) || 'no answer'}` : `claim about ${c.field} ("${c.claim.slice(0, 100)}") is not supported: ${(r && r.reason) || 'the reader could not confirm it word for word'}`);
+    }
     last = { patch, problems, round };
-    if (!problems.length) return { outcome: 'published', in_scope: true, rounds: round, fields: patch.fields, section: patch.fields.section || null, problems: [] };
+    if (!problems.length) return { outcome: 'published', in_scope: true, rounds: round, fields: patch.fields, section: ruleSection || patch.fields.section || null, problems: [] };
     feedback = problems;
   }
   return { outcome: 'held', in_scope: last ? last.patch.in_scope : null, rounds: MAX_ROUNDS, fields: {}, problems: last ? last.problems : feedback };
@@ -135,6 +156,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const http = createHttp({ headers: provider === 'gemini' ? { 'x-goog-api-key': gkey } : {}, secrets: [gkey].filter(Boolean), maxRequests: 2000, timeoutMs: 180000 });
   const { llm: generator, ledger } = createLlmFromConfig({ config, apiKey: gkey, http, role: 'generator' });
   const { llm: validator } = createLlmFromConfig({ config, apiKey: gkey, http, role: 'validator' });
+  // The scope referee, as in production; a provider with no "referee" role runs without one (--no-referee turns it off).
+  let referee = null;
+  if (!args.includes('--no-referee')) try { referee = createLlmFromConfig({ config, apiKey: gkey, http, role: 'referee' }).llm; } catch { referee = null; }
 
   const entries = readJson(path.join(P, '..', 'web', 'data', 'v2', 'entries.json'));
   const gold = readJson(path.join(here, 'gold.json')).items;
@@ -143,17 +167,18 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const todo = gold.filter((g) => sources[g.key] && sources[g.key].sha256 && (!only || only.includes(g.key))).slice(0, limit);
   const maxChars = (config.limits.max_input_chars_per_call || 120000) - 12000; // room for the instructions and style examples
   const scored = [], queue = [...todo];
-  console.log(`eval: ${todo.length} items, provider ${provider}, generator ${generator.model}, reader ${validator.model}`);
+  console.log(`eval: ${todo.length} items, provider ${provider}, generator ${generator.model}, reader ${validator.model}, referee ${referee ? referee.model : 'none'}`);
   await Promise.all(Array.from({ length: Number(opt('--concurrency')) || 4 }, async () => {
     for (let g; (g = queue.shift());) {
       const s = sources[g.key], f = path.join(P, 'data', 'eval', 'texts', g.key + '.txt');
-      const text = fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null;
+      const stored = fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null;
+      const text = stored && repairExponents(stored); // as agents/source-text.mjs does for production sources
       let result;
-      if (!text || sha(text) !== s.sha256) result = { outcome: 'no_text', in_scope: null, fields: {}, problems: ['text missing or changed since eval/sources.json; run eval/fetch-texts.mjs'] };
+      if (!stored || sha(stored) !== s.sha256) result = { outcome: 'no_text', in_scope: null, fields: {}, problems: ['text missing or changed since eval/sources.json; run eval/fetch-texts.mjs'] };
       else if (text.length > maxChars) result = { outcome: 'too_long', in_scope: null, fields: {}, problems: [`${text.length} characters: needs section-by-section reading (not built yet)`] };
       else {
         const styleExamples = entries.filter((e) => e.key !== g.key && e.section === g.section && e.mechanism && e.mechanism.length < 600).slice(0, 2);
-        try { result = await runItem({ gold: { ...g, kind: s.kind, url: s.url }, text, generator, validator, styleExamples }); }
+        try { result = await runItem({ gold: { ...g, kind: s.kind, url: s.url }, text, generator, validator, referee, styleExamples }); }
         catch (e) { result = { outcome: 'error', in_scope: null, fields: {}, problems: [String(e.message).slice(0, 200)] }; }
       }
       const sc = { ...scoreItem({ gold: g, text: text || '', result }), gold_in_scope: g.in_scope, rounds: result.rounds || 0, problems: result.problems, section: result.section || null };
@@ -175,6 +200,7 @@ export function renderReport(r) {
   const pct = (x) => (x == null ? 'n/a' : `${Math.round(x * 100)}%`), s = r.summary;
   const L = [`# Accuracy test set: latest report`, '', `Run ${r.run_at.slice(0, 16).replace('T', ' ')} UTC · provider **${r.provider}** · generator \`${r.generator}\` · reader \`${r.reader}\` · prompts ${r.prompt_version} · ${s.items} items · ${r.usage.total_tokens.toLocaleString('en-US')} tokens`, '',
     `Outcomes: ${Object.entries(s.outcomes).map(([k, v]) => `${k} ${v}`).join(', ')}. Scope agreement ${pct(s.scope_agreement)}${s.scope_wrong.length ? ` (wrong: ${s.scope_wrong.join(', ')})` : ''}.`, '',
+    ...(s.section_items ? [`Section (D, F or G.3, published federal bills): ${pct(s.section_agreement)} of ${s.section_items}${s.section_wrong.length ? ` (wrong: ${s.section_wrong.join(', ')})` : ''}.`, ''] : []),
     '| Field | In-scope items | Passed | Pass rate | Published | Unsupported | Fact recall (items with provable facts) |', '|---|---|---|---|---|---|---|',
     ...FIELDS.map((f) => { const x = s.fields[f]; return `| ${f} | ${x.items} | ${x.passed} | **${pct(x.pass_rate)}** | ${x.published} | ${x.unsupported_fields} | ${pct(x.fact_recall)} (${x.items_with_provable_facts}) |`; }), '',
     'A field passes when the item was published (every code check and every claim confirmed by the independent reader), nothing in it is unsupported, and every number of the author\'s field that the official text contains is stated. Fact recall counts only numbers (thresholds, amounts, deadlines): it does not judge the wording of a mechanism.', '',

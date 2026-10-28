@@ -2,7 +2,7 @@
 //   1) plain-code checks (checks.mjs): schema, quotes found verbatim in the source, numbers and dates present in the source
 //   2) an independent LLM pass that sees ONLY the source and a numbered list of claims, never the Generator's reasoning
 // A draft passes only if every code check passes and every claim is supported.
-import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_DEFINITION } from './prompts.mjs';
+import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from './prompts.mjs';
 import { runChecks } from './checks.mjs';
 import { containsQuote } from './source-text.mjs';
 import { LlmOutputError } from '../llm/gemini.mjs';
@@ -16,7 +16,7 @@ export function buildClaims({ patch, operation }) {
   const claims = [];
   for (const f of TEXT) if (typeof patch.fields[f] === 'string' && patch.fields[f]) claims.push({ field: f, claim: patch.fields[f] });
   patch.events_add.forEach((e, i) => claims.push({ field: `events_add[${i}]`, claim: `On ${e.date} (${e.type}): ${e.text}` }));
-  if (operation === 'create' && patch.in_scope) claims.push({ field: 'in_scope', claim: `This item regulates or directly concerns frontier / large-scale AI developers or models, as defined here: ${SCOPE_DEFINITION}` });
+  if (operation === 'create' && patch.in_scope) claims.push({ field: 'in_scope', claim: SCOPE_CLAIM });
   return claims;
 }
 
