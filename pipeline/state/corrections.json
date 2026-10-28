@@ -361,6 +361,14 @@
    "outcome": "session",
    "retry": false,
    "retries": 0
+  },
+  "tn-hb-1898-sb-2171": {
+   "text_sha": "55c43846c4f6762df90b43d54a7be4f9e67dc3e349e4899438fb5b0f2e14b81d",
+   "text_url": "https://wapp.capitol.tn.gov/apps/BillInfo/Default.aspx?BillNumber=HB1898",
+   "checked_at": "2026-10-27",
+   "outcome": "session",
+   "retry": false,
+   "retries": 0
   }
  }
 }
