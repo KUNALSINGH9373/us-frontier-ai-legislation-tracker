@@ -157,7 +157,9 @@ const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'autom
   ok('the published data passes every rule', variant(() => {}).length === 0, variant(() => {}).join('; '));
   ok('stop: a new entry Tier B did not create', variant(() => {}, { newKeys: [] }).some((p) => /not created by Tier B/.test(p)));
   ok('stop: more new entries than the per-run limit', variant(() => {}, { maxNew: 0 }).some((p) => /over the limit of 0 per run/.test(p)));
-  ok('stop: a new entry in a section that needs a person', variant((a, e) => { e.section = 'B'; e.type = 'bill'; e.level = 'state'; }).some((p) => /section B needs a person/.test(p)));
+  ok('stop: a new entry in a section that needs a person', variant((a, e) => { e.section = 'E'; e.type = 'draft'; }).some((p) => /section E needs a person/.test(p)));
+  const asState = variant((a, e) => { e.section = 'B'; e.type = 'bill'; e.level = 'state'; });
+  ok('stop: a federal bill filed in a state section', asState.some((p) => /a state entry needs its two-letter state/.test(p)) && asState.some((p) => /needs its LegiScan id and session/.test(p)));
   ok('stop: a type that does not follow the section rule', variant((a, e) => { e.type = 'law'; }).some((p) => /do not follow the rule for section D/.test(p)));
   ok('stop: a reading field without evidence', variant((a, e) => { e.evidence = e.evidence.filter((x) => x.field !== 'mechanism'); }).some((p) => /no evidence quote for mechanism/.test(p)));
   ok('stop: a "none located" finding written by the pipeline', variant((a, e) => { e.penalties = 'No penalties located.'; }).some((p) => /search finding/.test(p)));

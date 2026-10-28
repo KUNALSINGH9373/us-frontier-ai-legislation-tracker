@@ -42,7 +42,7 @@ export const SCOPE_CLAIM = `This item falls within at least one of the IN-scope 
 const S = (extra = {}) => ({ type: 'STRING', ...extra });
 // The shape differs by task. For a new entry the model may only write mechanism, thresholds and penalties, and must give a section
 // when no rule decides it (a required top-level key, so the API itself refuses an answer without one).
-export function patchResponseSchema(operation, needsSection = false) {
+export function patchResponseSchema(operation, needsSection = false, sections = null) {
   const fieldNames = operation === 'create' ? ['mechanism', 'thresholds', 'penalties'] : ['sponsor_text', 'mechanism', 'thresholds', 'penalties', 'status_text', 'signed_text', 'effective_text'];
   return {
     type: 'OBJECT',
@@ -51,7 +51,7 @@ export function patchResponseSchema(operation, needsSection = false) {
       operation: S({ enum: ['update', 'create'] }),
       in_scope: { type: 'BOOLEAN' },
       scope_reason: S(),
-      ...(operation === 'create' ? { section: S({ enum: ['D', 'F', 'G', 'G.3'] }) } : {}),
+      ...(operation === 'create' ? { section: S({ enum: sections || ['D', 'F', 'G', 'G.3'] }) } : {}),
       fields: { type: 'OBJECT', properties: Object.fromEntries(fieldNames.map((k) => [k, S({ nullable: true })])) },
       events_add: { type: 'ARRAY', items: { type: 'OBJECT', required: ['date', 'precision', 'type', 'text'], properties: { date: S(), precision: S({ enum: ['day', 'month'] }), type: S({ enum: EVENT_TYPES }), text: S(), clause: S() } } },
       evidence: { type: 'ARRAY', items: { type: 'OBJECT', required: ['field', 'quote'], properties: { field: S(), quote: S() } } },
@@ -62,7 +62,17 @@ export function patchResponseSchema(operation, needsSection = false) {
 
 const fmtEntry = (e) => [`title: ${e.title}`, `sponsor_text: ${e.sponsor_text}`, `mechanism: ${e.mechanism}`, e.thresholds ? `thresholds: ${e.thresholds}` : null, e.status_text ? `status_text: ${e.status_text}` : null].filter(Boolean).join('\n');
 
-export function generatorPrompt({ operation, item, source, entry, reasons, styleExamples, feedback, previousPatch }) {
+// Where a new item goes. A federal bill: D, F or G.3. A state bill: one of the state sections its status allows (agents/derive.mjs stateSections).
+const FEDERAL_SECTION_RULE = `- section (a top-level key, next to "fields", not inside it): REQUIRED for a bill, and it must be exactly D, F or G.3. G.3 = a bill whose subject is export controls or licensing for advanced AI chips, compute or model weights. D = the bill itself puts binding duties on frontier or advanced AI developers or on their models (mandatory testing or evaluation, safety frameworks, developer incident reporting, shutdown capability, bans or licensing), or creates a regulator with power over them. F = every other in-scope bill: voluntary or non-regulatory programs, standards, studies or guidance (for example an agency writing a security playbook or standards for developers to adopt), rules for one department's own AI or its contractors (such as the Defense Department), whistleblower protections, and investigative boards. If in doubt, choose F. For other documents use G = executive action or G.3 = compute or AI-chip export control rule (executive orders are G automatically).`;
+const STATE_SECTION_TEXT = {
+  A: 'A = an enacted state law that puts binding duties on frontier or large AI developers or on their models (safety frameworks, transparency reports, incident reporting, audits)',
+  B: 'B = a state bill or resolution on frontier or large AI developers or their models (binding duties, transparency, incident reporting, liability, or a resolution urging such rules), with a frontier threshold or definition (training compute, compute cost, revenue, or a "frontier model"/"large developer" definition)',
+  'B.2': 'B.2 = a state bill aimed at catastrophic risk from advanced AI that sets NO frontier threshold (no compute, cost or revenue figure and no frontier or large-developer definition)',
+  C: 'C = a state measure whose subject is independent verification organizations, AI auditors (licensing, registries, accreditation) or a study of them'
+};
+export const stateSectionRule = (sections) => `- section (a top-level key, next to "fields", not inside it): REQUIRED, and it must be exactly one of ${sections.join(', ')} (the system allows only these for this bill, from its status in the official record). ${sections.map((k) => STATE_SECTION_TEXT[k]).join('. ')}. If in doubt between ${sections.filter((k) => k !== 'C').join(' and ')} and C, choose ${sections[0]}.`;
+
+export function generatorPrompt({ operation, item, source, entry, reasons, styleExamples, feedback, previousPatch, sections = null }) {
   const parts = [];
   if (operation === 'update') {
     parts.push(`TASK: update an EXISTING entry. Return operation "update". Put in "fields" only the text fields that must change (normally status_text; mechanism and thresholds only if the source shows they changed). Add the new dated steps in events_add. Every date you write carries its year; report only actions SOURCE records, never the expected next step.`);
@@ -74,7 +84,7 @@ In "fields" give ONLY:
 - mechanism: what the item does, two to four plain sentences (at most 600 characters), using the source's own terms. Say who must do what, by when, and with what legal force (a duty, a power, voluntary, or an incentive). Where SOURCE has them, also name: preemption of state or local law, a liability shield, presumption, safe harbor or immunity, a private right of action, whistleblower protections, audits, incident-reporting deadlines, and a sunset. In a law with several parts, say which part each duty belongs to.
 - thresholds: who or what it covers, at most 300 characters. List EVERY way to be covered that SOURCE sets: compute, compute cost, revenue, spending, user counts (and lower counts for minors), models made by fine-tuning or distilling a covered model, and capability definitions. If SOURCE sets figures, list the figures only, e.g. "Trained on more than 10^26 operations; annual revenue over $500,000,000", with one evidence quote per figure, each a short span (under 25 words) around that figure. If SOURCE instead defines what it covers by capability or risk with no figure (e.g. "covered AI technologies" are systems whose theft would pose a grave national security threat), say so in one short sentence starting "Capability-based, no figure:" and quote the key words of that definition (under 25 words). Never paste a whole definition. null only when SOURCE sets no figure and defines no covered models, developers or systems.
 - penalties: read the enforcement or penalties section and give EVERY tier, at most 300 characters: first and later violations, per-day amounts, criminal penalties, different amounts for different kinds of company or for different duties, and who enforces (e.g. "Civil penalty up to $1,000,000 for a first violation and $3,000,000 for each later one; $50,000 per violation for chatbot providers; enforced by the Attorney General"). null only if SOURCE sets no penalty.
-- section (a top-level key, next to "fields", not inside it): REQUIRED for a bill, and it must be exactly D, F or G.3. G.3 = a bill whose subject is export controls or licensing for advanced AI chips, compute or model weights. D = the bill itself puts binding duties on frontier or advanced AI developers or on their models (mandatory testing or evaluation, safety frameworks, developer incident reporting, shutdown capability, bans or licensing), or creates a regulator with power over them. F = every other in-scope bill: voluntary or non-regulatory programs, standards, studies or guidance (for example an agency writing a security playbook or standards for developers to adopt), rules for one department's own AI or its contractors (such as the Defense Department), whistleblower protections, and investigative boards. If in doubt, choose F. For other documents use G = executive action or G.3 = compute or AI-chip export control rule (executive orders are G automatically).
+${item.source === 'legiscan' ? stateSectionRule(sections) : FEDERAL_SECTION_RULE}
 Each field value is final text: never explain, think aloud or reconsider inside a field. Every field you give needs an evidence quote. Add events_add only for dated steps in SOURCE that the system cannot know, such as a deadline stated in the text ("within 60 days"), and only when the source gives the date.
 ${SCOPE_TEST}`);
     parts.push(`WHAT THE COMPARISON CODE FOUND:\n${reasons.map((r) => `- ${r.kind}: ${r.detail}`).join('\n')}`);

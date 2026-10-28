@@ -26,10 +26,10 @@ export async function refereeSays(referee, source, itemId) {
     return x ? x.supported === true : null;
   } catch (e) { if (e instanceof LlmOutputError) return null; throw e; }
 }
-const IN_SCOPE_NOW = 'An independent reader judged this item IN scope for the tracker. Set in_scope to true and write the entry now: mechanism (what it does), thresholds and penalties only if the source states them, and section (D or F for a bill). Do not return an empty "fields" object.';
+const IN_SCOPE_NOW = (sections) => `An independent reader judged this item IN scope for the tracker. Set in_scope to true and write the entry now: mechanism (what it does), thresholds and penalties only if the source states them, and section (${sections ? `one of ${sections.join(', ')}` : 'D or F'} for a bill). Do not return an empty "fields" object.`;
 
 function styleExamplesFor({ source, entry, entries }) {
-  const sections = entry ? [entry.section] : source === 'federal_register' ? ['G', 'G.3'] : ['D', 'F'];
+  const sections = entry ? [entry.section] : source === 'federal_register' ? ['G', 'G.3'] : source === 'legiscan' ? ['A', 'B'] : ['D', 'F'];
   return entries.filter((e) => sections.includes(e.section) && (!entry || e.key !== entry.key) && e.mechanism && e.mechanism.length < 600).slice(0, 2);
 }
 
@@ -59,32 +59,32 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   let feedback = [], previousPatch = null, last = null, scopeRetries = 0, scopeObjections = 0, refereeIn = null;
   const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, read, item.item_id)) : refereeIn);
 
-  const needsSection = operation === 'create' && item.source !== 'legiscan' && !deriveCreate({ item, raw }).section; // state bills stop at the scope call below
+  // A new item whose section no rule decides gets it from the Generator: a federal bill D, F or G.3; a state bill one of the state sections
+  // its status allows (derive.mjs stateSections), and nothing else (the answer schema and assemble.mjs both refuse any other).
+  const derivedNow = operation === 'create' ? deriveCreate({ item, raw }) : null;
+  const needsSection = operation === 'create' && !derivedNow.section, sections = (derivedNow && derivedNow.sections) || null;
 
   // Two cases cannot be written up yet: a new bill whose text is not published (or could not be fetched), so nothing can be described or
   // checked; and a very long source in which no frontier-AI section was found, so it cannot be sent whole or in part. In both, whether
   // the item is about frontier AI is usually clear from what we have (the title and actions, or the opening of the text). If both readers say it is out of scope we are done;
   // otherwise it is held and retried (text not yet available) or waits for a person (too long).
   const textMissing = operation === 'create' && (raw.text_missing === true || (item.source === 'congress_gov' && !raw.text));
-  // A new STATE bill: the scope call is made on its text, but the entry is not written yet (new state entries are a later step), so it is
-  // dropped when both readers rule it out and otherwise waits, reported, until state drafting is built.
-  const stateBill = operation === 'create' && item.source === 'legiscan' && !textMissing;
-  if (operation === 'create' && (textMissing || stateBill || (source.length > TRIAGE_OVER && read === source))) {
-    const head = stateBill ? read.slice(0, TRIAGE_OVER) : source.slice(0, TRIAGE_CHARS);
-    const why = stateBill ? 'this is a state bill: decide its scope only; the entry is written in a later step' : textMissing ? 'the bill text is not published yet, so only its title and actions are shown' : `it is cut off after its first ${TRIAGE_CHARS} characters because the full text is ${source.length} characters`;
+  if (operation === 'create' && (textMissing || (source.length > TRIAGE_OVER && read === source))) {
+    const head = source.slice(0, TRIAGE_CHARS);
+    const why = textMissing ? 'the bill text is not published yet, so only its title and actions are shown' : `it is cut off after its first ${TRIAGE_CHARS} characters because the full text is ${source.length} characters`;
     const note = { kind: 'candidate', detail: `NOTE: SOURCE below is incomplete: ${why}. Decide ONLY in_scope and scope_reason; leave "fields" empty.` };
-    const g = await generatePatch({ llm: generator, item, source: head, entry, reasons: [...diff.reasons, note], operation, styleExamples: [], feedback: [], previousPatch: null });
+    const g = await generatePatch({ llm: generator, item, source: head, entry, reasons: [...diff.reasons, note], operation, styleExamples: [], feedback: [], previousPatch: null, sections });
     if (g.patch && g.patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let res; try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: head, claims: scopeClaim }), itemId: item.item_id }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
-      if (r && r.supported === false && (await refereeSays(referee, head, item.item_id)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on ${stateBill ? 'the bill text' : textMissing ? 'the title and actions, as the text is not published yet' : `the first ${TRIAGE_CHARS} characters of a ${source.length}-character text`})` };
+      if (r && r.supported === false && (await refereeSays(referee, head, item.item_id)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on ${textMissing ? 'the title and actions, as the text is not published yet' : `the first ${TRIAGE_CHARS} characters of a ${source.length}-character text`})` };
     }
-    return { item_id: item.item_id, outcome: 'held', operation, attempts: 1, entry: null, patch: g.patch || null, verdicts, reason: stateBill ? 'a state bill that may be in scope; new state entries are not written automatically yet, so it is reported and waits' : textMissing ? 'it may be in scope, but the full text is not available yet (not published, or could not be fetched), so nothing can be verified; retried on a later run' : `source too long for automatic processing (${source.length} characters), no section about frontier AI was found in it, and it may be in scope, so it needs a person` };
+    return { item_id: item.item_id, outcome: 'held', operation, attempts: 1, entry: null, patch: g.patch || null, verdicts, reason: textMissing ? 'it may be in scope, but the full text is not available yet (not published, or could not be fetched), so nothing can be verified; retried on a later run' : `source too long for automatic processing (${source.length} characters), no section about frontier AI was found in it, and it may be in scope, so it needs a person` };
   }
 
   for (let attempt = 1; attempt <= maxRounds; attempt++) {
-    const g = await generatePatch({ llm: generator, item, source: read, entry, reasons: diff.reasons, operation, styleExamples, feedback, previousPatch, needsSection });
+    const g = await generatePatch({ llm: generator, item, source: read, entry, reasons: diff.reasons, operation, styleExamples, feedback, previousPatch, needsSection, sections });
     if (!g.patch) { feedback = g.problems; log(`attempt ${attempt}: unusable patch (${g.problems[0]})`); continue; }
     const patch = g.patch;
     if (operation === 'create') {
@@ -107,7 +107,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
       const ref = await askReferee();
       if (ref === false || (ref === null && r && r.supported === false)) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: attempt, entry: null, patch, verdicts, reason: patch.scope_reason + (ref === false ? ' (confirmed by the referee)' : '') };
       if (scopeRetries++ >= 1) return { item_id: item.item_id, outcome: 'held', operation, attempts: attempt, entry: null, patch, verdicts, reason: `scope disagreement: the generator still says out of scope ("${patch.scope_reason}") after ${ref === true ? 'the referee ruled it in scope' : 'the independent reader said in scope'}; retried on the next run.` };
-      feedback = [IN_SCOPE_NOW]; continue;
+      feedback = [IN_SCOPE_NOW(sections)]; continue;
     }
 
     const asm = assembleEntry({ entry, patch, item, raw, today, runId, rounds: attempt, entries, now });
@@ -122,8 +122,8 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     verdicts.push(verdict); last = { patch, asm, verdict };
     log(`attempt ${attempt}: ${verdict.passed ? 'passed' : 'rejected (' + complaints(verdict).length + ' problem(s))'}`);
     if (verdict.passed) {
-      // A new bill also gets its 13 duty answers, each proved on its own (agents/duties.mjs); when any cannot be proved the entry goes out without them.
-      if (operation === 'create' && item.source === 'congress_gov' && DUTY_SECTIONS.includes(asm.entry.section)) {
+      // A new bill (federal or state) also gets its 13 duty answers, each proved on its own (agents/duties.mjs); when any cannot be proved the entry goes out without them.
+      if (operation === 'create' && (item.source === 'congress_gov' || item.source === 'legiscan') && DUTY_SECTIONS.includes(asm.entry.section)) {
         const d = await writeDuties({ generator, validator, entry: asm.entry, sourceText: source, sourceUrl: item.source_url, itemId: item.item_id, now, log });
         if (d.duties) Object.assign(asm.entry, { duties: d.duties, duties_basis: d.duties_basis });
         return { item_id: item.item_id, outcome: 'publishable', operation, attempts: attempt, entry: asm.entry, patch, verdicts, reason: null, duties: { added: !!d.duties, rounds: d.rounds, dropped: d.dropped, reason: d.reason } };

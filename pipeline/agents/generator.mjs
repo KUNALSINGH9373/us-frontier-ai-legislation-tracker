@@ -30,10 +30,10 @@ export function normField(f) {
 }
 
 // Returns { patch, problems }. problems is non-empty when the model's answer was not a valid patch (the loop treats that as a failed attempt).
-export async function generatePatch({ llm, item, source, entry, reasons, operation, styleExamples, feedback, previousPatch, needsSection = false }) {
-  const prompt = generatorPrompt({ operation, item, source, entry, reasons, styleExamples, feedback, previousPatch });
+export async function generatePatch({ llm, item, source, entry, reasons, operation, styleExamples, feedback, previousPatch, needsSection = false, sections = null }) {
+  const prompt = generatorPrompt({ operation, item, source, entry, reasons, styleExamples, feedback, previousPatch, sections });
   let res;
-  try { res = await llm.generate({ system: GENERATOR_SYSTEM, prompt, itemId: item.item_id, responseSchema: patchResponseSchema(operation, needsSection) }); }
+  try { res = await llm.generate({ system: GENERATOR_SYSTEM, prompt, itemId: item.item_id, responseSchema: patchResponseSchema(operation, needsSection, sections) }); }
   catch (e) {
     if (e instanceof LlmOutputError) return { patch: null, problems: [`your answer was unusable: ${e.message}.${/max_tokens/i.test(e.message) ? ' It was far too long. Keep every field to one to three short sentences and do not explain, think aloud or reconsider inside a field.' : ''}`], usage: null };
     throw e;
