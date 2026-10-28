@@ -68,6 +68,28 @@ export function sponsorTextProblem(o, n) {
 }
 const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+// A failed bill may still become law, but only on a record that says so (a veto overridden, or the law's own number).
+const OVERRIDE = /\bover(ridden|ride\b|.{0,40}\bveto)|became public law|became law/i;
+
+// The status text is the author's; the pipeline may only add to its end. The new text must start with the old one (its closing
+// punctuation aside).
+export function statusTextProblem(o, n) {
+  if (o.status_text === n.status_text || !o.status_text) return null;
+  const keep = String(o.status_text).replace(/[\s.;,:]+$/, '');
+  return String(n.status_text || '').startsWith(keep) ? null : 'status_text: the existing text was rewritten (only additions at its end are allowed)';
+}
+
+// Identifiers are set once (absent -> set, when an entry first becomes mixed) and afterwards only gain ids: nothing is edited or removed.
+export function identifiersProblem(o, n) {
+  if (same(o.identifiers, n.identifiers) || o.identifiers == null) return null;
+  if (n.identifiers == null) return 'identifiers removed';
+  const a = o.identifiers, b = n.identifiers;
+  const bad = Object.keys({ ...a, ...b }).filter((k) => k !== 'external' && !same(a[k], b[k]));
+  if (bad.length) return `identifiers edited (${bad.join(', ')})`;
+  const xa = a.external || {}, xb = b.external || {};
+  const lost = Object.keys(xa).filter((k) => { const now = (Array.isArray(xb[k]) ? xb[k] : [xb[k]]).map(String); return (Array.isArray(xa[k]) ? xa[k] : [xa[k]]).map(String).some((id) => !now.includes(id)); });
+  return lost.length ? `identifiers edited: ids removed or changed in ${lost.join(', ')} (only additions are allowed)` : null;
+}
 
 // Fields a self-correction (correct/) may also change, on the entries and fields it names. Never a fact the record states exactly.
 const CORRECTABLE = new Set(READING_FIELDS);
@@ -95,8 +117,21 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
     o.events.filter((x) => !evs.has(evKey(x))).forEach((x) => problems.push(`deleted event on ${key}: ${x.date} ${x.text}`));
     const urls = new Set([...(n.sources || []), ...(n.more_links || [])].map((s) => s.url || s.u));
     [...(o.sources || []), ...(o.more_links || [])].map((s) => s.url || s.u).filter((u) => !urls.has(u)).forEach((u) => problems.push(`deleted link on ${key}: ${u}`));
-    // 2. no status goes backwards
-    if (o.status !== n.status && !(FORWARD[o.status] || []).includes(n.status)) problems.push(`status went backwards on ${key}: ${o.status} -> ${n.status}`);
+    // 2. no status goes backwards; a new status follows the section's rule and is quoted from its record
+    if (o.status !== n.status) {
+      const quotes = (n.evidence || []).filter((x) => x.field === 'status' && x.quote && !(o.evidence || []).some((y) => same(x, y)));
+      const override = o.status === 'failed' && n.status === 'enacted' && quotes.some((x) => OVERRIDE.test(x.quote));
+      if (!(FORWARD[o.status] || []).includes(n.status) && !override) problems.push(`status went backwards on ${key}: ${o.status} -> ${n.status}`);
+      if (n.status !== statusFor(n.section, n.status)) problems.push(`status ${n.status} does not follow the rule for section ${n.section} on ${key}`);
+      if (!quotes.length) problems.push(`status changed on ${key} (${o.status} -> ${n.status}) without a status evidence quote`);
+    }
+    // the author's status text is only added to, identifiers only gain ids, and an entry only moves from authored to mixed
+    const st = statusTextProblem(o, n); if (st) problems.push(`${st} on ${key}`);
+    const idp = identifiersProblem(o, n); if (idp) problems.push(`${idp} on ${key}`);
+    if (o.origin !== n.origin && !(o.origin === 'authored' && n.origin === 'mixed')) problems.push(`origin changed on ${key}: ${o.origin} -> ${n.origin} (only authored -> mixed is allowed)`);
+    // every new event names its source, and that source is one the entry's evidence quotes
+    const had = new Set(o.events.map(evKey));
+    n.events.filter((x) => !had.has(evKey(x))).forEach((x) => { if (!x.source_url || !(n.evidence || []).some((y) => y.source_url === x.source_url && y.quote)) problems.push(`new event on ${key} (${x.date} ${String(x.text).slice(0, 60)}) has no source_url matching an evidence quote`); });
     // only Tier A fields may change
     // A corrected entry may also gain the bill text as a source (removing one is caught by the deleted-link check above).
     const fixed = new Set((corrected[key] || []).filter((f) => CORRECTABLE.has(f)));
@@ -118,6 +153,10 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
   const oldNews = new Set(before.news.items.map((x) => JSON.stringify(x)));
   const keptNews = after.news.items.filter((x) => oldNews.has(JSON.stringify(x))).length;
   if (keptNews < before.news.items.length) problems.push(`news items deleted or edited: ${before.news.items.length - keptNews}`);
+  // every new news item carries evidence, each quote from a page the item links to
+  after.news.items.filter((x) => !oldNews.has(JSON.stringify(x))).forEach((x) => {
+    if (!(x.evidence || []).length || x.evidence.some((y) => !y.quote || !y.source_url || !(x.links || []).some((l) => l.u === y.source_url))) problems.push(`new news item ${x.date} ${String(x.title).slice(0, 60)}: needs evidence quoted from one of its own links`);
+  });
   if ((after.changes.items || []).length < (before.changes.items || []).length) problems.push('change log entries deleted');
   if (!links) { if (!same(before.relationships, after.relationships)) problems.push('relationships changed: Tier A does not change them'); }
   else checkLinks(before.relationships, after.relationships, links).forEach((p) => problems.push(p));

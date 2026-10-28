@@ -1,13 +1,12 @@
 // One way to get an AI client, for every caller (grabber title screen, scope check, agents, recall scripts).
 // It reads config/models.json "provider" ("anthropic" in production, "gemini" for testing), builds one shared ledger that
 // saves every call to the month's spend log and refuses calls once the monthly cost cap is reached.
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { createHttp } from '../grabber/lib/http.mjs';
 import { createLlmFromConfig, createLedger } from './index.mjs';
 import { createSpend } from './spend.mjs';
+import { LEDGER_DIR } from '../grabber/lib/state.mjs';
 
-export const DEFAULT_SPEND_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'ledger');
+export const DEFAULT_SPEND_DIR = LEDGER_DIR;
 export const keyNameOf = (provider) => (provider === 'anthropic' ? 'ANTHROPIC_API_KEY' : 'GEMINI_API_KEY');
 
 // models: the parsed config/models.json. limits: override the token limits (scope-check has its own).

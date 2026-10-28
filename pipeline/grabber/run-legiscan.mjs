@@ -7,15 +7,17 @@
 //       precise: frontier wording ("frontier model", compute thresholds, ...). Every hit is a candidate; no title screen.
 //       wide:    every bill whose text says "artificial intelligence". Titles of bills not seen before go to the AI intent check
 //                (grabber/intent.mjs); only a confident "no" is dropped. A failed AI call drops nothing.
-//   - a bill judged "no" is remembered (data/legiscan-seen.json) and re-checked only if it changed and 30 days have passed
+//   - a bill judged "no" is remembered (state/legiscan-seen.json) and re-checked only if it changed and 30 days have passed
 //   - bill text only for candidates (HTML, or PDF read by grabber/lib/pdf.mjs), never for tracked updates
-//   - a per-run budget and a monthly cap, counted in data/legiscan-usage.json (written even when a run fails)
+//   - a per-run budget and a monthly cap, counted in state/legiscan-usage.json (written even when a run fails)
 // Caps only DELAY work: anything not reached in a run is not marked seen and is picked up by the next run.
 import fs from 'fs';
 import path from 'path';
 import { createLegiScan, normNumber, billNumbersIn, officialUrl, latestText, trackerStatus, eventsFrom } from './sources/legiscan.mjs';
 import { QuotaExceeded, HttpError, NetworkError } from './lib/http.mjs';
 import { isoZ, makeRunId, saveRaw, writeChangeset } from './lib/run-common.mjs';
+import { LEGISCAN_USAGE_FILE } from './lib/state.mjs';
+export { LEGISCAN_USAGE_FILE };
 import { pdfToText } from './lib/pdf.mjs';
 import { classifyTitles, fetchIt } from './intent.mjs';
 
@@ -68,6 +70,7 @@ export async function runLegiScan({ http, apiKey, llm = null, official = null, o
     precise_hits: 0, wide_hits: 0, new_to_screen: 0, title_pages: 0, intent_yes: 0, intent_maybe: 0, intent_no: 0, intent_fallback: 0,
     known_entry: 0, other_jurisdiction: 0, held_by_only: 0, text_from_official: 0, already_seen: 0, waiting_for_next_run: 0, candidates: 0, text_from_pdf: 0, text_missing: 0, frontier_marked: 0 };
   let truncated = false;
+  const read = new Set(); // tracked bill ids read this run (status.json "checked" counts only these)
 
   async function readText(bill) {
     const v = latestText(bill);
@@ -136,14 +139,14 @@ export async function runLegiScan({ http, apiKey, llm = null, official = null, o
       for (const t of tracked) { if (!sessions.has(t.session_id)) sessions.set(t.session_id, []); sessions.get(t.session_id).push(t); }
       for (const [sid, list] of sessions) {
         const closed = (t) => (t.year_end ? t.year_end < now.getUTCFullYear() : t.session_open === false); // a session whose last year is over cannot change
-        if (list.every(closed)) { stats.sessions_skipped_closed++; stats.tracked_unchanged += list.length; continue; }
+        if (list.every(closed)) { stats.sessions_skipped_closed++; stats.tracked_unchanged += list.length; list.forEach((t) => read.add(String(t.bill_id))); continue; }
         const ml = await ls.masterListRaw(sid); stats.sessions_checked++;
         const hash = new Map(ml.bills.map((b) => [String(b.bill_id), b.change_hash]));
         for (const t of list) {
           const h = hash.get(String(t.bill_id));
           if (!h) { stats.tracked_missing++; log(`tracked bill ${t.state} ${t.number} (${t.bill_id}) is not in session ${sid}'s master list`); continue; }
-          if (block.hashes[String(t.bill_id)] === h) { stats.tracked_unchanged++; continue; }
-          await collect(t.bill_id, 'updated_since_cursor', t.entry_key); stats.tracked_changed++;
+          if (block.hashes[String(t.bill_id)] === h) { stats.tracked_unchanged++; read.add(String(t.bill_id)); continue; }
+          await collect(t.bill_id, 'updated_since_cursor', t.entry_key); stats.tracked_changed++; read.add(String(t.bill_id));
         }
       }
 
@@ -227,5 +230,7 @@ export async function runLegiScan({ http, apiKey, llm = null, official = null, o
   const changeset = writeChangeset({ outDir, runId, items });
   if (screenedOut.length) fs.writeFileSync(path.join(outDir, runId, 'legiscan-screened-out.json'), JSON.stringify(screenedOut, null, 1) + '\n');
   const next = { ...state, sources: { ...state.sources, legiscan: { ...block, last_success: isoZ(new Date()), cursor: null, quota: { period: 'run', used: http.used(), limit: http.maxRequests } } } };
-  return { runId, changeset, stats, truncated, requests: http.used(), nextState: next, nextSeen, screenedOut, saved: !dryRun };
+  // The entries whose tracked bills were all read (an entry with two bills counts only when both were).
+  const checkedKeys = [...new Set(tracked.map((t) => t.entry_key))].filter((k) => tracked.filter((t) => t.entry_key === k).every((t) => read.has(String(t.bill_id))));
+  return { runId, changeset, stats, truncated, requests: http.used(), nextState: next, nextSeen, screenedOut, checked: checkedKeys, saved: !dryRun };
 }

@@ -155,6 +155,7 @@ ok('precise query is one OR of quoted phrases', preciseQuery({ precise_phrases: 
   const items = r.changeset.items, got = (id) => items.find((i) => i.source_id === String(id));
   const rawOf = (id) => JSON.parse(fs.readFileSync(path.join(out, r.runId, got(id).raw_path), 'utf8'));
   ok('both open-session tracked bills fetched on the first run', r.stats.tracked_changed === 2 && items.filter((i) => i.reason === 'updated_since_cursor').length === 2, JSON.stringify(r.stats));
+  ok('checked: every tracked entry whose bills were read (master list or closed session)', JSON.stringify([...r.checked].sort()) === JSON.stringify([...new Set(trackedBills(ids).map((t) => t.entry_key))].sort()), JSON.stringify(r.checked));
   ok('a session whose last year is over costs nothing', r.stats.sessions_skipped_closed === 1 && api.calls.filter((c) => c === 'getMasterListRaw').length === 2);
   ok('two bulk searches, no page limit', api.calls.filter((c) => c === 'getSearchRaw').length === 2 && r.stats.precise_hits === 3 && r.stats.wide_hits === 7, JSON.stringify(r.stats));
   ok('a precise hit is fetched without any title screen', got(ab.bill_id) && got(ab.bill_id).reason === 'discovery');

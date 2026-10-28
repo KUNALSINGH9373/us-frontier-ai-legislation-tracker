@@ -78,6 +78,10 @@ const baseBills = () => [
   const r2 = await runCongress({ http: mk(srv2), state: r.nextState, entries: trackedEntries, scope, outDir: out, now: new Date(+NOW + 3600e3), since: '2026-09-29T00:00:00Z' });
   ok('a second run over the same data yields an empty change set', r2.changeset.items.length === 0 && r2.stats.unchanged === 2, JSON.stringify(r2.stats));
   ok('and costs only the list call', r2.requests === 1, String(r2.requests));
+  ok('checked: a run that listed the whole window counts every tracked entry as checked', JSON.stringify(r.checked) === JSON.stringify(['us-hr-9925']) && JSON.stringify(r2.checked) === JSON.stringify(['us-hr-9925']), JSON.stringify([r.checked, r2.checked]));
+  // the budget runs out on the list call itself: nothing was read, so nothing counts as checked
+  const r0 = await runCongress({ http: mk(fakeServer({ bills: baseBills() }), { maxRequests: 0 }), state: emptyState(), entries: trackedEntries, scope, outDir: out, now: NOW });
+  ok('checked: a run stopped before listing marks no entry as checked', r0.truncated && r0.checked.length === 0, JSON.stringify([r0.truncated, r0.checked]));
   // ---------- 3. a bill changes ----------
   const moved = baseBills(); moved[0] = { ...moved[0], updateDate: '2026-10-06T08:00:00Z', updateDateIncludingText: '2026-10-06T08:00:00Z', latestAction: { actionDate: '2026-10-06', text: 'Passed House' } };
   const r3 = await runCongress({ http: mk(fakeServer({ bills: moved })), state: r.nextState, entries: trackedEntries, scope, outDir: out, now: new Date(+NOW + 7200e3), since: '2026-09-29T00:00:00Z' });

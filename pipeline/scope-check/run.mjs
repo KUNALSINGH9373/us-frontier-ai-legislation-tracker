@@ -15,7 +15,7 @@ import { createHttp } from '../grabber/lib/http.mjs';
 import { createOfficial } from '../grabber/sources/official.mjs';
 import { latestText, officialUrl, trackerStatus, createLegiScan } from '../grabber/sources/legiscan.mjs';
 import { pdfToText } from '../grabber/lib/pdf.mjs';
-import { readUsage, addUsage } from '../grabber/run-legiscan.mjs';
+import { readUsage, addUsage, LEGISCAN_USAGE_FILE } from '../grabber/run-legiscan.mjs';
 import { createLlmFactory, roleModel } from '../llm/make.mjs';
 import { SCOPE_DEFINITION } from '../agents/prompts.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
@@ -121,7 +121,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
     const official = createOfficial();
     // when the state's site refuses us, LegiScan's copy (one query each, counted in the monthly usage)
     const lkey = process.env.LEGISCAN_API_KEY, lcfg = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'legiscan.json'), 'utf8'));
-    const usageFile = path.join(pipelineDir, 'data', 'legiscan-usage.json'), lhttp = createHttp({ secrets: [lkey], maxRequests: Math.max(0, Math.min(60, lcfg.monthly_cap - readUsage(usageFile, new Date()).used)) });
+    const usageFile = LEGISCAN_USAGE_FILE, lhttp = createHttp({ secrets: [lkey], maxRequests: Math.max(0, Math.min(60, lcfg.monthly_cap - readUsage(usageFile, new Date()).used)) });
     const ls = lkey ? createLegiScan(lhttp, lkey) : null;
     process.on('exit', () => { if (lhttp.used()) addUsage(usageFile, new Date(), lhttp.used()); });
     for (const dir of dirs) {

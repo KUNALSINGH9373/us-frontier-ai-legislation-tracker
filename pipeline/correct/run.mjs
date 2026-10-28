@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 import { createHttp } from '../grabber/lib/http.mjs';
 import { createCongress } from '../grabber/sources/congress.mjs';
 import { createLegiScan } from '../grabber/sources/legiscan.mjs';
-import { readUsage, addUsage } from '../grabber/run-legiscan.mjs';
+import { readUsage, addUsage, LEGISCAN_USAGE_FILE } from '../grabber/run-legiscan.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { BudgetExceeded } from '../llm/gemini.mjs';
 import { loadData, writeData } from '../publish/run.mjs';
@@ -33,7 +33,7 @@ const eligible = (e) => e.section !== 'J' && !(e.confidence && e.confidence.basi
 function liveTexts({ ic, il, log }) {
   const ck = process.env.CONGRESS_API_KEY, lk = process.env.LEGISCAN_API_KEY;
   const lsCfg = readJson(path.join(pipelineDir, 'config', 'legiscan.json'), {});
-  const usageFile = path.join(pipelineDir, 'data', 'legiscan-usage.json'), now = new Date();
+  const usageFile = LEGISCAN_USAGE_FILE, now = new Date();
   const lsLeft = lk ? Math.max(0, Math.min(150, (lsCfg.monthly_cap || 0) - readUsage(usageFile, now).used)) : 0;
   const cgHttp = createHttp({ headers: { 'X-Api-Key': ck }, secrets: [ck], maxRequests: ck ? 300 : 0, log });
   const lsHttp = createHttp({ secrets: [lk], maxRequests: lsLeft, log });

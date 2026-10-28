@@ -1,4 +1,4 @@
-// The month's AI spend, saved to disk after every call (data/ledger/<YYYY-MM>.jsonl, one line per call).
+// The month's AI spend, saved to disk after every call (state/ledger/<YYYY-MM>.jsonl, one line per call).
 // The grabber and the agents run as separate processes, so a per-process total would be lost; the run report and the monthly cap
 // both read this file. Plain code, no AI.
 import fs from 'fs';

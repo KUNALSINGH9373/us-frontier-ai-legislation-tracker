@@ -51,7 +51,7 @@ export function releaseUrl(item) {
 }
 
 // sources: config/news-sources.json "sources". fetchFeed(url) -> xml text (throws on failure). news: the news.json items.
-// seen: data/news-seen.json "items" (link key -> { first_seen, outcome }). screener: an AI client or null (then every headline that
+// seen: state/news-seen.json "items" (link key -> { first_seen, outcome }). screener: an AI client or null (then every headline that
 // passed the code screen counts as "maybe"). Returns { leads, screened_out, duplicates, already_seen, old, feeds, seen_add }.
 export async function findLeads({ sources, fetchFeed, news, seen = {}, entries, screener = null, today, maxAgeDays = 14, log = () => {} }) {
   const since = daysBefore(today, maxAgeDays), index = entryIndex(entries);
