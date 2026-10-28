@@ -36,7 +36,7 @@ const appeal = entries.find((x) => x.entry_number === 253), order = entries.find
   const found = [{ entry_key: KEY, docket_id: '72379655', court: 'N.D. Cal.', entry: appeal }];
   const a = applyCourts({ data, found, runDate: '2026-10-28', runId: 'update-20261028-1200', config: { news_from_official_actions: true } });
   const e = a.data.entries.find((x) => x.key === KEY), v = e.events.find((x) => x.date === '2026-10-26'), c = classifyEntry(appeal);
-  ok('the event shows the operative clause and what is appealed, not the party list', v && v.text === 'Notice of appeal filed: NOTICE OF APPEAL to the 9th Circuit Court of Appeals. Appeal of Order on Motion for Summary Judgment, Order on Motion for Miscellaneous Relief, 250, Judgment 252, Order 251' && !v.text.includes('Atkins'), v && v.text);
+  ok('the event shows the operative clause and what is appealed, not the party list', v && v.text === eventText(c) && /^Notice of appeal to the 9th Circuit/.test(v.text) && /Judgment 252/.test(v.text) && !v.text.includes('Atkins'), v && v.text);
   ok('the event keeps the court\'s full words in its clause, and the evidence quotes them whole', v.clause === c.full && e.evidence.some((x) => x.field === 'events' && x.quote === c.full));
   const n = a.data.news.items.find((x) => x.tracker === KEY && x.date === '2026-10-26');
   ok('the news body quotes the operative clause and names the filers by rule', n && n.body === `The court docket (N.D. Cal.) records this entry in ${e.title} on Oct 26, 2026: "NOTICE OF APPEAL to the 9th Circuit Court of Appeals", filed by the federal defendants: "Appeal of Order on Motion for Summary Judgment, Order on Motion for Miscellaneous Relief, 250, Judgment 252, Order 251".`, n && n.body);
@@ -52,13 +52,13 @@ const appeal = entries.find((x) => x.entry_number === 253), order = entries.find
   const data = loadData(path.join(FX, 'publish', 'data-2026-10-08'));
   const a = applyCourts({ data, found: [{ entry_key: KEY, docket_id: '72379655', court: 'N.D. Cal.', entry: order }], runDate: '2026-10-28', runId: 'x', config: {} });
   const n = a.data.news.items.find((x) => x.tracker === KEY && x.date === '2026-07-20'), c = classifyEntry(order);
-  ok('an order: the body quotes the court\'s words whole', n && n.body.includes(`: "${c.full}".`));
+  ok('an order that does not rule on a dispositive motion (Dkt. 239, a proposed-order instruction) gets no news item', !n && c && c.news === false);
   ok('an order: the event is the label and the trimmed words', a.data.entries.find((x) => x.key === KEY).events.some((x) => x.date === '2026-07-20' && x.text.startsWith('Court order: ORDER. By July 24, 2026')));
 }
 {
   // a classifier that gives an operative clause: it is used as given, for the event and the quote
   const c = { ...classifyEntry(appeal), operative: 'NOTICE OF APPEAL to the 9th Circuit Court of Appeals' };
-  ok('the classifier\'s operative clause wins when present, for the event and the quote', eventText(c) === c.operative && bodyQuote(c) === `"${c.operative}"`);
+  ok('the operative clause is shown on the event but never quoted: every quoted span is the court\'s own words', eventText(c) === c.operative && [...bodyQuote({ ...c, operative: 'A LABEL NOT IN THE DOCKET' }).matchAll(/"([^"]+)"/g)].every((m) => c.full.includes(m[1])));
   ok('without it: label and the court\'s words', eventText(classifyEntry(order)).startsWith('Court order: ORDER.'));
 }
 

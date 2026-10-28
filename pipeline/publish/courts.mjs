@@ -40,8 +40,8 @@ export function partiesOf(filers, full = '') {
 // The event's display text: the classifier's operative clause when it gives one, else the label and the court's (trimmed) words.
 export const eventText = (c) => { const p = partsOf(c.full); return cut(c.operative || `${c.label}: ${p ? `${p.head}${p.rest ? `. ${p.rest}` : ''}` : c.text}`, 200); };
 // The news body: the operative clause quoted word for word, the parties named by rule outside the quotes.
+// Never the classifier's operative text: it starts with a fixed label, so it is not the court's words and may only be shown unquoted.
 export function bodyQuote(c) {
-  if (c.operative) return `"${c.operative}"`;
   const p = partsOf(c.full);
   return p ? `"${p.head}", filed by ${partiesOf(p.filers, c.full)}${p.rest ? `: "${p.rest}"` : ''}` : `"${c.full}"`;
 }

@@ -3,9 +3,9 @@
 // (became law, vetoed) and the checked / changed dates. It never touches mechanism, thresholds, penalties or any other
 // reading field; those are Tier B (AI, behind the accuracy gate). No AI is used here.
 // Pure: takes the current data and a run, returns new data plus the change log. Writing and stop rules are elsewhere.
-import { longDate, eventFor } from '../agents/derive.mjs';
-import { datesMentioned, COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
-import { eventType as stateEventType } from '../grabber/sources/legiscan.mjs';
+import { longDate } from '../agents/derive.mjs';
+import { datesMentioned, COSPONSOR_SUFFIX, cosponsorSuffix, actionKind } from '../compare/congress.mjs';
+import { stateActionKind } from '../grabber/sources/legiscan.mjs';
 import { statusFor } from '../agents/rules.mjs';
 
 const FULL_MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -35,19 +35,16 @@ const actionOf = (reason) => {
 // The stored record is JSON, so quotes and slashes in the action text are escaped there.
 const inRaw = (raw, t) => raw.includes(t) || raw.includes(JSON.stringify(t).slice(1, -1));
 
-// TODO(lead): switch isMilestone and actionRank to the milestone / importance classifier exported by agents/derive.mjs and
-// grabber/sources/legiscan.mjs (findings R2 B3, B4). Until then they wrap the current event rules (eventFor / eventType).
-const typeOf = (text, source) => (source === 'legiscan' ? stateEventType(text) : eventFor({ text }));
-const PROCEDURAL = /not agreed to|motion to (reconsider|table|proceed)|laid on the table|cloture|\bamendments? (no\.|sa\b|\d)/i;
-// A milestone: passage, reported, signed, vetoed, became law, hearing held, markup. Only these get a status-text line and a news item.
-export const isMilestone = (text, source) => {
-  const t = typeOf(text, source);
-  if (!t || PROCEDURAL.test(text)) return false;
-  return t === 'Referred / stalled / hearing' ? /\bhearings?\b|\bmarkup\b|\bmark-up\b/i.test(text) : t !== 'Introduced / published';
-};
-// Within one date the most important action takes the date's status line and news item: law > veto > passage > reported > hearing > referral.
-const RANK = [[/became public law|signed by (the )?(president|governor)|chaptered|became law/i, 6], [/veto/i, 5], [/\bpass(ed)?\b|agreed to by|concurred|enrolled/i, 4], [/reported|do pass/i, 3], [/hearing|markup|mark-up/i, 2], [/referred/i, 1]];
-export const actionRank = (text, source) => (isMilestone(text, source) ? 10 : 0) + (RANK.find(([re]) => re.test(text)) || [null, 0])[1];
+// Each source's own classifier (compare/congress.mjs actionKind, grabber/sources/legiscan.mjs stateActionKind): the event type (null for a
+// procedural step), and an importance on one scale (enacted 100 … hearing 40, introduced 30, referred 20, procedural 0).
+const kindOf = (text, source) => (source === 'legiscan' ? stateActionKind(text) : actionKind(text));
+const typeOf = (text, source) => kindOf(text, source).type;
+// A milestone: a hearing or markup and everything above it (reported, passage, failure, veto, override, enactment). Only these get a
+// status-text line and a news item; an introduction or a referral is an event only, and a procedural step is not written at all.
+const MILESTONE_FROM = 40;
+export const isMilestone = (text, source) => { const k = kindOf(text, source); return !!k.type && k.milestone && k.importance >= MILESTONE_FROM; };
+// Within one date the most important action takes the date's status line and news item.
+export const actionRank = (text, source) => kindOf(text, source).importance;
 
 // The same verb (enrolled, passed, signed, reported, vetoed) on a date within 14 days, already in the status text: said, perhaps on
 // another date. Returns that date (ISO) or null.
@@ -77,7 +74,7 @@ function statusQuote(item, raw, status) {
   if (!b) return null;
   if (item.source === 'congress_gov') return b.latestAction && b.latestAction.text ? clean(b.latestAction.text) : null;
   const want = status === 'enacted' ? 'Signed / enacted' : 'Vetoed / failed / rescinded';
-  const h = (b.history || []).filter((x) => stateEventType(x.action) === want).sort((x, y) => String(x.date).localeCompare(String(y.date))).pop();
+  const h = (b.history || []).filter((x) => typeOf(x.action, "legiscan") === want).sort((x, y) => String(x.date).localeCompare(String(y.date))).pop();
   return h ? clean(h.action) : null;
 }
 const OVER_VETO = /\bover (the )?(\w+'s )?veto\b|veto overrid|became public law/i;
