@@ -8,6 +8,9 @@
 //     text does not name) is reported under `notes`, never proposed.
 //   by AI (reading): "copies / overlaps / modeled on", only with a quote from BOTH bills that code finds word for word in each
 //     bill's text, and a second reader (role validator) agreeing. Prompts in prompts.mjs.
+// Only one kind of proposal is ever APPLIED (isApplicable, basis 'record'): a sponsor link proved by the official record (the
+// record's primary sponsor id stored for the actor in config/actor-ids.json, and that sponsor the entry's stated lead). Every other
+// proposal (basis 'prose' or 'ai') is reported only.
 // Direction, labels and evidence follow links/rules.mjs. Every proposal:
 //   { from, to, type, label, evidence: [{ entry_key, node, field, quote, source_url }], method: 'code' | 'ai', dashed? }
 // evidence[0] is the edge's quote: verbatim in field `field` of the entry at node `node` (source_url = its tracker page), or, for
@@ -16,6 +19,7 @@
 import { containsQuote } from '../agents/source-text.mjs';
 import { READER_SYSTEM, readerPrompt, CONFIRM_SYSTEM, confirmPrompt } from './prompts.mjs';
 import { trackerUrl, sponsorLabel, amendsLabel, TEMPLATE_LABEL, OVERLAP_PREFIX, legislatorOf, chamberOf } from './rules.mjs';
+import { recordSponsors, recordUrl, nodeOfId, loadActorIds } from './records.mjs';
 
 export { amendsLabel };
 export const LABEL = { sponsor: 'Sponsor', draft: 'Draft author', copies: TEMPLATE_LABEL };
@@ -65,15 +69,8 @@ export function leadSponsor(text) {
 // Kept for callers: the text of the lead sponsor ('' when the text names none).
 export const leadSponsors = (s) => { const l = leadSponsor(s); return l ? l.quote : ''; };
 
-// Primary sponsors from an official record: Congress.gov (bill.sponsors, each with a bioguideId) or LegiScan (bill.sponsors with
-// people_id, sponsor_type_id 1 = primary; when none is marked primary, none: the first listed is never assumed to be the lead).
-export function recordSponsors(rec, entry) {
-  const b = (rec && (rec.bill || rec)) || {}, s = Array.isArray(b.sponsors) ? b.sponsors : [];
-  if (s.some((x) => x && x.bioguideId)) return s.filter((x) => x && x.bioguideId && x.firstName && x.lastName).map((x) => ({ id: 'bioguide:' + x.bioguideId, chamber: chamberOf(x.fullName), first: x.firstName, last: x.lastName, party: x.party || null, state: x.state || null }));
-  const ls = s.filter((x) => x && x.people_id && !x.committee_sponsor);
-  const prim = ls.filter((x) => x.sponsor_type_id === 1);
-  return prim.filter((x) => x.first_name && x.last_name).map((x) => ({ id: 'legiscan:' + x.people_id, chamber: chamberOf(x.role), first: x.first_name, last: x.last_name, party: x.party || null, state: entry.state || null }));
-}
+// Primary sponsors from an official record: links/records.mjs (Congress.gov bioguideId; LegiScan people_id with sponsor_type_id 1).
+export { recordSponsors };
 
 const same = (a, b) => String(a || '').toLowerCase() === String(b || '').toLowerCase();
 // A person matches a legislator node when first and last name, chamber and state all match, the level fits (Congress nodes
@@ -86,31 +83,71 @@ function matches(person, actor, entry) {
   if (actor.party && !same(actor.party, person.party)) return false;
   return actor.chamber === person.chamber && same(actor.first, person.first) && same(actor.last, person.last) && actor.state === state;
 }
-// A sponsor edge is drawn only for the entry's stated lead sponsor (leadSponsor), quoting that lead clause. With an official
-// record, the record's primary sponsor must BE that lead (same first and last name and chamber, both matching the same node); a
-// record whose primary is someone else, or that marks no primary, draws nothing (reported).
-function sponsorProposals(entry, node, rel, records, notes) {
+// Does the record's primary sponsor `p` agree with the entry's stated lead? Same first and last name and chamber; the party, where
+// both give one, the same; the state too where both give one. Returns null when it does, else why not.
+function leadDisagrees(p, lead) {
+  if (!same(p.first, lead.first) || !same(p.last, lead.last) || p.chamber !== lead.chamber) return `the record's primary sponsor ${p.first} ${p.last} is not named as the entry's lead sponsor (${lead.first} ${lead.last})`;
+  if (p.party && lead.party && !same(p.party, lead.party)) return `the entry gives the lead sponsor ${lead.first} ${lead.last} party ${lead.party}, the record gives ${p.party}`;
+  if (lead.state && p.state && lead.state !== p.state) return `the entry gives the lead sponsor ${lead.first} ${lead.last} state ${lead.state}, the record gives ${p.state}`;
+  return null;
+}
+// Sponsor links. APPLIED (basis 'record') only when the official record proves it: the record's primary sponsor has an official
+// id, that id is stored for exactly one actor node (config/actor-ids.json), the node is that person (name, chamber, state, party),
+// and the record's sponsor is the entry's stated lead (leadSponsor; party and state agree where both give them). Its quote is the
+// record's own sponsor field and its source the record's URL. A lead read from the entry's prose alone (no record, or no stored id)
+// is a proposal (basis 'prose'): reported, never applied. A record that contradicts the prose draws nothing (reported).
+function sponsorProposals(entry, node, rel, records, notes, actorIds) {
   const label = sponsorLabel(entry); if (!label) return [];
   const actors = Object.entries(rel.nodes).filter(([, n]) => n.kind === 'actor').map(([k, n]) => ({ k, ...legislatorOf(n.name) })).filter((a) => a.chamber);
   const recs = (records && records[entry.key]) || [];
   const lead = leadSponsor(entry.sponsor_text);
   const note = (why) => notes.push({ entry_key: entry.key, kind: 'sponsor', why });
   if (!lead) { if (recs.length) note('the record\'s sponsor is not named as the lead sponsor: the entry\'s sponsor text names no lead ("Sen./Rep. First Last (Party)" at its start); nothing proposed'); return []; }
-  let person = lead, id = null;
-  if (recs.length) {
-    const prim = recs.flatMap((r) => recordSponsors(r, entry));
-    if (!prim.length) { note(`the official record marks no primary sponsor, so the entry's lead ${lead.first} ${lead.last} is not confirmed; nothing proposed`); return []; }
-    const hits = prim.filter((p) => same(p.first, lead.first) && same(p.last, lead.last) && p.chamber === lead.chamber);
-    if (hits.length !== 1) { note(`the record's primary sponsor ${prim.map((p) => p.first + ' ' + p.last).join(', ')} is not named as the entry's lead sponsor (${lead.first} ${lead.last}); nothing proposed`); return []; }
-    person = hits[0]; id = person.id;
-  }
-  const hit = actors.filter((a) => matches(person, a, entry) && matches(lead, a, entry));
-  if (hit.length > 1) { note(`ambiguous: ${lead.first} ${lead.last} matches ${hit.map((a) => a.k).join(', ')}; nothing proposed`); return []; }
-  if (!hit.length) return [];
-  return [{ from: hit[0].k, to: node, type: 'actor', label, evidence: [entryEvidence(entry, node, 'sponsor_text', lead.quote)], method: 'code', ...(id ? { record_id: id } : {}) }];
+  const prose = actors.filter((a) => matches(lead, a, entry));
+  if (prose.length > 1) { note(`ambiguous: ${lead.first} ${lead.last} matches ${prose.map((a) => a.k).join(', ')}; nothing proposed`); return []; }
+  const proseProposal = (why) => {
+    if (!prose.length) return [];
+    if (why) note(why);
+    return [{ from: prose[0].k, to: node, type: 'actor', label, basis: 'prose', evidence: [entryEvidence(entry, node, 'sponsor_text', lead.quote)], method: 'code' }];
+  };
+  if (!recs.length) return proseProposal(null);
+  const prim = recs.flatMap((r) => recordSponsors(r, entry).map((p) => ({ ...p, url: recordUrl(r) })));
+  if (!prim.length) { note(`the official record marks no primary sponsor, so the entry's lead ${lead.first} ${lead.last} is not confirmed; nothing proposed`); return []; }
+  const ids = new Set(prim.map((p) => p.id));
+  if (ids.size !== 1) { note(`the records name ${ids.size} different primary sponsors (${prim.map((p) => p.first + ' ' + p.last).join(', ')}): the record's primary sponsor is not named as the entry's single lead; nothing proposed`); return []; }
+  const p = prim[0], off = leadDisagrees(p, lead);
+  if (off) { note(off + '; nothing proposed'); return []; }
+  const at = nodeOfId(p.id, actorIds), a = at && actors.find((x) => x.k === at);
+  if (!at) return proseProposal(`${p.first} ${p.last} (${p.id}) has no stored official id on any actor node (config/actor-ids.json): the sponsor link is reported, not applied`);
+  if (!a || !matches(p, a, entry) || !matches(lead, a, entry)) { note(`${p.id} is stored for ${at}, which is not ${p.first} ${p.last} of this ${entry.level === 'federal' ? 'Congress' : 'state'}; nothing proposed`); return []; }
+  if (!p.url) return proseProposal(`the record for ${p.first} ${p.last} has no public URL to cite: the sponsor link is reported, not applied`);
+  return [{ from: at, to: node, type: 'actor', label, basis: 'record', record_id: p.id, evidence: [{ entry_key: entry.key, node, field: 'record', quote: p.quote, source_url: p.url }], method: 'code' }];
 }
-// The meaning check checkLinks runs on a Sponsor edge: its quote is exactly the lead clause of the sponsor text, and that lead is
-// the legislator at the edge's `from` (null when it is; otherwise the problem).
+// Only a sponsor link proved by an official record is ever applied; every other proposal is reported only.
+export const isApplicable = (p) => !!p && p.type === 'actor' && p.basis === 'record' && p.method === 'code' && !!p.record_id && !!(p.evidence && p.evidence[0] && p.evidence[0].field === 'record');
+// The check checkLinks runs on an applied sponsor edge (col 'record'): one of the entry's records, at the edge's source_url, names
+// as its single primary sponsor a person whose own record wording is the edge's quote, whose official id is stored for the node
+// at `from` (and for no other node), who is that node's legislator, and who is the entry's stated lead. null when it holds.
+export function recordProofProblem(e, ent, nodes, records, actorIds) {
+  const recs = (records && records[ent.key]) || [];
+  if (!recs.length) return 'no official record for the entry was given to prove the sponsor';
+  const all = recs.flatMap((r) => recordSponsors(r, ent));
+  if (new Set(all.map((p) => p.id)).size > 1) return 'the records name more than one primary sponsor';
+  const prim = recs.filter((r) => recordUrl(r) === e.source_url).flatMap((r) => recordSponsors(r, ent));
+  if (!prim.length) return `no record at ${e.source_url} with a primary sponsor`;
+  const p = prim[0];
+  if (p.quote !== e.quote) return `the quote is not the record's sponsor field ("${p.quote}")`;
+  if (nodeOfId(p.id, actorIds) !== e.from) return `the record's sponsor ${p.id} is not the official id stored for ${e.from}`;
+  const a = legislatorOf(nodes[e.from] && nodes[e.from].name);
+  if (!a || !matches(p, a, ent)) return `the record's sponsor ${p.first} ${p.last} is not the legislator at ${e.from}`;
+  const lead = leadSponsor(ent.sponsor_text);
+  if (!lead) return 'the entry\'s sponsor text names no lead sponsor';
+  const off = leadDisagrees(p, lead); if (off) return off;
+  if (!matches(lead, a, ent)) return `the entry's lead sponsor is not ${nodes[e.from].name}`;
+  return null;
+}
+// The meaning check on a prose Sponsor proposal (report-only): its quote is exactly the lead clause of the sponsor text, and that
+// lead is the legislator at the edge's `from` (null when it is; otherwise the problem).
 export function sponsorQuoteProblem(sponsorText, quote, actorName) {
   const lead = leadSponsor(sponsorText), a = legislatorOf(actorName);
   if (!lead || quote !== lead.quote) return 'the quote is not the lead sponsor clause at the start of the sponsor text';
@@ -260,7 +297,7 @@ function amendProposals(entry, node, entries, rel, nodeOf, notes) {
         done.add(t.key);
         const ev = [entryEvidence(entry, node, field, cl)];
         if (hit.own) ev.push(entryEvidence(t, nodeOf[t.key], hit.own.field, hit.own.quote));
-        out.push({ from: node, to: nodeOf[t.key], type: 'succession', label: amendsLabel(rel.nodes[nodeOf[t.key]].name), evidence: ev, method: 'code' });
+        out.push({ from: node, to: nodeOf[t.key], type: 'succession', basis: 'prose', label: amendsLabel(rel.nodes[nodeOf[t.key]].name), evidence: ev, method: 'code' });
       }
     }
   }
@@ -299,13 +336,13 @@ export function companions({ entries, changed, billIds = {}, related = {} }) {
 // entries, relationships: the current data (the changed entries included). changed: entry keys that are new or changed.
 // records: { entry key: [official records (Congress.gov / LegiScan raw)] }, used for primary sponsors when present.
 // Returns { proposals, nodes: { key: node } for changed entries the network does not have yet, companions, notes }.
-export function proposeByCode({ entries, relationships: rel, changed, billIds = {}, related = {}, records = {} }) {
+export function proposeByCode({ entries, relationships: rel, changed, billIds = {}, related = {}, records = {}, actorIds = loadActorIds() }) {
   const nodeOf = nodeOfEntry(rel), nodes = {}, scratch = { ...rel, nodes: { ...rel.nodes } }, types = usedTypes(rel), notes = [];
   for (const key of changed) if (!nodeOf[key]) { const e = entries.find((x) => x.key === key); if (!e) continue; const n = nodeFor(e, scratch, entries); scratch.nodes[n.key] = n.node; nodes[n.key] = n.node; nodeOf[key] = n.key; }
   const proposals = [];
   for (const key of changed) {
     const e = entries.find((x) => x.key === key); if (!e) continue;
-    if (types.has('actor')) proposals.push(...sponsorProposals(e, nodeOf[key], scratch, records, notes));
+    if (types.has('actor')) proposals.push(...sponsorProposals(e, nodeOf[key], scratch, records, notes, actorIds));
     if (types.has('succession')) proposals.push(...amendProposals(e, nodeOf[key], entries, scratch, nodeOf, notes));
   }
   const kept = dedupe(proposals, rel, notes);
@@ -351,7 +388,7 @@ export async function proposeByAI({ entries, relationships: rel, changed, texts 
       if (!(v.data && v.data.confirmed === true)) { dropped.push({ entry_key: key, to: t.key, why: 'the validator did not confirm: ' + String((v.data && v.data.reason) || 'no reason') }); continue; }
       const label = type === 'template' ? LABEL.copies : OVERLAP_PREFIX + String(l.label || '').replace(/^overlap:\s*/i, '').trim().slice(0, 100);
       if (label.length < 12) { dropped.push({ entry_key: key, to: t.key, why: 'no label for the overlap' }); continue; }
-      proposals.push({ from: nodeOf[key], to: nodeOf[t.key], type, label, dashed: true, method: 'ai',
+      proposals.push({ from: nodeOf[key], to: nodeOf[t.key], type, label, dashed: true, method: 'ai', basis: 'ai',
         evidence: [{ entry_key: key, node: nodeOf[key], field: 'text', quote: String(l.quote_from).trim(), source_url: mine.url }, { entry_key: t.key, node: nodeOf[t.key], field: 'text', quote: String(l.quote_to).trim(), source_url: texts[t.key].url }] });
     }
   }
@@ -359,8 +396,8 @@ export async function proposeByAI({ entries, relationships: rel, changed, texts 
 }
 
 // Both readers, code first: an AI link for a pair code already linked is dropped as a duplicate.
-export async function propose({ entries, relationships, changed, billIds, related, records, texts, reader, validator, log }) {
-  const c = proposeByCode({ entries, relationships, changed, billIds, related, records });
+export async function propose({ entries, relationships, changed, billIds, related, records, actorIds, texts, reader, validator, log }) {
+  const c = proposeByCode({ entries, relationships, changed, billIds, related, records, ...(actorIds ? { actorIds } : {}) });
   if (!reader || !validator) return { ...c, dropped: [] };
   const withCode = { ...relationships, edges: [...relationships.edges, ...c.proposals] };
   const a = await proposeByAI({ entries, relationships: withCode, changed, texts, reader, validator, nodes: c.nodes, log });

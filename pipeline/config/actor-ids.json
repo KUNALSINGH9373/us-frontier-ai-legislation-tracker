@@ -1,0 +1,78 @@
+{
+  "_comment": "Official ids of legislator nodes (relationships.json), built by links/actor-ids.mjs from the raw official records in pipeline/data/runs: only unambiguous matches (full name, chamber, state, and party where the node states one). A sponsor link is applied automatically only when an entry's official record names one of these ids as its primary sponsor.",
+  "ids": {
+    "act-wiener": {
+      "legiscan": 18068
+    },
+    "act-gounardes": {
+      "legiscan": 20262
+    },
+    "act-bores": {
+      "legiscan": 24191
+    },
+    "act-edlyallen": {
+      "legiscan": 21101
+    },
+    "act-didech": {
+      "legiscan": 21054
+    },
+    "act-finegold": {
+      "legiscan": 2435
+    },
+    "act-bauerkahan": {
+      "legiscan": 19716
+    },
+    "act-mcnerney": {
+      "legiscan": 25355
+    },
+    "act-obernolte": {
+      "bioguide": "O000019"
+    },
+    "act-moran": {
+      "bioguide": "M001224"
+    },
+    "act-lieu": {
+      "bioguide": "L000582"
+    },
+    "act-jacobs": {
+      "bioguide": "J000305"
+    },
+    "act-whitesides": {
+      "bioguide": "W000830"
+    },
+    "act-hawley": {
+      "bioguide": "H001089"
+    },
+    "act-warner": {
+      "bioguide": "W000805"
+    },
+    "act-sanders": {
+      "bioguide": "S000033"
+    },
+    "act-grassley": {
+      "bioguide": "G000386"
+    }
+  },
+  "unmatched": [
+    {
+      "node": "act-cunningham",
+      "name": "Sen. Bill Cunningham (IL)",
+      "why": "no official record names this legislator (full name, chamber and state)"
+    },
+    {
+      "node": "act-trahan",
+      "name": "Rep. Lori Trahan (D-MA)",
+      "why": "no official record names this legislator (full name, chamber and state)"
+    },
+    {
+      "node": "act-blumenthal",
+      "name": "Sen. Richard Blumenthal (D-CT)",
+      "why": "no official record names this legislator (full name, chamber and state)"
+    },
+    {
+      "node": "act-blackburn",
+      "name": "Sen. Marsha Blackburn (R-TN)",
+      "why": "no official record names this legislator (full name, chamber and state)"
+    }
+  ]
+}

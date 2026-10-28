@@ -17,7 +17,7 @@ import { checkPublish, checkNewsAdded } from '../publish/guards.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
 import { findLeads, entryIndex, NEWS_TERMS } from './leads.mjs';
 import { robotsAllows, releaseText } from './feeds.mjs';
-import { draftNews, duplicateOf, checkLine } from './write.mjs';
+import { draftNews, duplicateOf, checkLine, shiftDays } from './write.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -72,7 +72,7 @@ const aiSafety = (l, release) => { const t = `${l.title} ${l.summary || ''} ${St
 // reader: test hook ({ get(url, accept), used() }). Returns the report section (see report/build.mjs).
 export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, log = () => {} }) {
   const cfg = config.news_leads || { enabled: false };
-  const rep = { ran: false, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, requests: 0, problems: [], summary: '' };
+  const rep = { ran: false, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '' };
   if (!cfg.enabled) return { ...rep, skipped_why: 'turned off in config/publish.json' };
   rep.ran = true;
   const seen = readJson(seenFile, { _note: 'News leads already seen (news/run.mjs), by link. Do not edit by hand.', items: {} });
@@ -116,6 +116,20 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
       else throw e;
     }
     const tries = ((seen.items[l.key] && seen.items[l.key].tries) || 0) + 1;
+    const wasWaiting = !!(seen.items[l.key] && seen.items[l.key].outcome === 'waiting_for_record');
+    if (r.outcome === 'waiting') {
+      // record lag: no AI was used, so it does not count against the drafts per run; kept for retry (no try limit) until the record
+      // shows the event or the freshness window closes
+      drafts--;
+      rep.waiting_record.push({ title: l.title, publisher: l.publisher, link: l.release_url, release_date: r.release_date, reason: r.reason });
+      mark[l.key] = { first_seen: today, outcome: 'waiting_for_record', title: l.title, release_date: r.release_date, tries, retry: true };
+      continue;
+    }
+    if (wasWaiting && r.outcome === 'rejected') {
+      lead(l, `dropped: waited for the official record to show the event the release reports; now refused: ${r.reason}`);
+      mark[l.key] = { first_seen: today, outcome: 'dropped_waiting', title: l.title, tries };
+      continue;
+    }
     if (r.outcome === 'drafted') {
       const dup = duplicateOf(r.item, [...before.news.items, ...items]);
       if (dup) { rep.duplicates++; mark[l.key] = { first_seen: today, outcome: 'duplicate', title: l.title }; continue; }
@@ -132,6 +146,14 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
     if (serviceErrors >= 2) { rep.problems.push('stopped: the model service failed twice in a row'); break; }
   }
   rep.requests = rd.used();
+  // a release still waiting for the record when its freshness window has closed (it no longer comes back from its feed): dropped, with
+  // a report line
+  const windowStart = shiftDays(today, -(cfg.max_age_days || 14));
+  for (const [k, v] of Object.entries(seen.items)) {
+    if (v.outcome !== 'waiting_for_record' || mark[k] || !(v.release_date < windowStart)) continue;
+    rep.leads.push({ title: v.title, publisher: null, link: k, date: v.release_date, primary: true, tracker: null, note: `dropped: the official record did not show the event the release reports within the ${cfg.max_age_days || 14}-day window` });
+    mark[k] = { ...v, outcome: 'dropped_waiting', retry: false };
+  }
 
   // 3. the switch, then the stop rules; any problem means nothing is written and the drafts are retried
   if (items.length && rep.publishing) {
@@ -166,6 +188,7 @@ export function summaryOf(rep) {
   const n = rep.drafted.filter((d) => d.written).length;
   const L = [`News: ${rep.leads.length} lead${rep.leads.length === 1 ? '' : 's'}, ${rep.drafted.length} item${rep.drafted.length === 1 ? '' : 's'} drafted from official releases, ${n} published`];
   rep.drafted.filter((d) => d.written).forEach((d) => L.push(`- ${d.date} ${d.title} (${d.publisher})`));
+  (rep.waiting_record || []).forEach((w) => L.push(`- waiting for the official record (retried next run): ${w.release_date} ${w.title} (${w.publisher})`));
   return L.join('\n');
 }
 

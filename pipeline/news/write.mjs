@@ -111,7 +111,7 @@ export function sentences(text) {
 export const claimsOf = (d) => [{ field: 'title', claim: String(d.title).trim() }, ...sentences(d.body).map((s, i) => ({ field: `body[${i}]`, claim: s }))];
 
 // lead: from news/leads.mjs. release: the release text (feeds.mjs releaseText). writer, checker: AI clients. examples: news items to copy the style of.
-// Returns { outcome: 'drafted' | 'not_newsworthy' | 'rejected' | 'secondary' | 'error', item?, rounds, problems, reason }
+// Returns { outcome: 'drafted' | 'not_newsworthy' | 'rejected' | 'waiting' | 'secondary' | 'error', item?, rounds, problems, reason }
 // index: news/leads.mjs entryIndex of the tracked entries (the item's tracker comes only from the release itself, confirmed by the
 // second reader). kindOf(key): the news kind for an entry. maxAgeDays: the feed window; a release dated before it is old news.
 export async function draftNews({ lead, release, writer, checker, examples = [], today, runId, now = new Date(), maxRounds = 2, entryKind = null, index = [], kindOf = null, maxAgeDays = 14 }) {
@@ -131,8 +131,12 @@ export async function draftNews({ lead, release, writer, checker, examples = [],
   const CUT_REASON = `the release is longer than ${MAX_RELEASE_CHARS} characters and a claim was not found in the part read: refused rather than checked against a cut text`;
   // The tracked entry the release itself names, in its jurisdiction; the second reader must confirm the release is about it.
   // A bill event the release dates ("Today ... introduced H.R. 9917") must agree with the tracked entry's own record (audit N4).
-  const wrongEvents = eventDisagreements({ text: release, date: own, index, state: lead.state || null });
-  if (wrongEvents.length) return { outcome: 'rejected', rounds: 0, problems: wrongEvents, reason: wrongEvents[0] };
+  // A record that already shows the event on another date contradicts the release: refused. An event the record may simply not show
+  // YET (record lag) is 'waiting': not marked seen, retried each run until the record shows it or the freshness window closes.
+  const claims = eventClaims({ text: release, date: own, index, state: lead.state || null });
+  const contra = claims.filter((c) => !c.lag);
+  if (contra.length) return { outcome: 'rejected', rounds: 0, problems: contra.map((c) => c.text), reason: contra[0].text };
+  if (claims.length) return { outcome: 'waiting', retry: true, waiting_for_record: true, release_date: own, rounds: 0, problems: claims.map((c) => c.text), reason: `waiting for the official record: ${claims[0].text.replace(/: refused$/, '')}; retried each run until the record shows it or the ${maxAgeDays}-day window closes` };
   const cand = index.length ? releaseTracker({ release, index, state: lead.state || null }) : null;
   const aboutClaim = cand ? { field: 'subject', claim: `This release is about ${cand.label}: its main subject is that bill (it announces, describes or acts on it), not a passing mention.` } : null;
   const itemId = 'news:' + lead.id;
@@ -284,7 +288,13 @@ const ACTIVE_BILL = new RegExp(`\\b(${VERBS})\\s+(?:(?:the|a|an|bipartisan)\\s+|
 const ACTIVE_NAME = new RegExp(`\\b(${VERBS})\\s+(?:the\\s+|bipartisan\\s+)*((?:[A-Z][\\w'’-]*\\s+){1,7}Act)\\b`, 'g');
 const PASSIVE_BILL = new RegExp(`(${BILL_OBJ})\\)?(?:,\\s+(?:the\\s+)?(?:[A-Z][\\w'’-]*\\s+){0,7}Act,)?\\s+(?:(?:was|were|has been|have been|had been|is|is being)\\s+(?:formally\\s+|officially\\s+|unanimously\\s+)?(${VERBS})|(passed|cleared)\\s+the\\b)`, 'g');
 const FUTURE = /\b(?:will|would|to|plans? to|intends? to|expects? to)\s+(?:\w+\s+)?$/i;
-export function eventDisagreements({ text, date, index = [], state = null }) {
+export const eventDisagreements = (args) => eventClaims(args).map((c) => c.text);
+// Each disagreement with whether it may be RECORD LAG (audit R13, 29 Oct 2026: a committee mark-up announced the day it happened is
+// not yet in the record): the record has no event of that kind dated on or after the claimed date (less the agreement days), and for
+// a kind that happens once to a bill (introduction, signing, veto) no such event at all. A record that already shows the event on
+// another date contradicts the text (lag false: refused for good).
+const ONCE = new Set(["Introduced / published", "Signed / enacted", "Vetoed / failed / rescinded"]);
+export function eventClaims({ text, date, index = [], state = null }) {
   if (!index.length || !date) return [];
   const p = [], seen = new Set();
   // The state the whole text gives each bill number ("Nevada Assembly Bill 1405 (AB 1405)" keeps Nevada where a later sentence writes
@@ -308,7 +318,8 @@ export function eventDisagreements({ text, date, index = [], state = null }) {
         if (!agree && !seen.has(key)) {
           seen.add(key);
           const rec = (x.events || []).filter((v) => v.type === kind).map((v) => v.date);
-          p.push(`the text says ${c.label} was ${c.verb.toLowerCase()} on ${when.join(' or ')}, but the tracked entry ${x.key} records no "${kind}" event within ${EVENT_AGREE_DAYS} days of that (its record: ${rec.length ? rec.join(', ') : 'none of that kind'}): refused`);
+          const first = [...when].sort()[0], lag = ONCE.has(kind) ? !rec.length : !rec.some((d) => d >= shiftDays(first, -EVENT_AGREE_DAYS));
+          p.push({ entry: x.key, kind, when, lag, text: `the text says ${c.label} was ${c.verb.toLowerCase()} on ${when.join(' or ')}, but the tracked entry ${x.key} records no "${kind}" event within ${EVENT_AGREE_DAYS} days of that (its record: ${rec.length ? rec.join(', ') : 'none of that kind'}): refused` });
         }
       }
     }

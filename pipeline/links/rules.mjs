@@ -13,6 +13,10 @@
 // Evidence: a code edge's quote is the tracker's own prose (the entry's sponsor_text, title or mechanism), so the edge says so:
 // `src` is the node of the entry quoted, `col` the field, and `source_url` that entry's page on the tracker, never the bill's page.
 // An AI edge quotes the official bill text: `col` is "text" and `source_url` the text it was read from.
+// Applied vs proposed (29 Oct 2026): the ONLY edge ever added automatically is a sponsor edge proved by the entry's official record
+// (`col` "record": the quote is the record's own sponsor field, `source_url` the record's page, the sponsor's bioguideId / LegiScan
+// people_id stored for the actor in config/actor-ids.json). Every edge read from prose or by AI, above, is a proposal in the run
+// report, never added: three audit rounds showed prose patterns never converge on zero wrong links.
 
 export const TRACKER_URL = 'https://usfrontierlaw.com/#/bill/';
 export const trackerUrl = (entry) => TRACKER_URL + entry.id;
@@ -26,8 +30,10 @@ export const TEMPLATE_LABEL = 'Same template; common drafting source rather than
 export const OVERLAP_PREFIX = 'Overlap: ';
 
 // Legislator actor nodes: "Sen. Josh Hawley (R-MO)" (Congress: party and state) or "Sen. Scott Wiener (CA)" (state: state only).
-const NODE = /^(Sen|Rep|Asm)\.\s+(.+?)\s+\((?:([DRI])-)?([A-Z]{2})\)\s*$/;
-export const chamberOf = (t) => (/^sen/i.test(String(t)) ? 'upper' : /^(rep|asm|assembly|del)/i.test(String(t)) ? 'lower' : null);
+const NODE = /^(Sen|Rep|Asm|Del)\.\s+(.+?)\s+\((?:([DRI])-)?([A-Z]{2})\)\s*$/;
+// "Del." is its own chamber: a delegate (a non-voting House member from a territory, or a member of a House of Delegates) is never
+// read as a Representative, so "Del. Ted Lieu" never matches "Rep. Ted Lieu".
+export const chamberOf = (t) => (/^sen/i.test(String(t)) ? 'upper' : /^(rep|asm|assembly)/i.test(String(t)) ? 'lower' : /^del/i.test(String(t)) ? 'delegate' : null);
 export function legislatorOf(name) {
   const m = String(name || '').match(NODE); if (!m) return null;
   const parts = m[2].split(/\s+/).filter(Boolean); if (parts.length < 2) return null;

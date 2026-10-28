@@ -6,8 +6,10 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import { proposeByCode, proposeByAI, propose, citations, clauses, leadSponsors, nodeFor, companions, LABEL } from './propose.mjs';
-import { applyLinks } from './apply.mjs';
+import { proposeByCode, proposeByAI, propose, citations, clauses, leadSponsors, nodeFor, companions, LABEL, isApplicable } from './propose.mjs';
+import { recordUrl, loadActorIds, nodeOfId } from './records.mjs';
+import { matchActorIds } from './actor-ids.mjs';
+import { applyLinks, edgeOf } from './apply.mjs';
 import { linkRun } from './run.mjs';
 import { backtest, errorsOf, labelOk } from './backtest.mjs';
 import { checkPublish, checkLinks } from '../publish/guards.mjs';
@@ -35,6 +37,13 @@ function newEntry(o) {
   return { ...base, id: Math.max(...ids) + 1, key: 'test-new-bill', title: 'S.99999 — test bill', short_name: 'NY S.99999 (test)', sponsor_text: 'Sen. Jane Doe (D)', mechanism: 'Requires reports.', thresholds: null, sources: [{ label: 'text', url: 'https://www.nysenate.gov/legislation/bills/2025/S99999', kind: 'primary' }], ...o };
 }
 const withEntry = (e) => ({ ...clone(real), entries: [...clone(real.entries), e] });
+// Official records shaped like the raw ones (trimmed to the fields the links step reads; no keys or tokens).
+const lsRec = (state, people, billId = 99001) => ({ bill: { bill_id: billId, url: `https://legiscan.com/${state}/bill/S99999/2025`, state, sponsors: people.map((p, i) => ({ sponsor_type_id: 1, committee_sponsor: 0, name: `${p.first_name} ${p.last_name}`, ...p, sponsor_order: i + 1 })) } });
+const cgRec = (people, number = 99999, type = 'S') => ({ bill: { congress: 119, type, number, sponsors: people } });
+const GOUNARDES = { people_id: 20262, first_name: 'Andrew', last_name: 'Gounardes', role: 'Sen', party: 'D' };
+const WIENER = { people_id: 18068, first_name: 'Scott', last_name: 'Wiener', role: 'Sen', party: 'D' };
+const LIEU = { bioguideId: 'L000582', firstName: 'Ted', lastName: 'Lieu', fullName: 'Rep. Lieu, Ted [D-CA-36]', party: 'D', state: 'CA' };
+const proseEdges = (r) => r.proposals.map(edgeOf);
 
 // ---------- 1. the backtest on the real network: zero false links ----------
 {
@@ -129,25 +138,28 @@ const QA = 'shall write, implement, comply with, and clearly and conspicuously p
 // ---------- 5. apply: additions only, deduped, integrity kept ----------
 {
   const e = newEntry({ mechanism: 'Amends Section 1422 of the General Business Law to shorten the incident deadline to 48 hours', sponsor_text: 'Sen. Andrew Gounardes (D)' });
-  const d = withEntry(e);
-  const r = proposeByCode({ entries: d.entries, relationships: d.relationships, changed: [e.key] });
-  const dup = { ...clone(r.proposals[0]) }, old = real.relationships.edges[0];
+  const d = withEntry(e), records = { [e.key]: [lsRec('NY', [GOUNARDES])] };
+  const r = proposeByCode({ entries: d.entries, relationships: d.relationships, changed: [e.key], records });
+  const sp0 = r.proposals.find((x) => x.type === 'actor'), am0 = r.proposals.find((x) => x.type === 'succession');
+  ok('5 the record proves the sponsor link; the amendment link is a proposal only', sp0 && isApplicable(sp0) && am0 && !isApplicable(am0), JSON.stringify(r.proposals));
+  const dup = { ...clone(sp0) }, old = real.relationships.edges[0];
   const reverse = { from: old.to, to: old.from, type: old.type, label: 'Same link the other way', evidence: [{ entry_key: 'x', node: old.to, field: 'mechanism', quote: 'a quote that is long', source_url: 'https://example.gov/x' }], method: 'code' };
-  const noQuote = { ...clone(r.proposals[0]), type: 'template', evidence: [{ entry_key: e.key, quote: '', source_url: null }] };
+  const noQuote = { ...clone(sp0), evidence: [{ entry_key: e.key, node: sp0.to, field: 'record', quote: '', source_url: null }] };
   const a = applyLinks({ data: d, proposals: [...r.proposals, dup, reverse, noQuote], nodes: { ...r.nodes, UNUSED: { name: 'never used', column: 4, kind: 'entry', entry_key: e.key } } });
-  ok('5 the sponsor and amendment links are added', a.added.edges.length === 2 && a.added.edges.every((x) => x.origin === 'automated' && x.source_url && x.quote.length >= 8), JSON.stringify(a.skipped.map((s) => s.why)));
-  ok('5 a duplicate, an existing link reversed, and a link without a quote are skipped', a.skipped.length === 3 && a.skipped.filter((s) => s.why === 'already in the network').length === 2);
+  ok('5 only the record-proved sponsor link is added, quoting the record and citing it', a.added.edges.length === 1 && a.added.edges.every((x) => x.origin === 'automated' && x.type === 'actor' && x.col === 'record' && x.quote === 'Andrew Gounardes' && x.source_url === 'https://legiscan.com/NY/bill/S99999/2025'), JSON.stringify(a.skipped.map((s) => s.why)));
+  ok('5 the amendment link and the reversed edge are skipped as report-only, the duplicate as already there, the quoteless one too', a.skipped.length === 4 && a.skipped.filter((s) => /report-only/.test(s.why)).length === 2 && a.skipped.filter((s) => s.why === 'already in the network').length === 1 && a.skipped.some((s) => /needs a quote/.test(s.why)), JSON.stringify(a.skipped.map((s) => s.why)));
   ok('5 only nodes a new link uses are added', Object.keys(a.added.nodes).length === 1 && !a.relationships.nodes.UNUSED);
   ok('5 every old node and edge is unchanged and in place', JSON.stringify(a.relationships.edges.slice(0, real.relationships.edges.length)) === JSON.stringify(real.relationships.edges) && Object.keys(real.relationships.nodes).every((k) => JSON.stringify(a.relationships.nodes[k]) === JSON.stringify(real.relationships.nodes[k])));
   ok('5 the result passes integrity and the relationships schema', !a.problems.length && !checkIntegrity({ ...d, relationships: a.relationships }).length && !makeValidator().check('relationships', a.relationships).length, a.problems.join('; '));
   const m = await mapCheck({ ...d, relationships: a.relationships });
   ok('5 the link map draws every end of every link, with no duplicate node', !m.problems.length, m.problems.join('; '));
-  const ghost = applyLinks({ data: d, proposals: [{ ...r.proposals[0], from: 'NO-SUCH-NODE' }] });
+  const ghost = applyLinks({ data: d, proposals: [{ ...sp0, from: 'NO-SUCH-NODE' }] });
   ok('5 a link to an unknown node is skipped', !ghost.added.edges.length && /unknown node/.test(ghost.skipped[0].why));
 
   // ---------- 6. the stop rules: the network may only grow by exactly what apply added ----------
   const before = d, after = { ...d, relationships: a.relationships };
-  const run = (aft, links) => checkPublish({ before, after: aft, runDate: '2026-10-28', maxEntries: 15, newKeys: [e.key], maxNew: 1, links: links && { ...links, created: [e.key] } }).problems.filter((p) => /relationships|added link/.test(p));
+  const run = (aft, links) => checkPublish({ before, after: aft, runDate: '2026-10-28', maxEntries: 15, newKeys: [e.key], maxNew: 1, links: links && { ...links, created: [e.key], records } }).problems.filter((p) => /relationships|added link/.test(p));
+  ok('6 without the entry\'s record the same addition stops the run (nothing proves it)', checkPublish({ before, after, runDate: '2026-10-28', maxEntries: 15, newKeys: [e.key], maxNew: 1, links: { ...a.added, created: [e.key] } }).problems.some((p) => /not proved by the official record/.test(p)));
   ok('6 additions from links/apply.mjs pass', run(after, a.added).length === 0, run(after, a.added).join('; '));
   ok('6 without the links list, any change still stops the run', run(after, null).some((p) => /relationships changed: Tier A/.test(p)));
   const edited = clone(after); edited.relationships.edges[0].label = 'edited';
@@ -170,24 +182,28 @@ function sandbox() {
   const e = newEntry({ mechanism: 'Amends Section 1422 of the General Business Law to shorten the incident deadline to 48 hours', sponsor_text: 'Sen. Andrew Gounardes (D)' });
   const ents = JSON.parse(fs.readFileSync(path.join(dir, 'data', 'entries.json'), 'utf8')); ents.push(e);
   fs.writeFileSync(path.join(dir, 'data', 'entries.json'), JSON.stringify(ents, null, 1));
-  return { dir, dataDir: path.join(dir, 'data'), docsDir: path.join(dir, 'docs'), key: e.key };
+  return { dir, dataDir: path.join(dir, 'data'), docsDir: path.join(dir, 'docs'), key: e.key, records: { [e.key]: [lsRec('NY', [GOUNARDES])] } };
 }
 {
   const sb = sandbox(), relFile = path.join(sb.dataDir, 'relationships.json'), was = fs.readFileSync(relFile, 'utf8');
-  const off = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: false } }, runDate: '2026-10-28' });
+  const off = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: false } }, runDate: '2026-10-28', records: sb.records });
   ok('7 switched off: the links are proposed and nothing is written', off.status === 'proposed' && off.proposed.length === 2 && !off.applied.length && fs.readFileSync(relFile, 'utf8') === was);
-  ok('7 the report names both ends and the quote', off.proposed.every((p) => p.names[0] && p.names[1] && p.quote) && /reported only/.test(off.summary));
+  ok('7 the report names both ends and the quote, and says which link the record proves', off.proposed.every((p) => p.names[0] && p.names[1] && p.quote) && /reported only/.test(off.summary) && off.proposed.filter((p) => p.applies).length === 1 && off.proposed.find((p) => !p.applies).type === 'succession' && /proposal only/.test(off.summary));
   const rep = newReport({ id: 'update-test', now: new Date('2026-10-28T06:00:00Z') }); rep.links = off; finalize(rep, { now: new Date('2026-10-28T06:01:00Z') });
   const text = formatReport(rep);
   ok('7 the Telegram report lists them under "Links proposed"', /Links proposed: 2 \(reported only/.test(text) && /NY S\.99999 \(test\) → NY RAISE Act/.test(text), text);
-  const on = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
+  const on = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', records: sb.records });
   const written = JSON.parse(fs.readFileSync(relFile, 'utf8')), docs = JSON.parse(fs.readFileSync(path.join(sb.docsDir, 'relationships.json'), 'utf8'));
-  ok('7 switched on: the links are added to the data and the live copy', on.status === 'written' && on.applied.length === 2 && written.edges.length === real.relationships.edges.length + 2 && docs.edges.length === written.edges.length, on.problems.join('; '));
+  ok('7 switched on: only the record-proved sponsor link is added to the data and the live copy; the amendment stays a proposal', on.status === 'written' && on.applied.length === 1 && on.applied[0].type === 'actor' && written.edges.length === real.relationships.edges.length + 1 && docs.edges.length === written.edges.length && on.proposed.some((p) => p.type === 'succession' && !p.applies), on.problems.join('; '));
   ok('7 the written network keeps every old edge in place', JSON.stringify(written.edges.slice(0, real.relationships.edges.length)) === JSON.stringify(real.relationships.edges));
-  const again = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
-  ok('7 a second run adds nothing (dedupe)', again.status === 'nothing' && JSON.parse(fs.readFileSync(relFile, 'utf8')).edges.length === written.edges.length);
+  const again = await linkRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, changed: [sb.key], created: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', records: sb.records });
+  ok('7 a second run adds nothing (dedupe)', !again.applied.length && again.status !== 'written' && JSON.parse(fs.readFileSync(relFile, 'utf8')).edges.length === written.edges.length);
+  const norec = sandbox();
+  const nr = await linkRun({ dataDir: norec.dataDir, changed: [norec.key], created: [norec.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28' });
+  ok('7 switched on but no official record: nothing is added, both links are proposals', nr.status === 'proposed' && !nr.applied.length && nr.proposed.length === 2 && nr.proposed.every((p) => !p.applies) && JSON.parse(fs.readFileSync(path.join(norec.dataDir, 'relationships.json'), 'utf8')).edges.length === real.relationships.edges.length);
+  fs.rmSync(norec.dir, { recursive: true, force: true });
   const dry = sandbox();
-  const dr = await linkRun({ dataDir: dry.dataDir, changed: [dry.key], created: [dry.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', dry: true });
+  const dr = await linkRun({ dataDir: dry.dataDir, changed: [dry.key], created: [dry.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', dry: true, records: dry.records });
   ok('7 a dry run checks but writes nothing', dr.status === 'dry-run' && JSON.parse(fs.readFileSync(path.join(dry.dataDir, 'relationships.json'), 'utf8')).edges.length === real.relationships.edges.length);
   for (const s of [sb, dry]) fs.rmSync(s.dir, { recursive: true, force: true });
 }
@@ -215,21 +231,21 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
   const amb = code(fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-TX)' }), { relationships: twin });
   ok('8.1 two matching actor nodes: no proposal, a note says why', !amb.proposals.some((x) => x.type === 'actor') && amb.notes.some((n) => /ambiguous/.test(n.why)));
   // from the official record: Congress.gov sponsors with bioguideId decide; the text is not used for identity
-  const recJerry = { bill: { sponsors: [{ bioguideId: 'M000934', firstName: 'Jerry', lastName: 'Moran', fullName: 'Sen. Moran, Jerry [R-KS]', party: 'R', state: 'KS' }] } };
+  const recJerry = cgRec([{ bioguideId: 'M000934', firstName: 'Jerry', lastName: 'Moran', fullName: 'Sen. Moran, Jerry [R-KS]', party: 'R', state: 'KS' }]);
   const e1 = fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-TX)' });
   ok('8.1 the Congress.gov record\'s sponsor (Jerry Moran, bioguide M000934) overrides the text: no link to Nathaniel Moran', !code(e1, { records: { [e1.key]: [recJerry] } }).proposals.some((x) => x.from === 'act-moran'));
-  const recNat = { bill: { sponsors: [{ bioguideId: 'M001224', firstName: 'Nathaniel', lastName: 'Moran', fullName: 'Rep. Moran, Nathaniel [R-TX-1]', party: 'R', state: 'TX' }] } };
+  const recNat = cgRec([{ bioguideId: 'M001224', firstName: 'Nathaniel', lastName: 'Moran', fullName: 'Rep. Moran, Nathaniel [R-TX-1]', party: 'R', state: 'TX' }]);
   const e2 = fedBill({ sponsor_text: 'Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX)' });
   const r2 = code(e2, { records: { [e2.key]: [recNat] } });
   // 29 Oct 2026: the record's primary sponsor must BE the entry's stated lead sponsor; when they differ nothing is drawn (reported)
   ok('8.1 the record\'s primary sponsor (Moran) is not the entry\'s stated lead (Jacobs): no sponsor link at all, reported', !r2.proposals.some((x) => x.type === 'actor') && r2.notes.some((n) => n.kind === 'sponsor'), JSON.stringify(r2.proposals));
   const e2b = fedBill({ sponsor_text: 'Rep. Nathaniel Moran (R-TX), with Rep. Sara Jacobs (D-CA)' });
   const r2b = code(e2b, { records: { [e2b.key]: [recNat] } });
-  ok('8.1 the record\'s primary sponsor who is the stated lead is linked, quoting the lead clause', r2b.proposals.some((x) => x.from === 'act-moran' && x.record_id === 'bioguide:M001224' && x.evidence[0].quote === 'Rep. Nathaniel Moran (R-TX)') && !r2b.proposals.some((x) => x.from === 'act-jacobs'), JSON.stringify(r2b.proposals));
+  ok('8.1 the record\'s primary sponsor who is the stated lead is linked, record-proved, quoting the record\'s sponsor field and citing the record', r2b.proposals.some((x) => x.from === 'act-moran' && x.record_id === 'bioguide:M001224' && isApplicable(x) && x.evidence[0].quote === 'Rep. Moran, Nathaniel [R-TX-1]' && x.evidence[0].source_url === 'https://www.congress.gov/bill/119th-congress/senate-bill/99999') && !r2b.proposals.some((x) => x.from === 'act-jacobs'), JSON.stringify(r2b.proposals));
   const e3 = fedBill({ sponsor_text: 'Rep. Moran (R-TX)' });
   const r3 = code(e3, { records: { [e3.key]: [recNat] } });
   ok('8.1 a record sponsor the entry text does not name in full: nothing proposed, reported', !r3.proposals.some((x) => x.type === 'actor') && r3.notes.some((n) => /not named/.test(n.why)));
-  const ls = { bill: { sponsors: [{ people_id: 1, first_name: 'Rebecca', last_name: 'Bauer-Kahan', role: 'Rep', party: 'D', sponsor_type_id: 2 }, { people_id: 18068, first_name: 'Scott', last_name: 'Wiener', role: 'Sen', party: 'D', sponsor_type_id: 1 }] } };
+  const ls = lsRec('CA', [{ people_id: 1, first_name: 'Rebecca', last_name: 'Bauer-Kahan', role: 'Rep', party: 'D', sponsor_type_id: 2 }, WIENER]);
   const e4 = newEntry({ jurisdiction: 'CA', state: 'CA', title: 'S.B. 999 — test', short_name: 'CA SB 999', sponsor_text: 'Sen. Scott Wiener (D); coauthor Asm. Rebecca Bauer-Kahan (D)' });
   const r4 = code(e4, { records: { [e4.key]: [ls] } });
   ok('8.1 LegiScan: only the primary sponsor (sponsor_type_id 1, people_id) is linked, not the co-sponsor', r4.proposals.some((x) => x.from === 'act-wiener' && x.record_id === 'legiscan:18068') && !r4.proposals.some((x) => x.from === 'act-bauerkahan'));
@@ -277,18 +293,36 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
   const d = withEntry(e), r = code(e);
   ok('8.4 every code proposal quotes the entry and cites its tracker page, never the bill URL', r.proposals.length === 2 && r.proposals.every((p) => p.evidence[0].source_url === 'https://usfrontierlaw.com/#/bill/' + e.id && e[p.evidence[0].field].includes(p.evidence[0].quote) && p.evidence[0].node === (p.type === 'actor' ? p.to : p.from)), JSON.stringify(r.proposals.map((p) => p.evidence[0])));
   const a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
-  ok('8.4 the edge says where its quote sits (src = the entry\'s node, col = the field)', a.added.edges.every((x) => x.src && x.col && ['sponsor_text', 'mechanism'].includes(x.col) && x.source_url.startsWith('https://usfrontierlaw.com/#/bill/')));
-  const chk = (edges, extra = {}) => checkLinks(d.relationships, { ...a.relationships, edges: [...d.relationships.edges, ...edges] }, { edges, nodes: a.added.nodes, created: [e.key], ...extra }, d.entries);
-  ok('8.4 the applied edges pass checkLinks', chk(a.added.edges).length === 0, chk(a.added.edges).join('; '));
-  const billUrl = a.added.edges.map((x) => ({ ...x, source_url: 'https://www.nysenate.gov/legislation/bills/2025/S99999' }));
+  ok('8.4 prose links (no official record) are never applied', a.added.edges.length === 0 && a.skipped.every((s) => /report-only/.test(s.why)));
+  // the same proposals forced in as edges, to show checkLinks refuses them all
+  const pe = proseEdges(r), nodes = r.nodes;
+  ok('8.4 the edge says where its quote sits (src = the entry\'s node, col = the field)', pe.every((x) => x.src && x.col && ['sponsor_text', 'mechanism'].includes(x.col) && x.source_url.startsWith('https://usfrontierlaw.com/#/bill/')));
+  const chk = (edges, extra = {}) => checkLinks(d.relationships, { ...d.relationships, nodes: { ...d.relationships.nodes, ...nodes }, edges: [...d.relationships.edges, ...edges] }, { edges, nodes, created: [e.key], ...extra }, d.entries);
+  ok('8.4 prose edges forced past apply stop the run: report-only, only a record-proved sponsor link may be added', pe.length === 2 && pe.every((x) => chk([x]).some((p) => /report-only/.test(p))), chk(pe).join('; '));
+  ok('8.4 ... and their meaning checks still pass (the only problem is that they are report-only)', chk(pe).every((p) => /report-only/.test(p)), chk(pe).join('; '));
+  const billUrl = pe.map((x) => ({ ...x, source_url: 'https://www.nysenate.gov/legislation/bills/2025/S99999' }));
   ok('8.4 entry prose with the bill URL as its source stops the run', chk(billUrl).some((p) => /tracker page/.test(p)));
-  const notThere = a.added.edges.map((x) => ({ ...x, quote: x.quote + ' and more words' }));
+  const notThere = pe.map((x) => ({ ...x, quote: x.quote + ' and more words' }));
   ok('8.4 a quote not word for word in the stated field stops the run', chk(notThere).some((p) => /not word for word/.test(p)));
-  const noSrc = a.added.edges.map(({ src, ...x }) => x);
+  const noSrc = pe.map(({ src, ...x }) => x);
   ok('8.4 an edge that does not say where its quote sits stops the run', chk(noSrc).some((p) => /src/.test(p)));
-  const ai = [{ from: a.added.edges[1].from, to: 'SB53', type: 'template', label: LABEL.copies, dashed: true, quote: QA, source_url: 'https://www.nysenate.gov/legislation/bills/2025/S99999', src: a.added.edges[1].from, col: 'text', origin: 'automated' }];
+  const nk = Object.keys(nodes)[0];
+  const ai = [{ from: nk, to: 'SB53', type: 'template', label: LABEL.copies, dashed: true, quote: QA, source_url: 'https://www.nysenate.gov/legislation/bills/2025/S99999', src: nk, col: 'text', origin: 'automated' }];
   ok('8.4 an AI edge whose quote is not in an official text the step read stops the run', chk(ai).some((p) => /official text/.test(p)));
-  ok('8.4 the same AI edge with that text passes', chk(ai, { texts: { 'https://www.nysenate.gov/legislation/bills/2025/S99999': A_TEXT } }).length === 0, chk(ai, { texts: { 'https://www.nysenate.gov/legislation/bills/2025/S99999': A_TEXT } }).join('; '));
+  const withText = chk(ai, { texts: { 'https://www.nysenate.gov/legislation/bills/2025/S99999': A_TEXT } });
+  ok('8.4 the same AI edge with that text still stops the run: AI links are report-only', withText.length > 0 && withText.every((p) => /report-only/.test(p)), withText.join('; '));
+  // the record-proved sponsor edge: passes, and every part of the proof is checked
+  const records = { [e.key]: [lsRec('NY', [GOUNARDES])] };
+  const rr = code(e, { records }), ar = applyLinks({ data: d, proposals: rr.proposals, nodes: rr.nodes }), rec = ar.added.edges[0];
+  const chkR = (edges, extra = {}) => checkLinks(d.relationships, { ...d.relationships, nodes: { ...d.relationships.nodes, ...rr.nodes }, edges: [...d.relationships.edges, ...edges] }, { edges, nodes: rr.nodes, created: [e.key], records, ...extra }, d.entries);
+  ok('8.4 the record-proved sponsor edge passes checkLinks', rec && rec.col === 'record' && chkR([rec]).length === 0, chkR(rec ? [rec] : []).join('; '));
+  ok('8.4 a record edge without the record stops the run', chkR([rec], { records: {} }).some((p) => /not proved by the official record/.test(p)));
+  ok('8.4 a record edge whose quote is not the record\'s sponsor field stops the run', chkR([{ ...rec, quote: 'Sen. Andrew Gounardes' }]).some((p) => /sponsor field/.test(p)));
+  ok('8.4 a record edge citing another URL stops the run', chkR([{ ...rec, source_url: 'https://legiscan.com/NY/bill/S1/2025' }]).some((p) => /no record at/.test(p)));
+  ok('8.4 a record edge from another actor stops the run', chkR([{ ...rec, from: 'act-bores' }]).some((p) => /official id stored/.test(p)));
+  ok('8.4 a record edge when the stored ids do not give that id stops the run', chkR([rec], { actorIds: {} }).some((p) => /official id stored/.test(p)));
+  const other = { ...e, sponsor_text: 'Sen. Kristen Gonzalez (D), with Sen. Andrew Gounardes (D)' }, d2 = withEntry(other);
+  ok('8.4 a record edge whose record sponsor is not the entry\'s stated lead stops the run', checkLinks(d2.relationships, { ...d2.relationships, nodes: { ...d2.relationships.nodes, ...rr.nodes }, edges: [...d2.relationships.edges, rec] }, { edges: [rec], nodes: rr.nodes, created: [e.key], records }, d2.entries).some((p) => /not named as the entry's lead/.test(p)));
 }
 {
   // 8.5 hand-written entries never gain links automatically: reported only
@@ -297,8 +331,11 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
   ok('8.5 an entry not created by automation (origin authored): its links are reported only, nothing written', on.applied.length === 0 && on.proposed.length === 0 && on.report_only.length === 2 && fs.readFileSync(relFile, 'utf8') === was && /report only/.test(on.summary), JSON.stringify(on));
   const gou = await linkRun({ dataDir: realData, changed: ['ny-s-10373-verification'], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', dry: true });
   ok('8.5 a hand-written entry Tier A touched gains nothing', gou.applied.length === 0 && gou.status !== 'written');
-  const d = loadData(sb.dataDir), r = proposeByCode({ entries: d.entries, relationships: d.relationships, changed: [sb.key] }), a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
-  ok('8.5 checkLinks stops an added link for a hand-written entry', checkLinks(d.relationships, a.relationships, a.added, d.entries).some((p) => /hand-written/.test(p)));
+  const withRec = await linkRun({ dataDir: sb.dataDir, changed: [sb.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-28', records: sb.records });
+  ok('8.5 even a record-proved sponsor link for a hand-written entry is reported only', withRec.applied.length === 0 && withRec.report_only.length === 2 && fs.readFileSync(relFile, 'utf8') === was);
+  const d = loadData(sb.dataDir), r = proposeByCode({ entries: d.entries, relationships: d.relationships, changed: [sb.key], records: sb.records });
+  const sp = r.proposals.filter(isApplicable).map(edgeOf), rel2 = { ...d.relationships, nodes: { ...d.relationships.nodes, ...r.nodes }, edges: [...d.relationships.edges, ...sp] };
+  ok('8.5 checkLinks stops an added link for a hand-written entry, even record-proved', sp.length === 1 && checkLinks(d.relationships, rel2, { edges: sp, nodes: r.nodes, records: sb.records }, d.entries).some((p) => /hand-written/.test(p)));
   fs.rmSync(sb.dir, { recursive: true, force: true });
 }
 {
@@ -328,9 +365,9 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
 {
   // 8.7 checkLinks checks meaning, not only shape
   const e = newEntry({ mechanism: 'Amends Section 1422 of the General Business Law to shorten the incident deadline to 48 hours', sponsor_text: 'Sen. Andrew Gounardes (D)' });
-  const d = withEntry(e), r = code(e), a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
-  const [sp, am] = [a.added.edges.find((x) => x.type === 'actor'), a.added.edges.find((x) => x.type === 'succession')];
-  const chk = (edges, nodes = a.added.nodes) => checkLinks(d.relationships, { ...a.relationships, nodes: { ...a.relationships.nodes, ...nodes }, edges: [...d.relationships.edges, ...edges] }, { edges, nodes, created: [e.key] }, d.entries);
+  const d = withEntry(e), r = code(e), pe = proseEdges(r);
+  const [sp, am] = [pe.find((x) => x.type === 'actor'), pe.find((x) => x.type === 'succession')];
+  const chk = (edges, nodes = r.nodes) => checkLinks(d.relationships, { ...d.relationships, nodes: { ...d.relationships.nodes, ...nodes }, edges: [...d.relationships.edges, ...edges] }, { edges, nodes, created: [e.key] }, d.entries);
   ok('8.7 an edge to a node that does not exist stops the run', chk([{ ...am, to: 'NO-SUCH' }]).some((p) => /not a node/.test(p)));
   ok('8.7 a sponsor edge from an entry (not an actor) stops the run', chk([{ ...sp, from: 'SB53' }]).some((p) => /from an actor/.test(p)));
   ok('8.7 a sponsor edge from a non-legislator actor stops the run', chk([{ ...sp, from: 'act-anthropic' }]).some((p) => /not a legislator/.test(p)));
@@ -381,14 +418,111 @@ const ilBill = (o) => newEntry({ jurisdiction: 'IL', state: 'IL', title: 'H.B. 9
 {
   // checkLinks checks the quote's meaning: the lead-sponsor clause for Sponsor, an operative amend clause naming the law for Would amend
   const e = newEntry({ mechanism: 'Amends Section 1422 of the General Business Law to shorten the incident deadline to 48 hours. Directs the Attorney General to report on whether to amend the RAISE Act', sponsor_text: 'Sen. Andrew Gounardes (D), with Sen. Kristen Gonzalez (D)' });
-  const d = withEntry(e), r = code(e), a = applyLinks({ data: d, proposals: r.proposals, nodes: r.nodes });
-  const [sp, am] = [a.added.edges.find((x) => x.type === 'actor'), a.added.edges.find((x) => x.type === 'succession')];
-  const chk = (edges) => checkLinks(d.relationships, { ...a.relationships, edges: [...d.relationships.edges, ...edges] }, { edges, nodes: a.added.nodes, created: [e.key] }, d.entries);
-  ok('9 checkLinks: the proposer\'s own edges pass the meaning check', sp && am && chk(a.added.edges).length === 0, chk(a.added.edges).join('; '));
+  const d = withEntry(e), r = code(e), pe = proseEdges(r);
+  const [sp, am] = [pe.find((x) => x.type === 'actor'), pe.find((x) => x.type === 'succession')];
+  const chk = (edges) => checkLinks(d.relationships, { ...d.relationships, nodes: { ...d.relationships.nodes, ...r.nodes }, edges: [...d.relationships.edges, ...edges] }, { edges, nodes: r.nodes, created: [e.key] }, d.entries);
+  ok('9 checkLinks: the proposer\'s own prose edges pass the meaning check, and are refused only as report-only', sp && am && chk(pe).length > 0 && chk(pe).every((p) => /report-only/.test(p)), chk(pe).join('; '));
   ok('9 checkLinks: a Sponsor quote that is not the lead clause stops the run', chk([{ ...sp, quote: 'Sen. Kristen Gonzalez (D)' }, am]).some((p) => /lead sponsor/.test(p)));
   ok('9 checkLinks: a Sponsor quote that is only the name stops the run', chk([{ ...sp, quote: 'Andrew Gounardes' }, am]).some((p) => /lead sponsor/.test(p)));
   ok('9 checkLinks: a Would amend quote that is a study clause stops the run', chk([sp, { ...am, quote: 'Directs the Attorney General to report on whether to amend the RAISE Act' }]).some((p) => /operative/.test(p)));
   ok('9 checkLinks: a Would amend quote from the sponsor text stops the run', chk([sp, { ...am, col: 'sponsor_text', quote: 'Sen. Andrew Gounardes (D)' }]).some((p) => /operative/.test(p)));
+}
+
+// ---------- 10. third audit (29 Oct 2026): prose rules never converge, so only record-proved sponsor links are applied ----------
+// Each round-3 case published a wrong link from the tracker's prose. They are kept to document that such links are now proposals,
+// reported, never applied, with the switch on and the entry automated.
+function caseBox(e) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'links-r3-'));
+  fs.mkdirSync(path.join(dir, 'data'));
+  for (const f of ['entries', 'news', 'site', 'changes', 'relationships']) if (fs.existsSync(path.join(realData, f + '.json'))) fs.copyFileSync(path.join(realData, f + '.json'), path.join(dir, 'data', f + '.json'));
+  const ents = JSON.parse(fs.readFileSync(path.join(dir, 'data', 'entries.json'), 'utf8')); ents.push(e); // created this run (linkRun created), so its links count as the automation's
+  fs.writeFileSync(path.join(dir, 'data', 'entries.json'), JSON.stringify(ents, null, 1));
+  return dir;
+}
+async function appliedFor(e, records) {
+  const dir = caseBox(e), rel = path.join(dir, 'data', 'relationships.json'), was = fs.readFileSync(rel, 'utf8');
+  const r = await linkRun({ dataDir: path.join(dir, 'data'), changed: [e.key], created: [e.key], config: { auto_publish: { relationships: true } }, runDate: '2026-10-29', records });
+  const same = fs.readFileSync(rel, 'utf8') === was;
+  fs.rmSync(dir, { recursive: true, force: true });
+  return { r, same };
+}
+{
+  const caE = (o) => newEntry({ jurisdiction: 'CA', state: 'CA', title: 'S.B. 999 — test', short_name: 'CA SB 999', sponsor_text: 'Sen. Nobody Here (D)', ...o });
+  const nyE = (m) => newEntry({ mechanism: m, sponsor_text: 'Sen. Nobody Here (D)' });
+  const maE = (m) => newEntry({ jurisdiction: 'MA', state: 'MA', short_name: 'MA S.9999 (test)', sponsor_text: 'Sen. Nobody Here (D)', mechanism: m });
+  const cases = [
+    ['06 committee bill: "Sen. Scott Wiener (D), Chair, on behalf of the Senate Housing Committee"', caE({ sponsor_text: 'Sen. Scott Wiener (D), Chair, on behalf of the Senate Housing Committee (committee bill)' })],
+    ['12 "Sen. Scott Wiener (Independent)": wrong party', caE({ sponsor_text: 'Sen. Scott Wiener (Independent)' })],
+    ['13 original author removed, now authored by McNerney', caE({ sponsor_text: 'Sen. Scott Wiener (D) (original author; removed as author June 2026), now authored by Sen. Jerry McNerney (D)' })],
+    ['17 "Sen. Scott Wiener (Dem., formerly Asm.)"', caE({ sponsor_text: 'Sen. Scott Wiener (Dem., formerly Asm.)' })],
+    ['21 NY "Amends the RAISE Act (Cal. Bus. & Prof. Code §22757.10)"', nyE('Amends the RAISE Act (Cal. Bus. & Prof. Code §22757.10) to add reporting.')],
+    ['25 MA "Amends chapter 93M" whose owner is a pending bill', maE('Amends chapter 93M of the General Laws to add a frontier model registry.')],
+    ['26 CA enacted law "Amends Gov. Code §8898.2" (tense)', caE({ mechanism: 'Amends Gov. Code §8898.2 to change IVO certification terms.', status: 'enacted', type: 'law' })],
+    ['27 NY "Amends the RAISE Act (repealed in its entirety by section 3 of this act)"', nyE('Amends the RAISE Act (repealed in its entirety by section 3 of this act) and enacts a new Article 44-C.')],
+    ['39 NY "Amends the RAISE Act (by striking Article 44-B in its entirety)"', nyE('Amends the RAISE Act (by striking Article 44-B in its entirety).')],
+    ['R2 "Sen. Scott Wiener (R)"', caE({ sponsor_text: 'Sen. Scott Wiener (R)' })],
+    ['R2 "Del. Ted Lieu (D-CA)"', fedBill({ sponsor_text: 'Del. Ted Lieu (D-CA)' })]
+  ];
+  for (const [name, e] of cases) {
+    const { r, same } = await appliedFor(e);
+    ok(`10 case ${name}: nothing applied with the switch on, the network unchanged; any link is a proposal`, r.applied.length === 0 && same && !r.problems.length && r.status !== 'written' && r.proposed.every((p) => !p.applies), JSON.stringify({ status: r.status, applied: r.applied, proposed: r.proposed.map((p) => [p.from, p.to, p.applies]) }));
+  }
+  // with the official record the prose disagrees with, nothing at all (not even a proposal), and a note says why
+  const withRec = [
+    ['12 record party D, entry "(Independent)"', caE({ sponsor_text: 'Sen. Scott Wiener (Independent)' }), lsRec('CA', [WIENER]), /party I, the record gives D/],
+    ['13 record primary McNerney, entry lead Wiener', caE({ sponsor_text: 'Sen. Scott Wiener (D) (original author; removed as author June 2026), now authored by Sen. Jerry McNerney (D)' }), lsRec('CA', [{ people_id: 25355, first_name: 'Jerry', last_name: 'McNerney', role: 'Sen', party: 'D' }]), /not named as the entry's lead/],
+    ['06 record names only the committee', caE({ sponsor_text: 'Sen. Scott Wiener (D), Chair, on behalf of the Senate Housing Committee (committee bill)' }), lsRec('CA', [{ people_id: 0, first_name: '', last_name: '', committee_sponsor: 1, committee_id: 7, name: 'Senate Housing Committee' }]), /marks no primary/],
+    ['R2 record party D, entry "(R)"', caE({ sponsor_text: 'Sen. Scott Wiener (R)' }), lsRec('CA', [WIENER]), /party R, the record gives D/],
+    ['R2 record "Rep. Lieu", entry "Del. Ted Lieu"', fedBill({ sponsor_text: 'Del. Ted Lieu (D-CA)' }), cgRec([LIEU]), /not named as the entry's lead/]
+  ];
+  for (const [name, e, rec, why] of withRec) {
+    const { r, same } = await appliedFor(e, { [e.key]: [rec] });
+    ok(`10 case ${name}: no link of any kind, the note says why`, r.applied.length === 0 && same && !r.proposed.some((p) => p.type === 'actor') && r.notes.some((n) => why.test(n.why)), JSON.stringify({ proposed: r.proposed, notes: r.notes }));
+  }
+  // the record-proved path, end to end
+  const good = caE({ sponsor_text: 'Sen. Scott Wiener (D); coauthor Asm. Rebecca Bauer-Kahan (D)' });
+  const g = await appliedFor(good, { [good.key]: [lsRec('CA', [WIENER, { people_id: 19716, first_name: 'Rebecca', last_name: 'Bauer-Kahan', role: 'Rep', party: 'D', sponsor_type_id: 2 }])] });
+  ok('10 a record whose primary (people_id 18068) is the stated lead Wiener: that one sponsor link is applied', g.r.status === 'written' && g.r.applied.length === 1 && g.r.applied[0].from === 'act-wiener' && !g.same, JSON.stringify(g.r));
+  const fed = fedBill({ sponsor_text: 'Rep. Ted Lieu (D-CA), with Rep. Nathaniel Moran (R-TX)' });
+  const f = await appliedFor(fed, { [fed.key]: [cgRec([LIEU], 99999, 'HR')] });
+  ok('10 a Congress.gov record whose sponsor (bioguide L000582) is the stated lead Lieu: applied, citing the Congress.gov page', f.r.applied.length === 1 && f.r.applied[0].from === 'act-lieu' && f.r.proposed[0].source_url === 'https://www.congress.gov/bill/119th-congress/house-bill/99999' && f.r.proposed[0].quote === 'Rep. Lieu, Ted [D-CA-36]', JSON.stringify(f.r));
+  const twoRecs = await appliedFor(fed, { [fed.key]: [cgRec([LIEU], 99999, 'HR'), cgRec([{ bioguideId: 'M001224', firstName: 'Nathaniel', lastName: 'Moran', fullName: 'Rep. Moran, Nathaniel [R-TX-1]', party: 'R', state: 'TX' }], 99998, 'HR')] });
+  ok('10 two records naming different primary sponsors: nothing applied', twoRecs.r.applied.length === 0 && twoRecs.same);
+  const noUrl = await appliedFor(fed, { [fed.key]: [{ bill: { sponsors: [LIEU] } }] });
+  ok('10 a record with no public URL to cite: a proposal only', noUrl.r.applied.length === 0 && noUrl.same && noUrl.r.proposed.some((p) => p.type === 'actor' && !p.applies));
+  const unstored = proposeByCode({ ...withEntry(fed), relationships: real.relationships, changed: [fed.key], records: { [fed.key]: [cgRec([LIEU], 99999, 'HR')] }, actorIds: {} });
+  ok('10 a record sponsor with no stored official id: a prose proposal only, with a note', unstored.proposals.every((p) => !isApplicable(p)) && unstored.notes.some((n) => /no stored official id/.test(n.why)));
+  // "Del." is its own chamber: never read as a Representative
+  ok('10 "Del. Ted Lieu" is not proposed for "Rep. Ted Lieu", with or without a record', !code(fedBill({ sponsor_text: 'Del. Ted Lieu (D-CA)' })).proposals.some((x) => x.from === 'act-lieu'));
+}
+{
+  // actor-ids.json: only unambiguous matches, and the committed file agrees with the matcher
+  const nodes = { a: { name: 'Sen. Scott Wiener (CA)', kind: 'actor', column: 5 }, b: { name: 'Rep. Ted Lieu (D-CA)', kind: 'actor', column: 1 }, c: { name: 'Sen. Bill Cunningham (IL)', kind: 'actor', column: 5 }, d: { name: 'Rep. Jane Roe (D-OH)', kind: 'actor', column: 1 }, x: { name: 'Anthropic', kind: 'actor', column: 6 } };
+  const P = (id, o) => ({ id, kind: id.split(':')[0], v: id.split(':')[1], ...o });
+  const people = [
+    P('legiscan:18068', { chamber: 'upper', first: 'Scott', last: 'Wiener', state: 'CA', federal: false, party: 'D' }),
+    P('bioguide:L000582', { chamber: 'lower', first: 'Ted', last: 'Lieu', state: 'CA', federal: true, party: 'D' }),
+    P('legiscan:1', { chamber: 'upper', first: 'William', last: 'Cunningham', state: 'IL', federal: false }),
+    P('bioguide:R1', { chamber: 'lower', first: 'Jane', last: 'Roe', state: 'OH', federal: true, party: 'D' }),
+    P('bioguide:R2', { chamber: 'lower', first: 'Jane', last: 'Roe', state: 'OH', federal: true, party: 'D' })
+  ];
+  const m = matchActorIds(nodes, people);
+  ok('10 actor ids: full-name, chamber and state matches get their id', m.ids.a && m.ids.a.legiscan === 18068 && m.ids.b && m.ids.b.bioguide === 'L000582');
+  ok('10 actor ids: a nickname (Bill / William) is not matched, and two ids for one node are ambiguous: both listed as unmatched', !m.ids.c && !m.ids.d && m.unmatched.some((u) => u.node === 'c') && m.unmatched.some((u) => u.node === 'd' && /ambiguous/.test(u.why)) && !m.ids.x);
+  const stored = loadActorIds();
+  ok('10 the committed config/actor-ids.json gives each id to one node only, and only to legislator nodes of the network', Object.keys(stored).length >= 15 && Object.entries(stored).every(([k, v]) => real.relationships.nodes[k] && /^(Sen|Rep|Asm|Del)\./.test(real.relationships.nodes[k].name) && nodeOfId(v.bioguide ? 'bioguide:' + v.bioguide : 'legiscan:' + v.legiscan, stored) === k));
+  ok('10 recordUrl: Congress.gov bill page, LegiScan page, nothing for a record without either', recordUrl(cgRec([LIEU], 9917, 'HR')) === 'https://www.congress.gov/bill/119th-congress/house-bill/9917' && recordUrl(lsRec('CA', [WIENER])) === 'https://legiscan.com/CA/bill/S99999/2025' && recordUrl({ bill: { sponsors: [] } }) === null);
+}
+{
+  // backtest: applied (record-proved) and report-only proposals scored separately; applied must be 0 wrong
+  const records = { 'h-r-9917-ai-kill-switch-act': [cgRec([LIEU], 9917, 'HR')], 'ca-sb-53-tfaia': [lsRec('CA', [WIENER])] };
+  const b = backtest({ entries: real.entries, relationships: real.relationships, records });
+  ok('10 backtest with records: the record-proved sponsor links are applied and right, 0 wrong', b.applied.proposals >= 2 && b.applied.right === b.applied.proposals && b.applied.wrong.length === 0, JSON.stringify(b.applied));
+  ok('10 backtest: every other proposal is scored as report-only', b.reportOnly.proposals === b.proposals - b.applied.proposals && b.reportOnly.wrong.length === 0);
+  const none = backtest({ entries: real.entries, relationships: real.relationships });
+  ok('10 backtest without records: nothing is applied', none.applied.proposals === 0 && none.reportOnly.proposals === none.proposals);
+  const lie = backtest({ entries: real.entries, relationships: real.relationships, records: { 'h-r-9917-ai-kill-switch-act': [cgRec([{ ...LIEU, party: 'R' }], 9917, 'HR')] }, sample: ['h-r-9917-ai-kill-switch-act'] });
+  ok('10 backtest: a record whose party contradicts the entry proves nothing', lie.applied.proposals === 0);
 }
 
 console.log(`\nlinks: ${pass} passed, ${fail} failed`);
