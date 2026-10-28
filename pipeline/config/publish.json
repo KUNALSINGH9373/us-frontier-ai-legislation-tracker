@@ -35,7 +35,7 @@
   "max_retries": 3
  },
  "courts": {
-  "_note": "The court-docket step of update.mjs (publish/courts.mjs): reads the docket entries of the cases in config/courts.json filed since the last run (state in data/courts-state.json) from CourtListener (COURTLISTENER_API_TOKEN; at most 5 requests a minute, max_requests_per_run per run) and writes the material ones as Tier A facts: events, and for orders, judgments and appeals a status-text line and a fixed-wording news item.",
+  "_note": "The court-docket step of update.mjs (publish/courts.mjs): reads the docket entries of the cases in config/courts.json filed since the last run (state in state/courts-state.json) from CourtListener (COURTLISTENER_API_TOKEN; at most 5 requests a minute, max_requests_per_run per run) and writes the material ones as Tier A facts: events, and for orders, judgments and appeals a status-text line and a fixed-wording news item.",
   "enabled": true,
   "max_requests_per_run": 12
  },
