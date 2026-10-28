@@ -30,9 +30,9 @@
  "title_pages_per_run": 60,
  "max_candidates_per_run": 25,
  "per_run_budget": 100,
- "monthly_cap": 2500,
+ "monthly_cap": 10000,
  "monthly_limit_free_tier": 30000,
  "text_fallback_legiscan": true,
  "_note_text": "Bill text is downloaded from the legislature's own site (state_link), which costs no LegiScan query. text_fallback_legiscan: if that fails, use LegiScan's copy (one query).",
- "_note_cap": "monthly_cap lowered to 2,500 on 13 Oct 2026 until the owner confirms the plan limit (thought to be 30,000; the owner wondered if it is 3,000)."
+ "_note_cap": "monthly_cap set to 10,000 on 28 Oct 2026: LegiScan's free Public API plan is 10,000 (features page) or 30,000 (homepage) a month; 10,000 is the lower figure. At the cap LegiScan is skipped until next month; the rest of the run continues."
 }
