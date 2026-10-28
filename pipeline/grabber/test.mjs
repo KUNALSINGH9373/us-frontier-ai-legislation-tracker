@@ -232,5 +232,30 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
   ok('a cut-off run loses no candidate', r3.truncated && new Set([...r3.changeset.items, ...r4.changeset.items].map((i) => i.source_id)).size === 5, `${r3.cursor} ${r3.changeset.items.length}+${r4.changeset.items.length}`);
 }
 
+// ---------- the LegiScan monthly cap, through the real command: exit 0, an empty change set, no state written, no query made ----------
+{
+  const { spawnSync } = await import('child_process');
+  const { fileURLToPath } = await import('url');
+  const { LEGISCAN_USAGE_FILE, WORK_DIR } = await import('./lib/state.mjs');
+  const pipelineDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+  const cap = JSON.parse(fs.readFileSync(path.join(pipelineDir, 'config', 'legiscan.json'), 'utf8')).monthly_cap;
+  const was = fs.existsSync(LEGISCAN_USAGE_FILE) ? fs.readFileSync(LEGISCAN_USAGE_FILE) : null; // the real counter, put back below
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cap-'));
+  try {
+    fs.mkdirSync(path.dirname(LEGISCAN_USAGE_FILE), { recursive: true });
+    fs.writeFileSync(LEGISCAN_USAGE_FILE, JSON.stringify({ month: new Date().toISOString().slice(0, 7), used: cap, runs: 1 }) + '\n');
+    const g = spawnSync(process.execPath, ['grabber/run.mjs', '--source', 'legiscan', '--state-dir', stateDir, '--no-search'], { cwd: pipelineDir, encoding: 'utf8', env: { ...process.env, LEGISCAN_API_KEY: 'test-key-not-real-123456' } });
+    const id = (/legiscan run (run-[0-9]{8}-[0-9]{4}-[0-9a-f]{4}): skipped/.exec(g.stdout || '') || [])[1];
+    const cs = id && JSON.parse(fs.readFileSync(path.join(WORK_DIR, 'runs', id, 'changeset.json'), 'utf8'));
+    const stats = id && JSON.parse(fs.readFileSync(path.join(WORK_DIR, 'runs', id, 'grab-stats.json'), 'utf8'));
+    ok('LegiScan cap (real command): exit 0 with an empty change set', g.status === 0 && cs && cs.items.length === 0, `${g.status} ${(g.stderr || '').slice(-300)}`);
+    ok('LegiScan cap (real command): skipped_why says so; no state written; the counter unchanged', stats && /monthly cap reached/.test(stats.skipped_why) && fs.readdirSync(stateDir).length === 0 && JSON.parse(fs.readFileSync(LEGISCAN_USAGE_FILE, 'utf8')).used === cap);
+    if (id) fs.rmSync(path.join(WORK_DIR, 'runs', id), { recursive: true, force: true });
+  } finally {
+    if (was) fs.writeFileSync(LEGISCAN_USAGE_FILE, was); else fs.rmSync(LEGISCAN_USAGE_FILE, { force: true });
+    fs.rmSync(stateDir, { recursive: true, force: true });
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

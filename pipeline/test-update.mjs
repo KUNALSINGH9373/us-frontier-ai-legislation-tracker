@@ -9,7 +9,8 @@ import { fileURLToPath } from 'url';
 import { runUpdate } from './update.mjs';
 import { publishRun } from './publish/run.mjs';
 import { compareRun } from './compare/run.mjs';
-import { writeChangeset } from './grabber/lib/run-common.mjs';
+import { writeChangeset, sha } from './grabber/lib/run-common.mjs';
+import { heldDue } from './update.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FX = path.join(here, 'fixtures', 'publish');
@@ -110,7 +111,8 @@ const cases = [
   ['the news step throws', { newsRun: async (o) => { fs.writeFileSync(o.seenFile, '{"items":{"y":1}}'); throw new Error('feed down'); } }, {}, 'news'],
   ['status.json fails its schema', { validateStatus: () => ['/last_checked must match format'] }, {}, 'status'],
   ['the site check fails', { parity: () => { throw new Error('exit 1'); } }, {}, 'site check'],
-  ['a step writes a change no step may make (caught by the final check)', { correctRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f); es.find((x) => x.key === KEY).title += ' (edited)'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; } }, {}, 'final check'],
+  ['the final check finds a problem that names no entry (a step changed the site file)', { correctRun: async (o) => { const f = path.join(o.dataDir, 'site.json'), x = j(f); x.extra_field = 1; fs.writeFileSync(f, JSON.stringify(x, null, 1)); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; } }, {}, 'final check'],
+  ['a publish stop that names no entry or item (unexplained)', { publishRun: (o) => { const r = publishRun({ ...o, dry: true }); return { ...r, status: 'stopped', summary: 'stopped\n', check: { problems: ['3 entries would change, over the limit of 2 per run'] } }; } }, {}, 'publish'],
   ['the per-run limit is crossed over the whole run, not in one step', { courtsRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f), e = es.find((x) => x.key === 'h-r-9925-frontier-act'); e.status_text += '; x'; e.last_checked = '2026-10-28'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { status: 'published', summary: 'x', requests: 0, errors: [], read: [], result: { touched: [], data: null } }; } }, { max_entries_changed_per_run: 1 }, 'final check'],
   ['the grabber stops', { grab: boom('the grabber') }, {}, 'grab'],
   ['a docs file cannot be written', { io: { ...fs, writeFileSync: (f, b) => { if (/docs[\\/]data[\\/]v2[\\/]entries\.json\.tmp$/.test(f)) throw new Error('EACCES: docs not writable'); return fs.writeFileSync(f, b); } } }, {}, 'promote'],
@@ -135,6 +137,102 @@ for (const [name, over, config, stepName] of cases) {
   const P = setup(), b = files(P);
   const { code } = await run(P, {}, {}, { dry: true });
   ok('a dry run changes no real file', code === 0 && same(files(P), b));
+}
+
+// ---------- a stop that names an entry holds it; everything else is promoted ----------
+{
+  // a step makes a change no step may make on one entry: that entry is put back and held, the rest of the run is promoted
+  const P = setup(), b = files(P);
+  const { code, rep } = await run(P, { correctRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f); es.find((x) => x.key === KEY).title += ' (edited)'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; } });
+  const h = j(path.join(P.stateDir, 'held-items.json')).items, e = j(path.join(P.dataDir, 'entries.json')).find((x) => x.key === KEY);
+  ok('final check: the run goes on without the refused entry (exit 0)', code === 0, rep && rep.error);
+  ok('final check: nothing the check rejected is promoted (entries byte-identical)', fs.readFileSync(path.join(P.dataDir, 'entries.json')).toString('base64') === b[path.join(P.dataDir, 'entries.json')] && !/edited/.test(e.title));
+  ok('final check: the entry\'s item is held with its stored copy', h['final check:congress_gov:119/s/2938'] && h['final check:congress_gov:119/s/2938'].replay && h['final check:congress_gov:119/s/2938'].tries === 1, JSON.stringify(Object.keys(h)));
+  ok('final check: the rest is promoted (grabber state)', j(path.join(P.stateDir, 'state.json')).sources.congress_gov.cursor === '2026-10-28T11:58:00Z');
+  ok('final check: the hold is reported', rep.held.some((x) => x.kind === 'stop' && /final check/.test(x.reason)) && rep.notes.some((n) => /held/.test(n)), JSON.stringify(rep.held));
+}
+{
+  // a poison item next to a clean one, on consecutive runs; then the poison item becomes valid
+  const P9925 = 'congress_gov:119/hr/9925', K9925 = 'h-r-9925-frontier-act';
+  const RAW = JSON.stringify({ bill: { number: '9925', latestAction: { actionDate: '2026-10-01', text: 'Committee on Science, Space, and Technology. Hearings held.' } } });
+  const poisonGrab = (withPoison) => (o) => {
+    const ids = fakeGrab(o), dir = path.join(o.P.workDir, 'runs', RUN);
+    if (!withPoison) return ids;
+    fs.mkdirSync(path.join(dir, 'raw', 'congress_gov'), { recursive: true });
+    fs.writeFileSync(path.join(dir, 'raw', 'congress_gov', '119-hr-9925.json'), RAW);
+    const cs = j(path.join(dir, 'changeset.json')); cs.items.find((i) => i.item_id === P9925).raw_hash = sha(RAW); fs.writeFileSync(path.join(dir, 'changeset.json'), JSON.stringify(cs));
+    const df = j(path.join(dir, 'diff.json')); Object.assign(df.items.find((d) => d.item_id === P9925), { verdict: 'material', reasons: [{ kind: 'new_action', detail: '2026-10-01: Committee on Science, Space, and Technology. Hearings held.', api_value: 'Committee on Science, Space, and Technology. Hearings held.' }] });
+    fs.writeFileSync(path.join(dir, 'diff.json'), JSON.stringify(df));
+    return ids;
+  };
+  let poison = true;
+  // the stop rule, as a guard would word it, while the item is bad
+  const guarded = (o) => { const r = publishRun({ ...o, dry: true }); return poison && r.result.touched.includes(K9925) ? { ...r, status: 'stopped', check: { problems: [`field title changed on ${K9925}: Tier A may not change it`] } } : publishRun(o); };
+  const at = (iso, over) => runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date(iso), deps: { ...okSteps, publishRun: guarded, ...over }, log: () => {}, logErr: () => {} });
+  const P = setup();
+  const r1 = await at('2026-10-28T12:00:00Z', { grab: poisonGrab(true) });
+  const e1 = j(path.join(P.dataDir, 'entries.json')), h1 = j(path.join(P.stateDir, 'held-items.json')).items['publish:' + P9925];
+  ok('poison run 1: exit 0', r1.code === 0, r1.rep.error);
+  ok('poison run 1: the clean item is promoted', e1.find((x) => x.key === KEY).events.some((v) => v.date === '2026-09-30'));
+  ok('poison run 1: the poison item is not', !e1.find((x) => x.key === K9925).events.some((v) => v.date === '2026-10-01'));
+  ok('poison run 1: held with a stored copy, 1 try', h1 && h1.tries === 1 && h1.first_seen === '2026-10-28T12:00:00Z' && h1.replay && h1.replay.raw === RAW, JSON.stringify(h1 && { ...h1, replay: !!h1.replay }));
+  ok('poison run 1: reported', r1.rep.held.some((x) => x.kind === 'stop' && x.item_id === P9925));
+  // run 2: the site data back to the start, so the clean item is new again
+  for (const d of [P.dataDir, P.docsDir]) fs.cpSync(path.join(FX, 'data-2026-10-08'), d, { recursive: true });
+  for (const d of [P.dataDir, P.docsDir]) for (const f of ['changes.json', 'status.json']) fs.rmSync(path.join(d, f), { force: true });
+  const r2 = await at('2026-10-28T16:00:00Z', { grab: poisonGrab(true) });
+  const e2 = j(path.join(P.dataDir, 'entries.json')), h2 = j(path.join(P.stateDir, 'held-items.json')).items['publish:' + P9925];
+  ok('poison run 2: the clean item is promoted again (not blocked)', r2.code === 0 && e2.find((x) => x.key === KEY).events.some((v) => v.date === '2026-09-30'), r2.rep.error);
+  ok('poison run 2: still held, 2 tries, first seen kept', h2 && h2.tries === 2 && h2.first_seen === '2026-10-28T12:00:00Z' && h2.last_tried === '2026-10-28T16:00:00Z');
+  ok('poison run 2: reported again', r2.rep.held.some((x) => x.kind === 'stop' && x.item_id === P9925 && /2 tries/.test(x.reason)), JSON.stringify(r2.rep.held));
+  ok('held items: retried every run on the first day, then once a day', heldDue(h2, new Date('2026-10-29T08:00:00Z')) && !heldDue({ first_seen: '2026-10-26T12:00:00Z', last_tried: '2026-10-28T09:00:00Z' }, new Date('2026-10-28T16:00:00Z')) && heldDue({ first_seen: '2026-10-26T12:00:00Z', last_tried: '2026-10-27T20:00:00Z' }, new Date('2026-10-28T04:00:00Z')));
+  // run 3: the item is valid now; the grabber does not bring it again, so it is published from its stored copy
+  poison = false;
+  const r3 = await at('2026-10-28T20:00:00Z', { grab: poisonGrab(false) });
+  const e3 = j(path.join(P.dataDir, 'entries.json')), h3 = j(path.join(P.stateDir, 'held-items.json')).items;
+  ok('poison run 3: the formerly held item is published', r3.code === 0 && e3.find((x) => x.key === K9925).events.some((v) => v.date === '2026-10-01' && /Hearings held/.test(v.text)), r3.rep.error);
+  ok('poison run 3: and removed from held-items.json', Object.keys(h3).length === 0, JSON.stringify(Object.keys(h3)));
+  ok('poison run 3: nothing reported as held', !r3.rep.held.some((x) => x.kind === 'stop'));
+}
+{
+  // a court-docket stop that names one case: that case is held, the other cases are read again and promoted
+  const P = setup(), calls = [];
+  fs.copyFileSync(path.join(here, 'config', 'courts.json'), path.join(P.pipelineDir, 'config', 'courts.json'));
+  const courts = async (o) => {
+    calls.push(Object.keys(o.cases));
+    if (o.cases['protect-democracy-v-oncd']) return { status: 'stopped', summary: 'x', requests: 0, errors: [], read: [], check: { problems: ['deleted event on protect-democracy-v-oncd: 2026-01-01 x'] }, result: { touched: [] } };
+    fs.writeFileSync(o.stateFile, '{"dockets":{"69":{"last_date":"2026-10-27"}}}\n');
+    return { status: 'quiet', requests: 1, errors: [], read: Object.keys(o.cases).filter((k) => !k.startsWith('_')).map((k) => ({ entry_key: k })), result: { touched: [], data: null }, summary: '' };
+  };
+  const { code, rep } = await run(P, { courtsRun: courts });
+  const h = j(path.join(P.stateDir, 'held-items.json')).items;
+  ok('courts stop: the run goes on (exit 0), the rest is read again without the held case', code === 0 && calls.length === 2 && !calls[1].includes('protect-democracy-v-oncd') && calls[1].length === calls[0].length - 1, `${rep.error} ${JSON.stringify(calls)}`);
+  ok('courts stop: the case is held and reported', h['court dockets:protect-democracy-v-oncd'] && rep.held.some((x) => x.kind === 'stop' && /court dockets/.test(x.reason)));
+}
+{
+  // S-8: the links allowance is the links step's own edges: an edge appended by another step is refused, and the network is put back
+  const P = setup(), b = files(P), rel = path.join(P.dataDir, 'relationships.json');
+  const r0 = j(rel), keys = Object.keys(r0.nodes);
+  const edge = (from, to) => ({ from, to, type: Object.keys(r0.types)[0], label: 'related bill', quote: 'a quote long enough', source_url: 'https://example.com/a', origin: 'automated', src: 'pipeline:links:code' });
+  const { code, rep } = await run(P, {
+    linkRun: async (o) => { const f = path.join(o.dataDir, 'relationships.json'), r = j(f), e = edge(keys[0], keys[keys.length - 1]); r.edges.push(e); fs.writeFileSync(f, JSON.stringify(r, null, 1)); return { status: 'written', proposed: [e], applied: [{ from: e.from, to: e.to, type: e.type, label: e.label }], companions: [], dropped: [], problems: [], summary: 'links' }; },
+    newsRun: async (o) => { const f = path.join(o.dataDir, 'relationships.json'), r = j(f); r.edges.push(edge(keys[1], keys[keys.length - 2])); fs.writeFileSync(f, JSON.stringify(r, null, 1)); return { skipped_why: null, status: 'quiet', leads: [], drafted: [], summary: '' }; }
+  });
+  ok('links: an extra edge from another step is refused by the final check and not promoted', code === 0 && fs.readFileSync(rel).toString('base64') === b[rel] && rep.held.some((x) => x.kind === 'stop' && /links/.test(x.reason)), `${code} ${rep.error} ${JSON.stringify(rep.held)}`);
+}
+{
+  // web and docs differ after promotion: every promoted file goes back to its bytes before the promotion
+  const P = setup(), b = files(P);
+  const { code, rep } = await run(P, { readBack: (f) => (/web[\\/]data[\\/]v2[\\/]entries\.json$/.test(f) ? Buffer.from('x') : fs.readFileSync(f)) });
+  const a = files(P), diff = Object.keys({ ...a, ...b }).filter((f) => a[f] !== b[f]);
+  ok('web != docs after promotion: rolled back, exit 1', code === 1 && rep.failed_step === 'promote' && diff.length === 0, `${rep.error} ${diff.join(', ')}`);
+}
+{
+  // a stray temp file from a crash is removed at startup; a file a step drops into staging is never promoted
+  const P = setup(); fs.writeFileSync(path.join(P.dataDir, 'entries.json.tmp'), 'half'); fs.writeFileSync(path.join(P.stateDir, 'state.json.tmp'), 'half');
+  const { code } = await run(P, { newsRun: async (o) => { fs.writeFileSync(path.join(o.dataDir, 'stray.json'), '{}'); return { skipped_why: null, status: 'quiet', leads: [], drafted: [], summary: '' }; } });
+  ok('stray *.json.tmp removed at startup', code === 0 && !fs.existsSync(path.join(P.dataDir, 'entries.json.tmp')) && !fs.existsSync(path.join(P.stateDir, 'state.json.tmp')));
+  ok('only the data files and status.json are promoted', !fs.existsSync(path.join(P.dataDir, 'stray.json')) && !fs.existsSync(path.join(P.docsDir, 'stray.json')));
 }
 
 // ---------- the commit ----------

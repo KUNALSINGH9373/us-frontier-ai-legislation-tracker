@@ -84,15 +84,17 @@ function summaryOf({ runId, runDate, result, check, dry }) {
 
 // idsFile: where new Congress bills are recorded as tracked (config/identifiers.json; tests pass their own, or null to skip).
 // lsIdsFile: the same for new state bills (config/identifiers-legiscan.json); when null the real list is still read, never written.
-export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsFile = null, lsIdsFile = null }) {
+// skip: item ids left out of this publish (update.mjs holds an item a stop rule refused, so the rest of the run is still published).
+export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsFile = null, lsIdsFile = null, skip = [] }) {
   const changeset = readJson(path.join(runDir, 'changeset.json'));
   const diff = readJson(path.join(runDir, 'diff.json'));
   if (!changeset || !diff) throw new Error(`run folder needs changeset.json and diff.json: ${runDir}`);
+  if (skip.length) diff.items = diff.items.filter((d) => !skip.includes(d.item_id));
   const runId = changeset.run_id, runDate = changeset.generated_at.slice(0, 10);
   const before = loadData(dataDir);
 
   // Stop rule 5: the stored source text must be exactly what was fetched (its hash was saved at grab time).
-  const drafts = loadDrafts(runDir);
+  const drafts = loadDrafts(runDir).filter((r) => !skip.includes(r.item_id));
   const hashes = [], material = new Set([...diff.items.filter((d) => d.verdict === 'material').map((d) => d.item_id), ...drafts.map((r) => r.item_id)]);
   const readRaw = (item) => fs.readFileSync(path.join(runDir, item.raw_path), 'utf8');
   for (const item of changeset.items.filter((i) => material.has(i.item_id))) {
