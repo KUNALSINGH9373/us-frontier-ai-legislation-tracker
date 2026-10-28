@@ -3542,10 +3542,10 @@
   "title": "H.B. 797 (Chapter 425) / S.B. 384 (Chapter 426)",
   "short_name": "VA Ch. 425 / 426 (JCOTS study)",
   "sponsor_text": "Del. Cliff Hayes Jr. (D); Sen. Angelia Williams Graves (D)",
-  "mechanism": "Directs Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for IVOs assessing AI models' adherence to injury/property-damage prevention standards; report due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees; $25,000 FY2027 appropriation. A study directive, not a mandate — one blog's \"mandatory verification\" claim is wrong",
+  "mechanism": "Directs Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for IVOs assessing AI models' adherence to injury/property-damage prevention standards; report due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees; $25,000 FY2027 general-fund appropriation in the 2026 Appropriation Act (HB 30, 2026 Sp. Sess. I, Ch. 1), Item 8 (conference amendment 8 #1c). A study directive, not a mandate — one blog's \"mandatory verification\" claim is wrong",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: HB 797 approved by Governor Apr 8, 2026 (Ch. 425, eff. July 1, 2026); SB 384 signed Apr 13 (Ch. 426); passed 84-14 / 40-0",
+  "status_text": "Status: HB 797 approved by Governor Apr 8, 2026 (Ch. 425, eff. July 1, 2026); SB 384 signed Apr 13, 2026 (Ch. 426); passed 84-14 / 40-0. Funded through the 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8: $25,000 FY2027 general fund added to JCOTS for Chapter 426",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -3587,6 +3587,11 @@
     "label": "HB 797 summary + votes",
     "url": "https://fastdemocracy.com/bill/va/2026/bills/VAB00040165",
     "kind": "secondary"
+   },
+   {
+    "label": "Appropriation Act 2026, Item 8 (JCOTS)",
+    "url": "https://budget.lis.virginia.gov/item/2026/2/HB30/Chapter/1/8/",
+    "kind": "primary"
    }
   ],
   "source_label": "VA budget amendment citing Ch. 426 — budget.lis.virginia.gov · HB 797 summary + votes",
@@ -3602,10 +3607,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-797-chapter-425-s-b-384-chapter-426",
    "section_name": "State IVO / AI-auditor licensing measures"
@@ -4966,7 +4971,7 @@
   "mechanism": "Sponsor bill text (pre-introduction print) read in part. Establishes an Artificial Intelligence Safety Board within Commerce (NIST, CISA, NSA, Treasury and independent technical experts) within 30 days of enactment to evaluate risks and set technical safety and security standards (the Board proposes standards within 90 days of its establishment); developers of frontier models must give the Board access at least 45 days before public release , including model weights, configuration files, runtimes and software libraries; Model Safety Plans naming the responsible corporate officer; incident reporting within 30 days, or 72 hours for an imminent threat to national security, critical infrastructure or public safety; national AI incident database; secure federal testing environments using NSA and DOE resources; documentation standards for autonomous AI agents; civil penalties up to $250,000 per violation per day . Successor to Warner's S. 5061 (NSA pre-deployment testing) with a broader board and standards regime",
   "thresholds": "Capability-based, no compute figure: \"frontier artificial intelligence model\" = a model \"that exhibits or could be modified to exhibit high levels of performance at tasks that pose a serious risk to national security, national economic security, or public health or safety\"",
   "penalties": null,
-  "status_text": "Introduced / status: Announced and debated on the Senate floor Sept 24, 2026 ; introduced as S. 5576 on Sept 29, 2026 , read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov; no further action",
+  "status_text": "Introduced / status: Announced and debated on the Senate floor Sept 24, 2026 ; introduced as S. 5576 on Sept 29, 2026 , read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov; no further action; on Sept 29, 2026 Sen. Ted Cruz objected to a unanimous-consent request to pass the bill",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -4996,6 +5001,15 @@
     "clause": "introduced as S. 5576 on Sept 29, 2026, read twice and referred to Senate Commerce (GovInfo bill status",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-09-29",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Cruz objects to a unanimous-consent request to pass the bill",
+    "clause": "Sen. Ted Cruz objected to a unanimous-consent request to pass the bill",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -5018,6 +5032,11 @@
     "label": "Floor remarks — Congressional Record, Sept 24",
     "url": "https://www.govinfo.gov/content/pkg/CREC-2026-09-24/html/CREC-2026-09-24-pt1-PgS4962.htm",
     "kind": "primary"
+   },
+   {
+    "label": "The Hill, Sept 29, 2026",
+    "url": "https://thehill.com/policy/technology/6118009-senator-ted-cruz-blocks-ai-bill/",
+    "kind": "secondary"
    }
   ],
   "source_label": "Bill text — warner.senate.gov · Sponsor release · S. 5576 status — GovInfo · Floor remarks — Congressional Record, Sept 24",
@@ -5033,10 +5052,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5576-artificial-intelligence-risk-management-and-security-act-of-202",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5614,7 +5633,7 @@
   "mechanism": "Reporting only; a markup planned before the August recess was cancelled; no text released | Per Nextgov (Sept 11, 2026): the disputed safety-testing language would have companies test models internally and present results to the Commerce Secretary for deployment approval, described by one aide as \"primarily a voluntary standard type situation\"; Sen. Cantwell pressed for mandatory testing by national laboratories and opposed language undermining existing state AI laws. PolitiFact (Sept 14) reports a proposed liability element. Reuters (Sept 11) reports a \"duty of care\" on developers of the most capable models to prevent catastrophic risks including nuclear and biological misuse, federal authority to block release of a model deemed unsafe , reviewable in federal court, and preemption of state regulation for certain risk categories ; Klobuchar: \"I'm continuing to work toward a bipartisan agreement on legislation for government oversight of the greatest risks posed by AI models\"",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Date: Sept 11–14, 2026 (reports)",
+  "status_text": "Date: Sept 11–14, 2026 (reports); no text released or bill introduced through Oct 28, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [],
@@ -5642,11 +5661,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-senate-commerce-draft-ai-bill-cruz-klobuchar-thune-in-development-text",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
@@ -7497,7 +7516,7 @@
   "mechanism": "The only federal-state AI litigation to date targets a consequential-decision law, not catastrophic-risk regulation; the legal theories used (Equal Protection, compelled speech) do not map cleanly onto SB 53-style disclosure mandates. Also a precedent: DOJ chose to ride a private suit rather than file its own",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: xAI sued Apr 9, 2026 to enjoin Colorado SB 24-205 (the ADMT/algorithmic-discrimination law — Section I, not a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division; Equal Protection theory) — the first federal court action against any state AI law. Enforcement of the Colorado law was suspended; the legislature then repealed and replaced it with SB 26-189 (May 14, 2026)",
+  "status_text": "Status: xAI sued Apr 9, 2026 to enjoin Colorado SB 24-205 (the ADMT/algorithmic-discrimination law — Section I, not a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division; Equal Protection theory) — the first federal court action against any state AI law. On Apr 27, 2026 the court granted the parties' joint stipulation: the Colorado AG may not initiate enforcement, including investigations, of SB 24-205 (or legislation replacing or amending it) for conduct on or before 14 days after a ruling on xAI's forthcoming preliminary-injunction motion, which xAI must file within 28 days after final adoption of implementing rules; all case deadlines are stayed; the legislature then repealed and replaced it with SB 26-189 (May 14, 2026)",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7516,6 +7535,15 @@
     "type": "Litigation",
     "text": "…tion I, *not* a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division",
     "clause": "…tion I, *not* a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-04-27",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Court grants the joint stipulation staying enforcement of SB 24-205 and all case deadlines pending xAI's preliminary-injunction motion",
+    "clause": "Court grants the joint stipulation staying enforcement of SB 24-205 and all case deadlines pending xAI's preliminary-injunction motion",
     "inferred_year": false,
     "scheduled": false
    },
@@ -7539,6 +7567,11 @@
     "label": "Barnes & Thornburg",
     "url": "https://btlaw.com/en/insights/alerts/2026/doj-intervenes-in-lawsuit-challenging-colorados-algorithmic-discrimination-law",
     "kind": "secondary"
+   },
+   {
+    "label": "Docket, D. Colo. No. 1:26-cv-01515 (CourtListener)",
+    "url": "https://www.courtlistener.com/docket/73171074/",
+    "kind": "primary"
    }
   ],
   "source_label": "Norton Rose Fulbright · Barnes & Thornburg",
@@ -7553,11 +7586,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-x-ai-llc-v-weiser-no-1-26-cv-01515-d-colo",
    "section_name": "Litigation and enforcement"
@@ -7578,7 +7611,7 @@
   "mechanism": "First direct court challenge in the tracker involving federal treatment of a frontier-model developer. It concerns procurement, national-security designation, and alleged retaliation — not the validity of a state frontier statute. Legally notable for the paper: the complaint pleads that a \"supply chain risk\" designation under § 3252 had never before been applied to a domestic company",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Complaint read. Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against DoW, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President, and named officials. Five counts: (I) APA / 10 U.S.C. § 3252 — the supply-chain-risk order exceeds § 3252, which is limited to adversary sabotage/subversion risk, skipped the statute's consultation, written-determination, and congressional-notification steps, and is arbitrary given DoD's simultaneous six-month continued-use order; (II) First Amendment retaliation for protected speech and petitioning; (III) ultra vires presidential directive; (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic , holding the § 3252 designation and related measures \"illegal and baseless\" — First Amendment retaliation, Fifth Amendment due process, and APA violations (in excess of statutory authority; arbitrary and capricious) — while rejecting the ultra vires/separation-of-powers count; concurring accounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit; no post-judgment appeal located through Sept 28, 2026",
+  "status_text": "Status: Complaint read. Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against DoW, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President, and named officials. Five counts: (I) APA / 10 U.S.C. § 3252 — the supply-chain-risk order exceeds § 3252, which is limited to adversary sabotage/subversion risk, skipped the statute's consultation, written-determination, and congressional-notification steps, and is arbitrary given DoD's simultaneous six-month continued-use order; (II) First Amendment retaliation for protected speech and petitioning; (III) ultra vires presidential directive; (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic , holding the § 3252 designation and related measures \"illegal and baseless\" — First Amendment retaliation, Fifth Amendment due process, and APA violations (in excess of statutory authority; arbitrary and capricious) — while rejecting the ultra vires/separation-of-powers count; concurring accounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit; the government filed a notice of appeal to the Ninth Circuit on Oct 26, 2026 (Dkt. 253), appealing the Aug 27, 2026 summary-judgment order, order of final relief and judgment",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7626,6 +7659,15 @@
     "clause": "no post-judgment appeal located through Sept 28, 2026",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-10-26",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Government files a notice of appeal to the Ninth Circuit from the Aug 27, 2026 judgment (Dkt. 253)",
+    "clause": "Government files a notice of appeal to the Ninth Circuit from the Aug 27, 2026 judgment (Dkt. 253)",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -7648,6 +7690,11 @@
     "label": "Docket chronology — Civil Rights Litigation Clearinghouse",
     "url": "https://clearinghouse.net/case/47876/",
     "kind": "secondary"
+   },
+   {
+    "label": "Docket, N.D. Cal. No. 3:26-cv-01996 (CourtListener)",
+    "url": "https://www.courtlistener.com/docket/72379655/",
+    "kind": "primary"
    }
   ],
   "source_label": "Complaint and docket — Justia · Taft Law bulletin on the Aug 27 judgment · Nextgov, Aug 28, 2026 · Docket chronology — Civil Rights Litigation Clearinghouse",
@@ -7662,11 +7709,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-et-al-no-3-26-cv-01996-n-d-cal",
    "section_name": "Litigation and enforcement"
@@ -7796,7 +7843,7 @@
   "mechanism": "Directly tests transparency around the executive pre-release review regime described in Section G, but does not challenge a developer mandate",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: FOIA suit filed Sept. 1, 2026 against ONCD, Commerce, Treasury, and OSTP, with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before release, participating-company information, and the claimed legal authority. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026; no ruling located through Sept 28, 2026",
+  "status_text": "Status: FOIA suit filed Sept. 1, 2026 against ONCD, OSTP, Commerce, the Bureau of Industry and Security, and Treasury (D.D.C. No. 1:26-cv-03064, Judge Ana C. Reyes), with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before release, participating-company information, and the claimed legal authority. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026. Protect Democracy withdrew that motion on Sept 15, 2026 and the hearing was vacated; the defendants' response to the complaint is due Dec 1, 2026 and a joint status report Nov 13, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7819,6 +7866,15 @@
     "scheduled": false
    },
    {
+    "date": "2026-09-15",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Protect Democracy withdraws its preliminary-injunction motion; the hearing is vacated",
+    "clause": "Protect Democracy withdraws its preliminary-injunction motion; the hearing is vacated",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2026-09-28",
     "precision": "day",
     "type": "Search date / deadline / scheduled",
@@ -7835,6 +7891,24 @@
     "clause": "…rity. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-11-13",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "Joint status report due",
+    "clause": "Joint status report due",
+    "inferred_year": false,
+    "scheduled": true
+   },
+   {
+    "date": "2026-12-01",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "Defendants' response to the complaint due",
+    "clause": "Defendants' response to the complaint due",
+    "inferred_year": false,
+    "scheduled": true
    }
   ],
   "sources": [
@@ -7842,6 +7916,11 @@
     "label": "Case page and documents — Protect Democracy",
     "url": "https://protectdemocracy.org/work/uncovering-the-trump-administrations-secret-rules-for-ai-model-release/",
     "kind": "secondary"
+   },
+   {
+    "label": "Docket, D.D.C. No. 1:26-cv-03064 (CourtListener)",
+    "url": "https://www.courtlistener.com/docket/74734757/",
+    "kind": "primary"
    }
   ],
   "source_label": "Case page and documents — Protect Democracy",
@@ -7856,11 +7935,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-protect-democracy-project-v-office-of-the-national-cyber-director",
    "section_name": "Litigation and enforcement"
@@ -7878,16 +7957,16 @@
   "title": "State of Florida v. OpenAI — motion for temporary injunction against frontier development (Fla. state court)",
   "short_name": "Florida v. OpenAI — injunction motion",
   "sponsor_text": "",
-  "mechanism": "The first attempt to use a state court injunction, rather than a statute, to condition frontier development on third-party-approved safeguards; the theory tracks the IVO/auditor layer in Section C. Case number and docket not located",
+  "mechanism": "The first attempt to use a state court injunction, rather than a statute, to condition frontier development on third-party-approved safeguards; the theory tracks the IVO/auditor layer in Section C. Case number not located",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Motion filed Sept 28, 2026 in the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" without \"third-party approved safety guardrails,\" arguing OpenAI has \"repeatedly shown they are incapable of monitoring their AI, and hesitant in revealing rogue activity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No ruling reported as of Sept 29, 2026",
+  "status_text": "Status: Motion filed Sept 28, 2026 in Highlands County Circuit Court (Tenth Judicial Circuit, Judge Heather Beato) in the suit Florida filed June 1, 2026 alleging violations of the Florida Deceptive and Unfair Trade Practices Act plus negligent design and marketing, failure to warn and public nuisance over ChatGPT's effects on vulnerable users. OpenAI removed the case to federal court; a federal judge sent it back to Highlands County. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" without \"third-party approved safety guardrails,\" arguing OpenAI has \"repeatedly shown they are incapable of monitoring their AI, and hesitant in revealing rogue activity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No hearing date or ruling reported as of Oct 28, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
    {
     "date": "2026-06-01",
-    "precision": "month",
+    "precision": "day",
     "type": "Litigation",
     "text": "Motion filed Sept 28, 2026 in the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users. The state asks the court to stop OpenAI from continuing to develop a \"",
     "clause": "Motion filed Sept 28, 2026 in the consumer-protection suit Florida filed in June 2026 over ChatGPT's effects on vulnerable users. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" wi…",
@@ -7918,6 +7997,21 @@
     "label": "Ars Technica, Sept 28, 2026",
     "url": "https://arstechnica.com/ai/2026/09/florida-asks-court-to-put-the-brakes-on-openais-frontier-ai-development/",
     "kind": "secondary"
+   },
+   {
+    "label": "WLRN, Sept 28, 2026",
+    "url": "https://www.wlrn.org/government-politics/2026-09-28/uthmeier-seeks-halt-to-openai-development",
+    "kind": "secondary"
+   },
+   {
+    "label": "CBS12 (claims, removal and remand)",
+    "url": "https://cbs12.com/news/local/florida-attorney-general-james-uthmeier-open-ai-lawsuit-block-minors-chatgpt-open-ai-restrictions-ceo-sam-altman-childrens-data-privacy-chatgpt-data-collection-florida-news",
+    "kind": "secondary"
+   },
+   {
+    "label": "ABA Journal (court and judge)",
+    "url": "https://www.abajournal.com/news/article/florida-ag-asks-judge-to-bar-openai-from-developing-new-models-without-regulation",
+    "kind": "secondary"
    }
   ],
   "source_label": "Ars Technica, Sept 28, 2026",
@@ -7932,11 +8026,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-28",
+  "last_changed": "2026-10-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-state-of-florida-v-openai-motion-for-temporary-injunction-against-fron",
    "section_name": "Litigation and enforcement"

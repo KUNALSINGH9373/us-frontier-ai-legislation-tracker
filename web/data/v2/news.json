@@ -990,6 +990,25 @@
    }
   },
   {
+   "date": "2026-09-29",
+   "kind": "federal",
+   "title": "Cruz blocks a unanimous-consent request to pass the Warner–Schatz–Kim AI safety board bill",
+   "body": "Sens. Mark Warner, Brian Schatz and Andy Kim sought unanimous consent to pass the Artificial Intelligence Risk Management and Security Act of 2026 (S. 5576), which would create an AI Safety Board at the Commerce Department with access to new frontier models at least 45 days before release. Commerce Chair Ted Cruz objected, saying he has \"real reservations about this specific proposal\" and that it would give broad authority to the executive branch. Warner said he would keep pushing the bill.",
+   "links": [
+    {
+     "t": "The Hill, Sept 29",
+     "u": "https://thehill.com/policy/technology/6118009-senator-ted-cruz-blocks-ai-bill/"
+    }
+   ],
+   "check": "Article read (The Hill).",
+   "tracker": "s-5576-warner-schatz-kim-ai-risk-management-and-security-act",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-28T12:00:00Z"
+   }
+  },
+  {
    "date": "2026-09-30",
    "kind": "federal",
    "title": "Senate hearing: \"Rogue AI: Securing the Homeland Against AI Agent Attacks\"",
@@ -1140,6 +1159,25 @@
    "verification": {
     "method": "session",
     "checked_at": "2026-10-26T12:00:00Z"
+   }
+  },
+  {
+   "date": "2026-10-26",
+   "kind": "litigation",
+   "title": "Government appeals Anthropic's win over the supply-chain-risk designation to the Ninth Circuit",
+   "body": "The federal defendants filed a notice of appeal to the Ninth Circuit in Anthropic PBC v. U.S. Department of War (N.D. Cal. No. 3:26-cv-01996), appealing Judge Rita F. Lin's Aug 27, 2026 order on cross-motions for summary judgment, the order of final relief and the judgment, which had largely ruled for Anthropic.",
+   "links": [
+    {
+     "t": "Docket on CourtListener (Dkt. 253)",
+     "u": "https://www.courtlistener.com/docket/72379655/"
+    }
+   ],
+   "check": "Docket entry 253 and the notice of appeal read on CourtListener.",
+   "tracker": "fl-anthropic-v-department-of-war-n-d-cal",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-28T12:00:00Z"
    }
   }
  ]
