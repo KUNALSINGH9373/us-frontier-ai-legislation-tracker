@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { deriveCreate, sponsorText, longDate, stateNumber, stateSponsorText, stateStatus, stateSections } from './derive.mjs';
+import { deriveCreate, sponsorText, longDate, stateNumber, stateSponsorText, stateStatus, stateSections, eventFor, actionKind } from './derive.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const J = (...p) => JSON.parse(fs.readFileSync(path.join(here, '..', 'fixtures', ...p), 'utf8'));
@@ -41,6 +41,16 @@ ok('bill: the introduction is an event; a same-day referral is not duplicated', 
   ok('bill: a later latest action becomes an event of the right kind', hearing.events.length === 2 && hearing.events[1].type === 'Referred / stalled / hearing' && hearing.events[1].date === '2026-09-30', JSON.stringify(hearing.events));
   const lawRaw = J('congress', '119-s-5061.json'); lawRaw.bill.latestAction = { actionDate: '2026-10-05', text: 'Became Public Law No: 119-77.' };
   ok('bill: becoming law is a Signed / enacted event', deriveCreate({ item: { source: 'congress_gov' }, raw: lawRaw }).events.some((e) => e.type === 'Signed / enacted'));
+}
+{ // procedural Congress actions are never "Passed / advanced" (eventFor uses compare/congress.mjs actionKind)
+  ok('eventFor: cloture, a rejected amendment and a motion to reconsider are not events', [
+    'Cloture motion on the motion to proceed not agreed to in Senate by Yea-Nay Vote. 45 - 52.', 'Amendment SA 1234 not agreed to in Senate by Yea-Nay Vote. 45 - 52.', 'Motion to reconsider laid on the table Agreed to without objection.',
+    'Held at the desk.', 'Message on Senate action sent to the House.', 'Sponsor introductory remarks on measure. (CR S4512)'].every((t) => eventFor({ text: t }) === null));
+  ok('eventFor: milestones keep their event types', eventFor({ text: 'On passage Passed by the Yeas and Nays: 300 - 120.' }) === 'Passed / advanced' && eventFor({ text: 'Ordered to be Reported by the Yeas and Nays: 22 - 0.' }) === 'Passed / advanced' && eventFor({ text: 'Committee on Energy and Natural Resources. Hearings held.' }) === 'Referred / stalled / hearing' && eventFor({ text: 'Became Public Law No: 119-77.' }) === 'Signed / enacted' && eventFor({ text: 'Vetoed by President.' }) === 'Vetoed / failed / rescinded' && eventFor({ text: 'On passage Failed by the Yeas and Nays: 190 - 230.' }) === 'Vetoed / failed / rescinded');
+  ok('actionKind is re-exported for tier-a', actionKind('Held at the desk.').milestone === false && actionKind('Passed Senate with an amendment by Unanimous Consent.').importance === 80);
+  const desk = J('congress', '119-s-2938.json'); desk.bill.latestAction = { actionDate: '2026-10-02', text: 'Held at the desk.' };
+  const d = deriveCreate({ item: { source: 'congress_gov' }, raw: desk });
+  ok('bill: a procedural latest action is neither the status line nor an event; the latest milestone is', /Hearings held/.test(d.fields.status_text) && !/desk/.test(d.fields.status_text) && !d.events.some((e) => /desk/.test(e.text)), d.fields.status_text);
 }
 let err; try { deriveCreate({ item: { source: 'unknown' }, raw: {} }); } catch (e) { err = e; }
 ok('an unknown source is an error, not a guess', !!err);

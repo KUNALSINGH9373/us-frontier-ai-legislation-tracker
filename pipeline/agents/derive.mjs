@@ -5,6 +5,7 @@ const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', '
 export const longDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return `${MON[m - 1]} ${d}, ${y}`; };
 const trunc = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 import { eventsFrom, trackerStatus, normNumber } from '../grabber/sources/legiscan.mjs';
+import { actionKind } from '../compare/congress.mjs';
 const TYPE_LABEL = { hr: 'H.R.', s: 'S.', hjres: 'H.J.Res.', sjres: 'S.J.Res.', hres: 'H.Res.', sres: 'S.Res.', hconres: 'H.Con.Res.', sconres: 'S.Con.Res.' };
 
 // "Sen. Sanders, Bernard [I-VT]"  ->  "Sen. Bernard Sanders (I-VT)"
@@ -15,14 +16,10 @@ export function sponsorText(sponsors) {
   }).join('; ') || null;
 }
 
-export const eventFor = (action) => {
-  const t = action.text || '';
-  if (/became public law|signed by president/i.test(t)) return 'Signed / enacted';
-  if (/vetoed/i.test(t)) return 'Vetoed / failed / rescinded';
-  if (/passed|agreed to|ordered to be reported|reported by/i.test(t)) return 'Passed / advanced';
-  if (/referred to|hearing/i.test(t)) return 'Referred / stalled / hearing';
-  return null;
-};
+// A Congress.gov action -> the tracker's event type, or null for a procedural step (cloture, amendments, motions, held at the desk,
+// messages between chambers). The rules are compare/congress.mjs actionKind, the same ones the comparison step uses.
+export { actionKind };
+export const eventFor = (action) => actionKind(action && action.text).type;
 
 // A bill on export controls for advanced AI chips cites their export classifications (ECCN 3A090 / 4A090). It is filed under
 // G.3 (compute and export controls) by rule; a model chose D or F for all three such bills in the 27 Oct 2026 test.
@@ -85,7 +82,11 @@ export function deriveCreate({ item, raw }) {
     const b = raw.bill, num = `${TYPE_LABEL[String(b.type).toLowerCase()] || b.type} ${b.number}`;
     const events = [];
     if (b.introducedDate) events.push({ date: b.introducedDate, precision: 'day', type: 'Introduced / published', text: `${num} introduced` });
-    const la = b.latestAction;
+    // The latest action when it is a milestone; else the latest milestone after the introduction (the most important one on its date).
+    // A procedural latest action ("Held at the desk") is never the status line.
+    const la = (b.latestAction && actionKind(b.latestAction.text).milestone ? b.latestAction : null) || (raw.actions || [])
+      .filter((a) => a && a.actionDate && actionKind(a.text).milestone && actionKind(a.text).kind !== 'introduced')
+      .sort((x, y) => y.actionDate.localeCompare(x.actionDate) || actionKind(y.text).importance - actionKind(x.text).importance)[0] || null;
     if (la && la.actionDate !== b.introducedDate && eventFor(la)) events.push({ date: la.actionDate, precision: 'day', type: eventFor(la), text: la.text.replace(/\.$/, '') });
     return {
       fields: {

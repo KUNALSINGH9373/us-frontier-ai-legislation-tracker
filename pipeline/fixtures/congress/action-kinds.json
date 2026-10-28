@@ -1,0 +1,113 @@
+{
+ "_note": "Every distinct action text in the stored Congress.gov records (pipeline/data/runs/*/raw/congress_gov and fixtures/congress), 28 Oct 2026, grouped by the kind compare/congress.mjs actionKind must give it. Reviewed by hand.",
+ "kinds": {
+  "forwarded": [
+   "Forwarded by Subcommittee to Full Committee (Amended) by Voice Vote.",
+   "Forwarded by Subcommittee to Full Committee by Voice Vote."
+  ],
+  "hearing": [
+   "Committee on Energy and Natural Resources. Hearings held.",
+   "Committee on Homeland Security and Governmental Affairs. Hearings held."
+  ],
+  "introduced": [
+   "Introduced in House",
+   "Introduced in Senate",
+   "Submitted in Senate"
+  ],
+  "markup": [
+   "Committee Consideration and Mark-up Session Held",
+   "Subcommittee Consideration and Mark-up Session Held"
+  ],
+  "passed": [
+   "Passed Senate with an amendment by Unanimous Consent. (consideration: CR S4547-4548; text: CR S4548)",
+   "Passed Senate with an amendment by Unanimous Consent. (consideration: CR S4956-4958; text of amendment in the nature of a substitute: CR S4957-4958)",
+   "Passed Senate with an amendment by Unanimous Consent. (text: CR S5234-5236)",
+   "Passed/agreed to in Senate: Passed Senate with an amendment by Unanimous Consent.",
+   "Passed/agreed to in Senate: Passed Senate with an amendment by Unanimous Consent. (consideration: CR S4956-4958; text of amendment in the nature of a substitute: CR S4957-4958)",
+   "Passed/agreed to in Senate: Submitted in the Senate, considered, and agreed to without amendment and with a preamble by Unanimous Consent. (consideration: CR S4958; text: CR S4951)",
+   "Submitted in the Senate, considered, and agreed to without amendment and with a preamble by Unanimous Consent. (consideration: CR S4958; text: CR S4951)"
+  ],
+  "procedural": [
+   "Held at the desk.",
+   "Measure laid before Senate by unanimous consent. (consideration: CR S5231-5236)",
+   "Message on Senate action sent to the House.",
+   "Placed on Senate Legislative Calendar under General Orders. Calendar No. 365.",
+   "Placed on Senate Legislative Calendar under General Orders. Calendar No. 545.",
+   "Placed on Senate Legislative Calendar under General Orders. Calendar No. 560.",
+   "Placed on Senate Legislative Calendar under General Orders. Calendar No. 685.",
+   "Placed on the Union Calendar, Calendar No. 741.",
+   "Placed on the Union Calendar, Calendar No. 748.",
+   "Received in the House.",
+   "Subcommittee on Coast Guard and Maritime Transportation Discharged",
+   "The committee substitute withdrawn by Unanimous Consent."
+  ],
+  "referred": [
+   "Read twice and referred to the Committee on Armed Services.",
+   "Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.",
+   "Read twice and referred to the Committee on Commerce, Science, and Transportation.",
+   "Read twice and referred to the Committee on Energy and Natural Resources.",
+   "Read twice and referred to the Committee on Finance.",
+   "Read twice and referred to the Committee on Health, Education, Labor, and Pensions.",
+   "Read twice and referred to the Committee on Homeland Security and Governmental Affairs.",
+   "Read twice and referred to the Committee on Rules and Administration.",
+   "Read twice and referred to the Committee on the Judiciary.",
+   "Read twice and referred to the Select Committee on Intelligence.",
+   "Referred to the Committee on Armed Services, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Education and Workforce, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Education and Workforce, and in addition to the Committees on Science, Space, and Technology, and Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Energy and Commerce, and in addition to the Committee on Science, Space, and Technology, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Energy and Commerce, and in addition to the Committees on the Judiciary, and Education and Workforce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Rules and Administration. (text: CR S5172-5174)",
+   "Referred to the Committee on Science, Space, and Technology, and in addition to the Committee on Energy and Commerce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Science, Space, and Technology, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on Transportation and Infrastructure, and in addition to the Committee on Homeland Security, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on the Judiciary, and in addition to the Committee on Intelligence (Permanent Select), for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the Committee on the Judiciary, and in addition to the Committees on Homeland Security, and Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+   "Referred to the House Committee on Armed Services.",
+   "Referred to the House Committee on Education and Workforce.",
+   "Referred to the House Committee on Energy and Commerce.",
+   "Referred to the House Committee on Financial Services.",
+   "Referred to the House Committee on Foreign Affairs.",
+   "Referred to the House Committee on Homeland Security.",
+   "Referred to the House Committee on Intelligence (Permanent Select).",
+   "Referred to the House Committee on Oversight and Government Reform.",
+   "Referred to the House Committee on Science, Space, and Technology.",
+   "Referred to the House Committee on Small Business.",
+   "Referred to the House Committee on Transportation and Infrastructure.",
+   "Referred to the House Committee on Veterans' Affairs.",
+   "Referred to the House Committee on Ways and Means.",
+   "Referred to the House Committee on the Judiciary.",
+   "Referred to the Subcommittee on Coast Guard and Maritime Transportation.",
+   "Referred to the Subcommittee on Commerce, Manufacturing, and Trade.",
+   "Referred to the Subcommittee on Counterterrorism and Intelligence.",
+   "Referred to the Subcommittee on Cybersecurity and Infrastructure Protection.",
+   "Referred to the Subcommittee on Economic Development, Public Buildings, and Emergency Management.",
+   "Referred to the Subcommittee on Oversight and Investigations.",
+   "Referred to the Subcommittee on Transportation and Maritime Security."
+  ],
+  "reported": [
+   "Committee on Commerce, Science, and Transportation. Ordered to be reported with amendments favorably.",
+   "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+   "Committee on Commerce, Science, and Transportation. Reported by Senator Cruz with amendments. With written report No. 119-154.",
+   "Committee on Commerce, Science, and Transportation. Reported by Senator Cruz with an amendment in the nature of a substitute. With written report No. 119-141.",
+   "Committee on Energy and Natural Resources. Ordered to be reported without amendment favorably.",
+   "Committee on Health, Education, Labor, and Pensions. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+   "Committee on Health, Education, Labor, and Pensions. Reported by Senator Cassidy with an amendment in the nature of a substitute. Without written report.",
+   "Committee on Homeland Security and Governmental Affairs. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+   "Committee on Homeland Security and Governmental Affairs. Reported by Senator Paul with an amendment in the nature of a substitute. Without written report.",
+   "Ordered to be Reported (Amended) by Voice Vote.",
+   "Ordered to be Reported (Amended) by the Yeas and Nays: 47 - 0.",
+   "Ordered to be Reported by the Yeas and Nays: 22 - 0.",
+   "Ordered to be Reported by the Yeas and Nays: 26 - 21.",
+   "Ordered to be Reported by the Yeas and Nays: 39 - 0.",
+   "Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 29 - 0.",
+   "Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 35 - 0.",
+   "Ordered to be Reported in the Nature of a Substitute by the Yeas and Nays: 23 - 0.",
+   "Ordered to be Reported in the Nature of a Substitute by the Yeas and Nays: 42 - 0.",
+   "Ordered to be Reported in the Nature of a Substitute by the Yeas and Nays: 42 - 2.",
+   "Reported (Amended) by the Committee on Small Business. H. Rept. 119-851.",
+   "Reported by the Committee on Small Business. H. Rept. 119-844."
+  ]
+ }
+}
