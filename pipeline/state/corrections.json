@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": null,
+ "last_run": "2026-10-28",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -11,12 +11,13 @@
    "retries": 0
   },
   "ny-raise-act-ch-699-ch-96": {
-   "text_sha": "087698fc807189aa846bf430e73b650d8896533f68f1beb62ffca1e817e16e71",
+   "text_sha": "d8c588849f5e773ab725d7b8336d7cd619048f1941ab9aed93f5b5fb195596e3",
    "text_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-10-28",
+   "outcome": "corrected",
    "retry": false,
-   "retries": 0
+   "retries": 0,
+   "reason": "not confirmed: The effective date is stated in SOURCE, but the proposal also keeps unsupported claims such as 'both were in the June 2025 version', which SOURCE does not state. More importantly, '(§3)' mislabels the effective date: the January 1, 2027 date is in §3 of the 2025 chapter as amended by "
   },
   "h-r-9965-atomic-act": {
    "text_sha": "6ee73705b0dd28aeffe038c54777c26889a5ac13f3ca80c7fcaf3c8afac0033c",
@@ -43,12 +44,13 @@
    "retries": 0
   },
   "ny-s-10373-verification": {
-   "text_sha": "ba807645c0143ce92f09ebfb51a2c452ffd94da593f7391403b21402367a1e2a",
+   "text_sha": "7fb3ee85a72a27ae4a21a41dea58ed47e84d392d01a2f5ead0015c2d05d035b6",
    "text_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
-   "retry": false,
-   "retries": 0
+   "checked_at": "2026-10-28",
+   "outcome": "rejected",
+   "retry": true,
+   "retries": 1,
+   "reason": "not confirmed: The proposed text keeps the quoted sponsor-memo line and the 'March 2026 chapter amendment removed' claim, which SOURCE does not contain. It also says 'non-affiliated' verifier, which is only partly supported: SOURCE excludes affiliates of the developer, but this is not the same as th"
   },
   "h-r-3919-advanced-ai-security-readiness-act": {
    "text_sha": "e99f8af7c3b4cecd7aef716b8ee38a6d44b848f371edcd8c85a41f03b4c929e9",
@@ -369,6 +371,15 @@
    "outcome": "session",
    "retry": false,
    "retries": 0
+  },
+  "ct-p-a-26-15-omnibus": {
+   "text_sha": "9c7c31309ca9ff903f258c7f46f94cd737dfcff20d55ae413e1f4647816cb5b1",
+   "text_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "checked_at": "2026-10-28",
+   "outcome": "rejected",
+   "retry": true,
+   "retries": 1,
+   "reason": "code check: mechanism is 1194 characters, over 948; the new text drops figures the current text has: 10, 26, 500000000; keep every fact that is not wrong"
   }
  }
 }
