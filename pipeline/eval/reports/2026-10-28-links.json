@@ -1,8 +1,8 @@
 {
  "measure": "links",
- "run_at": "2026-10-28T19:41:24.317Z",
- "checks_hash": "ec362fb067ec436a0b613f5cee213ef60959a9fc4990ceb0dfdebec81bb6d1e6",
- "cases": 228,
+ "run_at": "2026-10-28T20:04:48.612Z",
+ "checks_hash": "0ba6528f244fc61e36deeebbaf07aabc3cff26a783e9004fc2aa16ccac37b974",
+ "cases": 250,
  "wrong": 0,
  "errors": 0,
  "backtest_errors": 0,
@@ -12,7 +12,7 @@
   "edges": 138,
   "as_new_proposals": 25
  },
- "suite_passed": 178,
+ "suite_passed": 200,
  "suite_failed": 0,
  "suite_note": null
 }

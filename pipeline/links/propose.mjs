@@ -19,7 +19,7 @@
 import { containsQuote } from '../agents/source-text.mjs';
 import { READER_SYSTEM, readerPrompt, CONFIRM_SYSTEM, confirmPrompt } from './prompts.mjs';
 import { trackerUrl, sponsorLabel, amendsLabel, TEMPLATE_LABEL, OVERLAP_PREFIX, legislatorOf, chamberOf } from './rules.mjs';
-import { recordSponsors, recordUrl, nodeOfId, loadActorIds } from './records.mjs';
+import { recordSponsors, recordUrl, recordBillProblem, nodeOfId, loadActorIds } from './records.mjs';
 
 export { amendsLabel };
 export const LABEL = { sponsor: 'Sponsor', draft: 'Draft author', copies: TEMPLATE_LABEL };
@@ -86,7 +86,9 @@ function matches(person, actor, entry) {
 // Does the record's primary sponsor `p` agree with the entry's stated lead? Same first and last name and chamber; the party, where
 // both give one, the same; the state too where both give one. Returns null when it does, else why not.
 function leadDisagrees(p, lead) {
-  if (!same(p.first, lead.first) || !same(p.last, lead.last) || p.chamber !== lead.chamber) return `the record's primary sponsor ${p.first} ${p.last} is not named as the entry's lead sponsor (${lead.first} ${lead.last})`;
+  const CH = { upper: 'Senate', lower: 'House/Assembly', delegate: 'Delegate' };
+  if (same(p.first, lead.first) && same(p.last, lead.last) && p.chamber !== lead.chamber) return `chamber mismatch: the record gives the primary sponsor ${p.first} ${p.last} as ${CH[p.chamber] || 'no known chamber'} ("${p.quote}"), the entry gives its lead as ${CH[lead.chamber] || 'no known chamber'} ("${lead.quote}")`;
+  if (!same(p.first, lead.first) || !same(p.last, lead.last)) return `the record's primary sponsor ${p.first} ${p.last} is not named as the entry's lead sponsor (${lead.first} ${lead.last})`;
   if (p.party && lead.party && !same(p.party, lead.party)) return `the entry gives the lead sponsor ${lead.first} ${lead.last} party ${lead.party}, the record gives ${p.party}`;
   if (lead.state && p.state && lead.state !== p.state) return `the entry gives the lead sponsor ${lead.first} ${lead.last} state ${lead.state}, the record gives ${p.state}`;
   return null;
@@ -102,7 +104,7 @@ function sponsorProposals(entry, node, rel, records, notes, actorIds) {
   const recs = (records && records[entry.key]) || [];
   const lead = leadSponsor(entry.sponsor_text);
   const note = (why) => notes.push({ entry_key: entry.key, kind: 'sponsor', why });
-  if (!lead) { if (recs.length) note('the record\'s sponsor is not named as the lead sponsor: the entry\'s sponsor text names no lead ("Sen./Rep. First Last (Party)" at its start); nothing proposed'); return []; }
+  if (!lead) { if (recs.length) note('the entry\'s sponsor text names no lead sponsor to check the record against: no lead ("Sen./Rep. First Last (Party)" at its start); nothing proposed'); return []; }
   const prose = actors.filter((a) => matches(lead, a, entry));
   if (prose.length > 1) { note(`ambiguous: ${lead.first} ${lead.last} matches ${prose.map((a) => a.k).join(', ')}; nothing proposed`); return []; }
   const proseProposal = (why) => {
@@ -111,10 +113,12 @@ function sponsorProposals(entry, node, rel, records, notes, actorIds) {
     return [{ from: prose[0].k, to: node, type: 'actor', label, basis: 'prose', evidence: [entryEvidence(entry, node, 'sponsor_text', lead.quote)], method: 'code' }];
   };
   if (!recs.length) return proseProposal(null);
+  const wrongBill = recs.map((r) => recordBillProblem(r, entry)).filter(Boolean);
+  if (wrongBill.length) { note(`${wrongBill[0]}${wrongBill.length > 1 ? ` (and ${wrongBill.length - 1} more record${wrongBill.length > 2 ? 's' : ''} not for this entry's bills)` : ''}: a record for another bill cannot prove this entry's sponsor; nothing proposed`); return []; }
   const prim = recs.flatMap((r) => recordSponsors(r, entry).map((p) => ({ ...p, url: recordUrl(r) })));
   if (!prim.length) { note(`the official record marks no primary sponsor, so the entry's lead ${lead.first} ${lead.last} is not confirmed; nothing proposed`); return []; }
   const ids = new Set(prim.map((p) => p.id));
-  if (ids.size !== 1) { note(`the records name ${ids.size} different primary sponsors (${prim.map((p) => p.first + ' ' + p.last).join(', ')}): the record's primary sponsor is not named as the entry's single lead; nothing proposed`); return []; }
+  if (ids.size !== 1) { note(`the records name ${ids.size} different primary sponsors (${prim.map((p) => p.first + ' ' + p.last).join(', ')}), so no single record sponsor can be checked against the entry's lead; nothing proposed`); return []; }
   const p = prim[0], off = leadDisagrees(p, lead);
   if (off) { note(off + '; nothing proposed'); return []; }
   const at = nodeOfId(p.id, actorIds), a = at && actors.find((x) => x.k === at);
@@ -131,6 +135,8 @@ export const isApplicable = (p) => !!p && p.type === 'actor' && p.basis === 'rec
 export function recordProofProblem(e, ent, nodes, records, actorIds) {
   const recs = (records && records[ent.key]) || [];
   if (!recs.length) return 'no official record for the entry was given to prove the sponsor';
+  const wrongBill = recs.map((r) => recordBillProblem(r, ent)).find(Boolean);
+  if (wrongBill) return wrongBill;
   const all = recs.flatMap((r) => recordSponsors(r, ent));
   if (new Set(all.map((p) => p.id)).size > 1) return 'the records name more than one primary sponsor';
   const prim = recs.filter((r) => recordUrl(r) === e.source_url).flatMap((r) => recordSponsors(r, ent));
