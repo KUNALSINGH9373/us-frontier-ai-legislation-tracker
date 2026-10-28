@@ -81,7 +81,7 @@ export async function correctRun({ dataDir, docsDir = null, stateFile = STATE_FI
   let serviceErrors = 0;
   for (const c of picked) {
     let r;
-    try { r = await reviewEntry({ reviewer, confirmer, entry: c.entry, text: c.text, url: c.url, otherBills: otherBills(c.key, ic, il), log }); }
+    try { r = await reviewEntry({ reviewer, confirmer, entry: c.entry, text: c.text, url: c.url, otherBills: otherBills(c.key, ic, il), mapped: mappedIds(c.key, ic, il), log }); }
     catch (e) {
       if (!(e instanceof BudgetExceeded)) throw e;
       if (e.scope !== 'item') { rep.problems.push(`stopped: ${e.message}`); break; }
@@ -124,6 +124,10 @@ export async function correctRun({ dataDir, docsDir = null, stateFile = STATE_FI
 // The entry's other bills (the text read is the first one's), for the reader's note.
 function otherBills(key, ic, il) {
   return [...((ic[key] && ic[key].congress_gov) || []).slice(1), ...((il[key] && il[key].bills) || []).slice(1).map((b) => `${b.state || ''} ${b.number || b.bill_id}`.trim())];
+}
+// The entry's ids in the two identifier files, for multiBillEntry (a rejected LegiScan mapping is not the entry's bill).
+function mappedIds(key, ic, il) {
+  return { congress_gov: (ic[key] && ic[key].congress_gov) || [], legiscan: il[key] && il[key].status !== 'rejected' ? (il[key].bills || []).map((b) => b.bill_id) : [] };
 }
 
 function summaryOf(rep) {
