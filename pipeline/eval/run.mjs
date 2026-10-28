@@ -14,6 +14,7 @@
 //   scope          the in / out of scope call matches the tracker (section J = out, everything else = in)
 // A field's auto_publish switch (config/publish.json) may be turned on only when its pass rate meets eval_bar there.
 import fs from 'fs';
+import { checksHash } from './hash.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadEnv } from '../grabber/lib/env.mjs';
@@ -195,7 +196,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   scored.sort((a, b) => a.key.localeCompare(b.key));
   const summary = summarise(scored), usage = ledger.totals();
   const stamp = new Date().toISOString().slice(0, 10), tag = `${stamp}-${provider}-${generator.model}`;
-  const report = { run_at: new Date().toISOString(), provider, generator: generator.model, reader: validator.model, prompt_version: sha(fs.readFileSync(path.join(P, 'agents', 'prompts.mjs'), 'utf8')).slice(0, 12), summary, usage, items: scored };
+  const report = { run_at: new Date().toISOString(), provider, generator: generator.model, reader: validator.model, prompt_version: sha(fs.readFileSync(path.join(P, 'agents', 'prompts.mjs'), 'utf8')).slice(0, 12), measure: 'fields', checks_hash: checksHash('fields'), summary, usage, items: scored };
   fs.mkdirSync(path.join(here, 'reports'), { recursive: true });
   fs.writeFileSync(path.join(here, 'reports', tag + '.json'), JSON.stringify(report, null, 1) + '\n');
   fs.writeFileSync(path.join(here, 'report.md'), renderReport(report));

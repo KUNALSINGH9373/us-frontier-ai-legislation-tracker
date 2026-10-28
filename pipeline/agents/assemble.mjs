@@ -80,7 +80,7 @@ export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, 
   patch = { ...patch, events_add: [...derived.events, ...patch.events_add.filter((e) => !derived.events.some((d) => d.date === e.date && d.type === e.type))] };
   for (const k of CREATE_REQUIRED) if (f[k] == null || f[k] === '') problems.push(`a new entry needs "${k}"`);
   if (problems.length) return { entry: null, problems };
-  if (!AUTO_CREATE_SECTIONS.includes(f.section)) { problems.push(`new entries in section ${f.section} need a person (the pipeline may create only in ${AUTO_CREATE_SECTIONS.join(', ')})`); return { entry: null, problems }; }
+  if (!AUTO_CREATE_SECTIONS.includes(f.section)) { problems.push(`new entries in section ${f.section} are never auto-created (the pipeline may create only in ${AUTO_CREATE_SECTIONS.join(', ')})`); return { entry: null, problems }; }
   const rule = SECTION_RULES[f.section], state = source === 'legiscan';
   // A state bill goes only in a state section its status allows (derive.mjs stateSections); a federal item never in a state section.
   if (rule.level !== (state ? 'state' : 'federal')) { problems.push(`section ${f.section} is for ${rule.level} items; this is a ${state ? 'state' : 'federal'} ${state ? 'bill' : 'item'}`); return { entry: null, problems }; }

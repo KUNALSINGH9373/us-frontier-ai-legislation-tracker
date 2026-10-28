@@ -1,0 +1,177 @@
+{
+ "id": 98,
+ "key": "va-sb-365",
+ "section": "B",
+ "type": "bill",
+ "level": "state",
+ "jurisdiction": "VA",
+ "state": "VA",
+ "status": "pending",
+ "title": "S.B. 365 — Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act; established.",
+ "short_name": "VA SB 365",
+ "sponsor_text": "Sen. Stella Pekarsky (D)",
+ "mechanism": "A developer of a base artificial intelligence model shall clearly and conspicuously disclose in its terms of service the model name, developer, incorporation location, latest release date, training-data update date, supported languages and a terms-of-service link (§ 59.1-615). Providing that disclosure is not a defense to liability for harm to a plaintiff. In actions against developers, it is not a defense that the AI system autonomously caused the harm (§ 59.1-617). Creates the FAIR AI Enforcement Fund for state agency enforcement of AI system misuse, bias and workforce disruption (§ 59.1-616).",
+ "thresholds": "Capability-based, no figure: \"a large-scale artificial intelligence system model trained on broad and diverse data\" defines base artificial intelligence models.",
+ "penalties": null,
+ "status_text": "Status: Introduced Jan 13, 2026; Referred to Committee on General Laws and Technology (Jan 13, 2026)",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-01-13",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "Prefiled and ordered printed; Offered 01-14-2026 26104938D",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-01-13",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Referred to Committee on General Laws and Technology",
+   "inferred_year": false,
+   "scheduled": false
+  }
+ ],
+ "sources": [
+  {
+   "label": "VA Legislature record: Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act; established.",
+   "url": "https://lis.virginia.gov/bill-details/20271/SB365",
+   "kind": "primary",
+   "retrieved_at": "2026-10-28T07:14:48Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "A developer of a base artificial intelligence model shall clearly and conspicuously disclose",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  },
+  {
+   "field": "mechanism",
+   "quote": "The provision of such disclosure to a user shall not be a defense to liability for any harm caused to a plaintiff.",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  },
+  {
+   "field": "mechanism",
+   "quote": "it shall not be a defense that the artificial intelligence system autonomously caused such harm to the plaintiff.",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  },
+  {
+   "field": "mechanism",
+   "quote": "Moneys in the Fund shall be used solely for the purpose of supporting state agency enforcement",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  },
+  {
+   "field": "thresholds",
+   "quote": "a large-scale artificial intelligence system model trained on broad and diverse data",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  },
+  {
+   "field": "events_add[0]",
+   "quote": "shall become effective on July 1, 2027",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  },
+  {
+   "field": "in_scope",
+   "quote": "A developer of a base artificial intelligence model shall clearly and conspicuously disclose, in a manner that is appropriate for the medium of the content",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "legiscan": [
+    2160653
+   ]
+  },
+  "session": "2027 Regular Session"
+ },
+ "legacy": {
+  "section_name": "Pending, stalled and failed state bills"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261028-0712-4ed1",
+  "rounds": 2
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28",
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require developers to write, publish or follow a safety, risk-management or security framework."
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "Base-model developers must disclose in their terms of service the model name, developer, incorporation location, latest release date, training-data update date, languages and a terms-of-service link.",
+   "section": "§ 59.1-615(A)",
+   "quote": "shall clearly and conspicuously disclose, in a manner that is appropriate for the medium of the content",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require reporting safety or security incidents to any government body."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no shorter reporting window for imminent risks of death or serious injury."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require any independent audit, evaluation or verification of models."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill contains no protections for employees who report AI risks or violations."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require registering, licensing or notifying a regulator before developing or deploying a model."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require any shutdown, kill-switch or containment capability."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill does not define coverage by training compute."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill does not define coverage by revenue, spending or number of users."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill does not define a catastrophic or covered-harm threshold by deaths, injuries or damages for any developer duty."
+  },
+  "penalties": {
+   "value": "not_in_bill",
+   "summary": "The bill states no penalty, fine or enforcement remedy. It creates a fund for state agency enforcement, with expenditures requested in writing by the Attorney General."
+  },
+  "effective_date": {
+   "value": "yes",
+   "summary": "The act takes effect July 1, 2027.",
+   "section": "Enactment clause 2",
+   "quote": "the provisions of this act shall become effective on July 1, 2027",
+   "source_url": "https://lis.virginia.gov/bill-details/20271/SB365"
+  }
+ },
+ "duties_basis": {
+  "source_url": "https://lis.virginia.gov/bill-details/20271/SB365",
+  "sha256": "773efb360f17184e9ee8af01d0830784055c1e823d54ca74ddcecbd68dbca152",
+  "chars": 6480,
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z"
+ }
+}

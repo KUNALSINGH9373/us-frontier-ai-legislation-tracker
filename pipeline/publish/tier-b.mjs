@@ -13,7 +13,7 @@ import { checkNewEntry } from './guards.mjs';
 import { checkDuties } from '../duties/check.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { newsKind, advanceCutoff } from './tier-a.mjs';
-import { trackerIndex, duplicateOf, relatedUnread, idsOf } from '../agents/dedupe.mjs';
+import { trackerIndex, duplicateOf, relatedUnread, idsOf, programmeDuplicateOf } from '../agents/dedupe.mjs';
 import { recordRefusals, measureKind } from '../agents/record-kind.mjs';
 import { DUTY_REQUIRED_SECTIONS } from '../agents/duties.mjs';
 
@@ -36,16 +36,31 @@ function stateProblems(e, item, raw) {
   return out;
 }
 
-// The "added to the tracker" news item, in fixed wording. Its date is the day the record gives for introduction or publication.
-function newsFor(e, item, raw, runId, at) {
+// The "added to the tracker" news item, in fixed wording, dated the day it is added and describing the bill's CURRENT status as the record
+// gives it (an enacted bill is reported as enacted, never as a backdated "introduced" item; round 2 audit, CT H.B. 5222).
+// The current status is the latest event, the most important one on that date; the introduction is named after it.
+const STATUS_RANK = { 'Signed / enacted': 100, 'Vetoed / failed / rescinded': 90, 'Passed / advanced': 80, Effective: 70, 'Referred / stalled / hearing': 40, 'Introduced / published': 30 };
+const STATUS_WORDS = { 'Signed / enacted': ['enacted', 'was enacted'], 'Vetoed / failed / rescinded': ['vetoed or failed', 'was vetoed or failed'], 'Passed / advanced': ['advanced', 'advanced'], Effective: ['in effect', 'took effect'], 'Referred / stalled / hearing': ['in committee', 'was last in committee'], 'Introduced / published': ['introduced', 'was introduced'] };
+export function currentStatusEvent(events = []) {
+  return [...events].filter((v) => STATUS_RANK[v.type] && !v.scheduled).sort((a, b) => b.date.localeCompare(a.date) || STATUS_RANK[b.type] - STATUS_RANK[a.type])[0] || null;
+}
+// "General Law Committee" -> "the General Law Committee"; a person's name is left as it is.
+const sponsorPhrase = (s) => (/^(?:the\s|Rep\.|Sen\.|Del\.|Asm\.|Assembly|President|Resident)/.test(s) || !/\b(?:committee|commission|caucus)\b/i.test(s) ? s : `the ${s}`);
+const plain = (s) => String(s || '').trim().replace(/[\s.;:,]+$/, '');
+export function newsFor(e, item, raw, runId, at, runDate = at.slice(0, 10)) {
   const first = e.events.find((v) => v.type === 'Introduced / published');
   if (!first) return null;
   // A state bill links the legislature's own page and names it as Tier A does ("CA Legislature").
   const fr = item.source === 'federal_register', st = item.source === 'legiscan', name = fr ? 'the Federal Register' : st ? `${e.state} Legislature` : 'Congress.gov';
   const official = fr ? raw.document && raw.document.title : raw.bill && raw.bill.title;
+  const now = currentStatusEvent(e.events) || first, [label, verb] = STATUS_WORDS[now.type];
+  // "H.B. 5222 — An Act ... Established." reads as "H.B. 5222 ("An Act ... Established")", so the official title never runs into the verb.
+  const parts = String(e.title).split(' — '), what = parts.length > 1 ? `${parts[0]} ("${plain(parts.slice(1).join(' — '))}")` : plain(e.title), intro = now === first ? '' : ` It was introduced on ${longDate(first.date)}.`;
+  const sponsor = e.sponsor_text ? ` It is sponsored by ${sponsorPhrase(plain(e.sponsor_text))}.` : '';
+  const said = now === first ? '' : ` ("${plain(now.text)}")`;
   return {
-    date: first.date, kind: newsKind(e), title: cut(`${e.short_name}: ${fr ? 'published in the Federal Register' : 'introduced'}`, 140),
-    body: fr ? `The Federal Register published ${e.title} on ${longDate(first.date)}.` : `${st ? `The ${name}` : name} records that ${e.title} was introduced on ${longDate(first.date)}${e.sponsor_text ? `, sponsored by ${e.sponsor_text}` : ''}.`,
+    date: runDate, kind: newsKind(e), title: cut(`${e.short_name}: ${fr ? 'published in the Federal Register' : label}`, 140),
+    body: fr ? `The Federal Register published ${what} on ${longDate(first.date)}.` : `As of ${longDate(runDate)}, ${st ? `the ${name}` : name} records that ${what} ${verb} on ${longDate(now.date)}${said}.${intro}${sponsor}`,
     links: [{ t: `${e.short_name} on ${fr ? 'the Federal Register' : st ? `the ${name} site` : 'Congress.gov'}`, u: item.source_url }],
     check: `From the official record (${name}), written by code in fixed wording; no AI was used for this item.`,
     tracker: e.key, origin: 'automated', verification: { method: 'agent', checked_at: at, run_id: runId, rounds: 0 },
@@ -84,6 +99,9 @@ export function applyTierB({ data, drafts, itemById, readRaw, runId, runDate, co
     if (dup) { skip(`${dup.why}${dup.key && !dup.key.startsWith('(') ? ` (entry ${dup.key})` : ''}; not created`); continue; }
     const unread = relatedUnread(item, raw);
     if (unread) { skip(`${unread}; not created`); continue; }
+    // The same programme as a tracked entry of its state under another bill (agents/dedupe.mjs programmeDuplicateOf): never created.
+    const prog = item.source === 'legiscan' ? programmeDuplicateOf(e, out.entries) : null;
+    if (prog) { skip(`${prog.why} (entry ${prog.key}); not created`); continue; }
     const refused = item.source === 'legiscan' ? recordRefusals(raw) : [];
     if (refused.length) { skip('not created: ' + refused.join('; ')); continue; }
     const ctx = item.source === 'legiscan' ? { kind: measureKind(raw.bill, raw.text), text: raw.text || '' } : {};

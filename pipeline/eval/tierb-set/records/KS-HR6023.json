@@ -1,0 +1,193 @@
+{
+ "item": {
+  "item_id": "legiscan:2100636",
+  "source": "legiscan",
+  "source_id": "2100636",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://kslegislature.gov/li/b2025_26/measures/hr6023/",
+  "fetched_at": "2026-10-13T07:23:55Z",
+  "raw_hash": "877acd46b2ad44d66be5c06c4e024eceeba6da2328081b1ae48841b3879675d1",
+  "raw_path": "x",
+  "title": "KS HR6023: Opposing the federal preemption of state laws that regulate artificial intelligence."
+ },
+ "raw": {
+  "id": "2100636",
+  "search_hit": {
+   "search": "wide",
+   "relevance": 31,
+   "intent": {
+    "verdict": "yes",
+    "reason": "Federal preemption of state AI laws opposition",
+    "by": "model"
+   }
+  },
+  "bill": {
+   "bill_id": 2100636,
+   "change_hash": "36948746eb39c659cb24c6981fcd5b18",
+   "session_id": 2178,
+   "session": {
+    "session_id": 2178,
+    "state_id": 16,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 Regular Session"
+   },
+   "url": "https://legiscan.com/KS/bill/HR6023/2025",
+   "state_link": "https://kslegislature.gov/li/b2025_26/measures/hr6023/",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-01-28",
+   "progress": [
+    {
+     "date": "2026-01-28",
+     "event": 1
+    },
+    {
+     "date": "2026-01-29",
+     "event": 9
+    }
+   ],
+   "state": "KS",
+   "state_id": 16,
+   "bill_number": "HR6023",
+   "bill_type": "R",
+   "bill_type_id": "2",
+   "body": "H",
+   "body_id": 41,
+   "current_body": "H",
+   "current_body_id": 41,
+   "title": "Opposing the federal preemption of state laws that regulate artificial intelligence.",
+   "description": "Opposing the federal preemption of state laws that regulate artificial intelligence.",
+   "pending_committee_id": 4776,
+   "committee": {
+    "committee_id": 4776,
+    "chamber": "H",
+    "chamber_id": 41,
+    "name": "Legislative Modernization"
+   },
+   "referrals": [
+    {
+     "date": "2026-01-29",
+     "committee_id": 4776,
+     "chamber": "H",
+     "chamber_id": 41,
+     "name": "Legislative Modernization"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-01-28",
+     "action": "House Introduced",
+     "chamber": "H",
+     "chamber_id": 41,
+     "importance": 1
+    },
+    {
+     "date": "2026-01-29",
+     "action": "House Referred to Committee on Legislative Modernization",
+     "chamber": "H",
+     "chamber_id": 41,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 24879,
+     "person_hash": "l1958w6l",
+     "party_id": "0",
+     "state_id": 16,
+     "party": "",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Legislative Modernization",
+     "first_name": "",
+     "middle_name": "",
+     "last_name": "",
+     "suffix": "",
+     "nickname": "",
+     "district": "",
+     "ftm_eid": 0,
+     "votesmart_id": 0,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 1,
+     "committee_id": 4776,
+     "state_federal": 0
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3339773,
+     "date": "2026-01-28",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/KS/text/HR6023/id/3339773",
+     "state_link": "https://kslegislature.gov/li/b2025_26/measures/documents/hr6023_00_0000.pdf",
+     "text_size": 74624,
+     "text_hash": "040f94bed83f78ecc07b2e867806ca5f",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "amendments": [],
+   "supplements": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-01-28",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "House Introduced",
+     "chamber": "H"
+    },
+    {
+     "date": "2026-01-29",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "House Referred to Committee on Legislative Modernization",
+     "chamber": "H"
+    }
+   ]
+  },
+  "text": "Session of 2026\nHouse Resolution No. 6023\nBy Committee on Legislative Modernization\n1-28\nA RESOLUTION opposing the federal preemption of state laws that\nregulate artificial intelligence.\nWHEREAS, The State of Kansas recognizes the rapid advancement and\ndeployment of artificial intelligence (AI) systems throughout the\neconomy, including in sectors affecting Kansas citizens such as\nemployment, housing, healthcare, elections and education; and\nWHEREAS, F ederal preemption of state AI laws would represent a\nsignificant intrusion into the states' traditional and constitutionally\nprotected powers under the Tenth Amendment, which reserves to the\nstates powers not explicitly delegated to the federal government; and\nWHEREAS, T he proposed federal preemption would override states'\ntraditional authority in areas such as state election administration, state\ncourt operations, public safety and policing, professional licensing and\nthe governance of state executive branches, all of which are areas in\nwhich states have legitimate constitutional authority and responsibility\nto their citizens; and\nWHEREAS, F ederal proposals to preempt state AI laws have contained\nserious flaws, including ambiguous definitions, lack of state criminal\nprosecution exemptions and, most critically, no meaningful federal\nprotections or standards to replace state authority; and\nWHEREAS, Such federal preemption would leave courts, employers,\nconsumers and Kansas residents operating in a regulatory vacuum at\nprecisely the moment when AI systems are becoming deeply\nembedded in everyday life; and\nWHEREAS, F ederal preemption efforts may be paired with threats to\nwithhold discretionary federal funding and Broadband Equity Access\nand Deployment (BEAD) Program funds from states with AI\nregulations, representing a coercive infringement on state authority\nand an inequitable burden on rural and fiscally constrained states, like\nKansas, that depend heavily on federal broadband funding; and\nWHEREAS, States are uniquely positioned to tailor policy to local needs,\nand they have been the \"laboratory of democracy,\" piloting solutions\nthat can later inform federal legislation when Congress finally acts;\nand\nWHEREAS, Kansas and other states now risk having their carefully\n\nconsidered policymaking undone by broadly applied and rushed\nfederal intervention; and\nWHEREAS, Congress should instead focus on setting a strong federal\nfloor of protections, while preserving state authority to go further, as\nneeded, in addressing new harms in ways that are tailored to their\nconstituents' needs: Now, therefore,\nBe it resolved by the House of Representatives of the State of Kansas:\nThat we express our strong opposition to any federal legislation,\nexecutive order or federal policy that would preempt, freeze or\notherwise restrict the state of Kansas from enacting, enforcing or\nmodifying laws and regulations governing AI; and\nBe it further resolved: That we oppose any proposal to temporarily or\npermanently suspend Kansas' authority to regulate AI in any sector,\nincluding, but not limited to, areas of traditional state responsibility,\nsuch as:\n(a) State election administration and the prevention of election\ninterference through AI-generated deepfakes, automated votertargeting tools and related technologies;\n(b) state court operations and the rules governing the use of AI in legal\nproceedings and judicial decision-making;\n(c) public safety and policing, including the use of AI-based\nsurveillance and biometric identification technologies;\n(d) professional licensing and the regulation of professionals' use of AI\ntools;\n(e) employment practices and protections for Kansas workers from AI-\nenabled discrimination;\n(f) housing and the prevention of AI-enabled discriminatory practices in\nhousing markets;\n(g) healthcare and the regulation of AI systems used in medical\ndecision-making;\n(h) consumer protection and the prevention of AI-generated fraud and\nidentity theft;\n(i) environmental and land use regulation related to data center\nconstruction and operation; and\n(j) protecting the privacy of children and regulating AI companion\napplications; and\nBe it further resolved: That we reject any federal preemption proposal\nthat:\n(a) Fails to include a clear exemption preserving state authority to\nenforce criminal laws against AI-enabled crimes, including the\nproduction of non-consensual synthetic media, identity fraud and\nelection interference;\n(b) does not offer federal protections or minimum standards to replace\n\nstate authority, leaving Kansas residents in a regulatory vacuum;\n(c) uses ambiguous definitions of AI systems or AI regulation that\ninvite litigation and regulatory paralysis;\n(d) allows private entities to enforce federal restrictions on state\nauthority, subjecting Kansas to costly litigation;\n(e) conditions the receipt of federal funding, including, but not limited\nto, Broadband Equity Access and Deployment (BEAD) Program\nfunds, on Kansas' refusal to enact or enforce AI regulations; or\n(f) attempts to achieve preemption through executive order, which\nexceeds presidential constitutional authority; and\nBe it further resolved: That we affirm the constitutional authority of the\nstate of Kansas to regulate artificial intelligence within its borders and\nthe responsibility of Kansas to protect its citizens from AI-related\nharms; and\nBe it further resolved: That nothing in this resolution shall be construed\nas endorsement of all AI regulations or opposition to reasonable\nfederal AI standards that are paired with preservation of meaningful\nstate authority; and\nBe it further resolved: That the Secretary of State shall send enrolled\ncopies of this resolution to:\n(a) Each member of the Kansas congressional delegation;\n(b) the President of the United States;\n(c) the Speaker of the United States House of Representatives;\n(d) the President pro tempore of the United States Senate;\n(e) the chairpersons and ranking members of the United States House\nCommittee on Energy and Commerce and the United States Senate\nCommittee on Commerce, Science, and Transportation;\n(f) all state governors and state legislative leaders; and\n(g) the national media outlets.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3339773,
+   "date": "2026-01-28",
+   "type": "Introduced",
+   "mime": "application/pdf",
+   "state_link": "https://kslegislature.gov/li/b2025_26/measures/documents/hr6023_00_0000.pdf",
+   "from": "official",
+   "saved_file": "raw/legiscan/KS-HR6023-2100636.pdf",
+   "pdf": {
+    "pages": 3,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": []
+ }
+}

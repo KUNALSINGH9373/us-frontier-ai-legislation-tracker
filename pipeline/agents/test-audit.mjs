@@ -101,7 +101,7 @@ ok('SCOPE_CLAIM: the classification is the reader\'s own judgement from the prov
   const r1 = await go(ref(true, Q));
   ok('both readers and the referee say in scope, with a quote in the source: publishable, and the scope quote is kept as evidence', r1.outcome === 'publishable' && r1.entry.evidence.some((e) => e.field === 'in_scope' && e.quote === Q), `${r1.outcome} ${r1.reason}`);
   const r2 = await go(ref(false, null));
-  ok('generator and reader say in scope but the referee says out: held for a person, not published', r2.outcome === 'held' && r2.escalate === true && /referee rules it out/.test(r2.reason), `${r2.outcome} ${r2.reason}`);
+  ok('generator and reader say in scope but the referee says out: held and reported, not published', r2.outcome === 'held' && r2.escalate === true && /referee rules it out/.test(r2.reason), `${r2.outcome} ${r2.reason}`);
   const r3 = await go(ref(true, 'a quote that is nowhere in the bill'));
   ok('the referee says in scope with a quote code cannot find: held', r3.outcome === 'held' && /did not confirm/.test(r3.reason), `${r3.outcome} ${r3.reason}`);
   const r4 = await go(null);

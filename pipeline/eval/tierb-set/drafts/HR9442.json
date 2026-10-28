@@ -1,0 +1,122 @@
+{
+ "id": 98,
+ "key": "h-r-9442-artificial-intelligence-data-center-moratorium-act",
+ "section": "G.3",
+ "type": "export",
+ "level": "federal",
+ "jurisdiction": "Federal",
+ "state": null,
+ "status": "export",
+ "title": "H.R. 9442 — Artificial Intelligence Data Center Moratorium Act",
+ "short_name": "H.R. 9442 Artificial Intelligence Data Center Moratorium Act",
+ "sponsor_text": "Rep. Alexandria Ocasio-Cortez (D-NY)",
+ "mechanism": "Sec. 3: beginning on enactment, construction or upgrading of new or existing AI data centers may not commence or proceed until one or more laws are enacted that ensure federal pre-release review and approval of AI products, among other conditions, and a provision expressly terminates the moratorium. Secretary of Energy shall submit quarterly reports to Congress on AI data centers. Sec. 4: Secretary of Commerce shall prohibit export, reexport or in-country transfer of computing infrastructure hardware for AI data center or AI training or deployment end-uses to countries without comparable laws, and to persons in those countries.",
+ "thresholds": "Data centers used for development or operation of AI models at scale, or with peak power load in excess of 20 megawatts plus equipment for 20 kilowatts or more per server rack or liquid cooling. Figures: 20 megawatts; 20 kilowatts.",
+ "penalties": null,
+ "status_text": "Introduced / status: June 24, 2026; Referred to the Committee on Energy and Commerce, and in addition to the Committee on Foreign Affairs, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned (June 24, 2026)",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-06-24",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "H.R. 9442 introduced",
+   "inferred_year": false,
+   "scheduled": false
+  }
+ ],
+ "sources": [
+  {
+   "label": "Congress.gov record: Artificial Intelligence Data Center Moratorium Act",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/9442",
+   "kind": "primary",
+   "retrieved_at": "2026-10-07T03:40:48Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "may not commence or proceed until--",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "mechanism",
+   "quote": "Beginning on the date of enactment of this Act,",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "mechanism",
+   "quote": "1 or more laws are enacted that ensure that--",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "mechanism",
+   "quote": "expressly terminates the moratorium under this",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "mechanism",
+   "quote": "submit to Congress quarterly reports on artificial intelligence data centers",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "mechanism",
+   "quote": "the Secretary of Commerce shall prohibit the export,",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "mechanism",
+   "quote": "for an end-use described in subsection (c)--",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "thresholds",
+   "quote": "artificial intelligence models at scale; or",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "thresholds",
+   "quote": "power load in excess of 20 megawatts; and",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "thresholds",
+   "quote": "to deliver 20 kilowatts or more of electrical",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  },
+  {
+   "field": "in_scope",
+   "quote": "the Secretary of Commerce shall prohibit the export, reexport, or in-country transfer of computing infrastructure hardware for an end-use described in subsection (c)",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9442"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "congress_gov": [
+    "119/hr/9442"
+   ]
+  },
+  "session": "119th Congress"
+ },
+ "legacy": {
+  "section_name": "Compute and export controls"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261007-0339-50d8",
+  "rounds": 2
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28"
+}

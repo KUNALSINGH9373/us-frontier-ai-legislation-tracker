@@ -27,7 +27,7 @@ import { fileURLToPath } from 'url';
 import { compareRun } from './compare/run.mjs';
 import { publishRun, loadData, writeData, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } from './publish/run.mjs';
 import { checkPublish } from './publish/guards.mjs';
-import { runAgents } from './agents/run.mjs';
+import { runAgents, MEMO_FILE as AGENT_MEMO_FILE } from './agents/run.mjs';
 import { correctRun, summaryOf as correctSummary } from './correct/run.mjs';
 import { linkRun } from './links/run.mjs';
 import { courtsRun } from './publish/courts.mjs';
@@ -320,7 +320,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   try {
     // ---- 0. the staging copy: every step below writes here, nothing else ----
     step = 'staging';
-    S = createStaging({ dir: path.join(P.workDir, 'staging', rep.id), dataDir: P.dataDir, docsDir: config.copy_to_docs ? P.docsDir : null, idsFiles: { ids: P.idsFile, lsIds: P.lsIdsFile }, stateDir: P.stateDir, stateFiles: [...PROMOTED_STATE, HELD_FILE], dataFiles: [...DATA_FILES, 'status'] });
+    S = createStaging({ dir: path.join(P.workDir, 'staging', rep.id), dataDir: P.dataDir, docsDir: config.copy_to_docs ? P.docsDir : null, idsFiles: { ids: P.idsFile, lsIds: P.lsIdsFile }, stateDir: P.stateDir, stateFiles: [...PROMOTED_STATE, HELD_FILE, AGENT_MEMO_FILE], dataFiles: [...DATA_FILES, 'status'] });
     const before = loadData(S.v2); // the data as it was at the start: the final check compares the whole run with it
     // ---- held items: what a stop rule refused on earlier runs, and what it refuses now ----
     const held = readJson(S.stateFile(HELD_FILE), { items: {} }); held.items = held.items || {};
@@ -387,7 +387,10 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
       if (!aiOff && (diff.summary.material || diff.summary.new_entry_candidate)) {
         step = 'AI step';
         log(`agents ${id}: up to ${ai.max_items_per_run || 10} item(s)`);
-        const s = await (deps.runAgents || runAgents)({ runDir, entries, config: models, factory, today, maxItems: ai.max_items_per_run || 10, log: (m) => log('  ' + m) });
+        const s = await (deps.runAgents || runAgents)({ runDir, entries, config: models, factory, today, maxItems: ai.max_items_per_run || 10, memoFile: S.stateFile(AGENT_MEMO_FILE), log: (m) => log('  ' + m) });
+        // Items held for good are reported once each, as proposals (production has no reviewer); they are not read again until their record changes.
+        (s.proposals || []).forEach((p) => rep.notes.push(`proposal (held, not created): ${p}`));
+        if (s.not_reread) rep.notes.push(`AI step: ${s.not_reread} held item(s) not read again (record unchanged)`);
         rep.ai.runs.push(aiEntry({ runDir, results: s }));
         if (s.stopped_by_month_cap) rep.notes.push('the monthly AI cost cap was reached during this run; the rest waits until next month');
       }

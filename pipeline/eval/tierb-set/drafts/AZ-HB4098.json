@@ -1,0 +1,227 @@
+{
+ "id": 98,
+ "key": "az-hb-4098",
+ "section": "B",
+ "type": "bill",
+ "level": "state",
+ "jurisdiction": "AZ",
+ "state": "AZ",
+ "status": "pending",
+ "title": "H.B. 4098 — Artificial intelligence business; attorney general",
+ "short_name": "AZ HB 4098",
+ "sponsor_text": "Rep. Anastasia Travers (D)",
+ "mechanism": "An artificial intelligence business shall conduct a comprehensive risk assessment for each high risk AI system before using or selling it, including assessing catastrophic risks. It shall submit a transparency report to the attorney general before using or selling a high risk AI system, and the reports shall be publicly posted on its website. It shall conduct a quarterly audit. The attorney general shall issue a certification before an artificial intelligence business enters the stream of commerce.",
+ "thresholds": "Frontier model: trained using greater than 10.26 computational operations to compute costs of more than $100,000,000, or by applying knowledge distillation to a frontier model. Large developer: spent more than $5,000,000 in developing and more than $100,000,000 in training a frontier model.",
+ "penalties": "Attorney general enforces; may impose a civil penalty of not more than $50,000 per violation; each day a violation occurs constitutes a separate violation. A business that implements recognized standards for and complies with the children's online privacy protection act of 1998 advisory services may receive a reduced civil penalty for inadvertent violations.",
+ "status_text": "Status: Introduced Feb 10, 2026; Assigned to House RULES Committee (Feb 10, 2026)",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-02-10",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "Introduced in House and read first time",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-02-10",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Assigned to House AII Committee",
+   "inferred_year": false,
+   "scheduled": false
+  }
+ ],
+ "sources": [
+  {
+   "label": "AZ Legislature record: Artificial intelligence business; attorney general",
+   "url": "https://apps.azleg.gov/BillStatus/BillOverview/85620",
+   "kind": "primary",
+   "retrieved_at": "2026-10-13T07:18:56Z"
+  },
+  {
+   "label": "AZ Legislature bill text (Introduced): Artificial intelligence business; attorney general",
+   "url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm",
+   "kind": "primary",
+   "retrieved_at": "2026-10-13T07:18:56Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "shall conduct a comprehensive risk assessment for each of the",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "mechanism",
+   "quote": "4. assessing catastrophic risks.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "mechanism",
+   "quote": "shall submit a transparency report to the attorney general before",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "mechanism",
+   "quote": "The transparency reports shall be publicly posted on the artificial intelligence business's website.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "mechanism",
+   "quote": "shall conduct a quarterly audit to identify and correct any instances",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "mechanism",
+   "quote": "The attorney general shall issue a certification before an ARTIFICIAL intelligence business enters the stream of commerce.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "thresholds",
+   "quote": "using\ngreater than 10.26 computational operations to compute costs of more than \n$100,000,000.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "thresholds",
+   "quote": "applying\nknowledge distillation to a frontier model.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "thresholds",
+   "quote": "has spent\nmore than $5,000,000 in developing the frontier model and more than\n$100,000,000 in training the frontier model.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "penalties",
+   "quote": "The attorney general shall enforce\nthis section",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "penalties",
+   "quote": "may impose a civil penalty of not more than\n$50,000 per violation for a violation of this section.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "penalties",
+   "quote": "Each day a violation\noccurs constitutes a separate violation.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "penalties",
+   "quote": "that implements recognized standards for and complies with the\nchildren's online privacy protection act of 1998 (P.L. 105-277) advisory\nservices may receive a reduced civil penalty for inadvertent violations.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  {
+   "field": "in_scope",
+   "quote": "An artificial intelligence business shall submit a transparency report to the attorney general before using or selling a high risk AI system.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "legiscan": [
+    2112241
+   ]
+  },
+  "session": "Fifty-seventh Legislature - Second Regular Session (2026)"
+ },
+ "legacy": {
+  "section_name": "Pending, stalled and failed state bills"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261013-0714-e97e",
+  "rounds": 2
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28",
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require a published safety or risk-management framework; it requires risk assessments and audits."
+  },
+  "transparency_report": {
+   "value": "yes",
+   "summary": "An AI business must submit a transparency report to the attorney general before using or selling a high risk AI system, and post the reports publicly on its website.",
+   "section": "44-1383(C)",
+   "quote": "An artificial intelligence\nbusiness shall submit a transparency report to the attorney general before\nusing or selling a high risk AI system.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill has no requirement to report safety incidents to a government body."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no shorter reporting window for imminent risks."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill requires the business to run its own quarterly audit but does not require an independent or third-party audit or evaluation."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill has no employee protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill has no registration, licensing or notification requirement for the business; the attorney general's certification is not a registration duty."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill has no shutdown or kill-switch requirement."
+  },
+  "compute_threshold": {
+   "value": "yes",
+   "summary": "A frontier model is defined as one trained using greater than 10.26 computational operations at compute costs of more than $100,000,000, or by distillation of a frontier model.",
+   "section": "44-1383(K)(2)",
+   "quote": "using\ngreater than 10.26 computational operations to compute costs of more than\n$100,000,000.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  "revenue_threshold": {
+   "value": "yes",
+   "summary": "A large developer is one that has spent more than $5,000,000 developing and more than $100,000,000 training a frontier model.",
+   "section": "44-1383(K)(4)(a)",
+   "quote": "has spent\nmore than $5,000,000 in developing the frontier model and more than\n$100,000,000 in training the frontier model.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  "harm_threshold": {
+   "value": "yes",
+   "summary": "Large developer definition refers to risk of death or serious injury to more than one hundred people from CBRN weapons or autonomous criminal conduct.",
+   "section": "44-1383(K)(4)(c)",
+   "quote": "will result in the death of or serious injury\nto more than one hundred people by an incident of either of the following:",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  "penalties": {
+   "value": "yes",
+   "summary": "The attorney general enforces and may impose a civil penalty of up to $50,000 per violation, with each day a separate violation.",
+   "section": "44-1383(I)",
+   "quote": "The attorney general may impose a civil penalty of not more than\n$50,000 per violation for a violation of this section.",
+   "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620"
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill text states no effective date."
+  }
+ },
+ "duties_basis": {
+  "source_url": "https://apps.azleg.gov/BillStatus/BillOverview/85620",
+  "sha256": "72b855ae8c39bdbeda691cdc7de0f1502b4693265fae56502a09180a4627a2c2",
+  "chars": 5318,
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z"
+ }
+}

@@ -30,6 +30,8 @@ export function statesOf(e) {
 export function numbersIn(text) {
   const t = String(text || ''), out = new Set(billNumbersIn(t));
   for (const m of t.matchAll(/(?<![A-Za-z.])([SH])\.?\s?B\.?\s?\d{2}-(\d{1,4})\b/g)) out.add(normNumber(`${m[1]}B${m[2]}`));
+  // Nebraska's unicameral "L.B. 1083" / "LB 1083" (LegiScan "LB1083").
+  for (const m of t.matchAll(/(?<![A-Za-z.])L\.?\s?B\.?\s?(\d{1,4})\b/g)) out.add(normNumber(`LB${m[1]}`));
   for (const m of t.matchAll(/(?<![A-Za-z.])([SHA])\.?\s?([BF])?\.?\s?(\d{1,5})\s?[–-]\s?(\d{1,5})\b/g)) {
     const a = +m[3], b = +m[4];
     if (b > a && b - a <= 20) for (let k = a; k <= b; k++) out.add(normNumber(`${m[1]}${m[2] || ''}${k}`));
@@ -78,10 +80,17 @@ export function duplicateOf({ item, raw = {}, idx }) {
     for (const n of [...textBillNumbers(raw.text), ...numbersIn(String(raw.text || '').slice(0, 3000))]) if (n !== own && idx.numbers.has(`${st}:${normNumber(n)}`)) return { key: idx.numbers.get(`${st}:${normNumber(n)}`), why: `its text names a tracked bill (${st} ${normNumber(n)}); it may amend it or depend on it` };
   }
   if (item.source === 'congress_gov') {
-    for (const r of raw.related_bills || raw.relatedBills?.relatedBills || []) {
+    const rel = raw.related_bills || raw.relatedBills?.relatedBills || [];
+    for (const r of rel) {
       const identical = (r.relationshipDetails || []).some((d) => /identical/i.test(d.type || ''));
       const id = `congress_gov:${r.congress}/${String(r.type || '').toLowerCase()}/${r.number}`;
       if (identical && idx.ids.has(id)) return { key: idx.ids.get(id), why: `Congress.gov lists it as identical to a tracked bill (${id.slice(13)})` };
+    }
+    // Any other relationship to a tracked bill (a "Related bill", a procedurally-related one): it may be a new version of that bill or
+    // belong on its entry, which code cannot tell; it is never created, and is reported as a possible update of that entry.
+    for (const r of rel) {
+      const id = `congress_gov:${r.congress}/${String(r.type || '').toLowerCase()}/${r.number}`;
+      if (idx.ids.has(id)) return { key: idx.ids.get(id), possible: true, why: `Congress.gov relates it to a tracked bill (${id.slice(13)}: ${(r.relationshipDetails || []).map((d) => d.type).filter(Boolean).join(', ') || 'related'}); possible duplicate or update of that entry` };
     }
   }
   return null;
@@ -92,4 +101,56 @@ export function relatedUnread(item, raw = {}) {
   if (item.source !== 'congress_gov') return null;
   const n = raw.bill && raw.bill.relatedBills && raw.bill.relatedBills.count;
   return n > 0 && !(raw.related_bills || (raw.relatedBills && raw.relatedBills.relatedBills)) ? `Congress.gov lists ${n} related bill(s) that were not read, so an identical tracked bill cannot be ruled out` : null;
+}
+
+// ---------- the same programme under another bill ----------
+// A state can re-enact a programme the tracker already has in a different act (CT H.B. 5222 re-enacted the independent-verification pilot
+// of P.A. 26-15, Sec. 47 vs Sec. 33), and a hand-written entry often carries no record id or bill number for it. So a new state entry is
+// also compared with every entry of its state by what the programme IS: the agencies it names (by name or initials, "Department of
+// Consumer Protection" = "DCP"), distinctive programme terms (independent verification organizations, a pilot, a regulatory sandbox, AI
+// auditor licensing, the injury-or-property-damage evidence rule) and a quoted act name. Generic frontier words (developer, model, Attorney
+// General) never count. A strong overlap is never created: it is held and reported as a possible duplicate or update of that entry.
+const PROGRAMME = {
+  'independent verification organizations': /\bindependent verification organi[sz]ations?\b|\bIVOs?\b/i,
+  'a pilot program': /\bpilot\b/i,
+  'a regulatory sandbox': /\bregulatory sandbox(?:es)?\b|\bAI sandbox\b/i,
+  'AI auditor licensing': /\b(?:AI|artificial intelligence) auditors?\b|\bauditor licen[cs]/i,
+  'the injury-or-property-damage evidence rule': /\binjury\W+or\W+property\W+damage\b/i,
+  'an AI safety institute or office': /\b(?:AI|artificial intelligence) (?:safety )?(?:institute|office)\b/i
+};
+const AGENCY = /\b(?:Department|Office|Commission|Board|Bureau|Division|Agency|Authority|Council|Institute)\s+(?:of|for|on)\s+(?:the\s+)?[A-Z][a-z]+(?:(?:\s+(?:and|of|for|on|the))*\s+[A-Z][a-z]+){0,5}/g;
+const ACT_NAME = /[“"]([A-Z][^”"]{3,80}?\bAct)[”"]/g;
+const initials = (name) => name.split(/\s+/).filter((w) => /^[A-Z]/.test(w)).map((w) => w[0]).join('');
+const agenciesIn = (t) => [...new Set([...String(t || '').matchAll(AGENCY)].map((m) => m[0].replace(/\s+/g, ' ').trim()))];
+export function programmeTerms(text) {
+  const t = String(text || '');
+  return { concepts: Object.keys(PROGRAMME).filter((k) => PROGRAMME[k].test(t)), agencies: agenciesIn(t), acts: [...new Set([...t.matchAll(ACT_NAME)].map((m) => m[1].toLowerCase()))] };
+}
+const entryProse = (e) => [e.title, e.short_name, e.mechanism, e.thresholds].filter(Boolean).join(' \n ');
+// What two texts share: { score, shared: [readable terms] }. An agency counts when the other text names it or its initials (3+ letters).
+export function programmeOverlap(a, b) {
+  const A = programmeTerms(a), B = programmeTerms(b), tb = String(b || ''), ta = String(a || '');
+  const shared = [], has = (t, name) => t.includes(name) || (initials(name).length >= 3 && new RegExp(`\\b${initials(name)}\\b`).test(t));
+  A.concepts.filter((c) => B.concepts.includes(c)).forEach((c) => shared.push({ kind: 'programme', term: c }));
+  const ag = new Set([...A.agencies.filter((x) => has(tb, x)), ...B.agencies.filter((x) => has(ta, x))].map((x) => initials(x)));
+  ag.forEach((x) => shared.push({ kind: 'agency', term: [...A.agencies, ...B.agencies].find((n) => initials(n) === x) }));
+  A.acts.filter((x) => B.acts.includes(x)).forEach((x) => shared.push({ kind: 'act', term: x }));
+  const score = shared.reduce((s, x) => s + (x.kind === 'act' ? 2 : 1), 0);
+  return { score, shared };
+}
+export const PROGRAMME_BAR = 3;
+// { key, why, possible: true } for the tracked entry of the same state whose programme a new state entry matches, or null.
+// draft: the assembled entry (title, mechanism, thresholds, state). A match needs PROGRAMME_BAR points with at least one programme term or
+// act name shared (agencies alone are not a programme).
+export function programmeDuplicateOf(draft, entries = []) {
+  const st = draft && draft.state; if (!st) return null;
+  const mine = entryProse(draft);
+  let best = null;
+  for (const e of entries) {
+    if (e.key === draft.key || !statesOf(e).includes(st)) continue;
+    const o = programmeOverlap(mine, entryProse(e));
+    if (o.score < PROGRAMME_BAR || !o.shared.some((x) => x.kind !== 'agency')) continue;
+    if (!best || o.score > best.score) best = { key: e.key, score: o.score, shared: o.shared };
+  }
+  return best ? { key: best.key, possible: true, why: `the same ${st} programme as a tracked entry (shares ${best.shared.map((x) => x.term).join(', ')}): possible duplicate or update of that entry` } : null;
 }

@@ -6,6 +6,7 @@ export const longDate = (iso) => { const [y, m, d] = iso.split('-').map(Number);
 const trunc = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 import { eventsFrom, trackerStatus, normNumber } from '../grabber/sources/legiscan.mjs';
 import { actionKind } from '../compare/congress.mjs';
+import { sectionsByCode } from './rules.mjs';
 const TYPE_LABEL = { hr: 'H.R.', s: 'S.', hjres: 'H.J.Res.', sjres: 'S.J.Res.', hres: 'H.Res.', sres: 'S.Res.', hconres: 'H.Con.Res.', sconres: 'S.Con.Res.' };
 
 // "Sen. Sanders, Bernard [I-VT]"  ->  "Sen. Bernard Sanders (I-VT)"
@@ -122,9 +123,13 @@ export function deriveCreate({ item, raw }) {
     const events = eventsFrom(b).map(({ date, precision, type, text }) => ({ date, precision, type, text: text.replace(/\.$/, '') }));
     const intro = events.find((e) => e.type === 'Introduced / published') || ((b.history || [])[0] && { date: b.history[0].date }), last = events[events.length - 1];
     const status_text = `Status: Introduced ${intro && intro.date ? longDate(intro.date) : 'date not stated'}${last && last !== intro ? `; ${last.text} (${longDate(last.date)})` : ''}`;
+    // The section, by code where code can decide (agents/rules.mjs sectionsByCode, the tracker's section criteria): of the sections the
+    // status allows, those whose criterion a passage of the text meets. Exactly one: code sets it (the Generator's choice is dropped).
+    // Several: the Generator chooses among them only. None: no section can be proved and nothing is created (agents/process-item.mjs).
+    const allowed = stateSections(status), sections = sectionsByCode(raw.text || '', allowed);
     return {
       fields: { title: `${num.dotted} — ${b.title}`, short_name: trunc(`${b.state} ${num.short}`, 100), sponsor_text: stateSponsorText(b.sponsors, { bill_number: b.bill_number, text: raw.text }), status_text },
-      events, section: null, sections: stateSections(status), status, jurisdiction: b.state, state: b.state, session: b.session && b.session.session_name
+      events, section: sections.length === 1 ? sections[0] : null, sections, allowed, status, jurisdiction: b.state, state: b.state, session: b.session && b.session.session_name
     };
   }
   throw new Error('no derivation for ' + item.source);

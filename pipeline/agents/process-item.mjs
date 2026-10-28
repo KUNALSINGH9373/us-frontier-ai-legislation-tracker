@@ -16,7 +16,9 @@ import { relevantSections, markerPassages } from './sections.mjs';
 import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
 import { writeDuties, DUTY_SECTIONS, DUTY_REQUIRED_SECTIONS } from './duties.mjs';
 import { recordRefusals } from './record-kind.mjs';
-import { trackerIndex, duplicateOf } from './dedupe.mjs';
+import { trackerIndex, duplicateOf, relatedUnread, programmeDuplicateOf } from './dedupe.mjs';
+import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES } from './rules.mjs';
+import { normaliseExponents } from './checks.mjs';
 
 export const MAX_ROUNDS = 3;
 const TRIAGE_OVER = 100000, TRIAGE_CHARS = 30000; // sources longer than this are read section by section (or by frontier passages)
@@ -34,6 +36,32 @@ export async function refereeVerdict(referee, source, itemId, fullText = source)
     return { in: false, quote: null, reason: x.reason || null };
   } catch (e) { if (e instanceof LlmOutputError) return { in: null, quote: null }; throw e; }
 }
+// The referee on a state entry's SECTION: it must confirm the section's own criterion (agents/rules.mjs SECTION_CRITERIA) with a quote
+// that code finds in the source AND that carries the section's marker (a frontier threshold for A/B, a catastrophic-risk term without
+// one for B.2, IVO / auditor licensing for C). { ok, quote, why }.
+export const sectionClaim = (section) => `This item belongs in section ${section} of the tracker: it is ${SECTION_CRITERIA[section]}. Support this claim ONLY with a word-for-word quote from SOURCE that itself shows that criterion (for example the definition or duty that states the threshold, the catastrophic-risk duty, or the auditor or verification-organization provision).`;
+export async function refereeSection(referee, source, section, itemId, fullText = source) {
+  if (!referee) return { ok: false, quote: null, why: 'no referee is configured' };
+  try {
+    const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim: sectionClaim(section) }] }), itemId });
+    const x = r && r.data && r.data.results && r.data.results[0];
+    if (!x || x.supported !== true) return { ok: false, quote: null, why: `the referee did not confirm section ${section}${x && x.reason ? ` ("${String(x.reason).slice(0, 140)}")` : ''}` };
+    if (!containsQuote(fullText, x.quote) || String(x.quote).trim().length < 8) return { ok: false, quote: null, why: `the referee's quote for section ${section} is not in the source` };
+    if (!quoteMeetsSection(section, x.quote)) return { ok: false, quote: null, why: `the referee's quote for section ${section} does not show that section's criterion ("${String(x.quote).slice(0, 100)}")` };
+    return { ok: true, quote: x.quote };
+  } catch (e) { if (e instanceof LlmOutputError) return { ok: false, quote: null, why: 'the referee gave an unusable answer' }; throw e; }
+}
+// One more ask of the independent reader for the scope claim when it said "supported" but its quote was not in the source: an exact quote
+// this time. true = supported with a quote code finds; null = still no usable quote.
+async function exactScopeQuote(validator, source, itemId, fullText) {
+  const claim = `${SCOPE_CLAIM}\nIMPORTANT: your previous answer to this claim said "supported" but its quote was not found word for word in SOURCE. Copy the quote EXACTLY, character for character, from SOURCE (no ellipses, no paraphrase, no added or changed words).`;
+  try {
+    const r = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim }] }), itemId });
+    const x = r && r.data && r.data.results && r.data.results[0];
+    return x && x.supported === true && containsQuote(fullText, x.quote) && String(x.quote).trim().length >= 8 ? { quote: x.quote } : null;
+  } catch (e) { if (e instanceof LlmOutputError) return null; throw e; }
+}
+const QUOTE_FAILED = /quote does not appear in the source/;
 // true = in scope, false = out, null = no referee or no usable answer (eval/run.mjs uses this form).
 export async function refereeSays(referee, source, itemId, fullText = source) { return (await refereeVerdict(referee, source, itemId, fullText)).in; }
 const IN_SCOPE_NOW = (sections) => `An independent reader judged this item IN scope for the tracker. Set in_scope to true and write the entry now: mechanism (what it does), thresholds and penalties only if the source states them, and section (${sections ? `one of ${sections.join(', ')}` : 'D or F'} for a bill). Do not return an empty "fields" object.`;
@@ -58,7 +86,10 @@ export async function processItem(args) {
 }
 // A held item is either retryable once (by the escalated pass) or escalated: no automatic step will publish it as its record stands.
 function finish(r) {
-  if (r.outcome === 'held' && (!r.retryable || r.escalated)) r.escalate = true;
+  // A model-service failure is not a verdict on the item: it is tried again on the next run, so it is not marked escalated.
+  if (r.outcome === 'held' && !r.service_error && (!r.retryable || r.escalated)) r.escalate = true;
+  // Every final hold is reported (run report and Telegram) as a proposal, once; production has no reviewer to ask.
+  if (r.escalate && !r.proposal) r.proposal = `${r.item_id}: held (${String(r.reason || '').slice(0, 160)}); not created`;
   delete r.retryable;
   return r;
 }
@@ -91,9 +122,13 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   if (operation === 'create') {
     // Code first, before any AI is spent: a record that is not a bill (a resolution, a memorial, an amendment filed as its own record, a
     // placeholder title) and an item the tracker already has under another id or number are never written up.
-    if (item.source === 'legiscan') { const refused = recordRefusals(raw); if (refused.length) return held(`not created: ${refused.join('; ')}`); }
+    if (item.source === 'legiscan') { const refused = recordRefusals(raw); if (refused.length) return held(`not created: ${refused.join('; ')}`, { proposal: `${item.item_id}: not a bill (${refused[0]}); not created` }); }
     const dup = duplicateOf({ item, raw, idx: trackerIndex(entries) });
-    if (dup) return held(`${dup.why}${dup.key ? ` (entry ${dup.key})` : ''}: not created; the id belongs on that entry`);
+    if (dup && dup.possible) return held(`${dup.why}${dup.key ? ` (entry ${dup.key})` : ''}: not created`, { possible_duplicate: dup.key, proposal: `${item.item_id} may be a duplicate or update of entry ${dup.key}: ${dup.why}` });
+    if (dup) return held(`${dup.why}${dup.key ? ` (entry ${dup.key})` : ''}: not created; the id belongs on that entry`, { duplicate_of: dup.key, proposal: `add ${item.item_id} to entry ${dup.key} (${dup.why})` });
+    // A Congress bill whose related bills were not read: an identical tracked bill cannot be ruled out, so no AI is spent on it.
+    const unread = relatedUnread(item, raw);
+    if (unread) return held(`${unread}; not created`, { proposal: `${item.item_id}: ${unread}; read again when its record changes` });
     // A new bill whose text is not published (or could not be fetched): nothing can be described or checked, and its scope is never
     // judged from the title alone (NJ S4934 was ruled out on its title). It is held and read again when its record changes.
     const textMissing = raw.text_missing === true || ((item.source === 'congress_gov' || item.source === 'legiscan') && !String(raw.text || '').trim());
@@ -115,9 +150,15 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   // its status allows (derive.mjs stateSections), and nothing else (the answer schema and assemble.mjs both refuse any other).
   const derivedNow = operation === 'create' ? deriveCreate({ item, raw }) : null;
   const needsSection = operation === 'create' && !derivedNow.section, sections = (derivedNow && derivedNow.sections) || null;
+  // A state bill no passage of which meets the criterion of any section its status allows (agents/rules.mjs SECTION_CRITERIA): the
+  // pipeline cannot file it anywhere, so no AI is spent on it. Held (not read again until its record changes) and reported.
+  if (operation === 'create' && item.source === 'legiscan' && sections && !sections.length) {
+    const t = raw.bill && raw.bill.title;
+    return held(`not created: no passage of the text meets the criterion of section ${derivedNow.allowed.join(', ')} (${derivedNow.allowed.map((s) => `${s}: ${SECTION_CRITERIA[s]}`).join('; ')})`, { no_section: true, proposal: `${item.item_id}${t ? ` ("${String(t).slice(0, 80)}")` : ''} meets no state section's criterion; not created` });
+  }
 
   // A very long source in which no frontier-AI section or passage was found: whether it is in scope is judged on its opening. If both
-  // readers (and the referee) say it is out of scope we are done; otherwise it is held for a person.
+  // readers (and the referee) say it is out of scope we are done; otherwise it is held and reported.
   if (operation === 'create' && source.length > TRIAGE_OVER && read === source) {
     const head = source.slice(0, TRIAGE_CHARS);
     const note = { kind: 'candidate', detail: `NOTE: SOURCE below is incomplete: it is cut off after its first ${TRIAGE_CHARS} characters because the full text is ${source.length} characters, and no frontier-AI term appears anywhere in the rest. Decide ONLY in_scope and scope_reason; leave "fields" empty.` };
@@ -128,7 +169,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
       const r = res && res.data && res.data.results && res.data.results[0];
       if (r && r.supported === false && (await refereeSays(referee, head, item.item_id, source)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on the first ${TRIAGE_CHARS} characters of a ${source.length}-character text in which no frontier-AI term appears)` };
     }
-    return { ...held(`source too long for automatic processing (${source.length} characters), no frontier-AI section or term was found in it, and it may be in scope, so it needs a person`), attempts: 1, patch: g.patch || null };
+    return { ...held(`source too long for automatic processing (${source.length} characters), no frontier-AI section or term was found in it, and it may be in scope; held until its record changes`, { proposal: `${item.item_id}: a ${source.length}-character text with no frontier-AI term that the readers did not both rule out; not created` }), attempts: 1, patch: g.patch || null };
   }
 
   for (let attempt = 1; attempt <= maxRounds; attempt++) {
@@ -142,6 +183,9 @@ async function processItemInner({ generator, validator, referee = null, item, ra
       dropped.forEach((k) => delete patch.fields[k]);
       patch.evidence = patch.evidence.filter((e) => !dropped.includes(e.field));
     }
+    // A compute threshold copied with its superscript lost ("10.26 computational operations"): the one unambiguous repair, 10^26 (any
+    // other implausible figure is left for the numeric check to refuse; agents/checks.mjs thresholdNumberProblems).
+    for (const k of ['mechanism', 'thresholds', 'penalties']) if (typeof patch.fields[k] === 'string') patch.fields[k] = normaliseExponents(patch.fields[k]);
     previousPatch = patch;
 
     // The Generator says "not about frontier AI": let the independent reader confirm before anything is dropped.
@@ -159,37 +203,64 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     }
 
     const asm = assembleEntry({ entry, patch, item, raw, today, runId, rounds: attempt, entries, now });
+    // The same programme as a tracked entry of its state, under another bill (CT H.B. 5222 re-enacting P.A. 26-15's IVO pilot): never
+    // created, and no more AI is spent on it. Held until its record changes and reported as a possible duplicate or update.
+    if (operation === 'create' && asm.entry && asm.entry.state) {
+      const p = programmeDuplicateOf(asm.entry, entries);
+      if (p) return { ...held(`${p.why} (entry ${p.key}); not created`, { possible_duplicate: p.key, proposal: `${item.item_id} (${asm.entry.short_name}) may duplicate or update entry ${p.key}: ${p.why}` }), attempts: attempt, patch, verdicts };
+    }
     const verdict = await validateDraft({ llm: validator, patch, before: entry, after: asm.entry, assembleProblems: asm.problems, source: item.source, sourceText: source, readText: read, entries, operation, itemId: item.item_id, run_id: runId, attempt });
-    // The reader objects to the scope of an item the generator wrote up: the referee decides, once per item.
     const objection = verdict.claims.find((c) => c.field === 'in_scope' && !c.supported);
-    if (objection && referee) {
+    const settle = (quote) => { objection.supported = true; objection.evidence_quote = quote; delete objection.reason; verdict.passed = verdict.code_checks.every((c) => c.passed) && verdict.claims.every((c) => c.supported); };
+    if (objection && QUOTE_FAILED.test(objection.reason || '')) {
+      // The reader said "in scope" but its quote was not in the source: that is a failed quote, never an "out" verdict. One retry for an
+      // exact quote, then the referee; neither proving it holds the item (and reports it), it is never ruled out on this path.
+      const again = await exactScopeQuote(validator, read, item.item_id, source);
+      if (again) settle(again.quote);
+      else {
+        const ref = await askReferee();
+        if (ref.in === true) settle(ref.quote);
+        else return { ...held(`the scope was not proved: the independent reader said in scope twice without a quote found in the source, and the referee ${ref.in === false ? `ruled it out ("${String(ref.reason || '').slice(0, 140)}")` : `did not confirm it with a quote${ref.why ? ` (${ref.why})` : referee ? '' : ' (no referee is configured)'}`}`, { proposal: `${item.item_id}: scope not proved (the readers' quotes were not in the source${ref.in === false ? '; the referee says out' : ''}); not created` }), attempts: attempt, patch, verdicts: [...verdicts, verdict] };
+      }
+    } else if (objection && referee) {
+      // The reader objects to the scope of an item the generator wrote up: the referee decides, once per item.
       const ref = await askReferee();
       if (ref.in === false) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: attempt, entry: null, patch, verdicts: [...verdicts, verdict], reason: `${(objection.reason || 'out of scope').slice(0, 200)} (confirmed by the referee)` };
-      if (ref.in === true) { objection.supported = true; objection.evidence_quote = ref.quote; delete objection.reason; verdict.passed = verdict.code_checks.every((c) => c.passed) && verdict.claims.every((c) => c.supported); }
+      if (ref.in === true) settle(ref.quote);
     }
     verdicts.push(verdict); last = { patch, asm, verdict };
     log(`attempt ${attempt}: ${verdict.passed ? 'passed' : 'rejected (' + complaints(verdict).length + ' problem(s))'}`);
     if (verdict.passed) {
       if (operation === 'create') {
         // The generator and the reader may be the same model: a new entry is published only when the referee (a different, stronger
-        // model) also rules it in scope, with a quote code finds in the source. No referee, no usable answer, or "out": held for a person.
+        // model) also rules it in scope, with a quote code finds in the source. No referee, no usable answer, or "out": held and reported.
         const ref = await askReferee();
-        if (ref.in !== true) return { ...held(ref.in === false ? `the referee rules it out of scope after both readers said in ("${String(ref.reason || '').slice(0, 160)}"); held for a person` : `the referee did not confirm the scope with a quote found in the source${ref.why ? ` (${ref.why})` : referee ? '' : ' (no referee is configured)'}`), attempts: attempt, patch, verdicts };
+        if (ref.in !== true) return { ...held(ref.in === false ? `the referee rules it out of scope after both readers said in ("${String(ref.reason || '').slice(0, 160)}"); held until its record changes` : `the referee did not confirm the scope with a quote found in the source${ref.why ? ` (${ref.why})` : referee ? '' : ' (no referee is configured)'}`, { proposal: `${item.item_id}: the readers say in scope, the referee ${ref.in === false ? 'says out' : 'gave no quote'}; not created` }), attempts: attempt, patch, verdicts };
         asm.entry.evidence = [...(asm.entry.evidence || []), { field: 'in_scope', quote: ref.quote, source_url: item.source_url }];
+        // A state entry's section is published only with the referee's quote meeting that section's own criterion (checked by code).
+        if (SECTION_RULES[asm.entry.section] && SECTION_RULES[asm.entry.section].level === 'state') {
+          const s = await refereeSection(referee, read, asm.entry.section, item.item_id, source);
+          if (!s.ok) return { ...held(`section ${asm.entry.section} not proved: ${s.why}`, { proposal: `${item.item_id} (${asm.entry.short_name}): section ${asm.entry.section} not proved (${s.why}); not created` }), attempts: attempt, patch, verdicts };
+          asm.entry.evidence.push({ field: 'section', quote: s.quote, source_url: item.source_url });
+        }
       }
       // A new bill (federal or state) also gets its 13 duty answers, each proved on its own (agents/duties.mjs). An A or B entry (a
       // frontier law or bill) is never published without them: it is held (retried once by the escalated pass).
       if (operation === 'create' && (item.source === 'congress_gov' || item.source === 'legiscan') && DUTY_SECTIONS.includes(asm.entry.section)) {
         const d = await writeDuties({ generator, validator, entry: asm.entry, sourceText: source, readText: read, sourceUrl: item.source_url, itemId: item.item_id, now, log });
         if (d.duties) Object.assign(asm.entry, { duties: d.duties, duties_basis: d.duties_basis });
-        else if (DUTY_REQUIRED_SECTIONS.includes(asm.entry.section)) return { ...held(`a section ${asm.entry.section} entry is not published without its duty answers, and they were not proved: ${d.reason}`, { retryable: !/every answer was not_in_bill/.test(d.reason || '') }), attempts: attempt, patch, verdicts, duties: { added: false, rounds: d.rounds, dropped: d.dropped, reason: d.reason } };
+        // The duty schema (and the site) has no "unknown" answer: not_in_bill says the text is silent, which an excerpt cannot prove. An
+        // unproved answer therefore holds the entry: retried once by the escalated pass, then held until the record changes (agents/run.mjs
+        // remembers it by the record's hash, so it is not read again every run) and reported, naming the duties left unproved.
+        else if (DUTY_REQUIRED_SECTIONS.includes(asm.entry.section)) return { ...held(`a section ${asm.entry.section} entry is not published without its duty answers, and they were not proved: ${d.reason}`, { retryable: !/every answer was not_in_bill/.test(d.reason || ''), proposal: `${item.item_id} (${asm.entry.short_name}, section ${asm.entry.section}): in scope, but duty answer(s) ${(d.dropped || []).join(', ') || '(all)'} could not be proved and the duty schema has no "not stated" answer; held until its record changes` }), attempts: attempt, patch, verdicts, duties: { added: false, rounds: d.rounds, dropped: d.dropped, reason: d.reason } };
         return { item_id: item.item_id, outcome: 'publishable', operation, attempts: attempt, entry: asm.entry, patch, verdicts, reason: null, duties: { added: !!d.duties, rounds: d.rounds, dropped: d.dropped, reason: d.reason } };
       }
       return { item_id: item.item_id, outcome: 'publishable', operation, attempts: attempt, entry: asm.entry, patch, verdicts, reason: null };
     }
-    // The generator says "in scope" and the reader says "out" (twice): stop, do not keep arguing.
+    // The generator says "in scope" and the reader says "out" (twice): stop, do not keep arguing. Held and reported as a scope proposal.
     if (verdict.claims.some((c) => c.field === 'in_scope' && !c.supported) && ++scopeObjections >= 2) {
-      return { ...held(`scope disagreement: the generator says in scope but the independent reader says out of scope ("${(verdict.claims.find((c) => c.field === 'in_scope').reason || '').slice(0, 160)}"). The author's scope rule needs to decide cases like this.`), attempts: attempt, patch, verdicts };
+      const why = (verdict.claims.find((c) => c.field === 'in_scope').reason || '').slice(0, 160);
+      return { ...held(`scope disagreement: the generator says in scope but the independent reader says out of scope ("${why}"); held until its record changes`, { proposal: `${item.item_id}: scope disagreement (generator in, reader out: "${why.slice(0, 100)}"); a scope rule for cases like this would settle it` }), attempts: attempt, patch, verdicts };
     }
     feedback = complaints(verdict);
   }

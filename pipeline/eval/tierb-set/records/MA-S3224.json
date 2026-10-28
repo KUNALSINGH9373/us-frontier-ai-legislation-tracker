@@ -1,0 +1,169 @@
+{
+ "item": {
+  "item_id": "legiscan:2156473",
+  "source": "legiscan",
+  "source_id": "2156473",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://malegislature.gov/Bills/194/S3224",
+  "fetched_at": "2026-10-13T07:18:52Z",
+  "raw_hash": "1f5fefd152e9238ec6f5304d2e49d92b82b927407f45bb7cc065f4a0b0d993ea",
+  "raw_path": "x",
+  "title": "MA S3224: Site Information & Links"
+ },
+ "raw": {
+  "id": "2156473",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 19,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 2156473,
+   "change_hash": "f08e81ac616c4860da8727ee4ea01dde",
+   "session_id": 2182,
+   "session": {
+    "session_id": 2182,
+    "state_id": 21,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "194th General Court"
+   },
+   "url": "https://legiscan.com/MA/bill/S3224/2025",
+   "state_link": "https://malegislature.gov/Bills/194/S3224",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-07-23",
+   "progress": [
+    {
+     "date": "2026-07-23",
+     "event": 1
+    }
+   ],
+   "state": "MA",
+   "state_id": 21,
+   "bill_number": "S3224",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "S",
+   "body_id": 52,
+   "current_body": "S",
+   "current_body_id": 52,
+   "title": "Site Information & Links",
+   "description": "Site Information & Links",
+   "pending_committee_id": 0,
+   "committee": [],
+   "referrals": [],
+   "history": [
+    {
+     "date": "2026-07-23",
+     "action": "See S3178",
+     "chamber": "S",
+     "chamber_id": 52,
+     "importance": 0
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 2510,
+     "person_hash": "mh00i4q4",
+     "party_id": "1",
+     "state_id": 21,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Michael Rush",
+     "first_name": "Michael",
+     "middle_name": "F.",
+     "last_name": "Rush",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-NORFOL",
+     "ftm_eid": 13001178,
+     "votesmart_id": 35666,
+     "opensecrets_id": "",
+     "knowwho_pid": 212637,
+     "ballotpedia": "Michael_Rush",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0
+    }
+   ],
+   "sasts": [
+    {
+     "type_id": 3,
+     "type": "Replaced by",
+     "sast_bill_number": "S3178",
+     "sast_bill_id": 2155977
+    }
+   ],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3453968,
+     "date": "2026-07-23",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/MA/text/S3224/id/3453968",
+     "state_link": "https://malegislature.gov/Bills/194/S3224.pdf",
+     "text_size": 1367962,
+     "text_hash": "4df0fa5e5962003d81348ef371670fe4",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "amendments": [],
+   "supplements": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-07-23",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "See S3178",
+     "chamber": "S"
+    }
+   ]
+  },
+  "text": "SENATE . . . . . . . . . . . . . . No. 3224\nSenate, July 23, 2026 -- Text of amendment (471) (offered by Senator Rush) to the Ways and\nMeans amendment (Senate, No. 3178) to the House Bill relative to economic development in the\ncommonwealth.\nThe Commonwealth of Massachusetts\n_______________\nIn the One Hundred and Ninety-Fourth General Court\n(2025-2026)\n_______________\nin section 106, in proposed section 1 of chapter 93M of the General Laws, by inserting\nafter the definition of “catastrophic risk” the following definition:-\n““Covered employee”, an employee responsible for assessing, managing or addressing\nrisk of critical safety incidents.”; and\nin said section 106, in proposed section 2 of said chapter 93M, by inserting after\nsubsection (c) the following subsection:-\n“(c 1/2)(1) A large frontier developer shall clearly and conspicuously publish on its\ninternet website a risk report that provides an overall assessment of the catastrophic risks posed\nby: (i) any frontier models the large frontier developer deploys externally; and (ii) any internally\ndeployed frontier models with capabilities that materially exceed those of any frontier model that\nfrontier developer has externally deployed.\n(2) A risk report that is required by paragraph (1) shall include, but not be limited to:\n(i) a summary of assessments of capabilities of the frontier models relevant to\ncatastrophic risk, which shall address each type of catastrophic risk and describe any material\nof 10\n\nchanges to the capabilities of the frontier models relevant to each type of catastrophic risk since\nthe most recently published risk report;\n(ii) a description of the key threat models the large frontier developer tracks to identify\npotential catastrophic risks, how observed capabilities of those frontier models relate to each\nthreat model and key mitigations that the large frontier developer has put in place to mitigate any\nsuch identified risks; and\n(iii) an assessment of the residual level of each type of catastrophic risk posed by the\nfrontier models after accounting for the mitigations implemented pursuant to clause (ii);\nprovided, however, that the assessment shall provide sufficient information to demonstrate the\nevidence and reasoning behind the risk assessment and such information shall be sufficient to\nallow a reasonable person to reach a similar conclusion to that which the large frontier developer\nwould reach in analyzing the level of risk posed by its frontier model.\n(3) A large frontier developer shall renew and update the risk report required by\nparagraph (1) not less than every 180 days and include in each update a comparison of the\nassessed level of each type of catastrophic risk to the level assessed in the previously published\nrisk report.”; and\nin said section 106, in said proposed chapter 93M, by inserting after section 3 the\nfollowing section:-\n“Section 3A. (a) A large frontier developer shall annually retain a third party to perform\nan independent audit of compliance with the requirements of section 2 except for subsection (c\n1/2) of said section 2. The third party shall conduct audits consistent with generally accepted\nauditing standards and best practices and shall possess demonstrated competence to perform the\nof 10\n\naudit, including experience employing or contracting with individuals who possess technical\nexpertise in the safety of frontier models.\n(1) The third party shall be granted access to all materials reasonably necessary to comply\nwith the third party’s obligations under this section, including, but not limited to, all unredacted\nversions of materials published pursuant to this chapter. To protect the large frontier developer’s\ntrade secrets and confidential business information, cybersecurity, national security of the United\nStates or public safety, a large frontier developer may impose reasonable security protocols on\nthe third party, including, but not limited to, restrictions on note taking, copying, retaining, or\nremoving materials, requirements for on-premises review and confidentiality requirements.\n(2) The third party shall produce a report that includes, but is not limited to:\n(i) a description of whether the large frontier developer has substantially complied with\nthe requirements of section 2, except for subsection (c 1/2) of said section 2;\n(ii) when applicable, a description of material deviations from the requirements of section\n2, except for subsection (c 1/2) of said section 2, an explanation of any deviation and its rationale\nand any recommendations for how the developer can improve its policies and processes for\nensuring compliance;\n(iii) a detailed assessment of the large frontier developer’s internal controls, including its\ndesignation and empowerment of senior personnel responsible for such implementation by the\nlarge frontier developer, its employees and its contractors;\n(iv) a list of the third party’s personnel involved in the audit;\nof 10\n\n(v) the third party’s procedures for managing conflicts of interest and any conflicts of\ninterest of any personnel involved in the audit;\n(vi) the methodology of the audit and the nature of the information reviewed by the third\nparty to conduct the audit; and\n(vii) the signature of the lead auditor certifying the results of the audit.\n(3) The large frontier developer shall retain an unredacted copy of the report for the\nduration of the frontier model’s deployment plus 5 years.\n(4) Not later than 30 days after receiving the audit report, the large frontier developer\nshall conspicuously publish on its website a high-level summary of the audit findings and a copy\nof the third party’s report with redactions as provided in subsection (f) of section 2 and transmit a\ncopy of the redacted report to the attorney general.\n(b)(1) A large frontier developer shall engage at least 1 third party to conduct an\nindependent evaluation of the developer’s frontier models with respect to each category of\ncatastrophic risk. A large frontier developer shall engage a third party to conduct its evaluation\nnot more than 30 days after publishing each risk report under subsection (c 1/2) of section 2 and\nin any event shall conduct an independent evaluation not less than once every 120 days.\n(2) An independent evaluation conducted pursuant to paragraph (1) shall include, but not\nbe limited to:-\n(i) an independent assessment of each type of catastrophic risk posed by the large frontier\ndeveloper’s frontier models, taking into account model capabilities, applicable threat models and\nthe large frontier developer's safeguards;\nof 10\n\n(ii) an assessment of the ability of the large frontier developer’s frontier models to\nautomate artificial intelligence research and development and any increased potential for\ncatastrophic risks or challenges to risk monitoring, assessment or mitigation resulting from such\nability;\n(iii) a review of the large frontier developer’s most recent risk report published pursuant\nto subsection (c 1/2) of section 2 including an assessment of: (A) the adequacy and completeness\nof the information disclosed in the risk report; (B) the analytical rigor of the frontier developer’s\nrisk methodology; (C) the appropriateness and materiality of any redactions made to the publicly\navailable version of the risk report; and (D) whether the third party disagrees with any of the\nreport’s claims, including the overall assessment of the level of risk for each catastrophic risk;\n(iv) a list of the third party’s personnel involved in the evaluation;\n(v) the third party’s procedures for managing conflicts of interest and any conflicts of\ninterest of any personnel involved in the evaluation;\n(vi) the methodology of the evaluation and the nature of the information reviewed by the\nthird party to conduct the evaluation; and\n(vii) the signature of the lead evaluator certifying the results of the evaluation.\n(3)(A) The third party shall be granted access to all materials reasonably necessary to\ncomply with the evaluator’s obligations under this section, including, but not limited to, all\nunredacted versions of materials published pursuant to this chapter and the large frontier\ndeveloper’s most capable frontier models.\nof 10\n\n98 (B) The third party shall have the opportunity to ask relevant questions about the frontier\n99 developer’s frontier models, likelihood of catastrophic risks and related safeguards and the large\n100 frontier developer shall provide reasonable responses.\n101 (C) To protect the frontier developer’s trade secrets and confidential business\n102 information, cybersecurity, national security of the United States or public safety, a frontier\n103 developer may impose reasonable security protocols on the third party including, but not limited\n104 to, restrictions on note taking, copying, retaining or removing materials, requirements for on-\n105 premise review and confidentiality requirements.\n106 (4) The third party shall publish a public version of its report not later than 30 days after\n107 delivering the report to the large frontier developer and the large frontier developer shall\n108 conspicuously publish a link to the report on its internet website. The public version may be\n109 redacted only as provided in subsection (f) of section 2.\n110 (5) A large frontier developer may comply with this subsection by engaging multiple\n111 third parties focused on different categories of catastrophic risk or different aspects of the\n112 requirements of this subsection; provided, however, that: (i) collectively, the third parties\n113 perform all of the duties required by this subsection; (ii) each third party satisfies the\n114 independence and qualification requirements of this section; and (iii) each third party includes in\n115 its report a clear and specific statement of the scope of the assessment and the duties performed.\n116 (c)(1)(A) A third party engaged under this section shall have no financial, operational or\n117 management dependence on the large frontier developer or any of the large frontier developer's\n118 affiliates and shall be otherwise free from the large frontier developer's control in reaching\n6 of 10\n\n119 conclusions or making recommendations, including through contractual safeguards and conflict\n120 of interest policies.\n121 (B) If no other source of funding has been established pursuant to clause (iii) of\n122 paragraph (1) of subsection (d), a large frontier developer may compensate the third party at\n123 reasonable market rates and shall not condition any payment or the amount of any payment on\n124 the results of the third party’s audit or evaluation.\n125 (2) Prior to accepting any engagement under this section, the third party shall certify in\n126 writing to the large frontier developer and the attorney general that the third party satisfies the\n127 independence requirements of this subsection. The certification shall include the third party’s\n128 sources of funding and remuneration for the engagement, any other current or recent\n129 engagements with the large frontier developer or its affiliates and any other facts that could\n130 reasonably be expected to bear on the third party’s independence.\n131 (d)(1) The attorney general, in consultation with academic institutions, nonprofit\n132 organizations and industry stakeholders, shall implement an independent evaluation ecosystem\n133 plan by: (i) developing and publishing standards for the qualification of qualified independent\n134 third party evaluators; (ii) exploring a licensing system to qualify third party evaluators; (iii)\n135 subject to government appropriation, providing government funding or arranging pooled funding\n136 to supplement other sources of evaluator funding; (iv) exploring the feasibility and benefits of\n137 licensing qualified independent evaluators to assess the adherence of artificial intelligence\n138 models to standards reflecting best practices for the prevention of personal injury, property\n139 damage and other harms that do not meet the definition of catastrophic risk, and reporting its\n140 findings and any recommendations regarding such licensing to the joint committee on advanced\n7 of 10\n\n141 information technology, the internet and cybersecurity and the joint committee on economic\n142 development; and (v) providing resources and funding for nascent organizations seeking to\n143 become third party evaluators.\n144 (2) The attorney general may develop and publish a rating system for qualified third\n145 parties based on predefined criteria, including the rigor and quality of the evaluator's published\n146 reasoning and analysis, the thoroughness of the evaluator's methodology, the evaluator's track\n147 record of identifying material risks or deficiencies and stakeholder feedback, including from\n148 frontier developers, academic reviewers and the public.”; and\n149 in said section 106, by striking out, in lines 1526 and 1527, the words “has reasonable\n150 cause to believe” and inserting in place thereof the following words:- “reasonably believes”; and\n151 in said section 106, in proposed section 7 of chapter 93M of the General Laws, by\n152 striking out subsection (b) and inserting in place thereof the following subsection:-\n153 “(b) A frontier developer shall not: (i) enter into a contract that prevents a covered\n154 employee from making a disclosure protected under this chapter; or (ii) discriminate against any\n155 person that has made a disclosure under this chapter.”; and\n156 in said section 106, by inserting after the word “employee”, in line 1536, the first time it\n157 appears, the following words:- “, not later than 90 days after becoming a covered employee,”;\n158 and\n159 in said section 106, by striking out, in lines 1541 and 1542, the words “anonymously\n160 disclose information to the large frontier developer if the covered employee believes in good\n8 of 10\n\n161 faith” and inserting in place thereof the following words:- “, anonymously or named, disclose\n162 information to the large frontier developer of the covered employee reasonably believes”; and\n163 in said section 106, by inserting after the word “fees”, in line 1553, the following words:-\n164 “ and court costs”; and\n165 in said section 106, by striking out, in line 1561, the words “or administrative\n166 proceeding”; and\n167 in said section 106, by striking out, in line 1566, the word “person” and inserting in place\n168 thereof the following words:- “frontier developer”; and\n169 in said section 106, by striking out, in line 1575, the words “this section” and inserting in\n170 place thereof the following words:- “paragraph (1) of subsection (d)”; and\n171 by striking out section 153; and\n172 in section 164, by inserting after the figure “72”, in line 2014, the following figure:- “,\n173 106”; and\n174 in section 165, by striking out, in line 2016, the figure “106” and inserting in place\n175 thereof the following figure:- “105”; and\n176 by adding the following 4 sections:-\n177 “SECTION 166. Not more than 180 days after the effective date of this act or 180 days\n178 after the date on which a frontier developer first qualifies as a large frontier developer, whichever\n179 is later, a large frontier developer shall post its risk report required under subsection (c) of\n180 section 2 of chapter 93M of the General Laws.\n9 of 10\n\n181 SECTION 167. The provision requiring an annual audit under subsection (a) of section\n182 3A of chapter 93M of the General Laws shall take effect on January 1, 2027 or 180 days after the\n183 date on which a frontier developer first qualifies as a large frontier developer, whichever is later.\n184 SECTION 168. The provision requiring an independent evaluation of a developer’s\n185 frontier models with respect to each category of catastrophic risk under subsection (b) of section\n186 3A of chapter 93M of the General Laws hall take effect on January 1, 2027 or 180 days after the\n187 date on which a frontier developer first qualifies as a large frontier developer, whichever is later.\n188 SECTION 169. Not later than 1 year after the effective date of this act, the attorney\n189 general shall develop the independent evaluation ecosystem plan required under subsection (d) of\n190 section 3A of chapter 93M of the General Laws.”\n10 of 10",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3453968,
+   "date": "2026-07-23",
+   "type": "Introduced",
+   "mime": "application/pdf",
+   "state_link": "https://malegislature.gov/Bills/194/S3224.pdf",
+   "from": "legiscan",
+   "saved_file": "raw/legiscan/MA-S3224-2156473.pdf",
+   "pdf": {
+    "pages": 10,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": [
+   "frontier developer",
+   "critical safety incident",
+   "catastrophic risk"
+  ]
+ }
+}

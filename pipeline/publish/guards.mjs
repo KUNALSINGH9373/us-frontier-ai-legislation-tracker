@@ -2,8 +2,8 @@
 // stopped, not published. Each check returns readable problems; empty means the run may be written.
 import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
-import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems } from '../agents/rules.mjs';
-import { FACT_FIELDS } from '../agents/checks.mjs';
+import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems, SECTION_MARKERS, SECTION_CRITERIA, quoteMeetsSection } from '../agents/rules.mjs';
+import { FACT_FIELDS, thresholdNumberProblems } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
 import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem, AMEND_PREFIX } from '../links/rules.mjs';
@@ -23,14 +23,16 @@ export function checkNewEntry(e, ctx = {}) {
   const problems = [], rule = SECTION_RULES[e.section];
   if (rule && rule.level === 'state') stateSectionProblems(e.section, ctx.kind || null, ctx.text != null ? ctx.text : null).forEach((p) => problems.push(p));
   // A resolution or memorial named as one in its own title ("H.R. 6023 — Opposing ...", "S.C.R. 14", "A RESOLUTION") is never A, B or B.2.
-  if (['A', 'B', 'B.2'].includes(e.section) && /^(?:[HSA]\.\s?(?:[CJ]\.\s?)?[RM]\.\s?\d|[HSA](?:C|J)?[RM]\s?\d)/.test(String(e.title || '')) && !(ctx.kind === 'bill')) problems.push(`"${String(e.title).slice(0, 30)}" is numbered as a resolution or memorial, which never goes in section ${e.section}`);
+  // A state numbering rule only (code review S2): a federal "H.R. 9442" is a bill. A record the kind reader calls a resolution is refused
+  // whatever its title looks like (above); the title check is a second net for a state entry.
+  if (rule && rule.level === 'state' && ['A', 'B', 'B.2'].includes(e.section) && /^(?:[HSA]\.\s?(?:[CJ]\.\s?)?[RM]\.\s?\d|[HSA](?:C|J)?[RM]\s?\d)/.test(String(e.title || '')) && !(ctx.kind === 'bill')) problems.push(`"${String(e.title).slice(0, 30)}" is numbered as a resolution or memorial, which never goes in section ${e.section}`);
   // Events: none that contradicts the status, and no day with the same event twice.
   const ev = e.events || [];
   if (['pending', 'failed', 'stalled'].includes(e.status)) ev.filter((x) => x.type === 'Signed / enacted' || x.type === 'Effective').forEach((x) => problems.push(`a ${e.status} bill has a "${x.type}" event (${x.date})`));
   if (e.status === 'failed') ev.filter((x) => x.scheduled).forEach((x) => problems.push(`a failed bill has a scheduled event (${x.date}: ${String(x.text).slice(0, 60)})`));
   const seen = new Set();
   for (const x of ev) { const k = `${x.date}|${String(x.text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()}`; if (seen.has(k)) problems.push(`the same event is listed twice on ${x.date} ("${String(x.text).slice(0, 60)}")`); seen.add(k); }
-  if (!AUTO_CREATE_SECTIONS.includes(e.section)) problems.push(`section ${e.section} needs a person`);
+  if (!AUTO_CREATE_SECTIONS.includes(e.section)) problems.push(`section ${e.section} is never auto-created (the pipeline creates only in ${AUTO_CREATE_SECTIONS.join(", ")})`);
   else if (e.type !== rule.type || e.level !== rule.level) problems.push(`type/level ${e.type}/${e.level} do not follow the rule for section ${e.section}`);
   if (e.status !== statusFor(e.section, e.status)) problems.push(`status ${e.status} does not follow the rule for section ${e.section}`);
   // A state entry (the four state sections the pipeline may create in) is on its state's tile and tracked by its LegiScan record and session,
@@ -42,6 +44,14 @@ export function checkNewEntry(e, ctx = {}) {
   } else if (rule && rule.level === 'federal' && (e.jurisdiction !== 'Federal' || e.state != null)) problems.push(`a federal entry has jurisdiction Federal and no state (has ${e.jurisdiction}/${e.state})`);
   if (e.origin !== 'automated' || !e.verification || e.verification.method !== 'agent') problems.push('not marked as written and checked by the pipeline');
   READING_FIELDS.filter((f) => e[f] && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
+  // A state section is published only with the referee's quote that shows that section's own criterion (agents/rules.mjs SECTION_CRITERIA);
+  // tier-b.mjs checks that the quote is in the stored record.
+  if (rule && rule.level === 'state' && SECTION_MARKERS[e.section]) {
+    const q = (e.evidence || []).find((x) => x.field === 'section');
+    if (!q || !quoteMeetsSection(e.section, q.quote)) problems.push(`no evidence quote showing section ${e.section}'s criterion (${SECTION_CRITERIA[e.section]})`);
+  }
+  // Compute thresholds parse to a plausible magnitude (a lost exponent, "10.26 computational operations", is never published).
+  READING_FIELDS.forEach((f) => thresholdNumberProblems(f, e[f]).forEach((p) => problems.push(p)));
   FACT_FIELDS.filter((f) => e[f] && NEGATIVE_FINDING.test(e[f])).forEach((f) => problems.push(`${f} states a search finding ("none located"), which only a person may write`));
   // Duties on a new entry come only from the agents' duty step, with the text they were read from (tier-b.mjs re-checks them against it).
   if (e.duties && !(e.duties_basis && e.duties_basis.method === 'agent')) problems.push('duties without a duties_basis from the pipeline (method agent)');

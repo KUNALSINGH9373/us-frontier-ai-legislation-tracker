@@ -1,0 +1,155 @@
+{
+ "id": 98,
+ "key": "wa-hb-2503",
+ "section": "B.2",
+ "type": "bill",
+ "level": "state",
+ "jurisdiction": "WA",
+ "state": "WA",
+ "status": "pending",
+ "title": "H.B. 2503 — Regulating artificial intelligence training data.",
+ "short_name": "WA HB 2503",
+ "sponsor_text": "Rep. Clyde Shavers (D) with 6 co-sponsors",
+ "mechanism": "Developers must post on their website documentation on the data used to train each generative AI system released on or after January 1, 2022, on or before January 1, 2027 and before each later public release or substantial modification. Exempt: systems whose sole purpose is security and integrity, aircraft operation, or national security or defense systems made available only to a federal entity. A violation is an unfair or deceptive act under the consumer protection act.",
+ "thresholds": "No figure. Developer defined as a person, partnership, or corporation primarily engaged in developing or substantially modifying a generative artificial intelligence system intended for commercial distribution or public use.",
+ "penalties": "A violation is an unfair or deceptive act in trade or commerce under the consumer protection act, chapter 19.86 RCW.",
+ "status_text": "Status: Introduced Jan 15, 2026; Referred to Appropriations (Jan 30, 2026)",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-01-15",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "First reading, referred to Technology, Economic Development, & Veterans",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-01-21",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Public hearing in the House Committee on Technology, Economic Development, & Veterans at 8:00 AM",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-01-28",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Executive action taken in the House Committee on Technology, Economic Development, & Veterans at 8:00 AM",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-01-28",
+   "precision": "day",
+   "type": "Passed / advanced",
+   "text": "TEDV - Majority; 1st substitute bill be substituted, do pass",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-01-30",
+   "precision": "day",
+   "type": "Referred / stalled / hearing",
+   "text": "Referred to Appropriations",
+   "inferred_year": false,
+   "scheduled": false
+  }
+ ],
+ "sources": [
+  {
+   "label": "WA Legislature record: Regulating artificial intelligence training data.",
+   "url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false",
+   "kind": "primary",
+   "retrieved_at": "2026-10-13T07:23:34Z"
+  },
+  {
+   "label": "WA Legislature bill text (Introduced): Regulating artificial intelligence training data.",
+   "url": "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/House%20Bills/2503.pdf",
+   "kind": "primary",
+   "retrieved_at": "2026-10-13T07:23:34Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "shall post on the developer's internet website documentation",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "mechanism",
+   "quote": "On or before January 1, 2027, and",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "mechanism",
+   "quote": "A developer is not required to post documentation regarding",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "mechanism",
+   "quote": "is an unfair or deceptive act in trade or commerce",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "thresholds",
+   "quote": "primarily engaged in developing or substantially modifying a",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "penalties",
+   "quote": "is an unfair or deceptive act in trade or commerce",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "events_add[0]",
+   "quote": "Read first time 01/15/26. Referred to Committee on Technology,",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "events_add[1]",
+   "quote": "1st substitute bill be substituted, do pass.",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "events_add[2]",
+   "quote": "2026-01-30: Referred to Appropriations.",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  },
+  {
+   "field": "in_scope",
+   "quote": "the developer of the system shall post on the developer's internet website documentation regarding the data used by the developer to train the generative artificial intelligence system",
+   "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "legiscan": [
+    2080106
+   ]
+  },
+  "session": "2025-2026 Regular Session"
+ },
+ "legacy": {
+  "section_name": "Catastrophic-risk regulation without a frontier threshold"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261013-0714-e97e",
+  "rounds": 2
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28"
+}

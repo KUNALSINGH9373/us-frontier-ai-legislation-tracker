@@ -1,0 +1,834 @@
+{
+ "item": {
+  "item_id": "legiscan:2080106",
+  "source": "legiscan",
+  "source_id": "2080106",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false",
+  "fetched_at": "2026-10-13T07:23:34Z",
+  "raw_hash": "b6f542ae58f20b74aa582e472ee0941e4ad25f63aa157d016dfca8413417edb0",
+  "raw_path": "raw/legiscan/WA-HB2503-2080106.json",
+  "title": "WA HB2503: Regulating artificial intelligence training data."
+ },
+ "raw": {
+  "id": "2080106",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 2,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 2080106,
+   "change_hash": "713eacf1751d87501873ea1a56995f66",
+   "session_id": 2166,
+   "session": {
+    "session_id": 2166,
+    "state_id": 47,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 Regular Session"
+   },
+   "url": "https://legiscan.com/WA/bill/HB2503/2025",
+   "state_link": "https://app.leg.wa.gov/billsummary?BillNumber=2503&Year=2025&Initiative=false",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-01-15",
+   "progress": [
+    {
+     "date": "2026-01-15",
+     "event": 1
+    },
+    {
+     "date": "2026-01-15",
+     "event": 9
+    },
+    {
+     "date": "2026-01-28",
+     "event": 10
+    },
+    {
+     "date": "2026-01-30",
+     "event": 9
+    }
+   ],
+   "state": "WA",
+   "state_id": 47,
+   "bill_number": "HB2503",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "H",
+   "body_id": 97,
+   "current_body": "H",
+   "current_body_id": 97,
+   "title": "Regulating artificial intelligence training data.",
+   "description": "Regulating artificial intelligence training data.",
+   "pending_committee_id": 2759,
+   "committee": {
+    "committee_id": 2759,
+    "chamber": "H",
+    "chamber_id": 97,
+    "name": "Appropriations"
+   },
+   "referrals": [
+    {
+     "date": "2026-01-15",
+     "committee_id": 4997,
+     "chamber": "H",
+     "chamber_id": 97,
+     "name": "Technology, Economic Development, & Veterans"
+    },
+    {
+     "date": "2026-01-30",
+     "committee_id": 2759,
+     "chamber": "H",
+     "chamber_id": 97,
+     "name": "Appropriations"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-01-15",
+     "action": "First reading, referred to Technology, Economic Development, & Veterans.",
+     "chamber": "H",
+     "chamber_id": 97,
+     "importance": 1
+    },
+    {
+     "date": "2026-01-21",
+     "action": "Public hearing in the House Committee on Technology, Economic Development, & Veterans at 8:00 AM.",
+     "chamber": "H",
+     "chamber_id": 97,
+     "importance": 0
+    },
+    {
+     "date": "2026-01-28",
+     "action": "Executive action taken in the House Committee on Technology, Economic Development, & Veterans at 8:00 AM.",
+     "chamber": "H",
+     "chamber_id": 97,
+     "importance": 0
+    },
+    {
+     "date": "2026-01-28",
+     "action": "TEDV - Majority; 1st substitute bill be substituted, do pass.",
+     "chamber": "H",
+     "chamber_id": 97,
+     "importance": 1
+    },
+    {
+     "date": "2026-01-28",
+     "action": "Minority; do not pass.",
+     "chamber": "H",
+     "chamber_id": 97,
+     "importance": 0
+    },
+    {
+     "date": "2026-01-28",
+     "action": "Minority; without recommendation.",
+     "chamber": "H",
+     "chamber_id": 97,
+     "importance": 0
+    },
+    {
+     "date": "2026-01-30",
+     "action": "Referred to Appropriations.",
+     "chamber": "H",
+     "chamber_id": 97,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 23830,
+     "person_hash": "zhqixlbz",
+     "party_id": "1",
+     "state_id": 47,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Clyde Shavers",
+     "first_name": "Clyde",
+     "middle_name": "",
+     "last_name": "Shavers",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-010A",
+     "ftm_eid": 55630485,
+     "votesmart_id": 207355,
+     "opensecrets_id": "",
+     "knowwho_pid": 810664,
+     "ballotpedia": "Clyde_Shavers",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "360-786-7884",
+       "district_phone": "",
+       "email": "",
+       "webmail": "https://app.leg.wa.gov/pbc/memberEmail/10/1",
+       "biography": "https://leg.wa.gov/legislators/member/clyde-shavers",
+       "image": "https://app.leg.wa.gov/ContentParts/MemberDirectory/LargePhoto?m=34050",
+       "ballotpedia": "https://ballotpedia.org/Clyde_Shavers",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/207355"
+      },
+      "capitol_address": {
+       "address1": "311 John L. O'Brien Building",
+       "address2": "PO Box 40600",
+       "city": "Olympia",
+       "state": "WA",
+       "zip": "98504"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://leg.wa.gov/legislators/member/clyde-shavers",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 21439,
+     "person_hash": "mncuwq53",
+     "party_id": "1",
+     "state_id": 47,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Davina Duerr",
+     "first_name": "Davina",
+     "middle_name": "",
+     "last_name": "Duerr",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-001A",
+     "ftm_eid": 36793061,
+     "votesmart_id": 174166,
+     "opensecrets_id": "",
+     "knowwho_pid": 711186,
+     "ballotpedia": "Davina_Duerr",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 2,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "360-786-7928",
+       "district_phone": "",
+       "email": "",
+       "webmail": "https://app.leg.wa.gov/pbc/memberEmail/1/1",
+       "biography": "https://leg.wa.gov/legislators/member/davina-duerr",
+       "image": "https://app.leg.wa.gov/ContentParts/MemberDirectory/LargePhoto?m=29877",
+       "ballotpedia": "https://ballotpedia.org/Davina_Duerr",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/174166"
+      },
+      "capitol_address": {
+       "address1": "322 John L. O'Brien Building",
+       "address2": "PO Box 40600",
+       "city": "Olympia",
+       "state": "WA",
+       "zip": "98504"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepDavinaDuerr/",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://leg.wa.gov/legislators/member/davina-duerr",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/davina.w.duerr",
+        "instagram": "https://www.instagram.com/davinad425/",
+        "linkedin": "https://www.linkedin.com/in/davina-duerr-10b596/",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/davinaduerr",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 26296,
+     "person_hash": "gwr320w5",
+     "party_id": "1",
+     "state_id": 47,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Lisa Parshley",
+     "first_name": "Lisa",
+     "middle_name": "",
+     "last_name": "Parshley",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-022B",
+     "ftm_eid": 59924674,
+     "votesmart_id": 217593,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Lisa_Parshley",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 3,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "360-786-7992",
+       "district_phone": "",
+       "email": "",
+       "webmail": "https://app.leg.wa.gov/pbc/memberEmail/22/2",
+       "biography": "https://leg.wa.gov/legislators/member/lisa-parshley",
+       "image": "https://app.leg.wa.gov/ContentParts/MemberDirectory/LargePhoto?m=35415",
+       "ballotpedia": "https://ballotpedia.org/Lisa_Parshley",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/217593"
+      },
+      "capitol_address": {
+       "address1": "317 John L. O'Brien Building",
+       "address2": "PO Box 40600",
+       "city": "Olympia",
+       "state": "WA",
+       "zip": "98504"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://leg.wa.gov/legislators/member/lisa-parshley",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/lisa.parshley.7",
+        "instagram": "https://www.instagram.com/lisaforolympia/",
+        "linkedin": "https://www.linkedin.com/in/lisa-parshley-1628163b/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 18529,
+     "person_hash": "aoyefkz2",
+     "party_id": "1",
+     "state_id": 47,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Shelley Kloba",
+     "first_name": "Shelley",
+     "middle_name": "",
+     "last_name": "Kloba",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-001B",
+     "ftm_eid": 40587756,
+     "votesmart_id": 160583,
+     "opensecrets_id": "",
+     "knowwho_pid": 583546,
+     "ballotpedia": "Shelley_Kloba",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 4,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "360-786-7900",
+       "district_phone": "",
+       "email": "",
+       "webmail": "https://app.leg.wa.gov/pbc/memberEmail/1/2",
+       "biography": "https://leg.wa.gov/legislators/member/shelley-kloba",
+       "image": "https://app.leg.wa.gov/ContentParts/MemberDirectory/LargePhoto?m=26168",
+       "ballotpedia": "https://ballotpedia.org/Shelley_Kloba",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/160583"
+      },
+      "capitol_address": {
+       "address1": "132A Legislative Building",
+       "address2": "PO Box 40600",
+       "city": "Olympia",
+       "state": "WA",
+       "zip": "98504"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepShelleyKloba/",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/repkloba",
+        "website": "https://leg.wa.gov/legislators/member/shelley-kloba",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/shelley.kloba",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/shelleykloba/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 26289,
+     "person_hash": "oc0empgx",
+     "party_id": "1",
+     "state_id": 47,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Natasha Hill",
+     "first_name": "Natasha",
+     "middle_name": "",
+     "last_name": "Hill",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-003A",
+     "ftm_eid": 59924543,
+     "votesmart_id": 207317,
+     "opensecrets_id": "",
+     "knowwho_pid": 790230,
+     "ballotpedia": "Natasha_Hill",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 5,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "360-786-7888",
+       "district_phone": "",
+       "email": "",
+       "webmail": "https://app.leg.wa.gov/pbc/memberEmail/3/1",
+       "biography": "https://leg.wa.gov/legislators/member/natasha-hill",
+       "image": "https://app.leg.wa.gov/ContentParts/MemberDirectory/LargePhoto?m=35429",
+       "ballotpedia": "https://ballotpedia.org/Natasha_Hill",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/207317"
+      },
+      "capitol_address": {
+       "address1": "306 John L. O'Brien Building",
+       "address2": "PO Box 40600",
+       "city": "Olympia",
+       "state": "WA",
+       "zip": "98504"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://leg.wa.gov/legislators/member/natasha-hill",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/natasha.lelani",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/natashalelanihill/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": "https://www.youtube.com/@natashahill2547"
+       }
+      }
+     }
+    },
+    {
+     "people_id": 13684,
+     "person_hash": "31csjqu9",
+     "party_id": "1",
+     "state_id": 47,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Gerry Pollet",
+     "first_name": "Gerry",
+     "middle_name": "",
+     "last_name": "Pollet",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-046A",
+     "ftm_eid": 2809440,
+     "votesmart_id": 108342,
+     "opensecrets_id": "",
+     "knowwho_pid": 269969,
+     "ballotpedia": "Gerry_Pollet",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 6,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "360-786-7886",
+       "district_phone": "",
+       "email": "",
+       "webmail": "https://app.leg.wa.gov/pbc/memberEmail/46/1",
+       "biography": "https://leg.wa.gov/legislators/member/gerry-pollet",
+       "image": "https://app.leg.wa.gov/ContentParts/MemberDirectory/LargePhoto?m=16596",
+       "ballotpedia": "https://ballotpedia.org/Gerry_Pollet",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/108342"
+      },
+      "capitol_address": {
+       "address1": "438A Legislative Building",
+       "address2": "PO Box 40600",
+       "city": "Olympia",
+       "state": "WA",
+       "zip": "98504"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepresentativeGerryPollet",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://leg.wa.gov/legislators/member/gerry-pollet",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/gerry.pollet.7",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/gerry-pollet-9800ab1b/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 21492,
+     "person_hash": "fju49j9u",
+     "party_id": "1",
+     "state_id": 47,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Alex Ramel",
+     "first_name": "Alex",
+     "middle_name": "",
+     "last_name": "Ramel",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-040B",
+     "ftm_eid": 44252058,
+     "votesmart_id": 183092,
+     "opensecrets_id": "",
+     "knowwho_pid": 666928,
+     "ballotpedia": "Alex_Ramel",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 7,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "360-786-7970",
+       "district_phone": "",
+       "email": "",
+       "webmail": "https://app.leg.wa.gov/pbc/memberEmail/40/2",
+       "biography": "https://leg.wa.gov/legislators/member/alex-ramel",
+       "image": "https://app.leg.wa.gov/ContentParts/MemberDirectory/LargePhoto?m=30127",
+       "ballotpedia": "https://ballotpedia.org/Alex_Ramel",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/183092"
+      },
+      "capitol_address": {
+       "address1": "434A Legislative Building",
+       "address2": "PO Box 40600",
+       "city": "Olympia",
+       "state": "WA",
+       "zip": "98504"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepAlexRamel/",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://leg.wa.gov/legislators/member/alex-ramel",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/alex.ramel",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/alexwramel/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": "https://www.youtube.com/channel/UCV4LFlGJ5f7N5lVR1efq_LQ"
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3317146,
+     "date": "0000-00-00",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/WA/text/HB2503/id/3317146",
+     "state_link": "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/House%20Bills/2503.pdf",
+     "text_size": 69612,
+     "text_hash": "39ec46086166ba7af3e9bef08fb3af73",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    },
+    {
+     "doc_id": 3340920,
+     "date": "0000-00-00",
+     "type": "Comm Sub",
+     "type_id": 2,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/WA/text/HB2503/id/3340920",
+     "state_link": "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/House%20Bills/2503-S.pdf",
+     "text_size": 71483,
+     "text_hash": "a12d6d90330998cd363a8d6b09c1e295",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [
+    {
+     "roll_call_id": 1619211,
+     "date": "2026-01-28",
+     "desc": "House Committee on Technology, Economic Development, & Veterans: 1st substitute bill be substituted, do pass",
+     "yea": 8,
+     "nay": 2,
+     "nv": 2,
+     "absent": 0,
+     "total": 12,
+     "passed": 1,
+     "chamber": "H",
+     "chamber_id": 97,
+     "url": "https://legiscan.com/WA/rollcall/HB2503/id/1619211",
+     "state_link": "https://app.leg.wa.gov/billsummary/majorityminority/recommendation?type=majority&legId=136023&actionText=TEDV%20-%20Majority%3B%201st%20substitute%20bill%20be%20substituted%2C%20do%20pass.&mId=33764&isInit=False&biennium=2025-26"
+    }
+   ],
+   "amendments": [],
+   "supplements": [
+    {
+     "supplement_id": 639356,
+     "date": "0000-00-00",
+     "type": "Misc",
+     "type_id": 7,
+     "title": "Misc",
+     "description": "House bill analysis 2026",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/WA/supplement/HB2503/id/639356",
+     "state_link": "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bill%20Reports/House/2503%20HBA%20TEDV%2026.pdf",
+     "supplement_size": 47622,
+     "supplement_hash": "8b833d10dd6034bb130e2cb61526104d",
+     "alt_supplement": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_supplement_size": 0,
+     "alt_supplement_hash": ""
+    },
+    {
+     "supplement_id": 647782,
+     "date": "0000-00-00",
+     "type": "Misc",
+     "type_id": 7,
+     "title": "Misc",
+     "description": "House bill report",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/WA/supplement/HB2503/id/647782",
+     "state_link": "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bill%20Reports/House/2503%20HBR%20TEDV%2026.pdf",
+     "supplement_size": 68390,
+     "supplement_hash": "98feba518e34ee3c748ba69788e6a989",
+     "alt_supplement": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_supplement_size": 0,
+     "alt_supplement_hash": ""
+    },
+    {
+     "supplement_id": 655870,
+     "date": "2026-01-21",
+     "type": "Fiscal Note",
+     "type_id": 1,
+     "title": "Fiscal Note",
+     "description": "2503 HB (Final)",
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/WA/supplement/HB2503/id/655870",
+     "state_link": "https://fnspublic.ofm.wa.gov/FNSPublicSearch/GetPDF?packageID=75453",
+     "supplement_size": 114590,
+     "supplement_hash": "f3a3f6018a54f38d4f1f16ac6abf23bf",
+     "alt_supplement": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_supplement_size": 0,
+     "alt_supplement_hash": ""
+    }
+   ],
+   "calendar": [
+    {
+     "type_id": 1,
+     "event_hash": "d497d665",
+     "type": "Hearing",
+     "date": "2026-01-21",
+     "time": "08:00",
+     "location": "House Committee on Technology, Economic Development, & Veterans",
+     "description": "House Committee on Technology, Economic Development, & Veterans Public Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "9d0e1a8b",
+     "type": "Hearing",
+     "date": "2026-01-28",
+     "time": "08:00",
+     "location": "House Committee on Technology, Economic Development, & Veterans",
+     "description": "House Committee on Technology, Economic Development, & Veterans Executive Session"
+    }
+   ]
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-01-15",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "First reading, referred to Technology, Economic Development, & Veterans.",
+     "chamber": "H"
+    },
+    {
+     "date": "2026-01-21",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Public hearing in the House Committee on Technology, Economic Development, & Veterans at 8:00 AM.",
+     "chamber": "H"
+    },
+    {
+     "date": "2026-01-28",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Executive action taken in the House Committee on Technology, Economic Development, & Veterans at 8:00 AM.",
+     "chamber": "H"
+    },
+    {
+     "date": "2026-01-28",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "TEDV - Majority; 1st substitute bill be substituted, do pass.",
+     "chamber": "H"
+    },
+    {
+     "date": "2026-01-28",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "Minority; do not pass.",
+     "chamber": "H"
+    },
+    {
+     "date": "2026-01-30",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Referred to Appropriations.",
+     "chamber": "H"
+    }
+   ]
+  },
+  "text": "H-2895.1\nHOUSE BILL 2503\nState of Washington 69th Legislature 2026 Regular Session\nBy Representatives Shavers, Duerr, Parshley, Kloba, Hill, Pollet, and\nRamel\nRead first time 01/15/26. Referred to Committee on Technology,\nEconomic Development, & Veterans.\nAN ACT Relating to artificial intelligence training data; and\nadding a new chapter to Title 19 RCW.\nBE IT ENACTED BY THE LEGISLATURE OF THE STATE OF WASHINGTON:\nNEW SECTION. Sec. 1. The definitions in this section apply\nthroughout this chapter unless the context clearly requires\notherwise.\n(1) \"Aggregate consumer information\" means information that\nrelates to a group or category of consumers, from which individual\nconsumer identities have been removed, that is not linked or\nreasonably linkable to any consumer or household, including via a\ndevice. \"Aggregate consumer information\" does not mean one or more\nindividual consumer records that have been deidentified.\n(2) \"Artificial intelligence\" means the use of machine learning\nand related technologies that use data to train statistical models\nfor the purpose of enabling computer systems to perform tasks\nnormally associated with human intelligence or perception, such as\ncomputer vision, speech, or natural language processing, and content\ngeneration.\n(3) \"Developer\" means a person, partnership, or corporation\nprimarily engaged in developing or substantially modifying a\ngenerative artificial intelligence system intended for commercial\n\ndistribution or public use. For the purposes of this subsection,\n\"public use\" does not include use by an affiliate as defined in RCW\n19.146.010 . This definition excludes individuals or entities that\ndevelop artificial intelligence systems solely for internal use or\nresearch purposes or those that utilize third-party artificial\nintelligence systems via application programming interface without\nsubstantial modification. This definition also excludes public\nentities and tribal nations.\n(4) \"Generative artificial intelligence\" means an artificial\nintelligence system that generates novel data or content based on a\nfoundation model.\n(5) \"Security and integrity\" means the ability of:\n(a) Networks or information systems to detect security incidents\nthat compromise the availability, authenticity, integrity, and\nconfidentiality of stored or transmitted personal information;\n(b) Developers, users, or businesses to detect security\nincidents, resist malicious, deceptive, fraudulent, or illegal\nactions and to help prosecute those responsible for those actions;\nand\n(c) Developers, users, or businesses to ensure the physical\nsafety of natural persons.\n(6) \"Substantial modification\" means a new version, new release,\nor substantial update from the developer, or an intentional and\ndeliberate change to a generative artificial intelligence system by a\ndeployer, that materially changes its functionality or performance in\na manner that was not reasonably foreseeable to the developer at the\ntime the artificial intelligence system was made publicly available\nby the developer.\n(7) \"Synthetic data generation\" means a process in which original\ndata are used to create artificial data that have some of the\nstatistical characteristics of the original data.\n(8) \"Train a generative artificial intelligence system\" includes\ntesting, validating, or fine tuning by the developer of the\ngenerative artificial intelligence system.\nNEW SECTION. Sec. 2. (1) On or before January 1, 2027, and\nbefore each time thereafter that a generative artificial intelligence\nsystem, or a substantial modification to a generative artificial\nintelligence system, released on or after January 1, 2022, is made\npublicly available to Washingtonians for use, regardless of whether\n\nthe terms of that use include compensation, the developer of the\nsystem shall post on the developer's internet website documentation\nregarding the data used by the developer to train the generative\nartificial intelligence system including, but not limited to, a highlevel summary of the datasets used in the development of the\ngenerative artificial intelligence system including, but not limited\nto:\n(a) The sources of the datasets;\n(b) A general description of how the datasets further the\nintended purpose of the generative artificial intelligence system;\n(c) The number of data points included in the datasets, which may\nbe in general ranges, and with estimated figures for dynamic\ndatasets;\n(d) A high-level description of the types of data points within\nthe datasets;\n(e) Whether the datasets include any data protected by copyright,\ntrademark, or patent, or whether the datasets are entirely in the\npublic domain;\n(f) Whether the datasets were purchased or licensed by the\ndeveloper;\n(g) Whether the datasets include personal information, as defined\nin RCW 19.373.010 ;\n(h) Whether the datasets include aggregate consumer information;\n(i) Whether there was any cleaning, processing, or other\nmodification to the datasets by the developer, including the intended\npurpose of those efforts in relation to the generative artificial\nintelligence system;\n(j) The dates the datasets were first trained or the date of the\nlast significant update to the datasets during the development of the\ngenerative artificial intelligence system; and\n(k) Whether the generative artificial intelligence system used or\ncontinuously uses synthetic data generation in its development. A\ndeveloper may include a description of the functional need or desired\npurpose of the synthetic data in relation to the intended purpose of\nthe system.\n(2) A developer is not required to post documentation regarding\nthe data used to train a generative artificial intelligence system\nfor any of the following:\n(a) A generative artificial intelligence system whose sole\npurpose is to help ensure security and integrity;\n\n(b) A generative artificial intelligence system whose sole\npurpose is the operation of aircraft in the national airspace; and\n(c) A generative artificial intelligence system developed for\nnational security, military, or defense purposes that is made\navailable only to a federal entity.\n(3) The requirements in this chapter do not apply to generative\nartificial intelligence systems that are subject to applicable\nrequirements under the federal food, drug, and cosmetic act, 21\nU.S.C. Sec. 301 et seq., as amended.\nNEW SECTION. Sec. 3. Section 2 of this act shall be construed\nto require developers to comply based on the generally acknowledged\nstate of the art, which may include, but is not limited to, guidance\nissued by the national institute of standards and technology, without\ncompromising their own intellectual property rights or trade secrets.\nNEW SECTION. Sec. 4. The legislature finds that the practices\ncovered by this chapter are matters vitally affecting the public\ninterest for the purpose of applying the consumer protection act,\nchapter 19.86 RCW . A violation of this chapter is not reasonable in\nrelation to the development and preservation of business and is an\nunfair or deceptive act in trade or commerce and an unfair method of\ncompetition for purposes of applying the consumer protection act,\nchapter 19.86 RCW .\nNEW SECTION. Sec. 5. Sections 1 through 4 of this act\nconstitute a new chapter in Title 19 RCW.\n--- END ---",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3317146,
+   "date": "0000-00-00",
+   "type": "Introduced",
+   "mime": "application/pdf",
+   "state_link": "https://lawfilesext.leg.wa.gov/biennium/2025-26/Pdf/Bills/House%20Bills/2503.pdf",
+   "from": "official",
+   "saved_file": "raw/legiscan/WA-HB2503-2080106.pdf",
+   "pdf": {
+    "pages": 4,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": [
+   "foundation model"
+  ]
+ }
+}

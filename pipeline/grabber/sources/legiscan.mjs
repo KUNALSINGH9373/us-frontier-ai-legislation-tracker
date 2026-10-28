@@ -32,7 +32,18 @@ const AMENDMENT = /^\W*((house|senate|assembly)\s+)?((committee|floor)\s+)?(amen
 const BILL_FAILED = /^(?!.*\b(motion to|moved to|committee report)\b).*(\bfailed (to pass|passage|of passage)\b|\brefused passage\b|\bfailed in (the )?(senate|house|assembly)\b|\bdie[ds]? in\b|^\W*died\b|\bindefinitely postponed\b|\bpostponed? indefinitely\b|\binexpedient to legislate\b|\benacting clause stricken\b|\bfile for bills not passed\b)/i;
 const VETOED = /\bvetoed\b(?!.*overrid)|^\W*veto(ed)? by (the )?governor\b/i;
 const PROCEDURAL = /\bmotion\b|\bmoved to\b|\breconsider\w*|\bwithdrawn\b|\brecommit\w*|\blaid on the table\b|\btabled\b(?! for the calendar)|\bremoved from table\b|\bdischarge\b|\brules? suspended\b/i;
-const ENACTED = /\bchaptered\b|^\W*signed chap\.\s*\d+|\bsecretary of state\b[^.]*\bchapter \d+|(signed|approved) by (the )?governor|\bgovernor (approved|signed)\b|\bbecame law\b|\bpublic act[\s.]*\d/i;
+const ENACTED = /\bchaptered\b|^\W*signed chap\.\s*\d+|\bsecretary of state\b[^.]*\bchapter \d+|(signed|approved) by (the )?governor|\bgovernor (approved|signed)\b|\bbecame law\b/i;
+// A public act number (CT "Public Act 26-100", IL "Public Act . . . 104-0466") is assigned by the legislature's clerks, not by the
+// governor's signature: CT numbered HB 5222 on May 19 and the governor signed it on June 2. It is never the signing (the governor's own
+// action line is), so it is procedural.
+const PUBLIC_ACT = /^\W*public act\b[\s.]*\d/i;
+// Readings and the CT Legislative Commissioners' Office are routine steps, not passage: "Passed First Reading", "Reported Out of
+// Legislative Commissioners' Office", "Filed with Legislative Commissioners' Office".
+// (Hawaii's "Passed Second Reading ... and referred to the committee(s)" is a committee passage there and stays one.)
+const ROUTINE_STEP = /\bpassed (?:on )?first reading\b|\bfirst reading,? passed\b|\blegislative commissioners'? office\b/i;
+// A carry-over to the next session ("Continued to next session", "Carried over to the next session") keeps the bill alive: an event of
+// the stalled type, kept so the entry shows the bill was carried over.
+const CARRY_OVER = /\bcontinued to (?:the )?next (?:regular )?session\b|\bcarr(?:y|ied)[- ]?over\b/i;
 const kindOf = (kind, type, importance) => ({ kind, type, milestone: !!type, importance });
 export function stateActionKind(action, isFirst = false) {
   const t = String(action || '').replace(/\s+/g, ' ').trim();
@@ -40,7 +51,8 @@ export function stateActionKind(action, isFirst = false) {
   if (!/\bmotion\b/i.test(t) && VETO_SUSTAINED.test(t)) return kindOf('failed', 'Vetoed / failed / rescinded', 70);
   if (FINAL_VETO.test(t)) return kindOf('vetoed', 'Vetoed / failed / rescinded', 90);
   if (/agreed to by (the )?(house|senate|assembly)|^(?!.*\bnot concurred\b).*\bamendments? concurred in/i.test(t) && !/\bmotion\b/i.test(t)) return kindOf('passed', 'Passed / advanced', 80);
-  if (NOISE.test(t) || AMENDMENT.test(t)) return kindOf('procedural', null, 0);
+  if (NOISE.test(t) || AMENDMENT.test(t) || PUBLIC_ACT.test(t) || ROUTINE_STEP.test(t)) return kindOf('procedural', null, 0);
+  if (CARRY_OVER.test(t) && !/\bmotion\b/i.test(t)) return kindOf('carried_over', 'Referred / stalled / hearing', 25);
   if (VETOED.test(t)) return kindOf('vetoed', 'Vetoed / failed / rescinded', 90);
   if (BILL_FAILED.test(t)) return kindOf('failed', 'Vetoed / failed / rescinded', 70);
   if (PROCEDURAL.test(t)) return kindOf('procedural', null, 0);
