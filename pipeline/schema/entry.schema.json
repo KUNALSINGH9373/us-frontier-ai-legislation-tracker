@@ -109,6 +109,24 @@
       "type": "string",
       "description": "Sponsors exactly as displayed."
     },
+    "record_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Plain facts from the official record, written by code (Tier A). Optional; only facts the record states as a number.",
+      "properties": {
+        "cosponsors": {
+          "type": "object",
+          "required": ["count", "as_of", "source_url"],
+          "additionalProperties": false,
+          "description": "Current cosponsors on Congress.gov (bill.cosponsors.count; withdrawn cosponsors not counted). sponsor_text ends with the same total in fixed wording.",
+          "properties": {
+            "count": { "type": "integer", "minimum": 0 },
+            "as_of": { "$ref": "common.schema.json#/$defs/isoDate" },
+            "source_url": { "$ref": "common.schema.json#/$defs/url" }
+          }
+        }
+      }
+    },
     "sponsors": {
       "type": "array",
       "items": {

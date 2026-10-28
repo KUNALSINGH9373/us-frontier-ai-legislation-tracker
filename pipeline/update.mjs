@@ -16,6 +16,9 @@ import { publishRun, IDENTIFIERS_FILE } from './publish/run.mjs';
 import { runAgents } from './agents/run.mjs';
 import { correctRun, STATE_FILE as CORRECT_STATE } from './correct/run.mjs';
 import { linkRun } from './links/run.mjs';
+import { courtsRun } from './publish/courts.mjs';
+import { createRateLimiter } from './grabber/sources/courtlistener.mjs';
+import { createHttp } from './grabber/lib/http.mjs';
 import { makeValidator } from './schema/validate.mjs';
 import { loadEnv } from './grabber/lib/env.mjs';
 import { createLlmFactory } from './llm/make.mjs';
@@ -54,10 +57,13 @@ fs.writeFileSync(lock, String(process.pid));
 const snapshot = Object.fromEntries(DATA_FILES.map((k) => [k, fs.existsSync(path.join(dataDir, k + '.json')) ? fs.readFileSync(path.join(dataDir, k + '.json')) : null]));
 const idsSnapshot = fs.existsSync(IDENTIFIERS_FILE) ? fs.readFileSync(IDENTIFIERS_FILE) : null; // new bills join the tracked list; put back with the data
 const correctSnapshot = fs.existsSync(CORRECT_STATE) ? fs.readFileSync(CORRECT_STATE) : null; // a rolled-back correction is checked again
+const COURTS_STATE = path.join(pipelineDir, 'data', 'courts-state.json');
+const courtsSnapshot = fs.existsSync(COURTS_STATE) ? fs.readFileSync(COURTS_STATE) : null; // rolled-back docket events are read again
 const restore = () => {
   for (const [k, b] of Object.entries(snapshot)) for (const d of [dataDir, ...(config.copy_to_docs ? [docsDir] : [])]) { const f = path.join(d, k + '.json'); if (b) fs.writeFileSync(f, b); else if (fs.existsSync(f)) fs.rmSync(f); }
   if (idsSnapshot) fs.writeFileSync(IDENTIFIERS_FILE, idsSnapshot);
   if (correctSnapshot) fs.writeFileSync(CORRECT_STATE, correctSnapshot); else fs.rmSync(CORRECT_STATE, { force: true });
+  if (courtsSnapshot) fs.writeFileSync(COURTS_STATE, courtsSnapshot); else fs.rmSync(COURTS_STATE, { force: true });
 };
 
 let code = 0;
@@ -93,6 +99,7 @@ try {
     console.log(`compare ${id}: ${JSON.stringify(diff.summary)}`);
     const grab = readJson(path.join(runDir, 'grab-stats.json'), {});
     rep.sources.push(sourceEntry({ runDir, source: grab.source || SOURCES[runs.indexOf(id)] }));
+    if (grab.stats && grab.stats.list_fallback) rep.notes.push(`Congress.gov's date-filtered list was down; fallback used (the plain list, newest first, ${grab.stats.fallback_pages} page(s))`);
 
     if (!aiOff && (diff.summary.material || diff.summary.new_entry_candidate)) {
       step = 'AI step';
@@ -110,6 +117,23 @@ try {
     const newsAfter = r.result && r.result.data ? (r.result.data.news.items || []).length : newsBefore;
     rep.publish.runs.push(publishEntry({ result: r.result, newsBefore, newsAfter, status: r.status }));
     if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length || r.result.added.length) { published.push(id); summaries.push(r.summary); } }
+  }
+
+  // ---- 4a. court dockets: material entries on the tracked federal cases (config/courts.json), as Tier A facts ----
+  if (config.courts && config.courts.enabled) {
+    step = 'court dockets';
+    const token = process.env.COURTLISTENER_API_TOKEN;
+    if (!token) rep.notes.push('court dockets not checked: COURTLISTENER_API_TOKEN is not set');
+    else {
+      const http = createHttp({ headers: { Authorization: 'Token ' + token }, secrets: [token], maxRequests: config.courts.max_requests_per_run || 12, log: (m) => console.log('  ' + m) });
+      const newsBefore = (readJson(path.join(dataDir, 'news.json'), { items: [] }).items || []).length;
+      const k = await courtsRun({ http, limiter: createRateLimiter({ perMinute: 5 }), cases: readJson(path.join(pipelineDir, 'config', 'courts.json'), {}), dataDir, docsDir: config.copy_to_docs ? docsDir : null, stateFile: COURTS_STATE, config, runId: rep.id, dry, log: (m) => console.log('  ' + m) });
+      console.log(`court dockets: ${k.status}; ${k.requests} request(s)`);
+      if (k.status === 'stopped') { process.stdout.write(k.summary); throw new Error('court-docket publish stopped; nothing from it was written'); }
+      k.errors.forEach((x) => rep.notes.push(`court docket not read: ${x}`));
+      const newsAfter = k.result.data ? (k.result.data.news.items || []).length : newsBefore;
+      if (k.result.touched.length) { rep.publish.runs.push(publishEntry({ result: { ...k.result, added: [] }, newsBefore, newsAfter, status: k.status })); published.push('court dockets'); summaries.push(k.summary); }
+    }
   }
 
   // ---- 4b. self-correction: once a day, re-read tracked bills and fix confirmed errors and omissions in the reading fields ----

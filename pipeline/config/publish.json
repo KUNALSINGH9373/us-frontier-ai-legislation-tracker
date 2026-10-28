@@ -33,6 +33,11 @@
   "recheck_after_days": 30,
   "max_retries": 3
  },
+ "courts": {
+  "_note": "The court-docket step of update.mjs (publish/courts.mjs): reads the docket entries of the cases in config/courts.json filed since the last run (state in data/courts-state.json) from CourtListener (COURTLISTENER_API_TOKEN; at most 5 requests a minute, max_requests_per_run per run) and writes the material ones as Tier A facts: events, and for orders, judgments and appeals a status-text line and a fixed-wording news item.",
+  "enabled": true,
+  "max_requests_per_run": 12
+ },
  "notify": {
   "_note": "Telegram run report after every run (needs TELEGRAM_BOT_TOKEN or TELEGRAM_ACCESS_TOKEN and TELEGRAM_CHAT_ID). A dry run sends one only with --notify.",
   "telegram": true

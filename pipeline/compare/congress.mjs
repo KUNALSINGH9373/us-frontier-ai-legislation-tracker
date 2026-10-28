@@ -34,6 +34,18 @@ export function statusFromAction(text) {
   return 'pending';
 }
 
+// Cosponsor totals are a record fact (bill.cosponsors.count: current cosponsors, withdrawn ones not counted). An entry states its
+// total in a structured field (record_facts.cosponsors) or in the fixed-wording end of its sponsor text, "...; 11 cosponsors in all
+// (Congress.gov)". Hand-written wording ("twelve as of Oct 27") is never parsed: such an entry has no known total here.
+export const COSPONSOR_SUFFIX = /;\s*(\d+)\s+cosponsors?(?:\s+in\s+all)?\s*\(Congress\.gov\)\s*$/;
+export const cosponsorSuffix = (n) => `; ${n} cosponsor${n === 1 ? '' : 's'} in all (Congress.gov)`;
+export function knownCosponsors(entry) {
+  const f = entry && entry.record_facts && entry.record_facts.cosponsors;
+  if (f && Number.isInteger(f.count)) return f.count;
+  const m = COSPONSOR_SUFFIX.exec((entry && entry.sponsor_text) || '');
+  return m ? Number(m[1]) : null;
+}
+
 export function compareCongress({ item, raw, entry }) {
   const bill = raw.bill || {}, reasons = [];
   if (!entry) {
@@ -57,6 +69,10 @@ export function compareCongress({ item, raw, entry }) {
   if (primary && entry.sponsor_text && !norm(entry.sponsor_text).includes(surname(primary.fullName))) {
     (multi ? minor : reasons).push({ kind: 'sponsor_change', detail: `Sponsor on Congress.gov is ${primary.fullName}, not named in the tracker.`, api_value: primary.fullName, our_value: entry.sponsor_text });
   }
+
+  // A changed cosponsor total, on an entry that covers this one bill and states a total the code can read (else totals would mix).
+  const count = bill.cosponsors && bill.cosponsors.count, stated = knownCosponsors(entry);
+  if (!multi && Number.isInteger(count) && stated !== null && count !== stated) reasons.push({ kind: 'cosponsors_change', detail: `Congress.gov lists ${count} current cosponsor${count === 1 ? '' : 's'}; the tracker says ${stated}.`, api_value: String(count), our_value: String(stated) });
 
   if (reasons.length) return { item_id: item.item_id, entry_key: entry.key, verdict: 'material', reasons };
 

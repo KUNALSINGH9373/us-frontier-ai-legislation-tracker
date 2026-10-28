@@ -17,6 +17,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
 const safe = (id) => id.replace(/[^A-Za-z0-9._-]+/g, '-');
 const WORK = new Set(['material', 'new_entry_candidate']);
+const CODE_ONLY = new Set(['cosponsors_change']);
 
 // factory (llm/make.mjs) is how production runs get their AI clients (provider from config/models.json, spend saved, monthly cap);
 // config + apiKey + fetchImpl is the older direct Gemini path the tests use.
@@ -38,7 +39,9 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
     ({ llm: generator, ledger } = createLlmFromConfig({ config, apiKey, http, role: 'generator', log }));
     ({ llm: validator } = createLlmFromConfig({ config, apiKey, http, role: 'validator', log }));
   }
-  const all = diffs.filter((d) => WORK.has(d.verdict) && (!only || d.item_id === only)).sort((a, b) => (a.verdict === 'material' ? 0 : 1) - (b.verdict === 'material' ? 0 : 1));
+  // A material item whose only reasons are record facts code writes itself (a cosponsor total) needs no reading by the AI.
+  const codeOnly = (d) => d.verdict === 'material' && d.reasons.length && d.reasons.every((r) => CODE_ONLY.has(r.kind));
+  const all = diffs.filter((d) => WORK.has(d.verdict) && !codeOnly(d) && (!only || d.item_id === only)).sort((a, b) => (a.verdict === 'material' ? 0 : 1) - (b.verdict === 'material' ? 0 : 1));
   const todo = maxItems ? all.slice(0, maxItems) : all;
   fs.mkdirSync(path.join(runDir, 'results'), { recursive: true });
 

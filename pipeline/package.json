@@ -20,7 +20,7 @@
     "test:fr": "node grabber/test-federal-register.mjs",
     "test:compare": "node compare/test.mjs",
     "test:compare-fr": "node compare/test-federal-register.mjs",
-    "test": "node schema/test.mjs && node grabber/test.mjs && node grabber/test-federal-register.mjs && node grabber/test-legiscan.mjs && node compare/test.mjs && node compare/test-federal-register.mjs && node llm/test.mjs && node llm/test-anthropic.mjs && node agents/test-derive.mjs && node agents/test.mjs && node agents/test-sections.mjs && node agents/test-duties.mjs && node publish/test.mjs && node publish/test-legiscan.mjs && node publish/test-tier-b.mjs && node eval/test.mjs && node duties/test.mjs && node notify/test.mjs && node llm/test-spend.mjs && node report/test.mjs && node correct/test.mjs && node links/test.mjs",
+    "test": "node schema/test.mjs && node grabber/test.mjs && node grabber/test-federal-register.mjs && node grabber/test-legiscan.mjs && node compare/test.mjs && node compare/test-federal-register.mjs && node llm/test.mjs && node llm/test-anthropic.mjs && node agents/test-derive.mjs && node agents/test.mjs && node agents/test-sections.mjs && node agents/test-duties.mjs && node publish/test.mjs && node publish/test-legiscan.mjs && node publish/test-tier-b.mjs && node eval/test.mjs && node duties/test.mjs && node notify/test.mjs && node llm/test-spend.mjs && node report/test.mjs && node correct/test.mjs && node links/test.mjs && node grabber/test-fallback.mjs && node grabber/test-courts.mjs && node publish/test-cosponsors.mjs",
     "test:llm": "node llm/test.mjs",
     "test:agents": "node agents/test.mjs",
     "test:agent-duties": "node agents/test-duties.mjs",

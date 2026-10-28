@@ -4,7 +4,7 @@
 // reading field; those are Tier B (AI, behind the accuracy gate). No AI is used here.
 // Pure: takes the current data and a run, returns new data plus the change log. Writing and stop rules are elsewhere.
 import { longDate, eventFor } from '../agents/derive.mjs';
-import { datesMentioned } from '../compare/congress.mjs';
+import { datesMentioned, COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { eventType as stateEventType } from '../grabber/sources/legiscan.mjs';
 
 const FULL_MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -13,11 +13,14 @@ const SOURCE_NAME = { congress_gov: 'Congress.gov', federal_register: 'the Feder
 // State bills: the legislature's own record (found through LegiScan; the link is the legislature's page).
 const sourceName = (item, e) => SOURCE_NAME[item.source] || (item.source === 'legiscan' ? `${e.state || 'state'} Legislature` : item.source);
 // Only these reason kinds are facts Tier A may write. Anything else is reported and left for a person or Tier B.
-const TIER_A = { congress_gov: ['new_action', 'status_change'], legiscan: ['new_action', 'status_change'] };
+const TIER_A = { congress_gov: ['new_action', 'status_change', 'cosponsors_change'], legiscan: ['new_action', 'status_change'] };
 
 export const newsKind = (e) => (e.level === 'state' ? 'state' : e.section === 'G.2' ? 'litigation' : /^G/.test(e.section) && e.section !== 'G.3' ? 'executive' : 'federal');
 const clean = (t) => String(t || '').replace(/\s+/g, ' ').trim().replace(/(?<!\b[a-z]\.[a-z])\.$/i, ''); // keep "4 p.m."
 const cut = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
+
+// The cosponsor total in the stored record (bill.cosponsors.count: current cosponsors; withdrawn ones are not counted). Null when absent.
+const recordCosponsors = (raw) => { try { const c = JSON.parse(raw).bill.cosponsors.count; return Number.isInteger(c) ? c : null; } catch { return null; } };
 
 // "2026-09-30: Committee on ... Hearings held."  ->  { date, text }
 // "2026-04-16: TN HB1898: Passed House"  ->  { date, text: the official words, label: with the bill number when given }
@@ -41,7 +44,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
     const allowed = TIER_A[item.source] || [];
     const raw = readRaw(item); // the exact text fetched at grab time; its hash was checked by the caller
     const name = sourceName(item, e);
-    const before = { status: e.status, status_text: e.status_text, events: e.events.length };
+    const before = { status: e.status, status_text: e.status_text, events: e.events.length, sponsor_text: e.sponsor_text, facts: JSON.stringify(e.record_facts || null) };
     const notes = [];
 
     for (const r of d.reasons) {
@@ -66,6 +69,25 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
         (e.evidence = e.evidence || []).push({ field: 'events', quote: a.text, source_url: item.source_url });
         notes.push({ date: a.date, text: a.label, quote: a.text });
       }
+      if (r.kind === 'cosponsors_change') {
+        // A record fact: the total is read from the stored record by code, and written in fixed wording. The hand-written part of the
+        // sponsor text is never rewritten: only a fixed-wording end ("; N cosponsors in all (Congress.gov)") is replaced or added.
+        const n = recordCosponsors(raw), multi = ((e.identifiers && e.identifiers.external && e.identifiers.external.congress_gov) || []).length > 1;
+        if (n === null || String(n) !== r.api_value) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `cosponsor total ${r.api_value} not found in the stored record` }); continue; }
+        if (multi) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: 'cosponsor total of one bill on an entry that covers several' }); continue; }
+        const old = e.record_facts && e.record_facts.cosponsors ? clone(e.record_facts.cosponsors) : null;
+        if (old && old.count === n) continue;
+        e.record_facts = { ...(e.record_facts || {}), cosponsors: { count: n, as_of: runDate, source_url: item.source_url } };
+        log.push({ entry_key: e.key, field: 'record_facts.cosponsors', old, new: e.record_facts.cosponsors, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
+        // the evidence is the record's own field, as stored ("cosponsors": { "count": N, ... })
+        const quote = JSON.stringify({ count: n }, null, 1).slice(2, -2).trim();
+        if (inRaw(raw, quote)) (e.evidence = e.evidence || []).push({ field: 'record_facts.cosponsors', quote, source_url: item.source_url });
+        const oldText = e.sponsor_text, m = COSPONSOR_SUFFIX.exec(oldText || '');
+        if (!m || Number(m[1]) !== n) {
+          e.sponsor_text = (m ? oldText.slice(0, m.index) : oldText.replace(/[\s.;]+$/, '')) + cosponsorSuffix(n);
+          log.push({ entry_key: e.key, field: 'sponsor_text', old: oldText, new: e.sponsor_text, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
+        }
+      }
       if (r.kind === 'status_change') {
         const next = ['enacted', 'failed'].includes(r.api_value) ? r.api_value : null; // compare/congress.mjs statusFromAction
         if (next && next !== e.status) {
@@ -76,7 +98,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
       }
     }
 
-    const changed = e.status !== before.status || e.status_text !== before.status_text || e.events.length !== before.events;
+    const changed = e.status !== before.status || e.status_text !== before.status_text || e.events.length !== before.events || e.sponsor_text !== before.sponsor_text || JSON.stringify(e.record_facts || null) !== before.facts;
     if (!changed) continue;
     e.events.sort((x, y) => x.date.localeCompare(y.date));
     if (!e.identifiers && identifiersFor(e.key)) e.identifiers = identifiersFor(e.key); // a mixed entry must say how it is found
@@ -84,7 +106,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
     e.verification = { method: 'agent', checked_at: at, run_id: runId, rounds: 0 };
     e.last_checked = runDate; e.last_changed = runDate;
     touched.add(e.key);
-    applied.push({ item_id: d.item_id, entry_key: e.key, actions: notes, status: e.status !== before.status ? `${before.status} -> ${e.status}` : null });
+    applied.push({ item_id: d.item_id, entry_key: e.key, actions: notes, status: e.status !== before.status ? `${before.status} -> ${e.status}` : null, ...(e.sponsor_text !== before.sponsor_text || JSON.stringify(e.record_facts || null) !== before.facts ? { cosponsors: e.record_facts.cosponsors.count } : {}) });
 
     if (config.news_from_official_actions !== false) for (const n of notes.filter((x) => !out.news.items.some((y) => y.tracker === e.key && y.date === x.date))) {
       out.news.items.push({
