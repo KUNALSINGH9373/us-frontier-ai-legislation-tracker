@@ -4,10 +4,11 @@
 import { checkIntegrity } from '../schema/integrity.mjs';
 import { pairKey } from './propose.mjs';
 
-// One proposal as a network edge: the first quote is the link's quote, and the pipeline is its origin.
+// One proposal as a network edge: the first quote is the link's quote, src / col say where it sits (the entry's node and field, or
+// the bill's node and 'text' for an AI link quoting the official text), and the pipeline is its origin.
 export function edgeOf(p) {
   const ev = p.evidence[0];
-  return { from: p.from, to: p.to, type: p.type, label: p.label, quote: ev.quote, source_url: ev.source_url, ...(p.dashed ? { dashed: true } : {}), origin: 'automated', src: p.method === 'ai' ? 'pipeline:links:ai' : 'pipeline:links:code' };
+  return { from: p.from, to: p.to, type: p.type, label: p.label, quote: ev.quote, source_url: ev.source_url, src: ev.node, col: ev.field, ...(p.dashed ? { dashed: true } : {}), origin: 'automated' };
 }
 
 // data: { entries, relationships, news, site } (integrity needs them all). proposals, nodes: from propose.mjs.
@@ -17,7 +18,7 @@ export function applyLinks({ data, proposals, nodes = {} }) {
   const added = { edges: [], nodes: {} }, skipped = [];
   for (const p of proposals) {
     const why = !rel.types[p.type] ? `unknown type ${p.type}`
-      : !(p.evidence || []).length || !p.evidence.every((x) => x.quote && String(x.quote).trim().length >= 8 && x.source_url) ? 'every link needs a quote and a source URL'
+      : !(p.evidence || []).length || !p.evidence.every((x) => x.quote && String(x.quote).trim().length >= 8 && x.source_url && x.node && x.field) ? 'every link needs a quote, a source URL and where the quote sits'
       : String(p.label || '').length < 3 ? 'no label'
       : p.from === p.to ? 'a link to itself'
       : seen.has(pairKey(p.from, p.to, p.type)) ? 'already in the network' : null;
