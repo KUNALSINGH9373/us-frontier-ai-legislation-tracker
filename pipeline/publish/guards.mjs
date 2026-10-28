@@ -4,6 +4,7 @@ import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
 import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { FACT_FIELDS } from '../agents/checks.mjs';
+import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
 export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
@@ -24,7 +25,18 @@ export function checkNewEntry(e) {
 // A status may only move forward. Authored judgement calls ("stalled") may still become law or fail.
 const FORWARD = { pending: ['stalled', 'enacted', 'failed'], stalled: ['pending', 'enacted', 'failed'] };
 // Fields Tier A may change on an entry. Everything else (mechanism, thresholds, penalties, title, ...) must be identical.
-const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked', 'last_changed', 'origin', 'verification', 'evidence', 'identifiers']); // identifiers: added once, when an entry first becomes mixed
+const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked', 'last_changed', 'origin', 'verification', 'evidence', 'identifiers', 'record_facts']); // identifiers: added once, when an entry first becomes mixed
+// The sponsor text is written by hand. Tier A may change only its fixed-wording end ("; N cosponsors in all (Congress.gov)"), to the
+// total in record_facts.cosponsors; every other character must stay as it was.
+const handPart = (t) => { const m = COSPONSOR_SUFFIX.exec(t || ''); return m ? t.slice(0, m.index) : String(t || '').replace(/[\s.;]+$/, ''); };
+export function sponsorTextProblem(o, n) {
+  if (o.sponsor_text === n.sponsor_text) return null;
+  const f = n.record_facts && n.record_facts.cosponsors;
+  if (!f || !Number.isInteger(f.count)) return 'sponsor_text changed without a cosponsor total in record_facts';
+  if (!n.sponsor_text.endsWith(cosponsorSuffix(f.count))) return `sponsor_text does not end with the fixed wording for ${f.count} cosponsors`;
+  if (handPart(n.sponsor_text) !== handPart(o.sponsor_text)) return 'sponsor_text: the hand-written part changed';
+  return null;
+}
 const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
@@ -60,7 +72,8 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
     const fixed = new Set((corrected[key] || []).filter((f) => CORRECTABLE.has(f)));
     (corrected[key] || []).filter((f) => !CORRECTABLE.has(f)).forEach((f) => problems.push(`self-correction named ${f} on ${key}: only ${READING_FIELDS.join(', ')} may be corrected`));
     if (fixed.size) fixed.add('sources');
-    Object.keys({ ...o, ...n }).filter((f) => !TIER_A_FIELDS.has(f) && !fixed.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: ${fixed.size ? 'a self-correction' : 'Tier A'} may not change it`));
+    Object.keys({ ...o, ...n }).filter((f) => f !== 'sponsor_text' && !TIER_A_FIELDS.has(f) && !fixed.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: ${fixed.size ? 'a self-correction' : 'Tier A'} may not change it`));
+    const sp = sponsorTextProblem(o, n); if (sp) problems.push(`${sp} on ${key}`);
     if (!same(o, n)) changed++;
     // 6. no event in the future unless it is marked scheduled
     n.events.filter((x) => x.date > cutoff && !x.scheduled).forEach((x) => problems.push(`future event not marked scheduled on ${key}: ${x.date}`));

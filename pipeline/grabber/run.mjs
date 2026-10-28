@@ -24,14 +24,20 @@ import { sha, isoZ, makeRunId, saveRaw, writeChangeset } from './lib/run-common.
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
 export const DATA_CUTOFF = '2026-09-29T00:00:00Z'; // the tracker's last verified date: nothing before this is re-examined
+export const CONGRESS = 119; // the current Congress: every tracked bill and every candidate belongs to it
 const hashOf = (b) => sha(JSON.stringify([b.updateDate, b.updateDateIncludingText, b.latestAction && b.latestAction.actionDate, b.latestAction && b.latestAction.text]));
 const safeName = (id) => id.replace(/\//g, '-');
 const MAX_TEXT = 1_500_000; // characters of bill text kept
+// New bills held because their text is not published yet (data/waiting-for-text.json). A bill whose text appears later is often not
+// listed again (the date filter follows updateDate, which publishing a text need not move), so each run asks up to WAITING_CHECKS of
+// them directly, least recently asked first, and collects the ones that now have a text. One that waited WAITING_DAYS is let go.
+export const WAITING_CHECKS = 10, WAITING_DAYS = 365;
 
 // entries: v2 entries (to match bills we already track). scope: the screen config. now: Date. llm: the AI intent check (optional).
 // New bills: a title with frontier wording (scope.precise_terms) is a candidate at once; a title with any AI / chip / computing word
 // (scope.title_terms) goes to the AI intent check, which drops only a confident "no" (no model, or a failed call, drops nothing).
-export async function runCongress({ http, llm = null, state, entries = [], scope, outDir, now = new Date(), since, bills = [], dryRun = false, log = () => {} }) {
+// waiting: the held-for-text list ({ item_id: { source_id, title, since, last_checked, checks } }); the run returns nextWaiting.
+export async function runCongress({ http, llm = null, state, entries = [], scope, outDir, now = new Date(), since, bills = [], waiting = {}, waitingChecks = WAITING_CHECKS, dryRun = false, log = () => {} }) {
   const congress = createCongress(http);
   const screen = makeScreen(scope);
   const precise = scope.precise_terms ? makeScreen({ title_terms: scope.precise_terms }) : () => false;
@@ -45,6 +51,7 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
   const items = [], stats = { listed: 0, tracked_changed: 0, candidates: 0, screened_out: 0, unchanged: 0, over_candidate_cap: 0, errors: 0 };
   let lastProcessed = null, truncated = false, candidatesTaken = 0, resumeAt = null, inFlight = null;
   const pending = [], dropped = [];
+  const nextWaiting = structuredClone(waiting), collected = new Set(), today = isoZ(now).slice(0, 10);
 
   async function collect(ref, reason, entryKey, listItem) {
     const id = billId(ref);
@@ -63,13 +70,19 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
       raw_hash: saved.hash, raw_path: saved.rel, title: detail && detail.title
     });
     block.hashes[id] = hashOf(detail);
+    collected.add(id);
+    // A new bill without its text waits for it; one that has its text (or is tracked now) no longer waits.
+    const wid = `congress_gov:${id}`;
+    if (reason === 'discovery' && textMissing) nextWaiting[wid] = { source_id: id, title: (detail && detail.title) || (nextWaiting[wid] && nextWaiting[wid].title) || null, since: (nextWaiting[wid] && nextWaiting[wid].since) || today, last_checked: today, checks: ((nextWaiting[wid] && nextWaiting[wid].checks) || 0) + 1 };
+    else if (reason === 'discovery') delete nextWaiting[wid];
   }
 
   try {
     if (bills.length) {
       for (const id of bills) { const ref = parseBillId(id); if (!ref) throw new Error(`not a bill id: ${id}`); await collect(ref, 'reconcile', tracked.get(id)); }
     } else {
-      for await (const b of congress.listUpdated({ from, to })) {
+      const onFallback = (f) => { stats.list_fallback = true; stats.fallback_pages = f.pages; log(`fallback used: ${f.reason}; read ${f.pages} page(s) of the plain list instead (${f.bills} bill(s) in the window)`); };
+      for await (const b of congress.listUpdated({ from, to, congress: CONGRESS, onFallback })) {
         stats.listed++;
         const ref = { congress: b.congress, type: String(b.type).toLowerCase(), number: b.number }, id = billId(ref);
         const newHash = hashOf(b);
@@ -94,6 +107,22 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
         await collect(p.ref, 'discovery', null, p.b); stats.candidates++; candidatesTaken++;
         inFlight = null;
       }
+      // the bills held for their text: is it published now? (after the listing, so a cut-off here never holds the cursor back)
+      pending.length = 0; // every listed candidate was handled above (or resumeAt already marks where the next run starts)
+      for (const [wid, w] of Object.entries(nextWaiting).sort(([, x], [, y]) => String(x.last_checked).localeCompare(String(y.last_checked)) || x.source_id.localeCompare(y.source_id))) {
+        const ref = parseBillId(w.source_id);
+        if (!ref || tracked.has(w.source_id)) { delete nextWaiting[wid]; continue; } // tracked now: its updates come through the list
+        if (collected.has(w.source_id)) continue; // listed again this run and already collected
+        if (w.since && (+new Date(today) - +new Date(w.since)) / 864e5 > WAITING_DAYS) { delete nextWaiting[wid]; stats.waiting_given_up = (stats.waiting_given_up || 0) + 1; continue; }
+        if ((stats.waiting_checked || 0) >= waitingChecks) break;
+        if (candidatesTaken >= scope.max_candidates_per_run) break;
+        stats.waiting_checked = (stats.waiting_checked || 0) + 1;
+        let has = false;
+        try { has = await congress.hasText(ref); } catch (e) { if (e instanceof QuotaExceeded) throw e; if (!(e instanceof HttpError || e instanceof NetworkError)) throw e; log(`text check failed for ${w.source_id}: ${String(e.message).slice(0, 80)}`); }
+        if (!has) { nextWaiting[wid] = { ...w, last_checked: today, checks: (w.checks || 0) + 1 }; continue; }
+        await collect(ref, 'discovery', null, null); stats.candidates++; candidatesTaken++;
+        if (!nextWaiting[wid]) stats.waiting_text_found = (stats.waiting_text_found || 0) + 1;
+      }
     }
   } catch (e) {
     if (e instanceof QuotaExceeded) {
@@ -106,12 +135,13 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
 
   // The cursor moves forward only as far as we really got.
   const stop = [lastProcessed, resumeAt].filter(Boolean).sort()[0];
-  const cursor = bills.length ? block.cursor : truncated && stop ? isoZ(stop) : to;
+  // Stopped before any bill was processed (e.g. the budget ran out while listing): the cursor stays where it was.
+  const cursor = bills.length ? block.cursor : truncated ? (stop ? isoZ(stop) : from) : to;
   const changeset = writeChangeset({ outDir, runId, items });
 
   const next = { ...state, sources: { ...state.sources, congress_gov: { ...block, last_success: isoZ(new Date()), cursor, quota: { period: 'run', used: http.used(), limit: http.maxRequests } } } };
   if (dropped.length) fs.writeFileSync(path.join(outDir, runId, 'congress-screened-out.json'), JSON.stringify(dropped, null, 1) + '\n');
-  return { runId, changeset, stats, truncated, cursor, requests: http.used(), nextState: next, dropped, saved: !dryRun };
+  return { runId, changeset, stats, truncated, cursor, requests: http.used(), nextState: next, nextWaiting, dropped, saved: !dryRun };
 }
 
 // ---------- command line ----------
@@ -148,8 +178,11 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       if (!key) { console.error('CONGRESS_API_KEY is not set (looked for a .env file upward from pipeline/; found: ' + (env.path || 'none') + ')'); process.exit(2); }
       console.log(`congress.gov: ${multi('bill').length ? 'specific bills ' + multi('bill').join(', ') : 'changes since ' + (opt('since') || (state.sources.congress_gov && state.sources.congress_gov.cursor) || DATA_CUTOFF)}${dryRun ? ' (dry run)' : ''}`);
       const http = createHttp({ headers: { 'X-Api-Key': key }, secrets: [key], maxRequests, log: (m) => console.log('  ' + m) });
-      const r = await runCongress({ http, llm, state, entries, scope, outDir, since: opt('since'), bills: multi('bill'), dryRun, log: (m) => console.log('  ' + m) });
-      report('congress.gov', r); saveStats('congress_gov', r); if (!dryRun) { writeState(stateFile, r.nextState); state = r.nextState; }
+      const waitingFile = path.join(pipelineDir, 'data', 'waiting-for-text.json');
+      const waiting = fs.existsSync(waitingFile) ? JSON.parse(fs.readFileSync(waitingFile, 'utf8')).items || {} : {};
+      const r = await runCongress({ http, llm, state, entries, scope, outDir, since: opt('since'), bills: multi('bill'), waiting, dryRun, log: (m) => console.log('  ' + m) });
+      report('congress.gov', r); saveStats('congress_gov', r, { waiting_for_text: Object.keys(r.nextWaiting).length });
+      if (!dryRun) { writeState(stateFile, r.nextState); state = r.nextState; const t = waitingFile + '.tmp'; fs.writeFileSync(t, JSON.stringify({ _note: 'New Congress bills held because their text is not published yet; grabber/run.mjs asks for it each run and collects them when it appears.', items: r.nextWaiting }, null, 1) + '\n'); fs.renameSync(t, waitingFile); }
     }
     if (source === 'federal_register' || source === 'all') {
       console.log(`federal register: ${multi('doc').length ? 'specific documents ' + multi('doc').join(', ') : 'documents since ' + (opt('since') || (state.sources.federal_register && state.sources.federal_register.cursor) || FR_CUTOFF)}${dryRun ? ' (dry run)' : ''}`);

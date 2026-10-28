@@ -14,14 +14,40 @@ export function createCongress(http) {
 
   return {
     // Bills updated in [from, to], oldest first, so a cut-off run can resume exactly where it stopped.
-    async *listUpdated({ from, to, pageSize = 250 }) {
+    // congress: keep only bills of that Congress (both paths), so the two paths give the same stream.
+    // The date filter (fromDateTime) is sometimes down (HTTP 503 for days) while the plain list works. After the normal retries
+    // a 5xx on the filtered list switches to the fallback: the plain list, newest first, paged until a bill is older than `from`,
+    // then replayed oldest first. Bills the filtered list already gave are not given twice. onFallback is told once, with why.
+    async *listUpdated({ from, to, pageSize = 250, congress = null, onFallback = () => {} }) {
+      const keep = (b) => congress == null || String(b.congress) === String(congress);
+      const given = new Set(), idOf = (b) => billId({ congress: b.congress, type: b.type, number: b.number });
+      let failed = null;
       for (let offset = 0; ; offset += pageSize) {
-        const r = await get('/bill', { fromDateTime: from, toDateTime: to, sort: 'updateDate+asc', limit: pageSize, offset });
+        let r;
+        try { r = await get('/bill', { fromDateTime: from, toDateTime: to, sort: 'updateDate+asc', limit: pageSize, offset }); }
+        catch (e) { if (e && e.name === 'HttpError' && e.status >= 500) { failed = e; break; } throw e; }
         const bills = r.bills || [];
-        for (const b of bills) yield b;
+        for (const b of bills.filter(keep)) { given.add(idOf(b)); yield b; }
         const total = r.pagination && r.pagination.count;
         if (bills.length < pageSize || (total != null && offset + pageSize >= total)) return;
       }
+      // ---- fallback: the plain list, sorted by update date, newest first ----
+      const found = new Map(); // bill id -> list item; the first (newest) sighting wins when a bill moves up the list mid-paging
+      let pages = 0;
+      for (let offset = 0; ; offset += pageSize) {
+        const r = await get('/bill', { sort: 'updateDate+desc', limit: pageSize, offset }); pages++;
+        const bills = r.bills || [];
+        let older = false;
+        for (const b of bills) {
+          if (!b.updateDate || b.updateDate < from) { older = true; continue; }
+          if (b.updateDate > to || !keep(b) || found.has(idOf(b))) continue;
+          found.set(idOf(b), b);
+        }
+        if (older || bills.length < pageSize) break;
+      }
+      onFallback({ reason: `the date-filtered list failed (${failed.message})`, pages, bills: found.size });
+      // the same order as the filtered list: oldest first (a stable sort keeps the API's order within one timestamp)
+      for (const b of [...found.values()].sort((x, y) => x.updateDate.localeCompare(y.updateDate))) if (!given.has(idOf(b))) yield b;
     },
     async getBill({ congress, type, number }) { return (await get(`/bill/${congress}/${type}/${number}`)).bill; },
     async getActions({ congress, type, number }) {
@@ -33,6 +59,11 @@ export function createCongress(http) {
       }
     },
     async getSummaries({ congress, type, number }) { return (await get(`/bill/${congress}/${type}/${number}/summaries`)).summaries || []; },
+    // Whether any text version with a formatted text has been published yet (one cheap call; the text itself is not fetched).
+    async hasText({ congress, type, number }) {
+      const versions = (await get(`/bill/${congress}/${type}/${number}/text`)).textVersions || [];
+      return versions.some((v) => (v.formats || []).some((x) => /Formatted Text/i.test(x.type)));
+    },
     // The bill's own words: the newest text version, as plain text. Null when no text has been published yet.
     async getText({ congress, type, number }) {
       const versions = (await get(`/bill/${congress}/${type}/${number}/text`)).textVersions || [];

@@ -23,7 +23,7 @@ export function sourceEntry({ runDir, source }) {
   const g = readJson(path.join(runDir, 'grab-stats.json')) || {}, diff = readJson(path.join(runDir, 'diff.json')) || { summary: {}, items: [] };
   const verdicts = { unchanged: 0, minor: 0, material: 0, new_entry_candidate: 0, ...diff.summary };
   return {
-    source, name: SOURCE_NAMES[source] || source, run_id: g.run_id || path.basename(runDir), requests: g.requests ?? null, truncated: !!g.truncated, items_in_change_set: g.items ?? diff.items.length,
+    source, name: SOURCE_NAMES[source] || source, run_id: g.run_id || path.basename(runDir), requests: g.requests ?? null, truncated: !!g.truncated, fallback_used: !!(g.stats && g.stats.list_fallback), items_in_change_set: g.items ?? diff.items.length,
     month_used: g.month_used ?? null, month_cap: g.month_cap ?? null, counts: normaliseStats(source, g.stats), stats: g.stats || {}, verdicts,
     new_candidates: diff.items.filter((d) => d.verdict === 'new_entry_candidate').map((d) => ({ item_id: d.item_id, title: d.title || (d.reasons && d.reasons[0] && d.reasons[0].detail) || d.item_id })),
     material: diff.items.filter((d) => d.verdict === 'material').map((d) => ({ item_id: d.item_id, entry_key: d.entry_key }))

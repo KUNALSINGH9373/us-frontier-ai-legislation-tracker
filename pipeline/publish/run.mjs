@@ -56,13 +56,13 @@ function summaryOf({ runId, runDate, result, check, dry }) {
   const n = result.added.length;
   const L = [`Publish ${runId} (${runDate}): ${result.touched.length} entr${result.touched.length === 1 ? 'y' : 'ies'} updated from official records${n ? `, ${n} new entr${n === 1 ? 'y' : 'ies'} added` : ''}${dry ? ' [dry run, nothing written]' : ''}`, ''];
   for (const a of result.applied) {
-    L.push(`- ${a.entry_key}${a.status ? ` (status ${a.status})` : ''}`);
+    L.push(`- ${a.entry_key}${a.status ? ` (status ${a.status})` : ''}${a.cosponsors != null ? ` (cosponsors now ${a.cosponsors})` : ''}`);
     a.actions.forEach((x) => L.push(`    ${x.date}: ${x.text}`));
   }
   for (const a of result.added) L.push(`- NEW ${a.entry_key} (section ${a.section}, from ${a.item_id})`);
   if (result.skipped.length) { L.push('', 'Not applied (not proved, not allowed, or waiting):'); result.skipped.forEach((s) => L.push(`- ${s.entry_key || s.item_id}: ${s.why}`)); }
   if (check && check.problems.length) { L.push('', 'STOPPED, nothing written:'); check.problems.forEach((p) => L.push(`- ${p}`)); }
-  L.push('', 'Tier A: events, status, status text and dates, copied by code from the official record. No AI-written text.');
+  L.push('', 'Tier A: events, status, status text, cosponsor totals and dates, copied by code from the official record. No AI-written text.');
   if (n) L.push('Tier B: new entries. Facts from the record written by code; what the bill does (and thresholds and penalties where stated) written by the AI, each with a quote code found word for word in the record.');
   return L.join('\n') + '\n';
 }

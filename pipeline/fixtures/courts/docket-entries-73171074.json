@@ -1,0 +1,327 @@
+{
+ "count": 31,
+ "next": "https://www.courtlistener.com/api/rest/v4/docket-entries/?docket=73171074&order_by=-date_filed&page=2&page_size=20",
+ "previous": null,
+ "results": [
+  {
+   "id": 480368690,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-10-02T15:04:31.391613-07:00",
+   "date_filed": "2026-10-02",
+   "entry_number": null,
+   "description": "",
+   "recap_documents": [
+    {
+     "description": "Order on Motion to Withdraw as Attorney",
+     "document_number": "",
+     "absolute_url": ""
+    }
+   ]
+  },
+  {
+   "id": 480353389,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-10-02T13:35:31.696293-07:00",
+   "date_filed": "2026-10-02",
+   "entry_number": 25,
+   "description": "",
+   "recap_documents": [
+    {
+     "description": "Withdraw as Attorney",
+     "document_number": "25",
+     "absolute_url": "/docket/73171074/25/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 462142122,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-27T15:32:47.399360-07:00",
+   "date_filed": "2026-04-27",
+   "entry_number": 24,
+   "description": "MINUTE ORDER: The parties' Motion, ECF No. 22, is GRANTED. A stay will not prejudice the plaintiff, who does not oppose the motion, ECF No. 22, will avoid burdening the parties with the costs of litigating, promotes judicial economy and efficiency, does not negatively impact nonparties, and is in the public interest. Accordingly, it is ORDERED: 1. The defendant shall not initiate enforcement, including but not limited to the initiation of an investigation, for alleged violations of SB24-205 (or any legislation replacing or amending SB24-205 enacted during this legislative session) that occurred or may occur on or before 14 days after the date the Court issues a ruling on xAI's forthcoming motion for a preliminary injunction in this case.2. xAI shall submit a motion for preliminary injunction and, if necessary, file an amended complaint, within 28 days after final adoption of rulemaking implementing SB24-205 or any legislation that may replace or amend SB24-205. 3. The Scheduling Conference scheduled for June 16, 2026, is VACATED, and all case management and other deadlines are STAYED, pending the Courts resolution of xAIs forthcoming motion for preliminary injunction.4. xAI and the Colorado Attorney General's original Joint Motion to Vacate Scheduling Conference and Suspend Case Deadlines and Stipulation to Temporarily Stay Enforcement, ECF No. 18, is DENIED AS MOOT. Entered by Magistrate Judge Cyrus Y. Chung on 4/27/2026.(echa, ) (Entered: 04/27/2026)",
+   "recap_documents": [
+    {
+     "description": "Order on Motion to Vacate",
+     "document_number": "24",
+     "absolute_url": "/docket/73171074/24/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 463782405,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-05-12T11:21:38.234029-07:00",
+   "date_filed": "2026-04-27",
+   "entry_number": 23,
+   "description": "ORDER REFERRING MOTION(S): 22 Joint MOTION to Vacate Scheduling Conference and Suspend Case Deadlines and Stipulation to Temporarily Stay Enforcement filed by United States.Motions referred to Magistrate Judge Cyrus Y. Chung. SO ORDERED by Chief Judge Daniel D. Domenico on 04/27/2026. Text Only Entry. (agryan) (Entered: 04/27/2026)",
+   "recap_documents": [
+    {
+     "description": "Order Referring Motion",
+     "document_number": "23",
+     "absolute_url": "/docket/73171074/23/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 462062511,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-27T09:01:36.660476-07:00",
+   "date_filed": "2026-04-27",
+   "entry_number": null,
+   "description": "",
+   "recap_documents": [
+    {
+     "description": "Order Referring Motion",
+     "document_number": "",
+     "absolute_url": ""
+    }
+   ]
+  },
+  {
+   "id": 461978015,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-25T07:56:21.452855-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 20,
+   "description": "ORDER REFERRING MOTION(S): 18 Joint MOTION to Vacate Scheduling Conference and Suspend Case Deadlines and Stipulation to Temporarily Stay Enforcement filed by X. AI LLC.Motions referred to Magistrate Judge Cyrus Y. Chung. SO ORDERED by Chief Judge Daniel D. Domenico on 04/24/2026. Text Only Entry. (agryan) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Order Referring Motion",
+     "document_number": "20",
+     "absolute_url": "/docket/73171074/20/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461904206,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T11:35:46.222186-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 16,
+   "description": "ORDER granting 12 United States of Americas Unopposed Motion to Intervene. \"On timely motion, the court must permit anyone to intervene whois given an unconditional right to intervene by a federal statute.\" Fed. R. Civ. P. 24(a)(1). The Civil Rights Act of 1964 gives the United States an unconditional right to intervene in Equal Protection cases if the Attorney General certifies that it is a case of general public importance. See 42 U.S.C. § 2000h-2. X.AI LLC brings an Equal Protection claim and the Acting Attorney General has certified that this case is of general public importance. Doc. 1 187-201; Doc. 12-1. The unopposed motion is also timely, filed fifteen days after X.AI LLC initiated this suit. Compare Doc. 12, with Doc. 1 . The Defendant, the Colorado Attorney General, entered an appearance today and the scheduling conference is set for nearly two months from now. Docs. 11, 13 . The motion is GRANTED. The Clerk is directed to AMEND the caption to include the United States of America and DOCKET the United States of Americas Complaint in Intervention, Doc. 12-2, as a separate docket entry.SO ORDERED by Chief Judge Daniel D. Domenico on 04/24/2026. Text Only Entry.(agryan) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Order on Motion to Intervene",
+     "document_number": "16",
+     "absolute_url": "/docket/73171074/16/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461904200,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T11:35:46.111109-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 14,
+   "description": "AFFIDAVIT/RETURN of Service of United States' Unopposed Motion to Intervene as Plaintiff (Dkt. 12) upon Defendant Philip J. Weiser, Colorado Attorney General on April 24, 2026, filed by Intervenor Plaintiff United States (Gieseke, Greta) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Affidavit/Return of Service",
+     "document_number": "14",
+     "absolute_url": "/docket/73171074/14/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461956728,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T17:32:46.546268-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 22,
+   "description": "Joint MOTION to Vacate Scheduling Conference and Suspend Case Deadlines and Stipulation to Temporarily Stay Enforcement by Intervenor Plaintiff United States. (Attachments: # 1 Proposed Order (PDF Only))(Gieseke, Greta) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Motion to Vacate",
+     "document_number": "22",
+     "absolute_url": "/docket/73171074/22/x-ai-llc-v-weiser/"
+    },
+    {
+     "description": "Proposed Order (PDF Only)",
+     "document_number": "22",
+     "absolute_url": "/docket/73171074/22/1/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461904197,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T11:35:46.036849-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 13,
+   "description": "NOTICE of Entry of Appearance by Heather K. Kelly on behalf of Philip J. WeiserAttorney Heather K. Kelly added to party Philip J. Weiser(pty:dft) (Kelly, Heather) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Notice of Entry of Appearance",
+     "document_number": "13",
+     "absolute_url": "/docket/73171074/13/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461978016,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-25T07:56:21.563321-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 21,
+   "description": "NOTICE of Entry of Appearance by Joshua R. Zuckerman on behalf of United StatesAttorney Joshua R. Zuckerman added to party United States(pty:intvp) (Zuckerman, Joshua) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Notice of Entry of Appearance",
+     "document_number": "21",
+     "absolute_url": "/docket/73171074/21/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461864008,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T07:35:42.533740-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 12,
+   "description": "Unopposed MOTION to Intervene as Plaintiff by Intervenor Plaintiff United States. (Attachments: # 1 Exhibit A - Certificate of Acting Attorney General, # 2 Exhibit B - Complaint in Intervention)(Gieseke, Greta) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Motion to Intervene",
+     "document_number": "12",
+     "absolute_url": "/docket/73171074/12/x-ai-llc-v-weiser/"
+    },
+    {
+     "description": "Exhibit A - Certificate of Acting Attorney General",
+     "document_number": "12",
+     "absolute_url": "/docket/73171074/12/1/x-ai-llc-v-weiser/"
+    },
+    {
+     "description": "Exhibit B - Complaint in Intervention",
+     "document_number": "12",
+     "absolute_url": "/docket/73171074/12/2/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461904203,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T11:35:46.165634-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 15,
+   "description": "NOTICE of Entry of Appearance by Eric Arthur Sell on behalf of United StatesAttorney Eric Arthur Sell added to party United States(pty:intvp) (Sell, Eric) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Notice of Entry of Appearance",
+     "document_number": "15",
+     "absolute_url": "/docket/73171074/15/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461903069,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T11:31:09.893404-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": null,
+   "description": "",
+   "recap_documents": [
+    {
+     "description": "Order on Motion to Intervene",
+     "document_number": "",
+     "absolute_url": ""
+    }
+   ]
+  },
+  {
+   "id": 461905201,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T11:42:51.983428-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 18,
+   "description": "Joint MOTION to Vacate Scheduling Conference and Suspend Case Deadlines and Stipulation to Temporarily Stay Enforcement by Plaintiff X. AI LLC. (Attachments: # 1 Proposed Order (PDF Only) Order Granting Joint Motion to Vacate Scheduling Conference and Suspend Case Deadlines and Stipulation to Temporarily Stay Enforcement)(Hauptman, William) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Motion to Vacate",
+     "document_number": "18",
+     "absolute_url": "/docket/73171074/18/x-ai-llc-v-weiser/"
+    },
+    {
+     "description": "Proposed Order (PDF Only) Order Granting Joint Motion to Vacate Scheduling Confe",
+     "document_number": "18",
+     "absolute_url": "/docket/73171074/18/1/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461911015,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T12:22:02.983542-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 19,
+   "description": "NOTICE of Entry of Appearance by Katherine M. Field on behalf of Philip J. WeiserAttorney Katherine M. Field added to party Philip J. Weiser(pty:dft) (Field, Katherine) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Notice of Entry of Appearance",
+     "document_number": "19",
+     "absolute_url": "/docket/73171074/19/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461904209,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T11:35:46.284143-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": 17,
+   "description": "UNITED STATES OF AMERICA'S COMPLAINT in Intervention, filed by United States. [Docketed pursuant to 16 Order](agryan) (Entered: 04/24/2026)",
+   "recap_documents": [
+    {
+     "description": "Intervenor Complaint",
+     "document_number": "17",
+     "absolute_url": "/docket/73171074/17/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461922221,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-24T13:08:34.567747-07:00",
+   "date_filed": "2026-04-24",
+   "entry_number": null,
+   "description": "",
+   "recap_documents": [
+    {
+     "description": "Order Referring Motion",
+     "document_number": "",
+     "absolute_url": ""
+    }
+   ]
+  },
+  {
+   "id": 461033215,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-16T13:54:30.717996-07:00",
+   "date_filed": "2026-04-16",
+   "entry_number": 11,
+   "description": "Minute Order: This matter is before the Court sua sponte. The Scheduling Conference set for 6/16/2026 at 10:30 a.m is hereby RESET to 6/16/2026 at 10:45 a.m. This is a change in time only. Entered by Magistrate Judge Cyrus Y. Chung on 4/16/2026. Text Only Entry (spric) (Entered: 04/16/2026)",
+   "recap_documents": [
+    {
+     "description": "Minute Order",
+     "document_number": "11",
+     "absolute_url": "/docket/73171074/11/x-ai-llc-v-weiser/"
+    }
+   ]
+  },
+  {
+   "id": 461029170,
+   "docket": "https://www.courtlistener.com/api/rest/v4/dockets/73171074/",
+   "date_created": "2026-04-16T13:31:20.264329-07:00",
+   "date_filed": "2026-04-16",
+   "entry_number": null,
+   "description": "",
+   "recap_documents": [
+    {
+     "description": "Minute Order",
+     "document_number": "",
+     "absolute_url": ""
+    }
+   ]
+  }
+ ]
+}

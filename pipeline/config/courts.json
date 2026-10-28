@@ -1,0 +1,6 @@
+{
+ "_note": "Tracked federal cases read from CourtListener by the court-docket step (publish/courts.mjs): entry key -> the court and CourtListener's docket id. Material docket entries become Litigation events; orders, judgments and appeals also news items.",
+ "fl-anthropic-v-department-of-war-n-d-cal": { "court": "N.D. Cal.", "docket_id": 72379655 },
+ "protect-democracy-v-oncd": { "court": "D.D.C.", "docket_id": 74734757 },
+ "x-ai-v-weiser-d-colo": { "court": "D. Colo.", "docket_id": 73171074 }
+}
