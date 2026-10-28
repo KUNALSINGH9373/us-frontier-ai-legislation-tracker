@@ -140,7 +140,8 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
   return rep;
 }
 
-function summaryOf(rep) {
+// Exported: update.mjs rebuilds it after the final check puts items back (written: false), so the commit message counts what is promoted.
+export function summaryOf(rep) {
   const n = rep.drafted.filter((d) => d.written).length;
   const L = [`News: ${rep.leads.length} lead${rep.leads.length === 1 ? '' : 's'}, ${rep.drafted.length} item${rep.drafted.length === 1 ? '' : 's'} drafted from official releases, ${n} published`];
   rep.drafted.filter((d) => d.written).forEach((d) => L.push(`- ${d.date} ${d.title} (${d.publisher})`));

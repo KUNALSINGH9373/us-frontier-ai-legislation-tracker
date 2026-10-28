@@ -130,7 +130,8 @@ function mappedIds(key, ic, il) {
   return { congress_gov: (ic[key] && ic[key].congress_gov) || [], legiscan: il[key] && il[key].status !== 'rejected' ? (il[key].bills || []).map((b) => b.bill_id) : [] };
 }
 
-function summaryOf(rep) {
+// Exported: update.mjs rebuilds it from the corrections the final check did not put back, so the commit message counts what is promoted.
+export function summaryOf(rep) {
   const L = [`Self-correction: ${rep.checked.length} entr${rep.checked.length === 1 ? 'y' : 'ies'} re-checked, ${rep.corrected.length} field${rep.corrected.length === 1 ? '' : 's'} corrected`];
   for (const c of rep.corrected) L.push(`- ${c.entry_key} ${c.field} (${c.kind}): ${c.problem}`);
   return L.join('\n');

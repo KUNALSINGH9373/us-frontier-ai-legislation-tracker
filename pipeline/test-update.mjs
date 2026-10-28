@@ -413,5 +413,87 @@ function fakeGit(answers) {
   ok('a failed run commits only the spend counters (LegiScan usage and AI ledger)', code === 1 && commit && commit.args.includes('pipeline/state/legiscan-usage.json') && !commit.args.some((x) => /web|docs|state\.json$/.test(x)), commit && commit.args.join(' '));
 }
 
+// ---------- commit message after a revert: news and self-correction summaries rebuilt from what is promoted ----------
+{
+  const P = setup(), g = fakeGit({ add: 0, diff: [1, 1], log: { status: 0, stdout: '2026-10-27\n' }, commit: 0 }), OTHER = 'h-r-9925-frontier-act';
+  const corr = (k) => ({ entry_key: k, field: 'mechanism', kind: 'error', problem: `wrong reading on ${k}` });
+  const { code, rep } = await run(P, {
+    git: g.git,
+    // a change no step may make on KEY: the final check puts KEY back
+    correctRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f); es.find((x) => x.key === KEY).title += ' (edited)'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { ran: true, skipped_why: null, status: 'written', checked: [{ entry_key: KEY }, { entry_key: OTHER }], corrected: [corr(KEY), corr(OTHER)], problems: [], summary: `Self-correction: 2 entries re-checked, 2 fields corrected\n- ${KEY} mechanism (error): x\n- ${OTHER} mechanism (error): y` }; },
+    newsRun: async () => ({ skipped_why: null, status: 'written', leads: [], drafted: [{ tracker: KEY, written: true, date: '2026-10-28', title: 'NewsAboutKeyItem', publisher: 'Senate' }, { tracker: OTHER, written: true, date: '2026-10-28', title: 'NewsAboutOtherItem', publisher: 'House' }], summary: 'News: 0 leads, 2 items drafted from official releases, 2 published\n- 2026-10-28 NewsAboutKeyItem (Senate)\n- 2026-10-28 NewsAboutOtherItem (House)' })
+  }, {}, { commit: true });
+  const commit = g.calls.find((c) => c.args[0] === 'commit'), m = commit ? commit.input : '';
+  ok('revert, news: the commit has no line for the put-back tracker and says "1 published"', code === 0 && !m.includes('NewsAboutKeyItem') && m.includes('NewsAboutOtherItem') && /2 items drafted from official releases, 1 published/.test(m), `${rep.error} ${m}`);
+  ok('revert, self-correction: the commit counts 1 field corrected and has no line for the put-back entry', /Self-correction: 2 entries re-checked, 1 field corrected/.test(m) && m.includes(`- ${OTHER} mechanism`) && !m.includes(`- ${KEY} mechanism`), m);
+}
+{
+  // every news item put back: the news part leaves the commit message
+  const P = setup(), g = fakeGit({ add: 0, diff: [1, 1], log: { status: 0, stdout: '2026-10-27\n' }, commit: 0 });
+  await run(P, {
+    git: g.git,
+    correctRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f); es.find((x) => x.key === KEY).title += ' (edited)'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; },
+    newsRun: async () => ({ skipped_why: null, status: 'written', leads: [], drafted: [{ tracker: KEY, written: true, date: '2026-10-28', title: 'NewsAboutKeyItem', publisher: 'Senate' }], summary: 'News: x\n- 2026-10-28 NewsAboutKeyItem (Senate)' })
+  }, {}, { commit: true });
+  const m = (g.calls.find((c) => c.args[0] === 'commit') || {}).input || '';
+  ok('revert, news: all put back, no news part in the commit', !/News:/.test(m) && !m.includes('NewsAboutKeyItem'), m);
+}
+
+// ---------- held items not due: not fetched (or read by the AI) again every run; forgotten by the run before they are due ----------
+{
+  const P = setup(), P9925 = 'congress_gov:119/hr/9925';
+  // held since 26 Oct, tried today at 00:00: not due again until 29 Oct
+  fs.writeFileSync(path.join(P.stateDir, 'held-items.json'), JSON.stringify({ items: { ['publish:' + P9925]: { item_id: P9925, entry_key: 'h-r-9925-frontier-act', step: 'publish', reason: 'x', first_seen: '2026-10-26T10:00:00Z', last_tried: '2026-10-28T00:00:00Z', tries: 3 } } }));
+  fs.writeFileSync(path.join(P.stateDir, 'state.json'), JSON.stringify({ version: 1, sources: { congress_gov: { last_success: '2026-10-28T00:00:00Z', hashes: { '119/hr/9925': 'h1' } } } }));
+  let fetched = 0, ai = 0;
+  // the grab fetches the item only while its hash is not recorded (as the real grabber does), and records it
+  const grab = (o) => {
+    const ids = quietGrab(o), sf = path.join(o.stateDir, 'state.json'), st = j(sf);
+    const cg = (st.sources.congress_gov = st.sources.congress_gov || {}); cg.hashes = cg.hashes || {};
+    if (!('119/hr/9925' in cg.hashes)) fetched++;
+    cg.hashes['119/hr/9925'] = 'h1'; fs.writeFileSync(sf, JSON.stringify(st));
+    return ids;
+  };
+  const at = (iso) => runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date(iso), deps: { ...okSteps, grab, runAgents: async () => { ai++; return {}; } }, log: () => {}, logErr: () => {} });
+  const hashes = () => j(path.join(P.stateDir, 'state.json')).sources.congress_gov.hashes;
+  let quiet = true;
+  for (const t of ['04', '08', '12', '16']) { const r = await at(`2026-10-28T${t}:00:00Z`); quiet = quiet && r.code === 0 && '119/hr/9925' in hashes(); }
+  ok('held, not due (runs 2-5): its hash is not forgotten, it is not fetched again, no AI call', quiet && fetched === 0 && ai === 0, `${fetched} ${ai} ${JSON.stringify(hashes())}`);
+  const r6 = await at('2026-10-28T20:00:00Z');
+  ok('held, the run before it is due: its hash is forgotten', r6.code === 0 && !('119/hr/9925' in hashes()) && fetched === 0, `${r6.rep.error} ${JSON.stringify(hashes())}`);
+  const r7 = await at('2026-10-29T00:00:00Z');
+  ok('held, the due run: it is fetched fresh', r7.code === 0 && fetched === 1, `${fetched} ${r7.rep.error}`);
+}
+
+// ---------- expiry: reported once; the same unchanged item is not held again; a changed item is new ----------
+{
+  const P9925 = 'congress_gov:119/hr/9925', K9925 = 'h-r-9925-frontier-act';
+  const rawOf = (text) => JSON.stringify({ bill: { number: '9925', latestAction: { actionDate: '2026-10-01', text } } });
+  const grabWith = (raw, fetchedAt) => (o) => {
+    const ids = fakeGrab(o), dir = path.join(o.P.workDir, 'runs', RUN);
+    fs.mkdirSync(path.join(dir, 'raw', 'congress_gov'), { recursive: true });
+    fs.writeFileSync(path.join(dir, 'raw', 'congress_gov', '119-hr-9925.json'), raw);
+    const cs = j(path.join(dir, 'changeset.json')); Object.assign(cs.items.find((i) => i.item_id === P9925), { raw_path: 'raw/congress_gov/119-hr-9925.json', raw_hash: sha(raw), fetched_at: fetchedAt }); fs.writeFileSync(path.join(dir, 'changeset.json'), JSON.stringify(cs));
+    const df = j(path.join(dir, 'diff.json')); Object.assign(df.items.find((d) => d.item_id === P9925), { verdict: 'material', reasons: [{ kind: 'new_action', detail: `2026-10-01: ${HEARING}`, api_value: HEARING }] }); fs.writeFileSync(path.join(dir, 'diff.json'), JSON.stringify(df));
+    return ids;
+  };
+  const guarded = (o) => { const r = publishRun({ ...o, dry: true }); return r.result.touched.includes(K9925) ? { ...r, status: 'stopped', check: { problems: [`field title changed on ${K9925}: Tier A may not change it`] } } : publishRun(o); };
+  const P = setup();
+  const at = (iso, raw) => runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date(iso), deps: { ...okSteps, publishRun: guarded, grab: grabWith(raw, new Date(Date.parse(iso) - 60e3).toISOString()) }, log: () => {}, logErr: () => {} });
+  const RAW1 = rawOf(HEARING), RAW2 = rawOf(HEARING + ' Again.');
+  const replay = { run_id: 'run-old', item: { item_id: P9925, source: 'congress_gov', source_id: '119/hr/9925', entry_key: K9925, change: 'changed', raw_path: 'raw/congress_gov/x.json', raw_hash: sha(RAW1), fetched_at: '2026-11-08T10:00:00Z' }, diff: null, raw: RAW1, result: null };
+  fs.writeFileSync(path.join(P.stateDir, 'held-items.json'), JSON.stringify({ items: { ['publish:' + P9925]: { item_id: P9925, entry_key: K9925, step: 'publish', reason: 'x', first_seen: '2026-10-26T10:00:00Z', last_tried: '2026-11-08T10:00:00Z', tries: 13, replay } } }));
+  const hf = () => j(path.join(P.stateDir, 'held-items.json'));
+  const r1 = await at('2026-11-09T12:00:00Z', RAW1);
+  const n1 = r1.rep.notes.filter((n) => n.includes(P9925) && /expired/.test(n));
+  ok('expiry: reported once with what happens next, and an expiry marker kept (item id, raw hash, date)', r1.code === 0 && n1.length === 1 && /needs attention/.test(n1[0]) && /left out of every run without being held or reported again; if the record changes it is treated as a new item/.test(n1[0]) && !hf().items['publish:' + P9925] && hf().expired && hf().expired[P9925].raw_hash === sha(RAW1) && hf().expired[P9925].date === '2026-11-09', `${r1.rep.error} ${JSON.stringify(n1)} ${JSON.stringify(hf(), (k, v) => (k === 'replay' ? '-' : v))}`);
+  const r2 = await at('2026-11-09T16:00:00Z', RAW1);
+  ok('expiry: the same unchanged item refused again is not held again or reported again', r2.code === 0 && !Object.keys(hf().items).length && hf().expired[P9925] && !r2.rep.notes.some((n) => n.includes(P9925)) && !(r2.rep.held || []).some((x) => x.item_id === P9925), `${r2.rep.error} ${JSON.stringify(r2.rep.notes)} ${JSON.stringify(hf(), (k, v) => (k === 'replay' ? '-' : v))}`);
+  ok('expiry: and it is left out, not published', !j(path.join(P.dataDir, 'entries.json')).find((x) => x.key === K9925).events.some((v) => v.date === '2026-10-01' && /Hearings held/.test(v.text)));
+  const r3 = await at('2026-11-10T12:00:00Z', RAW2);
+  const h3 = hf(), h3i = h3.items['publish:' + P9925];
+  ok('expiry: the item changed (new hash) is a new item: held afresh (1 try, first seen now), marker gone', r3.code === 0 && h3i && h3i.tries === 1 && h3i.first_seen === '2026-11-10T12:00:00Z' && !(h3.expired && h3.expired[P9925]), `${r3.rep.error} ${JSON.stringify(h3, (k, v) => (k === 'replay' ? '-' : v))}`);
+}
+
 console.log(`update: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -45,7 +45,10 @@ const ACTION_RULES = [
   // Final clearance: the second chamber accepts the first chamber's amendment as it stands ("House agreed to Senate amendment.",
   // "Senate concurred in the House amendment"), or the clerk's "Cleared for White House.". It ends Congress's work on the bill, so it
   // outranks a chamber passage on the same date. Accepting it "with an amendment" sends the bill back: that is not clearance.
-  [/^(?!.*\b(not agreed to|failed|motion to|with (an |further )?amendments?)\b).*(\b(house|senate) (agreed to|concurred in) (the )?(house|senate) amendments?\b|\bagree to the (senate|house) amendments?\b(?! with)[^.]*\bagreed to\b|^\W*cleared for (the )?white house\b)/i, 'cleared', 'Passed / advanced', 85],
+  [/^(?!.*\b(not agreed to|failed|motion to|with (an |further )?amendments?)\b).*(\b(house|senate) (agreed to|concurred in) (the )?(house|senate) amendments?\b|\bagree to the (senate|house) amendments?\b(?! with)[^.]*\bagreed to\b)/i, 'cleared', 'Passed / advanced', 85],
+  // The clerk's "Cleared for White House." is the same clearance in fewer words: on the date of the chamber's vote that vote (above)
+  // takes the event, line and news item, so one clearance is never written twice.
+  [/^\W*cleared for (the )?white house\b/i, 'cleared', 'Passed / advanced', 84],
   // Passage stated outright, checked before the procedural words it may sit next to: a chamber agreeing to the other chamber's
   // amendment in a wording the clearance rule above does not name, a bill "considered as passed" / "deemed passed" under a rule, "discharged ... Passed Senate".
   [/^(?!.*\b(not agreed to|failed|motion to)\b).*(\bagreed to the (house|senate) amendments?\b(?! with)|\bagree to the (senate|house) amendments?\b(?! with)[^.]*\bagreed to\b|\b(considered|deemed) (as )?passed\b|\bpassed (the )?(house|senate)\b|\bpassed\/agreed to in (house|senate)\b)/i, 'passed', 'Passed / advanced', 80]
