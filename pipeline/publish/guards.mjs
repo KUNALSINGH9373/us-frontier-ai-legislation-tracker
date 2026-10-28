@@ -21,6 +21,24 @@ export function checkNewEntry(e) {
   return problems;
 }
 
+// The stricter path for news items written from official releases (news/run.mjs): the run may only ADD the items it drafted and
+// checked; each must be automated, carry evidence from its release, and say how it was checked. Existing items, entries,
+// links and the change log are covered by checkPublish, which runs too.
+export function checkNewsAdded({ before, after, expected, checkLine }) {
+  const problems = [];
+  const old = new Set(before.news.items.map((x) => JSON.stringify(x))), want = new Set(expected.map((x) => JSON.stringify(x)));
+  const added = after.news.items.filter((x) => !old.has(JSON.stringify(x)));
+  for (const n of added) {
+    if (!want.has(JSON.stringify(n))) { problems.push(`news item not drafted by this run: ${n.date} ${String(n.title).slice(0, 80)}`); continue; }
+    if (n.origin !== 'automated' || !n.verification || n.verification.method !== 'agent') problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: not marked as written and checked by the pipeline`);
+    if (!(n.evidence || []).length || n.evidence.some((x) => !(n.links || []).some((l) => l.u === x.source_url))) problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: evidence must come from its own linked release`);
+    if (checkLine && n.check !== checkLine(n)) problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: check line is not the fixed wording`);
+  }
+  if (added.length !== expected.length) problems.push(`${added.length} news items added, expected ${expected.length}`);
+  if (JSON.stringify(before.entries) !== JSON.stringify(after.entries)) problems.push('entries changed: the news step may not change them');
+  return problems;
+}
+
 // A status may only move forward. Authored judgement calls ("stalled") may still become law or fail.
 const FORWARD = { pending: ['stalled', 'enacted', 'failed'], stalled: ['pending', 'enacted', 'failed'] };
 // Fields Tier A may change on an entry. Everything else (mechanism, thresholds, penalties, title, ...) must be identical.

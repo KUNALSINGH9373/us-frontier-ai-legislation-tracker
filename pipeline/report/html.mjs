@@ -58,6 +58,11 @@ function done(rep) {
     const fixed = c.status === 'written' || c.status === 'dry-run' ? c.corrected : [];
     L.push(`<b>Self-check (${fixed.length} fixed)</b>`, `<i>${c.checked.length} entr${c.checked.length === 1 ? 'y' : 'ies'} re-read</i>`, ...bullets(fixed, 4, (x) => `▸ ${esc(clip(names[x.entry_key] || x.entry_key, 30))}, ${esc(x.field)}\n      <i>${esc(clip(x.problem, 80))}</i>`), '');
   }
+  const nw = rep.news;
+  if (nw && nw.ran) {
+    if (nw.drafted.length) L.push(`<b>News drafted (${nw.drafted.length})</b>`, `<i>${nw.drafted.some((d) => d.written) ? 'from official releases, published' : 'not published: switched off'}</i>`, ...bullets(nw.drafted, 4, (d) => `▸ ${esc(clip(d.title, 34))}\n      <i>${esc(clip(d.publisher, 30))}</i>`), '');
+    if (nw.leads.length) L.push(`<b>News leads (${nw.leads.length})</b>`, '<i>not published</i>', ...bullets(nw.leads, 4, (l) => `▸ ${esc(clip(l.title, 34))}\n      <i>${esc(clip(l.publisher, 30))}</i>`), '');
+  }
   L.push(numbers(rep));
   if (rep.held.length || watch.length) {
     L.push('', '<b>⚠️ Watch</b>');

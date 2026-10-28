@@ -1,0 +1,32 @@
+{
+ "_note": "News leads (news/leads.mjs). Only feeds meant for automated reading, each fetched live with the pipeline's own honest user agent and allowed by the site's robots.txt on the date in verified_at. primary: the official body's own releases (a news item may be written from them, quotes and numbers checked by code); secondary: press (never published automatically, reported as leads only). A site that blocks automated readers (403, a bot challenge) is listed under rejected and is never worked around. secondary_paths / secondary_titles mark op-eds on an official site: opinion, not an official release, so those items are leads only. sponsor: the member whose own feed it is (matched to tracked entries).",
+ "user_agent": "us-frontier-ai-tracker-pipeline/0.1 (news leads; RSS reader)",
+ "sources": [
+  { "id": "politico-technology", "url": "https://rss.politico.com/technology.xml", "type": "rss", "publisher": "Politico", "primary": false, "verified_at": "2026-10-28", "kind": "federal" },
+  { "id": "nist-news", "url": "https://www.nist.gov/news-events/news/rss.xml", "type": "rss", "publisher": "NIST", "primary": true, "verified_at": "2026-10-28", "kind": "executive", "_note": "Covers CAISI (the Center for AI Standards and Innovation sits in NIST); NIST's own CAISI topic feed returned no items on 28 Oct 2026." },
+  { "id": "ftc-press", "url": "https://www.ftc.gov/feeds/press-release.xml", "type": "rss", "publisher": "Federal Trade Commission", "primary": true, "verified_at": "2026-10-28", "kind": "executive" },
+  { "id": "ca-ag", "url": "https://oag.ca.gov/news/feed", "type": "rss", "publisher": "California Attorney General", "primary": true, "verified_at": "2026-10-28", "kind": "state" },
+  { "id": "rep-liccardo", "url": "https://liccardo.house.gov/rss.xml", "type": "rss", "publisher": "Rep. Sam Liccardo", "primary": true, "verified_at": "2026-10-28", "kind": "federal", "sponsor": "Liccardo" },
+  { "id": "rep-lieu", "url": "https://lieu.house.gov/rss.xml", "type": "rss", "publisher": "Rep. Ted Lieu", "primary": true, "verified_at": "2026-10-28", "kind": "federal", "sponsor": "Lieu", "secondary_paths": ["/editorials/"], "secondary_titles": "^(OP-ED|[A-Z][A-Z .'&-]{2,40}):" },
+  { "id": "rep-casar", "url": "https://casar.house.gov/rss.xml", "type": "rss", "publisher": "Rep. Greg Casar", "primary": true, "verified_at": "2026-10-28", "kind": "federal", "sponsor": "Casar", "secondary_paths": ["/editorials/"], "secondary_titles": "^(OP-ED|[A-Z][A-Z .'&-]{2,40}):" },
+  { "id": "federal-register", "url": "https://www.federalregister.gov/api/v1/documents.json", "type": "json_api", "publisher": "Federal Register", "primary": true, "verified_at": "2026-10-28", "handled_by": "grabber/run-federal-register.mjs", "_note": "Already a pipeline source: documents become entries and fixed-wording news through the grabber and Tier A / Tier B, so news/leads.mjs does not read it again." }
+ ],
+ "rejected": [
+  { "url": "https://www.commerce.senate.gov/rss/feeds/?type=press", "publisher": "Senate Commerce Committee", "checked_at": "2026-10-28", "why": "HTTP 403 (\"Senate.gov - Unauthorized\") to an automated reader: blocked, not used" },
+  { "url": "https://www.cantwell.senate.gov/rss/feeds/?type=press", "publisher": "Sen. Maria Cantwell", "checked_at": "2026-10-28", "why": "HTTP 403 from senate.gov (all senators' feeds tried, Cruz too): blocked, not used" },
+  { "url": "https://www.cruz.senate.gov/rss/feeds/?type=press", "publisher": "Sen. Ted Cruz", "checked_at": "2026-10-28", "why": "HTTP 403 from senate.gov: blocked, not used" },
+  { "url": "https://science.house.gov/rss.xml", "publisher": "House Science Committee", "checked_at": "2026-10-28", "why": "no feed (404 at /rss.xml, /rss and ?format=rss); democrats-science.house.gov/rss.xml answers 410 Gone" },
+  { "url": "https://www.bis.gov/rss.xml", "publisher": "Bureau of Industry and Security", "checked_at": "2026-10-28", "why": "no feed (404; /news-updates/rss.xml returns an HTML page, not a feed)" },
+  { "url": "https://ag.ny.gov/rss.xml", "publisher": "New York Attorney General", "checked_at": "2026-10-28", "why": "HTTP 403 to an automated reader: blocked, not used" },
+  { "url": "https://www.myfloridalegal.com/rss.xml", "publisher": "Florida Attorney General", "checked_at": "2026-10-28", "why": "HTTP 403 to an automated reader: blocked, not used" },
+  { "url": "https://illinoisattorneygeneral.gov/rss.xml", "publisher": "Illinois Attorney General", "checked_at": "2026-10-28", "why": "no feed (404 at /rss.xml and /news/rss)" },
+  { "url": "https://www.techpolicy.press/rss/", "publisher": "Tech Policy Press", "checked_at": "2026-10-28", "why": "/rss/ and /feed/ return an empty HTML page to an automated reader, not a feed: not used" },
+  { "url": "https://www.lawfaremedia.org/rss", "publisher": "Lawfare", "checked_at": "2026-10-28", "why": "HTTP 403 with a bot challenge (\"Just a moment...\"): blocked, not used" },
+  { "url": "https://obernolte.house.gov/rss.xml", "publisher": "Rep. Jay Obernolte", "checked_at": "2026-10-28", "why": "feed works but is stale (newest item Sept 11, 2024)" },
+  { "url": "https://kean.house.gov/rss.xml", "publisher": "Rep. Tom Kean Jr.", "checked_at": "2026-10-28", "why": "feed works but is stale (newest item June 18, 2024)" },
+  { "url": "https://harrigan.house.gov/rss.xml", "publisher": "Rep. Pat Harrigan", "checked_at": "2026-10-28", "why": "feed works but is stale (newest item May 27, 2025)" },
+  { "url": "https://www.nist.gov/news-events/caisi/rss.xml", "publisher": "NIST CAISI", "checked_at": "2026-10-28", "why": "valid feed with no items; CAISI news comes through the NIST news feed" },
+  { "url": "https://moran.house.gov/rss.xml", "publisher": "Reps. Moran, Trahan, Latta, Whitesides, Maloy, Jacobs, Gottheimer, Lawler, Foushee, Kiley, LaHood, Franklin", "checked_at": "2026-10-28", "why": "no feed at <member>.house.gov/rss.xml (404 or 410) for these tracked sponsors" },
+  { "url": "https://www.whitehouse.gov/feed/", "publisher": "White House", "checked_at": "2026-10-28", "why": "no feed (404)" }
+ ]
+}

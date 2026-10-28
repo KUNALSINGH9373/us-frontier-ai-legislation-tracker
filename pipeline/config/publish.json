@@ -6,7 +6,8 @@
   "mechanism": false,
   "thresholds": false,
   "penalties": false,
-  "new_entries": false
+  "new_entries": false,
+  "news": false
  },
  "news_from_official_actions": true,
  "copy_to_docs": true,
@@ -28,6 +29,13 @@
   "max_entries_per_run": 3,
   "recheck_after_days": 30,
   "max_retries": 3
+ },
+ "news_leads": {
+  "_note": "The news step of update.mjs (news/run.mjs). Reads the feeds in config/news-sources.json (items from the last max_age_days days), screens headlines (code words, then the AI role screener), and drafts up to max_drafts_per_run items from OFFICIAL releases only (writer role generator, second reader role validator, up to max_rounds rounds; code checks every quote and number against the release). Drafts are written to news.json only when auto_publish.news is on; while it is off they are reported. Press (secondary) leads are never published, only reported.",
+  "enabled": true,
+  "max_age_days": 14,
+  "max_drafts_per_run": 3,
+  "max_rounds": 2
  },
  "notify": {
   "_note": "Telegram run report after every run (needs TELEGRAM_BOT_TOKEN or TELEGRAM_ACCESS_TOKEN and TELEGRAM_CHAT_ID). A dry run sends one only with --notify.",
