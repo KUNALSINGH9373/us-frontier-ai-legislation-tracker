@@ -223,5 +223,36 @@ for (const [name, c, re] of bad) {
   ok('7 ... nor one with a blank quote', eqr.corrected.length === 0 && /no quote/.test(eqr.rejected[0].why));
 }
 
+// ---------- 8. nothing qualitative is lost: an omission only adds; an error changes only what its problem names ----------
+{
+  const { droppedWords, multiBillEntry } = await import('./review.mjs');
+  const om = (old, v) => droppedWords({ c: { kind: 'omission', problem: 'x' }, old, v });
+  const er = (old, v, problem) => droppedWords({ c: { kind: 'error', problem }, old, v });
+  const ca = 'Developers must publish a framework; applies only to developers in California; AG enforces.';
+  ok('8 an omission that drops a qualitative clause is refused, naming the first dropped words', om(ca, 'Developers must publish a framework; AG enforces; incidents within 72 hours.').some((x) => /may only add/.test(x) && /"applies only to developers in california"/.test(x)));
+  ok('8 ... additions anywhere, case, punctuation and spacing are fine', om(ca, 'Large developers MUST publish a framework within 90 days -- applies only to developers in California (§2); the AG enforces, with civil penalties.').length === 0);
+  ok('8 ... the old figures in another notation are kept ($500M = $500,000,000, 10²⁶ = 10^26, three = 3)', om('>$500M revenue; 10²⁶ ops; within three years', '>$500,000,000 revenue; 10^26 ops; within 3 years').length === 0);
+  ok('8 ... a reworded word is a drop ("runs" -> "must establish")', om('DOE runs a program', 'DOE must establish a program within 90 days').some((x) => /starting "runs"/.test(x)));
+  ok('8 ... reordering is a drop', om('audits and reports', 'reports and audits').length === 1);
+  ok('8 an error fix may change the part its problem names', er('report within 30 days to the AG', 'report within 15 days to the AG', 'The deadline is 15 days, not 30 days.').length === 0);
+  ok('8 ... but not drop a clause its problem does not name', er(ca, 'Developers must publish a framework by Jan 1, 2027; AG enforces.', 'The framework deadline is missing and wrong.').some((x) => /problem does not name/.test(x) && /california/.test(x)));
+  ok('8 ... "not" and "only" are never function words', er('applies only to large developers', 'applies to large developers', 'wrong scope').length === 1 && er('does not apply to universities', 'does apply to universities', 'wrong').length === 1);
+  ok('8 ... small function words around the named part may go', er('safe harbor for the labs', 'exemption for labs', 'It is an exemption, not a safe harbor.').length === 0);
+  const e = { ...E1, mechanism: `${E1.mechanism} Applies only to developers in California.` }, src = TEXT(e);
+  ok('8 checkCorrection runs it', checkCorrection({ c: { field: 'mechanism', kind: 'omission', problem: 'adds the 72-hour deadline', new_text: `${E1.mechanism} Critical safety incidents must be reported within 72 hours.`, evidence: [{ quote: ADD }] }, entry: e, fields: fieldsFor(e), source: src }).some((x) => /may only add.*applies only to developers in california/.test(x)));
+  // the past week's hand fixes that the rule refuses as omissions (each removed or reworded something, so each is an error fix)
+  ok('8 history: removing "and the designated federal standard need not require audits" is not an omission', om('it covers incident reporting only (§1422(8)–(9)), and the designated federal standard need not require audits.', 'it covers incident reporting only (§1422(8)–(9)).').length === 1);
+  ok('8 history: dropping "independent reviews; whistleblower protections" is refused even as an error about something else', er('incident reporting 15 days; independent reviews; whistleblower protections; AG enforcement', 'incident reporting 15 days; plans must describe third-party assessments; AG enforcement', 'The plan content is missing.').length === 1);
+
+  const mrev = scripted(() => ({ corrections: [] }));
+  ok('8 multi-bill from the identifier files: two Congress.gov ids or two LegiScan bills', multiBillEntry(E1, [], { congress_gov: ['119/hr/1', '119/s/2'] }) && multiBillEntry(E1, [], { legiscan: [1, 2] }) && !multiBillEntry(E1, [], { congress_gov: ['119/hr/1'], legiscan: [1] }) && !multiBillEntry(E1, [], { legiscan: [1, 1] }));
+  const sb = sandbox();
+  await run(sb, { factory: factoryOf(mrev, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1) }), il: { [E1.key]: { bills: [{ bill_id: 1, state: 'CA', number: 'SB1' }, { bill_id: 2, state: 'CA', number: 'AB2' }] } }, only: [E1.key] });
+  ok('8 ... passed in by the step: two LegiScan bills make the reader see the multi-bill note', /only "omission" corrections are allowed/.test(mrev.calls[0].prompt) && /keep the current text intact and only add/.test(mrev.calls[0].prompt));
+  const rrev = scripted(() => ({ corrections: [] }));
+  await run(sandbox(), { factory: factoryOf(rrev, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1) }), il: { [E1.key]: { status: 'rejected', bills: [{ bill_id: 1 }] } }, only: [E1.key] });
+  ok('8 ... a single bill is not multi-bill; the reviewer prompt says omissions keep the old text', !/NOTE: this entry covers more than one bill/.test(rrev.calls[0].prompt) && /An "omission" only ADDS/.test(rrev.calls[0].system));
+}
+
 console.log(`\ncorrect: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

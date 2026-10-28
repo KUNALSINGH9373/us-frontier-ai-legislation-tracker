@@ -46,15 +46,19 @@ export function checkCorrection({ c, entry, fields, source, multiBill = false })
   if (NEGATIVE_FINDING.test(v) && !NEGATIVE_FINDING.test(old)) p.push('a "none located" style claim');
   if (ABSENCE.test(v) && !ABSENCE.test(old)) p.push(`it states what the bill does not contain ("${v.match(ABSENCE)[0]}"): say only what SOURCE states`);
   p.push(...droppedFacts({ c, old, v }));
+  p.push(...droppedWords({ c, old, v }));
   p.push(...unquotedChanges({ c, old, v, quotes: ev.map((x) => String(x.quote)) }));
   return p;
 }
 
 // The entry covers more than one bill: the reader's other-bills list, more than one official id, or a hand-set otherBills list.
-export function multiBillEntry(entry, otherBills = []) {
+// mapped: the entry's ids in config/identifiers.json and identifiers-legiscan.json ({ congress_gov: [...], legiscan: [...] }), so an
+// authored companion-bill entry with no identifiers of its own still counts as more than one bill.
+export function multiBillEntry(entry, otherBills = [], mapped = {}) {
   const x = (entry && entry.identifiers && entry.identifiers.external) || {};
   const ids = new Set([...(x.congress_gov || []).map((i) => 'c' + i), ...(x.legiscan || []).map((i) => 'l' + i), ...(x.legiscan_bill_id ? ['l' + x.legiscan_bill_id] : [])]);
-  return otherBills.length > 0 || ids.size > 1 || ((entry && entry.otherBills) || []).length > 0;
+  const cfg = (k) => new Set(((mapped && mapped[k]) || []).map(String)).size > 1;
+  return otherBills.length > 0 || ids.size > 1 || cfg('congress_gov') || cfg('legiscan') || ((entry && entry.otherBills) || []).length > 0;
 }
 
 // Legal force: "shall"/"must"/"required" is a duty, "may" a power, "voluntary" voluntary. Lower case only, so the month "May" is not a power.
@@ -113,13 +117,43 @@ export function droppedFacts({ c, old, v }) {
   return out;
 }
 
+// Nothing qualitative is lost either: the current text's words must stay in the new text, in order (a word-level subsequence, after case,
+// whitespace and punctuation; "$500M" = "$500,000,000", "10²⁶" = "10^26", "three" = "3"). An omission may only add. An error fix may
+// also drop the words its problem names (the wrong part) and a few function words around them ("not", "no", "only" are never function
+// words), so "applies only to developers in California" cannot vanish under a problem about a deadline.
+const FUNCTION_WORDS = new Set(['a', 'an', 'the', 'of', 'to', 'in', 'on', 'at', 'by', 'for', 'and', 'or', 'with', 'from', 'as', 'is', 'are', 'be', 'that', 'its', 'their', 'this']);
+export function words(s) {
+  const t = expandAmounts(String(s || '').replace(/[²³¹⁰⁴-⁹]+/g, (m) => '^' + [...m].map((ch) => '⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(ch)).join('')).replace(/(\d),(?=\d{3}\b)/g, '$1'));
+  return (norm(t).replace(/'s\b/g, '').match(/[a-z0-9]+(?:\.\d+)?/g) || []).map((w) => (WORDS[w] != null ? String(WORDS[w]) : w));
+}
+// The old words not kept, by a longest-common-subsequence alignment (greedy matching can pair a word with a far later copy and report
+// false drops); returns their indexes into the old words.
+export function unkeptWords(oldW, newW) {
+  const n = oldW.length, m = newW.length, L = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) L[i][j] = oldW[i] === newW[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  const out = [];
+  for (let i = 0, j = 0; i < n;) { if (j < m && oldW[i] === newW[j]) { i++; j++; } else if (j < m && L[i][j + 1] >= L[i + 1][j]) j++; else out.push(i++); }
+  return out;
+}
+export function droppedWords({ c, old, v }) {
+  const ow = words(old), lost = unkeptWords(ow, words(v));
+  const named = new Set(words(String((c && c.problem) || '')));
+  const bad = c.kind === 'error' ? lost.filter((i) => !named.has(ow[i]) && !FUNCTION_WORDS.has(ow[i])) : lost;
+  if (!bad.length) return [];
+  // The first dropped run of words, so the reader can see where.
+  const run = []; for (let k = bad[0]; k < ow.length && run.length < 8 && (k === bad[0] || lost.includes(k)); k++) run.push(ow[k]);
+  return [c.kind === 'error'
+    ? `the new text drops words of the current text its problem does not name, starting "${run.join(' ')}"; change only the wrong part and keep the rest`
+    : `an omission may only add: the new text drops words of the current text, starting "${run.join(' ')}"; keep the current text as it is and add to it`];
+}
+
 // reviewer, confirmer: AI clients (generate({ system, prompt, itemId }) -> { data }). text: the bill's official text; url: where it is.
-// otherBills: the entry's other bill numbers (SOURCE is one bill's text). Returns
+// otherBills: the entry's other bill numbers (SOURCE is one bill's text); mapped: its config ids (multiBillEntry). Returns
 //   { outcome: 'clean' | 'corrected' | 'rejected' | 'too_long' | 'error', corrections: [...], rejected: [...], reason }
 // 'rejected' = the reader proposed something but none of it survived; the entry is retried on a later run.
-export async function reviewEntry({ reviewer, confirmer, entry, text, url, otherBills = [], log = () => {} }) {
+export async function reviewEntry({ reviewer, confirmer, entry, text, url, otherBills = [], mapped = {}, log = () => {} }) {
   const itemId = 'correct:' + entry.key, fields = fieldsFor(entry);
-  const multiBill = multiBillEntry(entry, otherBills);
+  const multiBill = multiBillEntry(entry, otherBills, mapped);
   const out = { outcome: 'clean', corrections: [], rejected: [], reason: null };
   // A longer text (an omnibus bill) is read section by section: the models see only its frontier-AI sections, copied word for word,
   // and every code check below still runs on the FULL text. With no such section found it stays too long.
