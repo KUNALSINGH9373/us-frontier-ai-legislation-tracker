@@ -16,6 +16,13 @@ export function checkNewEntry(e) {
   if (!AUTO_CREATE_SECTIONS.includes(e.section)) problems.push(`section ${e.section} needs a person`);
   else if (e.type !== rule.type || e.level !== rule.level) problems.push(`type/level ${e.type}/${e.level} do not follow the rule for section ${e.section}`);
   if (e.status !== statusFor(e.section, e.status)) problems.push(`status ${e.status} does not follow the rule for section ${e.section}`);
+  // A state entry (the four state sections the pipeline may create in) is on its state's tile and tracked by its LegiScan record and session,
+  // so the grabber keeps it current; a federal one is on no state tile. tier-b.mjs checks these against the stored record too.
+  if (rule && rule.level === 'state') {
+    const x = (e.identifiers && e.identifiers.external) || {};
+    if (!/^[A-Z]{2}$/.test(e.state || '') || e.jurisdiction !== e.state) problems.push(`a state entry needs its two-letter state as both jurisdiction and state (has ${e.jurisdiction}/${e.state})`);
+    if (!(x.legiscan || []).length || !e.identifiers.session) problems.push('a new state entry needs its LegiScan id and session in identifiers');
+  } else if (rule && rule.level === 'federal' && (e.jurisdiction !== 'Federal' || e.state != null)) problems.push(`a federal entry has jurisdiction Federal and no state (has ${e.jurisdiction}/${e.state})`);
   if (e.origin !== 'automated' || !e.verification || e.verification.method !== 'agent') problems.push('not marked as written and checked by the pipeline');
   READING_FIELDS.filter((f) => e[f] && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
   FACT_FIELDS.filter((f) => e[f] && NEGATIVE_FINDING.test(e[f])).forEach((f) => problems.push(`${f} states a search finding ("none located"), which only a person may write`));

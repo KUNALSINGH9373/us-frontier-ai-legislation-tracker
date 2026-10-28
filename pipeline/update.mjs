@@ -12,7 +12,7 @@ import path from 'path';
 import { execFileSync, spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { compareRun } from './compare/run.mjs';
-import { publishRun, IDENTIFIERS_FILE } from './publish/run.mjs';
+import { publishRun, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } from './publish/run.mjs';
 import { runAgents } from './agents/run.mjs';
 import { correctRun, STATE_FILE as CORRECT_STATE } from './correct/run.mjs';
 import { linkRun } from './links/run.mjs';
@@ -57,12 +57,14 @@ fs.mkdirSync(path.dirname(lock), { recursive: true });
 fs.writeFileSync(lock, String(process.pid));
 const snapshot = Object.fromEntries(DATA_FILES.map((k) => [k, fs.existsSync(path.join(dataDir, k + '.json')) ? fs.readFileSync(path.join(dataDir, k + '.json')) : null]));
 const idsSnapshot = fs.existsSync(IDENTIFIERS_FILE) ? fs.readFileSync(IDENTIFIERS_FILE) : null; // new bills join the tracked list; put back with the data
+const lsIdsSnapshot = fs.existsSync(LEGISCAN_IDS_FILE) ? fs.readFileSync(LEGISCAN_IDS_FILE) : null; // new state bills join the LegiScan list; same
 const correctSnapshot = fs.existsSync(CORRECT_STATE) ? fs.readFileSync(CORRECT_STATE) : null; // a rolled-back correction is checked again
 const COURTS_STATE = path.join(pipelineDir, 'data', 'courts-state.json');
 const courtsSnapshot = fs.existsSync(COURTS_STATE) ? fs.readFileSync(COURTS_STATE) : null; // rolled-back docket events are read again
 const restore = () => {
   for (const [k, b] of Object.entries(snapshot)) for (const d of [dataDir, ...(config.copy_to_docs ? [docsDir] : [])]) { const f = path.join(d, k + '.json'); if (b) fs.writeFileSync(f, b); else if (fs.existsSync(f)) fs.rmSync(f); }
   if (idsSnapshot) fs.writeFileSync(IDENTIFIERS_FILE, idsSnapshot);
+  if (lsIdsSnapshot) fs.writeFileSync(LEGISCAN_IDS_FILE, lsIdsSnapshot);
   if (correctSnapshot) fs.writeFileSync(CORRECT_STATE, correctSnapshot); else fs.rmSync(CORRECT_STATE, { force: true });
   if (courtsSnapshot) fs.writeFileSync(COURTS_STATE, courtsSnapshot); else fs.rmSync(COURTS_STATE, { force: true });
 };
@@ -112,7 +114,7 @@ try {
 
     step = 'publish';
     const newsBefore = (readJson(path.join(dataDir, 'news.json'), { items: [] }).items || []).length;
-    const r = publishRun({ runDir, dataDir, docsDir: config.copy_to_docs ? docsDir : null, dry, config, idsFile: IDENTIFIERS_FILE });
+    const r = publishRun({ runDir, dataDir, docsDir: config.copy_to_docs ? docsDir : null, dry, config, idsFile: IDENTIFIERS_FILE, lsIdsFile: LEGISCAN_IDS_FILE });
     console.log(`publish ${id}: ${r.status}`);
     if (r.status === 'stopped') { process.stdout.write(r.summary); throw new Error(`publish stopped for ${id}; nothing from it was written`); }
     const newsAfter = r.result && r.result.data ? (r.result.data.news.items || []).length : newsBefore;
@@ -189,7 +191,7 @@ try {
   // ---- 7. commit (local only) ----
   if (flag('--commit') && !dry) {
     step = 'commit';
-    const files = ['status', ...(published.length ? DATA_FILES : [])].flatMap((k) => [path.join(dataDir, k + '.json'), ...(config.copy_to_docs ? [path.join(docsDir, k + '.json')] : [])]).concat(published.length ? [IDENTIFIERS_FILE] : [], [CORRECT_STATE]).filter((f) => fs.existsSync(f));
+    const files = ['status', ...(published.length ? DATA_FILES : [])].flatMap((k) => [path.join(dataDir, k + '.json'), ...(config.copy_to_docs ? [path.join(docsDir, k + '.json')] : [])]).concat(published.length ? [IDENTIFIERS_FILE, LEGISCAN_IDS_FILE] : [], [CORRECT_STATE]).filter((f) => fs.existsSync(f));
     execFileSync('git', ['add', ...files], { cwd: root, stdio: 'inherit' });
     const msg = published.length ? `data: ${summaries.join('\n')}` : `status only: checked ${SOURCES.join(', ')} at ${now}, no change`;
     try { execFileSync('git', ['commit', '-q', '-F', '-'], { cwd: root, input: msg, stdio: ['pipe', 'inherit', 'inherit'] }); console.log('committed (not pushed)'); }

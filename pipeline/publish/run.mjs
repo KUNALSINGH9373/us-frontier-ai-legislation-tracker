@@ -3,7 +3,8 @@
 //   node publish/run.mjs [run folder] [--dry-run] [--commit] [--data <dir>] [--no-docs]
 // Reads the run's changeset.json, diff.json and (when the AI step ran) results.json, and the current web/data/v2/*.json. Writes
 // web/data/v2/{entries,news,site,changes}.json (and the same files to docs/data/v2/, which the live site serves), plus
-// publish-summary.md in the run folder. A new Congress bill is also added to config/identifiers.json, so later runs keep it current.
+// publish-summary.md in the run folder. A new Congress bill is also added to config/identifiers.json, and a new state bill to
+// config/identifiers-legiscan.json, so later runs keep it current.
 // --commit makes one git commit with the summary as its message (never pushes). A quiet run writes nothing.
 // Any stop rule (publish/guards.mjs) failing means nothing is written and the exit code is 1.
 import fs from 'fs';
@@ -20,6 +21,7 @@ const pipelineDir = path.resolve(here, '..'), root = path.resolve(pipelineDir, '
 const readJson = (f, fallback) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : fallback);
 const DATA = ['entries', 'news', 'site', 'relationships'];
 export const IDENTIFIERS_FILE = path.join(pipelineDir, 'config', 'identifiers.json');
+export const LEGISCAN_IDS_FILE = path.join(pipelineDir, 'config', 'identifiers-legiscan.json');
 const safe = (id) => id.replace(/[^A-Za-z0-9._-]+/g, '-'); // the file name agents/run.mjs gives each result
 
 // The agents' new-entry drafts for this run: only those marked publishable, read from their own result files.
@@ -36,6 +38,19 @@ function trackNewBills(file, added, entries, runId) {
   for (const a of added) {
     const e = byKey.get(a.entry_key), cg = e && e.identifiers && e.identifiers.external && e.identifiers.external.congress_gov;
     if (cg && cg.length && !ids.congress_gov[e.key]) ids.congress_gov[e.key] = { congress_gov: cg, status: 'confirmed', entry_id: e.id, short_name: e.short_name, added_by: 'pipeline', run_id: runId };
+  }
+  const t = file + '.tmp'; fs.writeFileSync(t, JSON.stringify(ids, null, 1) + '\n'); fs.renameSync(t, file);
+}
+
+// A new state bill joins the LegiScan tracked list in the shape of a confirmed mapping (grabber/map-ids-legiscan.mjs proposes, a person
+// confirms; this one was drafted from that very record and checked), so the LegiScan grabber watches its session from the next run.
+function trackNewStateBills(file, added, entries, runId) {
+  const ids = readJson(file, { legiscan: {} }), byKey = new Map(entries.map((e) => [e.key, e]));
+  ids.legiscan = ids.legiscan || {};
+  for (const a of added.filter((x) => x.legiscan)) {
+    const e = byKey.get(a.entry_key), b = a.legiscan;
+    if (!e || ids.legiscan[e.key]) continue;
+    ids.legiscan[e.key] = { bills: [b], status: 'confirmed', entry_id: e.id, short_name: e.short_name, checks: [{ number: b.number, found: true, bill_id: b.bill_id, session: b.session_name, official_url: b.official_url, result: 'match', note: `added by the pipeline from the LegiScan record the entry was drafted from (${a.item_id})` }], added_by: 'pipeline', run_id: runId };
   }
   const t = file + '.tmp'; fs.writeFileSync(t, JSON.stringify(ids, null, 1) + '\n'); fs.renameSync(t, file);
 }
@@ -68,7 +83,8 @@ function summaryOf({ runId, runDate, result, check, dry }) {
 }
 
 // idsFile: where new Congress bills are recorded as tracked (config/identifiers.json; tests pass their own, or null to skip).
-export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsFile = null }) {
+// lsIdsFile: the same for new state bills (config/identifiers-legiscan.json); when null the real list is still read, never written.
+export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsFile = null, lsIdsFile = null }) {
   const changeset = readJson(path.join(runDir, 'changeset.json'));
   const diff = readJson(path.join(runDir, 'diff.json'));
   if (!changeset || !diff) throw new Error(`run folder needs changeset.json and diff.json: ${runDir}`);
@@ -84,13 +100,14 @@ export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsF
     hashes.push({ item_id: item.item_id, ok: fs.existsSync(f) && sha(fs.readFileSync(f, 'utf8')) === item.raw_hash });
   }
 
-  const lsFile = path.join(pipelineDir, 'config', 'identifiers-legiscan.json');
+  const lsFile = lsIdsFile || LEGISCAN_IDS_FILE;
   const ls = fs.existsSync(lsFile) ? JSON.parse(fs.readFileSync(lsFile, 'utf8')).legiscan || {} : {};
   const identifiersFor = (key) => (ls[key] && ls[key].status !== 'rejected' ? { session: ls[key].bills[0].session_name, external: { legiscan: ls[key].bills.map((b) => b.bill_id) } } : null);
   const a = applyTierA({ data: before, diff, changeset, readRaw, runId, runDate, config, identifiersFor });
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
   // A draft whose stored record changed since it was fetched is not used (the run stops below, stop rule 5).
-  const b = applyTierB({ data: a.data, drafts: drafts.filter((r) => hashes.find((h) => h.item_id === r.item_id)?.ok), itemById, readRaw: (item) => JSON.parse(readRaw(item)), runId, runDate, config });
+  const tracked = Object.values(ls).filter((v) => v.status !== 'rejected').flatMap((v) => (v.bills || []).map((x) => 'legiscan:' + x.bill_id));
+  const b = applyTierB({ data: a.data, drafts: drafts.filter((r) => hashes.find((h) => h.item_id === r.item_id)?.ok), itemById, readRaw: (item) => JSON.parse(readRaw(item)), runId, runDate, config, tracked });
   const result = { ...a, data: b.data, added: b.added, skipped: [...a.skipped, ...b.skipped], log: [...a.log, ...b.log] };
   const after = { ...result.data, relationships: before.relationships };
   const changedAny = result.touched.length || result.added.length;
@@ -104,6 +121,7 @@ export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsF
     writeData(dataDir, after, keys);
     if (docsDir) writeData(docsDir, after, keys);
     if (idsFile && result.added.length) trackNewBills(idsFile, result.added, after.entries, runId);
+    if (lsIdsFile && result.added.some((x) => x.legiscan)) trackNewStateBills(lsIdsFile, result.added, after.entries, runId);
   }
   return { status: dry ? 'dry-run' : 'published', summary, result, check, after };
 }
@@ -116,12 +134,12 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const config = readJson(path.join(pipelineDir, 'config', 'publish.json'));
   const dataDir = path.resolve(opt('--data') || path.join(root, 'web', 'data', 'v2'));
   const docsDir = !flag('--no-docs') && !opt('--data') && config.copy_to_docs ? path.join(root, 'docs', 'data', 'v2') : null;
-  const idsFile = opt('--data') ? null : IDENTIFIERS_FILE; // a test data folder never changes the real tracked list
-  const r = publishRun({ runDir, dataDir, docsDir, dry: flag('--dry-run'), config, idsFile });
+  const idsFile = opt('--data') ? null : IDENTIFIERS_FILE, lsIdsFile = opt('--data') ? null : LEGISCAN_IDS_FILE; // a test data folder never changes the real tracked lists
+  const r = publishRun({ runDir, dataDir, docsDir, dry: flag('--dry-run'), config, idsFile, lsIdsFile });
   process.stdout.write(r.summary);
   if (r.status === 'stopped') process.exit(1);
   if (r.status === 'published' && flag('--commit')) {
-    const files = ['entries', 'news', 'site', 'changes'].flatMap((k) => [path.join(dataDir, k + '.json'), ...(docsDir ? [path.join(docsDir, k + '.json')] : [])]).concat(idsFile && r.result.added.length ? [idsFile] : []);
+    const files = ['entries', 'news', 'site', 'changes'].flatMap((k) => [path.join(dataDir, k + '.json'), ...(docsDir ? [path.join(docsDir, k + '.json')] : [])]).concat(idsFile && r.result.added.length ? [idsFile] : [], lsIdsFile && r.result.added.some((x) => x.legiscan) ? [lsIdsFile] : []);
     execFileSync('git', ['add', ...files], { cwd: root, stdio: 'inherit' });
     execFileSync('git', ['commit', '-q', '-F', '-'], { cwd: root, input: `data: ${r.summary}`, stdio: ['pipe', 'inherit', 'inherit'] });
     console.log('committed (not pushed)');

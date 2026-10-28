@@ -1,0 +1,388 @@
+{
+ "id": "2088052",
+ "search_hit": {
+  "search": "precise",
+  "relevance": 4,
+  "intent": null
+ },
+ "bill": {
+  "bill_id": 2088052,
+  "change_hash": "7abc9e1bbf727fcbf2a85c927d35f55a",
+  "session_id": 2185,
+  "session": {
+   "session_id": 2185,
+   "state_id": 27,
+   "year_start": 2025,
+   "year_end": 2026,
+   "prefile": 0,
+   "sine_die": 1,
+   "prior": 0,
+   "special": 0,
+   "session_tag": "Regular Session",
+   "session_title": "2025-2026 Regular Session",
+   "session_name": "109th Legislature"
+  },
+  "url": "https://legiscan.com/NE/bill/LB1185/2025",
+  "state_link": "https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=63873",
+  "completed": 1,
+  "status": 6,
+  "status_date": "2026-04-17",
+  "progress": [
+   {
+    "date": "2026-01-21",
+    "event": 1
+   },
+   {
+    "date": "2026-01-23",
+    "event": 9
+   },
+   {
+    "date": "2026-04-17",
+    "event": 6
+   }
+  ],
+  "state": "NE",
+  "state_id": 27,
+  "bill_number": "LB1185",
+  "bill_type": "B",
+  "bill_type_id": "1",
+  "body": "L",
+  "body_id": 64,
+  "current_body": "L",
+  "current_body_id": 64,
+  "title": "Adopt the Conversational Artificial Intelligence Safety Act",
+  "description": "Adopt the Conversational Artificial Intelligence Safety Act",
+  "pending_committee_id": 0,
+  "committee": [],
+  "referrals": [
+   {
+    "date": "2026-01-23",
+    "committee_id": 1438,
+    "chamber": "L",
+    "chamber_id": 64,
+    "name": "Banking, Commerce and Insurance"
+   }
+  ],
+  "history": [
+   {
+    "date": "2026-01-21",
+    "action": "Date of introduction",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 1
+   },
+   {
+    "date": "2026-01-22",
+    "action": "Kauth FA845 filed",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 0
+   },
+   {
+    "date": "2026-01-23",
+    "action": "Referred to Banking, Commerce and Insurance Committee",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 1
+   },
+   {
+    "date": "2026-01-23",
+    "action": "Notice of hearing for February 09, 2026",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-18",
+    "action": "Placed on General File with AM2094",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 0
+   },
+   {
+    "date": "2026-02-18",
+    "action": "Banking, Commerce and Insurance AM2094 filed",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 0
+   },
+   {
+    "date": "2026-04-17",
+    "action": "Indefinitely postponed",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 1
+   },
+   {
+    "date": "2026-04-17",
+    "action": "Provisions/portions of LB1185 amended into LB525 by AM2444",
+    "chamber": "L",
+    "chamber_id": 64,
+    "importance": 0
+   }
+  ],
+  "sponsors": [
+   {
+    "people_id": 22282,
+    "person_hash": "igiri6r2",
+    "party_id": "6",
+    "state_id": 27,
+    "party": "N",
+    "role_id": 2,
+    "role": "Sen",
+    "name": "Eliot Bostar",
+    "first_name": "Eliot",
+    "middle_name": "",
+    "last_name": "Bostar",
+    "suffix": "",
+    "nickname": "",
+    "district": "SD-029",
+    "ftm_eid": 49286773,
+    "votesmart_id": 190110,
+    "opensecrets_id": "",
+    "knowwho_pid": 731962,
+    "ballotpedia": "Eliot_Bostar",
+    "bioguide_id": "",
+    "sponsor_type_id": 1,
+    "sponsor_order": 1,
+    "committee_sponsor": 0,
+    "committee_id": 0,
+    "state_federal": 0,
+    "bio": {
+     "social": {
+      "capitol_phone": "402-471-2734",
+      "district_phone": "",
+      "email": "ebostar@leg.ne.gov",
+      "webmail": "",
+      "biography": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=29",
+      "image": "https://www.nebraskalegislature.gov/media/images/senators/dist29/highres/dist29.jpg",
+      "ballotpedia": "https://ballotpedia.org/Eliot_Bostar",
+      "votesmart": "https://justfacts.votesmart.org/candidate/biography/190110"
+     },
+     "capitol_address": {
+      "address1": "Room 1012",
+      "address2": "P.O. Box 94604",
+      "city": "Lincoln",
+      "state": "NE",
+      "zip": "68509"
+     },
+     "links": {
+      "official": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "",
+       "tiktok": "",
+       "twitter": "",
+       "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=29",
+       "youtube": ""
+      },
+      "personal": {
+       "bluesky": "",
+       "facebook": "",
+       "instagram": "",
+       "linkedin": "https://www.linkedin.com/in/eliotbostar/",
+       "tiktok": "",
+       "twitter": "https://www.twitter.com/EliotBostar",
+       "website": "",
+       "youtube": ""
+      }
+     }
+    }
+   }
+  ],
+  "sasts": [],
+  "subjects": [],
+  "texts": [
+   {
+    "doc_id": 3325691,
+    "date": "2026-01-21",
+    "type": "Introduced",
+    "type_id": 1,
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/NE/text/LB1185/id/3325691",
+    "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1185.pdf",
+    "text_size": 64184,
+    "text_hash": "59f9171081982dd78dba93c6114c357e",
+    "alt_bill_text": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_text_size": 0,
+    "alt_text_hash": ""
+   }
+  ],
+  "votes": [],
+  "amendments": [
+   {
+    "amendment_id": 268012,
+    "adopted": 0,
+    "chamber": "L",
+    "chamber_id": 64,
+    "date": "2026-01-22",
+    "title": "Kauth FA845 ",
+    "description": "Kauth FA845 ",
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/NE/amendment/LB1185/id/268012",
+    "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/AM/FA845.pdf",
+    "amendment_size": 26772,
+    "amendment_hash": "e7f55aaf758ede7e8fefba2d28dc4f3f",
+    "alt_amendment": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_amendment_size": 0,
+    "alt_amendment_hash": ""
+   },
+   {
+    "amendment_id": 276298,
+    "adopted": 0,
+    "chamber": "L",
+    "chamber_id": 64,
+    "date": "2026-02-18",
+    "title": "Banking, Commerce and Insurance AM2094 ",
+    "description": "Banking, Commerce and Insurance AM2094 ",
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/NE/amendment/LB1185/id/276298",
+    "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/AM/AM2094.pdf",
+    "amendment_size": 30513,
+    "amendment_hash": "c772aa4be20b98c34f10d04f110f5bd2",
+    "alt_amendment": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_amendment_size": 0,
+    "alt_amendment_hash": ""
+   }
+  ],
+  "supplements": [
+   {
+    "supplement_id": 643352,
+    "date": "2026-01-23",
+    "type": "Analysis",
+    "type_id": 2,
+    "title": "Analysis",
+    "description": "Statement of Intent",
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/NE/supplement/LB1185/id/643352",
+    "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/SI/LB1185.pdf",
+    "supplement_size": 6625,
+    "supplement_hash": "a0ffa4654129199b1a3c6d71ee45d280",
+    "alt_supplement": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_supplement_size": 0,
+    "alt_supplement_hash": ""
+   },
+   {
+    "supplement_id": 660085,
+    "date": "2026-02-06",
+    "type": "Fiscal Note",
+    "type_id": 1,
+    "title": "Fiscal Note",
+    "description": "Fiscal Note for LB1185",
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/NE/supplement/LB1185/id/660085",
+    "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/FN/LB1185_20260206-130049.pdf",
+    "supplement_size": 793635,
+    "supplement_hash": "885ed6c0833865b5887047609c4ca18f",
+    "alt_supplement": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_supplement_size": 0,
+    "alt_supplement_hash": ""
+   },
+   {
+    "supplement_id": 674293,
+    "date": "2026-02-18",
+    "type": "Analysis",
+    "type_id": 2,
+    "title": "Analysis",
+    "description": "Committee Statement",
+    "mime": "application/pdf",
+    "mime_id": 2,
+    "url": "https://legiscan.com/NE/supplement/LB1185/id/674293",
+    "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/CS/LB1185.pdf",
+    "supplement_size": 106657,
+    "supplement_hash": "7b958af08ecfa77626579309a9e9e7e1",
+    "alt_supplement": 0,
+    "alt_mime": "",
+    "alt_mime_id": 0,
+    "alt_state_link": "",
+    "alt_supplement_size": 0,
+    "alt_supplement_hash": ""
+   }
+  ],
+  "calendar": [
+   {
+    "type_id": 1,
+    "event_hash": "71cd9105",
+    "type": "Hearing",
+    "date": "2026-02-09",
+    "time": "13:30",
+    "location": "Room 1507",
+    "description": "Banking, Commerce and Insurance Hearing"
+   }
+  ]
+ },
+ "derived": {
+  "status": "failed",
+  "events": [
+   {
+    "date": "2026-01-21",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Date of introduction",
+    "chamber": "L"
+   },
+   {
+    "date": "2026-01-23",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Referred to Banking, Commerce and Insurance Committee",
+    "chamber": "L"
+   },
+   {
+    "date": "2026-01-23",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Notice of hearing for February 09, 2026",
+    "chamber": "L"
+   },
+   {
+    "date": "2026-04-17",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "Indefinitely postponed",
+    "chamber": "L"
+   }
+  ]
+ },
+ "text": "LEGISLATURE OF NEBRASKA\nONE HUNDRED NINTH LEGISLATURE\nSECOND SESSION\nLEGISLATIVE BILL 1185\nIntroduced by Bostar, 29.\nRead first time January 21, 2026\nCommittee:\n1 A BILL FOR AN ACT relating to consumer protection; to adopt the\n2 Conversational Artificial Intelligence Safety Act; to provide powers\n3 and duties to the Attorney General; to provide civil penalties; and\n4 to provide an operative date.\n5 Be it enacted by the people of the State of Nebraska,\n\nSection 1. Sections 1 to 7 of this act shall be known and may be\ncited as the Conversational Artificial Intelligence Safety Act.\nSec. 2. For purposes of the Conversational Artificial Intelligence\nSafety Act:\n(1) Account holder means an individual who has, or opens, an account\nor profile to use a conversational artificial intelligence service;\n(2)(a) Conversational artificial intelligence service means an\nartificial intelligence software application, web interface, or computer\nprogram that is accessible to the general public and that primarily\nsimulates human conversation and interaction through textual, visual, or\naural communications.\n(b) Conversational artificial intelligence service does not include\nan application, web interface, or computer program that is any of the\nfollowing:\n(i) Primarily designed and marketed for use by developers or\nresearchers;\n(ii) A feature within another software application, web interface,\nor computer program that is not a conversational artificial intelligence\nservice;\n(iii) Designed to provide outputs relating to a narrow and discrete\ntopic;\n(iv) Primarily designed and marketed for commercial use by business\nentities;\n(v) Functions as a speaker and voice command interface or voiceactivated virtual assistant for a consumer electronic device; or\n(vi) Used by a business solely for internal purposes;\n(3) Individual means a natural person;\n(4) Minor means an individual that, based upon the circumstance, the\noperator has actual knowledge or reasonable certainty is younger than\neighteen years of age;\n(5) Minor account holder means an account holder who is a minor;\n\n(6)(a) Operator means a person who develops and makes available a\nconversational artificial intelligence service to the public.\n(b) Operator does not include mobile application stores or search\nengines solely because they provide access to a conversational artificial\nintelligence service;\n(7) Person means a natural person or legal entity; and\n(8) Sexually explicit conduct and visual depiction have the same\nmeanings as in 18 U.S.C. 2256.\nSec. 3. (1) An operator shall clearly and conspicuously disclose to\neach minor account holder that such minor account holder is interacting\nwith artificial intelligence:\n(a) As a persistent visible disclaimer; or\n(b) Both:\n(i) At the beginning of each session; and\n(ii) Appearing at least every three hours in a continuous\nconversational artificial intelligence service interaction.\n(2) An operator shall not provide a minor account holder with points\nor similar rewards at unpredictable intervals with the intent to\nencourage increased engagement with the conversational artificial\nintelligence service.\n(3) An operator shall, for minor account holders, institute\nreasonable measures to prevent the conversational artificial intelligence\nservice from:\n(a) Producing visual depictions of sexually explicit conduct;\n(b) Generating direct statements that the account holder should\nengage in sexually explicit conduct; or\n(c) Generating statements that sexually objectify the account\nholder.\n(4) For minor account holders, the operator shall institute\nreasonable measures to prevent the conversational artificial intelligence\nservice from generating statements that would lead a reasonable person to\n\nbelieve that they are interacting with a human, including:\n(a) Explicit claims that the conversational artificial intelligence\nservice is sentient or human;\n(b) Statements that simulate emotional dependence;\n(c) Statements that simulate romantic or sexual innuendos; or\n(d) Role-playing of adult-minor romantic relationships.\n(5) An operator shall offer tools for minor account holders, and,\nwhen such account holders are younger than thirteen years of age, their\nparents or guardians, to manage the account holders' privacy and account\nsettings. An operator shall also offer related tools to the parents or\nguardians of minor account holders thirteen years of age and older, as\nappropriate based on relevant risks.\nSec. 4. If a reasonable person interacting with a conversational\nartificial intelligence system would be misled to believe that the person\nis interacting with a human, an operator shall clearly and conspicuously\ndisclose that the conversational artificial intelligence service is\nartificial intelligence.\nSec. 5. An operator shall adopt a protocol for the conversational\nartificial intelligence service to respond to user prompts regarding\nsuicidal ideation or self-harm that includes, but is not limited to,\nmaking reasonable efforts to provide a response to the user that refers\nthem to crisis service providers such as a suicide hotline, crisis text\nline, or other appropriate crisis services.\nSec. 6. An operator shall not knowingly and intentionally cause or\nprogram a conversational artificial intelligence service to make any\nrepresentation or statement that explicitly indicates that the\nconversational artificial intelligence service is designed to provide\nprofessional mental or behavioral health care.\nSec. 7. (1) The Attorney General shall enforce the Conversational\nArtificial Intelligence Safety Act.\n(2)(a) The Attorney General may bring a civil action for appropriate\n\nrelief against an operator for a violation of the Conversational\nArtificial Intelligence Safety Act, on behalf of the State of Nebraska or\non behalf of any person aggrieved by a violation of the act.\n(b) In an action under this section, appropriate relief includes:\n(i) Such preliminary and other equitable or declaratory relief as\nmay be appropriate;\n(ii) An award of actual damages;\n(iii) Civil penalties of at least one thousand dollars per\nviolation, but in no event more than five hundred thousand dollars per\noperator; and\n(iv) Reasonable expenses incurred in bringing the civil action,\nincluding court costs, reasonable attorney's fees, investigative costs,\nwitness fees, and deposition costs.\n(3) Nothing in the Conversational Artificial Intelligence Safety Act\ncan be interpreted as creating a private right of action.\n(4) The Conversational Artificial Intelligence Act shall not create\nliability for the developer of an artificial intelligence model for any\nviolation of the act by an artificial intelligence system developed by a\nthird party to provide a conversational artificial intelligence service\nfor such developer.\nSec. 8. This act becomes operative on July 1, 2027.",
+ "text_truncated": false,
+ "text_missing": false,
+ "text_version": {
+  "doc_id": 3325691,
+  "date": "2026-01-21",
+  "type": "Introduced",
+  "mime": "application/pdf",
+  "state_link": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1185.pdf",
+  "from": "legiscan",
+  "saved_file": "raw/legiscan/NE-LB1185-2088052.pdf",
+  "pdf": {
+   "pages": 5,
+   "truncated": false,
+   "reason": null
+  }
+ },
+ "frontier_markers": [
+  "artificial intelligence safety"
+ ]
+}

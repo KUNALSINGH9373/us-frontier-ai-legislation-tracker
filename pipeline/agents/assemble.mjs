@@ -60,19 +60,27 @@ export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, 
   for (const k of CREATE_REQUIRED) if (f[k] == null || f[k] === '') problems.push(`a new entry needs "${k}"`);
   if (problems.length) return { entry: null, problems };
   if (!AUTO_CREATE_SECTIONS.includes(f.section)) { problems.push(`new entries in section ${f.section} need a person (the pipeline may create only in ${AUTO_CREATE_SECTIONS.join(', ')})`); return { entry: null, problems }; }
-  const rule = SECTION_RULES[f.section];
-  const apiStatus = source === 'congress_gov' && raw.bill && raw.bill.latestAction ? statusFromAction(raw.bill.latestAction.text) : 'pending';
+  const rule = SECTION_RULES[f.section], state = source === 'legiscan';
+  // A state bill goes only in a state section its status allows (derive.mjs stateSections); a federal item never in a state section.
+  if (rule.level !== (state ? 'state' : 'federal')) { problems.push(`section ${f.section} is for ${rule.level} items; this is a ${state ? 'state' : 'federal'} ${state ? 'bill' : 'item'}`); return { entry: null, problems }; }
+  if (derived.sections && !derived.sections.includes(f.section)) { problems.push(`a ${derived.status} state bill goes in section ${derived.sections.join(', ')}, not ${f.section}`); return { entry: null, problems }; }
+  const apiStatus = source === 'congress_gov' && raw.bill && raw.bill.latestAction ? statusFromAction(raw.bill.latestAction.text) : state ? derived.status : 'pending';
   const existingKeys = new Set(entries.map((e) => e.key));
   let key = slug(f.short_name) || 'entry'; if (!/^[a-z0-9]/.test(key)) key = 'e-' + key;
   if (existingKeys.has(key)) key = `${key}-${(entries.reduce((m, e) => Math.max(m, e.id), 0) + 1)}`;
   const conf = confidenceFor([sourceRef.kind]);
   const o = {
-    id: entries.reduce((m, e) => Math.max(m, e.id), 0) + 1, key, section: f.section, type: rule.type, level: rule.level, jurisdiction: 'Federal', state: null,
+    id: entries.reduce((m, e) => Math.max(m, e.id), 0) + 1, key, section: f.section, type: rule.type, level: rule.level, jurisdiction: state ? derived.jurisdiction : 'Federal', state: state ? derived.state : null,
     status: statusFor(f.section, apiStatus), title: f.title, short_name: f.short_name, sponsor_text: f.sponsor_text, mechanism: f.mechanism,
     thresholds: f.thresholds || null, penalties: f.penalties || null, status_text: f.status_text || null, signed_text: f.signed_text || null, effective_text: f.effective_text || null,
     events: [], sources: [], confidence: { level: conf.level, basis: conf.basis }, tags: { found_via: 'api' }, evidence: [],
     origin: 'automated', identifiers: identifiers(null), legacy: { section_name: SECTION_NAMES[f.section] }
   };
+  if (state && derived.session) o.identifiers.session = derived.session;
   o.events = addEvents([]);
-  return { entry: common(o), problems, changed: [...Object.keys(f), ...patch.events_add.map((_, i) => `events_add[${i}]`)] };
+  common(o);
+  // The legislature's own copy of the text the reading fields were checked against, when that is where the words came from.
+  const tv = state && raw.text_version;
+  if (tv && tv.from === 'official' && tv.state_link && !o.sources.some((x) => x.url === tv.state_link)) o.sources.push({ label: `${raw.bill.state} Legislature bill text${tv.type ? ` (${tv.type})` : ''}: ${raw.bill.title}`, url: tv.state_link, kind: 'primary', retrieved_at: item.fetched_at });
+  return { entry: o, problems, changed: [...Object.keys(f), ...patch.events_add.map((_, i) => `events_add[${i}]`)] };
 }

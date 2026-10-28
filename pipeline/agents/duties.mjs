@@ -14,7 +14,9 @@ import { LlmOutputError, InputTooLarge, BudgetExceeded } from '../llm/gemini.mjs
 import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
 
 export const DUTY_ROUNDS = 2;
-export const DUTY_SECTIONS = ['D', 'F']; // bills; only bills impose duties (the session-written duties are all on bills)
+// Bills and laws; only they impose duties. The session-written duty sets (duties/drafts) cover federal bills (D, F) and every state
+// frontier entry: enacted laws (A), pending, stalled and failed bills (B) and the no-threshold bill (B.2). C (IVO / auditor measures) has none.
+export const DUTY_SECTIONS = ['A', 'B', 'B.2', 'D', 'F'];
 const schema = makeValidator();
 
 // Code knows the URL the text came from: every answer that quotes gets it, and a silence answer carries no section, quote or URL.
