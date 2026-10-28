@@ -22,7 +22,11 @@ export const trackerStatus = (code) => (code === 4 ? 'enacted' : code === 5 || c
 // procedural; "Failed passage", "Died in committee", "Indefinitely postponed", "Vetoed by Governor" are failures. "Chapter N" counts as
 // enactment only with "chaptered" / "Secretary of State" (or a governor's approval). importance orders actions on one date (highest first).
 // Checked against every history action in the stored LegiScan records (grabber/test-legiscan.mjs). Order matters: the first rule that fits wins.
-const NOISE = /passed by for the day|amendments? (read and )?adopted|substitute (printed|agreed|rejected)|committee substitute|may be (acted|heard)|^bill text|fiscal (impact|note)|^from printer|signed by (the )?(president|speaker)|^acts of assembly chapter text|line veto/i;
+const NOISE = /passed by for the day|amendments? (read and )?adopted|substitute (printed|agreed|rejected)|committee substitute|may be (acted|heard)|^bill text|fiscal (impact|note)|^from printer|signed by (the )?(president|speaker)|^acts of assembly chapter text|line veto|\bline[- ]item veto|\bitem veto|\bpartial(ly)? veto|\bveto(ed)? in part\b|\bhearings? (was |is |has been )?(cancel+ed|postponed|deferred)\b|\b(cancel+ed|postponed|deferred)\b[^.]{0,40}\bhearing/i;
+// A final failure the text itself states: a pocket veto, or a veto the legislature sustained (an override that failed). "Returned
+// without signature" is not one: in some states a bill the governor neither signs nor vetoes becomes law.
+const FINAL_VETO = /\bpocket[- ]veto(ed)?\b/i;
+const VETO_SUSTAINED = /\bveto (was |is )?sustained\b|\bsustain(ed|s)? (the )?(governor'?s )?veto\b|\b(veto )?overrid\w*[^.]{0,40}\bfailed\b|\bfailed to override\b/i;
 // An action whose subject is an amendment, a substitute or a conference: never the bill's own failure or passage.
 const AMENDMENT = /^\W*((house|senate|assembly)\s+)?((committee|floor)\s+)?(amend(ment)?s?|am\.|substitute|ss\s+[a-z]\b)|\bamendment (no\.\s*)?[a-z]{0,3}\s?\d|\b(AM|MO|HA|SA|FA)\s?\d{1,5}\b|\bamendment\(?s?\)? (failed|tabled|withdrawn|stricken|rejected|offered)\b|\boffered (&|and) withdrawn\b|\bamendment by (rep|sen)\w*\.? |^\W*proposal of amendment\b|\bconferees?\b|\bconcur in [hs] com sub\b/i;
 const BILL_FAILED = /^(?!.*\b(motion to|moved to|committee report)\b).*(\bfailed (to pass|passage|of passage)\b|\brefused passage\b|\bfailed in (the )?(senate|house|assembly)\b|\bdie[ds]? in\b|^\W*died\b|\bindefinitely postponed\b|\bpostponed? indefinitely\b|\binexpedient to legislate\b|\benacting clause stricken\b|\bfile for bills not passed\b)/i;
@@ -33,6 +37,8 @@ const kindOf = (kind, type, importance) => ({ kind, type, milestone: !!type, imp
 export function stateActionKind(action, isFirst = false) {
   const t = String(action || '').replace(/\s+/g, ' ').trim();
   if (/veto overrid|overrid\w* (the )?(governor'?s )?veto/i.test(t) && !/\b(failed|sustained)\b/i.test(t)) return kindOf('veto_override', 'Passed / advanced', 95);
+  if (!/\bmotion\b/i.test(t) && VETO_SUSTAINED.test(t)) return kindOf('failed', 'Vetoed / failed / rescinded', 70);
+  if (FINAL_VETO.test(t)) return kindOf('vetoed', 'Vetoed / failed / rescinded', 90);
   if (/agreed to by (the )?(house|senate|assembly)|^(?!.*\bnot concurred\b).*\bamendments? concurred in/i.test(t) && !/\bmotion\b/i.test(t)) return kindOf('passed', 'Passed / advanced', 80);
   if (NOISE.test(t) || AMENDMENT.test(t)) return kindOf('procedural', null, 0);
   if (VETOED.test(t)) return kindOf('vetoed', 'Vetoed / failed / rescinded', 90);
