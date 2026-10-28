@@ -45,35 +45,68 @@ export function createCourtListener(http, { limiter = async () => {} } = {}) {
 
 // ---------- which docket entries matter ----------
 // Routine filings never become events: appearances, transcripts and transcript orders, summons and service, pro hac vice,
-// certificates, proposed orders, clerk's notices, referrals to a magistrate, counsel withdrawing or substituting.
+// certificates, proposed orders, clerk's notices, referrals to a magistrate, counsel withdrawing or substituting; and the paperwork
+// around an appeal or a deadline: transmission of a notice of appeal, the appeals court's case number, the appeal fee, motions for
+// an extension of time (to file a notice of appeal or anything else), stipulations to extend time, scheduling orders.
 const ROUTINE = [
   /^\W*(notice of )?(entry of )?appearance\b/i, /\bnotice of (entry of )?appearance\b/i, /^\W*transcript\b/i, /^\W*(amended )?transcript of proceedings\b/i, /\btranscript order\b/i,
   /\bsummons\b/i, /\bpro hac vice\b/i, /\bapplication for admission\b/i, /^\W*certificate\b/i, /\bcertificate of (service|interested|counsel)\b/i, /^\W*(corporate )?disclosure statement\b/i,
   /^\W*proposed order\b/i, /^\W*clerk'?s notice\b/i, /\border referring motion/i, /\bwithdraw(al)? (as|of) (attorney|counsel)\b/i, /\bmotion to withdraw as attorney\b/i,
-  /\bsubstitution of (attorney|counsel)\b/i, /^\W*affidavit\b/i, /\breturn of service\b/i, /^\W*(electronic )?filing error\b/i
+  /\bsubstitution of (attorney|counsel)\b/i, /^\W*affidavit\b/i, /\breturn of service\b/i, /^\W*(electronic )?filing error\b/i,
+  /\btransmission of (the )?(amended )?notice of appeal\b/i, /\bUSCA case number\b/i, /^\W*(notice of )?appeal (filing )?fee\b[^.]{0,40}\b(paid|received|due)\b|^\W*(appeal )?filing fee\b[^.]{0,60}\bappeal\b/i,
+  /\bmotion\b[^.]{0,60}\b(for|to) (an )?(extension|enlargement) of time\b|\bmotion to (extend|enlarge)\b[^.]{0,40}\b(time|deadline)/i,
+  /\bstipulat\w*\b[^.]{0,80}\b(to |and order to |and \[proposed\] order to )?(extend|enlarge|continue)\w*\b[^.]{0,40}\b(time|deadline|date|hearing)/i, /\bscheduling order\b/i
 ];
-// Material kinds, in order (the first match wins). news: whether a fixed-wording news item is written for it.
+// A ruling the public cares about: on a dispositive motion, an injunction, a stay, summary judgment, dismissal or final relief.
+const DISPOSITIVE = String.raw`summary judgment|dismiss\w*|(preliminary |permanent )?injunct\w*|temporary restraining order|\bTRO\b|\bstay\w*|final (relief|judgment)|judgment on the pleadings|remand\w*|vacat\w* (the )?(rule|order|agency action)`;
+const RULING_ORDER = new RegExp(String.raw`^\W*((memorandum|opinion) (and|&) )?(minute )?order\b[^.]{0,200}?\b(on|of|granting|denying|re|regarding|resolving)\b[^.]{0,200}?(${DISPOSITIVE})|^\W*minute (order|entry)\b(?=[\s\S]*\b(granted|denied|granting|denying)\b)[\s\S]*(${DISPOSITIVE})`, 'i');
+// Material kinds, in order (the first match wins). news: whether a fixed-wording news item is written for it ('ruling': only for an
+// order that rules on a dispositive motion, an injunction, a stay, summary judgment, dismissal or final relief; other orders are events
+// without news). An ORDER granting a voluntary dismissal is an order (the case is dismissed), not a party's withdrawal.
 const KINDS = [
-  { kind: 'appeal', news: true, label: 'Notice of appeal filed', re: /\bnotice of (interlocutory )?appeal\b/i },
+  { kind: 'appeal', news: true, label: 'Notice of appeal filed', re: /^\W*(amended )?notice of (interlocutory )?appeal\b/i },
   { kind: 'judgment', news: true, label: 'Judgment entered', re: /^\W*(final |amended |clerk'?s )?judgment\b/i },
-  { kind: 'withdrawal', news: false, label: 'Withdrawn', re: /\b(notice of )?(voluntary )?(dismissal|withdrawal of (the )?(motion|complaint|petition))\b|\bwithdraw(s|ing)? (its |the |their )?(motion|complaint|petition)\b|^\W*notice of withdrawal\b/i },
-  { kind: 'order', news: true, label: 'Court order', re: /^\W*minute order\b[\s\S]*\b(granted|denied|granting|denying)\b/i }, // a minute order that rules on a motion
+  { kind: 'order', news: true, label: 'Case dismissed', re: /^\W*((memorandum|opinion) (and|&) )?(minute )?order\b[^.]{0,120}?\b(granting|approving|on)\b[^.]{0,80}?\b(voluntary )?dismissal\b|^\W*order (of )?dismiss(al|ing)\b/i },
+  { kind: 'order', news: 'ruling', label: 'Court order', re: /^\W*minute order\b[\s\S]*\b(granted|denied|granting|denying)\b/i }, // a minute order that rules on a motion
   { kind: 'deadline', news: false, label: 'Minute order setting a deadline', re: /^\W*minute (order|entry)\b(?=[\s\S]*\b(due|deadline|shall (file|respond|submit)|set for|reset|by (january|february|march|april|may|june|july|august|september|october|november|december) \d))/i },
-  { kind: 'order', news: true, label: 'Court order', re: /^\W*((memorandum|opinion) (and|&) )?order\b|^\W*(stipulated|scheduling|protective) order\b/i },
+  { kind: 'order', news: 'ruling', label: 'Court order', re: /^\W*((memorandum|opinion) (and|&) )?order\b|^\W*(stipulated|protective) order\b/i },
+  { kind: 'withdrawal', news: false, label: 'Withdrawn', re: /\b(notice of )?(voluntary )?(dismissal|withdrawal of (the )?(motion|complaint|petition))\b|\bwithdraw(s|ing)? (its |the |their )?(motion|complaint|petition)\b|^\W*notice of withdrawal\b/i },
   { kind: 'closed', news: false, label: 'Case closed', re: /\bcivil case terminated\b|\bcase (closed|terminated)\b/i }
 ];
 
-// A docket entry -> null (routine, or no docket text) or { kind, news, label, text }. The text is the court's own words, trimmed of
-// the clerk's tags ("(rfllc3, COURT STAFF) (Filed on 8/27/2026) (Entered: 08/27/2026)").
+// A docket entry -> null (routine, or no docket text) or { kind, news, label, text, full, operative }. text and full are the court's own
+// words, trimmed of the clerk's tags ("(rfllc3, COURT STAFF) (Filed on 8/27/2026) (Entered: 08/27/2026)"). operative is a short display
+// line: the label and the operative clause, built only from words in the docket text (operativeText).
 export function classifyEntry(x) {
   const raw = String((x && x.description) || '').replace(/\s+/g, ' ').trim();
   if (!raw) return null; // an entry with no docket text (the RSS stub of a fuller entry the same day) is never used
   if (ROUTINE.some((re) => re.test(raw))) return null;
   const k = KINDS.find((c) => c.re.test(raw));
+  if (!k) return null;
   // A minute order that only sets or moves a conference or hearing time is housekeeping, not a deadline anyone must meet.
-  if (k && k.kind === 'deadline' && !FILING_DEADLINE.test(raw)) return null;
+  if (k.kind === 'deadline' && !FILING_DEADLINE.test(raw)) return null;
+  const news = k.news === 'ruling' ? RULING_ORDER.test(raw) : k.news;
   // text: the court's words, trimmed for display; full: the same words untrimmed, for every quote (a quote is never cut).
-  return k ? { kind: k.kind, news: k.news, label: k.label, text: trimDescription(raw), full: trimDescription(raw, Infinity) } : null;
+  const full = trimDescription(raw, Infinity);
+  return { kind: k.kind, news, label: k.label, text: trimDescription(raw), full, operative: operativeText(k, full) };
+}
+
+// The display line. A notice of appeal: "Notice of appeal to the 9th Circuit Court of Appeals: appeal of Order on Motion for Summary
+// Judgment, ..., Judgment 252", the court and the appealed rulings copied from the docket text (the filers only when three or fewer);
+// anything else: the label and the entry's first sentence. Never more than max characters; never a word not in the docket text
+// besides the fixed label.
+export function operativeText(k, full, max = 240) {
+  const cap = (s) => (s.length > max ? s.slice(0, max - 1).replace(/\s+\S*$/, '') + '…' : s);
+  if (k.kind === 'appeal') {
+    const court = /\bnotice of (?:interlocutory )?appeal\s+to\s+(the\s+[^.;,]*?(?:circuit|court of appeals|supreme court)[^.;,]*?)(?=\s+(?:filed by|from|re:?|as to)\b|[.;,(]|$)/i.exec(full);
+    const from = /\b(?:appeal of|appeal from|appealing)\s+(.+?)(?=\s*\((?:appeal fee|fee)\b|\s*\([A-Z][a-z]+, [A-Z]|$)/i.exec(full);
+    const by = /\bfiled by\s+(.+?)(?=\.\s+(?:appeal|\()|\s+appeal (?:of|from)\b|\s*\(|$)/i.exec(full), filers = by ? by[1].split(/,\s*(?![Jj]r\b)/) : [];
+    return cap(`Notice of appeal${court ? ' to ' + court[1] : ''}${from ? ': appeal of ' + from[1].replace(/[\s.;,]+$/, '') : ''}${by && filers.length <= 3 ? `, filed by ${by[1].replace(/[\s.;,]+$/, '')}` : ''}`);
+  }
+  // The first sentence; when it is only a heading ("ORDER.", "JUDGMENT."), the next one too.
+  const sentences = full.match(/.+?(?:(?<!\b(?:No|Nos|Dkt|ECF|Fed|R|Civ|P|U\.S|Inc|Corp|Co|Jr|Mr|Ms|Dr|v|Rep|Sen|[A-Z]))\.(?=\s+[A-Z("“]|$)|$)/g) || [full];
+  const first = (/^[A-Z][A-Z\s&]{0,30}\.$/.test(sentences[0].trim()) && sentences[1] ? sentences[0] + sentences[1] : sentences[0]).trim().replace(/[\s.;,]+$/, '');
+  return cap(`${k.label}: ${first}`);
 }
 const FILING_DEADLINE = /\b(due|deadline|shall (file|respond|submit|answer)|response to|reply to|status report)\b/i;
 export function trimDescription(t, max = 300) {

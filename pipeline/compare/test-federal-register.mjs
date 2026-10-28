@@ -1,5 +1,6 @@
 // Run:  node compare/test-federal-register.mjs   (or npm run test:compare-fr)
 import { compareFederalRegister } from './federal-register.mjs';
+import { watchPhrases } from '../grabber/sources/federal-register.mjs';
 import { makeValidator } from '../schema/validate.mjs';
 
 const v = makeValidator();
@@ -43,6 +44,14 @@ const run = (d, entry, text) => compareFederalRegister({ item: item(d.document_n
   const r = run({ document_number: '2026-20321', type: 'Presidential Document', title: 'Inaugurating the Era of Super Intelligence', executive_order_number: '14434', signing_date: '2026-09-29', publication_date: '2026-10-02' }, null);
   ok('a document with no matching entry is a new-entry candidate that names the order number', r.verdict === 'new_entry_candidate' && r.entry_key === null && /EO 14434/.test(r.reasons[0].detail) && /2026-10-02/.test(r.reasons[0].detail), JSON.stringify(r));
   ok('and every verdict passes its schema', [r].every((d) => v.check('diff', d).length === 0));
+}
+{ // the 26 Oct 2026 replay: a Coast Guard CRADA named "Super Intelligence (SI)" was matched to EO 14434 through its short name
+  const eo14434 = { key: 'eo-14434-super-intelligence-terminology-order', title: 'Executive Order 14434 — "Inaugurating the Era of Super Intelligence"', short_name: 'EO 14434 "Super Intelligence" terminology order', last_checked: '2026-10-02', status_text: 'Signed Sept 29, 2026', events: [{ date: '2026-09-29' }] };
+  const crada = { type: 'Notice', title: 'Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)', abstract: 'The Coast Guard announces its intent to enter into a CRADA.', publication_date: '2026-10-20' };
+  const w = watchPhrases(eo14434), hay = `${crada.title} ${crada.abstract}`.toLowerCase();
+  ok('EO 14434: the short name\'s "Super Intelligence" (a scope search term) is not a watch phrase; the order number and the full quoted title are', !w.phrases.includes('super intelligence') && w.phrases.includes('inaugurating the era of super intelligence') && w.eo.has('14434'), JSON.stringify(w.phrases));
+  ok('the Coast Guard "Super Intelligence (SI)" CRADA does not match EO 14434', !w.phrases.some((p) => hay.includes(p)));
+  ok('a later document naming the order or its full title still matches', w.phrases.some((p) => 'amendment to executive order 14434'.includes(p)) && w.phrases.some((p) => 'implementing "inaugurating the era of super intelligence"'.includes(p)));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

@@ -5,6 +5,7 @@
 // The raw record is what grabber/run-legiscan.mjs saved: { bill, derived: { status, events } }, where derived.events are
 // the history actions grabber/sources/legiscan.mjs eventsFrom keeps (routine ones dropped).
 import { datesMentioned } from './congress.mjs';
+import { eventsFrom, stateActionKind } from '../grabber/sources/legiscan.mjs';
 
 export function compareLegiScan({ item, raw, entry, billsOfEntry = 1 }) {
   const bill = raw.bill || {}, derived = raw.derived || {};
@@ -12,8 +13,12 @@ export function compareLegiScan({ item, raw, entry, billsOfEntry = 1 }) {
   const baseline = entry.last_checked, reasons = [], minor = [];
   const known = datesMentioned(entry.status_text, entry.events, +baseline.slice(0, 4));
 
-  (derived.events || []).filter((e) => e.date > baseline && !known.has(e.date))
-    .sort((a, b) => a.date.localeCompare(b.date))
+  // The events are re-derived from the history with the current rules when it is there (a record saved by an older run carries the
+  // older rules' events); same date: the most important action first.
+  const events = Array.isArray(bill.history) ? eventsFrom(bill) : derived.events || [];
+  const imp = (e) => stateActionKind(e.text).importance;
+  events.filter((e) => e.date > baseline && !known.has(e.date))
+    .sort((a, b) => a.date.localeCompare(b.date) || imp(b) - imp(a))
     .forEach((e) => reasons.push({ kind: 'new_action', detail: `${e.date}: ${bill.state} ${bill.bill_number}: ${e.text}`, api_value: e.text, our_value: entry.status_text || '' }));
 
   // Became law: one chaptered bill is enough. Failed: only when the entry is this one bill; an entry that covers a
