@@ -41,8 +41,8 @@ const tevKey = (e) => [e.id, e.date, e.precision, e.inferredYear, e.type, e.clau
 same('timeline lane events', D1.tev.filter(authored).map(tevKey).sort(), D2.tev.filter(authored).map(tevKey).sort());
 const newsRow = (n) => [n.date, n.kind, n.title, n.entryId, n.tracker];
 same('news', D1.N.map(newsRow), D2.N.filter((n) => !autoNews.has(n.date + '|' + n.title)).map(newsRow));
-// Links and map nodes for entries added after v1 have no v1 counterpart.
-const oldEdge = (e) => !changed.has(e.fromId) && !changed.has(e.toId);
+// Links and map nodes for entries added after v1 have no v1 counterpart, nor do links the pipeline added (origin "automated").
+const oldEdge = (e) => e.origin !== 'automated' && !changed.has(e.fromId) && !changed.has(e.toId);
 same('links', D1.edges.filter(oldEdge).map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]), D2.edges.filter(oldEdge).map((e) => [e.from, e.to, e.type, e.fromId, e.toId, !!e.dashed]));
 const unchangedIds = (m) => Object.fromEntries(Object.entries(m).filter(([, id]) => !changed.has(id)));
 same('link node → entry', unchangedIds(D1.keyToId), unchangedIds(D2.keyToId));

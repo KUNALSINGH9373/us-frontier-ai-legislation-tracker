@@ -56,7 +56,7 @@ export function publishEntry({ result, newsBefore = 0, newsAfter = 0, status }) 
 }
 
 export function newReport({ id, now = new Date(), dry = false, sources = [] }) {
-  return { id, started_at: now.toISOString(), finished_at: null, duration_s: null, dry_run: dry, outcome: 'ok', failed_step: null, error: null, sources: [], ai: { enabled: false, skipped_why: null, runs: [] }, publish: { runs: [] }, corrections: null, held: [], notes: [], planned_sources: sources };
+  return { id, started_at: now.toISOString(), finished_at: null, duration_s: null, dry_run: dry, outcome: 'ok', failed_step: null, error: null, sources: [], ai: { enabled: false, skipped_why: null, runs: [] }, publish: { runs: [] }, corrections: null, links: null, held: [], notes: [], planned_sources: sources };
 }
 
 // Roll the per-run pieces up into the totals the message and the JSON file lead with.
@@ -70,7 +70,7 @@ export function finalize(rep, { now = new Date(), spend = null, month = null } =
     tracked_changed: sum((s) => s.verdicts.material + s.verdicts.minor), material: sum((s) => s.verdicts.material), minor: sum((s) => s.verdicts.minor), unchanged: sum((s) => s.verdicts.unchanged),
     ai_in_scope: ais.reduce((t, a) => t + a.publishable + a.held, 0), ai_out_of_scope: ais.reduce((t, a) => t + a.out_of_scope, 0),
     published: pubs.reduce((t, p) => t + p.entries_updated.length + p.entries_added.length, 0), held: ais.reduce((t, a) => t + a.held + a.not_processed, 0),
-    entries_updated: pubs.reduce((t, p) => t + p.entries_updated.length, 0), entries_added: pubs.reduce((t, p) => t + p.entries_added.length, 0), news_added: pubs.reduce((t, p) => t + p.news_added, 0), links_added: pubs.reduce((t, p) => t + p.links_added, 0),
+    entries_updated: pubs.reduce((t, p) => t + p.entries_updated.length, 0), entries_added: pubs.reduce((t, p) => t + p.entries_added.length, 0), news_added: pubs.reduce((t, p) => t + p.news_added, 0), links_added: pubs.reduce((t, p) => t + p.links_added, 0) + (rep.links && rep.links.status === 'written' ? rep.links.applied.length : 0),
     fields_changed: pubs.reduce((t, p) => t + p.fields_changed.length, 0),
     entries_rechecked: rep.corrections ? rep.corrections.checked.length : 0, fields_corrected: rep.corrections && rep.corrections.status === 'written' ? rep.corrections.corrected.length : 0
   };

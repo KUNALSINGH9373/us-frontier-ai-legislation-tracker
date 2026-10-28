@@ -15,6 +15,7 @@ import { compareRun } from './compare/run.mjs';
 import { publishRun, IDENTIFIERS_FILE } from './publish/run.mjs';
 import { runAgents } from './agents/run.mjs';
 import { correctRun, STATE_FILE as CORRECT_STATE } from './correct/run.mjs';
+import { linkRun } from './links/run.mjs';
 import { makeValidator } from './schema/validate.mjs';
 import { loadEnv } from './grabber/lib/env.mjs';
 import { createLlmFactory } from './llm/make.mjs';
@@ -117,6 +118,15 @@ try {
   rep.corrections = c;
   console.log(`self-correction: ${c.skipped_why ? 'skipped (' + c.skipped_why + ')' : `${c.checked.length} checked, ${c.corrected.length} field(s) corrected, ${c.status}`}`);
   if (c.status === 'written') { published.push('self-correction'); summaries.push(c.summary); }
+
+  // ---- 4c. links: propose links for the entries this run added or changed (code only); added only when auto_publish.relationships is on ----
+  step = 'links';
+  const touchedKeys = [...new Set([...rep.publish.runs.flatMap((p) => [...p.entries_updated, ...p.entries_added].map((u) => u.entry_key)), ...(c.corrected || []).map((x) => x.entry_key)])];
+  const l = await linkRun({ dataDir, docsDir: config.copy_to_docs ? docsDir : null, changed: touchedKeys, config, runDate: new Date().toISOString().slice(0, 10), maxEntries: config.max_entries_changed_per_run, dry, log: (m) => console.log('  ' + m) });
+  rep.links = l;
+  console.log(`links: ${l.proposed.length} proposed, ${l.applied.length} added (${l.status})`);
+  if (l.status === 'stopped') rep.notes.push('links were not added (a stop rule failed: ' + l.problems[0] + ')');
+  if (l.status === 'written' && l.applied.length) { published.push('links'); summaries.push(l.summary); }
 
   // ---- 5. the site check: v1 and v2 still build the same model for every entry the pipeline has not changed ----
   if (published.length && !dry) {
