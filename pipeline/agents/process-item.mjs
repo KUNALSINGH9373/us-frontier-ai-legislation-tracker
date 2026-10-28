@@ -9,10 +9,11 @@ import { validateDraft, complaints } from './validator.mjs';
 import { SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
 import { LlmOutputError, InputTooLarge, BudgetExceeded } from '../llm/gemini.mjs';
 import { deriveCreate } from './derive.mjs';
+import { relevantSections } from './sections.mjs';
 import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
 
 export const MAX_ROUNDS = 3;
-const TRIAGE_OVER = 100000, TRIAGE_CHARS = 30000; // sources longer than this are triaged on their opening
+const TRIAGE_OVER = 100000, TRIAGE_CHARS = 30000; // sources longer than this are read section by section, or triaged on their opening
 
 // A second opinion on scope from a stronger model (config role "referee"), asked only when the two readers rule an item out or
 // disagree about it. No person reviews held items, so its answer is final. true = in scope, false = out, null = no referee or no answer.
@@ -49,18 +50,22 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   const operation = diff.verdict === 'new_entry_candidate' ? 'create' : 'update';
   const source = sourceText(raw, item.source);
   const styleExamples = styleExamplesFor({ source: item.source, entry, entries });
+  // A very long source (an omnibus bill) cannot be sent whole: the models read only its frontier-AI sections, copied word for word
+  // (sections.mjs). Every code check still runs on the FULL source, so a quote must be in the bill itself.
+  const sel = source.length > TRIAGE_OVER ? relevantSections(source) : null, read = sel && sel.chunks.length ? sel.text : source;
+  if (read !== source) log(`source is ${source.length} characters: reading ${sel.selected.length} sections (${read.length} characters)`);
   const verdicts = [];
   let feedback = [], previousPatch = null, last = null, scopeRetries = 0, scopeObjections = 0, refereeIn = null;
-  const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, source, item.item_id)) : refereeIn);
+  const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, read, item.item_id)) : refereeIn);
 
   const needsSection = operation === 'create' && !deriveCreate({ item, raw }).section;
 
   // Two cases cannot be written up yet: a new bill whose text is not published (or could not be fetched), so nothing can be described or
-  // checked; and a very long source (an omnibus bill) that cannot be sent whole. In both, whether the item is about frontier AI is usually
-  // clear from what we have (the title and actions, or the opening of the text). If both readers say it is out of scope we are done;
+  // checked; and a very long source in which no frontier-AI section was found, so it cannot be sent whole or in part. In both, whether
+  // the item is about frontier AI is usually clear from what we have (the title and actions, or the opening of the text). If both readers say it is out of scope we are done;
   // otherwise it is held and retried (text not yet available) or waits for a person (too long).
   const textMissing = operation === 'create' && (raw.text_missing === true || (item.source === 'congress_gov' && !raw.text));
-  if (operation === 'create' && (textMissing || source.length > TRIAGE_OVER)) {
+  if (operation === 'create' && (textMissing || (source.length > TRIAGE_OVER && read === source))) {
     const head = source.slice(0, TRIAGE_CHARS);
     const why = textMissing ? 'the bill text is not published yet, so only its title and actions are shown' : `it is cut off after its first ${TRIAGE_CHARS} characters because the full text is ${source.length} characters`;
     const note = { kind: 'candidate', detail: `NOTE: SOURCE below is incomplete: ${why}. Decide ONLY in_scope and scope_reason; leave "fields" empty.` };
@@ -71,11 +76,11 @@ async function processItemInner({ generator, validator, referee = null, item, ra
       const r = res && res.data && res.data.results && res.data.results[0];
       if (r && r.supported === false && (await refereeSays(referee, head, item.item_id)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on ${textMissing ? 'the title and actions, as the text is not published yet' : `the first ${TRIAGE_CHARS} characters of a ${source.length}-character text`})` };
     }
-    return { item_id: item.item_id, outcome: 'held', operation, attempts: 1, entry: null, patch: g.patch || null, verdicts, reason: textMissing ? 'it may be in scope, but the full text is not available yet (not published, or could not be fetched), so nothing can be verified; retried on a later run' : `source too long for automatic processing (${source.length} characters) and it may be in scope, so it needs a person or chunked processing` };
+    return { item_id: item.item_id, outcome: 'held', operation, attempts: 1, entry: null, patch: g.patch || null, verdicts, reason: textMissing ? 'it may be in scope, but the full text is not available yet (not published, or could not be fetched), so nothing can be verified; retried on a later run' : `source too long for automatic processing (${source.length} characters), no section about frontier AI was found in it, and it may be in scope, so it needs a person` };
   }
 
   for (let attempt = 1; attempt <= maxRounds; attempt++) {
-    const g = await generatePatch({ llm: generator, item, source, entry, reasons: diff.reasons, operation, styleExamples, feedback, previousPatch, needsSection });
+    const g = await generatePatch({ llm: generator, item, source: read, entry, reasons: diff.reasons, operation, styleExamples, feedback, previousPatch, needsSection });
     if (!g.patch) { feedback = g.problems; log(`attempt ${attempt}: unusable patch (${g.problems[0]})`); continue; }
     const patch = g.patch;
     if (operation === 'create') {
@@ -91,7 +96,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     if (operation === 'create' && patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let res;
-      try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: scopeClaim }), itemId: item.item_id }); }
+      try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), itemId: item.item_id }); }
       catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
       // Both readers say out, or they disagree: the referee decides. Without a referee, both saying out drops it; a disagreement gets one firm retry.
@@ -102,7 +107,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     }
 
     const asm = assembleEntry({ entry, patch, item, raw, today, runId, rounds: attempt, entries, now });
-    const verdict = await validateDraft({ llm: validator, patch, before: entry, after: asm.entry, assembleProblems: asm.problems, source: item.source, sourceText: source, entries, operation, itemId: item.item_id, run_id: runId, attempt });
+    const verdict = await validateDraft({ llm: validator, patch, before: entry, after: asm.entry, assembleProblems: asm.problems, source: item.source, sourceText: source, readText: read, entries, operation, itemId: item.item_id, run_id: runId, attempt });
     // The reader objects to the scope of an item the generator wrote up: the referee decides, once per item.
     const objection = verdict.claims.find((c) => c.field === 'in_scope' && !c.supported);
     if (objection && referee) {

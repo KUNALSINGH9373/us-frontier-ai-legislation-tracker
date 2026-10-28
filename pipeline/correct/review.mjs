@@ -8,8 +8,9 @@ import { containsQuote, digitRuns, norm } from '../agents/source-text.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { LlmOutputError, InputTooLarge } from '../llm/gemini.mjs';
 import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
+import { relevantSections, SECTION_CHARS } from '../agents/sections.mjs';
 
-export const MAX_SOURCE_CHARS = 110000; // longer texts wait for section-by-section reading
+export const MAX_SOURCE_CHARS = 110000; // longer texts are read section by section (agents/sections.mjs)
 const LIMIT = { mechanism: 700, thresholds: 500, penalties: 500 };
 // Many hand-written fields are already longer than a new entry may be (35 mechanisms over 650 characters): a fix may add up to 200.
 export const limitFor = (f, old) => Math.max(LIMIT[f], String(old || '').length + 200);
@@ -51,10 +52,17 @@ export function checkCorrection({ c, entry, fields, source }) {
 export async function reviewEntry({ reviewer, confirmer, entry, text, url, otherBills = [], log = () => {} }) {
   const itemId = 'correct:' + entry.key, fields = fieldsFor(entry);
   const out = { outcome: 'clean', corrections: [], rejected: [], reason: null };
-  if (text.length > MAX_SOURCE_CHARS) return { ...out, outcome: 'too_long', reason: `the text is ${text.length} characters; it waits for section-by-section reading` };
+  // A longer text (an omnibus bill) is read section by section: the models see only its frontier-AI sections, copied word for word,
+  // and every code check below still runs on the FULL text. With no such section found it stays too long.
+  let read = text;
+  if (text.length > MAX_SOURCE_CHARS) {
+    const sel = relevantSections(text, { maxChars: SECTION_CHARS });
+    if (!sel.chunks.length) return { ...out, outcome: 'too_long', reason: `the text is ${text.length} characters and no section about frontier AI was found in it` };
+    read = sel.text; log(`${entry.key}: text is ${text.length} characters; reading ${sel.selected.length} sections (${read.length} characters)`);
+  }
   try {
     let r;
-    try { r = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: text, url, otherBills }), itemId }); }
+    try { r = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills }), itemId }); }
     catch (e) { if (e instanceof LlmOutputError) return { ...out, outcome: 'error', reason: `the reader gave an unusable answer: ${e.message}` }; throw e; }
     const proposed = ((r.data && r.data.corrections) || []).filter((c) => c && typeof c === 'object');
     const seen = new Set(), failed = [];
@@ -69,7 +77,7 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
     if (failed.length) {
       let again = [];
       try {
-        const r2 = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: text, url, otherBills }) + `\n\nYOUR PREVIOUS CORRECTIONS WERE REFUSED BY CODE. Return corrected versions of ONLY these fields, fixing exactly these problems (or leave a field out if it cannot be fixed):\n${failed.map((f) => `- ${f.c.field}: ${f.problems.join('; ')}\n  your text was: ${String(f.c.new_text || '').slice(0, 1200)}`).join('\n')}`, itemId: itemId + ':rewrite' });
+        const r2 = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills }) + `\n\nYOUR PREVIOUS CORRECTIONS WERE REFUSED BY CODE. Return corrected versions of ONLY these fields, fixing exactly these problems (or leave a field out if it cannot be fixed):\n${failed.map((f) => `- ${f.c.field}: ${f.problems.join('; ')}\n  your text was: ${String(f.c.new_text || '').slice(0, 1200)}`).join('\n')}`, itemId: itemId + ':rewrite' });
         again = ((r2.data && r2.data.corrections) || []).filter((c) => c && typeof c === 'object');
       } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       for (const f of failed) {
@@ -92,7 +100,7 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
   async function confirm(c) {
     let v;
     // Each confirmation is its own item for the per-item token budget: a long bill sends its whole text once per proposed field.
-    try { v = await confirmer.generate({ system: CONFIRMER_SYSTEM, prompt: confirmerPrompt({ source: text, field: c.field, current: entry[c.field], proposed: c.new_text.trim(), problem: c.problem || '' }), itemId: `${itemId}:${c.field}` }); }
+    try { v = await confirmer.generate({ system: CONFIRMER_SYSTEM, prompt: confirmerPrompt({ source: read, field: c.field, current: entry[c.field], proposed: c.new_text.trim(), problem: c.problem || '' }), itemId: `${itemId}:${c.field}` }); }
     catch (e) { if (!(e instanceof LlmOutputError)) throw e; out.rejected.push({ field: c.field, problem: c.problem || '', why: `the confirmer gave an unusable answer (${e.message})` }); return; }
     const d = v.data || {};
     if (d.confirmed !== true) { out.rejected.push({ field: c.field, problem: c.problem || '', why: 'not confirmed: ' + String(d.reason || 'no reason given').slice(0, 300) }); log(`${entry.key} ${c.field}: not confirmed`); return; }
