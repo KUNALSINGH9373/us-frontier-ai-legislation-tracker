@@ -6,7 +6,11 @@
   "mechanism": false,
   "thresholds": false,
   "penalties": false,
-  "new_entries": false
+  "new_entries": false,
+  "relationships": false
+ },
+ "links": {
+  "_note": "The links step of update.mjs (links/run.mjs). For every entry added or changed in a run, code proposes links (a lead sponsor already in the network, a bill amending a tracked law). AI links need a quote from both bills found by code and the validator's agreement. While auto_publish.relationships is off, proposals are only listed in the run report under Links proposed; when on, links/apply.mjs adds them (additions only, checked by publish/guards.mjs). Code-only backtest: node links/backtest.mjs."
  },
  "news_from_official_actions": true,
  "copy_to_docs": true,

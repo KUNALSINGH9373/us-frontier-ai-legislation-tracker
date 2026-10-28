@@ -33,7 +33,8 @@ const CORRECTABLE = new Set(READING_FIELDS);
 
 // newKeys: the entries Tier B added this run (any other new entry stops the run); maxNew: the per-run limit on them.
 // corrected: { entry key: [fields] } the self-correction step changed this run (correct/apply.mjs); only reading fields are allowed.
-export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [], corrected = {} }) {
+// links: { edges, nodes } links/apply.mjs added this run; the network may grow by exactly these and nothing else.
+export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [], corrected = {}, links = null }) {
   const problems = [];
   // 1. every output file passes its schema, and the files agree with each other
   const v = makeValidator();
@@ -76,10 +77,30 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
   const keptNews = after.news.items.filter((x) => oldNews.has(JSON.stringify(x))).length;
   if (keptNews < before.news.items.length) problems.push(`news items deleted or edited: ${before.news.items.length - keptNews}`);
   if ((after.changes.items || []).length < (before.changes.items || []).length) problems.push('change log entries deleted');
-  if (!same(before.relationships, after.relationships)) problems.push('relationships changed: Tier A does not change them');
+  if (!links) { if (!same(before.relationships, after.relationships)) problems.push('relationships changed: Tier A does not change them'); }
+  else checkLinks(before.relationships, after.relationships, links).forEach((p) => problems.push(p));
   // 4. a run that changes too much at once is an anomaly
   if (changed > maxEntries) problems.push(`${changed} entries would change, over the limit of ${maxEntries} per run`);
   // 5. the source text read now is the text fetched at grab time
   rawHashOk.filter((r) => !r.ok).forEach((r) => problems.push(`stored source changed since it was fetched: ${r.item_id}`));
   return { problems, changed };
+}
+
+// The network after a links step: the old network unchanged, plus exactly the edges and nodes links/apply.mjs added, each from the
+// pipeline with a quote and a source URL. Any edit, deletion, reordering or other addition stops the run.
+export function checkLinks(b, a, links) {
+  const problems = [], addE = links.edges || [], addN = links.nodes || {};
+  if (!same(b.types, a.types) || !same(b.columns, a.columns)) problems.push('relationships changed: link types or columns may not change');
+  Object.keys(b.nodes).filter((k) => !same(b.nodes[k], a.nodes[k])).forEach((k) => problems.push(`relationships changed: node ${k} edited or deleted`));
+  Object.keys(a.nodes).filter((k) => !b.nodes[k] && !same(a.nodes[k], addN[k])).forEach((k) => problems.push(`relationships changed: node ${k} was not added by links/apply.mjs`));
+  Object.keys(addN).filter((k) => b.nodes[k]).forEach((k) => problems.push(`relationships changed: added node ${k} already existed`));
+  b.edges.forEach((e, i) => { if (!same(e, a.edges[i])) problems.push(`relationships changed: edge #${i} (${e.from} -> ${e.to}) edited, moved or deleted`); });
+  if (!same(a.edges.slice(b.edges.length), addE)) problems.push('relationships changed: the new edges are not exactly the ones links/apply.mjs added');
+  const pair = (e) => [e.from, e.to].sort().join('|') + '|' + e.type, old = new Set(b.edges.map(pair));
+  addE.forEach((e) => {
+    if (e.origin !== 'automated' || !e.source_url || !e.quote) problems.push(`added link ${e.from} -> ${e.to}: not marked automated with a quote and source URL`);
+    if (old.has(pair(e))) problems.push(`added link ${e.from} -> ${e.to}: the network already has it`);
+    old.add(pair(e));
+  });
+  return problems;
 }

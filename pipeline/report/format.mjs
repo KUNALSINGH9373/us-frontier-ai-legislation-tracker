@@ -68,6 +68,12 @@ export function formatDone(rep, names = {}) {
     L.push(`Self-check: ${c.checked.length} entr${c.checked.length === 1 ? 'y' : 'ies'} re-read against the bill text, ${fixed.length} field${fixed.length === 1 ? '' : 's'} corrected`);
     fixed.forEach((x) => L.push(`- ${clip(names[x.entry_key] || x.entry_key, 40)}, ${x.field} (${x.kind}): ${clip(x.problem, 160)}`));
   }
+  const lk = rep.links;
+  if (lk && (lk.proposed.length || lk.companions.length)) {
+    L.push(`Links proposed: ${lk.proposed.length}${lk.applied.length ? `, ${lk.applied.length} added to the network` : lk.status === 'proposed' ? ' (reported only; adding links is switched off)' : ''}`);
+    lk.proposed.slice(0, 6).forEach((p) => L.push(`- ${clip(p.names[0], 30)} → ${clip(p.names[1], 30)}: ${clip(p.label, 80)}`));
+    lk.companions.forEach((x) => L.push(`- companion bill: ${clip(names[x.entry_key] || x.entry_key, 40)} = ${x.bill} (${x.companion_of})`));
+  }
   L.push(costLine(rep), queriesLine(rep));
   const w = watchLines(rep);
   if (w.length) L.push('', ...w);
