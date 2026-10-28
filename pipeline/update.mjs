@@ -28,12 +28,12 @@ import { compareRun } from './compare/run.mjs';
 import { publishRun, loadData, writeData, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } from './publish/run.mjs';
 import { checkPublish } from './publish/guards.mjs';
 import { runAgents } from './agents/run.mjs';
-import { correctRun } from './correct/run.mjs';
+import { correctRun, summaryOf as correctSummary } from './correct/run.mjs';
 import { linkRun } from './links/run.mjs';
 import { courtsRun } from './publish/courts.mjs';
 import { createRateLimiter } from './grabber/sources/courtlistener.mjs';
 import { createHttp } from './grabber/lib/http.mjs';
-import { newsRun } from './news/run.mjs';
+import { newsRun, summaryOf as newsSummary } from './news/run.mjs';
 import { makeValidator } from './schema/validate.mjs';
 import { loadEnv } from './grabber/lib/env.mjs';
 import { STATE_DIR, WORK_DIR, PROMOTED_STATE, LEGISCAN_USAGE_FILE, LEDGER_DIR, forgetItem } from './grabber/lib/state.mjs';
@@ -108,7 +108,7 @@ export const isLimit = (p) => /^\d+ (entries would change|new entries), over the
 export function overLimit({ before, after, maxEntries, maxNew = 0 }) {
   const old = new Map(before.entries.map((e) => [e.key, e])), evKey = (v) => `${v.date}|${v.type}|${v.text}`;
   const rank = (o, e) => { const had = new Set(((o && o.events) || []).map(evKey)); return Math.max(0, ...(e.events || []).filter((v) => !had.has(evKey(v))).map((v) => actionRank(v.text, e.level === 'state' ? 'legiscan' : 'congress_gov'))); };
-  const order = (list) => list.map((e) => ({ key: e.key, r: rank(old.get(e.key), e) })).sort((a, b) => b.r - a.r || a.key.localeCompare(b.key)).map((x) => x.key);
+  const order = (list) => list.map((e) => ({ key: e.key, r: rank(old.get(e.key), e) })).sort((a, b) => b.r - a.r || (a.key < b.key ? -1 : a.key > b.key ? 1 : 0)).map((x) => x.key);
   const changed = after.entries.filter((e) => old.has(e.key) && JSON.stringify(old.get(e.key)) !== JSON.stringify(e)), added = after.entries.filter((e) => !old.has(e.key));
   return [...order(changed).slice(maxEntries), ...order(added).slice(maxNew)];
 }
@@ -293,8 +293,17 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
     const held = readJson(S.stateFile(HELD_FILE), { items: {} }); held.items = held.items || {};
     const heldNow = [], tried = new Set(), isDue = (h) => heldDue(h, startedAt);
     // A held grabber item is fetched again by the next grab (its hash and cursor forgotten in the staged state, promoted with the run).
+    // Before it is due, a held item is not fetched again every run (a new bill would be re-read by the AI step 6 times a day): its hash
+    // and cursor are forgotten only by the last run before it is due (the next run, config.run_interval_hours later, finds it due).
+    const dueNext = (h) => isDue(h) || heldDue(h, new Date(+startedAt + (config.run_interval_hours ?? 4) * 3600e3));
     const forget = (h) => { if (h.item_id) forgetItem(S.stateDir, { item_id: h.item_id, raw: h.replay ? h.replay.raw : null, change: h.replay && h.replay.item ? h.replay.item.change : null, title: h.replay && h.replay.item ? h.replay.item.title : null, today }); };
+    // Expired items (held.expired: { "<item id>": { step, raw_hash, date } }): an item refused again with the same raw hash it expired
+    // with is left out without being held, forgotten or reported again (reported once, at expiry); a changed record is a new item.
+    held.expired = held.expired || {};
     const hold = (x, reason) => {
+      const exp = x.item_id && held.expired[x.item_id], hash = x.replay && x.replay.item ? x.replay.item.raw_hash || null : null;
+      if (exp && exp.raw_hash && hash === exp.raw_hash) return null;
+      if (exp) delete held.expired[x.item_id];
       const same = Object.entries(held.items).filter(([, h]) => (x.item_id ? h.item_id === x.item_id : !h.item_id && h.entry_key === x.entry_key && h.step === x.step));
       const prev = same.map(([, h]) => h).sort((a, b) => a.first_seen.localeCompare(b.first_seen))[0];
       same.forEach(([id]) => delete held.items[id]);
@@ -362,13 +371,13 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
         const d = runDiff.find((x) => x.item_id === h.item_id);
         if (!d) continue;
         seenFresh.add(h.item_id);
-        if (d.verdict === 'new_entry_candidate' && !runResults.some((x) => x.item_id === h.item_id)) { h.replay = replayOf(runDir, h.item_id) || h.replay; forget(h); continue; }
+        if (d.verdict === 'new_entry_candidate' && !runResults.some((x) => x.item_id === h.item_id)) { h.replay = replayOf(runDir, h.item_id) || h.replay; if (dueNext(h)) forget(h); continue; }
         delete held.items[hid];
         rep.notes.push(`held item ${h.item_id} (${h.step}) was fetched again and has nothing left to publish (${d.verdict === 'new_entry_candidate' ? 'the AI step did not find it publishable' : 'no material change'}); no longer held`);
       }
       const waiting = Object.values(held.items).filter((h) => h.item_id && runItems.has(h.item_id));
-      // not due yet: left out, its fresh copy stored, and fetched again by the next grab (this grab recorded it as seen)
-      waiting.filter((h) => !isDue(h)).forEach((h) => { const rp = replayOf(runDir, h.item_id); if (rp) h.replay = rp; forget(h); });
+      // not due yet: left out, its fresh copy stored, and fetched again by the grab of the run it is due in (forgotten the run before)
+      waiting.filter((h) => !isDue(h)).forEach((h) => { const rp = replayOf(runDir, h.item_id); if (rp) h.replay = rp; if (dueNext(h)) forget(h); });
       const skip = waiting.filter((h) => !isDue(h)).map((h) => h.item_id);
       waiting.filter(isDue).forEach((h) => tried.add(heldId(h)));
       let r;
@@ -396,6 +405,8 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
 
     // ---- 4'. held items due for another try that no grabber run brought again: each published alone from its stored copy while that
     // copy is less than a day old; an older one (or none) is not used: the item waits for the grab to fetch it again (forgotten when held)
+    // held items not due this run but due on the next one, which no grab brought this run: forgotten now, so the next grab fetches them
+    Object.values(held.items).filter((x) => x.item_id && !isDue(x) && dueNext(x) && !seenFresh.has(x.item_id) && !heldNow.includes(x)).forEach(forget);
     for (const [hid, h] of Object.entries(held.items).filter(([, x]) => x.item_id && isDue(x) && !seenFresh.has(x.item_id) && !heldNow.includes(x))) {
       if (!freshReplay(h.replay, startedAt)) { forget(h); continue; }
       step = 'publish (held items)';
@@ -512,10 +523,15 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
         (nw.drafted || []).forEach((d) => { if (reverted.has(d.tracker)) d.written = false; });
         for (let i = published.length - 1; i >= 0; i--) {
           const pk = partKeys[i];
+          if (published[i] === 'news' || published[i] === 'self-correction') continue; // rebuilt below from what is still promoted
           if (!pk || !pk.some((k) => reverted.has(k))) continue;
           if (pk.every((k) => reverted.has(k))) { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); }
           else summaries[i] = trimSummary(summaries[i], new Set(pk.filter((k) => reverted.has(k))));
         }
+        // news and self-correction: their summaries are rebuilt from the items still written / the corrections not put back
+        const rebuild = (label, text) => { const i = published.indexOf(label); if (i < 0) return; if (text) summaries[i] = text; else { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); } };
+        if (c.status === 'written') { const left = rep.corrections.corrected; rebuild('self-correction', left.length ? correctSummary({ ...rep.corrections, corrected: left }) : null); }
+        if (nw.status === 'written') rebuild('news', (nw.drafted || []).some((d) => d.written) ? newsSummary(nw) : null);
         if (linksOn && !linksAllowance(loadData(S.v2)).edges.length) {
           linksOn = false; rep.links = { ...l, status: 'held', applied: [] };
           const i = published.indexOf('links'); if (i >= 0) { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); }
@@ -559,9 +575,17 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
       // Nothing stays held for ever: an item still held HELD_DAYS after it was first seen is dropped, and the report says so.
       Object.entries(held.items).filter(([, h]) => +startedAt - Date.parse(h.first_seen) >= HELD_DAYS * 86400e3).forEach(([id, h]) => {
         delete held.items[id];
-        rep.notes.push(`held item ${h.item_id || h.entry_key || h.step} (${h.step}) expired: still not published ${HELD_DAYS} days after it was first held (${h.first_seen.slice(0, 10)}, ${h.tries} tr${h.tries === 1 ? 'y' : 'ies'}); dropped from state/held-items.json. Last reason: ${h.reason}`);
+        const hash = h.replay && h.replay.item ? h.replay.item.raw_hash || null : null;
+        if (h.item_id) held.expired[h.item_id] = { step: h.step, raw_hash: hash, date: today };
+        const then = !h.item_id ? 'it is not retried again'
+          : hash ? `while its source record stays unchanged (raw hash ${hash.slice(0, 12)}) it is left out of every run without being held or reported again; if the record changes it is treated as a new item`
+          : 'no stored copy, so the next time it is fetched it is treated as a new item';
+        rep.notes.push(`held item ${h.item_id || h.entry_key || h.step} (${h.step}) expired, needs attention: still not published ${HELD_DAYS} days after it was first held (${h.first_seen.slice(0, 10)}, ${h.tries} tr${h.tries === 1 ? 'y' : 'ies'}); dropped from the held list in state/held-items.json${h.item_id ? ' and recorded there as expired' : ''}; ${then}. Last reason: ${h.reason}`);
       });
-      if (Object.keys(held.items).length || fs.existsSync(S.stateFile(HELD_FILE))) fs.writeFileSync(S.stateFile(HELD_FILE), JSON.stringify(held, null, 1) + '\n');
+      // expiry markers are kept a year, then forgotten
+      Object.entries(held.expired).filter(([, m]) => +startedAt - Date.parse(m.date) >= 365 * 86400e3).forEach(([id]) => delete held.expired[id]);
+      if (!Object.keys(held.expired).length) delete held.expired;
+      if (Object.keys(held.items).length || held.expired || fs.existsSync(S.stateFile(HELD_FILE))) fs.writeFileSync(S.stateFile(HELD_FILE), JSON.stringify(held, null, 1) + '\n');
       rep.stops = Object.values(held.items).map(({ replay, ...h }) => h);
       if (heldNow.length) rep.notes.push(`${heldNow.length} item(s) refused by a stop rule and held (state/held-items.json): ${heldNow.map((h) => `${h.item_id || h.entry_key || h.step} at ${h.step}`).join(', ')}; everything else was promoted`);
 
