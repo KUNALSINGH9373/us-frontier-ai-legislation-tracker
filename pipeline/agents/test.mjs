@@ -382,5 +382,17 @@ const runEo = (o) => processItem({ item: itemEo, raw: eo, diff: diffEo, entry: n
   ok('assembling an update with no existing entry is an error', asm.entry === null && asm.problems.length === 1);
 }
 
+// ---------- a new STATE bill (LegiScan): scope only, never a crash, never drafted yet ----------
+{
+  const raw = { bill: { state: 'CT', bill_number: 'SB00086', title: 'An Act Addressing Innovations In And The Responsible Use Of Artificial Intelligence.', description: 'Frontier developer safety duties.', history: [{ date: '2026-02-10', action: 'Referred to Joint Committee on General Law' }] }, text: 'Section 1. A frontier developer shall publish a safety framework. '.repeat(20) };
+  const item = { item_id: 'legiscan:2107947', source: 'legiscan', source_id: '2107947', source_url: 'https://www.cga.ct.gov/', fetched_at: '2026-10-28T07:00:00Z' };
+  const diff = { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'new_entry_candidate', detail: 'New state bill CT SB00086' }] };
+  ok('a LegiScan record is readable', /Bill: CT SB00086/.test(sourceText(raw, 'legiscan')) && /2026-02-10: Referred/.test(sourceText(raw, 'legiscan')));
+  const inScope = await processItem({ generator: scriptedGenerator([{ operation: 'create', in_scope: true, scope_reason: 'Duties on frontier developers.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator(), item, raw, diff, entries, today: '2026-10-28', runId: 'run-test' });
+  ok('a state bill that may be in scope waits, reported, and is not drafted', inScope.outcome === 'held' && /state bill/.test(inScope.reason) && inScope.entry === null);
+  const out = await processItem({ generator: scriptedGenerator([{ operation: 'create', in_scope: false, scope_reason: 'Workforce study only, no frontier duties.', fields: {}, events_add: [], evidence: [] }]), validator: scriptedValidator({ unsupported: { in_scope: 'not about frontier AI' } }), item, raw, diff, entries, today: '2026-10-28', runId: 'run-test' });
+  ok('a state bill both readers rule out is dropped', out.outcome === 'out_of_scope');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

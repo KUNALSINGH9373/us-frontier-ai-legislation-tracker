@@ -59,25 +59,28 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   let feedback = [], previousPatch = null, last = null, scopeRetries = 0, scopeObjections = 0, refereeIn = null;
   const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, read, item.item_id)) : refereeIn);
 
-  const needsSection = operation === 'create' && !deriveCreate({ item, raw }).section;
+  const needsSection = operation === 'create' && item.source !== 'legiscan' && !deriveCreate({ item, raw }).section; // state bills stop at the scope call below
 
   // Two cases cannot be written up yet: a new bill whose text is not published (or could not be fetched), so nothing can be described or
   // checked; and a very long source in which no frontier-AI section was found, so it cannot be sent whole or in part. In both, whether
   // the item is about frontier AI is usually clear from what we have (the title and actions, or the opening of the text). If both readers say it is out of scope we are done;
   // otherwise it is held and retried (text not yet available) or waits for a person (too long).
   const textMissing = operation === 'create' && (raw.text_missing === true || (item.source === 'congress_gov' && !raw.text));
-  if (operation === 'create' && (textMissing || (source.length > TRIAGE_OVER && read === source))) {
-    const head = source.slice(0, TRIAGE_CHARS);
-    const why = textMissing ? 'the bill text is not published yet, so only its title and actions are shown' : `it is cut off after its first ${TRIAGE_CHARS} characters because the full text is ${source.length} characters`;
+  // A new STATE bill: the scope call is made on its text, but the entry is not written yet (new state entries are a later step), so it is
+  // dropped when both readers rule it out and otherwise waits, reported, until state drafting is built.
+  const stateBill = operation === 'create' && item.source === 'legiscan' && !textMissing;
+  if (operation === 'create' && (textMissing || stateBill || (source.length > TRIAGE_OVER && read === source))) {
+    const head = stateBill ? read.slice(0, TRIAGE_OVER) : source.slice(0, TRIAGE_CHARS);
+    const why = stateBill ? 'this is a state bill: decide its scope only; the entry is written in a later step' : textMissing ? 'the bill text is not published yet, so only its title and actions are shown' : `it is cut off after its first ${TRIAGE_CHARS} characters because the full text is ${source.length} characters`;
     const note = { kind: 'candidate', detail: `NOTE: SOURCE below is incomplete: ${why}. Decide ONLY in_scope and scope_reason; leave "fields" empty.` };
     const g = await generatePatch({ llm: generator, item, source: head, entry, reasons: [...diff.reasons, note], operation, styleExamples: [], feedback: [], previousPatch: null });
     if (g.patch && g.patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let res; try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: head, claims: scopeClaim }), itemId: item.item_id }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
-      if (r && r.supported === false && (await refereeSays(referee, head, item.item_id)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on ${textMissing ? 'the title and actions, as the text is not published yet' : `the first ${TRIAGE_CHARS} characters of a ${source.length}-character text`})` };
+      if (r && r.supported === false && (await refereeSays(referee, head, item.item_id)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on ${stateBill ? 'the bill text' : textMissing ? 'the title and actions, as the text is not published yet' : `the first ${TRIAGE_CHARS} characters of a ${source.length}-character text`})` };
     }
-    return { item_id: item.item_id, outcome: 'held', operation, attempts: 1, entry: null, patch: g.patch || null, verdicts, reason: textMissing ? 'it may be in scope, but the full text is not available yet (not published, or could not be fetched), so nothing can be verified; retried on a later run' : `source too long for automatic processing (${source.length} characters), no section about frontier AI was found in it, and it may be in scope, so it needs a person` };
+    return { item_id: item.item_id, outcome: 'held', operation, attempts: 1, entry: null, patch: g.patch || null, verdicts, reason: stateBill ? 'a state bill that may be in scope; new state entries are not written automatically yet, so it is reported and waits' : textMissing ? 'it may be in scope, but the full text is not available yet (not published, or could not be fetched), so nothing can be verified; retried on a later run' : `source too long for automatic processing (${source.length} characters), no section about frontier AI was found in it, and it may be in scope, so it needs a person` };
   }
 
   for (let attempt = 1; attempt <= maxRounds; attempt++) {

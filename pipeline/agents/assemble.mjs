@@ -13,10 +13,11 @@ const CREATE_REQUIRED = ['title', 'short_name', 'section', 'sponsor_text', 'mech
 export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, rounds, entries = [], now = new Date() }) {
   let patch = patchIn;
   const problems = [], source = item.source;
-  const sourceRef = { label: source === 'congress_gov' ? `Congress.gov record: ${(raw.bill && raw.bill.title) || item.source_id}` : `Federal Register: ${(raw.document && raw.document.title) || item.source_id}`, url: item.source_url, kind: 'primary', retrieved_at: item.fetched_at };
+  const sourceRef = { label: source === 'congress_gov' ? `Congress.gov record: ${(raw.bill && raw.bill.title) || item.source_id}` : source === 'legiscan' ? `${(raw.bill && raw.bill.state) || 'State'} Legislature record: ${(raw.bill && raw.bill.title) || item.source_id}` : `Federal Register: ${(raw.document && raw.document.title) || item.source_id}`, url: item.source_url, kind: 'primary', retrieved_at: item.fetched_at };
   const identifiers = (base) => {
     const id = clone(base || { external: {} }); id.external = id.external || {};
     if (source === 'congress_gov') id.external.congress_gov = [...new Set([...(id.external.congress_gov || []), item.source_id])];
+    else if (source === 'legiscan') id.external.legiscan = [...new Set([...(id.external.legiscan || []), Number(item.source_id)])];
     else id.external.federal_register_doc = item.source_id;
     if (source === 'congress_gov' && !id.session) id.session = '119th Congress';
     return id;

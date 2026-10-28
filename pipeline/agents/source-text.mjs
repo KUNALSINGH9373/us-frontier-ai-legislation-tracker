@@ -25,6 +25,12 @@ function rawSourceText(raw, source) {
     return [`Title: ${d.title || ''}`, `Type: ${d.type || ''}`, `Published: ${d.publication_date || ''}`, d.signing_date ? `Signed: ${d.signing_date}` : '', d.executive_order_number ? `Executive Order ${d.executive_order_number}` : '',
       `Agencies: ${(d.agency_names || []).join(', ')}`, d.effective_on ? `Effective: ${d.effective_on}` : '', stripTags(d.abstract), raw.text || ''].filter(Boolean).join('\n');
   }
+  if (source === 'legiscan') {
+    // A state bill as the grabber stores it: LegiScan's record (title, description, history) and the bill's own text.
+    const b = raw.bill || {};
+    return [`Title: ${b.title || ''}`, `Bill: ${b.state || ''} ${b.bill_number || ''}`, b.description && b.description !== b.title ? `Description: ${b.description}` : '',
+      ...(b.sponsors || []).map((s) => `Sponsor: ${s.name || ''}`), ...(b.history || []).map((h) => `${h.date}: ${h.action}`), raw.text || ''].filter(Boolean).join('\n');
+  }
   throw new Error('no source reader for ' + source);
 }
 
