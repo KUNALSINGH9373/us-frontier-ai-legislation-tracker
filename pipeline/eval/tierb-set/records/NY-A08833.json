@@ -1,0 +1,302 @@
+{
+ "item": {
+  "item_id": "legiscan:2036382",
+  "source": "legiscan",
+  "source_id": "2036382",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+  "raw_hash": "81c55e30105febc7c7fbebe5d9e36254e81751c4084a879e15615c0b77e2538f",
+  "raw_path": "raw/legiscan/NY-A08833-2036382.json",
+  "title": "NY A08833: Establishes understanding artificial intelligence responsibility act requiring developers of covered models to be strictly liable for certain injuries.",
+  "from_run": "run-20261013-0714-e97e"
+ },
+ "raw": {
+  "id": "2036382",
+  "search_hit": {
+   "search": "wide",
+   "relevance": 16,
+   "intent": {
+    "verdict": "yes",
+    "reason": "Strict liability for developers of covered models",
+    "by": "model"
+   }
+  },
+  "bill": {
+   "bill_id": 2036382,
+   "change_hash": "aaf0b6cd69fd7e69f5db99cfb538da70",
+   "session_id": 2188,
+   "session": {
+    "session_id": 2188,
+    "state_id": 32,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 General Assembly"
+   },
+   "url": "https://legiscan.com/NY/bill/A08833/2025",
+   "state_link": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2025-06-09",
+   "progress": [
+    {
+     "date": "2025-06-09",
+     "event": 1
+    },
+    {
+     "date": "2025-06-09",
+     "event": 9
+    },
+    {
+     "date": "2026-01-07",
+     "event": 9
+    }
+   ],
+   "state": "NY",
+   "state_id": 32,
+   "bill_number": "A08833",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "A",
+   "body_id": 73,
+   "current_body": "A",
+   "current_body_id": 73,
+   "title": "Establishes understanding artificial intelligence responsibility act requiring developers of covered models to be strictly liable for certain injuries.",
+   "description": "Establishes understanding artificial intelligence responsibility act requiring developers of covered models to be strictly liable for certain injuries.",
+   "pending_committee_id": 4506,
+   "committee": {
+    "committee_id": 4506,
+    "chamber": "A",
+    "chamber_id": 73,
+    "name": "Science and Technology"
+   },
+   "referrals": [
+    {
+     "date": "2025-06-09",
+     "committee_id": 4506,
+     "chamber": "A",
+     "chamber_id": 73,
+     "name": "Science and Technology"
+    }
+   ],
+   "history": [
+    {
+     "date": "2025-06-09",
+     "action": "referred to science and technology",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    },
+    {
+     "date": "2026-01-07",
+     "action": "referred to science and technology",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 24191,
+     "person_hash": "ocl3pxow",
+     "party_id": "1",
+     "state_id": 32,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Alex Bores",
+     "first_name": "Alex",
+     "middle_name": "",
+     "last_name": "Bores",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-073",
+     "ftm_eid": 55582620,
+     "votesmart_id": 207522,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Alex_Bores",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "518-455-4794",
+       "district_phone": "212-605-0937",
+       "email": "boresa@nyassembly.gov",
+       "webmail": "",
+       "biography": "https://nyassembly.gov/mem/Alex-Bores",
+       "image": "https://nyassembly.gov/write/upload/member_files/073/headshot/073.jpg",
+       "ballotpedia": "https://ballotpedia.org/Alex_Bores",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/207522"
+      },
+      "capitol_address": {
+       "address1": "198 State St",
+       "address2": "Legislative Office Bldg. Room  431",
+       "city": "Albany ",
+       "state": "NY",
+       "zip": "12248"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "https://www.tiktok.com/@alexbores",
+        "twitter": "",
+        "website": "https://nyassembly.gov/mem/Alex-Bores",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/AlexWBores",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/alexbores/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 24195,
+     "person_hash": "2dphwypw",
+     "party_id": "1",
+     "state_id": 32,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Tony Simone",
+     "first_name": "Tony",
+     "middle_name": "",
+     "last_name": "Simone",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-075",
+     "ftm_eid": 55761294,
+     "votesmart_id": 207526,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Tony_Simone",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 2,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "518-455-4941",
+       "district_phone": "212-807-7900",
+       "email": "simonet@nyassembly.gov",
+       "webmail": "",
+       "biography": "https://nyassembly.gov/mem/Tony-Simone",
+       "image": "https://nyassembly.gov/write/upload/member_files/075/headshot/075.jpg",
+       "ballotpedia": "https://ballotpedia.org/Tony_Simone",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/207526"
+      },
+      "capitol_address": {
+       "address1": "198 State St",
+       "address2": "Legislative Office Bldg. Room  326",
+       "city": "Albany",
+       "state": "NY",
+       "zip": "12248"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://nyassembly.gov/mem/Tony-Simone",
+        "youtube": "https://www.youtube.com/@AM_TonySimone"
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/tony.simone.520",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/tonysimone/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3253556,
+     "date": "2025-06-09",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/NY/text/A08833/id/3253556",
+     "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#A08833",
+     "text_size": 7137,
+     "text_hash": "589f5afda2bc5703ed90deee905aa775",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [],
+   "amendments": [],
+   "supplements": [],
+   "calendar": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2025-06-09",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "referred to science and technology",
+     "chamber": "A"
+    },
+    {
+     "date": "2026-01-07",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "referred to science and technology",
+     "chamber": "A"
+    }
+   ]
+  },
+  "text": "Bill Search and Legislative Information | New York State Assembly \r\n\r\n\n\r\n\r\n\r\n\r\nSkip to main content\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nNew York State Assembly\r\nSpeaker Carl E. Heastie\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n-->\r\n-->\r\n\r\n-->\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nAssembly Members\r\n\r\nLegislative Info\r\n\r\nPublic Hearings\r\n\r\nSpeaker's Press\r\n\r\nAssembly Reports\r\n\r\nCommittees & More\r\n\r\n\r\n\r\nBill Search HomeLawsLegislative CalendarPublic Hearing ScheduleAssembly CalendarsAssembly Committee Agenda\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nJavascript must be enabled to properly view this page.\r\n\r\n\r\n\r\n\n\r\n\r\nBill No.: \r\n\r\n\r\n\r\nSummary Actions Committee&nbspVotes Floor&nbspVotes Memo Text LFIN Chamber&nbspVideo/Transcript \r\nA08833 Summary:BILL NOA08833 &nbspSAME ASNo Same As&nbspSPONSORBores&nbspCOSPNSRSimone&nbspMLTSPNSR&nbspAdd Art 45-A &sect;&sect;1510 - 1512, Gen Bus L&nbspEstablishes understanding artificial intelligence responsibility act requiring developers of covered models to be strictly liable for certain injuries.Go to top A08833 Actions:BILL NOA08833 &nbsp06/09/2025referred to science and technology01/07/2026referred to science and technologyGo to topA08833 Committee&nbspVotes:Go to topA08833 Floor&nbspVotes:There are no Assembly votes for this bill in this legislative session.Go to topA08833 Text:\n\nSTATE OF NEW YORK\n________________________________________________________________________\n\n8833\n\n2025-2026 Regular Sessions\n\nIN ASSEMBLY\n\nJune 9, 2025\n___________\n\nIntroduced by M. of A. BORES -- read once and referred to the Committee\non Science and Technology\n\nAN ACT to amend the general business law, in relation to establishing\nthe understanding artificial intelligence act\n\nThe People of the State of New York, represented in Senate and Assem-\nbly, do enact as follows:\n\n1 Section 1. The general business law is amended by adding a new article\n2 45-A to read as follows:\n3 ARTICLE 45-A\n4 UNDERSTANDING ARTIFICIAL INTELLIGENCE\n5 ACT\n6 Section 1510. Short title.\n7 1511. Definitions.\n8 1512. Artificial intelligence; liability for injuries.\n9 § 1510. Short title. This act shall be known and may be cited as the\n10 \"understanding artificial intelligence act\".\n11 § 1511. Definitions. For purposes of this article, the following terms\n12 shall have the following meanings:\n13 1. \"Artificial intelligence\" means an engineered or machine-based\n14 system that varies in its level of autonomy and that can, for explicit\n15 or implicit objectives, infer from the input it receives how to generate\n16 outputs that can influence physical or virtual environments.\n17 2. \"Covered model\" means an artificial intelligence model trained\n18 using a quantity of computing power greater than 10�26 integer or float-\n19 ing-point operations, the cost of which exceeds one hundred million\n20 dollars when calculated using the average market prices of cloud compute\n21 at the start of training as reasonably assessed by the developer.\n22 3. \"Developer\" means a person that performs the initial training of a\n23 covered model by training a model using a sufficient quantity of comput-\n24 ing power and cost.\n\nEXPLANATION--Matter in italics (underscored) is new; matter in brackets\n[ ] is old law to be omitted.\nLBD02147-04-5\n\nA. 8833 2\n\n1 4. \"Fine-tuning\" means adjusting the model weights of a trained\n2 covered model by exposing it to additional data.\n3 § 1512. Artificial intelligence; liability for injuries. 1. Except\n4 with respect to any causes of action for defamation, developers of\n5 covered models shall be strictly liable, regardless of the degree of\n6 care they exercised, for all injuries to a non-user of the covered model\n7 that satisfy the actual harm element of an ordinary negligence claim if:\n8 (a) those injuries are factually and proximately caused by a covered\n9 model that engages in conduct that, if undertaken by an adult human of\n10 sound mind, would satisfy the elements of negligence or any intentional\n11 tort or crime; and\n12 (b) that conduct was neither intended nor could have been reasonably\n13 anticipated by: (i) the user of the model; or (ii) any intermediary that\n14 fine-tuned, scaffolded, or otherwise modified the model.\n15 2. (a) For the purposes of this section, for any torts for which the\n16 mental state of the alleged tortfeasor is relevant to elements of the\n17 tort, there shall be a rebuttable presumption that the artificial intel-\n18 ligence system satisfies the relevant mental state if the finder of fact\n19 determines by a preponderance of the evidence that, if a natural person\n20 under similar circumstances to the artificial intelligence system took\n21 actions similar to those taken by the artificial intelligence system,\n22 that natural person would have acted with the relevant mental state.\n23 (b) Unless the court determines that the presumption established in\n24 paragraph (a) of this subdivision is not applicable, if the party\n25 against whom the presumption is invoked presents evidence tending to\n26 rebut the presumption established in paragraph (a) of this subdivision,\n27 the court shall instruct the finder of fact to find that the presumed\n28 facts exist unless the finder of fact is persuaded that the presumed\n29 facts do not exist.\n30 (c) For the purposes of this section, it shall not be a defense that\n31 artificial intelligence systems are incapable of having mental states.\n32 3. (a) It shall be an affirmative defense to strict liability if the\n33 developer establishes that the covered model satisfied the standard of\n34 care applicable to humans who perform the same function that the covered\n35 model was engaged in performing when its conduct allegedly caused the\n36 plaintiff's injury.\n37 (b) It shall be an affirmative defense to strict liability if the\n38 developer establishes that the injuries to a non-user as described in\n39 this section were a result of a capabilities failure, in which a covered\n40 model falls short of performing the intended or reasonably anticipated\n41 performance of the user, but the conduct of the system would not satisfy\n42 the elements of negligence or any intentional tort or crime if engaged\n43 in by an adult human of sound mind.\n44 § 2. This act shall take effect immediately.\n\nGo to top \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nSitemap\r\n\r\n\r\n\r\n\r\nRequest Information\r\n\r\n\r\n\r\n\r\nDirections and Maps",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3253556,
+   "date": "2025-06-09",
+   "type": "Introduced",
+   "mime": "text/html; charset=utf-8",
+   "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#A08833",
+   "from": "official"
+  },
+  "frontier_markers": []
+ }
+}

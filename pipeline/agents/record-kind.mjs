@@ -15,6 +15,7 @@ const RESOLUTION_TEXT = /\b(?:(?:HOUSE|SENATE|ASSEMBLY|JOINT|CONCURRENT)\s+)?R\s
 const RESOLUTION_FORM = /^\s*(?:(?:a|an)\s+)?(?:(?:house|senate|assembly|joint|concurrent|legislative|simple)\s+)*resolution\b|\b(?:house|senate|assembly|joint|concurrent)\s+(?:joint\s+|concurrent\s+)?resolution\b/i;
 const MEMORIAL_FORM = /^\s*(?:(?:a|an)\s+)?(?:(?:house|senate|assembly|joint|concurrent)\s+)*memorial\b(?!\s+(?:highway|bridge|road|park|day|hospital|fund))|\b(?:house|senate|assembly)\s+(?:joint\s+|concurrent\s+)?memorial\b/i;
 const MEMORIAL_HEAD = /\b(?:HOUSE|SENATE|ASSEMBLY|JOINT|CONCURRENT)\s+(?:JOINT\s+|CONCURRENT\s+)?MEMORIAL\b/;
+const RESOLUTION_TITLE = /^\s*(?:urg(?:es|ing)\b|memoriali[sz]\w*|request(?:s|ing)\s+(?:the\s+)?(?:congress|federal|president|united\s+states|governor)|express(?:es|ing)\s+(?:support|opposition|the\s+sense|gratitude|concern)|commend\w*|congratulat\w*|recogni[sz](?:es|ing)\s+(?:the\s+)?(?:week|month|day|importance)|proclaim\w*|designat(?:es|ing)\b[^.;]{0,80}\b(?:day|week|month)\b)/i;
 const RESOLVED_CLAUSE = /\bBE\s+IT\s+(?:FURTHER\s+)?RESOLVED\b|\bRESOLVED\b|\bResolved,\s+That\b/;
 
 // 'bill' | 'resolution' | 'memorial' | 'other' (an executive order, a petition, a study request ...).
@@ -23,13 +24,20 @@ export function measureKind(bill = {}, text = '') {
   // resolution or memorial is one whatever bill_type_id says (code review S3). These are state numbering rules: this function is only
   // used on LegiScan (state) records, never on a Congress "H.R." bill (code review S2).
   const n = String(bill.bill_number || '').toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([A-Z]+)0+/, '$1');
-  if (RESOLUTION_NUMBER.test(n) || /^LR\d+[A-Z]?$/.test(n)) return 'resolution';
+  // Round 4: Virginia's and Montana's joint resolutions are numbered "HJ 45" / "SJ 12", Michigan's by letter ("HJR A", "SJR B").
+  if (RESOLUTION_NUMBER.test(n) || /^LR\d+[A-Z]?$/.test(n) || /^[HS]J\d+$/.test(n) || /^[HS](?:J|C)R[A-Z]{1,2}$/.test(n)) return 'resolution';
   if (MEMORIAL_NUMBER.test(n)) return 'memorial';
   // An explicit resolution or memorial form wins over "a bill" / "an act" in the opening (round 3, audit item 8: a memorial "urging
   // Congress to enact a bill" is still a memorial): a title that names the form, a MEMORIAL heading, or the resolving clause.
   const head = String(text).slice(0, 1500), title = String(bill.title || '');
   if (MEMORIAL_FORM.test(title) || MEMORIAL_HEAD.test(head)) return 'memorial';
   if (RESOLUTION_FORM.test(title) || RESOLVED_CLAUSE.test(head)) return 'resolution';
+  // Round 4: a resolution typed and numbered as a bill (a LegiScan typing error, or a header the text reader lost): the resolving clause
+  // anywhere in the text, in any case ("Be It\nResolved by the Senate", after two pages of "Whereas" clauses), with no enacting clause;
+  // or a title in the resolution form ("Urges ...", "Memorializes ...", "Expresses support ...", "Requests the Federal government ...").
+  const all = String(text);
+  if (/\bbe\s+it\s+(?:further\s+)?resolved\b|\bresolved\s+by\s+the\s+(?:senate|house|assembly|general\s+assembly|legislature)\b|\bresolved,\s+that\b/i.test(all) && !/\bbe\s+it\s+enacted\b|\bdo\s+enact\s+as\s+follows\b|\benacts?\s+as\s+follows\b/i.test(all)) return 'resolution';
+  if (RESOLUTION_TITLE.test(title)) return 'resolution';
   if (RESOLUTION_TEXT.test(head) && !/\bA\s+BILL\b|\bAN\s+ACT\b/i.test(head)) return 'resolution';
   const t = Number(bill.bill_type_id);
   if (BILL_TYPES.has(t)) return 'bill';
@@ -69,12 +77,33 @@ export function federalRefusals(item = {}, raw = {}) {
   const t = federalType(item, raw), title = String((raw.bill && raw.bill.title) || item.title || '');
   if (FEDERAL_RESOLUTION_TYPES.has(t)) return [`a ${FEDERAL_RES_LABEL[t]} resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)`];
   if (/^\s*(?:a|an)\s+(?:joint\s+|concurrent\s+)?resolution\b/i.test(title)) return ['titled as a resolution, not a bill: sections D and F hold bills only (reported)'];
-  return [];
+  return subjectRefusals(title);
+}
+
+// ---------- round 4: measures that are never a new entry, by their own title ----------
+// A budget or appropriations bill (NY A10000 / S09000, "Makes appropriations for the support of government - State Operations Budget",
+// funds "the regulation of certain developers of AI frontier models"), a defence authorization act, and a bill that only extends a sunset
+// or makes technical corrections: an AI provision inside such a measure is section I (provisions inside broader laws) or an update of the
+// law it amends, never a new A, B, B.2, C, D or F entry. Held (reported), no AI spent.
+// A substantive bill "making an appropriation therefor" is not a budget bill: the title must BE the appropriation (it opens with it, or
+// names an Appropriations Act or a budget).
+const BUDGET_TITLE = /^\s*(?:an\s+act\s+)?(?:making|makes|make|relating\s+to|general|supplemental|omnibus|consolidated|further\s+continuing|continuing)?\s*(?:general\s+|supplemental\s+)?appropriations?\b|\bappropriations?\s+act\b|\bbudget\b|\bnational\s+defen[cs]e\s+authorization\s+act\b|\brevenue\s+(?:and|&)\s+taxation\s+omnibus\b/i;
+const AMENDS_ONLY_TITLE = /\bsunset\b|\b(?:extend|extends|extending|extension\s+of|delay|delays|delaying|postpone\w*)\b[^.;]{0,60}\b(?:repeal|expiration|termination|effective|operative|implementation|sunset)\s+dates?\b|\b(?:repeal|expiration|termination)\s+dates?\b|\btechnical\s+(?:corrections?|changes?|amendments?|revisions?|cleanup)\b|\bclean-?up\b|\bnonsubstantive\b/i;
+export function subjectRefusals(title) {
+  const t = String(title || ''), out = [];
+  if (BUDGET_TITLE.test(t)) out.push(`a budget, appropriations or defence authorization measure ("${t.slice(0, 80)}"): an AI provision inside it is section I, which is never auto-created`);
+  else if (AMENDS_ONLY_TITLE.test(t)) out.push(`a measure that only extends dates or makes technical changes ("${t.slice(0, 80)}"): it updates the law it amends and is never a new entry`);
+  return out;
 }
 
 // Every reason code refuses to create an entry from this state record ([] when none). raw: the stored LegiScan record.
 export function recordRefusals(raw = {}) {
   const b = raw.bill || {}, text = String(raw.text || ''), out = [];
+  subjectRefusals(b.title).forEach((x) => out.push(x));
+  // LegiScan's longer description is read for the budget form only (a new programme's description often names its own repeal date).
+  // Only a description that OPENS as an appropriation or budget act counts (CT SB 86 and HI SB 2585, substantive AI bills, mention a budget
+  // or an appropriation further on).
+  if (!out.length && b.description && /^\s*(?:an\s+act\s+)?(?:making|makes)\s+(?:general\s+|supplemental\s+)?appropriations?\b|^\s*(?:the\s+)?(?:general\s+|state\s+)?budget\s+(?:act|bill)\b/i.test(String(b.description))) out.push(...subjectRefusals(String(b.description).slice(0, 160)).slice(0, 1));
   if (placeholderTitle(b.title)) out.push(`LegiScan gives a placeholder title ("${b.title || ''}"), not the bill's own`);
   const a = amendmentRecord(b, text);
   if (a) out.push(`an amendment record, not a bill: ${a}`);

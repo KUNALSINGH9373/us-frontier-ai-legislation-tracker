@@ -7,6 +7,8 @@
 // Scored against the case's expect: not_created (created = wrong; reaching the readers with no draft to decide it = wrong, since only a
 // code refusal proves it), created:<section> (created elsewhere = wrong; not created = missed), to_readers (held before the readers =
 // missed). The gate needs wrong 0. Writes eval/reports/<date>-tierb.json with the current checks_hash.
+// A case may patch its record (raw_patch), add a tracked entry for itself (entries_patch: add_title_number "ST:NUM", or add_entry {...}), and
+// change its recorded draft the way a wrong draft would be (draft_patch: a figure not in its quote, another section).
 //   node eval/tierb-set.mjs [--no-write] [--only id,id]
 import fs from 'fs';
 import path from 'path';
@@ -31,6 +33,8 @@ export async function replayCase(c, { entries, data, dir = SET_DIR, runDate = '2
     const [st, num] = c.entries_patch.add_title_number.split(':');
     es = [...entries, { id: 999999, key: 'hand-written-test-entry', section: 'B', state: st, jurisdiction: st, level: 'state', title: `${num.replace(/^([A-Z]+)(\d+)$/, '$1 $2')} — an entry written by hand, without ids`, short_name: `${st} ${num}`, identifiers: {} }];
   }
+  // Round 4: a tracked entry as given (a companion or a number written out), added to the tracker for this case only.
+  if (c.entries_patch && c.entries_patch.add_entry) es = [...es, { id: 999998, key: 'round4-test-entry', identifiers: {}, ...c.entries_patch.add_entry }];
   const diff = { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'replay' }] };
   let stage, why;
   try {
@@ -39,7 +43,8 @@ export async function replayCase(c, { entries, data, dir = SET_DIR, runDate = '2
   } catch (e) { if (!(e instanceof ReachedAI)) throw e; stage = 'readers'; }
   let created = null;
   if (stage === 'readers' && c.draft) {
-    const draft = J(path.join(dir, 'drafts', c.draft));
+    // draft_patch (round 4): the recorded draft with a field changed the way a wrong draft would be (a figure not in its quote, another section).
+    const draft = merge(J(path.join(dir, 'drafts', c.draft)), c.draft_patch || null);
     const t = applyTierB({ data: { ...data, entries: es }, drafts: [{ item_id: item.item_id, outcome: 'publishable', operation: 'create', entry: draft }], itemById: new Map([[item.item_id, item]]), readRaw: () => raw, runId: 'tierb-set', runDate, config: { auto_publish: { new_entries: true }, max_new_entries_per_run: 3, news_from_official_actions: true } });
     created = t.added[0] ? t.added[0].section : null;
     why = created ? `created in ${created}` : (t.skipped[0] && t.skipped[0].why) || 'not created';

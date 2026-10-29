@@ -1,0 +1,238 @@
+{
+ "item": {
+  "item_id": "legiscan:2147056",
+  "source": "legiscan",
+  "source_id": "2147056",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=5760&GAID=18&DocTypeID=HB&LegId=168389&SessionID=114",
+  "raw_hash": "4a038bab4417f8017e0f80b331306586001c15e91f911a2f5511a8108b8fedf9",
+  "raw_path": "raw/legiscan/IL-HB5760-2147056.json",
+  "title": "IL HB5760: AI WORK TRANSITION COMMISSION",
+  "from_run": "run-20261013-0714-e97e"
+ },
+ "raw": {
+  "id": "2147056",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 13,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 2147056,
+   "change_hash": "2c92dbc7aa745326126259703c988935",
+   "session_id": 2176,
+   "session": {
+    "session_id": 2176,
+    "state_id": 13,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "104th General Assembly"
+   },
+   "url": "https://legiscan.com/IL/bill/HB5760/2025",
+   "state_link": "https://www.ilga.gov/Legislation/BillStatus?DocNum=5760&GAID=18&DocTypeID=HB&LegId=168389&SessionID=114",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-04-30",
+   "progress": [
+    {
+     "date": "2026-04-30",
+     "event": 1
+    },
+    {
+     "date": "2026-05-05",
+     "event": 9
+    }
+   ],
+   "state": "IL",
+   "state_id": 13,
+   "bill_number": "HB5760",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "H",
+   "body_id": 35,
+   "current_body": "H",
+   "current_body_id": 35,
+   "title": "AI WORK TRANSITION COMMISSION",
+   "description": "Creates the Commission on Artificial Intelligence and Workforce Transition Act. Establishes the Commission on Artificial Intelligence and Workforce Transition. Provides that the Commission shall direct specified State agencies to conduct assessments of the actual and projected impact of generative artificial intelligence systems and frontier artificial intelligence systems on Illinois industries, occupations, regions, and workers. Provides that the Commission shall identify, review, and make recommendations regarding State and federal workforce development, education, apprenticeship, unemployment insurance, and income support programs with consideration of the assessments. Requires specified State agencies to designate a senior staff liaison to the Commission and to conduct assessments, analyses, and data collection activities directed by the Commission. Provides that the Commission shall prepare and file an initial comprehensive report and biennial update reports concerning findings and recommendations. Sets forth provisions concerning membership; administrative support; meetings; and confidentiality. Repeals the Act on January 1, 2034. Effective immediately.",
+   "pending_committee_id": 235,
+   "committee": {
+    "committee_id": 235,
+    "chamber": "H",
+    "chamber_id": 35,
+    "name": "Rules"
+   },
+   "referrals": [
+    {
+     "date": "2026-05-05",
+     "committee_id": 235,
+     "chamber": "H",
+     "chamber_id": 35,
+     "name": "Rules"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-04-30",
+     "action": "Filed with the Clerk by Rep. Kimberly Du Buclet",
+     "chamber": "H",
+     "chamber_id": 35,
+     "importance": 1
+    },
+    {
+     "date": "2026-05-05",
+     "action": "First Reading",
+     "chamber": "H",
+     "chamber_id": 35,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-05",
+     "action": "Referred to Rules Committee",
+     "chamber": "H",
+     "chamber_id": 35,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 13124,
+     "person_hash": "hgh55agh",
+     "party_id": "1",
+     "state_id": 13,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Kimberly Du Buclet",
+     "first_name": "Kimberly",
+     "middle_name": "",
+     "last_name": "Du Buclet",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-005",
+     "ftm_eid": 0,
+     "votesmart_id": 0,
+     "opensecrets_id": "",
+     "knowwho_pid": 342342,
+     "ballotpedia": "Kimberly_du_Buclet",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "217-782-4535",
+       "district_phone": "773-924-4614",
+       "email": "rep5information@gmail.com",
+       "webmail": "",
+       "biography": "https://ilga.gov/House/Members/Details/3441",
+       "image": "https://cdn.ilga.gov/assets/img/members/%7B4858CB21-EEE1-409B-9A4C-FA760BB6905E%7D.jpg",
+       "ballotpedia": "https://ballotpedia.org/Kimberly_du_Buclet",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/0"
+      },
+      "capitol_address": {
+       "address1": "248-W Stratton Office Building",
+       "address2": "",
+       "city": "Springfield",
+       "state": "IL",
+       "zip": "62706"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3429203,
+     "date": "2026-04-30",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/IL/text/HB5760/id/3429203",
+     "state_link": "https://www.ilga.gov/Legislation/BillStatus/FullText?LegDocId=210747&DocName=10400HB5760&DocNum=5760&DocTypeID=HB&LegID=168389&GAID=18&SessionID=114&SpecSess=&Session=",
+     "text_size": 83337,
+     "text_hash": "43b061624d7329fbca22ce1db60efe26",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [],
+   "amendments": [],
+   "supplements": [],
+   "calendar": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-04-30",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Filed with the Clerk by Rep. Kimberly Du Buclet",
+     "chamber": "H"
+    },
+    {
+     "date": "2026-05-05",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Referred to Rules Committee",
+     "chamber": "H"
+    }
+   ]
+  },
+  "text": "104TH GENERAL ASSEMBLY&#xD;\nState of Illinois&#xD;\n2025 and 2026HB5760 Introduced , by Rep. Kimberly Du Buclet SYNOPSIS AS INTRODUCED: New Act Creates the Commission on Artificial Intelligence and Workforce Transition Act. Establishes the Commission on Artificial Intelligence and Workforce Transition. Provides that the Commission shall direct specified State agencies to conduct assessments of the actual and projected impact of generative artificial intelligence systems and frontier artificial intelligence systems on Illinois industries, occupations, regions, and workers. Provides that the Commission shall identify, review, and make recommendations regarding State and federal workforce development, education, apprenticeship, unemployment insurance, and income support programs with consideration of the assessments. Requires specified State agencies to designate a senior staff liaison to the Commission and to conduct assessments, analyses, and data collection activities directed by the Commission. Provides that the Commission shall prepare and file an initial comprehensive report and biennial update reports concerning findings and recommendations. Sets forth provisions concerning membership; administrative support; meetings; and confidentiality. Repeals the Act on January 1, 2034. Effective immediately.LRB104 21590 SPS 37038 b A BILL FOR HB5760LRB104 21590 SPS 37038 b1 AN ACT concerning State government. 2 Be it enacted by the People of the State of Illinois, 3represented in the General Assembly: 4 Section 1. Short title. This Act may be cited as the 5Commission on Artificial Intelligence and Workforce Transition 6Act. 7 Section 5. Findings and declaration of policy. The General 8Assembly finds and declares:9 (1) Generative artificial intelligence and related 10 frontier artificial intelligence systems are being adopted 11 at a pace and scale that differ meaningfully from prior 12 general-purpose technologies, with material consequences 13 for the composition, wages, and skill requirements of the 14 Illinois labor force.15 (2) Estimates of the scope of potential labor 16 displacement vary substantially among credible sources, 17 ranging from aggregate displacement of approximately 6% to 18 7% of the United States workforce to projections that a 19 significantly higher share of entry-level, white-collar 20 positions may be displaced within the decade.21 (3) The risk of a prolonged economic 22 transition-commonly, referred to as transition risk or 23 \"j-risk\", in which labor market recovery lags HB5760- 2 -LRB104 21590 SPS 37038 b1 technological adoption, warrants proactive, data-driven 2 planning by this State, distinct from and in addition to 3 long-standing prohibitions on artificial 4 intelligence-based discrimination in employment 5 decisions.6 (4) Illinois' manufacturing base, transportation and 7 logistics concentration, administrative and clerical 8 workforce, public and private service sectors, and public 9 university and community college systems each present 10 unique exposure profiles that merit occupation-level and 11 region-level analysis.12 (5) Existing Illinois workforce data infrastructure, 13 including the Illinois Department of Employment Security's 14 Labor Market Information program, the Illinois Workforce 15 Innovation Board's State Plan, and the reporting systems 16 established under the Workforce Innovation and Opportunity 17 Act, provides a strong foundation, but it is not designed 18 to detect artificial intelligence-driven occupational 19 shifts in near real time.20 (6) The Illinois Future of Work Task Force and the 21 Generative AI and Natural Language Processing Task Force 22 provided valuable baseline analysis, but neither was 23 designed as an ongoing body with authority to direct 24 periodic agency assessments of generative artificial 25 intelligence's workforce impact.26 (7) It is the policy of this State to anticipate, HB5760- 3 -LRB104 21590 SPS 37038 b1 measure, and mitigate artificial intelligence-driven labor 2 transition risk; to align workforce development, 3 education, and economic development investments with 4 emerging occupational realities; and to ensure that the 5 benefits and burdens of artificial intelligence adoption 6 are equitably distributed across Illinois workers, 7 regions, and communities. 8 Section 10. Definitions. As used in this Act:9 \"Affected worker\" means an Illinois worker who has been 10displaced, furloughed, materially reassigned, or materially 11reduced in hours as a result, in substantial part, of an 12employer's adoption or deployment of a generative artificial 13intelligence system, a frontier artificial intelligence 14system, or an automated decision system that performs 15cognitive tasks previously performed by human workers.16 \"Appropriate State agency\" means each of the following, 17with respect to the assessments and analyses described in 18paragraph (1) of Section 25:19 (1) the Department of Employment Security, as to labor 20 market information, employment and occupational 21 projections, local area unemployment statistics, 22 occupational employment and wage statistics, mass-layoff 23 statistics, and unemployment insurance wage-record 24 analysis consistent with 20 CFR Part 603 and applicable 25 State law; HB5760- 4 -LRB104 21590 SPS 37038 b1 (2) the Department of Commerce and Economic 2 Opportunity, as to Workforce Innovation and Opportunity 3 Act (WIOA) Title I program data, sector partnership data, 4 dislocated worker services data, economic development 5 data, and coordination with local workforce innovation 6 areas;7 (3) the Department of Labor, as to wage and hour data, 8 occupational safety and health data, and filings under the 9 Illinois Worker Adjustment and Retraining Notification 10 Act;11 (4) the Department of Innovation and Technology, as to 12 technical expertise on the capabilities and limitations of 13 generative artificial intelligence and frontier artificial 14 intelligence systems and the State's use and procurement 15 of artificial intelligence systems;16 (5) the Illinois Community College Board, as to 17 community college enrollment, program completion, 18 credentialing, and reskilling capacity;19 (6) the Illinois Board of Higher Education, as to 20 postsecondary enrollment, program alignment, and 21 credentialing;22 (7) the State Board of Education, as to career and 23 technical education pathways, the P-20 education pipeline, 24 and educator artificial intelligence literacy; and25 (8) any other State agency, board, commission, or 26 authority the Commission identifies as possessing relevant HB5760- 5 -LRB104 21590 SPS 37038 b1 data, subject-matter expertise, or programmatic 2 responsibility relevant to labor transition risk.3 \"Commission\" means the Commission on Artificial 4Intelligence and Workforce Transition.5 \"Department\" means the Department of Commerce and Economic 6Opportunity.7 \"Frontier artificial intelligence system\" means a 8general-purpose artificial intelligence model trained using a 9quantity of computing power greater than 10^26 integer or 10floating-point operations. The quantity of computing power 11described in this definition shall include computing for the 12original training run and for any subsequent fine-tuning, 13reinforcement learning, or other material modifications the 14developer applies to a preceding foundation model.15 \"Generative artificial intelligence system\" means an 16artificial intelligence system designed to produce, with 17limited or no direct human intervention, synthetic text, 18images, audio, video, code, or other content based on 19statistical patterns learned from training data.20 \"Labor transition risk\" means the risk that the adoption 21of generative artificial intelligence systems, frontier 22artificial intelligence systems, or related automated decision 23systems will produce a prolonged period of elevated 24unemployment, underemployment, wage compression, or reduced 25labor force participation among affected Illinois workers 26before compensating employment opportunities emerge. HB5760- 6 -LRB104 21590 SPS 37038 b1 \"Occupational exposure\" means the degree to which the 2tasks constituting an occupation, as classified under the 3federal Standard Occupational Classification System, are 4susceptible to automation, augmentation, or material 5modification by generative artificial intelligence systems. 6 Section 15. Establishment of Commission; membership.7 (a) The Commission on Artificial Intelligence and 8Workforce Transition is established. The Commission shall be 9composed of the following members, who shall reflect the 10geographic, demographic, and sectoral diversity of this State:11 (1) One member appointed by the President of the 12 Senate, who shall serve as a co-chairperson of the 13 Commission.14 (2) One member appointed by the Minority Leader of the 15 Senate.16 (3) One member appointed by the Speaker of the House 17 of Representatives, who shall serve as a co-chairperson of 18 the Commission.19 (4) One member appointed by the Minority Leader of the 20 House of Representatives.21 (5) Nine members appointed by the Governor, as 22 follows:23 (A) Two representatives of labor organizations, at 24 least one of whom represents workers in the 25 manufacturing, transportation, warehousing, or HB5760- 7 -LRB104 21590 SPS 37038 b1 logistics sectors;2 (B) Two representatives of the business community, 3 at least one of whom represents a small business, as 4 defined under Section 45-45 of the Illinois 5 Procurement Code, and at least one of whom represents 6 an Illinois-based artificial intelligence developer or 7 deployer;8 (C) Two individuals with demonstrated academic or 9 research expertise, at least one of whom is a labor 10 economist and at least one of whom has technical 11 expertise in artificial intelligence systems, drawn 12 from an Illinois public university, community college, 13 or non-profit research institution;14 (D) One representative of an Illinois workforce 15 development organization, apprenticeship program, or 16 registered pre-apprenticeship program;17 (E) One representative of an affected worker 18 organization, dislocated worker service provider, or 19 community-based organization serving workers in 20 occupations with high occupational exposure; and21 (F) One member of the public with lived experience 22 as an affected worker.23 (6) The following ex officio members, who shall serve 24 in a voting capacity:25 (A) The Director of Commerce and Economic 26 Opportunity or the Director's designee; HB5760- 8 -LRB104 21590 SPS 37038 b1 (B) The Director of Employment Security or the 2 Director's designee;3 (C) The Director of Labor or the Director's 4 designee;5 (D) The Secretary of Innovation and Technology or 6 the Secretary's designee;7 (E) The Executive Director of the Illinois 8 Community College Board or the Executive Director's 9 designee;10 (F) The Executive Director of the Illinois Board 11 of Higher Education or the Executive Director's 12 designee; and13 (G) The State Superintendent of Education or the 14 Superintendent's designee.15 (b) Appointments under subsection (a) shall be made within 1690 days after the effective date of this Act. The Commission 17shall convene its first meeting within 60 days after a 18majority of the appointed members are seated.19 (c) Members appointed under paragraphs (1) through (5) of 20subsection (a) shall serve terms of 4 years, except that, of 21the members first appointed under paragraph (5), the Governor 22shall designate 4 appointees to serve initial terms of 2 years 23and 5 appointees to serve initial terms of 4 years. A member 24appointed under paragraphs (1) through (4) of subsection (a) 25serves at the pleasure of the appointing authority. Vacancies 26shall be filled in the same manner as the original appointment HB5760- 9 -LRB104 21590 SPS 37038 b1within 60 days after the vacancy occurs.2 (d) The members appointed under paragraphs (1) and (3) of 3subsection (a) shall serve as co-chairpersons of the 4Commission. The co-chairpersons shall jointly call meetings, 5set agendas, and transmit reports.6 (e) Members of the Commission shall serve without 7compensation, but shall be reimbursed for reasonable and 8necessary expenses incurred in the performance of their duties 9from funds appropriated for that purpose.10 (f) A majority of appointed and seated voting members 11constitutes a quorum. All actions of the Commission require 12the affirmative vote of a majority of the members present at a 13meeting at which a quorum is present. 14 Section 20. Administrative support; meetings.15 (a) The Department shall provide administrative, 16technical, and logistical support to the Commission, including 17meeting coordination, document management, public-hearing 18logistics, and publication of reports, in coordination with 19the Department of Employment Security and the Department of 20Innovation and Technology.21 (b) The Department is authorized to engage, through 22contract or intergovernmental agreement, one or more 23independent research partners to support the Commission's 24analytical work, including, but not limited to, institutions 25of higher education, the Illinois Innovation Network, and HB5760- 10 -LRB104 21590 SPS 37038 b1qualified non-profit research institutions.2 (c) The Commission shall meet at least once in each 3calendar quarter. Additional meetings may be called by the 4co-chairpersons or upon written request of a majority of the 5voting members. Meetings shall be held in compliance with the 6Open Meetings Act and may be conducted in a hybrid in-person 7and virtual format. 8 Section 25. Duties of the Commission. The Commission 9shall:10 (1) direct appropriate State agencies to conduct 11 assessments of the actual and projected impact of 12 generative artificial intelligence systems and frontier 13 artificial intelligence systems on Illinois industries, 14 occupations, regions, and workers, including, but not 15 limited to:16 (A) occupational exposure analyses consistent with 17 federal Standard Occupational Classification System;18 (B) industry-level employment projections 19 incorporating generative artificial intelligence 20 adoption scenarios;21 (C) regional analyses covering, at minimum, each 22 economic development region and local workforce 23 innovation area in this State;24 (D) sector-specific analyses addressing, at 25 minimum, manufacturing; transportation, warehousing, HB5760- 11 -LRB104 21590 SPS 37038 b1 and logistics; administrative, clerical, and 2 customer-contact occupations; legal, financial, and 3 professional services; health care and human services; 4 and education;5 (E) analyses of differential exposure by 6 demographic characteristics, including, but not 7 limited to, age, race, ethnicity, gender, disability 8 status, educational attainment, and English-language 9 proficiency; and 10 (F) analyses of mass-layoff filings under the 11 Illinois Worker Adjustment and Retraining Notification 12 Act for indicia of artificial intelligence-driven 13 displacement;14 (2) identify, review, and make recommendations 15 regarding State and federal workforce development, 16 education, apprenticeship, unemployment insurance, and 17 income support programs with consideration of the 18 assessments conducted under paragraph (1), with particular 19 attention to rapid reemployment and reskilling capacity 20 for affected workers;21 (3) compile and evaluate leading practices from other 22 states, countries, and international bodies for 23 anticipating and responding to artificial 24 intelligence-driven labor transition risk;25 (4) develop and publish tools, methodologies, and 26 indicators that State agencies, local workforce innovation HB5760- 12 -LRB104 21590 SPS 37038 b1 boards, educational institutions, employers, and workers 2 can use to assess occupational exposure and plan for 3 transitions;4 (5) make recommendations to the Governor and the 5 General Assembly regarding:6 (A) amendments to the Illinois Worker Adjustment 7 and Retraining Notification Act or other relevant 8 statutes to improve visibility into artificial 9 intelligence-driven workforce changes;10 (B) targeted investments in workforce development, 11 community college retraining, higher education 12 programs, registered apprenticeship, and sector 13 partnerships;14 (C) modifications to unemployment insurance, 15 trade-adjustment-style support, or other 16 income-bridging mechanisms for affected workers;17 (D) workforce data infrastructure investments 18 required to maintain accurate and timely measurement 19 of labor transition risk; and20 (E) any proposed legislation necessary to 21 implement the Commission's recommendations;22 (6) coordinate with the Illinois Workforce Innovation 23 Board, the Generative AI and Natural Language Processing 24 Task Force, and any successor body, to avoid duplication 25 of effort and to ensure alignment with the Illinois WIOA 26 State Plan; and HB5760- 13 -LRB104 21590 SPS 37038 b1 (7) convene public hearings in, at a minimum, the City 2 of Chicago, the Metro-East region, the Peoria-Bloomington 3 corridor, the Rockford region, and the Southern Illinois 4 region, to receive testimony from workers, employers, 5 educators, and the public. 6 Section 30. Duties of State agencies.7 (a) Each appropriate State agency shall:8 (1) designate a senior staff liaison to the Commission 9 within 60 days after the Commission's first meeting;10 (2) conduct the assessments, analyses, and data 11 collection activities directed by the Commission under 12 paragraph (1) of Section 25 within the time frames 13 established by the Commission, subject to available 14 resources;15 (3) submit findings, data, and technical analyses to 16 the Commission in the form and at the frequency directed 17 by the Commission, but not less than annually for each 18 active work stream;19 (4) share non-confidential data with other appropriate 20 State agencies as necessary to support the Commission's 21 work, consistent with data-sharing agreements executed 22 under Section 40; and23 (5) cooperate with the Commission in the preparation 24 and review of the reports required under Section 35.25 (b) Nothing in this Act shall be construed to require an HB5760- 14 -LRB104 21590 SPS 37038 b1appropriate State agency to disclose information the 2disclosure of which is prohibited by federal law, including, 3but not limited to, 20 CFR Part 603 or the Family Educational 4Rights and Privacy Act (20 U.S.C. 1232g), or the Unemployment 5Insurance Act. 6 Section 35. Reports.7 (a) The Commission shall prepare and file an initial 8comprehensive report with the Governor, the President and 9Minority Leader of the Senate, the Speaker and Minority Leader 10of the House of Representatives, the Senate and House 11Committees with primary jurisdiction over labor, commerce, and 12technology, and the Illinois Workforce Innovation Board, no 13later than 18 months after the Commission's first meeting.14 (b) On or before July 1 of every even-numbered year 15thereafter, the Commission shall file a biennial update report 16with the recipients identified in subsection (a), including, 17at minimum:18 (1) updated findings on occupational exposure, 19 displacement, wage effects, and labor-force participation 20 attributable in substantial part to generative artificial 21 intelligence and frontier artificial intelligence adoption 22 in this State;23 (2) updated sector and regional analyses;24 (3) an evaluation of the effectiveness of State 25 workforce development, education, and income support HB5760- 15 -LRB104 21590 SPS 37038 b1 responses to artificial intelligence-driven labor 2 transition;3 (4) proposed legislative and administrative actions; 4 and5 (5) an assessment of whether the Commission's 6 statutory mandate, membership, or resourcing requires 7 amendment.8 (c) In each calendar year in which a biennial report is not 9due, the co-chairpersons shall transmit an annual interim 10findings letter to the Governor and the General Assembly 11summarizing the Commission's activities, preliminary findings, 12and any urgent recommendations. The annual interim findings 13letter shall be filed on or before July 1 of that year.14 (d) Each report and annual interim findings letter 15required under this Section shall be posted on the 16Department's website contemporaneously with filing, in a 17format accessible to persons with disabilities consistent with 18the Information Technology Accessibility Act. 19 Section 40. Data sharing; confidentiality.20 (a) All appropriate State agencies are authorized to enter 21into data-sharing agreements with one another, with the 22Commission, and with qualified academic or research partners 23selected by the Commission, to the extent permitted by federal 24and State law, for the purpose of carrying out this Act.25 (b) Any confidential data, including, but not limited to, HB5760- 16 -LRB104 21590 SPS 37038 b1individually identifiable unemployment insurance wage records, 2individually identifiable education records, and confidential 3employer submissions, shall not be disclosed to members of the 4Commission or to the public in an individually identifiable 5form. Aggregated or de-identified analyses prepared from the 6data may be used in the Commission's work and reports, subject 7to cell-size suppression or other statistical disclosure 8limitation standards established by the submitting agency.9 (c) Any information submitted to the Commission or to an 10appropriate State agency by an employer or artificial 11intelligence developer that constitutes trade secret or 12proprietary information, clearly designated as such at the 13time of submission, shall be exempt from disclosure under 14subsection (g) of Section 7 of the Freedom of Information Act. 15 Section 45. Construction.16 (a) Nothing in this Act shall be construed to:17 (1) regulate, prohibit, or restrict the development, 18 training, deployment, or commercial offering of any 19 artificial intelligence system by a private entity; or20 (2) create a private right of action.21 (b) This Act is intended to direct the activities of State 22agencies and to support the State's planning, educational, and 23workforce development functions. The Act shall be construed 24consistent with the State's traditional and constitutionally 25reserved authority over State government operations, workforce HB5760- 17 -LRB104 21590 SPS 37038 b1development, and public education. 2 Section 50. Repeal. This Act is repealed on January 1, 32034. 4 Section 99. Effective date. This Act takes effect upon 5becoming law.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3429203,
+   "date": "2026-04-30",
+   "type": "Introduced",
+   "mime": "text/html",
+   "state_link": "https://www.ilga.gov/Legislation/BillStatus/FullText?LegDocId=210747&DocName=10400HB5760&DocNum=5760&DocTypeID=HB&LegID=168389&GAID=18&SessionID=114&SpecSess=&Session=",
+   "from": "legiscan"
+  },
+  "frontier_markers": [
+   "frontier artificial intelligence",
+   "foundation model",
+   "10^26",
+   "floating-point operations"
+  ]
+ }
+}

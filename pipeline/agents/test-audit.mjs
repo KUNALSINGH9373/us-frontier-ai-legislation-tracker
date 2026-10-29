@@ -125,7 +125,7 @@ ok('SCOPE_CLAIM: the classification is the reader\'s own judgement from the prov
 }
 {
   // PA HB2829 / NC S735: held for the 60k item budget with nothing written. The held item is retried at once by the escalated pass.
-  const TEXT = 'SEC. 5. A frontier developer shall report incidents within 72 hours to the Attorney General.';
+  const TEXT = 'SEC. 4. Artificial intelligence models. SEC. 5. A frontier developer shall report incidents within 72 hours to the Attorney General.'; // round 4: a frontier term counts only about AI
   const raw = { bill: { title: 'Test Act', type: 'S', number: '88888', introducedDate: '2026-06-24', sponsors: [{ fullName: 'Sen. Doe, Jane [D-NY]' }], latestAction: { actionDate: '2026-06-24', text: 'Read twice and referred to the Committee on Commerce.' } }, actions: [], text: TEXT };
   const item = { item_id: 'congress_gov:119/s/88888', source: 'congress_gov', source_id: '119/s/88888', source_url: 'https://www.congress.gov/bill/119th-congress/senate-bill/88888', fetched_at: '2026-10-28T00:00:00Z' };
   const diff = { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] };

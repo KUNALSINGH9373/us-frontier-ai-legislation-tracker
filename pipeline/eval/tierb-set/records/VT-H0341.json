@@ -1,0 +1,776 @@
+{
+ "item": {
+  "item_id": "legiscan:1981655",
+  "source": "legiscan",
+  "source_id": "1981655",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://legislature.vermont.gov/bill/status/2026/H.341",
+  "raw_hash": "26804478a149158ceb534ae3624b6c93817455415cc961fdbb9d5c223c624c1c",
+  "raw_path": "raw/legiscan/VT-H0341-1981655.json",
+  "title": "VT H0341: An act relating to creating oversight and safety standards for developers and deployers of inherently dangerous artificial intelligence systems",
+  "from_run": "run-20261013-0714-e97e"
+ },
+ "raw": {
+  "id": "1981655",
+  "search_hit": {
+   "search": "wide",
+   "relevance": 16,
+   "intent": {
+    "verdict": "yes",
+    "reason": "Oversight and safety standards for developers of inherently dangerous AI systems.",
+    "by": "model"
+   }
+  },
+  "bill": {
+   "bill_id": 1981655,
+   "change_hash": "2c7f5d7f3f94ce49ec9bbf9fe34d322b",
+   "session_id": 2195,
+   "session": {
+    "session_id": 2195,
+    "state_id": 45,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 Session"
+   },
+   "url": "https://legiscan.com/VT/bill/H0341/2025",
+   "state_link": "https://legislature.vermont.gov/bill/status/2026/H.341",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2025-02-25",
+   "progress": [
+    {
+     "date": "2025-02-25",
+     "event": 1
+    },
+    {
+     "date": "2025-02-25",
+     "event": 9
+    }
+   ],
+   "state": "VT",
+   "state_id": 45,
+   "bill_number": "H0341",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "H",
+   "body_id": 95,
+   "current_body": "H",
+   "current_body_id": 95,
+   "title": "An act relating to creating oversight and safety standards for developers and deployers of inherently dangerous artificial intelligence systems",
+   "description": "An act relating to creating oversight and safety standards for developers and deployers of inherently dangerous artificial intelligence systems",
+   "pending_committee_id": 782,
+   "committee": {
+    "committee_id": 782,
+    "chamber": "H",
+    "chamber_id": 95,
+    "name": "Commerce and Economic Development"
+   },
+   "referrals": [
+    {
+     "date": "2025-02-25",
+     "committee_id": 782,
+     "chamber": "H",
+     "chamber_id": 95,
+     "name": "Commerce and Economic Development"
+    }
+   ],
+   "history": [
+    {
+     "date": "2025-02-25",
+     "action": "Read first time and referred to the Committee on Commerce and Economic Development",
+     "chamber": "H",
+     "chamber_id": 95,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 24527,
+     "person_hash": "ktrhet1o",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Monique Priestley",
+     "first_name": "Monique",
+     "middle_name": "",
+     "last_name": "Priestley",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-ORA2",
+     "ftm_eid": 55692733,
+     "votesmart_id": 207587,
+     "opensecrets_id": "",
+     "knowwho_pid": 813184,
+     "ballotpedia": "Monique_Priestley",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-828-2228",
+       "district_phone": "",
+       "email": "mpriestley@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/37382",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Monique_Priestley",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/207587"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/priestleyvermont",
+        "instagram": "https://www.instagram.com/priestleyvermont/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://legislature.vermont.gov/people/single/2026/37382",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/mepriestley",
+        "instagram": "https://www.instagram.com/mepriestley/",
+        "linkedin": "https://www.linkedin.com/in/mepriestley/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://mepriestley.com/",
+        "youtube": "https://www.youtube.com/@MoniquePriestley"
+       }
+      }
+     }
+    },
+    {
+     "people_id": 24551,
+     "person_hash": "cm6mkwgc",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Angela Arsenault",
+     "first_name": "Angela",
+     "middle_name": "",
+     "last_name": "Arsenault",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-CHI2",
+     "ftm_eid": 55692664,
+     "votesmart_id": 207575,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Angela_Arsenault",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 2,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-828-2228",
+       "district_phone": "",
+       "email": "aarsenault@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/37362",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Angela_Arsenault",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/207575"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "https://www.instagram.com/rep.angela.arsenault/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/AArsenaultVT",
+        "website": "https://legislature.vermont.gov/people/single/2026/37362",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "https://www.instagram.com/milarsenaults/",
+        "linkedin": "https://www.linkedin.com/in/angelaarsenault/",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/JustThisBreath",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 24552,
+     "person_hash": "mqprmbvx",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Daisy Berbeco",
+     "first_name": "Daisy",
+     "middle_name": "",
+     "last_name": "Berbeco",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-CHI21",
+     "ftm_eid": 55692669,
+     "votesmart_id": 210301,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Daisy_Berbeco",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 3,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-828-2228",
+       "district_phone": "",
+       "email": "dberbeco@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/37391",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Daisy_Berbeco",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/210301"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://legislature.vermont.gov/people/single/2026/37391",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/daisy.berbeco",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/daisyberbeco",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://daisyberbeco.com/",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 24522,
+     "person_hash": "n5lors9s",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Esme Cole",
+     "first_name": "Esme",
+     "middle_name": "",
+     "last_name": "Cole",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-WIN6",
+     "ftm_eid": 55692820,
+     "votesmart_id": 210313,
+     "opensecrets_id": "",
+     "knowwho_pid": 813233,
+     "ballotpedia": "Esme_Cole",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 4,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-828-2228",
+       "district_phone": "",
+       "email": "ecole@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/37368",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Esme_Cole",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/210313"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://legislature.vermont.gov/people/single/2026/37368",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/esme.cole.7",
+        "instagram": "https://www.instagram.com/pezmay/",
+        "linkedin": "https://www.linkedin.com/in/esme-cole-534063110/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 24526,
+     "person_hash": "wd3gbug8",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Kate Logan",
+     "first_name": "Kate",
+     "middle_name": "",
+     "last_name": "Logan",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-CHI16",
+     "ftm_eid": 55692658,
+     "votesmart_id": 210300,
+     "opensecrets_id": "",
+     "knowwho_pid": 813053,
+     "ballotpedia": "Kate_Logan",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 5,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-828-2228",
+       "district_phone": "",
+       "email": "klogan@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/37405",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Kate_Logan",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/210300"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "https://www.instagram.com/repkatelogan/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/RepKateLogan",
+        "website": "https://legislature.vermont.gov/people/single/2026/37405",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/katherine.logan.31",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/katherinedlogan/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 2677,
+     "person_hash": "12lt0uty",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "James Masland",
+     "first_name": "James",
+     "middle_name": "",
+     "last_name": "Masland",
+     "suffix": "",
+     "nickname": "Jim",
+     "district": "HD-WIN2",
+     "ftm_eid": 6444733,
+     "votesmart_id": 25906,
+     "opensecrets_id": "",
+     "knowwho_pid": 199637,
+     "ballotpedia": "James_Masland",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 6,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-785-4146",
+       "district_phone": "",
+       "email": "jmasland@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/14523",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/James_Masland",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/25906"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://legislature.vermont.gov/people/single/2026/14523",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/jim.masland",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/jim-masland-1310a314/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 24525,
+     "person_hash": "7adl2f8s",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Jubilee McGill",
+     "first_name": "Jubilee",
+     "middle_name": "",
+     "last_name": "McGill",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-ADD5",
+     "ftm_eid": 55692623,
+     "votesmart_id": 194212,
+     "opensecrets_id": "",
+     "knowwho_pid": 742820,
+     "ballotpedia": "Jubilee_McGill",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 7,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-828-2228",
+       "district_phone": "",
+       "email": "jmcgill@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/37355",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Jubilee_McGill",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/194212"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://legislature.vermont.gov/people/single/2026/37355",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/jubilee.mcgill",
+        "instagram": "https://www.instagram.com/leebee31/",
+        "linkedin": "https://www.linkedin.com/in/jubilee-mcgill-21b34a8/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": "https://www.youtube.com/@jubileemcgill2472"
+       }
+      }
+     }
+    },
+    {
+     "people_id": 17126,
+     "person_hash": "b57vi0kh",
+     "party_id": "3",
+     "state_id": 45,
+     "party": "I",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Laura Sibilia",
+     "first_name": "Laura",
+     "middle_name": "",
+     "last_name": "Sibilia",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-WIN2",
+     "ftm_eid": 26780804,
+     "votesmart_id": 155667,
+     "opensecrets_id": "",
+     "knowwho_pid": 503256,
+     "ballotpedia": "Laura_Sibilia",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 8,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-384-0233",
+       "district_phone": "",
+       "email": "lsibilia@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/24023",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Laura_Sibilia",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/155667"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://legislature.vermont.gov/people/single/2026/24023",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/laura.sibilia",
+        "instagram": "https://www.instagram.com/laurasibilia/",
+        "linkedin": "https://www.linkedin.com/in/laura-sibilia-18325211/",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/laurasibilia",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 22158,
+     "person_hash": "5pb4ed4u",
+     "party_id": "1",
+     "state_id": 45,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Kirk White",
+     "first_name": "Kirk",
+     "middle_name": "",
+     "last_name": "White",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-WIN",
+     "ftm_eid": 50058083,
+     "votesmart_id": 194330,
+     "opensecrets_id": "",
+     "knowwho_pid": 743128,
+     "ballotpedia": "Kirk_White",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 9,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "802-828-2228",
+       "district_phone": "",
+       "email": "kwhite@leg.state.vt.us",
+       "webmail": "",
+       "biography": "https://legislature.vermont.gov/people/single/2026/34694",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Kirk_White",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/194330"
+      },
+      "capitol_address": {
+       "address1": "Vermont State House",
+       "address2": "115 State St",
+       "city": "Montpelier",
+       "state": "VT",
+       "zip": "05633"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://legislature.vermont.gov/people/single/2026/34694",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/revkirkwhite",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/kirk-white-0151327/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3138782,
+     "date": "2025-02-24",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/VT/text/H0341/id/3138782",
+     "state_link": "https://legislature.vermont.gov/Documents/2026/Docs/BILLS/H-0341/H-0341%20As%20Introduced.pdf",
+     "text_size": 120536,
+     "text_hash": "592b9b76017eddd1ccdf4fbff20b2dbd",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [],
+   "amendments": [],
+   "supplements": [],
+   "calendar": [
+    {
+     "type_id": 1,
+     "event_hash": "e23e6a62",
+     "type": "Hearing",
+     "date": "2025-04-01",
+     "time": "00:00",
+     "location": "",
+     "description": "House Committee on Commerce and Economic Development Hearing"
+    }
+   ]
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2025-02-25",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Read first time and referred to the Committee on Commerce and Economic Development",
+     "chamber": "H"
+    }
+   ]
+  },
+  "text": "H.341\nIntroduced by Representatives Priestley of Bradford, Arsenault of Williston,\nBerbeco of Winooski, Cole of Hartford, Logan of Burlington,\nMasland of Thetford, McGill of Bridport, Sibilia of Dover, and\nWhite of Bethel\nReferred to Committee on\nDate :\nSubject: Commerce and trade; consumer protection; artificial intelligence\nsystems\nStatement of purpose of bill as introduced: This bill proposes to create safety\nstandards for developers and deployers of inherently dangero us artificial\nintelligence systems.\nAn act relating to creating oversight and safety standards for developers and\ndeployers of inherently dangerous artificial intelligence systems\nIt is hereby enacted by the General Assembly of the State of Vermont:\nSec. 1. 9 V.S.A. chapter 118 is added to read:\nCHAPTER 118. ARTIFICIAL INTELLIGENCE\nSubchapter 1 . Artificial Intelligence Oversight and Safety Standards\n§ 4193a . LEGISLATIVE INTENT\n\n(a) Artificial intelligence systems are products that shift decision - making\npower and responsibility away from persons to software - based systems, often\nwithout direct human oversight. An artificial intelligence system can be\ninherently dangerous due to i ts capabilities, potential for misuse or\nexploitation, and ability to unilaterally evolve.\n(b) Developers of sophisticated artificial intelligence systems have an\nobligation to make the systems safe when used in reasonably foreseeable ways.\nDeployers of these products also have an obligation to ensure that the products\nare safe and used in a way that does not materially affect an individual ’ s rights.\n(c) In the artificial intelligence ecosystem, there will typically be multiple\nsuppliers upstream of a consumer. The original developer of an artificial\nintelligence system should be responsible for harms attributable to the artificial\nintelligence system, even if the developer is not the deployer of the system to a\nconsumer. Small businesses using off - the - shelf artificial intelligence products\naccording to the product ’ s terms of use are not intended to be covered by this\nsubchapter .\n§ 4193 b. DEFINITIONS\nAs used in this subchapter:\n(1) “Artificial intelligence agent” is an artificial intelligence system that\nis capable of autonomously performing tasks on behalf of a user or another\nartificial intelligence system.\n\n(2) “ Artificial intelligence system ” means a machine - based system that\ncan , for a given set of objectives, make predictions, recommendations, or\ndecisions influencing real or virtual environments. Artificial intelligence\nsystems use machine - and human - based inputs to perceive real and virtual\nenvironments , abstract such percept ions into models through analysis in an\nautomated manner , and use model inference to formulate options for\ninformation or action.\n( 3 ) “ Biometric data ” means data that depict or describe physical,\nbiological, or behavioral traits, characteristics, or measu rements of or relating\nto an identified or identifiable person ’ s body. Biometric information includes\ndepictions, images, descriptions, or recordings of an individual ’ s facial\nfeatures, iris or retina, finger or handprints, voice, genetics, or characteristic\nmovements or gestures. Biometric information also includes data derived from\nthe depictions, images, descriptions, or recordings, to the extent that it would\nbe re asonably possible to identify the person from whose information the data\nhad been derived.\n( 4 ) “ Consequential decision ” means a decision that either has a legal or\nsimilarly significant effect on an individual’s access to the criminal justice\nsystem , hous ing, employment, credit, education, health care, or insurance.\n( 5 ) “ Consumer ” means any individual who is a resident of this S tate.\n\n( 6 ) “ Deployer ” means a person, including a developer, who uses or\noperates an artificial intelligence system for internal use or for use by third\nparties in the S tate .\n( 7 ) “ Developer ” means a person who designs, codes, produces, owns, or\nsubstantially modifies an artificial intelligence system for internal use or for\nuse by a third party in the State.\n(8) “ Do n ot t rain data ” means any data whose owner or publisher has\naffirmatively asserted that the data should not be used for training an artificial\nintelligence system.\n( 9 ) “ Dual - use foundational model ” means an artificial intelligence\nsystem that :\n(A) is trained on broad data;\n(B) generally uses self - supervision;\n(C) contains at least 10 billion parameters;\n(D) is applicable across a wide range of contexts; and\n(E) exhibits, or could be easily modified to exhibit, high levels of\nperformance at tasks that pose a serious risk to economic security, public\nhealth or safety, or any combination of those matters, such as by:\n(i) substantially lowering the barrier of entry for nonexperts to\ndesi gn, synthesize, acquire, or use chemical, biological, radiological, or nuclear\n(CBRN) weapons;\n\n(ii) enabling powerful offensive cyber operations through\nautomated vulnerability discovery and exploitation against a wide range of\npotential targets of cyber attacks; o r\n(iii) permitting the evasion of human control or oversight through\nmeans of deception or obfuscation.\n( 10 ) “ Generative artificial intelligence system ” means an artificial\nintelligence system that can generate derived synthetic content, such a s text,\nimages, video, and audio, that emulates the structure and characteristics of the\nartificial intelligence’s training data. This definition includes an artificial\nintelligence agent.\n( 11 ) “ High - risk artificial intelligence system ” means any artific ial\nintelligence system, regardless of the number of parameters and supervision\nstructure, that is :\n(A) used, or reasonably foreseeable as being used :\n(i) as a controlling factor in making a consequential decision;\n(ii) to categorize groups of person s by sensitive and protected\ncharacteristics, such as race, ethnic origin, or religious belief;\n(iii) in the direct management or operation of critical\ninfrastructure;\n( iv ) in vehicles, medical devices, or in the safety system of a\nproduct; or\n\n( v ) to in fluence elections or voters; or\n( B ) used to collect the biometric data of an individual from a\nbiometric identification system without consent.\n( 1 2 ) “ Inherently dangerous artificial intelligence system ” means a high -\nrisk artificial intelligence system, d ual - use foundational model, or generative\nartificial intelligence system.\n(13) “ Substantially modifies ” or “ substantial modification ” means a new\nversion, new release, or other update to an artificial intelligence system or\nservice that materially changes its functionality or performance, including the\nresults of retraining or fine tuning.\n§ 4193 c. OVERSIGHT AND ENFORCEMENT\n(a) The Division of Artificial Intelligence within the Agency of Digital\nServices shall collect and review Artificial Intelligence System Safety and\nImpact Assessments pursuant to this subchapter.\n( b ) The Attorney General shall enforce the provisions of this subchapter\nand may bring an action in the name of the State against a deployer or\ndeveloper for noncompliance to restrain by temporary or permanent injunction\nthe noncompliance. The action may be brought in the Superior Court of the\ncounty in which the pe rson resides, has a place of business, or is doing\nbusiness. Said courts are authorized to issue temporary or permanent\ninjunctions to restrain and prevent violations of this subchapter, the injunctions\n\nto be issued without bonds, or to dissolve, or revok e the certificate of authority\nof, a deployer or developer .\n(c)(1) Whenever the Attorney General has reasonable cause to believe that\nany person has engaged in or is engaging in any violation of this subchapter ,\nthe Attorney General may issue a civil inve stigative demand.\n(2) In rendering and furnishing any information requested pursuant to a\ncivil investigative demand , a developer or deployer may redact or omit any\ntrade secrets or information protected from disclosure by S tate or federal law.\nIf a deve loper or deployer refuses to disclose or redacts or omits information\nbased on the exemption from disclosure of trade secrets, the developer or\ndeployer shall affirmatively state to the Attorney General that the basis for\nnondisclosure, redaction, or omiss ion is because the information is a trade\nsecret.\n(3) To the extent that any information requested pursuant to a civil\ninvestigative demand is subject to attorney - client privilege or work - product\nprotection, disclosure of the information shall not const itute a waiver of the\nprivilege or protection.\n(4) Any information, statement, or documentation provided to the\nAttorney General pursuant to this sub section shall be exempt from public\ninspection and copying under the Public Records Act.\n\n§ 4193 d. WEBSITE AND COMPLAINT MECHANISM\nThe A ttorney G eneral shall post on the A ttorney G eneral ’ s website:\n(1) information relating to the responsibilities of a developer, distributor,\nand deployer pursuant to section 4193f of this title ; and\n( 2 ) an online mecha nism through which a consumer may submit a\ncomplaint under this sub chapter to the A ttorney G eneral.\n§ 4193e. ARTIFICIAL INTELLIGENCE SYSTEM SAFETY AND IMPACT\nASSESSMENT\n(a) Each deployer of an inherently dangerous artificial intelligence system\nshall :\n(1) submit to the Division of Artificial Intelligence an Artificial\nIntelligence System Safety and Impact Assessment p rior to deploying the\ninherently dangerous artificial intelligence system in this S tate, and every two\nyears t hereafter; and\n(2) s ubmit to the Division of Artificial Intelligence an updated Artificial\nIntelligence System Safety and Impact Assessment if the deployer makes a\nmaterial and substantial change to the inherently dangerous artificial\nintelligence system that includes :\n(A) t he purpose for which the system is used for; or\n(B) the type of data the system processes or uses for training\npurposes .\n\n(b) Each Artificial Intelligence System Safety and Impact Assessment\npursuant to subsection (a) of this sectio n shall include, with respect to the\ninherently dangerous artificial intelligence system :\n(1) t he purpose of the system ;\n(2) t he deployment context and intended use case s ;\n(3) the benefits of use;\n(4) any foreseeable risk of unintended or unauthorized uses and the steps\ntaken, to the extent reasonable, to mitigate the risk;\n(5) whether the model is proprietary;\n(6) a description of the data the system processes or uses for training\npurposes;\n( 7 ) whether the data the system uses for training purposes has been\nprocessed to remove personal information, copyrighted information , and d o n ot\nt rain data;\n( 8 ) a description o f transparency measures, including identifying to\nindividuals when the system is in use;\n( 9 ) identification of any third - party artificial intelligence systems or\ndatasets the deployer relies on to train or operate the system, if applicable;\n( 10 ) whether the developer of the system, if different than the deployer,\ndisclosed the information pursuant to this subsection as well as the results of\ntesting, vulnerabilities, and the parameters for safe and intended use ;\n\n(1 1 ) a description of the data that the sy stem, once deployed, processes\nas inputs ;\n(1 2 ) a description of postdeployment monitoring and user safeguards,\nincluding a description of the oversight process in place to address issues as\nissues arise ; and\n(1 3 ) a description of how the model impacts co nsequential decisions or\nthe collection of biometric data .\n(c) Each deployer of a high - risk artificial intelligence system shall submit a\none - , six - , and 12 - month testing result to the Division of Artificial Intelligence\nshowing the reliability of the results generated by the system, any variance in\nthose results over the testing periods, and any mitigation strategies for\nvariances, in the first year of deployment.\n(d) Upon the D ivision of Artificial Intelligence receiving notice that a\ndeployer of an inherently dangerous artificial intelligence system is not in\ncompliance with the requirements under this section, the Division s hall\nimmediately notify the deployer of the finding i n writing and order the\ndeployer to submit the assessment required pursuant to subsection (a) of this\nsection. I f the deployer fails to submit the assessment on or before 45 days\nafter the deployers receiv es the notice , t he Division of Artificial Intellig ence\nshall notify the Attorney General in writing of the violation.\n\n§ 4193 f . STANDARD OF CARE\n(a) Each developer or deployer of any inherently dangerous artificial\nintelligence system that could be reasonably expected to impact consumers\nshall exercise r easonable care to avoid any reasonably foreseeable risk arising\nout of the development of , intentional and substantial modification to , or\ndeployment of an artificial intelligence system that causes or is likely to cause:\n(1) t he commission of a crime or unlawful act;\n(2) any unfair or deceptive treatment of or unlawful impact on a n\nindividual ;\n(3) any physical, financial, relational, or reputational injury on a n\nindividual ;\n(4) p sychological injuries that would be highly offensive to a reasonable\nperso n;\n(5) a ny physical or other intrusion upon the solitude or seclusion, or the\nprivate affairs or concerns of a person , if the intrusion would be offensive to a\nreasonable person;\n(6) a ny violation to the intellectual property rights of persons under\napplicable S tate and federal laws;\n(7) d iscrimination on the basis of a person ’ s or class of person s’ actual\nor perceived race, color, ethnicity, sex , sexual orientation, gender identity, s ex\n\ncharacteristic s , religion, national origin, familial status, biometric information,\nor disability status;\n(8) distortion of a person ’ s behavior in a manner that causes or is likely\nto cause that person or another person physical or psychological harm; or\n(9) t he exploitation of the vulnerabilities of a specific group of persons\ndue to their age or physical or mental disability in order to materially distort\nthe behavior of a person pertaining to that group in a manner that causes or is\nlikely to cause that person or another person physical or psychological harm.\n(b) Each developer of an inherently dangerous artificial intelligence system\nshall document and disclose to any actual or potential deployer of the artificial\nintelligence system any :\n( 1 ) reasonably foreseeable risk, including by unintended or unauthorized\nuses, that causes or is likely to cause any of the injuries as set forth in\nsubsection (a) of this section; and\n( 2 ) risk mitigation proc esses that are reasonably foreseeable to mitigate\nany injury as set forth in subsection (a) of this section .\n§ 4193 g . UNSAFE ARTIFICIAL INTELLIGENCE PRODUCTS ;\nPROHIBITIONS\n(a) No developer shall offer, sell, lease, give, or otherwise place in the\nstream of commerce:\n\n(1) a n inherently dangerous artificial intelligence system, unless the\ndeveloper has conducted a documented testing, evaluation, verification, and\nvalidation of th at system at least as stringent as the latest version of the\nArtificial Intelligence Risk Management Framework published by the National\nInstitute of Standards and Technology (NIST); or\n(2) a n artificial intelligence system that creates reasonably foresee able\nrisks pursuant to section 4193 f of this subchapter , unless the developer\nmitigates these risks to the extent possible, considers alternatives, and discloses\nvulnerabilities and mitigation tactics to a deployer.\n(b) No deployer shall deploy an inheren tly dangerous artificial intelligence\nsystem or an artificial intelligence system that creates reasonably foreseeable\nrisks pursuant to section 4193 f of this subchapter unless the deployer has\ndesigned and implemented a risk management policy and program for the\nmodel or system. The risk management policy shall specify the principles,\nprocesses , and personnel that the deployer shall use in maintaining the risk\nmanagemen t program to identify, mitigate , and document any risk that is a\nreasonably foreseeable consequence of deploying or using the system. Each\nrisk management policy and program designed, implemented , and maintained\npursuant to this subsection shall be:\n(1) a t least as stringent as the latest version of the Artificial Intelligence\nRisk Management Framework published by the NIST; and\n\n( 2 ) r easonable considering:\n(A) t he size and complexity of the deployer;\n(B) t he nature and scope of the system, including th e intended uses\nand unintended uses and the modifications made to the system by the deployer;\nand\n(C) t he data that the system, once deployed, processes as inputs.\n§ 4193 h . VIOLATIONS; PRIVATE RIGHT OF ACTION\n(a) A person who violates this subchapter o r rules adopted under this\nsubchapter commits an unfair practice in commerce in violation of section\n2453 of this title.\n(b) A consumer harmed by a violation of this subchapter or rules adopted\nunder this subchapter may bring an action in Superior Court for damages\nincurred, injunctive relief, punitive damages in the case of a n intentional\nviolation, and reasonable costs and attorney ’ s fees.\n§ 4193 i . LIMITATIONS\n(a) In any civil action brought against a deployer or developer pursuant to\nsection 4193 h of this subchapter , there shall be a rebuttable presumption that a\ndeveloper or deployer upheld the standard of care if the developer or deployer\ncomplied with the provisions of this subchapter.\n(b) A deployer who is not also the developer of an inherently dangerous\nartificial intelligence system shall not be found in violation of this subchapter\n\nif the deployer deploys the system in accordance with the developer ’ s\ninstructions and information as set forth in section 4 193 f of this subchapter .\n(c) N othing in this subchapter shall restrict a developer ’ s or deployer ’ s\nability to:\n(1) c omply with federal, S tate , or municipal ordinances or regulations;\n(2) c omply with a civil, criminal , or regulatory inquiry, investigation,\nsubpoena , or summons by federal, S tate, municipal , or other governmental\nauthorities;\n(3) i nvestigate, establish, exercise, prepare for , or defend legal claims;\n(4) p rovide a product or service specifically requested by a consumer;\n(5) p erform under a contract to which a consumer is a party, including\nfulfilling the terms of a written warranty;\n(6) e ngage in public or peer - reviewed scientific or statistical researc h in\nthe public interest that adheres to all other applicable ethics and privacy laws\nand is approved, monitored , and governed by an institutional review board or\nby similar independent oversight entities that determine:\n(A) that the expected benefits of the research outweigh the risks\nassociated with the research ; and\n(B) that the developer or deployer has implemented reasonable\nsafeguards to mitigate the risks associated with the research; or\n\n(7) a ssist another developer or deployer with any of the ob ligations\nimposed under this subchapter.\n§ 4193j. APPLICABILITY OF SUBCHAPTER\nThis subchapter shall appl y only to a person that is not a small business as\ndefined by the U.S. Small Business Administration, and:\n(1) conducts business, promotes, or advertises in this S tate or produces a\nproduct or service consumed by residents of this S tate; or\n(2) engages in the development, distribution, or deployment of a high -\nrisk artificial intelligence system in this S tate.\nSec. 2. EFFECT ON CAUSES OF ACTION\nCompliance with the provisions of this act shall not:\n(1) relieve a person from liability for any causes of action that existed at\ncommon law or by statute prior to the effective date of this act; or\n(2) be construed to mo dify or otherwise affect, preempt, limit, or\ndisplace any causes of action that existed at common law or by statute prior to\nthe effective date of this act.\nSec. 3 . EFFECTIVE DATE\nThis act shall take effect on July 1, 2025.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3138782,
+   "date": "2025-02-24",
+   "type": "Introduced",
+   "mime": "application/pdf",
+   "state_link": "https://legislature.vermont.gov/Documents/2026/Docs/BILLS/H-0341/H-0341%20As%20Introduced.pdf",
+   "from": "legiscan",
+   "saved_file": "raw/legiscan/VT-H0341-1981655.pdf",
+   "pdf": {
+    "pages": 16,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": []
+ }
+}

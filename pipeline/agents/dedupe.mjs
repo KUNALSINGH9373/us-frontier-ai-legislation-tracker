@@ -62,7 +62,16 @@ export function similarity(a, b, n = 3) {
 // A bill's text with everything a companion or refile changes removed (numbers, chamber words, whitespace), hashed: equal = the same text.
 export const textKey = (text) => { const w = words(String(text || '').replace(/\b(?:house|senate|assembly|bill|file|act|no)\b/gi, ' ')).join(' '); return w.length >= 200 ? w : null; };
 export const TEXT_SIMILAR = 0.85, PROSE_SIMILAR = 0.6, TITLE_SIMILAR = 0.7;
-const titleWords = (s) => new Set(words(String(s || '').replace(/\([^)]*\)/g, ' ').replace(/[—–-]\s*announced.*$/i, ' ').replace(/\bannounced\b|\bnot yet numbered\b|\bbill\b|\bact\b|\bof\s+20\d\d\b/gi, ' ')));
+// "Artificial Intelligence" and "AI" are the same title word (round 4: a House companion "Artificial Intelligence Risk Evaluation Act").
+const titleWords = (s) => new Set(words(String(s || '').replace(/\([^)]*\)/g, ' ').replace(/[—–-]\s*announced.*$/i, ' ').replace(/\bartificial\s+intelligence\b/gi, ' ai ').replace(/\bannounced\b|\bnot yet numbered\b|\bbill\b|\bact\b|\bof\s+20\d\d\b/gi, ' ')));
+// Near-identical titles (round 4): shared words over the LARGER title's words, so a short title inside a long one does not count.
+export function titleSameness(a, b) {
+  const A = titleWords(a), B = titleWords(b);
+  if (!A.size || !B.size) return { sim: 0, size: 0 };
+  let k = 0; for (const x of A) if (B.has(x)) k++;
+  return { sim: k / Math.max(A.size, B.size), size: Math.min(A.size, B.size) };
+}
+export const SAME_TITLE = 0.8;
 export function titleSimilarity(a, b) {
   const A = titleWords(a), B = titleWords(b);
   if (!A.size || !B.size) return 0;
@@ -89,9 +98,12 @@ export function yearsOf(e) {
   const ys = [...(e.events || []).map((v) => +String(v.date || '').slice(0, 4)), ...[...String((e.identifiers && e.identifiers.session) || '').matchAll(/\b(20\d\d)\b/g)].map((m) => +m[1])].filter((y) => y > 1990);
   return ys.length ? { from: Math.min(...ys), to: Math.max(...ys) } : null;
 }
+// Round 4: "Senate Bill 6953" reads as SB6953, but New York, New Jersey, Massachusetts and Rhode Island number their bills S6953, A8833,
+// H5224 (no B). Each state number is indexed in both forms, so an entry that writes the number out still matches the LegiScan record.
+export const numberAliases = (key) => { const m = /^([A-Z]{2}):([SHA])(B?)(\d+)$/.exec(key); return m ? [key, `${m[1]}:${m[2]}${m[3] ? '' : 'B'}${m[4]}`] : [key]; };
 export function trackerIndex(entries, tracked = []) {
   const ids = new Map(), numbers = new Map(), byNumber = new Map(), all = [];
-  const put = (e) => { all.push(e); idsOf(e).forEach((i) => ids.set(i, e.key)); stateNumbersOf(e).forEach((n) => { numbers.has(n) || numbers.set(n, e.key); (byNumber.get(n) || byNumber.set(n, []).get(n)).push(e); }); };
+  const put = (e) => { all.push(e); idsOf(e).forEach((i) => ids.set(i, e.key)); stateNumbersOf(e).flatMap(numberAliases).forEach((n) => { numbers.has(n) || numbers.set(n, e.key); const l = byNumber.get(n) || byNumber.set(n, []).get(n); l.includes(e) || l.push(e); }); };
   entries.forEach(put);
   tracked.forEach((i) => ids.has(i) || ids.set(i, '(tracked list)'));
   return { ids, numbers, byNumber, entries: all, add: put };
@@ -134,7 +146,17 @@ export function duplicateOf({ item, raw = {}, idx }) {
     // Its history points at another bill ("See S3178", "Substituted by HB 12"): an amendment or substitute folded into that bill.
     for (const h of b.history || []) for (const n of numbersIn(h.action)) if (n !== own && idx.numbers.has(`${st}:${n}`) && /\b(see|substitut|replaced|amend|companion|identical|similar)/i.test(h.action)) return { key: idx.numbers.get(`${st}:${n}`), why: `its history points at a tracked bill ("${h.action}")` };
     // Its own text names a tracked bill of the same state (an amendment to it, or a bill that depends on it becoming law).
-    for (const n of [...textBillNumbers(raw.text), ...numbersIn(String(raw.text || '').slice(0, 3000))]) if (n !== own && idx.numbers.has(`${st}:${normNumber(n)}`)) return { key: idx.numbers.get(`${st}:${normNumber(n)}`), why: `its text names a tracked bill (${st} ${normNumber(n)}); it may amend it or depend on it` };
+    for (const n of [...textBillNumbers(raw.text), ...numbersIn(String(raw.text || '').slice(0, 3000))]) if (n !== own && !numberAliases(`${st}:${n}`).includes(`${st}:${own}`) && idx.numbers.has(`${st}:${normNumber(n)}`)) return { key: idx.numbers.get(`${st}:${normNumber(n)}`), why: `its text names a tracked bill (${st} ${normNumber(n)}); it may amend it or depend on it` };
+    // Round 4: a companion or refile with no LegiScan link and another number: the same official title as a tracked entry of the same
+    // state, in an overlapping session (or an entry that states no years). Possible duplicate, never created, reported.
+    const s = b.session || {}, from = +s.year_start || null, to = +s.year_end || from;
+    for (const e of idx.entries || []) {
+      if (e.level === 'federal' || !statesOf(e).includes(st)) continue;
+      const parts = String(e.title || '').split(' — '), official = parts.length > 1 ? parts.slice(1).join(' — ') : parts[0];
+      const ts = [official, e.short_name].map((x) => titleSameness(b.title, x)).sort((x, y) => y.sim - x.sim)[0];
+      const y = yearsOf(e);
+      if (ts.sim >= SAME_TITLE && ts.size >= 4 && (!from || !y || (y.from <= to && y.to >= from))) return { key: e.key, possible: true, why: `its title is the same as tracked entry "${String(e.short_name || e.title).slice(0, 80)}" (${Math.round(ts.sim * 100)}% of the words), in an overlapping session: a companion or refile under another number? possible duplicate or update of that entry` };
+    }
   }
   if (item.source === 'congress_gov') {
     const rel = raw.related_bills || raw.relatedBills?.relatedBills || [];
@@ -162,10 +184,15 @@ export function duplicateOf({ item, raw = {}, idx }) {
 const congressTitles = (item, raw) => [item.title, raw.bill && raw.bill.title, ...([raw.titles, raw.bill && raw.bill.titles].find(Array.isArray) || []).map((t) => (t && (t.title || t)) || '')].filter((t) => typeof t === 'string' && t);
 export function federalNameMatch({ item, raw = {}, entries = [] }) {
   const titles = congressTitles(item, raw), mine = sponsorNames([...(raw.bill && raw.bill.sponsors) || [], ...(raw.cosponsors || [])]);
-  if (!titles.length || !mine.size) return null;
+  if (!titles.length) return null;
   for (const e of entries) {
     if (e.level !== 'federal' || !['D', 'F', 'G.3'].includes(e.section)) continue;
     const names = [e.short_name, String(e.title || '').split(' — ').slice(-1)[0], e.title].filter(Boolean);
+    // Round 4: a companion in the other chamber has other sponsors, and Congress.gov often links it days later: a near-identical title
+    // alone (3+ distinctive words) makes it a possible duplicate of the tracked bill.
+    const same = titles.flatMap((a) => names.map((b) => titleSameness(a, b))).filter((x) => x.size >= 3).sort((x, y) => y.sim - x.sim)[0];
+    if (same && same.sim >= SAME_TITLE) return { key: e.key, possible: true, why: `its title is the same as tracked entry "${String(e.short_name || e.title).slice(0, 80)}" (${Math.round(same.sim * 100)}% of the words): a companion in the other chamber or a reintroduction? possible duplicate of that entry` };
+    if (!mine.size) continue;
     const t = Math.max(...titles.flatMap((a) => names.map((b) => titleSimilarity(a, b))));
     const shared = [...sponsorNames(e.sponsor_text)].filter((n) => mine.has(n));
     // An announced bill described in words ("U.S.–China frontier-AI safety coordination bill") rarely shares its future title: a shared
