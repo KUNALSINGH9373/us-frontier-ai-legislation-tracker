@@ -488,10 +488,14 @@ const d12 = (o) => draftNews({ today: TODAY, runId: 'r', now: NOW, index: ix12, 
 {
   const HID = path.join(FIX, 'hidden'), SECRET = 'licensing bill with $50 million penalties';
   const files = fs.readdirSync(HID).filter((f) => /^\d\d-.*\.html$/.test(f) && !f.startsWith('00')).sort();
-  ok('15 there are at least 20 hidden-text tricks as fixtures', files.length >= 20, String(files.length));
+  ok('15 there are at least 36 hidden-text tricks as fixtures (the 20 of the adversarial round, review N1 26-36)', files.length >= 36, String(files.length));
   for (const f of files) await t(`15 trick ${f}: the hidden sentence is not read; the visible text after it is`, async () => { const txt = await releaseText(fs.readFileSync(path.join(HID, f), 'utf8')); return !txt.includes(SECRET) && /Closing visible paragraph\./.test(txt) && /Today, Lieu spoke on AI safety\./.test(txt) || txt; });
   const control = await releaseText(fs.readFileSync(path.join(HID, '00-visible-control.html'), 'utf8'));
   await t('15 visible text is kept (links, bold, open <details>, white on black, a quote), menus and footers are not', async () => [/The hidden cost of AI, said Lieu\./, /Lead text with a bold word\./, /Open details text\./, /White on black text\./, /"Lieu will introduce a licensing bill with \$50 million penalties," said Lieu\./].every((r) => r.test(control)) && !/Home Menu|Footer links/.test(control) || control);
+  const control2 = await releaseText(fs.readFileSync(path.join(HID, '00-visible-control-2.html'), 'utf8'));
+  await t('15 review N1 controls: gradient banners, drop shadows, multiply blend, pseudo-element underlines, SVG captions and dimmed text are kept', async () => [/Gradient banner text\./, /Drop shadow text\./, /Multiply blend text\./, /Underlined by a pseudo element\./, /Visible SVG caption\./, /Slightly dimmed text\./, /said Lieu\./].every((x) => x.test(control2)) || control2);
+  const over = await releaseText(fs.readFileSync(path.join(HID, '36-overlaid-on-visible-text.html'), 'utf8'));
+  await t('15 a hidden sentence laid under a visible one: the visible one is kept, the hidden one is not', async () => /Visible sentence over the injected one\./.test(over) && !/licensing/.test(over) || over);
   // a quote the writer takes from hidden text is refused by the code check, as it is not in the release text
   const hiddenQuote = await releaseText(fs.readFileSync(path.join(HID, '02-css-class.html'), 'utf8'));
   await t('15 a quote only in hidden text is not in the release the code checks against', async () => !containsQuote(hiddenQuote, 'Lieu will introduce a licensing bill with $50 million penalties') && containsQuote(hiddenQuote, 'Lieu spoke on AI safety'));
@@ -504,6 +508,9 @@ const d12 = (o) => draftNews({ today: TODAY, runId: 'r', now: NOW, index: ix12, 
     if (u === '/release') { res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }); return res.end(PAGE); }
     if (u === '/moved') { res.writeHead(301, { location: '/release' }); return res.end(); }
     if (u === '/away') { res.writeHead(302, { location: `http://localhost:${server.address().port}/release` }); return res.end(); }
+    const port = server.address().port;
+    if (u === '/meta') { res.writeHead(200, { 'content-type': 'text/html' }); return res.end(`<meta http-equiv="refresh" content="0;url=http://localhost:${port}/release">` + PAGE); }
+    if (u === '/js') { res.writeHead(200, { 'content-type': 'text/html' }); return res.end(PAGE.replace('</body>', `<script>setTimeout(() => { location.href = 'http://localhost:${port}/release'; }, 0)</script></body>`)); }
     if (u === '/gone') { res.writeHead(404); return res.end('no'); }
     res.writeHead(500); res.end('err');
   });
@@ -516,6 +523,8 @@ const d12 = (o) => draftNews({ today: TODAY, runId: 'r', now: NOW, index: ix12, 
     await t('15 a redirect to a host not on the official list is refused', async () => live.render(base + '/away').then(() => false, (e) => e.name === 'Error' && /not an official news source/.test(e.message) && e instanceof RENDER_MOD.RedirectRefused || e.message));
     await t('15 a release on a host not on the list is never loaded', async () => live.render('http://localhost:1/release').then(() => false, (e) => e instanceof RENDER_MOD.RedirectRefused));
     await t('15 a page that fails (404, 500) is refused', async () => (await live.render(base + '/gone').then(() => false, (e) => e instanceof RENDER_MOD.PageFailed && /HTTP 404/.test(e.message))) && (await live.render(base + '/x').then(() => false, (e) => e instanceof RENDER_MOD.PageFailed)));
+    await t('15 review N2: a meta refresh to a host off the list after load is refused', async () => live.render(base + '/meta').then((x) => JSON.stringify(x).slice(0, 80), (e) => e instanceof RENDER_MOD.RedirectRefused || e.message));
+    await t('15 review N2: a script redirect to a host off the list after load is refused', async () => live.render(base + '/js').then((x) => JSON.stringify(x).slice(0, 80), (e) => e instanceof RENDER_MOD.RedirectRefused || e.message));
     await t('15 a page robots.txt disallows is never loaded', async () => live.render(base + '/private').then(() => false, (e) => e instanceof RENDER_MOD.PageFailed && /robots\.txt/.test(e.message)));
   } finally { await live.close(); server.close(); }
 

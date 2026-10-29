@@ -87,7 +87,7 @@ export function federalRefusals(item = {}, raw = {}) {
 // law it amends, never a new A, B, B.2, C, D or F entry. Held (reported), no AI spent.
 // A substantive bill "making an appropriation therefor" is not a budget bill: the title must BE the appropriation (it opens with it, or
 // names an Appropriations Act or a budget).
-const BUDGET_TITLE = /^\s*(?:an\s+act\s+)?(?:making|makes|make|relating\s+to|general|supplemental|omnibus|consolidated|further\s+continuing|continuing)?\s*(?:general\s+|supplemental\s+)?appropriations?\b|\bappropriations?\s+act\b|\bbudget\b|\bnational\s+defen[cs]e\s+authorization\s+act\b|\brevenue\s+(?:and|&)\s+taxation\s+omnibus\b/i;
+const BUDGET_TITLE = /^\s*(?:an\s+act\s+)?(?:making|makes|make|relating\s+to|general|supplemental|omnibus|consolidated|further\s+continuing|continuing)?\s*(?:general\s+|supplemental\s+)?appropriations?\b|\bappropriations?\s+act\b|\bbudget\b|\bnational\s+defen[cs]e\s+authorization\s+act\b|\brevenue\s+(?:and|&)\s+taxation\s+omnibus\b|\bomnibus\s+(?:revenue|tax(?:ation)?|finance|budget)\b|\b(?:revenue|tax(?:ation)?|finance)\s+omnibus\b|^\s*(?:an\s+act\s+)?relating\s+to\s+(?:state\s+)?(?:government\s+)?(?:finance|revenue)\b/i;
 const AMENDS_ONLY_TITLE = /\bsunset\b|\b(?:extend|extends|extending|extension\s+of|delay|delays|delaying|postpone\w*)\b[^.;]{0,60}\b(?:repeal|expiration|termination|effective|operative|implementation|sunset)\s+dates?\b|\b(?:repeal|expiration|termination)\s+dates?\b|\btechnical\s+(?:corrections?|changes?|amendments?|revisions?|cleanup)\b|\bclean-?up\b|\bnonsubstantive\b/i;
 export function subjectRefusals(title) {
   const t = String(title || ''), out = [];
