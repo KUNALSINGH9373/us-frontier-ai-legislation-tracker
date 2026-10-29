@@ -74,12 +74,12 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   const s = emptyState();
   const run = async (recs, now, runId) => (await eventsStep({ state: s, records: recs, now, runId, sinceDays: 800 })).up;
   const a = await run([HR], T1, 'r1');
-  const intro = 'US|s-1792-h-r-3460-ai-whistleblower-protection-act|introduction|2025-05-15';
+  const intro = 'US|s-1792-h-r-3460-ai-whistleblower-protection-act|introduction|2025-05-15#HR3460';
   ok('3 run 1: events created pending', a.added.includes(intro) && s.events[intro].status === 'pending');
   const b = await run([HR], T2, 'r2');
-  ok('3 run 2, the record unchanged: confirmed by 2 stable runs (no independent source for this class)', b.confirmed.includes('US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15') && s.events['US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15'].status === 'confirmed');
+  ok('3 run 2, the record unchanged: confirmed by 2 stable runs (no independent source for this class)', b.confirmed.includes('US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460') && s.events['US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460'].status === 'confirmed');
   const hr2 = clone(HR); hr2.raw.actions = hr2.raw.actions.filter((x) => !/Referred to the House Committee/.test(x.text));
-  const refKey = 'US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15';
+  const refKey = 'US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460';
   markShown(s, [refKey], T2.toISOString());
   const c = await run([hr2], T3, 'r3');
   ok('3 the record read again in full no longer shows the referral: withdrawn, with history, not deleted', c.withdrawn.includes(refKey) && s.events[refKey].status === 'withdrawn' && s.events[refKey].history.some((h) => h.to === 'withdrawn'));
@@ -105,7 +105,7 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   const sl = emptyState();
   await eventsStep({ state: sl, records: [AB], now: new Date('2026-10-13T08:00:00Z'), runId: 'a', sinceDays: 800 });
   await eventsStep({ state: sl, records: [AB], now: new Date('2026-10-13T12:00:00Z'), runId: 'b', sinceDays: 800 });
-  const law = 'CA|ca-ab-1405-auditor-registry|became-law|2026-09-09';
+  const law = 'CA|ca-ab-1405-auditor-registry|became-law|2026-09-09#AB1405';
   ok('3 a state event from LegiScan alone stays pending (an independent state source exists for the class)', sl.events[law] && sl.events[law].status === 'pending');
   const os1 = { source: 'openstates', source_id: 'ocd-x', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', class: 'became-law', date: '2026-09-09', facts: { action: 'Chaptered by Secretary of State - Chapter 178, Statutes of 2026.' }, url: 'https://leginfo.legislature.ca.gov/x', title: 'AB 1405', retrieved_at: '2026-10-13T12:00:00Z' };
   upsertItems(sl, [os1], { runId: 'c', now: new Date('2026-10-13T14:00:00Z') });
@@ -148,7 +148,7 @@ function stateWithConfirmed() {
   ok('5 confirmed events are appended; every hand-written item untouched and in order', r.added.length > 0 && JSON.stringify(r.news.items.slice(0, NEWS.items.length)) === JSON.stringify(NEWS.items));
   ok('5 an event on an entry and date that already has an item (Lane 1 or by hand) is not added again', r.held.some((h) => /already has an item/.test(h.why)) || !auto.some((n) => NEWS.items.some((o) => !o.event_key && o.tracker === n.tracker && o.date === n.date)));
   const intro = auto.find((n) => n.class === 'referral-committee'); // the introduction waits for govinfo (news/confirm.mjs)
-  ok('5 the item: contract fields, official-record badge, jurisdiction, stage, history, template text quoting the record', intro && intro.origin === 'automated' && intro.verification.method === 'official-record' && intro.jurisdiction === 'US' && intro.stage === 'committee' && intro.status === 'confirmed' && Array.isArray(intro.history) && Array.isArray(intro.statements) && /"Referred to the House Committee on Education and Workforce"/.test(intro.body) && /AI Whistleblower Protection Act referred to committee$/.test(intro.title), JSON.stringify(intro));
+  ok('5 the item: contract fields, official-record badge, jurisdiction, stage, history, template text quoting the record', intro && intro.origin === 'automated' && intro.verification.method === 'official-record' && intro.jurisdiction === 'US' && intro.stage === 'committee' && intro.status === 'confirmed' && Array.isArray(intro.history) && Array.isArray(intro.statements) && /"Referred to the House Committee on Education and Workforce"/.test(intro.body) && /^H.R. 3460 referred to committee$/.test(intro.title), JSON.stringify(intro));
   const errs = validate.check('news', r.news);
   ok('5 the rendered news.json passes its schema', !errs.length, errs.slice(0, 3).join(' | '));
   ok('5 the stop rules pass on the honest render', checkNewsEvents({ before: { news: NEWS, entries: ENTRIES }, after: { news: r.news, entries: ENTRIES }, state: s, entries: ENTRIES }).length === 0);
@@ -372,13 +372,11 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
 // ---------- 11. review round 4 (fact sheet and phrase bank) ----------
 {
   const FS = await import('./factsheet.mjs'), PB = await import('./phrasebank.mjs'), M = await import('../eval/news-bank-matrix.mjs');
-  const sn = (j, number, chamber, cls = 'passage') => FS.stageAndNext(cls, j, { number, chamber });
-  ok('r4#1 a bill passing its own chamber: the other chamber is next; passing the second chamber, or an unknown origin: no next step',
-    sn('CA', 'AB 1018', 'Assembly').next === 'consideration in the Senate' && sn('CA', 'AB 1018', 'Senate').next === null && sn('CA', 'SB 53', 'Senate').next === 'consideration in the Assembly'
-    && sn('NY', 'A 6453', 'Senate').next === null && sn('US', 'H.R. 1405', 'House').next === 'consideration in the Senate' && sn('US', 'S. 1405', 'House').next === null && sn('CA', 'XYZ 1', 'Senate').next === null);
-  ok('r4#2 a committee vote states no fixed next step', sn('CA', 'SB 53', 'Senate', 'committee-passage').next === null);
-  ok('r4#3 Nebraska: "Passed the Legislature", never both chambers', sn('NE', 'LB 1405', 'Legislature', 'enrolled').stage === 'Passed the Legislature' && sn('NE', 'LB 1405', 'Legislature', 'concurrence').stage === 'Passed the Legislature');
-  ok('r4#4 DC: the Mayor, and no "into law"', FS.executiveOf('DC') === 'the Mayor' && sn('DC', 'B 26-0123', 'Council', 'executive-signature').stage === 'Signed');
+  const sn = (j, number, chamber, cls = 'passage', proven = null) => FS.stageOf(cls, j, { number, chamber }, proven);
+  ok('r5 no next step anywhere: the fact sheet has none, the bank has no next-step lines', !('next' in FS.buildFactSheet({ key: 'k', jurisdiction: 'CA', class: 'passage', date: '2026-10-27', facts: { number: 'AB 1018', chamber: 'Assembly' } }, null)) && !('NEXT_BANK' in PB) && !('stageAndNext' in FS));
+  ok('r4#3 Nebraska: "Passed the Legislature", never both chambers', sn('NE', 'LB 1405', 'Legislature', 'enrolled').stage === undefined && sn('NE', 'LB 1405', 'Legislature', 'enrolled') === 'Passed the Legislature' && sn('NE', 'LB 1405', 'Legislature', 'concurrence', 'passed-both') === 'Passed the Legislature');
+  ok('r5 a concurrence alone proves no "both chambers"; with both passages confirmed it does', sn('CA', 'AB 1018', 'Senate', 'concurrence') === 'Concurred in the Senate' && sn('CA', 'AB 1018', 'Senate', 'concurrence', 'passed-both') === 'Passed both chambers');
+  ok('r4#4 DC: the Mayor, and no "into law"', FS.executiveOf('DC') === 'the Mayor' && sn('DC', 'B 26-0123', 'Council', 'executive-signature') === 'Signed');
   ok('r4#6 the summary label: "would do" for a live bill, "does" for a law', PB.summaryLabel('passage') === 'What the bill would do' && PB.summaryLabel('executive-signature') === 'What it does' && PB.summaryLabel('became-law') === 'What it does');
   ok('r4#8 resolutions are told apart from bills', FS.isResolution('KS HR6023', 'KS') && FS.isResolution('H.Res. 12', 'US') && !FS.isResolution('H.R. 3460', 'US') && !FS.isResolution('CA SB53', 'CA'));
   // the matrix traps catch each of the round-4 errors on a hand-made card
@@ -394,6 +392,66 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   ok('r4#5 with no signer in the record, no card names one', cards.length > 0 && cards.every((c) => !/\b(Governor|President)\b/.test(c.headline + c.body)));
   const comm = PB.slotsOf(sheetOf('referral-committee', 'CA', { number: 'SB 53', committee: 'the Senate Judiciary Committee' }));
   ok('r4#8 a committee name that starts with "the" is not doubled', comm.committee === 'Senate Judiciary Committee');
+}
+
+// ---------- 12. review round 5 ----------
+{
+  // H1: a scheduled hearing seen on three days, then cancelled: one event, withdrawn
+  const day = (d) => new Date(`${d}T08:00:00Z`);
+  const hs = (d, extra = {}) => ({ source: 'congress_gov', source_id: 'meeting:119/house/117001', jurisdiction: 'US', entry_id: 'x', class: 'hearing-scheduled', date: d, facts: { hearing_date: '2026-11-04', committee: 'House Committee on Science', ...extra }, url: 'https://www.congress.gov/event/119th-congress/house-event/117001', title: 'Hearing', retrieved_at: `${d}T07:00:00Z` });
+  const s = emptyState();
+  upsertItems(s, [hs('2026-10-20')], { runId: 'd1', now: day('2026-10-20') });
+  upsertItems(s, [hs('2026-10-21')], { runId: 'd2', now: day('2026-10-21') });
+  const ks = Object.keys(s.events);
+  ok('r5 H1 a scheduled hearing seen on two days is one event, keyed by its hearing day, dated the day first seen, confirmed', ks.length === 1 && /\|HD2026-11-04@house-committee-on-science$/.test(ks[0]) && s.events[ks[0]].date === '2026-10-20' && s.events[ks[0]].status === 'confirmed');
+  upsertItems(s, [hs('2026-10-22')], { runId: 'd3', now: day('2026-10-22') });
+  ok('r5 H1 seen a third day: still one event, nothing superseded', Object.keys(s.events).length === 1 && s.events[ks[0]].status === 'confirmed');
+  markShown(s, ks, '2026-10-22');
+  const r = upsertItems(s, [hs('2026-10-23', { withdrawn: true, meeting_status: 'Cancelled' })], { runId: 'd4', now: day('2026-10-23') });
+  ok('r5 H1 cancelled: the one event is withdrawn (never masked by a carried copy), no second event', Object.keys(s.events).length === 1 && s.events[ks[0]].status === 'withdrawn' && r.withdrawn.includes(ks[0]));
+  // a stored event under the old date key (or any other key) with the same source id: the cancellation still withdraws it
+  const s2 = emptyState();
+  upsertItems(s2, [hs('2026-10-20')], { runId: 'd1', now: day('2026-10-20') });
+  const [k0] = Object.keys(s2.events), old = 'US|x|hearing-scheduled|2026-10-20';
+  s2.events[old] = { ...s2.events[k0], key: old }; delete s2.events[k0];
+  upsertItems(s2, [hs('2026-10-21', { hearing_date: '2026-11-05', withdrawn: true })], { runId: 'd2', now: day('2026-10-21') });
+  ok('r5 H1 a cancellation is applied by source id across keys; a fresh item wins over the carried copy', s2.events[old].status === 'withdrawn');
+  const { applyRun } = await import('./confirm.mjs');
+  const evx = { key: 'k', jurisdiction: 'US', entry_id: 'x', class: 'hearing-scheduled', date: '2026-10-20', status: 'confirmed', facts: { hearing_date: '2026-11-04' }, history: [], sources: [{ role: 'official', source: 'congress_gov', source_id: 'm1' }] };
+  const base = { source: 'congress_gov', source_id: 'm1', jurisdiction: 'US', entry_id: 'x', class: 'hearing-scheduled', date: '2026-10-20' };
+  for (const order of [[{ ...base, facts: { hearing_date: '2026-11-04' }, carried: true }, { ...base, facts: { hearing_date: '2026-11-04', withdrawn: true } }], [{ ...base, facts: { hearing_date: '2026-11-04', withdrawn: true } }, { ...base, facts: { hearing_date: '2026-11-04' }, carried: true }]]) {
+    ok('r5 H1 applyRun: a fresh cancellation wins over a carried copy in either order', applyRun([evx], order).events[0].status === 'withdrawn');
+  }
+  // Open States: the adapter dates an upcoming hearing the day it is seen; the key does not move
+  const os = await import('./sources/openstates.mjs');
+  const oev = { id: 'ocd-event/1', start_date: '2026-11-04T10:00:00', status: 'confirmed', name: 'Hearing', participants: [{ name: 'Senate Judiciary' }] };
+  const a1 = os.eventToItem(oev, { state: 'CA', entry_id: 'ca-x' }, '2026-10-20T06:00:00Z'), a2 = os.eventToItem(oev, { state: 'CA', entry_id: 'ca-x' }, '2026-10-21T06:00:00Z');
+  ok('r5 H1 Open States: two days, one key', a1.date !== a2.date && eventKey(a1) === eventKey(a2));
+
+  // M6: companion bills under one entry, same-day actions: separate events, never confirming each other
+  const comp = (n, src = 'legiscan', sid = n) => ({ source: src, source_id: `${src}-${sid}`, jurisdiction: 'NY', entry_id: 'ny-raise', class: 'passage', date: '2026-06-10', facts: { chamber: 'Senate', number: n, action: 'Passed Senate' }, url: 'https://www.nysenate.gov/legislation/bills/2025/x', title: n, retrieved_at: '2026-06-11T00:00:00Z' });
+  const s3 = emptyState();
+  upsertItems(s3, [comp('NY S6953'), comp('NY A6453'), comp('A 6453', 'nysenate', 'a')], { runId: 'm1', now: new Date('2026-06-11T06:00:00Z') });
+  const keys3 = Object.keys(s3.events).sort();
+  const evA = Object.values(s3.events).find((e) => /#A6453$/.test(e.key)), evS = Object.values(s3.events).find((e) => /#S6953$/.test(e.key));
+  ok('r5 M6 two companions passing on one day are two events (the bill number is in the key)', keys3.length === 2 && evA && evS);
+  ok('r5 M6 a record of one companion never confirms the other', evA.status === 'confirmed' && evS.status !== 'confirmed');
+  const { compare } = await import('./confirm.mjs');
+  ok('r5 M6 compare: different bill numbers are unrelated', compare({ ...evS }, { ...comp('A6453', 'nysenate'), facts: { chamber: 'Senate', number: 'A6453' } }) === null && compare({ ...evA }, { ...comp('A6453B', 'nysenate'), facts: { chamber: 'Senate', number: 'A 6453B' } }) === 'agree');
+
+  // L2: Open States votes need the event's own chamber and a result that agrees with the action
+  const vote = (o) => ({ start_date: '2026-06-10', motion_text: 'Third Reading', result: 'pass', organization: { classification: 'upper' }, counts: [{ option: 'yes', value: 40 }, { option: 'no', value: 20 }], ...o });
+  ok('r5 L2 a matching vote is used', JSON.stringify(os.voteFacts([vote({})], '2026-06-10', 'upper', 'passage')) === JSON.stringify({ yes: 40, no: 20, result: 'pass' }));
+  ok('r5 L2 no organization, the other chamber, no chamber on the action, or a result that disagrees: no vote', os.voteFacts([vote({ organization: null })], '2026-06-10', 'upper', 'passage') === null
+    && os.voteFacts([vote({ organization: { classification: 'lower' } })], '2026-06-10', 'upper', 'passage') === null && os.voteFacts([vote({})], '2026-06-10', null, 'passage') === null
+    && os.voteFacts([vote({ result: 'fail' })], '2026-06-10', 'upper', 'passage') === null && os.voteFacts([vote({ result: 'pass' })], '2026-06-10', 'upper', 'failure') === null
+    && JSON.stringify(os.voteFacts([vote({ result: 'fail' })], '2026-06-10', 'upper', 'failure')) === JSON.stringify({ yes: 40, no: 20, result: 'fail' }));
+
+  // M5: the template fallback uses the fact-sheet rules (DC Mayor, one chamber, resolutions)
+  const T = (j, cls, facts, short = 'Measure X') => templateFor({ key: 'k', jurisdiction: j, entry_id: 'x', class: cls, date: '2026-10-27', facts: { action: 'Official action words here.', ...facts }, sources: [{ role: 'official', source: 'legiscan' }] }, { short_name: short, title: short });
+  const dc = T('DC', 'executive-receipt', { number: 'B 26-0123' }), ne = T('NE', 'concurrence', { number: 'LB 1405', chamber: 'Legislature' }), res = T('CA', 'executive-receipt', { number: 'ACA 1' }), sig = T('MT', 'executive-signature', { number: 'HJ 4' }), ca = T('CA', 'executive-receipt', { number: 'AB 1018' });
+  ok('r5 M5 template: DC is the Mayor; Nebraska never "both chambers"; a resolution is never sent to the Governor or signed into law', dc && /Mayor/.test(dc.headline) && !/Governor/.test(dc.headline)
+    && (!ne || !/both chambers/i.test(ne.headline)) && res === null && sig && !/into law|Governor/i.test(sig.headline) && ca && /Governor/.test(ca.headline) && !/signs or vetoes/.test(JSON.stringify([dc, ne, sig, ca])));
 }
 
 console.log(`news events: ${pass} passed, ${fail} failed`);

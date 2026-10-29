@@ -1,8 +1,8 @@
 {
  "measure": "news",
- "run_at": "2026-10-29T07:26:23.943Z",
- "checks_hash": "9d9a04ef2ffded27ab2a7c4580956f90a2c75a082912411391393d2fddb31748",
- "cases": 54,
+ "run_at": "2026-10-29T08:10:23.552Z",
+ "checks_hash": "2b6fb3af11c78a8d15d7c8a813e8e38535639c7182ddad79db7615bccf2332b6",
+ "cases": 58,
  "wrong": 0,
  "missed": 0,
  "rows": [
@@ -593,6 +593,50 @@
    "id": "r3-ny-confirmed-by-nysenate",
    "expect": 1,
    "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r5-hearing-scheduled-cancelled",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r5-companions-same-day",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r5-constitutional-amendment-no-executive",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r5-hres-passage-no-next-step",
+   "expect": 2,
+   "got": 2,
    "wrong": false,
    "missed": false,
    "extra": [],

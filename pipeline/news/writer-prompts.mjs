@@ -9,7 +9,7 @@ Rules:
 - event.timing "scheduled" means it has NOT happened: write it as upcoming ("is scheduled to", "will"). "held" means it happened: past tense.
 - For a scheduled hearing, give the hearing day from event.hearing_date (event.date is only the day it was listed).
 - A vote is given exactly as event.vote (yes-no). Never say "unanimous" unless no is 0. Never characterise a vote (narrow, overwhelming, bipartisan).
-- The only future step you may state is "next" in FACT SHEET, in its own words. No predictions, no likely outcomes.
+- State only what happened. Never a next step or a future step ("next", "will", "heads to", "goes to", "awaits"). No predictions, no likely outcomes.
 - No "first", "only", "largest", "landmark", "historic" or similar, unless that claim is in "milestones".
 - No reasons, causes, motives, reactions or opinions. No quotation marks. No words you would need a source for.
 - Write about the event itself: never mention the fact sheet, its fields, "summary", "stage" or "listed". A bill is introduced in a chamber, not by it.

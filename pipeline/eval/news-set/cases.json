@@ -26,8 +26,8 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
-     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "H.R. 3460 referred to committee",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
      "status": "confirmed",
      "links": [
@@ -150,8 +150,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-09-09",
-     "title": "CA AB 1405 (auditor registry) becomes law",
+     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-09-09#AB1405",
+     "title": "AB 1405 becomes law",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Sept 9, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
      "status": "confirmed",
      "links": [
@@ -230,8 +230,8 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
-     "title": "Withdrawn: S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "Withdrawn: H.R. 3460 referred to committee",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
      "status": "withdrawn",
      "links": [
@@ -276,8 +276,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20",
-     "title": "CA AB 1405 (auditor registry) becomes law",
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20#AB1405",
+     "title": "AB 1405 becomes law",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 21, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
      "status": "confirmed",
      "links": [
@@ -358,8 +358,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20",
-     "title": "CA AB 1405 (auditor registry) becomes law",
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20#AB1405",
+     "title": "AB 1405 becomes law",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 21, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
      "status": "confirmed",
      "links": [
@@ -457,8 +457,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-10-20",
-     "title": "CA AB 1405 (auditor registry) becomes law",
+     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-10-20#AB1405",
+     "title": "AB 1405 becomes law",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
      "status": "confirmed",
      "links": [
@@ -541,14 +541,14 @@
   {
    "id": "group-concurrence-enrolled",
    "r2": true,
-   "note": "Concurrence and enrolment a day apart: one card (enrolled).",
+   "note": "Concurrence and enrolment a day apart: one card (enrolled). (review r5: the concurrence line names no chamber that acted — \"Senate amendments concurred in\" is the Assembly — so it has no card of its own; the enrolment card stands alone.)",
    "intent": [
     "enrolled"
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-19",
-     "title": "CA AB 1405 (auditor registry) enrolled",
+     "event_key": "CA|ca-ab-1405-auditor-registry|enrolled|2026-10-20#AB1405",
+     "title": "AB 1405 enrolled",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Enrolled\".",
      "status": "confirmed",
      "links": [
@@ -629,8 +629,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|hearing-held|2026-10-20",
-     "title": "Hearing held on CA AB 1405 (auditor registry)",
+     "event_key": "CA|ca-ab-1405-auditor-registry|hearing-held|2026-10-20#AB1405",
+     "title": "Hearing held on AB 1405",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Hearing held\".",
      "status": "confirmed",
      "links": [
@@ -819,8 +819,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-05",
-     "title": "CA AB 1405 (auditor registry) becomes law",
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-05#AB1405",
+     "title": "AB 1405 becomes law",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 15, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
      "status": "confirmed",
      "links": [
@@ -901,8 +901,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20",
-     "title": "CA AB 1405 (auditor registry) passes the Senate",
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Senate",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
      "status": "confirmed",
      "links": [
@@ -963,8 +963,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20",
-     "title": "CA AB 1405 (auditor registry) passes the Assembly",
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Assembly",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 70. Noes 1.) Ordered to the Senate\".",
      "status": "confirmed",
      "links": [
@@ -1340,8 +1340,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20",
-     "title": "CA AB 1405 (auditor registry): both chambers agree on the text",
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20#AB1405",
+     "title": "AB 1405: Senate concurs",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Senate concurs in House amendments\".",
      "status": "confirmed",
      "links": [
@@ -2182,8 +2182,8 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|became-law|2026-10-10",
-     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act becomes law",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|became-law|2026-10-10#HR3460",
+     "title": "H.R. 3460 becomes law",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on Oct 10, 2026: \"Became Public Law No: 119-77\".",
      "status": "confirmed",
      "links": [
@@ -2294,8 +2294,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20",
-     "title": "Governor signs CA AB 1405 (auditor registry)",
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20#AB1405",
+     "title": "AB 1405 signed",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Approved by the Governor\".",
      "status": "confirmed",
      "links": [
@@ -2377,8 +2377,8 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|committee-passage|2026-10-19",
-     "title": "CA AB 1405 (auditor registry) advances from committee",
+     "event_key": "CA|ca-ab-1405-auditor-registry|committee-passage|2026-10-19#AB1405",
+     "title": "AB 1405 advances out of committee",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 19, 2026: \"From committee: Do pass. (Ayes 11. Noes 0.)\".",
      "status": "confirmed",
      "links": [
@@ -2387,8 +2387,8 @@
      "status_note": null
     },
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20",
-     "title": "CA AB 1405 (auditor registry) passes the Senate",
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Senate",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
      "status": "confirmed",
      "links": [
@@ -2854,8 +2854,8 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
-     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "H.R. 3460 referred to committee",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 14, 2025: \"Referred to the House Committee on Education and Workforce\".",
      "status": "corrected",
      "links": [
@@ -2911,8 +2911,8 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
-     "title": "Withdrawn: S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "Withdrawn: H.R. 3460 referred to committee",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
      "status": "withdrawn",
      "links": [
@@ -3597,6 +3597,422 @@
        "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
        "title": "S6953",
        "retrieved_at": "2026-06-11T00:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r5-hearing-scheduled-cancelled",
+   "r5": true,
+   "note": "Review r5 H1: a scheduled hearing seen on three days (the adapter dates it the day seen), then cancelled: one event, one card, withdrawn. Before the fix each day made a new key and a carried copy masked the cancellation.",
+   "intent": [
+    "hearing-scheduled"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|hearing-scheduled|HD2026-11-04@house-committee-on-education-and-workforce",
+     "title": "Withdrawn: Hearing scheduled on S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"Hearing: AI whistleblower protections\".",
+     "status": "withdrawn",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "The official record no longer shows this action."
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "h1",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "h2",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "h3",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-22",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-22T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-23T08:00:00Z",
+     "run_id": "h4",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-23",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "withdrawn": true,
+        "meeting_status": "Cancelled"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-23T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r5-companions-same-day",
+   "r5": true,
+   "note": "Review r5 M6: two companion bills under one entry pass the Senate on one day; the NY Senate record confirms only A 6453. Two events (the number is in the key); S 6953 is never confirmed by the A 6453 record, so only A 6453 gets a card.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10#A6453",
+     "title": "A 6453 passes the Senate",
+     "body": "The NY Legislature's record shows this action on RAISE Act — Chapter 699 of 2025 (S.6953-B/A.6453-B), repealed and replaced by Chapter 96 of 2026 (S.8828/A.9449) (A 6453) on June 10, 2026: \"PASSED SENATE\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.nysenate.gov/legislation/bills/2025/A6453"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-06-11T08:00:00Z",
+     "run_id": "c1",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls-s6953#p",
+       "record": "ls-s6953",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "Senate",
+        "number": "NY S6953"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T05:00:00Z"
+      },
+      {
+       "source": "legiscan",
+       "source_id": "ls-a6453#p",
+       "record": "ls-a6453",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "Senate",
+        "number": "NY A6453"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/A6453",
+       "title": "A6453",
+       "retrieved_at": "2026-06-11T05:00:00Z"
+      },
+      {
+       "source": "nysenate",
+       "source_id": "2025-A6453-40",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "Senate",
+        "number": "A 6453"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/A6453",
+       "title": "A 6453: PASSED SENATE",
+       "retrieved_at": "2026-06-11T05:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r5-constitutional-amendment-no-executive",
+   "r5": true,
+   "note": "Review r5 M4/M5: a constitutional amendment (CA ACA 1) recorded as sent to the executive gets no card (every wording would name the Governor); its signature card names no Governor and never says \"into law\".",
+   "intent": [
+    "executive-receipt",
+    "executive-signature"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-15#ACA1",
+     "title": "ACA 1 signed",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA ACA1) on Oct 15, 2026: \"Approved by the Governor\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a1",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls-aca1#r",
+       "record": "ls-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-receipt",
+       "date": "2026-10-12",
+       "facts": {
+        "action": "Enrolled and presented to the Governor at 3 p.m.",
+        "number": "CA ACA1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-aca1#r",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-receipt",
+       "date": "2026-10-12",
+       "facts": {
+        "action": "Enrolled and presented to the Governor at 3 p.m.",
+        "number": "ACA 1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA 1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "legiscan",
+       "source_id": "ls-aca1#s",
+       "record": "ls-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved by the Governor.",
+        "number": "CA ACA1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-aca1#s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved by the Governor.",
+        "number": "ACA 1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA 1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r5-hres-passage-no-next-step",
+   "r5": true,
+   "note": "Review r5 M1/M3: an H.Res passage and a conference-report adoption state only what happened: no next step, no \"heads to\" or \"will\".",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-16#HR3460",
+     "title": "H.R. 3460 passes the Senate",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on Oct 16, 2026: \"Conference report agreed to in Senate by Yea-Nay Vote. 70 - 28\". The recorded vote was 70 to 28.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    },
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20#HRES12",
+     "title": "H.Res. 12 passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.Res. 12) on Oct 20, 2026: \"On agreeing to the resolution Agreed to by recorded vote: 230 - 190\". The recorded vote was 230 to 190.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "n1",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hres12#p",
+       "record": "hres12",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On agreeing to the resolution Agreed to by recorded vote: 230 - 190.",
+        "chamber": "House",
+        "number": "H.Res. 12",
+        "vote": {
+         "yes": 230,
+         "no": 190
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.Res. 12",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#conf",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Conference report agreed to in Senate by Yea-Nay Vote. 70 - 28.",
+        "chamber": "Senate",
+        "number": "H.R. 3460",
+        "vote": {
+         "yes": 70,
+         "no": 28
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.R. 3460",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T10:00:00Z",
+     "run_id": "n2",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hres12#p",
+       "record": "hres12",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On agreeing to the resolution Agreed to by recorded vote: 230 - 190.",
+        "chamber": "House",
+        "number": "H.Res. 12",
+        "vote": {
+         "yes": 230,
+         "no": 190
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.Res. 12",
+       "retrieved_at": "2026-10-22T09:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#conf",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Conference report agreed to in Senate by Yea-Nay Vote. 70 - 28.",
+        "chamber": "Senate",
+        "number": "H.R. 3460",
+        "vote": {
+         "yes": 70,
+         "no": 28
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.R. 3460",
+       "retrieved_at": "2026-10-22T09:00:00Z"
       }
      ]
     }

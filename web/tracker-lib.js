@@ -382,7 +382,7 @@ export function buildV2(entries, news, rel, site, content) {
 }
 
 // ---- Automated News events (pipeline/news/CONTRACT.md) ----
-// An automated item has origin 'automated' plus event_key, class, status, statements, stage, next. Hand-written items
+// An automated item has origin 'automated' plus event_key, class, status, statements, stage (no next step: review r5). Hand-written items
 // never get the extra rendering. Labels and weekly-digest bucket (b) of every class the UI shows; an unknown class is
 // never shown (the contract records those with class null).
 export const NEWS_CLASS = {

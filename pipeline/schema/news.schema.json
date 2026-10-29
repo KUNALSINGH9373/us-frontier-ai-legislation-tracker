@@ -44,7 +44,6 @@
           "jurisdiction": { "type": "string" },
           "statements": { "type": "array", "items": { "type": "object", "required": ["t", "u"], "additionalProperties": false, "properties": { "t": { "type": "string" }, "u": { "$ref": "common.schema.json#/$defs/url" }, "publisher": { "type": ["string", "null"] } } } },
           "stage": { "enum": ["introduced", "committee", "passed-chamber", "passed-both", "law"] },
-          "next": { "type": ["string", "null"] },
           "comments_close": { "$ref": "common.schema.json#/$defs/isoDate" },
           "history": { "type": "array", "items": { "type": "object", "required": ["at", "change"], "properties": { "at": { "type": "string" }, "change": { "type": "string" }, "from": { "type": ["string", "null"] }, "to": { "type": ["string", "null"] } } } },
           "status_note": { "type": "string" }

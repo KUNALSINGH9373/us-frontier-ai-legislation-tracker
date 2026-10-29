@@ -1,17 +1,17 @@
 {
  "measure": "news_writer",
  "mode": "bank",
- "run_at": "2026-10-29T07:25:18.358Z",
- "checks_hash": "8f07479dda3de21d93f9ffc8e665482db2e321176452433ebaa394bca5cc20b3",
+ "run_at": "2026-10-29T08:10:24.772Z",
+ "checks_hash": "6396001c5cc4b872767b0cdf07f34d014d738e32525658a8cab6c40588213223",
  "cases": 32,
  "wrong": 0,
  "missed": 0,
  "bank_written": 32,
  "ai_written": 0,
  "matrix": {
-  "renderings": 202680,
+  "renderings": 122290,
   "wrong": 0,
-  "refused": 8109,
+  "refused": 3591,
   "unusable_headlines": [],
   "examples_wrong": []
  },
@@ -25,7 +25,7 @@
    "bodies": 4
   },
   "referral-committee": {
-   "headlines": 5,
+   "headlines": 4,
    "bodies": 3
   },
   "hearing-scheduled": {
@@ -57,15 +57,15 @@
    "bodies": 3
   },
   "concurrence": {
-   "headlines": 5,
-   "bodies": 4
+   "headlines": 4,
+   "bodies": 3
   },
   "enrolled": {
    "headlines": 4,
    "bodies": 3
   },
   "executive-receipt": {
-   "headlines": 5,
+   "headlines": 4,
    "bodies": 3
   },
   "executive-signature": {
@@ -157,7 +157,7 @@
    "wrong": false,
    "missed": false,
    "headline": "S.8828 clears the New York Senate",
-   "body": "The Senate passed S.8828 on January 28, 2026. Next: consideration in the Assembly.",
+   "body": "The Senate passed S.8828 on January 28, 2026. Status: Passed the Senate.",
    "reason": null
   },
   {
@@ -175,7 +175,7 @@
    "wrong": false,
    "missed": false,
    "headline": "H.5576 passes the House",
-   "body": "The House passed H.5576 on July 8, 2026. The next step is consideration in the Senate.",
+   "body": "The House passed H.5576 on July 8, 2026. Status: Passed the House.",
    "reason": null
   },
   {
@@ -226,8 +226,8 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "California Senate concurs on SB 813",
-   "body": "The Senate concurred in amendments to SB 813 on August 30, 2026. What the bill would do: Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone. The next step is transmittal to the Governor.",
+   "headline": "SB 813: Senate concurs",
+   "body": "The Senate voted 37-0 on August 30, 2026 to concur in SB 813. What the bill would do: Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone.",
    "reason": null
   },
   {
@@ -280,8 +280,8 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "SB 315 goes to the Governor",
-   "body": "On June 26, 2026, SB 315 was presented to the Governor. Next: action by the Governor.",
+   "headline": "Illinois SB 315 sent to the Governor",
+   "body": "On June 26, 2026, SB 315 was presented to the Governor. Status: Sent to the Governor.",
    "reason": null
   },
   {
@@ -298,7 +298,7 @@
    "why": "invented name not in sheet",
    "wrong": false,
    "missed": false,
-   "reason": "names or terms not in the fact sheet: Pritzker"
+   "reason": "names or terms not in the fact sheet: Pritzker, Action"
   },
   {
    "id": "il-sb315-sent-to-governor#bad3",
@@ -315,7 +315,7 @@
    "wrong": false,
    "missed": false,
    "headline": "S.4446 introduced on June 11, 2026",
-   "body": "S.4446 was introduced in the Senate on June 11, 2026. The next step is referral to a committee.",
+   "body": "S.4446 was introduced in the Senate on June 11, 2026. Status: Introduced.",
    "reason": null
   },
   {
@@ -332,8 +332,8 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "A.5275 referred to a New Jersey committee",
-   "body": "On June 15, 2026, A.5275 was referred to the Assembly Science, Innovation and Technology Committee. The next step is consideration by the Assembly Science, Innovation and Technology Committee.",
+   "headline": "A.5275 referred to the Assembly Science, Innovation and Technology Committee",
+   "body": "On June 15, 2026, A.5275 was referred to the Assembly Science, Innovation and Technology Committee. Status: In committee.",
    "reason": null
   },
   {
@@ -342,7 +342,7 @@
    "why": "wrong committee name",
    "wrong": false,
    "missed": false,
-   "reason": "names or terms not in the fact sheet: Judiciary"
+   "reason": "names or terms not in the fact sheet: Judiciary, Consideration"
   },
   {
    "id": "oh-hb628-hearing-held",
@@ -439,7 +439,7 @@
    "wrong": false,
    "missed": false,
    "headline": "House approves HB 1898, 94-0",
-   "body": "The House passed HB 1898 on April 16, 2026. The next step is consideration in the Senate.",
+   "body": "The House passed HB 1898 on April 16, 2026. Status: Passed the House.",
    "reason": null
   },
   {
@@ -482,8 +482,8 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Senate Committee on Commerce, Science, and Transportation receives S. 5493",
-   "body": "S. 5493 was referred to the Senate Committee on Commerce, Science, and Transportation on September 23, 2026. What the bill would do: Creates a cabinet-level Department of Artificial Intelligence. What comes next: consideration by the Senate Committee on Commerce, Science, and Transportation.",
+   "headline": "S. 5493 referred to the Senate Committee on Commerce, Science, and Transportation",
+   "body": "S. 5493 was referred to the Senate Committee on Commerce, Science, and Transportation on September 23, 2026. What the bill would do: Creates a cabinet-level Department of Artificial Intelligence.",
    "reason": null
   },
   {
@@ -501,7 +501,7 @@
    "wrong": false,
    "missed": false,
    "headline": "H.R. 10873 filed in the House",
-   "body": "H.R. 10873 was introduced in the House on October 22, 2026. What comes next: referral to a committee.",
+   "body": "H.R. 10873 was introduced in the House on October 22, 2026. Status: Introduced.",
    "reason": null
   },
   {
@@ -518,7 +518,7 @@
    "why": "'only' with no milestone fact",
    "wrong": false,
    "missed": false,
-   "reason": "\"only\" claims a milestone the fact sheet does not state"
+   "reason": "names or terms not in the fact sheet: Referral"
   },
   {
    "id": "us-s5576-introduced",
@@ -527,7 +527,7 @@
    "wrong": false,
    "missed": false,
    "headline": "S. 5576 introduced in the Senate",
-   "body": "S. 5576 was introduced in the Senate on September 29, 2026. What comes next: referral to a committee.",
+   "body": "S. 5576 was introduced in the Senate on September 29, 2026. Status: Introduced.",
    "reason": null
   },
   {
@@ -589,7 +589,7 @@
    "wrong": false,
    "missed": false,
    "headline": "The Bureau of Industry and Security final rule: AI chip licensing to China and Macau",
-   "body": "On January 15, 2026, the Bureau of Industry and Security issued a final rule on AI chip licensing to China and Macau. Next: the rule takes effect on January 15, 2026.",
+   "body": "On January 15, 2026, the Bureau of Industry and Security issued a final rule on AI chip licensing to China and Macau. Status: Final rule.",
    "reason": null
   },
   {
@@ -696,7 +696,7 @@
    "why": "next step not in sheet (no next)",
    "wrong": false,
    "missed": false,
-   "reason": "\"will\" states a next step, but the fact sheet gives none"
+   "reason": "\"will\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "va-hb797-signed",
@@ -777,7 +777,7 @@
    "wrong": false,
    "missed": false,
    "headline": "California Senate passes SB 53, 30-10",
-   "body": "SB 53 passed the Senate on May 28, 2025. Next: consideration in the Assembly.",
+   "body": "SB 53 passed the Senate on May 28, 2025. Status: Passed the Senate.",
    "reason": null
   },
   {
@@ -786,7 +786,7 @@
    "why": "review 29 Oct: wrong chamber",
    "wrong": false,
    "missed": false,
-   "reason": "\"Assembly\" in a sentence stating the outcome, but the event is in the Senate"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad2",
@@ -794,7 +794,7 @@
    "why": "review 29 Oct: wrong chamber (body only)",
    "wrong": false,
    "missed": false,
-   "reason": "\"Assembly\" in a sentence stating the outcome, but the event is in the Senate"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad3",
@@ -802,7 +802,7 @@
    "why": "review 29 Oct: whole legislature for one chamber",
    "wrong": false,
    "missed": false,
-   "reason": "\"Legislature\" states an act of the whole legislature, but the event is passage in the Senate"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad4",
@@ -818,7 +818,7 @@
    "why": "review 29 Oct: lawmakers passed for one chamber",
    "wrong": false,
    "missed": false,
-   "reason": "\"Lawmakers\" states an act of the whole legislature, but the event is passage in the Senate"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad6",
@@ -826,7 +826,7 @@
    "why": "review 29 Oct: sent to governor",
    "wrong": false,
    "missed": false,
-   "reason": "\"sent SB 53 to the governor\" states the bill was sent to the executive, but the event is passage"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad7",
@@ -834,7 +834,7 @@
    "why": "review 29 Oct: governor desk",
    "wrong": false,
    "missed": false,
-   "reason": "\"Governor's desk\" states the bill was sent to the executive, but the event is passage"
+   "reason": "\"headed to\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad8",
@@ -842,7 +842,7 @@
    "why": "review 29 Oct: yesterday",
    "wrong": false,
    "missed": false,
-   "reason": "\"yesterday\" is a relative time; give the date from the fact sheet"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad9",
@@ -850,7 +850,7 @@
    "why": "review 29 Oct: last week",
    "wrong": false,
    "missed": false,
-   "reason": "\"last week\" is a relative time; give the date from the fact sheet"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad10",
@@ -866,7 +866,7 @@
    "why": "review 29 Oct: recently",
    "wrong": false,
    "missed": false,
-   "reason": "\"recently\" is a relative time; give the date from the fact sheet"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad12",
@@ -898,7 +898,7 @@
    "why": "review 29 Oct: opposite outcome: rejected",
    "wrong": false,
    "missed": false,
-   "reason": "the card does not state the event's own outcome (passage)"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad16",
@@ -906,7 +906,7 @@
    "why": "review 29 Oct: opposite outcome: did not pass",
    "wrong": false,
    "missed": false,
-   "reason": "\"did not pass\" states the opposite outcome of passage"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad17",
@@ -914,7 +914,7 @@
    "why": "review 29 Oct: opposite outcome: failed",
    "wrong": false,
    "missed": false,
-   "reason": "the card does not state the event's own outcome (passage)"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad18",
@@ -946,7 +946,7 @@
    "why": "review 29 Oct: supermajority",
    "wrong": false,
    "missed": false,
-   "reason": "\"supermajority\" adds procedural detail the fact sheet does not state"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad22",
@@ -954,7 +954,7 @@
    "why": "review 29 Oct: after hours of debate",
    "wrong": false,
    "missed": false,
-   "reason": "\"hours\" adds procedural detail the fact sheet does not state"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad23",
@@ -962,7 +962,7 @@
    "why": "review 29 Oct: second time it passed",
    "wrong": false,
    "missed": false,
-   "reason": "\"second time\" adds procedural detail the fact sheet does not state"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad24",
@@ -970,7 +970,7 @@
    "why": "review 29 Oct: again",
    "wrong": false,
    "missed": false,
-   "reason": "\"again\" adds procedural detail the fact sheet does not state"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad25",
@@ -1010,7 +1010,7 @@
    "why": "review 29 Oct: no outcome stated",
    "wrong": false,
    "missed": false,
-   "reason": "the card does not state the event's own outcome (passage)"
+   "reason": "\"next\" states a next step; a card states only what the record shows happened"
   },
   {
    "id": "review-ca-sb53-receipt",
@@ -1018,8 +1018,8 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "SB 53 sent to the Governor",
-   "body": "On September 15, 2025, SB 53 was presented to the Governor. The next step is action by the Governor.",
+   "headline": "SB 53 delivered to the Governor",
+   "body": "On September 15, 2025, SB 53 was presented to the Governor. Status: Sent to the Governor.",
    "reason": null
   },
   {
@@ -1052,7 +1052,7 @@
    "why": "review 29 Oct: receipt: tomorrow",
    "wrong": false,
    "missed": false,
-   "reason": "\"tomorrow\" is a relative time; give the date from the fact sheet"
+   "reason": "names or terms not in the fact sheet: Action"
   },
   {
    "id": "review-ca-sb53-receipt#bad5",
@@ -1060,7 +1060,7 @@
    "why": "review 29 Oct: receipt: lowercase name",
    "wrong": false,
    "missed": false,
-   "reason": "\"governor newsom\" names someone the fact sheet does not name"
+   "reason": "names or terms not in the fact sheet: Action"
   }
  ]
 }

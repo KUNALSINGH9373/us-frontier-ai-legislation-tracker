@@ -2,11 +2,12 @@
 // filled only from the closed fact sheet (news/factsheet.mjs). No AI. A variant is eligible only when every slot it uses is present
 // and its condition holds (a vote, no votes against, scheduled vs held). The choice is a hash of the event key, so a card never
 // changes wording between runs and neighbouring cards differ.
-// Body = one event sentence + "What it does: <the sheet's verified summary, verbatim>." (when the sheet has one) + the code-derived
-// next step from its own bank (or the stage, when there is no next step). Every variant is reviewed by hand for accuracy: no
-// implication beyond its class (passage never implies law, receipt never implies signature, committee never implies the floor).
+// Body = one event sentence + "What it does: <the sheet's verified summary, verbatim>." (when the sheet has one) + the stage the record
+// proves ("Status: ..."), when there is one. No next step, ever (review r5): no variant says what comes next ("heads to", "goes to",
+// "awaits", "next", "will"). Every variant is reviewed by hand for accuracy: no implication beyond its class (passage never implies law,
+// receipt never implies signature, committee never implies the floor, a concurrence never implies both chambers passed).
 import crypto from 'crypto';
-import { isUnicameral, isResolution } from './factsheet.mjs';
+import { isUnicameral } from './factsheet.mjs';
 
 const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const longDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || '')); return m ? `${MON[+m[2] - 1]} ${+m[3]}, ${m[1]}` : null; };
@@ -22,9 +23,10 @@ const UNANIMOUS = (s) => !!s.event.vote && s.event.vote.no === 0 && s.event.vote
 const SPLIT = (s) => !!s.event.vote && s.event.vote.no > 0;
 const SCHEDULED = (s) => s.event.timing === 'scheduled';
 const HELD = (s) => s.event.timing !== 'scheduled';
-// review r4: two chambers only where there are two (#3); 'into law' / 'enacts' only for a bill outside DC (#4, #8)
+// review r4: two chambers only where there are two (#3); 'into law' / 'enacts' only for a known bill number that is not a resolution or
+// constitutional amendment, outside DC (#4, #8; r5 M4, L1) — the fact sheet's bill.law_wording (news/factsheet.mjs lawWording)
 const BI = (s) => !isUnicameral(s.bill.jurisdiction);
-const LAW = (s) => s.bill.jurisdiction !== 'DC' && !isResolution(s.bill.number, s.bill.jurisdiction);
+const LAW = (s) => s.bill.law_wording === true;
 
 // The slots a fact sheet supplies (null = absent).
 export function slotsOf(s) {
@@ -40,16 +42,15 @@ export function slotsOf(s) {
     hearing_date: e.class === 'hearing-scheduled' ? longDate(e.hearing_date || e.date) : null,
     agency: e.agency ? the(e.agency) : null,
     comments_close: longDate(e.comments_close) || null,
-    signer: e.executive && !/^the /i.test(e.executive) ? e.executive : null,
-    exec: b.executive ? cap(b.executive) : null,
+    signer: b.executive && e.executive && !/^the /i.test(e.executive) ? e.executive : null,
+    exec: b.executive ? cap(b.executive) : null, // null for a measure that skips the executive (review r5 M4)
     exec_l: b.executive || null,
     law_number: e.law_number || null,
     court: e.court ? the(e.court) : null,
     title: e.title || null,
     nominee: e.nominee || null,
     position: e.position || null,
-    stage: s.stage || null,
-    next: s.next ? longDates(s.next) : null
+    stage: s.stage || null
   };
 }
 
@@ -61,7 +62,7 @@ export const BANK = {
     B: [v('{bill} was introduced in the {chamber} on {date}.'), v('On {date}, {bill} was introduced in the {state} {chamber}.'), v('{bill} was filed in the {chamber} on {date}.'), v('{bill} was introduced on {date}.')]
   },
   'referral-committee': {
-    H: [v('{bill} referred to the {committee}'), v('{bill} referred to committee'), v('{bill} goes to the {committee}'), v('{committee} receives {bill}'), v('{bill} referred to a {state} committee')],
+    H: [v('{bill} referred to the {committee}'), v('{bill} referred to committee'), v('{committee} receives {bill}'), v('{bill} referred to a {state} committee')],
     B: [v('{bill} was referred to the {committee} on {date}.'), v('On {date}, {bill} was referred to the {committee}.'), v('{bill} was referred to committee on {date}.')]
   },
   'hearing-scheduled': {
@@ -93,15 +94,16 @@ export const BANK = {
     B: [v('The {chamber} adopted an amendment to {bill} on {date}.'), v('{bill} was amended on {date}.'), v('An amendment to {bill} was adopted on {date}.')]
   },
   concurrence: {
-    H: [v('{state} {chamber} concurs on {bill}'), v('{chamber} concurs on {bill}, {yes}-{no}', VOTE), v('{bill} clears both chambers after {chamber} concurrence', BI), v('{bill}: {chamber} concurs'), v('{chamber} concurs in amendments to {bill}')],
-    B: [v('The {chamber} concurred in {bill} on {date}.'), v('The {chamber} voted {yes}-{no} on {date} to concur in {bill}.', VOTE), v('On {date}, the {state} {chamber} concurred in {bill}, completing passage in both chambers.', BI), v('The {chamber} concurred in amendments to {bill} on {date}.')]
+    // a concurrence alone never says both chambers passed (review r5: the stage line says so only when the record proves it)
+    H: [v('{state} {chamber} concurs on {bill}'), v('{chamber} concurs on {bill}, {yes}-{no}', VOTE), v('{bill}: {chamber} concurs'), v('{chamber} concurs in amendments to {bill}')],
+    B: [v('The {chamber} concurred in {bill} on {date}.'), v('The {chamber} voted {yes}-{no} on {date} to concur in {bill}.', VOTE), v('The {chamber} concurred in amendments to {bill} on {date}.')]
   },
   enrolled: {
     H: [v('{bill} enrolled'), v('{bill} enrolled after passing both chambers', BI), v('{state} {bill} enrolled'), v('{bill} enrolled on {date}')],
     B: [v('{bill} was enrolled on {date}.'), v('On {date}, {bill} was enrolled after passing both chambers.', BI), v('{bill} was enrolled on {date}, having passed both chambers.', BI)]
   },
   'executive-receipt': {
-    H: [v('{bill} sent to {exec_l}'), v('{bill} goes to {exec_l}'), v('{bill} presented to {exec_l}'), v('{bill} delivered to {exec_l}'), v('{state} {bill} sent to {exec_l}')],
+    H: [v('{bill} sent to {exec_l}'), v('{bill} presented to {exec_l}'), v('{bill} delivered to {exec_l}'), v('{state} {bill} sent to {exec_l}')],
     B: [v('{bill} was sent to {exec_l} on {date}.'), v('On {date}, {bill} was presented to {exec_l}.'), v('{bill} was delivered to {exec_l} on {date}.')]
   },
   'executive-signature': {
@@ -109,7 +111,7 @@ export const BANK = {
     B: [v('{signer} signed {bill} on {date}.'), v('{bill} was signed into law on {date}.', LAW), v('On {date}, {signer} signed {bill} into law.', LAW), v('{bill} was signed into law on {date} as {law_number}.', LAW), v('{bill} was signed on {date}.')]
   },
   'became-law': {
-    H: [v('{bill} becomes law'), v('{bill} is now law'), v('{bill} becomes law as {law_number}'), v('{bill} became law on {date}')],
+    H: [v('{bill} becomes law'), v('{bill} becomes law as {law_number}'), v('{bill} became law on {date}'), v('{state} {bill} becomes law')],
     B: [v('{bill} became law on {date}.'), v('On {date}, {bill} became law.'), v('{bill} became law as {law_number} on {date}.')]
   },
   'executive-veto': {
@@ -166,7 +168,7 @@ export const BANK = {
   },
   'comment-period-closing': {
     H: [v('Comments on {title} due by {comments_close}', SCHEDULED), v('Comment period on {title} closes {comments_close}', SCHEDULED), v('{agency} comment period closes {comments_close}', SCHEDULED), v('Comment deadline {comments_close} for {title}', SCHEDULED)],
-    B: [v('The public comment period on {title} will close on {comments_close}.', SCHEDULED), v('Comments to {agency} are scheduled to close on {comments_close}.', SCHEDULED), v('{agency} will accept comments until {comments_close}.', SCHEDULED)]
+    B: [v('The public comment period on {title} is scheduled to close on {comments_close}.', SCHEDULED), v('Comments to {agency} are scheduled to close on {comments_close}.', SCHEDULED), v('Public comments to {agency} on {title} are scheduled to close on {comments_close}.', SCHEDULED)]
   },
   nomination: {
     H: [v('{nominee} nominated as {position}'), v('{signer} nominates {nominee}'), v('Nomination of {nominee} received'), v('{signer} nominates {nominee} as {position}')],
@@ -181,7 +183,6 @@ export const BANK = {
     B: [v('{court} issued a ruling in {title} on {date}.'), v('On {date}, a ruling was issued in {title}.'), v('A ruling was issued in {title} on {date}.')]
   }
 };
-export const NEXT_BANK = ['The next step is {next}.', 'Next: {next}.', 'What comes next: {next}.'];
 export const STAGE_LINE = 'Status: {stage}.';
 export const SUMMARY_LINE = 'What it does: {summary}.';
 // The label (review r4 #6): a measure in force 'does'; a live bill 'would do'.
@@ -217,14 +218,14 @@ export function wholeClause(s) {
   return !/\b(?:and|or|but|the|a|an|of|to|incl|including|with|for|by|in|e\.g|i\.e|etc)\.?$/i.test(t) && !/[,:;—–-]$/.test(t);
 }
 export const summaryLine = (sheet) => sheet.verified && sheet.verified.summary && wholeClause(sheet.verified.summary) ? `${summaryLabel(sheet.event && sheet.event.class)}: ${String(sheet.verified.summary).replace(/[\s.;:,]+$/, '')}.` : null;
-// Cards from rendered headlines H and event sentences B. Each card has `check`: the bank's own words (headline + event sentence +
-// next step or stage), which must pass checkCard; the summary line is the sheet's verified text verbatim, inserted after the check
-// and dropped when the body would pass MAX_BODY characters.
-export function cardsFrom(sheet, H, B, nextTemplate = NEXT_BANK[0]) {
-  const s = slotsOf(sheet), next = s.next ? render({ t: nextTemplate }, s, sheet) : null, stage = s.stage ? render({ t: STAGE_LINE }, s, sheet) : null;
-  const sum = summaryLine(sheet), tail = next || stage, out = [];
+// Cards from rendered headlines H and event sentences B. Each card has `check`: the bank's own words (headline + event sentence + the
+// stage line), which must pass checkCard; the summary line is the sheet's verified text verbatim, inserted after the check and dropped
+// when the body would pass MAX_BODY characters. With a summary the stage line is left out (as before: the body stays short).
+export function cardsFrom(sheet, H, B) {
+  const s = slotsOf(sheet), stage = s.stage ? render({ t: STAGE_LINE }, s, sheet) : null;
+  const sum = summaryLine(sheet), out = [];
   for (const b of B) for (const h of H) {
-    const core = [b, tail].filter(Boolean), full = sum ? [b, sum, next].filter(Boolean) : core;
+    const core = [b, stage].filter(Boolean), full = sum ? [b, sum] : core;
     const body = full.join(' ').length <= MAX_BODY ? full.join(' ') : core.join(' ');
     out.push({ headline: h, body, check: { headline: h, body: core.join(' ') } });
   }
@@ -235,5 +236,14 @@ export function candidates(sheet, key) {
   const bank = BANK[sheet.event && sheet.event.class];
   if (!bank) return [];
   const s = slotsOf(sheet);
-  return cardsFrom(sheet, eligible(bank.H, s, sheet, key, 'h'), eligible(bank.B, s, sheet, key, 'b'), NEXT_BANK[hashIndex(key, 'n', NEXT_BANK.length)]);
+  return cardsFrom(sheet, eligible(bank.H, s, sheet, key, 'h'), eligible(bank.B, s, sheet, key, 'b'));
+}
+// The most neutral card (review r5 M5: the template fallback): the shortest eligible headline and event sentence, in bank order on a tie,
+// no hashing. [] when no variant fits.
+export function neutralCandidates(sheet) {
+  const bank = BANK[sheet.event && sheet.event.class];
+  if (!bank) return [];
+  const s = slotsOf(sheet);
+  const order = (list) => list.map((x, i) => [render(x, s, sheet), i]).filter(([r]) => r).sort((a, b) => a[0].length - b[0].length || a[1] - b[1]).map(([r]) => r);
+  return cardsFrom(sheet, order(bank.H), order(bank.B));
 }

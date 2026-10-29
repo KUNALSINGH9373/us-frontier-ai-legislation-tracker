@@ -1199,7 +1199,6 @@
     }
    ],
    "stage": "passed-chamber",
-   "next": "Referral to a Senate committee; no Senate date is on the record.",
    "status": "confirmed",
    "links": [
     {
@@ -1212,7 +1211,7 @@
    "kind": "federal",
    "class": "passage",
    "title": "House passes H.R. 9925, the FRONTIER Act, 241 to 183",
-   "body": "The House passed H.R. 9925 on a recorded vote of 241 to 183. The bill now goes to the Senate.",
+   "body": "The House passed H.R. 9925 on a recorded vote of 241 to 183.",
    "event_key": "US|h-r-9925-frontier-act|passage|2026-10-27"
   },
   {
@@ -1229,7 +1228,6 @@
     }
    ],
    "stage": "committee",
-   "next": "Second consideration on the House floor.",
    "status": "confirmed",
    "links": [
     {
@@ -1253,7 +1251,6 @@
    },
    "statements": [],
    "stage": "law",
-   "next": "Takes effect January 1, 2027.",
    "status": "confirmed",
    "links": [
     {
@@ -1277,7 +1274,6 @@
    },
    "statements": [],
    "stage": "committee",
-   "next": "Hearing on 4 Nov 2026, 10:00, Russell 253.",
    "status": "confirmed",
    "links": [
     {
@@ -1301,7 +1297,6 @@
    },
    "statements": [],
    "stage": null,
-   "next": "",
    "status": "confirmed",
    "links": [
     {
@@ -1331,7 +1326,6 @@
    },
    "statements": [],
    "stage": null,
-   "next": "",
    "status": "confirmed",
    "links": [
     {
@@ -1360,7 +1354,6 @@
    },
    "statements": [],
    "stage": null,
-   "next": "",
    "status": "confirmed",
    "links": [
     {
@@ -1385,7 +1378,6 @@
    },
    "statements": [],
    "stage": "introduced",
-   "next": "Committee consideration; no hearing scheduled.",
    "status": "corrected",
    "links": [
     {
@@ -1417,7 +1409,6 @@
    },
    "statements": [],
    "stage": "committee",
-   "next": "",
    "status": "withdrawn",
    "links": [
     {
@@ -1453,7 +1444,6 @@
     }
    ],
    "stage": null,
-   "next": "",
    "status": "confirmed",
    "links": [
     {
@@ -1466,7 +1456,7 @@
    "kind": "litigation",
    "class": "court-ruling",
    "title": "Court denies Florida’s motion for a preliminary injunction against OpenAI",
-   "body": "The district court denied the motion in a written order; the case continues.",
+   "body": "The district court denied the motion in a written order.",
    "event_key": "FL|florida-v-openai-injunction-motion|court-ruling|2026-10-21"
   },
   {
@@ -1477,7 +1467,6 @@
    },
    "statements": [],
    "stage": null,
-   "next": "",
    "status": "confirmed",
    "links": [
     {
@@ -1501,7 +1490,6 @@
    },
    "statements": [],
    "stage": "committee",
-   "next": "",
    "status": "confirmed",
    "links": [
     {
@@ -1525,7 +1513,6 @@
    },
    "statements": [],
    "stage": null,
-   "next": "",
    "status": "confirmed",
    "links": [
     {
@@ -1552,7 +1539,6 @@
    },
    "statements": [],
    "stage": null,
-   "next": "",
    "status": "confirmed",
    "links": [],
    "tracker": null,

@@ -2,8 +2,8 @@
 // no votes against, a split vote, scheduled vs held, state vs federal, with and without signer / summary) × every variant.
 // Each variant must render to a card that passes checkCard (news/writer.mjs), and every rendered card must pass the trap assertions
 // below, which are independent of checkCard. Code only.
-import { buildFactSheet, originOf, isResolution, isUnicameral } from '../news/factsheet.mjs';
-import { BANK, slotsOf, render, NEXT_BANK, cardsFrom } from '../news/phrasebank.mjs';
+import { buildFactSheet, isResolution, isUnicameral, skipsExecutive } from '../news/factsheet.mjs';
+import { BANK, slotsOf, render, cardsFrom, neutralCandidates } from '../news/phrasebank.mjs';
 import { checkCard, bankCard } from '../news/writer.mjs';
 
 export const TODAY = '2026-10-29';
@@ -15,7 +15,9 @@ export function sheetsFor(cls, entry) {
   const out = [];
   // multi-chamber: the Senate and the lower chamber (Assembly in CA, House federally); NE is unicameral (no other chamber, no next step)
   // review r4: bills passing their own and the other chamber (CA, NY, federal, both directions), Nebraska, DC, an acting governor, a resolution
-  const JUR = [['CA', 'Senate'], ['CA', 'Assembly'], ['US', 'Senate'], ['US', 'House'], ['NE', 'Legislature'], ['CA', 'Senate', { number: 'AB 1018' }], ['CA', 'Assembly', { number: 'AB 1018' }], ['NY', 'Senate', { number: 'A 6453' }], ['NY', 'Assembly', { number: 'S 6953' }], ['US', 'Senate', { number: 'H.R. 1405' }], ['US', 'House', { number: 'H.R. 1405' }], ['DC', 'Council', { number: 'B 26-0123', executive: 'Mayor Muriel Bowser' }], ['CA', 'Senate', { executive: 'Acting Governor Eleni Kounalakis' }], ['KS', 'House', { number: 'HR 6023', executive: 'Governor Laura Kelly' }]];
+  // review r5: Maine's LD (no origin), measures that skip the executive (CA ACA, NJ ACR, Montana HJ, a state SR / SCR / HM memorial,
+  // federal H.Res and H.Con.Res), a federal joint resolution (goes to the President, never "into law")
+  const JUR = [['ME', 'House', { number: 'LD 1234', executive: 'Governor Janet Mills' }], ['CA', 'Assembly', { number: 'ACA 1', executive: 'Governor Gavin Newsom' }], ['NJ', 'General Assembly', { number: 'ACR 10', executive: 'Governor Mikie Sherrill' }], ['MT', 'House', { number: 'HJ 4', executive: 'Governor Greg Gianforte' }], ['CA', 'Senate', { number: 'SR 5' }], ['CA', 'Senate', { number: 'SCR 12' }], ['MT', 'House', { number: 'HM 2' }], ['US', 'House', { number: 'H.Res. 12', executive: 'President Avery Lane' }], ['US', 'Senate', { number: 'H.Con.Res. 7', executive: 'President Avery Lane' }], ['US', 'House', { number: 'H.J.Res. 3', executive: 'President Avery Lane' }], ['CA', 'Senate'], ['CA', 'Assembly'], ['US', 'Senate'], ['US', 'House'], ['NE', 'Legislature'], ['CA', 'Senate', { number: 'AB 1018' }], ['CA', 'Assembly', { number: 'AB 1018' }], ['NY', 'Senate', { number: 'A 6453' }], ['NY', 'Assembly', { number: 'S 6953' }], ['US', 'Senate', { number: 'H.R. 1405' }], ['US', 'House', { number: 'H.R. 1405' }], ['DC', 'Council', { number: 'B 26-0123', executive: 'Mayor Muriel Bowser' }], ['CA', 'Senate', { executive: 'Acting Governor Eleni Kounalakis' }], ['KS', 'House', { number: 'HR 6023', executive: 'Governor Laura Kelly' }]];
   for (const [j, chamber, over] of JUR) for (const [vl, vote] of Object.entries(VOTES)) for (const signer of [true, false]) for (const withEntry of [true, false]) {
     const facts = { ...BASE, chamber, committee: `${chamber} Judiciary Committee`, ...(j === 'US' ? { number: 'S. 1405', executive: 'President Avery Lane', law_number: 'Public Law 119-55' } : {}), ...(j === 'NE' ? { number: 'LB 1405', executive: 'Governor Avery Lane' } : {}), ...(over || {}) };
     if (vote) facts.vote = vote;
@@ -37,8 +39,8 @@ const FAIL = /\b(reject\w*|fail\w*|did not pass)\b/i, PASS = /\b(pass(?:ed|es)|a
 const CHAMBERS = /\b(senate|house|assembly|legislature|congress)\b/gi;
 export function trapProblems(card, sheet) {
   const p = [], e = sheet.event, cls = e.class;
-  // only the headline and the event sentence are the bank's claims; the summary and next-step lines are the sheet's own words
-  const body = card.body.split(/ (?=What it does: |What the bill would do: |What it would do: |The next step is |Next: |What comes next: |Status: )/)[0];
+  // only the headline and the event sentence are the bank's claims; the summary and stage lines are the sheet's own words
+  const body = card.body.split(/ (?=What it does: |What the bill would do: |What it would do: |Status: )/)[0];
   // official identifiers (Public Law 119-55, a docket) are not tallies
   const claim = [e.law_number, e.docket, e.document_number, sheet.bill && sheet.bill.short_title, sheet.bill && sheet.bill.number].filter(Boolean).reduce((t, x) => t.split(x).join(' '), `${card.headline}\n${body}`);
   if (/unanimous/i.test(claim) && !(e.vote && e.vote.no === 0)) p.push('unanimous without a 0 against');
@@ -56,10 +58,14 @@ export function trapProblems(card, sheet) {
   if (cls === 'hearing-scheduled' && /\b(held|heard)\b/i.test(claim)) p.push('scheduled hearing written as held');
   if (cls === 'hearing-held' && /\b(scheduled|will)\b/i.test(claim)) p.push('held hearing written as upcoming');
   // review r4 traps
-  const all = `${card.headline}\n${card.body}`, b = sheet.bill || {}, origin = originOf(b.number, b.jurisdiction);
-  if (cls === 'passage' && sheet.next && (!origin || origin !== e.chamber)) p.push('next chamber stated for a second-chamber passage or an unknown origin');
-  if (sheet.next && e.chamber && sheet.next.includes(`consideration in the ${e.chamber}`)) p.push('next step is the chamber that just voted');
-  if (cls === 'committee-passage' && sheet.next) p.push('a fixed next step after a committee vote');
+  const all = `${card.headline}\n${card.body}`, b = sheet.bill || {};
+  // review r5: no next step, ever; no future step outside a scheduled event; nothing beyond what the record shows
+  if ('next' in sheet) p.push('the fact sheet carries a next step');
+  if (/\b(next|heads? to|headed to|goes to|moves? to|awaits?|awaiting|transmittal|consideration (?:in|by))\b/i.test(all)) p.push('a next step');
+  if (/\bwill\b/i.test(all) && !['hearing-scheduled', 'comment-period-closing'].includes(cls)) p.push('a future step ("will")');
+  if (cls === 'concurrence' && /\bboth (chambers|houses)\b/i.test(`${card.headline}\n${body}`)) p.push('a concurrence written as passage in both chambers');
+  if (skipsExecutive(b.number, b.jurisdiction) && /\b(governor|president|mayor|into law|enact\w*)\b/i.test(all)) p.push('executive wording for a measure that skips the executive');
+  if (b.number && /^\s*LD\b/.test(b.number) && cls === 'passage' && /\b(other|second) chamber\b/i.test(all)) p.push('an origin read from Maine LD');
   if (isUnicameral(b.jurisdiction) && /\bboth chambers\b/i.test(`${all} ${sheet.stage || ''}`)) p.push('both chambers in a one-chamber legislature');
   if (b.jurisdiction === 'DC' && /\b(governor|into law|enact\w*)\b/i.test(all)) p.push('DC written with a governor or into law');
   if (['executive-signature', 'executive-veto', 'executive-order', 'presidential-memo', 'nomination'].includes(cls) && !e.executive && /\b(governor|president|mayor)\s+(signs|signed|vetoes|vetoed|issues|issued|nominates|nominated)\b/i.test(all)) p.push('a signer the record does not name');
@@ -79,16 +85,19 @@ export function runMatrix(entry) {
     for (const { label, sheet } of sheetsFor(cls, entry)) {
       const s = slotsOf(sheet), H = bank.H.map((x, i) => [i, render(x, s, sheet)]).filter(([, r]) => r), B = bank.B.map((x, i) => [i, render(x, s, sheet)]).filter(([, r]) => r);
       const pass = (c) => !checkCard(c.check, sheet).length;
-      // every variant is checked with every partner from the other list (all headline × body combinations), on every next-step wording
+      // every variant is checked with every partner from the other list (all headline × body combinations)
       for (const [i, h] of H) {
         usedH.add(i);
-        for (const nt of NEXT_BANK) cardsFrom(sheet, [h], B.map(([, b]) => b), nt).forEach((card, j) => {
+        cardsFrom(sheet, [h], B.map(([, b]) => b)).forEach((card, j) => {
           counts[cls].renderings++;
           const t = trapProblems(card, sheet), c = checkCard(card.check, sheet);
           if (card.body.length > 400) c.push('body over 400');
           rows.push({ cls, label, kind: 'H', i, b: B[j][0], card, problems: [...c, ...t], wrong: t.length > 0, refused: c.length > 0 });
         });
       }
+      // the template fallback's choice (news/templates.mjs: the most neutral variant), under the same traps (review r5 M5)
+      const neutral = neutralCandidates(sheet).find((c) => !checkCard(c.check, sheet).length);
+      if (neutral) { const t = trapProblems(neutral, sheet); rows.push({ cls, label, kind: 'neutral', card: neutral, problems: t, wrong: t.length > 0, refused: false }); }
       for (const [i] of B) usedB.add(i);
       // the chosen card for this sheet
       const r = bankCard({ event: { key: label + cls, class: cls }, sheet });

@@ -1,6 +1,7 @@
 // The news event model (pipeline/news/CONTRACT.md). Only official structured records create events; a statement (a release: verbatim
 // headline + link) only attaches to an event that already exists. Code only, no AI.
-//   eventKey(x)                         `${jurisdiction}|${entry_id||'-'}|${class}|${date}`
+//   eventKey(x)                         `${jurisdiction}|${entry_id||'-'}|${class}|${date}` (+ `#<bill>` for a bill action with a number;
+//                                       a scheduled hearing by its hearing day and committee, not the day seen)
 //   checkItem(item, { now })            why a raw item is refused (bad shape, future date, date after retrieval, host not official), or null
 //   upsertItems(state, items, opts)     new events, fact corrections, withdrawals (never a deletion), confirmations; returns what changed
 //   (statements attach through news/attach.mjs attachStatements: one rule, several candidates are held)
@@ -11,9 +12,10 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { EVENT_CLASSES } from './classify.mjs';
-import { applyRun, showable } from './confirm.mjs';
+import { applyRun, showable, BILL_CLASSES } from './confirm.mjs';
 import { longDate } from '../agents/derive.mjs';
-import { templateFor, stageOf, nextOf, quoteOf } from './templates.mjs';
+import { templateFor, quoteOf } from './templates.mjs';
+import { provenStage, billKey } from './factsheet.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
 import { sourceConfig } from './sources/common.mjs';
 
@@ -42,10 +44,16 @@ const rank = (s) => { const i = OFFICIAL_ORDER.indexOf(s); return i < 0 ? OFFICI
 // executive orders and memos by EO number (or FR document number), agency documents by FR document number.
 const EO_CLASSES = new Set(['executive-order', 'presidential-memo']);
 const FR_CLASSES = new Set(['agency-rule-proposed', 'agency-rule-final', 'agency-guidance', 'comment-period-open', 'comment-period-closing']);
+// A scheduled hearing (review r5 H1) is keyed by its hearing day and committee, never by the day it was seen (a new key every day let a
+// carried copy mask a cancellation); without a hearing day, by the source's own id. A bill action with a number (review r5 M6) carries
+// the normalised number: one entry may track several companion bills, and their same-day actions are separate events.
+const slug = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const eventKey = (x) => {
   const f = x.facts || {};
-  const id = EO_CLASSES.has(x.class) && f.eo_number ? `EO${f.eo_number}` : (EO_CLASSES.has(x.class) || FR_CLASSES.has(x.class)) && f.document_number ? `FR${f.document_number}` : x.date;
-  return `${x.jurisdiction}|${x.entry_id || '-'}|${x.class}|${id}`;
+  let id = EO_CLASSES.has(x.class) && f.eo_number ? `EO${f.eo_number}` : (EO_CLASSES.has(x.class) || FR_CLASSES.has(x.class)) && f.document_number ? `FR${f.document_number}` : x.date;
+  if (x.class === 'hearing-scheduled') id = f.hearing_date ? `HD${f.hearing_date}${f.committee ? `@${slug(f.committee)}` : ''}` : `SRC${x.source || ''}:${x.source_id || x.date}`;
+  const bk = BILL_CLASSES.has(x.class) ? billKey(f.number, x.jurisdiction) : null;
+  return `${x.jurisdiction}|${x.entry_id || '-'}|${x.class}|${id}${bk ? `#${bk}` : ''}`;
 };
 
 // Chambers in one vocabulary (review r2 #5): Open States / NY Senate "upper"/"lower" -> Senate / House (Assembly where the lower house is
@@ -163,13 +171,28 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
     if (n.why) { out.refused.push({ source: raw && raw.source, source_id: raw && raw.source_id != null ? String(raw.source_id) : null, date: raw && raw.date, why: n.why }); continue; }
     norm.push(n.item);
   }
-  for (const it of linkWhiteHouse(norm, state)) {
-    const why = checkItem(it, { now });
-    if (why) { out.refused.push({ source: it.source, source_id: it.source_id, date: it.date, why }); continue; }
-    good.push(it);
-    // confirmation-only records (govinfo) and statements never create or replace an event; they go to applyRun / attach.mjs only
-    if (it.facts.role === 'confirmation' || it.facts.role === 'statement') continue;
+  // a bill action whose record gives no number joins the one numbered event of its entry/class/date (this run's or stored); with several
+  // (companion bills) it keeps its own key: never guessed (review r5 M6). Numbered items are grouped first.
+  const noNumber = (x) => BILL_CLASSES.has(x.class) && !billKey(x.facts && x.facts.number, x.jurisdiction);
+  const keyOf = (it) => {
     const k = eventKey({ ...it, entry_id: it.entry_id || null });
+    if (!noNumber(it) || it.class === 'hearing-scheduled') return k;
+    const near = new Set([...groups.keys(), ...Object.keys(state.events)].filter((x) => x.startsWith(`${k}#`)));
+    return near.size === 1 ? [...near][0] : k;
+  };
+  const checked = linkWhiteHouse(norm, state).filter((it0) => {
+    const why = checkItem(it0, { now });
+    if (why) out.refused.push({ source: it0.source, source_id: it0.source_id, date: it0.date, why });
+    return !why;
+  });
+  for (const it0 of [...checked.filter((x) => !noNumber(x)), ...checked.filter(noNumber)]) {
+    let it = it0;
+    // confirmation-only records (govinfo) and statements never create or replace an event; they go to applyRun / attach.mjs only
+    if (it.facts.role === 'confirmation' || it.facts.role === 'statement') { good.push(it); continue; }
+    const k = keyOf(it);
+    // a scheduled hearing seen again keeps the day it was first seen (review r5 H1): the record has not changed because a day passed
+    if (it.class === 'hearing-scheduled' && state.events[k] && state.events[k].date !== it.date) it = { ...it, date: state.events[k].date };
+    good.push(it);
     (groups.get(k) || groups.set(k, []).get(k)).push(it);
   }
   const present = new Set();
@@ -219,8 +242,9 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
     const off = ev.sources.find((s) => s.role === 'official');
     if (!off) continue;
     const base = { source: off.source, source_id: off.source_id, jurisdiction: ev.jurisdiction, entry_id: ev.entry_id, class: ev.class, date: ev.date, url: off.url, title: off.title, retrieved_at: off.retrieved_at };
+    // carried: a copy of what the event already says; a fresh item of the same record always wins over it (review r5 H1, confirm.mjs)
     if (off.record && read.has(`${off.source}|${off.record}`)) runItems.push({ ...base, facts: { ...ev.facts, withdrawn: true } });
-    else runItems.push({ ...base, facts: ev.facts });
+    else runItems.push({ ...base, facts: ev.facts, carried: true });
   }
   const before = new Map(Object.values(state.events).map((e) => [e.key, e.status]));
   const r = applyRun(Object.values(state.events), runItems, { at, okSources });
@@ -317,6 +341,10 @@ export function displayEvent(ev, state) {
 const shownView = (ev) => (ev.pending_correction && ev.last_confirmed ? { ...ev, facts: ev.last_confirmed.facts, facts_digest: ev.last_confirmed.facts_digest, card: ev.last_confirmed.card, status: ev.last_confirmed.status } : ev);
 const CLASS_WORDS = (c) => String(c).replace(/-/g, ' ');
 
+// The stage badge (review r5): only a stage the record proves from this entry's own confirmed events (news/factsheet.mjs provenStage);
+// omitted otherwise. No next step is ever rendered.
+const stageField = (ev, state) => { const s = provenStage(ev, state ? Object.values(state.events) : [], showable); return s ? { stage: s } : {}; };
+
 // One news.json item for one event (backwards compatible; see the contract and the site agent's additions). With state, an event that
 // owns merged events shows the highest-ranked of them, under its own event_key.
 export function renderItem(owner, entry, { at, state = null } = {}) {
@@ -349,7 +377,7 @@ export function renderItem(owner, entry, { at, state = null } = {}) {
     verification: { method: 'official-record', checked_at: at || ev.last_seen },
     evidence: [{ field: 'body', quote: quote.length >= 8 ? quote : String(off.title || quote), source_url: off.url }],
     event_key: owner.key, class: ev.class, status, jurisdiction: ev.jurisdiction, statements,
-    ...(stageOf(ev) ? { stage: stageOf(ev) } : {}), next: nextOf(ev),
+    ...stageField(ev, state),
     ...(ev.facts.comments_close ? { comments_close: ev.facts.comments_close } : {}),
     history: hist.map((h) => ({ at: h.at, change: h.change, ...(typeof h.from === 'string' || h.from === null ? { from: h.from } : {}), ...(typeof h.to === 'string' || h.to === null ? { to: h.to } : {}) })),
     ...(note ? { status_note: note } : {})

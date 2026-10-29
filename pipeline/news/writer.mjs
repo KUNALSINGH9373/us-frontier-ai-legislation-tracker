@@ -1,7 +1,7 @@
 // The news card writer (news/CONTRACT.md: "the AI may only rewrite a closed fact sheet, checked by code, with a template fallback").
 // 1. The writer (role "generator") writes a headline and a 2-3 sentence body from the fact sheet only (news/factsheet.mjs).
 // 2. Code checks the card (checkCard): every number, date, money figure, vote, bill number and proper name must be in the fact sheet;
-//    no forbidden claim (superlative without a milestone fact, prediction beyond the code-given next step, causal or evaluative words,
+//    no forbidden claim (superlative without a milestone fact, any prediction or next step (review r5: none is ever stated), causal or evaluative words,
 //    "unanimous" on a vote with any no); the tense agrees with the event's timing (scheduled vs held).
 // 3. A second reader (role "validator") answers {faithful, added_or_overstated}; it must be faithful with an empty list.
 // Up to maxRounds rounds, each refusal fed back word for word; otherwise the template card (written_by 'template').
@@ -16,7 +16,7 @@ import { sentences, datesIn } from './text.mjs';
 export const CARD_LIMITS = { headline: 90, body: 400, sentencesMin: 2, sentencesMax: 3 };
 
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-const MON_RE = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?(?:\s+(\d{1,2})(?!\d))?/g;
+const MON_RE = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)(?![a-z])\.?(?:\s+(\d{1,2})(?!\d))?/g; // (?![a-z]): "Mayor" is not May (review r5 M5)
 const MONTH_WORD = /^(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)$/;
 const monthNo = (m) => MONTHS.findIndex((x) => x.startsWith(m.slice(0, 3).toLowerCase())) + 1;
 const ISO = /\b(\d{4})-(\d{2})-(\d{2})\b/g;
@@ -35,7 +35,7 @@ const WEEKDAY = /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/
 const HELD_WORDS = /\b(held|heard|took place|convened|met|testified|was heard|were heard|discussed|examined|took up|considered)\b/i;
 const SCHEDULED_WORDS = /\b(scheduled|will|set to|set for|upcoming|plans to|is to)\b/i;
 const FUTURE_IN_HELD = /\b(scheduled|upcoming|set to|set for|plans to|is to hold)\b/i;
-const NEXT_WORDS = /\b(will|next|heads? to|moves? to|goes to|now goes|awaits?|awaiting|pending before)\b/i;
+const NEXT_WORDS = /\b(will|next|heads? to|headed to|moves? to|goes to|now goes|awaits?|awaiting|pending before|transmittal|consideration (?:in|by))\b/i;
 
 // Capitalized words a card may use without the sheet naming them: function words that start sentences, and generic nouns.
 const COMMON = new Set(('the a an it its this that these those on in at by for with under after before from to of and or as its ' +
@@ -144,7 +144,7 @@ export function checkCard(card, sheet) {
     if (!SCHEDULED_WORDS.test(all)) p.push('the event is scheduled, but the card does not say it is upcoming');
   } else {
     const f = all.match(FUTURE_IN_HELD); if (f && !hasWord(S, f[1])) p.push(`"${f[1]}" writes an event that happened as if it were still to come`);
-    const nx = all.match(NEXT_WORDS); if (nx && !sheet.next) p.push(`"${nx[1]}" states a next step, but the fact sheet gives none`);
+    const nx = all.match(NEXT_WORDS); if (nx) p.push(`"${nx[1]}" states a next step; a card states only what the record shows happened`);
   }
   outcomeProblems(headline, body, sheet).forEach((x) => p.push(x));
   return [...new Set(p)];
@@ -229,7 +229,7 @@ export function templateCard(event, sheet) {
   const t = (event && event.card) || {};
   if (t.template_headline && t.template_body) return { headline: t.template_headline, body: t.template_body };
   const b = sheet.bill || {}, name = b.short_title || b.number || 'Measure';
-  return { headline: `${name}: ${String(sheet.stage || (sheet.event && sheet.event.class) || 'update')}`.slice(0, CARD_LIMITS.headline), body: `${name} (${b.jurisdiction_name || b.jurisdiction}). Recorded ${sheet.event && sheet.event.date}.${sheet.next ? ` Next: ${sheet.next}.` : ''}` };
+  return { headline: `${name}: ${String(sheet.stage || (sheet.event && sheet.event.class) || 'update')}`.slice(0, CARD_LIMITS.headline), body: `${name} (${b.jurisdiction_name || b.jurisdiction}). Recorded ${sheet.event && sheet.event.date}.` };
 }
 
 const shapeOk = (d) => d && typeof d.headline === 'string' && typeof d.body === 'string';
@@ -237,10 +237,10 @@ const shapeOk = (d) => d && typeof d.headline === 'string' && typeof d.body === 
 // event: contract Event; entry: tracker entry (or null); writer, reader: AI clients ({ generate({system, prompt, itemId}) }).
 // Returns { card: { headline, body, template_headline, template_body, written_by }, sheet, rounds, problems, reason }. Never throws.
 // The phrase-bank card (news/phrasebank.mjs): the first deterministic candidate that passes checkCard; the template when none does.
-export function bankCard({ event, entry = null, sheet = null, today = null }) {
+export function bankCard({ event, entry = null, sheet = null, today = null, proven = null }) {
   let fs = sheet, tpl;
   try {
-    fs = fs || buildFactSheet(event, entry, { today }); tpl = templateCard(event, fs);
+    fs = fs || buildFactSheet(event, entry, { today, proven }); tpl = templateCard(event, fs);
     const key = (event && event.key) || JSON.stringify(fs.event);
     let tried = 0;
     for (const c of candidates(fs, key)) {
@@ -262,9 +262,9 @@ export async function writeCard({ config = null, ...args }) {
   return writeCardAI(args);
 }
 
-async function writeCardAI({ event, entry = null, sheet = null, writer, reader, today = null, maxRounds = 2, log = () => {} }) {
+async function writeCardAI({ event, entry = null, sheet = null, writer, reader, today = null, proven = null, maxRounds = 2, log = () => {} }) {
   let fs = sheet, tpl;
-  try { fs = fs || buildFactSheet(event, entry, { today }); tpl = templateCard(event, fs); }
+  try { fs = fs || buildFactSheet(event, entry, { today, proven }); tpl = templateCard(event, fs); }
   catch (e) { const t = (event && event.card) || {}; return { card: { headline: t.template_headline || null, body: t.template_body || null, template_headline: t.template_headline || null, template_body: t.template_body || null, written_by: 'template' }, sheet: fs, rounds: 0, problems: [], reason: `fact sheet failed: ${e.message}` }; }
   const out = (written_by, c, rounds, problems, reason) => ({ card: { headline: c.headline, body: c.body, template_headline: tpl.headline, template_body: tpl.body, written_by }, sheet: fs, rounds, problems, reason });
   if (!writer || !reader) return out('template', tpl, 0, [], 'no AI client');

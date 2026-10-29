@@ -5,6 +5,7 @@
 // a conflicting class on the same day, a different vote) keeps it pending, is reported, and is never shown. Withdrawn/corrected official
 // records never delete: status changes and a history entry is added.
 import crypto from 'crypto';
+import { billKey } from './factsheet.mjs';
 
 export const BILL_CLASSES = new Set(['introduction', 'referral-committee', 'hearing-scheduled', 'hearing-held', 'committee-passage', 'committee-failure', 'passage', 'failure', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'executive-signature', 'executive-veto', 'became-law', 'veto-override-passage', 'withdrawal', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate']);
 const STATE_LEG = ['openstates', 'nysenate', 'state_legislature', 'legiscan'];
@@ -60,6 +61,13 @@ export function compare(event, item) {
   if (item.facts && item.facts.withdrawn) return null; // a withdrawn record confirms nothing
   if (item.jurisdiction !== event.jurisdiction || (item.entry_id || null) !== (event.entry_id || null)) return null;
   if (event.facts && event.facts.chamber && item.facts && item.facts.chamber && event.facts.chamber !== item.facts.chamber) return null;
+  // companion bills under one entry (review r5 M6): two numbers that differ are two bills, never a confirmation or a conflict
+  const na = billKey(event.facts && event.facts.number, event.jurisdiction), nb = billKey(item.facts && item.facts.number, item.jurisdiction);
+  if (na && nb && na !== nb) return null;
+  // a scheduled hearing is dated the day each source first saw it: compared on its hearing day (review r5 H1)
+  if (event.class === 'hearing-scheduled' && item.class === 'hearing-scheduled' && event.facts && event.facts.hearing_date && item.facts && item.facts.hearing_date) {
+    return event.facts.hearing_date === item.facts.hearing_date ? 'agree' : { conflict: 'hearing_date', theirs: item.facts.hearing_date, ours: event.facts.hearing_date, source: item.source };
+  }
   // a public law is matched on its number, not its date: govinfo's dateIssued is days after the enactment Congress.gov records (review r2 #9)
   if (event.class === 'became-law' && item.class === 'became-law' && event.facts && event.facts.public_law && item.facts && item.facts.public_law) {
     return event.facts.public_law === item.facts.public_law ? 'agree' : { conflict: 'public_law', theirs: item.facts.public_law, ours: event.facts.public_law, source: item.source };
@@ -79,8 +87,13 @@ export function compare(event, item) {
 // this run (a record missing from a broken source proves nothing). Returns { events (new array, inputs untouched), report: [...] }.
 export function applyRun(events, items, { at = new Date().toISOString(), okSources = null } = {}) {
   const report = [];
+  // A fresh item of a record always wins over a carried copy (news/events.mjs `carried`: what a stored event already said); a cancellation
+  // (facts.withdrawn) wins over both, whatever key its event has (review r5 H1).
   const byOfficialId = new Map();
-  for (const it of items) byOfficialId.set(`${it.source}|${it.source_id}`, it);
+  for (const it of items) {
+    const k = `${it.source}|${it.source_id}`, had = byOfficialId.get(k);
+    if (!had || (had.carried && !it.carried) || (it.facts && it.facts.withdrawn && !(had.facts && had.facts.withdrawn))) byOfficialId.set(k, it);
+  }
   const out = events.map((ev0) => {
     const ev = { ...ev0, sources: [...(ev0.sources || [])], confirmations: [...(ev0.confirmations || [])], history: [...(ev0.history || [])], disagreements: [] };
     if (ev.status === 'withdrawn') return ev; // a corrected event is still checked: it can be withdrawn, disputed or confirmed again (review r3 #1)

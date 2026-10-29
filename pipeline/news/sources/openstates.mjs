@@ -83,11 +83,16 @@ export function sessionMatches(osSessionId, sessionName, results = 1) {
 // next day), a floor motion (third reading, passage, concurrence, override), and exactly one such vote; otherwise no vote is stated
 // (live check, 29 Oct 2026: the date-only match missed CA's Assembly passage of SB 53 and could pick a committee vote).
 const FLOOR_MOTION = /\b(third reading|3rd reading|final passage|passage|concurrence|concur|override|final reading)\b/i;
-export function voteFacts(votes, date, chamber) {
+// Review r5 L2: a vote with no organization, or another chamber's, is never used (and an action with no chamber gets no vote); the vote's
+// result must agree with the action (pass for a passage, concurrence or override; fail for a failure); otherwise no vote is stated.
+const RESULT_OK = { passage: /^pass/i, concurrence: /^pass/i, 'veto-override-passage': /^pass/i, failure: /^fail/i };
+export function voteFacts(votes, date, chamber, cls = null) {
+  if (!chamber) return null;
   const near = (d) => Math.abs((Date.parse(String(d).slice(0, 10)) - Date.parse(date)) / 864e5) <= 1;
-  const c0 = (votes || []).filter((x) => near(x.start_date) && (!chamber || !x.organization || x.organization.classification === chamber) && FLOOR_MOTION.test(x.motion_text || ''));
+  const c0 = (votes || []).filter((x) => near(x.start_date) && x.organization && x.organization.classification === chamber && FLOOR_MOTION.test(x.motion_text || ''));
   if (c0.length !== 1) return null;
   const v = c0[0];
+  if (cls && RESULT_OK[cls] && !RESULT_OK[cls].test(String(v.result || ''))) return null;
   const c = (o) => ((v.counts || []).find((k) => k.option === o) || {}).value;
   return { yes: c('yes') ?? null, no: c('no') ?? null, result: v.result || null };
 }
@@ -101,7 +106,7 @@ export function billToItems(bill, tracked, retrievedAt) {
     const cls = mapClassifications(a.classification);
     const chamber = CHAMBER[a.organization && a.organization.classification] || null;
     const facts = { chamber, number: spaced(bill.identifier), title: bill.title, action: a.description, os_classification: a.classification || [] };
-    if (cls === 'passage' || cls === 'failure' || cls === 'concurrence' || cls === 'veto-override-passage') { const v = voteFacts(bill.votes, date, chamber); if (v) facts.vote = v; }
+    if (cls === 'passage' || cls === 'failure' || cls === 'concurrence' || cls === 'veto-override-passage') { const v = voteFacts(bill.votes, date, chamber, cls); if (v) facts.vote = v; }
     if (cls && cls.startsWith('committee') && a.related_entities) { const c = a.related_entities.find((e) => e.entity_type === 'organization'); if (c) facts.committee = c.name; }
     items.push({
       source: 'openstates', source_id: `${bill.id}|${a.order ?? i}`, jurisdiction: tracked.state, entry_id: tracked.entry_id, class: cls, date, facts,
@@ -112,7 +117,9 @@ export function billToItems(bill, tracked, retrievedAt) {
 }
 
 // One Open States event -> hearing RawItem (or null). Past and held -> hearing-held on its date; upcoming -> hearing-scheduled dated the day it
-// was seen (the contract forbids future dates; the hearing day goes in facts.hearing_date). Cancelled -> withdrawn record.
+// was seen (the contract forbids future dates; the hearing day goes in facts.hearing_date). Cancelled -> withdrawn record. The event key is
+// the hearing day + committee (news/events.mjs eventKey, review r5 H1), and a re-seen hearing keeps its first-seen date, so the seen day
+// never makes a new event and a cancellation (same source_id) withdraws the one event.
 // An event's agenda names the bill: a related entity whose bill id is this bill's, or whose name is its identifier.
 export function agendaNames(ev, bill) {
   const want = normNumber(bill.identifier);

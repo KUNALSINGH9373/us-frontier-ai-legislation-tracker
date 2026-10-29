@@ -1,8 +1,8 @@
-﻿// The closed fact sheet a news card may be written from (news/writer.mjs). Plain code, no AI, no network.
+// The closed fact sheet a news card may be written from (news/writer.mjs). Plain code, no AI, no network.
 // Built from one Event (news/CONTRACT.md) and its tracker entry (web/data/v2/entries.json). It holds only:
 //   event     the official record's own facts (class, date, timing, chamber, committee, vote, agency, deadline, court, ...)
 //   bill      identity: number, short title, jurisdiction
-//   stage     where the measure stands after this event, and next: the one next step code derives from the class (never the AI's guess)
+//   stage     where the measure stands after this event: only what the record shows happened (no next step is ever stated, review r5)
 //   verified  the entry's reading fields that the field eval / self-correction keep checked (publish/guards.mjs READING_FIELDS:
 //             mechanism, thresholds, penalties); only the first clause of the mechanism is carried, as a one-line summary
 //   milestones facts.milestone strings an official record states ("first state law ..."); empty means "first/only/largest" is refused
@@ -12,43 +12,65 @@ export const STATE_NAMES = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Ar
 
 // The event facts a card may use (contract facts keys). Anything else in facts is dropped.
 export const EVENT_FACT_KEYS = ['chamber', 'committee', 'vote', 'agency', 'title', 'number', 'comments_close', 'deadline', 'document_number', 'court', 'docket', 'judge', 'nominee', 'position', 'location', 'time', 'executive', 'law_number', 'effective', 'hearing_date'];
-// Contract "Decisions 29 Oct": news items carry stage as one of these codes.
-export const STAGE_CODE = { introduction: 'introduced', 'referral-committee': 'committee', 'hearing-scheduled': 'committee', 'hearing-held': 'committee', 'committee-passage': 'committee', 'committee-failure': 'committee', passage: 'passed-chamber', failure: 'passed-chamber', 'amendment-passage': null, concurrence: 'passed-both', enrolled: 'passed-both', 'executive-receipt': 'passed-both', 'executive-veto': 'passed-both', 'veto-override-passage': 'passed-both', 'executive-signature': 'law', 'became-law': 'law' };
 const MAX_SUMMARY = 260;
 
-// Chambers by jurisdiction: the other chamber after a passage, and who signs.
+// Chambers by jurisdiction, and who acts on a passed measure.
 const LOWER = { CA: 'Assembly', NY: 'Assembly', NV: 'Assembly', WI: 'Assembly', NJ: 'General Assembly' };
 const lowerOf = (j) => j === 'US' ? 'House' : LOWER[j] || 'House';
-const upperOf = () => 'Senate';
 const UNICAMERAL = new Set(['NE', 'DC']);
 export const isUnicameral = (j) => UNICAMERAL.has(j);
 // Who acts on a passed measure: the President, the Mayor of the District of Columbia, else the Governor (review r4 #4).
 export const executiveOf = (j) => (j === 'US' ? 'the President' : j === 'DC' ? 'the Mayor' : 'the Governor');
-// The chamber a bill started in, from its number's prefix (review r4 #1): AB / A. / HB / H.R. / HF / HJR ... -> the lower chamber; SB / S. /
-// SF / SJR ... -> the Senate; Nebraska's LB and DC's B -> the one chamber. null when the prefix does not say.
+
+// The letters before a bill number's digits, upper case, without dots or spaces ("H.Con.Res. 5" -> HCONRES, "KS HR6023" -> HR, "CA ACA 1"
+// -> ACA). The jurisdiction's own prefix ("CA SB 53", LegiScan) is dropped. null when there is no number.
+export function prefixOf(number, j) {
+  let t = String(number || '').trim();
+  if (j && t.toUpperCase().startsWith(`${j} `) && /^[A-Z]{2} +[A-Za-z]/.test(t)) t = t.slice(j.length + 1);
+  const m = /^\s*([A-Za-z][A-Za-z.\s]{0,12}?)\s*\.?\s*\d/.exec(t);
+  return m ? m[1].replace(/[.\s]/g, '').toUpperCase() : null;
+}
+// The chamber a bill started in, from its number's prefix. It no longer drives any wording (no next step is stated since review r5); kept
+// for the bank matrix. Maine's LD (Legislative Document) does not say the chamber (review r5 M2): null, like any unknown prefix.
 export function originOf(number, j) {
-  const m = /^\s*([A-Za-z][A-Za-z.\s]{0,6}?)\s*\.?\s*\d/.exec(String(number || '').replace(/^[A-Z]{2}\s+(?=[A-Z])/, (x) => (j && x.trim() === j ? '' : x)));
-  if (!m) return null;
-  const p = m[1].replace(/[.\s]/g, '').toUpperCase();
+  const p = prefixOf(number, j);
+  if (!p) return null;
   if (UNICAMERAL.has(j)) return j === 'NE' ? 'Legislature' : 'Council';
-  if (/^(S|SB|SF|SJR|SCR|SR|SJ|SC|SM|SP|SJRES|SCONRES|SRES)$/.test(p)) return 'Senate';
-  if (/^(H|HR|HB|HF|HJR|HCR|HJ|HC|HM|HP|HJRES|HCONRES|HRES|A|AB|AJR|ACR|AR|LD)$/.test(p)) return lowerOf(j);
+  if (/^(S|SB|SF|SJR|SCR|SR|SJ|SC|SM|SP|SJRES|SCONRES|SRES|SCA)$/.test(p)) return 'Senate';
+  if (/^(H|HR|HB|HF|HJR|HCR|HJ|HC|HM|HP|HJRES|HCONRES|HRES|A|AB|AJR|ACR|AR|ACA)$/.test(p)) return lowerOf(j);
   return null;
 }
-// A resolution is not "signed into law" (review r4 #8).
+// Resolutions and memorials (review r4 #8, r5 L1): simple, concurrent and joint resolutions in every spelling states use (HR/SR/AR,
+// HCR/SCR/ACR, HJR/SJR/AJR, Montana's HJ/SJ, HC/SC, memorials HM/SM/AM, HRES/SRES, Nebraska's LR, DC's PR/CER), plus constitutional
+// amendments. A resolution is never "signed into law".
+const RESOLUTION_PREFIX = /^(HR|SR|AR|R|HRES|SRES|ARES|HCR|SCR|ACR|HCONRES|SCONRES|HC|SC|HJR|SJR|AJR|HJRES|SJRES|HJ|SJ|HM|SM|AM|HMR|SMR|HJM|SJM|HCM|SCM|LR|LRCA|PR|CER|HCA|SCA|ACA|HJRCA|SJRCA)$/;
+// Constitutional amendments, per jurisdiction where the prefix is the state's own (review r5 M4): California ACA/SCA, New Jersey's
+// ACR/SCR (concurrent resolutions proposing amendments), Nebraska LRCA; elsewhere the common HCA/SCA/ACA/HJRCA/SJRCA. A state joint
+// resolution often is one too, which is why every state resolution skips the executive (skipsExecutive).
+const CONSTITUTIONAL = { CA: /^(ACA|SCA)$/, NJ: /^(ACR|SCR)$/, NE: /^LRCA$/ };
+const CONSTITUTIONAL_ANY = /^(HCA|SCA|ACA|HJRCA|SJRCA|LRCA)$/;
 export function isResolution(number, j) {
-  const t = String(number || "").trim();
-  if (j === "US" || /^(H|S)\.\s?(J\.\s?|Con\.\s?)?Res/i.test(t)) return /\bRes\b/i.test(t);
-  const u = (j && t.startsWith(`${j} `) ? t.slice(j.length + 1) : t).replace(/[.\s]/g, "").toUpperCase(); // "KS HR6023" -> HR6023
-  return /^(HR|SR|AR|HJR|SJR|AJR|HCR|SCR|ACR|HRES|SRES|R)\d/.test(u);
+  const p = prefixOf(number, j);
+  if (!p) return false;
+  if (j === 'US') return /RES$/.test(p);
+  return RESOLUTION_PREFIX.test(p);
 }
-const otherChamber = (j, chamber) => {
-  if (UNICAMERAL.has(j)) return null;
-  const c = String(chamber || '').toLowerCase();
-  if (/senate|upper/.test(c)) return lowerOf(j);
-  if (/house|assembly|lower/.test(c)) return upperOf(j);
-  return null;
-};
+export function isConstitutionalAmendment(number, j) {
+  const p = prefixOf(number, j);
+  if (!p || j === 'US') return false; // a federal joint resolution may propose one, but its number does not say: not claimed either way
+  return !!((CONSTITUTIONAL[j] && CONSTITUTIONAL[j].test(p)) || CONSTITUTIONAL_ANY.test(p));
+}
+// A measure that does not go to the executive (review r5 M4): every state resolution and memorial (joint resolutions and constitutional
+// amendments included) and a federal simple or concurrent resolution (H.Res, S.Res, H.Con.Res, S.Con.Res). A federal joint resolution
+// goes to the President. Such a measure never gets executive wording ("sent to the Governor", "signs", "into law").
+export function skipsExecutive(number, j) {
+  const p = prefixOf(number, j);
+  if (!p) return false;
+  if (j === 'US') return /^(HRES|SRES|HCONRES|SCONRES)$/.test(p);
+  return isResolution(number, j) || isConstitutionalAmendment(number, j);
+}
+// "Into law" / "enacts" only for a known bill number that is not a resolution, outside DC (review r4 #4, #8; r5: unknown number -> no).
+export const lawWording = (number, j) => !!number && !!prefixOf(number, j) && j !== 'DC' && !isResolution(number, j) && !skipsExecutive(number, j);
 const chamberName = (j, chamber) => {
   const c = String(chamber || '').toLowerCase();
   if (/senate|upper/.test(c)) return 'Senate';
@@ -57,46 +79,92 @@ const chamberName = (j, chamber) => {
   return chamber ? String(chamber) : null;
 };
 
-// Stage after the event and the one next step code may state (null when there is no fixed next step).
-export function stageAndNext(cls, j, f = {}) {
-  const ch = chamberName(j, f.chamber), other = otherChamber(j, f.chamber), exec = executiveOf(j), committee = f.committee || 'committee';
-  const origin = originOf(f.number, j), both = UNICAMERAL.has(j) ? (j === 'NE' ? 'Passed the Legislature' : 'Passed the Council') : 'Passed both chambers';
+// The stage code an event proves by itself (review r5): only what its own class records. A concurrence or a veto-override vote does not
+// prove both chambers passed; enrolment, receipt by the executive, signature and becoming law do. A failure proves no stage.
+export function ownStageCode(cls, j, number = null) {
   switch (cls) {
-    case 'introduction': return { stage: 'Introduced', next: f.committee ? `consideration by the ${f.committee}` : 'referral to a committee' };
-    case 'referral-committee': return { stage: 'In committee', next: `consideration by the ${committee}` };
-    case 'hearing-scheduled': return { stage: 'In committee', next: null };
-    case 'hearing-held': return { stage: 'In committee', next: null };
-    // a committee may re-refer as often as send to the floor (review r4 #2): no fixed next step
-    case 'committee-passage': return { stage: 'Passed committee', next: null };
-    case 'committee-failure': return { stage: 'Failed in committee', next: null };
-    // the other chamber is next only when this chamber is the one the bill started in (review r4 #1); a second-chamber passage, or an
-    // unknown origin, states no next step
-    case 'passage': return { stage: ch ? `Passed the ${ch}` : 'Passed one chamber', next: other && origin && ch === origin ? `consideration in the ${other}` : null };
-    case 'failure': return { stage: ch ? `Failed in the ${ch}` : 'Failed a floor vote', next: null };
-    case 'amendment-passage': return { stage: 'Amended', next: null };
-    case 'concurrence': return { stage: both, next: `transmittal to ${exec}` };
-    case 'enrolled': return { stage: both, next: `transmittal to ${exec}` };
-    case 'executive-receipt': return { stage: `Sent to ${exec}`, next: `action by ${exec}` };
-    case 'executive-signature': return { stage: j === 'DC' || isResolution(f.number, j) ? 'Signed' : 'Signed into law', next: null }; // a resolution or a DC act is not 'into law'
-    case 'became-law': return { stage: 'Law', next: null };
-    case 'executive-veto': return { stage: 'Vetoed', next: null };
-    case 'veto-override-passage': return { stage: ch ? `Veto overridden in the ${ch}` : 'Veto overridden', next: null };
-    case 'withdrawal': return { stage: 'Withdrawn', next: null };
-    case 'carried-over': return { stage: 'Carried over', next: null };
-    case 'new-text-version': return { stage: 'New text published', next: null };
-    case 'crs-report': return { stage: 'CRS report published', next: null };
-    case 'cbo-estimate': return { stage: 'CBO cost estimate published', next: null };
-    case 'agency-rule-proposed': return { stage: 'Proposed rule', next: f.comments_close ? `public comments close on ${f.comments_close}` : null };
-    case 'comment-period-open': return { stage: 'Comment period open', next: f.comments_close ? `public comments close on ${f.comments_close}` : null };
-    case 'comment-period-closing': return { stage: 'Comment period closing', next: null };
-    case 'agency-rule-final': return { stage: 'Final rule', next: f.effective ? `the rule takes effect on ${f.effective}` : null };
-    case 'executive-order': return { stage: 'Executive order signed', next: null };
-    case 'presidential-memo': return { stage: 'Presidential memorandum issued', next: null };
-    case 'agency-guidance': return { stage: 'Guidance issued', next: null };
-    case 'nomination': return { stage: 'Nomination received', next: null };
-    case 'court-filing': return { stage: 'Filed in court', next: null };
-    case 'court-ruling': return { stage: 'Court ruling', next: null };
-    default: return { stage: null, next: null };
+    case 'introduction': return 'introduced';
+    case 'referral-committee': case 'hearing-scheduled': case 'hearing-held': case 'committee-passage': case 'committee-failure': return 'committee';
+    case 'passage': case 'concurrence': return 'passed-chamber';
+    case 'enrolled': case 'executive-receipt': return 'passed-both';
+    case 'executive-signature': return lawWording(number, j) ? 'law' : 'passed-both';
+    case 'became-law': return isResolution(number, j) ? 'passed-both' : 'law';
+    default: return null;
+  }
+}
+export const STAGE_RANK = { introduced: 0, committee: 1, 'passed-chamber': 2, 'passed-both': 3, law: 4 };
+// The bill number events are compared on (review r5 M6): letters and digits only, the jurisdiction prefix and leading zeros dropped, a
+// trailing print letter (NY "A6453B") dropped. null when there is none.
+export function billKey(number, j) {
+  let t = String(number || '').trim();
+  if (!t) return null;
+  if (j && t.toUpperCase().startsWith(`${j} `) && /^[A-Z]{2} +[A-Za-z]/.test(t)) t = t.slice(j.length + 1);
+  const n = t.toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([A-Z]+)0+(?=\d)/, '$1').replace(/^([A-Z]+\d+)[A-Z]$/, '$1');
+  return /^[A-Z]+\d+$/.test(n) ? n : null;
+}
+// A record's number as a card shows it: the jurisdiction prefix dropped and a space before the digits ("CA AB1405" -> "AB 1405"); any
+// other spelling ("H.R. 3460", "S. 1405", "B 26-0123") is kept as the record gives it.
+export function displayNumber(number, j) {
+  let t = String(number || '').trim();
+  if (j && t.toUpperCase().startsWith(`${j} `) && /^[A-Z]{2} +[A-Za-z]/.test(t)) t = t.slice(j.length + 1).trim();
+  return /^[A-Z]+\d+[A-Z]?$/.test(t) ? t.replace(/^([A-Z]+)(\d)/, '$1 $2') : t;
+}
+// The stage the record proves for an event (review r5): the highest stage among this entry's own confirmed events up to the event's date,
+// of the same bill when both give a number. "passed-both" also when confirmed passage/concurrence events exist for both chambers of a
+// two-chamber legislature. null when nothing proves one. events: Event[]; confirmed(e) decides which count (the event itself always does).
+export function provenStage(ev, events, confirmed = () => true) {
+  if (!ev || !ev.entry_id) return null;
+  const j = ev.jurisdiction, mine = billKey(ev.facts && ev.facts.number, j);
+  const same = (e) => e === ev || (ev.key && e.key === ev.key);
+  const pool = (events || []).filter((e) => e && !same(e) && e.entry_id === ev.entry_id && e.jurisdiction === j && e.date <= ev.date && confirmed(e)
+    && !(mine && billKey(e.facts && e.facts.number, j) && billKey(e.facts && e.facts.number, j) !== mine));
+  pool.push(ev);
+  let best = null;
+  for (const e of pool) { const c = ownStageCode(e.class, j, e.facts && e.facts.number); if (c && (best == null || STAGE_RANK[c] > STAGE_RANK[best])) best = c; }
+  if (!UNICAMERAL.has(j) && (best == null || STAGE_RANK[best] < STAGE_RANK['passed-both'])) {
+    const ch = new Set(pool.filter((e) => e.class === 'passage' || e.class === 'concurrence').map((e) => chamberName(j, e.facts && e.facts.chamber)).filter(Boolean));
+    if (ch.has('Senate') && [...ch].some((c) => c !== 'Senate')) best = 'passed-both';
+  }
+  return best;
+}
+
+// Where the measure stands, in words, after this event: only what the record shows happened (review r5: no next step is ever stated).
+// proven: the stage code provenStage gives; "passed both chambers" is written only when it is 'passed-both' or 'law' or the class proves it.
+export function stageOf(cls, j, f = {}, proven = null) {
+  const ch = chamberName(j, f.chamber), skip = skipsExecutive(f.number, j), exec = executiveOf(j);
+  const bothProved = cls === 'enrolled' || proven === 'passed-both' || proven === 'law';
+  const both = UNICAMERAL.has(j) ? (j === 'NE' ? 'Passed the Legislature' : 'Passed the Council') : 'Passed both chambers';
+  switch (cls) {
+    case 'introduction': return 'Introduced';
+    case 'referral-committee': case 'hearing-scheduled': case 'hearing-held': return 'In committee';
+    case 'committee-passage': return 'Passed committee';
+    case 'committee-failure': return 'Failed in committee';
+    case 'passage': return ch ? `Passed the ${ch}` : null;
+    case 'failure': return ch ? `Failed in the ${ch}` : null;
+    case 'amendment-passage': return 'Amended';
+    case 'concurrence': return bothProved ? both : ch ? `Concurred in the ${ch}` : null;
+    case 'enrolled': return both;
+    case 'executive-receipt': return skip ? null : `Sent to ${exec}`;
+    case 'executive-signature': return lawWording(f.number, j) ? 'Signed into law' : 'Signed';
+    case 'became-law': return 'Became law'; // the record's own words for this class
+    case 'executive-veto': return 'Vetoed';
+    case 'veto-override-passage': return ch ? `Veto overridden in the ${ch}` : null;
+    case 'withdrawal': return 'Withdrawn';
+    case 'carried-over': return 'Carried over';
+    case 'new-text-version': return 'New text published';
+    case 'crs-report': return 'CRS report published';
+    case 'cbo-estimate': return 'CBO cost estimate published';
+    case 'agency-rule-proposed': return 'Proposed rule';
+    case 'comment-period-open': return 'Comment period open';
+    case 'comment-period-closing': return 'Comment period closing';
+    case 'agency-rule-final': return 'Final rule';
+    case 'executive-order': return 'Executive order signed';
+    case 'presidential-memo': return 'Presidential memorandum issued';
+    case 'agency-guidance': return 'Guidance issued';
+    case 'nomination': return 'Nomination received';
+    case 'court-filing': return 'Filed in court';
+    case 'court-ruling': return 'Court ruling';
+    default: return null;
   }
 }
 
@@ -138,25 +206,34 @@ export function summaryOf(mechanism) {
 }
 
 // event: a contract Event; entry: its tracker entry (or null for a non-bill event with no entry). today: YYYY-MM-DD.
-export function buildFactSheet(event, entry = null, { today = null } = {}) {
+export function buildFactSheet(event, entry = null, { today = null, proven = null } = {}) {
   const ev = event || {}, f = ev.facts || {}, j = ev.jurisdiction || (entry && (entry.state || (entry.level === 'federal' ? 'US' : null))) || 'US';
   const facts = {};
   for (const k of EVENT_FACT_KEYS) if (f[k] != null && f[k] !== '') facts[k] = k === 'vote' ? { yes: Number(f.vote.yes), no: Number(f.vote.no) } : String(f[k]);
   if (facts.vote && !(Number.isInteger(facts.vote.yes) && Number.isInteger(facts.vote.no))) delete facts.vote;
   if (facts.chamber) facts.chamber = chamberName(j, facts.chamber);
   const nums = billNumbers(f.number || '').concat(entry ? billNumbers(entry.short_name || '') : []);
-  const { stage, next } = stageAndNext(ev.class, j, { ...f, number: f.number || nums[0] || null, chamber: facts.chamber });
+  // the record's own number, shown without the jurisdiction prefix LegiScan adds ("CA AB1405" -> "AB 1405"); without one, the entry's
+  // number only when the entry names exactly one bill (review r5 M6: "S. 1792 / H.R. 3460" never lends S. 1792 to a House action)
+  const own = f.number ? displayNumber(String(f.number), j) : null, entryNums = [...new Set((entry ? billNumbers(entry.short_name || '') : []).map((x) => billKey(x, j)))];
+  const number = own || (entryNums.length === 1 ? nums[0] || null : null), skip = skipsExecutive(number, j);
+  if (skip) delete facts.executive; // a measure that skips the executive is never said to be signed or vetoed by one (review r5 M4)
+  const stage = stageOf(ev.class, j, { ...f, number, chamber: facts.chamber }, proven);
+  const ownCode = ownStageCode(ev.class, j, number);
+  const stage_code = proven && (!ownCode || STAGE_RANK[proven] >= STAGE_RANK[ownCode]) ? proven : ownCode;
   return {
     event: { class: ev.class, date: ev.date, timing: timingOf(ev, today), ...facts },
     bill: {
-      number: f.number ? String(f.number) : nums[0] || null,
+      number,
       numbers: [...new Set(nums)],
       short_title: entry ? entry.short_name || null : (f.title ? String(f.title) : null),
       jurisdiction: j,
       jurisdiction_name: STATE_NAMES[j] || j,
-      executive: executiveOf(j)
+      executive: skip ? null : executiveOf(j),
+      resolution: isResolution(number, j),
+      law_wording: lawWording(number, j)
     },
-    stage, stage_code: STAGE_CODE[ev.class] || null, next,
+    stage, stage_code,
     // A measure that died (withdrawn, failed, vetoed) gets no summary: its mechanism is written in the present tense of a live bill.
     verified: entry && SUMMARY_SECTIONS.has(entry.section) && !DEAD_END.has(ev.class) ?{ summary: summaryOf(entry.mechanism) } : {},
     milestones: Array.isArray(f.milestone) ? f.milestone.map(String) : f.milestone ? [String(f.milestone)] : []

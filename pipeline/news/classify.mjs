@@ -20,7 +20,9 @@ const CHAMBER_WORD = { H: 'House', S: 'Senate', A: 'Assembly' };
 // The chamber an action names, in its own words ("Passed Senate", "In Assembly. Read third time. Passed."), or null.
 export function chamberOf(text, hint = null) {
   const t = clean(text);
-  const m = /\b(?:passed|failed(?: passage)? in|failed in|in|by) (?:the )?(house|senate|assembly)\b/i.exec(t) || /^\W*(house|senate|assembly)\b/i.exec(t) || /\b(house|senate|assembly) (?:floor|passage|vote|agreed|concurred|adopted)\b/i.exec(t);
+  // the chamber that opens the action acts ("Senate concurs in House amendments": the Senate); "in House amendments" names the other
+  // chamber's amendments, never the actor (review r5: found replaying the news set)
+  const m = /^\W*(house|senate|assembly)\b(?! amendments?\b)/i.exec(t) || /\b(?:passed|failed(?: passage)? in|failed in|in|by) (?:the )?(house|senate|assembly)\b(?! amendments?\b)/i.exec(t) || /\b(house|senate|assembly) (?:floor|passage|vote|agreed|concurred|adopted)\b/i.exec(t);
   if (m) return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase();
   return hint && CHAMBER_WORD[hint] ? CHAMBER_WORD[hint] : null;
 }
