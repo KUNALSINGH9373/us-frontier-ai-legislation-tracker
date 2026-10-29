@@ -100,7 +100,7 @@ export function eventToItem(ev, tracked, retrievedAt) {
 const q = (o) => Object.entries(o).flatMap(([k, v]) => (Array.isArray(v) ? v.map((x) => [k, x]) : [[k, v]])).filter(([, v]) => v != null && v !== '').map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
 
 export async function fetchItems({ http, env = process.env, since = null, state = {}, entries = null, config = null, now = () => new Date(), sleep = (ms) => new Promise((r) => setTimeout(r, ms)) } = {}) {
-  const key = env && env.OPENSTATES_API_KEY;
+  const key = env && (env.OPENSTATES_API_KEY || env.PLURAL_API_KEY); // Open States is now Plural Policy; either name
   if (!key) return { items: [], health: { ok: false, count: 0, newest: null, errors: ['no key'] } };
   const cfg = { max_requests_per_run: 60, min_interval_ms: 1100, base: 'https://v3.openstates.org', ...((config || loadStructuredConfig()).openstates || {}) };
   let bills = entries;
