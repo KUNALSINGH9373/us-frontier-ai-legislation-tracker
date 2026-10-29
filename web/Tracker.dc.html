@@ -578,6 +578,24 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
         </section>
       </sc-if>
 
+      <sc-if value="{{hasTl}}">
+        <section data-entry-timeline aria-labelledby="b-tl">
+          <h2 id="b-tl" style="margin:0 0 4px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">Official actions and statements</h2>
+          <p style="margin:0 0 12px;font-size:calc(13.5px*var(--fs));color:var(--ink-3)">Oldest first. Each action was read from the official record; statements are linked as published.</p>
+          <ol style="list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:14px">
+            <sc-for list="{{bTl}}" as="n"><li style="position:relative;display:flex;flex-direction:column;gap:5px"><span aria-hidden="true" style="position:absolute;left:-25px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid {{n.kc}}"></span>
+              <span style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{n.date}} · {{n.clsL}}<sc-if value="{{n.hasStatusNote}}"><span style="margin-left:8px;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));background:var(--ink);color:var(--bg)">{{n.statusTag}}</span></sc-if></span>
+              <strong style="font-size:calc(15.5px*var(--fs));text-decoration:{{n.tDeco}};opacity:{{n.aOp}}">{{n.title}}</strong>
+              <sc-if value="{{n.hasStatusNote}}"><span role="note" style="font-size:calc(13.5px*var(--fs));color:var(--ink)">{{n.statusNote}}</span></sc-if>
+              <sc-if value="{{n.hasCd}}"><span style="font-size:calc(13.5px*var(--fs));font-weight:750;color:{{n.cdBg}}">◷ {{n.cdText}}</span></sc-if>
+              <sc-if value="{{n.hasNext}}"><span style="font-size:calc(14px*var(--fs));color:var(--ink-2)"><strong style="color:var(--ink)">What’s next: </strong>{{n.next}}</span></sc-if>
+              <sc-if value="{{n.hasStmts}}"><ul aria-label="Statements" style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px"><sc-for list="{{n.stmts}}" as="s"><li><a href="{{s.u}}" target="_blank" rel="noopener" style="font-size:calc(13.5px*var(--fs));overflow-wrap:anywhere"><strong>Statement · {{s.pub}}:</strong> “{{s.t}}” ↗</a></li></sc-for></ul></sc-if>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px 14px"><sc-for list="{{n.links}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:calc(13.5px*var(--fs));font-weight:650">{{l.t}} ↗</a></li></sc-for></ul>
+            </li></sc-for>
+          </ol>
+        </section>
+      </sc-if>
+
       <sc-if value="{{hasRel}}">
         <section aria-labelledby="b-rel">
           <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px"><h2 id="b-rel" style="margin:0;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">Related</h2><a href="{{relHref}}" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center">See all relationships →</a></div>
@@ -652,6 +670,18 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   <sc-if value="{{hasChecked}}"><p data-checked style="margin:6px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{checkedLine}}</p></sc-if>
   <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
     <div style="flex:1 1 100%;min-width:0">
+      <section data-digest aria-labelledby="u-wk" style="margin:0 0 22px;padding:calc(16px*var(--ps)) calc(18px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)">
+        <h2 id="u-wk" style="margin:0;font-size:calc(16px*var(--fs));font-weight:800">This week in the official record</h2>
+        <p style="margin:2px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{wkRange}} · actions read from official records</p>
+        <sc-if value="{{wkNone}}"><p role="status" style="margin:10px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2)">No new official actions this week.</p></sc-if>
+        <sc-if value="{{wkAny}}"><dl style="margin:12px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px"><sc-for list="{{wkCounts}}" as="c"><div style="padding:calc(10px*var(--ps)) calc(12px*var(--ps));border-radius:min(12px,var(--r));background:var(--surface-2);display:flex;flex-direction:column-reverse;gap:2px"><dt style="font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-2)">{{c.l}}</dt><dd style="margin:0;font-size:calc(24px*var(--fs));font-weight:800;font-variant-numeric:tabular-nums;color:{{c.fg}}">{{c.n}}</dd></div></sc-for></dl></sc-if>
+      </section>
+      <sc-if value="{{hasAutoF}}">
+        <div style="display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:10px">
+          <label style="display:flex;align-items:center;gap:8px;font-size:calc(14px*var(--fs));font-weight:700;color:var(--ink-2)">State<select value="{{newsSt}}" onChange="{{setNewsSt}}" aria-label="Filter by state or federal" style="height:calc(40px*var(--hs));padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-weight:650"><sc-for list="{{uStates}}" as="o"><option value="{{o.v}}">{{o.l}}</option></sc-for></select></label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:calc(14px*var(--fs));font-weight:700;color:var(--ink-2)">Action<select value="{{newsCls}}" onChange="{{setNewsCls}}" aria-label="Filter by type of official action" style="height:calc(40px*var(--hs));max-width:240px;padding:0 calc(10px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font:inherit;font-weight:650"><sc-for list="{{uClasses}}" as="o"><option value="{{o.v}}">{{o.l}}</option></sc-for></select></label>
+        </div>
+      </sc-if>
       <div role="group" aria-label="Filter by kind" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px">
         <sc-for list="{{uKinds}}" as="k" hint-placeholder-count="5"><button onClick="{{k.toggle}}" aria-pressed="{{k.pressed}}" style="height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{k.bg}};color:{{k.fg}};font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap"><span aria-hidden="true" style="color:{{k.c}}">{{k.g}}</span>{{k.l}}<span style="font-variant-numeric:tabular-nums;opacity:.7">{{k.n}}</span></button></sc-for>
         <sc-if value="{{hasKindF}}"><button onClick="{{clearKinds}}" style="height:calc(40px*var(--hs));padding:0 calc(8px*var(--ps));border:0;background:transparent;color:var(--accent-ink);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px">Show all</button></sc-if>
@@ -665,9 +695,16 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
             <article style="display:flex;gap:14px;padding:calc(16px*var(--ps)) 0;border-top:1px solid var(--line)">
               <span aria-hidden="true" style="width:32px;height:32px;flex-shrink:0;border-radius:min(10px,var(--r));background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;color:{{n.kc}};font-size:calc(14px*var(--fs))">{{n.kg}}</span>
               <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
-                <span style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">{{n.kl}}<sc-if value="{{n.corr}}"><span style="margin-left:8px;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);color:var(--ink)">Correction noted</span></sc-if></span>
-                <h3 style="margin:0;font-size:calc(17.5px*var(--fs));line-height:1.35;font-weight:750;text-wrap:pretty">{{n.title}}</h3>
-                <p style="margin:0;font-size:calc(15px*var(--fs));color:var(--ink-2);text-wrap:pretty">{{n.body}}</p>
+                <span style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">{{n.kl}}<sc-if value="{{n.corr}}"><span style="margin-left:8px;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);color:var(--ink)">Correction noted</span></sc-if><sc-if value="{{n.auto}}"><span> · {{n.clsL}}</span><sc-if value="{{n.official}}"><span data-official style="margin-left:8px;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--st-enacted);color:var(--st-enacted);white-space:nowrap"><span aria-hidden="true">✓ </span>Official record</span></sc-if><sc-if value="{{n.hasStatusNote}}"><span data-status style="margin-left:8px;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));background:var(--ink);color:var(--bg);white-space:nowrap">{{n.statusTag}}</span></sc-if></sc-if></span>
+                <h3 style="margin:0;font-size:calc(17.5px*var(--fs));line-height:1.35;font-weight:750;text-wrap:pretty;text-decoration:{{n.tDeco}};opacity:{{n.aOp}}">{{n.title}}</h3>
+                <sc-if value="{{n.hasStatusNote}}"><p role="note" style="margin:0;padding:calc(8px*var(--ps)) calc(12px*var(--ps));border-left:3px solid var(--ink);background:var(--surface-2);border-radius:0 min(10px,var(--r)) min(10px,var(--r)) 0;font-size:calc(14px*var(--fs));color:var(--ink)"><strong>{{n.statusTag}}. </strong>{{n.statusNote}}</p></sc-if>
+                <p style="margin:0;font-size:calc(15px*var(--fs));color:var(--ink-2);text-wrap:pretty;opacity:{{n.aOp}}">{{n.body}}</p>
+                <sc-if value="{{n.auto}}">
+                  <sc-if value="{{n.hasCd}}"><p data-countdown style="margin:0;display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:3px calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px solid {{n.cdBg}};color:{{n.cdBg}};font-size:calc(13.5px*var(--fs));font-weight:750;font-variant-numeric:tabular-nums"><span aria-hidden="true">◷</span>{{n.cdText}}</p></sc-if>
+                  <sc-if value="{{n.hasStage}}"><ol data-stage aria-label="{{n.stageLabel}}" style="list-style:none;margin:2px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px"><sc-for list="{{n.stages}}" as="s"><li aria-current="{{s.cur}}" style="display:flex;flex-direction:column;gap:4px;min-width:0"><span aria-hidden="true" style="height:6px;border-radius:3px;background:{{s.bg}}"></span><span style="font-size:calc(clamp(10px,2.6vw,11.5px)*var(--fs));font-weight:{{s.fw}};color:{{s.fg}};line-height:1.2;overflow-wrap:normal;word-break:normal;hyphens:manual">{{s.l}}</span></li></sc-for></ol></sc-if>
+                  <sc-if value="{{n.hasNext}}"><p style="margin:0;font-size:calc(14px*var(--fs));color:var(--ink-2)"><strong style="color:var(--ink)">What’s next: </strong>{{n.next}}</p></sc-if>
+                  <sc-if value="{{n.hasStmts}}"><ul aria-label="Statements" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{n.stmts}}" as="s"><li style="max-width:100%"><a href="{{s.u}}" target="_blank" rel="noopener" style="display:inline-block;max-width:100%;padding:4px calc(10px*var(--ps));border-radius:min(12px,var(--r));border:1px dashed var(--line-2);background:var(--surface);color:var(--ink);text-decoration:none;font-size:calc(13px*var(--fs));line-height:1.35" style-hover="border-color:var(--accent)"><span style="font-weight:800;color:var(--ink-3)">Statement · {{s.pub}}</span> <span style="overflow-wrap:break-word">“{{s.t}}” ↗</span></a></li></sc-for></ul></sc-if>
+                </sc-if>
                 <div style="display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center">
                   <sc-if value="{{n.hasEntry}}"><a href="{{n.entryHref}}" aria-label="Tracker entry: {{n.entryShort}}" style="display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:4px calc(14px*var(--ps)) 4px calc(12px*var(--ps));border-radius:min(14px,var(--r));border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);text-decoration:none;font-size:calc(13.5px*var(--fs));font-weight:700;line-height:1.3" style-hover="border-color:var(--accent);background:var(--accent-soft)"><span aria-hidden="true" style="flex-shrink:0;font-size:calc(12.5px*var(--fs));font-weight:600;color:var(--ink-3)">Entry</span><span style="min-width:0;overflow-wrap:anywhere">{{n.entryShort}}</span><span aria-hidden="true" style="flex-shrink:0;color:var(--accent-ink)">→</span></a></sc-if>
                   <button onClick="{{n.toggle}}" aria-expanded="{{n.expanded}}" style="min-height:calc(40px*var(--hs));padding:0;border:0;background:transparent;color:var(--ink-2);font-weight:700;font-size:calc(14px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px">{{n.toggleLabel}}</button>
@@ -845,7 +882,7 @@ const L_lanes = (self, ids, p) => { const s = self.state; return self.V.lanes({ 
   select: k => { if (self.state.tlSel !== k) self.setState({ tlSel: k }); }, setRange: k => self.setP({ rng: k === 'recent' ? '' : k }, true),
   toggleKind: k => self.setState({ kindOff: s.kindOff.includes(k) ? s.kindOff.filter(z => z !== k) : [...s.kindOff, k] }) }); };
 class Component extends DCLogic {
-  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], open: {}, limit: 20, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], etOpen: [], etMenu: '', etQ: '', lkTab: '', lkAll: false, lkOpen: [], resOpen: false, exFOpen: false };
+  state = { booting: true, leaving: false, loading: true, err: false, vw: typeof window !== 'undefined' ? window.innerWidth : 1280, route: { path: '/', p: {} }, t: null, stepKind: 'event', playing: false, filtersOpen: false, online: true, theme: null, toast: '', follow: [], focusTile: 'CA', hover: null, kindF: [], newsSt: '', newsCls: '', open: {}, limit: 20, q: '', tlSel: '', kindOff: ['check'], netHover: null, netOff: [], etOpen: [], etMenu: '', etQ: '', lkTab: '', lkAll: false, lkOpen: [], resOpen: false, exFOpen: false };
   mainRef = React.createRef(); resBtnRef = React.createRef(); panelTileRef = React.createRef(); panelCloseRef = React.createRef(); qRef = React.createRef();
   componentDidMount() {
     this.rm = matchMedia('(prefers-reduced-motion: reduce)').matches; this.t0 = performance.now(); document.documentElement.lang = 'en';
@@ -914,12 +951,15 @@ class Component extends DCLogic {
     const t = this.status && this.status.checked && this.status.checked[key], rel = t && this.ago(t);
     return rel ? { hasBChecked: true, bCheckedLine: `Official record last checked ${rel}.` } : { hasBChecked: false, bCheckedLine: '' };
   }
+  // Local fixture hook: ?news=scripts/fixtures/<name>.json (web/scripts is never published, so on the live site
+  // this path does not exist and the fetch fails loudly rather than silently showing test data).
+  newsUrl() { const m = /[?&]news=(scripts\/fixtures\/[\w-]+\.json)\b/.exec(location.search); return m ? m[1] : 'data/v2/news.json'; }
   async load() {
     this.setState({ loading: true, err: false });
     try {
       const get = u => fetch(u).then(x => { if (!x.ok) throw new Error(u); return x.json(); });
       const v1 = /[?&]data=v1\b/.test(location.search);
-      const [L, V, ...d] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...(v1 ? ['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'] : ['data/v2/entries.json', 'data/v2/news.json', 'data/v2/relationships.json', 'data/v2/site.json', 'data/v2/content.json']).map(get)]);
+      const [L, V, ...d] = await Promise.all([import('./tracker-lib.js'), import('./viz-lib.js'), ...(v1 ? ['data/entries.json', 'data/news.json', 'data/relationships.json', 'data/events.json'] : ['data/v2/entries.json', this.newsUrl(), 'data/v2/relationships.json', 'data/v2/site.json', 'data/v2/content.json']).map(get)]);
       this.L = L; this.V = V;
       // When the official sources were last checked (pipeline/update.mjs). Optional: no file, no line.
       if (!v1) fetch('data/v2/status.json', { cache: 'no-store' }).then(x => (x.ok ? x.json() : null)).then(st => { this.status = st; this.forceUpdate(); }).catch(() => {});
@@ -1208,8 +1248,29 @@ class Component extends DCLogic {
   }
   feedItem(n) {
     const L = this.L, D = this.D, k = L.KINDS[n.kind] || L.KINDS.industry, e = n.entryId ? D.byId[n.entryId] : null, open = !!this.state.open[n.i];
-    return { i: n.i, date: L.fmt(n.d), title: n.title, body: n.body, kl: k.l, kg: k.g, kc: k.v, hasEntry: !!e, entryHref: e ? '#/bill/' + e.id : '', entryShort: e ? e.short : '', check: n.check, links: n.links.map(l => ({ t: l.t, u: l.u })),
-      open, toggle: () => this.setState(st => ({ open: { ...st.open, [n.i]: !st.open[n.i] } })), toggleLabel: open ? 'Hide sources' : `Sources and how we checked (${n.links.length})`, expanded: open ? 'true' : 'false', corr: /Correction/.test(n.check) };
+    return { i: n.i, date: L.fmt(n.d), title: n.title, body: n.body, kl: k.l, kg: k.g, kc: k.v, hasEntry: !!e, entryHref: e ? '#/bill/' + e.id : '', entryShort: e ? e.short : '', check: n.check || this.autoCheck(n), links: n.links.map(l => ({ t: l.t, u: l.u })),
+      open, toggle: () => this.setState(st => ({ open: { ...st.open, [n.i]: !st.open[n.i] } })), toggleLabel: open ? 'Hide sources' : `Sources and how we checked (${n.links.length})`, expanded: open ? 'true' : 'false', corr: /Correction/.test(n.check || ''), ...this.autoView(n) };
+  }
+  // Test hook for the local fixture page only: ?today=YYYY-MM-DD fixes "this week" and countdowns.
+  today() { const m = /[?&]today=(\d{4}-\d{2}-\d{2})\b/.exec(location.search); return m ? new Date(m[1] + 'T12:00:00') : new Date(); }
+  autoCheck(n) {
+    const v = n.verification || {};
+    return v.method === 'official-record' ? 'Read from the official record' + (v.checked_at ? ' on ' + this.L.fmt(new Date(String(v.checked_at).slice(0, 10) + 'T12:00:00')) : '') + ' and checked by code.' : '';
+  }
+  // Extra fields of an automated event card (pipeline/news/CONTRACT.md). A hand-written item gets auto: false and
+  // renders exactly as before.
+  autoView(n) {
+    const L = this.L;
+    if (!L.isAuto(n)) return { auto: false, tDeco: 'none', aOp: '1' };
+    const si = L.stageIdx(n.stage), cd = L.countdown(n, this.today()), st = n.status || 'confirmed', hist = L.historyNote(n);
+    const stmts = (Array.isArray(n.statements) ? n.statements : []).filter(s => s && s.t && s.u).map(s => ({ t: s.t, u: s.u, pub: s.publisher || 'Statement' }));
+    return { auto: true, clsL: (L.NEWS_CLASS[n.class] || {}).l || '', official: !!n.verification && n.verification.method === 'official-record',
+      stmts, hasStmts: stmts.length > 0, hasStage: si >= 0, stageLabel: si >= 0 ? `Stage: ${L.STAGES[si]} (step ${si + 1} of ${L.STAGES.length})` : '',
+      stages: L.STAGES.map((l, j) => ({ l, bg: j <= si ? 'var(--st-enacted)' : 'var(--line)', fg: j === si ? 'var(--ink)' : 'var(--ink-3)', fw: j === si ? '800' : '600', cur: j === si ? 'step' : undefined })),
+      next: n.next || '', hasNext: !!n.next, hasCd: !!cd, cdText: cd ? cd.text : '', cdBg: cd && !cd.closed ? (cd.days <= 7 ? 'var(--st-failed)' : 'var(--accent-ink)') : 'var(--ink-3)',
+      isCorr: st === 'corrected', isWd: st === 'withdrawn', hasStatusNote: st === 'corrected' || st === 'withdrawn', statusTag: st === 'corrected' ? 'Corrected' : st === 'withdrawn' ? 'Withdrawn' : '',
+      statusNote: hist || (st === 'corrected' ? 'This item was corrected after it was first published.' : st === 'withdrawn' ? 'This item was withdrawn: the official record no longer supports it. It is kept here so the change is visible.' : ''),
+      tDeco: st === 'withdrawn' ? 'line-through' : 'none', aOp: st === 'withdrawn' ? '.75' : '1' };
   }
   sidebar(p, small) {
     const L = this.L, D = this.D;
@@ -1360,7 +1421,9 @@ class Component extends DCLogic {
     const rel = k ? D.edges.filter(e => e.from === k || e.to === k).map(e => { const o = e.from === k ? e.to : e.from, oid = D.keyToId[o]; return { t: e.type, name: R.actors[o] || R.short[o] || o, label: e.label, href: oid ? '#/bill/' + oid : '', isEntry: !!oid, isActor: !oid }; }) : [];
     const relGroups = Object.keys(R.types).map(t => { const items = rel.filter(r => r.t === t); return { name: R.types[t].name, c: this.V.TYPE_COLOR[t] || 'var(--line-2)', n: String(items.length), items }; }).filter(g => g.items.length);
     const stx = x.statusText || { text: '', asOf: null };
-    const news = D.N.filter(n => n.entryId === id).map(n => this.feedItem(n));
+    const news = D.N.filter(n => n.entryId === id && !L.isAuto(n)).map(n => this.feedItem(n));
+    // Per-entry timeline: this entry's automated events (with their attached statements), oldest first.
+    const tl = D.N.filter(n => n.entryId === id && L.isAuto(n)).sort((a, b) => a.d - b.d || a.i - b.i).map(n => this.feedItem(n));
     const following = this.state.follow.includes(id);
     const marks = [x.U && 'Added or changed in the supplementary checks through ' + L.fmt(L.ASOF), x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
     return {
@@ -1371,7 +1434,7 @@ class Component extends DCLogic {
       srcLinks: x.srcLinks, hasSrcLinks: x.srcLinks.length > 0, noSrcLinks: !x.srcLinks.length && !x.moreLinks.length, moreLinks: x.moreLinks, hasMoreLinks: x.moreLinks.length > 0, nMoreLinks: x.moreLinks.length, bTh: x.thresholds, hasTh: !!x.thresholds, bSponsor: x.sponsor, hasSponsor: !!x.sponsor, bSource: x.source, bLink: x.link, bYears: x.years.filter(y => y !== '*').join(', ') || 'None recorded',
       steps, hasSteps: steps.length > 0, noSteps: !steps.length && !stx.text,
       statusText: stx.text, hasStatusText: !!stx.text, statusLabel: x.raw && x.raw.verification && x.raw.verification.method === 'session' ? 'Status as recorded (read from the official record on ' + L.fmt(new Date(x.raw.verification.checked_at)) + '; added after the 15 Oct verification)' : 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
-      relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0,
+      relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0, bTl: tl, hasTl: tl.length > 0,
       ...this.dutyView(x),
       hasAutoBadge: !!x.raw && x.raw.origin !== 'authored', autoTitle: 'The latest official actions on this entry were added automatically from the official record and checked by code.',
       marks, hasMarks: marks.length > 0,
@@ -1396,12 +1459,24 @@ class Component extends DCLogic {
   }
   updates(p) {
     const L = this.L, D = this.D, s = this.state, kf = s.kindF;
-    const items = D.N.filter(n => !kf.length || kf.includes(n.kind)).sort((a, b) => b.d - a.d || b.i - a.i);
+    // State and action-type filters exist only once automated items do; hand-written items have no class, so an
+    // action filter shows automated items only. Digest counts are computed here, from the items, never padded.
+    const ns = s.newsSt || '', nc = s.newsCls || '', auto = D.N.filter(n => L.isAuto(n));
+    const jurOf = n => L.newsJur(n, D.byId);
+    const items = D.N.filter(n => (!kf.length || kf.includes(n.kind)) && (!ns || jurOf(n) === ns) && (!nc || (L.isAuto(n) && n.class === nc))).sort((a, b) => b.d - a.d || b.i - a.i);
+    const wk = L.weekDigest(D.N, this.today());
+    const jurs = [...new Set(D.N.map(jurOf).filter(Boolean))].sort((a, b) => (a === 'US' ? -1 : b === 'US' ? 1 : (L.SN[a] || a).localeCompare(L.SN[b] || b)));
+    const clss = [...new Set(auto.map(n => n.class))].sort((a, b) => L.NEWS_CLASS[a].l.localeCompare(L.NEWS_CLASS[b].l));
+    const filt = { wkRange: `${wk.from} to ${wk.to}`, wkNone: wk.total === 0, wkAny: wk.total > 0, wkCounts: wk.counts.map(c => ({ l: c.l, n: String(c.n), fg: c.n ? 'var(--ink)' : 'var(--ink-3)' })),
+      hasAutoF: auto.length > 0, newsSt: ns, newsCls: nc,
+      uStates: [{ v: '', l: 'All' }, ...jurs.map(j => ({ v: j, l: j === 'US' ? 'Federal' : L.SN[j] || j }))],
+      uClasses: [{ v: '', l: 'All actions' }, ...clss.map(c => ({ v: c, l: L.NEWS_CLASS[c].l }))],
+      setNewsSt: e => this.setState({ newsSt: e.target.value }), setNewsCls: e => this.setState({ newsCls: e.target.value }) };
     const groups = []; let cur = null;
     items.forEach(n => { const lab = L.fmt(n.d); if (!cur || cur.date !== lab) { cur = { date: lab, items: [] }; groups.push(cur); } cur.items.push(this.feedItem(n)); });
     const kinds = Object.entries(L.KINDS).map(([k, m]) => { const on = kf.includes(k); return { l: m.l, g: m.g, c: m.v, n: D.N.filter(n => n.kind === k).length, pressed: on, bg: on ? 'var(--ink)' : 'var(--surface)', fg: on ? 'var(--bg)' : 'var(--ink)', toggle: () => this.setState({ kindF: on ? kf.filter(x => x !== k) : [...kf, k] }) }; });
     return {
-      isUpdates: true, uGroups: groups, uKinds: kinds, uCount: `${items.length} of ${D.N.length} items`, uEmpty: !items.length, clearKinds: () => this.setState({ kindF: [] }), hasKindF: kf.length > 0,
+      isUpdates: true, ...filt, uGroups: groups, uKinds: kinds, uCount: `${items.length} of ${D.N.length} items`, uEmpty: !items.length, clearKinds: () => this.setState({ kindF: [], newsSt: '', newsCls: '' }), hasKindF: kf.length > 0 || !!ns || !!nc,
       uBottom: D.newsBottom
     };
   }
