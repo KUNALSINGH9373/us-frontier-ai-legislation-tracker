@@ -1,5 +1,5 @@
 {
- "_note": "Every distinct history action in the stored LegiScan records (pipeline/data/runs/*/raw/legiscan and fixtures), 28 Oct 2026, grouped by the kind grabber/sources/legiscan.mjs stateActionKind must give it (not the first action of a history). Failures, vetoes, enactments and introductions reviewed one by one; the rest reviewed by scanning for amendment, motion, withdrawal, tabling and passage wording.",
+ "_note": "Every distinct history action in the stored LegiScan records (pipeline/data/runs/*/raw/legiscan and fixtures), 28 Oct 2026, grouped by the kind grabber/sources/legiscan.mjs stateActionKind must give it (not the first action of a history). Failures, vetoes, enactments and introductions reviewed one by one; the rest reviewed by scanning for amendment, motion, withdrawal, tabling and passage wording. Round 2 (29 Oct 2026): public act numbers, \"Passed First Reading\" and the CT Legislative Commissioners' Office are procedural; a carry-over to the next session is carried_over.",
  "kinds": {
   "enacted": [
    "Approved by Governor 05/12/2026",
@@ -28,10 +28,6 @@
    "House Approved by Governor on Tuesday, April 8, 2025",
    "House message: Governor approved bill on June 17, 2026",
    "House message: Governor approved bill on May 18, 2026",
-   "Public Act . . . . . . . . . 104-0466",
-   "Public Act . . . . . . . . . 104-0538",
-   "Public Act 26-100",
-   "Public Act 26-15",
    "SIGNED CHAP.55",
    "SIGNED CHAP.58",
    "SIGNED CHAP.699",
@@ -362,11 +358,9 @@
    "House/ enrolled bill to Printing in Clerk of the House",
    "House/ passed 3rd reading in Senate Secretary",
    "House/ received enrolled bill from Printing in Clerk of the House",
-   "Introduced and Pass First Reading.",
    "Introduced, Passed on First Consideration",
    "Measure and Emergency passed: Ayes: 42 Nays: 0",
    "PASSED SENATE",
-   "Pass First Reading",
    "Passed",
    "Passed - Amended",
    "Passed 1st Reading",
@@ -384,7 +378,6 @@
    "Passed Final Reading as amended in CD 1 with none voting aye with reservations; none voting no (0) and none excused (0).",
    "Passed Final Reading, as amended (CD 1). Ayes, 25; Aye(s) with reservations: none . 0 No(es): none. 0 Excused: none.",
    "Passed Final Reading, as amended (CD 1). Ayes, 25; Aye(s) with reservations: none. Noes, 0 (none). Excused, 0 (none).",
-   "Passed First Reading.",
    "Passed H., Ayes 90, Nays 0, PNV 0",
    "Passed H., as am., Ayes 94, Nays 0, PNV 0",
    "Passed House (99-Y 0-N 0-A)",
@@ -475,7 +468,6 @@
    "Reported Out of Committee (Executive) in Senate with 6 On Its Merits",
    "Reported Out of Committee (Technology & Telecommunications) in House with 3 Favorable, 4 On Its Merits",
    "Reported Out of Committee (Technology & Telecommunications) in House with 5 On Its Merits",
-   "Reported Out of Legislative Commissioners' Office",
    "Reported back amended, do pass, amendment placed on calendar 13 0 1",
    "Reported back amended, do pass, amendment placed on calendar 20 0 3",
    "Reported engrossed",
@@ -924,7 +916,6 @@
    "CS by Appropriations read 1st time",
    "CS by- Appropriations; YEAS 18 NAYS 0",
    "Cal Pursuant Rule 36(b)",
-   "Carried over to 2026 Regular Session.",
    "Cavanaugh, J. AM2849 adopted",
    "Cavanaugh, J. AM2849 to AM2221 filed",
    "Chair Rules Standard Debate",
@@ -968,8 +959,6 @@
    "Constitutional reading dispensed Block Vote (on 2nd reading) (39-Y 0-N 0-A)",
    "Constitutional reading dispensed Block Vote (on 3rd reading) (39-Y 0-N 0-A)",
    "Continued from last session",
-   "Continued to next session in Communications, Technology and Innovation (Voice Vote)",
-   "Continued to next session in General Laws and Technology (14-Y 0-N 1-A)",
    "DELIVERED TO ASSEMBLY",
    "DELIVERED TO GOVERNOR",
    "DP: HOLLAND, PRAX, RUFFRIDGE, HALL, MEARS",
@@ -1637,7 +1626,6 @@
    "Third Reading ordered",
    "Three day rule suspended",
    "Title apvd",
-   "Title printed. Carryover bill",
    "Title stricken",
    "To AI and Social Media",
    "To Energy and Public Works",
@@ -1740,7 +1728,15 @@
    "tabled line veto memo.1",
    "to House",
    "to Senate",
-   "to Small Business & Information Technology (H)"
+   "to Small Business & Information Technology (H)",
+   "Public Act . . . . . . . . . 104-0466",
+   "Public Act . . . . . . . . . 104-0538",
+   "Public Act 26-100",
+   "Public Act 26-15",
+   "Passed First Reading.",
+   "Reported Out of Legislative Commissioners' Office",
+   "Introduced and Pass First Reading.",
+   "Pass First Reading"
   ],
   "referred": [
    "Action Def. in s/c Banking and Consumer Affairs Subcommittee to 3/18/2026",
@@ -2114,6 +2110,12 @@
   ],
   "vetoed": [
    "Vetoed by Governor."
+  ],
+  "carried_over": [
+   "Carried over to 2026 Regular Session.",
+   "Continued to next session in Communications, Technology and Innovation (Voice Vote)",
+   "Continued to next session in General Laws and Technology (14-Y 0-N 1-A)",
+   "Title printed. Carryover bill"
   ]
  }
 }

@@ -1,0 +1,189 @@
+{
+ "id": 98,
+ "key": "h-r-10152-open-source-ai-leadership-act",
+ "section": "F",
+ "type": "bill",
+ "level": "federal",
+ "jurisdiction": "Federal",
+ "state": null,
+ "status": "pending",
+ "title": "H.R. 10152 — Open-Source AI Leadership Act",
+ "short_name": "H.R. 10152 Open-Source AI Leadership Act",
+ "sponsor_text": "Rep. Gabe Evans (R-CO)",
+ "mechanism": "The Secretary of Commerce shall identify, assess, and make publicly known, as appropriate, any risk related to the adoption and use of foreign adversary models. A report is to be published within 18 months of enactment and annually thereafter, and submitted to Congress within 30 days of each publication; the report requirement does not apply 10 years after enactment. The Secretary shall take any of the listed actions as appropriate to support adoption of qualified open models. Nothing in the Act authorizes the Secretary to ban or restrict open AI models.",
+ "thresholds": "No compute, revenue or capability figure; covers open AI models developed or made available by a covered nation or an entity or individual subject to its control.",
+ "penalties": null,
+ "status_text": "Introduced / status: Aug 27, 2026; Ordered to be Reported by the Yeas and Nays: 26 - 21 (Sept 16, 2026)",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-08-27",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "H.R. 10152 introduced",
+   "inferred_year": false,
+   "scheduled": false
+  },
+  {
+   "date": "2026-09-16",
+   "precision": "day",
+   "type": "Passed / advanced",
+   "text": "Ordered to be Reported by the Yeas and Nays: 26 - 21",
+   "inferred_year": false,
+   "scheduled": false
+  }
+ ],
+ "sources": [
+  {
+   "label": "Congress.gov record: Open-Source AI Leadership Act",
+   "url": "https://www.congress.gov/bill/119th-congress/house-bill/10152",
+   "kind": "primary",
+   "retrieved_at": "2026-10-26T06:50:09Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "shall identify, assess, and make publicly known, as appropriate, any risk related to the adoption and use of foreign adversary models",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "mechanism",
+   "quote": "Publication.--Not later than 18 months after the date of the",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "mechanism",
+   "quote": "and annually thereafter, the Secretary shall publish on a publicly facing website a report",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "mechanism",
+   "quote": "Report to Congress.--Not later than 30 days after the",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "mechanism",
+   "quote": "apply beginning on the date that is 10 years after the date of the",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "mechanism",
+   "quote": "The Secretary shall take any of the following actions as appropriate",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "mechanism",
+   "quote": "Nothing in this Act may be construed to authorize the Secretary to",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "thresholds",
+   "quote": "means an open artificial intelligence model that is developed or made available in interstate or foreign commerce by",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "in_scope",
+   "quote": "The Secretary shall identify, assess, and make publicly known, as appropriate, any risk related to the adoption and use of foreign adversary models",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  {
+   "field": "section",
+   "quote": "The development and use of chemical, biological, radiological, or nuclear capabilities",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "congress_gov": [
+    "119/hr/10152"
+   ]
+  },
+  "session": "119th Congress"
+ },
+ "legacy": {
+  "section_name": "Adjacent and sectoral federal bills"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261026-0648-0d70",
+  "rounds": 1
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28",
+ "duties": {
+  "framework": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require developers to write, publish, or follow a safety or risk-management framework."
+  },
+  "transparency_report": {
+   "value": "partial",
+   "summary": "The Secretary of Commerce must publish a public report on foreign adversary model risks within 18 months of enactment and annually after that. The requirement ends 10 years after enactment.",
+   "section": "Sec. 3(b)",
+   "quote": "the Secretary shall publish on a publicly facing website a report that assesses any risk related to a foreign adversary model",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152"
+  },
+  "incident_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require anyone to report safety or security incidents to a government body."
+  },
+  "imminent_risk_reporting": {
+   "value": "not_in_bill",
+   "summary": "The bill sets no shorter reporting window for imminent risks of death or serious injury."
+  },
+  "third_party_audit": {
+   "value": "not_in_bill",
+   "summary": "The bill requires no independent audit, evaluation, or verification of any model."
+  },
+  "whistleblower": {
+   "value": "not_in_bill",
+   "summary": "The bill contains no employee whistleblower protections."
+  },
+  "registration": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require registering, licensing, or notifying a regulator before developing or deploying a model."
+  },
+  "shutdown": {
+   "value": "not_in_bill",
+   "summary": "The bill does not require any shutdown, kill-switch, or containment capability."
+  },
+  "compute_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill does not define coverage by training compute."
+  },
+  "revenue_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill does not define coverage by revenue, spending, or users."
+  },
+  "harm_threshold": {
+   "value": "not_in_bill",
+   "summary": "The bill does not define catastrophic or covered harm by deaths, injuries, or damages."
+  },
+  "penalties": {
+   "value": "not_in_bill",
+   "summary": "The bill states no penalties, fines, or enforcement remedies."
+  },
+  "effective_date": {
+   "value": "not_in_bill",
+   "summary": "The bill states no effective date; its 18-month and 10-year timing runs from enactment and does not set when the Act takes effect."
+  }
+ },
+ "duties_basis": {
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152",
+  "sha256": "2430def49fdd5205b66582ef5e6f8a5cac0b07367671c4de568b621f16480858",
+  "chars": 10216,
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z"
+ }
+}

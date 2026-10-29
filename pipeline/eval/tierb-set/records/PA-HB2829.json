@@ -1,0 +1,499 @@
+{
+ "item": {
+  "item_id": "legiscan:2159955",
+  "source": "legiscan",
+  "source_id": "2159955",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+  "fetched_at": "2026-10-13T07:18:34Z",
+  "raw_hash": "a8e7d9e1399a38394432f642da3b34d57b50804d62912c3cb4302f6ff889ae90",
+  "raw_path": "raw/legiscan/PA-HB2829-2159955.json",
+  "title": "PA HB2829: Providing for the establishment of standards, protections and transparency of artificial intelligence frameworks developed by frontier developers; imposing duties on the Pennsylvania Emergency Management Agency and the Attorney General; and imposing penalties."
+ },
+ "raw": {
+  "id": "2159955",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 44,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 2159955,
+   "change_hash": "65a5ac8fa96d34d9f5f8eb306e83cfb0",
+   "session_id": 2192,
+   "session": {
+    "session_id": 2192,
+    "state_id": 38,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 Regular Session"
+   },
+   "url": "https://legiscan.com/PA/bill/HB2829/2025",
+   "state_link": "https://www.palegis.us/legislation/bills/2025/hb2829",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-10-05",
+   "progress": [
+    {
+     "date": "2026-10-05",
+     "event": 1
+    },
+    {
+     "date": "2026-10-05",
+     "event": 9
+    }
+   ],
+   "state": "PA",
+   "state_id": 38,
+   "bill_number": "HB2829",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "H",
+   "body_id": 3,
+   "current_body": "H",
+   "current_body_id": 3,
+   "title": "Providing for the establishment of standards, protections and transparency of artificial intelligence frameworks developed by frontier developers; imposing duties on the Pennsylvania Emergency Management Agency and the Attorney General; and imposing penalties.",
+   "description": "An Act providing for the establishment of standards, protections and transparency of artificial intelligence frameworks developed by frontier developers; imposing duties on the Pennsylvania Emergency Management Agency and the Attorney General; and imposing penalties.",
+   "pending_committee_id": 4998,
+   "committee": {
+    "committee_id": 4998,
+    "chamber": "H",
+    "chamber_id": 3,
+    "name": "Communications and Technology"
+   },
+   "referrals": [
+    {
+     "date": "2026-10-05",
+     "committee_id": 4998,
+     "chamber": "H",
+     "chamber_id": 3,
+     "name": "Communications and Technology"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-10-05",
+     "action": "Referred to Communications & Technology",
+     "chamber": "H",
+     "chamber_id": 3,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 22029,
+     "person_hash": "t36h4dvo",
+     "party_id": "1",
+     "state_id": 38,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Manuel Guzman",
+     "first_name": "Manuel",
+     "middle_name": "",
+     "last_name": "Guzman",
+     "suffix": "Jr.",
+     "nickname": "Manny",
+     "district": "HD-127",
+     "ftm_eid": 44449767,
+     "votesmart_id": 179522,
+     "opensecrets_id": "",
+     "knowwho_pid": 660016,
+     "ballotpedia": "Manuel_Guzman",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "717-787-3525",
+       "district_phone": "610-376-1529",
+       "email": "",
+       "webmail": "http://www.pahouse.com/127/Contact/",
+       "biography": "https://www.palegis.us/house/members/bio/1908/rep-guzman",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Manuel_Guzman",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/179522"
+      },
+      "capitol_address": {
+       "address1": "32 East Wing",
+       "address2": "P.O. Box 202127",
+       "city": "Harrisburg",
+       "state": "PA",
+       "zip": "17120-2127"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepGuzman/",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/RepMannyGuzman",
+        "website": "https://www.palegis.us/house/members/bio/1908/rep-guzman",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/manny.guzman.7",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/manuel-guzman-b8a008164/",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/Manny_Guzman610",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 19066,
+     "person_hash": "7mxa9frc",
+     "party_id": "1",
+     "state_id": 38,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Carol Hill-Evans",
+     "first_name": "Carol",
+     "middle_name": "",
+     "last_name": "Hill-Evans",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-095",
+     "ftm_eid": 23442848,
+     "votesmart_id": 78394,
+     "opensecrets_id": "",
+     "knowwho_pid": 600018,
+     "ballotpedia": "Carol_Hill-Evans",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 2,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "717-787-7514",
+       "district_phone": "717-848-9595",
+       "email": "",
+       "webmail": "http://www.pahouse.com/95/Contact/",
+       "biography": "https://www.palegis.us/house/members/bio/1749/rep-hill-evans",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Carol_Hill-Evans",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/78394"
+      },
+      "capitol_address": {
+       "address1": "528E Main Capitol Building",
+       "address2": "P.O. Box 202095",
+       "city": "Harrisburg",
+       "state": "PA",
+       "zip": "17120-2095"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepHillEvans/",
+        "instagram": "https://www.instagram.com/rephillevans/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/RepHillEvans",
+        "website": "https://www.palegis.us/house/members/bio/1749/rep-hill-evans",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/carol.hillevans",
+        "instagram": "https://www.instagram.com/carolhillevans/",
+        "linkedin": "https://www.linkedin.com/in/carol-hill-evans-9698a3b/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 19968,
+     "person_hash": "f8s7f9ix",
+     "party_id": "1",
+     "state_id": 38,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Danilo Burgos",
+     "first_name": "Danilo",
+     "middle_name": "R.",
+     "last_name": "Burgos",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-197",
+     "ftm_eid": 44449925,
+     "votesmart_id": 150719,
+     "opensecrets_id": "",
+     "knowwho_pid": 490387,
+     "ballotpedia": "Danilo_Burgos",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 3,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "717-772-2004",
+       "district_phone": "215-223-1890",
+       "email": "",
+       "webmail": "http://www.pahouse.com/197/Contact/",
+       "biography": "https://www.palegis.us/house/members/bio/1863/rep-burgos",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Danilo_Burgos",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/150719"
+      },
+      "capitol_address": {
+       "address1": "106 Irvis Office Building",
+       "address2": "P.O. Box 202197",
+       "city": "Harrisburg",
+       "state": "PA",
+       "zip": "17120-2197"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepBurgos",
+        "instagram": "https://www.instagram.com/repburgos",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/RepBurgos",
+        "website": "https://www.palegis.us/house/members/bio/1863/rep-burgos",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/Bodegas215",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/danilo-burgos-25863470/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 20003,
+     "person_hash": "has53iyh",
+     "party_id": "1",
+     "state_id": 38,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Dan Williams",
+     "first_name": "Dan",
+     "middle_name": "K.",
+     "last_name": "Williams",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-074",
+     "ftm_eid": 44449657,
+     "votesmart_id": 179287,
+     "opensecrets_id": "",
+     "knowwho_pid": 660115,
+     "ballotpedia": "Dan_Williams_(Pennsylvania)",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 4,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "717-783-4103",
+       "district_phone": "484-200-8256",
+       "email": "",
+       "webmail": "http://www.pahouse.com/74/Contact/",
+       "biography": "https://www.palegis.us/house/members/bio/1837/rep-d-williams",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Dan_Williams_%28Pennsylvania%29",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/179287"
+      },
+      "capitol_address": {
+       "address1": "36 East Wing",
+       "address2": "P.O. Box 202074",
+       "city": "Harrisburg",
+       "state": "PA",
+       "zip": "17120-2074"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepDanWilliams",
+        "instagram": "https://www.instagram.com/repdanwilliams/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/RepDanWilliams",
+        "website": "https://www.palegis.us/house/members/bio/1837/rep-d-williams",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/profile.php?id=100004395252077",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/dan-williams-2666b328/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 19995,
+     "person_hash": "wvh4dfh8",
+     "party_id": "1",
+     "state_id": 38,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Ben Sanchez",
+     "first_name": "Benjamin",
+     "middle_name": "V.",
+     "last_name": "Sanchez",
+     "suffix": "",
+     "nickname": "Ben",
+     "district": "HD-153",
+     "ftm_eid": 46612783,
+     "votesmart_id": 161504,
+     "opensecrets_id": "",
+     "knowwho_pid": 682938,
+     "ballotpedia": "Ben_Sanchez",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 5,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "717-783-7619",
+       "district_phone": "215-517-6800",
+       "email": "",
+       "webmail": "http://www.pahouse.com/153/Contact/",
+       "biography": "https://www.palegis.us/house/members/bio/1849/rep-sanchez",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Ben_Sanchez",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/161504"
+      },
+      "capitol_address": {
+       "address1": "311 Irvis Office Building",
+       "address2": "P.O. Box 202153",
+       "city": "Harrisburg",
+       "state": "PA",
+       "zip": "17120-2153"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/RepBenSanchez/",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/RepBenSanchez",
+        "website": "https://www.palegis.us/house/members/bio/1849/rep-sanchez",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/ben.sanchez.1800",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/ben-sanchez-34aa7368/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3461921,
+     "date": "2026-10-05",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/PA/text/HB2829/id/3461921",
+     "state_link": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HB2829/PN4002",
+     "text_size": 107996,
+     "text_hash": "c70eb7aaf05b305dbb35cbaf8c50cefc",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [],
+   "amendments": [],
+   "supplements": [],
+   "calendar": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-10-05",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Referred to Communications & Technology",
+     "chamber": "H"
+    }
+   ]
+  },
+  "text": "PRINTER'S NO. 4002\nTHE GENERAL ASSEMBLY OF PENNSYLVANIA\nHOUSE BILL\nSession of\n2829 2026\nNo.\nINTRODUCED BY GUZMAN, HILL-EVANS, BURGOS, D. WILLIAMS AND\nSANCHEZ, OCTOBER 5, 2026\nREFERRED TO COMMITTEE ON COMMUNICATIONS AND TECHNOLOGY,\nOCTOBER 5, 2026\nAN ACT\nProviding for the establishment of standards, protections and\ntransparency of artificial intelligence frameworks developed\nby frontier developers; imposing duties on the Pennsylvania\nEmergency Management Agency and the Attorney General; and\nimposing penalties.\nThe General Assembly of the Commonwealth of Pennsylvania\nhereby enacts as follows:\nTABLE OF CONTENTS\nChapter 1. Preliminary Provisions\nSection 101. Short title.\nSection 102. Definitions.\nSection 103. Scope and applicability.\nSection 104. Administration.\nChapter 5. Creation of AI Framework\nSection 501. Creation and review.\nSection 502. Records of AI framework.\nSection 503. Modification.\nSection 504. Audit.\nSection 505. Assessment of catastrophic risk.\n\nSection 506. Prohibition.\nChapter 7. Reports\nSection 701. Transparency.\nSection 702. Reporting critical safety incidents.\nSection 703. Agency report on critical safety incidents.\nChapter 11. Miscellaneous Provisions\nSection 1101. Interoperability.\nSection 1102. Confidential information.\nSection 1103. Whistleblower protections.\nSection 1104. Prohibited misrepresentations.\nSection 1105. Civil penalties and remedies.\nSection 1106. Duties and obligations.\nSection 1107. Commonwealth preemption.\nSection 1108. Regulations.\nSection 1109. Applicability.\nSection 1110. Effective date.\nCHAPTER 1\nPRELIMINARY PROVISIONS\nSection 101. Short title.\nThis act shall be known and may be cited as the Frontier\nArtificial Intelligence Safety, Transparency and Accountability\nAct.\nSection 102. Definitions.\nThe following words and phrases when used in this act shall\nhave the meanings given to them in this section unless the\ncontext clearly indicates otherwise:\n\"Affiliate.\" A person controlling, controlled by or under\ncommon control with a specified person, directly or indirectly,\nthrough one or more intermediaries.\n\"Agency.\" The Pennsylvania Emergency Management Agency.\n\n\"Artificial intelligence\" or \"AI.\" The term shall have the\nsame meaning as under 18 Pa.C.S. § 3131(g) (relating to unlawful\ndissemination of intimate image).\n\"Catastrophic risk.\" As follows:\n(1) A foreseeable and material risk that a frontier\ndeveloper's development, storage, use or deployment of a\nfrontier model will materially contribute to the death of, or\nserious injury to, more than 50 people or more than\n$1,000,000,000 in damage to, or loss of, property arising\nfrom a single incident involving a frontier model doing any\nof the following:\n(i) Providing expert-level assistance in the\ncreation or release of a chemical, biological,\nradiological or nuclear weapon.\n(ii) Engaging in conduct with no meaningful human\noversight, intervention or supervision that is either a\ncyberattack or, if the conduct had been committed by a\nhuman, would constitute the crime of murder, assault,\nextortion or theft, including theft by false pretense.\n(iii) Evading the control of its frontier developer\nor user.\n(2) The term does not include a foreseeable and material\nrisk from any of the following:\n(i) Information that a frontier model outputs if the\ninformation is otherwise publicly accessible in a\nsubstantially similar form from a source other than a\nfoundation model.\n(ii) Lawful activity of the Federal Government.\n(iii) Harm caused by a frontier model in combination\nwith other software if the frontier model did not\n\nmaterially contribute to the harm.\n\"Covered employee.\" An employee responsible for assessing,\nmanaging or addressing the risk of critical safety incidents.\n\"Critical safety incident.\" Any of the following:\n(1) Harm resulting from the materialization of a\ncatastrophic risk.\n(2) A frontier model that uses deceptive techniques\nagainst the frontier developer to subvert the controls or\nmonitoring of its frontier developer outside of the context\nof an evaluation designed to elicit this behavior and in a\nmanner that demonstrates materially increased catastrophic\nrisk.\n(3) A known incidence of death or bodily injury\nresulting from loss of control of a frontier model.\n(4) An incident of the following kinds that occurs in a\nmanner that provides demonstrable evidence of an increased\nrisk that a frontier model will cause or materially\ncontribute to the death of, or serious injury to, more than\n50 people or more than $1,000,000,000 in damage to, or loss\nof, property:\n(i) A frontier model autonomously engaging in\nbehavior other than at the request of a user.\n(ii) Theft, misappropriation, malicious use,\ninadvertent release, unauthorized access to, modification\nof, exfiltration of or escape of the model weights of a\nfrontier model.\n(iii) The critical failure of a technical or\nadministrative control, including a control limiting the\nability to modify a frontier model.\n(iv) Unauthorized use of a frontier model.\n\n\"Deploy.\" To make a frontier model available to a third\nparty for use, modification, copying or combination with other\nsoftware. The term does not include making a frontier model\navailable to a third party for the primary purpose of\nresearching, developing or evaluating the frontier model.\n\"Foundation model.\" An artificial intelligence model that is\nall of the following:\n(1) Trained on a broad data set.\n(2) Designed for generality of output.\n(3) Adaptable to a wide range of distinctive tasks.\n\"Frontier AI framework.\" Documented technical and\norganizational protocols to manage, assess and mitigate\ncatastrophic risks.\n\"Frontier developer.\" A person who trains, or initiates the\ntraining of, a frontier model using computing power that meets\nthe technical specifications of a frontier model.\n\"Frontier model.\" A foundation model that was trained using\na quantity of computing power greater than 10 ^ 26 integer or\nfloating-point operations. The quantity of computing power\ndescribed in this definition shall include computing for the\noriginal training run and for any subsequent fine-tuning,\nreinforcement learning or other material modifications the\ndeveloper applies to a preceding foundation model.\n\"Large frontier developer.\" A frontier developer that,\ntogether with its affiliates, collectively had annual gross\nrevenues in excess of $500,000,000 in the preceding calendar\nyear.\n\"Model weight.\" A numerical parameter in a frontier model\nthat is adjusted through training and that helps determine how\ninputs are transformed into outputs.\n\n\"Person.\" An individual, proprietorship, firm, partnership,\njoint venture, syndicate, business trust, company, corporation,\nlimited liability company, association, committee or any other\nnongovernmental organization or group of persons acting in\nconcert.\n\"Political subdivision.\" A county, city, borough,\nincorporated town, township, home rule municipality, municipal\nauthority or other unit of local government in this\nCommonwealth.\n\"Property.\" Includes both tangible and intangible property.\nSection 103. Scope and applicability.\nThis act shall apply only to frontier models that are\ndeveloped, deployed or operating in whole or in part in this\nCommonwealth. Nothing in this act:\n(1) shall be construed to prohibit lawful research,\ndevelopment, testing or evaluation of artificial intelligence\nmodels; or\n(2) imposes a requirement on a person solely because the\nperson develops, deploys or operates an artificial\nintelligence model that is not a frontier model.\nSection 104. Administration.\n(a) Duty of agency.--The agency, in consultation with the\nAttorney General, the Office of Administration and the Office of\nInformation Technology, shall administer this act.\n(b) Disclosure statement.--\n(1) Beginning January 1, 2028, a large frontier\ndeveloper may not develop, deploy or operate a frontier\nmodel, in whole or in part in this Commonwealth, without\nhaving a current disclosure statement filed with the agency\nand paying the required fee.\n\n(2) The disclosure statement shall be filed in the form\nand manner prescribed by the agency on the agency's publicly\naccessible Internet website and shall contain all information\nrequired by the agency. The disclosure statement shall be\nrenewed annually, whenever ownership of the frontier model is\ntransferred or whenever there is a material change to the\ninformation reported in the previously filed disclosure\nstatement, whichever occurs earlier.\n(3) The disclosure statement shall identify:\n(i) The identity of the large frontier developer and\nall names under which the large frontier developer\nconducts business.\n(ii) The address of the principal place of business\nand the address of each office the large frontier\ndeveloper maintains in this Commonwealth.\n(iii) If the large frontier developer or the\nultimate parent of the large frontier developer is a\nprivately or closely held company, a list of all persons\nor entities that beneficially own a 5% or greater\ninterest in the large frontier developer at the time the\ndisclosure statement is filed and a list of persons who\nformerly beneficially owned a 5% or greater interest in\nthe large frontier developer or its predecessors in the\npreceding five years.\n(iv) If the large frontier developer or the ultimate\nparent of the large frontier developer is a publicly\ntraded company, a list of all persons or entities that\nbeneficially own a 50% or greater interest in the large\nfrontier developer at the time the disclosure statement\nis filed.\n\n(v) The name and contact information of a primary\ncontact, secondary contact and tertiary contact for the\nlarge frontier developer. The primary contact shall be\nresponsible for receiving inquiries relating to this act\nfrom the agency or other governmental entities.\n(c) Fees.--The agency shall charge and collect fees from\nlarge frontier developers for the expenses of administering this\nact, which shall be nonrefundable unless otherwise indicated.\nEach large frontier developer shall pay to the agency the large\nfrontier developer's pro rata share of the cost of\nadministration of this act, as estimated by the agency, for the\ncurrent year and any deficit actually incurred in the\nadministration of this act in prior years.\n(d) Penalties.--If a large frontier developer develops,\ndeploys or operates a frontier model in this Commonwealth\nwithout a current disclosure filed with the agency as required\nby this section, submits false information in its disclosure or\nfails to timely pay any assessment required, the agency may,\nafter notice and hearing, levy civil penalties, fees and costs\nas follows:\n(1) A civil penalty of $1,000 for each day the large\nfrontier developer fails to file a disclosure as required by\nthis section or fails to correct false information.\n(2) An amount equal to the assessments owed.\n(e) List of large frontier developers.--The agency shall\nmaintain and publish a list of large frontier developers that\nhave filed disclosure statements. The list shall not include the\ncontact information required under subsection (b)(3)(v).\nCHAPTER 5\nCREATION OF AI FRAMEWORK\n\nSection 501. Creation and review.\n(a) Duty of large frontier developer.--Beginning January 1,\n2028, a large frontier developer shall write, implement, comply\nwith and clearly and conspicuously publish on its publicly\naccessible Internet website a frontier AI framework that applies\nto the large frontier developer's frontier models and describes\nhow the large frontier developer approaches all of the\nfollowing:\n(1) Incorporating national standards, international\nstandards and industry-consensus best practices into its\nfrontier AI framework.\n(2) Defining and assessing thresholds used by the large\nfrontier developer to identify and assess whether a frontier\nmodel has capabilities that could pose a catastrophic risk,\nwhich may include multiple-tiered thresholds.\n(3) Applying mitigations to address the potential for\ncatastrophic risks based on the results of assessments under\nparagraph (2).\n(4) Reviewing assessments and adequacy of mitigations as\npart of the decision to deploy a frontier model or use it\nextensively internally.\n(5) Using third parties to assess the potential for\ncatastrophic risks and the effectiveness of mitigations of\ncatastrophic risks.\n(6) Revisiting and updating the frontier AI framework,\nincluding any criteria that trigger updates and how the large\nfrontier developer determines when its frontier models are\nsubstantially modified enough to require disclosures under\nsection 701.\n(7) Cybersecurity practices to secure unreleased model\n\nweights from unauthorized modification or transfer by\ninternal or external parties.\n(8) Identifying and responding to critical safety\nincidents.\n(9) Instituting internal governance practices to ensure\nimplementation of these processes.\n(10) Assessing and managing catastrophic risk resulting\nfrom the internal use of its frontier models, including risks\nresulting from a frontier model circumventing oversight\nmechanisms.\n(11) Implementing appropriate safeguards to prevent an\nunreasonable risk that a frontier model will cause or\nmaterially contribute to the death of, or serious injury to,\nmore than 50 people or more than $1,000,000,000 in damage to,\nor loss of, property.\n(b) Review.--A large frontier developer shall review and, as\nappropriate, update the frontier AI framework at least once per\nyear.\nSection 502. Records of AI framework.\n(a) Retention.--A large frontier developer shall retain an\nunredacted copy of the frontier AI framework, including records\nand dates of any updates or revisions, for as long as a frontier\nmodel is deployed plus five years.\n(b) Transmission of AI framework.--A large frontier\ndeveloper shall transmit to the agency and the Attorney General\na copy of the frontier AI framework published under section 501\nwith redactions permitted under section 1102, no later than 30\ndays after the framework is first published and no later than 30\ndays after publishing a material modification to the framework.\n(c) Access by agency.--Upon request, a large frontier\n\ndeveloper shall grant the agency and the Attorney General access\nto the frontier AI framework, subject to the redactions\npermitted under section 1102.\nSection 503. Modification.\nIf a large frontier developer makes a material modification\nto its frontier AI framework, the large frontier developer shall\nclearly and conspicuously publish on its publicly accessible\nInternet website the modified frontier AI framework and a\njustification for that modification within 30 days.\nSection 504. Audit.\nBeginning January 1, 2028, or 90 days after a developer first\nqualifies as a large frontier developer, whichever is later, a\nlarge frontier developer shall annually retain a third party to\nperform an independent audit of compliance with the requirements\nof this section in accordance with the following:\n(1) The third party shall conduct audits consistent with\ngenerally accepted auditing standards and best practices and\nshall possess demonstrated competence to perform the audit,\nincluding experience employing or contracting with\nindividuals who possess technical expertise in the safety of\nfrontier models.\n(2) A large frontier developer shall not retain a third\nparty if either the large frontier developer or the third\nparty has a financial interest in the other party.\n(3) A large frontier developer may compensate a third\nparty for its services but may not condition any payment or\nthe amount of any payment on the results of the third party's\naudit.\n(4) The third party shall be granted access to all\nmaterials reasonably necessary to comply with the third\n\nparty's obligations under this subsection, including all\nunredacted versions of materials published under this act. To\nprotect the frontier developer's trade secrets and\nconfidential business information, cybersecurity, national\nsecurity of the United States or public safety, a large\nfrontier developer may impose security protocols on the third\nparty, including restrictions on note taking, copying,\nretaining or removing materials, requirements for on-premises\nreview and confidentiality requirements.\n(5) The third party shall produce a report that includes\nall of the following:\n(i) A description of whether the large frontier\ndeveloper has substantially complied with the\nrequirements of this section.\n(ii) If applicable, a description of material\ndeviations from the requirements of this section, an\nexplanation of any deviation and its rationale and any\nrecommendations for how the developer can improve its\npolicies and processes for ensuring compliance with the\nrequirements of this section.\n(iii) A detailed assessment of the large frontier\ndeveloper's internal controls, including its designation\nand empowerment of senior personnel responsible for\nimplementation by the large frontier developer, its\nemployees and its contractors.\n(iv) A list of the personnel involved in the audit.\n(v) The third party's procedures for managing\nconflicts of interest and any conflicts of interest of\nany personnel involved in the audit.\n(vi) The methodology of the audit and the nature of\n\nthe information reviewed by the third party to conduct\nthe audit.\n(vii) The signature of the lead auditor certifying\nthe results of the audit.\n(6) The large frontier developer shall retain an\nunredacted copy of the report for as long as a frontier model\nis deployed plus five years.\n(7) No later than 30 days after receiving the audit\nreport, the large frontier developer shall conspicuously\npublish on its publicly accessible Internet website a highlevel summary of the audit findings and a copy of the third\nparty's report with appropriate redactions and transmit a\ncopy of the redacted report to the agency and the Attorney\nGeneral.\n(8) The large frontier developer shall grant the agency\nand the Attorney General access to the third party's report,\nwith redactions, upon request, subject to section 1102.\n(9) A large frontier developer shall record, as and when\nreasonably possible, and retain, for as long as a frontier\nmodel is deployed plus five years, information on the\nspecific tests and test results used in any assessment of the\nfrontier model required under this section or the large\nfrontier developer's frontier AI framework that provides\nsufficient detail for an independent third-party evaluator to\nreplicate the testing procedure.\nSection 505. Assessment of catastrophic risk.\nA large frontier developer shall transmit to the agency a\nsummary of any assessment of catastrophic risk resulting from\ninternal use of its frontier models every three months or\npursuant to another reasonable schedule specified by the large\n\nfrontier developer and communicated in writing to the agency and\nthe Attorney General, with written updates as appropriate and\nagreed upon by the agency.\nSection 506. Prohibition.\nA large frontier developer may not deploy a frontier model\nif, based on the assessments and mitigation required under this\nchapter and the large frontier developer's frontier AI\nframework, deployment would create an unreasonable risk that the\nfrontier model will cause or materially contribute to the death\nof, or serious injury to, more than 50 people or more than\n$1,000,000,000 in damage to, or loss of, property.\nCHAPTER 7\nREPORTS\nSection 701. Transparency.\n(a) Report.--Before, or concurrently with, deploying a new\nfrontier model or a substantially modified version of an\nexisting frontier model, a frontier developer shall clearly and\nconspicuously publish on the frontier developer's publicly\naccessible Internet website a transparency report containing all\nof the following:\n(1) The publicly accessible Internet website of the\nfrontier developer.\n(2) A mechanism that enables an individual to\ncommunicate with the frontier developer.\n(3) The release date of the frontier model.\n(4) The languages supported by the frontier model.\n(5) The modalities of output supported by the frontier\nmodel.\n(6) The intended uses of the frontier model.\n(7) Any generally applicable restrictions or conditions\n\non uses of the frontier model.\n(b) Content of transparency report.--\n(1) Before, or concurrently with, deploying a new\nfrontier model or a substantially modified version of an\nexisting frontier model, a large frontier developer shall\ninclude in the transparency report required by subsection (a)\nsummaries of all of the following:\n(i) Assessments of catastrophic risks from the\nfrontier model conducted under the large frontier\ndeveloper's frontier AI framework.\n(ii) The results of the assessments under\nsubparagraph (i).\n(iii) The extent to which third-party evaluators\nwere involved.\n(iv) Other steps taken to fulfill the requirements\nof the frontier AI framework with respect to the frontier\nmodel.\n(2) All summaries required under this subsection shall\nbe provided in a machine-readable format to facilitate\nverification of model claims.\n(c) Content as part of a larger document.--A frontier\ndeveloper that publishes the information described in subsection\n(a) or (b) as part of a larger document, including a system card\nor model card, shall be deemed in compliance with the applicable\nsubsection.\n(d) Best industry practices.--A frontier developer is\nencouraged, but not required, to make disclosures described in\nthis section that are consistent with, or superior to, industry\nbest practices.\nSection 702. Reporting critical safety incidents.\n\n(a) Duties of agency.--\n(1) The agency, in consultation with the Attorney\nGeneral, shall establish a mechanism to be used by a frontier\ndeveloper or a member of the public to report a critical\nsafety incident that includes all of the following:\n(i) The date of the critical safety incident.\n(ii) The reasons the incident qualifies as a\ncritical safety incident.\n(iii) A short and plain statement describing the\ncritical safety incident.\n(iv) Whether the incident was associated with\ninternal use of a frontier model.\n(2) The agency, in consultation with the Attorney\nGeneral, shall establish a mechanism to be used by a large\nfrontier developer to confidentially submit summaries of any\nassessments of the potential for catastrophic risk resulting\nfrom internal use of its frontier models.\n(b) Limitation of access to reports.--The agency and the\nAttorney General shall take all necessary precautions to limit\naccess to reports under this section related to internal use of\nfrontier models to only personnel with a specific need to know\nthe information and to protect the reports from unauthorized\naccess. Reports under this section shall not be subject to the\nact of February 14, 2008 (P.L.6, No.3), known as the Right-to-\nKnow Law .\n(c) Timing of report.--\n(1) A frontier developer shall report, using the\nmechanism established under subsection (a), any critical\nsafety incident pertaining to one or more of its frontier\nmodels to the agency and the Attorney General within 72 hours\n\nof the frontier developer learning facts sufficient to\nestablish a reasonable belief that a critical safety incident\nhas occurred. The disclosure shall include all of the\nfollowing:\n(i) The date of the critical safety incident.\n(ii) The reasons the incident qualifies as a\ncritical safety incident.\n(iii) A short and plain statement describing the\ncritical safety incident.\n(2) If a frontier developer discovers that a critical\nsafety incident poses an imminent risk of death or serious\nphysical injury, the frontier developer shall disclose that\nincident within 24 hours to an authority, including any law\nenforcement agency or public safety agency with jurisdiction,\nthat is appropriate based on the nature of that incident and\nas required by law.\n(d) Amendment of report.--A frontier developer that\ndiscovers information about a critical safety incident after\nfiling the initial report required by this section may file an\namended report.\n(e) Foundation models report.--A frontier developer is\nencouraged, but not required, to report critical safety\nincidents pertaining to foundation models that are not frontier\nmodels.\n(f) Review.--\n(1) The agency and the Attorney General shall review\ncritical safety incident reports submitted by frontier\ndevelopers and may review reports submitted by members of the\npublic.\n(2) The Attorney General or the agency may transmit\n\nreports of critical safety incidents to the General Assembly,\nthe Governor, the Federal Government or appropriate\nCommonwealth agencies. The Attorney General and the agency\nshall strongly consider any risks related to trade secrets,\npublic safety, cybersecurity of a frontier developer or\nnational security when transmitting reports.\nSection 703. Agency report on critical safety incidents.\n(a) Duty of agency.--Beginning January 1, 2029, and annually\nthereafter, the agency, in consultation with the Attorney\nGeneral, shall produce a report that includes all of the\nfollowing:\n(1) Anonymized and aggregated information about critical\nsafety incidents that have been reviewed by the agency or the\nAttorney General since the preceding report.\n(2) Information that the agency deems relevant to\nfrontier model safety.\n(3) Recommended updates to this act, if any.\n(4) Developments relevant to the purposes of this act.\n(b) Prohibition.--The agency and the Attorney General may\nnot include information in a report that would compromise the\ntrade secrets or cybersecurity of a frontier developer, public\nsafety or the national security of the United States or that\nwould be prohibited by Federal or State law.\n(c) Transmission.--The agency shall transmit the report\nunder this section to the General Assembly and the Governor.\nCHAPTER 11\nMISCELLANEOUS PROVISIONS\nSection 1101. Interoperability.\n(a) Declaration.--A frontier developer that intends to\ncomply with this act by complying with the requirements of, or\n\nmeeting the standards stated by Federal law, regulation or\nguidance document designated under subsection (b) shall declare\nthe frontier developer's intent to do so to the agency by\nfollowing the process outlined on the agency's publicly\naccessible Internet website.\n(b) Process for declaration.--The agency, in consultation\nwith the Attorney General, shall designate on the agency's\npublicly accessible Internet website a declaration process and\none or more Federal laws, regulations or guidance documents that\nmeet all of the following conditions for purposes of subsection\n(a):\n(1) The Federal law, regulation or guidance document\nimposes or states standards or requirements for critical\nsafety incident reporting that are substantially equivalent\nto, or stricter than, those required by this act.\n(2) The Federal law, regulation or guidance document\ndoes not need to require critical safety incident reporting\nto this Commonwealth.\n(3) The Federal law, regulation or guidance document is\nintended to assess, detect or mitigate catastrophic risk in\nways that are substantially equivalent to this act.\n(4) For a large frontier developer, the Federal law,\nregulation or guidance document requires independent thirdparty audits of its assessment of catastrophic risks and\ncritical safety incident reporting with requirements that are\nsubstantially equivalent to, or stricter than, those required\nby this act.\n(c) Compliance.--After a frontier developer has declared\nintent under this section, the following apply:\n(1) The frontier developer shall be deemed in compliance\n\nonly with a requirement of this act that the agency has\nspecifically determined is substantially equivalent to, or\nless stringent than, the corresponding requirement of the\ndesignated Federal law, regulation or guidance document, and\nonly to the extent that the frontier developer meets the\nstandards of, or complies with, the requirements imposed or\nstated by the designated Federal law, regulation or guidance\ndocument.\n(2) The failure by a frontier developer to meet the\nstandards of, or comply with, the requirements stated by the\nFederal law, regulation or guidance document designated under\nsubsection (b) shall constitute a violation of this act.\n(d) Updates.--The agency shall issue updated guidance\ndocuments on the agency's publicly accessible Internet website\nif the requirements of subsection (b) are no longer met.\nSection 1102. Confidential information.\n(a) Redactions.--If a frontier developer publishes a\ndocument to comply with this act, the frontier developer may\nmake appropriate redactions to the document that are necessary\nto protect the frontier developer's trade secrets, the frontier\ndeveloper's cybersecurity, public safety or the national\nsecurity of the United States or to comply with Federal or State\nlaw.\n(b) Justification.--If a frontier developer redacts\ninformation in a document, the frontier developer shall describe\nthe character and justification of the redaction in any\npublished version of the document to the extent permitted by the\nconcerns that justify the redaction and shall retain the\nunredacted information for five years.\nSection 1103. Whistleblower protections.\n\n(a) Prohibition.--A frontier developer shall not make,\nadopt, enforce or enter into a rule, regulation, policy or\ncontract that prevents a covered employee from disclosing, or\nretaliates against a covered employee for disclosing,\ninformation to the agency, Attorney General, a Federal\nauthority, a person with authority over the covered employee or\nanother covered employee who has authority to investigate,\ndiscover or correct the reported issue, if the covered employee\nhas reasonable cause to believe that the information discloses\nthat:\n(1) The frontier developer's activities pose a specific\nand substantial danger to the public health or safety\nresulting from a catastrophic risk.\n(2) The frontier developer has violated this act.\n(b) Contract prohibition.--A frontier developer shall not\nenter into a contract that prevents a covered employee from\nmaking a disclosure protected under applicable law, including\nthe act of December 12, 1986 (P.L.1559, No.169), known as the\nWhistleblower Law.\n(c) Notice to employees.--A frontier developer shall provide\na clear notice to all covered employees of employee's rights and\nresponsibilities under this section, including by doing one of\nthe following:\n(1) At all times posting and displaying within any\nworkplace maintained by the frontier developer a notice to\nall covered employees of the employee's rights under this\nsection, ensuring that any new covered employee receives\nequivalent notice and ensuring that any covered employee who\nworks remotely periodically receives an equivalent notice.\n(2) At least once each year, providing written notice to\n\neach covered employee of the covered employee's rights under\nthis section and ensuring that the notice is received and\nacknowledged by all covered employees.\n(d) Duty of large frontier developer.--\n(1) A large frontier developer shall provide a\nreasonable internal process through which a covered employee\nmay anonymously disclose information to the large frontier\ndeveloper if the covered employee believes in good faith that\nthe information indicates that the large frontier developer's\nactivities present a specific and substantial danger to the\npublic health or safety resulting from a catastrophic risk or\nthat the large frontier developer violated this act,\nincluding a monthly update to the person who made the\ndisclosure regarding the status of the large frontier\ndeveloper's investigation of the disclosure and the actions\ntaken by the large frontier developer in response to the\ndisclosure.\n(2) Except as provided under paragraph (3), the\ndisclosures and responses of the process required by this\nsubsection shall be shared with officers and directors of the\nlarge frontier developer at least once each quarter.\n(3) If a covered employee has alleged wrongdoing by an\nofficer or director of the large frontier developer in a\ndisclosure or response, paragraph (2) shall not apply with\nrespect to that officer or director.\n(e) Applicability.--This section does not impair or limit\nthe applicability of the Whistleblower Law, including with\nrespect to the rights of employees who are not covered employees\nto report violations of this act.\nSection 1104. Prohibited misrepresentations.\n\n(a) Frontier developer.--A frontier developer shall not\nknowingly make a false or materially misleading statement or\nomission in or regarding a document published, submitted or\ntransmitted under this act concerning catastrophic risk from its\nfrontier models or its management of catastrophic risk.\n(b) Large frontier developer.--A large frontier developer\nshall not knowingly make a false or materially misleading\nstatement or omission in or regarding a document published,\nsubmitted or transmitted under this act concerning its\nimplementation of, or compliance with, its frontier AI\nframework.\n(c) Applicability.--This section shall not apply to a\nstatement or omission that was made in good faith and was\nreasonable under the circumstances.\nSection 1105. Civil penalties and remedies.\n(a) Civil penalties.--A large frontier developer that fails\nto publish, submit or transmit a compliant document required\nunder this act, makes a statement or omission in violation of\nsection 1104, fails to implement appropriate safeguards as\nrequired under Chapter 5, deploys a frontier model in violation\nof section 506, fails to retain testing information as required\nunder section 504(9), fails to have a third party perform an\nindependent audit of compliance as required by section 504,\nfails to report a critical safety incident as required by\nsection 702 or fails to comply with its own frontier AI\nframework shall be subject to a civil penalty in an amount\ndependent upon the severity of the violation that does not\nexceed $1,000,000 for the first violation. For a subsequent\nviolation, the civil penalty may not exceed $3,000,000 per\nviolation.\n\n(b) Applicability.--\n(1) The Attorney General may bring a civil action to\nrecover a civil penalty under this section and may seek\ninjunctive or declaratory relief for a violation of this act.\nAny civil penalties collected from enforcement of this act\nshall be deposited into the General Fund.\n(2) The loss of value of equity does not count as damage\nto or loss of property for the purposes of this act.\n(3) Nothing in this act shall be construed to establish\na private right of action associated with violations of this\nact.\nSection 1106. Duties and obligations.\nThe duties and obligations imposed by this act are cumulative\nwith any other duties or obligations imposed under other law and\nshall not be construed to relieve any party from any duties or\nobligations imposed under other law and do not limit any rights\nor remedies under existing law.\nSection 1107. Commonwealth preemption.\nThe regulation of artificial intelligence frontier models is\nan exclusive power and function of the Commonwealth. A political\nsubdivision may not enact or enforce a law, ordinance,\nresolution, rule, regulation or other requirement that\nspecifically regulates artificial intelligence frontier models.\nSection 1108. Regulations.\nThe agency, in consultation with the Attorney General, may\npromulgate regulations necessary to implement and administer\nthis act.\nSection 1109. Applicability.\nA frontier developer that first qualifies as a large frontier\ndeveloper after the effective date of this section shall have 90\n\n1 days from the date it first qualifies as a large frontier\n2 developer to comply with Chapter 5.\n3 Section 1110. Effective date.\n4 This act shall take effect January 1, 2028.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3461921,
+   "date": "2026-10-05",
+   "type": "Introduced",
+   "mime": "application/pdf",
+   "state_link": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HB2829/PN4002",
+   "from": "legiscan",
+   "saved_file": "raw/legiscan/PA-HB2829-2159955.pdf",
+   "pdf": {
+    "pages": 25,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": [
+   "frontier developer",
+   "foundation model",
+   "10 ^ 26",
+   "floating-point operations",
+   "critical safety incident",
+   "catastrophic risk",
+   "frontier ai framework",
+   "artificial intelligence safety"
+  ]
+ }
+}

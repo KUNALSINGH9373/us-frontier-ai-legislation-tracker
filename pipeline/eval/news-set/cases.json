@@ -1,0 +1,75 @@
+{
+ "_note": "The recorded news leads set for the gate (eval/news-set.mjs). Seeded 29 Oct 2026 from the news agent's fixtures (fixtures/news: Rep. Liccardo's 22 Sept 2026 release, recorded 28 Oct 2026) and the ways an item can be wrong that news/test.mjs covers. Each case replays the writer's and the second reader's recorded answers; expect says what must happen. Add real leads as they are recorded.",
+ "cases": [
+  {
+   "id": "liccardo-checked",
+   "note": "An official release, every quote and number in it, the second reader confirms every claim: it would be added.",
+   "today": "2026-10-28", "max_age_days": 40,
+   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
+   "release_fixture": "release-liccardo.html",
+   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\" It would direct the State Department to seek negotiations with China and authorize $100 million for the Center for AI Standards and Innovation (CAISI).", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }, { "quote": "Authorize $100 million for the Center for AI Standards and Innovation (CAISI)" }] }],
+   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
+   "expect": "publish"
+  },
+  {
+   "id": "liccardo-invented-quote",
+   "note": "A quote the release does not contain (both rounds): never added.",
+   "today": "2026-10-28", "max_age_days": 40,
+   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
+   "release_fixture": "release-liccardo.html",
+   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China AI safety bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to ban frontier AI exports to China.\"", "evidence": [{ "quote": "to ban frontier AI exports to China" }] }],
+   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
+   "expect": "refuse"
+  },
+  {
+   "id": "liccardo-invented-number",
+   "note": "A figure the release does not state ($200 million): never added.",
+   "today": "2026-10-28", "max_age_days": 40,
+   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
+   "release_fixture": "release-liccardo.html",
+   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\" It would authorize $200 million for the Center for AI Standards and Innovation (CAISI).", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
+   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
+   "expect": "refuse"
+  },
+  {
+   "id": "liccardo-reader-rejects",
+   "note": "The second reader does not confirm the claims: never added.",
+   "today": "2026-10-28", "max_age_days": 40,
+   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
+   "release_fixture": "release-liccardo.html",
+   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
+   "checker": "no",
+   "expect": "refuse"
+  },
+  {
+   "id": "press-lead",
+   "note": "A press story (not an official release) is only reported, never added.",
+   "today": "2026-10-28", "max_age_days": 40,
+   "lead": { "id": "p1", "key": "p", "source_id": "politico-technology", "publisher": "Politico", "kind": "federal", "primary": false, "title": "Anthropic quietly pitches its own AI safety bill to lawmakers", "link": "https://www.politico.com/x", "release_url": "https://www.politico.com/x", "date": "2026-10-27", "tracker": null, "matches": [] },
+   "release_fixture": "release-liccardo.html",
+   "writer": [{ "newsworthy": true, "date": "2026-10-27", "title": "Anthropic pitches an AI safety bill", "body": "Anthropic pitched an AI safety bill to lawmakers.", "evidence": [] }],
+   "checker": "yes",
+   "expect": "refuse"
+  },
+  {
+   "id": "liccardo-old-news",
+   "note": "The same release read with the production 14-day window on 28 Oct (dated 22 Sept): old news, never added.",
+   "today": "2026-10-28", "max_age_days": 14,
+   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
+   "release_fixture": "release-liccardo.html",
+   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
+   "checker": "yes",
+   "expect": "refuse"
+  },
+  {
+   "id": "liccardo-wrong-date",
+   "note": "The item dates the announcement a day the release does not give (Sept 21): never added.",
+   "today": "2026-10-28", "max_age_days": 40,
+   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
+   "release_fixture": "release-liccardo.html",
+   "writer": [{ "newsworthy": true, "date": "2026-09-21", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 21, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
+   "checker": "yes",
+   "expect": "refuse"
+  }
+ ]
+}

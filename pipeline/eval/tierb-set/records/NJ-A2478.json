@@ -1,0 +1,228 @@
+{
+ "item": {
+  "item_id": "legiscan:2097750",
+  "source": "legiscan",
+  "source_id": "2097750",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478",
+  "fetched_at": "2026-10-28T07:35:46Z",
+  "raw_hash": "4fdc36f5ed37de0cf69985cf92e5370bd4f2b78a7c3f9ab46c5518ef60938a2a",
+  "raw_path": "raw/legiscan/NJ-A2478-2097750.json",
+  "title": "NJ A2478: Establishes Artificial Intelligence Ethics Board in DOLWD."
+ },
+ "raw": {
+  "id": "2097750",
+  "search_hit": {
+   "search": "wide",
+   "relevance": 29,
+   "intent": {
+    "verdict": "maybe",
+    "reason": "AI ethics board, possible oversight body",
+    "by": "model"
+   }
+  },
+  "bill": {
+   "bill_id": 2097750,
+   "change_hash": "31d97b93541efdc138bd5a26a5916c9d",
+   "session_id": 2250,
+   "session": {
+    "session_id": 2250,
+    "state_id": 30,
+    "year_start": 2026,
+    "year_end": 2027,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2026-2027 Regular Session",
+    "session_name": "2026-2027 Regular Session"
+   },
+   "url": "https://legiscan.com/NJ/bill/A2478/2026",
+   "state_link": "https://www.njleg.state.nj.us/bill-search/2026/A2478",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-01-13",
+   "progress": [
+    {
+     "date": "2026-01-13",
+     "event": 1
+    },
+    {
+     "date": "2026-01-13",
+     "event": 9
+    }
+   ],
+   "state": "NJ",
+   "state_id": 30,
+   "bill_number": "A2478",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "A",
+   "body_id": 69,
+   "current_body": "A",
+   "current_body_id": 69,
+   "title": "Establishes Artificial Intelligence Ethics Board in DOLWD.",
+   "description": "Establishes Artificial Intelligence Ethics Board in DOLWD.",
+   "pending_committee_id": 3753,
+   "committee": {
+    "committee_id": 3753,
+    "chamber": "A",
+    "chamber_id": 69,
+    "name": "Science, Innovation and Technology"
+   },
+   "referrals": [
+    {
+     "date": "2026-01-13",
+     "committee_id": 3753,
+     "chamber": "A",
+     "chamber_id": 69,
+     "name": "Science, Innovation and Technology"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-01-13",
+     "action": "Introduced, Referred to Assembly Science, Innovation and Technology Committee",
+     "chamber": "A",
+     "chamber_id": 69,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 25128,
+     "person_hash": "887ge27s",
+     "party_id": "1",
+     "state_id": 30,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Tennille McCoy",
+     "first_name": "Tennille",
+     "middle_name": "R.",
+     "last_name": "McCoy",
+     "suffix": "",
+     "nickname": "",
+     "district": "HD-014",
+     "ftm_eid": 48860297,
+     "votesmart_id": 211640,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Tennille_McCoy",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "609-847-3905",
+       "district_phone": "609-631-0198",
+       "email": "AswMcCoy@njleg.org",
+       "webmail": "https://nj-14-assembly-mccoy.web.fireside21.app/forms/writeyourrep/?to=Assemblywoman%20Tennille%20R.%20McCoy\r\n",
+       "biography": "https://www.njleg.state.nj.us/legislative-roster/471/assemblywoman-mccoy",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Tennille_McCoy",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/211640"
+      },
+      "capitol_address": {
+       "address1": "125 West State St",
+       "address2": "",
+       "city": "Trenton",
+       "state": "NJ",
+       "zip": "08625"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/aswtennillermccoy",
+        "instagram": "https://www.instagram.com/aswtennillermccoy/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/aswmccoy",
+        "website": "https://www.njleg.state.nj.us/legislative-roster/471/assemblywoman-mccoy",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/tennille.mccoy.1",
+        "instagram": "https://www.instagram.com/tmccoy72/",
+        "linkedin": "https://www.linkedin.com/in/tennillermccoy/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [
+    {
+     "type_id": 9,
+     "type": "Carry Over",
+     "sast_bill_number": "A5053",
+     "sast_bill_id": 1892083
+    }
+   ],
+   "subjects": [
+    {
+     "subject_id": 256209,
+     "subject_name": "Science, Innovation and Technology"
+    }
+   ],
+   "texts": [
+    {
+     "doc_id": 3336814,
+     "date": "2026-01-05",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/NJ/text/A2478/id/3336814",
+     "state_link": "https://pub.njleg.gov/Bills/2026/A2500/2478_I1.HTM",
+     "text_size": 18242,
+     "text_hash": "6e9f2c17d8e327435345dd5ea60a536e",
+     "alt_bill_text": 1,
+     "alt_mime": "application/pdf",
+     "alt_mime_id": 2,
+     "alt_state_link": "https://pub.njleg.gov/Bills/2026/A2500/2478_I1.PDF",
+     "alt_text_size": 206551,
+     "alt_text_hash": "cd94b99890b5569f5713bdf14dc05b00"
+    }
+   ],
+   "votes": [],
+   "amendments": [],
+   "supplements": [],
+   "calendar": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-01-13",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Introduced, Referred to Assembly Science, Innovation and Technology Committee",
+     "chamber": "A"
+    }
+   ]
+  },
+  "text": "ASSEMBLY, No. 2478 \r\n\r\n\r\n\r\nSTATE OF NEW JERSEY\r\n\r\n222nd LEGISLATURE\r\n\r\n\r\n\r\nPRE-FILED FOR INTRODUCTION IN THE 2026 SESSION\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nSponsored by:\r\n\r\nAssemblywoman TENNILLE R. MCCOY\r\n\r\nDistrict 14 (Mercer and Middlesex)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nSYNOPSIS\r\n\r\nEstablishes Artificial Intelligence Ethics Board in\r\nDOLWD.\r\n\r\n\r\n\r\nCURRENT VERSION OF TEXT \r\n\r\nIntroduced Pending Technical Review by Legislative\r\nCounsel.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nAn Act concerning artificial intelligence and supplementing\r\nTitle 34 of the Revised Statutes.\r\n\r\n\r\n\r\nBe It\r\nEnacted by the Senate and General Assembly of\r\nthe State of New Jersey:\r\n\r\n\r\n\r\n1. As used in\r\nP.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill):\r\n\r\n\"Artificial intelligence\"\r\nmeans:\r\n\r\na. any artificial system\r\nthat performs tasks under varying and unpredictable circumstances without\r\nsignificant human oversight or that can learn from experience and improve\r\nperformance when exposed to data sets; \r\n\r\nb. an artificial system\r\ndeveloped in computer software, physical hardware, or other context that solves\r\ntasks requiring human-like perception, cognition, planning, learning,\r\ncommunication, or physical action; \r\n\r\nc. an artificial system\r\ndesigned to think or act like a human, including cognitive architectures and\r\nneural networks; \r\n\r\nd. a set of techniques,\r\nincluding machine learning, that is designed to approximate a cognitive task;\r\nor \r\n\r\ne. an artificial system\r\ndesigned to act rationally, including an intelligent software agent or embodied\r\nrobot that achieves goals using perception, planning, reasoning, learning,\r\ncommunicating, decision making, and acting.\r\n\r\n\"Artificial Intelligence\r\nImpact Assessment\" means an impartial evaluation of an artificial intelligence\r\ntechnology, conducted by an independent auditor.\r\n\r\n\"Artificial intelligence\r\ntechnology\" means a product or service that primarily uses artificial\r\nintelligence to perform its intended function.\r\n\r\n\"Board\" means the Artificial\r\nIntelligence Ethics Board in but not of the Department of Labor and Workforce\r\nDevelopment, established pursuant to section 2 of P.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill).\r\n\r\n\"Commissioner\" means the\r\nCommissioner of Labor and Workforce Development.\r\n\r\n\r\n\r\n2. a. There is\r\nestablished, in but not of the Department of Labor and Workforce Development,\r\nthe Artificial Intelligence Ethics Board. The purpose of the board shall be to\r\noversee the sale, use, and offer for sale of artificial intelligence technology\r\nin this State. The board shall place emphasis on bias prevention, privacy,\r\ntransparency, and accountability in artificial intelligence technology.\r\n\r\nb. The board shall be\r\ncomprised of seven members, three of whom shall be appointed by the Governor,\r\none of whom shall be appointed by the President of the Senate, one of whom\r\nshall be appointed by the Speaker of the General Assembly, one of whom shall be\r\nappointed by the Minority Leader of the Senate, and one of whom shall be\r\nappointed by the Minority Leader of the General Assembly. Of the members\r\nappointed by the Governor, one shall be an individual from among a list of\r\nnominees provided by the Executive Director of the New Jersey Economic\r\nDevelopment Authority who are familiar with the programs administered by the\r\nauthority, one shall be an individual from among a list of nominees provided by\r\nthe commissioner who have expertise and experience in public policy analysis of\r\nartificial intelligence and employment, and one shall be an individual from\r\namong a list of nominees provided by the New Jersey Chief Technology Officer\r\nwho have expertise and experience in ethical analysis of artificial\r\nintelligence technology.\r\n\r\nc. Each member of the\r\nboard shall serve for a term of three years; except that the members first\r\nappointed by the Minority Leader of the Senate and by the Minority Leader of\r\nthe General Assembly shall each be appointed for a one-year term, the members\r\nfirst appointed by the President of the Senate and by the Speaker of the\r\nGeneral Assembly shall each be appointed for a two-year term, and the members\r\nfirst appointed by the Governor shall each be appointed for a three-year term. \r\nFour members of the board shall constitute a quorum.\r\n\r\n\r\n\r\n3. a. The board shall\r\nestablish minimum requirements for an artificial intelligence impact assessment\r\nrequired to be conducted pursuant to subsection b. of this section, which shall\r\ninclude but not be limited to:\r\n\r\n(1) analyzing the actual and\r\npotential societal effects of an artificial intelligence technology, focusing\r\non privacy and job displacement; and\r\n\r\n(2) providing\r\nrecommendations for ensuring user and data privacy, as well as minimizing job\r\ndisplacement.\r\n\r\nb. A person or entity selling\r\nor offering for sale an artificial intelligence technology in this State shall\r\nconduct an artificial intelligence impact assessment on an artificial\r\nintelligence technology that complies with the board's requirements pursuant to\r\nsubsection a. of this section prior to the sale or offer for sale of the\r\nartificial intelligence technology in this State. The artificial intelligence\r\nimpact assessment shall be conducted within the immediately preceding year\r\nprior to the sale or offer for sale of the artificial intelligence technology\r\nin this State.\r\n\r\n\r\n\r\n4. The board shall\r\nrecommend to the commissioner protections for workers who may be displaced as a\r\nresult of the use of artificial intelligence technology by employers including,\r\nbut not limited to:\r\n\r\na. at least one month\r\nadvance notice from an employer prior to a worker's displacement as a result of\r\nthe use of artificial intelligence technology by the employer;\r\n\r\nb. retraining programs\r\nprovided by the employer prior to a worker's displacement; and\r\n\r\nc. severance packages for\r\ndisplaced workers.\r\n\r\n\r\n\r\n5. The Artificial\r\nIntelligence Ethics Board shall adopt, pursuant to the \"Administrative\r\nProcedure Act,\" P.L.1968, c.410 (C.52:14B-1 et seq.), rules and regulations as\r\nmay be necessary to implement the provisions of P.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill).\r\n\r\n\r\n\r\n6. This act shall take\r\neffect immediately.\r\n\r\n\r\n\r\n\r\n\r\nSTATEMENT\r\n\r\n\r\n\r\nThis bill establishes the\r\nArtificial Intelligence Ethics Board (board) in, but not of, the Department of\r\nLabor and Workforce Development (department). The purpose of the board is to\r\noversee the sale, use, and offer for sale of artificial intelligence technology\r\nin this State. \r\n\r\nUnder this bill, the board is\r\nrequired to place emphasis on bias prevention, privacy, transparency, and\r\naccountability in artificial intelligence technology. The board is to be\r\ncomprised of seven members, three of whom are to be appointed by the Governor,\r\none of whom is to be appointed by the President of the Senate, one of whom is\r\nto be appointed by the Speaker of the General Assembly, one of whom is to be\r\nappointed by the Minority Leader of the Senate, and one of whom is to be\r\nappointed by the Minority Leader of the General Assembly. Of the three members\r\nto be appointed by the Governor, one is to be an individual from among a list\r\nof nominees provided by the Executive Director of the New Jersey Economic\r\nDevelopment Authority who are familiar with the programs administered by the\r\nauthority, one is to be an individual from among a list of nominees provided by\r\nthe Commissioner of Labor and Workforce Development who have expertise and\r\nexperience in public policy analysis of artificial intelligence and employment,\r\nand one is to be an individual from among a list of nominees provided by the\r\nNew Jersey Chief Innovation Officer who have expertise and experience in\r\nethical analysis of artificial intelligence technology. \r\n\r\nMembers are appointed to serve\r\nfor a term of three years; except that, the members first appointed by the\r\nMinority Leader of the Senate and by the Minority Leader of the General\r\nAssembly are to each be appointed for a one-year term, the members first appointed\r\nby the President of the Senate and by the Speaker of the General Assembly are\r\nto each be appointed for a two-year term, and the members first appointed by\r\nthe Governor are to each be appointed for a three-year term. Four members of\r\nthe board are required to constitute a quorum.\r\n\r\nThis bill requires a person or\r\nentity selling or offering for sale an artificial intelligence technology in\r\nNew Jersey to conduct an artificial intelligence impact assessment on the\r\ntechnology prior to the sale or offer for sale of the artificial intelligence\r\ntechnology in New Jersey. The impact assessment is required to be conducted\r\nwithin the immediately preceding year prior to the sale or offer for sale of\r\nthe artificial intelligence technology in New Jersey. Under the bill, the\r\nboard is required to establish minimum requirements for an artificial\r\nintelligence impact assessment, which are to include but not be limited to: (1)\r\nanalyzing the actual and potential societal effects of an artificial\r\nintelligence technology, focusing on privacy and job displacement; and (2)\r\nproviding recommendations for ensuring user and data privacy, as well as\r\nminimizing job displacement.\r\n\r\nThis bill also requires the\r\nboard to recommend to the commissioner protections for workers who may be\r\ndisplaced as a result of the use of artificial intelligence technology by\r\nemployers including, but not limited to: (1) at least one month advance notice\r\nfrom the employer prior to a worker's displacement; (2) retraining programs\r\nprovided by the employer prior to a worker's displacement; and (3) severance\r\npackages for displaced workers.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3336814,
+   "date": "2026-01-05",
+   "type": "Introduced",
+   "mime": "text/html",
+   "state_link": "https://pub.njleg.gov/Bills/2026/A2500/2478_I1.HTM",
+   "from": "legiscan"
+  },
+  "frontier_markers": []
+ }
+}

@@ -1,7 +1,7 @@
 // The Validator's plain-code checks. Each returns { name, passed, detail }. Code cannot be talked into agreeing,
 // so these catch the most dangerous mistakes (an invented quote, number or date) with no AI involved.
 import { makeValidator } from '../schema/validate.mjs';
-import { containsQuote, digitRuns, norm } from './source-text.mjs';
+import { containsQuote, digitRuns, norm, LOST_EXPONENT, COMPUTE_UNIT } from './source-text.mjs';
 import { SECTION_RULES, NEGATIVE_FINDING } from './rules.mjs';
 
 const validator = makeValidator();
@@ -31,9 +31,28 @@ const MONTH = '(?:January|February|March|April|May|June|July|August|September|Oc
 const NO_YEAR = new RegExp(`\\b${MONTH}\\s+\\d{1,2}\\b(?!(?:\\s*[–-]\\s*(?:${MONTH}\\s+)?\\d{1,2})?,?\\s*\\d{4})`);
 const UNDEFINED = /\bnot (?:established|defined|specified|stated)\b[^.;]{0,40}\b(?:sources?|text)\b/i;
 const QUOTED = /[“"]([^”"]{8,})[”"]/g;
+// Compute thresholds must parse to a plausible magnitude (AZ H.B. 4098 was published with "10.26 computational operations", a lost 10^26):
+// "10^N operations" needs N from 20 to 30, and a number written out before a compute unit needs at least 10^20. Returns readable problems.
+const POWER = new RegExp(String.raw`\b10\s?\^\s?(\d{1,3})(?=\s+${COMPUTE_UNIT})`, 'gi');
+const PLAIN = new RegExp(String.raw`(?<![\d^.,]|\^\s)(\d[\d,]*(?:\.\d+)?)(?:\s+(?:billion|million|trillion))?(?=\s+${COMPUTE_UNIT})`, 'gi');
+export function thresholdNumberProblems(field, value) {
+  const v = String(value || ''), out = [];
+  for (const m of v.matchAll(new RegExp(LOST_EXPONENT.source, 'gi'))) out.push(`${field} has a lost exponent ("${m[0]}" before a compute unit): the bill's threshold is 10^${m[1]}; write it as 10^${m[1]}`);
+  for (const m of v.matchAll(POWER)) if (+m[1] < 20 || +m[1] > 30) out.push(`${field} gives a compute threshold of 10^${m[1]} operations, which is not a plausible training-compute threshold`);
+  for (const m of v.matchAll(PLAIN)) {
+    if (new RegExp(LOST_EXPONENT.source, 'i').test(v.slice(m.index, m.index + m[0].length + 30))) continue; // reported above
+    const n = Number(m[1].replace(/,/g, '')) * ({ billion: 1e9, million: 1e6, trillion: 1e12 }[(/(billion|million|trillion)/i.exec(m[0]) || [])[1]?.toLowerCase()] || 1);
+    if (n < 1e20) out.push(`${field} gives a compute threshold of ${m[0].trim()} operations, which is not a plausible magnitude (write the bill's power of ten, e.g. 10^26)`);
+  }
+  return out;
+}
+// The one unambiguous repair: "10.26" / "1026" right before a compute unit is 10^26. Anything else implausible is left as it is (and held).
+export const normaliseExponents = (value) => (typeof value === 'string' ? value.replace(new RegExp(LOST_EXPONENT.source, 'gi'), '10^$1') : value);
+
 export function textProblems(field, value, sourceText) {
   const v = String(value || ''), out = [];
   if (GARBLED.test(v)) out.push(`${field} has a garbled exponent ("${(v.match(GARBLED) || [''])[0]}"): write 10^26, not 1026`);
+  thresholdNumberProblems(field, v).filter((p) => !(GARBLED.test(v) && /lost exponent/.test(p))).forEach((p) => out.push(p));
   const d = v.match(NO_YEAR);
   if (d) out.push(`${field} gives a date without its year ("${d[0]}"): write every date with its year, e.g. "Sept 30, 2026"`);
   if (UNDEFINED.test(v)) out.push(`${field} says a term is not established or defined: read the definitions section and give the definition, or leave the field out`);

@@ -1,0 +1,107 @@
+{
+ "id": 98,
+ "key": "nj-a-2478",
+ "section": "C",
+ "type": "auditor",
+ "level": "state",
+ "jurisdiction": "NJ",
+ "state": "NJ",
+ "status": "pending",
+ "title": "A.2478 — Establishes Artificial Intelligence Ethics Board in DOLWD.",
+ "short_name": "NJ A.2478",
+ "sponsor_text": "Rep. Tennille McCoy (D)",
+ "mechanism": "A person or entity selling or offering for sale an AI technology in New Jersey shall conduct an artificial intelligence impact assessment before the sale or offer for sale, within the immediately preceding year. Each assessment is conducted by an independent auditor. The Artificial Intelligence Ethics Board shall establish minimum requirements for these assessments and shall recommend worker displacement protections to the commissioner.",
+ "thresholds": "Any person or entity selling or offering for sale an artificial intelligence technology in New Jersey. Such a technology is a product or service that primarily uses artificial intelligence to perform its intended function.",
+ "penalties": null,
+ "status_text": "Status: Introduced Jan 13, 2026",
+ "signed_text": null,
+ "effective_text": null,
+ "events": [
+  {
+   "date": "2026-01-13",
+   "precision": "day",
+   "type": "Introduced / published",
+   "text": "Introduced, Referred to Assembly Science, Innovation and Technology Committee",
+   "inferred_year": false,
+   "scheduled": false
+  }
+ ],
+ "sources": [
+  {
+   "label": "NJ Legislature record: Establishes Artificial Intelligence Ethics Board in DOLWD.",
+   "url": "https://www.njleg.state.nj.us/bill-search/2026/A2478",
+   "kind": "primary",
+   "retrieved_at": "2026-10-28T07:35:46Z"
+  }
+ ],
+ "confidence": {
+  "level": "HIGH",
+  "basis": "primary_record"
+ },
+ "tags": {
+  "found_via": "api",
+  "updated_after_verification": true
+ },
+ "evidence": [
+  {
+   "field": "mechanism",
+   "quote": "conduct an artificial intelligence impact assessment on an artificial",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  },
+  {
+   "field": "mechanism",
+   "quote": "conducted by an independent auditor",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  },
+  {
+   "field": "mechanism",
+   "quote": "establish minimum requirements for an artificial intelligence impact assessment",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  },
+  {
+   "field": "mechanism",
+   "quote": "recommend to the commissioner protections for workers who may be displaced as a",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  },
+  {
+   "field": "thresholds",
+   "quote": "means a product or service that primarily uses artificial",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  },
+  {
+   "field": "thresholds",
+   "quote": "or offering for sale an artificial intelligence technology in this State shall",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  },
+  {
+   "field": "events_add[0]",
+   "quote": "Introduced, Referred to Assembly Science, Innovation and Technology Committee",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  },
+  {
+   "field": "in_scope",
+   "quote": "The board shall establish minimum requirements for an artificial intelligence impact assessment",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/A2478"
+  }
+ ],
+ "origin": "automated",
+ "identifiers": {
+  "external": {
+   "legiscan": [
+    2097750
+   ]
+  },
+  "session": "2026-2027 Regular Session"
+ },
+ "legacy": {
+  "section_name": "State IVO / AI-auditor licensing measures"
+ },
+ "verification": {
+  "method": "agent",
+  "checked_at": "2026-10-28T12:00:00Z",
+  "run_id": "run-20261028-0734-d8a5",
+  "rounds": 3
+ },
+ "last_checked": "2026-10-28",
+ "last_changed": "2026-10-28"
+}

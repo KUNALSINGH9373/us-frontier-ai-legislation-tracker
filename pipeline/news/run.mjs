@@ -15,9 +15,9 @@ import { BudgetExceeded } from '../llm/gemini.mjs';
 import { loadData, writeData } from '../publish/run.mjs';
 import { checkPublish, checkNewsAdded } from '../publish/guards.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
-import { findLeads } from './leads.mjs';
+import { findLeads, entryIndex, NEWS_TERMS } from './leads.mjs';
 import { robotsAllows, releaseText } from './feeds.mjs';
-import { draftNews, duplicateOf, checkLine } from './write.mjs';
+import { draftNews, duplicateOf, checkLine, shiftDays } from './write.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -52,13 +52,27 @@ export function createReader({ userAgent, fetchImpl, log = () => {}, maxRequests
 }
 
 // Style examples for the writer: the most recent hand-checked items about a tracked entry.
-const examplesFrom = (news) => news.filter((n) => n.tracker && n.origin !== 'automated').slice(-3).map((n) => ({ date: n.date, title: n.title, body: n.body }));
+// They calibrate what counts as news as well as the style, so they cover the kinds of item the site publishes: the latest bill items,
+// the latest letters and demands by members, and the latest agency or executive actions.
+const LETTER = /\b(letter|urg\w+|demand\w*|ask\w*|call(?:s|ed)? on)\b/i;
+export function examplesFrom(news) {
+  const hand = news.filter((n) => n.origin !== 'automated' && n.title && n.body), pick = [];
+  const take = (xs, k) => xs.slice(-k).forEach((n) => { if (!pick.includes(n)) pick.push(n); });
+  take(hand.filter((n) => n.tracker), 3);
+  take(hand.filter((n) => !n.tracker && n.kind === 'federal' && LETTER.test(n.title)), 2);
+  take(hand.filter((n) => n.kind === 'executive'), 1);
+  return pick.sort((a, b) => a.date.localeCompare(b.date)).map((n) => ({ date: n.date, title: n.title, body: n.body }));
+}
+// An AI-safety release on a member's own feed that the writer calls "not newsworthy" gets one second opinion (role "referee") before it
+// is marked seen: a 107-member AI-safety letter was once refused and lost for good.
+const AI_SAFETY = /\b(safety|safeguards?|catastroph\w*|kill switch|rogue|frontier|super ?intelligen\w*|existential|guardrails?|risks?)\b/i;
+const aiSafety = (l, release) => { const t = `${l.title} ${l.summary || ''} ${String(release || '').slice(0, 4000)}`; return NEWS_TERMS.test(t) && AI_SAFETY.test(t); };
 
 // config: config/publish.json. sources: config/news-sources.json. factory: llm/make.mjs. aiOff: why AI may not run (null when it may).
 // reader: test hook ({ get(url, accept), used() }). Returns the report section (see report/build.mjs).
 export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, log = () => {} }) {
   const cfg = config.news_leads || { enabled: false };
-  const rep = { ran: false, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, requests: 0, problems: [], summary: '' };
+  const rep = { ran: false, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '' };
   if (!cfg.enabled) return { ...rep, skipped_why: 'turned off in config/publish.json' };
   rep.ran = true;
   const seen = readJson(seenFile, { _note: 'News leads already seen (news/run.mjs), by link. Do not edit by hand.', items: {} });
@@ -67,7 +81,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
   const screener = aiOff ? null : factory.make('screener');
 
   // 1. leads
-  const found = await findLeads({ sources: sources.sources, fetchFeed: (u) => rd.get(u, 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'), news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log });
+  const found = await findLeads({ sources: sources.sources, fetchFeed: (u, accept) => rd.get(u, accept || 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'), news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log });
   rep.feeds_checked = found.feeds.length; rep.feeds_failed = found.feeds.filter((f) => !f.ok).map((f) => ({ id: f.id, why: f.why }));
   rep.screened_out = found.screened_out.length; rep.duplicates = found.duplicates.length;
   const mark = { ...found.seen_add };
@@ -76,6 +90,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
   // 2. primary leads become drafts; press leads are reported
   const writer = aiOff ? null : factory.make('generator'), checker = aiOff ? null : factory.make('validator');
   const byKey = new Map(before.entries.map((e) => [e.key, e]));
+  const index = entryIndex(before.entries), kindOf = (k) => (byKey.get(k) ? newsKind(byKey.get(k)) : null);
   const feedHost = new Map(sources.sources.map((s) => [s.id, host(s.url)]));
   const items = [], max = cfg.max_drafts_per_run ?? 3;
   let drafts = 0, serviceErrors = 0;
@@ -88,13 +103,33 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
     let r;
     try {
       const release = releaseText(await rd.get(l.release_url, 'text/html'));
-      r = await draftNews({ lead: l, release, writer, checker, examples: examplesFrom(before.news.items), today, runId, now, maxRounds: cfg.max_rounds || 2, entryKind: l.tracker && byKey.get(l.tracker) ? newsKind(byKey.get(l.tracker)) : null });
+      const args = { lead: l, release, writer, checker, examples: examplesFrom(before.news.items), today, runId, now, maxRounds: cfg.max_rounds || 2, index, kindOf, maxAgeDays: cfg.max_age_days || 14 };
+      r = await draftNews(args);
+      if (r.outcome === 'not_newsworthy' && l.sponsor && aiSafety(l, release)) {
+        let referee = null; try { referee = factory.make('referee'); } catch { referee = null; } // a configuration without the role: no second opinion
+        if (referee) r = { ...(await draftNews({ ...args, writer: referee })), refereed: true };
+        else r = { outcome: 'error', retry: true, rounds: r.rounds, problems: [], reason: 'an AI-safety release called not newsworthy, and no second opinion (role referee) was available: retried later' };
+      }
     } catch (e) {
       if (e instanceof BudgetExceeded) { rep.problems.push(`stopped: ${e.message}`); if (e.scope !== 'item') break; r = { outcome: 'error', retry: true, reason: e.message }; }
       else if (/robots\.txt|HTTP \d|request budget|fetch|network|abort/i.test(e.message)) r = { outcome: 'error', retry: true, reason: `the release could not be read: ${e.message}` };
       else throw e;
     }
     const tries = ((seen.items[l.key] && seen.items[l.key].tries) || 0) + 1;
+    const wasWaiting = !!(seen.items[l.key] && seen.items[l.key].outcome === 'waiting_for_record');
+    if (r.outcome === 'waiting') {
+      // record lag: no AI was used, so it does not count against the drafts per run; kept for retry (no try limit) until the record
+      // shows the event or the freshness window closes
+      drafts--;
+      rep.waiting_record.push({ title: l.title, publisher: l.publisher, link: l.release_url, release_date: r.release_date, reason: r.reason });
+      mark[l.key] = { first_seen: today, outcome: 'waiting_for_record', title: l.title, release_date: r.release_date, tries, retry: true };
+      continue;
+    }
+    if (wasWaiting && r.outcome === 'rejected') {
+      lead(l, `dropped: waited for the official record to show the event the release reports; now refused: ${r.reason}`);
+      mark[l.key] = { first_seen: today, outcome: 'dropped_waiting', title: l.title, tries };
+      continue;
+    }
     if (r.outcome === 'drafted') {
       const dup = duplicateOf(r.item, [...before.news.items, ...items]);
       if (dup) { rep.duplicates++; mark[l.key] = { first_seen: today, outcome: 'duplicate', title: l.title }; continue; }
@@ -102,7 +137,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
       rep.drafted.push({ title: r.item.title, publisher: l.publisher, link: l.release_url, date: r.item.date, tracker: r.item.tracker, rounds: r.rounds, written: false, item: r.item });
       mark[l.key] = { first_seen: today, outcome: 'drafted', title: l.title };
     } else if (r.outcome === 'not_newsworthy') {
-      rep.screened_out++; mark[l.key] = { first_seen: today, outcome: 'not_newsworthy', title: l.title };
+      rep.screened_out++; mark[l.key] = { first_seen: today, outcome: 'not_newsworthy', title: l.title, ...(r.refereed ? { refereed: true } : {}) };
     } else {
       lead(l, r.outcome === 'rejected' ? `draft refused: ${r.reason}` : r.reason);
       mark[l.key] = { first_seen: today, outcome: r.outcome, title: l.title, tries, ...(r.retry && tries < MAX_TRIES ? { retry: true } : {}) };
@@ -111,6 +146,14 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
     if (serviceErrors >= 2) { rep.problems.push('stopped: the model service failed twice in a row'); break; }
   }
   rep.requests = rd.used();
+  // a release still waiting for the record when its freshness window has closed (it no longer comes back from its feed): dropped, with
+  // a report line
+  const windowStart = shiftDays(today, -(cfg.max_age_days || 14));
+  for (const [k, v] of Object.entries(seen.items)) {
+    if (v.outcome !== 'waiting_for_record' || mark[k] || !(v.release_date < windowStart)) continue;
+    rep.leads.push({ title: v.title, publisher: null, link: k, date: v.release_date, primary: true, tracker: null, note: `dropped: the official record did not show the event the release reports within the ${cfg.max_age_days || 14}-day window` });
+    mark[k] = { ...v, outcome: 'dropped_waiting', retry: false };
+  }
 
   // 3. the switch, then the stop rules; any problem means nothing is written and the drafts are retried
   if (items.length && rep.publishing) {
@@ -145,6 +188,7 @@ export function summaryOf(rep) {
   const n = rep.drafted.filter((d) => d.written).length;
   const L = [`News: ${rep.leads.length} lead${rep.leads.length === 1 ? '' : 's'}, ${rep.drafted.length} item${rep.drafted.length === 1 ? '' : 's'} drafted from official releases, ${n} published`];
   rep.drafted.filter((d) => d.written).forEach((d) => L.push(`- ${d.date} ${d.title} (${d.publisher})`));
+  (rep.waiting_record || []).forEach((w) => L.push(`- waiting for the official record (retried next run): ${w.release_date} ${w.title} (${w.publisher})`));
   return L.join('\n');
 }
 

@@ -1,0 +1,227 @@
+{
+ "item": {
+  "item_id": "congress_gov:119/hr/10152",
+  "source": "congress_gov",
+  "source_id": "119/hr/10152",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10152",
+  "fetched_at": "2026-10-26T06:50:09Z",
+  "raw_hash": "96c77fb6b476ccc75410beb16915cb11b64a975883339c22b6abae9f7a724f97",
+  "raw_path": "raw/congress_gov/119-hr-10152.json",
+  "title": "Open-Source AI Leadership Act"
+ },
+ "raw": {
+  "id": "119/hr/10152",
+  "list_item": {
+   "congress": 119,
+   "introducedDate": "2026-08-27",
+   "latestAction": {
+    "actionDate": "2026-09-16",
+    "text": "Ordered to be Reported by the Yeas and Nays: 26 - 21."
+   },
+   "number": "10152",
+   "originChamber": "House",
+   "originChamberCode": "H",
+   "title": "Open-Source AI Leadership Act",
+   "type": "HR",
+   "updateDate": "2026-09-29",
+   "updateDateIncludingText": "2026-09-29",
+   "url": "https://api.congress.gov/v3/bill/119/hr/10152?format=json"
+  },
+  "bill": {
+   "actions": {
+    "count": 8,
+    "url": "https://api.congress.gov/v3/bill/119/hr/10152/actions?format=json"
+   },
+   "committees": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/hr/10152/committees?format=json"
+   },
+   "congress": 119,
+   "constitutionalAuthorityStatementText": "<pre>\n[Congressional Record Volume 172, Number 136 (Thursday, August 27, 2026)]\n[House]\nFrom the Congressional Record Online through the Government Publishing Office [<a href=\"https://www.gpo.gov\">www.gpo.gov</a>]\nBy Mr. EVANS of Colorado:\nH.R. 10152.\nCongress has the power to enact this legislation pursuant\nto the following:\nArticle I, Section 8, Clause 3\n[Page H5258]\n</pre>",
+   "introducedDate": "2026-08-27",
+   "latestAction": {
+    "actionDate": "2026-09-16",
+    "text": "Ordered to be Reported by the Yeas and Nays: 26 - 21."
+   },
+   "legislationUrl": "https://www.congress.gov/bill/119th-congress/house-bill/10152",
+   "number": "10152",
+   "originChamber": "House",
+   "originChamberCode": "H",
+   "policyArea": {
+    "name": "Science, Technology, Communications"
+   },
+   "sponsors": [
+    {
+     "bioguideId": "E000300",
+     "district": 8,
+     "firstName": "Gabe",
+     "fullName": "Rep. Evans, Gabe [R-CO-8]",
+     "isByRequest": "N",
+     "lastName": "Evans",
+     "party": "R",
+     "state": "CO",
+     "url": "https://api.congress.gov/v3/member/E000300?format=json"
+    }
+   ],
+   "subjects": {
+    "count": 9,
+    "url": "https://api.congress.gov/v3/bill/119/hr/10152/subjects?format=json"
+   },
+   "summaries": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/hr/10152/summaries?format=json"
+   },
+   "textVersions": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/hr/10152/text?format=json"
+   },
+   "title": "Open-Source AI Leadership Act",
+   "titles": {
+    "count": 3,
+    "url": "https://api.congress.gov/v3/bill/119/hr/10152/titles?format=json"
+   },
+   "type": "HR",
+   "updateDate": "2026-09-29T14:50:06Z",
+   "updateDateIncludingText": "2026-09-29T14:50:06Z"
+  },
+  "actions": [
+   {
+    "actionCode": "H19000",
+    "actionDate": "2026-09-16",
+    "committees": [
+     {
+      "name": "Energy and Commerce Committee",
+      "systemCode": "hsif00",
+      "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 1,
+     "name": "House committee actions"
+    },
+    "text": "Ordered to be Reported by the Yeas and Nays: 26 - 21.",
+    "type": "Committee"
+   },
+   {
+    "actionCode": "H15001",
+    "actionDate": "2026-09-16",
+    "committees": [
+     {
+      "name": "Energy and Commerce Committee",
+      "systemCode": "hsif00",
+      "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 1,
+     "name": "House committee actions"
+    },
+    "text": "Committee Consideration and Mark-up Session Held",
+    "type": "Committee"
+   },
+   {
+    "actionCode": "H23000",
+    "actionDate": "2026-09-01",
+    "committees": [
+     {
+      "name": "Commerce, Manufacturing, and Trade Subcommittee",
+      "systemCode": "hsif17",
+      "url": "https://api.congress.gov/v3/committee/house/hsif17?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 1,
+     "name": "House committee actions"
+    },
+    "text": "Forwarded by Subcommittee to Full Committee by Voice Vote.",
+    "type": "Committee"
+   },
+   {
+    "actionCode": "H22000",
+    "actionDate": "2026-09-01",
+    "committees": [
+     {
+      "name": "Commerce, Manufacturing, and Trade Subcommittee",
+      "systemCode": "hsif17",
+      "url": "https://api.congress.gov/v3/committee/house/hsif17?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 1,
+     "name": "House committee actions"
+    },
+    "text": "Subcommittee Consideration and Mark-up Session Held",
+    "type": "Committee"
+   },
+   {
+    "actionCode": "H11000",
+    "actionDate": "2026-08-27",
+    "committees": [
+     {
+      "name": "Commerce, Manufacturing, and Trade Subcommittee",
+      "systemCode": "hsif17",
+      "url": "https://api.congress.gov/v3/committee/house/hsif17?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 1,
+     "name": "House committee actions"
+    },
+    "text": "Referred to the Subcommittee on Commerce, Manufacturing, and Trade.",
+    "type": "Committee"
+   },
+   {
+    "actionCode": "H11100",
+    "actionDate": "2026-08-27",
+    "committees": [
+     {
+      "name": "Energy and Commerce Committee",
+      "systemCode": "hsif00",
+      "url": "https://api.congress.gov/v3/committee/house/hsif00?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "code": 2,
+     "name": "House floor actions"
+    },
+    "text": "Referred to the House Committee on Energy and Commerce.",
+    "type": "IntroReferral"
+   },
+   {
+    "actionCode": "Intro-H",
+    "actionDate": "2026-08-27",
+    "sourceSystem": {
+     "code": 9,
+     "name": "Library of Congress"
+    },
+    "text": "Introduced in House",
+    "type": "IntroReferral"
+   },
+   {
+    "actionCode": "1000",
+    "actionDate": "2026-08-27",
+    "sourceSystem": {
+     "code": 9,
+     "name": "Library of Congress"
+    },
+    "text": "Introduced in House",
+    "type": "IntroReferral"
+   }
+  ],
+  "summaries": [
+   {
+    "actionDate": "2026-08-27",
+    "actionDesc": "Introduced in House",
+    "text": "<p><strong>Open-Source AI Leadership Act</strong></p><p>This bill requires the Department of Commerce to assess and publish information about risks related to use of certain foreign adversary artificial intelligence (AI) models. The bill also authorizes Commerce to take specified actions to support adoption of U.S. AI models.</p><p>Specifically, the bill requires Commerce to identify, assess, and make public (as appropriate) any risk associated with the adoption and use of open AI models developed or made available by China, Iran, North Korea, or Russia, or an individual or entity subject to the control thereof. This includes risks related to the confidentiality of personal or proprietary information, the efficacy of features intended to prevent misuse of a model, or the economic or national security of the United States.</p><p>(An <em>open AI model</em> is an AI model (1) with model weights that are publicly released for download or distribution; or (2) that is distributed under an open license that permits use, modification, and redistribution of the model’s source code and model weights.)</p><p>Commerce must annually publish a report&nbsp;that assesses risks and provides&nbsp;information relating to&nbsp;the  adoption, cost, and performance of foreign adversary open AI models, including a comparison with open AI models developed and made available by U.S. individuals and entities. Commerce must submit such reports to Congress.</p><p>Further, Commerce may take specified actions to support the adoption and use of open AI models developed by U.S. individuals and entities, including identifying and addressing barriers to the adoption and use of such models.</p>",
+    "updateDate": "2026-09-29T14:47:48Z",
+    "versionCode": "00"
+   }
+  ],
+  "text": "[Congressional Bills 119th Congress]\n[From the U.S. Government Publishing Office]\n[H.R. 10152 Introduced in House (IH)]\n\n<DOC>\n\n119th CONGRESS\n2d Session\nH. R. 10152\n\nTo direct the Secretary of Commerce to support the adoption and use of \nAmerican open artificial intelligence models, and for other purposes.\n\n_______________________________________________________________________\n\nIN THE HOUSE OF REPRESENTATIVES\n\nAugust 27, 2026\n\nMr. Evans of Colorado introduced the following bill; which was referred \nto the Committee on Energy and Commerce\n\n_______________________________________________________________________\n\nA BILL\n\nTo direct the Secretary of Commerce to support the adoption and use of \nAmerican open artificial intelligence models, and for other purposes.\n\nBe it enacted by the Senate and House of Representatives of the \nUnited States of America in Congress assembled,\n\nSECTION 1. SHORT TITLE.\n\nThis Act may be cited as the ``Open-Source AI Leadership Act''.\n\nSEC. 2. ADOPTION AND USE OF QUALIFIED OPEN MODELS.\n\nThe Secretary shall take any of the following actions as \nappropriate to support the adoption and use of qualified open models in \ninterstate and foreign commerce:\n(1) Designate a single point of contact to coordinate any \neffort between the Department of Commerce, any relevant private \nsector entity, and any other relevant stakeholder to support \nthe adoption and use of qualified open models.\n(2) Review any relevant program or power of the Secretary \nrelated to the adoption and use of qualified open models and \ndirect the head of any such program, as appropriate, to support \nsuch adoption and use.\n(3) Identify any barrier to the adoption and use of \nqualified open models and take any action as appropriate to \naddress any such barrier.\n(4) Enter into agreements, as appropriate, to support the \nadoption and use of qualified open models with any of the \nfollowing:\n(A) A private sector entity, including a startup.\n(B) An agency.\n(C) A State.\n(D) A qualified foreign partner.\n(5) Develop policy and recommendations to facilitate the \nadoption and use of qualified open models.\n(6) Identify any relevant evidence-based approach, best \npractice, framework, benchmark, or other method, as \nappropriate, to monitor the adoption and use of qualified open \nmodels and foreign adversary models.\n\nSEC. 3. ASSESSMENT OF FOREIGN ADVERSARY MODELS.\n\n(a) In General.--The Secretary shall identify, assess, and make \npublicly known, as appropriate, any risk related to the adoption and \nuse of foreign adversary models, including any risk related to the \nfollowing:\n(1) The training of a foreign adversary model, including \nany risk related to a covered nation, or an entity or \nindividual that is subject to the control of a covered nation, \nconducting any such training through any unauthorized use of an \nartificial intelligence model.\n(2) The confidentiality, integrity, and accessibility of \npersonal and proprietary information, including any risk of \naccess to such information by a covered nation or an entity or \nindividual that is subject to the control of a covered nation.\n(3) The security and resiliency of any organization that \nuses or adopts a foreign adversary model and any risk that may \nresult to the supply chain of such organization as a result of \nany such use or adoption.\n(4) Any output of a foreign adversary model, including with \nrespect to historical accuracy, scientific inquiry, and freedom \nof expression.\n(5) The efficacy, or lack thereof, of any feature of a \nforeign adversary model intended to prevent misuse or \nexploitation of such model, including any safety or security \nfeature intended to prevent any such misuse or exploitation.\n(6) The development and use of chemical, biological, \nradiological, or nuclear capabilities, or any other similar \nrisk related to the national security and economic security of \nthe United States.\n(b) Publication.--Not later than 18 months after the date of the \nenactment of this Act, and annually thereafter, the Secretary shall \npublish on a publicly facing website a report that assesses any risk \nrelated to a foreign adversary model identified and assessed under \nsubsection (a) and information relating to the following:\n(1) An overview of the adoption and use of leading foreign \nadversary models.\n(2) The cost, capability, and performance of foreign \nadversary models.\n(3) A comparison between the information required by \nparagraphs (1) and (2) relating to foreign adversary models and \nsuch information, as available, relating to qualified open \nmodels.\n(c) Report to Congress.--Not later than 30 days after the \npublication of a report under subsection (b), the Secretary shall \nsubmit to the Committee on Energy and Commerce of the House of \nRepresentatives and the Committee on Commerce, Science, and \nTransportation of the Senate the report.\n(d) Sunset.--The requirement described in subsection (b) does not \napply beginning on the date that is 10 years after the date of the \nenactment of this Act.\n\nSEC. 4. RULE OF CONSTRUCTION.\n\nNothing in this Act may be construed to authorize the Secretary to \nban, restrict, or otherwise make unavailable an open artificial \nintelligence model in interstate or foreign commerce.\n\nSEC. 5. DEFINITIONS.\n\nIn this Act:\n(1) Agency.--The term ``agency'' has the meaning given that \nterm in section 551 of title 5, United States Code.\n(2) Artificial intelligence.--The term ``artificial \nintelligence'' has the meaning given that term in section 5002 \nof the National Artificial Intelligence Initiative Act of 2020 \n(15 U.S.C. 9401).\n(3) Artificial intelligence model.--The term ``artificial \nintelligence model'' means a software component of an \ninformation system that incorporates artificial intelligence \nand uses computational, statistical, or machine-learning \ntechniques to produce outputs from a defined set of inputs.\n(4) Covered nation.--The term ``covered nation'' has the \nmeaning given that term in section 4872(f) of title 10, United \nStates Code.\n(5) Foreign adversary model.--The term ``foreign adversary \nmodel'' means an open artificial intelligence model that is \ndeveloped or made available in interstate or foreign commerce \nby--\n(A) a covered nation; or\n(B) an entity or individual that is subject to the \ncontrol of a covered nation.\n(6) Open artificial intelligence model.--The term ``open \nartificial intelligence model'' means an artificial \nintelligence model--\n(A) with model weights that are publicly released \nfor download or distribution; or\n(B) that is distributed under an open license that \npermits use, modification, and redistribution of the \nsource code and model weights of the model.\n(7) Qualified foreign partner.--The term ``qualified \nforeign partner'' means a foreign country or foreign political \nand economic union that is not a covered nation.\n(8) Qualified open model.--The term ``qualified open \nmodel'' means an open artificial intelligence model that is--\n(A) developed and made available by a U.S. person \nin interstate or foreign commerce; and\n(B) not developed or made available by--\n(i) a covered nation; or\n(ii) an entity or individual that is \nsubject to the control of a covered nation.\n(9) Secretary.--The term ``Secretary'' means the Secretary \nof Commerce.\n(10) State.--The term ``State'' means each State of the \nUnited States, the District of Columbia, each commonwealth, \nterritory, or possession of the United States, and each \nfederally recognized Indian Tribe.\n(11) U.S. person.--The term ``U.S. person'' means a person \nthat--\n(A) is domiciled in the United States;\n(B) is headquartered in the United States; and\n(C) is organized under the laws of the United \nStates.\n<all>",
+  "text_truncated": false,
+  "text_missing": false
+ }
+}

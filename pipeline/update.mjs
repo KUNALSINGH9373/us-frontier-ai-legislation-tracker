@@ -27,9 +27,9 @@ import { fileURLToPath } from 'url';
 import { compareRun } from './compare/run.mjs';
 import { publishRun, loadData, writeData, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } from './publish/run.mjs';
 import { checkPublish } from './publish/guards.mjs';
-import { runAgents } from './agents/run.mjs';
+import { runAgents, MEMO_FILE as AGENT_MEMO_FILE } from './agents/run.mjs';
 import { correctRun, summaryOf as correctSummary } from './correct/run.mjs';
-import { linkRun } from './links/run.mjs';
+import { linkRun, summaryOf as linksSummaryOf } from './links/run.mjs';
 import { courtsRun } from './publish/courts.mjs';
 import { createRateLimiter } from './grabber/sources/courtlistener.mjs';
 import { createHttp } from './grabber/lib/http.mjs';
@@ -45,12 +45,48 @@ import { newReport, sourceEntry, aiEntry, publishEntry, finalize, writeReport } 
 import { formatReport } from './report/format.mjs';
 import { formatHtml } from './report/html.mjs';
 import { createTelegram, tokenFromEnv } from './notify/telegram.mjs';
+import { gatedPublishConfig, readGateInputs } from './eval/gate.mjs';
+import { loadActorIds } from './links/records.mjs';
 
 const pipelineDir = path.dirname(fileURLToPath(import.meta.url)), root = path.resolve(pipelineDir, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
 // The site data files a run may change. status.json is written every run but committed alone at most once a day.
 export const DATA_FILES = ['entries', 'news', 'site', 'changes', 'relationships'];
 export const ALL_SOURCES = ['congress_gov', 'federal_register', 'legiscan'];
+
+// The raw records behind the entries a run touched: { entry_key: [{ item_id, source, raw }] }, read from each publish run's change set
+// (an item published from a held replay carries no raw file and is left out). Unreadable records are skipped, never fatal.
+export function runRecords(itemsByKey, keys) {
+  const out = {};
+  for (const key of keys) for (const x of itemsByKey[key] || []) {
+    try {
+      if (!x.runDir) continue;
+      const cs = readJson(path.join(x.runDir, 'changeset.json'), { items: [] }), it = cs.items.find((i) => i.item_id === x.item_id);
+      if (!it || !it.raw_path) continue;
+      (out[key] = out[key] || []).push({ item_id: x.item_id, source: it.source, raw: JSON.parse(fs.readFileSync(path.join(x.runDir, it.raw_path), 'utf8')) });
+    } catch { /* a missing or unreadable record only costs the links step that record */ }
+  }
+  return out;
+}
+
+// The gate (eval/gate.mjs gatedPublishConfig) over the publish config. With no model config the gate cannot be read: every switch is off.
+export function applyGate(config, models, inputs = null) {
+  if (!config || !config.auto_publish) return { config, gate: null, off: [] };
+  if (!models || !(models.anthropic || models.roles)) {
+    const out = JSON.parse(JSON.stringify(config)), off = Object.keys(out.auto_publish).filter((f) => out.auto_publish[f]).map((field) => ({ field, why: 'no model config, so the gate cannot be read' }));
+    off.forEach((x) => (out.auto_publish[x.field] = false));
+    return { config: out, gate: null, off };
+  }
+  // A bug in the gate (or its inputs) never crashes the run before the report: every switch is off this run, with why.
+  try {
+    return gatedPublishConfig({ config, models, ...(inputs || readGateInputs()) });
+  } catch (err) {
+    const out = JSON.parse(JSON.stringify(config)), why = `the gate could not be read (${String(err && err.message || err).slice(0, 200)}), so every switch is off`;
+    const off = Object.keys(out.auto_publish).filter((f) => out.auto_publish[f]).map((field) => ({ field, why }));
+    off.forEach((x) => (out.auto_publish[x.field] = false));
+    return { config: out, gate: null, off };
+  }
+}
 
 export const defaultPaths = () => ({
   pipelineDir, root, dataDir: path.join(root, 'web', 'data', 'v2'), docsDir: path.join(root, 'docs', 'data', 'v2'),
@@ -265,12 +301,18 @@ function commitCounters({ P, git, usageFile, ledgerDir, log }) {
 }
 
 // One update run. Returns { code, rep }. deps replaces any step (tests run the whole chain on fixtures with no network).
-export async function runUpdate({ P = defaultPaths(), config, models, factory, flags = {}, env = process.env, now = () => new Date(), deps = {}, log = (m) => console.log(m), logErr = (m) => console.error(m) } = {}) {
+export async function runUpdate({ P = defaultPaths(), config: publishConfig, models, factory, flags = {}, env = process.env, now = () => new Date(), deps = {}, log = (m) => console.log(m), logErr = (m) => console.error(m) } = {}) {
   const dry = !!flags.dry, source = flags.source || 'all';
   const SOURCES = source === 'all' ? ALL_SOURCES : [source];
   const startedAt = now();
   const stamp = startedAt.toISOString().replace(/[-:]/g, '').slice(0, 13).replace('T', '-');
   const rep = newReport({ id: 'update-' + stamp, now: startedAt, dry, sources: SOURCES });
+  // ---- the accuracy gate, enforced: an auto_publish switch (new entries, relationships, news, the reading fields) is used only when the
+  // latest full test-set report for the production model meets eval_bar (eval/gate.mjs); otherwise it is OFF for this run, and why is
+  // written in the run report. config/publish.json itself is never changed.
+  const { config, gate: gateNow, off: gatedOff } = applyGate(publishConfig, models, deps.gateInputs);
+  rep.gate = { model: gateNow ? gateNow.model : null, report: gateNow ? gateNow.report : null, off: gatedOff };
+  gatedOff.forEach((x) => rep.notes.push(`auto_publish.${x.field} is on in config/publish.json but treated as OFF this run: ${x.why}`));
   const scrub = scrubWith(env), today = startedAt.toISOString().slice(0, 10);
   const git = deps.git || runGit, parity = deps.parity || defaultParity(P);
   const usageFile = path.join(P.stateDir, path.basename(LEGISCAN_USAGE_FILE)), ledgerDir = path.join(P.stateDir, path.basename(LEDGER_DIR));
@@ -287,7 +329,7 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
   try {
     // ---- 0. the staging copy: every step below writes here, nothing else ----
     step = 'staging';
-    S = createStaging({ dir: path.join(P.workDir, 'staging', rep.id), dataDir: P.dataDir, docsDir: config.copy_to_docs ? P.docsDir : null, idsFiles: { ids: P.idsFile, lsIds: P.lsIdsFile }, stateDir: P.stateDir, stateFiles: [...PROMOTED_STATE, HELD_FILE], dataFiles: [...DATA_FILES, 'status'] });
+    S = createStaging({ dir: path.join(P.workDir, 'staging', rep.id), dataDir: P.dataDir, docsDir: config.copy_to_docs ? P.docsDir : null, idsFiles: { ids: P.idsFile, lsIds: P.lsIdsFile }, stateDir: P.stateDir, stateFiles: [...PROMOTED_STATE, HELD_FILE, AGENT_MEMO_FILE], dataFiles: [...DATA_FILES, 'status'] });
     const before = loadData(S.v2); // the data as it was at the start: the final check compares the whole run with it
     // ---- held items: what a stop rule refused on earlier runs, and what it refuses now ----
     const held = readJson(S.stateFile(HELD_FILE), { items: {} }); held.items = held.items || {};
@@ -336,8 +378,10 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
       const newsAfter = r.result && r.result.data ? (r.result.data.news.items || []).length : newsBefore;
       rep.publish.runs.push(publishEntry({ result: r.result, newsBefore, newsAfter, status: r.status }));
       if (r.status === 'published' || r.status === 'dry-run') { if (r.result.touched.length || r.result.added.length) { published.push(label); summaries.push(r.summary); partKeys.push([...r.result.touched, ...r.result.added.map((x) => x.entry_key)]); } }
-      if (r.result && r.result.added) newKeys.push(...r.result.added.map((x) => x.entry_key));
-      if (r.result) [...(r.result.applied || []), ...(r.result.added || [])].forEach((a) => (itemsByKey[a.entry_key] = itemsByKey[a.entry_key] || []).push({ item_id: a.item_id, ...src }));
+      // only what was published (or would be, in a dry run) counts as new or as an item's entry
+      const promoted = r.status === 'published' || r.status === 'dry-run';
+      if (promoted && r.result && r.result.added) newKeys.push(...r.result.added.map((x) => x.entry_key));
+      if (promoted && r.result) [...(r.result.applied || []), ...(r.result.added || [])].forEach((a) => (itemsByKey[a.entry_key] = itemsByKey[a.entry_key] || []).push({ item_id: a.item_id, ...src }));
     };
     for (const id of runs) {
       const runDir = runDirOf(id);
@@ -354,7 +398,12 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
       if (!aiOff && (diff.summary.material || diff.summary.new_entry_candidate)) {
         step = 'AI step';
         log(`agents ${id}: up to ${ai.max_items_per_run || 10} item(s)`);
-        const s = await (deps.runAgents || runAgents)({ runDir, entries, config: models, factory, today, maxItems: ai.max_items_per_run || 10, log: (m) => log('  ' + m) });
+        const s = await (deps.runAgents || runAgents)({ runDir, entries, config: models, factory, today, maxItems: ai.max_items_per_run || 10, memoFile: S.stateFile(AGENT_MEMO_FILE), newEntriesOn: !!(config.auto_publish && config.auto_publish.new_entries), log: (m) => log('  ' + m) });
+        // newEntriesOn: the GATED switch. Off, no new entry can publish, so the escalated pass and the referee's scope/section confirmation
+        // are skipped; a draft the readers pass is reported below as a proposal, "not confirmed: new entries are switched off".
+        // Items held for good are reported once each, as proposals (production has no reviewer); they are not read again until their record changes.
+        (s.proposals || []).forEach((p) => rep.notes.push(`proposal (held, not created): ${p}`));
+        if (s.not_reread) rep.notes.push(`AI step: ${s.not_reread} held item(s) not read again (record unchanged)`);
         rep.ai.runs.push(aiEntry({ runDir, results: s }));
         if (s.stopped_by_month_cap) rep.notes.push('the monthly AI cost cap was reached during this run; the rest waits until next month');
       }
@@ -466,7 +515,10 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
     // ---- 4c. links: propose links for the entries this run added or changed (code only); added only when auto_publish.relationships is on ----
     step = 'links';
     const touchedKeys = [...new Set([...rep.publish.runs.flatMap((p) => [...p.entries_updated, ...p.entries_added].map((u) => u.entry_key)), ...(c.corrected || []).map((x) => x.entry_key)])];
-    const l = await (deps.linkRun || linkRun)({ dataDir: S.v2, docsDir: null, changed: touchedKeys, config, runDate: today, maxEntries: config.max_entries_changed_per_run, dry, log: (m) => log('  ' + m) });
+    // records: the official records this run read for those entries (sponsors by Congress.gov bioguideId / LegiScan people_id);
+    // created: the entries Tier B created this run. Extra keys are harmless to a linkRun that does not read them yet.
+    const records = runRecords(itemsByKey, touchedKeys), created = [...newKeys];
+    const l = await (deps.linkRun || linkRun)({ dataDir: S.v2, docsDir: null, changed: touchedKeys, config, runDate: today, maxEntries: config.max_entries_changed_per_run, dry, records, created, log: (m) => log('  ' + m) });
     rep.links = l;
     log(`links: ${l.proposed.length} proposed, ${l.applied.length} added (${l.status})`);
     if (l.status === 'stopped') rep.notes.push('links were not added (a stop rule failed: ' + l.problems[0] + ')');
@@ -512,7 +564,9 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
         const tail = after.relationships.edges.slice(before.relationships.edges.length), applied = l.applied.filter(keep);
         const edges = l.added ? l.added.edges.filter(keep) : tail.length === applied.length && tail.every((e, i) => brief(e) === brief(applied[i])) ? tail : applied;
         const ends = new Set(edges.flatMap((e) => [e.from, e.to]));
-        return { edges, nodes: l.added ? Object.fromEntries(Object.entries(l.added.nodes).filter(([key]) => !goneNodes.has(key))) : Object.fromEntries(Object.entries(after.relationships.nodes).filter(([key]) => !before.relationships.nodes[key] && ends.has(key))) };
+        // records, created and actorIds: what the links step proved its record-proved sponsor edges against (guards.mjs checkLinks needs them)
+        const proof = l.proof || { records, created, actorIds: loadActorIds() };
+        return { records: proof.records, created: proof.created, actorIds: proof.actorIds, texts: proof.texts, edges, nodes: l.added ? Object.fromEntries(Object.entries(l.added.nodes).filter(([key]) => !goneNodes.has(key))) : Object.fromEntries(Object.entries(after.relationships.nodes).filter(([key]) => !before.relationships.nodes[key] && ends.has(key))) };
       };
       // Entries put back are taken out of everything that would still claim them: the commit message, the report, the status checks.
       const reverted = new Set();
@@ -535,6 +589,10 @@ export async function runUpdate({ P = defaultPaths(), config, models, factory, f
         if (linksOn && !linksAllowance(loadData(S.v2)).edges.length) {
           linksOn = false; rep.links = { ...l, status: 'held', applied: [] };
           const i = published.indexOf('links'); if (i >= 0) { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); }
+        } else if (linksOn) {
+          // a partial revert: the report lists only the edges still promoted, and the links summary is rebuilt from them
+          const still = l.applied.filter(keep);
+          if (still.length !== l.applied.length) { rep.links = { ...rep.links, applied: still }; const i = published.indexOf('links'); if (i >= 0) summaries[i] = linksSummaryOf({ ...rep.links, applied: still }); }
         }
       };
       // Entries put back and held: each item that changed them is held (retried from a fresh copy), or the entry itself when no item did.

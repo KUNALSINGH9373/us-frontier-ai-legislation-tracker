@@ -125,7 +125,7 @@ function scriptedValidator(answerFor) {
   const long = clone(eo); long.text = `${eo.text}\n${maText}`;
   const answer = (f) => (f === 'mechanism' ? Q2 : f === 'in_scope' ? Q2 : Q3);
   const g = scriptedGenerator([patch(Q2)]), val = scriptedValidator(answer);
-  const r = await processItem({ generator: g, validator: val, item, raw: long, diff, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
+  const r = await processItem({ generator: g, validator: val, referee: scriptedValidator(answer), item, raw: long, diff, entry: null, entries, today: '2026-10-07', runId: 'run-test', now: new Date('2026-10-07T05:00:00Z') });
   ok('a long bill is written up from its sections, not held as "too long"', r.outcome === 'publishable' && !/too long/.test(r.reason || ''), `${r.outcome} ${r.reason}`);
   ok('the Generator read the selection: the 93M sections and the note, not the whole text', g.calls[0].prompt.length < SECTION_CHARS + 30000 && /Large frontier developer/.test(g.calls[0].prompt) && /SOURCE above is a selection/.test(g.calls[0].prompt) && !/1596-7066/.test(g.calls[0].prompt), String(g.calls[0].prompt.length));
   ok('the Validator read the same selection', val.calls.length === 1 && val.calls[0].prompt.length < SECTION_CHARS + 30000 && /Large frontier developer/.test(val.calls[0].prompt));

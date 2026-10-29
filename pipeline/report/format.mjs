@@ -51,6 +51,38 @@ export function watchLines(rep) {
   return w;
 }
 
+// Was an auto_publish switch turned off for this run by the accuracy gate (on in config, below the bar)? The reason, or null.
+const gatedOff = (rep, field) => { const x = ((rep.gate && rep.gate.off) || []).find((g) => g.field === field); return x ? x.why || 'the accuracy gate is below the bar' : null; };
+// Why record-proved links were not added, from the links step's own state.
+function linksNotAddedWhy(rep, lk) {
+  if (lk.status === 'stopped') return `stopped by a check: ${clip((lk.problems || [])[0] || 'a stop rule failed', 120)}`;
+  if (lk.status === 'held') return 'put back by the final check';
+  if (lk.status === 'dry-run') return 'dry run, nothing saved';
+  const g = gatedOff(rep, 'relationships');
+  if (g) return `adding links is switched off this run by the accuracy gate: ${clip(g, 100)}`;
+  return 'adding links is switched off';
+}
+// The suffix of the "Links proposed" line: what happened to the record-proved ones, in the step's real state.
+function linksSuffix(rep, lk) {
+  const can = lk.proposed.filter((p) => p.applies).length;
+  if (lk.status === 'written' && lk.applied.length) return `, ${lk.applied.length} added to the network`;
+  if (lk.status === 'dry-run') return `, ${can} would be added (dry run, nothing saved)`;
+  if (lk.status === 'stopped' || lk.status === 'held') return `, none added (${linksNotAddedWhy(rep, lk)})`;
+  if (!can) return ' (reported only: none is proved by an official record)';
+  return ` (reported only: ${can} proved by an official record, not added: ${linksNotAddedWhy(rep, lk)})`;
+}
+// Why drafted news items were not published, from the news step's real state (the switch after the gate, a dry run, a stop rule,
+// or the final check putting them back).
+function newsNotPublishedWhy(rep, nw) {
+  if (nw.status === 'dry-run') return 'dry run, nothing saved';
+  if (nw.status === 'stopped') return `stopped by a check: ${clip((nw.problems || [])[0] || 'a stop rule failed', 120)}`;
+  if (nw.status === 'written') return 'put back by the final check';
+  const g = gatedOff(rep, 'news');
+  if (g) return `news publishing is switched off this run by the accuracy gate: ${clip(g, 100)}`;
+  if (!nw.publishing) return 'news publishing is switched off';
+  return 'not written this run';
+}
+
 export function formatFailed(rep) {
   const L = [title(rep, false, `Update FAILED at ${rep.failed_step || 'an unknown step'}`), '', `Error: ${clip(rep.error, 1500)}`, ''];
   L.push(rep.dry_run ? 'A dry run saves nothing.' : 'Nothing was changed. The next run starts from the same point.');
@@ -73,18 +105,24 @@ export function formatDone(rep, names = {}) {
     fixed.forEach((x) => L.push(`- ${clip(names[x.entry_key] || x.entry_key, 40)}, ${x.field} (${x.kind}): ${clip(x.problem, 160)}`));
   }
   const lk = rep.links;
-  if (lk && (lk.proposed.length || lk.companions.length)) {
-    L.push(`Links proposed: ${lk.proposed.length}${lk.applied.length ? `, ${lk.applied.length} added to the network` : lk.status === 'proposed' ? ' (reported only; adding links is switched off)' : ''}`);
-    lk.proposed.slice(0, 6).forEach((p) => L.push(`- ${clip(p.names[0], 30)} → ${clip(p.names[1], 30)}: ${clip(p.label, 80)}`));
+  if (lk && (lk.proposed.length || lk.companions.length || (lk.notes || []).length)) {
+    L.push(`Links proposed: ${lk.proposed.length}${linksSuffix(rep, lk)}`);
+    const added = lk.status === 'written' && lk.applied.length, wouldAdd = lk.status === 'dry-run';
+    lk.proposed.slice(0, 6).forEach((p) => L.push(`- ${clip(p.names[0], 30)} → ${clip(p.names[1], 30)}: ${clip(p.label, 80)} — ${p.applies ? (added ? 'added' : wouldAdd ? 'would be added (dry run)' : `not added (${linksNotAddedWhy(rep, lk)})`) : `proposal only (${clip(p.why || 'not proved by an official record', 90)})`}`));
+    if (lk.proposed.length > 6) L.push(`- and ${lk.proposed.length - 6} more`);
+    (lk.notes || []).slice(0, 3).forEach((n) => L.push(`- not proposed: ${clip(names[n.entry_key] || n.entry_key, 40)}: ${clip(n.why, 160)}`));
+    if ((lk.notes || []).length > 3) L.push(`- and ${lk.notes.length - 3} more not proposed`);
     lk.companions.forEach((x) => L.push(`- companion bill: ${clip(names[x.entry_key] || x.entry_key, 40)} = ${x.bill} (${x.companion_of})`));
   }
   const nw = rep.news;
   if (nw && nw.ran) {
     if (nw.drafted.length) {
       const live = nw.drafted.filter((d) => d.written).length;
-      L.push(`News drafted: ${nw.drafted.length} from official releases, ${live ? `${live} published` : 'not published (news publishing is switched off)'}`);
+      L.push(`News drafted: ${nw.drafted.length} from official releases, ${live ? `${live} published${live < nw.drafted.length ? `, ${nw.drafted.length - live} not published (${newsNotPublishedWhy(rep, nw)})` : ''}` : `not published (${newsNotPublishedWhy(rep, nw)})`}`);
       nw.drafted.slice(0, 4).forEach((d) => L.push(`- ${clip(d.title, 80)} (${clip(d.publisher, 30)})`));
     }
+    const wr = nw.waiting_record || [];
+    if (wr.length) L.push(`News waiting for the official record: ${wr.length} (${list(wr.map((w) => `${clip(w.title, 50)}, ${clip(w.publisher, 24)}`), 3)}) — retried next run`);
     if (nw.leads.length) L.push(`News leads: ${nw.leads.length} (${list(nw.leads.map((l) => `${clip(l.title, 50)}, ${clip(l.publisher, 24)}`), 3)}) — not published`);
   }
   L.push(costLine(rep), queriesLine(rep));

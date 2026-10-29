@@ -1,0 +1,303 @@
+{
+ "item": {
+  "item_id": "legiscan:2085502",
+  "source": "legiscan",
+  "source_id": "2085502",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://lis.virginia.gov/bill-details/20261/SB365",
+  "fetched_at": "2026-10-28T07:14:45Z",
+  "raw_hash": "27f2dc8f9092ffa3bbeb4d1bf2ad2a73255fe34d20d2146729e7dbffa014d042",
+  "raw_path": "raw/legiscan/VA-SB365-2085502.json",
+  "title": "VA SB365: Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act; established."
+ },
+ "raw": {
+  "id": "2085502",
+  "search_hit": {
+   "search": "wide",
+   "relevance": 30,
+   "intent": {
+    "verdict": "maybe",
+    "reason": "AI innovation and responsibility act",
+    "by": "model"
+   }
+  },
+  "bill": {
+   "bill_id": 2085502,
+   "change_hash": "f7f62e5926cf99cba52450c9a574f6cb",
+   "session_id": 2237,
+   "session": {
+    "session_id": 2237,
+    "state_id": 46,
+    "year_start": 2026,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2026 Regular Session",
+    "session_name": "2026 Regular Session"
+   },
+   "url": "https://legiscan.com/VA/bill/SB365/2026",
+   "state_link": "https://lis.virginia.gov/bill-details/20261/SB365",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-01-13",
+   "progress": [
+    {
+     "date": "2026-01-13",
+     "event": 1
+    },
+    {
+     "date": "2026-01-13",
+     "event": 9
+    }
+   ],
+   "state": "VA",
+   "state_id": 46,
+   "bill_number": "SB365",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "S",
+   "body_id": 8,
+   "current_body": "S",
+   "current_body_id": 8,
+   "title": "Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act; established.",
+   "description": "Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act established. Establishes the Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act (FAIR AI Act) that requires a developer of a base artificial intelligence model, as defined in the bill, to clearly and conspicuously disclose, in a manner that is appropriate for the medium of the content and is easily accessible to the user of such model, in the terms of service governing the use of such model, certain elements related to the artificial intelligence system. The bill creates the FAIR AI Enforcement Fund for the purpose of supporting agency enforcement of artificial intelligence system misuse, bias, and workforce disruption. Finally, the bill limits the defenses available in any criminal or civil action against a defendant that is alleged to have developed, modified, or deployed an artificial intelligence system that caused harm to a plaintiff. The bill has a delayed effective date of July 1, 2027.",
+   "pending_committee_id": 0,
+   "committee": [],
+   "referrals": [
+    {
+     "date": "2026-01-13",
+     "committee_id": 165,
+     "chamber": "S",
+     "chamber_id": 8,
+     "name": "General Laws and Technology"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-01-13",
+     "action": "Prefiled and ordered printed; Offered 01-14-2026 26104938D",
+     "chamber": "S",
+     "chamber_id": 8,
+     "importance": 0
+    },
+    {
+     "date": "2026-01-13",
+     "action": "Referred to Committee on General Laws and Technology",
+     "chamber": "S",
+     "chamber_id": 8,
+     "importance": 1
+    },
+    {
+     "date": "2026-02-04",
+     "action": "Senate committee amendments offered",
+     "chamber": "S",
+     "chamber_id": 8,
+     "importance": 0
+    },
+    {
+     "date": "2026-02-04",
+     "action": "Continued to next session in General Laws and Technology (14-Y 0-N 1-A)",
+     "chamber": "S",
+     "chamber_id": 8,
+     "importance": 0
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 24983,
+     "person_hash": "tn0q38xa",
+     "party_id": "1",
+     "state_id": 46,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Stella Pekarsky",
+     "first_name": "Stella",
+     "middle_name": "G.",
+     "last_name": "Pekarsky",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-036",
+     "ftm_eid": 58873185,
+     "votesmart_id": 212159,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Stella_Pekarsky",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "804-698-7536",
+       "district_phone": "571-249-5907",
+       "email": "senatorpekarsky@senate.virginia.gov",
+       "webmail": "",
+       "biography": "https://lis.virginia.gov/session-details/20262/member-information/S0124/member-details",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Stella_Pekarsky",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/212159"
+      },
+      "capitol_address": {
+       "address1": "General Assembly Building, Room 621",
+       "address2": "201 North 9th Street",
+       "city": "Richmond",
+       "state": "VA",
+       "zip": "23219"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://lis.virginia.gov/session-details/20262/member-information/S0124/member-details",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/stella.pekarsky",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3322852,
+     "date": "2026-01-13",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/VA/text/SB365/id/3322852",
+     "state_link": "https://lis.virginia.gov/bill-details/20261/SB365/text/SB365",
+     "text_size": 13382,
+     "text_hash": "fe52a29bf6da02b4beddcc3cef440f73",
+     "alt_bill_text": 1,
+     "alt_mime": "application/pdf",
+     "alt_mime_id": 2,
+     "alt_state_link": "https://lis.blob.core.windows.net/files/1089778.PDF",
+     "alt_text_size": 22769,
+     "alt_text_hash": "5753172038765d022be581843a7e9627"
+    }
+   ],
+   "votes": [
+    {
+     "roll_call_id": 1627485,
+     "date": "2026-02-04",
+     "desc": "Continued to next session in General Laws and Technology (14-Y 0-N 1-A)",
+     "yea": 14,
+     "nay": 0,
+     "nv": 1,
+     "absent": 0,
+     "total": 15,
+     "passed": 1,
+     "chamber": "S",
+     "chamber_id": 8,
+     "url": "https://legiscan.com/VA/rollcall/SB365/id/1627485",
+     "state_link": "https://lis.virginia.gov/vote-details/SB365/20261/S12V1101"
+    }
+   ],
+   "amendments": [
+    {
+     "amendment_id": 270270,
+     "adopted": 0,
+     "chamber": "S",
+     "chamber_id": 8,
+     "date": "0000-00-00",
+     "title": "General Laws and Technology Amendment",
+     "description": "General Laws and Technology Amendment",
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/VA/amendment/SB365/id/270270",
+     "state_link": "https://lis.virginia.gov/bill-details/20261/SB365/text/SB365ASC1",
+     "amendment_size": 1793,
+     "amendment_hash": "11cbee9a5b1c4f753e587e3018499c0c",
+     "alt_amendment": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_amendment_size": 0,
+     "alt_amendment_hash": ""
+    }
+   ],
+   "supplements": [],
+   "calendar": [
+    {
+     "type_id": 1,
+     "event_hash": "0f86a4a1",
+     "type": "Hearing",
+     "date": "2026-01-28",
+     "time": "19:00",
+     "location": "Senate Room B, Room 306, General Assembly Building",
+     "description": "Senate General Laws and Technology Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "bac904e6",
+     "type": "Hearing",
+     "date": "2026-02-04",
+     "time": "19:00",
+     "location": "Senate Room B, Room 306, General Assembly Building",
+     "description": "Senate General Laws and Technology Hearing"
+    }
+   ]
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-01-13",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Prefiled and ordered printed; Offered 01-14-2026 26104938D",
+     "chamber": "S"
+    },
+    {
+     "date": "2026-01-13",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Referred to Committee on General Laws and Technology",
+     "chamber": "S"
+    },
+    {
+     "date": "2026-02-04",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Senate committee amendments offered",
+     "chamber": "S"
+    }
+   ]
+  },
+  "text": "2026 SESSIONINTRODUCED26104938DSENATE BILL NO. 365Offered January 14, 2026Prefiled January 13, 2026A BILL to amend the Code of Virginia by adding in Title 59.1 a chapter numbered 60, consisting of sections numbered 59.1-614 through 59.1-617, relating to Fostering Access, Innovation, and Responsibility in Artificial Intelligence Act established.—————Patron—Pekarsky—————Referred to Committee on General Laws and Technology—————Be it enacted by the General Assembly of Virginia:1. That the Code of Virginia is amended by adding in Title 59.1 a chapter numbered 60, consisting of sections numbered 59.1-614 through 59.1-617, as follows:CHAPTER 60.FOSTERING ACCESS, INNOVATION, AND RESPONSIBILITY IN ARTIFICIAL INTELLIGENCE ACT (FAIR AI ACT).§ 59.1-614. Definitions.As used in this chapter, unless the context requires a different meaning:\"Artificial intelligence system\" means any machine learning-based system that, for any explicit or implicit objective, infers from the inputs such system receives how to generate outputs, including content, decisions, predictions, and recommendations, that can influence physical or virtual environments. \"Artificial intelligence system\" does not include any artificial intelligence system or base artificial intelligence model that is used for development, prototyping, and research activities before such artificial intelligence system or base artificial intelligence model is made available to deployers or consumers.\"Base artificial intelligence model\" means a large-scale artificial intelligence system model trained on broad and diverse data to learn general patterns and relationships, serving as a foundational platform adaptable for various specific tasks or applications.\"Deployer\" means any person doing business in the Commonwealth that deploys or uses an artificial intelligence system to make a consequential decision in the Commonwealth.\"Developer\" means any person doing business in the Commonwealth that develops or modifies an artificial intelligence system that is offered, sold, leased, given, or otherwise made available to deployers or consumers in the Commonwealth.\"Fund\" means the FAIR AI Enforcement Fund created in § 59.1-616.\"Machine learning\" means the development of algorithms to build data-derived statistical models that are capable of drawing inferences from previously unseen data without explicit human instruction.\"Misuse\" means the use of an artificial intelligence system to engage in unlawful activities that result in harm to any person.§ 59.1-615. Duty to disclose.A. A developer of a base artificial intelligence model shall clearly and conspicuously disclose, in a manner that is appropriate for the medium of the content and is easily accessible to the user of such model, in the terms of service governing the use of such model:1. The name of the model;2. The developer of the model;3. The location where the developer is incorporated;4. The release date of the most recent version of the model;5. The date that the model's training data was most recently updated;6. Supported languages for the model; and7. A link to the model's terms of service.B. The provision of such disclosure to a user shall not be a defense to liability for any harm caused to a plaintiff.§ 59.1-616. FAIR AI Enforcement Fund.There is hereby created in the state treasury a special nonreverting fund to be known as the FAIR AI Enforcement Fund. The Fund shall be established on the books of the Comptroller. All funds appropriated for such purpose shall be paid into the state treasury and credited to the Fund. Interest earned on moneys in the Fund shall remain in the Fund and be credited to it. Any moneys remaining in the Fund, including interest thereon, at the end of each fiscal year shall not revert to the general fund but shall remain in the Fund. Moneys in the Fund shall be used solely for the purpose of supporting state agency enforcement of artificial intelligence system misuse, bias, and workforce disruption. Expenditures and disbursements from the Fund shall be made by the State Treasurer on warrants issued by the Comptroller upon written request signed by the Attorney General.§ 59.1-617. Defenses.A. In any criminal or civil action against a defendant that is alleged to have developed or modified an artificial intelligence system that caused harm to a plaintiff, it shall not be a defense that the artificial intelligence system autonomously caused such harm to the plaintiff.B. In any criminal or civil action against a defendant that is alleged to have deployed or otherwise used an artificial intelligence system that caused harm to a plaintiff, it shall not be a defense that the alleged harm was caused by the artificial intelligence system.C. Nothing in this section shall prevent a defendant from asserting existing available defenses at common law, including that the harm to a plaintiff was caused by the intervening or superseding conduct of another individual.2. That the provisions of this act shall become effective on July 1, 2027.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3322852,
+   "date": "2026-01-13",
+   "type": "Introduced",
+   "mime": "text/html",
+   "state_link": "https://lis.virginia.gov/bill-details/20261/SB365/text/SB365",
+   "from": "legiscan"
+  },
+  "frontier_markers": []
+ }
+}

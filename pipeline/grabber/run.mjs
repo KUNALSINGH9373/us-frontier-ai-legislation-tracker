@@ -66,7 +66,13 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
       try { text = await congress.getText(ref); } catch (e) { if (!(e instanceof HttpError || e instanceof NetworkError)) throw e; textMissing = true; log(`no bill text for ${id}: ${String(e.message).slice(0, 80)}`); }
       if (text == null) textMissing = true;
     }
-    const raw = JSON.stringify({ id, list_item: listItem || null, bill: detail, actions, summaries, ...(reason === 'discovery' ? { text: text ? text.slice(0, MAX_TEXT) : null, text_truncated: !!text && text.length > MAX_TEXT, text_missing: textMissing } : {}) }, null, 1);
+    // A new candidate's related bills (Congress.gov "relatedbills"), stored so agents/dedupe.mjs can tell an identical or related tracked
+    // bill before any AI is spent. Only read when Congress.gov says there are some; a failed read stores none (dedupe then holds the bill).
+    let related = null;
+    if (reason === 'discovery' && detail && detail.relatedBills && detail.relatedBills.count > 0 && congress.getRelatedBills) {
+      try { related = await congress.getRelatedBills(ref); } catch (e) { if (!(e instanceof HttpError || e instanceof NetworkError)) throw e; log(`related bills of ${id} not read: ${String(e.message).slice(0, 80)}`); }
+    }
+    const raw = JSON.stringify({ id, list_item: listItem || null, bill: detail, actions, summaries, ...(related ? { related_bills: related } : {}), ...(reason === 'discovery' ? { text: text ? text.slice(0, MAX_TEXT) : null, text_truncated: !!text && text.length > MAX_TEXT, text_missing: textMissing } : {}) }, null, 1);
     const saved = saveRaw({ outDir, runId, source: 'congress_gov', name: safeName(id) + '.json', text: raw });
     items.push({
       item_id: `congress_gov:${id}`, source: 'congress_gov', source_id: id, entry_key: entryKey || null,

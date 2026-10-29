@@ -1,0 +1,66 @@
+{
+ "measure": "news",
+ "run_at": "2026-10-28T21:02:15.512Z",
+ "checks_hash": "cffcb6a69c67baa14dff3ea7e6adc378550d447a7f78a690a88924c7d93470ef",
+ "cases": 7,
+ "wrong": 0,
+ "missed": 0,
+ "rows": [
+  {
+   "id": "liccardo-checked",
+   "expect": "publish",
+   "outcome": "drafted",
+   "wrong": false,
+   "missed": false,
+   "reason": null
+  },
+  {
+   "id": "liccardo-invented-quote",
+   "expect": "refuse",
+   "outcome": "rejected",
+   "wrong": false,
+   "missed": false,
+   "reason": "body puts words in quotation marks that RELEASE does not contain: \"to ban frontier AI exports to China.\""
+  },
+  {
+   "id": "liccardo-invented-number",
+   "expect": "refuse",
+   "outcome": "rejected",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in RELEASE: 200"
+  },
+  {
+   "id": "liccardo-reader-rejects",
+   "expect": "refuse",
+   "outcome": "rejected",
+   "wrong": false,
+   "missed": false,
+   "reason": "the title (\"Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill\") is not supported: not stated in the release"
+  },
+  {
+   "id": "press-lead",
+   "expect": "refuse",
+   "outcome": "secondary",
+   "wrong": false,
+   "missed": false,
+   "reason": "press report: published only after an official source confirms it"
+  },
+  {
+   "id": "liccardo-old-news",
+   "expect": "refuse",
+   "outcome": "rejected",
+   "wrong": false,
+   "missed": false,
+   "reason": "the release is dated 2026-09-22, older than the 14-day window: old news"
+  },
+  {
+   "id": "liccardo-wrong-date",
+   "expect": "refuse",
+   "outcome": "rejected",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in RELEASE: 21"
+  }
+ ]
+}

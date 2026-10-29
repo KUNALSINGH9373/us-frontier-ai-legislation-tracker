@@ -1,0 +1,150 @@
+{
+ "_note": "The Tier B replay set for the gate (eval/tierb-set.mjs). Built 29 Oct 2026 from the audit-2026-10-28 records, the round-2 audit (records and the drafts the agents wrote then) and known duplicates, resolutions and refiled bills. expect: not_created (creating it is wrong), created:<section> (creating it elsewhere is wrong; not creating it is missed), to_readers (code must pass it to the AI readers; holding it before them is missed). Replayed with code only: a case that reaches the readers is decided by its recorded draft through publish/tier-b.mjs.",
+ "cases": [
+  {
+   "id": "KS-HR6023",
+   "record": "KS-HR6023.json",
+   "expect": "not_created",
+   "why": "a resolution (House resolution) with a committee sponsor"
+  },
+  {
+   "id": "MA-S3224",
+   "record": "MA-S3224.json",
+   "expect": "not_created",
+   "why": "an amendment filed as its own record, placeholder title"
+  },
+  {
+   "id": "NJ-SR52",
+   "record": "NJ-SR52.json",
+   "expect": "not_created",
+   "why": "a Senate resolution"
+  },
+  {
+   "id": "OH-SCR14",
+   "record": "OH-SCR14.json",
+   "expect": "not_created",
+   "why": "a concurrent resolution"
+  },
+  {
+   "id": "NE-LB1083",
+   "record": "NE-LB1083.json",
+   "expect": "to_readers",
+   "why": "a real frontier bill (B): goes to the readers"
+  },
+  {
+   "id": "CT-HB5222",
+   "record": "CT-HB5222.json",
+   "draft": "CT-HB5222.json",
+   "expect": "not_created",
+   "why": "the IVO pilot of P.A. 26-15 re-enacted in another act: a duplicate of ct-p-a-26-15-ivo-pilot (no ids on that entry)"
+  },
+  {
+   "id": "AZ-HB4098",
+   "record": "AZ-HB4098.json",
+   "draft": "AZ-HB4098.json",
+   "expect": "not_created",
+   "why": "the recorded draft states the threshold as \"10.26 computational operations\" (a lost 10^26): never published as written"
+  },
+  {
+   "id": "NJ-A2478",
+   "record": "NJ-A2478.json",
+   "draft": "NJ-A2478.json",
+   "expect": "not_created",
+   "why": "an AI ethics board and impact assessments: meets no state section (the draft put it in C)"
+  },
+  {
+   "id": "WA-HB2503",
+   "record": "WA-HB2503.json",
+   "draft": "WA-HB2503.json",
+   "expect": "not_created",
+   "why": "training-data disclosure: meets no state section (the draft put it in B.2)"
+  },
+  {
+   "id": "VA-SB365-2085502",
+   "record": "VA-SB365-2085502.json",
+   "draft": "VA-SB365-2085502.json",
+   "expect": "not_created",
+   "why": "base-model disclosure and liability: meets no state section (the draft put it in B.2)"
+  },
+  {
+   "id": "VA-SB365-2160653",
+   "record": "VA-SB365-2160653.json",
+   "draft": "VA-SB365-2160653.json",
+   "expect": "not_created",
+   "why": "the same VA bill under its other LegiScan id: meets no state section (the draft put it in B)"
+  },
+  {
+   "id": "NY-A03356",
+   "record": "NY-A03356.json",
+   "draft": null,
+   "expect": "not_created",
+   "why": "advanced AI licensing without a frontier threshold or catastrophic-risk duty: no state section can be proved"
+  },
+  {
+   "id": "NE-LB1083-r2",
+   "record": "NE-LB1083-r2.json",
+   "draft": null,
+   "expect": "to_readers",
+   "why": "a real frontier bill (B), dead: goes to the readers (held only for unproved duties)"
+  },
+  {
+   "id": "PA-HB2829",
+   "record": "PA-HB2829.json",
+   "draft": null,
+   "expect": "to_readers",
+   "why": "a real frontier bill (B): goes to the readers"
+  },
+  {
+   "id": "HR9442",
+   "record": "HR9442.json",
+   "draft": "HR9442.json",
+   "expect": "not_created",
+   "why": "Congress.gov lists related bills the record does not hold: an identical tracked bill cannot be ruled out"
+  },
+  {
+   "id": "HR10152",
+   "record": "HR10152.json",
+   "draft": "HR10152.json",
+   "expect": "created:F",
+   "why": "an adjacent federal bill (open-model risk report by Commerce) with no related bills: F, from its recorded draft"
+  },
+  {
+   "id": "NE-LB1083-refiled",
+   "record": "NE-LB1083.json",
+   "raw_patch": {
+    "bill": {
+     "sasts": [
+      {
+       "type": "Refiled",
+       "sast_bill_id": 2015571,
+       "sast_bill_number": "S6953"
+      }
+     ]
+    }
+   },
+   "expect": "not_created",
+   "why": "LegiScan links it to a tracked bill (NY RAISE Act record 2015571): a refiled or companion bill"
+  },
+  {
+   "id": "KS-HR6023-typed-bill",
+   "record": "KS-HR6023.json",
+   "raw_patch": {
+    "bill": {
+     "bill_type_id": 1,
+     "bill_type": "B"
+    }
+   },
+   "expect": "not_created",
+   "why": "numbered as a resolution although LegiScan types it as a bill (code review S3)"
+  },
+  {
+   "id": "NE-LB1083-tracked-number",
+   "record": "NE-LB1083.json",
+   "entries_patch": {
+    "add_title_number": "NE:LB1083"
+   },
+   "expect": "not_created",
+   "why": "a hand-written entry names its bill number (no ids): already tracked"
+  }
+ ]
+}

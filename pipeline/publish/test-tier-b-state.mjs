@@ -12,6 +12,8 @@ import { checkPublish, checkNewEntry } from './guards.mjs';
 import { assembleEntry } from '../agents/assemble.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { trackedBills } from '../grabber/run-legiscan.mjs';
+import { normaliseDuties } from '../agents/duties.mjs';
+import { sourceText } from '../agents/source-text.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FX = path.join(here, '..', 'fixtures');
@@ -21,15 +23,28 @@ const ok = (name, cond, detail) => { if (cond) pass++; else { fail++; console.lo
 const j = (f) => JSON.parse(fs.readFileSync(f, 'utf8')), w = (f, x) => fs.writeFileSync(f, JSON.stringify(x, null, 1));
 
 const CANDIDATES = { az: 'AZ-HB4098-2112241.json', ne: 'NE-LB1185-2088052.json' };
+// NE LB 1185 as filed meets no state section's criterion (round 2); the dead-bill tests add a catastrophic-risk duty so that it meets B.2.
+const TEXT_EXTRA = { ne: '\nSection 9. A developer shall assess the catastrophic risk of each model it makes available to operators.' };
+// The referee's section quote each draft carries (agents/process-item.mjs refereeSection), and AZ's proved duty answers (B needs them).
+const SECTION_QUOTE = { az: 'frontier model of artificial intelligence that is owned or operated by a large developer', ne: 'assess the catastrophic risk of each model' };
+const none = (summary) => ({ value: 'not_in_bill', summary });
+const AZ_DUTIES = {
+  framework: none('No safety framework is required.'), transparency_report: { value: 'yes', summary: 'Transparency reports must be posted on the business\'s website.', section: '44-1383(D)', quote: 'The transparency reports shall be publicly posted' },
+  incident_reporting: none('No incident reporting.'), imminent_risk_reporting: none('No shorter window.'), third_party_audit: none('No independent audit.'), whistleblower: none('No employee protections.'),
+  registration: { value: 'yes', summary: 'The attorney general must issue a certification before the business enters the stream of commerce.', section: '44-1383(H)', quote: 'The attorney general shall issue a certification' },
+  shutdown: none('No shutdown duty.'), compute_threshold: none('No compute figure.'), revenue_threshold: { value: 'yes', summary: 'A large developer has spent more than $5,000,000 developing and $100,000,000 training a frontier model.', section: '44-1383(K)(4)', quote: 'has spent more than $5,000,000 in developing the frontier model and more than $100,000,000 in training the frontier model' },
+  harm_threshold: none('No harm figure.'), penalties: { value: 'yes', summary: 'Civil penalty of not more than $50,000 per violation, imposed by the attorney general.', section: '44-1383(I)', quote: 'civil penalty of not more than $50,000 per violation' }, effective_date: none('No effective date stated.')
+};
 const PATCHES = {
   az: {
     operation: 'create', in_scope: true, scope_reason: 'Duties on businesses using a frontier model owned or operated by a large developer.', events_add: [],
     fields: { section: 'B', mechanism: 'An artificial intelligence business must submit a transparency report to the attorney general before using or selling a high risk AI system and conduct a quarterly audit.', thresholds: 'A large developer has spent more than $5,000,000 developing and more than $100,000,000 training the frontier model.', penalties: 'Civil penalty of not more than $50,000 per violation, enforced by the attorney general.' },
-    evidence: [{ field: 'mechanism', quote: 'shall submit a transparency report to the attorney general' }, { field: 'thresholds', quote: 'has spent more than $5,000,000 in developing the frontier model and more than $100,000,000 in training the frontier model' }, { field: 'penalties', quote: 'civil penalty of not more than $50,000 per violation' }]
+    // Round 3: every duty the mechanism states has a quote (the quarterly audit too).
+    evidence: [{ field: 'mechanism', quote: 'shall submit a transparency report to the attorney general before using or selling a high risk AI system' }, { field: 'mechanism', quote: 'An artificial intelligence business shall conduct a quarterly audit' },{ field: 'thresholds', quote: 'has spent more than $5,000,000 in developing the frontier model and more than $100,000,000 in training the frontier model' }, { field: 'penalties', quote: 'civil penalty of not more than $50,000 per violation' }]
   },
   ne: {
     operation: 'create', in_scope: true, scope_reason: 'Safety duties for conversational AI services.', events_add: [],
-    fields: { section: 'B', mechanism: 'An operator must clearly and conspicuously disclose to each minor account holder that the account holder is interacting with artificial intelligence.' },
+    fields: { section: 'B.2', mechanism: 'An operator must clearly and conspicuously disclose to each minor account holder that the account holder is interacting with artificial intelligence.' },
     evidence: [{ field: 'mechanism', quote: 'An operator shall clearly and conspicuously disclose to each minor account holder' }]
   }
 };
@@ -45,13 +60,17 @@ function setup({ bills = ['az'], edit = () => {}, tweak = () => {}, lsIds = { _n
   const summary = { run_id: changeset.run_id, outcomes: { publishable: bills.length }, items: [] };
   fs.mkdirSync(path.join(runDir, 'results'), { recursive: true }); fs.mkdirSync(path.join(runDir, 'raw', 'legiscan'), { recursive: true });
   for (const k of bills) {
-    const file = CANDIDATES[k], text = fs.readFileSync(path.join(FX, 'legiscan', 'candidates', file), 'utf8'), raw = JSON.parse(text), rel = `raw/legiscan/${file}`;
+    const file = CANDIDATES[k], raw0 = JSON.parse(fs.readFileSync(path.join(FX, 'legiscan', 'candidates', file), 'utf8')), rel = `raw/legiscan/${file}`;
+    if (TEXT_EXTRA[k]) raw0.text += TEXT_EXTRA[k];
+    const text = JSON.stringify(raw0, null, 1), raw = JSON.parse(text);
     fs.writeFileSync(path.join(runDir, rel), text);
     const b = raw.bill, item = { item_id: `legiscan:${b.bill_id}`, source: 'legiscan', source_id: String(b.bill_id), entry_key: null, change: 'new', reason: 'discovery', source_url: b.state_link, fetched_at: '2026-10-06T15:53:30Z', raw_hash: sha(text), raw_path: rel, title: `${b.state} ${b.bill_number}: ${b.title}` };
     changeset.items.push(item);
     diff.items.push({ item_id: item.item_id, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: `New state bill ${b.state} ${b.bill_number} "${b.title}" is not in the tracker.` }] });
     const asm = assembleEntry({ entry: null, patch: JSON.parse(JSON.stringify(PATCHES[k])), item, raw, today: '2026-10-06', runId: changeset.run_id, rounds: 1, entries, now: new Date('2026-10-06T16:00:00Z') });
     if (asm.problems.length) throw new Error('fixture draft did not assemble: ' + asm.problems.join('; '));
+    asm.entry.evidence.push({ field: 'section', quote: SECTION_QUOTE[k], source_url: item.source_url });
+    if (asm.entry.section === 'B') { const st = sourceText(raw, 'legiscan'); asm.entry.duties = normaliseDuties(AZ_DUTIES, item.source_url); asm.entry.duties_basis = { source_url: item.source_url, sha256: sha(st), chars: st.length, method: 'agent', checked_at: '2026-10-06T16:00:00Z' }; }
     const r = { item_id: item.item_id, outcome: 'publishable', operation: 'create', attempts: 1, entry: asm.entry, patch: PATCHES[k], verdicts: [], reason: null };
     edit(r, k);
     w(path.join(runDir, 'results', item.item_id.replace(/[^A-Za-z0-9._-]+/g, '-') + '.json'), r);
@@ -65,6 +84,11 @@ function setup({ bills = ['az'], edit = () => {}, tweak = () => {}, lsIds = { _n
 const publish = (s, over = {}) => publishRun({ runDir: s.runDir, dataDir: s.dataDir, docsDir: s.docsDir, idsFile: s.idsFile, lsIdsFile: s.lsIdsFile, config: { ...ON, ...over } });
 const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'automated');
 
+// AZ is filed in B (code decides: only B's criterion is met). In A or B the entry must carry proved duty answers: without them it is never created.
+{
+  const s = setup({ edit: (r) => { delete r.entry.duties; delete r.entry.duties_basis; } }), r = publish(s);
+  ok('state: a B entry without proved duty answers is not created', r.result.added.length === 0 && r.result.skipped.some((x) => /needs its duty answers/.test(x.why)), JSON.stringify(r.result.skipped));
+}
 // ---------- a new state bill is added ----------
 {
   const s = setup(), r = publish(s), d = loadData(s.dataDir), e = d.entries.find((x) => x.origin === 'automated');
@@ -73,7 +97,7 @@ const newOnes = (dir) => loadData(dir).entries.filter((e) => e.origin === 'autom
   ok('state: facts from the record in fixed wording', e.title === 'H.B. 4098 — Artificial intelligence business; attorney general' && e.short_name === 'AZ HB 4098' && e.key === 'az-hb-4098' && e.sponsor_text === 'Rep. Anastasia Travers (D)' && /^Status: Introduced Feb 10, 2026/.test(e.status_text));
   ok('state: tracked by its LegiScan id and session', e.identifiers.external.legiscan[0] === 2112241 && e.identifiers.session === 'Fifty-seventh Legislature - Second Regular Session (2026)');
   const n = d.news.items.find((x) => x.tracker === e.key);
-  ok('state: one "introduced" news item in fixed wording, linking the legislature\'s page', n && n.date === '2026-02-10' && n.kind === 'state' && n.title === 'AZ HB 4098: introduced' && n.body === 'The AZ Legislature records that H.B. 4098 — Artificial intelligence business; attorney general was introduced on Feb 10, 2026, sponsored by Rep. Anastasia Travers (D).' && n.links[0].u === 'https://apps.azleg.gov/BillStatus/BillOverview/85620' && n.links[0].t === 'AZ HB 4098 on the AZ Legislature site' && /no AI/.test(n.check) && n.evidence[0].quote === 'Artificial intelligence business; attorney general', n && JSON.stringify(n));
+  ok('state: one news item in fixed wording, dated the day it is added, describing the current status and linking the legislature\'s page', n && n.date === '2026-10-06' && n.kind === 'state' && n.title === 'AZ HB 4098: in committee' && n.body === 'As of Oct 6, 2026, the AZ Legislature records that H.B. 4098 ("Artificial intelligence business; attorney general") was last in committee on Feb 10, 2026 ("Assigned to House AII Committee"). It was introduced on Feb 10, 2026. It is sponsored by Rep. Anastasia Travers (D).' && n.links[0].u === 'https://apps.azleg.gov/BillStatus/BillOverview/85620' && n.links[0].t === 'AZ HB 4098 on the AZ Legislature site' && /no AI/.test(n.check) && n.evidence[0].quote === 'Artificial intelligence business; attorney general', n && JSON.stringify(n));
   const ls = j(s.lsIdsFile).legiscan[e.key];
   ok('state: the bill joins config/identifiers-legiscan.json as a confirmed mapping, in the map-ids shape', ls && ls.status === 'confirmed' && ls.entry_id === e.id && ls.short_name === 'AZ HB 4098' && ls.added_by === 'pipeline' && ls.checks[0].result === 'match'
     && JSON.stringify(Object.keys(ls.bills[0])) === JSON.stringify(['bill_id', 'number', 'state', 'session_id', 'session_name', 'official_url', 'legiscan_url', 'year_end', 'session_open'])
@@ -88,7 +112,7 @@ function az() { return j(path.join(FX, 'legiscan', 'candidates', CANDIDATES.az))
 // ---------- a dead bill ----------
 {
   const s = setup({ bills: ['ne'] }), r = publish(s), e = newOnes(s.dataDir)[0];
-  ok('dead state bill: added with status failed, as the record gives it', r.status === 'published' && e && e.status === 'failed' && e.section === 'B' && /Indefinitely postponed \(Apr 17, 2026\)/.test(e.status_text), r.summary);
+  ok('dead state bill: added with status failed, as the record gives it', r.status === 'published' && e && e.status === 'failed' && e.section === 'B.2' && /Indefinitely postponed \(Apr 17, 2026\)/.test(e.status_text), r.summary);
   const nb = j(s.lsIdsFile).legiscan[e.key].bills[0];
   ok('dead state bill: joins the LegiScan list with its session (109th Legislature, last year 2026)', nb.bill_id === 2088052 && nb.session_name === '109th Legislature' && nb.year_end === 2026 && nb.session_open === true, JSON.stringify(nb));
 }
@@ -128,7 +152,7 @@ skippedFor((r) => { r.entry.state = 'CA'; r.entry.jurisdiction = 'CA'; }, /juris
   ok('state guard: the published data passes every rule', variant(() => {}).length === 0, variant(() => {}).join('; '));
   ok('checkNewEntry passes a correct state entry', checkNewEntry(after.entries.find((x) => x.key === key)).length === 0);
   ok('state guard: wrong section (a federal one)', variant((e) => { e.section = 'F'; }).some((p) => /type\/level bill\/state do not follow the rule for section F/.test(p)));
-  ok('state guard: a section that needs a person', variant((e) => { e.section = 'H'; e.type = 'precursor'; }).some((p) => /section H needs a person/.test(p)));
+  ok('state guard: a section that needs a person', variant((e) => { e.section = 'H'; e.type = 'precursor'; }).some((p) => /section H is never auto-created/.test(p)));
   ok('state guard: an enacted status in B', variant((e) => { e.status = 'enacted'; }).some((p) => /status enacted does not follow the rule for section B/.test(p)));
   ok('state guard: "stalled" is a person\'s judgement, never the pipeline\'s', variant((e) => { e.status = 'stalled'; }).some((p) => /status stalled does not follow the rule for section B/.test(p)));
   ok('state guard: missing LegiScan ids', variant((e) => { delete e.identifiers.external.legiscan; }).some((p) => /needs its LegiScan id and session/.test(p)));

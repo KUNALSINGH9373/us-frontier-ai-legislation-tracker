@@ -1,7 +1,8 @@
 // Applies a Generator patch to produce a full candidate entry (v2). Plain code.
 // Everything the model must not decide is decided here: status, type, level, jurisdiction, confidence, identifiers,
 // sources, verification and dates of checking.
-import { SECTION_RULES, AUTO_CREATE_SECTIONS, SECTION_NAMES, statusFor, confidenceFor } from './rules.mjs';
+import { SECTION_RULES, AUTO_CREATE_SECTIONS, SECTION_NAMES, statusFor, confidenceFor, stateSectionProblems } from './rules.mjs';
+import { measureKind } from './record-kind.mjs';
 import { statusFromAction } from '../compare/congress.mjs';
 import { deriveCreate } from './derive.mjs';
 
@@ -9,10 +10,25 @@ const clone = (o) => JSON.parse(JSON.stringify(o));
 const slug = (s) => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60).replace(/-+$/g, '');
 const UPDATE_FIELDS = ['sponsor_text', 'mechanism', 'thresholds', 'penalties', 'status_text', 'signed_text', 'effective_text'];
 const CREATE_REQUIRED = ['title', 'short_name', 'section', 'sponsor_text', 'mechanism'];
+// Two events on one day with the same text are one event (LegiScan's "Indefinitely postponed" read as both a failure and a stall): the
+// most decisive type is kept. An exact repeat (same day, type and text) is kept once.
+const TYPE_RANK = ['Signed / enacted', 'Vetoed / failed / rescinded', 'Effective', 'Passed / advanced', 'Introduced / published', 'Referred / stalled / hearing', 'Litigation', 'Search date / deadline / scheduled'];
+const NOT_LAW = new Set(['pending', 'failed', 'stalled']);
+const textKey = (t) => String(t || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+export function dedupeEvents(events) {
+  const best = new Map();
+  for (const e of events) {
+    const k = e.date + '|' + textKey(e.text), cur = best.get(k);
+    if (!cur || TYPE_RANK.indexOf(e.type) < TYPE_RANK.indexOf(cur.type)) best.set(k, e);
+  }
+  const keep = new Set(best.values());
+  return events.filter((e) => keep.has(e));
+}
 
 export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, rounds, entries = [], now = new Date() }) {
   let patch = patchIn;
   const problems = [], source = item.source;
+  let derivedKeys = new Set();
   const sourceRef = { label: source === 'congress_gov' ? `Congress.gov record: ${(raw.bill && raw.bill.title) || item.source_id}` : source === 'legiscan' ? `${(raw.bill && raw.bill.state) || 'State'} Legislature record: ${(raw.bill && raw.bill.title) || item.source_id}` : `Federal Register: ${(raw.document && raw.document.title) || item.source_id}`, url: item.source_url, kind: 'primary', retrieved_at: item.fetched_at };
   const identifiers = (base) => {
     const id = clone(base || { external: {} }); id.external = id.external || {};
@@ -22,13 +38,17 @@ export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, 
     if (source === 'congress_gov' && !id.session) id.session = '119th Congress';
     return id;
   };
-  const addEvents = (events) => {
+  const addEvents = (events, status = null) => {
     const out = clone(events || []);
     for (const e of patch.events_add) {
       if (out.some((x) => x.date === e.date && x.type === e.type)) continue;
+      // An event the AI added that contradicts the record's status is dropped: no "Signed / enacted" or "Effective" on a bill that is not
+      // law, and nothing scheduled after a bill died (NE L.B. 1083, indefinitely postponed, had a future "Effective" event).
+      if (NOT_LAW.has(status) && (e.type === 'Signed / enacted' || e.type === 'Effective') && !derivedKeys.has(e.date + '|' + e.type)) continue;
+      if (status === 'failed' && e.date > today && !derivedKeys.has(e.date + '|' + e.type)) continue;
       out.push({ ...e, inferred_year: false, scheduled: e.date > today });
     }
-    return out.sort((a, b) => a.date.localeCompare(b.date));
+    return (status ? dedupeEvents(out) : out).sort((a, b) => a.date.localeCompare(b.date));
   };
   const common = (o) => {
     o.evidence = [...(o.evidence || []), ...patch.evidence.map((e) => ({ field: e.field, quote: e.quote, source_url: e.source_url || item.source_url }))];
@@ -56,14 +76,17 @@ export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, 
   // create: what the record states exactly is written by code; the model supplies what needs reading (mechanism, who it covers, section when no rule decides it)
   const derived = deriveCreate({ item, raw });
   const f = { ...patch.fields, ...Object.fromEntries(Object.entries(derived.fields).filter(([, v]) => v != null)), ...(derived.section ? { section: derived.section } : {}) };
+  derivedKeys = new Set(derived.events.map((d) => d.date + '|' + d.type));
   patch = { ...patch, events_add: [...derived.events, ...patch.events_add.filter((e) => !derived.events.some((d) => d.date === e.date && d.type === e.type))] };
   for (const k of CREATE_REQUIRED) if (f[k] == null || f[k] === '') problems.push(`a new entry needs "${k}"`);
   if (problems.length) return { entry: null, problems };
-  if (!AUTO_CREATE_SECTIONS.includes(f.section)) { problems.push(`new entries in section ${f.section} need a person (the pipeline may create only in ${AUTO_CREATE_SECTIONS.join(', ')})`); return { entry: null, problems }; }
+  if (!AUTO_CREATE_SECTIONS.includes(f.section)) { problems.push(`new entries in section ${f.section} are never auto-created (the pipeline may create only in ${AUTO_CREATE_SECTIONS.join(', ')})`); return { entry: null, problems }; }
   const rule = SECTION_RULES[f.section], state = source === 'legiscan';
   // A state bill goes only in a state section its status allows (derive.mjs stateSections); a federal item never in a state section.
   if (rule.level !== (state ? 'state' : 'federal')) { problems.push(`section ${f.section} is for ${rule.level} items; this is a ${state ? 'state' : 'federal'} ${state ? 'bill' : 'item'}`); return { entry: null, problems }; }
   if (derived.sections && !derived.sections.includes(f.section)) { problems.push(`a ${derived.status} state bill goes in section ${derived.sections.join(', ')}, not ${f.section}`); return { entry: null, problems }; }
+  // The kind of measure decides the section too: a resolution or memorial is never in A, B or B.2; A needs frontier duties in the enacted text.
+  if (state) { const sp = stateSectionProblems(f.section, measureKind(raw.bill, raw.text), raw.text || ''); if (sp.length) { problems.push(...sp); return { entry: null, problems }; } }
   const apiStatus = source === 'congress_gov' && raw.bill && raw.bill.latestAction ? statusFromAction(raw.bill.latestAction.text) : state ? derived.status : 'pending';
   const existingKeys = new Set(entries.map((e) => e.key));
   let key = slug(f.short_name) || 'entry'; if (!/^[a-z0-9]/.test(key)) key = 'e-' + key;
@@ -77,7 +100,7 @@ export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, 
     origin: 'automated', identifiers: identifiers(null), legacy: { section_name: SECTION_NAMES[f.section] }
   };
   if (state && derived.session) o.identifiers.session = derived.session;
-  o.events = addEvents([]);
+  o.events = addEvents([], o.status);
   common(o);
   // The legislature's own copy of the text the reading fields were checked against, when that is where the words came from.
   const tv = state && raw.text_version;
