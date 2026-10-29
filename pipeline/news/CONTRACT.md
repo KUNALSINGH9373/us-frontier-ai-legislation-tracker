@@ -50,3 +50,10 @@ Added 29 Oct (site needs): `jurisdiction` (always), `stage` = one of `introduced
 
 ## Rules for every agent
 Work in your worktree on top of 2f1d34b; commit there; do not push; do not touch main; never change any `auto_publish` switch (news stays false); Lane 1 output must stay byte-identical; add your test file to the `npm test` script in pipeline/package.json; `npm test` must exit 0; end commits with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## Decisions 29 Oct (core: events, classify, render)
+- `facts.milestone`: an official-record field computed by code only from tracker data (news/events.mjs `milestoneFor`, e.g. "3rd state with an enacted law in this tracker section (B)"); null when any date is unknown. Never written by AI; the writer may say "first"/"Nth" only when it is present.
+- Adapters built on records the run already has (congress_gov, legiscan, courtlistener) use a per-action `source_id` (`<record>#<date>#<hash of the official words>`) plus `record` (the bill), so news/confirm.mjs matches an event to its own action; `fetched: [{ source, record }]` names records read in full this run (an event of such a record no longer in it is withdrawn via `facts.withdrawn`). An event whose record was not read again is carried into applyRun unchanged (the grabber's cursor says it did not change).
+- Several items with one key: one event; the official source is the existing one's, else by `OFFICIAL_ORDER`; other sources only confirm. Different official words of one key are kept in `facts.actions`.
+- Rendering: one item per entry and date (an entry/date the page already covers by hand or by Lane 1's official-action news is not added again). Lane 1's `news_from_official_actions` is left on: switching it off would change Lane 1 output, which must stay byte-identical; turn it off when `auto_publish.news` goes on.
+- A long official text (a court order) is quoted by its opening sentences, verbatim, marked "(opening words of the entry)"; a quote is never cut mid-way.

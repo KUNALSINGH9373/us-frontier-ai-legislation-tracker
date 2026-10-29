@@ -9,7 +9,7 @@
 import { buildFactSheet, sheetText, billNumbers, STATE_NAMES } from './factsheet.mjs';
 import { CARD_WRITER_SYSTEM, cardWriterPrompt, CARD_READER_SYSTEM, cardReaderPrompt } from './writer-prompts.mjs';
 import { digitRuns } from '../agents/source-text.mjs';
-import { sentences, datesIn } from './write.mjs';
+import { sentences, datesIn } from './text.mjs';
 
 export const CARD_LIMITS = { headline: 90, body: 400, sentencesMin: 2, sentencesMax: 3 };
 

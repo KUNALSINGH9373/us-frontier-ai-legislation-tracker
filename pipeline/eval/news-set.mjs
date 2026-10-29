@@ -1,59 +1,67 @@
-// The news measure of the gate (eval/gate.mjs): a recorded leads set (eval/news-set/cases.json) replayed through the real news writer
-// (news/write.mjs draftNews) with the recorded answers of the writer and the second reader. Every case says what must happen:
-//   expect "publish"  the draft is checked and would be added (outcome drafted)
-//   expect "refuse"   nothing may be added (rejected, secondary, not newsworthy, error)
-// wrong = a case expected "refuse" that would be added (a wrong or misleading item), or one expected "publish" that would be added with a
-// different title or body than recorded; missed = a "publish" case refused (counted, not wrong). The gate needs wrong 0.
-// Code only: the answers are recorded, so the measure is about the checks (quotes, numbers, dates, attribution, freshness, press leads).
+// The news measure of the gate (eval/gate.mjs): a recorded event set (eval/news-set/cases.json) replayed through the real event lane
+// (news/run.mjs eventsStep: adapters, classifier, upsert, confirmation) and the real render (news/events.mjs renderNews) on the real news
+// page. Each case lists the official records (fixtures/news/sources/), how many runs to replay, any extra independent records, and the
+// exact items that must come out (event_key, title, body). Code only, no AI, no network.
+//   wrong  = an item rendered that the case does not expect, or an expected one with a different title or body (a wrong or misleading item)
+//   missed = an expected item not rendered (counted, not wrong). The gate needs wrong 0.
 // A case format (one object per case in cases.json):
-//   { id, note, today, max_age_days, lead: { ...a findLeads lead }, release_fixture: "<file in fixtures/news>" | release_text: "...",
-//     writer: [<answer per round>], checker: "yes" | "no" | [<answer per round>], expect: "publish" | "refuse" }
-// New cases are added from real leads: record the release page and the models' answers (news/run.mjs keeps them in the run folder).
+//   { id, note, runs: [{ now, run_id }], records: [{ fixture, source, source_id, entry_key, source_url, fetched_at, redate? }],
+//     court_found: "<fixture>" | null, extra_items: [RawItem], expect: [{ event_key, title, body }] }
 //   node eval/news-set.mjs [--no-write]
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { createRenderer } from '../news/render.mjs';
-import { draftNews } from '../news/write.mjs';
+import { eventsStep } from '../news/run.mjs';
+import { emptyState, renderNews, upsertItems, markShown } from '../news/events.mjs';
 import { checksHash } from './hash.mjs';
 import { writeMeasureReport } from './gate.mjs';
 
-const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
+const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..'), root = path.resolve(P, '..');
 export const NEWS_SET = path.join(here, 'news-set', 'cases.json');
+const FIX = path.join(P, 'fixtures', 'news', 'sources');
+const j = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 
-const scripted = (fn) => ({ calls: 0, async generate(req) { this.calls++; return { data: fn(req, this.calls), usage: {} }; } });
-const claimCount = (prompt) => (prompt.match(/^\d+\. \[/gm) || []).length;
-function checkerOf(spec) {
-  if (Array.isArray(spec)) return scripted((req, n) => spec[Math.min(n, spec.length) - 1]);
-  return scripted((req) => ({ results: Array.from({ length: claimCount(req.prompt) }, (_, i) => (spec && spec.supported === false) || spec === 'no'
-    ? { n: i + 1, supported: false, quote: null, reason: 'not stated in the release' }
-    : { n: i + 1, supported: true, quote: (spec && spec.quote) || null, reason: null }) }));
+export async function runCase(c, { news, entries }) {
+  const state = emptyState();
+  const records = (c.records || []).map((r) => {
+    const raw = j(path.join(FIX, r.fixture));
+    if (r.redate && raw.actions) raw.actions.forEach((a) => { a.actionDate = r.redate; });
+    if (r.drop && raw.actions) raw.actions = raw.actions.filter((a) => !new RegExp(r.drop).test(a.text));
+    return { source: r.source, source_id: r.source_id, entry_key: r.entry_key, source_url: r.source_url, fetched_at: r.fetched_at, raw };
+  });
+  const found = c.court_found ? j(path.join(FIX, c.court_found)).found : [];
+  let page = news;
+  for (const [i, run] of (c.runs || []).entries()) {
+    const now = new Date(run.now);
+    const recs = run.records === 'none' ? [] : run.drop ? records.map((r) => ({ ...r, raw: { ...r.raw, actions: (r.raw.actions || []).filter((a) => !new RegExp(run.drop).test(a.text)) } })) : records;
+    await eventsStep({ state, records: recs, courtFound: i === 0 ? found : [], now, runId: run.run_id, sinceDays: c.since_days || 800 });
+    if (run.extra_items) upsertItems(state, run.extra_items, { runId: run.run_id + '-x', now });
+    if (run.publish) { const r = renderNews(page, state, entries, { at: now.toISOString() }); markShown(state, r.added, now.toISOString()); page = r.news; }
+  }
+  const last = new Date(c.runs[c.runs.length - 1].now).toISOString();
+  return renderNews(page, state, entries, { at: last });
 }
 
-export async function runNewsSet({ cases, fixturesDir = path.join(P, 'fixtures', 'news'), now = new Date() }) {
+export async function runNewsSet({ cases, now = new Date() }) {
+  const news = j(path.join(root, 'web', 'data', 'v2', 'news.json')), entries = j(path.join(root, 'web', 'data', 'v2', 'entries.json'));
   const rows = [];
-  // a recorded release page is read as the run reads it: rendered in a headless browser, visible text only (news/render.mjs), offline
-  let renderer = null;
-  try {
   for (const c of cases) {
-    if (c.release_text == null && !renderer) renderer = createRenderer();
-    const release = c.release_text != null ? c.release_text : await renderer.renderHtml(fs.readFileSync(path.join(fixturesDir, c.release_fixture), 'utf8'));
-    const writer = scripted((req, n) => JSON.parse(JSON.stringify(c.writer[Math.min(n, c.writer.length) - 1])));
-    let r;
-    try { r = await draftNews({ lead: c.lead, release, writer, checker: checkerOf(c.checker), today: c.today, runId: 'news-set', now: new Date(c.today + 'T06:00:00Z'), maxRounds: c.max_rounds || 2, maxAgeDays: c.max_age_days || 14 }); }
-    catch (e) { r = { outcome: 'error', reason: e.message }; }
-    const added = r.outcome === 'drafted';
-    const differs = added && c.expect === 'publish' && c.expect_item && (r.item.title !== c.expect_item.title || r.item.body !== c.expect_item.body);
-    rows.push({ id: c.id, expect: c.expect, outcome: r.outcome, wrong: (added && c.expect === 'refuse') || !!differs, missed: !added && c.expect === 'publish', reason: r.reason || null });
+    let r, err = null;
+    try { r = await runCase(c, { news, entries }); } catch (e) { err = e.message; }
+    const got = err ? [] : r.news.items.filter((n) => n.event_key);
+    const want = new Map((c.expect || []).map((x) => [x.event_key, x]));
+    const extra = got.filter((n) => !want.has(n.event_key));
+    const differs = got.filter((n) => want.has(n.event_key) && (n.title !== want.get(n.event_key).title || n.body !== want.get(n.event_key).body || (want.get(n.event_key).status && n.status !== want.get(n.event_key).status)));
+    const missed = [...want.keys()].filter((k) => !got.some((n) => n.event_key === k));
+    rows.push({ id: c.id, expect: want.size, got: got.length, wrong: extra.length + differs.length > 0, missed: missed.length > 0, extra: extra.map((n) => `${n.event_key}: ${n.title}`), differs: differs.map((n) => `${n.event_key}: ${n.title} | ${n.body}`), missing: missed, error: err });
   }
-  } finally { if (renderer) await renderer.close(); }
   return { measure: 'news', run_at: now.toISOString(), checks_hash: checksHash('news'), cases: rows.length, wrong: rows.filter((x) => x.wrong).length, missed: rows.filter((x) => x.missed).length, rows };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
-  const set = JSON.parse(fs.readFileSync(NEWS_SET, 'utf8'));
+  const set = j(NEWS_SET);
   const rep = await runNewsSet({ cases: set.cases });
-  rep.rows.forEach((x) => console.log(`  ${x.wrong ? 'WRONG ' : x.missed ? 'missed' : 'ok    '} ${x.id.padEnd(28)} expect ${x.expect.padEnd(7)} got ${x.outcome}${x.reason ? ` (${String(x.reason).slice(0, 90)})` : ''}`));
+  rep.rows.forEach((x) => console.log(`  ${x.wrong ? 'WRONG ' : x.missed ? 'missed' : 'ok    '} ${x.id.padEnd(30)} expect ${x.expect} got ${x.got}${x.error ? ` (error: ${x.error})` : ''}${[...x.extra, ...x.differs, ...x.missing].map((s) => '\n         ' + s).join('')}`));
   console.log(`news set: ${rep.cases} cases, ${rep.wrong} wrong, ${rep.missed} missed`);
   if (!process.argv.includes('--no-write')) console.log('wrote ' + writeMeasureReport(rep));
   process.exit(rep.wrong ? 1 : 0);

@@ -1,75 +1,251 @@
 {
- "_note": "The recorded news leads set for the gate (eval/news-set.mjs). Seeded 29 Oct 2026 from the news agent's fixtures (fixtures/news: Rep. Liccardo's 22 Sept 2026 release, recorded 28 Oct 2026) and the ways an item can be wrong that news/test.mjs covers. Each case replays the writer's and the second reader's recorded answers; expect says what must happen. Add real leads as they are recorded.",
+ "_note": "The recorded event set for the news gate (eval/news-set.mjs), rebuilt 29 Oct 2026 for the event model: real official records as the pipeline stores them (fixtures/news/sources/: Congress.gov H.R. 3460, LegiScan CA AB 1405, CourtListener docket entries of two tracked cases) replayed over runs through the adapters, classifier, confirmation and render, on the real news page. expect lists every item that must come out, word for word; anything else rendered is wrong.",
  "cases": [
   {
-   "id": "liccardo-checked",
-   "note": "An official release, every quote and number in it, the second reader confirms every claim: it would be added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\" It would direct the State Department to seek negotiations with China and authorize $100 million for the Center for AI Standards and Innovation (CAISI).", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }, { "quote": "Authorize $100 million for the Center for AI Standards and Innovation (CAISI)" }] }],
-   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
-   "expect": "publish"
+   "id": "hr3460-two-stable-runs",
+   "note": "Congress.gov record read on two runs, unchanged: the referral is confirmed by two stable runs and rendered; the introduction waits for govinfo (independent confirmer for that class) and is not shown.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "confirmed"
+    }
+   ]
   },
   {
-   "id": "liccardo-invented-quote",
-   "note": "A quote the release does not contain (both rounds): never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China AI safety bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to ban frontier AI exports to China.\"", "evidence": [{ "quote": "to ban frontier AI exports to China" }] }],
-   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
-   "expect": "refuse"
+   "id": "hr3460-one-run-only",
+   "note": "Read once: everything is pending, nothing is shown.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": []
   },
   {
-   "id": "liccardo-invented-number",
-   "note": "A figure the release does not state ($200 million): never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\" It would authorize $200 million for the Center for AI Standards and Innovation (CAISI).", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
-   "expect": "refuse"
+   "id": "hr3460-default-window",
+   "note": "A real run's 14-day window: the 2025 actions are history and are never back-filled.",
+   "since_days": 14,
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": []
   },
   {
-   "id": "liccardo-reader-rejects",
-   "note": "The second reader does not confirm the claims: never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": "no",
-   "expect": "refuse"
+   "id": "ca-ab1405-legiscan-alone",
+   "note": "A state bill from LegiScan alone, on two runs: an independent state record exists for these classes, so nothing is confirmed or shown.",
+   "runs": [
+    {
+     "now": "2026-10-13T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-13T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-13T05:40:19Z"
+    }
+   ],
+   "expect": []
   },
   {
-   "id": "press-lead",
-   "note": "A press story (not an official release) is only reported, never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "p1", "key": "p", "source_id": "politico-technology", "publisher": "Politico", "kind": "federal", "primary": false, "title": "Anthropic quietly pitches its own AI safety bill to lawmakers", "link": "https://www.politico.com/x", "release_url": "https://www.politico.com/x", "date": "2026-10-27", "tracker": null, "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-10-27", "title": "Anthropic pitches an AI safety bill", "body": "Anthropic pitched an AI safety bill to lawmakers.", "evidence": [] }],
-   "checker": "yes",
-   "expect": "refuse"
+   "id": "ca-ab1405-confirmed-by-openstates",
+   "note": "The same record, and an Open States record of the chaptering on the same day: the became-law event is confirmed and shown, nothing else.",
+   "runs": [
+    {
+     "now": "2026-10-13T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-13T12:00:00Z",
+     "run_id": "r2",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-bill/ab1405#chaptered",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-09-09",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026."
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-13T11:00:00Z"
+      }
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-13T05:40:19Z"
+    }
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-09-09",
+     "title": "CA AB 1405 (auditor registry) becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Sept 9, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed"
+    }
+   ]
   },
   {
-   "id": "liccardo-old-news",
-   "note": "The same release read with the production 14-day window on 28 Oct (dated 22 Sept): old news, never added.",
-   "today": "2026-10-28", "max_age_days": 14,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": "yes",
-   "expect": "refuse"
+   "id": "court-dockets",
+   "note": "Docket entries of two tracked cases read by the court step, then two runs: the rulings are shown once per entry and day; an event on a day the page already covers (Lane 1's own item) is not added again; routine entries never.",
+   "court_found": "courtlistener/found.json",
+   "runs": [
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-27T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|x-ai-v-weiser-d-colo|court-ruling|2026-04-27",
+     "title": "X.AI v. Weiser (D. Colo.): Court order",
+     "body": "The court docket (D. Colo.) shows this action on X.AI LLC v. Weiser, No. 1:26-cv-01515 (D. Colo.) on Apr 27, 2026: \"MINUTE ORDER: The parties' Motion, ECF No. 22, is GRANTED. A stay will not prejudice the plaintiff, who does not oppose the motion, ECF No. 22, will avoid burdening the parties with the costs of litigating, promotes judicial economy and efficiency, does not negatively impact nonparties, and is in the public interest\" (opening words of the entry).",
+     "status": "confirmed"
+    },
+    {
+     "event_key": "US|fl-anthropic-v-department-of-war-n-d-cal|court-ruling|2026-08-27",
+     "title": "Anthropic v. Department of War (N.D. Cal.): Judgment entered",
+     "body": "The court docket (N.D. Cal.) shows this action on Anthropic PBC v. U.S. Department of War et al., No. 3:26-cv-01996 (N.D. Cal.) on Aug 27, 2026: \"JUDGMENT. Signed by Judge Rita F. Lin on August 27, 2026\".",
+     "status": "confirmed"
+    }
+   ]
   },
   {
-   "id": "liccardo-wrong-date",
-   "note": "The item dates the announcement a day the release does not give (Sept 21): never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-21", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 21, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": "yes",
-   "expect": "refuse"
+   "id": "hr3460-withdrawn-after-shown",
+   "note": "The referral is published, then the record read again in full no longer shows it: the item stays, marked withdrawn, with a correction line.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2",
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "r3",
+     "drop": "Referred to the House Committee"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
+     "title": "Withdrawn: S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "withdrawn"
+    }
+   ]
+  },
+  {
+   "id": "future-dated-refused",
+   "note": "A record whose actions are dated after the run: refused, nothing created or shown.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z",
+     "redate": "2026-11-05"
+    }
+   ],
+   "expect": []
   }
  ]
 }

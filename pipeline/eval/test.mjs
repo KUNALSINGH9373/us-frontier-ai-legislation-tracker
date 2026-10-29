@@ -55,15 +55,16 @@ ok('exponents read the same however printed; years and single digits are not fac
   ok('gate: a report for another model does not count', g3.report === null);
   // Round 2 gate (code review B1-B3, S6, S7): every Lane 2 switch has its own measure, made by the current code (checks_hash).
   const all = { pass_rate: 1, unsupported_fields: 0, items: 2 };
-  const H = { fields: 'hf', new_entries: 'ht', relationships: 'hl', news: 'hn' };
+  const H = { fields: 'hf', new_entries: 'ht', relationships: 'hl', news: 'hn', news_writer: 'hw' };
   const modelsR = { provider: 'gemini', roles: { generator: { model: 'm' }, validator: { model: 'v' }, referee: { model: 'r' } } };
-  const EXP = { tierb: 12, news: 6, links: null };
+  const EXP = { tierb: 12, news: 6, news_writer: 7, links: null };
   const fieldsRep = { generator: 'm', reader: 'v', validator: 'v', referee: 'r', run_at: '2026-10-16', checks_hash: 'hf', summary: { items: 2, scope_agreement: 1, fields: { mechanism: all, thresholds: all, penalties: all } } };
   const ON = { mechanism: true, thresholds: true, penalties: true, new_entries: true, relationships: true, news: true };
   const tierb = (o = {}) => ({ measure: 'tierb', run_at: '2026-10-29', checks_hash: 'ht', cases: 12, wrong: 0, ...o });
   const links = (o = {}) => ({ measure: 'links', run_at: '2026-10-29', checks_hash: 'hl', cases: 300, wrong: 0, errors: 0, backtest_errors: 0, backtest: { proposals: 50, as_new_proposals: 50 }, suite_passed: 200, suite_failed: 0, suite_note: null, applied_wrong: 0, ...o });
   const newsR = (o = {}) => ({ measure: 'news', run_at: '2026-10-29', checks_hash: 'hn', cases: 6, wrong: 0, ...o });
-  const G = (measures, extra = {}) => gate({ config: { ...config, auto_publish: ON }, models: modelsR, reports: [fieldsRep], goldItems: 2, measures, hashes: H, expected: EXP, ...extra });
+  const writerR = (o = {}) => ({ measure: 'news_writer', run_at: '2026-10-29', checks_hash: 'hw', cases: 7, wrong: 0, ai_written: 3, ...o });
+  const G = (measures, extra = {}) => gate({ config: { ...config, auto_publish: ON }, models: modelsR, reports: [fieldsRep], goldItems: 2, measures: measures.some((m) => m.measure === 'news_writer') || extra.noWriter ? measures : [...measures, writerR()], hashes: H, expected: EXP, ...extra });
   // Round 3 gate (audit items 1-4).
   ok('gate r3: a partial measure report (partial: true) never counts, for every measure', !G([tierb({ partial: true }), links(), newsR()]).fields.new_entries.meets && !G([tierb(), links({ partial: true }), newsR()]).fields.relationships.meets && !G([tierb(), links(), newsR({ partial: true })]).fields.news.meets);
   ok('gate r3: fewer cases than the case set holds never count', !G([tierb({ cases: 11 }), links(), newsR()]).fields.new_entries.meets && !G([tierb(), links(), newsR({ cases: 5 })]).fields.news.meets && /whole case set/.test(G([tierb({ cases: 3 }), links(), newsR()]).fields.new_entries.note));
@@ -100,7 +101,8 @@ ok('exponents read the same however printed; years and single digits are not fac
   const g6 = G([tierb(), newsR()]);
   ok('gate: relationships are their own measure and not part of new entries', !g6.fields.relationships.meets && g6.fields.new_entries.meets && g6.violations.join() === 'relationships', g6.violations.join());
   ok('gate: one wrong item in a measure keeps its switch off', !G([tierb({ wrong: 1 }), links(), newsR()]).fields.new_entries.meets && !G([tierb(), links({ wrong: 1, suite_failed: 1 }), newsR()]).fields.relationships.meets && !G([tierb(), links(), newsR({ wrong: 1 })]).fields.news.meets);
-  ok('gate: news has a measure (the recorded leads set); without a report its switch is off', !G([tierb(), links()]).fields.news.meets);
+  ok('gate: news has a measure (the event set); without a report its switch is off', !G([tierb(), links()]).fields.news.meets);
+  ok('gate: news also needs the card-writer measure: none, one wrong, a partial set, or no AI-written card keeps it off', !G([tierb(), links(), newsR()], { noWriter: true }).fields.news.meets && !G([tierb(), links(), newsR(), writerR({ wrong: 1 })]).fields.news.meets && !G([tierb(), links(), newsR(), writerR({ cases: 6 })]).fields.news.meets && !G([tierb(), links(), newsR(), writerR({ ai_written: 0 })]).fields.news.meets && !G([tierb(), links(), newsR(), writerR({ checks_hash: 'old' })]).fields.news.meets && G([tierb(), links(), newsR(), writerR()]).fields.news.meets);
   ok('gate: a report made by other code (checks_hash differs or is missing) does not count', !G([tierb({ checks_hash: 'old' }), links(), newsR()]).fields.new_entries.meets && G([], { reports: [{ ...fieldsRep, checks_hash: undefined }] }).report === null);
   const g7 = G([tierb(), links(), newsR()], { error: 'gold.json is unreadable' });
   ok('gate: unreadable inputs turn every switch off with a note', Object.values(g7.fields).every((x) => !x.meets && /could not be read/.test(x.note)) && g7.violations.length === 6);

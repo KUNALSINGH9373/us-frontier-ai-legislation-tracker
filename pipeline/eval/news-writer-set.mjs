@@ -47,7 +47,7 @@ export async function runWriterSet({ cases, today, entries, now = new Date() }) 
     }
   }
   const rec = rows.filter((x) => x.kind === 'recorded');
-  return { measure: 'news_writer', run_at: now.toISOString(), checks_hash: checksHash('news'), checks_hash_basis: 'news', cases: cases.length, recorded: rec.length, synthetic: rows.length - rec.length, wrong: rows.filter((x) => x.wrong).length, missed: rows.filter((x) => x.missed).length, ai_written: rec.filter((x) => x.written_by === 'ai').length, rows };
+  return { measure: 'news_writer', run_at: now.toISOString(), checks_hash: checksHash('news_writer'), cases: cases.length, recorded: rec.length, synthetic: rows.length - rec.length, wrong: rows.filter((x) => x.wrong).length, missed: rows.filter((x) => x.missed).length, ai_written: rec.filter((x) => x.written_by === 'ai').length, rows };
 }
 
 // --record: one live pass per case (writer + reader, up to 2 rounds), every answer stored. Spend goes on the shared ledger

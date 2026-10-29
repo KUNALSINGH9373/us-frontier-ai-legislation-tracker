@@ -3,7 +3,7 @@
 //   mechanism, thresholds, penalties   the field eval (eval/run.mjs) over the whole test set for the production model: eval_bar
 //   new_entries                        every reading field above AND the Tier B replay set (eval/tierb-set.mjs) at zero wrong
 //   relationships                      the links backtest on the real network AND the links synthetic suite (eval/links-measure.mjs), zero wrong
-//   news                               the recorded leads set (eval/news-set.mjs) at zero wrong
+//   news                               the event set (eval/news-set.mjs) and the card writer (eval/news-writer-set.mjs) at zero wrong
 // A report whose checks_hash is missing or differs from the current code does not count. An unreadable report or gold file turns every
 // switch off for the run with a note (update.mjs never stops on it; the official-record steps go on).
 //   node eval/gate.mjs            prints the verdict per switch; exit 1 if a switch is on without a passing report
@@ -21,7 +21,8 @@ export const HOW = [
   'node eval/fetch-texts.mjs && node eval/run.mjs --provider anthropic      # field eval (whole test set, production models; paid)',
   'node eval/tierb-set.mjs                                                  # Tier B replay set (code only, no AI)',
   'node eval/links-measure.mjs                                              # links backtest + links synthetic suite (code only)',
-  'node eval/news-set.mjs                                                   # recorded news leads set (code only, scripted recorded answers)',
+  'node eval/news-set.mjs                                                   # news event set (code only, real records replayed)',
+  'node eval/news-writer-set.mjs                                            # news card writer (recorded answers + synthetic bad cards)',
   'node eval/gate.mjs'
 ];
 
@@ -77,8 +78,13 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
     fields.relationships = { on: !!auto.relationships, meets: zero(l), report: l ? l.run_at : null, note: !l ? 'no links report made by the current code (eval/links-measure.mjs)' : zero(l) ? null : !complete(l, 'links') ? incomplete(l, 'links') : `links: ${l.wrong} wrong (backtest ${l.backtest_errors}, synthetic suite ${l.suite_failed} failed)` };
   }
   if ('news' in auto) {
+    // news: the event set (eval/news-set.mjs) AND the card writer (eval/news-writer-set.mjs: full set, current code, at least one card
+    // really written by the AI), both at zero wrong
     const n = measured('news', 'news'), zero = zeroOf('news');
-    fields.news = { on: !!auto.news, meets: zero(n), report: n ? n.run_at : null, note: !n ? 'no news-set report made by the current code (eval/news-set.mjs)' : zero(n) ? null : !complete(n, 'news') ? incomplete(n, 'news') : `the news set has ${n.wrong} wrong of ${n.cases}` };
+    const w = measured('news_writer', 'news_writer'), wOk = zeroOf('news_writer')(w) && Number(w.ai_written) > 0;
+    const nNote = !n ? 'no news-set report made by the current code (eval/news-set.mjs)' : zero(n) ? null : !complete(n, 'news') ? incomplete(n, 'news') : `the news set has ${n.wrong} wrong of ${n.cases}`;
+    const wNote = !w ? 'no news-writer report made by the current code (eval/news-writer-set.mjs)' : wOk ? null : !complete(w, 'news_writer') ? incomplete(w, 'news_writer') : w.wrong ? `the news-writer set has ${w.wrong} wrong of ${w.cases}` : 'the news-writer report has no AI-written card';
+    fields.news = { on: !!auto.news, meets: zero(n) && wOk, report: n ? n.run_at : null, writer_report: w ? w.run_at : null, note: nNote || wNote };
   }
   const violations = Object.entries(fields).filter(([, x]) => x.on && !x.meets).map(([f]) => f);
   return { model: prod, report: latest ? latest.run_at : null, bar, fields, violations };
@@ -109,7 +115,7 @@ export function readGateInputs(dir = path.join(here, 'reports'), goldFile = path
     if (!gold || !Array.isArray(gold.items)) throw new Error('gold.json has no items list');
     // The size of each fixed case set: a measure report with fewer cases does not count.
     const setSize = (f) => { const s = read(f); if (!s || !Array.isArray(s.cases)) throw new Error(`${path.basename(path.dirname(f))}/cases.json has no cases list`); return s.cases.length; };
-    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), links: null };
+    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), news_writer: setSize(path.join(here, 'news-writer-set', 'cases.json')), links: null };
     return { expected, reports: all.filter((r) => !r.measure || r.measure === 'fields'), measures: all.filter((r) => r.measure && r.measure !== 'fields'), goldItems: gold.items.length, hashes: currentHashes() };
   } catch (e) { return { reports: [], measures: [], goldItems: 0, hashes: null, error: String(e.message || e).slice(0, 200) }; }
 }

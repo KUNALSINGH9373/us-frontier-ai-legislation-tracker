@@ -1,66 +1,98 @@
 {
  "measure": "news",
- "run_at": "2026-10-29T01:45:11.607Z",
- "checks_hash": "1d11d6d8ca8473767779684f539250a70200f770e8fbb519a8851b63fcc79fa3",
- "cases": 7,
+ "run_at": "2026-10-29T04:40:22.791Z",
+ "checks_hash": "326979970b8bb9fe57d59bd3e4b9172e8ab59114b56c815de8faf251cd1bcbbf",
+ "cases": 8,
  "wrong": 0,
  "missed": 0,
  "rows": [
   {
-   "id": "liccardo-checked",
-   "expect": "publish",
-   "outcome": "drafted",
+   "id": "hr3460-two-stable-runs",
+   "expect": 1,
+   "got": 1,
    "wrong": false,
    "missed": false,
-   "reason": null
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
   },
   {
-   "id": "liccardo-invented-quote",
-   "expect": "refuse",
-   "outcome": "rejected",
+   "id": "hr3460-one-run-only",
+   "expect": 0,
+   "got": 0,
    "wrong": false,
    "missed": false,
-   "reason": "body puts words in quotation marks that RELEASE does not contain: \"to ban frontier AI exports to China.\""
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
   },
   {
-   "id": "liccardo-invented-number",
-   "expect": "refuse",
-   "outcome": "rejected",
+   "id": "hr3460-default-window",
+   "expect": 0,
+   "got": 0,
    "wrong": false,
    "missed": false,
-   "reason": "numbers not in RELEASE: 200"
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
   },
   {
-   "id": "liccardo-reader-rejects",
-   "expect": "refuse",
-   "outcome": "rejected",
+   "id": "ca-ab1405-legiscan-alone",
+   "expect": 0,
+   "got": 0,
    "wrong": false,
    "missed": false,
-   "reason": "the title (\"Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill\") is not supported: not stated in the release"
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
   },
   {
-   "id": "press-lead",
-   "expect": "refuse",
-   "outcome": "secondary",
+   "id": "ca-ab1405-confirmed-by-openstates",
+   "expect": 1,
+   "got": 1,
    "wrong": false,
    "missed": false,
-   "reason": "press report: published only after an official source confirms it"
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
   },
   {
-   "id": "liccardo-old-news",
-   "expect": "refuse",
-   "outcome": "rejected",
+   "id": "court-dockets",
+   "expect": 2,
+   "got": 2,
    "wrong": false,
    "missed": false,
-   "reason": "the release is dated 2026-09-22, older than the 14-day window: old news"
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
   },
   {
-   "id": "liccardo-wrong-date",
-   "expect": "refuse",
-   "outcome": "rejected",
+   "id": "hr3460-withdrawn-after-shown",
+   "expect": 1,
+   "got": 1,
    "wrong": false,
    "missed": false,
-   "reason": "numbers not in RELEASE: 21"
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "future-dated-refused",
+   "expect": 0,
+   "got": 0,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
   }
  ]
 }

@@ -35,7 +35,8 @@ export const MEASURE_INPUTS = {
   fields: [],
   new_entries: [],
   relationships: ['../web/data/v2/entries.json', '../web/data/v2/relationships.json'],
-  news: []
+  news: [],
+  news_writer: []
 };
 export const MEASURE_FILES = MEASURE_INPUTS; // older name
 

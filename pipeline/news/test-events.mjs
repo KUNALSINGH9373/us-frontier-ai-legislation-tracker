@@ -1,0 +1,220 @@
+// Run:  node news/test-events.mjs
+// The news event model (news/events.mjs) over real official records (fixtures/news/sources/: a Congress.gov bill record, a LegiScan
+// record and CourtListener docket entries, as the pipeline stores them): keys and dedupe, the date rules, confirmation over runs,
+// corrections and withdrawals (never a deletion), statement attachment (+3 days, key must agree), rendering into news.json next to
+// untouched hand-written items, the site's own model reading the automated items, and the auto_publish.news switch.
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { eventKey, checkItem, upsertItems, attachStatement, renderNews, renderItem, checkNewsEvents, emptyState, visible, markShown, loadEvents } from './events.mjs';
+import { templateFor } from './templates.mjs';
+import { eventsStep, newsRun, recordsFromRuns } from './run.mjs';
+import * as congressGov from './sources/congress_gov.mjs';
+import * as legiscanSrc from './sources/legiscan.mjs';
+import * as courtSrc from './sources/courtlistener.mjs';
+import { makeValidator } from '../schema/validate.mjs';
+import { checkPublish } from '../publish/guards.mjs';
+
+const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..'), root = path.resolve(P, '..');
+const FIX = path.join(P, 'fixtures', 'news', 'sources'), realData = path.join(root, 'web', 'data', 'v2');
+let pass = 0, fail = 0;
+const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
+const j = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
+const clone = (x) => JSON.parse(JSON.stringify(x));
+const ENTRIES = j(path.join(realData, 'entries.json'));
+const NEWS = j(path.join(realData, 'news.json'));
+
+const HR = { source: 'congress_gov', source_id: '119/hr/3460', entry_key: 's-1792-h-r-3460-ai-whistleblower-protection-act', source_url: 'https://www.congress.gov/bill/119th-congress/house-bill/3460', fetched_at: '2026-10-26T06:54:59Z', raw: j(path.join(FIX, 'congress_gov', '119-hr-3460.json')) };
+const AB = { source: 'legiscan', source_id: '1980302', entry_key: 'ca-ab-1405-auditor-registry', source_url: 'https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405', fetched_at: '2026-10-13T05:40:19Z', raw: j(path.join(FIX, 'legiscan', 'CA-AB1405.json')) };
+const FOUND = j(path.join(FIX, 'courtlistener', 'found.json')).found;
+const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z'), T3 = new Date('2026-10-27T08:00:00Z');
+
+// ---------- 1. adapters over the stored records ----------
+{
+  const c = await congressGov.fetchItems({ records: [HR] });
+  ok('1 congress_gov: one item per action, with class, date, official url and retrieval time', c.items.length === HR.raw.actions.length && c.items.every((i) => i.url === HR.source_url && i.retrieved_at === HR.fetched_at && i.jurisdiction === 'US' && i.entry_id === HR.entry_key));
+  ok('1 congress_gov: "Introduced in House" is an introduction in the House; the referral a referral', c.items.some((i) => i.class === 'introduction' && i.facts.chamber === 'House' && i.date === '2025-05-15') && c.items.some((i) => i.class === 'referral-committee'));
+  ok('1 congress_gov: the bill number and title are the record\'s', c.items.every((i) => i.facts.number === 'H.R. 3460' && i.facts.title === 'AI Whistleblower Protection Act'));
+  ok('1 congress_gov: health and the record read in full', c.health.ok && c.health.count === c.items.length && c.fetched.length === 1 && c.fetched[0].record === '119/hr/3460');
+  const l = await legiscanSrc.fetchItems({ records: [AB] });
+  ok('1 legiscan: the legislature\'s page is the link; CA chaptering is became-law, approval a signature', l.items.every((i) => /leginfo\.legislature\.ca\.gov/.test(i.url)) && l.items.some((i) => i.class === 'became-law' && i.date === '2026-09-09') && l.items.some((i) => i.class === 'executive-signature') && l.items.some((i) => i.class === 'executive-receipt'));
+  ok('1 legiscan: per-action source ids are distinct and stable', new Set(l.items.map((i) => i.source_id)).size === l.items.length && JSON.stringify((await legiscanSrc.fetchItems({ records: [AB] })).items.map((i) => i.source_id)) === JSON.stringify(l.items.map((i) => i.source_id)));
+  const k = await courtSrc.fetchItems({ found: FOUND, now: T1 });
+  ok('1 courtlistener: a notice of appeal is a court-filing, an order on summary judgment a court-ruling, routine entries no class', k.items.some((i) => i.class === 'court-filing') && k.items.some((i) => i.class === 'court-ruling') && k.items.some((i) => i.class === null) && k.items.every((i) => /courtlistener\.com\/docket\//.test(i.url)));
+  ok('1 missing input: no items, never a throw', (await congressGov.fetchItems({})).items.length === 0 && (await legiscanSrc.fetchItems()).items.length === 0 && (await courtSrc.fetchItems()).items.length === 0);
+}
+
+// ---------- 2. keys, dedupe, date rules ----------
+{
+  const it = { source: 'congress_gov', source_id: 'a', jurisdiction: 'US', entry_id: 'x', class: 'passage', date: '2026-10-20', facts: { action: 'Passed Senate without amendment by Unanimous Consent.', chamber: 'Senate' }, url: 'https://www.congress.gov/bill/1', title: 't', retrieved_at: '2026-10-21T00:00:00Z' };
+  ok('2 the key is jurisdiction|entry|class|date', eventKey(it) === 'US|x|passage|2026-10-20' && eventKey({ ...it, entry_id: null }) === 'US|-|passage|2026-10-20');
+  const now = new Date('2026-10-21T06:00:00Z');
+  ok('2 a future date is refused', /future/.test(checkItem({ ...it, date: '2026-10-22' }, { now })));
+  ok('2 a date more than a day after retrieval is refused', /after retrieval/.test(checkItem({ ...it, date: '2026-10-21', retrieved_at: '2026-10-19T00:00:00Z' }, { now })));
+  ok('2 a url off the official hosts is refused; a class outside the contract is refused', /not an official/.test(checkItem({ ...it, url: 'https://www.politico.com/x' }, { now })) && /not in the contract/.test(checkItem({ ...it, class: 'rumour' }, { now })));
+  ok('2 a good item passes', checkItem(it, { now }) === null);
+  const s = emptyState();
+  const r = upsertItems(s, [it, { ...it, source_id: 'b', facts: { ...it.facts } }, { ...it, source_id: 'c', facts: { action: 'Passed Senate with an amendment by Unanimous Consent.', chamber: 'Senate' } }], { runId: 'r1', now });
+  const ev = s.events['US|x|passage|2026-10-20'];
+  ok('2 three items with one key are one event; the different official words are both kept, sorted', r.added.length === 1 && Object.keys(s.events).length === 1 && ev.facts.actions.length === 2 && ev.sources.filter((x) => x.role === 'official').length === 3);
+  const r2 = upsertItems(s, [it, { ...it, source_id: 'b' }, { ...it, source_id: 'c', facts: { action: 'Passed Senate with an amendment by Unanimous Consent.', chamber: 'Senate' } }], { runId: 'r1', now });
+  ok('2 the same items again: no new event', r2.added.length === 0 && Object.keys(s.events).length === 1);
+  const s2 = emptyState();
+  upsertItems(s2, [{ ...it, date: '2026-01-02', retrieved_at: '2026-10-21T00:00:00Z' }], { runId: 'r1', now, since: '2026-10-07' });
+  ok('2 history before the window is never back-filled', Object.keys(s2.events).length === 0);
+  const s3 = emptyState();
+  upsertItems(s3, [{ ...it, class: null }], { runId: 'r1', now });
+  ok('2 an unmapped action is recorded with class null and is never shown', Object.values(s3.events)[0].class === null && !visible(Object.values(s3.events)[0]));
+}
+
+// ---------- 3. confirmation, corrections, withdrawal ----------
+{
+  const s = emptyState();
+  const run = async (recs, now, runId) => (await eventsStep({ state: s, records: recs, now, runId, sinceDays: 800 })).up;
+  const a = await run([HR], T1, 'r1');
+  const intro = 'US|s-1792-h-r-3460-ai-whistleblower-protection-act|introduction|2025-05-15';
+  ok('3 run 1: events created pending', a.added.includes(intro) && s.events[intro].status === 'pending');
+  const b = await run([HR], T2, 'r2');
+  ok('3 run 2, the record unchanged: confirmed by 2 stable runs (no independent source for this class)', b.confirmed.includes('US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15') && s.events['US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15'].status === 'confirmed');
+  const hr2 = clone(HR); hr2.raw.actions = hr2.raw.actions.filter((x) => !/Referred to the House Committee/.test(x.text));
+  const refKey = 'US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15';
+  markShown(s, [refKey], T2.toISOString());
+  const c = await run([hr2], T3, 'r3');
+  ok('3 the record read again in full no longer shows the referral: withdrawn, with history, not deleted', c.withdrawn.includes(refKey) && s.events[refKey].status === 'withdrawn' && s.events[refKey].history.some((h) => h.to === 'withdrawn'));
+  ok('3 a withdrawn event that was shown stays visible (as a correction)', visible(s.events[refKey]));
+  await run([HR], new Date('2026-10-28T08:00:00Z'), 'r4');
+  ok('3 back in the record: restored as corrected (it had been shown), history kept', s.events[refKey].status === 'corrected' && s.events[refKey].history.some((h) => h.change === 'back in the official record'));
+  // a fact correction on a confirmed event
+  const sc = emptyState();
+  const it = { source: 'congress_gov', source_id: 'x#1', record: 'x', jurisdiction: 'US', entry_id: HR.entry_key, class: 'passage', date: '2026-10-20', facts: { action: 'Passed House by recorded vote: 300 - 100.', chamber: 'House', vote: { yes: 300, no: 100 } }, url: 'https://www.congress.gov/bill/1', title: 't', retrieved_at: '2026-10-21T00:00:00Z' };
+  upsertItems(sc, [it], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') }); upsertItems(sc, [it], { runId: 'b', now: new Date('2026-10-21T10:00:00Z') });
+  const k = eventKey(it);
+  ok('3 (setup) confirmed after two runs', sc.events[k].status === 'confirmed');
+  const fixed = { ...it, facts: { ...it.facts, action: 'Passed House by recorded vote: 301 - 99.', vote: { yes: 301, no: 99 } } };
+  const r = upsertItems(sc, [fixed], { runId: 'c', now: new Date('2026-10-22T06:00:00Z') });
+  ok('3 the official vote changed: corrected, old and new facts in history, never deleted', r.corrected.includes(k) && sc.events[k].status === 'corrected' && sc.events[k].history.some((h) => h.change === 'facts' && h.from.vote.yes === 300 && h.to.vote.yes === 301));
+  ok('3 a corrected event that was never shown is not put on the page', !visible(sc.events[k]));
+  // facts.withdrawn from an adapter (Open States / NY Senate style)
+  const sw = emptyState();
+  upsertItems(sw, [it], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
+  const w = upsertItems(sw, [{ ...it, facts: { ...it.facts, withdrawn: true } }], { runId: 'b', now: new Date('2026-10-21T10:00:00Z') });
+  ok('3 an adapter\'s facts.withdrawn marks the event withdrawn', w.withdrawn.includes(k) && sw.events[k].status === 'withdrawn');
+  // state bill: LegiScan alone never confirms; an independent state record does
+  const sl = emptyState();
+  await eventsStep({ state: sl, records: [AB], now: new Date('2026-10-13T08:00:00Z'), runId: 'a', sinceDays: 800 });
+  await eventsStep({ state: sl, records: [AB], now: new Date('2026-10-13T12:00:00Z'), runId: 'b', sinceDays: 800 });
+  const law = 'CA|ca-ab-1405-auditor-registry|became-law|2026-09-09';
+  ok('3 a state event from LegiScan alone stays pending (an independent state source exists for the class)', sl.events[law] && sl.events[law].status === 'pending');
+  const os1 = { source: 'openstates', source_id: 'ocd-x', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', class: 'became-law', date: '2026-09-09', facts: { action: 'Chaptered by Secretary of State - Chapter 178, Statutes of 2026.' }, url: 'https://leginfo.legislature.ca.gov/x', title: 'AB 1405', retrieved_at: '2026-10-13T12:00:00Z' };
+  upsertItems(sl, [os1], { runId: 'c', now: new Date('2026-10-13T14:00:00Z') });
+  ok('3 an Open States record of the same class and date confirms it', sl.events[law].status === 'confirmed' && sl.events[law].confirmations.includes('openstates'));
+}
+
+// ---------- 4. statements ----------
+{
+  const s = emptyState();
+  const it = { source: 'congress_gov', source_id: 'x#1', record: 'x', jurisdiction: 'US', entry_id: 'e1', class: 'passage', date: '2026-10-20', facts: { action: 'Passed Senate without amendment.', chamber: 'Senate' }, url: 'https://www.congress.gov/bill/1', title: 't', retrieved_at: '2026-10-21T00:00:00Z' };
+  upsertItems(s, [it, { ...it, source_id: 'x#2', class: 'hearing-held', date: '2026-10-10', facts: { action: 'Hearings held.' } }], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
+  const st = { entry_id: 'e1', jurisdiction: 'US', url: 'https://senator.senate.gov/r/1', title: 'Senate passes the bill', publisher: 'Sen. X' };
+  ok('4 a release 2 days after the event attaches to it', attachStatement(s, { ...st, date: '2026-10-22' }).attached === eventKey(it));
+  ok('4 attaching twice adds it once', (attachStatement(s, { ...st, date: '2026-10-22' }), s.events[eventKey(it)].sources.filter((x) => x.role === 'statement').length === 1));
+  ok('4 a release 4 days after is held', !!attachStatement(s, { ...st, url: 'https://senator.senate.gov/r/2', date: '2026-10-24' }).held);
+  ok('4 a release before the event is held', !!attachStatement(s, { ...st, url: 'https://senator.senate.gov/r/3', date: '2026-10-19' }).held);
+  ok('4 another entry: held (the key must agree)', !!attachStatement(s, { ...st, entry_id: 'e2', url: 'https://senator.senate.gov/r/4', date: '2026-10-21' }).held);
+  ok('4 a named class that disagrees: held', !!attachStatement(s, { ...st, class_hint: 'executive-signature', url: 'https://senator.senate.gov/r/5', date: '2026-10-21' }).held);
+  upsertItems(s, [{ ...it, source_id: 'x#3', class: 'committee-passage', date: '2026-10-19', facts: { action: 'Ordered to be reported.' } }], { runId: 'b', now: new Date('2026-10-21T08:00:00Z') });
+  ok('4 two events could match: held, not guessed', /not guessed/.test(attachStatement(s, { ...st, url: 'https://senator.senate.gov/r/6', date: '2026-10-21' }).held || ''));
+}
+
+// ---------- 5. rendering, the site, the switch ----------
+const validate = makeValidator();
+function stateWithConfirmed() {
+  const s = emptyState();
+  return (async () => {
+    for (const [now, id] of [[T1, 'r1'], [T2, 'r2']]) await eventsStep({ state: s, records: [HR], courtFound: FOUND, now, runId: id, sinceDays: 800 });
+    return s;
+  })();
+}
+{
+  const s = await stateWithConfirmed();
+  const r = renderNews(NEWS, s, ENTRIES, { at: T2.toISOString() });
+  const auto = r.news.items.filter((n) => n.event_key);
+  ok('5 confirmed events are appended; every hand-written item untouched and in order', r.added.length > 0 && JSON.stringify(r.news.items.slice(0, NEWS.items.length)) === JSON.stringify(NEWS.items));
+  ok('5 an event on an entry and date that already has an item (Lane 1 or by hand) is not added again', r.held.some((h) => /already has an item/.test(h.why)) || !auto.some((n) => NEWS.items.some((o) => !o.event_key && o.tracker === n.tracker && o.date === n.date)));
+  const intro = auto.find((n) => n.class === 'referral-committee'); // the introduction waits for govinfo (news/confirm.mjs)
+  ok('5 the item: contract fields, official-record badge, jurisdiction, stage, history, template text quoting the record', intro && intro.origin === 'automated' && intro.verification.method === 'official-record' && intro.jurisdiction === 'US' && intro.stage === 'committee' && intro.status === 'confirmed' && Array.isArray(intro.history) && Array.isArray(intro.statements) && /"Referred to the House Committee on Education and Workforce"/.test(intro.body) && /AI Whistleblower Protection Act referred to committee$/.test(intro.title), JSON.stringify(intro));
+  const errs = validate.check('news', r.news);
+  ok('5 the rendered news.json passes its schema', !errs.length, errs.slice(0, 3).join(' | '));
+  ok('5 the stop rules pass on the honest render', checkNewsEvents({ before: { news: NEWS, entries: ENTRIES }, after: { news: r.news, entries: ENTRIES }, state: s, entries: ENTRIES }).length === 0);
+  const tampered = clone(r.news); tampered.items.find((n) => n.event_key).title = 'Bill passes Congress';
+  ok('5 the stop rules catch an item that is not the render of its event', checkNewsEvents({ before: { news: NEWS, entries: ENTRIES }, after: { news: tampered, entries: ENTRIES }, state: s, entries: ENTRIES }).some((p) => /not the render/.test(p)));
+  const handEdit = clone(r.news); handEdit.items[0].title += ' x';
+  ok('5 the stop rules catch a change to a hand-written item', checkNewsEvents({ before: { news: NEWS, entries: ENTRIES }, after: { news: handEdit, entries: ENTRIES }, state: s, entries: ENTRIES }).some((p) => /not written by the event model/.test(p)));
+  const dropped = { ...r.news, items: r.news.items.filter((n) => n !== intro) };
+  ok('5 the stop rules catch a removed event item', checkNewsEvents({ before: { news: r.news, entries: ENTRIES }, after: { news: dropped, entries: ENTRIES }, state: s, entries: ENTRIES }).some((p) => /removed/.test(p)));
+  // the site's own model (web/tracker-lib.js buildV2) reads the automated items
+  const lib = await import(pathToFileURL(path.join(root, 'web', 'tracker-lib.js')).href);
+  const D = lib.buildV2(j(path.join(realData, 'entries.json')), r.news, j(path.join(realData, 'relationships.json')), j(path.join(realData, 'site.json')));
+  const mine = D.N.filter((n) => n.event_key);
+  ok('5 the site builds its news model with the automated items linked to their entries', mine.length === auto.length && mine.every((n) => n.entryId && n.title && n.body && n.links.length && n.d instanceof Date && !Number.isNaN(+n.d)));
+  // a withdrawn item stays, marked, with a correction line the site flags
+  markShown(s, r.added, T2.toISOString());
+  const k = intro.event_key; s.events[k].status = 'withdrawn'; s.events[k].history.push({ at: T3.toISOString(), change: 'status', from: 'confirmed', to: 'withdrawn' });
+  const r2 = renderNews(r.news, s, ENTRIES, { at: T3.toISOString() });
+  const w = r2.news.items.find((n) => n.event_key === k);
+  ok('5 withdrawn after it was shown: kept in place, status withdrawn, "Correction" in the check line, a status note', w && w.status === 'withdrawn' && /^Withdrawn: /.test(w.title) && /Correction/.test(w.check) && w.status_note && r2.news.items.indexOf(w) === r.news.items.indexOf(intro) && r2.updated.includes(k));
+  ok('5 the AI card is used only while its facts are current; otherwise the template', (() => { const ev = clone(s.events[k]); ev.status = 'confirmed'; ev.card = { written_by: 'ai', headline: 'AI headline here', body: 'AI body text that is long enough.', facts_hash: ev.facts_digest }; const a1 = renderItem(ev, ENTRIES.find((e) => e.key === ev.entry_id)); ev.card.facts_hash = 'old'; const a2 = renderItem(ev, ENTRIES.find((e) => e.key === ev.entry_id)); return a1.title === 'AI headline here' && a2.title === templateFor(ev, ENTRIES.find((e) => e.key === ev.entry_id)).headline; })());
+  ok('5 a passage whose record names no chamber is held (the template needs it)', templateFor({ class: 'passage', jurisdiction: 'IL', date: '2026-05-01', facts: { action: 'Passed Both Houses' }, sources: [] }, { short_name: 'X', title: 'X' }) === null);
+}
+
+// ---------- 6. the whole step and the switch ----------
+function sandbox() {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-events-'));
+  for (const d of ['data', 'docs', 'state']) fs.mkdirSync(path.join(dir, d));
+  for (const f of ['entries', 'news', 'site', 'changes', 'relationships']) if (fs.existsSync(path.join(realData, f + '.json'))) fs.copyFileSync(path.join(realData, f + '.json'), path.join(dir, 'data', f + '.json'));
+  return { dir, dataDir: path.join(dir, 'data'), eventsFile: path.join(dir, 'state', 'news-events.json'), healthFile: path.join(dir, 'state', 'news-health.json'), seenFile: path.join(dir, 'state', 'news-seen.json') };
+}
+const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on }, news_leads: { enabled: false } });
+{
+  // the stored H.R. 3460 record with its actions re-dated to 25 Oct 2026, so they fall inside the 14-day window of a real run
+  const HRN = clone(HR); HRN.raw.actions.forEach((a) => { a.actionDate = '2026-10-25'; });
+  const sb = sandbox(), newsBefore = fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8');
+  const go = (on, now, id) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile, eventsFile: sb.eventsFile, healthFile: sb.healthFile, config: CFG(on), factory: null, today: now.toISOString().slice(0, 10), now, runId: id, records: [HRN], courtFound: FOUND });
+  const a = await go(false, T1, 'r1'); const b = await go(false, T2, 'r2');
+  ok('6 switch off: events computed, stored and reported; news.json byte-identical', a.events.added.length > 0 && b.events.confirmed.length > 0 && b.drafted.length > 0 && b.drafted.every((d) => !d.written) && b.status === 'reported' && fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8') === newsBefore && Object.keys(loadEvents(sb.eventsFile).events).length > 0);
+  ok('6 switch off: the summary names the events', /new official event/.test(b.summary));
+  const c = await go(true, T3, 'r3');
+  const after = j(path.join(sb.dataDir, 'news.json'));
+  ok('6 switch on: the confirmed events are written, alongside every hand-written item', c.status === 'written' && c.drafted.every((d) => d.written) && after.items.filter((n) => n.event_key).length === c.drafted.length && JSON.stringify(after.items.filter((n) => !n.event_key)) === JSON.stringify(j(path.join(realData, 'news.json')).items), JSON.stringify(c.problems));
+  ok('6 switch on: the whole data passes checkPublish', checkPublish({ before: { entries: ENTRIES, news: NEWS, site: j(path.join(realData, 'site.json')), changes: j(path.join(realData, 'changes.json')), relationships: j(path.join(realData, 'relationships.json')) }, after: { entries: ENTRIES, news: after, site: j(path.join(realData, 'site.json')), changes: j(path.join(realData, 'changes.json')), relationships: j(path.join(realData, 'relationships.json')) }, runDate: '2026-10-27', maxEntries: 15 }).problems.length === 0);
+  const d = await go(true, new Date('2026-10-28T08:00:00Z'), 'r4');
+  ok('6 the next run changes nothing (idempotent)', d.drafted.length === 0 && JSON.stringify(j(path.join(sb.dataDir, 'news.json'))) === JSON.stringify(after));
+  fs.rmSync(sb.dir, { recursive: true, force: true });
+  // records from the grabber's run folders
+  const rd = fs.mkdtempSync(path.join(os.tmpdir(), 'news-run-'));
+  fs.mkdirSync(path.join(rd, 'raw', 'legiscan'), { recursive: true });
+  fs.copyFileSync(path.join(FIX, 'legiscan', 'CA-AB1405.json'), path.join(rd, 'raw', 'legiscan', 'CA-AB1405.json'));
+  fs.writeFileSync(path.join(rd, 'changeset.json'), JSON.stringify({ items: [{ item_id: 'legiscan:1980302', source: 'legiscan', source_id: '1980302', entry_key: AB.entry_key, source_url: AB.source_url, fetched_at: AB.fetched_at, raw_path: 'raw/legiscan/CA-AB1405.json' }, { item_id: 'x', source: 'legiscan', source_id: '9', raw_path: 'raw/legiscan/missing.json' }] }));
+  const recs = recordsFromRuns([rd]);
+  ok('6 records are read from the run folders the grabber wrote (a missing raw file is skipped)', recs.length === 1 && recs[0].entry_key === AB.entry_key && recs[0].raw.bill.bill_number === 'AB1405');
+  fs.rmSync(rd, { recursive: true, force: true });
+}
+
+// ---------- 7. cards for the writer, the milestone fact ----------
+{
+  const { refreshCards, milestoneFor } = await import('./events.mjs');
+  const { writeCards } = await import('./run.mjs');
+  const s = await stateWithConfirmed();
+  refreshCards(s, ENTRIES);
+  const shown = Object.values(s.events).filter(visible);
+  ok('7 every renderable event carries template_headline/template_body (the writer falls back to them)', shown.length > 0 && shown.every((e) => e.card && e.card.template_headline && e.card.template_body && e.card.written_by === 'template'));
+  const bad = { make: () => ({ async generate() { return { data: { headline: 'Unanimously passed landmark bill', body: 'It passed unanimously.' }, usage: {} }; } }) };
+  const w = await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: bad, today: '2026-10-27' });
+  ok('7 a card the checks refuse stays the template; nothing written by AI', w.written === 0 && w.tried > 0 && shown.every((e) => s.events[e.key].card.written_by === 'template'));
+  ok('7 no writer roles: nothing tried, never a throw', (await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: { make: () => { throw new Error('no role'); } }, today: '2026-10-27' })).tried === 0);
+  ok('7 milestone: only for a state law, computed from tracker data, else null', milestoneFor({ class: 'passage', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', date: '2026-09-09' }, ENTRIES) === null && milestoneFor({ class: 'became-law', jurisdiction: 'US', entry_id: HR.entry_key, date: '2026-09-09' }, ENTRIES) === null && [null, 'string'].includes(milestoneFor({ class: 'became-law', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', date: '2026-09-09' }, ENTRIES) === null ? null : 'string'));
+}
+
+console.log(`news events: ${pass} passed, ${fail} failed`);
+process.exit(fail ? 1 : 0);

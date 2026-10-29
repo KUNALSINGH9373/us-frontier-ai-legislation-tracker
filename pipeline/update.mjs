@@ -234,6 +234,12 @@ function revertEntries({ S, before, keys, start, newsTrackers = new Set() }) {
     for (const [k, v] of Object.entries(st.items || {})) if (v && v.outcome === 'drafted' && JSON.stringify(v) !== JSON.stringify((old.items || {})[k])) { if (old.items && old.items[k] !== undefined) st.items[k] = old.items[k]; else delete st.items[k]; }
     fs.writeFileSync(nf, JSON.stringify(st, null, 1) + '\n');
   }
+  // news events: an item put back takes the run's event changes with it (the events are computed again next run)
+  const ef = S.stateFile('news-events.json');
+  if (keys.some((k) => newsTrackers.has(k)) && fs.existsSync(ef)) {
+    const old = start('news-events.json');
+    if (old) fs.writeFileSync(ef, old); else fs.rmSync(ef);
+  }
   return gone;
 }
 
@@ -471,6 +477,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
     }
 
     // ---- 4a. court dockets: material entries on the tracked federal cases (config/courts.json), as Tier A facts ----
+    let courtFound = []; // the material docket entries read this run, for the news events (news/sources/courtlistener.mjs)
     if (config.courts && config.courts.enabled) {
       step = 'court dockets';
       const token = env.COURTLISTENER_API_TOKEN;
@@ -495,6 +502,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
           if (!named.size || unexplained.length || round >= 3) { log(k.summary); throw new Error('court-docket publish stopped; nothing from this run was promoted'); }
           named.forEach((reason, key) => { hold({ entry_key: key, step: 'court dockets' }, reason); skipKeys.push(key); });
         }
+        courtFound = k.found || [];
         heldCases.filter((h) => isDue(h) && (k.read || []).some((x) => x.entry_key === h.entry_key)).forEach((h) => tried.add(heldId(h)));
         k.errors.forEach((x) => rep.notes.push(`court docket not read: ${x}`));
         (k.read || []).forEach((x) => { checked[x.entry_key] = stamped; });
@@ -526,7 +534,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
 
     // ---- 4d. news: feed leads, and items written from official releases (added only when auto_publish.news is on) ----
     step = 'news';
-    const nw = await (deps.newsRun || newsRun)({ dataDir: S.v2, docsDir: null, seenFile: S.stateFile('news-seen.json'), config, factory, aiOff: capOff(), dry, today, now: startedAt, runId: rep.id, log: (m) => log('  ' + m) });
+    const nw = await (deps.newsRun || newsRun)({ dataDir: S.v2, docsDir: null, seenFile: S.stateFile('news-seen.json'), eventsFile: S.stateFile('news-events.json'), healthFile: S.stateFile('news-health.json'), runDirs: runs.map(runDirOf), courtFound, env, config, factory, aiOff: capOff(), dry, today, now: startedAt, runId: rep.id, log: (m) => log('  ' + m) });
     rep.news = nw;
     log(`news: ${nw.skipped_why ? 'skipped (' + nw.skipped_why + ')' : `${nw.leads.length} lead(s), ${nw.drafted.length} drafted, ${nw.status}`}`);
     if (nw.status === 'written') { published.push('news'); summaries.push(nw.summary); partKeys.push((nw.drafted || []).every((d) => d.tracker) ? nw.drafted.map((d) => d.tracker) : null); }

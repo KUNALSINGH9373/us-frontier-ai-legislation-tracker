@@ -48,14 +48,6 @@ jobs:
         working-directory: pipeline
         run: npm ci # no secrets in this step's environment
 
-      # The news step reads official releases in a headless browser (visible text only, pipeline/news/render.mjs). If this install
-      # fails, the update still runs: news drafts are held and retried on a later run.
-      - name: Install the headless browser for news (news is held if this fails)
-        working-directory: pipeline
-        continue-on-error: true
-        timeout-minutes: 5
-        run: npx playwright install --with-deps --only-shell chromium
-
       - name: Git identity
         run: |
           git config user.name "github-actions[bot]"

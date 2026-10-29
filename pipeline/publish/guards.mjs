@@ -10,9 +10,6 @@ import { containsQuote } from '../agents/source-text.mjs';
 import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem, AMEND_PREFIX } from '../links/rules.mjs';
 import { sponsorQuoteProblem, amendsLaw, recordProofProblem } from '../links/propose.mjs';
 import { loadActorIds } from '../links/records.mjs';
-import { linkKey } from '../news/feeds.mjs';
-import { eventDisagreements, sameEvent } from '../news/write.mjs';
-import { entryIndex } from '../news/leads.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
 export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
@@ -127,44 +124,6 @@ export function checkNewEntry(e, ctx = {}) {
   if (e.duties && !(e.duties_basis && e.duties_basis.method === 'agent')) problems.push('duties without a duties_basis from the pipeline (method agent)');
   if (!e.duties && e.duties_basis) problems.push('duties_basis without duties');
   if (e.duties && e.duties_basis && e.sources && !e.sources.some((s) => s.url === e.duties_basis.source_url)) problems.push(`duties read from ${e.duties_basis.source_url}, which is not one of the entry's sources`);
-  return problems;
-}
-
-// The stricter path for news items written from official releases (news/run.mjs): the run may only ADD the items it drafted and
-// checked; each must be automated, carry evidence from its release, and say how it was checked. Existing items, entries,
-// links and the change log are covered by checkPublish, which runs too.
-export function checkNewsAdded({ before, after, expected, checkLine }) {
-  const problems = [];
-  const old = new Set(before.news.items.map((x) => JSON.stringify(x))), want = new Set(expected.map((x) => JSON.stringify(x)));
-  const added = after.news.items.filter((x) => !old.has(JSON.stringify(x)));
-  for (const n of added) {
-    if (!want.has(JSON.stringify(n))) { problems.push(`news item not drafted by this run: ${n.date} ${String(n.title).slice(0, 80)}`); continue; }
-    if (n.origin !== 'automated' || !n.verification || n.verification.method !== 'agent') problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: not marked as written and checked by the pipeline`);
-    if (!(n.evidence || []).length || n.evidence.some((x) => !(n.links || []).some((l) => l.u === x.source_url))) problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: evidence must come from its own linked release`);
-    if (checkLine && n.check !== checkLine(n)) problems.push(`news item ${n.date} ${n.title.slice(0, 60)}: check line is not the fixed wording`);
-  }
-  // A tracker must name a tracked entry (never the excluded list), and no added item may repeat a release already on the page, or one
-  // another added item links, by any form of its URL (http or https, www, trailing slash, tracking parameters).
-  const entryOf = new Map((after.entries || []).map((e) => [e.key, e]));
-  const onPage = new Set(before.news.items.flatMap((x) => (x.links || []).map((l) => linkKey(l.u)))), thisRun = new Set();
-  for (const n of added) {
-    if (n.tracker != null && (!entryOf.has(n.tracker) || entryOf.get(n.tracker).section === 'J')) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: tracker ${n.tracker} is not a tracked entry`);
-    for (const k of new Set((n.links || []).map((l) => linkKey(l.u)))) {
-      if (onPage.has(k)) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: its release ${k} is already on the news page`);
-      if (thisRun.has(k)) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: its release ${k} is linked by another item added in this run`);
-      thisRun.add(k);
-    }
-  }
-  // A dated bill event must agree with the entry's record, and no added item may report an event already on the page or reported by
-  // another added item in other words (news/write.mjs eventDisagreements, sameEvent): the drafting step's checks, repeated here.
-  const ix = entryIndex(after.entries || []);
-  added.forEach((n, i) => {
-    for (const x of eventDisagreements({ text: `${n.title}. ${n.body || ''}`, date: n.date, index: ix })) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: ${x}`);
-    const twin = [...before.news.items, ...added.slice(0, i)].find((o) => sameEvent(n, o));
-    if (twin) problems.push(`news item ${n.date} ${String(n.title).slice(0, 60)}: reports the same event as "${String(twin.title).slice(0, 60)}" (${twin.date})`);
-  });
-  if (added.length !== expected.length) problems.push(`${added.length} news items added, expected ${expected.length}`);
-  if (JSON.stringify(before.entries) !== JSON.stringify(after.entries)) problems.push('entries changed: the news step may not change them');
   return problems;
 }
 

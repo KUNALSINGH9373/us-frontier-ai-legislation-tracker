@@ -23,7 +23,7 @@ export const CORRECTIONS_FILE = path.join(STATE_DIR, 'corrections.json');
 export const LEDGER_DIR = path.join(STATE_DIR, 'ledger');
 // The files a run moves forward only when the whole run succeeded (update.mjs stages them and promotes them with the data).
 // The LegiScan usage counter and the AI ledger are not among them: they count what was really spent, so they are written at once.
-export const PROMOTED_STATE = ['state.json', 'legiscan-seen.json', 'news-seen.json', 'courts-state.json', 'waiting-for-text.json', 'corrections.json'];
+export const PROMOTED_STATE = ['state.json', 'legiscan-seen.json', 'news-seen.json', 'courts-state.json', 'waiting-for-text.json', 'corrections.json', 'news-events.json', 'news-health.json'];
 
 const validator = makeValidator();
 export const emptyState = () => ({ version: 1, sources: {} });

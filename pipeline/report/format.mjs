@@ -118,9 +118,12 @@ export function formatDone(rep, names = {}) {
   if (nw && nw.ran) {
     if (nw.drafted.length) {
       const live = nw.drafted.filter((d) => d.written).length;
-      L.push(`News drafted: ${nw.drafted.length} from official releases, ${live ? `${live} published${live < nw.drafted.length ? `, ${nw.drafted.length - live} not published (${newsNotPublishedWhy(rep, nw)})` : ''}` : `not published (${newsNotPublishedWhy(rep, nw)})`}`);
+      L.push(`News items: ${nw.drafted.length} from official records, ${live ? `${live} published${live < nw.drafted.length ? `, ${nw.drafted.length - live} not published (${newsNotPublishedWhy(rep, nw)})` : ''}` : `not published (${newsNotPublishedWhy(rep, nw)})`}`);
       nw.drafted.slice(0, 4).forEach((d) => L.push(`- ${clip(d.title, 80)} (${clip(d.publisher, 30)})`));
     }
+    const ev = nw.events;
+    if (ev && (ev.added.length || ev.confirmed.length || ev.corrected.length || ev.withdrawn.length || ev.pending)) L.push(`News events (official records): ${ev.added.length} new, ${ev.confirmed.length} confirmed, ${ev.corrected.length} corrected, ${ev.withdrawn.length} withdrawn, ${ev.pending} pending${ev.statements ? `, ${ev.statements} statement(s) attached` : ''}`);
+    (ev && ev.alerts || []).slice(0, 3).forEach((a) => L.push(`- ${clip(a, 120)}`));
     const wr = nw.waiting_record || [];
     if (wr.length) L.push(`News waiting for the official record: ${wr.length} (${list(wr.map((w) => `${clip(w.title, 50)}, ${clip(w.publisher, 24)}`), 3)}) — retried next run`);
     if (nw.leads.length) L.push(`News leads: ${nw.leads.length} (${list(nw.leads.map((l) => `${clip(l.title, 50)}, ${clip(l.publisher, 24)}`), 3)}) — not published`);

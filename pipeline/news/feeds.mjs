@@ -1,7 +1,7 @@
-// Reading news feeds and official release pages. Plain code, no AI, no network: callers pass the text in.
+// Reading news feeds. Plain code, no AI, no network: callers pass the text in.
 //   parseFeed(xml)          RSS 2.0 or Atom -> [{ title, link, date, summary }]
 //   robotsAllows(txt, path) the site's robots.txt rules for every crawler ("User-agent: *"); a page it disallows is never read
-//   cleanRelease(text)      tidies the visible text of a release page read by news/render.mjs (quotes and numbers are checked against it)
+//   parseTeaserPage(html)   an official listing page of teasers, read like a feed (release pages themselves are never read)
 import { htmlToText } from '../grabber/lib/text.mjs';
 
 const ENTITY = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', rsquo: '’', lsquo: '‘', rdquo: '”', ldquo: '“', ndash: '–', mdash: '—', hellip: '…' };
@@ -76,83 +76,4 @@ export function parseTeaserPage(html, baseUrl) {
     out.push({ title: plain(a[2]), link, date: isoDate(t[1]), summary: summary ? plain(summary[1]).slice(0, 600) : '', links: [] });
   }
   return out.filter((i) => i.title && /^https?:\/\//.test(i.link));
-}
-
-// Lines of site furniture that pages without <main> (NIST) leave in the text: the .gov banner, share buttons, the feedback box.
-const FURNITURE = /^(?:Skip to main content|Official websites use \.gov|A \.gov website belongs to an official government organization in the United States\.|Secure \.gov websites use HTTPS|A lock \(|\) or https:\/\/ means you’ve safely connected to the \.gov website\..*|Share|Facebook|Linkedin|LinkedIn|X\.com|Twitter|Email|Print|Was this page helpful\?|UPDATES|NEWS|https?:\/\/\S+)$/;
-
-// The release itself is read by news/render.mjs (a headless browser, visible words only, from the page's <main> or <article>, with
-// menus, headers, footers, forms and the .gov banner left out). cleanRelease tidies that text: blank lines and furniture lines (share
-// buttons, the feedback box) are dropped, so quotes are checked against the article's own words. There is no reading of release HTML
-// without the browser: pattern stripping of hidden text was the wrong design (audit, 29 Oct 2026).
-export function cleanRelease(text) {
-  return String(text || '').replace(/\u00a0/g, ' ').replace(/[ \t]+\n/g, '\n').split('\n').map((l) => l.replace(/[ \t]+/g, ' ').trim()).filter((l) => l && !FURNITURE.test(l)).join('\n').trim();
-}
-
-// The release's own date: a line that is only a date ("Tuesday, September 22, 2026", "October 16, 2026", "Released October 16, 2026"),
-// or a dateline ("WASHINGTON, D.C., October 16, 2026 – Today ..."). A date merely written in the opening may be the date of the event
-// the release describes, not of the release (code review, 29 Oct 2026): it is taken only when it agrees with the date the feed lists
-// the release under (feedDate) within RELEASE_DATE_FEED_DAYS days. null when the release states no date of its own: the item is held.
-const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-const WRITTEN = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+(\d{1,2}),?\s+(\d{4})\b/;
-const isoOf = (m) => `${m[3]}-${String(MONTHS.indexOf(m[1].slice(0, 3).toLowerCase()) + 1).padStart(2, '0')}-${m[2].padStart(2, '0')}`;
-export const RELEASE_DATE_FEED_DAYS = 2;
-const DAY = '(?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\\s+)?';
-const DATE_LINE = new RegExp(`^(?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\\s+|Released\\s+|Posted\\s+(?:on\\s+)?)?${WRITTEN.source}$`, 'i');
-// "WASHINGTON, D.C., October 16, 2026 –", "SACRAMENTO (October 16, 2026) —", "October 16, 2026 – WASHINGTON": a place in capitals and a dash.
-const DATELINE_AFTER = new RegExp(`^[A-Z][A-Z .,'’]{1,40}?[,(]?\\s*${DAY}${WRITTEN.source}\\)?\\s*[–—-]\\s`);
-const DATELINE_BEFORE = new RegExp(`^${DAY}${WRITTEN.source}\\s*[–—-]\\s*[A-Z]{3,}`);
-const gapDays = (a, b) => Math.abs(Date.parse(a + 'T00:00:00Z') - Date.parse(b + 'T00:00:00Z')) / 864e5;
-// A date line may carry an update note: "September 3, 2026 (updated October 25, 2026)" is a release of September 3 (audit R11): the
-// first date is the release's own, never the update's.
-const DATE_LINE_UPDATED = new RegExp(`^(?:(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\\s+|Released\\s+|Posted\\s+(?:on\\s+)?)?${WRITTEN.source}\\s*[(\\[]\\s*(?:last\\s+)?(?:updated|revised|modified|amended)\\b[^)\\]]*[)\\]]\\.?$`, 'i');
-// A year typo in the release's own date (audit R06: "October 21, 2025" on a release the feed lists on 2026-10-21): when the year is one
-// less than the feed date's and the month and day are within RELEASE_DATE_FEED_DAYS days of the feed date, the feed's year is used.
-// Anything else is taken as written (and an old date is refused as old news).
-function yearTypo(iso, feedDate) {
-  if (!feedDate || !/^\d{4}-\d{2}-\d{2}$/.test(feedDate)) return iso;
-  const fy = Number(feedDate.slice(0, 4));
-  if (Number(iso.slice(0, 4)) !== fy - 1) return iso;
-  const fixed = fy + iso.slice(4);
-  return Number.isFinite(Date.parse(fixed + 'T00:00:00Z')) && gapDays(fixed, feedDate) <= RELEASE_DATE_FEED_DAYS ? fixed : iso;
-}
-export function releaseDate(text, feedDate = null) {
-  const lines = String(text || '').split('\n').slice(0, 25).map((l) => l.trim());
-  for (const l of lines) { const m = DATE_LINE.exec(l) || DATE_LINE_UPDATED.exec(l); if (m) return yearTypo(isoOf(m), feedDate); }
-  for (const l of lines) { const m = DATELINE_AFTER.exec(l) || DATELINE_BEFORE.exec(l); if (m) return yearTypo(isoOf(m), feedDate); }
-  const m = WRITTEN.exec(String(text || '').slice(0, 600));
-  if (!m || !feedDate) return null;
-  return gapDays(isoOf(m), feedDate) <= RELEASE_DATE_FEED_DAYS ? isoOf(m) : null;
-}
-
-// A press story reposted on an official site ("In The News" with the reporter and outlet under the title): not the body's own
-// statement, so it is a press lead, never a news item. Read from the opening lines of the page text.
-const OUTLETS = /^(?:POLITICO|Politico|Axios|The Hill|Punchbowl News|Reuters|Bloomberg(?: Government| Law)?|The Washington Post|Washington Post|The New York Times|New York Times|The Wall Street Journal|CNN|CNBC|NBC News|ABC News|CBS News|Fox News|Roll Call|Semafor|Wired|WIRED|The Verge|NPR|Los Angeles Times|LA Times|San Francisco Chronicle|San Jose Mercury News|The Atlantic|Time|TIME|Fortune|Forbes|Business Insider|The Guardian|Associated Press|AP|Newsweek|MSNBC|Vox|Breitbart|Daily Caller|Washington Examiner|Federal News Network|FedScoop|Nextgov|Nextgov\/FCW|Inside AI Policy|Tech Policy Press)$/;
-// Also (audit N6, 29 Oct 2026): "Brendan Bordelon reports for Politico", "writes for The Hill", "according to Axios" in the opening,
-// "(c) 2026 POLITICO", a byline line "Gabby Miller, Politico" or "Politico | Oct 23", "Originally published in ...".
-const OUTLET_WORD = `(?:the\\s+)?(?:${OUTLETS.source.slice(4, -2)})\\b`;
-const REPORTS_FOR = new RegExp(`\\b(?:reports?|reported|reporting|writes|wrote|writing)\\s+for\\s+${OUTLET_WORD}`);
-const ACCORDING_TO_OUTLET = new RegExp(`\\b[Aa]ccording to\\s+${OUTLET_WORD}`);
-const COPYRIGHT_OUTLET = new RegExp(`(?:©|\\([cC]\\)|\\b[Cc]opyright)\\s*(?:\\d{4}\\s+)?${OUTLET_WORD}`);
-const BYLINE_OUTLET = new RegExp(`^(?:By\\s+)?[A-Z][\\w.'’-]+(?:\\s+[A-Z][\\w.'’-]+){0,3}\\s*(?:,|\\||—|–|-)\\s*${OUTLET_WORD}|^${OUTLET_WORD}\\s*(?:\\||—|–|-|,)\\s*\\S`);
-export function pressRepost(text) {
-  const t = String(text || ''), lines = t.split('\n').slice(0, 12).map((l) => l.trim()), head = t.slice(0, 3000);
-  if (lines.some((l) => /^(?:In The News|In the News|News Coverage|Press Coverage|Media Coverage|Op-?Eds?|Editorials?|Opinion)$/i.test(l))) return true;
-  if (lines.some((l) => OUTLETS.test(l) || /^By\s+[A-Z][\w.'’-]+(?:\s+[A-Z][\w.'’-]+){0,3}\s*(?:,|\||—|-)\s*(?:the\s+)?[A-Z]/.test(l) || BYLINE_OUTLET.test(l))) return true;
-  if (REPORTS_FOR.test(head) || COPYRIGHT_OUTLET.test(t) || ACCORDING_TO_OUTLET.test(t.slice(0, 600))) return true;
-  return /\b(?:originally (?:appeared|published) (?:in|on|by)|this (?:article|op-ed|story|column) (?:first )?(?:appeared|was published) in)\b/i.test(head);
-}
-
-// An opinion piece (op-ed, column) on an official site: by the owner's decision only a lead, never a news item (audit N9). Told by a
-// label line ("Op-Ed", "Column"); or, with none of a release's markers (a dateline, "FOR IMMEDIATE RELEASE", "Contact:", "issued the
-// following statement", "Today, ..."), by "this op-ed"/"my column", an essay in the first person ("I have", "my view", "I wrote"), or an
-// author line at the end ("Ted W. Lieu represents California's 36th District.").
-const RELEASE_MARKERS = /FOR IMMEDIATE RELEASE|^\s*(?:Media |Press )?Contacts?:|^[A-Z][A-Z .,'’]{2,40}?(?:\([^)]*\))?\s*[–—-]\s|following statement|said in a statement|^\s*Today,/m;
-export function opinionPiece(text) {
-  const t = String(text || ''), lines = t.split('\n').slice(0, 12).map((l) => l.trim());
-  if (lines.some((l) => /^(?:Op-?Ed|Opinion|Column|Guest Column|Commentary|Guest Essay)\b(?:\s*[:|–—-]|$)/i.test(l))) return true;
-  if (RELEASE_MARKERS.test(t.slice(0, 1500))) return false;
-  const head = t.slice(0, 2000), firstPerson = (head.match(/\b(?:I|I'm|I’m|I've|I’ve|my|me|myself)\b/g) || []).length;
-  const bio = /^[A-Z][\w.'’ -]{2,60} (?:represents|serves as|is the (?:U\.S\. )?(?:Representative|Senator|Congress(?:man|woman)))\b.{0,120}$/m.test(t.split('\n').slice(-4).join('\n'));
-  return /\b(?:this|my) (?:op-?ed|column|guest essay)\b|\bop-?ed\b/i.test(head) || firstPerson >= 3 || /\bI wrote\b/.test(head) || bio;
 }

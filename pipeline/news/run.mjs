@@ -1,34 +1,53 @@
-// The news step: leads from feeds, and news items written from official releases. Run by update.mjs after self-correction; or by hand:
-//   node news/run.mjs [--dry-run]
-// 1. leads (news/leads.mjs): feeds in config/news-sources.json, last N days, not already on the page or seen before, AI headline screen
-// 2. primary leads only: the official release is read and an item drafted and checked (news/write.mjs)
-// 3. config/publish.json auto_publish.news: off -> drafted items are reported, not written; on -> added to news.json (never an edit
-//    or a deletion: publish/guards.mjs checkPublish and checkNewsAdded must pass, or nothing is written)
-// Press (secondary) leads are never published; the Telegram report lists them as "News leads".
-// What was seen is kept in state/news-seen.json, so a headline is reported once.
+// The news step: events from official records, and leads from feeds. Run by update.mjs after self-correction; or by hand:
+//   node news/run.mjs [--dry-run]            (by hand there are no grabber records: only leads, and the events already stored)
+// 1. events (news/events.mjs): the official records this run already fetched (Congress.gov and LegiScan bill records from the grabber's
+//    run folders, CourtListener docket entries from the court step) become RawItems (news/sources/*.mjs), classified by code
+//    (news/classify.mjs), upserted into state/news-events.json and confirmed or withdrawn by news/confirm.mjs. No new API calls.
+// 2. leads (news/leads.mjs): feeds in config/news-sources.json, last N days, not already on the page or seen before, AI headline screen.
+//    A primary (official) lead may only attach to an existing event as a statement (news/attach.mjs: verbatim headline + link); press
+//    leads and unattached ones are listed in the Telegram report as "News leads". Nothing is ever written from a release page.
+// 3. config/publish.json auto_publish.news: off -> events are computed, stored and reported, nothing is written to news.json; on -> the
+//    showable events are rendered into news.json (news/events.mjs renderNews) and must pass checkNewsEvents and checkPublish.
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createHttp, HttpError } from '../grabber/lib/http.mjs';
-import { NEWS_SEEN_FILE } from '../grabber/lib/state.mjs';
-import { BudgetExceeded } from '../llm/gemini.mjs';
+import { NEWS_SEEN_FILE, STATE_DIR } from '../grabber/lib/state.mjs';
 import { loadData, writeData } from '../publish/run.mjs';
-import { checkPublish, checkNewsAdded } from '../publish/guards.mjs';
-import { newsKind } from '../publish/tier-a.mjs';
-import { findLeads, entryIndex, NEWS_TERMS } from './leads.mjs';
+import { checkPublish } from '../publish/guards.mjs';
+import { findLeads } from './leads.mjs';
 import { robotsAllows } from './feeds.mjs';
-import { createRenderer, BrowserUnavailable, RedirectRefused, PageFailed } from './render.mjs';
-import { draftNews, duplicateOf, checkLine, shiftDays } from './write.mjs';
+import { loadEvents, saveEvents, upsertItems, renderNews, checkNewsEvents, markShown, visible, refreshCards } from './events.mjs';
+import { attachStatements, allowHostsFrom, canonicalUrl } from './attach.mjs';
+import { updateHealth, alerts, loadHealth, saveHealth } from './health.mjs';
+import * as congressGov from './sources/congress_gov.mjs';
+import * as legiscan from './sources/legiscan.mjs';
+import * as courtlistener from './sources/courtlistener.mjs';
+import * as openstates from './sources/openstates.mjs';
+import * as nysenate from './sources/nysenate.mjs';
+import * as govinfo from './sources/govinfo.mjs';
+import * as federalRegister from './sources/federal_register.mjs';
+import * as whitehouse from './sources/whitehouse.mjs';
+import * as regulationsGov from './sources/regulations_gov.mjs';
+import * as congressExtra from './sources/congress_extra.mjs';
+import * as nist from './sources/nist.mjs';
+import * as cbo from './sources/cbo.mjs';
+import * as caAg from './sources/ca_ag.mjs';
+import { defaultHttp } from './sources/common.mjs';
+import { writeCard } from './writer.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
 export const SEEN_FILE = NEWS_SEEN_FILE;
+export const EVENTS_FILE = path.join(STATE_DIR, 'news-events.json');
+export const HEALTH_FILE = path.join(STATE_DIR, 'news-health.json');
 export const SOURCES_FILE = path.join(pipelineDir, 'config', 'news-sources.json');
-const MAX_TRIES = 3, KEEP_DAYS = 120;
+const KEEP_DAYS = 120, EVENT_DAYS = 14;
 const host = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return null; } };
+const daysBefore = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') - n * 864e5).toISOString().slice(0, 10);
 
-// Reading feeds and release pages the polite way: our own honest name, robots.txt obeyed, a site that refuses us is not read.
-// Returns { get(url) -> text, used() }. fetchImpl is a test hook.
+// Reading feeds the polite way: our own honest name, robots.txt obeyed, a site that refuses us is not read.
+// Returns { get(url) -> text, used(), allowed(url) }. fetchImpl is a test hook.
 export function createReader({ userAgent, fetchImpl, log = () => {}, maxRequests = 80 }) {
   const http = createHttp({ userAgent, maxRequests, retries: 1, timeoutMs: 20000, log, ...(fetchImpl ? { fetchImpl } : {}) });
   const robots = new Map();
@@ -53,153 +72,145 @@ export function createReader({ userAgent, fetchImpl, log = () => {}, maxRequests
   };
 }
 
-// Style examples for the writer: the most recent hand-checked items about a tracked entry.
-// They calibrate what counts as news as well as the style, so they cover the kinds of item the site publishes: the latest bill items,
-// the latest letters and demands by members, and the latest agency or executive actions.
-const LETTER = /\b(letter|urg\w+|demand\w*|ask\w*|call(?:s|ed)? on)\b/i;
-export function examplesFrom(news) {
-  const hand = news.filter((n) => n.origin !== 'automated' && n.title && n.body), pick = [];
-  const take = (xs, k) => xs.slice(-k).forEach((n) => { if (!pick.includes(n)) pick.push(n); });
-  take(hand.filter((n) => n.tracker), 3);
-  take(hand.filter((n) => !n.tracker && n.kind === 'federal' && LETTER.test(n.title)), 2);
-  take(hand.filter((n) => n.kind === 'executive'), 1);
-  return pick.sort((a, b) => a.date.localeCompare(b.date)).map((n) => ({ date: n.date, title: n.title, body: n.body }));
+// The official records the grabber stored this run: every change-set item on a tracked entry (entry_key set by the grabber's code
+// match) with its raw record. runDirs: the grabber's run folders. Unreadable records are skipped, never fatal.
+export function recordsFromRuns(runDirs = []) {
+  const out = [];
+  for (const runDir of runDirs) {
+    const cs = readJson(path.join(runDir, 'changeset.json'), { items: [] });
+    for (const it of cs.items || []) {
+      if (!it.raw_path || !['congress_gov', 'legiscan'].includes(it.source)) continue;
+      try { out.push({ source: it.source, source_id: it.source_id, entry_key: it.entry_key || null, source_url: it.source_url, fetched_at: it.fetched_at, raw: JSON.parse(fs.readFileSync(path.join(runDir, it.raw_path), 'utf8')) }); }
+      catch { /* a missing record costs only its events this run */ }
+    }
+  }
+  return out;
 }
-// An AI-safety release on a member's own feed that the writer calls "not newsworthy" gets one second opinion (role "referee") before it
-// is marked seen: a 107-member AI-safety letter was once refused and lost for good.
-const AI_SAFETY = /\b(safety|safeguards?|catastroph\w*|kill switch|rogue|frontier|super ?intelligen\w*|existential|guardrails?|risks?)\b/i;
-const aiSafety = (l, release) => { const t = `${l.title} ${l.summary || ''} ${String(release || '').slice(0, 4000)}`; return NEWS_TERMS.test(t) && AI_SAFETY.test(t); };
 
-// config: config/publish.json. sources: config/news-sources.json. factory: llm/make.mjs. aiOff: why AI may not run (null when it may).
-// reader: test hook ({ get(url, accept), used(), allowed(url) }). renderer: test hook (news/render.mjs createRenderer: render(url) ->
-// { text, finalUrl }, close()); by default a headless browser that may only end up on a primary feed's host. Returns the report section (see report/build.mjs).
-export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, renderer = null, log = () => {} }) {
-  const cfg = config.news_leads || { enabled: false };
-  const rep = { ran: false, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '' };
-  if (!cfg.enabled) return { ...rep, skipped_why: 'turned off in config/publish.json' };
-  rep.ran = true;
-  const seen = readJson(seenFile, { _note: 'News leads already seen (news/run.mjs), by link. Do not edit by hand.', items: {} });
-  const rd = reader || createReader({ userAgent: sources.user_agent, log });
-  const before = loadData(dataDir);
-  // official release pages are read in a headless browser, visible text only (news/render.mjs); they may end up (after redirects) only on
-  // the host of a primary feed in config/news-sources.json
-  const officialHosts = sources.sources.filter((s) => s.primary).map((s) => host(s.url)).filter(Boolean);
-  const rend = typeof renderer === 'function' ? renderer(rd) : renderer || createRenderer({ allowHosts: officialHosts, userAgent: sources.user_agent, allowed: (u) => (rd.allowed ? rd.allowed(u) : true), log });
-  let browserDown = null;
-  const screener = aiOff ? null : factory.make('screener');
-
-  // 1. leads
-  const found = await findLeads({ sources: sources.sources, fetchFeed: (u, accept) => rd.get(u, accept || 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'), news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log });
-  rep.feeds_checked = found.feeds.length; rep.feeds_failed = found.feeds.filter((f) => !f.ok).map((f) => ({ id: f.id, why: f.why }));
-  rep.screened_out = found.screened_out.length; rep.duplicates = found.duplicates.length;
-  const mark = { ...found.seen_add };
-  const lead = (l, note) => rep.leads.push({ title: l.title, publisher: l.publisher, link: l.link, date: l.date, primary: l.primary, tracker: l.tracker, note });
-
-  // 2. primary leads become drafts; press leads are reported
-  const writer = aiOff ? null : factory.make('generator'), checker = aiOff ? null : factory.make('validator');
-  const byKey = new Map(before.entries.map((e) => [e.key, e]));
-  const index = entryIndex(before.entries), kindOf = (k) => (byKey.get(k) ? newsKind(byKey.get(k)) : null);
-  const feedHost = new Map(sources.sources.map((s) => [s.id, host(s.url)]));
-  const items = [], max = cfg.max_drafts_per_run ?? 3;
-  let drafts = 0, serviceErrors = 0;
-  try {
-  for (const l of found.leads) {
-    if (!l.primary) { lead(l, 'press report: published only after an official source confirms it'); mark[l.key] = { first_seen: today, outcome: 'lead', title: l.title }; continue; }
-    if (host(l.release_url) !== feedHost.get(l.source_id)) { lead(l, 'the release is not on the official site of its feed'); mark[l.key] = { first_seen: today, outcome: 'lead', title: l.title }; continue; }
-    if (!writer || !checker) { lead(l, `official release, not drafted: ${aiOff || factory.keyName + ' is not set'}`); continue; } // drafted on a later run
-    if (drafts >= max) { rep.waiting++; continue; } // not marked seen: the next run carries on
-    // no browser: the release cannot be read the way a reader sees it, so it is held (not marked seen) and the next run tries again
-    if (browserDown) { lead(l, `official release, held: ${browserDown}`); continue; }
-    drafts++;
+// The event lane alone (no feeds, no AI): adapters -> upsert -> confirm. Exported for the eval (eval/news-set.mjs) and tests.
+export async function eventsStep({ state, records = [], courtFound = [], now = new Date(), runId = null, sinceDays = EVENT_DAYS, today = now.toISOString().slice(0, 10), extra = [], http = null, env = {}, entries = [] }) {
+  const results = {}, itemsBy = {}, fetched = [], all = [], statements = [];
+  const since = daysBefore(today, sinceDays);
+  state.adapters = state.adapters || {};
+  const runs = [['congress_gov', congressGov, { records }], ['legiscan', legiscan, { records }], ['courtlistener', courtlistener, { found: courtFound, now }],
+    ...extra.map(([name, mod]) => [name, mod, { http, env, since, state: state.adapters[name] || {}, entries, now }])];
+  for (const [name, mod, args] of runs) {
     let r;
-    try {
-      let page;
-      try { page = await rend.render(l.release_url); }
-      catch (e) {
-        if (e instanceof BrowserUnavailable) { browserDown = e.message; rep.problems.push(`news held: ${e.message}`); drafts--; lead(l, `official release, held: ${e.message}`); continue; }
-        if (e instanceof RedirectRefused) throw Object.assign(new Error(`the release could not be read: ${e.message}`), { refused: true });
-        if (e instanceof PageFailed) throw Object.assign(new Error(`the release could not be read: ${e.message}`), { fetchFailed: true });
-        throw Object.assign(new Error(`the release could not be read: ${e.message}`), { fetchFailed: true });
-      }
-      const release = page.text;
-      if (!release) throw Object.assign(new Error('the release could not be read: no visible text on the page'), { fetchFailed: true });
-      const args = { lead: l, release, writer, checker, examples: examplesFrom(before.news.items), today, runId, now, maxRounds: cfg.max_rounds || 2, index, kindOf, maxAgeDays: cfg.max_age_days || 14 };
-      r = await draftNews(args);
-      if (r.outcome === 'not_newsworthy' && l.sponsor && aiSafety(l, release)) {
-        let referee = null; try { referee = factory.make('referee'); } catch { referee = null; } // a configuration without the role: no second opinion
-        if (referee) r = { ...(await draftNews({ ...args, writer: referee })), refereed: true };
-        else r = { outcome: 'error', retry: true, rounds: r.rounds, problems: [], reason: 'an AI-safety release called not newsworthy, and no second opinion (role referee) was available: retried later' };
-      }
-    } catch (e) {
-      if (e instanceof BudgetExceeded) { rep.problems.push(`stopped: ${e.message}`); if (e.scope !== 'item') break; r = { outcome: 'error', retry: true, reason: e.message }; }
-      else if (e.refused || e.fetchFailed) r = { outcome: 'error', retry: true, reason: e.message };
-      else if (/robots\.txt|HTTP \d|request budget|fetch|network|abort/i.test(e.message)) r = { outcome: 'error', retry: true, reason: `the release could not be read: ${e.message}` };
-      else throw e;
-    }
-    const tries = ((seen.items[l.key] && seen.items[l.key].tries) || 0) + 1;
-    const wasWaiting = !!(seen.items[l.key] && seen.items[l.key].outcome === 'waiting_for_record');
-    if (r.outcome === 'waiting') {
-      // record lag: no AI was used, so it does not count against the drafts per run; kept for retry (no try limit) until the record
-      // shows the event or the freshness window closes
-      drafts--;
-      rep.waiting_record.push({ title: l.title, publisher: l.publisher, link: l.release_url, release_date: r.release_date, reason: r.reason });
-      mark[l.key] = { first_seen: today, outcome: 'waiting_for_record', title: l.title, release_date: r.release_date, tries, retry: true };
-      continue;
-    }
-    if (wasWaiting && r.outcome === 'rejected') {
-      lead(l, `dropped: waited for the official record to show the event the release reports; now refused: ${r.reason}`);
-      mark[l.key] = { first_seen: today, outcome: 'dropped_waiting', title: l.title, tries };
-      continue;
-    }
-    if (r.outcome === 'drafted') {
-      const dup = duplicateOf(r.item, [...before.news.items, ...items]);
-      if (dup) { rep.duplicates++; mark[l.key] = { first_seen: today, outcome: 'duplicate', title: l.title }; continue; }
-      items.push(r.item);
-      rep.drafted.push({ title: r.item.title, publisher: l.publisher, link: l.release_url, date: r.item.date, tracker: r.item.tracker, rounds: r.rounds, written: false, item: r.item });
-      mark[l.key] = { first_seen: today, outcome: 'drafted', title: l.title };
-    } else if (r.outcome === 'not_newsworthy') {
-      rep.screened_out++; mark[l.key] = { first_seen: today, outcome: 'not_newsworthy', title: l.title, ...(r.refereed ? { refereed: true } : {}) };
-    } else {
-      lead(l, r.outcome === 'rejected' ? `draft refused: ${r.reason}` : r.reason);
-      mark[l.key] = { first_seen: today, outcome: r.outcome, title: l.title, tries, ...(r.retry && tries < MAX_TRIES ? { retry: true } : {}) };
-    }
-    serviceErrors = r.service_error ? serviceErrors + 1 : 0;
-    if (serviceErrors >= 2) { rep.problems.push('stopped: the model service failed twice in a row'); break; }
+    try { r = await mod.fetchItems(args); } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [String(e.message || e)] }, fetched: [] }; }
+    if (r.state) state.adapters[name] = r.state;
+    const items = r.items || [];
+    results[name] = r.health; itemsBy[name] = items; fetched.push(...(r.fetched || []));
+    for (const it of items) (it && it.facts && it.facts.role === 'statement' ? statements : all).push(it);
   }
-  } finally { if (!renderer) await rend.close(); }
-  rep.requests = rd.used();
-  // a release still waiting for the record when its freshness window has closed (it no longer comes back from its feed): dropped, with
-  // a report line
-  const windowStart = shiftDays(today, -(cfg.max_age_days || 14));
-  for (const [k, v] of Object.entries(seen.items)) {
-    if (v.outcome !== 'waiting_for_record' || mark[k] || !(v.release_date < windowStart)) continue;
-    rep.leads.push({ title: v.title, publisher: null, link: k, date: v.release_date, primary: true, tracker: null, note: `dropped: the official record did not show the event the release reports within the ${cfg.max_age_days || 14}-day window` });
-    mark[k] = { ...v, outcome: 'dropped_waiting', retry: false };
+  const okSources = Object.entries(results).filter(([, h]) => h && h.ok).map(([n]) => n);
+  const up = upsertItems(state, all, { runId, now, since, fetched, okSources });
+  if (entries.length) refreshCards(state, entries);
+  return { up, results, itemsBy, items: all, statements };
+}
+
+// The structured official sources other than the records the run already has (network; each needs its own key where noted). Run only
+// when the caller passes env (update.mjs does; tests and hand runs without env read none).
+export const EXTRA_ADAPTERS = [['openstates', openstates], ['nysenate', nysenate], ['govinfo', govinfo], ['federal_register', federalRegister], ['whitehouse', whitehouse], ['regulations_gov', regulationsGov], ['congress_extra', congressExtra], ['nist', nist], ['cbo', cbo], ['ca_ag', caAg]];
+
+// The card writer (news/writer.mjs, roles generator + validator) for showable events whose card is still the template; a card that fails
+// any check stays the template. Only when news publishing is on and AI may run. Returns how many cards the AI wrote.
+export async function writeCards({ state, entries, keys, factory, today, max = 5, log = () => {} }) {
+  let writer = null, reader = null;
+  try { writer = factory.make('generator'); reader = factory.make('validator'); } catch { return { written: 0, tried: 0 }; }
+  if (!writer || !reader) return { written: 0, tried: 0 };
+  const byKey = new Map(entries.map((e) => [e.key, e]));
+  let written = 0, tried = 0;
+  for (const k of keys) {
+    const ev = state.events[k];
+    if (!ev || !ev.card || ev.card.written_by === 'ai' || tried >= max) continue;
+    tried++;
+    const r = await writeCard({ event: ev, entry: byKey.get(ev.entry_id) || null, writer, reader, today, log });
+    if (r.card && r.card.written_by === 'ai') { ev.card = { ...r.card, facts_hash: ev.facts_digest }; written++; }
+  }
+  return { written, tried };
+}
+
+// config: config/publish.json. sources: config/news-sources.json. factory: llm/make.mjs (the headline screener only). aiOff: why AI may
+// not run (null when it may). runDirs: the grabber's run folders this run; courtFound: courtsRun's "found". reader: test hook.
+// Returns the report section (see report/build.mjs).
+export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, eventsFile = EVENTS_FILE, healthFile = HEALTH_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, runDirs = [], records = null, courtFound = [], env = null, http = null, adapters = EXTRA_ADAPTERS, log = () => {} }) {
+  const cfg = config.news_leads || { enabled: false };
+  const rep = { ran: true, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '',
+    events: { added: [], confirmed: [], corrected: [], withdrawn: [], refused: [], pending: 0, showable: 0, statements: 0, held: [], report: [], alerts: [] } };
+  const before = loadData(dataDir);
+  const state = loadEvents(eventsFile);
+
+  // 1. events from the official records this run already has
+  const recs = records || recordsFromRuns(runDirs);
+  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp()) : null });
+  Object.assign(rep.events, { added: ev.up.added, confirmed: ev.up.confirmed, corrected: ev.up.corrected, withdrawn: ev.up.withdrawn, refused: ev.up.refused.slice(0, 20), report: ev.up.report.slice(0, 50) });
+  const health = updateHealth(loadHealth(healthFile), ev.results, { now, items: ev.itemsBy });
+  rep.events.alerts = alerts(health, { now, config: { congress_gov: { cadence_hours: 24 * 30 }, legiscan: { cadence_hours: 24 * 30 }, courtlistener: { cadence_hours: 24 * 30 } } }).filter((a) => !/stale|zero items/.test(a)); // these sources are read only when they changed
+
+  // statements from the structured statement sources (NIST, CBO, CA AG feeds): attach to an event or stay a lead
+  if (ev.statements.length) {
+    const att = attachStatements(Object.values(state.events), ev.statements, { allowHosts: [...new Set(ev.statements.map((s) => { try { return new URL(s.url).hostname.replace(/^www\./, ''); } catch { return null; } }).filter(Boolean))] });
+    for (const e of att.events) { const old = state.events[e.key]; if (e.sources.length !== old.sources.length) rep.events.statements += e.sources.length - old.sources.length; state.events[e.key] = e; }
+    for (const l of [...att.leads, ...att.timeline.map((t) => t.item)]) rep.leads.push({ title: l.title, publisher: (l.facts && l.facts.publisher) || l.source, link: l.url, date: l.date, primary: true, tracker: l.entry_id || null, note: 'official statement: no official event it could attach to' });
   }
 
-  // 3. the switch, then the stop rules; any problem means nothing is written and the drafts are retried
-  if (items.length && rep.publishing) {
-    const after = { ...before, news: { ...before.news, items: [...before.news.items, ...items].sort((a, b) => a.date.localeCompare(b.date)) } };
-    const publisherOf = new Map(rep.drafted.map((d) => [JSON.stringify(d.item), d.publisher]));
-    const problems = [...checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run }).problems, ...checkNewsAdded({ before, after, expected: items, checkLine: (n) => checkLine(publisherOf.get(JSON.stringify(n))) })];
-    if (problems.length) {
-      rep.status = 'stopped'; rep.problems.push(...problems.slice(0, 10));
-      for (const [k, v] of Object.entries(mark)) if (v.outcome === 'drafted') mark[k] = { ...v, outcome: 'error', retry: true };
-    } else {
+  // 2. leads; a primary lead may attach to an event as a statement
+  let mark = {};
+  const seen = readJson(seenFile, { _note: 'News leads already seen (news/run.mjs), by link. Do not edit by hand.', items: {} });
+  if (cfg.enabled) {
+    const rd = reader || createReader({ userAgent: sources.user_agent, log });
+    const screener = aiOff || !factory ? null : factory.make('screener');
+    const found = await findLeads({ sources: sources.sources, fetchFeed: (u, accept) => rd.get(u, accept || 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'), news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log });
+    rep.feeds_checked = found.feeds.length; rep.feeds_failed = found.feeds.filter((f) => !f.ok).map((f) => ({ id: f.id, why: f.why }));
+    rep.screened_out = found.screened_out.length; rep.duplicates = found.duplicates.length;
+    mark = { ...found.seen_add };
+    const byKey = new Map(before.entries.map((e) => [e.key, e]));
+    const jurOf = (k) => { const e = byKey.get(k); return e ? (e.level === 'state' ? e.state || null : 'US') : null; };
+    const statements = found.leads.filter((l) => l.primary && l.tracker).map((l) => ({ source: 'release', source_id: l.key, jurisdiction: jurOf(l.tracker), entry_id: l.tracker, class: null, date: l.date, facts: { role: 'statement', publisher: l.publisher }, url: l.release_url, title: l.title, retrieved_at: now.toISOString() }));
+    const att = attachStatements(Object.values(state.events), statements, { allowHosts: allowHostsFrom(sources) });
+    const attachedUrls = new Set();
+    for (const e of att.events) { const old = state.events[e.key]; if (e.sources.length !== old.sources.length) e.sources.slice(old.sources.length).forEach((s) => attachedUrls.add(s.url)); state.events[e.key] = e; }
+    rep.events.statements += attachedUrls.size;
+    for (const l of found.leads) {
+      const attached = l.primary && attachedUrls.has(canonicalUrl(l.release_url));
+      if (!attached) rep.leads.push({ title: l.title, publisher: l.publisher, link: l.link, date: l.date, primary: l.primary, tracker: l.tracker, note: l.primary ? 'official release: no official event it could attach to (shown only as a statement on an event)' : 'press report: never published; a pointer only' });
+      mark[l.key] = { first_seen: today, outcome: attached ? 'statement' : 'lead', title: l.title };
+    }
+    rep.requests = rd.used();
+  }
+
+  // 3. the card writer for showable events (only when publishing is on and AI may run), then render and the stop rules
+  if (rep.publishing && !aiOff && factory && !dry) {
+    const keys = Object.values(state.events).filter((e) => visible(e) && e.status === 'confirmed').map((e) => e.key).sort();
+    const w = await writeCards({ state, entries: before.entries, keys, factory, today, max: (config.news_writer && config.news_writer.max_cards_per_run) ?? 5, log });
+    rep.events.cards_written = w.written; rep.events.cards_tried = w.tried;
+  }
+  const evs = Object.values(state.events);
+  rep.events.pending = evs.filter((e) => e.status === 'pending' && e.class).length;
+  rep.events.showable = evs.filter(visible).length;
+  const at = now.toISOString();
+  const r = renderNews(before.news, state, before.entries, { at });
+  rep.events.held = r.held.slice(0, 20);
+  const byKey = new Map(r.news.items.filter((n) => n.event_key).map((n) => [n.event_key, n]));
+  for (const k of [...r.added, ...r.updated]) { const n = byKey.get(k); rep.drafted.push({ title: n.title, publisher: n.links[0] ? host(n.links[0].u) : null, link: n.links[0] && n.links[0].u, date: n.date, tracker: n.tracker, event_key: k, class: n.class, update: r.updated.includes(k), written: false }); }
+  if (rep.drafted.length && rep.publishing) {
+    const after = { ...before, news: r.news };
+    const problems = [...checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run }).problems, ...checkNewsEvents({ before, after, state, entries: before.entries, at })];
+    if (problems.length) { rep.status = 'stopped'; rep.problems.push(...problems.slice(0, 10)); }
+    else {
       rep.status = dry ? 'dry-run' : 'written';
       rep.drafted.forEach((d) => { d.written = !dry; });
-      if (!dry) { writeData(dataDir, after, ['news']); if (docsDir) writeData(docsDir, after, ['news']); }
+      if (!dry) { writeData(dataDir, after, ['news']); if (docsDir) writeData(docsDir, after, ['news']); markShown(state, r.added, at); }
     }
-  } else if (items.length) rep.status = 'reported';
-  else if (rep.leads.length) rep.status = 'reported';
-  rep.drafted.forEach((d) => { delete d.item; });
+  } else if (rep.drafted.length || rep.leads.length || rep.events.added.length || rep.events.confirmed.length) rep.status = 'reported';
 
   if (!dry) {
+    saveEvents(eventsFile, state);
+    fs.mkdirSync(path.dirname(healthFile), { recursive: true }); saveHealth(healthFile, health);
     for (const [k, v] of Object.entries(mark)) seen.items[k] = { ...(seen.items[k] || {}), ...v, first_seen: (seen.items[k] && seen.items[k].first_seen) || v.first_seen, last_seen: today };
-    const cut = new Date(Date.parse(today + 'T00:00:00Z') - KEEP_DAYS * 864e5).toISOString().slice(0, 10);
-    for (const [k, v] of Object.entries(seen.items)) if ((v.last_seen || v.first_seen) < cut) delete seen.items[k]; // older than any feed window
-    fs.mkdirSync(path.dirname(seenFile), { recursive: true });
-    const t = seenFile + '.tmp'; fs.writeFileSync(t, JSON.stringify(seen, null, 1) + '\n'); fs.renameSync(t, seenFile);
+    const cut = daysBefore(today, KEEP_DAYS);
+    for (const [k, v] of Object.entries(seen.items)) if ((v.last_seen || v.first_seen) < cut) delete seen.items[k];
+    if (cfg.enabled) { fs.mkdirSync(path.dirname(seenFile), { recursive: true }); const t = seenFile + '.tmp'; fs.writeFileSync(t, JSON.stringify(seen, null, 1) + '\n'); fs.renameSync(t, seenFile); }
   }
   rep.summary = summaryOf(rep);
   return rep;
@@ -207,10 +218,9 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
 
 // Exported: update.mjs rebuilds it after the final check puts items back (written: false), so the commit message counts what is promoted.
 export function summaryOf(rep) {
-  const n = rep.drafted.filter((d) => d.written).length;
-  const L = [`News: ${rep.leads.length} lead${rep.leads.length === 1 ? '' : 's'}, ${rep.drafted.length} item${rep.drafted.length === 1 ? '' : 's'} drafted from official releases, ${n} published`];
+  const n = rep.drafted.filter((d) => d.written).length, e = rep.events || { added: [], confirmed: [] };
+  const L = [`News: ${(e.added || []).length} new official event${(e.added || []).length === 1 ? '' : 's'}, ${(e.confirmed || []).length} confirmed, ${rep.drafted.length} item${rep.drafted.length === 1 ? '' : 's'} ready from official records, ${n} published; ${rep.leads.length} lead${rep.leads.length === 1 ? '' : 's'}`];
   rep.drafted.filter((d) => d.written).forEach((d) => L.push(`- ${d.date} ${d.title} (${d.publisher})`));
-  (rep.waiting_record || []).forEach((w) => L.push(`- waiting for the official record (retried next run): ${w.release_date} ${w.title} (${w.publisher})`));
   return L.join('\n');
 }
 
@@ -225,10 +235,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const aiOff = dry ? 'dry run (no AI calls are made)' : !factory.hasKey ? `${factory.keyName} is not set` : factory.monthStatus().over ? 'the monthly AI cost cap is reached' : null;
   const r = await newsRun({ dataDir: path.join(root, 'web', 'data', 'v2'), docsDir: config.copy_to_docs ? path.join(root, 'docs', 'data', 'v2') : null, config, factory, aiOff, dry, today: started.toISOString().slice(0, 10), now: started,
     runId: 'news-' + started.toISOString().replace(/[-:]/g, '').slice(0, 13).replace('T', '-'), log: (m) => console.log('  ' + m) });
-  if (r.skipped_why) console.log(`skipped: ${r.skipped_why}`);
   r.feeds_failed.forEach((f) => console.log(`feed failed: ${f.id}: ${f.why}`));
   r.leads.forEach((l) => console.log(`LEAD ${l.date} ${l.publisher}: ${l.title}\n  ${l.link}\n  ${l.note}`));
-  r.drafted.forEach((d) => console.log(`DRAFTED ${d.date} ${d.publisher}: ${d.title}${d.written ? ' (published)' : ''}`));
+  r.drafted.forEach((d) => console.log(`EVENT ${d.date} ${d.title}${d.written ? ' (published)' : ''}`));
   r.problems.forEach((p) => console.log(`problem: ${p}`));
-  console.log(`\n${r.status}; ${r.feeds_checked} feeds, ${r.screened_out} screened out, ${r.duplicates} duplicates, ${r.waiting} waiting, ${r.requests} requests`);
+  console.log(`\n${r.status}; ${r.events.added.length} new events, ${r.events.pending} pending, ${r.events.showable} showable; ${r.feeds_checked} feeds, ${r.requests} requests`);
 }
