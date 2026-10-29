@@ -17530,6 +17530,15 @@
   "hash": "e8de57e39f4eaba26daba03d805a2297",
   "checked_at": "2026-10-13T07:14:36Z"
  },
+ "2154575": {
+  "verdict": "no",
+  "reason": "site information, no AI link",
+  "title": "Site Information & Links",
+  "state": "MA",
+  "number": "S3143",
+  "hash": "f8e9314d14a9674cb351105afdcbfd93",
+  "checked_at": "2026-10-29T00:02:45Z"
+ },
  "2154761": {
   "verdict": "other_jurisdiction",
   "title": "Prior Authorization Accountability Act",
@@ -19489,5 +19498,13 @@
   "number": "HR1641",
   "hash": "ab90a2d61c1642f488eae1c78d1fec54",
   "checked_at": "2026-10-28T07:00:23Z"
+ },
+ "2161278": {
+  "verdict": "other_jurisdiction",
+  "title": "Common-Sense Cloud Security Act",
+  "state": "US",
+  "number": "HB10915",
+  "hash": "20c9044d03637b1dd74f08ee2aa432a2",
+  "checked_at": "2026-10-29T00:02:45Z"
  }
 }

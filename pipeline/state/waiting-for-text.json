@@ -1,12 +1,4 @@
 {
  "_note": "New Congress bills held because their text is not published yet; grabber/run.mjs asks for it each run and collects them when it appears.",
- "items": {
-  "congress_gov:119/hr/10915": {
-   "source_id": "119/hr/10915",
-   "title": "To require the Director of the National Institute of Standards and Technology to develop new standards, methodologies, and recommendations with respect to the cybersecurity of cloud-based infrastructure, and for other purposes.",
-   "since": "2026-10-28",
-   "last_checked": "2026-10-28",
-   "checks": 4
-  }
- }
+ "items": {}
 }
