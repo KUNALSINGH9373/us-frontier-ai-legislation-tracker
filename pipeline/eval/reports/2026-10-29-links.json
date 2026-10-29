@@ -1,7 +1,7 @@
 {
  "measure": "links",
- "run_at": "2026-10-29T01:13:49.340Z",
- "checks_hash": "23dd65b9c83027711d4fa2cd8ebda52778c4b2bb41fa78b8afedaa89c8758747",
+ "run_at": "2026-10-29T01:19:52.959Z",
+ "checks_hash": "08185bf81924640131a6e55fcc5df8f1a400a7d266557298b55f1ec266b46451",
  "cases": 246,
  "wrong": 0,
  "applied_wrong": 0,
@@ -11,7 +11,7 @@
  "backtest_errors": 0,
  "backtest": {
   "proposals": 22,
-  "recovered": 21,
+  "recovered": 22,
   "edges": 138,
   "as_new_proposals": 22
  },
