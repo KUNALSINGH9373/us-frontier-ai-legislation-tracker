@@ -193,3 +193,8 @@
 {"at":"2026-10-29T00:05:49.888Z","role":"referee","model":"claude-sonnet-5-5","itemId":"legiscan:2069770","input":13052,"output":96,"cost":0.027063999999999998}
 {"at":"2026-10-29T00:05:54.639Z","role":"generator","model":"claude-haiku-5-5","itemId":"legiscan:2100845","input":8741,"output":826,"cost":0.0012871}
 {"at":"2026-10-29T00:05:57.478Z","role":"validator","model":"claude-haiku-5-5","itemId":"legiscan:2100845","input":5616,"output":512,"cost":0.0008176000000000001}
+{"at":"2026-10-29T05:57:22.806Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":6567,"output":7170,"cost":0.0042417}
+{"at":"2026-10-29T05:57:37.642Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-120","input":7172,"output":4557,"cost":0.0029957000000000004}
+{"at":"2026-10-29T05:58:51.259Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1366,"output":62,"cost":0.0001676}
+{"at":"2026-10-29T05:58:58.499Z","role":"generator","model":"claude-haiku-5-5","itemId":"news:236e232bb5d3:w1","input":3628,"output":1116,"cost":0.0009208}
+{"at":"2026-10-29T05:58:59.514Z","role":"validator","model":"claude-haiku-5-5","itemId":"news:236e232bb5d3:c1","input":1835,"output":183,"cost":0.000275}
