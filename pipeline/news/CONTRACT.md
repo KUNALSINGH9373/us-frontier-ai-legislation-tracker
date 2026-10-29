@@ -104,3 +104,10 @@ Work in your worktree on top of 2f1d34b; commit there; do not push; do not touch
 - `cadence_hours` (config/news-sources.json "structured") is honoured: a source read less than its cadence ago (news-health.json `last_fetch`, 15 min slack) is skipped (`skipped: cadence`, the last record kept).
 - Open States counts requests per UTC day in its adapter state (`quota`) and stops at 400.
 - `redact` removes key=/apikey=/api_key=/token= query values; news-health.json is written through `healthText`, which also removes every env key value.
+
+## Decisions 29 Oct (review round 7)
+- A one-chamber veto-override vote is written "Override vote passed the <chamber>", never "veto overridden".
+- Withdrawal and concurrence labels must agree with the official words (news/sources/openstates.mjs `guardClass`, applied to every source in news/events.mjs `normalizeItem`): a withdrawal from committee or the calendar, a re-referral, "placed on", a discharge, and a withdrawn amendment, motion or point of order (Texas, live sample) are not the bill withdrawn; "refused to concur", "not concur", "nonconcur", "failed to concur" are not a concurrence. Either has no class. The "withdrawn from consideration" variant is dropped.
+- "Concurred in amendments" only when the official words say amendments (fact sheet `event.on_amendments`), never for a conference report.
+- The leads (feeds) run under the same deadline as the adapters, with at most 2 minutes of the total; the AI headline screener runs only while news publishing is on. Structured adapters keep running while news is off, within the budget.
+- A "legislature" chamber is "Council" in DC, else "Legislature". The law and final merge groups are per bill (`law#<bill>`).

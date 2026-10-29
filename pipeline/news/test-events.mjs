@@ -454,5 +454,15 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
     && (!ne || !/both chambers/i.test(ne.headline)) && res === null && sig && !/into law|Governor/i.test(sig.headline) && ca && /Governor/.test(ca.headline) && !/signs or vetoes/.test(JSON.stringify([dc, ne, sig, ca])));
 }
 
+// r7 L3: law/final groups are per bill: two bills under one entry signed on one day get two cards
+{
+  const sig = (n, sid) => ({ source: 'legiscan', record: 'r' + sid, source_id: 'ls-' + sid, jurisdiction: 'NJ', entry_id: 'nj-s-4446-a-5275', class: 'executive-signature', date: '2026-10-20', facts: { action: 'Approved P.L.2026, c.1.', number: n }, url: 'https://www.njleg.state.nj.us/x', title: n, retrieved_at: '2026-10-21T00:00:00Z' });
+  const os = (it) => ({ ...it, source: 'openstates', source_id: 'os-' + it.source_id, record: undefined });
+  const a = sig('NJ S4446', 'a'), b = sig('NJ S9999', 'b');
+  const { groupOf } = await import('./events.mjs');
+  const ga = groupOf({ ...a, facts: a.facts }), gb = groupOf({ ...b, facts: b.facts });
+  ok('r7 L3 two bills under one entry: different law groups', ga.name !== gb.name && /#S4446$/.test(ga.name));
+}
+
 console.log(`news events: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -79,6 +79,28 @@ await t('r6 #5/#6: simple resolutions never "both chambers"; resolutions "What i
   assert.ok(!buildFactSheet({ key: 'k', jurisdiction: 'US', class: 'enrolled', date: '2026-10-27', facts: { number: 'H.R. 5' } }, null).bill.simple_resolution);
   assert.strictEqual(summaryLabel('executive-signature', true), 'What it would do');
 });
+await t('r7: override vote, withdrawal and concurrence wording; legislature chamber', async () => {
+  const ov = buildFactSheet({ key: 'k', jurisdiction: 'CA', class: 'veto-override-passage', date: '2026-10-27', facts: { number: 'AB 1018', chamber: 'Assembly' } }, null);
+  assert.strictEqual(ov.stage, 'Override vote passed the Assembly');
+  for (const c of candidates(ov, 'k')) assert.ok(!/overridden|overrides the veto/i.test(c.headline + c.body), c.body);
+  const { templateFor } = await import('./templates.mjs');
+  const tp = templateFor({ key: 'k', jurisdiction: 'CA', class: 'veto-override-passage', date: '2026-10-27', facts: { number: 'AB 1018', chamber: 'Assembly', action: 'Motion to override the veto adopted.' }, sources: [{ role: 'official', source: 'legiscan' }] }, { short_name: 'X', title: 'X' });
+  assert.ok(tp && !/overridden/i.test(tp.headline), JSON.stringify(tp));
+  const os = await import('./sources/openstates.mjs');
+  for (const d of ['Withdrawn from committee; placed on calendar', 'Withdrawn from Committee on Rules and re-referred', 'Discharged from committee', 'Withdrawn from the Senate Calendar', 'Withdrawn from further consideration by the committee', 'Amendment withdrawn', 'Point of order withdrawn', 'Point of order withdrawn (amendment)']) assert.strictEqual(os.guardClass('withdrawal', d), null, d);
+  assert.strictEqual(os.guardClass('withdrawal', 'Withdrawn by author'), 'withdrawal');
+  for (const d of ['Senate refused to concur in House amendments', 'House does not concur', 'Nonconcurred in Senate amendments', 'Failed to concur']) assert.strictEqual(os.guardClass('concurrence', d), null, d);
+  assert.strictEqual(os.guardClass('concurrence', 'Senate concurred in House amendments'), 'concurrence');
+  const { classifyState } = await import('./classify.mjs');
+  assert.strictEqual(classifyState('Senate refused to concur in Assembly amendments', { jurisdiction: 'CA' }), null);
+  assert.ok(!candidates(buildFactSheet({ key: 'k', jurisdiction: 'US', class: 'withdrawal', date: '2026-10-27', facts: { number: 'H.R. 5', chamber: 'House' } }, null), 'k').some((c) => /from consideration/.test(c.body)));
+  const conf = buildFactSheet({ key: 'k', jurisdiction: 'US', class: 'concurrence', date: '2026-10-27', facts: { number: 'H.R. 5', chamber: 'Senate', action: 'Conference report agreed to in Senate' } }, null);
+  for (const c of candidates(conf, 'k')) assert.ok(!/amendments/i.test(c.headline + c.body), c.body);
+  const am = buildFactSheet({ key: 'k', jurisdiction: 'US', class: 'concurrence', date: '2026-10-27', facts: { number: 'H.R. 5', chamber: 'Senate', action: 'Senate concurred in the House amendments' } }, null);
+  assert.ok(am.event.on_amendments && candidates(am, 'k').some((c) => /amendments/.test(c.headline + c.body)));
+  assert.strictEqual(buildFactSheet({ key: 'k', jurisdiction: 'DC', class: 'passage', date: '2026-10-27', facts: { number: 'B 26-1', chamber: 'legislature' } }, null).event.chamber, 'Council');
+  assert.strictEqual(buildFactSheet({ key: 'k', jurisdiction: 'NE', class: 'passage', date: '2026-10-27', facts: { number: 'LB 1', chamber: 'legislature' } }, null).event.chamber, 'Legislature');
+});
 await t('r6 #7: territories have names, no executive, no law claims outside became-law', () => {
   const sh = buildFactSheet({ key: 'k', jurisdiction: 'PR', class: 'executive-signature', date: '2026-10-27', facts: { number: 'PC 5', executive: 'Governor X' } }, null);
   assert.strictEqual(sh.bill.jurisdiction_name, 'Puerto Rico'); assert.strictEqual(sh.bill.executive, null); assert.strictEqual(sh.stage, 'Signed'); assert.strictEqual(sh.stage_code, null);

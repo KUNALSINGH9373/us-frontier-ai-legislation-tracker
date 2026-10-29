@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getJsonAny, isBillList } from './common.mjs';
+import { NOT_CONCUR } from '../classify.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const CONFIG_PATH = path.join(HERE, '..', '..', 'config', 'news-sources.json');
@@ -28,6 +29,16 @@ export function mapClassifications(list) {
   if (set.has('executive-veto-line-item') || set.has('committee-passage-unfavorable')) return null; // not the bill's veto or passage (live check)
   for (const [k, v] of OS_CLASS) if (set.has(k)) return v;
   return null; // reading-1, reading-2, amendment-introduction, ... : recorded with class null, never shown
+}
+// The action's own words must agree with Open States' label (review r7 M2/M3): a withdrawal from committee or the calendar (a discharge,
+// a re-referral, "placed on calendar") is not the bill withdrawn; a refusal to concur is not a concurrence. Either: no class.
+// Live sample (29 Oct 2026, 30 Open States requests): Texas labels "Amendment withdrawn" and "Point of order withdrawn" as withdrawal.
+export const NOT_WITHDRAWN = /\b(?:amendments?|point of order|motions?|objection|request|substitute|co-?sponsor\w*|sponsorship)\b[^.;]*\bwithdrawn\b|\bwithdrawn\b[^.;]*\b(?:amendments?|motions?|point of order)\b|\bwithdrawn from (?:the )?(?:\w+ )?(?:committee|calendar)|\bre-?refer|\bplaced on\b|\bdischarg|\bwithdrawn from (?:further )?consideration by (?:the )?committee/i;
+export function guardClass(cls, description) {
+  const d = String(description || '');
+  if (cls === 'withdrawal' && NOT_WITHDRAWN.test(d)) return null;
+  if (cls === 'concurrence' && NOT_CONCUR.test(d)) return null;
+  return cls;
 }
 export const CHAMBER = { upper: 'upper', lower: 'lower', legislature: 'legislature', executive: 'executive' };
 
@@ -103,7 +114,7 @@ export function billToItems(bill, tracked, retrievedAt) {
   for (const [i, a] of (bill.actions || []).entries()) {
     const date = acceptDate(a.date, retrievedAt);
     if (!date) continue;
-    const cls = mapClassifications(a.classification);
+    const cls = guardClass(mapClassifications(a.classification), a.description);
     const chamber = CHAMBER[a.organization && a.organization.classification] || null;
     const facts = { chamber, number: spaced(bill.identifier), title: bill.title, action: a.description, os_classification: a.classification || [] };
     if (cls === 'passage' || cls === 'failure' || cls === 'concurrence' || cls === 'veto-override-passage') { const v = voteFacts(bill.votes, date, chamber, cls); if (v) facts.vote = v; }

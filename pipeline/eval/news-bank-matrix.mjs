@@ -22,6 +22,7 @@ export function sheetsFor(cls, entry) {
   for (const [j, chamber, over] of JUR) for (const [vl, vote] of Object.entries(VOTES)) for (const signer of [true, false]) for (const withEntry of [true, false]) {
     const facts = { ...BASE, chamber, committee: `${chamber} Judiciary Committee`, ...(j === 'US' ? { number: 'S. 1405', executive: 'President Avery Lane', law_number: 'Public Law 119-55' } : {}), ...(j === 'NE' ? { number: 'LB 1405', executive: 'Governor Avery Lane' } : {}), ...(over || {}) };
     if (vote) facts.vote = vote;
+    if (withEntry && signer) facts.action = 'Senate amendments concurred in'; // review r7 M3a: half the sheets say amendments, half do not
     if (!withEntry) Object.assign(facts, { agency: 'NIST', court: 'Ninth Circuit', title: 'Doe v. Roe', position: 'Director of NIST' }); // short names: long ones push some headlines past 90
     if (!signer) delete facts.executive;
     const dates = cls === 'hearing-scheduled' ? [['scheduled', '2026-10-28', '2026-11-04'], ['past-hearing', '2026-10-01', '2026-10-08']] : cls === 'comment-period-closing' ? [['scheduled', '2026-10-28', null]] : [['held', '2026-10-27', null]];
@@ -72,6 +73,10 @@ export function trapProblems(card, sheet) {
   if (['executive-signature', 'executive-veto', 'executive-order', 'presidential-memo', 'nomination'].includes(cls) && !e.executive && /\b(governor|president|mayor)\s+(signs|signed|vetoes|vetoed|issues|issued|nominates|nominated)\b/i.test(all)) p.push('a signer the record does not name');
   if (isResolution(b.number, b.jurisdiction) && /\binto law\b|\benact/i.test(all)) p.push('a resolution signed into law');
   if (/\bthe the\b/i.test(all)) p.push('the the');
+  // review r7 traps: one chamber's override vote is not "veto overridden"; "amendments" only when the record says so; no "from consideration"
+  if (cls === 'veto-override-passage' && /\b(veto (?:was |is )?overridden|overrides the veto|overrode the veto)\b/i.test(`${all} ${sheet.stage || ''}`)) p.push('one chamber\'s override vote written as the veto overridden');
+  if (cls === 'concurrence' && !e.on_amendments && /\bamendments?\b/i.test(`${card.headline}\n${body}`)) p.push('concurrence in amendments the record does not state');
+  if (cls === 'withdrawal' && /from consideration/i.test(all)) p.push('withdrawn "from consideration"');
   // review r6 traps: law words only with valid law wording; never "both chambers" for a simple resolution; no stage from other events
   const lawOk = cls === 'became-law' ? b.became_law_ok === true : b.law_wording === true;
   if (!lawOk && /\b(becomes? law|became law|into law|now law|enact\w*)\b/i.test(all) && !['executive-order', 'presidential-memo'].includes(cls)) p.push('a law claim without valid law wording');

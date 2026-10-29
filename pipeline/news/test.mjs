@@ -156,7 +156,7 @@ const run = (sb, o = {}) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile
 
 // ---------- 6. the Telegram report ----------
 {
-  const sb = sandbox(), nw = await run(sb);
+  const sb = sandbox(), nw = await run(sb, { config: CONFIG(true) }); // the screener runs only while news publishing is on (review r7 L1)
   const rep = newReport({ id: 'update-20261028-0600', now: NOW });
   rep.publish.runs.push({ status: 'quiet', entries_updated: [], entries_added: [], links_added: 0, news_added: 0, fields_changed: [], not_applied: [] });
   rep.news = nw;

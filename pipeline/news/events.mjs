@@ -18,6 +18,7 @@ import { templateFor, quoteOf } from './templates.mjs';
 import { ownStageCode, billKey, displayNumber, skipsExecutive } from './factsheet.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
 import { sourceConfig } from './sources/common.mjs';
+import { guardClass } from './sources/openstates.mjs';
 
 // Hosts an official record may link to. A raw item whose url is elsewhere is refused.
 // Hosts an official record may link to, per source, from config/news-sources.json "structured" (review r3 #7: exact hosts, never a
@@ -86,6 +87,8 @@ export function normalizeItem(it) {
   // review r6 #1: a resolution or constitutional amendment is never a law: its "became-law" (a chaptering) has no class, so no card
   let cls = it.class ?? null;
   if (cls === 'became-law' && facts.number && skipsExecutive(String(facts.number), it.jurisdiction)) cls = null;
+  // review r7 M2/M3: the official words must agree with a withdrawal or concurrence label, whatever the source
+  if (typeof facts.action === 'string') cls = guardClass(cls, facts.action);
   return { item: { ...it, source_id, class: cls, facts } };
 }
 
@@ -326,7 +329,9 @@ const GROUP = { 'executive-signature': ['law', 1], 'became-law': ['law', 2], 'co
 export function groupOf(ev) {
   const g = GROUP[ev.class];
   if (!g) return null;
-  return { name: g[0] === 'hearing' ? `hearing:${(ev.facts && ev.facts.hearing_date) || ev.date}` : g[0], rank: g[1], exact: g[0] !== 'comment' }; // law and final: no date window (a chapter can follow the signature by weeks, review r3 #5)
+  // law and final groups are per bill (review r7 L3): two bills under one entry get their own signature/law cards
+  const bk = (g[0] === 'law' || g[0] === 'final') && ev.facts ? billKey(ev.facts.number, ev.jurisdiction) : null;
+  return { name: g[0] === 'hearing' ? `hearing:${(ev.facts && ev.facts.hearing_date) || ev.date}` : `${g[0]}${bk ? `#${bk}` : ''}`, rank: g[1], exact: g[0] !== 'comment' }; // law and final: no date window (a chapter can follow the signature by weeks, review r3 #5)
 }
 export function sameGroup(a, b) {
   const ga = groupOf(a), gb = groupOf(b);

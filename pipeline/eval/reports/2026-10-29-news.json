@@ -1,8 +1,8 @@
 {
  "measure": "news",
- "run_at": "2026-10-29T08:47:07.980Z",
- "checks_hash": "05359409d2f782c336e2c0824798f6878f9bfe66800b3a12074a12cdc98deb3a",
- "cases": 63,
+ "run_at": "2026-10-29T09:15:17.621Z",
+ "checks_hash": "2609b059c2d5cca7e2d0d8f9702e9b2c1c9a70c7587ead67ae9f66a05f9c94f9",
+ "cases": 68,
  "wrong": 0,
  "missed": 0,
  "rows": [
@@ -692,6 +692,61 @@
    "id": "r6-recycled-number-sessions",
    "expect": 1,
    "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r7-override-one-chamber",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r7-withdrawn-from-committee",
+   "expect": 0,
+   "got": 0,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r7-refused-to-concur",
+   "expect": 0,
+   "got": 0,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r7-conference-report-concurrence",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r7-two-bills-signed-one-entry",
+   "expect": 2,
+   "got": 2,
    "wrong": false,
    "missed": false,
    "extra": [],

@@ -85,6 +85,7 @@ const chamberName = (j, chamber) => {
   const c = String(chamber || '').toLowerCase();
   if (/senate|upper/.test(c)) return 'Senate';
   if (/assembly/.test(c)) return LOWER[j] || 'Assembly';
+  if (/^legislature$|^council$/.test(c)) return j === 'DC' ? 'Council' : 'Legislature'; // review r7 L2
   if (/house|lower/.test(c)) return lowerOf(j);
   return chamber ? String(chamber) : null;
 };
@@ -135,7 +136,7 @@ export function stageOf(cls, j, f = {}) {
     case 'executive-signature': return lawWording(f.number, j) && !TERRITORIES.has(j) ? 'Signed into law' : 'Signed';
     case 'became-law': return lawWording(f.number, j) ? 'Became law' : null; // review r6 #1: never for a resolution or amendment
     case 'executive-veto': return 'Vetoed';
-    case 'veto-override-passage': return ch ? `Veto overridden in the ${ch}` : null;
+    case 'veto-override-passage': return ch ? `Override vote passed the ${ch}` : null; // one chamber's vote is not the veto overridden (review r7 M1)
     case 'withdrawal': return 'Withdrawn';
     case 'carried-over': return 'Carried over';
     case 'new-text-version': return 'New text published';
@@ -208,7 +209,8 @@ export function buildFactSheet(event, entry = null, { today = null } = {}) {
   const stage = stageOf(ev.class, j, { ...f, number, chamber: facts.chamber });
   const stage_code = ownStageCode(ev.class, j, number);
   return {
-    event: { class: ev.class, date: ev.date, timing: timingOf(ev, today), ...facts },
+    // on_amendments: the official words say the concurrence is in amendments (review r7 M3a); only then may a card say so
+    event: { class: ev.class, date: ev.date, timing: timingOf(ev, today), ...facts, ...(ev.class === 'concurrence' && [f.action, ...(Array.isArray(f.actions) ? f.actions : [])].some((x) => /\bamendments?\b/i.test(String(x || ''))) && !/conference report/i.test(String(f.action || '')) ? { on_amendments: true } : {}) },
     bill: {
       number,
       numbers: [...new Set(nums)],

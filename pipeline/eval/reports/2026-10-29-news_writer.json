@@ -1,15 +1,15 @@
 {
  "measure": "news_writer",
  "mode": "bank",
- "run_at": "2026-10-29T08:47:08.939Z",
- "checks_hash": "a74e7fc181be3a4c9cb55a10c81517e7198b1faf939fa1d0f41b5be6479f0c40",
+ "run_at": "2026-10-29T09:15:18.558Z",
+ "checks_hash": "0e8606e2d0b8e9bcc3a7a5c22848f641e6500b621c2ab704907f968b3bf45623",
  "cases": 32,
  "wrong": 0,
  "missed": 0,
  "bank_written": 32,
  "ai_written": 0,
  "matrix": {
-  "renderings": 143926,
+  "renderings": 142606,
   "wrong": 0,
   "refused": 4320,
   "unusable_headlines": [],
@@ -226,7 +226,7 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "SB 813: Senate concurs",
+   "headline": "California Senate concurs on SB 813",
    "body": "The Senate voted 37-0 on August 30, 2026 to concur in SB 813. What the bill would do: Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone.",
    "reason": null
   },
@@ -759,7 +759,7 @@
    "wrong": false,
    "missed": false,
    "headline": "California Initiative 25-0034 withdrawn",
-   "body": "Initiative 25-0034 was withdrawn from consideration on February 27, 2026. Status: Withdrawn.",
+   "body": "The withdrawal of Initiative 25-0034 was recorded on February 27, 2026. Status: Withdrawn.",
    "reason": null
   },
   {

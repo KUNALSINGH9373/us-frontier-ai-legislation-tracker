@@ -4331,6 +4331,366 @@
      ]
     }
    ]
+  },
+  {
+   "id": "r7-override-one-chamber",
+   "r7": true,
+   "note": "Review r7 M1: one chamber's override vote is not \"the veto overridden\".",
+   "intent": [
+    "veto-override-passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|veto-override-passage|2026-10-20#AB1405",
+     "title": "AB 1405: Assembly votes to override veto",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Assembly motion to override the Governor's veto adopted. (Ayes 60. Noes 15.)\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-ov",
+       "source_id": "ls-ov",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "veto-override-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Assembly motion to override the Governor's veto adopted. (Ayes 60. Noes 15.)",
+        "chamber": "Assembly",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-ov",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "veto-override-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Assembly motion to override the Governor's veto adopted. (Ayes 60. Noes 15.)",
+        "chamber": "Assembly",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-withdrawn-from-committee",
+   "r7": true,
+   "note": "Review r7 M2: \"Withdrawn from committee; placed on calendar\" (a discharge) and Texas \"Amendment withdrawn\" are not the bill withdrawn: no card.",
+   "intent": [
+    "withdrawal"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-wd",
+       "source_id": "ls-wd",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Withdrawn from committee; placed on calendar",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-wd",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Withdrawn from committee; placed on calendar",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      },
+      {
+       "source": "legiscan",
+       "record": "ls-wd2",
+       "source_id": "ls-wd2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-18",
+       "facts": {
+        "action": "Amendment withdrawn",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-wd2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-18",
+       "facts": {
+        "action": "Amendment withdrawn",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-refused-to-concur",
+   "r7": true,
+   "note": "Review r7 M3b: \"Senate refused to concur in Assembly amendments\" is not a concurrence: no card.",
+   "intent": [
+    "concurrence"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-rc",
+       "source_id": "ls-rc",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Senate refused to concur in Assembly amendments",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-rc",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Senate refused to concur in Assembly amendments",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-conference-report-concurrence",
+   "r7": true,
+   "note": "Review r7 M3a: a conference-report concurrence is never written as \"concurred in amendments\".",
+   "intent": [
+    "concurrence"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20#AB1405",
+     "title": "AB 1405: Senate concurs",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Conference report adopted by the Senate\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-cr",
+       "source_id": "ls-cr",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Conference report adopted by the Senate",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-cr",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Conference report adopted by the Senate",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-two-bills-signed-one-entry",
+   "r7": true,
+   "note": "Review r7 L3: two bills under one entry signed on different days: each gets its own signature card (law group per bill).",
+   "intent": [
+    "executive-signature"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|executive-signature|2026-10-15#S4446",
+     "title": "S 4446 signed",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 15, 2026: \"Approved P.L.2026, c.101\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    },
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|executive-signature|2026-10-20#A5275",
+     "title": "A 5275 signed",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ A5275) on Oct 20, 2026: \"Approved P.L.2026, c.102\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-s1",
+       "source_id": "ls-s1",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved P.L.2026, c.101.",
+        "number": "NJ S4446"
+       },
+       "title": "NJ S4446"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s1",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved P.L.2026, c.101.",
+        "number": "S 4446"
+       },
+       "title": "S 4446"
+      },
+      {
+       "source": "legiscan",
+       "record": "ls-s2",
+       "source_id": "ls-s2",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Approved P.L.2026, c.102.",
+        "number": "NJ A5275"
+       },
+       "title": "NJ A5275"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s2",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Approved P.L.2026, c.102.",
+        "number": "A 5275"
+       },
+       "title": "A 5275"
+      }
+     ]
+    }
+   ]
   }
  ]
 }

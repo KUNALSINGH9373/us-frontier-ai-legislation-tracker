@@ -49,7 +49,7 @@ const daysBefore = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') - n * 864
 // Reading feeds the polite way: our own honest name, robots.txt obeyed, a site that refuses us is not read.
 // Returns { get(url) -> text, used(), allowed(url) }. fetchImpl is a test hook.
 export function createReader({ userAgent, fetchImpl, log = () => {}, maxRequests = 80 }) {
-  const http = createHttp({ userAgent, maxRequests, retries: 1, timeoutMs: 20000, log, ...(fetchImpl ? { fetchImpl } : {}) });
+  const http = createHttp({ userAgent, maxRequests, retries: 1, timeoutMs: NEWS_FETCH_TIMEOUT_MS, log, ...(fetchImpl ? { fetchImpl } : {}) });
   const robots = new Map();
   async function allowed(url) {
     const u = new URL(url);
@@ -94,6 +94,7 @@ export function recordsFromRuns(runDirs = []) {
 // within its cadence_hours (config/news-sources.json "structured"; lastFetch from news-health.json) is not read again this run.
 // Never throws. clock: ms now (tests).
 export const NEWS_BUDGET_MS = 6 * 60 * 1000;
+export const LEADS_BUDGET_MS = 2 * 60 * 1000; // the feeds' share of the total, at most
 const CADENCE_SLACK_MS = 15 * 60 * 1000; // a 24 h source read at 06:00 is due again at the 06:00 run the next day
 function guardedHttp(http, { deadline, clock, onStop }) {
   let consecutive = 0, stopped = null;
@@ -204,7 +205,7 @@ export async function newsRun(opts) {
   }
 }
 
-async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eventsFile = EVENTS_FILE, healthFile = HEALTH_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, runDirs = [], records = null, courtFound = [], env = null, http = null, adapters = EXTRA_ADAPTERS, log = () => {} }) {
+async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eventsFile = EVENTS_FILE, healthFile = HEALTH_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, runDirs = [], records = null, courtFound = [], env = null, http = null, adapters = EXTRA_ADAPTERS, log = () => {}, clock = () => Date.now() }) {
   const cfg = config.news_leads || { enabled: false };
   const rep = { ran: true, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '',
     events: { added: [], confirmed: [], corrected: [], withdrawn: [], refused: [], pending: 0, showable: 0, statements: 0, held: [], report: [], alerts: [] } };
@@ -215,8 +216,11 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
 
   // 1. events from the official records this run already has
   const recs = records || recordsFromRuns(runDirs);
+  // one time budget for the whole news step (review F2, r7 L1): the structured adapters get the total less the leads' share; the leads
+  // (feeds) get what is left, at most LEADS_BUDGET_MS, under the same deadline
+  const totalMs = (config.news && config.news.time_budget_ms) || NEWS_BUDGET_MS, stepStart = clock(), stepDeadline = stepStart + totalMs;
   const prevHealth = loadHealth(healthFile), lastFetch = Object.fromEntries(Object.entries(prevHealth.sources || {}).map(([n, s]) => [n, s.last_fetch || null]));
-  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp({ timeoutMs: NEWS_FETCH_TIMEOUT_MS })) : null, lastFetch, budgetMs: (config.news && config.news.time_budget_ms) || NEWS_BUDGET_MS });
+  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp({ timeoutMs: NEWS_FETCH_TIMEOUT_MS })) : null, lastFetch, budgetMs: Math.max(0, totalMs - Math.min(LEADS_BUDGET_MS, Math.floor(totalMs / 3))), clock });
   Object.assign(rep.events, { added: ev.up.added, confirmed: ev.up.confirmed, corrected: ev.up.corrected, withdrawn: ev.up.withdrawn, refused: ev.up.refused.slice(0, 20), report: ev.up.report.slice(0, 50) });
   const health = updateHealth(prevHealth, ev.results, { now, items: ev.itemsBy });
   rep.events.alerts = alerts(health, { now, config: { congress_gov: { cadence_hours: 24 * 30 }, legiscan: { cadence_hours: 24 * 30 }, courtlistener: { cadence_hours: 24 * 30 } } }).filter((a) => !/stale|zero items/.test(a)); // these sources are read only when they changed
@@ -233,8 +237,17 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
   const seen = readJson(seenFile, { _note: 'News leads already seen (news/run.mjs), by link. Do not edit by hand.', items: {} });
   if (cfg.enabled) {
     const rd = reader || createReader({ userAgent: sources.user_agent, log });
-    const screener = aiOff || !factory ? null : factory.make('screener');
-    const found = await findLeads({ sources: sources.sources, fetchFeed: (u, accept) => rd.get(u, accept || 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'), news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log });
+    // the AI headline screener runs only while news publishing is on (review r7 L1): leads are pointers, nothing is shown from them
+    const screener = aiOff || !factory || !rep.publishing ? null : factory.make('screener');
+    const leadsDeadline = Math.min(stepDeadline, clock() + LEADS_BUDGET_MS);
+    const fetchFeed = (u, accept) => { if (clock() >= leadsDeadline) return Promise.reject(new Error('news step: time budget reached; not read this run')); return rd.get(u, accept || 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8'); };
+    let lt;
+    const late = new Promise((res) => { lt = setTimeout(() => res(null), Math.max(0, leadsDeadline - clock())); });
+    let found;
+    try { found = await Promise.race([findLeads({ sources: sources.sources, fetchFeed, news: before.news.items, seen: seen.items, entries: before.entries, screener, today, maxAgeDays: cfg.max_age_days || 14, log }), late]); }
+    catch (e) { found = null; rep.problems.push(`news leads failed: ${redact(String(e && e.message || e)).slice(0, 200)}`); }
+    finally { clearTimeout(lt); }
+    if (!found) { rep.leads_truncated = true; found = { feeds: [], screened_out: [], duplicates: [], seen_add: {}, leads: [] }; }
     rep.feeds_checked = found.feeds.length; rep.feeds_failed = found.feeds.filter((f) => !f.ok).map((f) => ({ id: f.id, why: f.why }));
     rep.screened_out = found.screened_out.length; rep.duplicates = found.duplicates.length;
     mark = { ...found.seen_add };

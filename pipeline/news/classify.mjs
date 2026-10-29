@@ -64,6 +64,8 @@ export const JURISDICTION_RULES = {
 const TO_GOVERNOR = /\b(presented|delivered|sent|transmitted|forwarded) to (the )?governor\b|\bto governor\b/i;
 const CHAPTERED = /\bchaptered\b|\bsecretary of state\b[^.]*\bchapter \d+|\bbecame law\b|\bbecomes law without\b/i;
 const GOV_SIGNED = /(signed|approved) by (the )?governor|\bgovernor (approved|signed)\b|^\W*signed chap\.\s*\d+/i;
+// a refusal to concur is not a concurrence (review r7 M3b)
+export const NOT_CONCUR = /\b(refused to concur|refuses to concur|not concur(?:red)?|non-?concur\w*|failed to concur|fails to concur|declined to concur|do not concur|does not concur)\b/i;
 const CONCUR = /\bagreed to by (the )?(house|senate|assembly)|\bamendments? concurred in\b|\bconcurred in\b/i;
 const HEARING_SET = /\b(hearing (is |was )?(set|scheduled|noticed)|set for (public )?hearing|scheduled for (a )?(public )?hearing|has scheduled a (public )?hearing|notice of (public )?hearing)\b|^\W*hearing \d{1,2}\/\d{1,2}\b/i;
 // A line-item or partial veto is not the bill's veto; a cancelled or postponed hearing is no hearing; a "committee" line that names no
@@ -92,7 +94,7 @@ export function classifyState(text, ctx = {}) {
     case 'referred': return REFERRAL.test(t) && !/\boffice of (legislative|fiscal)\b|\bassigned\b/i.test(t) ? 'referral-committee' : null;
     case 'hearing': return /held under submission/i.test(t) || CANCELLED.test(t) ? null : HEARING_SET.test(t) ? 'hearing-scheduled' : /\bhearings? (was |were )?(held|conducted|completed)\b|\bheard\b/i.test(t) ? 'hearing-held' : null;
     case 'passed':
-      if (CONCUR.test(t)) return 'concurrence';
+      if (CONCUR.test(t)) return NOT_CONCUR.test(t) ? null : 'concurrence';
       if (/\benrolled\b/i.test(t) && !/\bpass/i.test(t)) return 'enrolled';
       // a second reading or first consideration is a step on the floor, not the chamber's passage (Hawaii's committee-passage wording is
       // caught by JURISDICTION_RULES above)

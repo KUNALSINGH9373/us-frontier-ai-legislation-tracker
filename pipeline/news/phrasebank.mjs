@@ -31,6 +31,7 @@ const LAW = (s) => s.bill.law_wording === true;
 // simple resolution
 const BECAME = (s) => s.bill.became_law_ok === true;
 const BI2 = (s) => BI(s) && !s.bill.simple_resolution;
+const AMEND = (s) => s.event.on_amendments === true; // review r7 M3a: 'in amendments' only when the record says so
 
 // The slots a fact sheet supplies (null = absent).
 export function slotsOf(s) {
@@ -99,8 +100,8 @@ export const BANK = {
   },
   concurrence: {
     // a concurrence alone never says both chambers passed (review r5: the stage line says so only when the record proves it)
-    H: [v('{state} {chamber} concurs on {bill}'), v('{chamber} concurs on {bill}, {yes}-{no}', VOTE), v('{bill}: {chamber} concurs'), v('{chamber} concurs in amendments to {bill}')],
-    B: [v('The {chamber} concurred in {bill} on {date}.'), v('The {chamber} voted {yes}-{no} on {date} to concur in {bill}.', VOTE), v('The {chamber} concurred in amendments to {bill} on {date}.')]
+    H: [v('{state} {chamber} concurs on {bill}'), v('{chamber} concurs on {bill}, {yes}-{no}', VOTE), v('{bill}: {chamber} concurs'), v('{chamber} concurs in amendments to {bill}', AMEND)],
+    B: [v('The {chamber} concurred in {bill} on {date}.'), v('The {chamber} voted {yes}-{no} on {date} to concur in {bill}.', VOTE), v('The {chamber} concurred in amendments to {bill} on {date}.', AMEND)]
   },
   enrolled: {
     H: [v('{bill} enrolled'), v('{bill} enrolled after passing both chambers', BI2), v('{state} {bill} enrolled'), v('{bill} enrolled on {date}')],
@@ -128,7 +129,7 @@ export const BANK = {
   },
   withdrawal: {
     H: [v('{bill} withdrawn'), v('{bill} withdrawn in the {chamber}'), v('{state} {bill} withdrawn'), v('{bill} withdrawn on {date}')],
-    B: [v('{bill} was withdrawn on {date}.'), v('On {date}, {bill} was withdrawn in the {chamber}.'), v('{bill} was withdrawn from consideration on {date}.')]
+    B: [v('{bill} was withdrawn on {date}.'), v('On {date}, {bill} was withdrawn in the {chamber}.'), v('The withdrawal of {bill} was recorded on {date}.')]
   },
   'carried-over': {
     H: [v('{bill} carried over'), v('{state} {bill} carried over'), v('{bill} carried over on {date}'), v('{bill} carried over in the {chamber}')],
