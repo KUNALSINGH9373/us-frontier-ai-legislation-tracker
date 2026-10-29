@@ -1,0 +1,644 @@
+{
+ "measure": "news_writer",
+ "run_at": "2026-10-29T04:22:23.351Z",
+ "checks_hash": "0e091f02b855d4aa7b237b4177ee17ec02f9706814680608ddf1eef82208942a",
+ "checks_hash_basis": "news",
+ "cases": 30,
+ "recorded": 30,
+ "synthetic": 40,
+ "wrong": 0,
+ "missed": 8,
+ "ai_written": 22,
+ "rows": [
+  {
+   "id": "ny-s8828-senate-58-1",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "New York Senate passes S.8828, the RAISE Act, by 58-1 vote",
+   "reason": null
+  },
+  {
+   "id": "ny-s8828-senate-58-1#bad1",
+   "kind": "synthetic-bad",
+   "why": "unanimous on a 58-1 vote",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"unanimously\" but the recorded vote has 1 against"
+  },
+  {
+   "id": "ma-h5576-house-148-2",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Massachusetts House passes H.5576 by 148-2 vote",
+   "reason": null
+  },
+  {
+   "id": "ma-h5576-house-148-2#bad1",
+   "kind": "synthetic-bad",
+   "why": "evaluative 'overwhelmingly' + 'bipartisan'",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"overwhelmingly\" is an evaluative word the fact sheet does not state"
+  },
+  {
+   "id": "trap-vote-38-2",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "California Senate passes AB 1405 on auditor registry, 38-2",
+   "reason": null
+  },
+  {
+   "id": "trap-vote-38-2#bad1",
+   "kind": "synthetic-bad",
+   "why": "unanimously on a 38-2 vote",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"unanimously\" but the recorded vote has 2 against"
+  },
+  {
+   "id": "trap-vote-38-2#bad2",
+   "kind": "synthetic-bad",
+   "why": "'without opposition' on 38-2",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"without opposition\" but the recorded vote has 2 against"
+  },
+  {
+   "id": "trap-vote-38-2#bad3",
+   "kind": "synthetic-bad",
+   "why": "wrong tally 38-0",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 0"
+  },
+  {
+   "id": "ca-sb813-concurrence-37-0",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "California Senate passes SB 813 concurrence by 37-0 vote",
+   "reason": null
+  },
+  {
+   "id": "ca-sb813-concurrence-37-0#bad1",
+   "kind": "synthetic-bad",
+   "why": "prediction: will be signed",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"expected\" is a prediction the fact sheet does not state"
+  },
+  {
+   "id": "ca-ab1405-signed",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Governor Gavin Newsom signs AB 1405 on AI auditor registry into law",
+   "reason": null
+  },
+  {
+   "id": "ca-ab1405-signed#bad1",
+   "kind": "synthetic-bad",
+   "why": "'first' with no milestone fact",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"first\" claims a milestone the fact sheet does not state"
+  },
+  {
+   "id": "il-sb315-signed",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Pritzker signs SB 315 into law in Illinois",
+   "reason": null
+  },
+  {
+   "id": "il-sb315-signed#bad1",
+   "kind": "synthetic-bad",
+   "why": "'landmark' evaluative",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"landmark\" claims a milestone the fact sheet does not state"
+  },
+  {
+   "id": "il-sb315-sent-to-governor",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Illinois SB 315 sent to the Governor, adds frontier AI framework",
+   "reason": null
+  },
+  {
+   "id": "il-sb315-sent-to-governor#bad1",
+   "kind": "synthetic-bad",
+   "why": "prediction beyond next step",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"likely\" is a prediction the fact sheet does not state"
+  },
+  {
+   "id": "il-sb315-sent-to-governor#bad2",
+   "kind": "synthetic-bad",
+   "why": "invented name not in sheet",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Pritzker"
+  },
+  {
+   "id": "il-sb315-sent-to-governor#bad3",
+   "kind": "synthetic-bad",
+   "why": "bill number read out of P.A. 104-0538 (seen live in the first recording)",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "bill number A. 104 is not in the fact sheet"
+  },
+  {
+   "id": "nj-s4446-introduced",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "New Jersey S.4446 introduced in Senate, paired with A.5275",
+   "reason": null
+  },
+  {
+   "id": "nj-s4446-introduced#bad1",
+   "kind": "synthetic-bad",
+   "why": "'first' with no milestone fact",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: AI"
+  },
+  {
+   "id": "nj-a5275-referred",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "New Jersey A.5275 referred to Assembly Science, Innovation and Technology Committee",
+   "reason": null
+  },
+  {
+   "id": "nj-a5275-referred#bad1",
+   "kind": "synthetic-bad",
+   "why": "wrong committee name",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Judiciary"
+  },
+  {
+   "id": "oh-hb628-hearing-held",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Ohio House Technology and Innovation Committee holds hearing on HB 628",
+   "reason": null
+  },
+  {
+   "id": "oh-hb628-hearing-held#bad1",
+   "kind": "synthetic-bad",
+   "why": "held hearing written as upcoming",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Testimony"
+  },
+  {
+   "id": "trap-pa-hb2800-hearing-scheduled",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Pennsylvania House panel to hold hearing on H.B. 2800 AI Risk Prevention Act",
+   "reason": null
+  },
+  {
+   "id": "trap-pa-hb2800-hearing-scheduled#bad1",
+   "kind": "synthetic-bad",
+   "why": "scheduled hearing written as held",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"held\" writes a scheduled event as if it had happened"
+  },
+  {
+   "id": "trap-pa-hb2800-hearing-scheduled#bad2",
+   "kind": "synthetic-bad",
+   "why": "scheduled written as took place",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"took place\" writes a scheduled event as if it had happened"
+  },
+  {
+   "id": "trap-pa-hb2800-hearing-scheduled#bad3",
+   "kind": "synthetic-bad",
+   "why": "first-seen date written as the hearing day",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "the hearing day 2026-11-04 is not given"
+  },
+  {
+   "id": "us-s2938-hearing-held",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Senate committee holds hearing on S. 2938 AI Risk Evaluation Act",
+   "reason": null
+  },
+  {
+   "id": "us-s2938-hearing-held#bad1",
+   "kind": "synthetic-bad",
+   "why": "invented witness name",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Senator, Peters"
+  },
+  {
+   "id": "us-hr9363-markup-29-0",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "House Science Committee passes H.R. 9363, AI Security and Innovation Act, 29-0",
+   "reason": null
+  },
+  {
+   "id": "us-hr9363-markup-29-0#bad1",
+   "kind": "synthetic-bad",
+   "why": "wrong date",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 26"
+  },
+  {
+   "id": "tn-hb1898-house-94-0",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Tennessee House passes HB 1898 by 94-0 vote",
+   "reason": null
+  },
+  {
+   "id": "tn-hb1898-house-94-0#bad1",
+   "kind": "synthetic-bad",
+   "why": "wrong tally",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 1"
+  },
+  {
+   "id": "ny-s10701-withdrawn",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "NY S.10701 TERMINATOR Act (withdrawn): Withdrawn",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "ny-s10701-withdrawn#bad1",
+   "kind": "synthetic-bad",
+   "why": "causal claim",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"pressure\" is a cause, motive or reaction the fact sheet does not state"
+  },
+  {
+   "id": "ny-s10701-withdrawn#bad2",
+   "kind": "synthetic-bad",
+   "why": "present-tense mechanism of a withdrawn bill + meta (seen live in the first recording)",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: RAISE"
+  },
+  {
+   "id": "us-s5493-referred",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "S. 5493 referred to Senate Commerce, Science, and Transportation Committee",
+   "reason": null
+  },
+  {
+   "id": "us-s5493-referred#bad1",
+   "kind": "synthetic-bad",
+   "why": "invented bill number",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 10539"
+  },
+  {
+   "id": "trap-us-hr10873-no-milestone",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "H.R. 10873 AI Cyber Defense Act introduced in House",
+   "reason": null
+  },
+  {
+   "id": "trap-us-hr10873-no-milestone#bad1",
+   "kind": "synthetic-bad",
+   "why": "'first' with no milestone fact",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"first\" claims a milestone the fact sheet does not state"
+  },
+  {
+   "id": "trap-us-hr10873-no-milestone#bad2",
+   "kind": "synthetic-bad",
+   "why": "'only' with no milestone fact",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"only\" claims a milestone the fact sheet does not state"
+  },
+  {
+   "id": "us-s5576-introduced",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "S. 5576 Warner–Schatz–Kim AI Risk Management and Security Act: Introduced",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "us-s5576-introduced#bad1",
+   "kind": "synthetic-bad",
+   "why": "number in words + invented figure",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "a number in words (\"three\") that the fact sheet does not use; give figures only as the fact sheet does"
+  },
+  {
+   "id": "us-s5576-introduced#bad2",
+   "kind": "synthetic-bad",
+   "why": "a chamber said to introduce the bill (seen live in the first recording)",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "a chamber does not introduce a bill; write that the bill was introduced in it"
+  },
+  {
+   "id": "us-eo-14434",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "EO 14434 \"Super Intelligence\" terminology order: Executive order signed",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "us-eo-14434#bad1",
+   "kind": "synthetic-bad",
+   "why": "evaluative 'sweeping'",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"sweeping\" is an evaluative word the fact sheet does not state"
+  },
+  {
+   "id": "us-eo-14409",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "EO 14409 (pre-release access): Executive order signed",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "us-eo-14409#bad1",
+   "kind": "synthetic-bad",
+   "why": "date not in sheet",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 5"
+  },
+  {
+   "id": "us-bis-chip-rule-final",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Bureau of Industry and Security final rule on AI chip licensing to China, Macau",
+   "reason": null
+  },
+  {
+   "id": "us-bis-chip-rule-final#bad1",
+   "kind": "synthetic-bad",
+   "why": "agency name not in sheet",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Commerce, Department"
+  },
+  {
+   "id": "us-xai-v-weiser-filed",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "X.AI v. Weiser (D. Colo.): Filed in court",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "us-xai-v-weiser-filed#bad1",
+   "kind": "synthetic-bad",
+   "why": "outcome claimed (won)",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: xAI"
+  },
+  {
+   "id": "us-xai-v-weiser-filed#bad2",
+   "kind": "synthetic-bad",
+   "why": "writes about the sheet, not the event (seen live in the first recording)",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"is listed\" writes about the fact sheet, not the event"
+  },
+  {
+   "id": "fl-v-openai-motion",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Injunction motion filed in Florida v. OpenAI in Highlands County Circuit Court",
+   "reason": null
+  },
+  {
+   "id": "fl-v-openai-motion#bad1",
+   "kind": "synthetic-bad",
+   "why": "invented judge name",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Smith"
+  },
+  {
+   "id": "us-protect-democracy-v-oncd",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "Protect Democracy v. ONCD: Filed in court",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "us-protect-democracy-v-oncd#bad1",
+   "kind": "synthetic-bad",
+   "why": "wrong docket digits",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 03046"
+  },
+  {
+   "id": "ct-omnibus-senate-32-4",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "CT P.A. 26-15 (omnibus): Passed the Senate",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "ct-omnibus-senate-32-4#bad1",
+   "kind": "synthetic-bad",
+   "why": "evaluative 'overwhelmingly'",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"overwhelmingly\" is an evaluative word the fact sheet does not state"
+  },
+  {
+   "id": "ca-sb1047-veto",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Governor Gavin Newsom vetoes California bill SB 1047",
+   "reason": null
+  },
+  {
+   "id": "ca-sb1047-veto#bad1",
+   "kind": "synthetic-bad",
+   "why": "next step not in sheet (no next)",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"will\" states a next step, but the fact sheet gives none"
+  },
+  {
+   "id": "va-hb797-signed",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Virginia Governor signs HB 797 into law as Chapter 425",
+   "reason": null
+  },
+  {
+   "id": "va-hb797-signed#bad1",
+   "kind": "synthetic-bad",
+   "why": "money figure not in sheet",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 2"
+  },
+  {
+   "id": "pa-hr637-reported",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "Pennsylvania House panel passes H.R. 637 on frontier AI models",
+   "reason": null
+  },
+  {
+   "id": "pa-hr637-reported#bad1",
+   "kind": "synthetic-bad",
+   "why": "tally with no recorded vote",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "numbers not in the fact sheet: 20, 5"
+  },
+  {
+   "id": "us-hr3447-hfac-42-0",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "House Foreign Affairs Committee passes H.R. 3447, the Chip Security Act, 42-0",
+   "reason": null
+  },
+  {
+   "id": "us-hr3447-hfac-42-0#bad1",
+   "kind": "synthetic-bad",
+   "why": "quotation not in sheet",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "quotation marks around words the fact sheet does not contain: \"a vital safeguard\""
+  },
+  {
+   "id": "ca-ballot-withdrawn",
+   "kind": "recorded",
+   "written_by": "template",
+   "wrong": false,
+   "missed": true,
+   "headline": "CA ballot initiative 25-0034 (withdrawn): Withdrawn",
+   "reason": "not confirmed within the rounds"
+  },
+  {
+   "id": "ca-ballot-withdrawn#bad1",
+   "kind": "synthetic-bad",
+   "why": "named proponent not in sheet + motive",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Alexander, Oldham"
+  }
+ ]
+}
