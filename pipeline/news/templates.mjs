@@ -13,6 +13,10 @@ export function recordName(event) {
   const src = s ? s.source : null;
   if (src === 'congress_gov') return 'Congress.gov';
   if (src === 'legiscan') return `The ${event.jurisdiction} Legislature's record`; // "... shows this action"
+  if (src === 'federal_register') return 'The Federal Register';
+  if (src === 'whitehouse') return 'The White House';
+  if (src === 'openstates' || src === 'nysenate') return `The ${event.jurisdiction} Legislature's record`;
+  if (src === 'cbo') return 'The Congressional Budget Office';
   if (src === 'courtlistener') return `The court docket${event.facts.court ? ` (${event.facts.court})` : ''}`;
   return 'The official record';
 }
@@ -39,6 +43,15 @@ const HEADLINE = {
   'withdrawal': (n) => `${n} withdrawn`,
   'carried-over': (n) => `${n} carried over to the next session`,
   'new-text-version': (n) => `New text of ${n} published`,
+  'crs-report': (n) => `Congressional Research Service report on ${n}`,
+  'cbo-estimate': (n) => `CBO cost estimate for ${n}`,
+  'executive-order': (n, f) => (f.eo_number ? `President signs Executive Order ${f.eo_number}` : null),
+  'presidential-memo': () => 'President issues a memorandum',
+  'agency-rule-proposed': (n, f) => (f.agency ? `${f.agency} proposes a rule` : null),
+  'agency-rule-final': (n, f) => (f.agency ? `${f.agency} issues a final rule` : null),
+  'agency-guidance': (n, f) => (f.agency ? `${f.agency} issues guidance` : null),
+  'comment-period-open': (n, f) => (f.agency && f.comments_close ? `Comments open until ${longDate(f.comments_close)} on a ${f.agency} proposal` : null),
+  'comment-period-closing': (n, f) => (f.agency ? `Comment period closes on a ${f.agency} proposal` : null),
   'court-filing': (n, f) => (f.label ? `${n}: ${f.label}` : null),
   'court-ruling': (n, f) => (f.label ? `${n}: ${f.label}` : null)
 };
@@ -61,9 +74,9 @@ export function templateFor(event, entry) {
 // ended at a sentence boundary and marked as an excerpt. Always a verbatim span of the record (the evidence quote).
 export const QUOTE_MAX = 320;
 export function quoteOf(f) {
-  const all = clean(f.action || f.text || '');
+  const all = clean(f.action || f.text || f.title || '');
   if (all.length <= QUOTE_MAX) return { quote: all, excerpt: false };
-  const raw = String(f.action || f.text || '').replace(/\s+/g, ' ').trim();
+  const raw = String(f.action || f.text || f.title || '').replace(/\s+/g, ' ').trim();
   let end = -1;
   for (const m of raw.matchAll(/[.;](?=\s)/g)) { if (m.index + 1 > QUOTE_MAX) break; end = m.index; }
   if (end < 20) return { quote: all, excerpt: false }; // no sentence boundary early enough: the body check above holds it

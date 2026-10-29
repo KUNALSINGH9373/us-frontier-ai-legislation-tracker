@@ -12,7 +12,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { eventsStep } from '../news/run.mjs';
-import { emptyState, renderNews, upsertItems, markShown } from '../news/events.mjs';
+import { emptyState, renderNews, markShown } from '../news/events.mjs';
+import { attachStatements } from '../news/attach.mjs';
 import { checksHash } from './hash.mjs';
 import { writeMeasureReport } from './gate.mjs';
 
@@ -25,21 +26,26 @@ export async function runCase(c, { news, entries }) {
   const state = emptyState();
   const records = (c.records || []).map((r) => {
     const raw = j(path.join(FIX, r.fixture));
+    if (r.history && raw.bill) raw.bill.history = r.history; // a real LegiScan record with history lines taken from the stored action strings
     if (r.redate && raw.actions) raw.actions.forEach((a) => { a.actionDate = r.redate; });
     if (r.drop && raw.actions) raw.actions = raw.actions.filter((a) => !new RegExp(r.drop).test(a.text));
-    return { source: r.source, source_id: r.source_id, entry_key: r.entry_key, source_url: r.source_url, fetched_at: r.fetched_at, raw };
+    return { source: r.source, source_id: r.source_id, entry_key: r.entry_key, source_url: r.source_url, fetched_at: r.fetched_at, raw, history2: r.history2 || null };
   });
   const found = c.court_found ? j(path.join(FIX, c.court_found)).found : [];
   let page = news;
   for (const [i, run] of (c.runs || []).entries()) {
     const now = new Date(run.now);
-    const recs = run.records === 'none' ? [] : run.drop ? records.map((r) => ({ ...r, raw: { ...r.raw, actions: (r.raw.actions || []).filter((a) => !new RegExp(run.drop).test(a.text)) } })) : records;
-    await eventsStep({ state, records: recs, courtFound: i === 0 ? found : [], now, runId: run.run_id, sinceDays: c.since_days || 800 });
-    if (run.extra_items) upsertItems(state, run.extra_items, { runId: run.run_id + '-x', now });
-    if (run.publish) { const r = renderNews(page, state, entries, { at: now.toISOString() }); markShown(state, r.added, now.toISOString()); page = r.news; }
+    const base = run.history_add ? records.map((r) => (r.history2 ? { ...r, raw: { ...r.raw, bill: { ...r.raw.bill, history: r.history2 } } } : r)) : records; // the record read again with a later line
+    const recs = run.records === 'none' ? [] : run.drop ? base.map((r) => ({ ...r, raw: { ...r.raw, actions: (r.raw.actions || []).filter((a) => !new RegExp(run.drop).test(a.text)) } })) : base;
+    await eventsStep({ state, records: recs, courtFound: i === 0 ? found : [], now, runId: run.run_id, sinceDays: c.since_days || 800, items: run.extra_items || [] });
+    if (run.statements) {
+      const att = attachStatements(Object.values(state.events), run.statements, { allowHosts: c.allow_hosts || ['senate.gov', 'house.gov', 'ca.gov'] });
+      for (const e of att.events) state.events[e.key] = e;
+    }
+    if (run.publish) { const r = renderNews(page, state, entries, { at: now.toISOString(), maxAgeDays: c.max_age_days ?? 100000 }); state.events = r.state.events; markShown(state, r.added, now.toISOString()); page = r.news; }
   }
   const last = new Date(c.runs[c.runs.length - 1].now).toISOString();
-  return renderNews(page, state, entries, { at: last });
+  return renderNews(page, state, entries, { at: last, maxAgeDays: c.max_age_days ?? 100000 });
 }
 
 export async function runNewsSet({ cases, now = new Date() }) {
@@ -51,7 +57,7 @@ export async function runNewsSet({ cases, now = new Date() }) {
     const got = err ? [] : r.news.items.filter((n) => n.event_key);
     const want = new Map((c.expect || []).map((x) => [x.event_key, x]));
     const extra = got.filter((n) => !want.has(n.event_key));
-    const differs = got.filter((n) => want.has(n.event_key) && (n.title !== want.get(n.event_key).title || n.body !== want.get(n.event_key).body || (want.get(n.event_key).status && n.status !== want.get(n.event_key).status)));
+    const differs = got.filter((n) => want.has(n.event_key) && (n.title !== want.get(n.event_key).title || n.body !== want.get(n.event_key).body || (want.get(n.event_key).status && n.status !== want.get(n.event_key).status) || (want.get(n.event_key).links && JSON.stringify(n.links.map((l) => l.u)) !== JSON.stringify(want.get(n.event_key).links))));
     const missed = [...want.keys()].filter((k) => !got.some((n) => n.event_key === k));
     rows.push({ id: c.id, expect: want.size, got: got.length, wrong: extra.length + differs.length > 0, missed: missed.length > 0, extra: extra.map((n) => `${n.event_key}: ${n.title}`), differs: differs.map((n) => `${n.event_key}: ${n.title} | ${n.body}`), missing: missed, error: err });
   }

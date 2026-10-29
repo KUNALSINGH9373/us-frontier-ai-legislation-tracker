@@ -7,7 +7,8 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import { eventKey, checkItem, upsertItems, attachStatement, renderNews, renderItem, checkNewsEvents, emptyState, visible, markShown, loadEvents } from './events.mjs';
+import { attachStatements } from './attach.mjs';
+import { eventKey, checkItem, upsertItems, renderNews, renderItem, checkNewsEvents, emptyState, visible, markShown, loadEvents, normalizeItem } from './events.mjs';
 import { templateFor } from './templates.mjs';
 import { eventsStep, newsRun, recordsFromRuns } from './run.mjs';
 import * as congressGov from './sources/congress_gov.mjs';
@@ -111,20 +112,24 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   ok('3 an Open States record of the same class and date confirms it', sl.events[law].status === 'confirmed' && sl.events[law].confirmations.includes('openstates'));
 }
 
-// ---------- 4. statements ----------
+// ---------- 4. statements (news/attach.mjs attachStatements: the one rule) ----------
 {
   const s = emptyState();
   const it = { source: 'congress_gov', source_id: 'x#1', record: 'x', jurisdiction: 'US', entry_id: 'e1', class: 'passage', date: '2026-10-20', facts: { action: 'Passed Senate without amendment.', chamber: 'Senate' }, url: 'https://www.congress.gov/bill/1', title: 't', retrieved_at: '2026-10-21T00:00:00Z' };
-  upsertItems(s, [it, { ...it, source_id: 'x#2', class: 'hearing-held', date: '2026-10-10', facts: { action: 'Hearings held.' } }], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
-  const st = { entry_id: 'e1', jurisdiction: 'US', url: 'https://senator.senate.gov/r/1', title: 'Senate passes the bill', publisher: 'Sen. X' };
-  ok('4 a release 2 days after the event attaches to it', attachStatement(s, { ...st, date: '2026-10-22' }).attached === eventKey(it));
-  ok('4 attaching twice adds it once', (attachStatement(s, { ...st, date: '2026-10-22' }), s.events[eventKey(it)].sources.filter((x) => x.role === 'statement').length === 1));
-  ok('4 a release 4 days after is held', !!attachStatement(s, { ...st, url: 'https://senator.senate.gov/r/2', date: '2026-10-24' }).held);
-  ok('4 a release before the event is held', !!attachStatement(s, { ...st, url: 'https://senator.senate.gov/r/3', date: '2026-10-19' }).held);
-  ok('4 another entry: held (the key must agree)', !!attachStatement(s, { ...st, entry_id: 'e2', url: 'https://senator.senate.gov/r/4', date: '2026-10-21' }).held);
-  ok('4 a named class that disagrees: held', !!attachStatement(s, { ...st, class_hint: 'executive-signature', url: 'https://senator.senate.gov/r/5', date: '2026-10-21' }).held);
+  upsertItems(s, [it, { ...it, source_id: 'x#2', class: 'hearing-held', date: '2026-10-10', facts: { action: 'Hearings held.', committee: 'Committee on Commerce, Science, and Transportation' } }], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
+  const st = (o) => ({ source: 'release', source_id: o.url || 'https://senator.senate.gov/r/1', jurisdiction: 'US', entry_id: 'e1', class: null, date: '2026-10-22', facts: { role: 'statement', publisher: 'Sen. X' }, url: 'https://senator.senate.gov/r/1', title: 'Senate passes the bill', retrieved_at: '2026-10-22T00:00:00Z', ...o });
+  const att = (sts, events = Object.values(s.events)) => attachStatements(events, sts, { allowHosts: ['senate.gov'] });
+  const onEv = (r, k) => r.events.find((e) => e.key === k).sources.filter((x) => x.role === 'statement').length;
+  const k = eventKey(it);
+  ok('4 a release 2 days after the event attaches to it', onEv(att([st({})]), k) === 1);
+  ok('4 a release 4 days after is not attached', onEv(att([st({ date: '2026-10-24', url: 'https://senator.senate.gov/r/2' })]), k) === 0);
+  ok('4 a release before the event is not attached', onEv(att([st({ date: '2026-10-19', url: 'https://senator.senate.gov/r/3' })]), k) === 0);
+  ok('4 another entry: not attached (the key must agree)', onEv(att([st({ entry_id: 'e2', url: 'https://senator.senate.gov/r/4' })]), k) === 0);
+  ok('4 a headline naming the other chamber does not attach ("House passes" is not the Senate passage)', onEv(att([st({ title: 'House passes the bill', url: 'https://senator.senate.gov/r/5' })]), k) === 0);
+  ok('4 a host not on the configured list is dropped', att([st({ url: 'https://evil.example/r', source_id: 'e' })], Object.values(s.events)).dropped.some((d) => /host/.test(d.why)));
   upsertItems(s, [{ ...it, source_id: 'x#3', class: 'committee-passage', date: '2026-10-19', facts: { action: 'Ordered to be reported.' } }], { runId: 'b', now: new Date('2026-10-21T08:00:00Z') });
-  ok('4 two events could match: held, not guessed', /not guessed/.test(attachStatement(s, { ...st, url: 'https://senator.senate.gov/r/6', date: '2026-10-21' }).held || ''));
+  const two = att([st({ title: 'Bill passes', url: 'https://senator.senate.gov/r/6' })]);
+  ok('4 two events could match: held on the timeline, not guessed', onEv(two, k) === 0 && onEv(two, eventKey({ ...it, class: 'committee-passage', date: '2026-10-19' })) === 0 && two.timeline.length === 1 && /not guessed/.test(two.timeline[0].held));
 }
 
 // ---------- 5. rendering, the site, the switch ----------
@@ -138,7 +143,7 @@ function stateWithConfirmed() {
 }
 {
   const s = await stateWithConfirmed();
-  const r = renderNews(NEWS, s, ENTRIES, { at: T2.toISOString() });
+  const r = renderNews(NEWS, s, ENTRIES, { at: T2.toISOString(), maxAgeDays: 1000 });
   const auto = r.news.items.filter((n) => n.event_key);
   ok('5 confirmed events are appended; every hand-written item untouched and in order', r.added.length > 0 && JSON.stringify(r.news.items.slice(0, NEWS.items.length)) === JSON.stringify(NEWS.items));
   ok('5 an event on an entry and date that already has an item (Lane 1 or by hand) is not added again', r.held.some((h) => /already has an item/.test(h.why)) || !auto.some((n) => NEWS.items.some((o) => !o.event_key && o.tracker === n.tracker && o.date === n.date)));
@@ -161,7 +166,7 @@ function stateWithConfirmed() {
   // a withdrawn item stays, marked, with a correction line the site flags
   markShown(s, r.added, T2.toISOString());
   const k = intro.event_key; s.events[k].status = 'withdrawn'; s.events[k].history.push({ at: T3.toISOString(), change: 'status', from: 'confirmed', to: 'withdrawn' });
-  const r2 = renderNews(r.news, s, ENTRIES, { at: T3.toISOString() });
+  const r2 = renderNews(r.news, s, ENTRIES, { at: T3.toISOString(), maxAgeDays: 1000 });
   const w = r2.news.items.find((n) => n.event_key === k);
   ok('5 withdrawn after it was shown: kept in place, status withdrawn, "Correction" in the check line, a status note', w && w.status === 'withdrawn' && /^Withdrawn: /.test(w.title) && /Correction/.test(w.check) && w.status_note && r2.news.items.indexOf(w) === r.news.items.indexOf(intro) && r2.updated.includes(k));
   ok('5 the AI card is used only while its facts are current; otherwise the template', (() => { const ev = clone(s.events[k]); ev.status = 'confirmed'; ev.card = { written_by: 'ai', headline: 'AI headline here', body: 'AI body text that is long enough.', facts_hash: ev.facts_digest }; const a1 = renderItem(ev, ENTRIES.find((e) => e.key === ev.entry_id)); ev.card.facts_hash = 'old'; const a2 = renderItem(ev, ENTRIES.find((e) => e.key === ev.entry_id)); return a1.title === 'AI headline here' && a2.title === templateFor(ev, ENTRIES.find((e) => e.key === ev.entry_id)).headline; })());
@@ -214,6 +219,83 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   ok('7 a card the checks refuse stays the template; nothing written by AI', w.written === 0 && w.tried > 0 && shown.every((e) => s.events[e.key].card.written_by === 'template'));
   ok('7 no writer roles: nothing tried, never a throw', (await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: { make: () => { throw new Error('no role'); } }, today: '2026-10-27' })).tried === 0);
   ok('7 milestone: only for a state law, computed from tracker data, else null', milestoneFor({ class: 'passage', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', date: '2026-09-09' }, ENTRIES) === null && milestoneFor({ class: 'became-law', jurisdiction: 'US', entry_id: HR.entry_key, date: '2026-09-09' }, ENTRIES) === null && [null, 'string'].includes(milestoneFor({ class: 'became-law', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', date: '2026-09-09' }, ENTRIES) === null ? null : 'string'));
+}
+
+// ---------- 8. review r2 ----------
+{
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'news-r2-'));
+  // #6 the step never throws
+  const bad = path.join(tmp, 'news-events.json'); fs.writeFileSync(bad, '{ not json');
+  const q = loadEvents(bad, { now: T1 });
+  ok('r2#6 an unreadable events file is moved aside and the state starts empty', Object.keys(q.events).length === 0 && q.quarantined && fs.existsSync(q.quarantined) && !fs.existsSync(bad));
+  fs.writeFileSync(bad, JSON.stringify({ events: { a: null, b: { key: 'b' }, c: 7 } }));
+  const q2 = loadEvents(bad);
+  ok('r2#6 null and malformed stored events are dropped, not crashed on', Object.keys(q2.events).length === 0 && q2.dropped_malformed === 3);
+  const s6 = emptyState(); s6.events.x = null; s6.events.y = { key: 'y' };
+  let threw = false, r6;
+  try { r6 = upsertItems(s6, [null, 7, { source: 'congress_gov', source_id: { a: 1 } }, { source: 'congress_gov', source_id: 42, jurisdiction: 'US', entry_id: 'e', class: 'passage', date: '2026-10-25', facts: { action: 'Passed Senate.', chamber: 'Senate' }, url: 'https://www.congress.gov/b', title: 't', retrieved_at: '2026-10-25T00:00:00Z' }], { runId: 'a', now: T1 }); } catch { threw = true; }
+  ok('r2#6 null events, non-object items and a non-string source_id never throw; a numeric source_id is used as text', !threw && r6.refused.length === 3 && r6.added.length === 1 && Object.keys(s6.events).length === 1);
+  const sb = sandbox(); fs.writeFileSync(sb.eventsFile, '][');
+  const rn = await newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile, eventsFile: sb.eventsFile, healthFile: sb.healthFile, config: CFG(false), factory: null, today: '2026-10-26', now: T1, runId: 'r', records: [HR] });
+  ok('r2#6 newsRun with an unreadable events file runs on and says so', rn.status !== 'stopped' && rn.problems.some((p) => /moved to/.test(p)));
+  const rx = await newsRun({ dataDir: path.join(tmp, 'missing'), config: CFG(true), factory: null, today: '2026-10-26', now: T1, runId: 'r', records: [] });
+  ok('r2#6 any error inside the news step is a stopped report, never a throw', rx.status === 'stopped' && /news step failed/.test(rx.problems[0]) && Array.isArray(rx.drafted));
+  fs.rmSync(sb.dir, { recursive: true, force: true });
+
+  // #3 signature then became-law on later runs: one card, updated in place
+  const base = { source: 'legiscan', record: 'b1', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', url: 'https://leginfo.legislature.ca.gov/x', title: 'AB 1405' };
+  const sig = { ...base, source_id: 'b1#sig', class: 'executive-signature', date: '2026-10-20', facts: { action: 'Approved by the Governor.' }, retrieved_at: '2026-10-21T00:00:00Z' };
+  const law = { ...base, source_id: 'b1#law', class: 'became-law', date: '2026-10-21', facts: { action: 'Chaptered by Secretary of State - Chapter 178, Statutes of 2026.' }, retrieved_at: '2026-10-22T00:00:00Z' };
+  const conf = (it, src = 'openstates') => ({ ...it, source: src, source_id: `os-${it.source_id}`, record: undefined });
+  const s3 = emptyState();
+  upsertItems(s3, [sig, conf(sig)], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
+  let page = { ...NEWS, items: [...NEWS.items] };
+  let r = renderNews(page, s3, ENTRIES, { at: '2026-10-21T06:00:00Z' }); s3.events = r.state.events; markShown(s3, r.added, '2026-10-21'); page = r.news;
+  ok('r2#3 (setup) the signature card is published', r.added.length === 1 && r.added[0].includes('executive-signature'));
+  upsertItems(s3, [law, conf(law)], { runId: 'b', now: new Date('2026-10-22T06:00:00Z') });
+  r = renderNews(page, s3, ENTRIES, { at: '2026-10-22T06:00:00Z' }); s3.events = r.state.events;
+  const card = r.news.items.filter((n) => n.event_key && n.tracker === 'ca-ab-1405-auditor-registry');
+  ok('r2#3 the next run\'s became-law is merged into the same card (one card, now showing became-law), not a second card', r.added.length === 0 && card.length === 1 && card[0].class === 'became-law' && /becomes law/.test(card[0].title) && r.updated.length === 1);
+  ok('r2#3 the merged render passes the stop rules', checkNewsEvents({ before: { news: page, entries: ENTRIES }, after: { news: r.news, entries: ENTRIES }, state: r.state, entries: ENTRIES }).length === 0);
+  const s3b = emptyState(); upsertItems(s3b, [sig, conf(sig), law, conf(law)], { runId: 'a', now: new Date('2026-10-22T06:00:00Z') });
+  const r3b = renderNews(NEWS, s3b, ENTRIES, { at: '2026-10-22T06:00:00Z' });
+  ok('r2#3 both in one run: one card', r3b.added.length === 1 && r3b.merged.length === 1);
+
+  // #4 the same executive order from the White House, the FR public inspection desk and the FR document: one event
+  const fr = { source: 'federal_register', source_id: '2026-21001', jurisdiction: 'US', entry_id: null, class: 'executive-order', date: '2026-10-14', facts: { title: 'Ensuring a National Policy Framework for Artificial Intelligence', document_number: '2026-21001', eo_number: 14999, signing_date: '2026-10-09', publication_date: '2026-10-14' }, url: 'https://www.federalregister.gov/d/2026-21001', title: 'Ensuring a National Policy Framework for Artificial Intelligence', retrieved_at: '2026-10-14T12:00:00Z' };
+  const wh = { source: 'whitehouse', source_id: 'https://www.whitehouse.gov/presidential-actions/2026/10/x/', jurisdiction: 'US', entry_id: null, class: 'executive-order', date: '2026-10-10', facts: { title: fr.title }, url: 'https://www.whitehouse.gov/presidential-actions/2026/10/x/', title: fr.title, retrieved_at: '2026-10-10T12:00:00Z' };
+  const pi = { ...fr, source_id: 'pi:2026-21001', date: '2026-10-11', facts: { ...fr.facts, public_inspection: true } };
+  const s4 = emptyState(); const r4 = upsertItems(s4, [wh, pi, fr], { runId: 'a', now: new Date('2026-10-14T13:00:00Z') });
+  ok('r2#4 White House + public inspection + FR document of one order: one event keyed on the EO number', Object.keys(s4.events).length === 1 && Object.keys(s4.events)[0] === 'US|-|executive-order|EO14999' && r4.refused.some((x) => /public inspection/.test(x.why)));
+  const s4b = emptyState(); upsertItems(s4b, [fr], { runId: 'a', now: new Date('2026-10-14T13:00:00Z') }); upsertItems(s4b, [wh], { runId: 'b', now: new Date('2026-10-14T15:00:00Z') });
+  ok('r2#4 the White House posting on a later run joins the stored FR event (signing date, EO number)', Object.keys(s4b.events).length === 1);
+
+  // #5 chambers in one vocabulary: Open States "upper" confirms LegiScan "Senate"; a contradicting failure holds it
+  const ls = { source: 'legiscan', source_id: 'b2#p', record: 'b2', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', class: 'passage', date: '2026-10-20', facts: { action: 'Read third time. Passed. (Ayes 30. Noes 6.)', chamber: 'S' }, url: 'https://leginfo.legislature.ca.gov/x', title: 'AB 1405', retrieved_at: '2026-10-21T00:00:00Z' };
+  const os5 = { source: 'openstates', source_id: 'ocd-act-1', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', class: 'passage', date: '2026-10-20', facts: { action: 'Read third time. Passed.', chamber: 'upper' }, url: 'https://leginfo.legislature.ca.gov/x', title: 'AB 1405', retrieved_at: '2026-10-21T00:00:00Z' };
+  const s5 = emptyState(); upsertItems(s5, [ls, os5], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
+  const e5 = Object.values(s5.events)[0];
+  ok('r2#5 LegiScan "S" and Open States "upper" are both the Senate: confirmed', Object.keys(s5.events).length === 1 && e5.facts.chamber === 'Senate' && e5.status === 'confirmed' && e5.confirmations.includes('openstates'));
+  ok('r2#5 an Assembly state: "lower" is the Assembly', normalizeItem({ ...os5, facts: { chamber: 'lower' } }).item.facts.chamber === 'Assembly' && normalizeItem({ ...os5, jurisdiction: 'TX', facts: { chamber: 'lower' } }).item.facts.chamber === 'House');
+  const s5b = emptyState(); upsertItems(s5b, [ls, { ...os5, source_id: 'ocd-act-2', class: 'failure', facts: { action: 'Failed passage.', chamber: 'upper' } }], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
+  const e5b = s5b.events[eventKey({ ...ls, facts: {} })];
+  ok('r2#5 an Open States failure on the same day in the same chamber: disagreement, held', e5b.status === 'pending' && (e5b.disagreements || []).some((d) => d.conflict === 'class') && !visible(e5b));
+
+  // #9 a public law confirmed by govinfo on its number, whatever dateIssued says
+  const cg = { source: 'congress_gov', source_id: 'hr1#law', record: 'hr1', jurisdiction: 'US', entry_id: HR.entry_key, class: 'became-law', date: '2026-10-10', facts: { action: 'Became Public Law No: 119-77.' }, url: 'https://www.congress.gov/bill/x', title: 't', retrieved_at: '2026-10-20T00:00:00Z' };
+  const gi = { source: 'govinfo', source_id: 'PLAW-119publ77', jurisdiction: 'US', entry_id: HR.entry_key, class: 'became-law', date: '2026-10-17', facts: { role: 'confirmation', public_law: '119-77' }, url: 'https://www.govinfo.gov/app/details/PLAW-119publ77', title: 't', retrieved_at: '2026-10-20T00:00:00Z' };
+  const s9 = emptyState(); upsertItems(s9, [cg, gi], { runId: 'a', now: new Date('2026-10-20T06:00:00Z') });
+  const e9 = Object.values(s9.events);
+  ok('r2#9 govinfo (dateIssued a week later) confirms the public law by number; it creates no event of its own', e9.length === 1 && e9[0].status === 'confirmed' && e9[0].facts.public_law === '119-77');
+  const s9b = emptyState(); upsertItems(s9b, [cg, { ...gi, facts: { role: 'confirmation', public_law: '119-78' } }], { runId: 'a', now: new Date('2026-10-20T06:00:00Z') });
+  ok('r2#9 a different public-law number is a disagreement', Object.values(s9b.events)[0].status === 'pending');
+
+  // #11 the backlog when publishing is first switched on
+  const s11 = emptyState(); upsertItems(s11, [{ ...cg, source_id: 'o#1', class: 'passage', date: '2026-08-01', facts: { action: 'Passed House.', chamber: 'House' }, retrieved_at: '2026-08-01T00:00:00Z' }], { runId: 'a', now: new Date('2026-08-01T06:00:00Z') });
+  upsertItems(s11, [], { runId: 'b', now: new Date('2026-08-01T10:00:00Z') });
+  const r11 = renderNews(NEWS, s11, ENTRIES, { at: '2026-10-29T06:00:00Z' });
+  ok('r2#11 a confirmed event older than 14 days is not published on switch-on (timeline only)', r11.added.length === 0 && r11.held.some((h) => /older than 14 days/.test(h.why)));
+  fs.rmSync(tmp, { recursive: true, force: true });
 }
 
 console.log(`news events: ${pass} passed, ${fail} failed`);

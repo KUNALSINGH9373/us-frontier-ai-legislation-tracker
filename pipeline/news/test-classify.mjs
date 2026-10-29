@@ -20,8 +20,8 @@ const wrong = rows.filter((r) => cls(r) !== r.class);
 ok('every action string gets its reviewed class', !wrong.length, wrong.slice(0, 8).map((r) => `${r.jurisdiction}: ${r.text} -> ${cls(r)}, want ${r.class}`).join(' | '));
 ok('every class is in the contract, or null', rows.every((r) => r.class === null || EVENT_CLASSES.includes(r.class)));
 // Lane 1 consistency: a step Lane 1 calls routine or procedural is null here, except an executive receipt (Lane 1 has no such milestone)
-const extra = rows.filter((r) => !lane1(r).type && cls(r) && cls(r) !== 'executive-receipt');
-ok('a step Lane 1 calls procedural is never a news event (only "presented to the Governor/President" is added)', !extra.length, extra.slice(0, 5).map((r) => `${r.jurisdiction}: ${r.text} -> ${cls(r)}`).join(' | '));
+const extra = rows.filter((r) => !lane1(r).type && cls(r) && cls(r) !== 'executive-receipt' && !(cls(r) === 'concurrence' && /^\W*(house|senate|assembly) concurs? in/i.test(r.text)));
+ok('a step Lane 1 calls procedural is never a news event (only an executive receipt, and "X concurs in Y amendments", are added)', !extra.length, extra.slice(0, 5).map((r) => `${r.jurisdiction}: ${r.text} -> ${cls(r)}`).join(' | '));
 // and the big outcomes always agree
 const agree = { enacted: ['became-law', 'executive-signature', null], vetoed: ['executive-veto', null], veto_override: ['veto-override-passage'], introduced: ['introduction', 'executive-receipt'] };
 const bad = rows.filter((r) => agree[lane1(r).kind] && !agree[lane1(r).kind].includes(cls(r)));

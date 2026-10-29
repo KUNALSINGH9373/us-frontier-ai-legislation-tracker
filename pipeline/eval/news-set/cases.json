@@ -29,7 +29,10 @@
      "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
      "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
-     "status": "confirmed"
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ]
     }
    ]
   },
@@ -149,7 +152,10 @@
      "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-09-09",
      "title": "CA AB 1405 (auditor registry) becomes law",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Sept 9, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
-     "status": "confirmed"
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
     }
    ]
   },
@@ -173,13 +179,19 @@
      "event_key": "US|x-ai-v-weiser-d-colo|court-ruling|2026-04-27",
      "title": "X.AI v. Weiser (D. Colo.): Court order",
      "body": "The court docket (D. Colo.) shows this action on X.AI LLC v. Weiser, No. 1:26-cv-01515 (D. Colo.) on Apr 27, 2026: \"MINUTE ORDER: The parties' Motion, ECF No. 22, is GRANTED. A stay will not prejudice the plaintiff, who does not oppose the motion, ECF No. 22, will avoid burdening the parties with the costs of litigating, promotes judicial economy and efficiency, does not negatively impact nonparties, and is in the public interest\" (opening words of the entry).",
-     "status": "confirmed"
+     "status": "confirmed",
+     "links": [
+      "https://www.courtlistener.com/docket/73171074/"
+     ]
     },
     {
      "event_key": "US|fl-anthropic-v-department-of-war-n-d-cal|court-ruling|2026-08-27",
      "title": "Anthropic v. Department of War (N.D. Cal.): Judgment entered",
      "body": "The court docket (N.D. Cal.) shows this action on Anthropic PBC v. U.S. Department of War et al., No. 3:26-cv-01996 (N.D. Cal.) on Aug 27, 2026: \"JUDGMENT. Signed by Judge Rita F. Lin on August 27, 2026\".",
-     "status": "confirmed"
+     "status": "confirmed",
+     "links": [
+      "https://www.courtlistener.com/docket/72379655/"
+     ]
     }
    ]
   },
@@ -217,7 +229,10 @@
      "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
      "title": "Withdrawn: S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
-     "status": "withdrawn"
+     "status": "withdrawn",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ]
     }
    ]
   },
@@ -246,6 +261,2318 @@
     }
    ],
    "expect": []
+  },
+  {
+   "id": "group-sig-law-same-run",
+   "r2": true,
+   "note": "Signature and chaptering on consecutive days, both confirmed by Open States, one run: one card (became-law).",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20",
+     "title": "CA AB 1405 (auditor registry) becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 21, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-21",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-21",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-sig-then-law-later-run",
+   "r2": true,
+   "note": "Signature published on one run, chaptering two days later on the next: the card is updated, no second card.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20",
+     "title": "CA AB 1405 (auditor registry) becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 21, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ],
+     "history2": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-21",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-23T08:00:00Z",
+     "run_id": "r9",
+     "history_add": true,
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-21",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-law-then-sig",
+   "r2": true,
+   "note": "Chaptering record first, the signature line arrives a run later: still one card.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-10-20",
+     "title": "CA AB 1405 (auditor registry) becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "group-concurrence-enrolled",
+   "r2": true,
+   "note": "Concurrence and enrolment a day apart: one card (enrolled).",
+   "intent": [
+    "enrolled"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-19",
+     "title": "CA AB 1405 (auditor registry) enrolled",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Enrolled\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-19",
+       "action": "Senate amendments concurred in. To Engrossing and Enrolling. (Ayes 60. Noes 4.)",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Enrolled",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-c",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "concurrence",
+       "date": "2026-10-19",
+       "facts": {
+        "action": "Concurred"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-e",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "enrolled",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Enrolled"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-hearing-same-day",
+   "r2": true,
+   "note": "A hearing scheduled and then held on the same hearing day: one card (hearing held).",
+   "intent": [
+    "hearing-held"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|hearing-held|2026-10-20",
+     "title": "Hearing held on CA AB 1405 (auditor registry)",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Hearing held\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-15",
+       "action": "Set for hearing October 20.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Hearing held.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-hs",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "hearing-scheduled",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Set for hearing",
+        "hearing_date": "2026-10-20"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-hh",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Hearing held"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-comment-proposed",
+   "r2": true,
+   "note": "A proposed rule and its comment period opening, same FR document: one card.",
+   "intent": [
+    "agency-rule-proposed"
+   ],
+   "expect": [
+    {
+     "event_key": "US|caisi-and-nist-aite|comment-period-open|FR2026-22002",
+     "title": "National Institute of Standards and Technology proposes a rule",
+     "body": "The Federal Register shows this action on CAISI voluntary pre-deployment evaluation activity + NIST AITE program on Oct 21, 2026: \"Frontier AI Model Evaluation Practices\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/d/2026-22002"
+     ]
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "agency-rule-proposed"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "comment-period-open"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "agency-rule-proposed"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "comment-period-open"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-different-days-not-merged",
+   "r2": true,
+   "note": "Signature and chaptering ten days apart are separate events: two cards.",
+   "intent": [
+    "executive-signature",
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-05",
+     "title": "Governor signs CA AB 1405 (auditor registry)",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 5, 2026: \"Approved by the Governor\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    },
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-10-15",
+     "title": "CA AB 1405 (auditor registry) becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 15, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-05",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-15",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-05",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chamber-upper-confirms-senate",
+   "r2": true,
+   "note": "LegiScan \"S\" and Open States \"upper\": the Senate; confirmed and shown.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20",
+     "title": "CA AB 1405 (auditor registry) passes the Senate",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chamber-lower-is-assembly",
+   "r2": true,
+   "note": "California: LegiScan \"A\" and Open States \"lower\" are both the Assembly.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20",
+     "title": "CA AB 1405 (auditor registry) passes the Assembly",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 70. Noes 1.) Ordered to the Senate\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 70. Noes 1.) Ordered to the Senate.",
+       "chamber": "A",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "lower"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chamber-mismatch-not-confirmed",
+   "r2": true,
+   "note": "LegiScan Senate passage, Open States passage in the lower house: no confirmation, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "lower"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "chamber-contradicting-failure",
+   "r2": true,
+   "note": "Open States records a failure the same day in the same chamber: disagreement, held.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-f",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "failure",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Failed passage",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "disagreement-date",
+   "r2": true,
+   "note": "Open States has the same passage four days later: disagreement on the date, held.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-16",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-passed-over",
+   "r2": true,
+   "note": "\"Passed over and retain a place on the calendar\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Passed over and retain a place on the calendar",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-passed-over",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed over and retain a place on the calendar"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-line-items-approved",
+   "r2": true,
+   "note": "\"Governor approved line items\" with an Open States executive-signature: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Governor approved line items",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-line-items-approved",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Governor approved line items"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-line-items-vetoed",
+   "r2": true,
+   "note": "\"Governor vetoed specific Line Item(s)\" with an Open States executive-veto: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Governor vetoed specific Line Item(s)",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-line-items-vetoed",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-veto",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Governor vetoed specific Line Item(s)"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-concurs-present",
+   "r2": true,
+   "note": "\"Senate concurs in House amendments\" with an Open States concurrence: shown as concurrence.",
+   "intent": [
+    "concurrence"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20",
+     "title": "CA AB 1405 (auditor registry): both chambers agree on the text",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Senate concurs in House amendments\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Senate concurs in House amendments",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-concurs-present",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Senate concurs in House amendments"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-second-reading",
+   "r2": true,
+   "note": "\"Passed 2nd Reading\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Passed 2nd Reading",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-second-reading",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed 2nd Reading"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-passed-to-third",
+   "r2": true,
+   "note": "\"Passed to 3rd reading as amended\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Passed to 3rd reading as amended",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-passed-to-third",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed to 3rd reading as amended"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-first-consideration",
+   "r2": true,
+   "note": "\"Introduced, Passed on First Consideration\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Introduced, Passed on First Consideration",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-first-consideration",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Introduced, Passed on First Consideration"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-committee-of-whole",
+   "r2": true,
+   "note": "\"House Committee of the Whole - Be passed as amended\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "House Committee of the Whole - Be passed as amended",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-committee-of-whole",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "House Committee of the Whole - Be passed as amended"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-engrossed",
+   "r2": true,
+   "note": "\"Engrossed\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Engrossed",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-engrossed",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Engrossed"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-hearing-cancelled",
+   "r2": true,
+   "note": "\"House Hearing: Wednesday, February 12, 2025, 9:00 AM Room 218-N - CANCELED\" with an Open States hearing-held: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "House Hearing: Wednesday, February 12, 2025, 9:00 AM Room 218-N - CANCELED",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-hearing-cancelled",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "House Hearing: Wednesday, February 12, 2025, 9:00 AM Room 218-N - CANCELED"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-held-submission",
+   "r2": true,
+   "note": "\"In committee: Held under submission.\" with an Open States committee-passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "In committee: Held under submission.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-held-submission",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "In committee: Held under submission."
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-office-referral",
+   "r2": true,
+   "note": "\"Referred to Office of Legislative Research and Office of Fiscal Analysis 03/25/26 5:00 PM\" with an Open States referral-committee: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Referred to Office of Legislative Research and Office of Fiscal Analysis 03/25/26 5:00 PM",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-office-referral",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "referral-committee",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Referred to Office of Legislative Research and Office of Fiscal Analysis 03/25/26 5:00 PM"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-public-act",
+   "r2": true,
+   "note": "\"Public Act . . . . . . . . . 104-0466\" with an Open States became-law: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Public Act . . . . . . . . . 104-0466",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-public-act",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Public Act . . . . . . . . . 104-0466"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-conference-meeting",
+   "r2": true,
+   "note": "\"Conference committee meeting to reconvene on 04-28-26 2:40PM; Conference Room 224.\" with an Open States referral-committee: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Conference committee meeting to reconvene on 04-28-26 2:40PM; Conference Room 224.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-conference-meeting",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "referral-committee",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Conference committee meeting to reconvene on 04-28-26 2:40PM; Conference Room 224."
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "eo-triple",
+   "r2": true,
+   "note": "One order from the White House, the public inspection desk and the published FR document: one card.",
+   "intent": [
+    "executive-order"
+   ],
+   "expect": [
+    {
+     "event_key": "US|eo-14409-pre-release-access|executive-order|EO14409",
+     "title": "President signs Executive Order 14409",
+     "body": "The Federal Register shows this action on EO 14409 — Promoting Advanced AI Innovation and Security on Oct 9, 2026: \"Promoting Pre-Release Access for Frontier AI Model Evaluation\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/d/2026-21001"
+     ]
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-10",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-10T12:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "pi:2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-11",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President",
+        "public_inspection": true
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-09",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President"
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "eo-whitehouse-only",
+   "r2": true,
+   "note": "A White House posting with no FR document yet: needs the Federal Register, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-10",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-10T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "eo-pi-only",
+   "r2": true,
+   "note": "A public-inspection copy alone never creates an event.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "pi:2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-11",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President",
+        "public_inspection": true
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "pi:2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-11",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President",
+        "public_inspection": true
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "eo-wh-later-run",
+   "r2": true,
+   "note": "FR document first, the White House posting a run later: still one card.",
+   "intent": [
+    "executive-order"
+   ],
+   "expect": [
+    {
+     "event_key": "US|eo-14409-pre-release-access|executive-order|EO14409",
+     "title": "President signs Executive Order 14409",
+     "body": "The Federal Register shows this action on EO 14409 — Promoting Advanced AI Innovation and Security on Oct 9, 2026: \"Promoting Pre-Release Access for Frontier AI Model Evaluation\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/d/2026-21001"
+     ]
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-09",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President"
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-10",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-10T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T17:00:00Z",
+     "run_id": "e2",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "public-law-confirmed-by-number",
+   "r2": true,
+   "note": "govinfo dateIssued a week after the enactment: confirmed on the public-law number.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|became-law|2026-10-10",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act becomes law",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on Oct 10, 2026: \"Became Public Law No: 119-77\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ]
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-20T06:00:00Z",
+     "run_id": "l0",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#law",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-10",
+       "facts": {
+        "action": "Became Public Law No: 119-77.",
+        "number": "H.R. 3460"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      },
+      {
+       "source": "govinfo",
+       "source_id": "PLAW-119publ77",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-17",
+       "facts": {
+        "role": "confirmation",
+        "public_law": "119-77"
+       },
+       "url": "https://www.govinfo.gov/app/details/PLAW-119publ77",
+       "title": "Public Law",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "public-law-number-differs",
+   "r2": true,
+   "note": "govinfo names another public law: disagreement, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-20T06:00:00Z",
+     "run_id": "l0",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#law",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-10",
+       "facts": {
+        "action": "Became Public Law No: 119-77.",
+        "number": "H.R. 3460"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      },
+      {
+       "source": "govinfo",
+       "source_id": "PLAW-119publ78",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-17",
+       "facts": {
+        "role": "confirmation",
+        "public_law": "119-78"
+       },
+       "url": "https://www.govinfo.gov/app/details/PLAW-119publ78",
+       "title": "Public Law",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "l1",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "statement-one-candidate",
+   "r2": true,
+   "note": "A release the day after the signing attaches to the card as a statement.",
+   "intent": [
+    "executive-signature"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20",
+     "title": "Governor signs CA AB 1405 (auditor registry)",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Approved by the Governor\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+      "https://gov.ca.gov/2026/10/21/governor-signs-ab-1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "allow_hosts": [
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "https://www.gov.ca.gov/2026/10/21/governor-signs-ab-1405/",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Gov. Newsom"
+       },
+       "url": "https://www.gov.ca.gov/2026/10/21/governor-signs-ab-1405/",
+       "title": "Governor Newsom signs AB 1405",
+       "retrieved_at": "2026-10-22T12:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "statement-two-candidates",
+   "r2": true,
+   "note": "A \"passes\" release two days after both a committee passage and a floor passage: not attached (several candidates); both cards, no statement on either.",
+   "intent": [
+    "committee-passage",
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|committee-passage|2026-10-19",
+     "title": "CA AB 1405 (auditor registry) advances from committee",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 19, 2026: \"From committee: Do pass. (Ayes 11. Noes 0.)\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    },
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20",
+     "title": "CA AB 1405 (auditor registry) passes the Senate",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-19",
+       "action": "From committee: Do pass. (Ayes 11. Noes 0.)",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "allow_hosts": [
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-cp",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-19",
+       "facts": {
+        "action": "Do pass"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "https://www.gov.ca.gov/2026/10/21/ab-1405-passes/",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Gov. Newsom"
+       },
+       "url": "https://www.gov.ca.gov/2026/10/21/ab-1405-passes/",
+       "title": "AB 1405 passes",
+       "retrieved_at": "2026-10-22T12:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "withdrawn-by-adapter",
+   "r2": true,
+   "note": "Open States marks the confirming record withdrawn before anything was shown: nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper",
+        "withdrawn": true
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "backlog-cap",
+   "r2": true,
+   "note": "A confirmed event dated two months before the run when publishing is switched on: timeline only.",
+   "intent": [],
+   "expect": [],
+   "max_age_days": 14,
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-08-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-08-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
   }
  ]
 }
