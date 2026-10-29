@@ -1,13 +1,13 @@
 {
  "measure": "news_writer",
- "run_at": "2026-10-29T04:40:23.676Z",
- "checks_hash": "cd8440ddc72df64d11e6cd0dfccbb172c18cc85b133579b0cbf98f3a659ec09e",
- "cases": 30,
- "recorded": 30,
- "synthetic": 40,
+ "run_at": "2026-10-29T04:58:54.149Z",
+ "checks_hash": "30730e2c4a0d5cdff09a0b3d714e42781c99872bdc8cf15ed156a62aa8b36f29",
+ "cases": 32,
+ "recorded": 32,
+ "synthetic": 74,
  "wrong": 0,
- "missed": 8,
- "ai_written": 22,
+ "missed": 9,
+ "ai_written": 23,
  "rows": [
   {
    "id": "ny-s8828-senate-58-1",
@@ -588,11 +588,11 @@
   {
    "id": "pa-hr637-reported",
    "kind": "recorded",
-   "written_by": "ai",
+   "written_by": "template",
    "wrong": false,
-   "missed": false,
-   "headline": "Pennsylvania House panel passes H.R. 637 on frontier AI models",
-   "reason": null
+   "missed": true,
+   "headline": "PA H.R. 637 (resolution): Passed committee",
+   "reason": "not confirmed within the rounds"
   },
   {
    "id": "pa-hr637-reported#bad1",
@@ -638,6 +638,330 @@
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Alexander, Oldham"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "California SB 53 passes the Senate 30-10",
+   "reason": null
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad1",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: wrong chamber",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"Assembly\" in a sentence stating the outcome, but the event is in the Senate"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad2",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: wrong chamber (body only)",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"Assembly\" in a sentence stating the outcome, but the event is in the Senate"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad3",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: whole legislature for one chamber",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"Legislature\" states an act of the whole legislature, but the event is passage in the Senate"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad4",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: both chambers for one chamber",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"both chambers\" states an act of the whole legislature, but the event is passage in the Senate"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad5",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: lawmakers passed for one chamber",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"Lawmakers\" states an act of the whole legislature, but the event is passage in the Senate"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad6",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: sent to governor",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"sent SB 53 to the governor\" states the bill was sent to the executive, but the event is passage"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad7",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: governor desk",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"Governor's desk\" states the bill was sent to the executive, but the event is passage"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad8",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: yesterday",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"yesterday\" is a relative time; give the date from the fact sheet"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad9",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: last week",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"last week\" is a relative time; give the date from the fact sheet"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad10",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: earlier this month",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Earlier"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad11",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: recently",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"recently\" is a relative time; give the date from the fact sheet"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad12",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: signed into law",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "names or terms not in the fact sheet: Gavin, Newsom"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad13",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: is now law",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"is now law\" states a signing or enactment, but the event is passage"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad14",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: was enacted",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"enacted\" states a signing or enactment, but the event is passage"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad15",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: opposite outcome: rejected",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "the card does not state the event's own outcome (passage)"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad16",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: opposite outcome: did not pass",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"did not pass\" states the opposite outcome of passage"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad17",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: opposite outcome: failed",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "the card does not state the event's own outcome (passage)"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad18",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: lowercase name",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"signed\" states a signing or enactment, but the event is passage"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad19",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: lowercase name, no title",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"wiener\" names someone the fact sheet does not name"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad20",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: lowercase name with title, bill passed",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"senator wiener\" names someone the fact sheet does not name"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad21",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: supermajority",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"supermajority\" adds procedural detail the fact sheet does not state"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad22",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: after hours of debate",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"hours\" adds procedural detail the fact sheet does not state"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad23",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: second time it passed",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"second time\" adds procedural detail the fact sheet does not state"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad24",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: again",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"again\" adds procedural detail the fact sheet does not state"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad25",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: narrowly",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"narrowly\" is an evaluative word the fact sheet does not state"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad26",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: comfortably",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"comfortably\" is an evaluative word the fact sheet does not state"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad27",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: unanimously on 30-10",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"unanimously\" but the recorded vote has 10 against"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad28",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: vetoed on passage",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"vetoed\" states a veto, but the event is passage"
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10#bad29",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: no outcome stated",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "the card does not state the event's own outcome (passage)"
+  },
+  {
+   "id": "review-ca-sb53-receipt",
+   "kind": "recorded",
+   "written_by": "ai",
+   "wrong": false,
+   "missed": false,
+   "headline": "California SB 53 (TFAIA) sent to the Governor",
+   "reason": null
+  },
+  {
+   "id": "review-ca-sb53-receipt#bad1",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: receipt written as signed",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"signed\" states a signing or enactment, but the event is executive-receipt"
+  },
+  {
+   "id": "review-ca-sb53-receipt#bad2",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: receipt written as law",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"became law\" states a signing or enactment, but the event is executive-receipt"
+  },
+  {
+   "id": "review-ca-sb53-receipt#bad3",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: receipt written as vetoed",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"vetoed\" states a veto, but the event is executive-receipt"
+  },
+  {
+   "id": "review-ca-sb53-receipt#bad4",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: receipt: tomorrow",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"tomorrow\" is a relative time; give the date from the fact sheet"
+  },
+  {
+   "id": "review-ca-sb53-receipt#bad5",
+   "kind": "synthetic-bad",
+   "why": "review 29 Oct: receipt: lowercase name",
+   "written_by": "template",
+   "wrong": false,
+   "missed": false,
+   "reason": "\"governor newsom\" names someone the fact sheet does not name"
   }
  ]
 }

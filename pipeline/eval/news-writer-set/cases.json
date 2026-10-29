@@ -1345,6 +1345,257 @@
     "card": null,
     "review": null
    }
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10",
+   "entry_key": "ca-sb-53-tfaia",
+   "constructed": "vote and date are a constructed review sheet (independent review, 29 Oct)",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "passage",
+    "date": "2025-05-28",
+    "facts": {
+     "chamber": "Senate",
+     "number": "SB 53",
+     "vote": {
+      "yes": 30,
+      "no": 10
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "review 29 Oct: wrong chamber",
+     "headline": "California Assembly passes SB 53, 30-10",
+     "body": "The California Assembly passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: wrong chamber (body only)",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The Assembly approved SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: whole legislature for one chamber",
+     "headline": "California Legislature passes SB 53",
+     "body": "The California Legislature passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: both chambers for one chamber",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill has now passed both chambers."
+    },
+    {
+     "why": "review 29 Oct: lawmakers passed for one chamber",
+     "headline": "Lawmakers pass SB 53, 30-10",
+     "body": "Lawmakers passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: sent to governor",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025 and sent SB 53 to the governor. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: governor desk",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill is headed to the Governor's desk."
+    },
+    {
+     "why": "review 29 Oct: yesterday",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 yesterday by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: last week",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 last week by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: earlier this month",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "Earlier this month the California Senate passed SB 53 by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: recently",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate recently passed SB 53 by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: signed into law",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. Governor Gavin Newsom signed it into law."
+    },
+    {
+     "why": "review 29 Oct: is now law",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. SB 53 is now law."
+    },
+    {
+     "why": "review 29 Oct: was enacted",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill was enacted."
+    },
+    {
+     "why": "review 29 Oct: opposite outcome: rejected",
+     "headline": "California Senate rejects SB 53, 30-10",
+     "body": "The California Senate rejected SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: opposite outcome: did not pass",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "SB 53 did not pass the California Senate on May 28, 2025, with a 30-10 vote. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: opposite outcome: failed",
+     "headline": "SB 53 fails in California Senate",
+     "body": "SB 53 failed in the California Senate by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: lowercase name",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. Governor newsom signed it."
+    },
+    {
+     "why": "review 29 Oct: lowercase name, no title",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. It was backed by wiener."
+    },
+    {
+     "why": "review 29 Oct: lowercase name with title, bill passed",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. It was authored by senator wiener."
+    },
+    {
+     "why": "review 29 Oct: supermajority",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a supermajority of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: after hours of debate",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "After hours of debate, the California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: second time it passed",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. It was the second time it passed. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: again",
+     "headline": "California Senate passes SB 53 again",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: narrowly",
+     "headline": "California Senate narrowly passes SB 53",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: comfortably",
+     "headline": "California Senate comfortably passes SB 53",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: unanimously on 30-10",
+     "headline": "California Senate unanimously passes SB 53",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: vetoed on passage",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The Governor vetoed it."
+    },
+    {
+     "why": "review 29 Oct: no outcome stated",
+     "headline": "SB 53 in the California Senate",
+     "body": "SB 53 was before the California Senate on May 28, 2025, with a 30-10 tally. The next step is consideration in the Assembly."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:58:40.528Z",
+    "writer": [
+     {
+      "headline": "California Senate passes SB 53 by 30-10 vote",
+      "body": "The California Senate passed SB 53 on May 28, 2025, by a vote of 30-10. The bill, also known as CA SB 53 (TFAIA), next moves to consideration in the Assembly. It sets critical-incident reporting within 15 days, or within 24 hours if there is imminent risk of death or serious injury."
+     },
+     {
+      "headline": "California SB 53 passes the Senate 30-10",
+      "body": "The Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill next moves to consideration in the Assembly."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "California SB 53 passes the Senate 30-10",
+     "body": "The Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill next moves to consideration in the Assembly."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "review-ca-sb53-receipt",
+   "entry_key": "ca-sb-53-tfaia",
+   "constructed": "date is a constructed review sheet (independent review, 29 Oct)",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "executive-receipt",
+    "date": "2025-09-15",
+    "facts": {
+     "number": "SB 53"
+    }
+   },
+   "bad": [
+    {
+     "why": "review 29 Oct: receipt written as signed",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to the Governor on September 15, 2025. The Governor signed it into law."
+    },
+    {
+     "why": "review 29 Oct: receipt written as law",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was presented to the Governor on September 15, 2025. It became law."
+    },
+    {
+     "why": "review 29 Oct: receipt written as vetoed",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to the Governor on September 15, 2025. The Governor vetoed it."
+    },
+    {
+     "why": "review 29 Oct: receipt: tomorrow",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to the Governor on September 15, 2025. Action by the Governor is due tomorrow."
+    },
+    {
+     "why": "review 29 Oct: receipt: lowercase name",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to governor newsom on September 15, 2025. Action by the Governor is next."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:58:44.506Z",
+    "writer": [
+     {
+      "headline": "California SB 53 (TFAIA) sent to the Governor",
+      "body": "California SB 53, also known as the TFAIA, was sent to the Governor on September 15, 2025, after passing both chambers. The next step is action by the Governor."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "California SB 53 (TFAIA) sent to the Governor",
+     "body": "California SB 53, also known as the TFAIA, was sent to the Governor on September 15, 2025, after passing both chambers. The next step is action by the Governor."
+    },
+    "review": "ok"
+   }
   }
  ]
 }

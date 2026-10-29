@@ -9,6 +9,7 @@
 import { buildFactSheet, sheetText, billNumbers, STATE_NAMES } from './factsheet.mjs';
 import { CARD_WRITER_SYSTEM, cardWriterPrompt, CARD_READER_SYSTEM, cardReaderPrompt } from './writer-prompts.mjs';
 import { digitRuns } from '../agents/source-text.mjs';
+import { readFileSync } from 'fs';
 import { sentences, datesIn } from './text.mjs';
 
 export const CARD_LIMITS = { headline: 90, body: 400, sentencesMin: 2, sentencesMax: 3 };
@@ -143,7 +144,81 @@ export function checkCard(card, sheet) {
     const f = all.match(FUTURE_IN_HELD); if (f && !hasWord(S, f[1])) p.push(`"${f[1]}" writes an event that happened as if it were still to come`);
     const nx = all.match(NEXT_WORDS); if (nx && !sheet.next) p.push(`"${nx[1]}" states a next step, but the fact sheet gives none`);
   }
+  outcomeProblems(headline, body, sheet).forEach((x) => p.push(x));
   return [...new Set(p)];
+}
+
+// ---------- outcome, chamber, time and name whitelist (review of 29 Oct) ----------
+// Each class may state only its own outcome: the card must contain the class's outcome phrase, and no outcome phrase of another class.
+const PASSAGE_CLASSES = new Set(['passage', 'committee-passage', 'concurrence', 'amendment-passage', 'veto-override-passage', 'enrolled', 'executive-receipt', 'executive-signature', 'became-law']);
+const FAILURE_CLASSES = new Set(['failure', 'committee-failure', 'withdrawal']);
+const BOTH_CLASSES = new Set(['concurrence', 'enrolled', 'executive-receipt', 'executive-signature', 'became-law', 'executive-veto', 'veto-override-passage']);
+const SIGN_CLASSES = new Set(['executive-signature', 'became-law', 'executive-order', 'presidential-memo']);
+const VETO_CLASSES = new Set(['executive-veto', 'veto-override-passage']);
+export const REQUIRED_OUTCOME = {
+  introduction: /\b(introduc\w*|filed)\b/i, 'referral-committee': /\brefer\w*\b/i, 'hearing-scheduled': /\bhearing\b/i, 'hearing-held': /\bhearing\b/i,
+  'committee-passage': /\b(pass(?:ed|es)?|approv\w*|advanc\w*|ordered|reported)\b/i, 'committee-failure': /\b(fail\w*|reject\w*|voted down)\b/i,
+  passage: /\b(pass(?:ed|es)?|approv\w*)\b/i, failure: /\b(fail\w*|reject\w*|defeat\w*|voted down)\b/i, 'amendment-passage': /\bamend\w*\b/i,
+  concurrence: /\bconcurr?\w*\b/i, enrolled: /\benroll\w*\b/i, 'executive-receipt': /\b(sent|presented|delivered|transmitted)\b/i,
+  'executive-signature': /\b(sign\w*|approv\w*)\b/i, 'became-law': /\b(became law|law)\b/i, 'executive-veto': /\bveto\w*\b/i, 'veto-override-passage': /\boverr?(?:ide|ode|idden)\b/i,
+  withdrawal: /\bwithdr\w*\b/i, 'executive-order': /\b(sign\w*|issu\w*)\b/i, 'court-filing': /\bfil\w*\b/i, 'court-ruling': /\b(rul\w*|decid\w*|order\w*)\b/i,
+  'agency-rule-final': /\bfinal rule\b/i, 'agency-rule-proposed': /\bpropos\w*\b/i, nomination: /\bnominat\w*\b/i
+};
+const SIGN_WORDS = /\b(sign(?:s|ed|ing)?|into law|(?:is |are )?now (?:a )?law|became (?:a )?law|becomes (?:a )?law|enact(?:s|ed|ment|ing)?|chaptered|public act)\b/i;
+const VETO_WORDS = /\bveto(?:es|ed|ing)?\b/i;
+const SEND_WORDS = /\b(sent|sends|send|delivered|presented|transmitted|forwarded)\b[^.]{0,60}\b(governor|president|desk)\b|\b(?:governor|president)['’]s desk\b/i;
+const FAIL_WORDS = /\b(reject\w*|fail(?:s|ed|ing)?|did not pass|does not pass|not passed|defeat\w*|voted down|killed|died|blocked|stalled|tabled)\b/i;
+const PASS_WORDS = /\b(pass(?:ed|es)|approv(?:ed|es)|adopt(?:ed|s)|advanc(?:ed|es)|clear(?:ed|s))\b/i;
+const OUTCOME_VERB = /\b(pass(?:ed|es)?|approv\w*|adopt\w*|advanc\w*|clear(?:ed|s)?|vot\w*|reject\w*|fail\w*|concurr?\w*|defeat\w*|overr?(?:ide|ode)\w*|enact\w*)\b/i;
+const CHAMBER_WORD = /\b(general assembly|senate|house|assembly|legislature|congress|lawmakers|legislators|both chambers|both houses)\b/gi;
+const BOTH_WORDS = new Set(['legislature', 'congress', 'lawmakers', 'legislators', 'both chambers', 'both houses']);
+export const RELATIVE_TIME = /\b(yesterday|today|tonight|tomorrow|(?:last|this|next|past|coming) (?:week|month|year|session|weekend)|earlier|later this|recently|lately|ago|soon|this (?:morning|afternoon|evening)|just)\b/i;
+export const COLOUR = /\b(super-?majorit\w*|debat\w*|hours?|minutes?|second time|third time|again|once more|narrowly|comfortably|roll[- ]call|voice vote|filibuster\w*|marathon|late-night|overnight|lengthy|heated|packed|testimony|amid)\b/gi;
+// Titles before a person's name: the word after one must be in the sheet (case does not matter).
+const TITLE_NAME = /\b(?:governor|gov\.|senator|sen\.|representative|rep\.|assemblymember|assemblyman|assemblywoman|delegate|president|vice president|judge|justice|secretary|attorney general|mayor|chair(?:man|woman)?|speaker|leader|commissioner|director)\s+([a-z][a-z'’-]{2,})/gi;
+const AFTER_TITLE_OK = /^(?:signs|vetoes|approves|receives|issues|signed|vetoed|approved|received|has|had|is|was|will|would|of|and|to|on|in|for|the|a|an|who|that|did|does|also|then|said|issued|after|before|with|by|it|or|but|at|as|from|announced|took|got)$/i;
+// Officials and sponsors the tracker names anywhere: any of these in a card (any case) must be in its sheet.
+let LEXICON = null;
+const KNOWN_OFFICIALS = 'newsom pritzker hochul trump biden vance harris murphy healey whitmer shapiro lamont youngkin spanberger polis kotek hobbs sherrill mamdani adams wiener bores gounardes padilla schiff schumer thune cruz klobuchar cantwell hawley blumenthal warner schatz kim bennet welch cotton liccardo kiley lieu obernolte beyer peters'.split(' ');
+export function nameLexicon() {
+  if (LEXICON) return LEXICON;
+  LEXICON = new Set(KNOWN_OFFICIALS);
+  try {
+    const f = new URL('../../web/data/v2/entries.json', import.meta.url), d = JSON.parse(readFileSync(f, 'utf8'));
+    // surnames only: "Wiener (D", "Sen. Scott Wiener", "Rep. Lieu"
+    const NAME_RES = [/\b([A-Z][a-z'’-]{2,})\s*\((?:[DRI]\b|[DRI]-)/g, /\b(?:Sen|Rep|Asm|Gov|Del|Senator|Representative|Assemblymember)\.?\s+(?:[A-Z][a-z.]+\s+){0,2}([A-Z][a-z'’-]{2,})/g];
+    for (const e of Array.isArray(d) ? d : d.entries) for (const re of NAME_RES) for (const m of String(e.sponsor_text || '').matchAll(re)) LEXICON.add(m[1].toLowerCase());
+  } catch { /* the fixed list alone */ }
+  for (const w of ['senate', 'house', 'assembly', 'state', 'district', 'rep', 'reps', 'sens', 'cosponsors', 'sponsor', 'sponsors', 'with', 'from', 'joint', 'committee', 'members', 'introduced', 'bill']) LEXICON.delete(w);
+  return LEXICON;
+}
+
+export function outcomeProblems(headline, body, sheet) {
+  const p = [], all = `${headline}\n${body}`, S = sheetText(sheet).toLowerCase(), ev = sheet.event || {}, cls = ev.class;
+  const both = BOTH_CLASSES.has(cls) || sheet.stage_code === 'passed-both';
+  const req = REQUIRED_OUTCOME[cls];
+  if (req && !req.test(all)) p.push(`the card does not state the event's own outcome (${cls})`);
+  const sw = all.match(SIGN_WORDS); if (sw && !SIGN_CLASSES.has(cls)) p.push(`"${sw[1]}" states a signing or enactment, but the event is ${cls}`);
+  const vw = all.match(VETO_WORDS); if (vw && !VETO_CLASSES.has(cls)) p.push(`"${vw[0]}" states a veto, but the event is ${cls}`);
+  const sd = all.match(SEND_WORDS); if (sd && cls !== 'executive-receipt') p.push(`"${sd[0].slice(0, 40)}" states the bill was sent to the executive, but the event is ${cls}`);
+  const fw = all.match(FAIL_WORDS); if (fw && PASSAGE_CLASSES.has(cls)) p.push(`"${fw[1]}" states the opposite outcome of ${cls}`);
+  const pw = all.match(PASS_WORDS); if (pw && FAILURE_CLASSES.has(cls)) p.push(`"${pw[1]}" states the opposite outcome of ${cls}`);
+  // chambers: in a sentence stating an outcome, only the event's own chamber (or its committee's) may appear; the whole legislature only
+  // for an event after both chambers passed
+  const own = new Set([ev.chamber, ev.committee].filter(Boolean).flatMap((x) => [...String(x).toLowerCase().matchAll(CHAMBER_WORD)].map((m) => m[1])));
+  for (const s of [headline, ...sentences(body)]) {
+    for (const m of s.matchAll(CHAMBER_WORD)) {
+      const w = m[1].toLowerCase();
+      if (BOTH_WORDS.has(w)) { if (!both && (OUTCOME_VERB.test(s) || /both/.test(w))) p.push(`"${m[1]}" states an act of the whole legislature, but the event is ${cls}${ev.chamber ? ` in the ${ev.chamber}` : ''}`); continue; }
+      if (OUTCOME_VERB.test(s) && !own.has(w) && !(w === 'assembly' && own.has('general assembly'))) p.push(`"${m[1]}" in a sentence stating the outcome, but the event is ${ev.chamber ? `in the ${ev.chamber}` : 'not a chamber action'}`);
+    }
+  }
+  const rt = all.match(RELATIVE_TIME); if (rt) p.push(`"${rt[1]}" is a relative time; give the date from the fact sheet`);
+  for (const m of all.matchAll(COLOUR)) if (!hasWord(S, m[1])) p.push(`"${m[1]}" adds procedural detail the fact sheet does not state`);
+  for (const m of all.matchAll(TITLE_NAME)) if (!AFTER_TITLE_OK.test(m[1]) && !hasWord(S, m[1])) p.push(`"${m[0]}" names someone the fact sheet does not name`);
+  const lex = nameLexicon();
+  for (const m of all.matchAll(/\b([A-Za-z][a-z'’-]{3,})\b/g)) { const w = m[1].toLowerCase().replace(/['’]s$/, ''); if (lex.has(w) && !hasWord(S, w)) p.push(`"${m[1]}" names someone the fact sheet does not name`); }
+  return p;
 }
 
 // The card from the event's own template, or one built from the sheet if the event has none.
