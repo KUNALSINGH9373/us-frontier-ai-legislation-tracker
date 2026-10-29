@@ -15,7 +15,7 @@ import { EVENT_CLASSES } from './classify.mjs';
 import { applyRun, showable, BILL_CLASSES } from './confirm.mjs';
 import { longDate } from '../agents/derive.mjs';
 import { templateFor, quoteOf } from './templates.mjs';
-import { provenStage, billKey } from './factsheet.mjs';
+import { ownStageCode, billKey, displayNumber, skipsExecutive } from './factsheet.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
 import { sourceConfig } from './sources/common.mjs';
 
@@ -83,7 +83,10 @@ export function normalizeItem(it) {
   const facts = { ...(it.facts || {}) };
   if ('chamber' in facts) facts.chamber = normChamber(facts.chamber, it.jurisdiction);
   if (facts.public_law == null && typeof facts.action === 'string') { const m = /\bpublic law no:?\s*(\d+)-(\d+)/i.exec(facts.action); if (m) facts.public_law = `${m[1]}-${m[2]}`; }
-  return { item: { ...it, source_id, class: it.class ?? null, facts } };
+  // review r6 #1: a resolution or constitutional amendment is never a law: its "became-law" (a chaptering) has no class, so no card
+  let cls = it.class ?? null;
+  if (cls === 'became-law' && facts.number && skipsExecutive(String(facts.number), it.jurisdiction)) cls = null;
+  return { item: { ...it, source_id, class: cls, facts } };
 }
 
 // A White House posting of an order or memo carries no number: when a Federal Register document (this run or stored) has the same title,
@@ -341,14 +344,17 @@ export function displayEvent(ev, state) {
 const shownView = (ev) => (ev.pending_correction && ev.last_confirmed ? { ...ev, facts: ev.last_confirmed.facts, facts_digest: ev.last_confirmed.facts_digest, card: ev.last_confirmed.card, status: ev.last_confirmed.status } : ev);
 const CLASS_WORDS = (c) => String(c).replace(/-/g, ' ');
 
-// The stage badge (review r5): only a stage the record proves from this entry's own confirmed events (news/factsheet.mjs provenStage);
-// omitted otherwise. No next step is ever rendered.
-const stageField = (ev, state) => { const s = provenStage(ev, state ? Object.values(state.events) : [], showable); return s ? { stage: s } : {}; };
+// The stage badge (review r6): only what the card's own event class proves by itself (news/factsheet.mjs ownStageCode), from the
+// record's own number; never inferred from other events; omitted otherwise. No next step is ever rendered.
+const stageField = (ev) => { const n = ev.facts && ev.facts.number ? displayNumber(String(ev.facts.number), ev.jurisdiction) : null; const s = ownStageCode(ev.class, ev.jurisdiction, n); return s ? { stage: s } : {}; };
 
 // One news.json item for one event (backwards compatible; see the contract and the site agent's additions). With state, an event that
 // owns merged events shows the highest-ranked of them, under its own event_key.
 export function renderItem(owner, entry, { at, state = null } = {}) {
-  const disp = displayEvent(owner, state), ev = shownView(disp);
+  // a merged event that cannot be written (review r6: e.g. a became-law whose law wording is not valid) leaves the card on its own event
+  let disp = displayEvent(owner, state);
+  if (disp !== owner && !cardFor(shownView(disp), entry)) disp = owner;
+  const ev = shownView(disp);
   const card = cardFor(ev, entry);
   if (!card) return null;
   const off = ev.sources.find((s) => s.role === 'official');
@@ -377,7 +383,7 @@ export function renderItem(owner, entry, { at, state = null } = {}) {
     verification: { method: 'official-record', checked_at: at || ev.last_seen },
     evidence: [{ field: 'body', quote: quote.length >= 8 ? quote : String(off.title || quote), source_url: off.url }],
     event_key: owner.key, class: ev.class, status, jurisdiction: ev.jurisdiction, statements,
-    ...stageField(ev, state),
+    ...stageField(ev),
     ...(ev.facts.comments_close ? { comments_close: ev.facts.comments_close } : {}),
     history: hist.map((h) => ({ at: h.at, change: h.change, ...(typeof h.from === 'string' || h.from === null ? { from: h.from } : {}), ...(typeof h.to === 'string' || h.to === null ? { to: h.to } : {}) })),
     ...(note ? { status_note: note } : {})
@@ -464,7 +470,7 @@ export function checkNewsEvents({ before, after, state, entries, at }) {
     if (!ev || !entry) { if (!keysB.includes(n.event_key)) problems.push(`news item ${n.event_key}: no such event or entry`); continue; }
     if (!visible(ev)) problems.push(`news item ${n.event_key}: event is ${ev.status}, not publishable`);
     const want = renderItem(ev, entry, { at: n.verification.checked_at, state });
-    if (JSON.stringify(want) !== JSON.stringify(n)) problems.push(`news item ${n.event_key}: not the render of its event`);
+    if (JSON.stringify(want) !== JSON.stringify(n)) problems.push(`news item ${n.event_key}: not the render of its event` + (process.env.DBGR ? JSON.stringify([want, n]) : ""));
     if (n.origin !== 'automated' || n.verification.method !== 'official-record') problems.push(`news item ${n.event_key}: not marked automated / official-record`);
     if (!n.links.some((l) => n.evidence.every((e) => e.source_url === l.u))) problems.push(`news item ${n.event_key}: evidence is not from its own linked record`);
   }

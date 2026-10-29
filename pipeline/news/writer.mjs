@@ -197,7 +197,13 @@ export function nameLexicon() {
 
 export function outcomeProblems(headline, body, sheet) {
   const p = [], all = `${headline}\n${body}`, S = sheetText(sheet).toLowerCase(), ev = sheet.event || {}, cls = ev.class;
-  const both = BOTH_CLASSES.has(cls) || sheet.stage_code === 'passed-both';
+  const b = sheet.bill || {};
+  // review r6 #5: a simple resolution never passes "both chambers"
+  const both = !b.simple_resolution && (BOTH_CLASSES.has(cls) || sheet.stage_code === 'passed-both');
+  // review r6 #1: law words only where the law wording is valid ("became law" for a became-law record; "into law"/"enact" for a signed bill)
+  const lawOk = cls === 'became-law' ? b.became_law_ok === true : b.law_wording === true;
+  const lw = all.match(/\b(becomes? law|became law|into law|now law|enact(?:s|ed|ment|ing)?)\b/i);
+  if (lw && !lawOk && !['executive-order', 'presidential-memo'].includes(cls)) p.push(`"${lw[1]}" claims a law, but this measure's law wording is not valid (resolution, amendment, territory or unknown number)`);
   const req = REQUIRED_OUTCOME[cls];
   if (req && !req.test(all)) p.push(`the card does not state the event's own outcome (${cls})`);
   const sw = all.match(SIGN_WORDS); if (sw && !SIGN_CLASSES.has(cls)) p.push(`"${sw[1]}" states a signing or enactment, but the event is ${cls}`);
@@ -237,10 +243,10 @@ const shapeOk = (d) => d && typeof d.headline === 'string' && typeof d.body === 
 // event: contract Event; entry: tracker entry (or null); writer, reader: AI clients ({ generate({system, prompt, itemId}) }).
 // Returns { card: { headline, body, template_headline, template_body, written_by }, sheet, rounds, problems, reason }. Never throws.
 // The phrase-bank card (news/phrasebank.mjs): the first deterministic candidate that passes checkCard; the template when none does.
-export function bankCard({ event, entry = null, sheet = null, today = null, proven = null }) {
+export function bankCard({ event, entry = null, sheet = null, today = null }) {
   let fs = sheet, tpl;
   try {
-    fs = fs || buildFactSheet(event, entry, { today, proven }); tpl = templateCard(event, fs);
+    fs = fs || buildFactSheet(event, entry, { today }); tpl = templateCard(event, fs);
     const key = (event && event.key) || JSON.stringify(fs.event);
     let tried = 0;
     for (const c of candidates(fs, key)) {
@@ -262,9 +268,9 @@ export async function writeCard({ config = null, ...args }) {
   return writeCardAI(args);
 }
 
-async function writeCardAI({ event, entry = null, sheet = null, writer, reader, today = null, proven = null, maxRounds = 2, log = () => {} }) {
+async function writeCardAI({ event, entry = null, sheet = null, writer, reader, today = null, maxRounds = 2, log = () => {} }) {
   let fs = sheet, tpl;
-  try { fs = fs || buildFactSheet(event, entry, { today, proven }); tpl = templateCard(event, fs); }
+  try { fs = fs || buildFactSheet(event, entry, { today }); tpl = templateCard(event, fs); }
   catch (e) { const t = (event && event.card) || {}; return { card: { headline: t.template_headline || null, body: t.template_body || null, template_headline: t.template_headline || null, template_body: t.template_body || null, written_by: 'template' }, sheet: fs, rounds: 0, problems: [], reason: `fact sheet failed: ${e.message}` }; }
   const out = (written_by, c, rounds, problems, reason) => ({ card: { headline: c.headline, body: c.body, template_headline: tpl.headline, template_body: tpl.body, written_by }, sheet: fs, rounds, problems, reason });
   if (!writer || !reader) return out('template', tpl, 0, [], 'no AI client');

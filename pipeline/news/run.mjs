@@ -35,8 +35,6 @@ import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
 import { defaultHttp, sourceConfig } from './sources/common.mjs';
 import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
-import { provenStage } from './factsheet.mjs';
-import { showable } from './confirm.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -120,8 +118,6 @@ export const EXTRA_ADAPTERS = [['openstates', openstates], ['nysenate', nysenate
 // any check stays the template. Only when news publishing is on and AI may run. Returns how many cards the AI wrote.
 export async function writeCards({ state, entries, keys, factory, today, max = 5, config = null, log = () => {} }) {
   // news.ai_writer false (default): the phrase bank (news/phrasebank.mjs), code only, every card; the AI path below is not reached
-  // the stage the record proves from this entry's own confirmed events (review r5), for the fact sheet's stage line
-  const provenOf = (ev) => provenStage(ev, Object.values(state.events), showable);
   if (!aiWriterOn(config)) {
     const byKey = new Map(entries.map((e) => [e.key, e]));
     let written = 0, tried = 0;
@@ -130,7 +126,7 @@ export async function writeCards({ state, entries, keys, factory, today, max = 5
       if (!ev || !ev.card || (ev.card.written_by === 'bank' && ev.card.facts_hash === ev.facts_digest)) continue;
       if (tried >= max) break; // max_cards_per_run applies to the bank too (review r4)
       tried++;
-      const r = bankCard({ event: ev, entry: byKey.get(ev.entry_id) || null, today, proven: provenOf(ev) });
+      const r = bankCard({ event: ev, entry: byKey.get(ev.entry_id) || null, today });
       if (r.card && r.card.written_by === 'bank') { ev.card = { ...r.card, facts_hash: ev.facts_digest }; written++; }
     }
     return { written, tried, mode: 'bank' };
@@ -144,7 +140,7 @@ export async function writeCards({ state, entries, keys, factory, today, max = 5
     const ev = state.events[k];
     if (!ev || !ev.card || ev.card.written_by === 'ai' || tried >= max) continue;
     tried++;
-    const r = await writeCard({ config, event: ev, entry: byKey.get(ev.entry_id) || null, writer, reader, today, log, proven: provenOf(ev) });
+    const r = await writeCard({ config, event: ev, entry: byKey.get(ev.entry_id) || null, writer, reader, today, log });
     if (r.card && r.card.written_by === 'ai') { ev.card = { ...r.card, facts_hash: ev.facts_digest }; written++; }
   }
   return { written, tried };

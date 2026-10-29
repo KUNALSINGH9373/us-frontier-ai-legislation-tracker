@@ -54,7 +54,8 @@ export function classifyCongress(action) {
 // A legislature's own wording, first. Each rule: [regex, class]. Checked against the stored history steps (fixtures/news/action-strings.json).
 export const JURISDICTION_RULES = {
   // California: the Secretary of State's chapter number is the bill becoming law; "Approved by the Governor" is the signature.
-  CA: [[/^\W*chaptered by secretary of state\b/i, 'became-law'], [/^\W*approved by (the )?governor\b/i, 'executive-signature']],
+  // A "Res. Chapter" is a resolution's chapter (SCR, ACA ...), never a law (review r6 #1): no class, so no card.
+  CA: [[/^\W*chaptered by secretary of state\b[^.]*\bres\.?\s*chapter\b/i, null], [/^\W*chaptered by secretary of state\b/i, 'became-law'], [/^\W*approved by (the )?governor\b/i, 'executive-signature']],
   // New York: "SIGNED CHAP.123" is the governor's signature, which makes it a chapter of law that day.
   NY: [[/^\W*signed chap\.\s*\d+/i, 'executive-signature'], [/^\W*delivered to governor\b/i, 'executive-receipt']],
   // Hawaii: "Passed Second Reading ... and referred to the committee(s)" is a committee passage there (Lane 1 agrees).

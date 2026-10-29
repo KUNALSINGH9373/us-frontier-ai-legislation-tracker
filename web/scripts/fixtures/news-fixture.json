@@ -1198,7 +1198,6 @@
      "u": "https://science.house.gov/press-releases/hr-9925-passage"
     }
    ],
-   "stage": "passed-chamber",
    "status": "confirmed",
    "links": [
     {
@@ -1227,7 +1226,6 @@
      "u": "https://www.pahouse.com/InTheNews/NewsRelease/?id=140001"
     }
    ],
-   "stage": "committee",
    "status": "confirmed",
    "links": [
     {
@@ -1250,7 +1248,6 @@
     "checked_at": "2026-10-26T14:00:00Z"
    },
    "statements": [],
-   "stage": "law",
    "status": "confirmed",
    "links": [
     {
@@ -1262,6 +1259,7 @@
    "date": "2026-10-26",
    "kind": "state",
    "class": "executive-signature",
+   "stage": "signed",
    "title": "Governor signs SB 813 (Chapter 612, Statutes of 2026)",
    "body": "The Governor signed SB 813; the Secretary of State chaptered it as Chapter 612.",
    "event_key": "CA|ca-sb-813-ivos|executive-signature|2026-10-26"
@@ -1273,7 +1271,6 @@
     "checked_at": "2026-10-24T14:00:00Z"
    },
    "statements": [],
-   "stage": "committee",
    "status": "confirmed",
    "links": [
     {
@@ -1296,7 +1293,6 @@
     "checked_at": "2026-10-25T14:00:00Z"
    },
    "statements": [],
-   "stage": null,
    "status": "confirmed",
    "links": [
     {
@@ -1325,7 +1321,6 @@
     "checked_at": "2026-10-29T14:00:00Z"
    },
    "statements": [],
-   "stage": null,
    "status": "confirmed",
    "links": [
     {
@@ -1353,7 +1348,6 @@
     "checked_at": "2026-10-20T14:00:00Z"
    },
    "statements": [],
-   "stage": null,
    "status": "confirmed",
    "links": [
     {
@@ -1377,7 +1371,6 @@
     "checked_at": "2026-10-23T14:00:00Z"
    },
    "statements": [],
-   "stage": "introduced",
    "status": "corrected",
    "links": [
     {
@@ -1408,7 +1401,6 @@
     "checked_at": "2026-10-22T14:00:00Z"
    },
    "statements": [],
-   "stage": "committee",
    "status": "withdrawn",
    "links": [
     {
@@ -1443,7 +1435,6 @@
      "u": "https://www.myfloridalegal.com/newsrelease/statement-ruling-florida-v-openai"
     }
    ],
-   "stage": null,
    "status": "confirmed",
    "links": [
     {
@@ -1466,7 +1457,6 @@
     "checked_at": "2026-10-15T14:00:00Z"
    },
    "statements": [],
-   "stage": null,
    "status": "confirmed",
    "links": [
     {
@@ -1489,7 +1479,6 @@
     "checked_at": "2026-10-02T14:00:00Z"
    },
    "statements": [],
-   "stage": "committee",
    "status": "confirmed",
    "links": [
     {
@@ -1512,7 +1501,6 @@
     "checked_at": "2026-10-10T14:00:00Z"
    },
    "statements": [],
-   "stage": null,
    "status": "confirmed",
    "links": [
     {
@@ -1538,7 +1526,6 @@
     "checked_at": "2026-10-28T14:00:00Z"
    },
    "statements": [],
-   "stage": null,
    "status": "confirmed",
    "links": [],
    "tracker": null,

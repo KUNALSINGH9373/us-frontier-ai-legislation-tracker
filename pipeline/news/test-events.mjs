@@ -148,7 +148,7 @@ function stateWithConfirmed() {
   ok('5 confirmed events are appended; every hand-written item untouched and in order', r.added.length > 0 && JSON.stringify(r.news.items.slice(0, NEWS.items.length)) === JSON.stringify(NEWS.items));
   ok('5 an event on an entry and date that already has an item (Lane 1 or by hand) is not added again', r.held.some((h) => /already has an item/.test(h.why)) || !auto.some((n) => NEWS.items.some((o) => !o.event_key && o.tracker === n.tracker && o.date === n.date)));
   const intro = auto.find((n) => n.class === 'referral-committee'); // the introduction waits for govinfo (news/confirm.mjs)
-  ok('5 the item: contract fields, official-record badge, jurisdiction, stage, history, template text quoting the record', intro && intro.origin === 'automated' && intro.verification.method === 'official-record' && intro.jurisdiction === 'US' && intro.stage === 'committee' && intro.status === 'confirmed' && Array.isArray(intro.history) && Array.isArray(intro.statements) && /"Referred to the House Committee on Education and Workforce"/.test(intro.body) && /^H.R. 3460 referred to committee$/.test(intro.title), JSON.stringify(intro));
+  ok('5 the item: contract fields, official-record badge, jurisdiction, stage, history, template text quoting the record', intro && intro.origin === 'automated' && intro.verification.method === 'official-record' && intro.jurisdiction === 'US' && !('stage' in intro) && intro.status === 'confirmed' && Array.isArray(intro.history) && Array.isArray(intro.statements) && /"Referred to the House Committee on Education and Workforce"/.test(intro.body) && /^H.R. 3460 referred to committee$/.test(intro.title), JSON.stringify(intro));
   const errs = validate.check('news', r.news);
   ok('5 the rendered news.json passes its schema', !errs.length, errs.slice(0, 3).join(' | '));
   ok('5 the stop rules pass on the honest render', checkNewsEvents({ before: { news: NEWS, entries: ENTRIES }, after: { news: r.news, entries: ENTRIES }, state: s, entries: ENTRIES }).length === 0);
@@ -315,7 +315,7 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
     for (const [i, r] of runs.entries()) {
       upsertItems(s, r.items, { runId: `r${i}`, now: r.now, fetched: r.fetched || [] });
       const out = renderNews(page, s, ENTRIES, { at: r.now.toISOString() });
-      if (checkNewsEvents({ before: { news: page, entries: ENTRIES }, after: { news: out.news, entries: ENTRIES }, state: out.state, entries: ENTRIES }).length) throw new Error('stop rules failed');
+      { const pr = checkNewsEvents({ before: { news: page, entries: ENTRIES }, after: { news: out.news, entries: ENTRIES }, state: out.state, entries: ENTRIES }); if (pr.length) throw new Error('stop rules failed: ' + pr.join('; ')); }
       s.events = out.state.events; markShown(s, out.added, r.now.toISOString()); page = out.news; pages.push(page.items.filter((n) => n.event_key && n.tracker === E));
     }
     return { s, pages };
@@ -339,8 +339,8 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const c = play([{ now: day('2026-10-21', 6), items: [p300] }, { now: day('2026-10-21', 10), items: [p300] }], lane1);
   ok('r3#4 an item written by Lane 1 a day before the event: no second card', c.pages[1].length === 0);
   // #5 signature, then the law weeks later: one card
-  const sig = item({ source_id: 'hr3460#sig', class: 'executive-signature', date: '2026-09-25', facts: { action: 'Signed by President.' }, retrieved_at: '2026-09-25T20:00:00Z' });
-  const law = item({ source_id: 'hr3460#law', class: 'became-law', date: '2026-10-16', facts: { action: 'Became Public Law No: 119-77.' }, retrieved_at: '2026-10-16T20:00:00Z' });
+  const sig = item({ source_id: 'hr3460#sig', class: 'executive-signature', date: '2026-09-25', facts: { action: 'Signed by President.', number: 'H.R. 3460' }, retrieved_at: '2026-09-25T20:00:00Z' });
+  const law = item({ source_id: 'hr3460#law', class: 'became-law', date: '2026-10-16', facts: { action: 'Became Public Law No: 119-77.', number: 'H.R. 3460' }, retrieved_at: '2026-10-16T20:00:00Z' });
   const gi = { source: 'govinfo', source_id: 'PLAW-119publ77', jurisdiction: 'US', entry_id: E, class: 'became-law', date: '2026-10-17', facts: { role: 'confirmation', public_law: '119-77' }, url: 'https://www.govinfo.gov/app/details/PLAW-119publ77', title: 'Public Law 119-77', retrieved_at: '2026-10-17T05:00:00Z' };
   const d = play([{ now: day('2026-09-26', 6), items: [sig] }, { now: day('2026-09-26', 10), items: [sig] }, { now: day('2026-10-17', 6), items: [law, gi] }, { now: day('2026-10-17', 10), items: [law] }]);
   ok('r3#5 a public law three weeks after the signature: merged into the one card, no window', d.pages[3].length === 1 && d.pages[3][0].class === 'became-law', JSON.stringify(d.pages.map((p) => p.map((n) => n.class))));
@@ -374,8 +374,8 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const FS = await import('./factsheet.mjs'), PB = await import('./phrasebank.mjs'), M = await import('../eval/news-bank-matrix.mjs');
   const sn = (j, number, chamber, cls = 'passage', proven = null) => FS.stageOf(cls, j, { number, chamber }, proven);
   ok('r5 no next step anywhere: the fact sheet has none, the bank has no next-step lines', !('next' in FS.buildFactSheet({ key: 'k', jurisdiction: 'CA', class: 'passage', date: '2026-10-27', facts: { number: 'AB 1018', chamber: 'Assembly' } }, null)) && !('NEXT_BANK' in PB) && !('stageAndNext' in FS));
-  ok('r4#3 Nebraska: "Passed the Legislature", never both chambers', sn('NE', 'LB 1405', 'Legislature', 'enrolled').stage === undefined && sn('NE', 'LB 1405', 'Legislature', 'enrolled') === 'Passed the Legislature' && sn('NE', 'LB 1405', 'Legislature', 'concurrence', 'passed-both') === 'Passed the Legislature');
-  ok('r5 a concurrence alone proves no "both chambers"; with both passages confirmed it does', sn('CA', 'AB 1018', 'Senate', 'concurrence') === 'Concurred in the Senate' && sn('CA', 'AB 1018', 'Senate', 'concurrence', 'passed-both') === 'Passed both chambers');
+  ok('r4#3 Nebraska: "Passed the Legislature", never both chambers', sn('NE', 'LB 1405', 'Legislature', 'enrolled').stage === undefined && sn('NE', 'LB 1405', 'Legislature', 'enrolled') === 'Passed the Legislature' && sn('NE', 'LB 1405', 'Legislature', 'concurrence') === 'Concurred in the Legislature');
+  ok('r6 a concurrence states only its own chamber; stage codes come only from the own class', sn('CA', 'AB 1018', 'Senate', 'concurrence') === 'Concurred in the Senate' && FS.ownStageCode('concurrence', 'CA', 'AB 1018') === null && FS.ownStageCode('enrolled', 'CA', 'AB 1018') === 'passed-both' && FS.ownStageCode('enrolled', 'MN', 'HR 5') === null && FS.ownStageCode('enrolled', 'NE', 'LB 1') === null && FS.ownStageCode('became-law', 'CA', 'SCR 12') === null && FS.ownStageCode('became-law', 'CA', 'AB 1018') === 'law' && FS.ownStageCode('executive-signature', 'CA', 'AB 1018') === 'signed' && FS.ownStageCode('executive-signature', 'PR', 'PC 5') === null && !('provenStage' in FS));
   ok('r4#4 DC: the Mayor, and no "into law"', FS.executiveOf('DC') === 'the Mayor' && sn('DC', 'B 26-0123', 'Council', 'executive-signature') === 'Signed');
   ok('r4#6 the summary label: "would do" for a live bill, "does" for a law', PB.summaryLabel('passage') === 'What the bill would do' && PB.summaryLabel('executive-signature') === 'What it does' && PB.summaryLabel('became-law') === 'What it does');
   ok('r4#8 resolutions are told apart from bills', FS.isResolution('KS HR6023', 'KS') && FS.isResolution('H.Res. 12', 'US') && !FS.isResolution('H.R. 3460', 'US') && !FS.isResolution('CA SB53', 'CA'));

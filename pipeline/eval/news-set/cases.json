@@ -3053,8 +3053,8 @@
    "expect": [
     {
      "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|executive-signature|2026-09-25",
-     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act becomes law",
-     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 16, 2026: \"Became Public Law No: 119-77\".",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act signed",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Sept 25, 2026: \"Signed by President\".",
      "status": "confirmed",
      "links": [
       "https://www.congress.gov/bill/119th-congress/house-bill/3460"
@@ -4013,6 +4013,320 @@
        "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
        "title": "H.R. 3460",
        "retrieved_at": "2026-10-22T09:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-ca-scr-res-chapter",
+   "r6": true,
+   "note": "Review r6 #1: \"Chaptered by Secretary of State - Res. Chapter\" of a CA SCR is a resolution chapter, never a law: no card.",
+   "intent": [
+    "became-law"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-scr12",
+       "source_id": "ls-scr12",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 101, Statutes of 2026.",
+        "number": "CA SCR12"
+       },
+       "title": "CA SCR12"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-scr12",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 101, Statutes of 2026.",
+        "number": "SCR 12"
+       },
+       "title": "SCR 12"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-ca-aca-chaptered",
+   "r6": true,
+   "note": "Review r6 #1: a CA constitutional amendment chaptered: never \"became law\": no card.",
+   "intent": [
+    "became-law"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-aca1",
+       "source_id": "ls-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 5, Statutes of 2026.",
+        "number": "CA ACA1"
+       },
+       "title": "CA ACA1"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 5, Statutes of 2026.",
+        "number": "ACA 1"
+       },
+       "title": "ACA 1"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-mn-hr-enrolled",
+   "r6": true,
+   "note": "Review r6 #5: a Minnesota simple resolution (HR) enrolled: no \"both chambers\" wording and no stage.",
+   "intent": [
+    "enrolled"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "MN|mn-hf-4532-no-threshold|enrolled|2026-10-20#HR5",
+     "title": "HR 5 enrolled",
+     "body": "The MN Legislature's record shows this action on H.F. 4532 / S.F. 4509 — titled the \"Responsible Artificial Intelligence Safety and Education Act\" (RAISE Act) (MN HR5) on Oct 20, 2026: \"Enrolled\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.revisor.mn.gov/bills/bill.php?b=House&f=HR5"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-hr5",
+       "source_id": "ls-hr5",
+       "jurisdiction": "MN",
+       "entry_id": "mn-hf-4532-no-threshold",
+       "class": "enrolled",
+       "date": "2026-10-20",
+       "url": "https://www.revisor.mn.gov/bills/bill.php?b=House&f=HR5",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Enrolled",
+        "number": "MN HR5"
+       },
+       "title": "MN HR5"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-hr5",
+       "jurisdiction": "MN",
+       "entry_id": "mn-hf-4532-no-threshold",
+       "class": "enrolled",
+       "date": "2026-10-20",
+       "url": "https://www.revisor.mn.gov/bills/bill.php?b=House&f=HR5",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Enrolled",
+        "number": "HR 5"
+       },
+       "title": "HR 5"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-companion-no-number-joins",
+   "r6": true,
+   "note": "Review r6: a record with no number on a day the entry has exactly one numbered event joins it (one event, confirmed, one card); it is never guessed when there are several.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-20#S4446",
+     "title": "S 4446 passes the Senate",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 20, 2026: \"Passed by the Senate (30-8)\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-s4446",
+       "source_id": "ls-s4446#p",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed by the Senate (30-8)",
+        "chamber": "Senate",
+        "number": "NJ S4446"
+       },
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "title": "S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-nonum",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed by the Senate (30-8)",
+        "chamber": "Senate"
+       },
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "title": "Passed",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-recycled-number-sessions",
+   "r6": true,
+   "note": "Review r6: the same number in two sessions (2024 and 2026): each card states only its own event; no stage is claimed from the other session.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-19#S4446",
+     "title": "S 4446 passes the General Assembly",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 19, 2026: \"Passed by the Assembly (70-5)\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-s4446-24",
+       "source_id": "ls-s4446-24",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2024-03-04",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Senate (25-10)",
+        "chamber": "Senate",
+        "number": "NJ S4446"
+       },
+       "title": "NJ S4446"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s4446-24",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2024-03-04",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Senate (25-10)",
+        "chamber": "Senate",
+        "number": "S 4446"
+       },
+       "title": "S 4446"
+      },
+      {
+       "source": "legiscan",
+       "record": "ls-s4446-26",
+       "source_id": "ls-s4446-26",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-19",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Assembly (70-5)",
+        "chamber": "Assembly",
+        "number": "NJ S4446"
+       },
+       "title": "NJ S4446"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s4446-26",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-19",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Assembly (70-5)",
+        "chamber": "Assembly",
+        "number": "S 4446"
+       },
+       "title": "S 4446"
       }
      ]
     }

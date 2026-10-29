@@ -1,8 +1,8 @@
 {
  "measure": "news",
- "run_at": "2026-10-29T08:10:23.552Z",
- "checks_hash": "2b6fb3af11c78a8d15d7c8a813e8e38535639c7182ddad79db7615bccf2332b6",
- "cases": 58,
+ "run_at": "2026-10-29T08:41:27.385Z",
+ "checks_hash": "b755c974ce4dadde85cb8df6cd5c51efc02fd25c4cc86ac4cc2ebb421ce50e08",
+ "cases": 63,
  "wrong": 0,
  "missed": 0,
  "rows": [
@@ -637,6 +637,61 @@
    "id": "r5-hres-passage-no-next-step",
    "expect": 2,
    "got": 2,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r6-ca-scr-res-chapter",
+   "expect": 0,
+   "got": 0,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r6-ca-aca-chaptered",
+   "expect": 0,
+   "got": 0,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r6-mn-hr-enrolled",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r6-companion-no-number-joins",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r6-recycled-number-sessions",
+   "expect": 1,
+   "got": 1,
    "wrong": false,
    "missed": false,
    "extra": [],

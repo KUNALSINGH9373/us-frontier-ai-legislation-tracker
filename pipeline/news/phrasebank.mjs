@@ -27,6 +27,10 @@ const HELD = (s) => s.event.timing !== 'scheduled';
 // constitutional amendment, outside DC (#4, #8; r5 M4, L1) — the fact sheet's bill.law_wording (news/factsheet.mjs lawWording)
 const BI = (s) => !isUnicameral(s.bill.jurisdiction);
 const LAW = (s) => s.bill.law_wording === true;
+// review r6: "becomes law" only with valid law wording (never a resolution, amendment or unknown number); "both chambers" never for a
+// simple resolution
+const BECAME = (s) => s.bill.became_law_ok === true;
+const BI2 = (s) => BI(s) && !s.bill.simple_resolution;
 
 // The slots a fact sheet supplies (null = absent).
 export function slotsOf(s) {
@@ -99,8 +103,8 @@ export const BANK = {
     B: [v('The {chamber} concurred in {bill} on {date}.'), v('The {chamber} voted {yes}-{no} on {date} to concur in {bill}.', VOTE), v('The {chamber} concurred in amendments to {bill} on {date}.')]
   },
   enrolled: {
-    H: [v('{bill} enrolled'), v('{bill} enrolled after passing both chambers', BI), v('{state} {bill} enrolled'), v('{bill} enrolled on {date}')],
-    B: [v('{bill} was enrolled on {date}.'), v('On {date}, {bill} was enrolled after passing both chambers.', BI), v('{bill} was enrolled on {date}, having passed both chambers.', BI)]
+    H: [v('{bill} enrolled'), v('{bill} enrolled after passing both chambers', BI2), v('{state} {bill} enrolled'), v('{bill} enrolled on {date}')],
+    B: [v('{bill} was enrolled on {date}.'), v('On {date}, {bill} was enrolled after passing both chambers.', BI2), v('{bill} was enrolled on {date}, having passed both chambers.', BI2)]
   },
   'executive-receipt': {
     H: [v('{bill} sent to {exec_l}'), v('{bill} presented to {exec_l}'), v('{bill} delivered to {exec_l}'), v('{state} {bill} sent to {exec_l}')],
@@ -111,8 +115,8 @@ export const BANK = {
     B: [v('{signer} signed {bill} on {date}.'), v('{bill} was signed into law on {date}.', LAW), v('On {date}, {signer} signed {bill} into law.', LAW), v('{bill} was signed into law on {date} as {law_number}.', LAW), v('{bill} was signed on {date}.')]
   },
   'became-law': {
-    H: [v('{bill} becomes law'), v('{bill} becomes law as {law_number}'), v('{bill} became law on {date}'), v('{state} {bill} becomes law')],
-    B: [v('{bill} became law on {date}.'), v('On {date}, {bill} became law.'), v('{bill} became law as {law_number} on {date}.')]
+    H: [v('{bill} becomes law', BECAME), v('{bill} becomes law as {law_number}', BECAME), v('{bill} became law on {date}', BECAME), v('{state} {bill} becomes law', BECAME)],
+    B: [v('{bill} became law on {date}.', BECAME), v('On {date}, {bill} became law.', BECAME), v('{bill} became law as {law_number} on {date}.', BECAME)]
   },
   'executive-veto': {
     H: [v('{signer} vetoes {bill}'), v('{bill} vetoed'), v('{state} {bill} vetoed'), v('{bill} vetoed on {date}')],
@@ -188,7 +192,8 @@ export const SUMMARY_LINE = 'What it does: {summary}.';
 // The label (review r4 #6): a measure in force 'does'; a live bill 'would do'.
 const IN_FORCE = new Set(['executive-signature', 'became-law', 'executive-order', 'presidential-memo', 'agency-rule-final', 'agency-guidance']);
 const BILLISH = new Set(['introduction', 'referral-committee', 'hearing-scheduled', 'hearing-held', 'committee-passage', 'passage', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'veto-override-passage', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate']);
-export const summaryLabel = (cls) => (IN_FORCE.has(cls) ? 'What it does' : BILLISH.has(cls) ? 'What the bill would do' : 'What it would do');
+// review r6 #6: a resolution or constitutional amendment: 'What it would do'
+export const summaryLabel = (cls, resolution = false) => (resolution ? 'What it would do' : IN_FORCE.has(cls) ? 'What it does' : BILLISH.has(cls) ? 'What the bill would do' : 'What it would do');
 
 const SLOT = /\{([a-z_]+)\}/g;
 // The variant rendered with the slots, or null when a slot is missing or its condition fails.
@@ -217,7 +222,7 @@ export function wholeClause(s) {
   if (count(/\(/g) !== count(/\)/g) || count(/"/g) % 2 || count(/[“]/g) !== count(/[”]/g)) return false;
   return !/\b(?:and|or|but|the|a|an|of|to|incl|including|with|for|by|in|e\.g|i\.e|etc)\.?$/i.test(t) && !/[,:;—–-]$/.test(t);
 }
-export const summaryLine = (sheet) => sheet.verified && sheet.verified.summary && wholeClause(sheet.verified.summary) ? `${summaryLabel(sheet.event && sheet.event.class)}: ${String(sheet.verified.summary).replace(/[\s.;:,]+$/, '')}.` : null;
+export const summaryLine = (sheet) => sheet.verified && sheet.verified.summary && wholeClause(sheet.verified.summary) ? `${summaryLabel(sheet.event && sheet.event.class, !!(sheet.bill && (sheet.bill.resolution || sheet.bill.number && /^(ACA|SCA|HCA|LRCA)/i.test(sheet.bill.number))))}: ${String(sheet.verified.summary).replace(/[\s.;:,]+$/, '')}.` : null;
 // Cards from rendered headlines H and event sentences B. Each card has `check`: the bank's own words (headline + event sentence + the
 // stage line), which must pass checkCard; the summary line is the sheet's verified text verbatim, inserted after the check and dropped
 // when the body would pass MAX_BODY characters. With a summary the stage line is left out (as before: the body stays short).

@@ -1,17 +1,17 @@
 {
  "measure": "news_writer",
  "mode": "bank",
- "run_at": "2026-10-29T08:10:24.772Z",
- "checks_hash": "6396001c5cc4b872767b0cdf07f34d014d738e32525658a8cab6c40588213223",
+ "run_at": "2026-10-29T08:41:28.335Z",
+ "checks_hash": "fe5b328cd618520d944693a130680d9a0cfe13f93b932a0b29352cc0f9d3aedf",
  "cases": 32,
  "wrong": 0,
  "missed": 0,
  "bank_written": 32,
  "ai_written": 0,
  "matrix": {
-  "renderings": 122290,
+  "renderings": 143926,
   "wrong": 0,
-  "refused": 3591,
+  "refused": 4320,
   "unusable_headlines": [],
   "examples_wrong": []
  },
