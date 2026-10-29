@@ -43,7 +43,6 @@ const NON_BILL = {
   'agency-rule-final': (n, f) => (f.agency ? `${f.agency} issues a final rule` : null),
   'agency-guidance': (n, f) => (f.agency ? `${f.agency} issues guidance` : null),
   'comment-period-open': (n, f) => (f.agency && f.comments_close ? `Comments open until ${longDate(f.comments_close)} on a ${f.agency} proposal` : null),
-  'comment-period-closing': (n, f) => (f.agency ? `Comment period closes on a ${f.agency} proposal` : null),
   'court-filing': (n, f) => (f.label ? `${n}: ${f.label}` : null),
   'court-ruling': (n, f) => (f.label ? `${n}: ${f.label}` : null)
 };

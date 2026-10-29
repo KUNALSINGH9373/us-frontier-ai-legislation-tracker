@@ -26,14 +26,9 @@ const items = [
     statements: [{ publisher: 'PA House Democrats', t: 'AI Risk Prevention Act clears committee', u: 'https://www.pahouse.com/InTheNews/NewsRelease/?id=140001' }] }),
   A({ jur: 'CA', date: '2026-10-26', kind: 'state', class: 'executive-signature', tracker: 'ca-sb-813-ivos', stage: 'signed',
     title: 'Governor signs SB 813 (Chapter 612, Statutes of 2026)', body: 'The Governor signed SB 813; the Secretary of State chaptered it as Chapter 612.', links: [{ t: 'leginfo.legislature.ca.gov: SB 813 history', u: 'https://leginfo.legislature.ca.gov/faces/billHistoryClient.xhtml?bill_id=202520260SB813' }] }),
-  A({ jur: 'US', date: '2026-10-24', kind: 'federal', class: 'hearing-scheduled', tracker: 's-5576-warner-schatz-kim-ai-risk-management-and-security-act',
-    title: 'Senate Commerce schedules a hearing on S. 5576 for November 4', body: 'The Committee on Commerce, Science, and Transportation noticed a full-committee hearing on S. 5576.', links: [{ t: 'Senate Commerce hearing notice', u: 'https://www.commerce.senate.gov/2026/11/hearing-s-5576' }] }),
   A({ jur: 'US', date: '2026-10-25', kind: 'executive', class: 'comment-period-open', comments_close: '2026-11-03', facts: { agency: 'NIST', document_number: '2026-21877', comments_close: '2026-11-03' },
     title: 'NIST requests comments on frontier-model evaluation guidelines (NIST AI 800-2 draft)', body: 'NIST published a request for information in the Federal Register with a short comment window.',
     links: [{ t: 'Federal Register 2026-21877', u: 'https://www.federalregister.gov/documents/2026/10/25/2026-21877' }] }),
-  A({ jur: 'US', date: '2026-10-29', kind: 'executive', class: 'comment-period-closing', facts: { agency: 'Commerce/BIS', document_number: '2026-19020', comments_close: '2026-10-29' },
-    title: 'Comment period on BIS model-weight export rule closes today', body: 'The comment period on the interim final rule on advanced AI model weights ends today.',
-    links: [{ t: 'Regulations.gov BIS-2026-0031', u: 'https://www.regulations.gov/docket/BIS-2026-0031' }] }),
   A({ jur: 'US', date: '2026-10-20', kind: 'executive', class: 'agency-rule-proposed', comments_close: '2026-12-15',
     title: 'FTC proposes a rule on AI system incident disclosures', body: 'The FTC published a notice of proposed rulemaking; comments are due December 15.',
     links: [{ t: 'Federal Register 2026-21500', u: 'https://www.federalregister.gov/documents/2026/10/20/2026-21500' }] }),
@@ -54,9 +49,6 @@ const items = [
   A({ jur: 'US', date: '2026-10-02', kind: 'federal', class: 'referral-committee', tracker: 'h-r-9925-frontier-act',
     title: 'H.R. 9925 referred to the House Committee on Science, Space, and Technology', body: 'Referred on introduction.',
     links: [{ t: 'Congress.gov: H.R. 9925', u: 'https://www.congress.gov/bill/119th-congress/house-bill/9925' }] }),
-  A({ jur: 'US', date: '2026-10-10', kind: 'executive', class: 'comment-period-closing', facts: { comments_close: '2026-10-12' },
-    title: 'OSTP comment period on the national AI R&D plan closed', body: 'The comment window closed on October 12.',
-    links: [{ t: 'Federal Register 2026-19555', u: 'https://www.federalregister.gov/documents/2026/09/12/2026-19555' }] }),
   // class null: recorded by the pipeline, never shown
   A({ jur: 'US', date: '2026-10-28', kind: 'federal', class: null, title: 'Unmapped action (must not render)', body: 'Must not render.' })
 ];

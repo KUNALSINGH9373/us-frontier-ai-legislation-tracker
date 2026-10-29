@@ -129,7 +129,16 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   ok('4 a host not on the configured list is dropped', att([st({ url: 'https://evil.example/r', source_id: 'e' })], Object.values(s.events)).dropped.some((d) => /host/.test(d.why)));
   upsertItems(s, [{ ...it, source_id: 'x#3', class: 'committee-passage', date: '2026-10-19', facts: { action: 'Ordered to be reported.' } }], { runId: 'b', now: new Date('2026-10-21T08:00:00Z') });
   const two = att([st({ title: 'Bill passes', url: 'https://senator.senate.gov/r/6' })]);
-  ok('4 two events could match: held on the timeline, not guessed', onEv(two, k) === 0 && onEv(two, eventKey({ ...it, class: 'committee-passage', date: '2026-10-19' })) === 0 && two.timeline.length === 1 && /not guessed/.test(two.timeline[0].held));
+  ok('r8 M1 "Bill passes" (no "committee") never attaches to the committee passage: it attaches to the floor passage alone', onEv(two, k) === 1 && onEv(two, eventKey({ ...it, class: 'committee-passage', date: '2026-10-19' })) === 0);
+  upsertItems(s, [{ ...it, source_id: 'x#4', class: 'passage', date: '2026-10-21', facts: { action: 'Passed Senate again.', chamber: 'Senate' } }], { runId: 'c', now: new Date('2026-10-21T10:00:00Z') });
+  const two2 = att([st({ title: 'Senate passes the bill', url: 'https://senator.senate.gov/r/7', date: '2026-10-22' })]);
+  ok('4 two events could match: held on the timeline, not guessed', two2.timeline.length === 1 && /not guessed/.test(two2.timeline[0].held));
+  // r8 M1: headlines that negate, oppose or urge never attach (the reviewer's titles)
+  for (const title of ['Senate fails to pass the bill', 'Senator urges House to pass the bill', 'Senator calls on Senate to pass the AI bill', 'Coalition opposes bill the Senate passed', 'Senate rejects bill', 'Bill would pass the Senate', 'Senate should pass the bill', 'Senate did not pass the bill']) {
+    const r = att([st({ title, url: 'https://senator.senate.gov/x/' + encodeURIComponent(title) })]);
+    ok(`r8 M1 "${title}" does not attach`, r.events.every((e) => !e.sources.some((x) => x.role === 'statement' && x.title === title)));
+  }
+  ok('r8 L1 statement titles are decoded in full (&#8217; &quot;)', attachStatements([], [st({ title: 'Senator&#8217;s &quot;AI&quot; bill passes', url: 'https://senator.senate.gov/r/9', entry_id: null })], { allowHosts: ['senate.gov'] }).leads[0].title === 'Senator’s "AI" bill passes');
 }
 
 // ---------- 5. rendering, the site, the switch ----------
@@ -325,14 +334,14 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const p100 = { ...p300, facts: { ...p300.facts, action: 'On passage Passed by the Yeas and Nays: 100 - 300.', vote: { yes: 100, no: 300 } } };
   const a = play([{ now: day('2026-10-21', 6), items: [p300] }, { now: day('2026-10-21', 10), items: [p300] }, { now: day('2026-10-22', 6), items: [p100] }, { now: day('2026-10-22', 10), items: [p100] }, { now: day('2026-10-23', 6), items: [p100] }]);
   ok('r3#1 (setup) the 300-100 passage is published', a.pages[1].length === 1 && /300 - 100/.test(a.pages[1][0].body));
-  ok('r3#1 the record changes to 100-300: the card still shows 300-100, with an "under review" note and no new facts', a.pages[2].length === 1 && /300 - 100/.test(a.pages[2][0].body) && !/100 - 300/.test(JSON.stringify(a.pages[2][0])) && /being confirmed/.test(a.pages[2][0].status_note));
+  ok('r3#1 the record changes to 100-300: the card still shows 300-100, no note (review r8 L2) and no new facts', a.pages[2].length === 1 && /300 - 100/.test(a.pages[2][0].body) && !/100 - 300/.test(JSON.stringify(a.pages[2][0])) && !a.pages[2][0].status_note);
   ok('r3#1 confirmed by the same rules (two stable runs): then corrected, showing 100-300', a.pages[4].length === 1 && /100 - 300/.test(a.pages[4][0].body) && a.pages[4][0].status === 'corrected' && /Correction/.test(a.pages[4][0].check));
   // #2 a re-dated action: one card, with a note saying what changed
   const r20 = item({ source_id: 'hr3460#2026-10-20#r', class: 'referral-committee', date: '2026-10-20', facts: { action: 'Referred to the House Committee on Education and Workforce.' }, retrieved_at: '2026-10-20T20:00:00Z' });
   const r19 = { ...r20, source_id: 'hr3460#2026-10-19#r', date: '2026-10-19' };
   const F = [{ source: 'congress_gov', record: 'hr3460' }];
   const b = play([{ now: day('2026-10-21', 6), items: [r20], fetched: F }, { now: day('2026-10-21', 10), items: [r20], fetched: F }, { now: day('2026-10-22', 6), items: [r19], fetched: F }, { now: day('2026-10-22', 10), items: [r19], fetched: F }]);
-  ok('r3#2 the record re-dates the referral: still one card, now Oct 19, saying what changed (no "it now reads as above")', b.pages[3].length === 1 && b.pages[3][0].date === '2026-10-19' && /now dates this Oct 19, 2026 \(first published as Oct 20, 2026\)/.test(b.pages[3][0].check) && !/reads as above/.test(b.pages[3][0].check) && b.pages[3][0].status === 'corrected', JSON.stringify(b.pages.map((p) => p.map((n) => [n.date, n.status, n.check]))));
+  ok('r3#2 the record re-dates the referral: still one card, now Oct 19, saying what changed (no "it now reads as above")', b.pages[3].length === 1 && b.pages[3][0].date === '2026-10-19' && /now dates this Oct 19, 2026 \(published as Oct 20, 2026\)/.test(b.pages[3][0].check) && !/reads as above/.test(b.pages[3][0].check) && b.pages[3][0].status === 'corrected', JSON.stringify(b.pages.map((p) => p.map((n) => [n.date, n.status, n.check]))));
   ok('r3#2 until the new date is confirmed, the card is the withdrawn one (never two cards)', b.pages[2].length === 1 && b.pages[2][0].status === 'withdrawn');
   // #4 Lane 1's item a day earlier: no second card
   const lane1 = { ...NEWS, items: [...NEWS.items, { date: '2026-10-19', kind: 'federal', title: 'S. 1792 / H.R. 3460: Passed House', body: 'Congress.gov records this action on the bill: "Passed House" (Oct 19, 2026).', links: [{ t: 'x', u: URL }], tracker: E, origin: 'automated', verification: { method: 'agent', checked_at: '2026-10-19T00:00:00Z' }, evidence: [{ field: 'body', quote: 'Passed House', source_url: URL }] }] };

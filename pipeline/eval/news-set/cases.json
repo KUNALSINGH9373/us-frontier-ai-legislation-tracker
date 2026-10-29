@@ -2370,7 +2370,7 @@
   {
    "id": "statement-two-candidates",
    "r2": true,
-   "note": "A \"passes\" release two days after both a committee passage and a floor passage: not attached (several candidates); both cards, no statement on either.",
+   "note": "Review r8 M1: \"AB 1405 passes\" (no \"committee\") is a floor outcome: it attaches to the floor passage only, never the committee passage; both cards shown.",
    "intent": [
     "committee-passage",
     "passage"
@@ -2392,7 +2392,8 @@
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
      "status": "confirmed",
      "links": [
-      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+      "https://gov.ca.gov/2026/10/21/ab-1405-passes"
      ],
      "status_note": null
     }
@@ -2601,7 +2602,7 @@
      "links": [
       "https://www.congress.gov/bill/119th-congress/house-bill/3460"
      ],
-     "status_note": "The official record has changed; the change is being confirmed and is not shown yet."
+     "status_note": null
     }
    ],
    "records": [],
@@ -2861,7 +2862,7 @@
      "links": [
       "https://www.congress.gov/bill/119th-congress/house-bill/3460"
      ],
-     "status_note": "Corrected: the official record now dates this May 14, 2025 (first published as May 15, 2025)."
+     "status_note": "Corrected: the official record now dates this May 14, 2025 (published as May 15, 2025)."
     }
    ],
    "records": [
@@ -3605,23 +3606,12 @@
   {
    "id": "r5-hearing-scheduled-cancelled",
    "r5": true,
-   "note": "Review r5 H1: a scheduled hearing seen on three days (the adapter dates it the day seen), then cancelled: one event, one card, withdrawn. Before the fix each day made a new key and a carried copy masked the cancellation.",
+   "note": "Review r5 H1: a scheduled hearing seen on three days (the adapter dates it the day seen), then cancelled: one event, one card, withdrawn. Before the fix each day made a new key and a carried copy masked the cancellation. Review r8: a scheduled hearing never has a card, so nothing is ever shown (no card, no withdrawn card).",
    "intent": [
     "hearing-scheduled"
    ],
    "records": [],
-   "expect": [
-    {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|hearing-scheduled|HD2026-11-04@house-committee-on-education-and-workforce",
-     "title": "Withdrawn: Hearing scheduled on S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
-     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"Hearing: AI whistleblower protections\".",
-     "status": "withdrawn",
-     "links": [
-      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
-     ],
-     "status_note": "The official record no longer shows this action."
-    }
-   ],
+   "expect": [],
    "runs": [
     {
      "now": "2026-10-20T08:00:00Z",
@@ -4687,6 +4677,732 @@
         "number": "A 5275"
        },
        "title": "A 5275"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r8-scheduled-then-held",
+   "r8": true,
+   "note": "Review r8: a hearing scheduled (never a card), then held: one hearing-held card dated the hearing day, no correction note.",
+   "intent": [
+    "hearing-held"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|hearing-held|2026-10-27",
+     "title": "Hearing held on S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 27, 2026: \"Hearing: AI whistleblower protections\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/event/119th-congress/house-event/117001"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-28T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-27",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-28T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-28T12:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-27",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-28T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-rescheduled-then-held",
+   "r8": true,
+   "note": "Review r8: scheduled for Oct 27, rescheduled to Oct 29, then held: one hearing-held card dated Oct 29; no card for either scheduled date.",
+   "intent": [
+    "hearing-held"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|hearing-held|2026-10-29",
+     "title": "Hearing held on S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 29, 2026: \"Hearing: AI whistleblower protections\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/event/119th-congress/house-event/117001"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-22",
+       "facts": {
+        "hearing_date": "2026-10-29",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-22T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-30T08:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-29",
+       "facts": {
+        "hearing_date": "2026-10-29",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-30T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-30T12:00:00Z",
+     "run_id": "e",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-29",
+       "facts": {
+        "hearing_date": "2026-10-29",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-30T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-hearing-cancelled-no-card",
+   "r8": true,
+   "note": "Review r8: a scheduled hearing later cancelled: no card at any point.",
+   "intent": [
+    "hearing-scheduled"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-22",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "withdrawn": true
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-22T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-comment-extended",
+   "r8": true,
+   "note": "Review r8: a comment period opens (card with the deadline), a closing record appears, then the period is extended: never a closing card; the open card follows the record.",
+   "intent": [
+    "comment-period-open"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|caisi-and-nist-aite|comment-period-open|FR2026-30001",
+     "title": "Comments open until Nov 30, 2026 on a National Institute of Standards and Technology proposal",
+     "body": "The Federal Register shows this action on CAISI voluntary pre-deployment evaluation activity + NIST AITE program on Oct 1, 2026: \"Request for comments\".",
+     "status": "corrected",
+     "links": [
+      "https://www.federalregister.gov/documents/2026/10/01/2026-30001"
+     ],
+     "status_note": "Corrected from the official record."
+    }
+   ],
+   "max_age_days": 100000,
+   "runs": [
+    {
+     "now": "2026-10-02T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-02T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-02T12:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-02T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-31T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-31T05:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-closing",
+       "date": "2026-10-31",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-31T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-11-01T08:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-11-30",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-11-01T05:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-closing",
+       "date": "2026-10-31",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-11-30",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-11-01T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-11-01T12:00:00Z",
+     "run_id": "e",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-11-30",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-11-01T05:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-eo-wh-fr-title-mismatch",
+   "r8": true,
+   "note": "Review r8 L3: a White House posting whose title differs from the Federal Register order, a day apart: one executive-order card, showing the Federal Register record.",
+   "intent": [
+    "executive-order"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|eo-14409-pre-release-access|executive-order|EO14409",
+     "title": "President signs Executive Order 14409",
+     "body": "The Federal Register shows this action on EO 14409 — Promoting Advanced AI Innovation and Security on Oct 15, 2026: \"Executive Order 14409\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/documents/2026/10/17/2026-29999"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-16T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "wh-eo-prerelease",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-14",
+       "facts": {
+        "title": "Ensuring Pre-Release Access to Frontier AI Models",
+        "action": "Executive Order"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/ensuring-pre-release-access/",
+       "title": "Ensuring Pre-Release Access to Frontier AI Models",
+       "retrieved_at": "2026-10-16T05:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-29999",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-15",
+       "facts": {
+        "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+        "eo_number": "14409",
+        "document_number": "2026-29999",
+        "signing_date": "2026-10-15",
+        "action": "Executive Order 14409"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/17/2026-29999",
+       "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+       "retrieved_at": "2026-10-16T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-16T12:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "wh-eo-prerelease",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-14",
+       "facts": {
+        "title": "Ensuring Pre-Release Access to Frontier AI Models",
+        "action": "Executive Order"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/ensuring-pre-release-access/",
+       "title": "Ensuring Pre-Release Access to Frontier AI Models",
+       "retrieved_at": "2026-10-16T11:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-29999",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-15",
+       "facts": {
+        "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+        "eo_number": "14409",
+        "document_number": "2026-29999",
+        "signing_date": "2026-10-15",
+        "action": "Executive Order 14409"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/17/2026-29999",
+       "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+       "retrieved_at": "2026-10-16T11:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-contradicting-statements",
+   "r8": true,
+   "note": "Review r8 M1: statements that negate or urge (\"fails\", \"urges ... to pass\") never attach to the Senate passage card.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Senate",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "allow_hosts": [
+    "senate.ca.gov",
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "a",
+     "publish": true,
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-ab1405",
+       "source_id": "ls-ab1405#p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-ab1405#p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "upper",
+        "number": "AB 1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "s1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. X"
+       },
+       "url": "https://sd99.senate.ca.gov/news/ab-1405-fails",
+       "title": "AB 1405 fails to protect consumers, Senator says",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "release",
+       "source_id": "s2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. Y"
+       },
+       "url": "https://sd98.senate.ca.gov/news/urge-assembly",
+       "title": "Senator urges Assembly to pass AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
       }
      ]
     }

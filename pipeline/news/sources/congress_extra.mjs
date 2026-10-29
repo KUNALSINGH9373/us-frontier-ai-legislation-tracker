@@ -55,7 +55,8 @@ export async function fetchItems({ http, env = {}, since, state = {}, entries = 
       const meetingDate = etDate(d.date);
       if (!meetingDate) continue;
       const hearing = /hearing/i.test(d.type || '');
-      const held = meetingDate <= today;
+      // held only when the record shows it happened (review r8 L5): the meeting day is before today in Washington, or its status says so
+      const held = meetingDate < (etDate(retrievedAt) || today) || /\b(held|completed?|concluded)\b/i.test(d.meetingStatus || '');
       const cls = hearing ? (held ? 'hearing-held' : 'hearing-scheduled') : null;
       c.add({ source_id: `meeting:${d.congress}/${String(d.chamber).toLowerCase()}/${d.eventId}`, entry_id: hits[0], class: cls,
         date: held ? meetingDate : etDate(d.updateDate) || today,

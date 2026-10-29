@@ -273,7 +273,10 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
 // ---------- rendering ----------
 // An event the page may show: a mapped class, a tracked entry, and confirmed or corrected; a withdrawn event only if it was shown before
 // (it then stays, marked withdrawn).
-export const visible = (ev) => !!ev.entry_id && (showable(ev) || ((ev.status === 'corrected' || ev.status === 'withdrawn' || ev.pending_correction) && !!ev.shown));
+// No card for a future event (review r8): a scheduled hearing and a closing comment period are kept in state only; they never create, merge
+// into or supersede a card (the comment-period-open card shows the deadline).
+export const FUTURE_CLASSES = new Set(['hearing-scheduled', 'comment-period-closing']);
+export const visible = (ev) => !!ev.entry_id && !FUTURE_CLASSES.has(ev.class) && (showable(ev) || ((ev.status === 'corrected' || ev.status === 'withdrawn' || ev.pending_correction) && !!ev.shown));
 
 // The card: the writer's text (news/writer.mjs) when present, else the template. Template fields are always recomputed.
 export function cardFor(ev, entry) {
@@ -325,13 +328,15 @@ const fmtDay = (iso) => iso.slice(0, 10);
 // Equivalence groups (review r2 #3): one card per entry per group within a day either side; a later class in the group updates the card
 // already on the page instead of adding one. The class with the higher rank is the one the card shows.
 const GROUP = { 'executive-signature': ['law', 1], 'became-law': ['law', 2], 'concurrence': ['final', 1], 'enrolled': ['final', 2],
-  'hearing-scheduled': ['hearing', 1], 'hearing-held': ['hearing', 2], 'comment-period-open': ['comment', 1], 'agency-rule-proposed': ['comment', 2] };
+  'comment-period-open': ['comment', 1], 'agency-rule-proposed': ['comment', 2] }; // no hearing group: a scheduled hearing never has a card (review r8)
 export function groupOf(ev) {
+  // executive orders (review r8 L3): one card per entry within a day either side; the Federal Register record ranks above the White House posting
+  if (ev.class === 'executive-order') return { name: 'eo', rank: ((ev.sources || []).find((s) => s.role === 'official') || {}).source === 'federal_register' ? 2 : 1, exact: false };
   const g = GROUP[ev.class];
   if (!g) return null;
   // law and final groups are per bill (review r7 L3): two bills under one entry get their own signature/law cards
   const bk = (g[0] === 'law' || g[0] === 'final') && ev.facts ? billKey(ev.facts.number, ev.jurisdiction) : null;
-  return { name: g[0] === 'hearing' ? `hearing:${(ev.facts && ev.facts.hearing_date) || ev.date}` : `${g[0]}${bk ? `#${bk}` : ''}`, rank: g[1], exact: g[0] !== 'comment' }; // law and final: no date window (a chapter can follow the signature by weeks, review r3 #5)
+  return { name: `${g[0]}${bk ? `#${bk}` : ''}`, rank: g[1], exact: g[0] !== 'comment' }; // law and final: no date window (a chapter can follow the signature by weeks, review r3 #5)
 }
 export function sameGroup(a, b) {
   const ga = groupOf(a), gb = groupOf(b);
@@ -341,7 +346,7 @@ export function sameGroup(a, b) {
 // The event a card shows: the owner, or the highest-ranked showable event merged into it. A withdrawn owner with a showable successor (the
 // same action, re-dated or re-classed in the record: review r3 #2) shows the successor.
 export function displayEvent(ev, state) {
-  const merged = ((ev.merged || []).map((k) => state && state.events[k]).filter((e) => e && (showable(e) || e.status === 'corrected')));
+  const merged = ((ev.merged || []).map((k) => state && state.events[k]).filter((e) => e && !FUTURE_CLASSES.has(e.class) && (showable(e) || e.status === 'corrected')));
   const pool = ev.status === 'withdrawn' && merged.length ? merged : [ev, ...merged];
   return pool.sort((a, b) => ((groupOf(b) || {}).rank || 0) - ((groupOf(a) || {}).rank || 0))[0];
 }
@@ -371,13 +376,15 @@ export function renderItem(owner, entry, { at, state = null } = {}) {
   // the record re-dated or re-classed the action this card was first published for: say exactly what changed
   const moved = owner.status === 'withdrawn' && disp !== owner && owner.shown;
   if (moved) {
-    const at2 = fmtDay((owner.history.filter((h) => h.to === 'withdrawn').pop() || { at: disp.first_seen || '' }).at || '');
-    const what = disp.date !== owner.date ? `now dates this ${longDate(disp.date)} (first published as ${longDate(owner.date)})` : disp.class !== owner.class ? `now records this as ${CLASS_WORDS(disp.class)} (first published as ${CLASS_WORDS(owner.class)})` : 'changed this action';
-    check += ` Correction (${at2}): the official record ${what}.`;
+    // the note names the field that changed, with the published value and the record's value of that same field (review r8 H2)
+    const wd = owner.history.filter((h) => h.to === 'withdrawn').pop();
+    const at2 = wd && wd.at ? fmtDay(wd.at) : null;
+    const field = (owner.superseded && owner.superseded.field) || (disp.date !== owner.date ? 'date' : disp.class !== owner.class ? 'class' : null);
+    const what = field === 'date' ? `now dates this ${longDate(disp.date)} (published as ${longDate(owner.date)})` : field === 'class' ? `now records this as ${CLASS_WORDS(disp.class)} (published as ${CLASS_WORDS(owner.class)})` : 'changed this action';
+    check += ` Correction${at2 ? ` (${at2})` : ''}: the official record ${what}.`;
     note = `Corrected: the official record ${what}.`;
   } else if (ev.status === 'corrected' && corr) { check += ` Correction (${fmtDay(corr.at)}): the official record changed after this item was first published; it now reads as above.`; note = 'Corrected from the official record.'; }
   else if (ev.status === 'withdrawn' && corr) { check += ` Correction (${fmtDay(corr.at)}): the official record no longer shows this action.`; note = 'The official record no longer shows this action.'; }
-  if (disp.pending_correction && disp.last_confirmed) note = 'The official record has changed; the change is being confirmed and is not shown yet.';
   const status = moved ? 'corrected' : ev.status;
   const hist = disp === owner ? owner.history : [...owner.history, ...disp.history.map((h) => ({ ...h, change: `${disp.class}: ${h.change}` }))];
   return {
@@ -419,12 +426,16 @@ export function renderNews(news, stateIn, entries, { at, maxAgeDays = 14 } = {})
   const nearOther = (ev) => otherItems.some((n) => n.tracker === ev.entry_id && Math.abs(dayGap(n.date, ev.date)) <= 1);
   const onPage = new Set(owners.map((e) => e.key));
   const evs = Object.values(state.events).filter((e) => visible(e) && !onPage.has(e.key) && e.status !== 'withdrawn')
-    .sort((a, b) => a.date.localeCompare(b.date) || ((groupOf(a) || {}).rank || 0) - ((groupOf(b) || {}).rank || 0) || a.key.localeCompare(b.key));
+    .sort((a, b) => a.date.localeCompare(b.date) || ((groupOf(a) || {}).rank || 0) - ((groupOf(b) || {}).rank || 0) || (a.class === 'hearing-held') - (b.class === 'hearing-held') || a.key.localeCompare(b.key)); // a hearing yields to another action that day
   // a successor: the same action of the same record, re-dated or re-classed, after the card's own event was withdrawn (review r3 #2)
   const offOf = (e) => e.sources.find((s) => s.role === 'official') || {};
-  const successorOf = (o, ev) => o.status === 'withdrawn' && o.shown && o.entry_id === ev.entry_id && o.jurisdiction === ev.jurisdiction && offOf(o).source === offOf(ev).source
-    && ((offOf(o).record && offOf(o).record === offOf(ev).record) || offOf(o).source_id === offOf(ev).source_id || (o.superseded && ev[o.superseded.field] === o.superseded.to))
-    && (o.class === ev.class || o.date === ev.date) && ev.first_seen >= (o.first_seen || '');
+  // follows chains (review r8 H2): the owner, re-dated to A, then A re-dated to B: B is still the owner's successor, so the card never
+  // shows "Withdrawn" while a later successor exists. A scheduled hearing is never anything's predecessor.
+  const chainOf = (o) => { const out = [o], seen = new Set([o.key]); for (let i = 0; i < out.length; i++) for (const k of out[i].merged || []) { const e = state.events[k]; if (e && !seen.has(k)) { seen.add(k); out.push(e); } } return out; };
+  const link = (x, ev) => x.status === 'withdrawn' && x.entry_id === ev.entry_id && x.jurisdiction === ev.jurisdiction && offOf(x).source === offOf(ev).source && !FUTURE_CLASSES.has(x.class)
+    && ((offOf(x).record && offOf(x).record === offOf(ev).record) || offOf(x).source_id === offOf(ev).source_id || (x.superseded && ev[x.superseded.field] === x.superseded.to))
+    && (x.class === ev.class || x.date === ev.date) && ev.first_seen >= (x.first_seen || '');
+  const successorOf = (o, ev) => o.status === 'withdrawn' && o.shown && chainOf(o).some((x) => link(x, ev));
   for (const ev of evs) {
     const entry = byKey.get(ev.entry_id);
     if (!entry || entry.section === 'J') { held.push({ key: ev.key, why: 'not a tracked entry' }); continue; }

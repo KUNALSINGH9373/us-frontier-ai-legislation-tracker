@@ -1,15 +1,15 @@
 {
  "measure": "news_writer",
  "mode": "bank",
- "run_at": "2026-10-29T09:15:18.558Z",
- "checks_hash": "0e8606e2d0b8e9bcc3a7a5c22848f641e6500b621c2ab704907f968b3bf45623",
+ "run_at": "2026-10-29T09:38:49.485Z",
+ "checks_hash": "a7ff9c0d114d3911f481347d9c03e9de54f3a3b72c44dcd88ffbcaa8e7549721",
  "cases": 32,
  "wrong": 0,
- "missed": 0,
- "bank_written": 32,
+ "missed": 1,
+ "bank_written": 31,
  "ai_written": 0,
  "matrix": {
-  "renderings": 142606,
+  "renderings": 131818,
   "wrong": 0,
   "refused": 4320,
   "unusable_headlines": [],
@@ -26,10 +26,6 @@
   },
   "referral-committee": {
    "headlines": 4,
-   "bodies": 3
-  },
-  "hearing-scheduled": {
-   "headlines": 5,
    "bodies": 3
   },
   "hearing-held": {
@@ -125,10 +121,6 @@
    "bodies": 3
   },
   "comment-period-open": {
-   "headlines": 4,
-   "bodies": 3
-  },
-  "comment-period-closing": {
    "headlines": 4,
    "bodies": 3
   },
@@ -365,12 +357,12 @@
   {
    "id": "trap-pa-hb2800-hearing-scheduled",
    "kind": "real-event",
-   "written_by": "bank",
+   "written_by": "template",
    "wrong": false,
-   "missed": false,
-   "headline": "House Communications and Technology Committee to hold hearing on H.B. 2800",
-   "body": "H.B. 2800 is scheduled for a hearing on November 4, 2026. Status: In committee.",
-   "reason": null
+   "missed": true,
+   "headline": "PA H.B. 2800 AI Risk Prevention Act: In committee",
+   "body": "PA H.B. 2800 AI Risk Prevention Act (Pennsylvania). Recorded 2026-10-28.",
+   "reason": "no phrase-bank variant fits this event"
   },
   {
    "id": "trap-pa-hb2800-hearing-scheduled#bad1",

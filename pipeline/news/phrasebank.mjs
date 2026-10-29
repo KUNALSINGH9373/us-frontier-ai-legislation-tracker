@@ -70,10 +70,7 @@ export const BANK = {
     H: [v('{bill} referred to the {committee}'), v('{bill} referred to committee'), v('{committee} receives {bill}'), v('{bill} referred to a {state} committee')],
     B: [v('{bill} was referred to the {committee} on {date}.'), v('On {date}, {bill} was referred to the {committee}.'), v('{bill} was referred to committee on {date}.')]
   },
-  'hearing-scheduled': {
-    H: [v('{committee} to hold hearing on {bill}', SCHEDULED), v('Hearing scheduled on {bill}', SCHEDULED), v('{bill} scheduled for a hearing on {hearing_date}', SCHEDULED), v('{committee} schedules hearing on {bill}', SCHEDULED), v('Hearing on {bill} set for {hearing_date}', SCHEDULED)],
-    B: [v('The {committee} is scheduled to hold a hearing on {bill} on {hearing_date}.', SCHEDULED), v('A hearing on {bill} is scheduled before the {committee} on {hearing_date}.', SCHEDULED), v('{bill} is scheduled for a hearing on {hearing_date}.', SCHEDULED)]
-  },
+  // no hearing-scheduled or comment-period-closing variants: a future event never has a card (review r8)
   'hearing-held': {
     H: [v('{committee} holds hearing on {bill}', HELD), v('Hearing held on {bill}', HELD), v('{bill} heard in the {committee}', HELD), v('{bill} gets a hearing in the {committee}', HELD), v('{state} committee holds hearing on {bill}', HELD)],
     B: [v('The {committee} held a hearing on {bill} on {date}.', HELD), v('On {date}, the {committee} heard {bill}.', HELD), v('{bill} was heard in committee on {date}.', HELD), v('A hearing on {bill} was held on {date}.', HELD)]
@@ -170,10 +167,6 @@ export const BANK = {
   'comment-period-open': {
     H: [v('Comment period opens on {title}'), v('{agency} opens comment period'), v('Public comments open on {title}'), v('{agency} opens comments on {title}')],
     B: [v('{agency} opened a public comment period on {date}.'), v('A public comment period on {title} opened on {date}.'), v('On {date}, {agency} opened public comments on {title}.')]
-  },
-  'comment-period-closing': {
-    H: [v('Comments on {title} due by {comments_close}', SCHEDULED), v('Comment period on {title} closes {comments_close}', SCHEDULED), v('{agency} comment period closes {comments_close}', SCHEDULED), v('Comment deadline {comments_close} for {title}', SCHEDULED)],
-    B: [v('The public comment period on {title} is scheduled to close on {comments_close}.', SCHEDULED), v('Comments to {agency} are scheduled to close on {comments_close}.', SCHEDULED), v('Public comments to {agency} on {title} are scheduled to close on {comments_close}.', SCHEDULED)]
   },
   nomination: {
     H: [v('{nominee} nominated as {position}'), v('{signer} nominates {nominee}'), v('Nomination of {nominee} received'), v('{signer} nominates {nominee} as {position}')],

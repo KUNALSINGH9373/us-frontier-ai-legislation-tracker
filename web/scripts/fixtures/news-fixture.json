@@ -1268,28 +1268,6 @@
    "origin": "automated",
    "verification": {
     "method": "official-record",
-    "checked_at": "2026-10-24T14:00:00Z"
-   },
-   "statements": [],
-   "status": "confirmed",
-   "links": [
-    {
-     "t": "Senate Commerce hearing notice",
-     "u": "https://www.commerce.senate.gov/2026/11/hearing-s-5576"
-    }
-   ],
-   "tracker": "s-5576-warner-schatz-kim-ai-risk-management-and-security-act",
-   "date": "2026-10-24",
-   "kind": "federal",
-   "class": "hearing-scheduled",
-   "title": "Senate Commerce schedules a hearing on S. 5576 for November 4",
-   "body": "The Committee on Commerce, Science, and Transportation noticed a full-committee hearing on S. 5576.",
-   "event_key": "US|s-5576-warner-schatz-kim-ai-risk-management-and-security-act|hearing-scheduled|2026-10-24"
-  },
-  {
-   "origin": "automated",
-   "verification": {
-    "method": "official-record",
     "checked_at": "2026-10-25T14:00:00Z"
    },
    "statements": [],
@@ -1313,33 +1291,6 @@
    "title": "NIST requests comments on frontier-model evaluation guidelines (NIST AI 800-2 draft)",
    "body": "NIST published a request for information in the Federal Register with a short comment window.",
    "event_key": "US|-|comment-period-open|2026-10-25"
-  },
-  {
-   "origin": "automated",
-   "verification": {
-    "method": "official-record",
-    "checked_at": "2026-10-29T14:00:00Z"
-   },
-   "statements": [],
-   "status": "confirmed",
-   "links": [
-    {
-     "t": "Regulations.gov BIS-2026-0031",
-     "u": "https://www.regulations.gov/docket/BIS-2026-0031"
-    }
-   ],
-   "tracker": null,
-   "date": "2026-10-29",
-   "kind": "executive",
-   "class": "comment-period-closing",
-   "facts": {
-    "agency": "Commerce/BIS",
-    "document_number": "2026-19020",
-    "comments_close": "2026-10-29"
-   },
-   "title": "Comment period on BIS model-weight export rule closes today",
-   "body": "The comment period on the interim final rule on advanced AI model weights ends today.",
-   "event_key": "US|-|comment-period-closing|2026-10-29"
   },
   {
    "origin": "automated",
@@ -1493,31 +1444,6 @@
    "title": "H.R. 9925 referred to the House Committee on Science, Space, and Technology",
    "body": "Referred on introduction.",
    "event_key": "US|h-r-9925-frontier-act|referral-committee|2026-10-02"
-  },
-  {
-   "origin": "automated",
-   "verification": {
-    "method": "official-record",
-    "checked_at": "2026-10-10T14:00:00Z"
-   },
-   "statements": [],
-   "status": "confirmed",
-   "links": [
-    {
-     "t": "Federal Register 2026-19555",
-     "u": "https://www.federalregister.gov/documents/2026/09/12/2026-19555"
-    }
-   ],
-   "tracker": null,
-   "date": "2026-10-10",
-   "kind": "executive",
-   "class": "comment-period-closing",
-   "facts": {
-    "comments_close": "2026-10-12"
-   },
-   "title": "OSTP comment period on the national AI R&D plan closed",
-   "body": "The comment window closed on October 12.",
-   "event_key": "US|-|comment-period-closing|2026-10-10"
   },
   {
    "origin": "automated",

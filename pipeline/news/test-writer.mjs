@@ -176,7 +176,8 @@ await t('phrase bank: deterministic per event key, neighbours vary, never throws
   assert.strictEqual(bankCard({ event: ev({ class: 'no-such-class' }), entry: null }).card.written_by, 'template');
 });
 await t('phrase bank: 4-8 headlines and 3-6 event sentences for every contract class', () => {
-  const classes = ['introduction', 'referral-committee', 'hearing-scheduled', 'hearing-held', 'committee-passage', 'committee-failure', 'passage', 'failure', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'executive-signature', 'executive-veto', 'became-law', 'veto-override-passage', 'withdrawal', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate', 'executive-order', 'presidential-memo', 'agency-rule-proposed', 'agency-rule-final', 'agency-guidance', 'comment-period-open', 'comment-period-closing', 'nomination', 'court-filing', 'court-ruling'];
+  const classes = ['introduction', 'referral-committee', 'hearing-held', 'committee-passage', 'committee-failure', 'passage', 'failure', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'executive-signature', 'executive-veto', 'became-law', 'veto-override-passage', 'withdrawal', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate', 'executive-order', 'presidential-memo', 'agency-rule-proposed', 'agency-rule-final', 'agency-guidance', 'comment-period-open', 'nomination', 'court-filing', 'court-ruling'];
+  for (const c of ['hearing-scheduled', 'comment-period-closing']) assert.ok(!BANK[c], c + ': a future event has no bank (review r8)');
   for (const c of classes) assert.ok(BANK[c] && BANK[c].H.length >= 4 && BANK[c].H.length <= 8 && BANK[c].B.length >= 3 && BANK[c].B.length <= 6, c);
 });
 await t('phrase bank measure: every class x variant x trap sheet, real events and the checkCard suite at 0 wrong', async () => {

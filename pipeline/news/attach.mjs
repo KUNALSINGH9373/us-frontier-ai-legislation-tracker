@@ -6,6 +6,7 @@
 // Otherwise it goes to the entry's timeline list (entry known, no event) or to the Telegram leads (no entry).
 // Before any of that: verbatim title as plain text, allowlisted host, and exact duplicates (canonical URL or content hash) removed.
 import crypto from 'crypto';
+import { plain } from './sources/common.mjs';
 
 export const KEYWORDS = [
   [/\b(sign(s|ed|ing)?|into law)\b/i, ['executive-signature', 'became-law']],
@@ -19,11 +20,20 @@ export const KEYWORDS = [
 ];
 export function compatibleClasses(title) {
   const out = new Set();
+  if (NOT_A_REPORT.test(title)) return out;
   for (const [re, cls] of KEYWORDS) if (re.test(title)) cls.forEach((c) => out.add(c));
+  // "passes"/"approves" without "committee" is a floor outcome: never a committee passage (review r8 M1)
+  if (!/\bcommittee\b/i.test(title)) out.delete('committee-passage');
+  // a committee passage headline is not the floor passage
+  if (/\bcommittee\b/i.test(title) && /\b(pass(es|ed)?|approv(es|ed)|advanc\w*)\b/i.test(title)) { out.delete('passage'); out.delete('concurrence'); out.delete('veto-override-passage'); out.add('committee-passage'); }
+  out.delete('hearing-scheduled'); // a scheduled hearing has no card (review r8)
   return out;
 }
 
-export const plainText = (s) => String(s || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+// full entity decoding (review r8 L1): the same plain text as every source adapter
+export const plainText = (s) => plain(s);
+// A headline that negates, opposes or urges (review r8 M1) never attaches: it does not report the event ("Senator urges House to pass").
+export const NOT_A_REPORT = /\b(fail|fails|failed|reject\w*|defeat\w*|block\w*|urg\w*|calls? on|called on|oppos\w*|not|won't|would|should|must)\b/i;
 
 export function canonicalUrl(u) {
   try {

@@ -387,7 +387,8 @@ export function buildV2(entries, news, rel, site, content) {
 // never shown (the contract records those with class null).
 export const NEWS_CLASS = {
   'introduction': { l: 'Introduced' }, 'referral-committee': { l: 'Referred to committee' },
-  'hearing-scheduled': { l: 'Hearing scheduled', b: 'hearings' }, 'hearing-held': { l: 'Hearing held', b: 'hearings' },
+  // no 'hearing-scheduled' or 'comment-period-closing': future events never have a card (review r8); an item with either class is hidden
+  'hearing-held': { l: 'Hearing held', b: 'hearings' },
   'committee-passage': { l: 'Passed committee', b: 'advanced' }, 'committee-failure': { l: 'Failed in committee' },
   'passage': { l: 'Passed a chamber', b: 'advanced' }, 'failure': { l: 'Failed a floor vote' },
   'amendment-passage': { l: 'Amendment adopted', b: 'advanced' }, 'concurrence': { l: 'Concurrence', b: 'advanced' },
@@ -397,7 +398,7 @@ export const NEWS_CLASS = {
   'new-text-version': { l: 'New text version' }, 'crs-report': { l: 'CRS report' }, 'cbo-estimate': { l: 'CBO cost estimate' },
   'executive-order': { l: 'Executive order' }, 'presidential-memo': { l: 'Presidential memorandum' },
   'agency-rule-proposed': { l: 'Proposed rule' }, 'agency-rule-final': { l: 'Final rule' }, 'agency-guidance': { l: 'Agency guidance' },
-  'comment-period-open': { l: 'Comment period open', b: 'comments' }, 'comment-period-closing': { l: 'Comment period closing', b: 'comments' },
+  'comment-period-open': { l: 'Comment period open', b: 'comments' },
   'nomination': { l: 'Nomination' }, 'court-filing': { l: 'Court filing' }, 'court-ruling': { l: 'Court ruling' }
 };
 export const NEWS_BUCKETS = [['advanced', 'Bills advanced'], ['signed', 'Signed or became law'], ['hearings', 'Hearings'], ['comments', 'Comment deadlines']];
