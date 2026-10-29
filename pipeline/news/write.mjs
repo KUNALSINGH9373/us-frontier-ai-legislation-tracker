@@ -110,7 +110,7 @@ export function sentences(text) {
 }
 export const claimsOf = (d) => [{ field: 'title', claim: String(d.title).trim() }, ...sentences(d.body).map((s, i) => ({ field: `body[${i}]`, claim: s }))];
 
-// lead: from news/leads.mjs. release: the release text (feeds.mjs releaseText). writer, checker: AI clients. examples: news items to copy the style of.
+// lead: from news/leads.mjs. release: the visible release text (news/render.mjs). writer, checker: AI clients. examples: news items to copy the style of.
 // Returns { outcome: 'drafted' | 'not_newsworthy' | 'rejected' | 'waiting' | 'secondary' | 'error', item?, rounds, problems, reason }
 // index: news/leads.mjs entryIndex of the tracked entries (the item's tracker comes only from the release itself, confirmed by the
 // second reader). kindOf(key): the news kind for an entry. maxAgeDays: the feed window; a release dated before it is old news.

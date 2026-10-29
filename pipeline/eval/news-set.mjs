@@ -13,7 +13,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { releaseText } from '../news/feeds.mjs';
+import { createRenderer } from '../news/render.mjs';
 import { draftNews } from '../news/write.mjs';
 import { checksHash } from './hash.mjs';
 import { writeMeasureReport } from './gate.mjs';
@@ -32,8 +32,12 @@ function checkerOf(spec) {
 
 export async function runNewsSet({ cases, fixturesDir = path.join(P, 'fixtures', 'news'), now = new Date() }) {
   const rows = [];
+  // a recorded release page is read as the run reads it: rendered in a headless browser, visible text only (news/render.mjs), offline
+  let renderer = null;
+  try {
   for (const c of cases) {
-    const release = c.release_text != null ? c.release_text : releaseText(fs.readFileSync(path.join(fixturesDir, c.release_fixture), 'utf8'));
+    if (c.release_text == null && !renderer) renderer = createRenderer();
+    const release = c.release_text != null ? c.release_text : await renderer.renderHtml(fs.readFileSync(path.join(fixturesDir, c.release_fixture), 'utf8'));
     const writer = scripted((req, n) => JSON.parse(JSON.stringify(c.writer[Math.min(n, c.writer.length) - 1])));
     let r;
     try { r = await draftNews({ lead: c.lead, release, writer, checker: checkerOf(c.checker), today: c.today, runId: 'news-set', now: new Date(c.today + 'T06:00:00Z'), maxRounds: c.max_rounds || 2, maxAgeDays: c.max_age_days || 14 }); }
@@ -42,6 +46,7 @@ export async function runNewsSet({ cases, fixturesDir = path.join(P, 'fixtures',
     const differs = added && c.expect === 'publish' && c.expect_item && (r.item.title !== c.expect_item.title || r.item.body !== c.expect_item.body);
     rows.push({ id: c.id, expect: c.expect, outcome: r.outcome, wrong: (added && c.expect === 'refuse') || !!differs, missed: !added && c.expect === 'publish', reason: r.reason || null });
   }
+  } finally { if (renderer) await renderer.close(); }
   return { measure: 'news', run_at: now.toISOString(), checks_hash: checksHash('news'), cases: rows.length, wrong: rows.filter((x) => x.wrong).length, missed: rows.filter((x) => x.missed).length, rows };
 }
 

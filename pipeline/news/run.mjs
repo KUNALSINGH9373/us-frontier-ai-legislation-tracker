@@ -16,7 +16,8 @@ import { loadData, writeData } from '../publish/run.mjs';
 import { checkPublish, checkNewsAdded } from '../publish/guards.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
 import { findLeads, entryIndex, NEWS_TERMS } from './leads.mjs';
-import { robotsAllows, releaseText } from './feeds.mjs';
+import { robotsAllows } from './feeds.mjs';
+import { createRenderer, BrowserUnavailable, RedirectRefused, PageFailed } from './render.mjs';
 import { draftNews, duplicateOf, checkLine, shiftDays } from './write.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
@@ -43,6 +44,7 @@ export function createReader({ userAgent, fetchImpl, log = () => {}, maxRequests
     return r !== null && robotsAllows(r, u.pathname + u.search);
   }
   return {
+    allowed,
     used: () => http.used(),
     async get(url, accept) {
       if (!(await allowed(url))) throw new Error(`${host(url)} does not allow automated reading of this page (robots.txt), or refused robots.txt`);
@@ -69,8 +71,9 @@ const AI_SAFETY = /\b(safety|safeguards?|catastroph\w*|kill switch|rogue|frontie
 const aiSafety = (l, release) => { const t = `${l.title} ${l.summary || ''} ${String(release || '').slice(0, 4000)}`; return NEWS_TERMS.test(t) && AI_SAFETY.test(t); };
 
 // config: config/publish.json. sources: config/news-sources.json. factory: llm/make.mjs. aiOff: why AI may not run (null when it may).
-// reader: test hook ({ get(url, accept), used() }). Returns the report section (see report/build.mjs).
-export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, log = () => {} }) {
+// reader: test hook ({ get(url, accept), used(), allowed(url) }). renderer: test hook (news/render.mjs createRenderer: render(url) ->
+// { text, finalUrl }, close()); by default a headless browser that may only end up on a primary feed's host. Returns the report section (see report/build.mjs).
+export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, renderer = null, log = () => {} }) {
   const cfg = config.news_leads || { enabled: false };
   const rep = { ran: false, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '' };
   if (!cfg.enabled) return { ...rep, skipped_why: 'turned off in config/publish.json' };
@@ -78,6 +81,11 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
   const seen = readJson(seenFile, { _note: 'News leads already seen (news/run.mjs), by link. Do not edit by hand.', items: {} });
   const rd = reader || createReader({ userAgent: sources.user_agent, log });
   const before = loadData(dataDir);
+  // official release pages are read in a headless browser, visible text only (news/render.mjs); they may end up (after redirects) only on
+  // the host of a primary feed in config/news-sources.json
+  const officialHosts = sources.sources.filter((s) => s.primary).map((s) => host(s.url)).filter(Boolean);
+  const rend = typeof renderer === 'function' ? renderer(rd) : renderer || createRenderer({ allowHosts: officialHosts, userAgent: sources.user_agent, allowed: (u) => (rd.allowed ? rd.allowed(u) : true), log });
+  let browserDown = null;
   const screener = aiOff ? null : factory.make('screener');
 
   // 1. leads
@@ -94,15 +102,27 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
   const feedHost = new Map(sources.sources.map((s) => [s.id, host(s.url)]));
   const items = [], max = cfg.max_drafts_per_run ?? 3;
   let drafts = 0, serviceErrors = 0;
+  try {
   for (const l of found.leads) {
     if (!l.primary) { lead(l, 'press report: published only after an official source confirms it'); mark[l.key] = { first_seen: today, outcome: 'lead', title: l.title }; continue; }
     if (host(l.release_url) !== feedHost.get(l.source_id)) { lead(l, 'the release is not on the official site of its feed'); mark[l.key] = { first_seen: today, outcome: 'lead', title: l.title }; continue; }
     if (!writer || !checker) { lead(l, `official release, not drafted: ${aiOff || factory.keyName + ' is not set'}`); continue; } // drafted on a later run
     if (drafts >= max) { rep.waiting++; continue; } // not marked seen: the next run carries on
+    // no browser: the release cannot be read the way a reader sees it, so it is held (not marked seen) and the next run tries again
+    if (browserDown) { lead(l, `official release, held: ${browserDown}`); continue; }
     drafts++;
     let r;
     try {
-      const release = releaseText(await rd.get(l.release_url, 'text/html'));
+      let page;
+      try { page = await rend.render(l.release_url); }
+      catch (e) {
+        if (e instanceof BrowserUnavailable) { browserDown = e.message; rep.problems.push(`news held: ${e.message}`); drafts--; lead(l, `official release, held: ${e.message}`); continue; }
+        if (e instanceof RedirectRefused) throw Object.assign(new Error(`the release could not be read: ${e.message}`), { refused: true });
+        if (e instanceof PageFailed) throw Object.assign(new Error(`the release could not be read: ${e.message}`), { fetchFailed: true });
+        throw Object.assign(new Error(`the release could not be read: ${e.message}`), { fetchFailed: true });
+      }
+      const release = page.text;
+      if (!release) throw Object.assign(new Error('the release could not be read: no visible text on the page'), { fetchFailed: true });
       const args = { lead: l, release, writer, checker, examples: examplesFrom(before.news.items), today, runId, now, maxRounds: cfg.max_rounds || 2, index, kindOf, maxAgeDays: cfg.max_age_days || 14 };
       r = await draftNews(args);
       if (r.outcome === 'not_newsworthy' && l.sponsor && aiSafety(l, release)) {
@@ -112,6 +132,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
       }
     } catch (e) {
       if (e instanceof BudgetExceeded) { rep.problems.push(`stopped: ${e.message}`); if (e.scope !== 'item') break; r = { outcome: 'error', retry: true, reason: e.message }; }
+      else if (e.refused || e.fetchFailed) r = { outcome: 'error', retry: true, reason: e.message };
       else if (/robots\.txt|HTTP \d|request budget|fetch|network|abort/i.test(e.message)) r = { outcome: 'error', retry: true, reason: `the release could not be read: ${e.message}` };
       else throw e;
     }
@@ -145,6 +166,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, c
     serviceErrors = r.service_error ? serviceErrors + 1 : 0;
     if (serviceErrors >= 2) { rep.problems.push('stopped: the model service failed twice in a row'); break; }
   }
+  } finally { if (!renderer) await rend.close(); }
   rep.requests = rd.used();
   // a release still waiting for the record when its freshness window has closed (it no longer comes back from its feed): dropped, with
   // a report line

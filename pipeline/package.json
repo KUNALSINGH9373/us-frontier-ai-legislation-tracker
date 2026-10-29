@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.131.0",
-    "pdfjs-dist": "4.10.38"
+    "pdfjs-dist": "4.10.38",
+    "playwright": "1.49.1"
   }
 }
