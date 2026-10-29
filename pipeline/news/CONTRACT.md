@@ -98,3 +98,9 @@ Work in your worktree on top of 2f1d34b; commit there; do not push; do not touch
 - **Simple resolutions** (HR/SR/AR/R/HRES/SRES/ARES; federal H.Res/S.Res) never get "both chambers" wording or stage.
 - **Summary label**: "What it would do" for resolutions and constitutional amendments.
 - **Territories** PR, GU, VI, AS, MP are named (GU, VI one chamber); no executive is named and no law claim is made except a became-law record with valid law wording.
+
+## Decisions 29 Oct (Lane 1 safety review: F2, F3, F5)
+- The network adapters share one time budget per run (news/run.mjs `eventsStep`, `budgetMs`, default 6 min, config `news.time_budget_ms`). Each runs against a deadline: past it, its transport refuses further calls, pacing sleeps end at once, the step keeps what it has (health `truncated`) and the remaining adapters are not run. An adapter whose transport fails 3 times in a row is stopped. Nothing throws. News fetches time out after 15 s.
+- `cadence_hours` (config/news-sources.json "structured") is honoured: a source read less than its cadence ago (news-health.json `last_fetch`, 15 min slack) is skipped (`skipped: cadence`, the last record kept).
+- Open States counts requests per UTC day in its adapter state (`quota`) and stops at 400.
+- `redact` removes key=/apikey=/api_key=/token= query values; news-health.json is written through `healthText`, which also removes every env key value.

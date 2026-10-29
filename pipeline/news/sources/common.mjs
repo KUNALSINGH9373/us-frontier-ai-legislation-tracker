@@ -16,6 +16,8 @@ export function sourceConfig(name) {
 }
 
 export const USER_AGENT = 'us-frontier-ai-tracker-pipeline/0.1 (official news sources)';
+// News sources use a 15 s per-call timeout (review F2d): a slow source can never hold the run.
+export const NEWS_FETCH_TIMEOUT_MS = 15000;
 export function defaultHttp({ timeoutMs = 30000 } = {}) {
   return async (url, { headers = {} } = {}) => {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), timeoutMs);
@@ -25,7 +27,8 @@ export function defaultHttp({ timeoutMs = 30000 } = {}) {
 }
 
 // Never let an API key reach a log, an error or an item.
-export const redact = (s, ...keys) => { let out = String(s ?? ''); for (const k of keys) if (k && k.length >= 6) out = out.split(k).join('REDACTED'); return out.replace(/(api_key=)[^&\s"]+/gi, '$1REDACTED'); };
+// Query-string keys (review F5: NY Senate uses ?key=) are redacted whatever their value: key=, apikey=, api_key=, api-key=, token=.
+export const redact = (s, ...keys) => { let out = String(s ?? ''); for (const k of keys) if (k && k.length >= 6) out = out.split(k).join('REDACTED'); return out.replace(/([?&;\s"'(]|^)((?:api[_-]?)?key|apikey|token|access_token)=[^&\s"')]+/gi, '$1$2=REDACTED'); };
 
 // One GET returning parsed JSON or text; never throws. { ok, status, data|text, error }
 export async function get(http, url, { json = true, keys = [], headers } = {}) {

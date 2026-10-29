@@ -140,14 +140,21 @@ export function eventToItem(ev, tracked, retrievedAt) {
 
 const q = (o) => Object.entries(o).flatMap(([k, v]) => (Array.isArray(v) ? v.map((x) => [k, x]) : [[k, v]])).filter(([, v]) => v != null && v !== '').map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&');
 
+// Open States allows about 500 requests a day (review F3): requests are counted per UTC day in the adapter state, and the adapter stops at
+// daily_cap (400) whatever the per-run cap.
+export const DAILY_CAP = 400;
 export async function fetchItems({ http, env = process.env, since = null, state = {}, entries = null, config = null, now = () => new Date(), sleep = (ms) => new Promise((r) => setTimeout(r, ms)) } = {}) {
+  const nowFn = typeof now === 'function' ? now : () => (now instanceof Date ? now : new Date(now));
   const key = env && (env.OPENSTATES_API_KEY || env.PLURAL_API_KEY); // Open States is now Plural Policy; either name
   if (!key) return { items: [], health: { ok: false, count: 0, newest: null, errors: ['no key'] } };
   const cfg = { max_requests_per_run: 60, min_interval_ms: 1100, base: 'https://v3.openstates.org', ...((config || loadStructuredConfig()).openstates || {}) };
   let bills = isBillList(entries) ? entries : null;
   if (!bills) { try { bills = trackedBills(JSON.parse(fs.readFileSync(IDS_PATH, 'utf8'))); } catch { bills = []; } }
   const items = []; const errors = []; let used = 0; let truncated = false;
+  const day = nowFn().toISOString().slice(0, 10), q0 = state && state.quota && state.quota.day === day ? state.quota.used || 0 : 0, dailyCap = cfg.daily_cap ?? DAILY_CAP;
+  let dailyHit = false;
   const get = async (url) => {
+    if (q0 + used >= dailyCap) { truncated = true; dailyHit = true; return null; }
     if (used >= cfg.max_requests_per_run) { truncated = true; return null; }
     if (used > 0 && cfg.min_interval_ms) await sleep(cfg.min_interval_ms);
     used++;
@@ -174,7 +181,7 @@ export async function fetchItems({ http, env = process.env, since = null, state 
     return pickSession(sessions[juris], b.session_name);
   };
   for (const b of bills) {
-    const retrieved = now().toISOString();
+    const retrieved = nowFn().toISOString();
     const juris = b.state.toLowerCase();
     const session = await sessionFor(b);
     if (session === undefined) { if (truncated) break; continue; }
@@ -194,8 +201,8 @@ export async function fetchItems({ http, env = process.env, since = null, state 
     }
     if (truncated) break;
   }
-  if (truncated) errors.push(`request cap ${cfg.max_requests_per_run} reached; remaining bills next run`);
+  if (truncated) errors.push(dailyHit ? `request cap: daily cap ${dailyCap} reached for ${day}; remaining bills next run` : `request cap ${cfg.max_requests_per_run} reached; remaining bills next run`);
   const newest = items.reduce((m, x) => (x.date > (m || '') ? x.date : m), null);
-  return { items, health: { ok: errors.filter((e) => !e.startsWith('request cap')).length === 0, count: items.length, newest, errors, requests: used, truncated }, state: { sessions } };
+  return { items, health: { ok: errors.filter((e) => !e.startsWith('request cap')).length === 0, count: items.length, newest, errors, requests: used, truncated }, state: { sessions, quota: { day, used: q0 + used } } };
 }
 export { OS_MAP };

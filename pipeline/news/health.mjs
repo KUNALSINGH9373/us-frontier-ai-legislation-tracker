@@ -12,7 +12,14 @@ export const HEALTH_PATH = path.join(HERE, '..', 'state', 'news-health.json');
 const KEEP = 14; // runs of history kept per source
 
 export function loadHealth(p = HEALTH_PATH) { try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return { sources: {} }; } }
-export function saveHealth(p = HEALTH_PATH, state) { fs.writeFileSync(p, JSON.stringify(state, null, 1) + '\n'); }
+// No key-looking string ever reaches news-health.json (review F5): every secret value given (the env keys) and every key=/apikey=/api_key=/
+// token= query value is redacted before writing.
+export function healthText(state, secrets = []) {
+  let t = JSON.stringify(state, null, 1);
+  for (const k of secrets) if (k && String(k).length >= 6) t = t.split(String(k)).join('REDACTED');
+  return t.replace(/([?&;\s"'(]|^)((?:api[_-]?)?key|apikey|token|access_token)=[^&\s"'),\\]+/gi, '$1$2=REDACTED') + '\n';
+}
+export function saveHealth(p = HEALTH_PATH, state, secrets = []) { fs.writeFileSync(p, healthText(state, secrets)); }
 
 const futureLimit = (now) => new Date(now.getTime() + 86400000).toISOString().slice(0, 10);
 
@@ -21,12 +28,16 @@ export function updateHealth(prev, results, { now = new Date(), items = {} } = {
   const sources = { ...((prev && prev.sources) || {}) };
   for (const [name, h] of Object.entries(results || {})) {
     const p = sources[name] || {};
+    // not due (cadence_hours, review F2c): the previous record stands; only the skip is noted
+    if (h && h.skipped === 'cadence') { sources[name] = { ...p, last_skipped: at }; continue; }
     const list = items[name] || [];
     const future = list.filter((x) => x.date && x.date > futureLimit(now)).map((x) => ({ source_id: x.source_id, date: x.date }));
     const newest = (h && h.newest) || list.reduce((m, x) => (x.date && x.date <= futureLimit(now) && x.date > (m || '') ? x.date : m), null);
     const ok = !!(h && h.ok);
     sources[name] = {
       last_run: at,
+      last_fetch: at, // when the source was last read: the cadence check (news/run.mjs) counts from here
+      ...(h && h.truncated ? { truncated: true } : {}),
       last_ok: ok ? at : (p.last_ok || null),
       ok,
       newest: newest && (!p.newest || newest > p.newest) ? newest : (p.newest || newest || null),

@@ -33,7 +33,7 @@ import * as congressExtra from './sources/congress_extra.mjs';
 import * as nist from './sources/nist.mjs';
 import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
-import { defaultHttp, sourceConfig } from './sources/common.mjs';
+import { defaultHttp, sourceConfig, NEWS_FETCH_TIMEOUT_MS, redact } from './sources/common.mjs';
 import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
@@ -88,15 +88,58 @@ export function recordsFromRuns(runDirs = []) {
 }
 
 // The event lane alone (no feeds, no AI): adapters -> upsert -> confirm. Exported for the eval (eval/news-set.mjs) and tests.
-export async function eventsStep({ state, records = [], courtFound = [], now = new Date(), runId = null, sinceDays = EVENT_DAYS, today = now.toISOString().slice(0, 10), extra = [], http = null, env = {}, entries = [], items: given = [] }) {
+// Lane 1 safety (review F2): the network adapters share one time budget (budgetMs, default 6 min, config news.time_budget_ms). Each runs
+// with a deadline: past it, its transport refuses further calls and its pacing sleeps end at once, and the step moves on with what it has
+// (health 'truncated'); the remaining adapters are not run. An adapter whose transport fails 3 times in a row is stopped. A source read
+// within its cadence_hours (config/news-sources.json "structured"; lastFetch from news-health.json) is not read again this run.
+// Never throws. clock: ms now (tests).
+export const NEWS_BUDGET_MS = 6 * 60 * 1000;
+const CADENCE_SLACK_MS = 15 * 60 * 1000; // a 24 h source read at 06:00 is due again at the 06:00 run the next day
+function guardedHttp(http, { deadline, clock, onStop }) {
+  let consecutive = 0, stopped = null;
+  const stop = (why) => { if (!stopped) { stopped = why; onStop(why); } };
+  const check = () => { if (!stopped && clock() >= deadline) stop('time budget reached'); if (stopped) throw new Error(`news step: ${stopped}; not read this run`); };
+  const fail = () => { if (++consecutive >= 3) stop('3 consecutive errors'); };
+  const wrap = (fn) => async (...a) => {
+    check();
+    try { const r = await fn(...a); if (r && typeof r.status === 'number' && (r.status >= 400 || r.status === 0)) fail(); else consecutive = 0; return r; }
+    catch (e) { fail(); throw e; }
+  };
+  const g = typeof http === 'function' ? wrap(http) : http;
+  if (http && typeof http === 'object') for (const k of Object.keys(http)) if (typeof http[k] === 'function') g[k] = wrap(http[k].bind(http));
+  return { http: g, stopped: () => stopped, sleep: (ms) => new Promise((r) => setTimeout(r, stopped ? 0 : Math.max(0, Math.min(ms, deadline - clock())))) };
+}
+
+export async function eventsStep({ state, records = [], courtFound = [], now = new Date(), runId = null, sinceDays = EVENT_DAYS, today = now.toISOString().slice(0, 10), extra = [], http = null, env = {}, entries = [], items: given = [], budgetMs = NEWS_BUDGET_MS, lastFetch = {}, cadenceOf = (n) => sourceConfig(n).cadence_hours ?? null, clock = () => Date.now() }) {
   const results = {}, itemsBy = {}, fetched = [], all = [], statements = [];
   const since = daysBefore(today, sinceDays);
   state.adapters = state.adapters || {};
   const runs = [['congress_gov', congressGov, { records }], ['legiscan', legiscan, { records }], ['courtlistener', courtlistener, { found: courtFound, now }],
     ...extra.map(([name, mod]) => [name, mod, { http, env, since, state: state.adapters[name] || {}, entries, now }])];
+  const deadline = clock() + budgetMs, local = new Set(['congress_gov', 'legiscan', 'courtlistener']);
+  let outOfTime = false;
   for (const [name, mod, args] of runs) {
     let r;
-    try { r = await mod.fetchItems(args); } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [String(e.message || e)] }, fetched: [] }; }
+    if (!local.has(name)) {
+      const cad = cadenceOf(name), last = lastFetch[name] ? Date.parse(lastFetch[name]) : NaN;
+      if (cad && Number.isFinite(last) && now.getTime() - last < cad * 3600e3 - CADENCE_SLACK_MS) { results[name] = { ok: true, skipped: 'cadence', count: 0, newest: null, errors: [] }; itemsBy[name] = []; continue; }
+      if (outOfTime || clock() >= deadline) { outOfTime = true; results[name] = { ok: true, truncated: true, count: 0, newest: null, errors: ['time budget reached; not read this run'] }; itemsBy[name] = []; continue; }
+      let why = null;
+      const g = guardedHttp(args.http, { deadline, clock, onStop: (w) => { why = w; } });
+      let timer;
+      const timeout = new Promise((res) => { timer = setTimeout(() => res({ timedOut: true }), Math.max(0, deadline - clock())); });
+      try {
+        r = await Promise.race([mod.fetchItems({ ...args, http: g.http, sleep: g.sleep }), timeout]);
+      } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [redact(String(e.message || e))] }, fetched: [] }; }
+      finally { clearTimeout(timer); }
+      if (r && r.timedOut) { why = why || 'time budget reached'; r = { items: [], health: { ok: true, count: 0, newest: null, errors: [] }, fetched: [] }; }
+      if (why) {
+        r.health = { ...(r.health || {}), truncated: true, ok: why !== '3 consecutive errors' && (r.health ? r.health.ok !== false || (r.health.errors || []).every((x) => /not read this run|request cap/.test(x)) : true), errors: [...((r.health && r.health.errors) || []).filter((x) => !/not read this run/.test(x)).slice(0, 5), `stopped: ${why}`] };
+        if (why === 'time budget reached') outOfTime = true;
+      }
+    } else {
+      try { r = await mod.fetchItems(args); } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [String(e.message || e)] }, fetched: [] }; }
+    }
     if (r.state) state.adapters[name] = r.state;
     const items = r.items || [];
     results[name] = r.health; itemsBy[name] = items; fetched.push(...(r.fetched || []));
@@ -172,9 +215,10 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
 
   // 1. events from the official records this run already has
   const recs = records || recordsFromRuns(runDirs);
-  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp()) : null });
+  const prevHealth = loadHealth(healthFile), lastFetch = Object.fromEntries(Object.entries(prevHealth.sources || {}).map(([n, s]) => [n, s.last_fetch || null]));
+  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp({ timeoutMs: NEWS_FETCH_TIMEOUT_MS })) : null, lastFetch, budgetMs: (config.news && config.news.time_budget_ms) || NEWS_BUDGET_MS });
   Object.assign(rep.events, { added: ev.up.added, confirmed: ev.up.confirmed, corrected: ev.up.corrected, withdrawn: ev.up.withdrawn, refused: ev.up.refused.slice(0, 20), report: ev.up.report.slice(0, 50) });
-  const health = updateHealth(loadHealth(healthFile), ev.results, { now, items: ev.itemsBy });
+  const health = updateHealth(prevHealth, ev.results, { now, items: ev.itemsBy });
   rep.events.alerts = alerts(health, { now, config: { congress_gov: { cadence_hours: 24 * 30 }, legiscan: { cadence_hours: 24 * 30 }, courtlistener: { cadence_hours: 24 * 30 } } }).filter((a) => !/stale|zero items/.test(a)); // these sources are read only when they changed
 
   // statements from the structured statement sources (NIST, CBO, CA AG feeds): attach to an event or stay a lead
@@ -239,7 +283,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
 
   if (!dry) {
     saveEvents(eventsFile, state);
-    fs.mkdirSync(path.dirname(healthFile), { recursive: true }); saveHealth(healthFile, health);
+    fs.mkdirSync(path.dirname(healthFile), { recursive: true }); saveHealth(healthFile, health, Object.entries(env || process.env).filter(([k]) => /KEY|TOKEN|SECRET/i.test(k)).map(([, v]) => v));
     for (const [k, v] of Object.entries(mark)) seen.items[k] = { ...(seen.items[k] || {}), ...v, first_seen: (seen.items[k] && seen.items[k].first_seen) || v.first_seen, last_seen: today };
     const cut = daysBefore(today, KEEP_DAYS);
     for (const [k, v] of Object.entries(seen.items)) if ((v.last_seen || v.first_seen) < cut) delete seen.items[k];

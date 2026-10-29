@@ -78,7 +78,7 @@ export async function fetchItems({ http, env = process.env, since = null, state 
     try { res = await getJsonAny(http, `${cfg.base}/bills/${nySession(b)}/${print}?view=default&key=${encodeURIComponent(key)}`); } catch (e) { errors.push(String(e && e.message || e).split(key).join('***')); continue; }
     if (!res || res.success === false || !res.result) { errors.push(`${print}: ${res && res.message || 'no result'}`); continue; }
     if (nyPrint(res.result.basePrintNo) !== print) { errors.push(`${print}: API answered ${res.result.basePrintNo}`); continue; }
-    const retrieved = now().toISOString();
+    const retrieved = (typeof now === 'function' ? now() : new Date(now)).toISOString();
     items.push(...billToItems(res.result, b, retrieved).filter((x) => !sinceDay || x.date >= sinceDay));
   }
   if (truncated) errors.push(`request cap ${cfg.max_requests_per_run} reached; remaining bills next run`);
