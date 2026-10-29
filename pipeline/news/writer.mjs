@@ -10,6 +10,7 @@ import { buildFactSheet, sheetText, billNumbers, STATE_NAMES } from './factsheet
 import { CARD_WRITER_SYSTEM, cardWriterPrompt, CARD_READER_SYSTEM, cardReaderPrompt } from './writer-prompts.mjs';
 import { digitRuns } from '../agents/source-text.mjs';
 import { readFileSync } from 'fs';
+import { candidates } from './phrasebank.mjs';
 import { sentences, datesIn } from './text.mjs';
 
 export const CARD_LIMITS = { headline: 90, body: 400, sentencesMin: 2, sentencesMax: 3 };
@@ -41,6 +42,7 @@ const COMMON = new Set(('the a an it its this that these those on in at by for w
   'bill bills act measure law legislation lawmakers legislators committee committees hearing vote votes rule order report court comments ' +
   'state states federal new under public text version amendment amendments chamber floor proposal resolution members member ' +
   'judge referred introduced passed signed vetoed approved filed withdrawn sent senators representatives sponsors also both now next ' +
+  'what status hearing amendment new guidance filing ruling comments comment nomination veto override version ' +
   'there their his her when while once if').split(' '));
 // Writing about the fact sheet instead of the event, and a chamber said to introduce a bill (its members do).
 const META = /\b(fact sheet|verified|summary|is listed|listed as|listed at|stage is|its stage|no further step|set out|recorded as|the record)\b/i;
@@ -156,7 +158,7 @@ const BOTH_CLASSES = new Set(['concurrence', 'enrolled', 'executive-receipt', 'e
 const SIGN_CLASSES = new Set(['executive-signature', 'became-law', 'executive-order', 'presidential-memo']);
 const VETO_CLASSES = new Set(['executive-veto', 'veto-override-passage']);
 export const REQUIRED_OUTCOME = {
-  introduction: /\b(introduc\w*|filed)\b/i, 'referral-committee': /\brefer\w*\b/i, 'hearing-scheduled': /\bhearing\b/i, 'hearing-held': /\bhearing\b/i,
+  introduction: /\b(introduc\w*|filed)\b/i, 'referral-committee': /\brefer\w*\b/i, 'hearing-scheduled': /\bhearing\b/i, 'hearing-held': /\b(hearing|heard)\b/i,
   'committee-passage': /\b(pass(?:ed|es)?|approv\w*|advanc\w*|ordered|reported)\b/i, 'committee-failure': /\b(fail\w*|reject\w*|voted down)\b/i,
   passage: /\b(pass(?:ed|es)?|approv\w*)\b/i, failure: /\b(fail\w*|reject\w*|defeat\w*|voted down)\b/i, 'amendment-passage': /\bamend\w*\b/i,
   concurrence: /\bconcurr?\w*\b/i, enrolled: /\benroll\w*\b/i, 'executive-receipt': /\b(sent|presented|delivered|transmitted)\b/i,
@@ -176,7 +178,7 @@ export const RELATIVE_TIME = /\b(yesterday|today|tonight|tomorrow|(?:last|this|n
 export const COLOUR = /\b(super-?majorit\w*|debat\w*|hours?|minutes?|second time|third time|again|once more|narrowly|comfortably|roll[- ]call|voice vote|filibuster\w*|marathon|late-night|overnight|lengthy|heated|packed|testimony|amid)\b/gi;
 // Titles before a person's name: the word after one must be in the sheet (case does not matter).
 const TITLE_NAME = /\b(?:governor|gov\.|senator|sen\.|representative|rep\.|assemblymember|assemblyman|assemblywoman|delegate|president|vice president|judge|justice|secretary|attorney general|mayor|chair(?:man|woman)?|speaker|leader|commissioner|director)\s+([a-z][a-z'’-]{2,})/gi;
-const AFTER_TITLE_OK = /^(?:signs|vetoes|approves|receives|issues|signed|vetoed|approved|received|has|had|is|was|will|would|of|and|to|on|in|for|the|a|an|who|that|did|does|also|then|said|issued|after|before|with|by|it|or|but|at|as|from|announced|took|got)$/i;
+const AFTER_TITLE_OK = /^(?:nominates|nominated|signs|vetoes|approves|receives|issues|signed|vetoed|approved|received|has|had|is|was|will|would|of|and|to|on|in|for|the|a|an|who|that|did|does|also|then|said|issued|after|before|with|by|it|or|but|at|as|from|announced|took|got)$/i;
 // Officials and sponsors the tracker names anywhere: any of these in a card (any case) must be in its sheet.
 let LEXICON = null;
 const KNOWN_OFFICIALS = 'newsom pritzker hochul trump biden vance harris murphy healey whitmer shapiro lamont youngkin spanberger polis kotek hobbs sherrill mamdani adams wiener bores gounardes padilla schiff schumer thune cruz klobuchar cantwell hawley blumenthal warner schatz kim bennet welch cotton liccardo kiley lieu obernolte beyer peters'.split(' ');
@@ -209,7 +211,8 @@ export function outcomeProblems(headline, body, sheet) {
   for (const s of [headline, ...sentences(body)]) {
     for (const m of s.matchAll(CHAMBER_WORD)) {
       const w = m[1].toLowerCase();
-      if (BOTH_WORDS.has(w)) { if (!both && (OUTCOME_VERB.test(s) || /both/.test(w))) p.push(`"${m[1]}" states an act of the whole legislature, but the event is ${cls}${ev.chamber ? ` in the ${ev.chamber}` : ''}`); continue; }
+      if (BOTH_WORDS.has(w)) { if (own.has(w)) continue; // a unicameral legislature is its own chamber
+        if (!both && (OUTCOME_VERB.test(s) || /both/.test(w))) p.push(`"${m[1]}" states an act of the whole legislature, but the event is ${cls}${ev.chamber ? ` in the ${ev.chamber}` : ''}`); continue; }
       if (OUTCOME_VERB.test(s) && !own.has(w) && !(w === 'assembly' && own.has('general assembly'))) p.push(`"${m[1]}" in a sentence stating the outcome, but the event is ${ev.chamber ? `in the ${ev.chamber}` : 'not a chamber action'}`);
     }
   }
@@ -233,7 +236,33 @@ const shapeOk = (d) => d && typeof d.headline === 'string' && typeof d.body === 
 
 // event: contract Event; entry: tracker entry (or null); writer, reader: AI clients ({ generate({system, prompt, itemId}) }).
 // Returns { card: { headline, body, template_headline, template_body, written_by }, sheet, rounds, problems, reason }. Never throws.
-export async function writeCard({ event, entry = null, sheet = null, writer, reader, today = null, maxRounds = 2, log = () => {} }) {
+// The phrase-bank card (news/phrasebank.mjs): the first deterministic candidate that passes checkCard; the template when none does.
+export function bankCard({ event, entry = null, sheet = null, today = null }) {
+  let fs = sheet, tpl;
+  try {
+    fs = fs || buildFactSheet(event, entry, { today }); tpl = templateCard(event, fs);
+    const key = (event && event.key) || JSON.stringify(fs.event);
+    let tried = 0;
+    for (const c of candidates(fs, key)) {
+      if (++tried > 400) break;
+      if (!checkCard(c.check, fs).length && c.body.length <= CARD_LIMITS.body) return { card: { headline: c.headline, body: c.body, template_headline: tpl.headline, template_body: tpl.body, written_by: 'bank' }, sheet: fs, rounds: 0, problems: [], reason: null };
+    }
+    return { card: { headline: tpl.headline, body: tpl.body, template_headline: tpl.headline, template_body: tpl.body, written_by: 'template' }, sheet: fs, rounds: 0, problems: [], reason: tried ? 'no phrase-bank candidate passed the checks' : 'no phrase-bank variant fits this event' };
+  } catch (e) {
+    const t = tpl || (event && event.card) || {};
+    return { card: { headline: t.headline || t.template_headline || null, body: t.body || t.template_body || null, template_headline: t.headline || t.template_headline || null, template_body: t.body || t.template_body || null, written_by: 'template' }, sheet: fs, rounds: 0, problems: [], reason: `phrase bank failed: ${e.message}` };
+  }
+}
+export const aiWriterOn = (config) => !!(config && config.news && config.news.ai_writer === true);
+
+// The card for an event. config/publish.json news.ai_writer (default false) picks the writer: false = the phrase bank (no AI, the
+// AI path below is not reachable); true = the free AI writer, checked by code and a second reader. Never throws.
+export async function writeCard({ config = null, ...args }) {
+  if (!aiWriterOn(config)) return bankCard(args);
+  return writeCardAI(args);
+}
+
+async function writeCardAI({ event, entry = null, sheet = null, writer, reader, today = null, maxRounds = 2, log = () => {} }) {
   let fs = sheet, tpl;
   try { fs = fs || buildFactSheet(event, entry, { today }); tpl = templateCard(event, fs); }
   catch (e) { const t = (event && event.card) || {}; return { card: { headline: t.template_headline || null, body: t.template_body || null, template_headline: t.template_headline || null, template_body: t.template_body || null, written_by: 'template' }, sheet: fs, rounds: 0, problems: [], reason: `fact sheet failed: ${e.message}` }; }
