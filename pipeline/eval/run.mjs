@@ -27,7 +27,8 @@ import { buildClaims } from '../agents/validator.mjs';
 import { containsQuote, digitRuns, repairExponents } from '../agents/source-text.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { foreignLetters, textProblems } from '../agents/checks.mjs';
-import { exportControlBill } from '../agents/derive.mjs';
+import { exportControlBill, stateSections } from '../agents/derive.mjs';
+import { sectionsByCode } from '../agents/rules.mjs';
 import { refereeSays, refereeVerdict } from '../agents/process-item.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
@@ -105,10 +106,13 @@ async function runItem({ gold, text, generator, validator, referee = null, style
   const reasons = [{ kind: 'candidate', detail: 'Describe this bill for the tracker from its official text.' }];
   // As in production (agents/derive.mjs): an export-control bill is filed under G.3 by rule, not by the model.
   const ruleSection = gold.kind === 'congress_gov' && exportControlBill(text) ? 'G.3' : null;
+  // As in production (agents/process-item.mjs via derive.mjs): a state bill is offered only the sections its status allows, narrowed by code.
+  const allowed = gold.kind === 'legiscan' ? stateSections(gold.section === 'A' ? 'enacted' : 'pending') : null;
+  const sections = allowed ? (sectionsByCode(text, allowed).length ? sectionsByCode(text, allowed) : allowed) : null;
   let feedback = [], previousPatch = null, last = null, refereeIn = null, scopeRetries = 0;
   const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, text, gold.key)) : refereeIn);
   for (let round = 1; round <= MAX_ROUNDS; round++) {
-    const g = await generatePatch({ llm: generator, item, source: text, entry: null, reasons, operation: 'create', styleExamples, feedback, previousPatch, needsSection: gold.level === 'federal' && !ruleSection });
+    const g = await generatePatch({ llm: generator, item, source: text, entry: null, reasons, operation: 'create', styleExamples, feedback, previousPatch, needsSection: gold.level === 'federal' && !ruleSection, sections });
     if (!g.patch) { feedback = g.problems; continue; }
     const patch = g.patch; previousPatch = patch;
     if (patch.in_scope === false) {
