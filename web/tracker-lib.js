@@ -368,7 +368,7 @@ export function buildV2(entries, news, rel, site, content) {
     return o;
   });
   const byId = {}; E.forEach((e) => { byId[e.id] = e; });
-  const N = news.items.map((n, i) => ({ ...n, tracker: n.tracker ? idToKey[idOfKey[n.tracker]] || null : null, i, d: noonOf(n.date), entryId: n.tracker ? idOfKey[n.tracker] || null : null }));
+  const N = news.items.filter((n) => newsVisible(n)).map((n, i) => ({ ...n, tracker: n.tracker ? idToKey[idOfKey[n.tracker]] || null : null, i, d: noonOf(n.date), entryId: n.tracker ? idOfKey[n.tracker] || null : null }));
   const edges = rel.edges.map((ed) => ({ ...ed, fromId: keyToId[ed.from] || null, toId: keyToId[ed.to] || null }));
   const pulse = {};
   N.filter((n) => n.d >= WEEK_FROM && n.entryId).forEach((n) => { const s = byId[n.entryId].st; if (s) pulse[s] = true; });
@@ -379,4 +379,68 @@ export function buildV2(entries, news, rel, site, content) {
   // "None enacted" is counted, not typed: it changes the day a federal frontier bill becomes law.
   FED_GROUPS = FED_GROUPS.map((g) => (g.k === 'D' ? { ...g, sub: 'Introduced. ' + (HC.fedEnacted ? HC.fedEnacted + ' enacted.' : 'None enacted.') } : g));
   return { E, byId, keyToId, idToKey, idOfKey, N, edges, rel: R, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom, tev, site, content: content || null, v2: true };
+}
+
+// ---- Automated News events (pipeline/news/CONTRACT.md) ----
+// An automated item has origin 'automated' plus event_key, class, status, statements, stage, next. Hand-written items
+// never get the extra rendering. Labels and weekly-digest bucket (b) of every class the UI shows; an unknown class is
+// never shown (the contract records those with class null).
+export const NEWS_CLASS = {
+  'introduction': { l: 'Introduced' }, 'referral-committee': { l: 'Referred to committee' },
+  'hearing-scheduled': { l: 'Hearing scheduled', b: 'hearings' }, 'hearing-held': { l: 'Hearing held', b: 'hearings' },
+  'committee-passage': { l: 'Passed committee', b: 'advanced' }, 'committee-failure': { l: 'Failed in committee' },
+  'passage': { l: 'Passed a chamber', b: 'advanced' }, 'failure': { l: 'Failed a floor vote' },
+  'amendment-passage': { l: 'Amendment adopted', b: 'advanced' }, 'concurrence': { l: 'Concurrence', b: 'advanced' },
+  'enrolled': { l: 'Enrolled', b: 'advanced' }, 'executive-receipt': { l: 'Sent to the executive', b: 'advanced' },
+  'executive-signature': { l: 'Signed', b: 'signed' }, 'executive-veto': { l: 'Vetoed' }, 'became-law': { l: 'Became law', b: 'signed' },
+  'veto-override-passage': { l: 'Veto overridden', b: 'advanced' }, 'withdrawal': { l: 'Withdrawn by sponsor' }, 'carried-over': { l: 'Carried over' },
+  'new-text-version': { l: 'New text version' }, 'crs-report': { l: 'CRS report' }, 'cbo-estimate': { l: 'CBO cost estimate' },
+  'executive-order': { l: 'Executive order' }, 'presidential-memo': { l: 'Presidential memorandum' },
+  'agency-rule-proposed': { l: 'Proposed rule' }, 'agency-rule-final': { l: 'Final rule' }, 'agency-guidance': { l: 'Agency guidance' },
+  'comment-period-open': { l: 'Comment period open', b: 'comments' }, 'comment-period-closing': { l: 'Comment period closing', b: 'comments' },
+  'nomination': { l: 'Nomination' }, 'court-filing': { l: 'Court filing' }, 'court-ruling': { l: 'Court ruling' }
+};
+export const NEWS_BUCKETS = [['advanced', 'Bills advanced'], ['signed', 'Signed or became law'], ['hearings', 'Hearings'], ['comments', 'Comment deadlines']];
+export const STAGES = ['Introduced', 'Committee', 'Passed chamber', 'Passed both', 'Signed / Law'];
+const STAGE_KEY = { introduced: 0, introduction: 0, committee: 1, 'passed-chamber': 2, chamber: 2, 'passed-both': 3, both: 3, signed: 4, law: 4, 'signed/law': 4, 'signed-law': 4, enacted: 4 };
+export const isAuto = (n) => !!n && n.origin === 'automated';
+// An automated item is shown only with a known class; hand-written items always.
+export const newsVisible = (n) => !isAuto(n) || !!NEWS_CLASS[n.class];
+// stage: an index 0-4, a key above, or a STAGES label. Anything else: no bar (never guessed).
+export function stageIdx(stage) {
+  if (stage == null || stage === '') return -1;
+  if (typeof stage === 'number') return stage >= 0 && stage <= 4 ? Math.floor(stage) : -1;
+  const s = String(stage).trim().toLowerCase().replace(/[\s_]+/g, '-');
+  const i = STAGES.findIndex((x) => x.toLowerCase().replace(/\s+/g, '-') === s);
+  return i >= 0 ? i : (s in STAGE_KEY ? STAGE_KEY[s] : -1);
+}
+const DAY = 864e5, noonD = (s) => new Date(s + 'T12:00:00');
+// Comment deadline: item.comments_close or item.facts.comments_close (YYYY-MM-DD). Null when the item has none.
+export function commentClose(n) { const c = n.comments_close || (n.facts && n.facts.comments_close); return /^\d{4}-\d{2}-\d{2}$/.test(c || '') ? c : null; }
+export function countdown(n, today) {
+  const c = commentClose(n); if (!c) return null;
+  const t = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12), days = Math.round((noonD(c) - t) / DAY), when = fmt(noonD(c));
+  return { days, closed: days < 0, text: days < 0 ? `Comment period closed ${when}` : days === 0 ? `Comments close today (${when})` : `Comments close in ${days} day${days === 1 ? '' : 's'} · ${when}` };
+}
+// Weekly digest: automated, shown, not-withdrawn items dated in the 7 days ending today. Counts only, never padded.
+export function weekDigest(N, today) {
+  const end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59), start = new Date(end.getTime() - 7 * DAY);
+  const wk = N.filter((n) => isAuto(n) && newsVisible(n) && n.status !== 'withdrawn' && n.d > start && n.d <= end);
+  const counts = NEWS_BUCKETS.map(([k, l]) => ({ k, l, n: wk.filter((n) => NEWS_CLASS[n.class].b === k).length }));
+  return { total: wk.length, counts, from: fmt(new Date(start.getTime() + DAY)), to: fmt(today) };
+}
+// Jurisdiction of an item: its own field if present, else its tracker entry's state (or US for a federal entry).
+export function newsJur(n, byId) {
+  if (n.jurisdiction) return n.jurisdiction;
+  const e = n.entryId ? byId[n.entryId] : null;
+  if (e) return e.st || (e.level === 'federal' ? 'US' : null);
+  return n.kind === 'federal' || n.kind === 'executive' ? 'US' : null;
+}
+// The visible history note of a corrected or withdrawn item: item.history [{at, change, from, to}] (latest last), or item.status_note.
+export function historyNote(n) {
+  if (n.status_note) return String(n.status_note);
+  const h = Array.isArray(n.history) ? n.history[n.history.length - 1] : null;
+  if (!h) return '';
+  const at = h.at ? fmt(new Date(String(h.at).slice(0, 10) + 'T12:00:00')) + ': ' : '';
+  return at + (h.change || '') + (h.from != null && h.to != null ? ` (was “${h.from}”, now “${h.to}”)` : '');
 }
