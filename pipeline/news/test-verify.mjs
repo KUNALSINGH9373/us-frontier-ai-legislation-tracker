@@ -149,7 +149,7 @@ t('confirm: withdrawn record and corrected date never delete', () => {
   assert.equal(r.events.length, 1); assert.equal(r.events[0].status, 'withdrawn'); assert.equal(r.events[0].history.at(-1).to, 'withdrawn');
   const c = ev({ jurisdiction: 'CA', entry_id: 'ca-sb-53-tfaia', class: 'executive-signature', date: '2025-09-28', src: 'legiscan', sid: 'L9', status: 'confirmed' });
   const r2 = applyRun([c], [item({ source: 'legiscan', source_id: 'L9', class: 'executive-signature', date: '2025-09-29' })], { at: AT });
-  assert.equal(r2.events[0].status, 'corrected'); assert.deepEqual(r2.events[0].history[0], { at: AT, change: 'date', from: '2025-09-28', to: '2025-09-29' });
+  assert.equal(r2.events[0].status, 'withdrawn'); assert.deepEqual(r2.events[0].superseded, { field: 'date', to: '2025-09-29' }); // review r3 #2: superseded; the new date is its own event, merged into the card assert.deepEqual(r2.events[0].history[0], { at: AT, change: 'date', from: '2025-09-28', to: '2025-09-29' });
   assert.ok(!showable(r2.events[0]));
 });
 

@@ -84,7 +84,9 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
     const w = measured('news_writer', 'news_writer'), wOk = zeroOf('news_writer')(w) && Number(w.ai_written) > 0;
     const nNote = !n ? 'no news-set report made by the current code (eval/news-set.mjs)' : zero(n) ? null : !complete(n, 'news') ? incomplete(n, 'news') : `the news set has ${n.wrong} wrong of ${n.cases}`;
     const wNote = !w ? 'no news-writer report made by the current code (eval/news-writer-set.mjs)' : wOk ? null : !complete(w, 'news_writer') ? incomplete(w, 'news_writer') : w.wrong ? `the news-writer set has ${w.wrong} wrong of ${w.cases}` : 'the news-writer report has no AI-written card';
-    fields.news = { on: !!auto.news, meets: zero(n) && wOk, report: n ? n.run_at : null, writer_report: w ? w.run_at : null, note: nNote || wNote };
+    // Lane 1's own official-action news must be off before the event model publishes, or both write the same action (review r3 #4)
+    const lane1 = !config || config.news_from_official_actions !== false;
+    fields.news = { on: !!auto.news, meets: zero(n) && wOk && !lane1, report: n ? n.run_at : null, writer_report: w ? w.run_at : null, note: lane1 ? 'news_from_official_actions is on in config/publish.json: Lane 1 already writes official-action news; switch it off before news publishing goes on' : nNote || wNote };
   }
   const violations = Object.entries(fields).filter(([, x]) => x.on && !x.meets).map(([f]) => f);
   return { model: prod, report: latest ? latest.run_at : null, bar, fields, violations };

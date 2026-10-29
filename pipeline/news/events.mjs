@@ -12,12 +12,20 @@ import path from 'path';
 import crypto from 'crypto';
 import { EVENT_CLASSES } from './classify.mjs';
 import { applyRun, showable } from './confirm.mjs';
+import { longDate } from '../agents/derive.mjs';
 import { templateFor, stageOf, nextOf, quoteOf } from './templates.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
+import { sourceConfig } from './sources/common.mjs';
 
-export const STATEMENT_DAYS = 3;
 // Hosts an official record may link to. A raw item whose url is elsewhere is refused.
-export const OFFICIAL_HOSTS = /(^|\.)(congress\.gov|courtlistener\.com|federalregister\.gov|govinfo\.gov|regulations\.gov|whitehouse\.gov|nist\.gov|cbo\.gov|legiscan\.com|[a-z]{2}\.gov|state\.[a-z]{2}\.us|legislature\.[a-z.]+|leg\.[a-z.]+|legis\.[a-z.]+|[a-z]+leg\.gov|[a-z]+legislature\.gov|nysenate\.gov|nyassembly\.gov|capitol\.[a-z.]+|gov)$/i;
+// Hosts an official record may link to, per source, from config/news-sources.json "structured" (review r3 #7: exact hosts, never a
+// pattern): a host matches exactly or as a subdomain. State bill sources (LegiScan, Open States, NY Senate) use the state_legislature list.
+const STATE_SOURCES = new Set(["legiscan", "openstates", "nysenate"]);
+export function hostsFor(source) {
+  const own = sourceConfig(source).hosts || [];
+  return STATE_SOURCES.has(source) ? [...own, ...(sourceConfig("state_legislature").hosts || [])] : own;
+}
+export const hostOk = (h, source) => !!h && hostsFor(source).some((a) => h === a || h.endsWith("." + a));
 const DAY = 864e5;
 const hostOf = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return null; } };
 const dayGap = (a, b) => (Date.parse(b + 'T00:00:00Z') - Date.parse(a + 'T00:00:00Z')) / DAY;
@@ -120,7 +128,7 @@ export function checkItem(it, { now = new Date() } = {}) {
   if (it.date > today) return `date ${it.date} is in the future`;
   if (dayGap(got, it.date) > 1) return `date ${it.date} is more than a day after retrieval (${got})`;
   const h = hostOf(it.url);
-  if (!h || !OFFICIAL_HOSTS.test(h)) return `url host ${h} is not an official source`;
+  if (!hostOk(h, it.source)) return `url host ${h} is not an official host of ${it.source}`;
   return null;
 }
 
@@ -185,7 +193,9 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
     ev.last_seen = at;
     ev.sources = [...sources, ...ev.sources.filter((s) => s.role !== 'official')]; // statements and confirmations stay
     if (ev.status === 'withdrawn') {
-      const to = ev.shown ? 'corrected' : 'pending';
+      // back in the record: confirmed again by the same rules before the page changes; a card already shown stays as it is until then
+      const to = 'pending';
+      if (ev.shown) { ev.last_confirmed = { facts: ev.facts, facts_digest: ev.facts_digest, card: ev.card, status: 'withdrawn' }; ev.pending_correction = true; }
       ev.history.push({ at, change: 'back in the official record', from: 'withdrawn', to });
       ev.status = to; ev.stable_runs = 0; ev.facts = facts; ev.facts_digest = fh; ev.card = null;
       out.restored.push(key);
@@ -193,8 +203,11 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
     }
     if (ev.facts_digest !== fh) {
       ev.history.push({ at, change: 'facts', from: ev.facts, to: facts });
-      ev.facts = facts; ev.facts_digest = fh; ev.card = null;
-      if (ev.status === 'confirmed') { ev.history.push({ at, change: 'status', from: 'confirmed', to: 'corrected' }); ev.status = 'corrected'; out.corrected.push(key); }
+      // a changed official record goes through a new confirmation cycle (review r3 #1): the event is pending again, the page keeps the
+      // last confirmed facts (last_confirmed) until the change is confirmed by the same rules as a new event; then it is 'corrected'
+      if ((ev.status === 'confirmed' || ev.status === 'corrected') && !ev.last_confirmed) ev.last_confirmed = { facts: ev.facts, facts_digest: ev.facts_digest, card: ev.card, status: ev.status };
+      if (ev.status === 'confirmed' || ev.status === 'corrected') { ev.history.push({ at, change: 'status', from: ev.status, to: 'pending', why: 'the official record changed: confirming the change' }); ev.status = 'pending'; ev.pending_correction = true; }
+      ev.facts = facts; ev.facts_digest = fh; ev.card = null; ev.stable_runs = 0; delete ev.facts_hash;
     }
   }
   // The items applyRun compares each event's official record against: this run's, plus a carried copy for an event whose record was not
@@ -202,7 +215,7 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
   const read = new Set(fetched.map((f) => `${f.source}|${f.record}`));
   const runItems = [...good];
   for (const ev of Object.values(state.events)) {
-    if (present.has(ev.key) || ev.status === 'withdrawn' || ev.status === 'corrected') continue;
+    if (present.has(ev.key) || ev.status === 'withdrawn') continue;
     const off = ev.sources.find((s) => s.role === 'official');
     if (!off) continue;
     const base = { source: off.source, source_id: off.source_id, jurisdiction: ev.jurisdiction, entry_id: ev.entry_id, class: ev.class, date: ev.date, url: off.url, title: off.title, retrieved_at: off.retrieved_at };
@@ -214,6 +227,13 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
   state.events = Object.fromEntries(r.events.map((e) => [e.key, e]));
   out.report = r.report;
   for (const e of r.events) {
+    // a changed record now confirmed: corrected, and the page shows the new facts
+    if (e.pending_correction && e.status === 'confirmed') {
+      e.history.push({ at, change: 'status', from: 'confirmed', to: 'corrected', why: 'the change in the official record is confirmed' });
+      e.status = 'corrected'; delete e.pending_correction; delete e.last_confirmed; out.corrected.push(e.key);
+      continue;
+    }
+    if (e.pending_correction && e.status === 'withdrawn') { e.facts = e.last_confirmed.facts; e.facts_digest = e.last_confirmed.facts_digest; delete e.pending_correction; delete e.last_confirmed; } // the page keeps what it showed
     if (before.get(e.key) !== 'confirmed' && e.status === 'confirmed') out.confirmed.push(e.key);
     if (before.get(e.key) !== 'withdrawn' && e.status === 'withdrawn') { out.withdrawn.push(e.key); if (e.card && e.card.written_by === 'ai') e.card = null; }
   }
@@ -223,7 +243,7 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
 // ---------- rendering ----------
 // An event the page may show: a mapped class, a tracked entry, and confirmed or corrected; a withdrawn event only if it was shown before
 // (it then stays, marked withdrawn).
-export const visible = (ev) => !!ev.entry_id && (showable(ev) || ((ev.status === 'corrected' || ev.status === 'withdrawn') && !!ev.shown));
+export const visible = (ev) => !!ev.entry_id && (showable(ev) || ((ev.status === 'corrected' || ev.status === 'withdrawn' || ev.pending_correction) && !!ev.shown));
 
 // The card: the writer's text (news/writer.mjs) when present, else the template. Template fields are always recomputed.
 export function cardFor(ev, entry) {
@@ -279,45 +299,60 @@ const GROUP = { 'executive-signature': ['law', 1], 'became-law': ['law', 2], 'co
 export function groupOf(ev) {
   const g = GROUP[ev.class];
   if (!g) return null;
-  return { name: g[0] === 'hearing' ? `hearing:${(ev.facts && ev.facts.hearing_date) || ev.date}` : g[0], rank: g[1], exact: g[0] === 'hearing' };
+  return { name: g[0] === 'hearing' ? `hearing:${(ev.facts && ev.facts.hearing_date) || ev.date}` : g[0], rank: g[1], exact: g[0] !== 'comment' }; // law and final: no date window (a chapter can follow the signature by weeks, review r3 #5)
 }
 export function sameGroup(a, b) {
   const ga = groupOf(a), gb = groupOf(b);
   if (!ga || !gb || ga.name !== gb.name || a.entry_id !== b.entry_id || a.jurisdiction !== b.jurisdiction) return false;
   return ga.exact || Math.abs(dayGap(a.date, b.date)) <= 1;
 }
-// The event a card shows: the owner, or the highest-ranked showable event merged into it.
+// The event a card shows: the owner, or the highest-ranked showable event merged into it. A withdrawn owner with a showable successor (the
+// same action, re-dated or re-classed in the record: review r3 #2) shows the successor.
 export function displayEvent(ev, state) {
-  const merged = ((ev.merged || []).map((k) => state && state.events[k]).filter((e) => e && showable(e)));
-  return [ev, ...merged].sort((a, b) => ((groupOf(b) || {}).rank || 0) - ((groupOf(a) || {}).rank || 0))[0];
+  const merged = ((ev.merged || []).map((k) => state && state.events[k]).filter((e) => e && (showable(e) || e.status === 'corrected')));
+  const pool = ev.status === 'withdrawn' && merged.length ? merged : [ev, ...merged];
+  return pool.sort((a, b) => ((groupOf(b) || {}).rank || 0) - ((groupOf(a) || {}).rank || 0))[0];
 }
+// While a changed record is being confirmed, the card keeps the facts last confirmed (review r3 #1).
+const shownView = (ev) => (ev.pending_correction && ev.last_confirmed ? { ...ev, facts: ev.last_confirmed.facts, facts_digest: ev.last_confirmed.facts_digest, card: ev.last_confirmed.card, status: ev.last_confirmed.status } : ev);
+const CLASS_WORDS = (c) => String(c).replace(/-/g, ' ');
 
 // One news.json item for one event (backwards compatible; see the contract and the site agent's additions). With state, an event that
 // owns merged events shows the highest-ranked of them, under its own event_key.
 export function renderItem(owner, entry, { at, state = null } = {}) {
-  const ev = owner.status === 'withdrawn' ? owner : displayEvent(owner, state);
+  const disp = displayEvent(owner, state), ev = shownView(disp);
   const card = cardFor(ev, entry);
   if (!card) return null;
   const off = ev.sources.find((s) => s.role === 'official');
-  const statements = [owner, ...(ev === owner ? [] : [ev])].flatMap((e) => e.sources.filter((s) => s.role === 'statement')).map((s) => ({ t: s.title, u: s.url, publisher: s.publisher || null }));
+  const statements = [owner, ...(disp === owner ? [] : [disp])].flatMap((e) => e.sources.filter((s) => s.role === 'statement')).map((s) => ({ t: s.title, u: s.url, publisher: s.publisher || null }));
   const quote = quoteOf(ev.facts).quote;
   const corr = ev.history.filter((h) => h.to === 'corrected' || h.to === 'withdrawn').pop();
   let check = card.written_by === 'ai' ? `From the official record (${off ? off.source : 'official'}): written from its fields by the AI writer, every fact checked by code and a second reader.` : `From the official record (${off ? off.source : 'official'}), written by code from its fields; the official words are quoted as recorded.`;
-  if (ev.status === 'corrected' && corr) check += ` Correction (${fmtDay(corr.at)}): the official record changed after this item was first published; it now reads as above.`;
-  if (ev.status === 'withdrawn' && corr) check += ` Correction (${fmtDay(corr.at)}): the official record no longer shows this action.`;
-  const hist = ev === owner ? owner.history : [...owner.history, ...ev.history.map((h) => ({ ...h, change: `${ev.class}: ${h.change}` }))];
+  let note = null;
+  // the record re-dated or re-classed the action this card was first published for: say exactly what changed
+  const moved = owner.status === 'withdrawn' && disp !== owner && owner.shown;
+  if (moved) {
+    const at2 = fmtDay((owner.history.filter((h) => h.to === 'withdrawn').pop() || { at: disp.first_seen || '' }).at || '');
+    const what = disp.date !== owner.date ? `now dates this ${longDate(disp.date)} (first published as ${longDate(owner.date)})` : disp.class !== owner.class ? `now records this as ${CLASS_WORDS(disp.class)} (first published as ${CLASS_WORDS(owner.class)})` : 'changed this action';
+    check += ` Correction (${at2}): the official record ${what}.`;
+    note = `Corrected: the official record ${what}.`;
+  } else if (ev.status === 'corrected' && corr) { check += ` Correction (${fmtDay(corr.at)}): the official record changed after this item was first published; it now reads as above.`; note = 'Corrected from the official record.'; }
+  else if (ev.status === 'withdrawn' && corr) { check += ` Correction (${fmtDay(corr.at)}): the official record no longer shows this action.`; note = 'The official record no longer shows this action.'; }
+  if (disp.pending_correction && disp.last_confirmed) note = 'The official record has changed; the change is being confirmed and is not shown yet.';
+  const status = moved ? 'corrected' : ev.status;
+  const hist = disp === owner ? owner.history : [...owner.history, ...disp.history.map((h) => ({ ...h, change: `${disp.class}: ${h.change}` }))];
   return {
     date: ev.date, kind: ev.class.startsWith('court-') ? 'litigation' : newsKind(entry),
-    title: ev.status === 'withdrawn' ? `Withdrawn: ${card.headline}`.slice(0, 140) : card.headline, body: card.body,
+    title: status === 'withdrawn' ? `Withdrawn: ${card.headline}`.slice(0, 140) : card.headline, body: card.body,
     links: [{ t: `${entry.short_name || entry.title} — official record`, u: off.url }, ...statements.map((s) => ({ t: s.publisher ? `${s.publisher}: ${s.t}` : s.t, u: s.u }))],
     check, tracker: owner.entry_id, origin: 'automated',
     verification: { method: 'official-record', checked_at: at || ev.last_seen },
     evidence: [{ field: 'body', quote: quote.length >= 8 ? quote : String(off.title || quote), source_url: off.url }],
-    event_key: owner.key, class: ev.class, status: ev.status, jurisdiction: ev.jurisdiction, statements,
+    event_key: owner.key, class: ev.class, status, jurisdiction: ev.jurisdiction, statements,
     ...(stageOf(ev) ? { stage: stageOf(ev) } : {}), next: nextOf(ev),
     ...(ev.facts.comments_close ? { comments_close: ev.facts.comments_close } : {}),
     history: hist.map((h) => ({ at: h.at, change: h.change, ...(typeof h.from === 'string' || h.from === null ? { from: h.from } : {}), ...(typeof h.to === 'string' || h.to === null ? { to: h.to } : {}) })),
-    ...(ev.status === 'corrected' || ev.status === 'withdrawn' ? { status_note: ev.status === 'withdrawn' ? 'The official record no longer shows this action.' : 'Corrected from the official record.' } : {})
+    ...(note ? { status_note: note } : {})
   };
 }
 
@@ -340,26 +375,33 @@ export function renderNews(news, stateIn, entries, { at, maxAgeDays = 14 } = {})
     if (ev) owners.push(ev);
     out.items.push(n);
   }
-  const other = new Set(news.items.filter((n) => !n.event_key && n.tracker).map((n) => `${n.tracker}|${n.date}`));
+  // items written another way (by hand, or Lane 1's official-action news), by entry: an event within a day of one is not added (review r3 #4)
+  const otherItems = news.items.filter((n) => !n.event_key && n.tracker);
+  const nearOther = (ev) => otherItems.some((n) => n.tracker === ev.entry_id && Math.abs(dayGap(n.date, ev.date)) <= 1);
   const onPage = new Set(owners.map((e) => e.key));
   const evs = Object.values(state.events).filter((e) => visible(e) && !onPage.has(e.key) && e.status !== 'withdrawn')
     .sort((a, b) => a.date.localeCompare(b.date) || ((groupOf(a) || {}).rank || 0) - ((groupOf(b) || {}).rank || 0) || a.key.localeCompare(b.key));
-  const thisRun = new Set();
+  // a successor: the same action of the same record, re-dated or re-classed, after the card's own event was withdrawn (review r3 #2)
+  const offOf = (e) => e.sources.find((s) => s.role === 'official') || {};
+  const successorOf = (o, ev) => o.status === 'withdrawn' && o.shown && o.entry_id === ev.entry_id && o.jurisdiction === ev.jurisdiction && offOf(o).source === offOf(ev).source
+    && ((offOf(o).record && offOf(o).record === offOf(ev).record) || offOf(o).source_id === offOf(ev).source_id || (o.superseded && ev[o.superseded.field] === o.superseded.to))
+    && (o.class === ev.class || o.date === ev.date) && ev.first_seen >= (o.first_seen || '');
   for (const ev of evs) {
     const entry = byKey.get(ev.entry_id);
     if (!entry || entry.section === 'J') { held.push({ key: ev.key, why: 'not a tracked entry' }); continue; }
-    const owner = owners.find((o) => o.key !== ev.key && sameGroup(o, ev));
+    const owner = owners.find((o) => o.key !== ev.key && (sameGroup(o, ev) || successorOf(o, ev)));
     if (owner) {
       if (!(owner.merged || []).includes(ev.key)) { owner.merged = [...(owner.merged || []), ev.key]; ev.merged_into = owner.key; }
-      merged.push([ev.key, owner.key]); held.push({ key: ev.key, why: `merged into the card for ${owner.class}` }); continue;
+      merged.push([ev.key, owner.key]); held.push({ key: ev.key, why: successorOf(owner, ev) ? 'the corrected form of a card on the page: merged into it' : `merged into the card for ${owner.class}` }); continue;
     }
     if ((ev.merged_into && state.events[ev.merged_into])) { held.push({ key: ev.key, why: 'merged into another card' }); continue; }
     if (dayGap(ev.date, today) > maxAgeDays) { held.push({ key: ev.key, why: `older than ${maxAgeDays} days: timeline only` }); continue; }
-    if (other.has(`${ev.entry_id}|${ev.date}`)) { held.push({ key: ev.key, why: 'the page already has an item on this entry and date' }); continue; }
-    if (thisRun.has(`${ev.entry_id}|${ev.date}`)) { held.push({ key: ev.key, why: 'another event on this entry and date is added this run' }); continue; }
+    if (nearOther(ev)) { held.push({ key: ev.key, why: 'the page already has an item on this entry within a day' }); continue; }
+    // one card per entry and date, against every event card on the page, not only this run's (review r3 #6)
+    const twin = owners.find((o) => o.key !== ev.key && o.entry_id === ev.entry_id && o.date === ev.date && o.status !== 'withdrawn');
+    if (twin) { held.push({ key: ev.key, why: 'an event card on this entry and date is already on the page' }); continue; }
     const item = renderItem(ev, entry, { at, state });
     if (!item) { held.push({ key: ev.key, why: 'the template needs a fact the record does not give' }); continue; }
-    thisRun.add(`${ev.entry_id}|${ev.date}`);
     out.items.push(item); added.push(ev.key); owners.push(ev);
   }
   // every event card on the page is re-rendered (after merges), in place

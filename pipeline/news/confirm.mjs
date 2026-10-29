@@ -17,7 +17,10 @@ export function confirmersFor({ jurisdiction, class: cls }, official) {
   if (!cls) return [];
   if (BILL_CLASSES.has(cls) && jurisdiction && jurisdiction !== 'US') {
     if (cls === 'crs-report' || cls === 'cbo-estimate') return [];
-    return STATE_LEG.filter((s) => s !== official && (s !== 'nysenate' || jurisdiction === 'NY'));
+    // LegiScan and Open States both copy the legislature's own site, so they are not truly independent (review r3 #9). Where the state's
+    // own legislature API is read (New York: nysenate), it is the confirmer for the aggregators, and they confirm it.
+    if (jurisdiction === 'NY') return official === 'nysenate' ? ['legiscan', 'openstates', 'state_legislature'] : ['nysenate'];
+    return STATE_LEG.filter((s) => s !== official && s !== 'nysenate');
   }
   if (BILL_CLASSES.has(cls) && jurisdiction === 'US') {
     if (official === 'congress_gov' && GOVINFO_CLASSES.has(cls)) return ['govinfo'];
@@ -80,7 +83,7 @@ export function applyRun(events, items, { at = new Date().toISOString(), okSourc
   for (const it of items) byOfficialId.set(`${it.source}|${it.source_id}`, it);
   const out = events.map((ev0) => {
     const ev = { ...ev0, sources: [...(ev0.sources || [])], confirmations: [...(ev0.confirmations || [])], history: [...(ev0.history || [])], disagreements: [] };
-    if (ev.status === 'withdrawn' || ev.status === 'corrected') return ev;
+    if (ev.status === 'withdrawn') return ev; // a corrected event is still checked: it can be withdrawn, disputed or confirmed again (review r3 #1)
     const off = officialOf(ev);
     const cur = byOfficialId.get(`${off.source}|${off.source_id}`);
     // Official record withdrawn, or now says another date/class: never delete, mark it.
@@ -90,8 +93,10 @@ export function applyRun(events, items, { at = new Date().toISOString(), okSourc
     }
     if (cur && (cur.date !== ev.date || cur.class !== ev.class)) {
       const field = cur.date !== ev.date ? 'date' : 'class';
-      ev.history.push({ at, change: field, from: ev[field], to: cur[field] }); ev.history.push({ at, change: 'status', from: ev.status, to: 'corrected' }); ev.status = 'corrected';
-      report.push({ key: ev.key, kind: 'corrected', field, from: ev0[field], to: cur[field], source: off.source }); return ev;
+      // the record now gives another date or class: this event is superseded (withdrawn, with what changed); the new date or class is its own
+      // event, which news/events.mjs renders into the same card with a note saying what changed (review r3 #2)
+      ev.history.push({ at, change: field, from: ev[field], to: cur[field] }); ev.history.push({ at, change: 'status', from: ev.status, to: 'withdrawn', why: `superseded: the record now gives ${field} ${cur[field]}` }); ev.status = 'withdrawn'; ev.superseded = { field, to: cur[field] };
+      report.push({ key: ev.key, kind: 'superseded', field, from: ev0[field], to: cur[field], source: off.source }); return ev;
     }
     // Stable-run counter: official record present and unchanged this run.
     const h = factsHash(ev);
@@ -116,6 +121,7 @@ export function applyRun(events, items, { at = new Date().toISOString(), okSourc
     else if (allowed.length) next = ev.confirmations.some((c) => allowed.includes(c)) ? 'confirmed' : 'pending';
     else next = (ev.stable_runs || 0) >= STABLE_RUNS ? 'confirmed' : 'pending';
     if (ev.disagreements.length) report.push({ key: ev.key, kind: 'disagreement', details: ev.disagreements });
+    if (ev.status === 'corrected' && next === 'confirmed') next = 'corrected'; // re-confirmed after a correction: stays corrected
     if (next !== ev.status) { ev.history.push({ at, change: 'status', from: ev.status, to: next }); if (next === 'confirmed') report.push({ key: ev.key, kind: 'confirmed', by: allowed.length ? ev.confirmations : `${STABLE_RUNS} stable runs` }); }
     ev.status = next;
     if (!ev.disagreements.length) delete ev.disagreements;

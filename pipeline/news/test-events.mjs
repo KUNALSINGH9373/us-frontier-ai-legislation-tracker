@@ -85,7 +85,7 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   ok('3 the record read again in full no longer shows the referral: withdrawn, with history, not deleted', c.withdrawn.includes(refKey) && s.events[refKey].status === 'withdrawn' && s.events[refKey].history.some((h) => h.to === 'withdrawn'));
   ok('3 a withdrawn event that was shown stays visible (as a correction)', visible(s.events[refKey]));
   await run([HR], new Date('2026-10-28T08:00:00Z'), 'r4');
-  ok('3 back in the record: restored as corrected (it had been shown), history kept', s.events[refKey].status === 'corrected' && s.events[refKey].history.some((h) => h.change === 'back in the official record'));
+  ok('3 back in the record: pending again (the shown card stays withdrawn until the return is confirmed), history kept', s.events[refKey].status === 'pending' && s.events[refKey].pending_correction && s.events[refKey].history.some((h) => h.change === 'back in the official record'));
   // a fact correction on a confirmed event
   const sc = emptyState();
   const it = { source: 'congress_gov', source_id: 'x#1', record: 'x', jurisdiction: 'US', entry_id: HR.entry_key, class: 'passage', date: '2026-10-20', facts: { action: 'Passed House by recorded vote: 300 - 100.', chamber: 'House', vote: { yes: 300, no: 100 } }, url: 'https://www.congress.gov/bill/1', title: 't', retrieved_at: '2026-10-21T00:00:00Z' };
@@ -94,7 +94,7 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   ok('3 (setup) confirmed after two runs', sc.events[k].status === 'confirmed');
   const fixed = { ...it, facts: { ...it.facts, action: 'Passed House by recorded vote: 301 - 99.', vote: { yes: 301, no: 99 } } };
   const r = upsertItems(sc, [fixed], { runId: 'c', now: new Date('2026-10-22T06:00:00Z') });
-  ok('3 the official vote changed: corrected, old and new facts in history, never deleted', r.corrected.includes(k) && sc.events[k].status === 'corrected' && sc.events[k].history.some((h) => h.change === 'facts' && h.from.vote.yes === 300 && h.to.vote.yes === 301));
+  ok('3 the official vote changed: pending again (a new confirmation cycle), old and new facts in history, never deleted', !r.corrected.includes(k) && sc.events[k].status === 'pending' && sc.events[k].pending_correction && sc.events[k].last_confirmed.facts.vote.yes === 300 && sc.events[k].history.some((h) => h.change === 'facts' && h.from.vote.yes === 300 && h.to.vote.yes === 301));
   ok('3 a corrected event that was never shown is not put on the page', !visible(sc.events[k]));
   // facts.withdrawn from an adapter (Open States / NY Senate style)
   const sw = emptyState();
@@ -296,6 +296,58 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const r11 = renderNews(NEWS, s11, ENTRIES, { at: '2026-10-29T06:00:00Z' });
   ok('r2#11 a confirmed event older than 14 days is not published on switch-on (timeline only)', r11.added.length === 0 && r11.held.some((h) => /older than 14 days/.test(h.why)));
   fs.rmSync(tmp, { recursive: true, force: true });
+}
+
+// ---------- 9. review r3 ----------
+{
+  const E = HR.entry_key, URL = 'https://www.congress.gov/bill/119th-congress/house-bill/3460';
+  const item = (o) => ({ source: 'congress_gov', record: 'hr3460', jurisdiction: 'US', entry_id: E, url: URL, title: 'AI Whistleblower Protection Act', ...o });
+  const day = (d, h) => new Date(`${d}T${String(h).padStart(2, '0')}:00:00Z`);
+  // runs: [{ now, items, fetched? }] -> the page after each run (published whenever something renders)
+  const play = (runs, page0 = NEWS) => {
+    const s = emptyState(); let page = page0; const pages = [];
+    for (const [i, r] of runs.entries()) {
+      upsertItems(s, r.items, { runId: `r${i}`, now: r.now, fetched: r.fetched || [] });
+      const out = renderNews(page, s, ENTRIES, { at: r.now.toISOString() });
+      if (checkNewsEvents({ before: { news: page, entries: ENTRIES }, after: { news: out.news, entries: ENTRIES }, state: out.state, entries: ENTRIES }).length) throw new Error('stop rules failed');
+      s.events = out.state.events; markShown(s, out.added, r.now.toISOString()); page = out.news; pages.push(page.items.filter((n) => n.event_key && n.tracker === E));
+    }
+    return { s, pages };
+  };
+  // #1 a changed vote waits for confirmation
+  const p300 = item({ source_id: 'hr3460#2026-10-20#a', class: 'passage', date: '2026-10-20', facts: { action: 'On passage Passed by the Yeas and Nays: 300 - 100.', chamber: 'House', vote: { yes: 300, no: 100 } }, retrieved_at: '2026-10-20T20:00:00Z' });
+  const p100 = { ...p300, facts: { ...p300.facts, action: 'On passage Passed by the Yeas and Nays: 100 - 300.', vote: { yes: 100, no: 300 } } };
+  const a = play([{ now: day('2026-10-21', 6), items: [p300] }, { now: day('2026-10-21', 10), items: [p300] }, { now: day('2026-10-22', 6), items: [p100] }, { now: day('2026-10-22', 10), items: [p100] }, { now: day('2026-10-23', 6), items: [p100] }]);
+  ok('r3#1 (setup) the 300-100 passage is published', a.pages[1].length === 1 && /300 - 100/.test(a.pages[1][0].body));
+  ok('r3#1 the record changes to 100-300: the card still shows 300-100, with an "under review" note and no new facts', a.pages[2].length === 1 && /300 - 100/.test(a.pages[2][0].body) && !/100 - 300/.test(JSON.stringify(a.pages[2][0])) && /being confirmed/.test(a.pages[2][0].status_note));
+  ok('r3#1 confirmed by the same rules (two stable runs): then corrected, showing 100-300', a.pages[4].length === 1 && /100 - 300/.test(a.pages[4][0].body) && a.pages[4][0].status === 'corrected' && /Correction/.test(a.pages[4][0].check));
+  // #2 a re-dated action: one card, with a note saying what changed
+  const r20 = item({ source_id: 'hr3460#2026-10-20#r', class: 'referral-committee', date: '2026-10-20', facts: { action: 'Referred to the House Committee on Education and Workforce.' }, retrieved_at: '2026-10-20T20:00:00Z' });
+  const r19 = { ...r20, source_id: 'hr3460#2026-10-19#r', date: '2026-10-19' };
+  const F = [{ source: 'congress_gov', record: 'hr3460' }];
+  const b = play([{ now: day('2026-10-21', 6), items: [r20], fetched: F }, { now: day('2026-10-21', 10), items: [r20], fetched: F }, { now: day('2026-10-22', 6), items: [r19], fetched: F }, { now: day('2026-10-22', 10), items: [r19], fetched: F }]);
+  ok('r3#2 the record re-dates the referral: still one card, now Oct 19, saying what changed (no "it now reads as above")', b.pages[3].length === 1 && b.pages[3][0].date === '2026-10-19' && /now dates this Oct 19, 2026 \(first published as Oct 20, 2026\)/.test(b.pages[3][0].check) && !/reads as above/.test(b.pages[3][0].check) && b.pages[3][0].status === 'corrected', JSON.stringify(b.pages.map((p) => p.map((n) => [n.date, n.status, n.check]))));
+  ok('r3#2 until the new date is confirmed, the card is the withdrawn one (never two cards)', b.pages[2].length === 1 && b.pages[2][0].status === 'withdrawn');
+  // #4 Lane 1's item a day earlier: no second card
+  const lane1 = { ...NEWS, items: [...NEWS.items, { date: '2026-10-19', kind: 'federal', title: 'S. 1792 / H.R. 3460: Passed House', body: 'Congress.gov records this action on the bill: "Passed House" (Oct 19, 2026).', links: [{ t: 'x', u: URL }], tracker: E, origin: 'automated', verification: { method: 'agent', checked_at: '2026-10-19T00:00:00Z' }, evidence: [{ field: 'body', quote: 'Passed House', source_url: URL }] }] };
+  const c = play([{ now: day('2026-10-21', 6), items: [p300] }, { now: day('2026-10-21', 10), items: [p300] }], lane1);
+  ok('r3#4 an item written by Lane 1 a day before the event: no second card', c.pages[1].length === 0);
+  // #5 signature, then the law weeks later: one card
+  const sig = item({ source_id: 'hr3460#sig', class: 'executive-signature', date: '2026-09-25', facts: { action: 'Signed by President.' }, retrieved_at: '2026-09-25T20:00:00Z' });
+  const law = item({ source_id: 'hr3460#law', class: 'became-law', date: '2026-10-16', facts: { action: 'Became Public Law No: 119-77.' }, retrieved_at: '2026-10-16T20:00:00Z' });
+  const gi = { source: 'govinfo', source_id: 'PLAW-119publ77', jurisdiction: 'US', entry_id: E, class: 'became-law', date: '2026-10-17', facts: { role: 'confirmation', public_law: '119-77' }, url: 'https://www.govinfo.gov/app/details/PLAW-119publ77', title: 'Public Law 119-77', retrieved_at: '2026-10-17T05:00:00Z' };
+  const d = play([{ now: day('2026-09-26', 6), items: [sig] }, { now: day('2026-09-26', 10), items: [sig] }, { now: day('2026-10-17', 6), items: [law, gi] }, { now: day('2026-10-17', 10), items: [law] }]);
+  ok('r3#5 a public law three weeks after the signature: merged into the one card, no window', d.pages[3].length === 1 && d.pages[3][0].class === 'became-law', JSON.stringify(d.pages.map((p) => p.map((n) => n.class))));
+  // #6 held for sharing entry and date: still held on the next run
+  const intro = item({ source_id: 'hr3460#i', class: 'hearing-held', date: '2026-10-20', facts: { action: 'Committee on Education and Workforce. Hearings held.' }, retrieved_at: '2026-10-20T20:00:00Z' });
+  const e = play([{ now: day('2026-10-21', 6), items: [p300, intro] }, { now: day('2026-10-21', 10), items: [p300, intro] }, { now: day('2026-10-22', 6), items: [p300, intro] }, { now: day('2026-10-22', 10), items: [p300, intro] }]);
+  ok('r3#6 a second event on the same entry and date stays held on later runs (checked against the page, not only the run)', e.pages.every((p) => p.length <= 1));
+  // #7 exact hosts
+  const now = day('2026-10-21', 6);
+  ok('r3#7 legislature.attacker.com and any .gov are refused; the source\'s own hosts are accepted', /not an official host/.test(checkItem({ ...p300, source: 'legiscan', url: 'https://legislature.attacker.com/x' }, { now })) && /not an official host/.test(checkItem({ ...p300, url: 'https://evil.gov/x' }, { now })) && /not an official host/.test(checkItem({ ...p300, url: 'https://congress.gov.attacker.com/x' }, { now })) && checkItem(p300, { now }) === null && checkItem({ ...p300, source: 'legiscan', url: 'https://leginfo.legislature.ca.gov/x' }, { now }) === null);
+  // #9 New York: the legislature's own API confirms the aggregators
+  const { confirmersFor } = await import('./confirm.mjs');
+  ok('r3#9 New York state bills: nysenate confirms LegiScan / Open States, and they confirm it; elsewhere nysenate is never a confirmer', JSON.stringify(confirmersFor({ jurisdiction: 'NY', class: 'passage' }, 'legiscan')) === '["nysenate"]' && confirmersFor({ jurisdiction: 'NY', class: 'passage' }, 'nysenate').includes('legiscan') && !confirmersFor({ jurisdiction: 'CA', class: 'passage' }, 'legiscan').includes('nysenate'));
 }
 
 console.log(`news events: ${pass} passed, ${fail} failed`);

@@ -32,7 +32,8 @@
      "status": "confirmed",
      "links": [
       "https://www.congress.gov/bill/119th-congress/house-bill/3460"
-     ]
+     ],
+     "status_note": null
     }
    ]
   },
@@ -155,7 +156,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ]
   },
@@ -182,7 +184,8 @@
      "status": "confirmed",
      "links": [
       "https://www.courtlistener.com/docket/73171074/"
-     ]
+     ],
+     "status_note": null
     },
     {
      "event_key": "US|fl-anthropic-v-department-of-war-n-d-cal|court-ruling|2026-08-27",
@@ -191,7 +194,8 @@
      "status": "confirmed",
      "links": [
       "https://www.courtlistener.com/docket/72379655/"
-     ]
+     ],
+     "status_note": null
     }
    ]
   },
@@ -232,7 +236,8 @@
      "status": "withdrawn",
      "links": [
       "https://www.congress.gov/bill/119th-congress/house-bill/3460"
-     ]
+     ],
+     "status_note": "The official record no longer shows this action."
     }
    ]
   },
@@ -277,7 +282,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -358,7 +364,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -456,7 +463,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -545,7 +553,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -626,7 +635,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -708,7 +718,8 @@
      "status": "confirmed",
      "links": [
       "https://www.federalregister.gov/d/2026-22002"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [],
@@ -800,31 +811,22 @@
    ]
   },
   {
-   "id": "group-different-days-not-merged",
+   "id": "group-law-ten-days-after-signature",
    "r2": true,
-   "note": "Signature and chaptering ten days apart are separate events: two cards.",
+   "note": "Signature and chaptering ten days apart: still one card per entry for the law group (no date window, review r3 #5).",
    "intent": [
-    "executive-signature",
     "became-law"
    ],
    "expect": [
     {
      "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-05",
-     "title": "Governor signs CA AB 1405 (auditor registry)",
-     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 5, 2026: \"Approved by the Governor\".",
-     "status": "confirmed",
-     "links": [
-      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
-    },
-    {
-     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-10-15",
      "title": "CA AB 1405 (auditor registry) becomes law",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 15, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -905,7 +907,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -966,7 +969,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -1342,7 +1346,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -1926,7 +1931,8 @@
      "status": "confirmed",
      "links": [
       "https://www.federalregister.gov/d/2026-21001"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [],
@@ -2109,7 +2115,8 @@
      "status": "confirmed",
      "links": [
       "https://www.federalregister.gov/d/2026-21001"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [],
@@ -2181,7 +2188,8 @@
      "status": "confirmed",
      "links": [
       "https://www.congress.gov/bill/119th-congress/house-bill/3460"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [],
@@ -2293,7 +2301,8 @@
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
       "https://gov.ca.gov/2026/10/21/governor-signs-ab-1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -2374,7 +2383,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     },
     {
      "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20",
@@ -2383,7 +2393,8 @@
      "status": "confirmed",
      "links": [
       "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
-     ]
+     ],
+     "status_note": null
     }
    ],
    "records": [
@@ -2569,6 +2580,1023 @@
        "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
        "title": "AB 1405",
        "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-vote-change-held",
+   "r3": true,
+   "note": "A published 300-100 passage; the record then says 100-300: the card keeps 300-100 with an \"under review\" note.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 300 - 100\". The recorded vote was 300 to 100.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "The official record has changed; the change is being confirmed and is not shown yet."
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-vote-change-confirmed",
+   "r3": true,
+   "note": "The same change, confirmed over two stable runs: then the card is corrected to 100-300.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 100 - 300\". The recorded vote was 100 to 300.",
+     "status": "corrected",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "Corrected from the official record."
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T10:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-23T06:00:00Z",
+     "run_id": "e",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-redated-referral",
+   "r3": true,
+   "note": "The stored H.R. 3460 record, referral published; the record then re-dates the referral a day earlier: one card, with the new date and a note saying what changed.",
+   "intent": [
+    "referral-committee"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 14, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "corrected",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "Corrected: the official record now dates this May 14, 2025 (first published as May 15, 2025)."
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "a"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "b",
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "c",
+     "redate": [
+      {
+       "match": "^Referred to the House Committee",
+       "date": "2025-05-14"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T12:00:00Z",
+     "run_id": "d",
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-redated-not-yet-confirmed",
+   "r3": true,
+   "note": "The re-dated referral before the new date is confirmed: the card is the withdrawn one, never a second card.",
+   "intent": [
+    "referral-committee"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15",
+     "title": "Withdrawn: S. 1792 / H.R. 3460 AI Whistleblower Protection Act referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "withdrawn",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "The official record no longer shows this action."
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "a"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "b",
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "c",
+     "redate": [
+      {
+       "match": "^Referred to the House Committee",
+       "date": "2025-05-14"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-lane1-day-before",
+   "r3": true,
+   "note": "Lane 1 already wrote this passage on the page dated a day earlier: no second card.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "page_add": [
+    {
+     "date": "2026-10-19",
+     "kind": "federal",
+     "title": "S. 1792 / H.R. 3460: Passed House",
+     "body": "Congress.gov records this action on the bill: \"Passed House\" (Oct 19, 2026).",
+     "links": [
+      {
+       "t": "Congress.gov",
+       "u": "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+      }
+     ],
+     "tracker": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "origin": "automated",
+     "verification": {
+      "method": "agent",
+      "checked_at": "2026-10-19T00:00:00Z"
+     },
+     "evidence": [
+      {
+       "field": "body",
+       "quote": "Passed House",
+       "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-law-weeks-after-signature",
+   "r3": true,
+   "note": "Signature published; the public law three weeks later: merged into the one card.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|executive-signature|2026-09-25",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act becomes law",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 16, 2026: \"Became Public Law No: 119-77\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "since_days": 800,
+   "runs": [
+    {
+     "now": "2026-09-26T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#sig",
+       "class": "executive-signature",
+       "date": "2026-09-25",
+       "facts": {
+        "action": "Signed by President."
+       },
+       "retrieved_at": "2026-09-25T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-09-26T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#sig",
+       "class": "executive-signature",
+       "date": "2026-09-25",
+       "facts": {
+        "action": "Signed by President."
+       },
+       "retrieved_at": "2026-09-25T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-17T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#law",
+       "class": "became-law",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Became Public Law No: 119-77."
+       },
+       "retrieved_at": "2026-10-16T20:00:00Z"
+      },
+      {
+       "source": "govinfo",
+       "source_id": "PLAW-119publ77",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-17",
+       "facts": {
+        "role": "confirmation",
+        "public_law": "119-77"
+       },
+       "url": "https://www.govinfo.gov/app/details/PLAW-119publ77",
+       "title": "Public Law 119-77",
+       "retrieved_at": "2026-10-17T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-17T10:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#law",
+       "class": "became-law",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Became Public Law No: 119-77."
+       },
+       "retrieved_at": "2026-10-16T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-same-day-held-next-run",
+   "r3": true,
+   "note": "A hearing and a passage on one day: one card, and the other stays held on later runs.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 300 - 100\". The recorded vote was 300 to 100.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T10:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-host-attacker",
+   "r3": true,
+   "note": "A record linking to legislature.attacker.com, or to an unrelated .gov: refused, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://legislature.attacker.com/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://evil.gov/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "x2",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://legislature.attacker.com/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://evil.gov/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "x2",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-ny-aggregators-not-enough",
+   "r3": true,
+   "note": "New York: LegiScan and Open States agree, but neither is independent of the other: not confirmed without the NY Senate record.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-06-11T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-06-11T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-ny-confirmed-by-nysenate",
+   "r3": true,
+   "note": "New York: the NY Senate API record confirms the LegiScan passage.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10",
+     "title": "NY RAISE Act (Ch. 699 → Ch. 96) passes the Senate",
+     "body": "The NY Legislature's record shows this action on RAISE Act — Chapter 699 of 2025 (S.6953-B/A.6453-B), repealed and replaced by Chapter 96 of 2026 (S.8828/A.9449) on June 10, 2026: \"PASSED SENATE\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.nysenate.gov/legislation/bills/2025/S6953"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-06-11T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      },
+      {
+       "source": "nysenate",
+       "source_id": "nys1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
       }
      ]
     }

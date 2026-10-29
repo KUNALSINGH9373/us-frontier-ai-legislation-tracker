@@ -19,7 +19,10 @@
    "cadence_hours": 24
   },
   "congress_gov": {
-   "cadence_hours": 24
+   "cadence_hours": 24,
+   "hosts": [
+    "congress.gov"
+   ]
   },
   "govinfo": {
    "cadence_hours": 24,
@@ -75,7 +78,10 @@
    "verified_at": "2026-10-29"
   },
   "courtlistener": {
-   "cadence_hours": 72
+   "cadence_hours": 72,
+   "hosts": [
+    "courtlistener.com"
+   ]
   },
   "congress_extra": {
    "endpoint": "https://api.congress.gov/v3/{committee-meeting,crsreport,nomination}",
@@ -123,6 +129,73 @@
    "max_silence_days": null,
    "verified_at": "2026-10-29",
    "cadence_hours": 24
+  },
+  "state_legislature": {
+   "_note": "Hosts a state bill record may link to (LegiScan state_link, Open States, NY Senate): each legislature's own site, matched exactly or as a subdomain (news/events.mjs hostsFor). legiscan.com is LegiScan's own page, used only when a bill has no state link.",
+   "hosts": [
+    "akleg.gov",
+    "legislature.state.al.us",
+    "arkleg.state.ar.us",
+    "azleg.gov",
+    "leginfo.legislature.ca.gov",
+    "leg.colorado.gov",
+    "cga.ct.gov",
+    "legis.delaware.gov",
+    "flsenate.gov",
+    "myfloridahouse.gov",
+    "legis.ga.gov",
+    "capitol.hawaii.gov",
+    "legislature.idaho.gov",
+    "ilga.gov",
+    "iga.in.gov",
+    "legis.iowa.gov",
+    "kslegislature.gov",
+    "kslegislature.org",
+    "legislature.ky.gov",
+    "legis.la.gov",
+    "legislature.maine.gov",
+    "mgaleg.maryland.gov",
+    "malegislature.gov",
+    "legislature.mi.gov",
+    "revisor.mn.gov",
+    "house.mn.gov",
+    "senate.mn",
+    "ls.state.ms.us",
+    "house.mo.gov",
+    "senate.mo.gov",
+    "leg.mt.gov",
+    "nebraskalegislature.gov",
+    "leg.state.nv.us",
+    "gc.nh.gov",
+    "njleg.state.nj.us",
+    "njleg.gov",
+    "nmlegis.gov",
+    "nysenate.gov",
+    "nyassembly.gov",
+    "assembly.state.ny.us",
+    "ncleg.gov",
+    "ndlegis.gov",
+    "legislature.ohio.gov",
+    "oklegislature.gov",
+    "oregonlegislature.gov",
+    "palegis.us",
+    "legis.state.pa.us",
+    "rilegislature.gov",
+    "scstatehouse.gov",
+    "sdlegislature.gov",
+    "capitol.tn.gov",
+    "capitol.texas.gov",
+    "senate.texas.gov",
+    "le.utah.gov",
+    "legislature.vermont.gov",
+    "lis.virginia.gov",
+    "leg.wa.gov",
+    "wvlegislature.gov",
+    "legis.wisconsin.gov",
+    "wyoleg.gov",
+    "dccouncil.gov",
+    "legiscan.com"
+   ]
   }
  },
  "sources": [
