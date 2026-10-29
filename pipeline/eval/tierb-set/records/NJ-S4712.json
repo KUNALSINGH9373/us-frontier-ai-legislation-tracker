@@ -1,0 +1,217 @@
+{
+ "item": {
+  "item_id": "legiscan:2159390",
+  "source": "legiscan",
+  "source_id": "2159390",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4712",
+  "raw_hash": "4d382263da98f287b73ec946ab09726efe2a52a12e19ccd9e68225d14fc0e3c8",
+  "raw_path": "raw/legiscan/NJ-S4712-2159390.json",
+  "title": "NJ S4712: Imposes 10 percent tax on computer processing for certain artificial intelligence systems and dedicates revenue to \"AI Workforce Impact Transition Fund.\"",
+  "from_run": "run-20261013-0540-2bcb"
+ },
+ "raw": {
+  "id": "2159390",
+  "search_hit": {
+   "relevance": 7,
+   "state": "NJ",
+   "bill_number": "S4712",
+   "last_action": "Introduced in the Senate, Referred to Senate Economic Growth Committee",
+   "last_action_date": "2026-10-01"
+  },
+  "bill": {
+   "bill_id": 2159390,
+   "change_hash": "dc22b5dc0228bbc57d04de71920c6bc9",
+   "session_id": 2250,
+   "session": {
+    "session_id": 2250,
+    "state_id": 30,
+    "year_start": 2026,
+    "year_end": 2027,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2026-2027 Regular Session",
+    "session_name": "2026-2027 Regular Session"
+   },
+   "url": "https://legiscan.com/NJ/bill/S4712/2026",
+   "state_link": "https://www.njleg.state.nj.us/bill-search/2026/S4712",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-10-01",
+   "progress": [
+    {
+     "date": "2026-10-01",
+     "event": 1
+    },
+    {
+     "date": "2026-10-01",
+     "event": 9
+    }
+   ],
+   "state": "NJ",
+   "state_id": 30,
+   "bill_number": "S4712",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "S",
+   "body_id": 70,
+   "current_body": "S",
+   "current_body_id": 70,
+   "title": "Imposes 10 percent tax on computer processing for certain artificial intelligence systems and dedicates revenue to \"AI Workforce Impact Transition Fund.\"",
+   "description": "Imposes 10 percent tax on computer processing for certain artificial intelligence systems and dedicates revenue to \"AI Workforce Impact Transition Fund.\"",
+   "pending_committee_id": 876,
+   "committee": {
+    "committee_id": 876,
+    "chamber": "S",
+    "chamber_id": 70,
+    "name": "Economic Growth"
+   },
+   "referrals": [
+    {
+     "date": "2026-10-01",
+     "committee_id": 876,
+     "chamber": "S",
+     "chamber_id": 70,
+     "name": "Economic Growth"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-10-01",
+     "action": "Introduced in the Senate, Referred to Senate Economic Growth Committee",
+     "chamber": "S",
+     "chamber_id": 70,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 3209,
+     "person_hash": "kbumyvp2",
+     "party_id": "1",
+     "state_id": 30,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Shirley Turner",
+     "first_name": "Shirley",
+     "middle_name": "K.",
+     "last_name": "Turner",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-015",
+     "ftm_eid": 6389447,
+     "votesmart_id": 4452,
+     "opensecrets_id": "",
+     "knowwho_pid": 197312,
+     "ballotpedia": "Shirley_Turner",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "609-847-3905",
+       "district_phone": "609-323-7239",
+       "email": "SenTurner@njleg.org",
+       "webmail": "https://nj-15-senate.web.fireside21.app/forms/writeyourrep/?to=Senator%20Shirley%20K.%20Turner\r\n",
+       "biography": "https://www.njleg.state.nj.us/legislative-roster/47/senator-turner",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Shirley_Turner",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/4452"
+      },
+      "capitol_address": {
+       "address1": "125 West State St",
+       "address2": "",
+       "city": "Trenton",
+       "state": "NJ",
+       "zip": "08625"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/NJSenatorTurner/",
+        "instagram": "https://www.instagram.com/njsenturner/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/NJSenTurner",
+        "website": "https://www.njleg.state.nj.us/legislative-roster/47/senator-turner",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/shirley.k.turner.7",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/shirley-turner-b7a55540/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [
+    {
+     "subject_id": 2638,
+     "subject_name": "Economic Growth"
+    }
+   ],
+   "texts": [
+    {
+     "doc_id": 3461436,
+     "date": "2026-10-02",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/NJ/text/S4712/id/3461436",
+     "state_link": "https://pub.njleg.gov/Bills/2026/S5000/4712_I1.HTM",
+     "text_size": 38590,
+     "text_hash": "7021834d6d760a288ad4f09d28dc1cf8",
+     "alt_bill_text": 1,
+     "alt_mime": "application/pdf",
+     "alt_mime_id": 2,
+     "alt_state_link": "https://pub.njleg.gov/Bills/2026/S5000/4712_I1.PDF",
+     "alt_text_size": 217875,
+     "alt_text_hash": "f69807db13e7883f1b1ec6624a9f0c1c"
+    }
+   ],
+   "votes": [],
+   "amendments": [],
+   "supplements": [],
+   "calendar": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-10-01",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Introduced in the Senate, Referred to Senate Economic Growth Committee",
+     "chamber": "S"
+    }
+   ]
+  },
+  "text": "SENATE, No. 4712 \r\n\r\nSTATE OF NEW JERSEY\r\n\r\n222nd LEGISLATURE\r\n\r\n\r\n\r\nINTRODUCED OCTOBER 1, 2026\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nSponsored by:\r\n\r\nSenator SHIRLEY K. TURNER\r\n\r\nDistrict 15 (Hunterdon and Mercer)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nSYNOPSIS\r\n\r\nImposes 10 percent tax on computer processing for\r\ncertain artificial intelligence systems and dedicates revenue to \"AI Workforce\r\nImpact Transition Fund.\" \r\n\r\n\r\n\r\nCURRENT VERSION OF TEXT \r\n\r\nAs introduced.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nAn Act imposing a tax on AI computer processing, dedicating\r\nrevenues to the support of individuals displaced from their jobs due to\r\nartificial intelligence, and supplementing Titles 34 and 54 of the Revised\r\nStatutes.\r\n\r\n\r\n\r\nBe It\r\nEnacted by the Senate and General Assembly of\r\nthe State of New Jersey:\r\n\r\n\r\n\r\n1. As used in sections 1 through\r\n3 of P.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill):\r\n\r\n\"AI computer processing\" means\r\nthe performance of computer processing services for use in AI system services\r\nby a qualified AI business.\r\n\r\n\"AI computer processor\" means a\r\nperson, including a contracted processor or controlled processor, performing AI\r\ncomputer processing.\r\n\r\n\"AI system development\" means the\r\ndevelopment, training, and refinement of an AI system, including, but not\r\nlimited to, the design and training of an AI system that is, or is intended to\r\nbe, commercially available and intended, in whole or in part, for business uses\r\nwithin the State.\r\n\r\n\"AI system operation\" means the\r\noperation, maintenance, or modification of an AI system that is commercially\r\navailable and intended, in whole or in part, for business uses within the State.\r\n\r\n\"AI system services\" means services\r\nrelated to AI system development or AI system operation.\r\n\r\n\"Artificial intelligence\r\nsystem\" or \"AI system\" means any machine-based system that processes inputs\r\nusing algorithms, statistical models, or neural networks to generate outputs\r\nsuch as predictions, recommendations, decisions, or content that materially\r\ninfluence or replace human judgment in performing a job function. \"AI system\"\r\nincludes machine learning systems, large language models, generative artificial\r\nintelligence tools, robotic process automation systems, and automated\r\ndecision-making platforms. \"AI system\" does not include general-purpose\r\nsoftware, standard database management systems, or basic rule-based automation\r\nthat does not incorporate learning or adaptive capabilities.\r\n\r\n\"Contracted processor\" means an\r\nAI computer processor, other than a controlled processor, that performs AI\r\ncomputer processing for use by a qualified AI business in exchange for the\r\npayment of consideration.\r\n\r\n\"Controlled processor\" means an\r\nAI computer processor owned and operated by a qualified AI business, including\r\nany affiliate or subsidiary thereof, which AI computer processor performs AI\r\ncomputer processing for use by the qualified AI business.\r\n\r\n\"Director\" means the Director\r\nof the Division of Taxation.\r\n\r\n\"Division\" means the Division\r\nof Taxation in the Department of the Treasury.\r\n\r\n\"Person\" means an individual,\r\nbusiness, or other entity.\r\n\r\n\"Qualified AI business\" means\r\na person engaged in AI system services.\r\n\r\n\"Token\" is a specific unit of\r\ncomputer processing calculated independently by each service provider, which unit\r\nis uniquely identifiable to the type of computer processing generated and which\r\nunit may: be identified as query processing, model-processing, input-output\r\nprocessing, or another technical classification; generate a specific billing\r\nbased on computer processing services; and be measured in floating-point\r\noperations per second.\r\n\r\n\r\n\r\n2. a. (1) There is imposed\r\na tax in the amount of 10 percent of the value generated by AI computer\r\nprocessing performed: by any AI computer processor that is located in the\r\nState; or for use by a qualified AI business engaged in AI system services. \r\nThe tax imposed pursuant to this section shall be paid by the AI computer\r\nprocessor that performs the AI computer processing.\r\n\r\n(2) For the purposes of\r\ndetermining the tax imposed pursuant to this section, the value generated by AI\r\ncomputer processing shall be equal to the market value of the tokens required\r\nto perform the AI computer processing, as calculated using the following\r\nmethods:\r\n\r\n(a) if the AI computer\r\nprocessing is performed by a contracted processor, the value generated by AI\r\ncomputer processing shall equal the number of tokens required to perform the AI\r\ncomputer processing, multiplied by the billing rate per token charged by the AI\r\ncomputer processor; or\r\n\r\n(b) if the AI computer\r\nprocessing is performed by a controlled processor, the value generated by AI\r\ncomputer processing shall be calculated pursuant to a method of calculation\r\napproved by the division for the respective AI computer processor.\r\n\r\n(3) Notwithstanding any\r\nprovision of this subsection to the contrary, when AI computer processing is\r\nperformed by an AI computer processor located outside the State for a qualified\r\nAI business, the amount of tax otherwise imposed pursuant to this section shall\r\nbe apportioned on the basis of the percentage of the value generated by AI\r\ncomputer processing for the qualified AI business that is attributable to AI\r\nsystem services used for or intended for business uses within the State.\r\n\r\nb. (1) The Director of the\r\nDivision of Taxation shall collect and administer the tax imposed pursuant to\r\nthis section. In carrying out the provisions of this section, the director\r\nshall have all powers and authority granted in P.L.1966, c.30 (C.54:32B-1 et\r\nseq.). The tax shall be reported and paid to the director on a quarterly basis\r\nin a manner prescribed by the director.\r\n\r\n(2) As applicable, each\r\nperson responsible for calculation and payment of the tax imposed, collected,\r\nor required to be paid, collected, or remitted under this section shall have\r\nthe same right in respect to collecting the tax from that person's customer or\r\nin respect to non-payment of the tax by the customer as if the tax were a part\r\nof the purchase price of the AI computer processing and payable at the same\r\ntime; provided, however, that the director shall be joined as a party in any\r\naction or proceeding brought to collect the tax.\r\n\r\n(3) For the purposes of this\r\nsubsection, \"person responsible for the calculation and payment of the tax\" includes:\r\na person, including a partnership, or corporation; an officer, director,\r\nstockholder, or employee of a corporation; or a member or employee of a\r\npartnership, who as such officer, director, stockholder, employee, or member is\r\nunder the duty to pay, collect, or remit the tax imposed in this section.\r\n\r\nc. The tax imposed\r\npursuant to this section shall be governed by the provisions of the State\r\nUniform Tax Procedure Law, R.S.54:48-1 et seq.\r\n\r\nd. Any amounts collected\r\npursuant to this section shall be deposited into the fund established pursuant\r\nto section 4 of P.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill).\r\n\r\n\r\n\r\n3. a. An AI computer\r\nprocessor subject to tax pursuant to section 2 of P.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill) shall retain records of all AI\r\ncomputer processing performed by the AI computer processor. The records shall\r\nbe retained in such form and manner as the division may require, which records\r\nshall be submitted to the division at such intervals as the division may\r\nrequire and upon the division's request. The records shall include, but need\r\nnot be limited to:\r\n\r\n(1) the scope and nature of\r\nAI computer processing performed, including information verifying the AI system\r\nservices for which the AI computer processing was used, and the qualified AI\r\nbusiness for which the AI computer processing was performed;\r\n\r\n(2) the total volume of AI computer\r\nprocessing performed by the AI computer processor in its capacity as a\r\ncontrolled processor and in its capacity as a contracted processor,\r\nrespectively;\r\n\r\n(3) the total value\r\ngenerated by AI computer processing, performed by the AI computer processor in\r\nits capacity as a controlled processor and in its capacity as a contracted\r\nprocessor, respectively, including the method of calculation;\r\n\r\n(4) the amount of AI\r\ncomputer processing performed in this State and the value generated by AI\r\ncomputer processing for a qualified AI business that is attributable to AI\r\nsystem services used for or intended for business uses within the State; and\r\n\r\n(5) any other information\r\nrequired by the division.\r\n\r\nb. A qualified AI business\r\nshall retain records of all AI computer processing performed by an AI computer\r\nprocessor for use by the qualified AI business engaged in AI system services. \r\nThe records shall be retained in such form and manner as the division may\r\nrequire, which records shall be submitted to the division at such intervals as\r\nthe division may require and upon the division's request. The records shall\r\ninclude, but need not be limited to:\r\n\r\n(1) the scope and nature of\r\nAI computer processing consumed, including information verifying the AI system\r\nservices for which the AI computer processing was used, and the AI computer\r\nprocessor that performed the AI computer processing;\r\n\r\n(2) the total volume of AI\r\ncomputer processing used by the qualified AI business, including the total\r\nvolume performed by a controlled processor and a contracted processor,\r\nrespectively;\r\n\r\n(3) the total value\r\ngenerated by AI computer processing used by the qualified AI business,\r\nincluding, but not limited to, receipts documenting the consideration paid to\r\nany contracted processor for the performance of AI computer processing;\r\n\r\n(4) the value generated by\r\nAI computer processing used by the qualified AI business that is attributable\r\nto AI system services used for or intended for business uses within the State;\r\nand\r\n\r\n(5) any other information\r\nrequired by the division.\r\n\r\n\r\n\r\n4. a. As used in this\r\nsection:\r\n\r\n\"AI system development\" means\r\nthe development, training, and refinement of an AI system, including, but not\r\nlimited to, the design and training of an AI system that is, or is intended to\r\nbe, commercially available and intended, in whole or in part, for business uses\r\nwithin the State.\r\n\r\n\"AI system operation\" means the\r\noperation, maintenance, or modification of an AI system that is commercially\r\navailable and intended, in whole or in part, for business uses within the\r\nState.\r\n\r\n\"AI system services\" means\r\nservices related to AI system development or AI system operation.\r\n\r\n\"Artificial intelligence\r\nsystem\" or \"AI system\" means any machine-based system that processes inputs\r\nusing algorithms, statistical models, or neural networks to generate outputs\r\nsuch as predictions, recommendations, decisions, or content that materially\r\ninfluence or replace human judgment in performing a job function. \"AI system\"\r\nincludes machine learning systems, large language models, generative artificial\r\nintelligence tools, robotic process automation systems, and automated\r\ndecision-making platforms. \"AI system\" does not include general-purpose\r\nsoftware, standard database management systems, or basic rule-based automation\r\nthat does not incorporate learning or adaptive capabilities.\r\n\r\n\"Commission\" means the State\r\nEmployment and Training Commission established pursuant to section 5 of\r\nP.L.1989, c.293 (C.34:15C-2).\r\n\r\n\"Commissioner\" means the\r\nCommissioner of the Department of Labor and Workforce Development.\r\n\r\n\"Department\" means the\r\nDepartment of Labor and Workforce Development.\r\n\r\n\"Displaced worker\" means an\r\nindividual whose employment is terminated or whose job is expected to become\r\nobsolete within 12 months due to the current or expected operation of an AI\r\nsystem or the performance of AI system services therefor.\r\n\r\n\"Fund\" means the AI Workforce\r\nImpact Transition Fund established pursuant to subsection b. of this section.\r\n\r\nb. A dedicated, non-lapsing\r\n\"AI Workforce Impact Transition Fund,\" to be managed and invested by the State\r\nTreasurer, is hereby established by the Department of Labor and Workforce\r\nDevelopment. The monies in the fund shall be dedicated for the support of\r\ndisplaced workers transitioning to an alternate career, including, but not\r\nlimited to: the selection of an alternate career; and the provision of or\r\nassistance in accessing career training. The department shall publish\r\ninformation about the support available pursuant to this section, including how\r\nan individual may access that support, on the department's Internet website.\r\n\r\nc. The fund shall be\r\ncredited with:\r\n\r\n(1) all monies received\r\npursuant to subsection d. of section 2 of P.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill);\r\n\r\n(2) any return on the\r\ninvestment of monies deposited in the fund; and\r\n\r\n(3) any other funds made\r\navailable to the department for the purposes outlined in subsection b. of this\r\nsection, including but not limited to, appropriations by the Legislature,\r\nfederal grants, and donations from private persons.\r\n\r\nd. The commissioner is\r\nauthorized to expend monies from the AI Workforce Impact Transition Fund,\r\nsubject to appropriation by the Legislature, for the following purposes:\r\n\r\n(1) the provision of\r\ntraining services for the support of displaced workers transitioning to an\r\nalternate career, including, but not limited to, the selection of an alternate\r\ncareer and the provision of, or assistance in accessing, career training;\r\n\r\n(2) the provision of grants\r\nto qualified organizations for the design, planning, and implementation of\r\ntraining programs and services in support of displaced workers;\r\n\r\n(3) the provision of student\r\nsupport services and dual enrollment programs in public high schools;\r\n\r\n(4) reasonable\r\nadministrative costs incurred by the department, which shall not exceed 10\r\npercent of the revenues deposited into the fund during any fiscal year, except\r\nfor additional start-up administrative expenses approved by the Director of the\r\nOffice of Management and Budget during the first year of activity for the\r\ntraining services; and\r\n\r\n(5) reasonable costs as\r\nincurred by the commission, which shall not exceed 0.5 percent of the revenues deposited\r\ninto the fund during any fiscal year, as required by the commission to design\r\ncriteria and conduct an annual evaluation of the training services provided through\r\nthe fund.\r\n\r\ne. The State Employment\r\nand Training Commission shall annually evaluate the training services provided\r\nthrough the AI Workforce Impact Transition Fund and shall provide a report to\r\nthe commissioner upon completion.\r\n\r\nf. Within six months of\r\nthe conclusion of each fiscal year, the commissioner shall submit, to the\r\nGovernor and, pursuant to section 2 of P.L.1991, c.164 (C.52:14-19.1), to the Legislature,\r\na written report that includes, but is not limited to: the total revenues deposited\r\ninto the fund from each source; the total amounts expended from the fund for\r\neach authorized purpose; grants provided, including the amount and, if\r\napplicable, the names of recipient organizations; the number of workers\r\nsupported pursuant to this section; the total number of workers who have become\r\nreemployed; administrative spending; relevant State Employment and Training\r\nCommission evaluation data; and any other information which the commissioner\r\ndetermines is pertinent to the evaluation of the training services provided through\r\nthe AI Workforce Impact Transition Fund.\r\n\r\n\r\n\r\n5. a. The Division of\r\nTaxation shall adopt, pursuant to the \"Administrative Procedure Act,\" P.L.1968,\r\nc.410 (C.52:14B-1 et seq.), any rules and regulations necessary to implement\r\nsections 1 through 3 of P.L. , c. (C. )\r\n(pending before the Legislature as this bill). The rules and regulations\r\nadopted pursuant to this subsection shall include, but shall not be limited to:\r\n\r\n(1) standards for the\r\ncalculation of value generated by AI computer processing; and\r\n\r\n(2) requirements for\r\ndocumentation and reporting pursuant to section 3 of\r\nP.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill).\r\n\r\nb. The Department of Labor\r\nand Workforce Development shall adopt, pursuant to the \"Administrative\r\nProcedure Act,\" P.L.1968, c.410 (C.52:14B-1 et seq.), any rules and regulations\r\nnecessary to implement section 4 of P.L. ,\r\nc. (C. )\r\n(pending before the Legislature as this bill). The rules and regulations\r\nadopted pursuant to this subsection shall include, but shall not be limited to:\r\n\r\n(1) standards for\r\ndetermining that an individual is a displaced worker; and\r\n\r\n(2) the nature and duration\r\nof support available to displaced workers.\r\n\r\n\r\n\r\n6. This act shall take\r\neffect on the January 1 next following the date of enactment, provided that the\r\nDivision of Taxation and Department of Labor and Workforce Development may take\r\nsuch anticipatory action as necessary.\r\n\r\n\r\nSTATEMENT\r\n\r\n\r\n\r\nThis bill imposes on AI\r\ncomputer processors a tax of 10 percent on the value generated by AI computer\r\nprocessing. The bill dedicates revenues to the support of displaced workers\r\ntransitioning to an alternate career due to artificial intelligence.\r\n\r\nUnder the bill, an AI computer\r\nprocessor is required to pay the 10 percent tax on the value generated by AI computer\r\nprocessing. An \"AI computer processor\" is an entity, including a contracted\r\nprocessor or controlled processor, performing AI computer processing. \"Contracted\r\nprocessor\" means an AI computer processor, other than a controlled processor,\r\nthat performs AI computer processing for use by a qualified AI business in\r\nexchange for the payment of consideration. \"Controlled processor\" means an AI\r\ncomputer processor owned and operated by a qualified AI business, including any\r\naffiliate or subsidiary thereof, which AI computer processor performs AI\r\ncomputer processing for use by the qualified AI business.\r\n\r\nThe bill defines \"AI computer\r\nprocessing\" as the performance of computer processing services for use in AI\r\nsystem services by a qualified AI business. \"Qualified AI business\" generally means\r\na person engaged in AI system services. \"AI system services\" means AI system\r\ndevelopment or AI system operation for an AI system that is, or is intended to\r\nbe, commercially available and intended, in whole or in part, for business uses\r\nin this State.\r\n\r\n\"AI system\" is defined to mean\r\nany machine-based system that processes inputs using algorithms, statistical\r\nmodels, or neural networks to generate outputs such as predictions,\r\nrecommendations, decisions, or content that materially influence or replace\r\nhuman judgment in performing a job function.\r\n\r\n\r\n\r\nCalculation of the Tax\r\n\r\nAn AI computer processor that\r\nperforms AI computer processing is required to pay the tax imposed under the\r\nbill in the amount of 10 percent of the value generated by AI computer\r\nprocessing performed. The tax is imposed on any AI computer processor that is\r\nlocated in the State and any AI computer processor that performs AI computer\r\nprocessing for use by a qualified AI business engaged in AI system services.\r\n\r\nFor the purposes of\r\ndetermining the tax imposed under the bill, the value generated by AI computer\r\nprocessing equals the market value of the tokens required to perform the AI\r\ncomputer processing. A \"token\" is a specific unit of computer processing calculated\r\nindependently by each service provider, which unit is uniquely identifiable to\r\nthe type of computer processing generated. The tax is to be calculated using\r\nthe applicable method outlined in the bill, depending upon whether the AI\r\ncomputer processing subject to tax was performed by a controlled processor or a\r\ncontracted processor.\r\n\r\nIf the AI computer processing\r\nis performed by a contracted processor, the value generated by AI computer\r\nprocessing equals the number of tokens required to perform the AI computer\r\nprocessing, multiplied by the billing rate per token charged by the AI computer\r\nprocessor. If the AI computer processing is performed by a controlled\r\nprocessor, the value generated by AI computer processing is to be calculated\r\npursuant to a method of calculation approved by the Division of Taxation\r\n(division) for the respective AI computer processor.\r\n\r\nWhen AI computer processing is\r\nperformed by an AI computer processor located outside the State for a qualified\r\nAI business, the amount of tax otherwise imposed is to be apportioned on the\r\nbasis of the percentage of the value generated by AI computer processing for\r\nthe qualified AI business that is attributable to AI system services used for\r\nor intended for business uses within the State.\r\n\r\n\r\n\r\nRecords of Taxable AI Computer\r\nProcessing\r\n\r\nThe bill requires an AI\r\ncomputer processor and a qualified AI business each to retain records of AI computer\r\nprocessing, in such form and manner as the division may require, and to submit\r\nthe records to the division at such intervals as the division requires or upon\r\nrequest.\r\n\r\nAn AI computer processor's records\r\nare to include, but not be limited to: (1) the scope and nature of AI computer\r\nprocessing performed, including information verifying the AI system services\r\nfor which the AI computer processing was used, and the qualified AI business\r\nfor which the AI computer processing was performed; (2) the total volume of AI\r\ncomputer processing performed by the AI computer processor in its capacity as a\r\ncontrolled processor and in its capacity as a contracted processor,\r\nrespectively; (3) the total value generated by AI computer processing,\r\nperformed by the AI computer processing in its capacity as a controlled\r\nprocessor and in its capacity as a contracted processor, respectively,\r\nincluding the method of calculation; (4) the amount of AI computer processing\r\nperformed in this State and the value generated by AI computer processing for a\r\nqualified AI business that is attributable to AI system services used for or\r\nintended for business uses within the State; and (5) any other information the\r\ndivision requires.\r\n\r\nA qualified AI business's\r\nrecords are to include, but not be limited to: (1) the scope and nature of AI\r\ncomputer processing consumed, including information verifying the AI system\r\nservices for which the AI computer processing was used, and the AI computer\r\nprocessor that performed the AI computer processing; (2) the total volume of AI\r\ncomputer processing used by the qualified AI business, including the total\r\nvolume performed by a controlled processor and a contracted processor,\r\nrespectively; (3) the total value generated by AI computer processing used by\r\nthe qualified AI business, including, but not limited to, receipts documenting\r\nthe consideration paid to any contracted processor for the performance of AI\r\ncomputer processing; (4) the value generated by AI computer processing used by the\r\nqualified AI business that is attributable to AI system services used for or\r\nintended for business uses within the State; and (5) any other information\r\nrequired by the division.\r\n\r\n\r\n\r\nAI Workforce Impact Transition\r\nFund\r\n\r\nThe bill dedicates revenues\r\nfrom the tax to the \"AI Workforce Impact Transition Fund,\" to be established in\r\nthe Department of Labor and Workforce Development (department) under the bill. \r\nThe monies in the fund are dedicated for: (1) training services in support of\r\ndisplaced workers transitioning to an alternate career, including, but not\r\nlimited to, the selection of an alternate career; and the provision of, or\r\nassistance in accessing, career training; (2) grants to qualified organization\r\nfor the design, planning, and implementation of training programs and services\r\nin support of displaced workers; and (3) funding student support services and\r\ndual enrollment programs in public high schools. The department is required to\r\npublish information online about the support available, including how an\r\nindividual may access that support. The bill defines a \"displaced worker\" as\r\nan individual whose employment is terminated or whose job is expected to become\r\nobsolete within 12 months due to the current or expected operation of an AI\r\nsystem or the performance of AI system services therefor.\r\n\r\nThe bill restricts related administrative\r\ncosts to 10 percent in any fiscal year but allows an exception for certain\r\nstart-up expenses. The bill requires the State Employment and Training\r\nCommissioner (SETC) to design criteria and conduct an annual evaluation of the training\r\nservices provided through the AI Workforce Impact Training Fund. The\r\ncommissioner is required to publish an annual report to the Governor and the Legislature\r\nwithin six months of the conclusion of each fiscal year that includes: the\r\ntotal revenues deposited into the fund from each source; the total amounts\r\nexpended from the fund for each authorized purpose; grants provided, including\r\nthe amount and, if applicable, the names of recipient organizations; the number\r\nof workers supported; the total number of workers who have become reemployed;\r\nadministrative spending; relevant State Employment and Training Commission\r\nevaluation data; and any other information which the commissioner determines is\r\npertinent to the evaluation of the training services provided through the AI\r\nWorkforce Impact Transition Fund.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3461436,
+   "date": "2026-10-02",
+   "type": "Introduced",
+   "mime": "text/html",
+   "state_link": "https://pub.njleg.gov/Bills/2026/S5000/4712_I1.HTM"
+  }
+ }
+}

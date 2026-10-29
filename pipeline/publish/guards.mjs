@@ -2,7 +2,8 @@
 // stopped, not published. Each check returns readable problems; empty means the run may be written.
 import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
-import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems, SECTION_MARKERS, SECTION_CRITERIA, quoteMeetsSection, FEDERAL_CHECKED_SECTIONS } from '../agents/rules.mjs';
+import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems, SECTION_MARKERS, SECTION_CRITERIA, quoteMeetsSection, FEDERAL_CHECKED_SECTIONS, fTitleOut } from '../agents/rules.mjs';
+import { subjectRefusals } from '../agents/record-kind.mjs';
 import { FACT_FIELDS, thresholdNumberProblems } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
@@ -27,11 +28,14 @@ export function figuresIn(text, { all = false } = {}) {
   const out = new Set();
   for (const m of t.matchAll(/(\d[\d,]*(?:\.\d+)?)(?:\s*(thousand|million|billion|trillion)\b)?/gi)) {
     const raw = m[1].replace(/,(?=\d{3}\b)/g, ''), n = Number(raw.replace(/,/g, ''));
-    if (!all && (raw.replace('.', '').length < 2 || /^(19|20)\d\d$/.test(raw))) continue;
+    // Round 4: a single digit with a scale word is a figure ("$5 million" against a quoted "$500,000" was passed as a single digit).
+    if (!all && ((raw.replace('.', '').length < 2 && !m[2]) || (/^(19|20)\d\d$/.test(raw) && !m[2]))) continue;
     out.add(String(m[2] ? n * SCALE[m[2].toLowerCase()] : n));
   }
   return out;
 }
+const NUM_WORD = String.raw`(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)`;
+const WORD_FIGURE = new RegExp(String.raw`\b${NUM_WORD}(?:[\s-]+${NUM_WORD})*[\s-]+(?:hundred|thousand|million|billion|trillion|dollars|percent|per\s+cent)\b`, 'gi');
 const DUTY_SENTENCE = /\b(?:must|shall|is required to|are required to|requires?|prohibit\w*|may not|bars?|mandat\w+)\b/i;
 const GENERIC = new Set('developer developers model models artificial intelligence secretary within after before under provides provide require requires required shall which their there these those other entity entities person persons covered system systems large frontier also including include includes each every annually federal state section their about'.split(' '));
 const stems = (s) => new Set(String(s || '').toLowerCase().replace(/[^a-z\s]/g, ' ').split(/\s+/).filter((w) => w.length >= 5 && !GENERIC.has(w)).map((w) => w.slice(0, 5)));
@@ -47,6 +51,13 @@ export function quoteMatchProblems(e, sourceText = null) {
     const have = figuresIn(quotes, { all: true });
     const missing = [...figuresIn(e[f])].filter((n) => !have.has(n));
     if (missing.length) out.push(`${f} gives ${missing.slice(0, 4).join(', ')}, which ${missing.length > 1 ? 'are' : 'is'} not in its quotes`);
+  }
+  // Round 4: a figure written in words ("fifty thousand dollars", "ten million", "twenty-five percent") cannot be matched against a quote,
+  // so the field is refused; the writer gives figures in digits. (Words the quote itself uses, word for word, are allowed.)
+  const allQ = ev.filter((x) => x.quote).map((x) => String(x.quote).toLowerCase()).join(' \n ');
+  for (const f of READING_FIELDS) {
+    if (!e[f]) continue;
+    for (const m of String(e[f]).matchAll(WORD_FIGURE)) if (!allQ.includes(m[0].toLowerCase().replace(/\s+/g, ' '))) { out.push(`${f} gives a figure in words ("${m[0]}"), which cannot be checked against its quotes`); break; }
   }
   const quoteStems = ev.filter((x) => x.quote).map((x) => stems(x.quote)), allQuotes = new Set(quoteStems.flatMap((q) => [...q]));
   const src = sourceText != null ? stems(sourceText) : null;
@@ -100,6 +111,10 @@ export function checkNewEntry(e, ctx = {}) {
     const q = (e.evidence || []).find((x) => x.field === 'section');
     if (!q || !quoteMeetsSection(e.section, q.quote, ctx.source != null ? ctx.source : null)) problems.push(`no evidence quote showing section ${e.section}'s criterion (${SECTION_CRITERIA[e.section]})`);
   }
+  // Round 4: an F entry whose title names a subject F excludes (education, workforce, children, energy, privacy, procurement ...).
+  if (e.section === 'F' && fTitleOut(e.title)) problems.push(`"${String(e.title).slice(0, 60)}" names a subject section F excludes`);
+  // Round 4: a budget, appropriations or defence authorization measure, or a dates-only / technical bill, is never a new entry.
+  if (rule && (rule.level === 'state' || rule.level === 'federal') && ['A', 'B', 'B.2', 'C', 'D', 'F'].includes(e.section)) subjectRefusals(String(e.title || '').split(' — ').slice(1).join(' — ') || e.title).forEach((p) => problems.push(p));
   // A Congress resolution (S.Res., H.Res., S.Con.Res., H.Con.Res., S.J.Res., H.J.Res.) is never a D or F entry.
   if (rule && rule.level === 'federal' && /^\s*(?:[HS]\.\s?(?:Con\.\s?|J\.\s?)?Res\.|[HS]\.?\s?(?:Con|J)\.?\s?Res\b|[HS]RES\b|[HS](?:CON|J)RES\b)/i.test(String(e.title || ''))) problems.push(`"${String(e.title).slice(0, 30)}" is a congressional resolution, which never goes in section ${e.section}`);
   // Round 3 (audit item 10): every figure in a reading field is in that field's own quotes (10^25 written against a quoted 10^26, $500,000

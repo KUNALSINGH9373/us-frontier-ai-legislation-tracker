@@ -336,6 +336,8 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   const bill = clone(J(fx('congress', '119-s-5493.json'))); bill.text_missing = true;
   // Another sponsor: with S. 5493's own sponsor and title it would be held as a possible duplicate of the tracked S. 5493 (round 3).
   bill.bill.sponsors = [{ fullName: 'Sen. Example, Pat [D-XX]', firstName: 'Pat', lastName: 'Example' }];
+  // Round 4: and another title (the same title alone now holds it as a possible companion of S. 5493).
+  bill.bill.title = 'Example Frontier Oversight Act'; delete bill.titles; delete bill.bill.titles;
   const it = itemOf('119/s/9999', 'congress_gov', 'https://www.congress.gov/bill/119th-congress/senate-bill/9999');
   const run1 = (g, val) => processItem({ generator: g, validator: val, item: it, raw: bill, diff: { item_id: it.item_id, entry_key: null, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] }, entry: null, entries, today: '2026-10-07', runId: 'r' });
   const inScope = { operation: 'create', in_scope: true, scope_reason: 'Title says it bans superintelligence.', fields: {}, events_add: [], evidence: [], section: 'D' };
@@ -416,7 +418,7 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
 
 // ---------- a new STATE bill (LegiScan): drafted in full, to the federal standard ----------
 {
-  const raw = { bill: { state: 'CT', bill_number: 'SB00086', title: 'An Act Addressing Innovations In And The Responsible Use Of Artificial Intelligence.', description: 'Frontier developer safety duties.', history: [{ date: '2026-02-10', action: 'Referred to Joint Committee on General Law' }] }, text: 'Section 1. A frontier developer shall publish a safety framework. '.repeat(20) };
+  const raw = { bill: { state: 'CT', bill_number: 'SB00086', title: 'An Act Addressing Innovations In And The Responsible Use Of Artificial Intelligence.', description: 'Frontier developer safety duties.', history: [{ date: '2026-02-10', action: 'Referred to Joint Committee on General Law' }] }, text: 'Section 1. A frontier developer of artificial intelligence models shall publish a safety framework. '.repeat(20) }; // round 4: a frontier term counts only about AI
   const item = { item_id: 'legiscan:2107947', source: 'legiscan', source_id: '2107947', source_url: 'https://www.cga.ct.gov/', fetched_at: '2026-10-28T07:00:00Z' };
   const diff = { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'new_entry_candidate', detail: 'New state bill CT SB00086' }] };
   ok('a LegiScan record is readable', /Bill: CT SB00086/.test(sourceText(raw, 'legiscan')) && /2026-02-10: Referred/.test(sourceText(raw, 'legiscan')));

@@ -1,0 +1,562 @@
+{
+ "item": {
+  "item_id": "legiscan:2088651",
+  "source": "legiscan",
+  "source_id": "2088651",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.nysenate.gov/legislation/bills/2025/A10000",
+  "raw_hash": "7552fd68ee72bd8fcaf7c0af0d016d47c69f3ccc2f4f5a64a60f795fbb3cb4e4",
+  "raw_path": "raw/legiscan/NY-A10000-2088651.json",
+  "title": "NY A10000: Makes appropriations for the support of government - State Operations Budget.",
+  "from_run": "run-20261013-0714-e97e"
+ },
+ "raw": {
+  "id": "2088651",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 3,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 2088651,
+   "change_hash": "263bf4064e955c9be38d1d2cf0e33651",
+   "session_id": 2188,
+   "session": {
+    "session_id": 2188,
+    "state_id": 32,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 1,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 General Assembly"
+   },
+   "url": "https://legiscan.com/NY/bill/A10000/2025",
+   "state_link": "https://www.nysenate.gov/legislation/bills/2025/A10000",
+   "completed": 1,
+   "status": 4,
+   "status_date": "2026-06-09",
+   "progress": [
+    {
+     "date": "2026-01-21",
+     "event": 1
+    },
+    {
+     "date": "2026-01-21",
+     "event": 9
+    },
+    {
+     "date": "2026-05-27",
+     "event": 10
+    },
+    {
+     "date": "2026-05-27",
+     "event": 9
+    },
+    {
+     "date": "2026-05-27",
+     "event": 10
+    },
+    {
+     "date": "2026-05-27",
+     "event": 2
+    },
+    {
+     "date": "2026-05-27",
+     "event": 9
+    },
+    {
+     "date": "2026-05-27",
+     "event": 2
+    },
+    {
+     "date": "2026-05-28",
+     "event": 3
+    },
+    {
+     "date": "2026-06-09",
+     "event": 8
+    },
+    {
+     "date": "2026-06-09",
+     "event": 4
+    }
+   ],
+   "state": "NY",
+   "state_id": 32,
+   "bill_number": "A10000",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "A",
+   "body_id": 73,
+   "current_body": "A",
+   "current_body_id": 73,
+   "title": "Makes appropriations for the support of government - State Operations Budget.",
+   "description": "Makes appropriations for the support of government - State Operations Budget.",
+   "pending_committee_id": 0,
+   "committee": [],
+   "referrals": [
+    {
+     "date": "2026-01-21",
+     "committee_id": 387,
+     "chamber": "A",
+     "chamber_id": 73,
+     "name": "Ways and Means"
+    },
+    {
+     "date": "2026-05-27",
+     "committee_id": 381,
+     "chamber": "A",
+     "chamber_id": 73,
+     "name": "Rules"
+    },
+    {
+     "date": "2026-05-27",
+     "committee_id": 428,
+     "chamber": "S",
+     "chamber_id": 74,
+     "name": "Finance"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-01-21",
+     "action": "referred to ways and means",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    },
+    {
+     "date": "2026-02-20",
+     "action": "amend and recommit to ways and means",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-02-20",
+     "action": "print number 10000a",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-03-09",
+     "action": "amend and recommit to ways and means",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-03-09",
+     "action": "print number 10000b",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-26",
+     "action": "amend and recommit to ways and means",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-26",
+     "action": "print number 10000c",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-26",
+     "action": "amend and recommit to ways and means",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-26",
+     "action": "print number 10000d",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "reported referred to rules",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    },
+    {
+     "date": "2026-05-27",
+     "action": "reported",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    },
+    {
+     "date": "2026-05-27",
+     "action": "rules report cal.212",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "ordered to third reading rules cal.212",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "message of necessity - 3 day message",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "passed assembly",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    },
+    {
+     "date": "2026-05-27",
+     "action": "delivered to senate",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "REFERRED TO FINANCE",
+     "chamber": "S",
+     "chamber_id": 74,
+     "importance": 1
+    },
+    {
+     "date": "2026-05-27",
+     "action": "SUBSTITUTED FOR S9000D",
+     "chamber": "S",
+     "chamber_id": 74,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "3RD READING CAL.1329",
+     "chamber": "S",
+     "chamber_id": 74,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "MESSAGE OF NECESSITY - 3 DAY MESSAGE",
+     "chamber": "S",
+     "chamber_id": 74,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-27",
+     "action": "PASSED SENATE",
+     "chamber": "S",
+     "chamber_id": 74,
+     "importance": 1
+    },
+    {
+     "date": "2026-05-27",
+     "action": "RETURNED TO ASSEMBLY",
+     "chamber": "S",
+     "chamber_id": 74,
+     "importance": 0
+    },
+    {
+     "date": "2026-05-28",
+     "action": "delivered to governor",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    },
+    {
+     "date": "2026-06-09",
+     "action": "signed chap.50",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 1
+    },
+    {
+     "date": "2026-06-09",
+     "action": "line veto memo.1",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    },
+    {
+     "date": "2026-06-10",
+     "action": "tabled line veto memo.1",
+     "chamber": "A",
+     "chamber_id": 73,
+     "importance": 0
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 1483,
+     "person_hash": "qz87p2sb",
+     "party_id": "0",
+     "state_id": 32,
+     "party": "",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Budget",
+     "first_name": "",
+     "middle_name": "",
+     "last_name": "Budget",
+     "suffix": "",
+     "nickname": "",
+     "district": "",
+     "ftm_eid": 0,
+     "votesmart_id": 0,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 1,
+     "committee_id": 3907,
+     "state_federal": 0,
+     "bio": []
+    }
+   ],
+   "sasts": [
+    {
+     "type_id": 4,
+     "type": "Replaces",
+     "sast_bill_number": "S09000",
+     "sast_bill_id": 2088371
+    }
+   ],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3370845,
+     "date": "2026-01-20",
+     "type": "Amended",
+     "type_id": 3,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/NY/text/A10000/id/3370845",
+     "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A10000&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#A10000A",
+     "text_size": 2647183,
+     "text_hash": "c62ec22777e53497ec7fafe7d64258fd",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    },
+    {
+     "doc_id": 3389469,
+     "date": "2026-01-20",
+     "type": "Amended",
+     "type_id": 3,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/NY/text/A10000/id/3389469",
+     "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A10000&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#A10000B",
+     "text_size": 2650475,
+     "text_hash": "730dd9e936596b08ffa9717343b1b061",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    },
+    {
+     "doc_id": 3441301,
+     "date": "2026-01-20",
+     "type": "Amended",
+     "type_id": 3,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/NY/text/A10000/id/3441301",
+     "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A10000&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#A10000D",
+     "text_size": 2671064,
+     "text_hash": "c6381a4564d5e74d1547fe7613a32e72",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [
+    {
+     "roll_call_id": 1702262,
+     "date": "2026-05-27",
+     "desc": "Assembly Rules Committee: Favorable",
+     "yea": 19,
+     "nay": 9,
+     "nv": 0,
+     "absent": 3,
+     "total": 31,
+     "passed": 1,
+     "chamber": "A",
+     "chamber_id": 73,
+     "url": "https://legiscan.com/NY/rollcall/A10000/id/1702262",
+     "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A10000&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#AC2"
+    },
+    {
+     "roll_call_id": 1702263,
+     "date": "2026-05-27",
+     "desc": "Assembly Ways And Means Committee: Favorable refer to committee Rules",
+     "yea": 22,
+     "nay": 10,
+     "nv": 0,
+     "absent": 3,
+     "total": 35,
+     "passed": 1,
+     "chamber": "A",
+     "chamber_id": 73,
+     "url": "https://legiscan.com/NY/rollcall/A10000/id/1702263",
+     "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A10000&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#AC1"
+    },
+    {
+     "roll_call_id": 1702704,
+     "date": "2026-05-27",
+     "desc": "Senate Floor Vote - Final Passage",
+     "yea": 43,
+     "nay": 19,
+     "nv": 0,
+     "absent": 1,
+     "total": 63,
+     "passed": 1,
+     "chamber": "S",
+     "chamber_id": 74,
+     "url": "https://legiscan.com/NY/rollcall/A10000/id/1702704",
+     "state_link": "https://www.nysenate.gov/legislation/bills/2025/A10000#SF1"
+    },
+    {
+     "roll_call_id": 1702978,
+     "date": "2026-05-27",
+     "desc": "Assembly Floor Vote - Final Passage",
+     "yea": 102,
+     "nay": 40,
+     "nv": 0,
+     "absent": 8,
+     "total": 150,
+     "passed": 1,
+     "chamber": "A",
+     "chamber_id": 73,
+     "url": "https://legiscan.com/NY/rollcall/A10000/id/1702978",
+     "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A10000&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#AF1"
+    }
+   ],
+   "amendments": [],
+   "supplements": [],
+   "calendar": [
+    {
+     "type_id": 1,
+     "event_hash": "16f220c7",
+     "type": "Hearing",
+     "date": "2026-05-27",
+     "time": "00:00",
+     "location": "",
+     "description": "Assembly Rules Committee Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "e7c030df",
+     "type": "Hearing",
+     "date": "2026-05-27",
+     "time": "00:00",
+     "location": "",
+     "description": "Assembly Ways and Means Committee Hearing"
+    }
+   ]
+  },
+  "derived": {
+   "status": "enacted",
+   "events": [
+    {
+     "date": "2026-01-21",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "referred to ways and means",
+     "chamber": "A"
+    },
+    {
+     "date": "2026-05-27",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "reported referred to rules",
+     "chamber": "A"
+    },
+    {
+     "date": "2026-05-27",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "passed assembly",
+     "chamber": "A"
+    },
+    {
+     "date": "2026-05-27",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "REFERRED TO FINANCE",
+     "chamber": "S"
+    },
+    {
+     "date": "2026-05-27",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "PASSED SENATE",
+     "chamber": "S"
+    },
+    {
+     "date": "2026-06-09",
+     "precision": "day",
+     "type": "Vetoed / failed / rescinded",
+     "text": "line veto memo.1",
+     "chamber": "A"
+    },
+    {
+     "date": "2026-06-10",
+     "precision": "day",
+     "type": "Vetoed / failed / rescinded",
+     "text": "tabled line veto memo.1",
+     "chamber": "A"
+    }
+   ]
+  },
+  "text": "Bill Search and Legislative Information | New York State Assembly \r\n\r\n\n\r\n\r\n\r\n\r\nSkip to main content\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nNew York State Assembly\r\nSpeaker Carl E. Heastie\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n-->\r\n-->\r\n\r\n-->\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nAssembly Members\r\n\r\nLegislative Info\r\n\r\nPublic Hearings\r\n\r\nSpeaker's Press\r\n\r\nAssembly Reports\r\n\r\nCommittees & More\r\n\r\n\r\n\r\nBill Search HomeLawsLegislative CalendarPublic Hearing ScheduleAssembly CalendarsAssembly Committee Agenda\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nJavascript must be enabled to properly view this page.\r\n\r\n\r\n\r\n\n\r\n\r\nBill No.: \r\n\r\n\r\n\r\nSummary Actions Committee&nbspVotes Floor&nbspVotes Memo Text LFIN Chamber&nbspVideo/Transcript \r\nA10000 Summary:BILL NOA10000D&nbspSAME ASSAME AS UNI. S09000-D\n&nbspSPONSORBudget&nbspCOSPNSR&nbspMLTSPNSR&nbsp&nbspMakes appropriations for the support of government - State Operations Budget.Go to top A10000 Actions:BILL NOA10000D&nbsp01/21/2026referred to ways and means02/20/2026amend and recommit to ways and means02/20/2026print number 10000a03/09/2026amend and recommit to ways and means03/09/2026print number 10000b05/26/2026amend and recommit to ways and means05/26/2026print number 10000c05/26/2026amend and recommit to ways and means05/26/2026print number 10000d05/27/2026reported referred to rules05/27/2026reported 05/27/2026rules report cal.21205/27/2026ordered to third reading rules cal.21205/27/2026message of necessity - 3 day message05/27/2026passed assembly05/27/2026delivered to senate05/27/2026REFERRED TO FINANCE05/27/2026SUBSTITUTED FOR S9000D05/27/20263RD READING CAL.132905/27/2026MESSAGE OF NECESSITY - 3 DAY MESSAGE05/27/2026PASSED SENATE05/27/2026RETURNED TO ASSEMBLY05/28/2026delivered to governor06/09/2026signed chap.5006/09/2026line veto memo.106/10/2026tabled line veto memo.1Go to topA10000 Committee&nbspVotes:Committee:WAYS AND MEANS Chair:Pretlow \nDATE:05/27/2026AYE/NAY:22/10 Action: Favorable refer to committee Rules PretlowAyePalmesanoNayGlickAyeFitzpatrickNayColtonAbsentHawleyNayCookExcusedBlankenbushNayBenedettoAyeWalshNayWeprinAyeDeStefanoNayRamosExcusedManktelowNayBraunsteinAyeSmullenNayMcDonaldAyeGiglioNayRozicAyeSlaterNayDinowitzAyeMagnarelliAyeBronsonAyeDilanAyeSeawrightAyeHyndmanAyeWalkerAyeBichotte HermelAyeSimonAyeCruzAyeOtisAyeSolagesAyeHunterAyeSeptimoAyeHevesiAyeCommittee:RULES Chair:Glick \nDATE:05/27/2026AYE/NAY:19/9 Action: Favorable HeastieExcusedRaNayPretlowAyeHawleyNayCookExcusedBlankenbushNayGlickAyeBrabenecNayDinowitzAyePalmesanoNayColtonAyeReillyNayMagnarelliAyeSmithNayPaulinAyeJensenNayPeoples-StokesExcusedGandolfoNayBenedettoAyeLavineAyeLupardoAyeBraunsteinAyeDavilaAyeHyndmanAyeRozicAyeBronsonAyeHevesiAyeHunterAyeTaylorAyeCruzAyeVanelAyeGo to topA10000 Floor&nbspVotes:DATE:05/27/2026Assembly Vote YEA/NAY: 102/40Yes Alvarez Yes Carroll P No Friend No Lemondes Yes Pheffer Amato No Slater Yes Anderson Yes Carroll RC Yes Gallagher Yes Levenberg No Pirozzolo No Smith No Angelino Yes Cashman No Gallahan Yes Lucas Yes Powers No Smullen No Bailey Yes Chandler-Waterm No Gandolfo Yes Lunsford Yes Pretlow Yes Solages No Barclay Yes Chang Yes Gibbs Yes Lupardo No Ra Yes Steck Yes Barrett No Chludzinski No Giglio Yes Magnarelli ER Raga Yes Stern Yes Beephan Yes Clark Yes Glick ER Maher Yes Rajkumar Yes Stirpe No Bendett Yes Colton Yes Gonzalez-Rojas No Manktelow Yes &#8225Ramos No Tague Yes Benedetto Yes Conrad ER Gray Yes McDonald No Reilly No Tannousis Yes Berger ER Cook Yes Griffin ER McDonough Yes Reyes Yes Tapia Yes Bichotte Hermel Yes Cruz No Hawley Yes McMahon Yes Rivera Yes Taylor No Blankenbush Yes Cunningham Yes Hevesi ER Meeks Yes Romero Yes Torres No Blumencranz Yes Dais Yes Hooks No &#8225Mikulin Yes Rosenthal Yes Valdez No Bologna Yes Davila Yes Hunter No Miller Yes Rozic Yes Vanel Yes Bores Yes De Los Santos Yes Hyndman Yes Mitaynes Yes Santabarbara Yes Walker No Brabenec No DeStefano Yes Jackson No Molitor Yes Sayegh No Walsh Yes Braunstein Yes Dilan Yes Jacobson Yes Moreno Yes Schiavoni Yes Weprin Yes Bronson Yes Dinowi\n[... excerpt: text between omitted for the replay set ...]\n (50300) ............. 68,000\n7 Supplies and materials (57000) .................... 11,000\n8 Travel (54000) ................................. 1,649,000\n9 Contractual services (51000) ................... 4,889,000\n10 Equipment (56000) ................................ 100,000\n11 Fringe benefits (60000) ....................... 32,386,000\n12 Indirect costs (58800) ......................... 1,494,000\n13 --------------\n14 Total amount available ...................... 95,390,000\n15 --------------\n\n16 For suballocation to the office of the\n17 inspector general for services and\n18 expenses (32437).\n\n19 Supplies and materials (57000) .................... 55,000\n20 Contractual services (51000) ...................... 55,000\n21 Travel (54000) .................................... 55,000\n22 Equipment (56000) ................................. 62,000\n23 --------------\n24 Total amount available ......................... 227,000\n25 --------------\n\n26 For services and expenses related to the\n27 crime proceeds task force. All or a\n28 portion of these funds may be suballocated\n29 to the departments of law and taxation and\n30 finance for services and expenses incurred\n31 on behalf of the crime proceeds task force\n32 pursuant to an allocation plan developed\n33 by the superintendent of the department of\n34 financial services, the attorney general\n35 and the commissioner of taxation and\n36 finance, as appropriate, subject to the\n37 approval of the director of the budget\n38 (32438).\n\n39 Personal service--regular (50100) ................ 465,000\n40 Contractual services (51000) ..................... 340,000\n41 Fringe benefits (60000) .......................... 297,000\n42 Indirect costs (58800) ............................ 17,000\n43 --------------\n44 Total amount available ....................... 1,119,000\n45 --------------\n46 Program account subtotal ................. 119,084,000\n47 --------------\n\n355 12650-08-6\n\nDEPARTMENT OF FINANCIAL SERVICES\n\nSTATE OPERATIONS 2026-27\n\n1 Special Revenue Funds - Other\n2 Miscellaneous Special Revenue Fund\n3 Virtual Currency Assessments Account - 22262\n\n4 For services and expenses of the virtual\n5 currency business activities pursuant to\n6 section 206 of the financial services law.\n7 Notwithstanding section 51 of the state\n8 finance law, the money hereby appropriated\n9 may be increased or decreased by inter-\n10 change with any other appropriation within\n11 the department of financial services. Such\n12 annual interchanges made between virtual\n13 currency assessment account appropriations\n14 and banking department account appropri-\n15 ations may not, in the aggregate, total\n16 more than $5,000,000. The superintendent\n17 of the department of financial services\n18 shall report quarterly to the governor,\n19 the speaker of the assembly and the major-\n20 ity leader of the senate regarding any\n21 interchanges made pursuant to this\n22 provision. Such report shall specify the\n23 amount of moneys so interchanged and\n24 detail the expenditures funded as a result\n25 of such interchange (32401).\n\n26 Personal service--regular (50100) .............. 7,482,000\n27 Supplies and materials (57000) .................... 20,000\n28 Travel (54000) ................................... 500,000\n29 Contractual services (51000) ................... 2,300,000\n30 Equipment (56000) ................................. 40,000\n31 Fringe benefits (60000) ........................ 4,900,000\n32 Indirect costs (58800) ........................... 240,000\n33 --------------\n34 Program account subtotal .................. 15,482,000\n35 --------------\n\n36 DIGITAL INNOVATION, GOVERNANCE, INTEGRITY, AND TRUST\n37 PROGRAM ................................................... 10,400,000\n38 --------------\n\n39 Special Revenue Funds - Other\n40 Miscellaneous Special Revenue Fund\n41 Responsible AI Safety and Education Account\n\n42 For services and expenses of the office of\n43 digital innovation, governance, integrity,\n44 and trust related to the regulation of\n45 certain developers of AI frontier models,\n46 including the payment of liabilities\n47 incurred prior to April 1, 2026.\n\n356 12650-08-6\n\nDEPARTMENT OF FINANCIAL SERVICES\n\nSTATE OPERATIONS 2026-27\n\n1 Notwithstanding any other provision of law\n2 to the contrary a portion of the funds may\n3 be suballocated or transferred to any\n4 other department, agency or public author-\n5 ity for the purposes of such appropri-\n6 ation.\n\n7 Personal service--regular (50100) .............. 4,069,000\n8 Supplies and materials (57000) ................... 250,000\n9 Travel (54000) ................................... 100,000\n10 Contractual services (51000) ................... 1,000,000\n11 Equipment (56000) .............................. 3,250,000\n12 Fringe benefits (60000) ........................ 1,650,000\n13 Indirect costs (58800) ............................ 81,000\n14 --------------\n15 Total amount available ...................... 10,400,000\n16 --------------\n\n17 INSURANCE PROGRAM .......................................... 273,033,000\n18 --------------\n\n19 Special Revenue Funds - Other\n20 Miscellaneous Special Revenue Fund\n21 Insurance Department Account - 21994\n\n22 For services and expenses related to consum-\n23 er services activities. Notwithstanding\n24 section 51 of the state finance law, the\n25 money hereby appropriated may be increased\n26 or decreased by interchange with any other\n27 appropriation within the department of\n28 financial services. Such annual inter-\n29 changes may not, in the aggregate, total\n30 more than five million dollars. The super-\n31 intendent of the department of financial\n32 services shall report quarterly to the\n33 governor, the speaker of the assembly and\n34 the majority leader of the senate regard-\n35 ing any interchanges made pursuant to this\n36 provision. Such report shall specify the\n37 amount of moneys so interchanged and\n38 detail the expenditures funded as a result\n39 of such interchange (32405).\n\n40 Personal service--regular (50100) ............. 15,674,000\n41 Holiday/overtime compensation (50300) ............. 19,000\n42 Supplies and materials (57000) .................... 29,000\n43 Travel (54000) ................................... 336,000\n44 Contractual services (51000) ..................... 522,000\n45 Equipment (56000) ................................. 16,000\n\n357 12650-08-6\n\nDEPARTMENT OF FINANCIAL SERVICES\n\nSTATE OPERATIONS 2026-27\n\n1 Fringe benefits (60000) ....................... 10,003,000\n2 Indirect costs (58800) ........................... 468,000\n3 --------------\n4 Total amount available ...................... 27,067,000\n5 --------------\n\n6 For services and expenses related to the\n7 regulatory activities of the department of\n8 financial services. Notwithstanding\n9 section 51 of the state finance law, the\n10 money hereby appropriated may be increased\n11 or decreased by interchange with any other\n12 appropriation within the department of\n13 financial services. Such annual inter-\n14 changes may not, in the aggregate, total\n15 more than five million dollars. The super-\n16 intendent of the department of financial\n17 services shall report quarterly to the\n18 governor, the speaker of the assembly and\n19 the majority leader of the senate regard-\n20 ing any interchanges made pursuant to this\n21 provision. Such report shall specify the\n22 amount of moneys so interchanged and\n23 detail the expenditures funded as a result\n24 of such interchange (32406).\n\n25 Personal service--regular (50100) ............. 82,018,000\n26 Temporary service (50200) ......................... 18,000\n27 Holiday/overtime compensation (50300) ............ 135,000\n28 Supplies and materials (57000) ................... 372,000\n29 Travel (54000) ................................. 2,488,000\n30 Contractual services (51000) ................... 6,286,000\n31 Equipment (56000) ................................ 129,000\n32 Fringe benefits (60000) ....................... 49,968,000\n33 Indirect costs (58800) ......................... 2,322,000\n34 --------------\n35 Total amount ava",
+  "text_truncated": true,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3370845,
+   "date": "2026-01-20",
+   "type": "Amended",
+   "mime": "text/html; charset=utf-8",
+   "state_link": "https://assembly.state.ny.us/leg/?default_fld=&bn=A10000&term=2025&Summary=Y&Actions=Y&Text=Y&Committee%26nbspVotes=Y&Floor%26nbspVotes=Y#A10000A",
+   "from": "official"
+  },
+  "frontier_markers": [
+   "frontier model",
+   "10\n\n25",
+   "ai safety"
+  ],
+  "excerpt_note": "tierb-set round 4: opening 4000 characters plus 8000 around the AI frontier-model appropriation line"
+ }
+}

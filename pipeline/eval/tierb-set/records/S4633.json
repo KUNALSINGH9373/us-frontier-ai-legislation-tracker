@@ -1,0 +1,122 @@
+{
+ "item": {
+  "item_id": "congress_gov:119/s/4633",
+  "source": "congress_gov",
+  "source_id": "119/s/4633",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/4633",
+  "raw_hash": "cab1585d1d4cb19b3c4cd0a192602cf6d3d9ef8c5fa963c70360b82eb9fb8a93",
+  "raw_path": "raw/congress_gov/119-s-4633.json",
+  "title": "Unmanned and Autonomous Systems Strategy Act of 2026",
+  "from_run": "run-20261016-0702-d551"
+ },
+ "raw": {
+  "id": "119/s/4633",
+  "list_item": {
+   "congress": 119,
+   "introducedDate": "2026-05-21",
+   "latestAction": {
+    "actionDate": "2026-05-21",
+    "text": "Read twice and referred to the Committee on Armed Services."
+   },
+   "number": "4633",
+   "originChamber": "Senate",
+   "originChamberCode": "S",
+   "title": "Unmanned and Autonomous Systems Strategy Act of 2026",
+   "type": "S",
+   "updateDate": "2026-10-09",
+   "updateDateIncludingText": "2026-10-09",
+   "url": "https://api.congress.gov/v3/bill/119/s/4633?format=json"
+  },
+  "bill": {
+   "actions": {
+    "count": 2,
+    "url": "https://api.congress.gov/v3/bill/119/s/4633/actions?format=json"
+   },
+   "committees": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/s/4633/committees?format=json"
+   },
+   "congress": 119,
+   "cosponsors": {
+    "count": 1,
+    "countIncludingWithdrawnCosponsors": 1,
+    "url": "https://api.congress.gov/v3/bill/119/s/4633/cosponsors?format=json"
+   },
+   "introducedDate": "2026-05-21",
+   "latestAction": {
+    "actionDate": "2026-05-21",
+    "text": "Read twice and referred to the Committee on Armed Services."
+   },
+   "legislationUrl": "https://www.congress.gov/bill/119th-congress/senate-bill/4633",
+   "number": "4633",
+   "originChamber": "Senate",
+   "originChamberCode": "S",
+   "policyArea": {
+    "name": "International Affairs"
+   },
+   "sponsors": [
+    {
+     "bioguideId": "M001243",
+     "firstName": "David",
+     "fullName": "Sen. McCormick, David [R-PA]",
+     "isByRequest": "N",
+     "lastName": "McCormick",
+     "middleName": "H.",
+     "party": "R",
+     "state": "PA",
+     "url": "https://api.congress.gov/v3/member/M001243?format=json"
+    }
+   ],
+   "subjects": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/s/4633/subjects?format=json"
+   },
+   "textVersions": {
+    "count": 1,
+    "url": "https://api.congress.gov/v3/bill/119/s/4633/text?format=json"
+   },
+   "title": "Unmanned and Autonomous Systems Strategy Act of 2026",
+   "titles": {
+    "count": 3,
+    "url": "https://api.congress.gov/v3/bill/119/s/4633/titles?format=json"
+   },
+   "type": "S",
+   "updateDate": "2026-10-09T18:26:23Z",
+   "updateDateIncludingText": "2026-10-09T18:26:23Z"
+  },
+  "actions": [
+   {
+    "actionDate": "2026-05-21",
+    "committees": [
+     {
+      "name": "Armed Services Committee",
+      "systemCode": "ssas00",
+      "url": "https://api.congress.gov/v3/committee/senate/ssas00?format=json"
+     }
+    ],
+    "sourceSystem": {
+     "name": "Senate"
+    },
+    "text": "Read twice and referred to the Committee on Armed Services.",
+    "type": "IntroReferral"
+   },
+   {
+    "actionCode": "10000",
+    "actionDate": "2026-05-21",
+    "sourceSystem": {
+     "code": 9,
+     "name": "Library of Congress"
+    },
+    "text": "Introduced in Senate",
+    "type": "IntroReferral"
+   }
+  ],
+  "summaries": [],
+  "text": "[Congressional Bills 119th Congress]\n[From the U.S. Government Publishing Office]\n[S. 4633 Introduced in Senate (IS)]\n\n<DOC>\n\n119th CONGRESS\n2d Session\nS. 4633\n\nTo require a strategy for the deployment, employment, integration, \nexportability, and scaling of unmanned and autonomous systems in the \nIndo-Pacific region and the Western Hemisphere, to strengthen homeland \ndefense, to support counter-narcotics and counter-trafficking \noperations, and to increase ally and partner burden sharing, and for \nother purposes.\n\n_______________________________________________________________________\n\nIN THE SENATE OF THE UNITED STATES\n\nMay 21, 2026\n\nMr. McCormick (for himself and Mr. Fetterman) introduced the following \nbill; which was read twice and referred to the Committee on Armed \nServices\n\n_______________________________________________________________________\n\nA BILL\n\nTo require a strategy for the deployment, employment, integration, \nexportability, and scaling of unmanned and autonomous systems in the \nIndo-Pacific region and the Western Hemisphere, to strengthen homeland \ndefense, to support counter-narcotics and counter-trafficking \noperations, and to increase ally and partner burden sharing, and for \nother purposes.\n\nBe it enacted by the Senate and House of Representatives of the \nUnited States of America in Congress assembled,\n\nSECTION 1. SHORT TITLE.\n\nThis Act may be cited as the ``Unmanned and Autonomous Systems \nStrategy Act of 2026''.\n\nSEC. 2. STRATEGY FOR DEPLOYMENT OF UNMANNED AND AUTONOMOUS SYSTEMS IN \nINDO-PACIFIC REGION AND WESTERN HEMISPHERE.\n\n(a) In General.--The Secretary of Defense, in coordination with the \nofficials specified in subsection (b), shall develop a strategy for the \ndeployment, employment, integration, sustainment, exportability, and \nscaling of unmanned and autonomous systems in the Indo-Pacific region \nand the Western Hemisphere.\n(b) Specified Officials.--The officials specified in this \nsubsection are the following:\n(1) The Commander of the United States Indo-Pacific \nCommand.\n(2) The Commander of the United States Southern Command.\n(3) The Commander of the United States Northern Command.\n(4) The Commandant of the Coast Guard.\n(5) The head of the Defense Autonomous Warfare Group.\n(6) The Secretary of State.\n(7) The Secretary of Homeland Security.\n(8) The Secretaries of the military departments.\n(9) Any other United States Government official the \nSecretary of Defense considers appropriate.\n(c) Elements.--The strategy required by subsection (a) shall \ninclude the following:\n(1) An assessment of current capability gaps and \noperational requirements with respect to the deployment of \nunmanned and autonomous systems within the areas of \nresponsibility of the United States Indo-Pacific Command, the \nUnited States Southern Command, and the United States Northern \nCommand, including with respect to--\n(A) persistent maritime, air, littoral, and \nundersea domain awareness;\n(B) undersea surveillance and anti-submarine \nwarfare;\n(C) long-range strike and attritable systems;\n(D) integration of artificial intelligence and \ndecoy operations;\n(E) counter-unmanned systems operations;\n(F) logistics and communications relay;\n(G) electronic warfare and signals intelligence \ncollection;\n(H) mine detect and defeat; and\n(I) United States homeland security missions to \ncounter narcotics, trafficking, and transnational \ncriminal organizations in the Western Hemisphere, \nincluding such missions in support of maritime \ninterdiction and detection-and-monitoring operations.\n(2) An assessment of the scope of unmanned and autonomous \nsystems that may be deployed across, air, surface, and \nsubsurface domains in the Indo-Pacific region and the Western \nHemisphere, including--\n(A) an identification of--\n(i) unmanned aircraft systems;\n(ii) small, medium, large, and extra-large \nunmanned surface vessels;\n(iii) undersea vehicles, including remotely \noperated and autonomous such vehicles; and\n(iv) unmanned and autonomous systems \nplatform attributes;\n(B) the numbers of unmanned and autonomous systems, \nunmanned undersea vehicles available for such \ndeployment, including remotely operated and autonomous \nvehicles; and\n(C) for each system identified under subparagraph \n(A)--\n(i) an evaluation of capability for \nartificial intelligence integration and \nautonomy-enabled software;\n(ii) operational range, time-on-station, \npayload capacity, autonomy levels, and \nsurvivability; and\n(iii) associated launch and recovery \nsystems, control stations, communications \nlinks, sensors, payloads, and modular mission \npackages, and other operationally relevant \nperformance parameters.\n(3) An identification of prospective basing, staging, and \nforward deployment locations for UAS and UUV systems within the \nareas of responsibility of the United States Indo-Pacific \nCommand, the United States Southern Command, and the United \nStates Northern Command, including an assessment of--\n(A) existing United States military installations \nand their capacity to support unmanned systems \noperations and long-term storage of such systems;\n(B) partner country facilities and agreements \nnecessary to enable forward deployment; and\n(C) at-sea and submarine-launched deployment \nconcepts.\n(4) An evaluation of the maturity and demonstrated \noperational suitability of endurance-enabling propulsion \ntechnologies, including hybrid-electric propulsion, with \nattention to efficiency, reliability, acoustic performance, and \nsustainment considerations.\n(5) A plan for cross-domain integration of UAS and UUV \nsystems into the broader joint force, including enhancement of \nconventional weapon systems, manned platforms, artificial \nintelligence systems, and command-and-control networks.\n(6) A summary of ongoing experimentation, prototyping, and \noperational demonstrations, including lessons learned from use \nby the United States Indo-Pacific Command and the United States \nSpecial Operations Command.\n(7) A plan for co-design, co-development, co-production, \nand interoperability of unmanned systems with allies and \npartners, with particular emphasis on--\n(A) Australia, Israel, Japan, the Republic of \nKorea, Taiwan, and Ukraine; and\n(B) partners under the Advanced Capabilities pillar \nof the AUKUS partnership.\n(8) An assessment of adversary unmanned systems \ncapabilities and counter-unmanned systems threats, and \nrecommendations for measures to ensure survivability and \nmission effectiveness of United States and allied unmanned \nsystems.\n(9) A resource and procurement plan identifying near-term, \nmid-term, and long-term investments in UAS and UUV programs \nrequired to execute such strategy, including an identification \nof programs of record, rapid acquisition pathways, scalability \nand manufacturability, supply chain vulnerabilities, and \ncommercial off-the-shelf options.\n(10) A plan for addressing supply chain dependencies and \nvulnerabilities for UAS and UUV systems, consistent with the \nrequirements of the American Security Drone Act of 2023 (Public \nLaw 118-31; 137 Stat. 691; 41 U.S.C. note prec. 3901), as \napplicable, to ensure that United States military unmanned \nsystems are not dependent on components manufactured by \nentities subject to the influence or control of a covered \nforeign entity.\n(11) Metrics and milestones for measuring the \nimplementation and effectiveness of the strategy.\n(d) Submission to Congress.--Not later than 180 days after the date \nof the enactment of this Act, the Secretary of Defense shall submit to \nthe congressional defense committees (as defined in section 101 of \ntitle 10, United States Code) the strategy developed under subsection \n(a).\n(e) Briefing.--Not later than 1 year after the date on which the \nstrategy required by subsection (a) is submitted, and annually \nthereafter through 2030, the Secretary of Defense shall provide the \ncongressional defense committees with a briefing on--\n(1) the status of implementation of the strategy;\n(2) any changes in adversary unmanned systems capabilities \nor operational behavior that affect the strategy;\n(3) progress on allied and partner co-development and \ninteroperability initiatives;\n(4) procurements, deployments, and exercises conducted in \nfurtherance of the strategy; and\n(5) any recommended updates or modifications to the \nstrategy.\n(f) Definitions.--In this section:\n(1) Covered foreign entity.--The term ``covered foreign \nentity'' has the meaning given that term in section 1822 of the \nNational Defense Authorization Act for Fiscal Year 2024 (Public \nLaw 118-31; 10 U.S.C. 4661 note).\n(2) Unmanned aircraft system; uas.--The terms ``unmanned \naircraft system'' and ``UAS'' mean an unmanned aircraft and \nassociated elements, including communication links and the \ncomponents that control the unmanned aircraft, in accordance \nwith section 44801 of title 49, United States Code.\n(3) Unmanned undersea vehicle; uuv.--The terms ``unmanned \nundersea vehicle'' and ``UUV'' mean an unmanned, self-propelled \nvehicle that operates below the surface of the water, including \nremotely operated vehicles and autonomous undersea vehicles.\n<all>",
+  "text_truncated": false,
+  "text_missing": false
+ }
+}

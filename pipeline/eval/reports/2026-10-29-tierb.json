@@ -1,8 +1,8 @@
 {
  "measure": "tierb",
- "run_at": "2026-10-29T00:57:05.620Z",
- "checks_hash": "29c4188dbe8dac858646e5a836d95af10d542d5f680ec409f30ba972146a56ea",
- "cases": 19,
+ "run_at": "2026-10-29T01:13:39.759Z",
+ "checks_hash": "31ba3d1638e7101d3fb72403295085963a6c7751608c9f5b2ce96fe374c8fc92",
+ "cases": 39,
  "wrong": 0,
  "missed": 0,
  "partial": false,
@@ -177,6 +177,186 @@
    "wrong": false,
    "missed": false,
    "why": "already tracked (an entry covers NE LB1083) (entry hand-written-test-entry): not created; the id belongs on that entry"
+  },
+  {
+   "id": "CA-SB833",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier mode"
+  },
+  {
+   "id": "IL-HB5760",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier mode"
+  },
+  {
+   "id": "NJ-S4712",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier mode"
+  },
+  {
+   "id": "CA-AB222",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier mode"
+  },
+  {
+   "id": "HR10515",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: no passage of the text meets the criterion of section D or F (its title names a subject F excludes: \"Artificial Intelligence Education and Workforce Readiness Act of 2026\") (D: a federal bill that puts binding duties on frontie"
+  },
+  {
+   "id": "S4633",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training comp"
+  },
+  {
+   "id": "NY-A10000-budget",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: a budget, appropriations or defence authorization measure (\"Makes appropriations for the support of government - State Operations Budget.\"): an AI provision inside it is section I, which is never auto-created"
+  },
+  {
+   "id": "NJ-SR52-as-bill",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: a resolution (S4999), not a bill: resolutions and memorials never go in sections A, B or B.2, and the pipeline creates no entry for them (reported)"
+  },
+  {
+   "id": "PA-HB2829-as-HJ",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: a resolution (HJ45), not a bill: resolutions and memorials never go in sections A, B or B.2, and the pipeline creates no entry for them (reported)"
+  },
+  {
+   "id": "NE-LB1083-sunset",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: a measure that only extends dates or makes technical changes (\"Change the termination date of the Transparency in Artificial Intelligence Risk \"): it updates the law it amends and is never a new entry"
+  },
+  {
+   "id": "HR10152-ndaa",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not created: a budget, appropriations or defence authorization measure (\"National Defense Authorization Act for Fiscal Year 2027\"): an AI provision inside it is section I, which is never auto-created"
+  },
+  {
+   "id": "HR10152-companion-title",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "its title is the same as tracked entry \"S. 2938 AI Risk Evaluation Act\" (100% of the words): a companion in the other chamber or a reintroduction? possible duplicate of that entry (entry s-2938-ai-risk-evaluation-act): not created"
+  },
+  {
+   "id": "HR10152-related-tracked",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "Congress.gov relates it to a tracked bill (119/s/2938: Related bill); possible duplicate or update of that entry (entry s-2938-ai-risk-evaluation-act): not created"
+  },
+  {
+   "id": "PA-HB2829-companion",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "its title is the same as tracked entry \"PA SB 1234\" (100% of the words), in an overlapping session: a companion or refile under another number? possible duplicate or update of that entry (entry round4-test-entry): not created"
+  },
+  {
+   "id": "NY-A08833-number-written-out",
+   "expect": "not_created",
+   "stage": "held",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "already tracked (an entry covers NY A8833) (entry round4-test-entry): not created; the id belongs on that entry"
+  },
+  {
+   "id": "HR10152-figure-not-in-quote",
+   "expect": "not_created",
+   "stage": "readers",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not proved: mechanism gives 5000000, which is not in its quotes"
+  },
+  {
+   "id": "HR10152-wrong-section-D",
+   "expect": "not_created",
+   "stage": "readers",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": "not proved: no evidence quote showing section D's criterion (a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26"
+  },
+  {
+   "id": "NY-A08833",
+   "expect": "to_readers",
+   "stage": "readers",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": ""
+  },
+  {
+   "id": "NC-S735",
+   "expect": "to_readers",
+   "stage": "readers",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": ""
+  },
+  {
+   "id": "VT-H0341",
+   "expect": "to_readers",
+   "stage": "readers",
+   "created": null,
+   "wrong": false,
+   "missed": false,
+   "why": ""
   }
  ]
 }

@@ -17,7 +17,7 @@ import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
 import { writeDuties, DUTY_SECTIONS, DUTY_REQUIRED_SECTIONS } from './duties.mjs';
 import { recordRefusals, federalRefusals } from './record-kind.mjs';
 import { trackerIndex, duplicateOf, relatedUnread, programmeDuplicateOf, refileOf } from './dedupe.mjs';
-import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES, sectionPassage, FEDERAL_CHECKED_SECTIONS } from './rules.mjs';
+import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES, sectionPassage, FEDERAL_CHECKED_SECTIONS, fTitleOut } from './rules.mjs';
 import { normaliseExponents } from './checks.mjs';
 
 export const MAX_ROUNDS = 3;
@@ -170,8 +170,10 @@ async function processItemInner({ generator, validator, referee = null, item, ra
 
   // A federal bill no passage of which meets section D's or F's criterion (agents/rules.mjs): it cannot be filed in either, so no AI is
   // spent on it. Held (read again only when its record changes) and reported, as for a state bill.
-  if (operation === 'create' && item.source === 'congress_gov' && !sectionPassage('D', source) && !sectionPassage('F', source)) {
-    return held(`not created: no passage of the text meets the criterion of section D or F (D: ${SECTION_CRITERIA.D}; F: ${SECTION_CRITERIA.F})`, { no_section: true, proposal: `${item.item_id}${item.title ? ` ("${String(item.title).slice(0, 80)}")` : ''} meets neither federal section's criterion; not created` });
+  // Round 4: F is not proved by code for a bill whose own title names one of F's OUT subjects (education, workforce, children, energy ...).
+  const fedTitle = (raw.bill && raw.bill.title) || item.title;
+  if (operation === 'create' && item.source === 'congress_gov' && !sectionPassage('D', source) && (!sectionPassage('F', source) || fTitleOut(fedTitle))) {
+    return held(`not created: no passage of the text meets the criterion of section D or F${fTitleOut(fedTitle) ? ` (its title names a subject F excludes: "${String(fedTitle).slice(0, 80)}")` : ''} (D: ${SECTION_CRITERIA.D}; F: ${SECTION_CRITERIA.F})`, { no_section: true, proposal: `${item.item_id}${item.title ? ` ("${String(item.title).slice(0, 80)}")` : ''} meets neither federal section's criterion; not created` });
   }
 
   // A very long source in which no frontier-AI section or passage was found: whether it is in scope is judged on its opening. If both
