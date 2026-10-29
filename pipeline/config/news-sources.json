@@ -1,6 +1,13 @@
 {
  "_note": "News leads (news/leads.mjs). Only feeds meant for automated reading, each fetched live with the pipeline's own honest user agent and allowed by the site's robots.txt on the date in verified_at. primary: the official body's own releases (a news item may be written from them, quotes and numbers checked by code); secondary: press (never published automatically, reported as leads only). A site that blocks automated readers (403, a bot challenge) is listed under rejected and is never worked around. secondary_paths / secondary_titles mark op-eds on an official site: opinion, not an official release, so those items are leads only. sponsor: the member whose own feed it is (a weak match only: it never sets an item's tracker). secondary_paths are tested on both the feed link and the release link (\"In the News\" press reposts on house.gov are press). state: the two-letter code of a state body's own feed (a bill number with no state written next to it is read as that state's). type html_teasers: an official listing page read like a feed (only teasers with their own machine-readable date).",
  "user_agent": "us-frontier-ai-tracker-pipeline/0.1 (news leads; RSS reader)",
+ "structured": {
+  "_note": "Structured official-record adapters (news/sources/*.mjs) and news/health.mjs. cadence_hours: how often the source is read and normally has new records; no ok read for 2x cadence is reported stale. max_requests_per_run caps each run (Open States allows about 500 requests/day, 1 per second); min_interval_ms paces requests.",
+  "openstates": { "cadence_hours": 24, "max_requests_per_run": 60, "min_interval_ms": 1100, "base": "https://v3.openstates.org" },
+  "nysenate": { "cadence_hours": 24, "max_requests_per_run": 40, "min_interval_ms": 500, "base": "https://legislation.nysenate.gov/api/3" },
+  "legiscan": { "cadence_hours": 24 }, "congress_gov": { "cadence_hours": 24 }, "govinfo": { "cadence_hours": 48 }, "federal_register": { "cadence_hours": 24 },
+  "whitehouse": { "cadence_hours": 72 }, "regulations_gov": { "cadence_hours": 72 }, "courtlistener": { "cadence_hours": 72 }
+ },
  "sources": [
   { "id": "politico-technology", "url": "https://rss.politico.com/technology.xml", "type": "rss", "publisher": "Politico", "primary": false, "verified_at": "2026-10-28", "kind": "federal" },
   { "id": "nist-news", "url": "https://www.nist.gov/news-events/news/rss.xml", "type": "rss", "publisher": "NIST", "primary": true, "verified_at": "2026-10-28", "kind": "executive", "_note": "NIST news. Most CAISI (now CAISSI) posts are 'updates' this feed leaves out: they come from nist-caissi below." },

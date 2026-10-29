@@ -1,0 +1,20 @@
+{
+ "_note": "Shape of NY Senate Open Legislation API v3 GET /api/3/bills/2025/S6953?view=default (docs: https://legislation.nysenate.gov/static/docs/html/). Built from the documented schema, not a live capture: live verification awaits NYSENATE_API_KEY. Dates and counts are illustrative.",
+ "success": true, "message": "Data for bill S6953-2025", "responseType": "bill",
+ "result": {
+  "basePrintNo": "S6953", "session": 2025, "printNo": "S6953B", "billType": { "chamber": "SENATE", "desc": "Senate", "resolution": false },
+  "title": "Enacts the responsible AI safety and education (RAISE) act",
+  "status": { "statusType": "SIGNED_BY_GOV", "statusDesc": "Signed by Governor", "actionDate": "2025-12-19" },
+  "actions": { "items": [
+   { "billId": { "printNo": "S6953", "session": 2025, "version": "" }, "date": "2025-03-27", "chamber": "SENATE", "sequenceNo": 1, "text": "REFERRED TO INTERNET AND TECHNOLOGY" },
+   { "billId": { "printNo": "S6953A", "session": 2025, "version": "A" }, "date": "2025-05-14", "chamber": "SENATE", "sequenceNo": 2, "text": "AMEND AND RECOMMIT TO INTERNET AND TECHNOLOGY" },
+   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-06-12", "chamber": "SENATE", "sequenceNo": 3, "text": "PASSED SENATE" },
+   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-06-12", "chamber": "ASSEMBLY", "sequenceNo": 4, "text": "DELIVERED TO ASSEMBLY" },
+   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-12-12", "chamber": "SENATE", "sequenceNo": 5, "text": "DELIVERED TO GOVERNOR" },
+   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-12-19", "chamber": "SENATE", "sequenceNo": 6, "text": "SIGNED CHAP.711" }
+  ], "size": 6 },
+  "votes": { "items": [
+   { "voteType": "FLOOR", "voteDate": "2025-06-12", "memberVotes": { "items": { "AYE": { "size": 58 }, "NAY": { "size": 1 } } } }
+  ], "size": 1 }
+ }
+}
