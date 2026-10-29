@@ -36,7 +36,7 @@ export const MEASURE_INPUTS = {
   new_entries: [],
   relationships: ['../web/data/v2/entries.json', '../web/data/v2/relationships.json'],
   news: [],
-  news_writer: []
+  news_writer: ['../web/data/v2/entries.json'] // the bank's cards quote the entries' verified summaries
 };
 export const MEASURE_FILES = MEASURE_INPUTS; // older name
 

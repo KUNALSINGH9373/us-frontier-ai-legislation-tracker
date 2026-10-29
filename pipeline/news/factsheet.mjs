@@ -95,9 +95,20 @@ const READING_NOTE = /\b(?:text|complaint|analysis|bill) (?:\([^)]*\) )?read\b|\
 // tracker's own commentary, so no summary is taken from them.
 export const SUMMARY_SECTIONS = new Set(['A', 'B', 'B.2', 'C', 'D', 'E', 'F', 'G', 'G.3', 'H', 'I']);
 export const DEAD_END = new Set(['withdrawal', 'failure', 'committee-failure', 'executive-veto']);
+// A summary is quoted only when it reads as a whole sentence about what the measure does: it starts with a capital and with the measure as
+// its subject (a verb such as "Requires", or "The bill/act/order ..."), has no parenthetical aside left once section references are
+// removed, and no editorial or meta words ("earlier drafts", "said", "reportedly", "note", "see", "cf.", "tracker"). Otherwise null: the
+// fact sheet then has no "What it does" (review r4: "(earlier drafts said 2027)", "IVO proposes which specific risks it will verify").
+const META = /\b(earlier drafts?|drafts? said|said|says|reportedly|note[sd]?|see|cf\.?|tracker|we|our|unclear|apparently|seems?|arguably)\b/i;
+const WHAT_IT_DOES = /^(?:(?:The|This) (?:bill|act|law|measure|order|resolution|rule|statute|proposal)\b|It\b|Would\b|(?:Requires|Prohibits|Creates|Establishes|Directs|Bans|Mandates|Imposes|Sets|Allows|Authorizes|Amends|Applies|Defines|Gives|Bars|Makes|Provides|Covers|Adds|Expands|Repeals|Preempts|Limits|Restricts|Orders|Instructs|Tasks|Requests|Calls|Codifies|Extends|Exempts|Protects|Funds)\b)/;
+export function summaryUsable(s) {
+  const t = String(s || '').trim();
+  return t.length >= 40 && /^[A-Z]/.test(t) && WHAT_IT_DOES.test(t) && !/[()]/.test(t) && !META.test(t) && !READING_NOTE.test(t);
+}
 export function summaryOf(mechanism) {
   const parts = String(mechanism || '').split(/;\s|(?<=[a-z]{4}|\))\.\s+(?=[A-Z])/).map((x) => x.trim());
-  let s = (parts.find((x) => x.length >= 40 && !READING_NOTE.test(x)) || '').replace(/\s*\((?:§|Sec\.?|Section)[^()]*(?:\([^()]*\)[^()]*)*\)/g, '').replace(/\s+/g, ' ').trim();
+  const clean = (x) => x.replace(/\s*\((?:§|Sec\.?|Section)[^()]*(?:\([^()]*\)[^()]*)*\)/g, '').replace(/\s+/g, ' ').trim();
+  let s = clean(parts.find((x) => summaryUsable(clean(x))) || '');
   if (s.length > MAX_SUMMARY) s = s.slice(0, s.lastIndexOf(' ', MAX_SUMMARY)).replace(/[,;:\s]+$/, '');
   return s || null;
 }

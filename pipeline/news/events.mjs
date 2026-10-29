@@ -235,7 +235,7 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
     }
     if (e.pending_correction && e.status === 'withdrawn') { e.facts = e.last_confirmed.facts; e.facts_digest = e.last_confirmed.facts_digest; delete e.pending_correction; delete e.last_confirmed; } // the page keeps what it showed
     if (before.get(e.key) !== 'confirmed' && e.status === 'confirmed') out.confirmed.push(e.key);
-    if (before.get(e.key) !== 'withdrawn' && e.status === 'withdrawn') { out.withdrawn.push(e.key); if (e.card && e.card.written_by === 'ai') e.card = null; }
+    if (before.get(e.key) !== 'withdrawn' && e.status === 'withdrawn') { out.withdrawn.push(e.key); if (e.card && (e.card.written_by === 'ai' || e.card.written_by === 'bank')) e.card = null; }
   }
   return out;
 }
@@ -250,8 +250,8 @@ export function cardFor(ev, entry) {
   const t = templateFor(ev, entry);
   if (!t) return null;
   const c = ev.card || {};
-  const ai = c.written_by === 'ai' && c.headline && c.body && c.facts_hash === ev.facts_digest;
-  return { headline: ai ? c.headline : t.headline, body: ai ? c.body : t.body, template_headline: t.headline, template_body: t.body, written_by: ai ? 'ai' : 'template', facts_hash: ev.facts_digest };
+  const ai = (c.written_by === 'ai' || c.written_by === 'bank') && c.headline && c.body && c.facts_hash === ev.facts_digest;
+  return { headline: ai ? c.headline : t.headline, body: ai ? c.body : t.body, template_headline: t.headline, template_body: t.body, written_by: ai ? c.written_by : 'template', facts_hash: ev.facts_digest };
 }
 
 // Stores the template text on every event that has an entry (card.template_headline/template_body: news/writer.mjs falls back to them),
@@ -266,8 +266,8 @@ export function refreshCards(state, entries) {
     const t = templateFor(ev, entry);
     if (!t) continue;
     const c = ev.card || {};
-    const ai = c.written_by === 'ai' && c.facts_hash === ev.facts_digest;
-    ev.card = { headline: ai ? c.headline : t.headline, body: ai ? c.body : t.body, template_headline: t.headline, template_body: t.body, written_by: ai ? 'ai' : 'template', facts_hash: ai ? c.facts_hash : ev.facts_digest };
+    const ai = (c.written_by === 'ai' || c.written_by === 'bank') && c.facts_hash === ev.facts_digest;
+    ev.card = { headline: ai ? c.headline : t.headline, body: ai ? c.body : t.body, template_headline: t.headline, template_body: t.body, written_by: ai ? c.written_by : 'template', facts_hash: ai ? c.facts_hash : ev.facts_digest };
   }
 }
 
@@ -327,7 +327,7 @@ export function renderItem(owner, entry, { at, state = null } = {}) {
   const statements = [owner, ...(disp === owner ? [] : [disp])].flatMap((e) => e.sources.filter((s) => s.role === 'statement')).map((s) => ({ t: s.title, u: s.url, publisher: s.publisher || null }));
   const quote = quoteOf(ev.facts).quote;
   const corr = ev.history.filter((h) => h.to === 'corrected' || h.to === 'withdrawn').pop();
-  let check = card.written_by === 'ai' ? `From the official record (${off ? off.source : 'official'}): written from its fields by the AI writer, every fact checked by code and a second reader.` : `From the official record (${off ? off.source : 'official'}), written by code from its fields; the official words are quoted as recorded.`;
+  let check = card.written_by === 'bank' ? `From the official record (${off ? off.source : 'official'}), written by code from its fields with fixed wording.` : card.written_by === 'ai' ? `From the official record (${off ? off.source : 'official'}): written from its fields by the AI writer, every fact checked by code and a second reader.` : `From the official record (${off ? off.source : 'official'}), written by code from its fields; the official words are quoted as recorded.`;
   let note = null;
   // the record re-dated or re-classed the action this card was first published for: say exactly what changed
   const moved = owner.status === 'withdrawn' && disp !== owner && owner.shown;
