@@ -30,22 +30,45 @@ await ta('openstates: no key -> no items, health no key, no request', async () =
   assert.deepEqual(r, { items: [], health: { ok: false, count: 0, newest: null, errors: ['no key'] } }); assert.equal(http.calls.length, 0);
 });
 let osItems;
-await ta('openstates: maps classifications, exact number only, rejects future dates, hearings', async () => {
-  const http = fakeHttp([[/\/bills\?/, fx('openstates/bills-ca-sb53.json')], [/\/events\?/, fx('openstates/events-ca-sb53.json')]]);
+await ta('openstates (live capture, 29 Oct 2026): session from /jurisdictions, exact number only, votes matched to the floor roll call, no calendar events', async () => {
+  const bills = fx('openstates/bills-ca-sb53.json');
+  // a decoy with a longer number in the same answer: SB 530 is never SB 53
+  bills.results.push({ ...bills.results[0], id: 'ocd-bill/decoy', identifier: 'SB 530', openstates_url: 'https://openstates.org/ca/bills/20252026/SB530/' });
+  const http = fakeHttp([[/\/jurisdictions\/ca\?/, fx('openstates/jurisdiction-ca.json')], [/\/bills\?/, bills], [/\/events\?/, fx('openstates/events-ca-sb53.json')]]);
   const r = await OS.fetchItems({ http, env: { OPENSTATES_API_KEY: 'SECRET' }, entries: [CA], since: '2025-01-01', now: () => NOW, sleep: noSleep, config: { openstates: { max_requests_per_run: 10 } } });
   osItems = r.items;
   assert.equal(r.health.ok, true);
-  assert.ok(r.items.every((x) => x.entry_id === 'ca-sb-53-tfaia' && !/SB530/.test(x.url)), 'SB 530 never mapped to SB 53');
-  assert.ok(!r.items.some((x) => x.date === '2099-01-01'), 'future date rejected');
+  assert.ok(r.items.every((x) => x.entry_id === 'ca-sb-53-tfaia' && !/SB530|decoy/.test(x.url + x.source_id)), 'SB 530 never mapped to SB 53');
   const cls = (c) => r.items.filter((x) => x.class === c);
+  assert.equal(cls('introduction')[0].date, '2025-01-07', 'introduction before referral when an action carries both');
   assert.equal(cls('executive-signature')[0].date, '2025-09-29');
   assert.equal(cls('became-law').length, 1);
-  assert.deepEqual(cls('passage').map((x) => [x.facts.chamber, x.facts.vote.yes, x.facts.vote.no]), [['upper', 37, 0], ['lower', 45, 11]]);
-  assert.equal(r.items.find((x) => x.facts.action.startsWith('Read second')).class, null, 'reading-2 -> null');
-  assert.equal(cls('introduction')[0].date, '2025-01-07');
-  assert.equal(cls('hearing-held')[0].date, '2025-07-16');
-  assert.equal(cls('hearing-scheduled').find((x) => x.facts.withdrawn).facts.event_status, 'cancelled');
-  assert.ok(http.calls[0].includes('identifier=SB%2053') && http.calls[0].includes('updated_since=2025-01-01'));
+  // the Assembly vote is stamped 2025-09-13 in UTC for the 12 Sept action, next to a committee "Do pass" on the 11th: only the floor vote
+  assert.deepEqual(cls('passage').map((x) => [x.facts.chamber, x.facts.vote.yes, x.facts.vote.no]), [['upper', 37, 0], ['lower', 59, 7]]);
+  assert.equal(r.items.find((x) => /^From printer/.test(x.facts.action)).class, null, 'routine step -> null');
+  assert.equal(cls('hearing-held').length + cls('hearing-scheduled').length, 0, 'the events endpoint ignores ?bill=: a calendar event not naming SB 53 is never its hearing');
+  assert.ok(http.calls.some((u) => /\/jurisdictions\/ca\?include=legislative_sessions/.test(u)) && http.calls.some((u) => u.includes('session=20252026') && u.includes('identifier=SB%2053')));
+  assert.ok(!http.calls.some((u) => /apikey|SECRET/.test(u)), 'the key is sent in a header, never in a URL');
+  assert.deepEqual(r.state.sessions.ca.find((s) => s.identifier === '20252026').name, '2025-2026 Regular Session');
+});
+t('openstates: sessions matched by name (CA 20252026, NJ 222, NY 2025-2026, MA 194th); an event counts only when its agenda names the bill', () => {
+  assert.equal(OS.pickSession(fx('openstates/jurisdiction-ca.json').legislative_sessions, '2025-2026 Regular Session'), '20252026');
+  assert.equal(OS.pickSession([{ identifier: '221', name: '2024-2025 Regular Session' }, { identifier: '222', name: '2026-2027 Regular Session' }], '2026-2027 Regular Session'), '222');
+  assert.equal(OS.pickSession([{ identifier: '2023-2024', name: '2023 Regular Session' }, { identifier: '2025-2026', name: '2025 Regular Session' }], '2025-2026 General Assembly'), '2025-2026');
+  assert.equal(OS.pickSession([{ identifier: '193rd', name: '193rd General Court' }, { identifier: '194th', name: '194th General Court' }], '194th General Court'), '194th');
+  assert.equal(OS.pickSession([{ identifier: '2025', name: '2025 Regular Session' }], '103rd Legislature'), null);
+  const bill = { id: 'ocd-bill/x', identifier: 'SB 53', session: '20252026' };
+  assert.ok(OS.agendaNames({ agenda: [{ related_entities: [{ entity_type: 'bill', name: 'SB53', bill: { id: 'ocd-bill/x' } }] }] }, bill));
+  assert.ok(!OS.agendaNames({ agenda: [{ related_entities: [{ entity_type: 'bill', name: 'SB 53', bill: { id: 'ocd-bill/old', session: '20232024' } }] }] }, bill), 'same number, another session');
+  assert.ok(!OS.agendaNames(fx('openstates/events-ca-sb53.json').results[0], bill));
+});
+await ta('openstates: a cancelled hearing that names the bill is withdrawn', async () => {
+  const bills = fx('openstates/bills-ca-sb53.json'), id = bills.results[0].id;
+  const evs = { results: [{ id: 'ocd-event/cancel-1', name: 'Senate Judiciary', start_date: '2026-11-04T17:00:00+00:00', status: 'cancelled', agenda: [{ related_entities: [{ entity_type: 'bill', name: 'SB 53', bill: { id } }] }] }] };
+  const r = await OS.fetchItems({ http: fakeHttp([[/\/jurisdictions\//, fx('openstates/jurisdiction-ca.json')], [/\/bills\?/, bills], [/\/events\?/, evs]]), env: { OPENSTATES_API_KEY: 'SECRET' }, entries: [CA], now: () => NOW, sleep: noSleep });
+  const h = r.items.find((x) => x.class === 'hearing-scheduled');
+  assert.ok(h && h.facts.withdrawn && h.facts.event_status === 'cancelled');
+  osItems.push(h);
 });
 await ta('openstates: per-run cap stops early, errors scrub the key', async () => {
   const http = fakeHttp([[/\/bills\?/, new Error('HTTP 500 for x?apikey=SECRET')]]);
@@ -68,10 +91,11 @@ await ta('nysenate: no key, then RAISE actions mapped with vote and chapter', as
   assert.equal(http.calls.length, 1, 'only NY bills');
   const by = (c) => r.items.filter((x) => x.class === c);
   assert.equal(by('introduction')[0].date, '2025-03-27');
-  assert.equal(by('new-text-version')[0].date, '2025-05-14');
+  assert.equal(by('new-text-version')[0].date, '2025-06-03');
   assert.deepEqual(by('passage')[0].facts.vote, { yes: 58, no: 1 });
-  assert.equal(by('executive-receipt')[0].date, '2025-12-12');
-  assert.equal(by('executive-signature')[0].facts.chapter, '711');
+  assert.equal(by('executive-receipt')[0].date, '2025-12-09');
+  assert.equal(by('executive-signature')[0].facts.chapter, '699');
+  assert.ok(!r.items.find((x) => x.facts.action === 'PASSED ASSEMBLY').facts.vote, 'the Senate API has Senate roll calls only: the Assembly passage takes none');
   assert.equal(r.items.find((x) => x.facts.action === 'DELIVERED TO ASSEMBLY').class, null);
   assert.ok(r.items.every((x) => x.url === 'https://www.nysenate.gov/legislation/bills/2025/S6953'));
 });
@@ -144,7 +168,7 @@ t('confirm: EO from whitehouse needs federal_register; congress_gov enrolled nee
   assert.ok(confirmationTable().length >= 5);
 });
 t('confirm: withdrawn record and corrected date never delete', () => {
-  const e = ev({ jurisdiction: 'CA', entry_id: 'ca-sb-53-tfaia', class: 'hearing-scheduled', date: '2025-06-20', src: 'openstates', sid: 'ocd-event/bbbb-cancel|hearing-scheduled', status: 'confirmed' });
+  const e = ev({ jurisdiction: 'CA', entry_id: 'ca-sb-53-tfaia', class: 'hearing-scheduled', date: '2025-06-20', src: 'openstates', sid: 'ocd-event/cancel-1|hearing-scheduled', status: 'confirmed' });
   const r = applyRun([e], osItems.map((x) => ({ ...x })), { at: AT });
   assert.equal(r.events.length, 1); assert.equal(r.events[0].status, 'withdrawn'); assert.equal(r.events[0].history.at(-1).to, 'withdrawn');
   const c = ev({ jurisdiction: 'CA', entry_id: 'ca-sb-53-tfaia', class: 'executive-signature', date: '2025-09-28', src: 'legiscan', sid: 'L9', status: 'confirmed' });
@@ -227,5 +251,16 @@ t('health: load/save round trip', () => {
   const p = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'nh-')), 'h.json');
   assert.deepEqual(loadHealth(p), { sources: {} });
   saveHealth(p, { sources: { a: { ok: true } } }); assert.equal(loadHealth(p).sources.a.ok, true);
+});
+// ---------- live captures carry no key
+t('fixtures: no API key in any news source fixture (keys redacted at capture; the env keys, when set, never appear)', () => {
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((x) => (x.isDirectory() ? walk(path.join(d, x.name)) : [path.join(d, x.name)]));
+  const keys = ['PLURAL_API_KEY', 'OPENSTATES_API_KEY', 'NYSENATE_API_KEY', 'CONGRESS_API_KEY', 'GOVINFO_API_KEY', 'DATA_GOV_API_KEY', 'REGULATIONS_GOV_API_KEY', 'LEGISCAN_API_KEY', 'COURTLISTENER_API_TOKEN'].map((k) => process.env[k]).filter((v) => v && v.length > 6);
+  for (const f of walk(FIX)) {
+    const t = fs.readFileSync(f, 'utf8');
+    assert.ok(!/[?&](?:api_?key|key|token)=(?!REDACTED|K\b|SECRET\b)[A-Za-z0-9_-]{8,}/i.test(t), `${path.relative(FIX, f)} has a key in a URL`);
+    assert.ok(!/"x-api-key"\s*:\s*"(?!REDACTED)[^"]{8,}"/i.test(t), `${path.relative(FIX, f)} has an X-API-KEY value`);
+    for (const k of keys) assert.ok(!t.includes(k), `${path.relative(FIX, f)} contains a live key`);
+  }
 });
 console.log(`\n${n} news verify tests passed`);

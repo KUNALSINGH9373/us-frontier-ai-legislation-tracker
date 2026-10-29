@@ -1,17 +1,17 @@
 {
  "measure": "news_writer",
  "mode": "bank",
- "run_at": "2026-10-29T06:24:58.323Z",
- "checks_hash": "a59fba95c4d1db890a13ab28e284dec08330f07f8f817a8ec9a498b52211d1c9",
+ "run_at": "2026-10-29T07:25:18.358Z",
+ "checks_hash": "8f07479dda3de21d93f9ffc8e665482db2e321176452433ebaa394bca5cc20b3",
  "cases": 32,
  "wrong": 0,
  "missed": 0,
  "bank_written": 32,
  "ai_written": 0,
  "matrix": {
-  "renderings": 74640,
+  "renderings": 202680,
   "wrong": 0,
-  "refused": 2430,
+  "refused": 8109,
   "unusable_headlines": [],
   "examples_wrong": []
  },
@@ -193,7 +193,7 @@
    "wrong": false,
    "missed": false,
    "headline": "California Senate passes AB 1405",
-   "body": "The Senate passed AB 1405 by a vote of 38-2 on August 30, 2026. The next step is consideration in the Assembly.",
+   "body": "The Senate passed AB 1405 by a vote of 38-2 on August 30, 2026. Status: Passed the Senate.",
    "reason": null
   },
   {
@@ -227,7 +227,7 @@
    "wrong": false,
    "missed": false,
    "headline": "California Senate concurs on SB 813",
-   "body": "The Senate concurred in amendments to SB 813 on August 30, 2026. What it does: Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone. The next step is transmittal to the Governor.",
+   "body": "The Senate concurred in amendments to SB 813 on August 30, 2026. What the bill would do: Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone. The next step is transmittal to the Governor.",
    "reason": null
   },
   {
@@ -262,7 +262,7 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "The Governor signs SB 315",
+   "headline": "SB 315 signed",
    "body": "Governor JB Pritzker signed SB 315 on July 6, 2026. Status: Signed into law.",
    "reason": null
   },
@@ -421,7 +421,7 @@
    "wrong": false,
    "missed": false,
    "headline": "House Science, Space, and Technology Committee approves H.R. 9363, 29-0",
-   "body": "The House Science, Space, and Technology Committee advanced H.R. 9363 on June 25, 2026. What comes next: a vote of the full House.",
+   "body": "The House Science, Space, and Technology Committee advanced H.R. 9363 on June 25, 2026. Status: Passed committee.",
    "reason": null
   },
   {
@@ -483,7 +483,7 @@
    "wrong": false,
    "missed": false,
    "headline": "Senate Committee on Commerce, Science, and Transportation receives S. 5493",
-   "body": "S. 5493 was referred to the Senate Committee on Commerce, Science, and Transportation on September 23, 2026. What it does: Creates a cabinet-level Department of Artificial Intelligence. What comes next: consideration by the Senate Committee on Commerce, Science, and Transportation.",
+   "body": "S. 5493 was referred to the Senate Committee on Commerce, Science, and Transportation on September 23, 2026. What the bill would do: Creates a cabinet-level Department of Artificial Intelligence. What comes next: consideration by the Senate Committee on Commerce, Science, and Transportation.",
    "reason": null
   },
   {
@@ -552,8 +552,8 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "The President signs Executive Order 14434",
-   "body": "The President signed Executive Order 14434 on September 29, 2026. Status: Executive order signed.",
+   "headline": "Executive Order 14434 issued",
+   "body": "Executive Order 14434 was signed on September 29, 2026. Status: Executive order signed.",
    "reason": null
   },
   {
@@ -571,7 +571,7 @@
    "wrong": false,
    "missed": false,
    "headline": "Executive Order 14409 issued",
-   "body": "On June 2, 2026, the President signed Executive Order 14409. Status: Executive order signed.",
+   "body": "Executive Order 14409 was signed on June 2, 2026. Status: Executive order signed.",
    "reason": null
   },
   {
@@ -669,7 +669,7 @@
    "wrong": false,
    "missed": false,
    "headline": "Connecticut Senate passes CT P.A. 26-15 (omnibus)",
-   "body": "The Senate passed CT P.A. 26-15 (omnibus) on May 1, 2026. What comes next: consideration in the House.",
+   "body": "The Senate passed CT P.A. 26-15 (omnibus) on May 1, 2026. Status: Passed the Senate.",
    "reason": null
   },
   {
@@ -686,7 +686,7 @@
    "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "The Governor vetoes SB 1047",
+   "headline": "SB 1047 vetoed",
    "body": "Governor Gavin Newsom vetoed SB 1047 on September 29, 2024. Status: Vetoed.",
    "reason": null
   },
@@ -723,7 +723,7 @@
    "wrong": false,
    "missed": false,
    "headline": "H.R. 637 advances out of committee",
-   "body": "The House Communications and Technology Committee advanced H.R. 637 on October 7, 2026. Next: a vote of the full House.",
+   "body": "The House Communications and Technology Committee advanced H.R. 637 on October 7, 2026. Status: Passed committee.",
    "reason": null
   },
   {
@@ -741,7 +741,7 @@
    "wrong": false,
    "missed": false,
    "headline": "House Foreign Affairs Committee advances H.R. 3447",
-   "body": "The House Foreign Affairs Committee approved H.R. 3447 on March 26, 2026 by a vote of 42-0. Next: a vote of the full House.",
+   "body": "The House Foreign Affairs Committee approved H.R. 3447 on March 26, 2026 by a vote of 42-0. Status: Passed committee.",
    "reason": null
   },
   {

@@ -20,8 +20,28 @@ const MAX_SUMMARY = 260;
 const LOWER = { CA: 'Assembly', NY: 'Assembly', NV: 'Assembly', WI: 'Assembly', NJ: 'General Assembly' };
 const lowerOf = (j) => j === 'US' ? 'House' : LOWER[j] || 'House';
 const upperOf = () => 'Senate';
-const UNICAMERAL = new Set(['NE']);
-export const executiveOf = (j) => (j === 'US' ? 'the President' : 'the Governor');
+const UNICAMERAL = new Set(['NE', 'DC']);
+export const isUnicameral = (j) => UNICAMERAL.has(j);
+// Who acts on a passed measure: the President, the Mayor of the District of Columbia, else the Governor (review r4 #4).
+export const executiveOf = (j) => (j === 'US' ? 'the President' : j === 'DC' ? 'the Mayor' : 'the Governor');
+// The chamber a bill started in, from its number's prefix (review r4 #1): AB / A. / HB / H.R. / HF / HJR ... -> the lower chamber; SB / S. /
+// SF / SJR ... -> the Senate; Nebraska's LB and DC's B -> the one chamber. null when the prefix does not say.
+export function originOf(number, j) {
+  const m = /^\s*([A-Za-z][A-Za-z.\s]{0,6}?)\s*\.?\s*\d/.exec(String(number || '').replace(/^[A-Z]{2}\s+(?=[A-Z])/, (x) => (j && x.trim() === j ? '' : x)));
+  if (!m) return null;
+  const p = m[1].replace(/[.\s]/g, '').toUpperCase();
+  if (UNICAMERAL.has(j)) return j === 'NE' ? 'Legislature' : 'Council';
+  if (/^(S|SB|SF|SJR|SCR|SR|SJ|SC|SM|SP|SJRES|SCONRES|SRES)$/.test(p)) return 'Senate';
+  if (/^(H|HR|HB|HF|HJR|HCR|HJ|HC|HM|HP|HJRES|HCONRES|HRES|A|AB|AJR|ACR|AR|LD)$/.test(p)) return lowerOf(j);
+  return null;
+}
+// A resolution is not "signed into law" (review r4 #8).
+export function isResolution(number, j) {
+  const t = String(number || "").trim();
+  if (j === "US" || /^(H|S)\.\s?(J\.\s?|Con\.\s?)?Res/i.test(t)) return /\bRes\b/i.test(t);
+  const u = (j && t.startsWith(`${j} `) ? t.slice(j.length + 1) : t).replace(/[.\s]/g, "").toUpperCase(); // "KS HR6023" -> HR6023
+  return /^(HR|SR|AR|HJR|SJR|AJR|HCR|SCR|ACR|HRES|SRES|R)\d/.test(u);
+}
 const otherChamber = (j, chamber) => {
   if (UNICAMERAL.has(j)) return null;
   const c = String(chamber || '').toLowerCase();
@@ -40,20 +60,24 @@ const chamberName = (j, chamber) => {
 // Stage after the event and the one next step code may state (null when there is no fixed next step).
 export function stageAndNext(cls, j, f = {}) {
   const ch = chamberName(j, f.chamber), other = otherChamber(j, f.chamber), exec = executiveOf(j), committee = f.committee || 'committee';
+  const origin = originOf(f.number, j), both = UNICAMERAL.has(j) ? (j === 'NE' ? 'Passed the Legislature' : 'Passed the Council') : 'Passed both chambers';
   switch (cls) {
     case 'introduction': return { stage: 'Introduced', next: f.committee ? `consideration by the ${f.committee}` : 'referral to a committee' };
     case 'referral-committee': return { stage: 'In committee', next: `consideration by the ${committee}` };
     case 'hearing-scheduled': return { stage: 'In committee', next: null };
     case 'hearing-held': return { stage: 'In committee', next: null };
-    case 'committee-passage': return { stage: 'Passed committee', next: ch ? `a vote of the full ${ch}` : 'a floor vote' };
+    // a committee may re-refer as often as send to the floor (review r4 #2): no fixed next step
+    case 'committee-passage': return { stage: 'Passed committee', next: null };
     case 'committee-failure': return { stage: 'Failed in committee', next: null };
-    case 'passage': return other ? { stage: `Passed the ${ch}`, next: `consideration in the ${other}` } : { stage: ch ? `Passed the ${ch}` : 'Passed one chamber', next: null };
+    // the other chamber is next only when this chamber is the one the bill started in (review r4 #1); a second-chamber passage, or an
+    // unknown origin, states no next step
+    case 'passage': return { stage: ch ? `Passed the ${ch}` : 'Passed one chamber', next: other && origin && ch === origin ? `consideration in the ${other}` : null };
     case 'failure': return { stage: ch ? `Failed in the ${ch}` : 'Failed a floor vote', next: null };
     case 'amendment-passage': return { stage: 'Amended', next: null };
-    case 'concurrence': return { stage: 'Passed both chambers', next: `transmittal to ${exec}` };
-    case 'enrolled': return { stage: 'Passed both chambers', next: `transmittal to ${exec}` };
+    case 'concurrence': return { stage: both, next: `transmittal to ${exec}` };
+    case 'enrolled': return { stage: both, next: `transmittal to ${exec}` };
     case 'executive-receipt': return { stage: `Sent to ${exec}`, next: `action by ${exec}` };
-    case 'executive-signature': return { stage: 'Signed into law', next: null };
+    case 'executive-signature': return { stage: j === 'DC' || isResolution(f.number, j) ? 'Signed' : 'Signed into law', next: null }; // a resolution or a DC act is not 'into law'
     case 'became-law': return { stage: 'Law', next: null };
     case 'executive-veto': return { stage: 'Vetoed', next: null };
     case 'veto-override-passage': return { stage: ch ? `Veto overridden in the ${ch}` : 'Veto overridden', next: null };
@@ -121,7 +145,7 @@ export function buildFactSheet(event, entry = null, { today = null } = {}) {
   if (facts.vote && !(Number.isInteger(facts.vote.yes) && Number.isInteger(facts.vote.no))) delete facts.vote;
   if (facts.chamber) facts.chamber = chamberName(j, facts.chamber);
   const nums = billNumbers(f.number || '').concat(entry ? billNumbers(entry.short_name || '') : []);
-  const { stage, next } = stageAndNext(ev.class, j, { ...f, chamber: facts.chamber });
+  const { stage, next } = stageAndNext(ev.class, j, { ...f, number: f.number || nums[0] || null, chamber: facts.chamber });
   return {
     event: { class: ev.class, date: ev.date, timing: timingOf(ev, today), ...facts },
     bill: {

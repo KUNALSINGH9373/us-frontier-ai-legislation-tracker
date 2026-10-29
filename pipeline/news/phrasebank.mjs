@@ -6,6 +6,7 @@
 // next step from its own bank (or the stage, when there is no next step). Every variant is reviewed by hand for accuracy: no
 // implication beyond its class (passage never implies law, receipt never implies signature, committee never implies the floor).
 import crypto from 'crypto';
+import { isUnicameral, isResolution } from './factsheet.mjs';
 
 const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const longDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || '')); return m ? `${MON[+m[2] - 1]} ${+m[3]}, ${m[1]}` : null; };
@@ -21,6 +22,9 @@ const UNANIMOUS = (s) => !!s.event.vote && s.event.vote.no === 0 && s.event.vote
 const SPLIT = (s) => !!s.event.vote && s.event.vote.no > 0;
 const SCHEDULED = (s) => s.event.timing === 'scheduled';
 const HELD = (s) => s.event.timing !== 'scheduled';
+// review r4: two chambers only where there are two (#3); 'into law' / 'enacts' only for a bill outside DC (#4, #8)
+const BI = (s) => !isUnicameral(s.bill.jurisdiction);
+const LAW = (s) => s.bill.jurisdiction !== 'DC' && !isResolution(s.bill.number, s.bill.jurisdiction);
 
 // The slots a fact sheet supplies (null = absent).
 export function slotsOf(s) {
@@ -29,7 +33,7 @@ export function slotsOf(s) {
     bill: b.number || b.short_title || null,
     state: !us && b.jurisdiction_name && b.jurisdiction_name !== b.jurisdiction ? b.jurisdiction_name : null,
     chamber: e.chamber || null,
-    committee: e.committee || null,
+    committee: e.committee ? String(e.committee).replace(/^the\s+/i, '') : null, // templates write 'the {committee}' (review r4 #8)
     yes: e.vote ? String(e.vote.yes) : null,
     no: e.vote ? String(e.vote.no) : null,
     date: longDate(e.date),
@@ -89,28 +93,28 @@ export const BANK = {
     B: [v('The {chamber} adopted an amendment to {bill} on {date}.'), v('{bill} was amended on {date}.'), v('An amendment to {bill} was adopted on {date}.')]
   },
   concurrence: {
-    H: [v('{state} {chamber} concurs on {bill}'), v('{chamber} concurs on {bill}, {yes}-{no}', VOTE), v('{bill} clears both chambers after {chamber} concurrence'), v('{bill}: {chamber} concurs'), v('{chamber} concurs in amendments to {bill}')],
-    B: [v('The {chamber} concurred in {bill} on {date}.'), v('The {chamber} voted {yes}-{no} on {date} to concur in {bill}.', VOTE), v('On {date}, the {state} {chamber} concurred in {bill}, completing passage in both chambers.'), v('The {chamber} concurred in amendments to {bill} on {date}.')]
+    H: [v('{state} {chamber} concurs on {bill}'), v('{chamber} concurs on {bill}, {yes}-{no}', VOTE), v('{bill} clears both chambers after {chamber} concurrence', BI), v('{bill}: {chamber} concurs'), v('{chamber} concurs in amendments to {bill}')],
+    B: [v('The {chamber} concurred in {bill} on {date}.'), v('The {chamber} voted {yes}-{no} on {date} to concur in {bill}.', VOTE), v('On {date}, the {state} {chamber} concurred in {bill}, completing passage in both chambers.', BI), v('The {chamber} concurred in amendments to {bill} on {date}.')]
   },
   enrolled: {
-    H: [v('{bill} enrolled'), v('{bill} enrolled after passing both chambers'), v('{state} {bill} enrolled'), v('{bill} enrolled on {date}')],
-    B: [v('{bill} was enrolled on {date}.'), v('On {date}, {bill} was enrolled after passing both chambers.'), v('{bill} was enrolled on {date}, having passed both chambers.')]
+    H: [v('{bill} enrolled'), v('{bill} enrolled after passing both chambers', BI), v('{state} {bill} enrolled'), v('{bill} enrolled on {date}')],
+    B: [v('{bill} was enrolled on {date}.'), v('On {date}, {bill} was enrolled after passing both chambers.', BI), v('{bill} was enrolled on {date}, having passed both chambers.', BI)]
   },
   'executive-receipt': {
     H: [v('{bill} sent to {exec_l}'), v('{bill} goes to {exec_l}'), v('{bill} presented to {exec_l}'), v('{bill} delivered to {exec_l}'), v('{state} {bill} sent to {exec_l}')],
     B: [v('{bill} was sent to {exec_l} on {date}.'), v('On {date}, {bill} was presented to {exec_l}.'), v('{bill} was delivered to {exec_l} on {date}.')]
   },
   'executive-signature': {
-    H: [v('{signer} signs {bill}'), v('{bill} signed into law'), v('{exec} signs {bill}'), v('{bill} signed into law as {law_number}'), v('{state} enacts {bill}'), v('{signer} signs {bill} into law')],
-    B: [v('{signer} signed {bill} on {date}.'), v('{bill} was signed into law on {date}.'), v('On {date}, {signer} signed {bill} into law.'), v('{bill} was signed into law on {date} as {law_number}.'), v('{exec} signed {bill} on {date}.')]
+    H: [v('{signer} signs {bill}'), v('{bill} signed into law', LAW), v('{bill} signed'), v('{bill} signed into law as {law_number}', LAW), v('{state} enacts {bill}', LAW), v('{signer} signs {bill} into law', LAW)],
+    B: [v('{signer} signed {bill} on {date}.'), v('{bill} was signed into law on {date}.', LAW), v('On {date}, {signer} signed {bill} into law.', LAW), v('{bill} was signed into law on {date} as {law_number}.', LAW), v('{bill} was signed on {date}.')]
   },
   'became-law': {
     H: [v('{bill} becomes law'), v('{bill} is now law'), v('{bill} becomes law as {law_number}'), v('{bill} became law on {date}')],
     B: [v('{bill} became law on {date}.'), v('On {date}, {bill} became law.'), v('{bill} became law as {law_number} on {date}.')]
   },
   'executive-veto': {
-    H: [v('{signer} vetoes {bill}'), v('{exec} vetoes {bill}'), v('{bill} vetoed'), v('{state} {bill} vetoed')],
-    B: [v('{signer} vetoed {bill} on {date}.'), v('{bill} was vetoed on {date}.'), v('On {date}, {exec_l} vetoed {bill}.')]
+    H: [v('{signer} vetoes {bill}'), v('{bill} vetoed'), v('{state} {bill} vetoed'), v('{bill} vetoed on {date}')],
+    B: [v('{signer} vetoed {bill} on {date}.'), v('{bill} was vetoed on {date}.'), v('On {date}, {bill} was vetoed.')]
   },
   'veto-override-passage': {
     H: [v('{chamber} votes to override veto of {bill}'), v('{chamber} votes {yes}-{no} to override veto of {bill}', VOTE), v('Veto override vote on {bill} passes the {chamber}'), v('{bill}: {chamber} votes to override veto')],
@@ -137,12 +141,12 @@ export const BANK = {
     B: [v('CBO published a cost estimate for {bill} on {date}.'), v('A CBO cost estimate for {bill} was published on {date}.'), v('On {date}, CBO published a cost estimate for {bill}.')]
   },
   'executive-order': {
-    H: [v('{exec} signs {bill}'), v('{bill} signed'), v('{bill} issued'), v('{bill}: {title}')],
-    B: [v('{exec} signed {bill} on {date}.'), v('{bill} was signed on {date}.'), v('On {date}, {exec_l} signed {bill}.'), v('{bill} was issued on {date}.')]
+    H: [v('{signer} signs {bill}'), v('{bill} signed'), v('{bill} issued'), v('{bill}: {title}')],
+    B: [v('{signer} signed {bill} on {date}.'), v('{bill} was signed on {date}.'), v('On {date}, {signer} signed {bill}.'), v('{bill} was issued on {date}.')]
   },
   'presidential-memo': {
-    H: [v('{bill} issued'), v('Presidential memorandum issued: {title}'), v('{exec} issues {bill}'), v('{exec} issues memorandum: {title}')],
-    B: [v('{exec} issued {bill} on {date}.'), v('{bill} was issued on {date}.'), v('On {date}, {exec_l} issued {bill}.'), v('{exec} issued a memorandum on {date}: {title}.')]
+    H: [v('{bill} issued'), v('Presidential memorandum issued: {title}'), v('{signer} issues {bill}'), v('{signer} issues memorandum: {title}')],
+    B: [v('{signer} issued {bill} on {date}.'), v('{bill} was issued on {date}.'), v('On {date}, {signer} issued {bill}.'), v('A presidential memorandum was issued on {date}: {title}.')]
   },
   'agency-guidance': {
     H: [v('{agency} issues guidance'), v('Guidance from {agency}: {title}'), v('{agency} guidance: {title}'), v('{agency} publishes guidance')],
@@ -165,8 +169,8 @@ export const BANK = {
     B: [v('The public comment period on {title} will close on {comments_close}.', SCHEDULED), v('Comments to {agency} are scheduled to close on {comments_close}.', SCHEDULED), v('{agency} will accept comments until {comments_close}.', SCHEDULED)]
   },
   nomination: {
-    H: [v('{nominee} nominated as {position}'), v('{exec} nominates {nominee}'), v('Nomination of {nominee} received'), v('{exec} nominates {nominee} as {position}')],
-    B: [v('The nomination of {nominee} as {position} by {exec_l} was received on {date}.'), v('The nomination of {nominee} for {position} was received on {date}.'), v('On {date}, the nomination of {nominee} was received.')]
+    H: [v('{nominee} nominated as {position}'), v('{signer} nominates {nominee}'), v('Nomination of {nominee} received'), v('{signer} nominates {nominee} as {position}')],
+    B: [v('The nomination of {nominee} as {position} by {signer} was received on {date}.'), v('The nomination of {nominee} for {position} was received on {date}.'), v('On {date}, the nomination of {nominee} was received.')]
   },
   'court-filing': {
     H: [v('Filing in {title} at {court}'), v('New filing in {title}'), v('{title}: filing in {court}'), v('{title}: new court filing')],
@@ -180,6 +184,10 @@ export const BANK = {
 export const NEXT_BANK = ['The next step is {next}.', 'Next: {next}.', 'What comes next: {next}.'];
 export const STAGE_LINE = 'Status: {stage}.';
 export const SUMMARY_LINE = 'What it does: {summary}.';
+// The label (review r4 #6): a measure in force 'does'; a live bill 'would do'.
+const IN_FORCE = new Set(['executive-signature', 'became-law', 'executive-order', 'presidential-memo', 'agency-rule-final', 'agency-guidance']);
+const BILLISH = new Set(['introduction', 'referral-committee', 'hearing-scheduled', 'hearing-held', 'committee-passage', 'passage', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'veto-override-passage', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate']);
+export const summaryLabel = (cls) => (IN_FORCE.has(cls) ? 'What it does' : BILLISH.has(cls) ? 'What the bill would do' : 'What it would do');
 
 const SLOT = /\{([a-z_]+)\}/g;
 // The variant rendered with the slots, or null when a slot is missing or its condition fails.
@@ -208,7 +216,7 @@ export function wholeClause(s) {
   if (count(/\(/g) !== count(/\)/g) || count(/"/g) % 2 || count(/[“]/g) !== count(/[”]/g)) return false;
   return !/\b(?:and|or|but|the|a|an|of|to|incl|including|with|for|by|in|e\.g|i\.e|etc)\.?$/i.test(t) && !/[,:;—–-]$/.test(t);
 }
-export const summaryLine = (sheet) => sheet.verified && sheet.verified.summary && wholeClause(sheet.verified.summary) ?SUMMARY_LINE.replace('{summary}', String(sheet.verified.summary).replace(/[\s.;:,]+$/, '')) : null;
+export const summaryLine = (sheet) => sheet.verified && sheet.verified.summary && wholeClause(sheet.verified.summary) ? `${summaryLabel(sheet.event && sheet.event.class)}: ${String(sheet.verified.summary).replace(/[\s.;:,]+$/, '')}.` : null;
 // Cards from rendered headlines H and event sentences B. Each card has `check`: the bank's own words (headline + event sentence +
 // next step or stage), which must pass checkCard; the summary line is the sheet's verified text verbatim, inserted after the check
 // and dropped when the body would pass MAX_BODY characters.

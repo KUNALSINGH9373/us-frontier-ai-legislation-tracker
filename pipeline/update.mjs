@@ -195,7 +195,9 @@ function revertEntries({ S, before, keys, start, newsTrackers = new Set() }) {
   const ut = cur.site.updates_through;
   cur.entries.filter((e) => set.has(e.key)).forEach((e) => e.events.forEach((v) => { if (v.scheduled !== undefined || v.date > ut) v.scheduled = v.date > ut; }));
   const oldNews = new Set(before.news.items.map((x) => JSON.stringify(x)));
-  cur.news.items = cur.news.items.filter((x) => oldNews.has(JSON.stringify(x)) || !set.has(x.tracker));
+  // an event card this run re-rendered (corrected, withdrawn, superseded) goes back to the card as it was, in place; a new one is removed
+  const oldByEvent = new Map(before.news.items.filter((x) => x.event_key).map((x) => [x.event_key, x]));
+  cur.news.items = cur.news.items.flatMap((x) => (oldNews.has(JSON.stringify(x)) || !set.has(x.tracker) ? [x] : x.event_key && oldByEvent.has(x.event_key) ? [JSON.parse(JSON.stringify(oldByEvent.get(x.event_key)))] : []));
   const n0 = (before.changes.items || []).length;
   cur.changes.items = [...cur.changes.items.slice(0, n0), ...cur.changes.items.slice(n0).filter((x) => !set.has(x.entry_key))];
   const rel = cur.relationships, e0 = before.relationships.edges.length, relWas = JSON.stringify(rel);

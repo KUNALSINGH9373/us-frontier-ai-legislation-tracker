@@ -5,8 +5,9 @@
   "_note": "Structured official-record adapters (news/sources/*.mjs) and news/health.mjs. cadence_hours: how often the source is read and normally has new records; no ok read for 2x cadence is reported stale. max_requests_per_run caps each run (Open States allows about 500 requests/day, 1 per second); min_interval_ms paces requests.",
   "openstates": {
    "cadence_hours": 24,
-   "max_requests_per_run": 60,
-   "min_interval_ms": 1100,
+   "max_requests_per_run": 80,
+   "min_interval_ms": 6500,
+   "hosts": ["openstates.org"],
    "base": "https://v3.openstates.org"
   },
   "nysenate": {

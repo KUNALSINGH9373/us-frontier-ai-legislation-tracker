@@ -5,6 +5,7 @@
 // below maps to one class; anything else is recorded with class null.
 import fs from 'fs';
 import { acceptDate, normNumber, trackedBills, loadStructuredConfig, IDS_PATH } from './openstates.mjs';
+import { getJsonAny, isBillList } from './common.mjs';
 
 export const NY_ACTIONS = [
   [/^SIGNED CHAP\.?\s*\d+/i, 'executive-signature'],
@@ -47,7 +48,9 @@ export function billToItems(r, tracked, retrievedAt) {
     const cls = i === 0 && /^REFERRED TO /i.test(a.text) ? 'introduction' : mapNyAction(a.text);
     const facts = { chamber: CH[a.chamber] || null, number, title: r.title, action: a.text };
     if (cls === 'referral-committee' || cls === 'introduction') facts.committee = String(a.text).replace(/^REFERRED TO /i, '').trim();
-    if (cls === 'passage' || cls === 'concurrence') { const v = floorVote(r.votes, date); if (v) facts.vote = v; }
+    // the NY Senate API records Senate roll calls only: an Assembly action never takes one (live check, 29 Oct 2026: PASSED ASSEMBLY got
+    // the Senate's 58-1)
+    if ((cls === 'passage' || cls === 'concurrence') && a.chamber === 'SENATE') { const v = floorVote(r.votes, date); if (v) facts.vote = v; }
     if (cls === 'executive-signature') facts.chapter = (/CHAP\.?\s*(\d+)/i.exec(a.text) || [])[1] || null;
     const items1 = { source: 'nysenate', source_id: `${r.session}-${r.basePrintNo}-${a.sequenceNo ?? i}`, jurisdiction: 'NY', entry_id: tracked.entry_id, class: cls, date, facts, url, title: `${number}: ${a.text}`, retrieved_at: retrievedAt };
     items.push(items1);
@@ -61,7 +64,7 @@ export async function fetchItems({ http, env = process.env, since = null, state 
   const key = env && env.NYSENATE_API_KEY;
   if (!key) return { items: [], health: { ok: false, count: 0, newest: null, errors: ['no key'] } };
   const cfg = { max_requests_per_run: 40, min_interval_ms: 500, base: 'https://legislation.nysenate.gov/api/3', ...((config || loadStructuredConfig()).nysenate || {}) };
-  let bills = entries;
+  let bills = isBillList(entries) ? entries : null;
   if (!bills) { try { bills = trackedBills(JSON.parse(fs.readFileSync(IDS_PATH, 'utf8')), { state: 'NY' }); } catch { bills = []; } }
   bills = bills.filter((b) => b.state === 'NY');
   const items = []; const errors = []; let used = 0; let truncated = false;
@@ -72,7 +75,7 @@ export async function fetchItems({ http, env = process.env, since = null, state 
     used++;
     const print = nyPrint(b.number);
     let res;
-    try { res = await http.getJson(`${cfg.base}/bills/${nySession(b)}/${print}?view=default&key=${encodeURIComponent(key)}`); } catch (e) { errors.push(String(e && e.message || e).split(key).join('***')); continue; }
+    try { res = await getJsonAny(http, `${cfg.base}/bills/${nySession(b)}/${print}?view=default&key=${encodeURIComponent(key)}`); } catch (e) { errors.push(String(e && e.message || e).split(key).join('***')); continue; }
     if (!res || res.success === false || !res.result) { errors.push(`${print}: ${res && res.message || 'no result'}`); continue; }
     if (nyPrint(res.result.basePrintNo) !== print) { errors.push(`${print}: API answered ${res.result.basePrintNo}`); continue; }
     const retrieved = now().toISOString();

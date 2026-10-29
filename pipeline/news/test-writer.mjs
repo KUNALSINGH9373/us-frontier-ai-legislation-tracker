@@ -14,13 +14,14 @@ const entries = loadEntries();
 const ev = (o) => ({ key: 'k', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', class: 'passage', date: '2026-08-30', facts: { chamber: 'Senate', number: 'AB 1405', vote: { yes: 38, no: 2 } }, ...o });
 const sheet = (o, today = '2026-10-29') => buildFactSheet(ev(o), entries.get('ca-ab-1405-auditor-registry'), { today });
 const script = (answers) => ({ i: 0, async generate() { const a = answers[Math.min(this.i++, answers.length - 1)]; if (a instanceof Error) throw a; return { data: a }; } });
-const good = { headline: 'California Senate passes AB 1405, 38-2', body: 'The California Senate passed AB 1405 by a vote of 38-2 on August 30, 2026. The next step is consideration in the Assembly.' };
+const good = { headline: 'California Senate passes AB 1405, 38-2', body: 'The California Senate passed AB 1405 by a vote of 38-2 on August 30, 2026. Status: Passed the Senate.' };
 const yes = { faithful: true, added_or_overstated: [] };
 
 await t('fact sheet: closed fields, stage and next from code', () => {
   const s = sheet({});
   assert.deepStrictEqual(Object.keys(s), ['event', 'bill', 'stage', 'stage_code', 'next', 'verified', 'milestones']);
-  assert.strictEqual(s.next, 'consideration in the Assembly');
+  assert.strictEqual(s.next, null); // review r4 #1: AB 1405 started in the Assembly, so its Senate passage has no fixed next step
+  assert.strictEqual(stageAndNext('passage', 'CA', { chamber: 'Senate', number: 'SB 53' }).next, 'consideration in the Assembly');
   assert.strictEqual(s.stage_code, 'passed-chamber');
   assert.ok(!JSON.stringify(s).includes('status_text'));
   assert.strictEqual(stageAndNext('passage', 'NE', { chamber: 'Legislature' }).next, null);

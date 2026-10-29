@@ -98,3 +98,15 @@ export async function safely(fn) {
   try { return await fn(); } catch (e) { return { items: [], health: { ok: false, count: 0, newest: null, rejected: 0, errors: [redact(e?.message || String(e))] } }; }
 }
 export const iso = (d = new Date()) => (d instanceof Date ? d : new Date(d)).toISOString();
+
+// JSON from either transport: the function form (defaultHttp, what news/run.mjs passes) or an object with getJson (grabber/lib/http.mjs,
+// the tests' fakes). Throws on an HTTP error status.
+export async function getJsonAny(http, url, headers = {}) {
+  if (http && typeof http.getJson === 'function') return http.getJson(url, { headers });
+  const r = await http(url, { headers });
+  if (!r || r.status >= 400) throw new Error(`HTTP ${r ? r.status : 'no response'}`);
+  return JSON.parse(r.text);
+}
+// The tracked bills an adapter reads: an explicit bill list ({ state, number, ... }), else config/identifiers-legiscan.json. news/run.mjs
+// passes the tracker's entries (no `number`), which are not bill lists.
+export const isBillList = (xs) => Array.isArray(xs) && xs.length > 0 && xs.every((b) => b && b.state && b.number);

@@ -2,7 +2,7 @@
 // no votes against, a split vote, scheduled vs held, state vs federal, with and without signer / summary) × every variant.
 // Each variant must render to a card that passes checkCard (news/writer.mjs), and every rendered card must pass the trap assertions
 // below, which are independent of checkCard. Code only.
-import { buildFactSheet } from '../news/factsheet.mjs';
+import { buildFactSheet, originOf, isResolution, isUnicameral } from '../news/factsheet.mjs';
 import { BANK, slotsOf, render, NEXT_BANK, cardsFrom } from '../news/phrasebank.mjs';
 import { checkCard, bankCard } from '../news/writer.mjs';
 
@@ -14,8 +14,10 @@ const VOTES = { none: null, split: { yes: 30, no: 10 }, unanimous: { yes: 37, no
 export function sheetsFor(cls, entry) {
   const out = [];
   // multi-chamber: the Senate and the lower chamber (Assembly in CA, House federally); NE is unicameral (no other chamber, no next step)
-  for (const [j, chamber] of [['CA', 'Senate'], ['CA', 'Assembly'], ['US', 'Senate'], ['US', 'House'], ['NE', 'Legislature']]) for (const [vl, vote] of Object.entries(VOTES)) for (const signer of [true, false]) for (const withEntry of [true, false]) {
-    const facts = { ...BASE, chamber, committee: `${chamber} Judiciary Committee`, ...(j === 'US' ? { number: 'S. 1405', executive: 'President Avery Lane', law_number: 'Public Law 119-55' } : {}), ...(j === 'NE' ? { number: 'LB 1405', executive: 'Governor Avery Lane' } : {}) };
+  // review r4: bills passing their own and the other chamber (CA, NY, federal, both directions), Nebraska, DC, an acting governor, a resolution
+  const JUR = [['CA', 'Senate'], ['CA', 'Assembly'], ['US', 'Senate'], ['US', 'House'], ['NE', 'Legislature'], ['CA', 'Senate', { number: 'AB 1018' }], ['CA', 'Assembly', { number: 'AB 1018' }], ['NY', 'Senate', { number: 'A 6453' }], ['NY', 'Assembly', { number: 'S 6953' }], ['US', 'Senate', { number: 'H.R. 1405' }], ['US', 'House', { number: 'H.R. 1405' }], ['DC', 'Council', { number: 'B 26-0123', executive: 'Mayor Muriel Bowser' }], ['CA', 'Senate', { executive: 'Acting Governor Eleni Kounalakis' }], ['KS', 'House', { number: 'HR 6023', executive: 'Governor Laura Kelly' }]];
+  for (const [j, chamber, over] of JUR) for (const [vl, vote] of Object.entries(VOTES)) for (const signer of [true, false]) for (const withEntry of [true, false]) {
+    const facts = { ...BASE, chamber, committee: `${chamber} Judiciary Committee`, ...(j === 'US' ? { number: 'S. 1405', executive: 'President Avery Lane', law_number: 'Public Law 119-55' } : {}), ...(j === 'NE' ? { number: 'LB 1405', executive: 'Governor Avery Lane' } : {}), ...(over || {}) };
     if (vote) facts.vote = vote;
     if (!withEntry) Object.assign(facts, { agency: 'NIST', court: 'Ninth Circuit', title: 'Doe v. Roe', position: 'Director of NIST' }); // short names: long ones push some headlines past 90
     if (!signer) delete facts.executive;
@@ -23,7 +25,7 @@ export function sheetsFor(cls, entry) {
     for (const [tl, date, hd] of dates) {
       const f = { ...facts, ...(hd ? { hearing_date: hd } : {}) };
       const event = { key: `${j}|x|${cls}|${date}|${vl}|${signer}|${withEntry}`, jurisdiction: j, class: cls, date, facts: f };
-      out.push({ label: `${j}/${chamber}/${vl}/${signer ? 'signer' : 'no-signer'}/${withEntry ? 'summary' : 'no-entry'}/${tl}`, event, sheet: buildFactSheet(event, withEntry ? entry : null, { today: TODAY }) });
+      out.push({ label: `${j}/${chamber}/${(over && over.number) || ''}/${vl}/${signer ? 'signer' : 'no-signer'}/${withEntry ? 'summary' : 'no-entry'}/${tl}`, event, sheet: buildFactSheet(event, withEntry ? entry : null, { today: TODAY }) });
     }
   }
   return out;
@@ -36,7 +38,7 @@ const CHAMBERS = /\b(senate|house|assembly|legislature|congress)\b/gi;
 export function trapProblems(card, sheet) {
   const p = [], e = sheet.event, cls = e.class;
   // only the headline and the event sentence are the bank's claims; the summary and next-step lines are the sheet's own words
-  const body = card.body.split(/ (?=What it does: |The next step is |Next: |What comes next: |Status: )/)[0];
+  const body = card.body.split(/ (?=What it does: |What the bill would do: |What it would do: |The next step is |Next: |What comes next: |Status: )/)[0];
   // official identifiers (Public Law 119-55, a docket) are not tallies
   const claim = [e.law_number, e.docket, e.document_number, sheet.bill && sheet.bill.short_title, sheet.bill && sheet.bill.number].filter(Boolean).reduce((t, x) => t.split(x).join(' '), `${card.headline}\n${body}`);
   if (/unanimous/i.test(claim) && !(e.vote && e.vote.no === 0)) p.push('unanimous without a 0 against');
@@ -53,6 +55,17 @@ export function trapProblems(card, sheet) {
   if (cls === 'hearing-scheduled' && !/\b(scheduled|will|schedules|to hold|set for)\b/i.test(claim)) p.push('scheduled hearing not written as upcoming');
   if (cls === 'hearing-scheduled' && /\b(held|heard)\b/i.test(claim)) p.push('scheduled hearing written as held');
   if (cls === 'hearing-held' && /\b(scheduled|will)\b/i.test(claim)) p.push('held hearing written as upcoming');
+  // review r4 traps
+  const all = `${card.headline}\n${card.body}`, b = sheet.bill || {}, origin = originOf(b.number, b.jurisdiction);
+  if (cls === 'passage' && sheet.next && (!origin || origin !== e.chamber)) p.push('next chamber stated for a second-chamber passage or an unknown origin');
+  if (sheet.next && e.chamber && sheet.next.includes(`consideration in the ${e.chamber}`)) p.push('next step is the chamber that just voted');
+  if (cls === 'committee-passage' && sheet.next) p.push('a fixed next step after a committee vote');
+  if (isUnicameral(b.jurisdiction) && /\bboth chambers\b/i.test(`${all} ${sheet.stage || ''}`)) p.push('both chambers in a one-chamber legislature');
+  if (b.jurisdiction === 'DC' && /\b(governor|into law|enact\w*)\b/i.test(all)) p.push('DC written with a governor or into law');
+  if (['executive-signature', 'executive-veto', 'executive-order', 'presidential-memo', 'nomination'].includes(cls) && !e.executive && /\b(governor|president|mayor)\s+(signs|signed|vetoes|vetoed|issues|issued|nominates|nominated)\b/i.test(all)) p.push('a signer the record does not name');
+  if (isResolution(b.number, b.jurisdiction) && /\binto law\b|\benact/i.test(all)) p.push('a resolution signed into law');
+  if (/\bthe the\b/i.test(all)) p.push('the the');
+  if (/What it does: /.test(card.body) && !['executive-signature', 'became-law', 'executive-order', 'presidential-memo', 'agency-rule-final', 'agency-guidance'].includes(cls)) p.push('What it does on a measure not in force');
   if (e.hearing_date && cls === 'hearing-scheduled' && card.body.includes(slotsOf(sheet).date) && e.hearing_date !== e.date) p.push('first-seen date given as the hearing day');
   return p;
 }

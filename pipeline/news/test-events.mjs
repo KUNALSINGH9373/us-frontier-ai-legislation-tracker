@@ -369,5 +369,32 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   ok('r4b the phrase bank writes at most max_cards_per_run cards', keys.length > 1 && w.tried <= 1 && w.mode === 'bank');
 }
 
+// ---------- 11. review round 4 (fact sheet and phrase bank) ----------
+{
+  const FS = await import('./factsheet.mjs'), PB = await import('./phrasebank.mjs'), M = await import('../eval/news-bank-matrix.mjs');
+  const sn = (j, number, chamber, cls = 'passage') => FS.stageAndNext(cls, j, { number, chamber });
+  ok('r4#1 a bill passing its own chamber: the other chamber is next; passing the second chamber, or an unknown origin: no next step',
+    sn('CA', 'AB 1018', 'Assembly').next === 'consideration in the Senate' && sn('CA', 'AB 1018', 'Senate').next === null && sn('CA', 'SB 53', 'Senate').next === 'consideration in the Assembly'
+    && sn('NY', 'A 6453', 'Senate').next === null && sn('US', 'H.R. 1405', 'House').next === 'consideration in the Senate' && sn('US', 'S. 1405', 'House').next === null && sn('CA', 'XYZ 1', 'Senate').next === null);
+  ok('r4#2 a committee vote states no fixed next step', sn('CA', 'SB 53', 'Senate', 'committee-passage').next === null);
+  ok('r4#3 Nebraska: "Passed the Legislature", never both chambers', sn('NE', 'LB 1405', 'Legislature', 'enrolled').stage === 'Passed the Legislature' && sn('NE', 'LB 1405', 'Legislature', 'concurrence').stage === 'Passed the Legislature');
+  ok('r4#4 DC: the Mayor, and no "into law"', FS.executiveOf('DC') === 'the Mayor' && sn('DC', 'B 26-0123', 'Council', 'executive-signature').stage === 'Signed');
+  ok('r4#6 the summary label: "would do" for a live bill, "does" for a law', PB.summaryLabel('passage') === 'What the bill would do' && PB.summaryLabel('executive-signature') === 'What it does' && PB.summaryLabel('became-law') === 'What it does');
+  ok('r4#8 resolutions are told apart from bills', FS.isResolution('KS HR6023', 'KS') && FS.isResolution('H.Res. 12', 'US') && !FS.isResolution('H.R. 3460', 'US') && !FS.isResolution('CA SB53', 'CA'));
+  // the matrix traps catch each of the round-4 errors on a hand-made card
+  const sheetOf = (cls, j, f) => FS.buildFactSheet({ key: 'k', jurisdiction: j, class: cls, date: '2026-10-27', facts: f }, null, { today: '2026-10-29' });
+  const trap = (cls, j, f, card) => M.trapProblems(card, sheetOf(cls, j, f));
+  ok('r4 traps: a signer the record does not name; a resolution into law; DC with a governor; "the the"; both chambers in Nebraska',
+    trap('executive-signature', 'CA', { number: 'SB 53' }, { headline: 'The Governor signs SB 53', body: 'The Governor signed SB 53 on October 27, 2026.' }).some((p) => /signer/.test(p))
+    && trap('executive-signature', 'KS', { number: 'HR 6023', executive: 'Governor Laura Kelly' }, { headline: 'HR 6023 signed into law', body: 'HR 6023 was signed into law on October 27, 2026.' }).some((p) => /resolution/.test(p))
+    && trap('executive-signature', 'DC', { number: 'B 26-0123' }, { headline: 'B 26-0123 signed', body: 'The Governor signed B 26-0123.' }).some((p) => /DC/.test(p))
+    && trap('referral-committee', 'CA', { number: 'SB 53', committee: 'Judiciary' }, { headline: 'SB 53 referred to the the Judiciary', body: 'x' }).some((p) => /the the/.test(p))
+    && trap('enrolled', 'NE', { number: 'LB 1405' }, { headline: 'LB 1405 enrolled', body: 'LB 1405 was enrolled after passing both chambers.' }).some((p) => /both chambers/.test(p)));
+  const cards = PB.candidates(sheetOf('executive-signature', 'CA', { number: 'SB 53' }), 'k');
+  ok('r4#5 with no signer in the record, no card names one', cards.length > 0 && cards.every((c) => !/\b(Governor|President)\b/.test(c.headline + c.body)));
+  const comm = PB.slotsOf(sheetOf('referral-committee', 'CA', { number: 'SB 53', committee: 'the Senate Judiciary Committee' }));
+  ok('r4#8 a committee name that starts with "the" is not doubled', comm.committee === 'Senate Judiciary Committee');
+}
+
 console.log(`news events: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

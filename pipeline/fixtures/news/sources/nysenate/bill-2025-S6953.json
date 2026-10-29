@@ -1,20 +1,402 @@
 {
- "_note": "Shape of NY Senate Open Legislation API v3 GET /api/3/bills/2025/S6953?view=default (docs: https://legislation.nysenate.gov/static/docs/html/). Built from the documented schema, not a live capture: live verification awaits NYSENATE_API_KEY. Dates and counts are illustrative.",
- "success": true, "message": "Data for bill S6953-2025", "responseType": "bill",
+ "_note": "Live capture from legislation.nysenate.gov /api/3/bills/2025/S6953?view=default on 29 Oct 2026 (news/sources live check), trimmed; API key redacted. Do not edit by hand.",
+ "success": true,
+ "message": "Data for bill S6953-2025",
+ "responseType": "bill",
  "result": {
-  "basePrintNo": "S6953", "session": 2025, "printNo": "S6953B", "billType": { "chamber": "SENATE", "desc": "Senate", "resolution": false },
-  "title": "Enacts the responsible AI safety and education (RAISE) act",
-  "status": { "statusType": "SIGNED_BY_GOV", "statusDesc": "Signed by Governor", "actionDate": "2025-12-19" },
-  "actions": { "items": [
-   { "billId": { "printNo": "S6953", "session": 2025, "version": "" }, "date": "2025-03-27", "chamber": "SENATE", "sequenceNo": 1, "text": "REFERRED TO INTERNET AND TECHNOLOGY" },
-   { "billId": { "printNo": "S6953A", "session": 2025, "version": "A" }, "date": "2025-05-14", "chamber": "SENATE", "sequenceNo": 2, "text": "AMEND AND RECOMMIT TO INTERNET AND TECHNOLOGY" },
-   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-06-12", "chamber": "SENATE", "sequenceNo": 3, "text": "PASSED SENATE" },
-   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-06-12", "chamber": "ASSEMBLY", "sequenceNo": 4, "text": "DELIVERED TO ASSEMBLY" },
-   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-12-12", "chamber": "SENATE", "sequenceNo": 5, "text": "DELIVERED TO GOVERNOR" },
-   { "billId": { "printNo": "S6953B", "session": 2025, "version": "B" }, "date": "2025-12-19", "chamber": "SENATE", "sequenceNo": 6, "text": "SIGNED CHAP.711" }
-  ], "size": 6 },
-  "votes": { "items": [
-   { "voteType": "FLOOR", "voteDate": "2025-06-12", "memberVotes": { "items": { "AYE": { "size": 58 }, "NAY": { "size": 1 } } } }
-  ], "size": 1 }
+  "basePrintNo": "S6953",
+  "session": 2025,
+  "printNo": "S6953B",
+  "billType": {
+   "chamber": "SENATE",
+   "desc": "Senate",
+   "resolution": false
+  },
+  "title": "Relates to the training and use of artificial intelligence frontier models",
+  "activeVersion": "B",
+  "status": {
+   "statusType": "SIGNED_BY_GOV",
+   "statusDesc": "Signed by Governor",
+   "actionDate": "2025-12-19",
+   "committeeName": null,
+   "billCalNo": null
+  },
+  "milestones": {
+   "items": [
+    {
+     "statusType": "IN_SENATE_COMM",
+     "statusDesc": "In Senate Committee",
+     "actionDate": "2025-06-12",
+     "committeeName": "Rules",
+     "billCalNo": null
+    },
+    {
+     "statusType": "SENATE_FLOOR",
+     "statusDesc": "Senate Floor Calendar",
+     "actionDate": "2025-06-12",
+     "committeeName": null,
+     "billCalNo": 1889
+    },
+    {
+     "statusType": "PASSED_SENATE",
+     "statusDesc": "Passed Senate",
+     "actionDate": "2025-06-12",
+     "committeeName": null,
+     "billCalNo": null
+    },
+    {
+     "statusType": "IN_ASSEMBLY_COMM",
+     "statusDesc": "In Assembly Committee",
+     "actionDate": "2025-06-12",
+     "committeeName": "Ways And Means",
+     "billCalNo": null
+    },
+    {
+     "statusType": "ASSEMBLY_FLOOR",
+     "statusDesc": "Assembly Floor Calendar",
+     "actionDate": "2025-06-12",
+     "committeeName": null,
+     "billCalNo": 656
+    },
+    {
+     "statusType": "PASSED_ASSEMBLY",
+     "statusDesc": "Passed Assembly",
+     "actionDate": "2025-06-12",
+     "committeeName": null,
+     "billCalNo": null
+    },
+    {
+     "statusType": "DELIVERED_TO_GOV",
+     "statusDesc": "Delivered to Governor",
+     "actionDate": "2025-12-09",
+     "committeeName": null,
+     "billCalNo": null
+    },
+    {
+     "statusType": "SIGNED_BY_GOV",
+     "statusDesc": "Signed by Governor",
+     "actionDate": "2025-12-19",
+     "committeeName": null,
+     "billCalNo": null
+    }
+   ],
+   "size": 8
+  },
+  "actions": {
+   "items": [
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953",
+      "version": ""
+     },
+     "date": "2025-03-27",
+     "chamber": "SENATE",
+     "sequenceNo": 1,
+     "text": "REFERRED TO INTERNET AND TECHNOLOGY"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953",
+      "version": ""
+     },
+     "date": "2025-06-03",
+     "chamber": "SENATE",
+     "sequenceNo": 2,
+     "text": "AMEND AND RECOMMIT TO INTERNET AND TECHNOLOGY"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953A",
+      "version": "A"
+     },
+     "date": "2025-06-03",
+     "chamber": "SENATE",
+     "sequenceNo": 3,
+     "text": "PRINT NUMBER 6953A"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953A",
+      "version": "A"
+     },
+     "date": "2025-06-09",
+     "chamber": "SENATE",
+     "sequenceNo": 4,
+     "text": "AMEND AND RECOMMIT TO INTERNET AND TECHNOLOGY"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-09",
+     "chamber": "SENATE",
+     "sequenceNo": 5,
+     "text": "PRINT NUMBER 6953B"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "SENATE",
+     "sequenceNo": 6,
+     "text": "COMMITTEE DISCHARGED AND COMMITTED TO RULES"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "SENATE",
+     "sequenceNo": 7,
+     "text": "ORDERED TO THIRD READING CAL.1889"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "SENATE",
+     "sequenceNo": 8,
+     "text": "PASSED SENATE"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "SENATE",
+     "sequenceNo": 9,
+     "text": "DELIVERED TO ASSEMBLY"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "ASSEMBLY",
+     "sequenceNo": 10,
+     "text": "REFERRED TO WAYS AND MEANS"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "ASSEMBLY",
+     "sequenceNo": 11,
+     "text": "SUBSTITUTED FOR A6453B"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "ASSEMBLY",
+     "sequenceNo": 12,
+     "text": "ORDERED TO THIRD READING RULES CAL.656"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "ASSEMBLY",
+     "sequenceNo": 13,
+     "text": "PASSED ASSEMBLY"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-06-12",
+     "chamber": "ASSEMBLY",
+     "sequenceNo": 14,
+     "text": "RETURNED TO SENATE"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-12-09",
+     "chamber": "SENATE",
+     "sequenceNo": 15,
+     "text": "DELIVERED TO GOVERNOR"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-12-19",
+     "chamber": "SENATE",
+     "sequenceNo": 16,
+     "text": "SIGNED CHAP.699"
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "date": "2025-12-19",
+     "chamber": "SENATE",
+     "sequenceNo": 17,
+     "text": "APPROVAL MEMO.76"
+    }
+   ],
+   "size": 17
+  },
+  "votes": {
+   "items": [
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "version": "B",
+     "voteType": "COMMITTEE",
+     "voteDate": "2025-06-12",
+     "sequenceNo": 1,
+     "committee": {
+      "chamber": "SENATE",
+      "name": "Rules"
+     },
+     "memberVotes": {
+      "items": {
+       "EXC": {
+        "size": 1
+       },
+       "AYEWR": {
+        "size": 4
+       },
+       "AYE": {
+        "size": 16
+       }
+      }
+     },
+     "attendance": {
+      "remote": {
+       "items": [],
+       "size": 0
+      }
+     }
+    },
+    {
+     "billId": {
+      "basePrintNo": "S6953",
+      "session": 2025,
+      "basePrintNoStr": "S6953-2025",
+      "printNo": "S6953B",
+      "version": "B"
+     },
+     "version": "B",
+     "voteType": "FLOOR",
+     "voteDate": "2025-06-12",
+     "sequenceNo": 1,
+     "committee": null,
+     "memberVotes": {
+      "items": {
+       "EXC": {
+        "size": 4
+       },
+       "NAY": {
+        "size": 1
+       },
+       "AYE": {
+        "size": 58
+       }
+      }
+     },
+     "attendance": {
+      "remote": {
+       "items": [
+        {
+         "memberId": 1500,
+         "chamber": "SENATE",
+         "incumbent": true,
+         "fullName": "Samra Brouk",
+         "shortName": "BROUK",
+         "imgName": "1317_Samra_Brouk.jpg",
+         "sessionMemberId": 2372,
+         "sessionYear": 2025,
+         "districtCode": 55,
+         "alternate": false
+        }
+       ],
+       "size": 1
+      }
+     }
+    }
+   ],
+   "size": 2
+  },
+  "signed": true,
+  "adopted": false,
+  "vetoed": false
  }
 }
