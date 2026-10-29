@@ -1,0 +1,174 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Veterans' Affairs Subcommittee on Technology Modernization",
+                "systemCode": "hsvr11",
+                "url": "https://api.congress.gov/v3/committee/house/hsvr11?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-07-13T19:00:00Z",
+        "eventId": "119443",
+        "location": {
+            "building": "Cannon House Office Building",
+            "room": "360"
+        },
+        "meetingDocuments": [
+            {
+                "description": "Chairman Barrett and Ranking Member Budzinski to the U.S. Department of Veterans Affairs",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Chairman Barrett and Ranking Member Budzinski to the U.S. Department of Veterans Affairs",
+                "url": "https://www.congress.gov/119/meeting/house/119443/documents/HHRG-119-VR11-20260713-QFR001.pdf"
+            },
+            {
+                "description": "U.S. Department of Veterans Affairs Response to Chairman Barrett and Ranking Member Budzinski",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "U.S. Department of Veterans Affairs Response to Chairman Barrett and Ranking Member Budzinski",
+                "url": "https://www.congress.gov/119/meeting/house/119443/documents/HHRG-119-VR11-20260713-QFR002.pdf"
+            },
+            {
+                "description": "Hearing Notice",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Hearing Notice",
+                "url": "https://www.congress.gov/119/meeting/house/119443/documents/HHRG-119-VR11-20260713-SD001.pdf"
+            },
+            {
+                "documentType": "Hearing: Witness List",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/documents/HHRG-119-VR11-WList-20260713.pdf"
+            },
+            {
+                "description": "Statement for the Record: American Federation of Government Employees, AFL-CIO (AFGE)",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Statement for the Record: American Federation of Government Employees, AFL-CIO (AFGE)",
+                "url": "https://www.congress.gov/119/meeting/house/119443/documents/HHRG-119-VR11-20260713-SD002.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "PACT Act Implementation: Modernizing VA Disability Claims Through Effective Technology",
+        "type": "Hearing",
+        "updateDate": "2026-10-26T14:48:37Z",
+        "videos": [
+            {
+                "name": "Subcommittee on Technology Modernization Oversight Hearing",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/119443"
+            },
+            {
+                "name": "Subcommittee on Technology Modernization Oversight Hearing",
+                "url": "https://www.youtube.com/watch?v=fzzumzymGoA"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Wstate-OrificiR-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Bio-OrificiR-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Bio-HerbertD-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Bio-ThomasS-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Wstate-ThomasS-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Bio-MaxC-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Wstate-VillanuevaJ-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-TTF-VillanuevaJ-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Bio-VillanuevaJ-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Wstate-OrtoG-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Bio-OrtoG-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-TTF-OrtoG-20260713.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119443/witnesses/HHRG-119-VR11-Wstate-MaxC-20260713.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Mr. Derek Herbert",
+                "organization": "Veterans Benefits Administration, U.S. Department of Veterans Affairs",
+                "position": "Acting Chief Production Officer"
+            },
+            {
+                "name": "Dr. Sterling Thomas",
+                "organization": "Science, Technology Assessment, and Analytics, U.S. Government Accountability Office",
+                "position": "Chief Scientist"
+            },
+            {
+                "name": "Mr. Caleb Max",
+                "organization": "National Artificial Intelligence Association",
+                "position": "President and Chief Executive Officer"
+            },
+            {
+                "name": "Mr. Jeremy Villanueva",
+                "organization": "Paralyzed Veterans of America",
+                "position": "Associate Legislative Director"
+            },
+            {
+                "name": "Mr. Gregg Orto",
+                "organization": "Veterans of Foreign Wars",
+                "position": "Deputy Director, National Veterans Service"
+            },
+            {
+                "name": "Mr. Robert Orifici",
+                "organization": "Office of Information and Technology, U.S. Department of Veterans Affairs",
+                "position": "Acting Deputy Chief Information Officer, Product Delivery Service"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "119443",
+        "format": "json"
+    }
+}

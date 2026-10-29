@@ -1,0 +1,488 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Energy and Commerce Subcommittee on Health",
+                "systemCode": "hsif14",
+                "url": "https://api.congress.gov/v3/committee/house/hsif14?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-09-15T14:30:00Z",
+        "eventId": "119549",
+        "location": {
+            "building": "Longworth House Office Building",
+            "room": "1334"
+        },
+        "meetingDocuments": [
+            {
+                "description": "H.R. 9693, Patients First Act of 2026 (Reps. Joyce (PA) and Schrier)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 9693, Patients First Act of 2026 (Reps. Joyce (PA) and Schrier)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR9693ih.pdf"
+            },
+            {
+                "description": "H.R. 8163, Provider Reimbursement Stability Act of 2026 (Reps. Murphy and Schneider)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 8163, Provider Reimbursement Stability Act of 2026 (Reps. Murphy and Schneider)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR8163ih.pdf"
+            },
+            {
+                "description": "H.R. ___, [Health Care Cybersecurity and Resiliency Act of 2026]",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. ___, [Health Care Cybersecurity and Resiliency Act of 2026]",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119pih-HR___HealthCareCyber.pdf"
+            },
+            {
+                "description": "H.R. 8622, Medicare Physician Data-driven Performance Payment System Act of 2026 (Reps. Miller-Meeks and Conaway)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 8622, Medicare Physician Data-driven Performance Payment System Act of 2026 (Reps. Miller-Meeks and Conaway)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR8622ih.pdf"
+            },
+            {
+                "description": "H.R. 7863, Promoting Fairness for Medicare Providers Act of 2026 (Reps. Bilirakis and Ruiz)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 7863, Promoting Fairness for Medicare Providers Act of 2026 (Reps. Bilirakis and Ruiz)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR7863ih.pdf"
+            },
+            {
+                "description": "H.R. 4331, Access to Claims Data Act (Reps. Joyce (PA) and Schrier)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 4331, Access to Claims Data Act (Reps. Joyce (PA) and Schrier)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR4331ih.pdf"
+            },
+            {
+                "description": "H.R. 5737, Radiology Outpatient Ordering Transmission (ROOT) Act (Reps. Harshbarger and Moore (UT))",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 5737, Radiology Outpatient Ordering Transmission (ROOT) Act (Reps. Harshbarger and Moore (UT))",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR5737ih.pdf"
+            },
+            {
+                "description": "H.R. 1521, Dental and Optometric Care (DOC) Access Act of 2025 (Reps. Carter (GA) and Clarke)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 1521, Dental and Optometric Care (DOC) Access Act of 2025 (Reps. Carter (GA) and Clarke)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR1521ih.pdf"
+            },
+            {
+                "description": "H.R. 6130, ASAP Act (Reps. Buchanan and Tonko)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 6130, ASAP Act (Reps. Buchanan and Tonko)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR6130ih.pdf"
+            },
+            {
+                "description": "H.R. 9908, Rural Hospital Cybersecurity Enhancement Act (Reps. Houchin and Schrier)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 9908, Rural Hospital Cybersecurity Enhancement Act (Reps. Houchin and Schrier)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR9908ih.pdf"
+            },
+            {
+                "description": "H.R. 1189, National Plan for Epilepsy Act (Reps. Costa and Murphy)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 1189, National Plan for Epilepsy Act (Reps. Costa and Murphy)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR1189ih.pdf"
+            },
+            {
+                "description": "H.R. 1616, Promoting Access to Diabetic Shoes Act (Reps. LaHood and Barragán)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 1616, Promoting Access to Diabetic Shoes Act (Reps. LaHood and Barragán)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR1616ih.pdf"
+            },
+            {
+                "description": "H.R. 6214, Kidney Care Access Protection Act (Reps. Miller (WV) and Sewell)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 6214, Kidney Care Access Protection Act (Reps. Miller (WV) and Sewell)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR6214ih.pdf"
+            },
+            {
+                "description": "H.R. 8319, KIDNEY Remote Monitoring Act (Reps. Yakym, Schneider, Miller-Meeks, and Dingell)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 8319, KIDNEY Remote Monitoring Act (Reps. Yakym, Schneider, Miller-Meeks, and Dingell)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR8319ih.pdf"
+            },
+            {
+                "description": "Hearing Notice",
+                "documentType": "Hearing: Cover Page",
+                "format": "PDF",
+                "name": "Hearing Notice",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-20260915-CPg.pdf"
+            },
+            {
+                "description": "Briefing Memorandum",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Briefing Memorandum",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-20260915-SD001.pdf"
+            },
+            {
+                "description": "H.R. 3164, Ensuring Community Access to Pharmacist Services Act (Reps. Smith (NE) and Schneider)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 3164, Ensuring Community Access to Pharmacist Services Act (Reps. Smith (NE) and Schneider)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR3164ih.pdf"
+            },
+            {
+                "description": "H.R. 1254, Rural Obstetrics Readiness Act (Rep. Kelly (IL))",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 1254, Rural Obstetrics Readiness Act (Rep. Kelly (IL))",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR1254ih.pdf"
+            },
+            {
+                "description": "H.R. 7905, Diabetes Foot Health Access and Modernization Act of 2026 (Reps. Joyce (PA) and DeGette)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 7905, Diabetes Foot Health Access and Modernization Act of 2026 (Reps. Joyce (PA) and DeGette)",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/BILLS-119HR7905ih.pdf"
+            },
+            {
+                "description": "The Honorable Lizzie Fletcher",
+                "documentType": "Member Statements",
+                "format": "PDF",
+                "name": "The Honorable Lizzie Fletcher",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-MState-F000468-20260915.pdf"
+            },
+            {
+                "description": "The Honorable Frank Pallone",
+                "documentType": "Member Statements",
+                "format": "PDF",
+                "name": "The Honorable Frank Pallone",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-MState-P000034-20260915.pdf"
+            },
+            {
+                "description": "The Honorable H. Morgan Griffith",
+                "documentType": "Member Statements",
+                "format": "PDF",
+                "name": "The Honorable H. Morgan Griffith",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-MState-G000568-20260915.pdf"
+            },
+            {
+                "description": "The Honorable Brett Guthrie",
+                "documentType": "Member Statements",
+                "format": "PDF",
+                "name": "The Honorable Brett Guthrie",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-MState-G000558-20260915.pdf"
+            },
+            {
+                "documentType": "Hearing: Member Roster",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-20260915-MbrRoster.pdf"
+            },
+            {
+                "description": "Majority Staff Attendance",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Majority Staff Attendance",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-20260915-SD002.pdf"
+            },
+            {
+                "description": "Minority Staff Attendance",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Minority Staff Attendance",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-20260915-SD003.pdf"
+            },
+            {
+                "description": "Statements for the Record",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Statements for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-20260915-SD005.pdf"
+            },
+            {
+                "description": "Hearing Transcript",
+                "documentType": "Hearing: Transcript",
+                "format": "PDF",
+                "name": "Hearing Transcript",
+                "url": "https://www.congress.gov/119/meeting/house/119549/documents/HHRG-119-IF14-Transcript-20260915.pdf"
+            }
+        ],
+        "meetingStatus": "Rescheduled",
+        "relatedItems": {
+            "bills": [
+                {
+                    "congress": 119,
+                    "number": "8163",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/8163?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "4331",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/4331?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "3164",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/3164?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "9693",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/9693?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "8319",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/8319?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "8622",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/8622?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "9908",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/9908?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "1189",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/1189?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "7905",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/7905?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "1616",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/1616?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "1254",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/1254?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "1521",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/1521?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "6214",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/6214?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "7863",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/7863?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "5737",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/5737?format=json"
+                },
+                {
+                    "congress": 119,
+                    "number": "6130",
+                    "type": "HR",
+                    "url": "https://api.congress.gov/v3/bill/119/hr/6130?format=json"
+                }
+            ]
+        },
+        "title": "“Examining Legislative Proposals to Reform Medicare Provider Payment and Bolster Health Care Cybersecurity.”",
+        "type": "Hearing",
+        "updateDate": "2026-10-21T21:18:22Z",
+        "videos": [
+            {
+                "name": "Legislative Proposals to Reform Medicare Provider Payment and Bolster Health Care Cybersecurity",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/119549"
+            },
+            {
+                "name": "Legislative Proposals to Reform Medicare Provider Payment and Bolster Health Care Cybersecurity",
+                "url": "https://www.youtube.com/watch?v=XjF1fCcqBII"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Bio-GarciaG-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-TTF-GarciaG-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-PudloPharmDMBAMSA-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Bio-PudloPharmDMBAMSA-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-TTF-PudloPharmDMBAMSA-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AlamMDMSCIMBAFAADM-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Support Document",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AlamMDMSCIMBAFAADM-20260915-SD002.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-TTF-AlamMDMSCIMBAFAADM-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AndrewsMSMDMACPR-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-TTF-AndrewsMSMDMACPR-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AttwoodMDMPHE-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Bio-AttwoodMDMPHE-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-TTF-AttwoodMDMPHE-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Support Document",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AttwoodMDMPHE-20260915-SD004.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-ConeckerMPHG-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Bio-ConeckerMPHG-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-TTF-ConeckerMPHG-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-GarciaG-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AttwoodMDMPHE-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Bio-AttwoodMDMPHE-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-TTF-AttwoodMDMPHE-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Support Document",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AttwoodMDMPHE-20260915-SD004.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Bio-AlamMDMSCIMBAFAADM-20260915.pdf"
+            },
+            {
+                "documentType": "Witness Support Document",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119549/witnesses/HHRG-119-IF14-Wstate-AndrewsMSMDMACPR-20260915-SD004.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Greg Garcia",
+                "position": "Executive Director for Cybersecurity, Healthcare and Public Health Sector Coordinating Council (HSCC)"
+            },
+            {
+                "name": "Anthony Pudlo, PharmD, MBA, MS",
+                "position": "Chief Executive Officer, Tennessee Pharmacists Association (TPA)"
+            },
+            {
+                "name": "Murad Alam, MD, MSCI, MBA, FAAD",
+                "position": "President, American Academy of Dermatology Association (AADA)"
+            },
+            {
+                "name": "Rebecca Andrews, MS, MD, MACP",
+                "position": "Immediate Past Chair, Board of Regents (2026 – 2027), American College of Physicians (ACP)"
+            },
+            {
+                "name": "Eilean Attwood, MD, MPH",
+                "position": "Immediate Past Chair, Board of Regents (2026 – 2027), American College of Physicians (ACP)"
+            },
+            {
+                "name": "Gabi Conecker, MPH",
+                "position": "Co-Founder and Executive Director, Decoding Developmental Epilepsies"
+            },
+            {
+                "name": "Eilean Attwood, MD, MPH",
+                "position": "Immediate Past Chair of the Committee on Health Economics and Coding, American College of Obstetricians and Gynecologists (ACOG)"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "119549",
+        "format": "json"
+    }
+}

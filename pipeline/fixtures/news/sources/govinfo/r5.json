@@ -1,0 +1,45 @@
+{
+    "results": [
+        {
+            "dateIssued": "2025-07-10",
+            "billVersion": "ih",
+            "packageId": "BILLS-119hr4307ih",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr4307ih/summary",
+            "billVersionLabel": "Introduced in House",
+            "lastModified": "2026-07-11T00:23:38Z"
+        },
+        {
+            "dateIssued": "2026-02-20",
+            "billVersion": "rh",
+            "packageId": "BILLS-119hr4307rh",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr4307rh/summary",
+            "billVersionLabel": "Reported in House",
+            "lastModified": "2026-07-11T00:23:46Z"
+        },
+        {
+            "dateIssued": "2026-03-03",
+            "billVersion": "eh",
+            "packageId": "BILLS-119hr4307eh",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr4307eh/summary",
+            "billVersionLabel": "Engrossed in House",
+            "lastModified": "2026-07-11T00:23:38Z"
+        },
+        {
+            "dateIssued": "2026-03-04",
+            "billVersion": "rds",
+            "packageId": "BILLS-119hr4307rds",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr4307rds/summary",
+            "billVersionLabel": "Received in Senate",
+            "lastModified": "2026-10-07T03:57:59Z"
+        },
+        {
+            "dateIssued": "2026-10-09",
+            "billVersion": "enr",
+            "packageId": "BILLS-119hr4307enr",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr4307enr/summary",
+            "billVersionLabel": "Enrolled Bill",
+            "lastModified": "2026-10-09T03:22:34Z"
+        }
+    ],
+    "relatedId": "PLAW-119publ131"
+}

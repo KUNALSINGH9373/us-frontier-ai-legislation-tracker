@@ -3,38 +3,344 @@
  "user_agent": "us-frontier-ai-tracker-pipeline/0.1 (news leads; RSS reader)",
  "structured": {
   "_note": "Structured official-record adapters (news/sources/*.mjs) and news/health.mjs. cadence_hours: how often the source is read and normally has new records; no ok read for 2x cadence is reported stale. max_requests_per_run caps each run (Open States allows about 500 requests/day, 1 per second); min_interval_ms paces requests.",
-  "openstates": { "cadence_hours": 24, "max_requests_per_run": 60, "min_interval_ms": 1100, "base": "https://v3.openstates.org" },
-  "nysenate": { "cadence_hours": 24, "max_requests_per_run": 40, "min_interval_ms": 500, "base": "https://legislation.nysenate.gov/api/3" },
-  "legiscan": { "cadence_hours": 24 }, "congress_gov": { "cadence_hours": 24 }, "govinfo": { "cadence_hours": 48 }, "federal_register": { "cadence_hours": 24 },
-  "whitehouse": { "cadence_hours": 72 }, "regulations_gov": { "cadence_hours": 72 }, "courtlistener": { "cadence_hours": 72 }
+  "openstates": {
+   "cadence_hours": 24,
+   "max_requests_per_run": 60,
+   "min_interval_ms": 1100,
+   "base": "https://v3.openstates.org"
+  },
+  "nysenate": {
+   "cadence_hours": 24,
+   "max_requests_per_run": 40,
+   "min_interval_ms": 500,
+   "base": "https://legislation.nysenate.gov/api/3"
+  },
+  "legiscan": {
+   "cadence_hours": 24
+  },
+  "congress_gov": {
+   "cadence_hours": 24
+  },
+  "govinfo": {
+   "cadence_hours": 24,
+   "endpoint": "https://api.govinfo.gov/collections/{PLAW,BILLS}/{since} + /related/{id}/BILLS",
+   "env": [
+    "GOVINFO_API_KEY",
+    "DATA_GOV_API_KEY",
+    "CONGRESS_API_KEY"
+   ],
+   "hosts": [
+    "govinfo.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": null,
+   "verified_at": "2026-10-29"
+  },
+  "federal_register": {
+   "cadence_hours": 24,
+   "endpoint": "https://www.federalregister.gov/api/v1/documents.json + /public-inspection-documents/current.json",
+   "env": [],
+   "hosts": [
+    "federalregister.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": 21,
+   "verified_at": "2026-10-29"
+  },
+  "whitehouse": {
+   "cadence_hours": 24,
+   "endpoint": "https://www.whitehouse.gov/presidential-actions/feed/",
+   "env": [],
+   "hosts": [
+    "whitehouse.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": null,
+   "_note": "feed itself must answer every run; AI orders are rare",
+   "verified_at": "2026-10-29"
+  },
+  "regulations_gov": {
+   "cadence_hours": 24,
+   "endpoint": "https://api.regulations.gov/v4/documents",
+   "env": [
+    "REGULATIONS_GOV_API_KEY",
+    "DATA_GOV_API_KEY",
+    "CONGRESS_API_KEY"
+   ],
+   "hosts": [
+    "regulations.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": 45,
+   "verified_at": "2026-10-29"
+  },
+  "courtlistener": {
+   "cadence_hours": 72
+  },
+  "congress_extra": {
+   "endpoint": "https://api.congress.gov/v3/{committee-meeting,crsreport,nomination}",
+   "env": [
+    "CONGRESS_API_KEY"
+   ],
+   "hosts": [
+    "congress.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": null,
+   "rate_limit": "5000/hour; at most 28 calls a run",
+   "verified_at": "2026-10-29",
+   "cadence_hours": 24
+  },
+  "nist": {
+   "endpoint": "https://www.nist.gov/news-events/news/rss.xml",
+   "env": [],
+   "hosts": [
+    "nist.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": null,
+   "verified_at": "2026-10-29",
+   "cadence_hours": 24
+  },
+  "cbo": {
+   "endpoint": "https://www.cbo.gov/publications/all/rss.xml",
+   "env": [],
+   "hosts": [
+    "cbo.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": null,
+   "verified_at": "2026-10-29",
+   "cadence_hours": 24
+  },
+  "ca_ag": {
+   "endpoint": "https://oag.ca.gov/news/feed",
+   "env": [],
+   "hosts": [
+    "oag.ca.gov"
+   ],
+   "cadence": "daily",
+   "max_silence_days": null,
+   "verified_at": "2026-10-29",
+   "cadence_hours": 24
+  }
  },
  "sources": [
-  { "id": "politico-technology", "url": "https://rss.politico.com/technology.xml", "type": "rss", "publisher": "Politico", "primary": false, "verified_at": "2026-10-28", "kind": "federal" },
-  { "id": "nist-news", "url": "https://www.nist.gov/news-events/news/rss.xml", "type": "rss", "publisher": "NIST", "primary": true, "verified_at": "2026-10-28", "kind": "executive", "_note": "NIST news. Most CAISI (now CAISSI) posts are 'updates' this feed leaves out: they come from nist-caissi below." },
-  { "id": "nist-caissi", "url": "https://www.nist.gov/caissi", "type": "html_teasers", "publisher": "NIST", "primary": true, "verified_at": "2026-10-28", "kind": "executive", "_note": "The CAISI page (https://www.nist.gov/caisi redirects here; renamed Center for Advancing Innovation and Standards for Super Intelligence) lists its latest posts as teasers with a machine-readable date (news/feeds.mjs parseTeaserPage). Checked live 28 Oct 2026: 8 teasers, incl. the GLM-5.3 and Kimi K3 assessments and the incident-response key practices, none of them in the NIST news feed; robots.txt allows /caissi. NIST's topic feeds for CAISI, CAISSI and super intelligence are valid but empty." },
-  { "id": "ftc-press", "url": "https://www.ftc.gov/feeds/press-release.xml", "type": "rss", "publisher": "Federal Trade Commission", "primary": true, "verified_at": "2026-10-28", "kind": "executive" },
-  { "id": "ca-ag", "url": "https://oag.ca.gov/news/feed", "type": "rss", "publisher": "California Attorney General", "primary": true, "state": "CA", "verified_at": "2026-10-28", "kind": "state" },
-  { "id": "rep-liccardo", "url": "https://liccardo.house.gov/rss.xml", "type": "rss", "publisher": "Rep. Sam Liccardo", "primary": true, "verified_at": "2026-10-28", "kind": "federal", "sponsor": "Liccardo", "secondary_paths": ["/editorials/", "/in-the-news/", "/news-coverage/", "/press-coverage/", "/media-coverage/", "/op-eds/", "/opinion/"] },
-  { "id": "rep-lieu", "url": "https://lieu.house.gov/rss.xml", "type": "rss", "publisher": "Rep. Ted Lieu", "primary": true, "verified_at": "2026-10-28", "kind": "federal", "sponsor": "Lieu", "secondary_paths": ["/editorials/", "/in-the-news/", "/news-coverage/", "/press-coverage/", "/media-coverage/", "/op-eds/", "/opinion/"], "secondary_titles": "^(OP-ED|[A-Z][A-Z .'&-]{2,40}):" },
-  { "id": "rep-casar", "url": "https://casar.house.gov/rss.xml", "type": "rss", "publisher": "Rep. Greg Casar", "primary": true, "verified_at": "2026-10-28", "kind": "federal", "sponsor": "Casar", "secondary_paths": ["/editorials/", "/in-the-news/", "/news-coverage/", "/press-coverage/", "/media-coverage/", "/op-eds/", "/opinion/"], "secondary_titles": "^(OP-ED|[A-Z][A-Z .'&-]{2,40}):" },
-  { "id": "federal-register", "url": "https://www.federalregister.gov/api/v1/documents.json", "type": "json_api", "publisher": "Federal Register", "primary": true, "verified_at": "2026-10-28", "handled_by": "grabber/run-federal-register.mjs", "_note": "Already a pipeline source: documents become entries and fixed-wording news through the grabber and Tier A / Tier B, so news/leads.mjs does not read it again." }
+  {
+   "id": "politico-technology",
+   "url": "https://rss.politico.com/technology.xml",
+   "type": "rss",
+   "publisher": "Politico",
+   "primary": false,
+   "verified_at": "2026-10-28",
+   "kind": "federal"
+  },
+  {
+   "id": "nist-news",
+   "url": "https://www.nist.gov/news-events/news/rss.xml",
+   "type": "rss",
+   "publisher": "NIST",
+   "primary": true,
+   "verified_at": "2026-10-28",
+   "kind": "executive",
+   "_note": "NIST news. Most CAISI (now CAISSI) posts are 'updates' this feed leaves out: they come from nist-caissi below."
+  },
+  {
+   "id": "nist-caissi",
+   "url": "https://www.nist.gov/caissi",
+   "type": "html_teasers",
+   "publisher": "NIST",
+   "primary": true,
+   "verified_at": "2026-10-28",
+   "kind": "executive",
+   "_note": "The CAISI page (https://www.nist.gov/caisi redirects here; renamed Center for Advancing Innovation and Standards for Super Intelligence) lists its latest posts as teasers with a machine-readable date (news/feeds.mjs parseTeaserPage). Checked live 28 Oct 2026: 8 teasers, incl. the GLM-5.3 and Kimi K3 assessments and the incident-response key practices, none of them in the NIST news feed; robots.txt allows /caissi. NIST's topic feeds for CAISI, CAISSI and super intelligence are valid but empty."
+  },
+  {
+   "id": "ftc-press",
+   "url": "https://www.ftc.gov/feeds/press-release.xml",
+   "type": "rss",
+   "publisher": "Federal Trade Commission",
+   "primary": true,
+   "verified_at": "2026-10-28",
+   "kind": "executive"
+  },
+  {
+   "id": "ca-ag",
+   "url": "https://oag.ca.gov/news/feed",
+   "type": "rss",
+   "publisher": "California Attorney General",
+   "primary": true,
+   "state": "CA",
+   "verified_at": "2026-10-28",
+   "kind": "state"
+  },
+  {
+   "id": "rep-liccardo",
+   "url": "https://liccardo.house.gov/rss.xml",
+   "type": "rss",
+   "publisher": "Rep. Sam Liccardo",
+   "primary": true,
+   "verified_at": "2026-10-28",
+   "kind": "federal",
+   "sponsor": "Liccardo",
+   "secondary_paths": [
+    "/editorials/",
+    "/in-the-news/",
+    "/news-coverage/",
+    "/press-coverage/",
+    "/media-coverage/",
+    "/op-eds/",
+    "/opinion/"
+   ]
+  },
+  {
+   "id": "rep-lieu",
+   "url": "https://lieu.house.gov/rss.xml",
+   "type": "rss",
+   "publisher": "Rep. Ted Lieu",
+   "primary": true,
+   "verified_at": "2026-10-28",
+   "kind": "federal",
+   "sponsor": "Lieu",
+   "secondary_paths": [
+    "/editorials/",
+    "/in-the-news/",
+    "/news-coverage/",
+    "/press-coverage/",
+    "/media-coverage/",
+    "/op-eds/",
+    "/opinion/"
+   ],
+   "secondary_titles": "^(OP-ED|[A-Z][A-Z .'&-]{2,40}):"
+  },
+  {
+   "id": "rep-casar",
+   "url": "https://casar.house.gov/rss.xml",
+   "type": "rss",
+   "publisher": "Rep. Greg Casar",
+   "primary": true,
+   "verified_at": "2026-10-28",
+   "kind": "federal",
+   "sponsor": "Casar",
+   "secondary_paths": [
+    "/editorials/",
+    "/in-the-news/",
+    "/news-coverage/",
+    "/press-coverage/",
+    "/media-coverage/",
+    "/op-eds/",
+    "/opinion/"
+   ],
+   "secondary_titles": "^(OP-ED|[A-Z][A-Z .'&-]{2,40}):"
+  },
+  {
+   "id": "federal-register",
+   "url": "https://www.federalregister.gov/api/v1/documents.json",
+   "type": "json_api",
+   "publisher": "Federal Register",
+   "primary": true,
+   "verified_at": "2026-10-28",
+   "handled_by": "grabber/run-federal-register.mjs",
+   "_note": "Already a pipeline source: documents become entries and fixed-wording news through the grabber and Tier A / Tier B, so news/leads.mjs does not read it again."
+  }
  ],
  "rejected": [
-  { "url": "https://www.commerce.senate.gov/rss/feeds/?type=press", "publisher": "Senate Commerce Committee", "checked_at": "2026-10-28", "why": "HTTP 403 (\"Senate.gov - Unauthorized\") to an automated reader: blocked, not used" },
-  { "url": "https://www.cantwell.senate.gov/rss/feeds/?type=press", "publisher": "Sen. Maria Cantwell", "checked_at": "2026-10-28", "why": "HTTP 403 from senate.gov (all senators' feeds tried, Cruz too): blocked, not used" },
-  { "url": "https://www.cruz.senate.gov/rss/feeds/?type=press", "publisher": "Sen. Ted Cruz", "checked_at": "2026-10-28", "why": "HTTP 403 from senate.gov: blocked, not used" },
-  { "url": "https://science.house.gov/rss.xml", "publisher": "House Science Committee", "checked_at": "2026-10-28", "why": "no feed (404 at /rss.xml, /rss and ?format=rss); democrats-science.house.gov/rss.xml answers 410 Gone" },
-  { "url": "https://www.bis.gov/rss.xml", "publisher": "Bureau of Industry and Security", "checked_at": "2026-10-28", "why": "no feed (404; /news-updates/rss.xml returns an HTML page, not a feed)" },
-  { "url": "https://ag.ny.gov/rss.xml", "publisher": "New York Attorney General", "checked_at": "2026-10-28", "why": "HTTP 403 to an automated reader: blocked, not used" },
-  { "url": "https://www.myfloridalegal.com/rss.xml", "publisher": "Florida Attorney General", "checked_at": "2026-10-28", "why": "HTTP 403 to an automated reader: blocked, not used" },
-  { "url": "https://illinoisattorneygeneral.gov/rss.xml", "publisher": "Illinois Attorney General", "checked_at": "2026-10-28", "why": "no feed (404 at /rss.xml and /news/rss)" },
-  { "url": "https://www.techpolicy.press/rss/", "publisher": "Tech Policy Press", "checked_at": "2026-10-28", "why": "/rss/ and /feed/ return an empty HTML page to an automated reader, not a feed: not used" },
-  { "url": "https://www.lawfaremedia.org/rss", "publisher": "Lawfare", "checked_at": "2026-10-28", "why": "HTTP 403 with a bot challenge (\"Just a moment...\"): blocked, not used" },
-  { "url": "https://obernolte.house.gov/rss.xml", "publisher": "Rep. Jay Obernolte", "checked_at": "2026-10-28", "why": "feed works but is stale (newest item Sept 11, 2024)" },
-  { "url": "https://kean.house.gov/rss.xml", "publisher": "Rep. Tom Kean Jr.", "checked_at": "2026-10-28", "why": "feed works but is stale (newest item June 18, 2024)" },
-  { "url": "https://harrigan.house.gov/rss.xml", "publisher": "Rep. Pat Harrigan", "checked_at": "2026-10-28", "why": "feed works but is stale (newest item May 27, 2025)" },
-  { "url": "https://www.nist.gov/news-events/caisi/rss.xml", "publisher": "NIST CAISI", "checked_at": "2026-10-28", "why": "valid feed with no items; CAISI news comes through the NIST news feed" },
-  { "url": "https://moran.house.gov/rss.xml", "publisher": "Reps. Moran, Trahan, Latta, Whitesides, Maloy, Jacobs, Gottheimer, Lawler, Foushee, Kiley, LaHood, Franklin", "checked_at": "2026-10-28", "why": "no feed at <member>.house.gov/rss.xml (404 or 410) for these tracked sponsors" },
-  { "url": "https://www.whitehouse.gov/feed/", "publisher": "White House", "checked_at": "2026-10-28", "why": "no feed (404)" }
- ]
+  {
+   "url": "https://www.commerce.senate.gov/rss/feeds/?type=press",
+   "publisher": "Senate Commerce Committee",
+   "checked_at": "2026-10-28",
+   "why": "HTTP 403 (\"Senate.gov - Unauthorized\") to an automated reader: blocked, not used"
+  },
+  {
+   "url": "https://www.cantwell.senate.gov/rss/feeds/?type=press",
+   "publisher": "Sen. Maria Cantwell",
+   "checked_at": "2026-10-28",
+   "why": "HTTP 403 from senate.gov (all senators' feeds tried, Cruz too): blocked, not used"
+  },
+  {
+   "url": "https://www.cruz.senate.gov/rss/feeds/?type=press",
+   "publisher": "Sen. Ted Cruz",
+   "checked_at": "2026-10-28",
+   "why": "HTTP 403 from senate.gov: blocked, not used"
+  },
+  {
+   "url": "https://science.house.gov/rss.xml",
+   "publisher": "House Science Committee",
+   "checked_at": "2026-10-28",
+   "why": "no feed (404 at /rss.xml, /rss and ?format=rss); democrats-science.house.gov/rss.xml answers 410 Gone"
+  },
+  {
+   "url": "https://www.bis.gov/rss.xml",
+   "publisher": "Bureau of Industry and Security",
+   "checked_at": "2026-10-28",
+   "why": "no feed (404; /news-updates/rss.xml returns an HTML page, not a feed)"
+  },
+  {
+   "url": "https://ag.ny.gov/rss.xml",
+   "publisher": "New York Attorney General",
+   "checked_at": "2026-10-28",
+   "why": "HTTP 403 to an automated reader: blocked, not used"
+  },
+  {
+   "url": "https://www.myfloridalegal.com/rss.xml",
+   "publisher": "Florida Attorney General",
+   "checked_at": "2026-10-28",
+   "why": "HTTP 403 to an automated reader: blocked, not used"
+  },
+  {
+   "url": "https://illinoisattorneygeneral.gov/rss.xml",
+   "publisher": "Illinois Attorney General",
+   "checked_at": "2026-10-28",
+   "why": "no feed (404 at /rss.xml and /news/rss)"
+  },
+  {
+   "url": "https://www.techpolicy.press/rss/",
+   "publisher": "Tech Policy Press",
+   "checked_at": "2026-10-28",
+   "why": "/rss/ and /feed/ return an empty HTML page to an automated reader, not a feed: not used"
+  },
+  {
+   "url": "https://www.lawfaremedia.org/rss",
+   "publisher": "Lawfare",
+   "checked_at": "2026-10-28",
+   "why": "HTTP 403 with a bot challenge (\"Just a moment...\"): blocked, not used"
+  },
+  {
+   "url": "https://obernolte.house.gov/rss.xml",
+   "publisher": "Rep. Jay Obernolte",
+   "checked_at": "2026-10-28",
+   "why": "feed works but is stale (newest item Sept 11, 2024)"
+  },
+  {
+   "url": "https://kean.house.gov/rss.xml",
+   "publisher": "Rep. Tom Kean Jr.",
+   "checked_at": "2026-10-28",
+   "why": "feed works but is stale (newest item June 18, 2024)"
+  },
+  {
+   "url": "https://harrigan.house.gov/rss.xml",
+   "publisher": "Rep. Pat Harrigan",
+   "checked_at": "2026-10-28",
+   "why": "feed works but is stale (newest item May 27, 2025)"
+  },
+  {
+   "url": "https://www.nist.gov/news-events/caisi/rss.xml",
+   "publisher": "NIST CAISI",
+   "checked_at": "2026-10-28",
+   "why": "valid feed with no items; CAISI news comes through the NIST news feed"
+  },
+  {
+   "url": "https://moran.house.gov/rss.xml",
+   "publisher": "Reps. Moran, Trahan, Latta, Whitesides, Maloy, Jacobs, Gottheimer, Lawler, Foushee, Kiley, LaHood, Franklin",
+   "checked_at": "2026-10-28",
+   "why": "no feed at <member>.house.gov/rss.xml (404 or 410) for these tracked sponsors"
+  },
+  {
+   "url": "https://www.whitehouse.gov/feed/",
+   "publisher": "White House",
+   "checked_at": "2026-10-28",
+   "why": "no feed (404)"
+  }
+ ],
+ "structured_note": "Official structured sources for the news rebuild (news/sources/*.mjs, news/CONTRACT.md). hosts: the only hosts an item url may have (https). cadence / cadence_hours: how often a run reads it. max_silence_days: health alarm when no item for longer than this (null = silence is normal: the adapter only emits items for tracked entries or AI documents). env: the key variables, first found wins. verified_at: fetched live on that day."
 }

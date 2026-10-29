@@ -1,0 +1,68 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Agriculture",
+                "systemCode": "hsag00",
+                "url": "https://api.congress.gov/v3/committee/house/hsag00?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-04-16T14:00:00Z",
+        "eventId": "119157",
+        "location": {
+            "building": "Longworth House Office Building",
+            "room": "1300"
+        },
+        "meetingDocuments": [
+            {
+                "description": "Transcript_04.16.2026",
+                "documentType": "Hearing: Transcript",
+                "format": "PDF",
+                "name": "Transcript_04.16.2026",
+                "url": "https://www.congress.gov/119/meeting/house/119157/documents/HHRG-119-AG00-Transcript-20260416.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"For the Purpose of Receiving Testimony from the Honorable Michael S. Selig, Chairman, U.S. Commodity Futures Trading Commission\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-27T20:18:51Z",
+        "videos": [
+            {
+                "name": "Hearing to Receive Testimony from the Honorable Michael S. Selig, Chairman, CFTC",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/119157"
+            },
+            {
+                "name": "Hearing to Receive Testimony from the Honorable Michael S. Selig, Chairman, CFTC",
+                "url": "https://www.youtube.com/watch?v=o10gZ_3EUVw"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119157/witnesses/HHRG-119-AG00-Bio-SeligM-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119157/witnesses/HHRG-119-AG00-Wstate-SeligM-20260416.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "The Honorable Michael Selig",
+                "organization": "U.S. Commodity Futures Trading Commission",
+                "position": "Chairman"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "119157",
+        "format": "json"
+    }
+}
