@@ -17239,7 +17239,7 @@
    "text": "House concurs in Senate amendment(s)",
    "first": false,
    "chamber": "H",
-   "class": null
+   "class": "concurrence"
   },
   {
    "source": "legiscan",
@@ -17247,7 +17247,7 @@
    "text": "House concurs in Senate amendment(s)-reported",
    "first": false,
    "chamber": "S",
-   "class": null
+   "class": "concurrence"
   },
   {
    "source": "legiscan",
@@ -21335,6 +21335,69 @@
    "text": "To House Rules",
    "first": false,
    "chamber": "H",
+   "class": null
+  },
+  {
+   "source": "legiscan",
+   "jurisdiction": "KS",
+   "text": "Passed over and retain a place on the calendar",
+   "first": false,
+   "chamber": "",
+   "added": "review r2 (phrasing from the independent review)",
+   "class": null
+  },
+  {
+   "source": "legiscan",
+   "jurisdiction": "KS",
+   "text": "Passed over",
+   "first": false,
+   "chamber": "",
+   "added": "review r2 (phrasing from the independent review)",
+   "class": null
+  },
+  {
+   "source": "legiscan",
+   "jurisdiction": "WI",
+   "text": "Governor approved line items",
+   "first": false,
+   "chamber": "",
+   "added": "review r2 (phrasing from the independent review)",
+   "class": null
+  },
+  {
+   "source": "legiscan",
+   "jurisdiction": "ID",
+   "text": "Governor approved line items",
+   "first": false,
+   "chamber": "",
+   "added": "review r2 (phrasing from the independent review)",
+   "class": null
+  },
+  {
+   "source": "legiscan",
+   "jurisdiction": "NH",
+   "text": "Senate concurs in House amendments",
+   "first": false,
+   "chamber": "",
+   "added": "review r2 (phrasing from the independent review)",
+   "class": "concurrence"
+  },
+  {
+   "source": "legiscan",
+   "jurisdiction": "NH",
+   "text": "House concurs in Senate amendments",
+   "first": false,
+   "chamber": "",
+   "added": "review r2 (phrasing from the independent review)",
+   "class": "concurrence"
+  },
+  {
+   "source": "legiscan",
+   "jurisdiction": "VT",
+   "text": "House concurs in Senate amendments; motion to reconsider",
+   "first": false,
+   "chamber": "",
+   "added": "review r2 (phrasing from the independent review)",
    "class": null
   }
  ]

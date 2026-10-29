@@ -58,6 +58,22 @@ export function numberConflict(title, eventNumber) {
   const named = billNumbersIn(title).filter((b) => b.prefix === ev.prefix);
   return named.length > 0 && !named.some((b) => b.num === ev.num);
 }
+// The headline's chamber and committee words must agree with the event's facts when both name one ("Senate passes" is not the House
+// passage; "Judiciary Committee hearing" is not the Commerce hearing).
+const CHAMBER_WORD = /\b(Senate|House|Assembly)\b/g;
+export function wordsAgree(title, e) {
+  const f = (e && e.facts) || {};
+  const named = [...new Set([...String(title || '').matchAll(CHAMBER_WORD)].map((m) => m[1]))];
+  if (named.length === 1 && f.chamber && named[0] !== f.chamber) return false;
+  const cm = /\b([A-Z][\w&,' -]{2,60}?)\s+Committee\b|\bCommittee on (?:the )?([A-Z][\w&,' -]{2,60})/.exec(String(title || ''));
+  if (cm && f.committee) {
+    const words = (s) => new Set(String(s).toLowerCase().match(/[a-z]{4,}/g) || []);
+    const a = words(cm[1] || cm[2]), b = words(f.committee);
+    a.delete('committee'); b.delete('committee');
+    if (a.size && ![...a].some((w) => b.has(w))) return false;
+  }
+  return true;
+}
 const dayDiff = (a, b) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000);
 
 // -> { events (copies; statement sources appended), timeline: [{entry_id, item}], leads: [item], dropped: [{item, why}] }
@@ -79,7 +95,10 @@ export function attachStatements(events, statements, { allowHosts = [], seen = {
     const kw = compatibleClasses(title);
     const cands = out.filter((e) => item.entry_id && e.entry_id === item.entry_id && e.status !== 'withdrawn'
       && dayDiff(item.date, e.date) >= 0 && dayDiff(item.date, e.date) <= 3 && kw.has(e.class) && !numberConflict(title, e.facts && e.facts.number))
-      .sort((a, b) => dayDiff(item.date, a.date) - dayDiff(item.date, b.date) || (a.key < b.key ? -1 : 1));
+      .sort((a, b) => dayDiff(item.date, a.date) - dayDiff(item.date, b.date) || (a.key < b.key ? -1 : 1))
+      .filter((e) => wordsAgree(title, e));
+    // one rule (review r2 #7): exactly one candidate attaches; several are held (timeline), never the nearest guessed
+    if (cands.length > 1) { timeline.push({ entry_id: item.entry_id, item: { ...item, hash }, held: `${cands.length} official events could match: not guessed` }); continue; }
     if (cands.length) {
       cands[0].sources.push({ role: 'statement', source: item.source, source_id: item.source_id, url, title, publisher: item.facts.publisher || null, retrieved_at: item.retrieved_at, hash });
     } else if (item.entry_id && !out.some((e) => e.entry_id === item.entry_id && numberConflict(title, e.facts && e.facts.number))) {

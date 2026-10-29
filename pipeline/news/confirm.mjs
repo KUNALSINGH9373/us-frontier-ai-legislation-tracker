@@ -54,8 +54,13 @@ const officialOf = (e) => (e.sources || []).find((s) => s.role === 'official') |
 
 // Compare one event with one independent item: 'agree' | {conflict:'date'|'class'|'vote', ...} | null (unrelated).
 export function compare(event, item) {
+  if (item.facts && item.facts.withdrawn) return null; // a withdrawn record confirms nothing
   if (item.jurisdiction !== event.jurisdiction || (item.entry_id || null) !== (event.entry_id || null)) return null;
   if (event.facts && event.facts.chamber && item.facts && item.facts.chamber && event.facts.chamber !== item.facts.chamber) return null;
+  // a public law is matched on its number, not its date: govinfo's dateIssued is days after the enactment Congress.gov records (review r2 #9)
+  if (event.class === 'became-law' && item.class === 'became-law' && event.facts && event.facts.public_law && item.facts && item.facts.public_law) {
+    return event.facts.public_law === item.facts.public_law ? 'agree' : { conflict: 'public_law', theirs: item.facts.public_law, ours: event.facts.public_law, source: item.source };
+  }
   const near = Math.abs(dayDiff(item.date, event.date)) <= 1;
   if (item.class === event.class) {
     if (!near) return { conflict: 'date', theirs: item.date, ours: event.date, source: item.source };

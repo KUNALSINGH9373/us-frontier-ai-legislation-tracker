@@ -33,7 +33,7 @@ import * as congressExtra from './sources/congress_extra.mjs';
 import * as nist from './sources/nist.mjs';
 import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
-import { defaultHttp } from './sources/common.mjs';
+import { defaultHttp, sourceConfig } from './sources/common.mjs';
 import { writeCard } from './writer.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
@@ -88,7 +88,7 @@ export function recordsFromRuns(runDirs = []) {
 }
 
 // The event lane alone (no feeds, no AI): adapters -> upsert -> confirm. Exported for the eval (eval/news-set.mjs) and tests.
-export async function eventsStep({ state, records = [], courtFound = [], now = new Date(), runId = null, sinceDays = EVENT_DAYS, today = now.toISOString().slice(0, 10), extra = [], http = null, env = {}, entries = [] }) {
+export async function eventsStep({ state, records = [], courtFound = [], now = new Date(), runId = null, sinceDays = EVENT_DAYS, today = now.toISOString().slice(0, 10), extra = [], http = null, env = {}, entries = [], items: given = [] }) {
   const results = {}, itemsBy = {}, fetched = [], all = [], statements = [];
   const since = daysBefore(today, sinceDays);
   state.adapters = state.adapters || {};
@@ -102,6 +102,8 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
     results[name] = r.health; itemsBy[name] = items; fetched.push(...(r.fetched || []));
     for (const it of items) (it && it.facts && it.facts.role === 'statement' ? statements : all).push(it);
   }
+  // items handed in directly (the eval's recorded records of other sources)
+  for (const it of given) (it && it.facts && it.facts.role === 'statement' ? statements : all).push(it);
   const okSources = Object.entries(results).filter(([, h]) => h && h.ok).map(([n]) => n);
   const up = upsertItems(state, all, { runId, now, since, fetched, okSources });
   if (entries.length) refreshCards(state, entries);
@@ -133,12 +135,26 @@ export async function writeCards({ state, entries, keys, factory, today, max = 5
 // config: config/publish.json. sources: config/news-sources.json. factory: llm/make.mjs (the headline screener only). aiOff: why AI may
 // not run (null when it may). runDirs: the grabber's run folders this run; courtFound: courtsRun's "found". reader: test hook.
 // Returns the report section (see report/build.mjs).
-export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, eventsFile = EVENTS_FILE, healthFile = HEALTH_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, runDirs = [], records = null, courtFound = [], env = null, http = null, adapters = EXTRA_ADAPTERS, log = () => {} }) {
+// The news step never throws (review r2 #6): any error is a stopped news report, so it can never fail the rest of the run.
+export async function newsRun(opts) {
+  try { return await newsRunInner(opts); }
+  catch (e) {
+    const config = (opts && opts.config) || {};
+    const rep = { ran: true, skipped_why: null, status: 'stopped', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0,
+      problems: [`the news step failed and wrote nothing: ${String((e && e.message) || e).slice(0, 300)}`], summary: '', events: { added: [], confirmed: [], corrected: [], withdrawn: [], refused: [], pending: 0, showable: 0, statements: 0, held: [], report: [], alerts: [] } };
+    rep.summary = summaryOf(rep);
+    return rep;
+  }
+}
+
+async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eventsFile = EVENTS_FILE, healthFile = HEALTH_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, runDirs = [], records = null, courtFound = [], env = null, http = null, adapters = EXTRA_ADAPTERS, log = () => {} }) {
   const cfg = config.news_leads || { enabled: false };
   const rep = { ran: true, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '',
     events: { added: [], confirmed: [], corrected: [], withdrawn: [], refused: [], pending: 0, showable: 0, statements: 0, held: [], report: [], alerts: [] } };
   const before = loadData(dataDir);
-  const state = loadEvents(eventsFile);
+  const state = loadEvents(eventsFile, { now });
+  if (state.quarantined) rep.problems.push(`news events file unreadable (${state.quarantine_why}); moved to ${path.basename(state.quarantined)} and started empty`);
+  if (state.dropped_malformed) rep.problems.push(`${state.dropped_malformed} malformed stored event(s) dropped`);
 
   // 1. events from the official records this run already has
   const recs = records || recordsFromRuns(runDirs);
@@ -149,7 +165,7 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, e
 
   // statements from the structured statement sources (NIST, CBO, CA AG feeds): attach to an event or stay a lead
   if (ev.statements.length) {
-    const att = attachStatements(Object.values(state.events), ev.statements, { allowHosts: [...new Set(ev.statements.map((s) => { try { return new URL(s.url).hostname.replace(/^www\./, ''); } catch { return null; } }).filter(Boolean))] });
+    const att = attachStatements(Object.values(state.events), ev.statements, { allowHosts: [...new Set(ev.statements.flatMap((s) => sourceConfig(s.source).hosts || []))] }); // hosts from config, never from the statements
     for (const e of att.events) { const old = state.events[e.key]; if (e.sources.length !== old.sources.length) rep.events.statements += e.sources.length - old.sources.length; state.events[e.key] = e; }
     for (const l of [...att.leads, ...att.timeline.map((t) => t.item)]) rep.leads.push({ title: l.title, publisher: (l.facts && l.facts.publisher) || l.source, link: l.url, date: l.date, primary: true, tracker: l.entry_id || null, note: 'official statement: no official event it could attach to' });
   }
@@ -195,12 +211,12 @@ export async function newsRun({ dataDir, docsDir = null, seenFile = SEEN_FILE, e
   for (const k of [...r.added, ...r.updated]) { const n = byKey.get(k); rep.drafted.push({ title: n.title, publisher: n.links[0] ? host(n.links[0].u) : null, link: n.links[0] && n.links[0].u, date: n.date, tracker: n.tracker, event_key: k, class: n.class, update: r.updated.includes(k), written: false }); }
   if (rep.drafted.length && rep.publishing) {
     const after = { ...before, news: r.news };
-    const problems = [...checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run }).problems, ...checkNewsEvents({ before, after, state, entries: before.entries, at })];
+    const problems = [...checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run }).problems, ...checkNewsEvents({ before, after, state: r.state, entries: before.entries, at })];
     if (problems.length) { rep.status = 'stopped'; rep.problems.push(...problems.slice(0, 10)); }
     else {
       rep.status = dry ? 'dry-run' : 'written';
       rep.drafted.forEach((d) => { d.written = !dry; });
-      if (!dry) { writeData(dataDir, after, ['news']); if (docsDir) writeData(docsDir, after, ['news']); markShown(state, r.added, at); }
+      if (!dry) { writeData(dataDir, after, ['news']); if (docsDir) writeData(docsDir, after, ['news']); state.events = r.state.events; markShown(state, r.added, at); }
     }
   } else if (rep.drafted.length || rep.leads.length || rep.events.added.length || rep.events.confirmed.length) rep.status = 'reported';
 

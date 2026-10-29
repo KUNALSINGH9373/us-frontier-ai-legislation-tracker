@@ -3,7 +3,7 @@
 //   eventKey(x)                         `${jurisdiction}|${entry_id||'-'}|${class}|${date}`
 //   checkItem(item, { now })            why a raw item is refused (bad shape, future date, date after retrieval, host not official), or null
 //   upsertItems(state, items, opts)     new events, fact corrections, withdrawals (never a deletion), confirmations; returns what changed
-//   attachStatement(state, st)          a release onto the one event it is about (+3 days, the key must agree), or held with why
+//   (statements attach through news/attach.mjs attachStatements: one rule, several candidates are held)
 //   renderNews(news, state, entries)    news.json with automated items appended alongside untouched hand-written items
 //   checkNewsEvents({ before, after, state, entries, at })  the stop rules for that render
 // State file: pipeline/state/news-events.json { _note, events: { key: Event } }.
@@ -29,17 +29,85 @@ export const factsHash = (facts) => sha(sortObj(facts || {}));
 export const OFFICIAL_ORDER = ['congress_gov', 'federal_register', 'whitehouse', 'courtlistener', 'nysenate', 'legiscan', 'openstates', 'govinfo'];
 const rank = (s) => { const i = OFFICIAL_ORDER.indexOf(s); return i < 0 ? OFFICIAL_ORDER.length : i; };
 
-export const eventKey =(x) => `${x.jurisdiction}|${x.entry_id || '-'}|${x.class}|${x.date}`;
+// The key: jurisdiction|entry|class|date, except where the record has its own number, which is the same whatever date a source gives it
+// (review r2 #4: the White House posting date, the Federal Register filing and signing dates are three dates for one order):
+// executive orders and memos by EO number (or FR document number), agency documents by FR document number.
+const EO_CLASSES = new Set(['executive-order', 'presidential-memo']);
+const FR_CLASSES = new Set(['agency-rule-proposed', 'agency-rule-final', 'agency-guidance', 'comment-period-open', 'comment-period-closing']);
+export const eventKey = (x) => {
+  const f = x.facts || {};
+  const id = EO_CLASSES.has(x.class) && f.eo_number ? `EO${f.eo_number}` : (EO_CLASSES.has(x.class) || FR_CLASSES.has(x.class)) && f.document_number ? `FR${f.document_number}` : x.date;
+  return `${x.jurisdiction}|${x.entry_id || '-'}|${x.class}|${id}`;
+};
+
+// Chambers in one vocabulary (review r2 #5): Open States / NY Senate "upper"/"lower" -> Senate / House (Assembly where the lower house is
+// called that), LegiScan "H"/"S"/"A" likewise.
+const ASSEMBLY_STATES = new Set(['CA', 'NY', 'NV', 'NJ', 'WI']);
+export function normChamber(c, jurisdiction) {
+  if (c == null || c === '') return null;
+  const t = String(c).trim().toLowerCase();
+  if (['upper', 's', 'senate'].includes(t)) return 'Senate';
+  if (['lower', 'h', 'house', 'a', 'assembly'].includes(t)) return ASSEMBLY_STATES.has(jurisdiction) ? 'Assembly' : 'House';
+  if (t === 'legislature' || t === 'executive') return null;
+  return String(c);
+}
+
+// Shape and vocabulary of one raw item, before anything else reads it. Returns { item } or { why } (refused). Never throws.
+export function normalizeItem(it) {
+  if (!it || typeof it !== 'object' || Array.isArray(it)) return { why: 'not an object' };
+  if (typeof it.source !== 'string' || !it.source) return { why: 'no source' };
+  if (it.source_id == null || (typeof it.source_id !== 'string' && typeof it.source_id !== 'number')) return { why: 'source_id is not a string' };
+  if (it.class !== null && it.class !== undefined && typeof it.class !== 'string') return { why: 'class is not a string' };
+  for (const f of ['jurisdiction', 'date', 'url', 'retrieved_at']) if (it[f] != null && typeof it[f] !== 'string') return { why: `${f} is not a string` };
+  if (it.facts != null && (typeof it.facts !== 'object' || Array.isArray(it.facts))) return { why: 'facts is not an object' };
+  // one FR document gives a rule and its comment-period events: each needs its own id (news/confirm.mjs matches an event by source_id)
+  const source_id = String(it.source_id) + (it.source === 'federal_register' && /^comment-period-/.test(it.class || '') ? `#${it.class}` : '');
+  // a public-inspection copy is the Federal Register's filing of a document it publishes later: never an event of its own (review r2 #4)
+  if (/^pi:/.test(source_id) || (it.facts && it.facts.public_inspection)) return { why: 'public inspection copy: the published document is the record' };
+  const facts = { ...(it.facts || {}) };
+  if ('chamber' in facts) facts.chamber = normChamber(facts.chamber, it.jurisdiction);
+  if (facts.public_law == null && typeof facts.action === 'string') { const m = /\bpublic law no:?\s*(\d+)-(\d+)/i.exec(facts.action); if (m) facts.public_law = `${m[1]}-${m[2]}`; }
+  return { item: { ...it, source_id, class: it.class ?? null, facts } };
+}
+
+// A White House posting of an order or memo carries no number: when a Federal Register document (this run or stored) has the same title,
+// it takes that document's EO number and signing date, so the two are one event.
+const normTitle = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+function linkWhiteHouse(items, state) {
+  const fr = [...items, ...Object.values(state.events).filter(Boolean).map((e) => ({ ...e, source: (e.sources || []).find((s) => s.role === 'official')?.source }))]
+    .filter((x) => x.source === 'federal_register' && EO_CLASSES.has(x.class) && x.facts && x.facts.title);
+  return items.map((it) => {
+    if (it.source !== 'whitehouse' || !EO_CLASSES.has(it.class) || (it.facts && it.facts.eo_number)) return it;
+    const m = fr.find((x) => x.class === it.class && normTitle(x.facts.title) === normTitle(it.title || it.facts.title));
+    if (!m) return it;
+    return { ...it, date: m.facts.signing_date || m.date, facts: { ...it.facts, ...(m.facts.eo_number ? { eo_number: m.facts.eo_number } : {}), ...(m.facts.document_number ? { document_number: m.facts.document_number } : {}) } };
+  });
+}
 
 export function emptyState() { return { _note: 'News events (news/events.mjs), from official records only. Never edit by hand; corrections are status changes, never deletions.', events: {} }; }
-export function loadEvents(file) {
+// An unreadable or malformed events file is moved aside (<file>.bad-<time>) and the run starts from an empty state: the news step never
+// fails the run (review r2 #6). Entries that are not event objects are dropped. Returns the state; state.quarantined names the moved file.
+export function loadEvents(file, { now = new Date() } = {}) {
   if (!file || !fs.existsSync(file)) return emptyState();
-  const s = JSON.parse(fs.readFileSync(file, 'utf8'));
-  return { ...emptyState(), ...s, events: s.events || {} };
+  let s;
+  try { s = JSON.parse(fs.readFileSync(file, 'utf8')); if (!s || typeof s !== 'object' || Array.isArray(s) || (s.events != null && (typeof s.events !== 'object' || Array.isArray(s.events)))) throw new Error('not an events file'); }
+  catch (e) {
+    const bad = `${file}.bad-${now.toISOString().replace(/[-:.]/g, '')}`;
+    try { fs.renameSync(file, bad); } catch { /* left in place; overwritten on save */ }
+    return { ...emptyState(), quarantined: bad, quarantine_why: String(e.message).slice(0, 200) };
+  }
+  const events = {};
+  for (const [k, v] of Object.entries(s.events || {})) if (validEvent(v) && v.key === k) events[k] = v;
+  const dropped = Object.keys(s.events || {}).length - Object.keys(events).length;
+  return { ...emptyState(), ...s, events, ...(dropped ? { dropped_malformed: dropped } : {}) };
 }
+export const validEvent = (v) => !!v && typeof v === 'object' && !Array.isArray(v) && typeof v.key === 'string' && typeof v.jurisdiction === 'string' && typeof v.date === 'string'
+  && Array.isArray(v.sources) && v.sources.every((s) => s && typeof s === 'object' && typeof s.source === 'string' && (typeof s.source_id === 'string' || typeof s.source_id === 'number'))
+  && Array.isArray(v.history) && (v.class === null || typeof v.class === 'string') && v.facts && typeof v.facts === 'object';
 export function saveEvents(file, state) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  const t = file + '.tmp'; fs.writeFileSync(t, JSON.stringify(state, null, 1) + '\n'); fs.renameSync(t, file);
+  const { quarantined, quarantine_why, dropped_malformed, ...keep } = state; // run notes, not state
+  const t = file + '.tmp'; fs.writeFileSync(t, JSON.stringify(keep, null, 1) + '\n'); fs.renameSync(t, file);
 }
 
 // A raw item the contract refuses, with why; null when it may be used.
@@ -79,11 +147,20 @@ function mergeGroup(items) {
 // Returns { added, corrected, withdrawn, restored, confirmed, refused: [{ source, source_id, date, why }], report }.
 export function upsertItems(state, items, { runId, now = new Date(), since = null, fetched = [], okSources = null } = {}) {
   const at = now.toISOString(), out = { added: [], corrected: [], withdrawn: [], restored: [], confirmed: [], refused: [], report: [] };
-  const groups = new Map(), good = [];
-  for (const it of items) {
+  // a stored entry that is not an event object is dropped (review r2 #6), never allowed to crash the step
+  for (const [k, v] of Object.entries(state.events || {})) if (!validEvent(v) || v.key !== k) delete state.events[k];
+  const groups = new Map(), good = [], norm = [];
+  for (const raw of Array.isArray(items) ? items : []) {
+    const n = normalizeItem(raw);
+    if (n.why) { out.refused.push({ source: raw && raw.source, source_id: raw && raw.source_id != null ? String(raw.source_id) : null, date: raw && raw.date, why: n.why }); continue; }
+    norm.push(n.item);
+  }
+  for (const it of linkWhiteHouse(norm, state)) {
     const why = checkItem(it, { now });
-    if (why) { out.refused.push({ source: it && it.source, source_id: it && it.source_id, date: it && it.date, why }); continue; }
+    if (why) { out.refused.push({ source: it.source, source_id: it.source_id, date: it.date, why }); continue; }
     good.push(it);
+    // confirmation-only records (govinfo) and statements never create or replace an event; they go to applyRun / attach.mjs only
+    if (it.facts.role === 'confirmation' || it.facts.role === 'statement') continue;
     const k = eventKey({ ...it, entry_id: it.entry_id || null });
     (groups.get(k) || groups.set(k, []).get(k)).push(it);
   }
@@ -143,23 +220,6 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
   return out;
 }
 
-// A statement (a release, by its verbatim headline and link) attaches to the single event it can be about: same jurisdiction and entry,
-// a release dated on the event's day or up to STATEMENT_DAYS after it, and the class when the caller names one (classHint). Similarity of
-// words may only have suggested the event; the key must agree. Zero or several candidates: held, with why. Returns { attached } | { held }.
-export function attachStatement(state, st) {
-  if (!st || !st.entry_id || !st.jurisdiction || !st.date || !st.url || !st.title) return { held: 'a statement needs entry, jurisdiction, date, link and headline' };
-  const cands = Object.values(state.events).filter((e) => e.class && e.status !== 'withdrawn' && e.jurisdiction === st.jurisdiction && e.entry_id === st.entry_id
-    && dayGap(e.date, st.date) >= 0 && dayGap(e.date, st.date) <= STATEMENT_DAYS && (!st.class_hint || e.class === st.class_hint));
-  if (!cands.length) return { held: 'no official event for this entry in the 3 days before the release' };
-  if (cands.length > 1) return { held: `${cands.length} official events could match (${cands.map((c) => c.class).join(', ')}): not guessed` };
-  const ev = cands[0];
-  if (!ev.sources.some((s) => s.role === 'statement' && s.url === st.url)) {
-    ev.sources.push({ role: 'statement', source: st.source || 'release', source_id: st.source_id || st.url, url: st.url, title: st.title, publisher: st.publisher || null, retrieved_at: st.retrieved_at || null, hash: sha({ url: st.url, title: st.title }) });
-    ev.history.push({ at: st.retrieved_at || new Date().toISOString(), change: 'statement', from: null, to: st.url });
-  }
-  return { attached: ev.key };
-}
-
 // ---------- rendering ----------
 // An event the page may show: a mapped class, a tracked entry, and confirmed or corrected; a withdrawn event only if it was shown before
 // (it then stays, marked withdrawn).
@@ -211,64 +271,110 @@ export function milestoneFor(ev, entries) {
 }
 
 const fmtDay = (iso) => iso.slice(0, 10);
-// One news.json item for one event (backwards compatible; see the contract and the site agent's additions).
-export function renderItem(ev, entry, { at } = {}) {
+
+// Equivalence groups (review r2 #3): one card per entry per group within a day either side; a later class in the group updates the card
+// already on the page instead of adding one. The class with the higher rank is the one the card shows.
+const GROUP = { 'executive-signature': ['law', 1], 'became-law': ['law', 2], 'concurrence': ['final', 1], 'enrolled': ['final', 2],
+  'hearing-scheduled': ['hearing', 1], 'hearing-held': ['hearing', 2], 'comment-period-open': ['comment', 1], 'agency-rule-proposed': ['comment', 2] };
+export function groupOf(ev) {
+  const g = GROUP[ev.class];
+  if (!g) return null;
+  return { name: g[0] === 'hearing' ? `hearing:${(ev.facts && ev.facts.hearing_date) || ev.date}` : g[0], rank: g[1], exact: g[0] === 'hearing' };
+}
+export function sameGroup(a, b) {
+  const ga = groupOf(a), gb = groupOf(b);
+  if (!ga || !gb || ga.name !== gb.name || a.entry_id !== b.entry_id || a.jurisdiction !== b.jurisdiction) return false;
+  return ga.exact || Math.abs(dayGap(a.date, b.date)) <= 1;
+}
+// The event a card shows: the owner, or the highest-ranked showable event merged into it.
+export function displayEvent(ev, state) {
+  const merged = ((ev.merged || []).map((k) => state && state.events[k]).filter((e) => e && showable(e)));
+  return [ev, ...merged].sort((a, b) => ((groupOf(b) || {}).rank || 0) - ((groupOf(a) || {}).rank || 0))[0];
+}
+
+// One news.json item for one event (backwards compatible; see the contract and the site agent's additions). With state, an event that
+// owns merged events shows the highest-ranked of them, under its own event_key.
+export function renderItem(owner, entry, { at, state = null } = {}) {
+  const ev = owner.status === 'withdrawn' ? owner : displayEvent(owner, state);
   const card = cardFor(ev, entry);
   if (!card) return null;
   const off = ev.sources.find((s) => s.role === 'official');
-  const statements = ev.sources.filter((s) => s.role === 'statement').map((s) => ({ t: s.title, u: s.url, publisher: s.publisher || null }));
-  const quote = String(ev.facts.action || ev.facts.text || '').replace(/\s+/g, ' ').trim();
+  const statements = [owner, ...(ev === owner ? [] : [ev])].flatMap((e) => e.sources.filter((s) => s.role === 'statement')).map((s) => ({ t: s.title, u: s.url, publisher: s.publisher || null }));
+  const quote = quoteOf(ev.facts).quote;
   const corr = ev.history.filter((h) => h.to === 'corrected' || h.to === 'withdrawn').pop();
   let check = card.written_by === 'ai' ? `From the official record (${off ? off.source : 'official'}): written from its fields by the AI writer, every fact checked by code and a second reader.` : `From the official record (${off ? off.source : 'official'}), written by code from its fields; the official words are quoted as recorded.`;
   if (ev.status === 'corrected' && corr) check += ` Correction (${fmtDay(corr.at)}): the official record changed after this item was first published; it now reads as above.`;
   if (ev.status === 'withdrawn' && corr) check += ` Correction (${fmtDay(corr.at)}): the official record no longer shows this action.`;
-  const item = {
+  const hist = ev === owner ? owner.history : [...owner.history, ...ev.history.map((h) => ({ ...h, change: `${ev.class}: ${h.change}` }))];
+  return {
     date: ev.date, kind: ev.class.startsWith('court-') ? 'litigation' : newsKind(entry),
     title: ev.status === 'withdrawn' ? `Withdrawn: ${card.headline}`.slice(0, 140) : card.headline, body: card.body,
     links: [{ t: `${entry.short_name || entry.title} — official record`, u: off.url }, ...statements.map((s) => ({ t: s.publisher ? `${s.publisher}: ${s.t}` : s.t, u: s.u }))],
-    check, tracker: ev.entry_id, origin: 'automated',
+    check, tracker: owner.entry_id, origin: 'automated',
     verification: { method: 'official-record', checked_at: at || ev.last_seen },
     evidence: [{ field: 'body', quote: quote.length >= 8 ? quote : String(off.title || quote), source_url: off.url }],
-    event_key: ev.key, class: ev.class, status: ev.status, jurisdiction: ev.jurisdiction, statements,
+    event_key: owner.key, class: ev.class, status: ev.status, jurisdiction: ev.jurisdiction, statements,
     ...(stageOf(ev) ? { stage: stageOf(ev) } : {}), next: nextOf(ev),
     ...(ev.facts.comments_close ? { comments_close: ev.facts.comments_close } : {}),
-    history: ev.history.map((h) => ({ at: h.at, change: h.change, ...(typeof h.from === 'string' || h.from === null ? { from: h.from } : {}), ...(typeof h.to === 'string' || h.to === null ? { to: h.to } : {}) })),
+    history: hist.map((h) => ({ at: h.at, change: h.change, ...(typeof h.from === 'string' || h.from === null ? { from: h.from } : {}), ...(typeof h.to === 'string' || h.to === null ? { to: h.to } : {}) })),
     ...(ev.status === 'corrected' || ev.status === 'withdrawn' ? { status_note: ev.status === 'withdrawn' ? 'The official record no longer shows this action.' : 'Corrected from the official record.' } : {})
   };
-  return item;
 }
 
 // news: news.json as it is; state: events; entries: the entries list. Items without event_key are never touched, nor reordered.
-// Items with event_key are re-rendered in place; new visible events are appended. An event whose entry and date already have an item
-// written another way (by hand, or by Lane 1's official-action news) is not added again.
-// Returns { news, added: [key], updated: [key], held: [{ key, why }] }.
-export function renderNews(news, state, entries, { at } = {}) {
+// Items with event_key are re-rendered in place; new visible events are appended, except:
+//   - an entry and date the page already covers another way (by hand, or Lane 1's official-action news);
+//   - an event in the same equivalence group as a card already on the page (or added this run): merged into that card (review r2 #3);
+//   - an event dated more than maxAgeDays before the run (the backlog when publishing is first switched on): timeline only (review r2 #11).
+// Returns { news, added: [key], updated: [key], merged: [[key, into]], held: [{ key, why }], state (the events with this render's merges) }.
+export function renderNews(news, stateIn, entries, { at, maxAgeDays = 14 } = {}) {
+  // merges are made on a copy: the caller keeps them (r.state) only when the render is written
+  const state = { ...stateIn, events: JSON.parse(JSON.stringify(stateIn.events)) };
   const byKey = new Map(entries.map((e) => [e.key, e]));
-  const out = { ...news, items: [] }, added = [], updated = [], held = [];
-  const onPage = new Set();
+  const out = { ...news, items: [] }, added = [], updated = [], held = [], merged = [];
+  const today = (at || new Date().toISOString()).slice(0, 10);
+  const owners = []; // events that own a card on the page (or added this run)
   for (const n of news.items) {
     if (!n.event_key) { out.items.push(n); continue; }
-    onPage.add(n.event_key);
-    const ev = state.events[n.event_key], entry = ev && byKey.get(ev.entry_id);
-    const fresh = ev && entry ? renderItem(ev, entry, { at: n.verification && n.verification.checked_at }) : null;
-    if (!fresh) { out.items.push(n); held.push({ key: n.event_key, why: 'event or entry missing: item left as it was' }); continue; }
-    if (JSON.stringify(fresh) !== JSON.stringify(n)) { fresh.verification.checked_at = at || fresh.verification.checked_at; updated.push(ev.key); }
-    out.items.push(fresh);
+    const ev = state.events[n.event_key];
+    if (ev) owners.push(ev);
+    out.items.push(n);
   }
   const other = new Set(news.items.filter((n) => !n.event_key && n.tracker).map((n) => `${n.tracker}|${n.date}`));
-  const evs = Object.values(state.events).filter((e) => visible(e) && !onPage.has(e.key) && e.status !== 'withdrawn').sort((a, b) => a.date.localeCompare(b.date) || a.key.localeCompare(b.key));
+  const onPage = new Set(owners.map((e) => e.key));
+  const evs = Object.values(state.events).filter((e) => visible(e) && !onPage.has(e.key) && e.status !== 'withdrawn')
+    .sort((a, b) => a.date.localeCompare(b.date) || ((groupOf(a) || {}).rank || 0) - ((groupOf(b) || {}).rank || 0) || a.key.localeCompare(b.key));
   const thisRun = new Set();
   for (const ev of evs) {
     const entry = byKey.get(ev.entry_id);
     if (!entry || entry.section === 'J') { held.push({ key: ev.key, why: 'not a tracked entry' }); continue; }
+    const owner = owners.find((o) => o.key !== ev.key && sameGroup(o, ev));
+    if (owner) {
+      if (!(owner.merged || []).includes(ev.key)) { owner.merged = [...(owner.merged || []), ev.key]; ev.merged_into = owner.key; }
+      merged.push([ev.key, owner.key]); held.push({ key: ev.key, why: `merged into the card for ${owner.class}` }); continue;
+    }
+    if ((ev.merged_into && state.events[ev.merged_into])) { held.push({ key: ev.key, why: 'merged into another card' }); continue; }
+    if (dayGap(ev.date, today) > maxAgeDays) { held.push({ key: ev.key, why: `older than ${maxAgeDays} days: timeline only` }); continue; }
     if (other.has(`${ev.entry_id}|${ev.date}`)) { held.push({ key: ev.key, why: 'the page already has an item on this entry and date' }); continue; }
     if (thisRun.has(`${ev.entry_id}|${ev.date}`)) { held.push({ key: ev.key, why: 'another event on this entry and date is added this run' }); continue; }
-    const item = renderItem(ev, entry, { at });
+    const item = renderItem(ev, entry, { at, state });
     if (!item) { held.push({ key: ev.key, why: 'the template needs a fact the record does not give' }); continue; }
     thisRun.add(`${ev.entry_id}|${ev.date}`);
-    out.items.push(item); added.push(ev.key);
+    out.items.push(item); added.push(ev.key); owners.push(ev);
   }
-  return { news: out, added, updated, held };
+  // every event card on the page is re-rendered (after merges), in place
+  out.items = out.items.map((n) => {
+    if (!n.event_key) return n;
+    const isNew = added.includes(n.event_key);
+    if (isNew && !(state.events[n.event_key].merged || []).length) return n;
+    const ev = state.events[n.event_key], entry = ev && byKey.get(ev.entry_id);
+    const fresh = ev && entry ? renderItem(ev, entry, { at: n.verification && n.verification.checked_at, state }) : null;
+    if (!fresh) { held.push({ key: n.event_key, why: 'event or entry missing: item left as it was' }); return n; }
+    if (JSON.stringify(fresh) === JSON.stringify(n)) return n;
+    fresh.verification.checked_at = at || fresh.verification.checked_at; if (!isNew) updated.push(ev.key);
+    return fresh;
+  });
+  return { news: out, added, updated, merged, held, state };
 }
 
 // Marks rendered events as shown (after a successful write), so a later withdrawal stays on the page as a correction.
@@ -287,7 +393,7 @@ export function checkNewsEvents({ before, after, state, entries, at }) {
     const ev = state.events[n.event_key], entry = ev && byKey.get(ev.entry_id);
     if (!ev || !entry) { if (!keysB.includes(n.event_key)) problems.push(`news item ${n.event_key}: no such event or entry`); continue; }
     if (!visible(ev)) problems.push(`news item ${n.event_key}: event is ${ev.status}, not publishable`);
-    const want = renderItem(ev, entry, { at: n.verification.checked_at });
+    const want = renderItem(ev, entry, { at: n.verification.checked_at, state });
     if (JSON.stringify(want) !== JSON.stringify(n)) problems.push(`news item ${n.event_key}: not the render of its event`);
     if (n.origin !== 'automated' || n.verification.method !== 'official-record') problems.push(`news item ${n.event_key}: not marked automated / official-record`);
     if (!n.links.some((l) => n.evidence.every((e) => e.source_url === l.u))) problems.push(`news item ${n.event_key}: evidence is not from its own linked record`);

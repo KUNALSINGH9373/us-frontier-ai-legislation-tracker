@@ -72,6 +72,9 @@ export function classifyState(text, ctx = {}) {
   const t = clean(text);
   if (!t) return null;
   const k = stateActionKind(t, !!ctx.isFirst);
+  // a chamber agreeing to the other chamber's amendments, in the present tense ("Senate concurs in House amendments"): Lane 1 has no milestone
+  // for this wording, the contract has a class (review r2 #8)
+  if (/^\W*(house|senate|assembly) concurs? in (the )?(house|senate|assembly) amendments?\b/i.test(t) && !/\b(not|motion|refuses?)\b/i.test(t)) return 'concurrence';
   if (!k.type && !TO_GOVERNOR.test(t)) return null; // Lane 1 calls it routine or procedural: so does the news lane
   for (const [re, c] of JURISDICTION_RULES[ctx.jurisdiction] || []) if (re.test(t)) return c;
   if (TO_GOVERNOR.test(t) && !/\bmotion\b/i.test(t) && !['enacted', 'vetoed', 'veto_override', 'failed'].includes(k.kind)) return 'executive-receipt';
@@ -80,7 +83,7 @@ export function classifyState(text, ctx = {}) {
     case 'veto_override': return 'veto-override-passage';
     case 'vetoed': return NOT_WHOLE.test(t) ? null : 'executive-veto';
     case 'failed': return /\b(sustain|overrid)/i.test(t) ? null : /committee|\bheld in\b|\binexpedient\b/i.test(t) ? 'committee-failure' : 'failure';
-    case 'enacted': return CHAPTERED.test(t) ? 'became-law' : GOV_SIGNED.test(t) ? 'executive-signature' : null;
+    case 'enacted': return NOT_WHOLE.test(t) ? null : CHAPTERED.test(t) ? 'became-law' : GOV_SIGNED.test(t) ? 'executive-signature' : null; // line items: not the bill
     case 'carried_over': return 'carried-over';
     case 'introduced': return 'introduction';
     case 'referred': return REFERRAL.test(t) && !/\boffice of (legislative|fiscal)\b|\bassigned\b/i.test(t) ? 'referral-committee' : null;
@@ -94,7 +97,7 @@ export function classifyState(text, ctx = {}) {
       if (!committeeReport && /\b(second|2nd) reading\b|\bpassed 2nd\b|\b(first|second) consideration\b|\bcommittee of the whole\b/i.test(t) && !/\b(third|3rd|final) read(ing)?s?\b(?! calendar)/i.test(t)) return null;
       if (/\bengross|\benroll/i.test(t) && !/\bpass|\bfavorabl/i.test(t)) return /\benrolled\b/i.test(t) ? 'enrolled' : null; // a clerk's step, not a vote
       // not a vote on the bill: moved to the next reading or to engrossment, a first reading, a request, a refusal, a companion's chapter
-      if (/\bpassed to (third|3rd|engross)|\bpassed (1st|first) reading\b|\brequests? that\b|\brefused to pass\b|^\W*chapter no\b/i.test(t)) return null;
+      if (/\bpassed to (third|3rd|engross)|\bpassed (1st|first) reading\b|\brequests? that\b|\brefused to pass\b|\bpassed over\b|^\W*chapter no\b/i.test(t)) return null;
       if (/\bpassed (third|3rd|final) reading\b|\b(third|3rd) read(ing)?\b[^.]{0,20}\bpassed\b/i.test(t)) return 'passage';
       if (/\bconf(erence)?\.? (committee )?report\b/i.test(t)) return 'passage'; // the chamber adopts the conference report: a floor vote
       if (k.importance === 60) return 'committee-passage';
