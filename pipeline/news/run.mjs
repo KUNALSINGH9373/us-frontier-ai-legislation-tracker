@@ -34,7 +34,7 @@ import * as nist from './sources/nist.mjs';
 import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
 import { defaultHttp, sourceConfig } from './sources/common.mjs';
-import { writeCard } from './writer.mjs';
+import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -116,7 +116,20 @@ export const EXTRA_ADAPTERS = [['openstates', openstates], ['nysenate', nysenate
 
 // The card writer (news/writer.mjs, roles generator + validator) for showable events whose card is still the template; a card that fails
 // any check stays the template. Only when news publishing is on and AI may run. Returns how many cards the AI wrote.
-export async function writeCards({ state, entries, keys, factory, today, max = 5, log = () => {} }) {
+export async function writeCards({ state, entries, keys, factory, today, max = 5, config = null, log = () => {} }) {
+  // news.ai_writer false (default): the phrase bank (news/phrasebank.mjs), code only, every card; the AI path below is not reached
+  if (!aiWriterOn(config)) {
+    const byKey = new Map(entries.map((e) => [e.key, e]));
+    let written = 0, tried = 0;
+    for (const k of keys) {
+      const ev = state.events[k];
+      if (!ev || !ev.card || (ev.card.written_by === 'bank' && ev.card.facts_hash === ev.facts_digest)) continue;
+      tried++;
+      const r = bankCard({ event: ev, entry: byKey.get(ev.entry_id) || null, today });
+      if (r.card && r.card.written_by === 'bank') { ev.card = { ...r.card, facts_hash: ev.facts_digest }; written++; }
+    }
+    return { written, tried, mode: 'bank' };
+  }
   let writer = null, reader = null;
   try { writer = factory.make('generator'); reader = factory.make('validator'); } catch { return { written: 0, tried: 0 }; }
   if (!writer || !reader) return { written: 0, tried: 0 };
@@ -126,7 +139,7 @@ export async function writeCards({ state, entries, keys, factory, today, max = 5
     const ev = state.events[k];
     if (!ev || !ev.card || ev.card.written_by === 'ai' || tried >= max) continue;
     tried++;
-    const r = await writeCard({ event: ev, entry: byKey.get(ev.entry_id) || null, writer, reader, today, log });
+    const r = await writeCard({ config, event: ev, entry: byKey.get(ev.entry_id) || null, writer, reader, today, log });
     if (r.card && r.card.written_by === 'ai') { ev.card = { ...r.card, facts_hash: ev.facts_digest }; written++; }
   }
   return { written, tried };
@@ -196,9 +209,10 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
   }
 
   // 3. the card writer for showable events (only when publishing is on and AI may run), then render and the stop rules
-  if (rep.publishing && !aiOff && factory && !dry) {
+  // The phrase bank (news.ai_writer false) is code only: it runs whenever publishing is on, AI or not.
+  if (rep.publishing && !dry && (!aiWriterOn(config) || (!aiOff && factory))) {
     const keys = Object.values(state.events).filter((e) => visible(e) && e.status === 'confirmed').map((e) => e.key).sort();
-    const w = await writeCards({ state, entries: before.entries, keys, factory, today, max: (config.news_writer && config.news_writer.max_cards_per_run) ?? 5, log });
+    const w = await writeCards({ state, entries: before.entries, keys, factory, today, config, max: (config.news_writer && config.news_writer.max_cards_per_run) ?? 5, log });
     rep.events.cards_written = w.written; rep.events.cards_tried = w.tried;
   }
   const evs = Object.values(state.events);

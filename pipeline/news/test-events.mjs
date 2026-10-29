@@ -215,9 +215,15 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const shown = Object.values(s.events).filter(visible);
   ok('7 every renderable event carries template_headline/template_body (the writer falls back to them)', shown.length > 0 && shown.every((e) => e.card && e.card.template_headline && e.card.template_body && e.card.written_by === 'template'));
   const bad = { make: () => ({ async generate() { return { data: { headline: 'Unanimously passed landmark bill', body: 'It passed unanimously.' }, usage: {} }; } }) };
-  const w = await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: bad, today: '2026-10-27' });
+  // the AI path is reachable only with news.ai_writer true (config/publish.json)
+  const AI = { news: { ai_writer: true } };
+  const w = await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: bad, today: '2026-10-27', config: AI });
   ok('7 a card the checks refuse stays the template; nothing written by AI', w.written === 0 && w.tried > 0 && shown.every((e) => s.events[e.key].card.written_by === 'template'));
-  ok('7 no writer roles: nothing tried, never a throw', (await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: { make: () => { throw new Error('no role'); } }, today: '2026-10-27' })).tried === 0);
+  ok('7 no writer roles: nothing tried, never a throw', (await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: { make: () => { throw new Error('no role'); } }, today: '2026-10-27', config: AI })).tried === 0);
+  // default (news.ai_writer false): the phrase bank writes every card, code only; no AI factory is touched
+  let made = 0;
+  const wb = await writeCards({ state: s, entries: ENTRIES, keys: shown.map((e) => e.key), factory: { make: () => { made++; return bad.make(); } }, today: '2026-10-27' });
+  ok('7 phrase bank by default: cards written by code, no AI client made, kept while facts are current', made === 0 && wb.mode === 'bank' && wb.written > 0 && shown.every((e) => ['bank', 'template'].includes(s.events[e.key].card.written_by)) && (refreshCards(s, ENTRIES), shown.some((e) => s.events[e.key].card.written_by === 'bank')));
   ok('7 milestone: only for a state law, computed from tracker data, else null', milestoneFor({ class: 'passage', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', date: '2026-09-09' }, ENTRIES) === null && milestoneFor({ class: 'became-law', jurisdiction: 'US', entry_id: HR.entry_key, date: '2026-09-09' }, ENTRIES) === null && [null, 'string'].includes(milestoneFor({ class: 'became-law', jurisdiction: 'CA', entry_id: 'ca-ab-1405-auditor-registry', date: '2026-09-09' }, ENTRIES) === null ? null : 'string'));
 }
 

@@ -81,9 +81,14 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
     // news: the event set (eval/news-set.mjs) AND the card writer (eval/news-writer-set.mjs: full set, current code, at least one card
     // really written by the AI), both at zero wrong
     const n = measured('news', 'news'), zero = zeroOf('news');
-    const w = measured('news_writer', 'news_writer'), wOk = zeroOf('news_writer')(w) && Number(w.ai_written) > 0;
+    // news.ai_writer false (default): the report must be the phrase-bank measure (mode bank). true: an AI report with at least one
+    // AI-written card, recorded with the production generator and validator (roleModel).
+    const aiWriter = !!(config.news && config.news.ai_writer === true);
+    const w = measured('news_writer', 'news_writer');
+    const modeOk = !w ? false : aiWriter ? w.mode === 'ai' && Number(w.ai_written) > 0 && w.generator === prod && w.validator === prodReader : w.mode === 'bank';
+    const wOk = zeroOf('news_writer')(w) && modeOk;
     const nNote = !n ? 'no news-set report made by the current code (eval/news-set.mjs)' : zero(n) ? null : !complete(n, 'news') ? incomplete(n, 'news') : `the news set has ${n.wrong} wrong of ${n.cases}`;
-    const wNote = !w ? 'no news-writer report made by the current code (eval/news-writer-set.mjs)' : wOk ? null : !complete(w, 'news_writer') ? incomplete(w, 'news_writer') : w.wrong ? `the news-writer set has ${w.wrong} wrong of ${w.cases}` : 'the news-writer report has no AI-written card';
+    const wNote = !w ? 'no news-writer report made by the current code (eval/news-writer-set.mjs)' : wOk ? null : !complete(w, 'news_writer') ? incomplete(w, 'news_writer') : w.wrong ? `the news-writer set has ${w.wrong} wrong of ${w.cases}` : aiWriter ? (w.mode !== 'ai' ? 'news.ai_writer is on but the news-writer report is not an AI report' : Number(w.ai_written) > 0 ? `the news-writer AI answers were recorded with ${w.generator}/${w.validator}, not the production ${prod}/${prodReader}` : 'the news-writer report has no AI-written card') : 'the news-writer report is not the phrase-bank measure (news.ai_writer is off)';
     fields.news = { on: !!auto.news, meets: zero(n) && wOk, report: n ? n.run_at : null, writer_report: w ? w.run_at : null, note: nNote || wNote };
   }
   const violations = Object.entries(fields).filter(([, x]) => x.on && !x.meets).map(([f]) => f);

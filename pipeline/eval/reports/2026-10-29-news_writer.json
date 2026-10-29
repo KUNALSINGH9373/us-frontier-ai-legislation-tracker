@@ -1,964 +1,1063 @@
 {
  "measure": "news_writer",
- "run_at": "2026-10-29T05:20:57.736Z",
- "checks_hash": "217b2c0975d4bc8b15c48c625a2b13d8d7c28a6fcc4cf5ef08798395de9faeb6",
+ "mode": "bank",
+ "run_at": "2026-10-29T06:03:59.223Z",
+ "checks_hash": "47f803c72f3575beca34be624cef1ca35b34fd3c18540c17435e7730b8f2c9d1",
  "cases": 32,
- "recorded": 32,
- "synthetic": 74,
  "wrong": 0,
- "missed": 9,
- "ai_written": 23,
+ "missed": 0,
+ "bank_written": 32,
+ "ai_written": 0,
+ "matrix": {
+  "renderings": 74640,
+  "wrong": 0,
+  "refused": 2430,
+  "unusable_headlines": [],
+  "examples_wrong": []
+ },
+ "checkcard_suite": {
+  "cases": 74,
+  "passed_wrongly": 0
+ },
+ "variants": {
+  "introduction": {
+   "headlines": 6,
+   "bodies": 4
+  },
+  "referral-committee": {
+   "headlines": 5,
+   "bodies": 3
+  },
+  "hearing-scheduled": {
+   "headlines": 5,
+   "bodies": 3
+  },
+  "hearing-held": {
+   "headlines": 5,
+   "bodies": 4
+  },
+  "committee-passage": {
+   "headlines": 6,
+   "bodies": 5
+  },
+  "committee-failure": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "passage": {
+   "headlines": 7,
+   "bodies": 5
+  },
+  "failure": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "amendment-passage": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "concurrence": {
+   "headlines": 5,
+   "bodies": 4
+  },
+  "enrolled": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "executive-receipt": {
+   "headlines": 5,
+   "bodies": 3
+  },
+  "executive-signature": {
+   "headlines": 6,
+   "bodies": 5
+  },
+  "became-law": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "executive-veto": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "veto-override-passage": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "withdrawal": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "carried-over": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "new-text-version": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "crs-report": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "cbo-estimate": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "executive-order": {
+   "headlines": 4,
+   "bodies": 4
+  },
+  "presidential-memo": {
+   "headlines": 4,
+   "bodies": 4
+  },
+  "agency-guidance": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "agency-rule-proposed": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "agency-rule-final": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "comment-period-open": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "comment-period-closing": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "nomination": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "court-filing": {
+   "headlines": 4,
+   "bodies": 3
+  },
+  "court-ruling": {
+   "headlines": 4,
+   "bodies": 3
+  }
+ },
+ "models": {
+  "generator": "claude-haiku-5-5",
+  "validator": "claude-haiku-5-5"
+ },
  "rows": [
   {
    "id": "ny-s8828-senate-58-1",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "New York Senate passes S.8828, the RAISE Act, by 58-1 vote",
+   "headline": "S.8828 clears the New York Senate",
+   "body": "The Senate passed S.8828 on January 28, 2026. What it does: Chapter 96 repeals the original Gen. Bus. Law Art. 44-B and enacts a new Art. 44-B that copies TFAIA's frontier AI framework and transparency report — deemed compliant if published within a system/model card. Next: consideration in the Assembly.",
    "reason": null
   },
   {
    "id": "ny-s8828-senate-58-1#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "unanimous on a 58-1 vote",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"unanimously\" but the recorded vote has 1 against"
   },
   {
    "id": "ma-h5576-house-148-2",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Massachusetts House passes H.5576 by 148-2 vote",
+   "headline": "H.5576 passes the House",
+   "body": "The House passed H.5576 on July 8, 2026. What it does: critical safety incidents reported to AG within 15 days (24 hours if imminent risk of death). The next step is consideration in the Senate.",
    "reason": null
   },
   {
    "id": "ma-h5576-house-148-2#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "evaluative 'overwhelmingly' + 'bipartisan'",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"overwhelmingly\" is an evaluative word the fact sheet does not state"
   },
   {
    "id": "trap-vote-38-2",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "California Senate passes AB 1405 on auditor registry, 38-2",
+   "headline": "California Senate passes AB 1405",
+   "body": "The Senate passed AB 1405 by a vote of 38-2 on August 30, 2026. What it does: GovOps must establish an AI Auditor Registry by Jan 1, 2029 (earlier drafts said 2027). The next step is consideration in the Assembly.",
    "reason": null
   },
   {
    "id": "trap-vote-38-2#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "unanimously on a 38-2 vote",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"unanimously\" but the recorded vote has 2 against"
   },
   {
    "id": "trap-vote-38-2#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "'without opposition' on 38-2",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"without opposition\" but the recorded vote has 2 against"
   },
   {
    "id": "trap-vote-38-2#bad3",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "wrong tally 38-0",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 0"
   },
   {
    "id": "ca-sb813-concurrence-37-0",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "California Senate passes SB 813 concurrence by 37-0 vote",
+   "headline": "California Senate concurs on SB 813",
+   "body": "The Senate concurred in amendments to SB 813 on August 30, 2026. The next step is transmittal to the Governor.",
    "reason": null
   },
   {
    "id": "ca-sb813-concurrence-37-0#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "prediction: will be signed",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"expected\" is a prediction the fact sheet does not state"
   },
   {
    "id": "ca-ab1405-signed",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Governor Gavin Newsom signs AB 1405 on AI auditor registry into law",
+   "headline": "California enacts AB 1405",
+   "body": "AB 1405 was signed into law on September 9, 2026. What it does: GovOps must establish an AI Auditor Registry by Jan 1, 2029 (earlier drafts said 2027).",
    "reason": null
   },
   {
    "id": "ca-ab1405-signed#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "'first' with no milestone fact",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"first\" claims a milestone the fact sheet does not state"
   },
   {
    "id": "il-sb315-signed",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Pritzker signs SB 315 into law in Illinois",
+   "headline": "The Governor signs SB 315",
+   "body": "Governor JB Pritzker signed SB 315 on July 6, 2026. What it does: Sec. 10: frontier AI framework (from Jan 1, 2028).",
    "reason": null
   },
   {
    "id": "il-sb315-signed#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "'landmark' evaluative",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"landmark\" claims a milestone the fact sheet does not state"
   },
   {
    "id": "il-sb315-sent-to-governor",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Illinois SB 315 sent to the Governor, adds frontier AI framework",
+   "headline": "SB 315 goes to the Governor",
+   "body": "On June 26, 2026, SB 315 was presented to the Governor. What it does: Sec. 10: frontier AI framework (from Jan 1, 2028). Next: action by the Governor.",
    "reason": null
   },
   {
    "id": "il-sb315-sent-to-governor#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "prediction beyond next step",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"likely\" is a prediction the fact sheet does not state"
   },
   {
    "id": "il-sb315-sent-to-governor#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "invented name not in sheet",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Pritzker"
   },
   {
    "id": "il-sb315-sent-to-governor#bad3",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "bill number read out of P.A. 104-0538 (seen live in the first recording)",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "bill number A. 104 is not in the fact sheet"
   },
   {
    "id": "nj-s4446-introduced",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "New Jersey S.4446 introduced in Senate, paired with A.5275",
+   "headline": "S.4446 introduced on June 11, 2026",
+   "body": "S.4446 was introduced in the Senate on June 11, 2026. What it does: Large frontier developers with NJ users must: implement protocols. The next step is referral to a committee.",
    "reason": null
   },
   {
    "id": "nj-s4446-introduced#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "'first' with no milestone fact",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: AI"
   },
   {
    "id": "nj-a5275-referred",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "New Jersey A.5275 referred to Assembly Science, Innovation and Technology Committee",
+   "headline": "A.5275 referred to a New Jersey committee",
+   "body": "On June 15, 2026, A.5275 was referred to the Assembly Science, Innovation and Technology Committee. What it does: Large frontier developers with NJ users must: implement protocols. The next step is consideration by the Assembly Science, Innovation and Technology Committee.",
    "reason": null
   },
   {
    "id": "nj-a5275-referred#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "wrong committee name",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Judiciary"
   },
   {
    "id": "oh-hb628-hearing-held",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Ohio House Technology and Innovation Committee holds hearing on HB 628",
+   "headline": "Hearing held on HB 628",
+   "body": "HB 628 was heard in committee on March 17, 2026. What it does: IVO proposes which specific risks it will verify.",
    "reason": null
   },
   {
    "id": "oh-hb628-hearing-held#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "held hearing written as upcoming",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Testimony"
   },
   {
    "id": "trap-pa-hb2800-hearing-scheduled",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Pennsylvania House panel to hold hearing on H.B. 2800 AI Risk Prevention Act",
+   "headline": "House Communications and Technology Committee to hold hearing on H.B. 2800",
+   "body": "H.B. 2800 is scheduled for a hearing on November 4, 2026. What it does: Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee.",
    "reason": null
   },
   {
    "id": "trap-pa-hb2800-hearing-scheduled#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "scheduled hearing written as held",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"held\" writes a scheduled event as if it had happened"
   },
   {
    "id": "trap-pa-hb2800-hearing-scheduled#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "scheduled written as took place",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"took place\" writes a scheduled event as if it had happened"
   },
   {
    "id": "trap-pa-hb2800-hearing-scheduled#bad3",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "first-seen date written as the hearing day",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "the hearing day 2026-11-04 is not given"
   },
   {
    "id": "us-s2938-hearing-held",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Senate committee holds hearing on S. 2938 AI Risk Evaluation Act",
+   "headline": "Hearing held on S. 2938",
+   "body": "The Senate Homeland Security and Governmental Affairs Committee held a hearing on S. 2938 on September 30, 2026. What it does: Dept. of Energy must establish a mandatory Advanced AI Evaluation Program within 90 days: classified red-team testing, blind third-party evaluations.",
    "reason": null
   },
   {
    "id": "us-s2938-hearing-held#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "invented witness name",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Senator, Peters"
   },
   {
    "id": "us-hr9363-markup-29-0",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "House Science Committee passes H.R. 9363, AI Security and Innovation Act, 29-0",
+   "headline": "House Science, Space, and Technology Committee approves H.R. 9363, 29-0",
+   "body": "The House Science, Space, and Technology Committee advanced H.R. 9363 on June 25, 2026. What it does: Voluntary \"Center for AI Security and Innovation\" at NIST. What comes next: a vote of the full House.",
    "reason": null
   },
   {
    "id": "us-hr9363-markup-29-0#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "wrong date",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 26"
   },
   {
    "id": "tn-hb1898-house-94-0",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Tennessee House passes HB 1898 by 94-0 vote",
+   "headline": "House approves HB 1898, 94-0",
+   "body": "The House passed HB 1898 on April 16, 2026. What it does: CA/IL-style hybrid: large frontier developers publish a frontier safety plan. The next step is consideration in the Senate.",
    "reason": null
   },
   {
    "id": "tn-hb1898-house-94-0#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "wrong tally",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 1"
   },
   {
    "id": "ny-s10701-withdrawn",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "NY S.10701 TERMINATOR Act (withdrawn): Withdrawn",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "S.10701 withdrawn",
+   "body": "On September 18, 2026, S.10701 was withdrawn in the Senate. Status: Withdrawn.",
+   "reason": null
   },
   {
    "id": "ny-s10701-withdrawn#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "causal claim",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"pressure\" is a cause, motive or reaction the fact sheet does not state"
   },
   {
    "id": "ny-s10701-withdrawn#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "present-tense mechanism of a withdrawn bill + meta (seen live in the first recording)",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: RAISE"
   },
   {
    "id": "us-s5493-referred",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "S. 5493 referred to Senate Commerce, Science, and Transportation Committee",
+   "headline": "Senate Committee on Commerce, Science, and Transportation receives S. 5493",
+   "body": "S. 5493 was referred to the Senate Committee on Commerce, Science, and Transportation on September 23, 2026. What it does: Creates a cabinet-level Department of Artificial Intelligence. What comes next: consideration by the Senate Committee on Commerce, Science, and Transportation.",
    "reason": null
   },
   {
    "id": "us-s5493-referred#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "invented bill number",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 10539"
   },
   {
    "id": "trap-us-hr10873-no-milestone",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "H.R. 10873 AI Cyber Defense Act introduced in House",
+   "headline": "H.R. 10873 filed in the House",
+   "body": "H.R. 10873 was introduced in the House on October 22, 2026. What comes next: referral to a committee.",
    "reason": null
   },
   {
    "id": "trap-us-hr10873-no-milestone#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "'first' with no milestone fact",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"first\" claims a milestone the fact sheet does not state"
   },
   {
    "id": "trap-us-hr10873-no-milestone#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "'only' with no milestone fact",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"only\" claims a milestone the fact sheet does not state"
   },
   {
    "id": "us-s5576-introduced",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "S. 5576 Warner–Schatz–Kim AI Risk Management and Security Act: Introduced",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "S. 5576 introduced in the Senate",
+   "body": "S. 5576 was introduced in the Senate on September 29, 2026. What comes next: referral to a committee.",
+   "reason": null
   },
   {
    "id": "us-s5576-introduced#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "number in words + invented figure",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "a number in words (\"three\") that the fact sheet does not use; give figures only as the fact sheet does"
   },
   {
    "id": "us-s5576-introduced#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "a chamber said to introduce the bill (seen live in the first recording)",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "a chamber does not introduce a bill; write that the bill was introduced in it"
   },
   {
    "id": "us-eo-14434",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "EO 14434 \"Super Intelligence\" terminology order: Executive order signed",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "The President signs Executive Order 14434",
+   "body": "The President signed Executive Order 14434 on September 29, 2026. Status: Executive order signed.",
+   "reason": null
   },
   {
    "id": "us-eo-14434#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "evaluative 'sweeping'",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"sweeping\" is an evaluative word the fact sheet does not state"
   },
   {
    "id": "us-eo-14409",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "EO 14409 (pre-release access): Executive order signed",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "Executive Order 14409 issued",
+   "body": "On June 2, 2026, the President signed Executive Order 14409. Status: Executive order signed.",
+   "reason": null
   },
   {
    "id": "us-eo-14409#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "date not in sheet",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 5"
   },
   {
    "id": "us-bis-chip-rule-final",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Bureau of Industry and Security final rule on AI chip licensing to China, Macau",
+   "headline": "The Bureau of Industry and Security final rule: AI chip licensing to China and Macau",
+   "body": "On January 15, 2026, the Bureau of Industry and Security issued a final rule on AI chip licensing to China and Macau. Next: the rule takes effect on January 15, 2026.",
    "reason": null
   },
   {
    "id": "us-bis-chip-rule-final#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "agency name not in sheet",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Commerce, Department"
   },
   {
    "id": "us-xai-v-weiser-filed",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "X.AI v. Weiser (D. Colo.): Filed in court",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "New filing in X.AI v. Weiser",
+   "body": "A filing was made in X.AI v. Weiser on April 9, 2026. Status: Filed in court.",
+   "reason": null
   },
   {
    "id": "us-xai-v-weiser-filed#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "outcome claimed (won)",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: xAI"
   },
   {
    "id": "us-xai-v-weiser-filed#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "writes about the sheet, not the event (seen live in the first recording)",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"is listed\" writes about the fact sheet, not the event"
   },
   {
    "id": "fl-v-openai-motion",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Injunction motion filed in Florida v. OpenAI in Highlands County Circuit Court",
+   "headline": "Filing in Florida v. OpenAI at the Highlands County Circuit Court",
+   "body": "A filing was made in Florida v. OpenAI in the Highlands County Circuit Court on September 28, 2026. Status: Filed in court.",
    "reason": null
   },
   {
    "id": "fl-v-openai-motion#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "invented judge name",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Smith"
   },
   {
    "id": "us-protect-democracy-v-oncd",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "Protect Democracy v. ONCD: Filed in court",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "Protect Democracy v. ONCD: new court filing",
+   "body": "A filing was made in Protect Democracy v. ONCD in the U.S. District Court for the District of Columbia on September 1, 2026. Status: Filed in court.",
+   "reason": null
   },
   {
    "id": "us-protect-democracy-v-oncd#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "wrong docket digits",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 03046"
   },
   {
    "id": "ct-omnibus-senate-32-4",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "CT P.A. 26-15 (omnibus): Passed the Senate",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "Connecticut Senate passes CT P.A. 26-15 (omnibus)",
+   "body": "The Senate passed CT P.A. 26-15 (omnibus) on May 1, 2026. What comes next: consideration in the House.",
+   "reason": null
   },
   {
    "id": "ct-omnibus-senate-32-4#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "evaluative 'overwhelmingly'",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"overwhelmingly\" is an evaluative word the fact sheet does not state"
   },
   {
    "id": "ca-sb1047-veto",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Governor Gavin Newsom vetoes California bill SB 1047",
+   "headline": "The Governor vetoes SB 1047",
+   "body": "Governor Gavin Newsom vetoed SB 1047 on September 29, 2024. Status: Vetoed.",
    "reason": null
   },
   {
    "id": "ca-sb1047-veto#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "next step not in sheet (no next)",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"will\" states a next step, but the fact sheet gives none"
   },
   {
    "id": "va-hb797-signed",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "Virginia Governor signs HB 797 into law as Chapter 425",
+   "headline": "Virginia enacts HB 797",
+   "body": "HB 797 was signed into law on April 8, 2026 as Chapter 425. What it does: Directs Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for IVOs assessing AI models' adherence to injury/property-damage prevention standards.",
    "reason": null
   },
   {
    "id": "va-hb797-signed#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "money figure not in sheet",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 2"
   },
   {
    "id": "pa-hr637-reported",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "PA H.R. 637 (resolution): Passed committee",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "H.R. 637 advances out of committee",
+   "body": "The House Communications and Technology Committee advanced H.R. 637 on October 7, 2026. Next: a vote of the full House.",
+   "reason": null
   },
   {
    "id": "pa-hr637-reported#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "tally with no recorded vote",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "numbers not in the fact sheet: 20, 5"
   },
   {
    "id": "us-hr3447-hfac-42-0",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "House Foreign Affairs Committee passes H.R. 3447, the Chip Security Act, 42-0",
+   "headline": "House Foreign Affairs Committee advances H.R. 3447",
+   "body": "The House Foreign Affairs Committee approved H.R. 3447 on March 26, 2026 by a vote of 42-0. What it does: Within 180 days Commerce must require covered chips to carry location-verification mechanisms before export. Next: a vote of the full House.",
    "reason": null
   },
   {
    "id": "us-hr3447-hfac-42-0#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "quotation not in sheet",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "quotation marks around words the fact sheet does not contain: \"a vital safeguard\""
   },
   {
    "id": "ca-ballot-withdrawn",
-   "kind": "recorded",
-   "written_by": "template",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
-   "missed": true,
-   "headline": "CA ballot initiative 25-0034 (withdrawn): Withdrawn",
-   "reason": "not confirmed within the rounds"
+   "missed": false,
+   "headline": "California Initiative 25-0034 withdrawn",
+   "body": "Initiative 25-0034 was withdrawn from consideration on February 27, 2026. Status: Withdrawn.",
+   "reason": null
   },
   {
    "id": "ca-ballot-withdrawn#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "named proponent not in sheet + motive",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Alexander, Oldham"
   },
   {
    "id": "review-ca-sb53-senate-30-10",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "California SB 53 passes the Senate 30-10",
+   "headline": "California Senate passes SB 53, 30-10",
+   "body": "SB 53 passed the Senate on May 28, 2025. What it does: critical-incident reporting 15 days, or 24 hrs if imminent risk of death/serious injury. Next: consideration in the Assembly.",
    "reason": null
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: wrong chamber",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"Assembly\" in a sentence stating the outcome, but the event is in the Senate"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: wrong chamber (body only)",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"Assembly\" in a sentence stating the outcome, but the event is in the Senate"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad3",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: whole legislature for one chamber",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"Legislature\" states an act of the whole legislature, but the event is passage in the Senate"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad4",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: both chambers for one chamber",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"both chambers\" states an act of the whole legislature, but the event is passage in the Senate"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad5",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: lawmakers passed for one chamber",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"Lawmakers\" states an act of the whole legislature, but the event is passage in the Senate"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad6",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: sent to governor",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"sent SB 53 to the governor\" states the bill was sent to the executive, but the event is passage"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad7",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: governor desk",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"Governor's desk\" states the bill was sent to the executive, but the event is passage"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad8",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: yesterday",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"yesterday\" is a relative time; give the date from the fact sheet"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad9",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: last week",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"last week\" is a relative time; give the date from the fact sheet"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad10",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: earlier this month",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Earlier"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad11",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: recently",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"recently\" is a relative time; give the date from the fact sheet"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad12",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: signed into law",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "names or terms not in the fact sheet: Gavin, Newsom"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad13",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: is now law",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"is now law\" states a signing or enactment, but the event is passage"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad14",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: was enacted",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"enacted\" states a signing or enactment, but the event is passage"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad15",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: opposite outcome: rejected",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "the card does not state the event's own outcome (passage)"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad16",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: opposite outcome: did not pass",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"did not pass\" states the opposite outcome of passage"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad17",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: opposite outcome: failed",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "the card does not state the event's own outcome (passage)"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad18",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: lowercase name",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"signed\" states a signing or enactment, but the event is passage"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad19",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: lowercase name, no title",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"wiener\" names someone the fact sheet does not name"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad20",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: lowercase name with title, bill passed",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"senator wiener\" names someone the fact sheet does not name"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad21",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: supermajority",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"supermajority\" adds procedural detail the fact sheet does not state"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad22",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: after hours of debate",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"hours\" adds procedural detail the fact sheet does not state"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad23",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: second time it passed",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"second time\" adds procedural detail the fact sheet does not state"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad24",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: again",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"again\" adds procedural detail the fact sheet does not state"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad25",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: narrowly",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"narrowly\" is an evaluative word the fact sheet does not state"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad26",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: comfortably",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"comfortably\" is an evaluative word the fact sheet does not state"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad27",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: unanimously on 30-10",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"unanimously\" but the recorded vote has 10 against"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad28",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: vetoed on passage",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"vetoed\" states a veto, but the event is passage"
   },
   {
    "id": "review-ca-sb53-senate-30-10#bad29",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: no outcome stated",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "the card does not state the event's own outcome (passage)"
   },
   {
    "id": "review-ca-sb53-receipt",
-   "kind": "recorded",
-   "written_by": "ai",
+   "kind": "real-event",
+   "written_by": "bank",
    "wrong": false,
    "missed": false,
-   "headline": "California SB 53 (TFAIA) sent to the Governor",
+   "headline": "SB 53 sent to the Governor",
+   "body": "On September 15, 2025, SB 53 was presented to the Governor. What it does: critical-incident reporting 15 days, or 24 hrs if imminent risk of death/serious injury. The next step is action by the Governor.",
    "reason": null
   },
   {
    "id": "review-ca-sb53-receipt#bad1",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: receipt written as signed",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"signed\" states a signing or enactment, but the event is executive-receipt"
   },
   {
    "id": "review-ca-sb53-receipt#bad2",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: receipt written as law",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"became law\" states a signing or enactment, but the event is executive-receipt"
   },
   {
    "id": "review-ca-sb53-receipt#bad3",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: receipt written as vetoed",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"vetoed\" states a veto, but the event is executive-receipt"
   },
   {
    "id": "review-ca-sb53-receipt#bad4",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: receipt: tomorrow",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"tomorrow\" is a relative time; give the date from the fact sheet"
   },
   {
    "id": "review-ca-sb53-receipt#bad5",
-   "kind": "synthetic-bad",
+   "kind": "checkcard-suite",
    "why": "review 29 Oct: receipt: lowercase name",
-   "written_by": "template",
    "wrong": false,
    "missed": false,
    "reason": "\"governor newsom\" names someone the fact sheet does not name"
