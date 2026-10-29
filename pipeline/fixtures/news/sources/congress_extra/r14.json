@@ -1,0 +1,209 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Education and Workforce",
+                "systemCode": "hsed00",
+                "url": "https://api.congress.gov/v3/committee/house/hsed00?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2025-02-26T15:15:00Z",
+        "eventId": "117886",
+        "hearingTranscript": [
+            {
+                "jacketNumber": 60852,
+                "url": "https://api.congress.gov/v3/hearing/119/house/60852?format=json"
+            }
+        ],
+        "isManuallyCurated": true,
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2175"
+        },
+        "meetingDocuments": [
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Scott | Submission for the Record | Letter to DOL",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD007.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Chairman Walberg | Submission for the Record | DOL Oversight Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD002.pdf"
+            },
+            {
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Dr. William Beach | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-QFR001-U1.pdf"
+            },
+            {
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Ms. Elizabeth Milito | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-QFR002-U1.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Chairman Walberg | Submission for the Record | ABC Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD001.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Scott | Submission for the Record | OGR EW & Judiciary Joint Letter to President Trump",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD006.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Joe Courtney | Submission for the Record | Consumer Confidence article",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD010.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Joe Courtney | Submission for the Record | High metal prices article",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD011.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Scott | Submission for the Record | HHS Letter re NIOSH",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD008.pdf"
+            },
+            {
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Dr. William Beach | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-QFR001.pdf"
+            },
+            {
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Ms. Elizabeth Milito | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-QFR002.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Scott | Submission for the Record | Letter to DOL re DOGE",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD009.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Chairman Walberg | Submission for the Record | Transportation Alliance Statement",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD003.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Scott | Submission for the Record | Democrat letter to President Trump",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD004.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Scott | Submission for the Record | Letter to GAO on DOGE",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD005.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Joe Courtney | Submission for the Record | Op-Ed on the economy",
+                "url": "https://www.congress.gov/119/meeting/house/117886/documents/HHRG-119-ED00-20250226-SD012.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"Unleashing America's Workforce and Strengthening Our Economy\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-19T15:41:33Z",
+        "videos": [
+            {
+                "name": "Unleashing America's Workforce and Strengthening Our Economy",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/117886"
+            },
+            {
+                "name": "Unleashing America's Workforce and Strengthening Our Economy",
+                "url": "https://www.youtube.com/watch?v=en06jhBbgdA"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-Wstate-MaiettaR-20250226.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-Wstate-MilitoE-20250226.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-Wstate-BeachW-20250226.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-TTF-ShierholzH-20250226.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-TTF-MilitoE-20250226.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-Wstate-ShierholzH-20250226.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-TTF-MaiettaR-20250226.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117886/witnesses/HHRG-119-ED00-TTF-BeachW-20250226.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Dr. William Beach",
+                "organization": "Economic Policy Innovation Center",
+                "position": "Senior Fellow in Economics"
+            },
+            {
+                "name": "Dr. Heidi Shierholz",
+                "organization": "Economic Policy Institute",
+                "position": "President"
+            },
+            {
+                "name": "Ms. Elizabeth Milito",
+                "organization": "National Federation of Independent Business Small Business Legal Center",
+                "position": "Executive Director"
+            },
+            {
+                "name": "Ms. Rosanna Maietta",
+                "organization": "American Hotel and Lodging Association",
+                "position": "President and Chief Executive Officer"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "117886",
+        "format": "json"
+    }
+}

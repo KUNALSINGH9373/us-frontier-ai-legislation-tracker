@@ -1,0 +1,332 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Education and Workforce Subcommittee on Early Childhood, Elementary, and Secondary Education",
+                "systemCode": "hsed14",
+                "url": "https://api.congress.gov/v3/committee/house/hsed14?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2025-03-11T14:15:00Z",
+        "eventId": "117961",
+        "hearingTranscript": [
+            {
+                "jacketNumber": 60916,
+                "url": "https://api.congress.gov/v3/hearing/119/house/60916?format=json"
+            }
+        ],
+        "isManuallyCurated": true,
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2175"
+        },
+        "meetingDocuments": [
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | ProPublica Article on School Vouchers (1)",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | ProPublica Article on School Vouchers (1)",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD008.pdf"
+            },
+            {
+                "description": "Ms. Jessica Levin | Questions and Responses for the Record",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Ms. Jessica Levin | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-QFR001-U1.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | NCPE Letter",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | NCPE Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD007.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | Americans United  Letter",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | Americans United  Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD004.pdf"
+            },
+            {
+                "description": "Ms. Jessica Levin | Questions and Responses for the Record",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Ms. Jessica Levin | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-QFR001.pdf"
+            },
+            {
+                "description": "Rep. Summer Lee | Submission for the Record | GAO Report on Charter Schools",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Summer Lee | Submission for the Record | GAO Report on Charter Schools",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD002.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | All4Ed Article",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | All4Ed Article",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD010.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | CLE Letter",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | CLE Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD006.pdf"
+            },
+            {
+                "description": "Rep. Tim Walberg | Submission for the Record | ECCA Coalition Letter",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Tim Walberg | Submission for the Record | ECCA Coalition Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD003.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | CCD Letter",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | CCD Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD005.pdf"
+            },
+            {
+                "description": "Rep. Bobby Scott | Submission for the Record | Washington Post Article",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Bobby Scott | Submission for the Record | Washington Post Article",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD011.pdf"
+            },
+            {
+                "description": "Rep. Bobby Scott | Submission for the Record | The 74 Million Article",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Bobby Scott | Submission for the Record | The 74 Million Article",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD012.pdf"
+            },
+            {
+                "description": "Rep. Bobby Scott | Submission for the Record | Indiana Daily Student Article",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Bobby Scott | Submission for the Record | Indiana Daily Student Article",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD013.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | National PTA Letter",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | National PTA Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD014.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | NCLD Statement",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | NCLD Statement",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD015.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | ProPublica Article on School Vouchers (2)",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | ProPublica Article on School Vouchers (2)",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD009.pdf"
+            },
+            {
+                "description": "Rep. Suzanne Bonamici | Submission for the Record | NCLD Report",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Suzanne Bonamici | Submission for the Record | NCLD Report",
+                "url": "https://www.congress.gov/119/meeting/house/117961/documents/HHRG-119-ED14-20250311-SD001.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"Education Without Limits: Exploring the Benefits of School Choice\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-19T15:40:27Z",
+        "videos": [
+            {
+                "name": "Education Without Limits: Exploring the Benefits of School Choice",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/117961"
+            },
+            {
+                "name": "Education Without Limits: Exploring the Benefits of School Choice",
+                "url": "https://www.youtube.com/watch?v=zylccpoGG2Q"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-McShaneM-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-ClarkJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-McShaneM-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-McShaneM-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-McShaneM-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-ClarkJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-ClarkJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-ClarkJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-LevinJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-LevinJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-LevinJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-BlanksJrW-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-BlanksJrW-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-BlanksJrW-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-LevinJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-McShaneM-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-ClarkJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-TTF-BlanksJrW-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-LevinJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-BlanksJrW-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-McShaneM-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-ClarkJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Wstate-LevinJ-20250311.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117961/witnesses/HHRG-119-ED14-Bio-BlanksJrW-20250311.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Dr. Michael McShane",
+                "organization": "EdChoice",
+                "position": "Director of National Research"
+            },
+            {
+                "name": "Mrs. Jenny Clark",
+                "organization": "Love Your School",
+                "position": "Founder"
+            },
+            {
+                "name": "Ms. Jessica Levin",
+                "organization": "Education Law Center",
+                "position": "Litigation Director"
+            },
+            {
+                "name": "Mr. Walter Blanks Jr.",
+                "organization": "American Federation for Children",
+                "position": "Spokesman"
+            },
+            {
+                "name": "Dr. Michael McShane",
+                "organization": "EdChoice",
+                "position": "Director of National McShane"
+            },
+            {
+                "name": "Mrs. Jenny Clark",
+                "organization": "Love Your School",
+                "position": "Founder"
+            },
+            {
+                "name": "Ms. Jessica Levin",
+                "organization": "Education Law Center",
+                "position": "Litigation Director"
+            },
+            {
+                "name": "Mr. Walter Blanks Jr.",
+                "organization": "American Federation for Children",
+                "position": "Spokesman"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "117961",
+        "format": "json"
+    }
+}

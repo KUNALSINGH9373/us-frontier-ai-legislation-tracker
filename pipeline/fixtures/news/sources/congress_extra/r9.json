@@ -1,0 +1,157 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Education and Workforce",
+                "systemCode": "hsed00",
+                "url": "https://api.congress.gov/v3/committee/house/hsed00?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-01-14T15:15:00Z",
+        "eventId": "118819",
+        "hearingTranscript": [
+            {
+                "jacketNumber": 64596,
+                "url": "https://api.congress.gov/v3/hearing/119/house/64596?format=json"
+            }
+        ],
+        "isManuallyCurated": true,
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2175"
+        },
+        "meetingDocuments": [
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Hearing Notice",
+                "url": "https://www.congress.gov/119/meeting/house/118819/documents/HHRG-119-ED00-20260114-SD001.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Mark Takano | Submission for the Record | AFSCME Letter",
+                "url": "https://www.congress.gov/119/meeting/house/118819/documents/HHRG-119-ED00-20260114-SD002.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Robert C. \"Bobby\" Scott | Submission for the Record | Economic Policy Institute Report",
+                "url": "https://www.congress.gov/119/meeting/house/118819/documents/HHRG-119-ED00-20260114-SD003.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Robert C. \"Bobby\" Scott | Submission for the Record | NPR Article",
+                "url": "https://www.congress.gov/119/meeting/house/118819/documents/HHRG-119-ED00-20260114-SD004.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"Building an AI-Ready America\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-21T10:28:59Z",
+        "videos": [
+            {
+                "name": "Building an AI-Ready America",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/118819"
+            },
+            {
+                "name": "Building an AI-Ready America",
+                "url": "https://www.youtube.com/watch?v=RM0aq5ynUiQ"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Wstate-KhanA-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Wstate-GivensA-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Wstate-FrazierK-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-TTF-FrazierK-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Bio-NayakC-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-TTF-NayakC-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Wstate-NayakC-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Bio-KhanA-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-TTF-KhanA-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Bio-GivensA-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-TTF-GivensA-20260114.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118819/witnesses/HHRG-119-ED00-Bio-FrazierK-20260114.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Ms. Chaya Nayak",
+                "organization": "OpenAI",
+                "position": "Head of Certifications and Jobs Platform"
+            },
+            {
+                "name": "Mr. Adeel Khan",
+                "organization": "MagicSchool AI",
+                "position": "Founder & CEO"
+            },
+            {
+                "name": "Ms. Alexandra Givens",
+                "organization": "Center for Democracy & Technology",
+                "position": "President & CEO"
+            },
+            {
+                "name": "Mr. Kevin Frazier",
+                "organization": "University of Texas Law School",
+                "position": "AI Innovation & Law Fellow"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "118819",
+        "format": "json"
+    }
+}

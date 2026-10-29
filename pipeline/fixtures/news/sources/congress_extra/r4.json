@@ -1,0 +1,422 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Natural Resources Subcommittee on Federal Lands",
+                "systemCode": "hsii10",
+                "url": "https://api.congress.gov/v3/committee/house/hsii10?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2025-09-18T14:00:00Z",
+        "eventId": "118597",
+        "meetingDocuments": [
+            {
+                "description": "NPS Statement on H.R. 309; H.R. 2916; H.R. 4386; H.R. 4467",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "NPS Statement on H.R. 309; H.R. 2916; H.R. 4386; H.R. 4467",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD007.pdf"
+            },
+            {
+                "description": "Hearing Memo",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Hearing Memo",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD001-U2.pdf"
+            },
+            {
+                "description": "H.R. 309 (Nehls)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 309 (Nehls)",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/BILLS-119309ih.pdf"
+            },
+            {
+                "description": "H.R. 2196 (Hudson)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 2196 (Hudson)",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/BILLS-1192196ih.pdf"
+            },
+            {
+                "description": "H.R. 4284 (Leger Fernandez)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 4284 (Leger Fernandez)",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/BILLS-1194284ih.pdf"
+            },
+            {
+                "description": "H.R. 4386 (Walberg)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 4386 (Walberg)",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/BILLS-1194386ih.pdf"
+            },
+            {
+                "description": "H.R. 4467 (Thompson of MS)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 4467 (Thompson of MS)",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/BILLS-1194467ih.pdf"
+            },
+            {
+                "description": "FTR-1 Leger Fernandez - New Mexico Land Grant Council LoS",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "FTR-1 Leger Fernandez - New Mexico Land Grant Council LoS",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD003.pdf"
+            },
+            {
+                "description": "FTR-2 Leger Fernandez: El Consejo de las Mercedes LoS",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "FTR-2 Leger Fernandez: El Consejo de las Mercedes LoS",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD004.pdf"
+            },
+            {
+                "description": "FTR-3 Tiffany - DHS Arresting Non-Firefighter Criminal Illegal Aliens",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "FTR-3 Tiffany - DHS Arresting Non-Firefighter Criminal Illegal Aliens",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD005.pdf"
+            },
+            {
+                "description": "BLM Statement on H.R. 5131",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "BLM Statement on H.R. 5131",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD006.pdf"
+            },
+            {
+                "description": "Hearing Notice",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Hearing Notice",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD001.pdf"
+            },
+            {
+                "description": "H.R. 5131 (Begich)",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 5131 (Begich)",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/BILLS-1195131ih.pdf"
+            },
+            {
+                "description": "QFR Responses DOI",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "QFR Responses DOI",
+                "url": "https://www.congress.gov/119/meeting/house/118597/documents/HHRG-119-II10-20250918-SD020.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "Legislative hearing on the following bills:\r\n\r\n• H.R. 309 (Rep. Nehls), “National Law Enforcement Officers Remembrance, Support and Community Outreach Act”\r\n• H.R. 2196 (Rep. Hudson), To provide for an extension of the legislative authority of the National Emergency Medical Services Memorial Foundation to establish a commemorative work in the District of Columbia and its environs.\r\n• H.R. 4284 (Rep. Leger Fernandez), “Small Cemetery Conveyance Act”\r\n• H.R. 4386 (Rep. Walberg), To amend the Federal Lands Recreation Enhancement Act to clarify entrance privileges for vehicles with respect to the America the Beautiful interagency pass.\r\n• H.R. 4467 (Rep. Thompson of MS), “Vicksburg National Military Park Boundary Modification Act”\r\n• H.R. 5131 (Rep. Begich), “Public Lands Military Readiness Act of 2025”.",
+        "type": "Hearing",
+        "updateDate": "2026-10-26T17:48:46Z",
+        "videos": [
+            {
+                "name": "Legislative Hearing on H.R. 309, H.R. 2196, H.R. 4284, H.R. 4386, H.R. 4467 and H.R. 5131",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/118597"
+            },
+            {
+                "name": "Legislative Hearing on H.R. 309, H.R. 2196, H.R. 4284, H.R. 4386, H.R. 4467 and H.R. 5131",
+                "url": "https://www.youtube.com/watch?v=ebAK852EdWA"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-AverettB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-ArchuletaC-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-CaldwellM-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-AlexanderB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-RobinsonJ-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-ArchuletaC-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Support Document",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-ArchuletaC-20250918-SD001.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-UmphressT-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-CaldwellM-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-CaldwellM-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-AlexanderB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-AlexanderB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-AlexanderB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-RobinsonJ-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-RobinsonJ-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-RobinsonJ-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-ArchuletaC-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-ArchuletaC-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-ArchuletaC-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Support Document",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-ArchuletaC-20250918-SD001.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-AverettB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-AverettB-20250918-U2.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-AverettB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-UmphressT-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-UmphressT-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-UmphressT-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-TTF-AlexanderB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-RobinsonJ-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-AverettB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Bio-UmphressT-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-RobinsonJ-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-ArchuletaC-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-AverettB-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-UmphressT-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-CaldwellM-20250918.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118597/witnesses/HHRG-119-II10-Wstate-AlexanderB-20250918.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "The Honorable Teresa Leger Fernandez",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "Brigadier General David Zinn",
+                "organization": "United States Army",
+                "position": "Director of Training, G-3/5/7 Training Directorate"
+            },
+            {
+                "name": "Mr. Mike Caldwell",
+                "organization": "National Park Service",
+                "position": "Associate Director - Park Planning, Facilities, and Lands"
+            },
+            {
+                "name": "Mr. Candido Archuleta",
+                "organization": "Albuquerque, NM",
+                "position": "Director of Operations and Programs"
+            },
+            {
+                "name": "The Honorable Tim Walberg",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "The Honorable Nicholas Begich",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "The Honorable Troy Nehls",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "Mr. Bill Alexander",
+                "organization": "National Law Enforcement Officers Memorial Fund",
+                "position": "Chief Executive Officer"
+            },
+            {
+                "name": "Mr. James Robinson",
+                "organization": "Thompson Valley EMS",
+                "position": "Chief"
+            },
+            {
+                "name": "Ms. Bess Averett",
+                "organization": "Friends of Vicksburg National Military Park & Campaign",
+                "position": "Executive Director"
+            },
+            {
+                "name": "Mr. Tom Umphress",
+                "organization": "American Motorcycle Association",
+                "position": "Board Member"
+            },
+            {
+                "name": "Ms. Bess Averett",
+                "organization": "Friends of Vicksburg National Military Park & Campaign",
+                "position": "Executive Director"
+            },
+            {
+                "name": "Brigadier General David Zinn",
+                "organization": "United States Army",
+                "position": "Director of Training, G-3/5/7 Training Directorate"
+            },
+            {
+                "name": "Mr. Mike Caldwell",
+                "organization": "National Park Service",
+                "position": "Associate Director - Park Planning, Facilities, and Lands"
+            },
+            {
+                "name": "Mr. Bill Alexander",
+                "organization": "National Law Enforcement Officers Memorial Fund",
+                "position": "Chief Executive Officer"
+            },
+            {
+                "name": "The Honorable Nicholas Begich",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "The Honorable Troy Nehls",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "Mr. Candido Archuleta",
+                "organization": "Albuquerque, NM",
+                "position": "Director of Operations and Programs"
+            },
+            {
+                "name": "The Honorable Teresa Leger Fernandez",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "The Honorable Tim Walberg",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "Mr. James Robinson",
+                "organization": "Thompson Valley EMS",
+                "position": "Chief"
+            },
+            {
+                "name": "Mr. Tom Umphress",
+                "organization": "American Motorcycle Association",
+                "position": "Board Member"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "118597",
+        "format": "json"
+    }
+}

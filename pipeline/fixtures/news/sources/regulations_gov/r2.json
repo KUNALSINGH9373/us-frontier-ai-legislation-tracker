@@ -1,0 +1,125 @@
+{
+  "data" : [ {
+    "type" : "documents",
+    "id" : "USCG-2026-0374-0001",
+    "attributes" : {
+      "agencyId" : "USCG",
+      "objectId" : "09000064b96a3925",
+      "frDocNum" : "2026-21723",
+      "documentType" : "Notice",
+      "withdrawn" : false,
+      "highlightedContent" : "",
+      "commentEndDate" : "2026-11-26T04:59:59Z",
+      "commentStartDate" : "2026-10-26T04:00:00Z",
+      "lastModifiedDate" : "2026-10-26T16:52:34Z",
+      "openForComment" : true,
+      "withinCommentPeriod" : true,
+      "postedDate" : "2026-10-26T04:00:00Z",
+      "title" : "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
+      "docketId" : "USCG-2026-0374",
+      "subtype" : null,
+      "allowLateComments" : false
+    }
+  }, {
+    "type" : "documents",
+    "id" : "FTC-2026-1552-0001",
+    "attributes" : {
+      "agencyId" : "FTC",
+      "objectId" : "09000064b95fa7a2",
+      "frDocNum" : "2026-20143",
+      "documentType" : "Proposed Rule",
+      "withdrawn" : false,
+      "highlightedContent" : "",
+      "commentEndDate" : "2026-12-01T04:59:59Z",
+      "commentStartDate" : "2026-10-01T04:00:00Z",
+      "lastModifiedDate" : "2026-10-28T09:00:45Z",
+      "openForComment" : true,
+      "withinCommentPeriod" : true,
+      "postedDate" : "2026-10-01T04:00:00Z",
+      "title" : "Rule on Impersonation of Government and Businesses",
+      "docketId" : "FTC-2026-1552",
+      "subtype" : null,
+      "allowLateComments" : false
+    }
+  } ],
+  "meta" : {
+    "aggregations" : {
+      "documentType" : [ {
+        "docCount" : 1,
+        "label" : "Notice"
+      }, {
+        "docCount" : 1,
+        "label" : "Proposed Rule"
+      } ],
+      "subtype" : [ ],
+      "withinCommentPeriod" : [ {
+        "docCount" : 2,
+        "label" : "true"
+      }, {
+        "docCount" : 0,
+        "label" : "false"
+      } ],
+      "agencyId" : [ {
+        "docCount" : 1,
+        "value" : "FTC"
+      }, {
+        "docCount" : 1,
+        "value" : "USCG"
+      } ],
+      "commentEndDate" : [ {
+        "label" : "Next 30 Days",
+        "fromDate" : "2026-10-29 00:00:00",
+        "toDate" : "2026-11-27 23:59:58",
+        "docCount" : 1
+      }, {
+        "label" : "Next 90 Days",
+        "fromDate" : "2026-10-29 00:00:00",
+        "toDate" : "2027-01-26 23:59:58",
+        "docCount" : 2
+      } ],
+      "openForComment" : [ {
+        "docCount" : 0,
+        "label" : "true"
+      }, {
+        "docCount" : 2,
+        "label" : "false"
+      } ],
+      "postedDate" : [ {
+        "label" : "Last 7 Days",
+        "fromDate" : "2026-10-23 00:00:00",
+        "toDate" : "2026-10-29 23:59:59",
+        "docCount" : 1
+      }, {
+        "label" : "Last 15 Days",
+        "fromDate" : "2026-10-15 00:00:00",
+        "toDate" : "2026-10-29 23:59:59",
+        "docCount" : 1
+      }, {
+        "label" : "Last 30 Days",
+        "fromDate" : "2026-09-30 00:00:00",
+        "toDate" : "2026-10-29 23:59:59",
+        "docCount" : 2
+      }, {
+        "label" : "Last 90 Days",
+        "fromDate" : "2026-08-01 00:00:00",
+        "toDate" : "2026-10-29 23:59:59",
+        "docCount" : 2
+      } ]
+    },
+    "filters" : {
+      "commentEndDate" : {
+        "fromDate" : "2026-10-15",
+        "toDate" : null
+      }
+    },
+    "hasNextPage" : false,
+    "hasPreviousPage" : false,
+    "numberOfElements" : 2,
+    "pageNumber" : 1,
+    "pageSize" : 250,
+    "totalElements" : 2,
+    "totalPages" : 1,
+    "firstPage" : true,
+    "lastPage" : true
+  }
+}

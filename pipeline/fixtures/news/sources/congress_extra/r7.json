@@ -1,0 +1,98 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "systemCode": "hspw07",
+                "url": "https://api.congress.gov/v3/committee/house/hspw07?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-01-13T15:00:00Z",
+        "eventId": "118809",
+        "hearingTranscript": [
+            {
+                "jacketNumber": 64676,
+                "url": "https://api.congress.gov/v3/hearing/119/house/64676?format=json"
+            }
+        ],
+        "isManuallyCurated": true,
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2167"
+        },
+        "meetingDocuments": [
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Agenda",
+                "url": "https://www.congress.gov/119/meeting/house/118809/documents/HHRG-119-PW07-20260113-SD001.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"Drugs, Thugs, and Fish: Examining Coast Guard Law Enforcement Efforts.\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-23T09:57:58Z",
+        "videos": [
+            {
+                "name": "Drugs, Thugs, and Fish: Examining Coast Guard Law Enforcement Efforts",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/118809"
+            },
+            {
+                "name": "Drugs, Thugs, and Fish: Examining Coast Guard Law Enforcement Efforts",
+                "url": "https://www.youtube.com/watch?v=6uFGhux0A6k"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118809/witnesses/HHRG-119-PW07-Wstate-BarataD-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118809/witnesses/HHRG-119-PW07-Bio-BarataD-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118809/witnesses/HHRG-119-PW07-TTF-BarataD-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118809/witnesses/HHRG-119-PW07-Wstate-MacLeodH-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118809/witnesses/HHRG-119-PW07-Bio-MacLeodH-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118809/witnesses/HHRG-119-PW07-TTF-MacLeodH-20260113.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Heather MacLeod",
+                "organization": "United States Government Accountability Office",
+                "position": "Director, Homeland Security Programs"
+            },
+            {
+                "name": "Vice Admiral David Barata",
+                "organization": "United States Coast Guard",
+                "position": "Deputy for Operations Policy and Capabilities"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "118809",
+        "format": "json"
+    }
+}

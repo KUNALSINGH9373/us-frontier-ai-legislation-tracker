@@ -1,0 +1,17 @@
+{
+ "recorded_at": "2026-10-29T04:12:11.417Z",
+ "responses": {
+  "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bpublication_date%5D%5Bgte%5D=2026-09-01&conditions%5Bterm%5D=%22artificial+intelligence%22+%7C+%22super+intelligence%22+%7C+%22superintelligence%22+%7C+%22frontier+model%22+%7C+%22frontier+AI%22&conditions%5Bagencies%5D%5B%5D=national-institute-of-standards-and-technology&conditions%5Bagencies%5D%5B%5D=commerce-department&conditions%5Bagencies%5D%5B%5D=science-and-technology-policy-office&conditions%5Bagencies%5D%5B%5D=federal-trade-commission&conditions%5Bagencies%5D%5B%5D=management-and-budget-office&conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau&conditions%5Bagencies%5D%5B%5D=national-telecommunications-and-information-administration&conditions%5Bagencies%5D%5B%5D=homeland-security-department&conditions%5Bagencies%5D%5B%5D=defense-department&conditions%5Bagencies%5D%5B%5D=energy-department&conditions%5Bagencies%5D%5B%5D=justice-department&conditions%5Bagencies%5D%5B%5D=executive-office-of-the-president&conditions%5Bagencies%5D%5B%5D=federal-communications-commission&conditions%5Bagencies%5D%5B%5D=national-science-foundation&conditions%5Bagencies%5D%5B%5D=general-services-administration&conditions%5Bagencies%5D%5B%5D=investment-security-office&conditions%5Bagencies%5D%5B%5D=copyright-office-library-of-congress&conditions%5Btype%5D%5B%5D=RULE&conditions%5Btype%5D%5B%5D=PRORULE&conditions%5Btype%5D%5B%5D=NOTICE&fields%5B%5D=title&fields%5B%5D=type&fields%5B%5D=subtype&fields%5B%5D=abstract&fields%5B%5D=document_number&fields%5B%5D=html_url&fields%5B%5D=publication_date&fields%5B%5D=agencies&fields%5B%5D=comments_close_on&fields%5B%5D=docket_ids&fields%5B%5D=executive_order_number&fields%5B%5D=signing_date&fields%5B%5D=effective_on": {
+   "file": "r1.json",
+   "status": 200
+  },
+  "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bpublication_date%5D%5Bgte%5D=2026-09-01&conditions%5Bterm%5D=%22artificial+intelligence%22+%7C+%22super+intelligence%22+%7C+%22superintelligence%22+%7C+%22frontier+model%22+%7C+%22frontier+AI%22&conditions%5Btype%5D%5B%5D=PRESDOCU&fields%5B%5D=title&fields%5B%5D=type&fields%5B%5D=subtype&fields%5B%5D=abstract&fields%5B%5D=document_number&fields%5B%5D=html_url&fields%5B%5D=publication_date&fields%5B%5D=agencies&fields%5B%5D=comments_close_on&fields%5B%5D=docket_ids&fields%5B%5D=executive_order_number&fields%5B%5D=signing_date&fields%5B%5D=effective_on": {
+   "file": "r2.json",
+   "status": 200
+  },
+  "https://www.federalregister.gov/api/v1/public-inspection-documents/current.json": {
+   "file": "r3.json",
+   "status": 200
+  }
+ }
+}

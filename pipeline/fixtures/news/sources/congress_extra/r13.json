@@ -1,0 +1,222 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Education and Workforce",
+                "systemCode": "hsed00",
+                "url": "https://api.congress.gov/v3/committee/house/hsed00?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2025-02-05T15:15:00Z",
+        "eventId": "117854",
+        "hearingTranscript": [
+            {
+                "jacketNumber": 61137,
+                "url": "https://api.congress.gov/v3/hearing/119/house/61137?format=json"
+            }
+        ],
+        "isManuallyCurated": true,
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2175"
+        },
+        "meetingDocuments": [
+            {
+                "description": "Mr. Johnny C. Taylor Jr. | Questions for the Record and Responses",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Mr. Johnny C. Taylor Jr. | Questions for the Record and Responses",
+                "url": "https://www.congress.gov/119/meeting/house/117854/documents/HHRG-119-ED00-20250205-QFR001-U1.pdf"
+            },
+            {
+                "description": "Rep. Kevin Kiley | Submission for the Record | Change in Spending and Scores Chart",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Kevin Kiley | Submission for the Record | Change in Spending and Scores Chart",
+                "url": "https://www.congress.gov/119/meeting/house/117854/documents/HHRG-119-ED00-20250205-SD003.pdf"
+            },
+            {
+                "description": "Rep. Bob Onder | Submission for the Record | K-12 Spending vs. NAEP Scores Chart",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Bob Onder | Submission for the Record | K-12 Spending vs. NAEP Scores Chart",
+                "url": "https://www.congress.gov/119/meeting/house/117854/documents/HHRG-119-ED00-20250205-SD001.pdf"
+            },
+            {
+                "description": "Rep. Bob Onder | Submission for the Record | Growth in Administrative Bloat Chart",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Bob Onder | Submission for the Record | Growth in Administrative Bloat Chart",
+                "url": "https://www.congress.gov/119/meeting/house/117854/documents/HHRG-119-ED00-20250205-SD002.pdf"
+            },
+            {
+                "description": "Mr. Johnny C. Taylor Jr. | Questions for the Record and Responses",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Mr. Johnny C. Taylor Jr. | Questions for the Record and Responses",
+                "url": "https://www.congress.gov/119/meeting/house/117854/documents/HHRG-119-ED00-20250205-QFR001.pdf"
+            },
+            {
+                "description": "Mrs. Janai Nelson | Questions and Responses for the Record",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Mrs. Janai Nelson | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117854/documents/HHRG-119-ED00-20250205-QFR002.pdf"
+            },
+            {
+                "description": "Mrs. Janai Nelson | Questions and Responses for the Record",
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Mrs. Janai Nelson | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117854/documents/HHRG-119-ED00-20250205-QFR002-U1.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"The State of American Education\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-19T15:42:16Z",
+        "videos": [
+            {
+                "name": "The State of American Education",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/117854"
+            },
+            {
+                "name": "The State of American Education",
+                "url": "https://www.youtube.com/watch?v=TB4nIgmvHwY"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-NeilyN-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-CooperP-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-NelsonJ-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-TaylorJ-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-TaylorJ-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-CooperP-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-NeilyN-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-NelsonJ-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-NeilyN-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-CooperP-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-NelsonJ-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-TTF-TaylorJ-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-NeilyN-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-CooperP-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-NelsonJ-20250205.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117854/witnesses/HHRG-119-ED00-Wstate-TaylorJ-20250205.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Mrs. Nicole Neily",
+                "organization": "Parents Defending Education",
+                "position": "President"
+            },
+            {
+                "name": "Dr. Preston Cooper",
+                "organization": "American Enterprise Institute",
+                "position": "Senior Fellow"
+            },
+            {
+                "name": "Mrs. Janai Nelson",
+                "organization": "NAACP Legal Defense Fund",
+                "position": "President and Director-Counsel"
+            },
+            {
+                "name": "Mr. Johnny Taylor",
+                "organization": "Society for Human Resource Management (SHRM)",
+                "position": "President and Chief Executive Officer"
+            },
+            {
+                "name": "Mr. Johnny Taylor",
+                "organization": "Society for Human Resource Management (SHRM)",
+                "position": "President and Chief Executive Officer"
+            },
+            {
+                "name": "Mrs. Nicole Neily",
+                "organization": "Parents Defending Education",
+                "position": "President"
+            },
+            {
+                "name": "Dr. Preston Cooper",
+                "organization": "American Enterprise Institute",
+                "position": "Senior Fellow"
+            },
+            {
+                "name": "Mrs. Janai Nelson",
+                "organization": "NAACP Legal Defense Fund",
+                "position": "President and Director-Counsel"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "117854",
+        "format": "json"
+    }
+}
