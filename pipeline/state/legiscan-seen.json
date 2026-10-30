@@ -9232,6 +9232,15 @@
   "hash": "09472c80f6cd208dd4e92e8809230dde",
   "checked_at": "2026-10-26T06:51:24Z"
  },
+ "2082563": {
+  "verdict": "no",
+  "reason": "AI chatbots for minors and age verification",
+  "title": "Technology; deployers; AI chatbots; minors; age verification systems; emergency situations; effective date.",
+  "state": "OK",
+  "number": "HB4083",
+  "hash": "fbc19ab89ef404144e356c5d43208ab3",
+  "checked_at": "2026-10-30T12:05:57Z"
+ },
  "2082585": {
   "verdict": "no",
   "reason": "Automated employment decision making",
@@ -9951,6 +9960,15 @@
   "number": "SB903",
   "hash": "58c3ae097e31226ba90a7983d40dcffc",
   "checked_at": "2026-10-13T07:14:36Z"
+ },
+ "2089626": {
+  "verdict": "no",
+  "reason": "state bond debt, no AI link",
+  "title": "Creation of a State Debt – Maryland Consolidated Capital Bond Loan of 2026, and the Maryland Consolidated Capital Bond Loans of 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, and 2025",
+  "state": "MD",
+  "number": "SB283",
+  "hash": "5232cd2f6dfd7173a1ceff51e9f1788e",
+  "checked_at": "2026-10-29T16:05:49Z"
  },
  "2089636": {
   "verdict": "no",
@@ -11538,6 +11556,15 @@
   "hash": "72a599e2171fa0bef8b8a8d99904c420",
   "checked_at": "2026-10-13T07:14:36Z"
  },
+ "2103035": {
+  "verdict": "no",
+  "reason": "health insurance claims downcoding",
+  "title": "TRANSPARENCY IN DOWNCODING ACT",
+  "state": "IL",
+  "number": "HB4735",
+  "hash": "2cb16cde1f102fddef2194c1875eb1e0",
+  "checked_at": "2026-10-29T15:16:58Z"
+ },
  "2103149": {
   "verdict": "other_jurisdiction",
   "title": "Expressing the sense of the House of Representatives that the United States must act urgently to end the political and economic dominance of billionaire oligarchs, halt the corporate subsidies and tax advantages that fortify their power, and reinvest in the needs of the American people to defend democracy from authoritarianism.",
@@ -11616,6 +11643,15 @@
   "number": "SB1707",
   "hash": "b37920683121f1edda9ed31981339b1e",
   "checked_at": "2026-10-26T06:51:24Z"
+ },
+ "2104073": {
+  "verdict": "no",
+  "reason": "health insurance claims downcoding practices",
+  "title": "TRANSPARENCY IN DOWNCODING ACT",
+  "state": "IL",
+  "number": "SB3114",
+  "hash": "b2d6f5a3b1b5ff7a01ed2ea42b8e4e67",
+  "checked_at": "2026-10-29T15:16:58Z"
  },
  "2104114": {
   "verdict": "no",
@@ -19560,5 +19596,14 @@
   "number": "HB10915",
   "hash": "20c9044d03637b1dd74f08ee2aa432a2",
   "checked_at": "2026-10-29T00:02:45Z"
+ },
+ "2161478": {
+  "verdict": "no",
+  "reason": "AI job training / workforce program",
+  "title": "Establishes public-private partnerships to develop artificial intelligence job training.",
+  "state": "NJ",
+  "number": "A5800",
+  "hash": "41fa3ce4e577ffe0ab5697d23862c7d8",
+  "checked_at": "2026-10-30T04:05:45Z"
  }
 }

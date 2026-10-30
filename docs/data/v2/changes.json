@@ -62,6 +62,48 @@
    "run_id": "update-20261028-0733",
    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
    "tier": "C"
+  },
+  {
+   "entry_key": "ct-p-a-26-15-ivo-pilot",
+   "field": "mechanism",
+   "old": "A Department of Consumer Protection-administered IVO pilot program (Sec. 33, effective July 1, 2027) through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation (admissible solely in private personal-injury or property-damage actions; not in AG or state-agency enforcement actions). DCP must evaluate the pilot by Dec. 31, 2028 with UConn's Institute for Municipal and Regional Policy. This is an operating pilot, not merely a study",
+   "new": "A Department of Consumer Protection-administered IVO pilot program (Sec. 33, effective July 1, 2027) through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation (admissible solely in private personal-injury or property-damage actions; not in AG or state-agency enforcement actions, nor presumption, inference or defense there). Except: wilful, wanton or reckless conduct; misrepresentation; failure to implement corrective action. DCP must evaluate the pilot by Dec. 31, 2028 with UConn's Institute for Municipal and Regional Policy. This is an operating pilot, not merely a study",
+   "date": "2026-10-30",
+   "run_id": "update-20261030-0005",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that the evidence rule bars any presumption, inference or defense from verification in AG or state-agency actions, and omits the exceptions that remove the evidentiary limit for wilful, wanton or reckless conduct, material misrepresentation, or failure to implement required corrective action. Quote: \"nor shall it give rise to any presumption, inference or defense in any such action\""
+  },
+  {
+   "entry_key": "ct-p-a-26-15-ivo-pilot",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-10-30",
+   "run_id": "update-20261030-0005",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ma-h-5576-s-3178",
+   "field": "mechanism",
+   "old": "Frontier AI framework; risk reports every 180 days; critical safety incidents reported to AG within 15 days (24 hours if imminent risk of death); annual independent third-party audit; AG civil-action enforcement, up to $1,000,000 first violation, $3,000,000 subsequent; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections; commission on further AI regulation. Chapter 93M effective July 1, 2027. House version (passed July 8) contains no AI-safety language — only funding.",
+   "new": "Frontier AI framework; risk reports every 180 days; critical safety incidents reported to AG within 15 days (24 hours if imminent risk of death); annual independent third-party audit; AG civil-action enforcement, up to $1,000,000 first violation, $3,000,000 subsequent; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections (covered employees may petition superior court for injunctive relief; court may award attorney's fees and court costs to a successful plaintiff); commission on further AI regulation. Chapter 93M effective July 1, 2027. House version (passed July 8) contains no AI-safety language — only funding.",
+   "date": "2026-10-30",
+   "run_id": "update-20261030-0005",
+   "source_url": "https://malegislature.gov/Bills/194/S3228",
+   "tier": "C",
+   "note": "self-correction (omission): The whistleblower protections omit the enforcement route SOURCE gives covered employees: a civil action for injunctive relief and attorney's fees. Quote: \"In a civil action brought pursuant to this section, a covered employee may petition\""
+  },
+  {
+   "entry_key": "ma-h-5576-s-3178",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-10-30",
+   "run_id": "update-20261030-0005",
+   "source_url": "https://malegislature.gov/Bills/194/S3228",
+   "tier": "C"
   }
  ]
 }

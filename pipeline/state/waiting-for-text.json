@@ -1,4 +1,19 @@
 {
  "_note": "New Congress bills held because their text is not published yet; grabber/run.mjs asks for it each run and collects them when it appears.",
- "items": {}
+ "items": {
+  "congress_gov:119/hr/10946": {
+   "source_id": "119/hr/10946",
+   "title": "To rename the Office of Technology Assessment as the Congressional Office of Technology, to revise the functions and duties of the Office, and for other purposes.",
+   "since": "2026-10-30",
+   "last_checked": "2026-10-30",
+   "checks": 1
+  },
+  "congress_gov:119/hr/10925": {
+   "source_id": "119/hr/10925",
+   "title": "To require an assessment with respect to the technical capacity of the Department of State to address the use of artificial intelligence and other emerging technologies to facilitate trafficking in persons.",
+   "since": "2026-10-30",
+   "last_checked": "2026-10-30",
+   "checks": 1
+  }
+ }
 }
