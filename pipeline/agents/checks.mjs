@@ -30,6 +30,8 @@ const MONTH = '(?:January|February|March|April|May|June|July|August|September|Oc
 // A month and day with no year after it (ranges such as "Sept 3–16, 2026" and "Sept 3–Oct 1, 2026" count as having one).
 const NO_YEAR = new RegExp(`\\b${MONTH}\\s+\\d{1,2}\\b(?!(?:\\s*[–-]\\s*(?:${MONTH}\\s+)?\\d{1,2})?,?\\s*\\d{4})`);
 const UNDEFINED = /\bnot (?:established|defined|specified|stated)\b[^.;]{0,40}\b(?:sources?|text)\b/i;
+// A line number glued onto an amount ("$500,000,000.8", IL H.B. 4705): an amount never has a single cent digit.
+const GLUED_DIGIT = /\$\d{1,3}(?:,\d{3})+\.\d(?!\d)/;
 const QUOTED = /[“"]([^”"]{8,})[”"]/g;
 // Compute thresholds must parse to a plausible magnitude (AZ H.B. 4098 was published with "10.26 computational operations", a lost 10^26):
 // "10^N operations" needs N from 20 to 30, and a number written out before a compute unit needs at least 10^20. Returns readable problems.
@@ -53,6 +55,8 @@ export function textProblems(field, value, sourceText) {
   const v = String(value || ''), out = [];
   if (GARBLED.test(v)) out.push(`${field} has a garbled exponent ("${(v.match(GARBLED) || [''])[0]}"): write 10^26, not 1026`);
   thresholdNumberProblems(field, v).filter((p) => !(GARBLED.test(v) && /lost exponent/.test(p))).forEach((p) => out.push(p));
+  const glued = v.match(GLUED_DIGIT);
+  if (glued) out.push(`${field} has a stray digit after an amount ("${glued[0]}"): that is a printed line number, not cents; write the amount without it`);
   const d = v.match(NO_YEAR);
   if (d) out.push(`${field} gives a date without its year ("${d[0]}"): write every date with its year, e.g. "Sept 30, 2026"`);
   if (UNDEFINED.test(v)) out.push(`${field} says a term is not established or defined: read the definitions section and give the definition, or leave the field out`);

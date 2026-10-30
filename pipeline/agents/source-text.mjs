@@ -5,7 +5,13 @@ const stripTags = (s) => String(s || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 
 // Texts printed from PDFs lose superscripts: 10²⁶ arrives as "1026", "10�26" or "10ˆ26". Put the exponent back before anyone reads
 // it, so the models, the reader and the quote checks all see "10^26". Only before a compute word, so a year or a count is never touched.
-export const repairExponents = (s) => String(s || '').replace(/\b10(?:�|ˆ|\^)?(2[0-9])(?=\s+(?:integer|floating|operations|computational|FLOP))/g, '10^$1');
+// PA H.B. 2800 prints it "1,026 integer or floating-point operations" (superscript lost, then a thousands comma added).
+// A line number glued onto an amount ("at least $500,000,000.8 "Minor" means", IL H.B. 4705): the amount and its line's text are
+// split, so the stray digit is never read as cents (a real amount has two cent digits and no capital or quote right after).
+// That comma form needs a compute word after it (not "operations" alone), so a count such as "1,025 operations" is never changed.
+export const repairExponents = (s) => String(s || '').replace(/\b10(?:�|ˆ|\^)?(2[0-9])(?=\s+(?:integer|floating|operations|computational|FLOP))/g, '10^$1')
+  .replace(/\b1,0(2[0-9])(?=\s+(?:integer|floating|computational|FLOP))/g, '10^$1')
+  .replace(/(\$\d{1,3}(?:,\d{3})+)\.(\d)(?=\s+["“A-Z(])/g, '$1. ');
 
 export function sourceText(raw, source) { return repairExponents(rawSourceText(raw, source)); }
 
@@ -72,11 +78,25 @@ export const containsQuote = (text, quote) => {
   return q2 !== q1 && q2.length >= 8 && s.loose.includes(q2);
 };
 
+// A model's quote as proof, tidied the ways models commonly copy (round 9 field eval: three new bills held because the referee's one
+// quote missed): wrapping quotation marks or a closing full stop added, or two exact passages joined by an ellipsis. Returns the words
+// that are in the source (for an ellipsis, every part must be, each at least 20 characters, and the longest part is kept), else null.
+export function provedQuote(text, quote) {
+  const q = String(quote || '').trim();
+  if (q.length < 8) return null;
+  if (containsQuote(text, q)) return q;
+  const bare = q.replace(/^["“'‘]+|["”'’]+$/g, '').replace(/[.;,]+$/, '').trim();
+  if (bare !== q && bare.length >= 8 && containsQuote(text, bare)) return bare;
+  const parts = bare.split(/\s*(?:\.\.\.|…|\[\.\.\.\])\s*/).map((p) => p.trim()).filter(Boolean);
+  if (parts.length > 1 && parts.every((p) => p.length >= 20 && containsQuote(text, p))) return parts.reduce((a, b) => (b.length > a.length ? b : a));
+  return null;
+}
+
 // Every run of digits in a piece of text (commas removed, superscript digits read as digits), for the "numbers must come from the source" check.
 const SUP = { '²': '2', '³': '3', '¹': '1', '⁰': '0', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9' };
-// "10" then a lost exponent 20-29 right before a compute unit: only this form is unambiguous (no compute threshold is 10.26 or 1,026 ops).
+// "10" then a lost exponent 20-29 right before a compute unit: only this form is unambiguous (no compute threshold is 10.26, 1026 or 1,026 ops).
 export const COMPUTE_UNIT = String.raw`(?:integer|floating|computational|operations|FLOPs?\b)`;
-export const LOST_EXPONENT = new RegExp(String.raw`\b10[.,]?(2\d)(?=\s+${COMPUTE_UNIT})`, 'gi');
+export const LOST_EXPONENT = new RegExp(String.raw`\b(?:10[.,]?|1,0)(2\d)(?=\s+${COMPUTE_UNIT})`, 'gi');
 export function digitRuns(text) {
   // "10²⁶", "10^26" and GPO's "10\26\" all read as the runs 10 and 26, so an exponent matches however it is printed.
   const t = String(text || '').replace(/[²³¹⁰⁴-⁹]+/g, (m) => '^' + [...m].map((c) => SUP[c]).join('')).replace(/(\d)\\(\d{1,3})\\/g, '$1^$2').replace(/(\d),(?=\d{3}\b)/g, '$1')

@@ -5,7 +5,7 @@
 //                 model writes, a larger budget, long bills read section by section); still held after that, or held for a reason no
 //                 retry can fix (a resolution, an amendment record, a duplicate, the referee disagreeing), it carries escalate: true and
 //                 is read again only when its record changes. Nothing loops.
-import { sourceText, containsQuote } from './source-text.mjs';
+import { sourceText, containsQuote, provedQuote } from './source-text.mjs';
 import { generatePatch } from './generator.mjs';
 import { assembleEntry } from './assemble.mjs';
 import { validateDraft, complaints } from './validator.mjs';
@@ -32,7 +32,11 @@ export async function refereeVerdict(referee, source, itemId, fullText = source)
     const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
     if (!x) return { in: null, quote: null };
-    if (x.supported === true) return containsQuote(fullText, x.quote) && String(x.quote).trim().length >= 8 ? { in: true, quote: x.quote } : { in: null, quote: null, why: 'the referee said in scope but its quote is not in the source' };
+    if (x.supported === true) {
+      // A quote that is not in the source is a failed quote, not a verdict: one more ask for an exact one, as the reader gets.
+      const q = provedQuote(fullText, x.quote) || (await exactScopeQuote(referee, source, itemId, fullText) || {}).quote;
+      return q ? { in: true, quote: q } : { in: null, quote: null, why: 'the referee said in scope but its quote is not in the source, twice' };
+    }
     return { in: false, quote: null, reason: x.reason || null };
   } catch (e) { if (e instanceof LlmOutputError) return { in: null, quote: null }; throw e; }
 }
@@ -43,22 +47,27 @@ export const sectionClaim = (section) => `This item belongs in section ${section
 export async function refereeSection(referee, source, section, itemId, fullText = source) {
   if (!referee) return { ok: false, quote: null, why: 'no referee is configured' };
   try {
-    const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim: sectionClaim(section) }] }), itemId });
-    const x = r && r.data && r.data.results && r.data.results[0];
+    const ask = async (claim) => { const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), itemId }); return r && r.data && r.data.results && r.data.results[0]; };
+    let x = await ask(sectionClaim(section));
     if (!x || x.supported !== true) return { ok: false, quote: null, why: `the referee did not confirm section ${section}${x && x.reason ? ` ("${String(x.reason).slice(0, 140)}")` : ''}` };
-    if (!containsQuote(fullText, x.quote) || String(x.quote).trim().length < 8) return { ok: false, quote: null, why: `the referee's quote for section ${section} is not in the source` };
-    if (!quoteMeetsSection(section, x.quote, fullText)) return { ok: false, quote: null, why: `the referee's quote for section ${section} does not show that section's criterion ("${String(x.quote).slice(0, 100)}")` };
-    return { ok: true, quote: x.quote };
+    let q = provedQuote(fullText, x.quote);
+    // Its quote not in the source: one more ask for an exact one (a failed quote, not a verdict).
+    if (!q) { x = await ask(`${sectionClaim(section)}\n${EXACT_AGAIN}`); q = x && x.supported === true ? provedQuote(fullText, x.quote) : null; }
+    if (!q) return { ok: false, quote: null, why: `the referee's quote for section ${section} is not in the source` };
+    if (!quoteMeetsSection(section, q, fullText)) return { ok: false, quote: null, why: `the referee's quote for section ${section} does not show that section's criterion ("${String(q).slice(0, 100)}")` };
+    return { ok: true, quote: q };
   } catch (e) { if (e instanceof LlmOutputError) return { ok: false, quote: null, why: 'the referee gave an unusable answer' }; throw e; }
 }
 // One more ask of the independent reader for the scope claim when it said "supported" but its quote was not in the source: an exact quote
 // this time. true = supported with a quote code finds; null = still no usable quote.
+const EXACT_AGAIN = 'IMPORTANT: your previous answer to this claim said "supported" but its quote was not found word for word in SOURCE. Copy the quote EXACTLY, character for character, from SOURCE (no ellipses, no paraphrase, no added or changed words).';
 async function exactScopeQuote(validator, source, itemId, fullText) {
-  const claim = `${SCOPE_CLAIM}\nIMPORTANT: your previous answer to this claim said "supported" but its quote was not found word for word in SOURCE. Copy the quote EXACTLY, character for character, from SOURCE (no ellipses, no paraphrase, no added or changed words).`;
+  const claim = `${SCOPE_CLAIM}\n${EXACT_AGAIN}`;
   try {
     const r = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim }] }), itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
-    return x && x.supported === true && containsQuote(fullText, x.quote) && String(x.quote).trim().length >= 8 ? { quote: x.quote } : null;
+    const q = x && x.supported === true ? provedQuote(fullText, x.quote) : null;
+    return q ? { quote: q } : null;
   } catch (e) { if (e instanceof LlmOutputError) return null; throw e; }
 }
 const QUOTE_FAILED = /quote does not appear in the source/;
