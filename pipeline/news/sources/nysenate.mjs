@@ -4,6 +4,7 @@
 // NY action text is a fixed clerk vocabulary ("REFERRED TO ...", "PASSED SENATE", "DELIVERED TO GOVERNOR", "SIGNED CHAP.123"); each phrase
 // below maps to one class; anything else is recorded with class null.
 import fs from 'fs';
+import { agreeState } from '../classify.mjs';
 import { acceptDate, normNumber, trackedBills, loadStructuredConfig, IDS_PATH } from './openstates.mjs';
 import { getJsonAny, isBillList } from './common.mjs';
 
@@ -45,7 +46,7 @@ export function billToItems(r, tracked, retrievedAt) {
   acts.forEach((a, i) => {
     const date = acceptDate(a.date, retrievedAt);
     if (!date) return;
-    const cls = i === 0 && /^REFERRED TO /i.test(a.text) ? 'introduction' : mapNyAction(a.text);
+    const cls = i === 0 && /^REFERRED TO /i.test(a.text) ? 'introduction' : agreeState(mapNyAction(a.text), a.text, { jurisdiction: 'NY' }); // the same rules as LegiScan's (r13)
     const facts = { chamber: CH[a.chamber] || null, number, title: r.title, action: a.text };
     if (cls === 'referral-committee' || cls === 'introduction') facts.committee = String(a.text).replace(/^REFERRED TO /i, '').trim();
     // the NY Senate API records Senate roll calls only: an Assembly action never takes one (live check, 29 Oct 2026: PASSED ASSEMBLY got

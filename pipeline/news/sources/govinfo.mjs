@@ -59,7 +59,8 @@ export async function fetchItems({ http, env = {}, since, state = {}, entries = 
       if (!b) continue;
       const entry_id = matchBill(index, { jurisdiction: 'US', ...b });
       if (!entry_id) continue;
-      c.add({ source_id: p.packageId, entry_id, class: 'new-text-version', date: p.dateIssued,
+      // the introduced text (ih/is) is the first text, and a reprint (rds/rfs/pcs/rcs ...) repeats one: no class (review r13 #4)
+      c.add({ source_id: p.packageId, entry_id, class: /^(i[hs]|r[df][hs]|pc[hs]|rc[hs]|rch|rcs)$/i.test(String(b.version || '')) ? null : 'new-text-version', date: p.dateIssued,
         facts: { title: p.title, number: label(b), congress: b.congress, version: b.version },
         url: `https://www.govinfo.gov/app/details/${p.packageId}`, title: p.title });
     }

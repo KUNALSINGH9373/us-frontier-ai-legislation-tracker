@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url';
 import { eventsStep } from '../news/run.mjs';
 import { emptyState, renderNews, markShown } from '../news/events.mjs';
 import { attachStatements } from '../news/attach.mjs';
+import { makeStatementVerifier, checkAttachments } from '../news/statement-check.mjs';
 import { checksHash } from './hash.mjs';
 import { writeMeasureReport } from './gate.mjs';
 
@@ -40,7 +41,9 @@ export async function runCase(c, { news, entries }) {
     const recs = run.records === 'none' ? [] : run.drop ? base.map((r) => ({ ...r, raw: { ...r.raw, actions: (r.raw.actions || []).filter((a) => !new RegExp(run.drop).test(a.text)) } })) : base;
     await eventsStep({ state, records: recs, courtFound: i === 0 ? found : [], now, runId: run.run_id, sinceDays: c.since_days || 800, items: run.extra_items || [] });
     if (run.statements) {
-      const att = attachStatements(Object.values(state.events), run.statements, { allowHosts: c.allow_hosts || ['senate.gov', 'house.gov', 'ca.gov'] });
+      // the AI statement check as production runs it: a case's recorded answers (ai_answers: headline -> answer), or no AI (nothing attaches)
+      const llm = c.ai_answers ? { generate: async ({ prompt }) => ({ data: c.ai_answers[/^Headline: (.*)$/m.exec(prompt)[1]] || null }) } : null;
+      const att = await checkAttachments(attachStatements(Object.values(state.events), run.statements, { allowHosts: c.allow_hosts || ['senate.gov', 'house.gov', 'ca.gov'] }), state.events, makeStatementVerifier(llm));
       for (const e of att.events) state.events[e.key] = e;
     }
     if (run.publish) { const r = renderNews(page, state, entries, { at: now.toISOString(), maxAgeDays: c.max_age_days ?? 100000 }); state.events = r.state.events; markShown(state, r.added, now.toISOString()); page = r.news; }

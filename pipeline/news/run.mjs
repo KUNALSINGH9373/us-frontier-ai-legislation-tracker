@@ -19,6 +19,7 @@ import { findLeads } from './leads.mjs';
 import { robotsAllows } from './feeds.mjs';
 import { loadEvents, saveEvents, upsertItems, renderNews, checkNewsEvents, markShown, visible, refreshCards } from './events.mjs';
 import { attachStatements, allowHostsFrom, canonicalUrl } from './attach.mjs';
+import { makeStatementVerifier, checkAttachments } from './statement-check.mjs';
 import { updateHealth, alerts, loadHealth, saveHealth } from './health.mjs';
 import * as congressGov from './sources/congress_gov.mjs';
 import * as legiscan from './sources/legiscan.mjs';
@@ -123,14 +124,16 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
     let r;
     if (!local.has(name)) {
       const cad = cadenceOf(name), last = lastFetch[name] ? Date.parse(lastFetch[name]) : NaN;
-      if (cad && Number.isFinite(last) && now.getTime() - last < cad * 3600e3 - CADENCE_SLACK_MS) { results[name] = { ok: true, skipped: 'cadence', count: 0, newest: null, errors: [] }; itemsBy[name] = []; continue; }
+      // a source that stopped partway through its list (a cursor past the start) carries on next run, whatever its cadence
+      const unfinished = !!(state.adapters[name] && state.adapters[name].cursor);
+      if (cad && !unfinished && Number.isFinite(last) && now.getTime() - last < cad * 3600e3 - CADENCE_SLACK_MS) { results[name] = { ok: true, skipped: 'cadence', count: 0, newest: null, errors: [] }; itemsBy[name] = []; continue; }
       if (outOfTime || clock() >= deadline) { outOfTime = true; results[name] = { ok: true, truncated: true, count: 0, newest: null, errors: ['time budget reached; not read this run'] }; itemsBy[name] = []; continue; }
       let why = null;
       const g = guardedHttp(args.http, { deadline, clock, onStop: (w) => { why = w; } });
       let timer;
       const timeout = new Promise((res) => { timer = setTimeout(() => res({ timedOut: true }), Math.max(0, deadline - clock())); });
       try {
-        r = await Promise.race([mod.fetchItems({ ...args, http: g.http, sleep: g.sleep }), timeout]);
+        r = await Promise.race([mod.fetchItems({ ...args, http: g.http, sleep: g.sleep, deadline: deadline - 15000, clock }), timeout]);
       } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [redact(String(e.message || e))] }, fetched: [] }; }
       finally { clearTimeout(timer); }
       if (r && r.timedOut) { why = why || 'time budget reached'; r = { items: [], health: { ok: true, count: 0, newest: null, errors: [] }, fetched: [] }; }
@@ -156,7 +159,9 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
 
 // The structured official sources other than the records the run already has (network; each needs its own key where noted). Run only
 // when the caller passes env (update.mjs does; tests and hand runs without env read none).
-export const EXTRA_ADAPTERS = [['openstates', openstates], ['nysenate', nysenate], ['govinfo', govinfo], ['federal_register', federalRegister], ['whitehouse', whitehouse], ['regulations_gov', regulationsGov], ['congress_extra', congressExtra], ['nist', nist], ['cbo', cbo], ['ca_ag', caAg]];
+// Order: the quick sources first; Open States (paced to Plural's free-tier rate, several minutes) and NY Senate last, so a slow source can
+// never starve the others of the shared time budget (local live run, 30 Oct 2026: Open States used it all and nothing after it was read).
+export const EXTRA_ADAPTERS = [['federal_register', federalRegister], ['whitehouse', whitehouse], ['govinfo', govinfo], ['regulations_gov', regulationsGov], ['congress_extra', congressExtra], ['nist', nist], ['cbo', cbo], ['ca_ag', caAg], ['nysenate', nysenate], ['openstates', openstates]];
 
 // The card writer (news/writer.mjs, roles generator + validator) for showable events whose card is still the template; a card that fails
 // any check stays the template. Only when news publishing is on and AI may run. Returns how many cards the AI wrote.
@@ -226,10 +231,18 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
   rep.events.alerts = alerts(health, { now, config: { congress_gov: { cadence_hours: 24 * 30 }, legiscan: { cadence_hours: 24 * 30 }, courtlistener: { cadence_hours: 24 * 30 } } }).filter((a) => !/stale|zero items/.test(a)); // these sources are read only when they changed
 
   // statements from the structured statement sources (NIST, CBO, CA AG feeds): attach to an event or stay a lead
+  // A statement attaches only when code proposes it AND the AI check agrees (news/statement-check.mjs). The AI runs only while news
+  // publishing is on; without it nothing attaches (every statement stays a lead).
+  let verifier = null;
+  if (!aiOff && factory && rep.publishing) { try { verifier = makeStatementVerifier(factory.make('validator'), { log }); } catch { verifier = null; } }
   if (ev.statements.length) {
-    const att = attachStatements(Object.values(state.events), ev.statements, { allowHosts: [...new Set(ev.statements.flatMap((s) => sourceConfig(s.source).hosts || []))] }); // hosts from config, never from the statements
+    const att = await checkAttachments(attachStatements(Object.values(state.events), ev.statements, { allowHosts: [...new Set(ev.statements.flatMap((s) => sourceConfig(s.source).hosts || []))] }), state.events, verifier, (state.statement_checks ||= {})); // hosts from config, never from the statements
     for (const e of att.events) { const old = state.events[e.key]; if (e.sources.length !== old.sources.length) rep.events.statements += e.sources.length - old.sources.length; state.events[e.key] = e; }
-    for (const l of [...att.leads, ...att.timeline.map((t) => t.item)]) rep.leads.push({ title: l.title, publisher: (l.facts && l.facts.publisher) || l.source, link: l.url, date: l.date, primary: true, tracker: l.entry_id || null, note: 'official statement: no official event it could attach to' });
+    // dropped (host not allowlisted, empty title) are reported too, not lost; duplicates were reported when first seen (review r8 #8a)
+    for (const d of att.dropped.filter((x) => x.why !== 'duplicate' && x.item)) rep.leads.push({ title: d.item.title || '(no title)', publisher: (d.item.facts && d.item.facts.publisher) || d.item.source, link: d.item.url, date: d.item.date, primary: false, tracker: d.item.entry_id || null, note: `statement not used: ${d.why}` });
+    // a statement the AI refused on an earlier run was reported then: not again every run (review r9 #7)
+    const refusedBefore = (u) => Object.entries(state.statement_checks || {}).some(([k, v]) => k.startsWith(`${u}|`) && !v.ok && v.at < today);
+    for (const l of [...att.leads, ...att.timeline.map((t) => t.item)].filter((x) => !refusedBefore(x.url))) rep.leads.push({ title: l.title, publisher: (l.facts && l.facts.publisher) || l.source, link: l.url, date: l.date, primary: true, tracker: l.entry_id || null, note: 'official statement: no official event it could attach to' });
   }
 
   // 2. leads; a primary lead may attach to an event as a statement
@@ -254,7 +267,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
     const byKey = new Map(before.entries.map((e) => [e.key, e]));
     const jurOf = (k) => { const e = byKey.get(k); return e ? (e.level === 'state' ? e.state || null : 'US') : null; };
     const statements = found.leads.filter((l) => l.primary && l.tracker).map((l) => ({ source: 'release', source_id: l.key, jurisdiction: jurOf(l.tracker), entry_id: l.tracker, class: null, date: l.date, facts: { role: 'statement', publisher: l.publisher }, url: l.release_url, title: l.title, retrieved_at: now.toISOString() }));
-    const att = attachStatements(Object.values(state.events), statements, { allowHosts: allowHostsFrom(sources) });
+    const att = await checkAttachments(attachStatements(Object.values(state.events), statements, { allowHosts: allowHostsFrom(sources) }), state.events, verifier, (state.statement_checks ||= {}));
     const attachedUrls = new Set();
     for (const e of att.events) { const old = state.events[e.key]; if (e.sources.length !== old.sources.length) e.sources.slice(old.sources.length).forEach((s) => attachedUrls.add(s.url)); state.events[e.key] = e; }
     rep.events.statements += attachedUrls.size;

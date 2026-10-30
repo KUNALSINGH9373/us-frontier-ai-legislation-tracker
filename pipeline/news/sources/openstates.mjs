@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getJsonAny, isBillList } from './common.mjs';
-import { NOT_CONCUR } from '../classify.mjs';
+import { NOT_CONCUR, agreeState } from '../classify.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const CONFIG_PATH = path.join(HERE, '..', '..', 'config', 'news-sources.json');
@@ -114,7 +114,7 @@ export function billToItems(bill, tracked, retrievedAt) {
   for (const [i, a] of (bill.actions || []).entries()) {
     const date = acceptDate(a.date, retrievedAt);
     if (!date) continue;
-    const cls = guardClass(mapClassifications(a.classification), a.description);
+    const cls = agreeState(guardClass(mapClassifications(a.classification), a.description), a.description, { jurisdiction: tracked.state }); // the same rules as LegiScan's (r13)
     const chamber = CHAMBER[a.organization && a.organization.classification] || null;
     const facts = { chamber, number: spaced(bill.identifier), title: bill.title, action: a.description, os_classification: a.classification || [] };
     if (cls === 'passage' || cls === 'failure' || cls === 'concurrence' || cls === 'veto-override-passage') { const v = voteFacts(bill.votes, date, chamber, cls); if (v) facts.vote = v; }
@@ -154,7 +154,9 @@ const q = (o) => Object.entries(o).flatMap(([k, v]) => (Array.isArray(v) ? v.map
 // Open States allows about 500 requests a day (review F3): requests are counted per UTC day in the adapter state, and the adapter stops at
 // daily_cap (400) whatever the per-run cap.
 export const DAILY_CAP = 400;
-export async function fetchItems({ http, env = process.env, since = null, state = {}, entries = null, config = null, now = () => new Date(), sleep = (ms) => new Promise((r) => setTimeout(r, ms)) } = {}) {
+// deadline/clock (from news/run.mjs): the adapter stops on its own before the shared time budget ends and returns what it read, with a
+// cursor so the next run starts at the next bill (a cut-off run used to lose everything and restart at the first bill).
+export async function fetchItems({ http, env = process.env, since = null, state = {}, entries = null, config = null, now = () => new Date(), sleep = (ms) => new Promise((r) => setTimeout(r, ms)), deadline = null, clock = () => Date.now() } = {}) {
   const nowFn = typeof now === 'function' ? now : () => (now instanceof Date ? now : new Date(now));
   const key = env && (env.OPENSTATES_API_KEY || env.PLURAL_API_KEY); // Open States is now Plural Policy; either name
   if (!key) return { items: [], health: { ok: false, count: 0, newest: null, errors: ['no key'] } };
@@ -163,10 +165,11 @@ export async function fetchItems({ http, env = process.env, since = null, state 
   if (!bills) { try { bills = trackedBills(JSON.parse(fs.readFileSync(IDS_PATH, 'utf8'))); } catch { bills = []; } }
   const items = []; const errors = []; let used = 0; let truncated = false;
   const day = nowFn().toISOString().slice(0, 10), q0 = state && state.quota && state.quota.day === day ? state.quota.used || 0 : 0, dailyCap = cfg.daily_cap ?? DAILY_CAP;
-  let dailyHit = false;
+  let dailyHit = false, outOfTime = false;
   const get = async (url) => {
     if (q0 + used >= dailyCap) { truncated = true; dailyHit = true; return null; }
     if (used >= cfg.max_requests_per_run) { truncated = true; return null; }
+    if (deadline && clock() + (cfg.min_interval_ms || 0) + 10000 >= deadline) { truncated = true; outOfTime = true; return null; }
     if (used > 0 && cfg.min_interval_ms) await sleep(cfg.min_interval_ms);
     used++;
     for (let attempt = 0; ; attempt++) {
@@ -191,7 +194,10 @@ export async function fetchItems({ http, env = process.env, since = null, state 
     }
     return pickSession(sessions[juris], b.session_name);
   };
-  for (const b of bills) {
+  // start where the last run stopped, wrapping round, so every tracked bill is read in turn
+  const start = bills.length ? ((state && state.cursor) || 0) % bills.length : 0;
+  let next = start;
+  for (const b of [...bills.slice(start), ...bills.slice(0, start)]) {
     const retrieved = nowFn().toISOString();
     const juris = b.state.toLowerCase();
     const session = await sessionFor(b);
@@ -211,9 +217,10 @@ export async function fetchItems({ http, env = process.env, since = null, state 
       for (const ev of (evs.results || []).filter((e) => agendaNames(e, bill))) { const it = eventToItem(ev, b, retrieved); if (it) items.push(it); }
     }
     if (truncated) break;
+    next = (next + 1) % bills.length; // this bill is done: the next run starts after it
   }
-  if (truncated) errors.push(dailyHit ? `request cap: daily cap ${dailyCap} reached for ${day}; remaining bills next run` : `request cap ${cfg.max_requests_per_run} reached; remaining bills next run`);
+  if (truncated) errors.push(outOfTime ? 'request cap: time budget reached; remaining bills next run' : dailyHit ? `request cap: daily cap ${dailyCap} reached for ${day}; remaining bills next run` : `request cap ${cfg.max_requests_per_run} reached; remaining bills next run`);
   const newest = items.reduce((m, x) => (x.date > (m || '') ? x.date : m), null);
-  return { items, health: { ok: errors.filter((e) => !e.startsWith('request cap')).length === 0, count: items.length, newest, errors, requests: used, truncated }, state: { sessions, quota: { day, used: q0 + used } } };
+  return { items, health: { ok: errors.filter((e) => !e.startsWith('request cap')).length === 0, count: items.length, newest, errors, requests: used, truncated }, state: { sessions, cursor: next, quota: { day, used: q0 + used } } };
 }
 export { OS_MAP };

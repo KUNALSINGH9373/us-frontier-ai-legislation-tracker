@@ -2365,12 +2365,20 @@
       }
      ]
     }
-   ]
+   ],
+   "ai_answers": {
+    "Governor Newsom signs AB 1405": {
+     "reports": "yes",
+     "event_class": "executive-signature",
+     "quote": "signs AB 1405",
+     "why": "states the signing"
+    }
+   }
   },
   {
    "id": "statement-two-candidates",
    "r2": true,
-   "note": "Review r8 M1: \"AB 1405 passes\" (no \"committee\") is a floor outcome: it attaches to the floor passage only, never the committee passage; both cards shown.",
+   "note": "Review r8 M1: \"AB 1405 passes\" (no \"committee\") is a floor outcome: it attaches to the floor passage only, never the committee passage; both cards shown. (r8: the headline names the chamber; a chamber-less \"AB 1405 passes\" no longer backs one chamber's vote.)",
    "intent": [
     "committee-passage",
     "passage"
@@ -2475,12 +2483,20 @@
         "publisher": "Gov. Newsom"
        },
        "url": "https://www.gov.ca.gov/2026/10/21/ab-1405-passes/",
-       "title": "AB 1405 passes",
+       "title": "Senate passes AB 1405",
        "retrieved_at": "2026-10-22T12:00:00Z"
       }
      ]
     }
-   ]
+   ],
+   "ai_answers": {
+    "Senate passes AB 1405": {
+     "reports": "yes",
+     "event_class": "passage",
+     "quote": "Senate passes AB 1405",
+     "why": "states passage"
+    }
+   }
   },
   {
    "id": "withdrawn-by-adapter",
@@ -5407,6 +5423,105 @@
      ]
     }
    ]
+  },
+  {
+   "id": "r9-committee-statements",
+   "note": "Review r9 #3: on a committee passage card, a headline that only mentions a committee (\"Lawmakers pass ... after committee fight\") or announces a hearing to come never attaches.",
+   "intent": [
+    "committee-passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|committee-passage|2026-10-20#AB1405",
+     "title": "AB 1405 advances out of committee",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"From committee: Do pass. (Ayes 11. Noes 0.)\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "allow_hosts": [
+    "senate.ca.gov",
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "a",
+     "publish": true,
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-ab1405",
+       "source_id": "ls-ab1405#c",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "From committee: Do pass. (Ayes 11. Noes 0.)",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-ab1405#c",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "From committee: Do pass. (Ayes 11. Noes 0.)",
+        "chamber": "upper",
+        "number": "AB 1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "s1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. X"
+       },
+       "url": "https://sd98.senate.ca.gov/news/committee-fight",
+       "title": "Lawmakers pass AB 1405 after committee fight",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "release",
+       "source_id": "s2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. Y"
+       },
+       "url": "https://sd98.senate.ca.gov/news/hearing-set",
+       "title": "Hearing set on AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    }
+   ],
+   "r9": true
   }
  ]
 }

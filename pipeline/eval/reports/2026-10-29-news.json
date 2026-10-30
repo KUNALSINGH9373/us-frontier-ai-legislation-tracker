@@ -1,8 +1,8 @@
 {
  "measure": "news",
- "run_at": "2026-10-29T09:38:48.591Z",
- "checks_hash": "6e0aa3ab9ada56c9750dfc422422833b634db8f46f743b02d1cab8a6d74f215b",
- "cases": 74,
+ "run_at": "2026-10-29T20:10:54.078Z",
+ "checks_hash": "ec468ceac0f1deb50b703e3f102b456b6c7d7920611d087040473f05f6390253",
+ "cases": 75,
  "wrong": 0,
  "missed": 0,
  "rows": [
@@ -811,6 +811,17 @@
   },
   {
    "id": "r8-contradicting-statements",
+   "expect": 1,
+   "got": 1,
+   "wrong": false,
+   "missed": false,
+   "extra": [],
+   "differs": [],
+   "missing": [],
+   "error": null
+  },
+  {
+   "id": "r9-committee-statements",
    "expect": 1,
    "got": 1,
    "wrong": false,

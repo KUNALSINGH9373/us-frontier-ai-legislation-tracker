@@ -51,12 +51,16 @@ export async function fetchItems({ http, env = {}, since, state = {}, entries = 
       const bills = d.relatedItems?.bills || [];
       const hits = [...new Set(bills.map((b) => matchBill(index, { jurisdiction: 'US', type: billType(b.type), number: b.number, congress: b.congress })).filter(Boolean))];
       if (hits.length !== 1) continue;
-      const withdrawn = /cancel|postpon/i.test(d.meetingStatus || '');
+      // A rescheduled meeting did not take place on this date (Congress.gov keeps the old date): like a cancellation (review r9 #2).
+      const withdrawn = /cancel|postpon|resched/i.test(d.meetingStatus || '');
       const meetingDate = etDate(d.date);
       if (!meetingDate) continue;
       const hearing = /hearing/i.test(d.type || '');
-      // held only when the record shows it happened (review r8 L5): the meeting day is before today in Washington, or its status says so
-      const held = meetingDate < (etDate(retrievedAt) || today) || /\b(held|completed?|concluded)\b/i.test(d.meetingStatus || '');
+      // held only when the record shows it happened (review r8 L5, r9 #2): its status says so, or the meeting day is before today in
+      // Washington and its status is still plain "Scheduled" (Congress.gov changes it on a cancellation, postponement or new date).
+      // Any other status is no proof, so no card.
+      const status = String(d.meetingStatus || '').trim();
+      const held = !withdrawn && (/\b(held|completed?|concluded)\b/i.test(status) || (meetingDate < (etDate(retrievedAt) || today) && /^scheduled$/i.test(status)));
       const cls = hearing ? (held ? 'hearing-held' : 'hearing-scheduled') : null;
       c.add({ source_id: `meeting:${d.congress}/${String(d.chamber).toLowerCase()}/${d.eventId}`, entry_id: hits[0], class: cls,
         date: held ? meetingDate : etDate(d.updateDate) || today,

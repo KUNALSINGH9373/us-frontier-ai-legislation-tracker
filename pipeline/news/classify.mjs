@@ -10,6 +10,7 @@
 import { actionKind } from '../compare/congress.mjs';
 import { stateActionKind } from '../grabber/sources/legiscan.mjs';
 import { classifyEntry } from '../grabber/sources/courtlistener.mjs';
+import { provenState } from './strict.mjs';
 
 export const BILL_CLASSES = ['introduction', 'referral-committee', 'hearing-scheduled', 'hearing-held', 'committee-passage', 'committee-failure', 'passage', 'failure', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'executive-signature', 'executive-veto', 'became-law', 'veto-override-passage', 'withdrawal', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate'];
 export const NON_BILL_CLASSES = ['executive-order', 'presidential-memo', 'agency-rule-proposed', 'agency-rule-final', 'agency-guidance', 'comment-period-open', 'comment-period-closing', 'nomination', 'court-filing', 'court-ruling'];
@@ -22,7 +23,11 @@ export function chamberOf(text, hint = null) {
   const t = clean(text);
   // the chamber that opens the action acts ("Senate concurs in House amendments": the Senate); "in House amendments" names the other
   // chamber's amendments, never the actor (review r5: found replaying the news set)
-  const m = /^\W*(house|senate|assembly)\b(?! amendments?\b)/i.exec(t) || /\b(?:passed|failed(?: passage)? in|failed in|in|by) (?:the )?(house|senate|assembly)\b(?! amendments?\b)/i.exec(t) || /\b(house|senate|assembly) (?:floor|passage|vote|agreed|concurred|adopted)\b/i.exec(t);
+  // "Senate substitute agreed to by House": the chamber the action is "agreed to by" acts, not the one whose text it is (review r11 #1)
+  // Missouri writes the acting chamber as a one-letter prefix ("S Third Read and Passed"), whatever LegiScan files it under (review r12 #1)
+  const one = /^\W*([SH])\s+(?=[A-Z])/.exec(t);
+  if (one) return one[1] === 'S' ? 'Senate' : 'House';
+  const m = /\bagreed to by (?:the )?(house|senate|assembly)\b/i.exec(t) ||/^\W*(house|senate|assembly)\b(?! (amendments?|substitute|version|bill)\b)/i.exec(t) || /\b(?:passed|failed(?: passage)? in|failed in|in|by) (?:the )?(house|senate|assembly)\b(?! amendments?\b)/i.exec(t) || /\b(house|senate|assembly) (?:floor|passage|vote|agreed|concurred|adopted)\b/i.exec(t);
   if (m) return m[1][0].toUpperCase() + m[1].slice(1).toLowerCase();
   return hint && CHAMBER_WORD[hint] ? CHAMBER_WORD[hint] : null;
 }
@@ -59,7 +64,9 @@ export const JURISDICTION_RULES = {
   // New York: "SIGNED CHAP.123" is the governor's signature, which makes it a chapter of law that day.
   NY: [[/^\W*signed chap\.\s*\d+/i, 'executive-signature'], [/^\W*delivered to governor\b/i, 'executive-receipt']],
   // Hawaii: "Passed Second Reading ... and referred to the committee(s)" is a committee passage there (Lane 1 agrees).
-  HI: [[/\bpass(?:ed)? second reading\b[^.]*\breferred to\b/i, 'committee-passage']]
+  HI: [[/\bpass(?:ed)? second reading\b[^.]*\breferred to\b/i, 'committee-passage']],
+  // Missouri: a committee's report repeats its earlier vote ("Voted Do Pass"), on a later day: no second card (review r12 #3)
+  MO: [[/^\W*((hcs|hs|scs)\s+)?reported\b/i, null]]
 };
 const TO_GOVERNOR = /\b(presented|delivered|sent|transmitted|forwarded) to (the )?governor\b|\bto governor\b/i;
 const CHAPTERED = /\bchaptered\b|\bsecretary of state\b[^.]*\bchapter \d+|\bbecame law\b|\bbecomes law without\b/i;
@@ -73,7 +80,12 @@ const HEARING_SET = /\b(hearing (is |was )?(set|scheduled|noticed)|set for (publ
 const NOT_WHOLE = /\bline[- ]?items?\b|\bspecific (line )?items?\b|\bin part\b|\bpartial\b/i, CANCELLED = /\bcancel+ed\b|\bpostponed\b|\bdeferred\b/i;
 const REFERRAL = /\b(re-?)?refer(red|ral)?\b|\bto (the )?committee\b|\bsent to\b|\bto com(\.|mittee)/i;
 // text: the history step; ctx: { jurisdiction, isFirst, chamber (LegiScan "H"/"S"/"A") }. Returns the class or null.
+// The class stands only when the whole text has a known shape for it (news/strict.mjs): unfamiliar wording is no card, never a wrong one.
 export function classifyState(text, ctx = {}) {
+  const c = classifyStateRules(text, ctx);
+  return c && provenState(c, text) ? c : null;
+}
+function classifyStateRules(text, ctx = {}) {
   const t = clean(text);
   if (!t) return null;
   const k = stateActionKind(t, !!ctx.isFirst);
@@ -87,14 +99,20 @@ export function classifyState(text, ctx = {}) {
   switch (k.kind) {
     case 'veto_override': return 'veto-override-passage';
     case 'vetoed': return NOT_WHOLE.test(t) ? null : 'executive-veto';
-    case 'failed': return /\b(sustain|overrid)/i.test(t) ? null : /committee|\bheld in\b|\binexpedient\b/i.test(t) ? 'committee-failure' : 'failure';
+    // NH "Inexpedient to Legislate: Motion Adopted" is the chamber's vote killing the bill, not its committee's (review r9 A3)
+    case 'failed': return /\b(sustain|overrid)/i.test(t) ? null : /committee|\bheld in\b|\binexpedient\b/i.test(t) && !/\bmotion adopted\b/i.test(t) ? 'committee-failure' : 'failure';
     case 'enacted': return NOT_WHOLE.test(t) ? null : CHAPTERED.test(t) ? 'became-law' : GOV_SIGNED.test(t) ? 'executive-signature' : null; // line items: not the bill
     case 'carried_over': return 'carried-over';
     case 'introduced': return 'introduction';
-    case 'referred': return REFERRAL.test(t) && !/\boffice of (legislative|fiscal)\b|\bassigned\b/i.test(t) ? 'referral-committee' : null;
+    // a veto message referred is not the bill referred (review r11 #8)
+    // CA "Referred to suspense file" is a hold in Appropriations, not a referral (review r13 #2)
+    case 'referred': return REFERRAL.test(t) && !/\bveto\b|\bsuspense\b/i.test(t) && !/\boffice of (legislative|fiscal)\b|\bassigned\b/i.test(t) ? 'referral-committee' : null;
     case 'hearing': return /held under submission/i.test(t) || CANCELLED.test(t) ? null : HEARING_SET.test(t) ? 'hearing-scheduled' : /\bhearings? (was |were )?(held|conducted|completed)\b|\bheard\b/i.test(t) ? 'hearing-held' : null;
     case 'passed':
       if (CONCUR.test(t)) return NOT_CONCUR.test(t) ? null : 'concurrence';
+      if (/\bwithout (a )?recommendation\b/i.test(t)) return null; // out of committee, but the committee did not pass it (review r9 #1)
+      // ME "Ought to Pass Report Accepted": the chamber accepting its committee's report on a later day, a second committee card (r9 A6)
+      if (/\breport\b[^.;]*\baccepted\b|\baccepted\b[^.;]*\breport\b/i.test(t)) return null;
       if (/\benrolled\b/i.test(t) && !/\bpass/i.test(t)) return 'enrolled';
       // a second reading or first consideration is a step on the floor, not the chamber's passage (Hawaii's committee-passage wording is
       // caught by JURISDICTION_RULES above)
@@ -127,4 +145,20 @@ export function classifyAction(source, text, ctx = {}) {
   if (source === 'congress_gov') return classifyCongress(text);
   if (source === 'legiscan') return classifyState(text, ctx);
   return null;
+}
+
+// Another state source's own label (Open States classification, NY Senate's action mapping) stands only when this file's rules give the
+// same class for the same words, so the strict shapes (news/strict.mjs) bind every state source, not only LegiScan (review r13 #1). An
+// amendment passage, which this file does not class, needs an amendment adopted in so many words.
+const SELF_CHECKED = new Set(['passage', 'committee-passage', 'failure', 'committee-failure', 'concurrence', 'executive-receipt', 'executive-signature', 'executive-veto', 'became-law', 'veto-override-passage', 'enrolled', 'hearing-held', 'carried-over', 'referral-committee']);
+export function agreeState(cls, text, ctx = {}) {
+  if (!cls) return null;
+  if (cls === 'amendment-passage') return /\bamendments?\b[^;]{0,40}\b(adopted|agreed to)\b/i.test(text) && !/\bdo pass\b|\bconcurred\b|\bnot\b|\bfail|\breject|\bmotion\b|\btabl/i.test(text) ? cls : null;
+  // a bill leaving a committee or a schedule
+  // ("Withdrawn from Fiscal Policy", "Withdrawn from schedule") is not withdrawn; a bill received from the other chamber is not introduced
+  // (review r14)
+  if (cls === 'withdrawal') return /^\W*(bill )?withdrawn\W*$|\bwithdrawn by (the )?(author|sponsor|introducer)\b/i.test(text) ? cls : null;
+  if (cls === 'introduction' && /\breceived from\b|\bfrom (the )?(house|senate|assembly)\b/i.test(text)) return null;
+  if (!SELF_CHECKED.has(cls)) return cls;
+  return classifyState(text, ctx) === cls ? cls : null;
 }

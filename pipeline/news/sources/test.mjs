@@ -123,15 +123,22 @@ const status500 = async () => ({ status: 500, text: 'err' });
   const cl = later.out.items.filter((i) => i.class === 'comment-period-closing');
   ok('3.9 after the close date: comment-period-closing dated comments_close', cl.length >= 1 && cl.every((i) => i.date === i.facts.comments_close && i.date <= '2026-12-01'), JSON.stringify(cl.map((i) => i.date)));
   // Injected: a future-dated document, a foreign host, an HTML title, a memorandum, a public-inspection AI filing.
+  let piTitle = 'Revoking an Order on Artificial Intelligence';
   const patch = (k, d) => {
     if (/PRESDOCU/.test(k)) {
       const base = d.results.find((r) => r.executive_order_number === '14434');
       d.results.push({ ...base, document_number: 'FUT-1', signing_date: '2027-03-01', publication_date: '2027-03-04' });
       d.results.push({ ...base, document_number: 'EVIL-1', html_url: 'https://evil.example.com/doc' });
       d.results.push({ ...base, document_number: 'MEMO-1', subtype: 'Memorandum', executive_order_number: null, title: 'Advancing <b>Artificial Intelligence</b> Security', signing_date: '2026-10-01' });
+      // review r9 B1/B2: an untracked order revoking or amending a tracked one, and a printing correction of a tracked one
+      d.results.push({ ...base, document_number: '2026-50001', executive_order_number: '15050', title: 'Revoking Executive Order 14434 on Artificial Intelligence', abstract: base.title, signing_date: '2026-10-20' });
+      d.results.push({ ...base, document_number: '2026-50002', executive_order_number: '15051', title: 'Amendments to Executive Order 14434 on Artificial Intelligence', abstract: base.title, signing_date: '2026-10-21' });
+      d.results.push({ ...base, document_number: 'C1-2026-50003' });
+      d.results.push({ ...base, document_number: '2026-50004', subtype: 'Memorandum', executive_order_number: null, title: `Memorandum Amending ${base.title}`, signing_date: '2026-10-22' });
+      piTitle = `Revoking ${base.title}`;
       return d;
     }
-    if (/public-inspection/.test(k)) { d.results.push({ ...d.results[0], document_number: '2026-99999', title: 'Artificial Intelligence Evaluation Framework; Request for Information', type: 'Notice', filed_at: '2026-10-28T08:45:00.000-04:00', html_url: 'https://www.federalregister.gov/public-inspection/2026-99999/x' }); return d; }
+    if (/public-inspection/.test(k)) { d.results.push({ ...d.results[0], document_number: '2026-99998', title: piTitle, type: 'Presidential Document', filed_at: '2026-10-28T08:45:00.000-04:00', html_url: 'https://www.federalregister.gov/public-inspection/2026-99998/x' }); d.results.push({ ...d.results[0], document_number: '2026-99999', title: 'Artificial Intelligence Evaluation Framework; Request for Information', type: 'Notice', filed_at: '2026-10-28T08:45:00.000-04:00', html_url: 'https://www.federalregister.gov/public-inspection/2026-99999/x' }); return d; }
   };
   const inj = await run(FR, 'federal_register', { since: '2026-09-01', patch });
   ok('3.10 future-dated document rejected (counted)', !inj.out.items.some((i) => i.source_id === 'FUT-1') && inj.out.health.rejected >= 1);
@@ -139,8 +146,14 @@ const status500 = async () => ({ status: 500, text: 'err' });
   const memo = inj.out.items.find((i) => i.source_id === 'MEMO-1');
   ok('3.12 memorandum -> presidential-memo, HTML stripped from title', memo && memo.class === 'presidential-memo' && memo.title === 'Advancing Artificial Intelligence Security', JSON.stringify(memo));
   const pi = inj.out.items.find((i) => i.source_id === 'pi:2026-99999');
-  ok('3.13 public inspection: filing day, guidance class, flagged', pi && pi.date === '2026-10-28' && pi.class === 'agency-guidance' && pi.facts.public_inspection === true, JSON.stringify(pi));
+  ok('3.13 public inspection: filing day, flagged; a request for information is not guidance (review r10), so no class', pi && pi.date === '2026-10-28' && pi.class === null && pi.facts.public_inspection === true, JSON.stringify(pi));
   ok('3.14 rejected items do not make health fail', inj.out.health.ok);
+  const rv = inj.out.items.filter((i) => ['2026-50001', '2026-50002'].includes(i.source_id));
+  ok('3.14b an untracked order revoking or amending a tracked one is on no entry', rv.length === 2 && rv.every((i) => !i.entry_id), JSON.stringify(rv.map((i) => [i.source_id, i.entry_id])));
+  const chg = inj.out.items.filter((i) => ['2026-50004', 'pi:2026-99998'].includes(i.source_id));
+  ok('3.14d a memorandum or filed document changing an order is on no entry', chg.length === 2 && chg.every((i) => !i.entry_id), JSON.stringify(chg.map((i) => [i.source_id, i.entry_id])));
+  ok('3.14e the tracked order own document is still on its entry', inj.out.items.some((i) => i.facts.eo_number === '14434' && i.entry_id === 'eo-14434-super-intelligence-terminology-order'));
+  ok('3.14c a Federal Register correction (C1-...) is not an item', !inj.out.items.some((i) => /^C1-/.test(i.source_id)));
   const bad = await FR.fetchItems({ http: status500, entries: ENTRIES, since: '2026-09-01' });
   ok('3.15 HTTP 500: no throw, health not ok, error reported', bad.items.length === 0 && !bad.health.ok && bad.health.errors.some((e) => /HTTP 500/.test(e)));
   const thr = await FR.fetchItems({ http: throwing, entries: ENTRIES });
@@ -171,8 +184,16 @@ const status500 = async () => ({ status: 500, text: 'err' });
     }
   };
   const inj = (await run(CX, 'congress_extra', { since: '2026-10-10', patch })).out;
-  const held = inj.items.find((i) => i.source_id === 'meeting:119/house/119549');
-  ok('4.5 meeting with a tracked related bill -> hearing-held on the meeting day', held && held.class === 'hearing-held' && held.entry_id === 's-2938-ai-risk-evaluation-act' && held.date === '2026-09-15' && /congress\.gov\/event\//.test(held.url), JSON.stringify(held));
+  // The real record of meeting 119549 says "Rescheduled": it did not take place on its listed (past) date (review r9 #2).
+  const resched = inj.items.find((i) => i.source_id === 'meeting:119/house/119549');
+  ok('4.5 rescheduled meeting with a past date -> not held, withdrawn', resched && resched.class !== 'hearing-held' && resched.facts.withdrawn === true, JSON.stringify(resched && { class: resched.class, facts: resched.facts }));
+  const asStatus = (status) => (k, d) => { const r = patch(k, d); if (/committee-meeting\/119\/house\/119549/.test(k)) d.committeeMeeting.meetingStatus = status; return r || d; };
+  const held = (await run(CX, 'congress_extra', { since: '2026-10-10', patch: asStatus('Scheduled') })).out.items.find((i) => i.source_id === 'meeting:119/house/119549');
+  ok('4.5b past meeting still "Scheduled" -> hearing-held on the meeting day', held && held.class === 'hearing-held' && held.entry_id === 's-2938-ai-risk-evaluation-act' && held.date === '2026-09-15' && /congress\.gov\/event\//.test(held.url), JSON.stringify(held));
+  for (const s of ['Postponed', 'Canceled', 'Tentative', '']) {
+    const x = (await run(CX, 'congress_extra', { since: '2026-10-10', patch: asStatus(s) })).out.items.find((i) => i.source_id === 'meeting:119/house/119549');
+    ok(`4.5c past meeting with status "${s}" -> not held`, x && x.class !== 'hearing-held', JSON.stringify(x && x.class));
+  }
   ok('4.6 near-miss related bill (S. 29380) -> nothing', !inj.items.some((i) => i.source_id === 'meeting:119/house/118597'));
   const sch = inj.items.find((i) => i.source_id === 'meeting:119/house/119520');
   ok('4.7 future meeting -> hearing-scheduled, dated when listed (not the future day), meeting_date in facts', sch && sch.class === 'hearing-scheduled' && sch.date <= inj.items[0].retrieved_at.slice(0, 10) && sch.facts.hearing_date === '2026-11-12', JSON.stringify(sch));
@@ -192,8 +213,8 @@ const status500 = async () => ({ status: 500, text: 'err' });
   ok('5.2 no key', (await GI.fetchItems({ http: status500, env: {}, entries: ENTRIES })).health.errors[0] === 'no key');
   ok('5.3 parseBillPackage', JSON.stringify(GI.parseBillPackage('BILLS-119hr4307enr')) === JSON.stringify({ congress: 119, type: 'HR', number: '4307', version: 'enr' }) && GI.parseBillPackage('PLAW-119publ1') === null);
   const { out } = await run(GI, 'govinfo', { since: '2026-10-22' });
-  const tv = out.items.find((i) => i.class === 'new-text-version');
-  ok('5.4 recorded: new text version of tracked H.R. 10873', tv && tv.entry_id === 'h-r-10873-ai-cyber-defense-act' && tv.facts.number === 'H.R. 10873' && /govinfo\.gov\/app\/details\/BILLS-119hr10873/.test(tv.url), JSON.stringify(tv));
+  const tv = out.items.find((i) => /BILLS-119hr10873/.test(i.source_id));
+  ok('5.4 recorded: the introduced text of tracked H.R. 10873 is recorded with no class (it is not new text, review r13)', tv && tv.class === null && tv.entry_id === 'h-r-10873-ai-cyber-defense-act' && tv.facts.number === 'H.R. 10873' && /govinfo\.gov\/app\/details\/BILLS-119hr10873/.test(tv.url), JSON.stringify(tv));
   ok('5.5 recorded: no became-law (no tracked bill became law)', !out.items.some((i) => i.class === 'became-law') && out.health.ok);
   ok('5.6 untracked bills ignored', out.items.every((i) => i.entry_id));
   const inj = (await run(GI, 'govinfo', { since: '2026-10-22', patch: (k, d) => { if (/related\/PLAW-119publ131\/BILLS/.test(k)) { d.results = d.results.map((r) => ({ ...r, packageId: r.packageId.replace('hr4307', 's2938') })); return d; } } })).out;

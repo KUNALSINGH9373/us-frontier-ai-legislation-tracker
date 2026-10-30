@@ -39,7 +39,7 @@ function scripted(fn) { return { calls: [], async generate(req) { this.calls.pus
 // The headline screen: "yes" for the two real stories, "no" for everything else (an irrelevant AI headline among them).
 const screenOf = (yes = [/Liccardo Pushes/, /quietly pitches/, /H\.R\. 9917/]) => scripted((req) => ({ results: req.prompt.split('\n').slice(1).map((l) => { const [id, title] = l.split('\t'); return { id, verdict: yes.some((r) => r.test(title)) ? 'yes' : 'no', reason: 'scripted' }; }) }));
 // Only the screener: no other role exists in the news step any more.
-const factoryOf = ({ screener = screenOf() } = {}) => ({ keyName: 'ANTHROPIC_API_KEY', make: (role) => { if (role !== 'screener') throw new Error(`role ${role} is not used by the news step`); return screener; } });
+const factoryOf = ({ screener = screenOf(), validator = null } = {}) => ({ keyName: 'ANTHROPIC_API_KEY', make: (role) => { if (role === 'validator' && validator) return validator; if (role !== 'screener') throw new Error(`role ${role} is not used by the news step`); return screener; } });
 const fakeReader = (extra = {}) => { const pages = { ...FEEDS, ...extra }; let n = 0; return { got: [], used: () => n, async get(u) { n++; this.got.push(u); if (pages[u] instanceof Error) throw pages[u]; if (!(u in pages)) throw new Error(`HTTP 404 for ${u}`); return pages[u]; } }; };
 const CONFIG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on }, news_leads: { enabled: true, max_age_days: 40 } });
 // The site already has the 22 Sept Liccardo item (written by hand). The sandboxes start from the news page as it was before it.
@@ -150,7 +150,14 @@ const run = (sb, o = {}) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile
   const SRC2 = { user_agent: 't', sources: [{ id: 'rep-lieu', url: 'https://lieu.house.gov/rss.xml', type: 'atom', publisher: 'Rep. Ted Lieu', primary: true, kind: 'federal' }] };
   const r2 = await run(sb2, { sources: SRC2, reader: fakeReader({ 'https://lieu.house.gov/rss.xml': atom }) });
   const ev = JSON.parse(fs.readFileSync(sb2.eventsFile, 'utf8')).events[key];
-  ok('5 a release the day after a hearing attaches to the hearing event as a statement (verbatim headline + link), and is not also a lead', r2.events.statements === 1 && ev.sources.some((s) => s.role === 'statement' && s.title === 'Hearing on H.R. 9917, the AI Kill Switch Act' && /lieu\.house\.gov/.test(s.url)) && !r2.leads.some((l) => /9917/.test(l.title)), JSON.stringify({ leads: r2.leads, st: r2.events.statements }));
+  // without the AI check (publishing off: no AI) a statement never attaches: it stays a lead (news/statement-check.mjs)
+  ok('5 without the AI check a release does not attach to the hearing event; it stays a lead', r2.events.statements === 0 && !ev.sources.some((s) => s.role === 'statement') && r2.leads.some((l) => /9917/.test(l.title)), JSON.stringify({ leads: r2.leads, st: r2.events.statements }));
+  // with publishing on and the AI check agreeing, it attaches (verbatim headline + link) and is not also a lead
+  const sb3 = sandbox(); fs.mkdirSync(path.dirname(sb3.eventsFile), { recursive: true }); saveEvents(sb3.eventsFile, st);
+  const validator = { generate: async () => ({ data: { reports: 'yes', event_class: 'hearing-held', quote: 'Hearing on H.R. 9917', why: 'x' } }) };
+  const r3 = await run(sb3, { sources: SRC2, config: CONFIG(true), factory: factoryOf({ validator }), reader: fakeReader({ 'https://lieu.house.gov/rss.xml': atom }) });
+  const ev3 = JSON.parse(fs.readFileSync(sb3.eventsFile, 'utf8')).events[key];
+  ok('5 a release the AI check confirms attaches to the hearing event as a statement (verbatim headline + link), and is not also a lead', r3.events.statements === 1 && ev3.sources.some((s) => s.role === 'statement' && s.title === 'Hearing on H.R. 9917, the AI Kill Switch Act' && /lieu.house.gov/.test(s.url) && s.checked === 'ai+code') && !r3.leads.some((l) => /9917/.test(l.title)), JSON.stringify({ leads: r3.leads, st: r3.events.statements }));
   for (const s of [sb, sb2]) fs.rmSync(s.dir, { recursive: true, force: true });
 }
 

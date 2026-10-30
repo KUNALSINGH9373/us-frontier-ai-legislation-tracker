@@ -7,7 +7,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import { attachStatements } from './attach.mjs';
+import { attachStatements, compatibleClasses } from './attach.mjs';
 import { eventKey, checkItem, upsertItems, renderNews, renderItem, checkNewsEvents, emptyState, visible, markShown, loadEvents, normalizeItem } from './events.mjs';
 import { templateFor } from './templates.mjs';
 import { eventsStep, newsRun, recordsFromRuns } from './run.mjs';
@@ -128,8 +128,8 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   ok('4 a headline naming the other chamber does not attach ("House passes" is not the Senate passage)', onEv(att([st({ title: 'House passes the bill', url: 'https://senator.senate.gov/r/5' })]), k) === 0);
   ok('4 a host not on the configured list is dropped', att([st({ url: 'https://evil.example/r', source_id: 'e' })], Object.values(s.events)).dropped.some((d) => /host/.test(d.why)));
   upsertItems(s, [{ ...it, source_id: 'x#3', class: 'committee-passage', date: '2026-10-19', facts: { action: 'Ordered to be reported.' } }], { runId: 'b', now: new Date('2026-10-21T08:00:00Z') });
-  const two = att([st({ title: 'Bill passes', url: 'https://senator.senate.gov/r/6' })]);
-  ok('r8 M1 "Bill passes" (no "committee") never attaches to the committee passage: it attaches to the floor passage alone', onEv(two, k) === 1 && onEv(two, eventKey({ ...it, class: 'committee-passage', date: '2026-10-19' })) === 0);
+  const two = att([st({ title: 'Senate passes bill', url: 'https://senator.senate.gov/r/6' })]);
+  ok('r8 M1 "Senate passes bill" (no "committee") never attaches to the committee passage: it attaches to the floor passage alone', onEv(two, k) === 1 && onEv(two, eventKey({ ...it, class: 'committee-passage', date: '2026-10-19' })) === 0);
   upsertItems(s, [{ ...it, source_id: 'x#4', class: 'passage', date: '2026-10-21', facts: { action: 'Passed Senate again.', chamber: 'Senate' } }], { runId: 'c', now: new Date('2026-10-21T10:00:00Z') });
   const two2 = att([st({ title: 'Senate passes the bill', url: 'https://senator.senate.gov/r/7', date: '2026-10-22' })]);
   ok('4 two events could match: held on the timeline, not guessed', two2.timeline.length === 1 && /not guessed/.test(two2.timeline[0].held));
@@ -471,6 +471,20 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const { groupOf } = await import('./events.mjs');
   const ga = groupOf({ ...a, facts: a.facts }), gb = groupOf({ ...b, facts: b.facts });
   ok('r7 L3 two bills under one entry: different law groups', ga.name !== gb.name && /#S4446$/.test(ga.name));
+}
+
+{ // review r9 #3: a headline attaches only to the event it reports
+  const cc = (t) => [...compatibleClasses(t)].sort().join(',');
+  ok('r9 #3 a floor passage that mentions a committee attaches to nothing', cc('Lawmakers pass bill after committee fight') === '', cc('Lawmakers pass bill after committee fight'));
+  ok('r9 #3 a committee or panel passing -> committee passage only', ['Senate panel advances AI bill', 'Senate Commerce Committee approves AI bill', 'AI bill clears committee', 'Bill passes out of committee'].every((t) => cc(t) === 'committee-passage'));
+  ok('r9 #3 a hearing to come never attaches to a held hearing', ['Hearing set on AI bill', 'Committee to hold hearing on AI safety', 'Senate schedules hearing on AI bill', 'Senator will testify at AI hearing'].every((t) => !compatibleClasses(t).has('hearing-held')));
+  ok('r9 A1 a chamber passing a bill a committee cleared attaches to no committee card', ['House passes bill cleared by committee last week', 'Senate passes AI bill approved by committee in March'].every((t) => !compatibleClasses(t).has('committee-passage')), cc('House passes bill cleared by committee last week'));
+  ok('r9 A2 a hearing called off never attaches to a held hearing', ['Hearing on AI bill postponed', 'Hearing on AI bill canceled', 'Committee hearing delayed on AI bill', 'AI hearing rescheduled'].every((t) => !compatibleClasses(t).has('hearing-held')));
+  ok('r9 C3 a headline that also looks ahead attaches to nothing', ['Senate Commerce Committee approves AI bill; full Senate vote expected next week', 'Committee approves AI bill, hearing set for Senate floor', 'AI bill heads to governor after Senate passes it', 'Governor signs AI bill; rules will follow'].every((t) => cc(t) === ''), cc('AI bill heads to governor after Senate passes it'));
+  ok('r9 D3-D6 a headline naming two kinds of event, or any future step, attaches to nothing', ['House Committee Passes AI Bill; Hearing to Follow', 'Assembly approves AI bill after committee hearing', 'Governor to sign AI safety bill', 'Governor set to sign AI bill', 'Senator plans to introduce AI bill'].every((t) => cc(t) === ''), ['House Committee Passes AI Bill; Hearing to Follow', 'Assembly approves AI bill after committee hearing'].map(cc).join('|'));
+  ok('r9 D one kind still attaches: an override is not the veto, an order signing is the order, May is a month', cc('Legislature overrides veto of AI bill') === 'veto-override-passage' && cc('President signs executive order on AI') === 'executive-order' && cc('Committee approves AI bill in May') === 'committee-passage' && cc('Senator introduces AI safety bill') === 'introduction');
+  ok('r9 E3/E4 a vote or schedule to come, an effective date, a companion bill or a question attaches to nothing', ['Senate passes AI bill, House vote next', 'Assembly passes AI bill, effective 2027', 'Senate passes AI bill to take effect January 1', 'Governor vetoes AI bill; override vote scheduled', 'House passes companion AI bill', 'Did the Senate pass the AI bill?'].every((t) => cc(t) === ''), ['Governor vetoes AI bill; override vote scheduled', 'Senate passes AI bill, House vote next'].map(cc).join('|'));
+  ok('r9 #3 a hearing held still attaches', cc('Senator testifies at hearing on AI bill') === 'hearing-held' && cc('House passes AI safety bill').includes('passage') && !cc('House passes AI safety bill').includes('committee'));
 }
 
 console.log(`news events: ${pass} passed, ${fail} failed`);

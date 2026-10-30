@@ -2,6 +2,7 @@
 // LegiScan is an aggregator: it is used to FIND changes. The legislature's own page (state_link) is what the site cites.
 // The key has to go in the URL (the API has no header option); http.mjs scrubs it from every error and log line.
 import { htmlToText, stripLineNumbering } from '../lib/text.mjs';
+import { losingTally } from '../../news/strict.mjs';
 export const BASE = 'https://api.legiscan.com/';
 
 // LegiScan numbers bills like "SB53", "AB1405", "S10373", "HF4532", "S0358". Ours are "S.B. 53", "S.10373", "H.F. 4532".
@@ -48,18 +49,53 @@ const CARRY_OVER = /\bcontinued to (?:the )?next (?:regular )?session\b|\bcarr(?
 const kindOf = (kind, type, importance) => ({ kind, type, milestone: !!type, importance });
 export function stateActionKind(action, isFirst = false) {
   const t = String(action || '').replace(/\s+/g, ' ').trim();
-  if (/veto overrid|overrid\w* (the )?(governor'?s )?veto/i.test(t) && !/\b(failed|sustained)\b/i.test(t)) return kindOf('veto_override', 'Passed / advanced', 95);
+  if (/veto overrid|overrid\w* (the )?(governor'?s )?veto/i.test(t) && !/\b(fail\w*|sustain\w*|lost|not reached|not overridden|scheduled|filed|pending|motion|notice|planned|set for|to override|void\w*)\b/i.test(t) && !losingTally(t)) return kindOf('veto_override', 'Passed / advanced', 95);
   if (!/\bmotion\b/i.test(t) && VETO_SUSTAINED.test(t)) return kindOf('failed', 'Vetoed / failed / rescinded', 70);
   if (FINAL_VETO.test(t)) return kindOf('vetoed', 'Vetoed / failed / rescinded', 90);
-  if (/agreed to by (the )?(house|senate|assembly)|^(?!.*\bnot concurred\b).*\bamendments? concurred in/i.test(t) && !/\bmotion\b/i.test(t)) return kindOf('passed', 'Passed / advanced', 80);
+  if (/agreed to by (the )?(house|senate|assembly)|^(?!.*\bnot concurred\b).*\bamendments? concurred in/i.test(t) && !/\bmotion\b/i.test(t) && !losingTally(t)) return kindOf('passed', 'Passed / advanced', 80);
   if (NOISE.test(t) || AMENDMENT.test(t) || PUBLIC_ACT.test(t) || ROUTINE_STEP.test(t)) return kindOf('procedural', null, 0);
   if (CARRY_OVER.test(t) && !/\bmotion\b/i.test(t)) return kindOf('carried_over', 'Referred / stalled / hearing', 25);
+  // a veto of sections of a signed bill is not the bill's veto; a veto the same line overrides is the override's (review r10 #10)
+  if (/\bsections?\s+[\w,\s-]{0,20}\bvetoed\b|\bsigned\b[^.]*\bvetoed\b|\bvetoed\b[^.]*\bsigned\b/i.test(t)) return kindOf('procedural', null, 0);
+  if (/\bvetoed\b[^.]*\boverr(o|i)de\b/i.test(t)) return kindOf('veto_override', 'Passed / advanced', 95);
+  // a voided vote, or a resolution's chapter (CA "Res. Chapter"), is no enactment and no passage (review r10 #11/#12)
+  if (/\bvoid\w*|\bnullif\w*/i.test(t) || /\bres\.?\s*chapter\b/i.test(t)) return kindOf('procedural', null, 0);
+  // "Passed for the day", an executive order, a staff member's signature: not the bill's passage or enactment (review r11 #8)
+  if (/\bpassed (by )?for the day\b|\bexecutive order\b|\bchief of staff\b/i.test(t)) return kindOf('procedural', null, 0);
   if (VETOED.test(t)) return kindOf('vetoed', 'Vetoed / failed / rescinded', 90);
+  // a failure the same line undoes ("Refused passage; reconsidered and passed", "Died in House; revived"), or one of an amendment
+  // ("Indefinitely postponed amendment") is not the bill's failure (review r9 #5)
+  if (/\breconsider\w*|\bvacat\w*|\breviv\w*|\breinstat\w*|\brestored\b|\bamendments?\b/i.test(t) && BILL_FAILED.test(t)) return kindOf('procedural', null, 0);
+  // "Not signed by Governor", "Approved by Governor's office for signature": no signature (review r9 #3)
+  if (/\bnot (signed|approved)\b|\bfor (signature|signing)\b|\bwithout (the )?(governor'?s )?signature\b(?!.*\bbecame law\b)/i.test(t) && !/\bbecame law\b|\bbecomes law\b/i.test(t)) return kindOf('procedural', null, 0);
   if (BILL_FAILED.test(t)) return kindOf('failed', 'Vetoed / failed / rescinded', 70);
   if (PROCEDURAL.test(t)) return kindOf('procedural', null, 0);
   if (ENACTED.test(t)) return kindOf('enacted', 'Signed / enacted', 100);
   if (/\bdo not pass\b|\bnot passed\b/i.test(t)) return kindOf('procedural', null, 0); // a minority report
-  if (/\bpass(ed)?\b|do pass|reported (out|favorabl|from)|\benrolled\b|\bengrossed\b/i.test(t)) return kindOf('passed', 'Passed / advanced', /\b(committee|recommend\w*|do pass|reported|report)\b/i.test(t) ? 60 : 80);
+  // A committee recommending against the bill is not its passage: ME/NH "Ought Not to Pass", MD "Unfavorable Report" (review r9 #1).
+  // (A report "without recommendation" is not touched here: "Reported out without recommendation" stays an advance; news/classify.mjs
+  // gives it no card.)
+  // Passage or report wording that carries any negative is no passage: "Ought Not to Pass", "Unfavorable Report", "Recommended not to
+  // pass", "Do Pass Failed", "Ought to pass report rejected", VA "Passed by indefinitely" (the committee setting the bill aside). One
+  // general rule, not a list of idioms (review r9). The negative must be about the bill, not an amendment ("Passed Senate; House
+  // amendment not recommended", "Passed House; Unfavorable report on amendment H-1").
+  // Vote tallies are not negatives ("25 YES 12 NO 1 NOT VOTING", "voting no (4)", "No Amendments"): read without them.
+  const words = t.replace(/\bnot voting\b|\bvoting (no|nay)\b|\bno amendments?\b|\b\d+\s*-?\s*(yes|yeas?|no|nays?|ayes?|n)\b|\b(yes|yeas?|no|nays?|ayes?)\b\s*[,:-]?\s*\(?\d+\)?/gi, ' ');
+  // also a vote taken back or set aside ("vote rescinded", "expunged", "reconsidered", VA "Passed by temporarily", "declined to pass")
+  // (review r6)
+  const NEGATIVE = /\b(not|never|reject\w*|refus\w*|fail\w*|defeat\w*|unfavorabl\w*|indefinitely|rescind\w*|expung\w*|reconsider\w*|vacated?|temporarily|declin\w*|lost)\b/i;
+  // a committee reporting the bill adversely, to study, or as dead or held is not its passage (review r7 #2)
+  const OUTCOME_NOT_PASSED = /\b(advers\w*|contrary|study|ITL|ONTP|OTP-ND|laid over|dead|held|in error|erroneous\w*)\b/i;
+  const NEGATIVE_AMENDMENT = /\bamendments?\b[^.;]{0,30}\b(unfavorabl\w*|not (recommended|adopted)|reject\w*|fail\w*|defeat\w*)|\b(unfavorabl\w*|not recommended|reject\w*|fail\w*|defeat\w*)\b[^.;]{0,30}\bamendments?\b/i;
+  // the amendment clauses are read apart: "ought not to pass; amendment unfavorable" still negates the bill (review r6)
+  const billWords = words.replace(new RegExp(NEGATIVE_AMENDMENT.source, 'gi'), ' ');
+  if (/\bpass|\breport|\brecommend/i.test(words) && NEGATIVE.test(billWords)) return kindOf('procedural', null, 0);
+  if (/\bpass|\breport/i.test(words) && !/\breferred to\b/i.test(t) && OUTCOME_NOT_PASSED.test(billWords)) return kindOf('procedural', null, 0);
+  // not a passage yet, or not one at all: "may pass", "to be passed", "Passed: no", VA "Passed by" (passed by for the day), a vote
+  // whose noes are not fewer than its ayes ("DO PASS (2-7)") (review r6)
+  if (/\b(may|might|would|will|shall|could|(?<!ought )to) (be )?pass(ed)?\b|\bpassed\s*:\s*no\b|^\W*passed by\W*$|\bpassed by for the day\b/i.test(t) || (/\bpass|\breport|\brecommend/i.test(t) && losingTally(t))) return kindOf('procedural', null, 0);
+  // "Ought to Pass" is a committee's report (ME/NH); the chamber adopting it ("Ought to Pass: Motion Adopted") is a motion, settled above.
+  if (/\bpass(ed)?\b|do pass|reported (out|favorabl|from)|\benrolled\b|\bengrossed\b/i.test(t)) return kindOf('passed', 'Passed / advanced', !/^\W*passed (the )?(house|senate|assembly)\b/i.test(t) && /\b(committee|recommend\w*|do pass|reported|report)\b|\bought to pass\b/i.test(t) ? 60 : 80);
   if (isFirst || /\bintroduced\b|\bprefiled\b/i.test(t)) return kindOf('introduced', 'Introduced / published', 30);
   if (/hearing|held under submission/i.test(t)) return kindOf('hearing', 'Referred / stalled / hearing', 40);
   if (/referred|committee/i.test(t)) return kindOf('referred', 'Referred / stalled / hearing', 20);

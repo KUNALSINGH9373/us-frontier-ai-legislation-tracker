@@ -207,7 +207,7 @@ t('attach: near-duplicates: same release via www/utm/trailing slash or same text
   const a = st({ title: 'Governor signs SB 53', date: '2025-09-29', url: 'https://www.gov.ca.gov/sb53/', text: 'Today the Governor signed SB 53.' });
   const b = st({ title: 'Governor signs SB 53', date: '2025-09-29', url: 'http://gov.ca.gov/sb53?utm_campaign=z#top', text: 'Today the Governor signed SB 53!' });
   const c = st({ title: 'Governor  signs  SB 53', date: '2025-09-30', url: 'https://gov.ca.gov/press/other-path', text: 'today the governor signed sb 53.' });
-  const d = st({ title: 'Governor signs SB 53 and SB 7', date: '2025-09-30', url: 'https://gov.ca.gov/press/other', text: 'Different.' });
+  const d = st({ title: 'Governor signs SB 53, the AI safety bill', date: '2025-09-30', url: 'https://gov.ca.gov/press/other', text: 'Different.' });
   const r = attachStatements([sig], [a, b, c, d], { allowHosts: allow });
   assert.equal(r.events[0].sources.filter((x) => x.role === 'statement').length, 2);
   assert.deepEqual(r.dropped.map((x) => x.why), ['duplicate', 'duplicate']);

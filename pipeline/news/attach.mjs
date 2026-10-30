@@ -18,22 +18,62 @@ export const KEYWORDS = [
   [/\bexecutive order\b/i, ['executive-order']],
   [/\b(final rule|proposed rule|rulemaking)\b/i, ['agency-rule-final', 'agency-rule-proposed']],
 ];
-export function compatibleClasses(title) {
+// quote: true when checking a fragment the AI quoted (its subject may sit outside the quote; the whole headline is checked too)
+export function compatibleClasses(title, { quote = false } = {}) {
   const out = new Set();
   if (NOT_A_REPORT.test(title)) return out;
   for (const [re, cls] of KEYWORDS) if (re.test(title)) cls.forEach((c) => out.add(c));
   // "passes"/"approves" without "committee" is a floor outcome: never a committee passage (review r8 M1)
-  if (!/\bcommittee\b/i.test(title)) out.delete('committee-passage');
-  // a committee passage headline is not the floor passage
-  if (/\bcommittee\b/i.test(title) && /\b(pass(es|ed)?|approv(es|ed)|advanc\w*)\b/i.test(title)) { out.delete('passage'); out.delete('concurrence'); out.delete('veto-override-passage'); out.add('committee-passage'); }
+  const COMMITTEE = /\b(sub)?committees?\b|\bpanels?\b/i;
+  if (!COMMITTEE.test(title)) out.delete('committee-passage');
+  // A committee passage headline is not the floor passage, but only when the committee is the one passing ("Senate panel advances AI
+  // bill", "bill clears committee"). A headline that only mentions a committee ("Lawmakers pass bill after committee fight") could be
+  // either: no passage class at all (review r9 #3).
+  const PASS = /\b(pass(es|ed)?|approv(es|ed)|advanc(es|ed)|clear(s|ed))\b/i;
+  if (COMMITTEE.test(title) && PASS.test(title)) {
+    ['passage', 'concurrence', 'veto-override-passage', 'committee-passage'].forEach((c) => out.delete(c));
+    // a chamber passing too ("House passes bill cleared by committee last week"): it reports the floor vote, not the committee's (r9 A1)
+    const chamberPasses = /\b(house|senate|assembly|legislature|lawmakers|chamber)\s+(pass(es|ed)?|approv(es|ed)|clear(s|ed)|advanc(es|ed))\b/i.test(title);
+    if (!chamberPasses && /\b(sub)?committees?\s+(\w+\s+){0,2}?(pass(es|ed)?|approv(es|ed)|advanc(es|ed)|clear(s|ed))\b|\b(clear(s|ed)|out of|advanc(es|ed) (from|out of)|pass(es|ed) (in|out of)|approv(es|ed) (in|by)) (the |a |its |\w+ )?(sub)?committee\b|\bpanels?\s+(\w+\s+){0,2}?(pass(es|ed)?|approv(es|ed)|advanc(es|ed)|clear(s|ed))\b/i.test(title)) out.add('committee-passage');
+  }
   out.delete('hearing-scheduled'); // a scheduled hearing has no card (review r8)
+  // A signature is the governor's or the president's, as the one signing: not the legislature's officers ("Speaker and Senate
+  // President sign"), a senator signing on, a letter or a pledge (review r9 #6)
+  if (!quote && !/\b(gov(ernor)?\.?|president)(\s+[A-Z][\w.'-]+){0,2}\s+sign(s|ed)?\b|\bsigned by (the )?(gov(ernor)?|president)\b/i.test(title) || /\b(senate|house) president\b|\bspeaker\b|\b(lt\.?|lieutenant|acting)\s+gov|\bletter\b|\bsigns? on\b|\bpetition\b|\bpledge\b|\bsenator\b|\brepresentative\b/i.test(title)) { out.delete('executive-signature'); out.delete('became-law'); }
+  // a reading or a repeat vote is not the passage ("on first reading", "passes again", "second reading") (review r9 #6)
+  if (/\b(first|second|1st|2nd) reading\b|\bagain\b|\b(second|third) time\b|\bfinal (form|version)\b|\bonce more\b|\bre-?pass\w*|\bre-?vote\b|\brevot\w*/i.test(title)) out.clear();
+  // a governor's approval is the signature's, never a legislative vote (review r11 #3); a concurrence needs its own word (r11 #4)
+  if (/\bgov(ernor)?\b/i.test(title)) { out.delete('passage'); out.delete('concurrence'); out.delete('committee-passage'); if (!/\boverr(id|od)/i.test(title)) out.delete('veto-override-passage'); }
+  if (!/\bconcur\w*|\bagree\w*/i.test(title)) out.delete('concurrence');
+  // a headline about a hearing to come does not report one held ("Hearing set on AI bill", "Committee to hold hearing") (review r9 #3)
+  // nor does one called off ("Hearing on AI bill postponed") (review r9 A2)
+  if (/\b(set|sets|schedul\w*|resched\w*|to hold|will|upcoming|plans?|announc\w*|next week|tomorrow|postpon\w*|cancel\w*|delay\w*|rescind\w*|call(s|ed)? off)\b/i.test(title)) out.delete('hearing-held');
+  // A headline that also looks ahead ("...; full Senate vote expected next week", "Governor to sign", "Senator plans to introduce",
+  // "hearing to follow") carries a prediction: it attaches to nothing (r9 C3, D5/D6). ("May" the month is not a prediction.)
+  // (and one that waits or weighs: "as governor weighs veto", "awaits governor's signature", "setting up a vote" (review r6))
+  if (/\b(weigh\w*|mull\w*|consider\w*|await\w*|faces?|facing|threat\w*|setting up|sets up|continu\w*|debat\w*|eyes?|eyeing)\b/i.test(title)) out.clear();
+  if (/\b(expect\w*|will|next|tomorrow|upcoming|set (for|to)|slated|poised|heads? to|headed to|on track|likely|could|might|later|ahead|pending|to follow)\b|\b(plans?|aims?|seeks?|ready|going|vows?|wants?|hopes?|moves?) to\b|\bto (sign|veto|introduce|pass|vote|hold|approve|consider|take up|testify|issue)\b/i.test(title)) out.clear();
+  // Nor a headline that points at another step or another bill, or only asks: a vote or schedule to come ("override vote scheduled",
+  // "House vote next"), a date the law takes effect ("effective 2027", "to take effect January 1"), a companion bill, a question
+  // (review r9 E3/E4).
+  if (/\bvotes?\b|\bschedul\w*|\beffective\b|\btakes? effect\b|\bcompanion\b|\?/i.test(title)) out.clear();
+  // A headline that names more than one kind of event ("Assembly approves AI bill after committee hearing") reports one of them, and
+  // code cannot tell which: it attaches to nothing (r9 D3/D4). A veto override names the veto it overrides: one kind.
+  const kinds = KEYWORDS.map(([re], i) => (re.test(title) ? i : -1)).filter((i) => i >= 0);
+  // Signing an order is the order's event: one kind, and not a bill's signature.
+  const SIGN = 0, VETO = 1, OVERRIDE = 2, ORDER = 6;
+  if (kinds.includes(OVERRIDE)) out.delete('executive-veto'); // an override headline is not the veto's
+  if (kinds.includes(ORDER)) { out.delete('executive-signature'); out.delete('became-law'); }
+  if (kinds.filter((i) => !(i === VETO && kinds.includes(OVERRIDE)) && !(i === SIGN && kinds.includes(ORDER))).length > 1) out.clear();
   return out;
 }
 
 // full entity decoding (review r8 L1): the same plain text as every source adapter
 export const plainText = (s) => plain(s);
 // A headline that negates, opposes or urges (review r8 M1) never attaches: it does not report the event ("Senator urges House to pass").
-export const NOT_A_REPORT = /\b(fail|fails|failed|reject\w*|defeat\w*|block\w*|urg\w*|calls? on|called on|oppos\w*|not|won't|would|should|must)\b/i;
+// Also a headline whose news is the bill's end (kills, shelves, stalls, dies, tables, sustains), one where the event word only describes
+// the bill ("bill passed by House", "Senate-passed bill"), and one about an amendment, a resolution or a budget (review r7 #1).
+export const NOT_A_REPORT = /\b(fail|fails|failed|reject\w*|defeat\w*|block\w*|urg\w*|calls? on|called on|oppos\w*|not|won't|would|should|must|kills|killed|killing|shelves|shelved|stalls|stalled|die|dies|died|dead|tabl\w*|sustain\w*|amendments?|resolutions?|budget|appropriations?)\b|\b(passed|approved|signed|vetoed) by\b|-(passed|approved|signed|vetoed)\b/i;
 
 export function canonicalUrl(u) {
   try {
@@ -59,14 +99,16 @@ export function allowHostsFrom(cfg) {
 // Bill numbers in a headline: "SB 530", "S. 2938", "A.B. 1018", "H.R. 1" -> [{ prefix, num }]
 export function billNumbersIn(s) {
   const out = [];
-  for (const m of String(s || '').matchAll(/\b(S\.?\s?B|A\.?\s?B|H\.?\s?R|H\.?\s?B|S|A)\.?\s?(\d{1,5})\b/gi)) out.push({ prefix: m[1].toUpperCase().replace(/[.\s]/g, ''), num: String(+m[2]) });
+  // also "Senate Bill 530", "Assembly Bill 1018", "SB-530", "SB No. 530" (review r8 #5)
+  const SPELLED = { 'senate bill': 'SB', 'assembly bill': 'AB', 'house bill': 'HB', 'house resolution': 'HRES', 'senate resolution': 'SRES' };
+  for (const m of String(s || '').matchAll(/\b(senate bill|assembly bill|house bill|house resolution|senate resolution|HF|SF|LD|LB|HP|SP|SJR|HJR|SCR|HCR|AJR|ACR|SR|S\.?\s?B|A\.?\s?B|H\.?\s?R|H\.?\s?B|S|A)\.?\s?(?:-\s?|no\.\s?)?(\d{1,5})\b/gi)) out.push({ prefix: SPELLED[m[1].toLowerCase()] || m[1].toUpperCase().replace(/[.\s]/g, ''), num: String(+m[2]) });
   return out;
 }
 export function numberConflict(title, eventNumber) {
   const ev = billNumbersIn(eventNumber)[0];
   if (!ev) return false;
-  const named = billNumbersIn(title).filter((b) => b.prefix === ev.prefix);
-  return named.length > 0 && !named.some((b) => b.num === ev.num);
+  // any other bill named, of any kind, is a conflict: "Senate passes SB 7, a follow-up to SB 53" reports SB 7 (review r8 #5)
+  return billNumbersIn(title).some((b) => b.prefix !== ev.prefix || b.num !== ev.num);
 }
 // The headline's chamber and committee words must agree with the event's facts when both name one ("Senate passes" is not the House
 // passage; "Judiciary Committee hearing" is not the Commerce hearing).
@@ -75,6 +117,12 @@ export function wordsAgree(title, e) {
   const f = (e && e.facts) || {};
   const named = [...new Set([...String(title || '').matchAll(CHAMBER_WORD)].map((m) => m[1]))];
   if (named.length === 1 && f.chamber && named[0] !== f.chamber) return false;
+  // an event with no chamber cannot back a headline that names one (review r10 #7)
+  if (['passage', 'committee-passage', 'concurrence', 'failure', 'veto-override-passage'].includes(e && e.class) && !f.chamber && named.length) return false;
+  // a chamber's vote is only backed by a headline naming that chamber, alone ("Legislature passes" may be a later vote) (review r8 #6)
+  if (['passage', 'committee-passage', 'concurrence', 'failure', 'veto-override-passage'].includes(e && e.class) && f.chamber && !(named.length === 1 && named[0] === f.chamber)) return false;
+  // a floor vote's chamber is the chamber itself, not one of its committees ("passes House Judiciary") (review r9 #6)
+  if (['passage', 'failure', 'concurrence', 'veto-override-passage'].includes(e && e.class) && /\b(Senate|House|Assembly)\s+(?!(Bill|Floor|Vote|Votes|Passes|Passed|Approves|Approved|Rejects|Overrides|Concurs|On|And|In|To|For|With|After|As)\b)[A-Z][a-z]/.test(String(title || ''))) return false;
   const cm = /\b([A-Z][\w&,' -]{2,60}?)\s+Committee\b|\bCommittee on (?:the )?([A-Z][\w&,' -]{2,60})/.exec(String(title || ''));
   if (cm && f.committee) {
     const words = (s) => new Set(String(s).toLowerCase().match(/[a-z]{4,}/g) || []);
