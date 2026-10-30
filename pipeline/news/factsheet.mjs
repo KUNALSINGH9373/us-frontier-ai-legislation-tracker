@@ -8,84 +8,56 @@
 //   milestones facts.milestone strings an official record states ("first state law ..."); empty means "first/only/largest" is refused
 // Nothing else: no press release text, no web page, no entry status_text (hand-written prose that is not field-checked).
 
-export const STATE_NAMES = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming', DC: 'District of Columbia', PR: 'Puerto Rico', GU: 'Guam', VI: 'U.S. Virgin Islands', AS: 'American Samoa', MP: 'Northern Mariana Islands', US: 'United States' };
-// Territories (review r6 #7): no executive is named and no law claim is made except a became-law record with valid law wording.
-export const TERRITORIES = new Set(['PR', 'GU', 'VI', 'AS', 'MP']);
+import { STATE_NAMES, TERRITORIES, isUnicameral, executiveOf, namesExecutive, lawWordingAllowed, unicameralBody, upperOf, lowerOf, prefixOf, prefixInfo, billKey, displayNumber } from './jurisdictions.mjs';
+// Jurisdiction names, chambers, executives and bill-number prefixes come from config/jurisdictions.json (news/jurisdictions.mjs).
+// Territories (review r6 #7): no executive is named and no law claim is made except a became-law record with valid law wording (the table's
+// news_executive_wording flag).
+export { STATE_NAMES, TERRITORIES, isUnicameral, executiveOf, prefixOf, billKey, displayNumber };
 
 // The event facts a card may use (contract facts keys). Anything else in facts is dropped.
 export const EVENT_FACT_KEYS = ['chamber', 'committee', 'vote', 'agency', 'title', 'number', 'comments_close', 'deadline', 'document_number', 'court', 'docket', 'judge', 'nominee', 'position', 'location', 'time', 'executive', 'law_number', 'effective', 'hearing_date'];
 const MAX_SUMMARY = 260;
 
-// Chambers by jurisdiction, and who acts on a passed measure.
-const LOWER = { CA: 'Assembly', NY: 'Assembly', NV: 'Assembly', WI: 'Assembly', NJ: 'General Assembly' };
-const lowerOf = (j) => j === 'US' ? 'House' : LOWER[j] || 'House';
-const UNICAMERAL = new Set(['NE', 'DC', 'GU', 'VI']);
-export const isUnicameral = (j) => UNICAMERAL.has(j);
-// Who acts on a passed measure: the President, the Mayor of the District of Columbia, else the Governor (review r4 #4).
-export const executiveOf = (j) => (TERRITORIES.has(j) ? null : j === 'US' ? 'the President' : j === 'DC' ? 'the Mayor' : 'the Governor');
-
-// The letters before a bill number's digits, upper case, without dots or spaces ("H.Con.Res. 5" -> HCONRES, "KS HR6023" -> HR, "CA ACA 1"
-// -> ACA). The jurisdiction's own prefix ("CA SB 53", LegiScan) is dropped. null when there is no number.
-export function prefixOf(number, j) {
-  let t = String(number || '').trim();
-  if (j && t.toUpperCase().startsWith(`${j} `) && /^[A-Z]{2} +[A-Za-z]/.test(t)) t = t.slice(j.length + 1);
-  const m = /^\s*([A-Za-z][A-Za-z.\s]{0,12}?)\s*\.?\s*\d/.exec(t);
-  return m ? m[1].replace(/[.\s]/g, '').toUpperCase() : null;
-}
 // The chamber a bill started in, from its number's prefix. It no longer drives any wording (no next step is stated since review r5); kept
 // for the bank matrix. Maine's LD (Legislative Document) does not say the chamber (review r5 M2): null, like any unknown prefix.
 export function originOf(number, j) {
-  const p = prefixOf(number, j);
-  if (!p) return null;
-  if (UNICAMERAL.has(j)) return j === 'DC' ? 'Council' : 'Legislature';
-  if (/^(S|SB|SF|SJR|SCR|SR|SJ|SC|SM|SP|SJRES|SCONRES|SRES|SCA)$/.test(p)) return 'Senate';
-  if (/^(H|HR|HB|HF|HJR|HCR|HJ|HC|HM|HP|HJRES|HCONRES|HRES|A|AB|AJR|ACR|AR|ACA)$/.test(p)) return lowerOf(j);
-  return null;
+  const x = prefixInfo(number, j);
+  if (!x) return null;
+  if (isUnicameral(j)) return unicameralBody(j);
+  return x.chamber === 'upper' ? upperOf(j) : x.chamber === 'lower' ? lowerOf(j) : null;
 }
-// Resolutions and memorials (review r4 #8, r5 L1): simple, concurrent and joint resolutions in every spelling states use (HR/SR/AR,
-// HCR/SCR/ACR, HJR/SJR/AJR, Montana's HJ/SJ, HC/SC, memorials HM/SM/AM, HRES/SRES, Nebraska's LR, DC's PR/CER), plus constitutional
-// amendments. A resolution is never "signed into law".
-const RESOLUTION_PREFIX = /^(HR|SR|AR|R|HRES|SRES|ARES|HCR|SCR|ACR|HCONRES|SCONRES|HC|SC|HJR|SJR|AJR|HJRES|SJRES|HJ|SJ|HM|SM|AM|HMR|SMR|HJM|SJM|HCM|SCM|LR|LRCA|PR|CER|HCA|SCA|ACA|HJRCA|SJRCA)$/;
-// Constitutional amendments, per jurisdiction where the prefix is the state's own (review r5 M4): California ACA/SCA, New Jersey's
-// ACR/SCR (concurrent resolutions proposing amendments), Nebraska LRCA; elsewhere the common HCA/SCA/ACA/HJRCA/SJRCA. A state joint
-// resolution often is one too, which is why every state resolution skips the executive (skipsExecutive).
-const CONSTITUTIONAL = { CA: /^(ACA|SCA)$/, NJ: /^(ACR|SCR)$/, NE: /^LRCA$/ };
-const CONSTITUTIONAL_ANY = /^(HCA|SCA|ACA|HJRCA|SJRCA|LRCA)$/;
+// Resolutions and memorials (review r4 #8, r5 L1): simple, concurrent and joint resolutions, memorials and constitutional amendments, by
+// the table's prefix kinds. A resolution is never "signed into law".
 export function isResolution(number, j) {
-  const p = prefixOf(number, j);
-  if (!p) return false;
-  if (j === 'US') return /RES$/.test(p);
-  return RESOLUTION_PREFIX.test(p);
+  const x = prefixInfo(number, j);
+  return !!x && (x.kind === 'resolution' || x.kind === 'constitutional amendment');
 }
+// Constitutional amendments, per jurisdiction where the prefix is the state's own (review r5 M4): California ACA/SCA, New Jersey's ACR/SCR,
+// Nebraska LRCA. A federal joint resolution may propose one, but its number does not say: not claimed either way.
 export function isConstitutionalAmendment(number, j) {
-  const p = prefixOf(number, j);
-  if (!p || j === 'US') return false; // a federal joint resolution may propose one, but its number does not say: not claimed either way
-  return !!((CONSTITUTIONAL[j] && CONSTITUTIONAL[j].test(p)) || CONSTITUTIONAL_ANY.test(p));
+  const x = prefixInfo(number, j);
+  return !!x && x.kind === 'constitutional amendment';
 }
 // A measure that does not go to the executive (review r5 M4): every state resolution and memorial (joint resolutions and constitutional
-// amendments included) and a federal simple or concurrent resolution (H.Res, S.Res, H.Con.Res, S.Con.Res). A federal joint resolution
-// goes to the President. Such a measure never gets executive wording ("sent to the Governor", "signs", "into law").
+// amendments included) and a federal simple or concurrent resolution. A federal joint resolution goes to the President. Such a measure
+// never gets executive wording ("sent to the Governor", "signs", "into law").
 export function skipsExecutive(number, j) {
-  const p = prefixOf(number, j);
-  if (!p) return false;
-  if (j === 'US') return /^(HRES|SRES|HCONRES|SCONRES)$/.test(p);
-  return isResolution(number, j) || isConstitutionalAmendment(number, j);
+  const x = prefixInfo(number, j);
+  return !!x && x.skips_executive;
 }
-// A simple resolution (review r6 #5): one chamber's own resolution (HR/SR/AR/R/HRES/SRES/ARES in a state, H.Res/S.Res federally). It never
-// passes "both chambers" and has no both-chambers stage.
+// A simple resolution (review r6 #5): one chamber's own resolution. It never passes "both chambers" and has no both-chambers stage.
 export function isSimpleResolution(number, j) {
-  const p = prefixOf(number, j);
-  if (!p) return false;
-  if (j === 'US') return /^(HRES|SRES)$/.test(p);
-  return /^(HR|SR|AR|R|HRES|SRES|ARES)$/.test(p);
+  const x = prefixInfo(number, j);
+  return !!x && x.simple;
 }
-// "Into law" / "enacts" only for a known bill number that is not a resolution, outside DC (review r4 #4, #8; r5: unknown number -> no).
-export const lawWording = (number, j) => !!number && !!prefixOf(number, j) && j !== 'DC' && !isResolution(number, j) && !skipsExecutive(number, j);
+// "Into law" / "enacts" only for a known bill number that is not a resolution, where the jurisdiction allows law wording (review r4 #4, #8;
+// r5: unknown number -> no).
+export const lawWording = (number, j) => !!number && !!prefixOf(number, j) && lawWordingAllowed(j) && !isResolution(number, j) && !skipsExecutive(number, j);
 const chamberName = (j, chamber) => {
   const c = String(chamber || '').toLowerCase();
-  if (/senate|upper/.test(c)) return 'Senate';
-  if (/assembly/.test(c)) return LOWER[j] || 'Assembly';
-  if (/^legislature$|^council$/.test(c)) return j === 'DC' ? 'Council' : 'Legislature'; // review r7 L2
+  if (/senate|upper/.test(c)) return upperOf(j);
+  if (/assembly/.test(c)) return /assembly/i.test(lowerOf(j)) ? lowerOf(j) : 'Assembly';
+  if (/^legislature$|^council$/.test(c)) return unicameralBody(j) || 'Legislature'; // review r7 L2
   if (/house|lower/.test(c)) return lowerOf(j);
   return chamber ? String(chamber) : null;
 };
@@ -95,33 +67,17 @@ const chamberName = (j, chamber) => {
 // passed-both only in a two-chamber legislature for a known number that is not a simple resolution. Everything else: none (omitted).
 export function ownStageCode(cls, j, number = null) {
   switch (cls) {
-    case 'executive-signature': return number && !isResolution(number, j) && !TERRITORIES.has(j) ? 'signed' : null;
+    case 'executive-signature': return number && !isResolution(number, j) && namesExecutive(j) ? 'signed' : null;
     case 'became-law': return lawWording(number, j) ? 'law' : null;
-    case 'enrolled': return !UNICAMERAL.has(j) && number && prefixOf(number, j) && !isSimpleResolution(number, j) ? 'passed-both' : null;
+    case 'enrolled': return !isUnicameral(j) && number && prefixOf(number, j) && !isSimpleResolution(number, j) ? 'passed-both' : null;
     default: return null;
   }
-}
-// The bill number events are compared on (review r5 M6): letters and digits only, the jurisdiction prefix and leading zeros dropped, a
-// trailing print letter (NY "A6453B") dropped. null when there is none.
-export function billKey(number, j) {
-  let t = String(number || '').trim();
-  if (!t) return null;
-  if (j && t.toUpperCase().startsWith(`${j} `) && /^[A-Z]{2} +[A-Za-z]/.test(t)) t = t.slice(j.length + 1);
-  const n = t.toUpperCase().replace(/[^A-Z0-9]/g, '').replace(/^([A-Z]+)0+(?=\d)/, '$1').replace(/^([A-Z]+\d+)[A-Z]$/, '$1');
-  return /^[A-Z]+\d+$/.test(n) ? n : null;
-}
-// A record's number as a card shows it: the jurisdiction prefix dropped and a space before the digits ("CA AB1405" -> "AB 1405"); any
-// other spelling ("H.R. 3460", "S. 1405", "B 26-0123") is kept as the record gives it.
-export function displayNumber(number, j) {
-  let t = String(number || '').trim();
-  if (j && t.toUpperCase().startsWith(`${j} `) && /^[A-Z]{2} +[A-Za-z]/.test(t)) t = t.slice(j.length + 1).trim();
-  return /^[A-Z]+\d+[A-Z]?$/.test(t) ? t.replace(/^([A-Z]+)(\d)/, '$1 $2') : t;
 }
 // Where the measure stands, in words, after this event: only what the record shows happened (review r5: no next step is ever stated).
 // Built from this event alone (review r6: nothing from other events); "both chambers" only for an enrolment that is not a simple resolution.
 export function stageOf(cls, j, f = {}) {
-  const ch = chamberName(j, f.chamber), skip = skipsExecutive(f.number, j) || TERRITORIES.has(j), exec = executiveOf(j);
-  const both = UNICAMERAL.has(j) ? (j === 'NE' ? 'Passed the Legislature' : 'Passed the Council') : 'Passed both chambers';
+  const ch = chamberName(j, f.chamber), skip = skipsExecutive(f.number, j) || !namesExecutive(j), exec = executiveOf(j);
+  const both = isUnicameral(j) ? `Passed the ${unicameralBody(j)}` : 'Passed both chambers';
   switch (cls) {
     case 'introduction': return 'Introduced';
     case 'referral-committee': case 'hearing-scheduled': case 'hearing-held': return 'In committee';
@@ -133,7 +89,7 @@ export function stageOf(cls, j, f = {}) {
     case 'concurrence': return ch ? `Concurred in the ${ch}` : null;
     case 'enrolled': return isSimpleResolution(f.number, j) ? 'Enrolled' : both;
     case 'executive-receipt': return skip ? null : `Sent to ${exec}`;
-    case 'executive-signature': return lawWording(f.number, j) && !TERRITORIES.has(j) ? 'Signed into law' : 'Signed';
+    case 'executive-signature': return lawWording(f.number, j) && namesExecutive(j) ? 'Signed into law' : 'Signed';
     case 'became-law': return lawWording(f.number, j) ? 'Became law' : null; // review r6 #1: never for a resolution or amendment
     case 'executive-veto': return 'Vetoed';
     case 'veto-override-passage': return ch ? `Override vote passed the ${ch}` : null; // one chamber's vote is not the veto overridden (review r7 M1)
@@ -204,7 +160,7 @@ export function buildFactSheet(event, entry = null, { today = null } = {}) {
   // the record's own number, shown without the jurisdiction prefix LegiScan adds ("CA AB1405" -> "AB 1405"); without one, the entry's
   // number only when the entry names exactly one bill (review r5 M6: "S. 1792 / H.R. 3460" never lends S. 1792 to a House action)
   const own = f.number ? displayNumber(String(f.number), j) : null, entryNums = [...new Set((entry ? billNumbers(entry.short_name || '') : []).map((x) => billKey(x, j)))];
-  const number = own || (entryNums.length === 1 ? nums[0] || null : null), skip = skipsExecutive(number, j) || TERRITORIES.has(j);
+  const number = own || (entryNums.length === 1 ? nums[0] || null : null), skip = skipsExecutive(number, j) || !namesExecutive(j);
   if (skip) delete facts.executive; // a measure that skips the executive is never said to be signed or vetoed by one (review r5 M4)
   const stage = stageOf(ev.class, j, { ...f, number, chamber: facts.chamber });
   const stage_code = ownStageCode(ev.class, j, number);
@@ -219,7 +175,7 @@ export function buildFactSheet(event, entry = null, { today = null } = {}) {
       jurisdiction_name: STATE_NAMES[j] || j,
       executive: skip ? null : executiveOf(j),
       resolution: isResolution(number, j),
-      law_wording: lawWording(number, j) && !TERRITORIES.has(j), // "signed into law" / "enacts"
+      law_wording: lawWording(number, j) && namesExecutive(j), // "signed into law" / "enacts"
       became_law_ok: lawWording(number, j), // "became law", for a became-law record only (territories included)
       simple_resolution: isSimpleResolution(number, j)
     },

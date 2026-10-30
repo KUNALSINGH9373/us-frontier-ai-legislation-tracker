@@ -14,11 +14,20 @@ export function sourceConfig(name) {
   if (!CONFIG) { try { CONFIG = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8')).structured || {}; } catch { CONFIG = {}; } }
   return CONFIG[name] || { hosts: [] };
 }
+// Every structured source: [[name, config]], in the file's order.
+export const structuredSources = () => { sourceConfig(''); return Object.entries(CONFIG).filter(([k, v]) => !k.startsWith('_') && v && typeof v === 'object'); };
+// Whether a source covers a jurisdiction (config "jurisdictions": "all", "states" = every jurisdiction but the federal one, or a list).
+export const covers = (cfg, j) => cfg.jurisdictions === 'all' || (cfg.jurisdictions === 'states' ? !!j && j !== 'US' : Array.isArray(cfg.jurisdictions) && cfg.jurisdictions.includes(j));
+// State bill sources by role (config "role"): an aggregator (LegiScan, Open States), a legislature's own API (NY Senate), the legislatures'
+// own sites (state_legislature).
+export const STATE_ROLES = new Set(['aggregator', 'legislature_api', 'legislature_site']);
 
+// The news step's time limits and windows (config/news-sources.json "timing").
+export const NEWS_TIMING = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8')).timing;
 export const USER_AGENT = 'us-frontier-ai-tracker-pipeline/0.1 (official news sources)';
-// News sources use a 15 s per-call timeout (review F2d): a slow source can never hold the run.
-export const NEWS_FETCH_TIMEOUT_MS = 15000;
-export function defaultHttp({ timeoutMs = 30000 } = {}) {
+// News sources use a short per-call timeout (review F2d, 15 s): a slow source can never hold the run.
+export const NEWS_FETCH_TIMEOUT_MS = NEWS_TIMING.fetch_timeout_ms;
+export function defaultHttp({ timeoutMs = NEWS_FETCH_TIMEOUT_MS } = {}) {
   return async (url, { headers = {} } = {}) => {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), timeoutMs);
     try { const r = await fetch(url, { headers: { 'user-agent': USER_AGENT, ...headers }, signal: ctl.signal, redirect: 'follow' }); return { status: r.status, text: await r.text(), url: r.url }; }

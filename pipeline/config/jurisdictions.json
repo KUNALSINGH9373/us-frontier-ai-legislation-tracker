@@ -1,0 +1,788 @@
+{
+ "_note": "One entry per jurisdiction, read by every news module through news/jurisdictions.mjs. Chamber names are the short forms a card uses (\"House\" for a House of Representatives or House of Delegates; New Jersey's lower chamber is the General Assembly). unicameral: the one body's name (then upper/lower are null). executive: who acts on a passed measure. news_executive_wording false (review r6 #7, deliberate): the territories have governors, but a card names no executive and makes no law claim except a became-law record with valid law wording, because their signing flows are not modelled. law_wording false (review r4 #4): a District act becomes law only after Congressional review, so no 'into law' wording. Bill-number prefixes: state_prefixes apply to every jurisdiction unless default_prefixes is false; a jurisdiction's own prefixes override them. Each prefix: chamber (upper | lower | null: the number does not say), kind (bill | resolution | constitutional amendment), simple (one chamber's own resolution), skips_executive (default: true for every resolution and amendment, false for a bill).",
+ "chamber_letters": {
+  "H": "House",
+  "S": "Senate",
+  "A": "Assembly"
+ },
+ "headline_prefixes": [
+  "HF",
+  "SF",
+  "LD",
+  "LB",
+  "HP",
+  "SP",
+  "SJR",
+  "HJR",
+  "SCR",
+  "HCR",
+  "AJR",
+  "ACR",
+  "SR",
+  "S.B",
+  "A.B",
+  "H.R",
+  "H.B",
+  "S",
+  "A"
+ ],
+ "spelled_prefixes": {
+  "senate bill": "SB",
+  "assembly bill": "AB",
+  "house bill": "HB",
+  "house resolution": "HRES",
+  "senate resolution": "SRES"
+ },
+ "state_prefixes": {
+  "S": {
+   "chamber": "upper",
+   "kind": "bill"
+  },
+  "SB": {
+   "chamber": "upper",
+   "kind": "bill"
+  },
+  "SF": {
+   "chamber": "upper",
+   "kind": "bill"
+  },
+  "SP": {
+   "chamber": "upper",
+   "kind": "bill"
+  },
+  "H": {
+   "chamber": "lower",
+   "kind": "bill"
+  },
+  "HB": {
+   "chamber": "lower",
+   "kind": "bill"
+  },
+  "HF": {
+   "chamber": "lower",
+   "kind": "bill"
+  },
+  "HP": {
+   "chamber": "lower",
+   "kind": "bill"
+  },
+  "A": {
+   "chamber": "lower",
+   "kind": "bill"
+  },
+  "AB": {
+   "chamber": "lower",
+   "kind": "bill"
+  },
+  "SR": {
+   "chamber": "upper",
+   "kind": "resolution",
+   "simple": true
+  },
+  "SRES": {
+   "chamber": "upper",
+   "kind": "resolution",
+   "simple": true
+  },
+  "HR": {
+   "chamber": "lower",
+   "kind": "resolution",
+   "simple": true
+  },
+  "HRES": {
+   "chamber": "lower",
+   "kind": "resolution",
+   "simple": true
+  },
+  "AR": {
+   "chamber": "lower",
+   "kind": "resolution",
+   "simple": true
+  },
+  "ARES": {
+   "chamber": null,
+   "kind": "resolution",
+   "simple": true
+  },
+  "R": {
+   "chamber": null,
+   "kind": "resolution",
+   "simple": true
+  },
+  "SCR": {
+   "chamber": "upper",
+   "kind": "resolution"
+  },
+  "SCONRES": {
+   "chamber": "upper",
+   "kind": "resolution"
+  },
+  "SC": {
+   "chamber": "upper",
+   "kind": "resolution"
+  },
+  "HCR": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "HCONRES": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "HC": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "ACR": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "SJR": {
+   "chamber": "upper",
+   "kind": "resolution"
+  },
+  "SJRES": {
+   "chamber": "upper",
+   "kind": "resolution"
+  },
+  "SJ": {
+   "chamber": "upper",
+   "kind": "resolution"
+  },
+  "HJR": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "HJRES": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "HJ": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "AJR": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "SM": {
+   "chamber": "upper",
+   "kind": "resolution"
+  },
+  "HM": {
+   "chamber": "lower",
+   "kind": "resolution"
+  },
+  "AM": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "HMR": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "SMR": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "HJM": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "SJM": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "HCM": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "SCM": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "LR": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "PR": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "CER": {
+   "chamber": null,
+   "kind": "resolution"
+  },
+  "SCA": {
+   "chamber": "upper",
+   "kind": "constitutional amendment"
+  },
+  "HCA": {
+   "chamber": null,
+   "kind": "constitutional amendment"
+  },
+  "ACA": {
+   "chamber": "lower",
+   "kind": "constitutional amendment"
+  },
+  "HJRCA": {
+   "chamber": null,
+   "kind": "constitutional amendment"
+  },
+  "SJRCA": {
+   "chamber": null,
+   "kind": "constitutional amendment"
+  },
+  "LRCA": {
+   "chamber": null,
+   "kind": "constitutional amendment"
+  }
+ },
+ "jurisdictions": {
+  "AL": {
+   "name": "Alabama",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "AK": {
+   "name": "Alaska",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "AZ": {
+   "name": "Arizona",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "AR": {
+   "name": "Arkansas",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "CA": {
+   "name": "California",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "Assembly",
+   "executive": "the Governor"
+  },
+  "CO": {
+   "name": "Colorado",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "CT": {
+   "name": "Connecticut",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "DE": {
+   "name": "Delaware",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "FL": {
+   "name": "Florida",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "GA": {
+   "name": "Georgia",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "HI": {
+   "name": "Hawaii",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "ID": {
+   "name": "Idaho",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "IL": {
+   "name": "Illinois",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "IN": {
+   "name": "Indiana",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "IA": {
+   "name": "Iowa",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "KS": {
+   "name": "Kansas",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "KY": {
+   "name": "Kentucky",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "LA": {
+   "name": "Louisiana",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "ME": {
+   "name": "Maine",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor",
+   "prefixes": {
+    "LD": {
+     "chamber": null,
+     "kind": "bill"
+    }
+   }
+  },
+  "MD": {
+   "name": "Maryland",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "MA": {
+   "name": "Massachusetts",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "MI": {
+   "name": "Michigan",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "MN": {
+   "name": "Minnesota",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "MS": {
+   "name": "Mississippi",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "MO": {
+   "name": "Missouri",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "MT": {
+   "name": "Montana",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "NE": {
+   "name": "Nebraska",
+   "type": "state",
+   "unicameral": "Legislature",
+   "upper": null,
+   "lower": null,
+   "executive": "the Governor",
+   "prefixes": {
+    "LB": {
+     "chamber": null,
+     "kind": "bill"
+    },
+    "LR": {
+     "chamber": null,
+     "kind": "resolution"
+    },
+    "LRCA": {
+     "chamber": null,
+     "kind": "constitutional amendment"
+    }
+   }
+  },
+  "NV": {
+   "name": "Nevada",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "Assembly",
+   "executive": "the Governor"
+  },
+  "NH": {
+   "name": "New Hampshire",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "NJ": {
+   "name": "New Jersey",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "General Assembly",
+   "executive": "the Governor",
+   "prefixes": {
+    "ACR": {
+     "chamber": "lower",
+     "kind": "constitutional amendment"
+    },
+    "SCR": {
+     "chamber": "upper",
+     "kind": "constitutional amendment"
+    }
+   }
+  },
+  "NM": {
+   "name": "New Mexico",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "NY": {
+   "name": "New York",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "Assembly",
+   "executive": "the Governor"
+  },
+  "NC": {
+   "name": "North Carolina",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "ND": {
+   "name": "North Dakota",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "OH": {
+   "name": "Ohio",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "OK": {
+   "name": "Oklahoma",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "OR": {
+   "name": "Oregon",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "PA": {
+   "name": "Pennsylvania",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "RI": {
+   "name": "Rhode Island",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "SC": {
+   "name": "South Carolina",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "SD": {
+   "name": "South Dakota",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "TN": {
+   "name": "Tennessee",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "TX": {
+   "name": "Texas",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "UT": {
+   "name": "Utah",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "VT": {
+   "name": "Vermont",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "VA": {
+   "name": "Virginia",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "WA": {
+   "name": "Washington",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "WV": {
+   "name": "West Virginia",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "WI": {
+   "name": "Wisconsin",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "Assembly",
+   "executive": "the Governor"
+  },
+  "WY": {
+   "name": "Wyoming",
+   "type": "state",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor"
+  },
+  "DC": {
+   "name": "District of Columbia",
+   "type": "district",
+   "unicameral": "Council",
+   "upper": null,
+   "lower": null,
+   "executive": "the Mayor",
+   "law_wording": false,
+   "prefixes": {
+    "B": {
+     "chamber": null,
+     "kind": "bill"
+    },
+    "PR": {
+     "chamber": null,
+     "kind": "resolution"
+    },
+    "CER": {
+     "chamber": null,
+     "kind": "resolution"
+    }
+   }
+  },
+  "PR": {
+   "name": "Puerto Rico",
+   "type": "territory",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor",
+   "news_executive_wording": false
+  },
+  "GU": {
+   "name": "Guam",
+   "type": "territory",
+   "unicameral": "Legislature",
+   "upper": null,
+   "lower": null,
+   "executive": "the Governor",
+   "news_executive_wording": false
+  },
+  "VI": {
+   "name": "U.S. Virgin Islands",
+   "type": "territory",
+   "unicameral": "Legislature",
+   "upper": null,
+   "lower": null,
+   "executive": "the Governor",
+   "news_executive_wording": false
+  },
+  "AS": {
+   "name": "American Samoa",
+   "type": "territory",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor",
+   "news_executive_wording": false
+  },
+  "MP": {
+   "name": "Northern Mariana Islands",
+   "type": "territory",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the Governor",
+   "news_executive_wording": false
+  },
+  "US": {
+   "name": "United States",
+   "type": "federal",
+   "unicameral": null,
+   "upper": "Senate",
+   "lower": "House",
+   "executive": "the President",
+   "default_prefixes": false,
+   "prefixes": {
+    "S": {
+     "chamber": "upper",
+     "kind": "bill"
+    },
+    "HR": {
+     "chamber": "lower",
+     "kind": "bill"
+    },
+    "SRES": {
+     "chamber": "upper",
+     "kind": "resolution",
+     "simple": true
+    },
+    "HRES": {
+     "chamber": "lower",
+     "kind": "resolution",
+     "simple": true
+    },
+    "SCONRES": {
+     "chamber": "upper",
+     "kind": "resolution"
+    },
+    "HCONRES": {
+     "chamber": "lower",
+     "kind": "resolution"
+    },
+    "SJRES": {
+     "chamber": "upper",
+     "kind": "resolution",
+     "skips_executive": false
+    },
+    "HJRES": {
+     "chamber": "lower",
+     "kind": "resolution",
+     "skips_executive": false
+    }
+   }
+  }
+ }
+}
