@@ -1,0 +1,761 @@
+{
+ "_note": "News events (news/events.mjs), from official records only. Never edit by hand; corrections are status changes, never deletions.",
+ "events": {
+  "US|-|referral-committee|2026-10-29#HRES1642": {
+   "key": "US|-|referral-committee|2026-10-29#HRES1642",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "referral-committee",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Referred to the Committee on Financial Services, and in addition to the Committees on the Judiciary, and Education and Workforce, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+    "committee": "Education and Workforce Committee",
+    "number": "H.Res. 1642",
+    "title": "Expressing the sense of the House of Representatives that Congress must refuse to provide any additional funds or exceptional regulatory support to companies or financial institutions facing insolvency or financial collapse due to exposures to acute stress within the artificial intelligence market and must provide support to all harmed Americans instead."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hres/1642#2026-10-29#a901509b",
+     "record": "119/hres/1642",
+     "url": "https://www.congress.gov/bill/119th-congress/house-resolution/1642",
+     "title": "Expressing the sense of the House of Representatives that Congress must refuse to provide any additional funds or exceptional regulatory support to companies or financial institutions facing insolvency or financial collapse due to exposures to acute stress within the artificial intelligence market and must provide support to all harmed Americans instead.",
+     "publisher": null,
+     "retrieved_at": "2026-10-30T15:06:05Z",
+     "hash": "b048e7f7aedff1a8"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-30T15:06:01.949Z",
+   "facts_digest": "29a119a182b41cc1",
+   "history": [
+    {
+     "at": "2026-10-30T15:06:01.949Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "fc8e225cf91402ad"
+  },
+  "US|-|introduction|2026-10-29#HRES1642": {
+   "key": "US|-|introduction|2026-10-29#HRES1642",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Submitted in House",
+    "chamber": "House",
+    "number": "H.Res. 1642",
+    "title": "Expressing the sense of the House of Representatives that Congress must refuse to provide any additional funds or exceptional regulatory support to companies or financial institutions facing insolvency or financial collapse due to exposures to acute stress within the artificial intelligence market and must provide support to all harmed Americans instead."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hres/1642#2026-10-29#319bcf2d",
+     "record": "119/hres/1642",
+     "url": "https://www.congress.gov/bill/119th-congress/house-resolution/1642",
+     "title": "Expressing the sense of the House of Representatives that Congress must refuse to provide any additional funds or exceptional regulatory support to companies or financial institutions facing insolvency or financial collapse due to exposures to acute stress within the artificial intelligence market and must provide support to all harmed Americans instead.",
+     "publisher": null,
+     "retrieved_at": "2026-10-30T15:06:05Z",
+     "hash": "047d75be8fc5712d"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-30T15:06:01.949Z",
+   "facts_digest": "0ca8dda222baa9b2",
+   "history": [
+    {
+     "at": "2026-10-30T15:06:01.949Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "b3f74c8599063c85"
+  },
+  "US|-|null|2026-10-26": {
+   "key": "US|-|null|2026-10-26",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": null,
+   "date": "2026-10-26",
+   "facts": {
+    "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
+    "document_number": "2026-21723",
+    "agency": "Homeland Security Department; Coast Guard",
+    "type": "Notice",
+    "publication_date": "2026-10-26",
+    "comments_close": "2026-11-25",
+    "docket": "Docket Number USCG-2026-0374"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "federal_register",
+     "source_id": "2026-21723",
+     "url": "https://www.federalregister.gov/documents/2026/10/26/2026-21723/cooperative-research-and-development-agreement-super-intelligence-si-situational-awareness-tools-for",
+     "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
+     "publisher": null,
+     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "hash": "89ccaa83a68fe096"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-30T15:06:01.949Z",
+   "facts_digest": "0ba506c37c8914c4",
+   "history": [
+    {
+     "at": "2026-10-30T15:06:01.949Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "88840b6936754603"
+  },
+  "US|-|comment-period-open|FR2026-21723": {
+   "key": "US|-|comment-period-open|FR2026-21723",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "comment-period-open",
+   "date": "2026-10-26",
+   "facts": {
+    "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
+    "document_number": "2026-21723",
+    "agency": "Homeland Security Department; Coast Guard",
+    "type": "Notice",
+    "publication_date": "2026-10-26",
+    "comments_close": "2026-11-25",
+    "docket": "Docket Number USCG-2026-0374"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "federal_register",
+     "source_id": "2026-21723#comment-period-open",
+     "url": "https://www.federalregister.gov/documents/2026/10/26/2026-21723/cooperative-research-and-development-agreement-super-intelligence-si-situational-awareness-tools-for",
+     "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
+     "publisher": null,
+     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "hash": "89ccaa83a68fe096"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-30T15:06:01.949Z",
+   "facts_digest": "0ba506c37c8914c4",
+   "history": [
+    {
+     "at": "2026-10-30T15:06:01.949Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "b16e25bd0cc1562d"
+  },
+  "US|-|null|2026-10-20": {
+   "key": "US|-|null|2026-10-20",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": null,
+   "date": "2026-10-20",
+   "facts": {
+    "title": "Notice of Order Regarding Exclusion and Removal of DeepSeek Products From Federal Civilian Executive Branch Information Technology Systems and Procurements",
+    "document_number": "2026-21447",
+    "agency": "Homeland Security Department",
+    "type": "Notice",
+    "publication_date": "2026-10-20",
+    "docket": "Docket No. DHS-2026-0628"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "federal_register",
+     "source_id": "2026-21447",
+     "url": "https://www.federalregister.gov/documents/2026/10/20/2026-21447/notice-of-order-regarding-exclusion-and-removal-of-deepseek-products-from-federal-civilian-executive",
+     "title": "Notice of Order Regarding Exclusion and Removal of DeepSeek Products From Federal Civilian Executive Branch Information Technology Systems and Procurements",
+     "publisher": null,
+     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "hash": "27d82e7f67a2e3aa"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-30T15:06:01.949Z",
+   "facts_digest": "276c7aed410381f5",
+   "history": [
+    {
+     "at": "2026-10-30T15:06:01.949Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "d3b130349496c3d4"
+  },
+  "US|h-r-10873-ai-cyber-defense-act|null|2026-10-22": {
+   "key": "US|h-r-10873-ai-cyber-defense-act|null|2026-10-22",
+   "jurisdiction": "US",
+   "entry_id": "h-r-10873-ai-cyber-defense-act",
+   "class": null,
+   "date": "2026-10-22",
+   "facts": {
+    "title": "AI Cyber Defense Act",
+    "number": "H.R. 10873",
+    "congress": 119,
+    "version": "ih"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "govinfo",
+     "source_id": "BILLS-119hr10873ih",
+     "url": "https://www.govinfo.gov/app/details/BILLS-119hr10873ih",
+     "title": "AI Cyber Defense Act",
+     "publisher": null,
+     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "hash": "67729b2d3d521cdb"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-30T15:06:01.949Z",
+   "facts_digest": "905ea3751cd4242b",
+   "history": [
+    {
+     "at": "2026-10-30T15:06:01.949Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "688a2d527157b647"
+  }
+ },
+ "adapters": {
+  "federal_register": {
+   "since": "2026-10-30"
+  },
+  "govinfo": {
+   "since": "2026-10-28"
+  },
+  "regulations_gov": {
+   "since": "2026-10-16"
+  },
+  "congress_extra": {
+   "since": "2026-10-29"
+  },
+  "openstates": {
+   "sessions": {
+    "ca": [
+     {
+      "identifier": "19891990",
+      "name": "1989-1990 Regular Session"
+     },
+     {
+      "identifier": "19891990 Special Session 1",
+      "name": "1989-1990, 1st Special Session"
+     },
+     {
+      "identifier": "19911992",
+      "name": "1991-1992 Regular Session"
+     },
+     {
+      "identifier": "19911992 Special Session 1",
+      "name": "1991-1992, 1st Special Session"
+     },
+     {
+      "identifier": "19911992 Special Session 2",
+      "name": "1991-1992, 2nd Special Session"
+     },
+     {
+      "identifier": "19931994 Special Session 1",
+      "name": "1993-1994, 1st Special Session"
+     },
+     {
+      "identifier": "19931994",
+      "name": "1993-1994 Regular Session"
+     },
+     {
+      "identifier": "19951996",
+      "name": "1995-1996 Regular Session"
+     },
+     {
+      "identifier": "19951996 Special Session 1",
+      "name": "1995-1996, 1st Special Session"
+     },
+     {
+      "identifier": "19951996 Special Session 2",
+      "name": "1995-1996, 2nd Special Session"
+     },
+     {
+      "identifier": "19951996 Special Session 3",
+      "name": "1995-1996, 3rd Special Session"
+     },
+     {
+      "identifier": "19951996 Special Session 4",
+      "name": "1995-1996, 4th Special Session"
+     },
+     {
+      "identifier": "19971998",
+      "name": "1997-1998 Regular Session"
+     },
+     {
+      "identifier": "19971998 Special Session 1",
+      "name": "1997-1998, 1st Special Session"
+     },
+     {
+      "identifier": "19992000",
+      "name": "1999-2000 Regular Session"
+     },
+     {
+      "identifier": "19992000 Special Session 1",
+      "name": "1999-2000, 1st Special Session"
+     },
+     {
+      "identifier": "20012002",
+      "name": "2001-2002 Regular Session"
+     },
+     {
+      "identifier": "20012002 Special Session 1",
+      "name": "2001-2002, 1st Special Session"
+     },
+     {
+      "identifier": "20012002 Special Session 2",
+      "name": "2001-2002, 2nd Special Session"
+     },
+     {
+      "identifier": "20012002 Special Session 3",
+      "name": "2001-2002, 3rd Special Session"
+     },
+     {
+      "identifier": "20032004",
+      "name": "2003-2004 Regular Session"
+     },
+     {
+      "identifier": "20032004 Special Session 1",
+      "name": "2003-2004, 1st Special Session"
+     },
+     {
+      "identifier": "20032004 Special Session 2",
+      "name": "2003-2004, 2nd Special Session"
+     },
+     {
+      "identifier": "20032004 Special Session 4",
+      "name": "2003-2004, 4th Special Session"
+     },
+     {
+      "identifier": "20032004 Special Session 5",
+      "name": "2003-2004, 5th Special Session"
+     },
+     {
+      "identifier": "20032004 Special Session 3",
+      "name": "2003-2004, 3rd Special Session"
+     },
+     {
+      "identifier": "20052006",
+      "name": "2005-2006 Regular Session"
+     },
+     {
+      "identifier": "20052006 Special Session 1",
+      "name": "2005-2006, 1st Special Session"
+     },
+     {
+      "identifier": "20052006 Special Session 2",
+      "name": "2005-2006, 2nd Special Session"
+     },
+     {
+      "identifier": "20072008",
+      "name": "2007-2008 Regular Session"
+     },
+     {
+      "identifier": "20072008 Special Session 1",
+      "name": "2007-2008, 1st Special Session"
+     },
+     {
+      "identifier": "20072008 Special Session 2",
+      "name": "2007-2008, 2nd Special Session"
+     },
+     {
+      "identifier": "20072008 Special Session 3",
+      "name": "2007-2008, 3rd Special Session"
+     },
+     {
+      "identifier": "20072008 Special Session 4",
+      "name": "2007-2008, 4th Special Session"
+     },
+     {
+      "identifier": "20092010",
+      "name": "2009-2010 Regular Session"
+     },
+     {
+      "identifier": "20092010 Special Session 2",
+      "name": "2009-2010, 2nd Special Session"
+     },
+     {
+      "identifier": "20092010 Special Session 1",
+      "name": "2009-2010, 1st Special Session"
+     },
+     {
+      "identifier": "20092010 Special Session 3",
+      "name": "2009-2010, 3rd Special Session"
+     },
+     {
+      "identifier": "20092010 Special Session 4",
+      "name": "2009-2010, 4th Special Session"
+     },
+     {
+      "identifier": "20092010 Special Session 5",
+      "name": "2009-2010, 5th Special Session"
+     },
+     {
+      "identifier": "20092010 Special Session 6",
+      "name": "2009-2010, 6th Special Session"
+     },
+     {
+      "identifier": "20092010 Special Session 7",
+      "name": "2009-2010, 7th Special Session"
+     },
+     {
+      "identifier": "20092010 Special Session 8",
+      "name": "2009-2010, 8th Special Session"
+     },
+     {
+      "identifier": "20112012 Special Session 1",
+      "name": "2011-2012, 1st Special Session"
+     },
+     {
+      "identifier": "20112012",
+      "name": "2011-2012 Regular Session"
+     },
+     {
+      "identifier": "20132014",
+      "name": "2013-2014 Regular Session"
+     },
+     {
+      "identifier": "20132014 Special Session 1",
+      "name": "2013-2014, 1st Special Session"
+     },
+     {
+      "identifier": "20132014 Special Session 2",
+      "name": "2013-2014, 2nd Special Session"
+     },
+     {
+      "identifier": "20152016",
+      "name": "2015-2016 Regular Session"
+     },
+     {
+      "identifier": "20152016 Special Session 1",
+      "name": "2015-2016, 1st Special Session"
+     },
+     {
+      "identifier": "20152016 Special Session 2",
+      "name": "2015-2016, 2nd Special Session"
+     },
+     {
+      "identifier": "20172018",
+      "name": "2017-2018 Regular Session"
+     },
+     {
+      "identifier": "20192020",
+      "name": "2019-2020 Regular Session"
+     },
+     {
+      "identifier": "20212022",
+      "name": "2021-2022 Regular Session"
+     },
+     {
+      "identifier": "20232024",
+      "name": "2023-2024 Regular Session"
+     },
+     {
+      "identifier": "20232024 Special Session 1",
+      "name": "2023-2024, Special Session 1"
+     },
+     {
+      "identifier": "20232024 Special Session 2",
+      "name": "2023-2024, Special Session 2"
+     },
+     {
+      "identifier": "20252026 Special Session 1",
+      "name": "2025-2026, Special Session 1"
+     },
+     {
+      "identifier": "20252026",
+      "name": "2025-2026 Regular Session"
+     }
+    ],
+    "ny": [
+     {
+      "identifier": "2009-2010",
+      "name": "2009 Regular Session"
+     },
+     {
+      "identifier": "2011-2012",
+      "name": "2011 Regular Session"
+     },
+     {
+      "identifier": "2013-2014",
+      "name": "2013 Regular Session"
+     },
+     {
+      "identifier": "2015-2016",
+      "name": "2015 Regular Session"
+     },
+     {
+      "identifier": "2017-2018",
+      "name": "2017 Regular Session"
+     },
+     {
+      "identifier": "2019-2020",
+      "name": "2019 Regular Session"
+     },
+     {
+      "identifier": "2021-2022",
+      "name": "2021 Regular Session"
+     },
+     {
+      "identifier": "2023-2024",
+      "name": "2023 Regular Session"
+     },
+     {
+      "identifier": "2025-2026",
+      "name": "2025 Regular Session"
+     }
+    ],
+    "il": [
+     {
+      "identifier": "90th",
+      "name": "90th Regular Session"
+     },
+     {
+      "identifier": "91st",
+      "name": "91st Regular Session"
+     },
+     {
+      "identifier": "92nd",
+      "name": "92nd Regular Session"
+     },
+     {
+      "identifier": "93rd",
+      "name": "93rd Regular Session"
+     },
+     {
+      "identifier": "93rd-special",
+      "name": "93rd Special Session"
+     },
+     {
+      "identifier": "94th",
+      "name": "94th Regular Session"
+     },
+     {
+      "identifier": "95th",
+      "name": "95th Regular Session"
+     },
+     {
+      "identifier": "95th-special",
+      "name": "95th Special Session"
+     },
+     {
+      "identifier": "96th",
+      "name": "96th Regular Session"
+     },
+     {
+      "identifier": "96th-special",
+      "name": "96th Special Session"
+     },
+     {
+      "identifier": "97th",
+      "name": "97th Regular Session"
+     },
+     {
+      "identifier": "98th",
+      "name": "98th Regular Session"
+     },
+     {
+      "identifier": "99th",
+      "name": "99th Regular Session"
+     },
+     {
+      "identifier": "100th",
+      "name": "100th Regular Session"
+     },
+     {
+      "identifier": "100th-special",
+      "name": "100th Special Session"
+     },
+     {
+      "identifier": "101st",
+      "name": "101st Regular Session"
+     },
+     {
+      "identifier": "102nd",
+      "name": "102nd Regular Session"
+     },
+     {
+      "identifier": "103rd",
+      "name": "103rd Regular Session"
+     },
+     {
+      "identifier": "104th",
+      "name": "104th Regular Session"
+     }
+    ],
+    "ma": [
+     {
+      "identifier": "184th",
+      "name": "184th Legislature (2007-2008)"
+     },
+     {
+      "identifier": "185th",
+      "name": "185th Legislature (2007-2008)"
+     },
+     {
+      "identifier": "186th",
+      "name": "186th Legislature (2009-2010)"
+     },
+     {
+      "identifier": "187th",
+      "name": "187th Legislature (2011-2012)"
+     },
+     {
+      "identifier": "188th",
+      "name": "188th Legislature (2013-2014)"
+     },
+     {
+      "identifier": "189th",
+      "name": "189th Legislature (2015-2016)"
+     },
+     {
+      "identifier": "190th",
+      "name": "190th Legislature (2017-2018)"
+     },
+     {
+      "identifier": "191st",
+      "name": "191st Legislature (2019-2020)"
+     },
+     {
+      "identifier": "192nd",
+      "name": "192nd Legislature (2021-2022)"
+     },
+     {
+      "identifier": "193rd",
+      "name": "193rd Legislature (2023-2024)"
+     },
+     {
+      "identifier": "194th",
+      "name": "194th Legislature (2025-2026)"
+     }
+    ],
+    "mi": [
+     {
+      "identifier": "2011-2012",
+      "name": "2011-2012 Regular Session"
+     },
+     {
+      "identifier": "2013-2014",
+      "name": "2013-2014 Regular Session"
+     },
+     {
+      "identifier": "2015-2016",
+      "name": "2015-2016 Regular Session"
+     },
+     {
+      "identifier": "2017-2018",
+      "name": "2017-2018 Regular Session"
+     },
+     {
+      "identifier": "2019-2020",
+      "name": "2019-2020 Regular Session"
+     },
+     {
+      "identifier": "2021-2022",
+      "name": "2021-2022 Regular Session"
+     },
+     {
+      "identifier": "2023-2024",
+      "name": "2023-2024 Regular Session"
+     },
+     {
+      "identifier": "2025-2026",
+      "name": "2025-2026 Regular Session"
+     }
+    ],
+    "nj": [
+     {
+      "identifier": "213",
+      "name": "2008-2009 Regular Session"
+     },
+     {
+      "identifier": "214",
+      "name": "2010-2011 Regular Session"
+     },
+     {
+      "identifier": "215",
+      "name": "2012-2013 Regular Session"
+     },
+     {
+      "identifier": "216",
+      "name": "2014-2015 Regular Session"
+     },
+     {
+      "identifier": "217",
+      "name": "2016-2017 Regular Session"
+     },
+     {
+      "identifier": "218",
+      "name": "2018-2019 Regular Session"
+     },
+     {
+      "identifier": "219",
+      "name": "2020-2021 Regular Session"
+     },
+     {
+      "identifier": "220",
+      "name": "2022-2023 Regular Session"
+     },
+     {
+      "identifier": "221",
+      "name": "2024-2025 Regular Session"
+     },
+     {
+      "identifier": "222",
+      "name": "2026-2027 Regular Session"
+     }
+    ]
+   },
+   "cursor": 16,
+   "quota": {
+    "day": "2026-10-30",
+    "used": 27
+   }
+  }
+ },
+ "statement_checks": {}
+}

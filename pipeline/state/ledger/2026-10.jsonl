@@ -450,3 +450,4 @@
 {"at":"2026-10-30T12:06:31.954Z","role":"generator","model":"claude-haiku-5-5","itemId":"congress_gov:119/hr/10594","input":7701,"output":732,"cost":0.0011361000000000001}
 {"at":"2026-10-30T12:06:37.341Z","role":"validator","model":"claude-haiku-5-5","itemId":"congress_gov:119/hr/10594","input":4868,"output":1019,"cost":0.0009962999999999999}
 {"at":"2026-10-30T12:06:44.159Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1321,"output":71,"cost":0.00016759999999999998}
+{"at":"2026-10-30T15:06:05.279Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":1771,"output":211,"cost":0.00028260000000000004}
