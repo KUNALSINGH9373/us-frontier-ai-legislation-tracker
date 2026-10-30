@@ -157,7 +157,10 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     const textMissing = raw.text_missing === true || ((item.source === 'congress_gov' || item.source === 'legiscan') && !String(raw.text || '').trim());
     // An amendment adopted since the text was printed whose words could not be read: the text may be out of date, so it is held and
     // read again (grabber/sources/legiscan.mjs withAmendments).
-    if (/ADOPTED AMENDMENT NOT READ:/.test(String(raw.text || ''))) return held('an amendment adopted since the bill text was printed could not be read, so the text may be out of date; read again next run', { text_missing: true, service_error: true, fetch_error: true });
+    // Any amendment adopted since the text was printed: held (independent review, 30 Oct 2026). The printed text still holds the words an
+    // amendment struck, so a quote of them passes every code check, and which amendments were adopted is read from action history that
+    // is not always exact. Read again when the record changes (a re-printed text includes the amendment).
+    if (/ADOPTED AMENDMENT( NOT READ)?:/.test(String(raw.text || ''))) return held('an amendment was adopted since the bill text was printed; code cannot yet apply it to the text, so nothing is written until a version including it is printed', { proposal: `${item.item_id}: an adopted amendment is not yet in the printed text; not created` });
     if (textMissing) return held('the full text is not available yet (not published, or could not be fetched), so nothing can be verified and its scope is not judged from the title; read again next run', { text_missing: true, service_error: true, fetch_error: true });
   }
 

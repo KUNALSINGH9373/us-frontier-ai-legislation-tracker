@@ -62,8 +62,10 @@ const IL = {
   const empty = { mechanism: [], thresholds: [], penalties: [] };
   const p = coverageProblems(empty, SRC);
   ok('3 compute, revenue, users and a penalty in SOURCE with no slot: four problems with excerpts', p.length === 4 && p.some((x) => /kind compute/.test(x)) && p.some((x) => /kind revenue/.test(x)) && p.some((x) => /kind users/.test(x)) && p.some((x) => /penalty/.test(x) && /\$1,000,000/.test(x)), JSON.stringify(p));
-  const full = { mechanism: [], thresholds: ['compute', 'revenue', 'users'].map((kind) => ({ kind, text: 'x', quote: 'y' })), penalties: [{ kind: 'civil', text: 'x', quote: 'y' }] };
-  ok('3 every kind given: no problem', coverageProblems(full, SRC).length === 0);
+  const full = { mechanism: [], thresholds: [{ kind: 'compute', text: 'more than 10^26 operations', quote: 'y' }, { kind: 'revenue', text: 'revenue over $500,000,000', quote: 'y' }, { kind: 'users', text: '1,000,000 users', quote: 'y' }], penalties: [{ kind: 'civil', text: 'up to $1,000,000 per violation', quote: 'y' }] };
+  ok('3 every kind and every amount given: no problem', coverageProblems(full, SRC).length === 0, JSON.stringify(coverageProblems(full, SRC)));
+  const tiers = `${SRC} A developer that commits a subsequent violation shall be subject to a civil penalty of not more than $3,000,000 per violation.`;
+  ok('3 a second penalty tier left out is caught (one slot of a kind is not enough)', coverageProblems(full, tiers).some((x) => /\$3,000,000/.test(x)));
   ok('3 a revenue figure that names no one covered (findings) is not demanded', coverageProblems(empty, 'The state collected revenues of $5,000,000 from fees last year.').length === 0);
   ok('3 "criminal penalties ... shall not be assessed" is not a penalty (IL HB 3506)', coverageProblems(empty, 'the provisions of the Whistleblower Act shall apply to this Act, except that the criminal penalties provided in the Whistleblower Act shall not be assessed.').length === 0);
   ok('3 per-day fines count (S. 2938)', coverageProblems(empty, 'A person that violates subsection (a) shall be fined not less than $1,000,000 per day of the violation.').length === 1);
@@ -103,6 +105,22 @@ const IL = {
   ok('6 no harm kind in thresholds, and the prompt says to leave harm definitions out', !THRESHOLD_KINDS.includes('harm') && /Never put the definition of the harm/.test(SLOTS_INSTRUCTIONS));
   ok('6 thresholds may run to 1,000 characters', FIELD_LIMITS.thresholds === 1000);
   ok('6 the eval reads the author shorthand "$25M" and "1M" as the full figures', factNumbers('≥$25M revenue; ≥1M users').has('25000000') && factNumbers('≥$25M revenue; ≥1M users').has('1000000'));
+}
+
+// ---------- 7. independent review and fact-check, 30 Oct 2026 ----------
+{
+  const r = (thresholds, penalties = []) => renderSlots({ mechanism: [], thresholds, penalties });
+  ok('7 an unknown threshold kind is sent back, never published as "Capability-based, no figure"', r([{ kind: 'flops', text: 'more than 10^26 operations', quote: 'q' }]).problems.some((p) => /not one of/.test(p)));
+  ok('7 a figure in a capability slot is sent back (chip specs were labelled "no figure")', r([{ kind: 'capability', text: 'chips with total processing performance of 4,800 or more', quote: 'q' }]).problems.some((p) => /gives a figure/.test(p)));
+  ok('7 a bill covering every developer reads "No threshold", not "Capability-based" (MN HF 4532)', r([{ kind: 'no_threshold', applies_to: null, text: 'a person that has trained at least one artificial intelligence model', quote: 'q' }]).fields.thresholds === 'No threshold: covers a person that has trained at least one artificial intelligence model.');
+  const either = r([{ kind: 'compute', applies_to: 'Frontier model', text: 'trained using greater than 10^26 computational operations', quote: 'q', combine: 'or' }, { kind: 'compute_cost', applies_to: 'Frontier model', text: 'compute cost that exceeds $100,000,000', quote: 'q' }]);
+  ok('7 either test is enough: said with "or" (IL SB 3444)', either.fields.thresholds === 'Frontier model: trained using greater than 10^26 computational operations; or compute cost that exceeds $100,000,000.' && !either.problems.length, either.fields.thresholds);
+  ok('7 both tests needed: said with "and" (IL HB 3506)', r([{ kind: 'compute_cost', applies_to: 'Large developer', text: '$5,000,000 for one model', quote: 'q', combine: 'and' }, { kind: 'compute_cost', applies_to: 'Large developer', text: '$100,000,000 in 12 months', quote: 'q' }]).fields.thresholds === 'Large developer: $5,000,000 for one model; and $100,000,000 in 12 months.');
+  ok('7 several tests for one term without "combine" are sent back', r([{ kind: 'compute', applies_to: 'X', text: 'a', quote: 'q' }, { kind: 'revenue', applies_to: 'X', text: 'b', quote: 'q' }]).problems.some((p) => /without "combine"/.test(p)));
+  ok('7 a fine-tuning qualifier needs no "combine" and follows its compute test', r([{ kind: 'compute', applies_to: 'Frontier model', text: 'more than 10^26 operations', quote: 'q' }, { kind: 'derived_models', applies_to: 'Frontier model', text: 'including fine-tuning', quote: 'q' }]).fields.thresholds === 'Frontier model: more than 10^26 operations; including fine-tuning.');
+  ok('7 "Developers with ..." under "Developer" keeps its words', r([{ kind: 'revenue', applies_to: 'Developer', text: 'Developers with revenue over $1,000,000', quote: 'q' }]).fields.thresholds === 'Developer: Developers with revenue over $1,000,000.');
+  ok('7 the prompt asks for every alternative of a capability definition and for the whole enforcement section', /name EVERY alternative/.test(SLOTS_INSTRUCTIONS) && /read the WHOLE enforcement section/.test(SLOTS_INSTRUCTIONS));
+  ok('7 the eval keeps "covered persons" clauses (harm filter narrowed)', factNumbers('x').size === 0 && /500000000/.test([...factNumbers(String((await import('../eval/run.mjs')).withoutHarm('Covered persons: revenue >$500M; catastrophic risk = 50 deaths')))].join()));
 }
 
 console.log(`slots: ${pass} passed, ${fail} failed`);

@@ -31,7 +31,7 @@ const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const 
   const t = 'Sec. 2. A large developer shall publish a safety and security protocol. The developer shall report critical safety incidents to the attorney general.';
   ok('2 an exact quote stands', provedQuote(t, 'A large developer shall publish a safety and security protocol') === 'A large developer shall publish a safety and security protocol');
   ok('2 wrapping quotation marks and a closing full stop are dropped', provedQuote(t, '"A large developer shall publish a safety and security protocol."') === 'A large developer shall publish a safety and security protocol');
-  ok('2 two exact passages joined by an ellipsis: the longest is kept', provedQuote(t, 'A large developer shall publish a safety ... report critical safety incidents to the attorney general') === 'report critical safety incidents to the attorney general');
+  ok('2 two exact passages joined by an ellipsis are refused (independent review: joined parts can change the meaning)', provedQuote(t, 'A large developer shall publish a safety ... report critical safety incidents to the attorney general') === null);
   ok('2 an ellipsis with any part not in the source is refused', provedQuote(t, 'shall publish a safety and security protocol ... report harms to the governor at once') === null);
   ok('2 an ellipsis with a short part is refused', provedQuote(t, 'shall publish a safety and security protocol ... the attorney') === null);
   ok('2 a paraphrase is refused', provedQuote(t, 'publish a protocol for safety') === null && provedQuote(t, '') === null);
@@ -96,7 +96,11 @@ const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const 
   const raw = { bill: { bill_id: 1, state: 'IL', bill_number: 'HB1', title: 'Test', status: 1, history: [], sponsors: [], texts: [] }, text: withAmendments('A frontier developer shall publish a safety plan.', [{ title: 'House Amendment 001', date: '2025-03-18', text: null }]) };
   const item = { item_id: 'legiscan:IL-HB1', source: 'legiscan', source_id: '1', source_url: 'https://legiscan.com/IL/bill/HB1/2025', fetched_at: '2026-10-30T00:00:00Z' };
   const out = await processItem({ generator: trap, validator: trap, referee: trap, item, raw, diff: { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] }, entries: [], today: '2026-10-30', runId: 't' });
-  ok('6 a new bill whose adopted amendment could not be read is held, read again next run, no AI spent', out.outcome === 'held' && /amendment adopted since/.test(out.reason) && trap.calls === 0, `${out.outcome} ${out.reason}`);
+  ok('6 a new bill whose adopted amendment could not be read is held, no AI spent', out.outcome === 'held' && /amendment was adopted since/.test(out.reason) && trap.calls === 0, `${out.outcome} ${out.reason}`);
+  const raw2 = { ...raw, text: withAmendments('A frontier developer shall publish a safety plan.', [{ title: 'House Amendment 001', date: '2025-03-18', text: 'Amend by deleting the safety plan.' }]) };
+  const out2 = await processItem({ generator: trap, validator: trap, referee: trap, item, raw: raw2, diff: { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] }, entries: [], today: '2026-10-30', runId: 't' });
+  ok('6 a new bill with ANY adopted amendment not yet printed is held (struck words would still pass the quote check), no AI spent', out2.outcome === 'held' && /amendment was adopted since/.test(out2.reason) && trap.calls === 0, `${out2.outcome} ${out2.reason}`);
+  ok('6 "Motion to Table Amendment No. 1 - Lost" leaves it adopted', adoptedAmendments({ ...bill, history: [...bill.history, { chamber: 'H', action: 'Motion to Table Committee Amendment No. 1 - Lost' }] }).length === 1);
 }
 
 // ---------- 7. a long bill's frontier sections are read together, not cut ----------

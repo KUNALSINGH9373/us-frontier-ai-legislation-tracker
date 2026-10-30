@@ -127,7 +127,8 @@ function scriptedValidator(answerFor) {
       mechanism: [{ kind: 'duty', text: 'Requires a frontier developer to report a critical safety incident to the attorney general within 15 days', quote: q2 }],
       thresholds: [{ kind: 'compute', applies_to: 'Frontier model', text: 'trained using more than 10^26 integer or floating-point operations', quote: 'greater than 10^26 integer or floating-point operations' },
         { kind: 'revenue', applies_to: 'Large frontier developer', text: 'annual gross revenues greater than $500,000,000 with affiliates', quote: 'collectively has annual gross revenues greater than $500,000,000' }],
-      penalties: [{ kind: 'civil', applies_to: null, text: 'civil penalty of not more than $1,000,000 for a first violation', quote: 'subject to a civil penalty of not more than $1,000,000 for a first violation' }],
+      penalties: [{ kind: 'civil', applies_to: null, text: 'civil penalty of not more than $1,000,000 for a first violation', quote: 'subject to a civil penalty of not more than $1,000,000 for a first violation' },
+        { kind: 'civil', applies_to: 'Later violations', text: 'not more than $3,000,000', quote: 'not more than $3,000,000 for subsequent violations' }],
       enforcer: null
     }
   });

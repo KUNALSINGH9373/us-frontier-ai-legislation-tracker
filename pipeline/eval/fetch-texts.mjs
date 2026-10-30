@@ -39,7 +39,7 @@ const ck = process.env.CONGRESS_API_KEY, lk = process.env.LEGISCAN_API_KEY;
 const cg = createCongress(createHttp({ headers: { 'X-Api-Key': ck }, secrets: [ck], maxRequests: 200 }));
 const ls = createLegiScan(createHttp({ secrets: [lk], maxRequests: 150 }), lk);
 
-const texts = createEntryTexts({ cg, ls, ic, il, cacheDir, extra: J_BILLS, noCache: process.argv.includes('--no-cache'), repair: false });
+const texts = createEntryTexts({ cg, ls, ic, il, cacheDir, extra: J_BILLS, noCache: process.argv.includes("--no-cache"), repair: false, withAdopted: true });
 
 let ok = 0, missing = 0;
 for (const e of entries.filter((x) => x.origin === 'authored' && (!only || only.includes(x.key)))) {

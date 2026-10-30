@@ -71,7 +71,8 @@ export function codeChecks(patch, text) {
 // Scores one finished item against the author's entry. Pure: used by the tests.
 // Owner, 30 Oct 2026: a harm or risk definition is not who a bill covers, so the entry's thresholds leave it out. The author's thresholds
 // often add one ("catastrophic risk 50+ deaths or >$1B"): the parts of it that describe a harm are not expected in thresholds.
-const HARM_PART = /harm|catastroph|\brisk\b|death|injur|damage|casualt|loss[- ]of[- ]control|\bpeople\b|\bpersons\b/i;
+// Narrowed after the independent review (30 Oct 2026): "persons", "people", "risk" and "damage" alone also name who is covered.
+const HARM_PART = /\bharm\b|catastroph|\bcritical risk\b|\bdeaths?\b|\binjur|\bcasualt|loss[- ]of[- ]control/i;
 export const withoutHarm = (s) => (s == null ? s : String(s).split(/(?<=;)\s+|(?<=\.)\s+(?=[A-Z"“])|\s+[—–]\s+/).filter((p) => !HARM_PART.test(p)).join(' '));
 export function scoreItem({ gold, text, result }) {
   // Scope: an in-scope bill must not be dropped as out of scope; an excluded bill must not be published (held is safe).
@@ -198,6 +199,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       const text = stored && repairExponents(stored); // as agents/source-text.mjs does for production sources
       let result;
       if (!stored || sha(stored) !== s.sha256) result = { outcome: 'no_text', in_scope: null, fields: {}, problems: ['text missing or changed since eval/sources.json; run eval/fetch-texts.mjs'] };
+      else if (/ADOPTED AMENDMENT( NOT READ)?:/.test(text)) result = { outcome: 'held', in_scope: null, fields: {}, problems: ['an amendment was adopted since the bill text was printed (held, as production does: agents/process-item.mjs)'] };
       else if (text.length > TRIAGE_OVER && !(longRead(text) && longRead(text).text.length <= maxChars)) result = { outcome: 'too_long', in_scope: null, fields: {}, problems: [`${text.length} characters, and its frontier sections do not fit one read`] };
       else {
         const styleExamples = entries.filter((e) => e.key !== g.key && e.section === g.section && e.mechanism && e.mechanism.length < 600).slice(0, 2);

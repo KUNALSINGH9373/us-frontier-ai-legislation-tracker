@@ -172,8 +172,11 @@ export function adoptedAmendments(bill) {
     let state = false;
     for (const h of history) {
       if ((h.chamber || '') !== (a.chamber || '') || !re.test(h.action || '')) continue;
+      // A failed motion against it ("Motion to Table Amendment No. 1 - Lost") leaves it adopted. Counting one that was not adopted only
+      // holds the bill (agents/process-item.mjs); missing one would describe stale text, so doubtful cases count as adopted.
+      if (/\bmotion to (table|reconsider|strike)\b/i.test(h.action) && /\b(lost|failed|not adopted)\b/i.test(h.action)) continue;
       if (/\badopted\b/i.test(h.action) && !/\bnot adopted\b/i.test(h.action)) state = true;
-      else if (/\b(tabled|withdrawn|stricken|lost|failed|reconsidered)\b/i.test(h.action)) state = false;
+      else if (/\b(tabled|withdrawn|stricken)\b/i.test(h.action) && !/\bmotion\b/i.test(h.action)) state = false;
     }
     return state;
   };

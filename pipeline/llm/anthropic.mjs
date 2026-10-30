@@ -13,9 +13,8 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
   const parseJson = (text) => {
     const clean = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
     try { return JSON.parse(clean); } catch (e) {
-      // A model sometimes writes around its JSON, or answers, reconsiders ("Wait, the quote must be exact...") and answers again (Opus as
-      // referee, 30 Oct 2026 re-tests). Every complete top-level JSON object in the text is found; the last one that parses is its final
-      // answer. The callers still check every field of it; text with no complete JSON object is still an unusable answer.
+      // A model sometimes writes around its JSON (Opus as referee, 30 Oct 2026 re-tests): every complete top-level JSON object in the
+      // text is found. One answer (or the same answer repeated) is used and the callers still check every field of it.
       const objects = [];
       for (let i = 0, depth = 0, start = -1, inStr = false, esc = false; i < clean.length; i++) {
         const c = clean[i];
@@ -24,8 +23,11 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
         else if (c === '{') { if (depth++ === 0) start = i; }
         else if (c === '}' && depth > 0 && --depth === 0) objects.push(clean.slice(start, i + 1));
       }
-      for (const o of objects.reverse()) { try { return JSON.parse(o); } catch (e2) { /* the next one */ } }
-      throw new LlmOutputError('the model did not return valid JSON', clean.slice(0, 300));
+      // Two different answers in one reply (independent review: a "false" then a weaker "true") are not trusted: unusable, and the
+      // caller asks again. Repeats of the same answer are fine.
+      const parsed = objects.map((o) => { try { return JSON.parse(o); } catch (e2) { return undefined; } }).filter((o) => o !== undefined);
+      if (parsed.length && parsed.every((o) => JSON.stringify(o) === JSON.stringify(parsed[0]))) return parsed[0];
+      throw new LlmOutputError(parsed.length > 1 ? 'the model gave two different answers' : 'the model did not return valid JSON', clean.slice(0, 300));
     }
   };
   return {

@@ -9,7 +9,7 @@ const kindOf = (field, text) => {
   if (/10\s?\^\s?2\d|operations|FLOP/i.test(t)) return 'compute';
   if (/revenue/i.test(t)) return 'revenue';
   if (/users/i.test(t)) return 'users';
-  if (/cost/i.test(t)) return 'compute_cost';
+  if (/cost|\$/i.test(t)) return 'compute_cost';
   return 'capability';
 };
 export function asSlots(data) {

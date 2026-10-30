@@ -52,8 +52,12 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   // Opus as referee (30 Oct 2026): a sentence around the JSON is not an unusable answer; text with no JSON object still is
   const r = await createAnthropic({ client: fake(msg('Here is my answer:\n{"results":[{"n":1,"supported":true}]}\nDone.')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
   ok('JSON with a sentence around it is read', r.data.results[0].supported === true);
-  const twice = await createAnthropic({ client: fake(msg('{"results":[{"n":1,"supported":true,"quote":"a \\nb"}]}\n\nWait, the quote must be exact; let me check {the text}.\n\n{"results":[{"n":1,"supported":true,"quote":"a b"}]}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
-  ok('an answer, second thoughts and a second answer: the last answer counts (Opus, H.R. 9917)', twice.data.results[0].quote === 'a b', JSON.stringify(twice.data));
+  // Independent review, 30 Oct 2026: two different answers in one reply are not trusted (a "false" then a weaker "true"); the caller asks again.
+  ok('two different answers in one reply are unusable (Opus, H.R. 9917)', await fails(msg('{"results":[{"n":1,"supported":false}]}\n\nWait, let me check {the text}.\n\n{"results":[{"n":1,"supported":true,"quote":"a b"}]}'), /two different answers/));
+  const same = await createAnthropic({ client: fake(msg('{"a":1}\nTo repeat: {"a":1}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
+  ok('the same answer repeated is used', same.data.a === 1);
+  const inner = await createAnthropic({ client: fake(msg('Answer: {"q":"text with {braces} and \\"quotes\\" inside","n":1}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
+  ok('braces inside a string do not split the answer', inner.data.n === 1 && /braces/.test(inner.data.q));
   ok('text with no JSON object is still unusable', await fails(msg('I think it is in scope.'), /valid JSON/) && await fails(msg('text { broken'), /valid JSON/));
 }
 console.log(`anthropic client: ${pass} passed, ${fail} failed`);

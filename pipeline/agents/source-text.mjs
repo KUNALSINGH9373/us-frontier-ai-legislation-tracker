@@ -92,16 +92,15 @@ export const containsQuote = (text, quote) => {
 };
 
 // A model's quote as proof, tidied the ways models commonly copy (round 9 field eval: three new bills held because the referee's one
-// quote missed): wrapping quotation marks or a closing full stop added, or two exact passages joined by an ellipsis. Returns the words
-// that are in the source (for an ellipsis, every part must be, each at least 20 characters, and the longest part is kept), else null.
+// quote missed): wrapping quotation marks or a closing full stop added. Returns the words that are in the source, else null. Passages
+// joined by an ellipsis are refused (independent review, 30 Oct 2026: real parts can be joined into a meaning the bill does not have);
+// the caller asks once more for an exact quote instead.
 export function provedQuote(text, quote) {
   const q = String(quote || '').trim();
   if (q.length < 8) return null;
   if (containsQuote(text, q)) return q;
   const bare = q.replace(/^["“'‘]+|["”'’]+$/g, '').replace(/[.;,]+$/, '').trim();
   if (bare !== q && bare.length >= 8 && containsQuote(text, bare)) return bare;
-  const parts = bare.split(/\s*(?:\.\.\.|…|\[\.\.\.\])\s*/).map((p) => p.trim()).filter(Boolean);
-  if (parts.length > 1 && parts.every((p) => p.length >= 20 && containsQuote(text, p))) return parts.reduce((a, b) => (b.length > a.length ? b : a));
   return null;
 }
 

@@ -16,7 +16,7 @@ export const USE_BILL = { 'ny-raise-act-ch-699-ch-96': ['NY', 'S8828'], 'ma-h-55
 // cg, ls: Congress.gov and LegiScan clients. ic, il: config/identifiers.json "congress_gov" and identifiers-legiscan.json "legiscan".
 // extra: more { key: [state, number] } bills to look up by number (the accuracy test's excluded bills). noCache: re-read from LegiScan.
 // repair: put PDF-mangled exponents back (the accuracy test stores texts as fetched and repairs them when it reads them).
-export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {}, noCache = false, repair = true }) {
+export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {}, noCache = false, repair = true, withAdopted = false }) {
   const sessionCache = new Map();
   async function stateText(billId) {
     const bill = await ls.bill(billId), v = latestText(bill);
@@ -33,8 +33,9 @@ export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {
       }
       if (cache && r.text) { fs.mkdirSync(cacheDir, { recursive: true }); fs.writeFileSync(cache, r.text); }
     }
-    // Amendments adopted since that version was printed are read too (grabber/sources/legiscan.mjs adoptedAmendments).
-    if (r.text) {
+    // Amendments adopted since that version was printed are added only when asked (the accuracy test, which then holds the bill as
+    // production does); self-correction reads the printed text alone, so it never rewrites an entry from an un-applied amendment.
+    if (r.text && withAdopted) {
       const parts = [];
       for (const a of adoptedAmendments(bill)) {
         const ac = cacheDir && path.join(cacheDir, `${billId}-a${a.amendment_id}.txt`);
