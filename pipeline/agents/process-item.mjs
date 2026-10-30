@@ -31,14 +31,14 @@ export async function refereeVerdict(referee, source, itemId, fullText = source)
   try {
     const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
-    if (!x) return { in: null, quote: null };
+    if (!x) return { in: null, quote: null, why: 'the referee gave no answer for the claim' };
     if (x.supported === true) {
       // A quote that is not in the source is a failed quote, not a verdict: one more ask for an exact one, as the reader gets.
       const q = provedQuote(fullText, x.quote) || (await exactScopeQuote(referee, source, itemId, fullText) || {}).quote;
       return q ? { in: true, quote: q } : { in: null, quote: null, why: `the referee said in scope but its quote is not in the source, twice ("${String(x.quote || '').slice(0, 120)}")` };
     }
     return { in: false, quote: null, reason: x.reason || null };
-  } catch (e) { if (e instanceof LlmOutputError) return { in: null, quote: null }; throw e; }
+  } catch (e) { if (e instanceof LlmOutputError) return { in: null, quote: null, why: `the referee gave an unusable answer: ${e.message}` }; throw e; }
 }
 // The referee on a state entry's SECTION: it must confirm the section's own criterion (agents/rules.mjs SECTION_CRITERIA) with a quote
 // that code finds in the source AND that carries the section's marker (a frontier threshold for A/B, a catastrophic-risk term without

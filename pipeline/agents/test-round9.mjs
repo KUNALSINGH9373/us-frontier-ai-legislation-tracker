@@ -63,7 +63,8 @@ const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const 
 // ---------- 4. scope definition: the two field-eval mistakes are named ----------
 {
   ok('4 a small-company revenue exemption on an OUT-list rule does not make it frontier (CA SB 1119)', /only exempts smaller companies from an OUT-list rule/.test(SCOPE_DEFINITION));
-  ok('4 testing duties on every AI company with no threshold are OUT (NJ S 1802)', /on every AI company or every AI system, with no frontier, compute or capability threshold, are OUT/.test(SCOPE_DEFINITION));
+  ok('4 testing duties on every AI company with no threshold are OUT (NJ S 1802)', /on every AI company or every AI system, with no frontier, compute or capability threshold and no catastrophic-risk aim, are OUT/.test(SCOPE_DEFINITION) && /aimed at catastrophic risk .* are type \(1\) even with no threshold/.test(SCOPE_DEFINITION));
+  ok('4 but duties aimed at catastrophic risk with no threshold stay in (MN HF 4532)', /duties aimed at catastrophic risk \(critical harm, mass casualties, weapons, loss of control\) are type \(1\)/.test(SCOPE_DEFINITION));
 }
 
 console.log(`round 9: ${pass} passed, ${fail} failed`);
