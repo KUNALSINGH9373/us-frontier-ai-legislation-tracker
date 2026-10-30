@@ -1184,7 +1184,8 @@ class Component extends DCLogic {
     const statusChips = ['enacted', 'pending', 'stalled', 'failed', 'executive', 'litigation', 'export'].map(k => { const on = stc.includes(k); return { l: L.ST[k].l, g: L.ST[k].g, c: `var(--st-${k})`, pressed: on, bg: on ? 'var(--b-press)' : 'transparent', bd: on ? '1px solid var(--b-press-bd)' : '1px solid var(--b-line)', sbg: on ? 'var(--accent-soft)' : 'var(--surface)', sbd: on ? '1.5px solid var(--accent)' : '1px solid var(--line-2)', toggle: () => { const n = on ? stc.filter(x => x !== k) : [...stc, k]; this.setP({ status: n.join(',') }, true); } }; });
     const boardChips = this.chips(p, ['status', 'type', 'year']);
     const activeStates = Object.keys(allByState).filter(c => L.SN[c]).map(c => { const list = byState[c] || []; const cat = L.stateCat(list); return { code: c, nm: L.SN[c], cat, g: L.CAT[cat].g, c: CATV[cat], n: list.length, l: L.CAT[cat].l, open: e => this.openState(c, e) }; }).sort((a, b) => Object.keys(L.CAT).indexOf(a.cat) - Object.keys(L.CAT).indexOf(b.cat) || b.n - a.n);
-    const num = n => (Number.isFinite(n) ? n : '—'), HC = L.HC; // '—' until the data has loaded: never a typed-in count const fN = stc.length + ['type', 'year'].filter(k => p[k]).length;
+    const num = n => (Number.isFinite(n) ? n : '—'), HC = L.HC; // '—' until the data has loaded: never a typed-in count
+    const fN = stc.length + ['type', 'year'].filter(k => p[k]).length;
     const anyLive = live.length > 0;
     return {
       isHome: true, cmpLabel: mob ? 'Compare' : 'Compare states', mapHidden: mob ? 'true' : undefined,
