@@ -629,6 +629,90 @@
    "proposal": "legiscan:1908096 (\"Budget Act of 2026.\") meets no state section's criterion; not created",
    "date": "2026-10-30",
    "dead": false
+  },
+  "congress_gov:119/hr/7732": {
+   "raw_hash": "d5b351aa9212ceea9f5c4023293ef3dee1ced1450f821b15458a7efabd343aea",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/7732 (\"Promoting Innovation in Blockchain Development Act\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "congress_gov:119/hres/1642": {
+   "raw_hash": "58c5264735a5309f8fa7e84360bd80f5c97269ce26a50ecaa720adb9dab10f2f",
+   "reason": "not created: a H.Res. resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)",
+   "proposal": "congress_gov:119/hres/1642: not a bill (a H.Res. resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)); not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:2038856": {
+   "raw_hash": "3a9449532497cc652fa68c1f496a37243e2a67eb395ed12c549fc829682bdaba",
+   "reason": "not created: no passage of the text meets the criterion of section A, C (A: an enacted law that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); C: a measure on who ",
+   "proposal": "legiscan:2038856 (\"Appropriations: omnibus; appropriations for multiple departments and branches fo\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:1908090": {
+   "raw_hash": "02023014d4962adc78878f99deba2a7e1bf1f6fa616c474430b38907dd73b944",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:1908090 (\"Budget Acts of 2021, 2023, 2024, and 2025.\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:1934824": {
+   "raw_hash": "8a0e39e080469f2eaacc84911d221b6b71a286de1e3d24ff69682fcac6e698b1",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:1934824 (\"Makes appropriations for the support of government - Aid to Localities Budget.\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:1907778": {
+   "raw_hash": "de2f37bb4bcf2b4e416d507c8397daf9b8a9a13fbf369712f7c2e1f492e5098d",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:1907778 (\"Revised for 1st substitute: Making 2025-2027 fiscal biennium operating appropria\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:2135454": {
+   "raw_hash": "2b39edbdce6591ee0f26a11e748dc06cd874a911ae0d2ed3990fd8a8d220a18c",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2135454 (\"Appropriations: school aid omnibus; fiscal year 2026-2027 appropriations for K-1\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:1939197": {
+   "raw_hash": "1efb4081f7b3b20a4c839bcd0d473f2f1c945328fe4f335e5004b7555870f92d",
+   "reason": "not created: no passage of the text meets the criterion of section A, C (A: an enacted law that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); C: a measure on who ",
+   "proposal": "legiscan:1939197 (\"Budget Act of 2025.\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:1908086": {
+   "raw_hash": "e2c4b7ec2b9ecfa3953a7e3ad5b028b2ddc96edb54cb5695b68aa31560b6d466",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:1908086 (\"Budget Act of 2025.\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:2080496": {
+   "raw_hash": "13d34ba3080193d355b6ea943e0cac07fb5ee0d7906059316728b50d9e67e954",
+   "reason": "not created: no passage of the text meets the criterion of section A, C (A: an enacted law that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); C: a measure on who ",
+   "proposal": "legiscan:2080496 (\"Budget Bill\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:2080467": {
+   "raw_hash": "72dd7cc138190e96220a78f2d5b9e3da41b305af35fd71ea210a43d6f4cf2616",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2080467 (\"Budget Bill\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:1908094": {
+   "raw_hash": "18959fac129e3b958f7092d1e2ca10ecf25a57abdbc2c7bde005d6bc67704e6c",
+   "reason": "not created: no passage of the text meets the criterion of section A, C (A: an enacted law that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); C: a measure on who ",
+   "proposal": "legiscan:1908094 (\"Budget Act of 2026.\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
   }
  }
 }
