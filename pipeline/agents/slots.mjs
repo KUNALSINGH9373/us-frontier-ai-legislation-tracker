@@ -6,35 +6,35 @@
 // slots = {
 //   mechanism:  [{ kind, text, quote }]             kind: MECHANISM_KINDS; text: one plain sentence
 //   thresholds: [{ kind, applies_to, text, quote }]  kind: THRESHOLD_KINDS; applies_to: the defined term it sets ("Frontier model")
-//   penalties:  [{ kind, applies_to, text, quote }]  kind: PENALTY_KINDS; applies_to: who or which duty the amount is for
-//   enforcer:   { text, quote } | null
+//   penalties:  [{ kind, applies_to, text, quote, enforced_by, enforced_by_quote }]  kind: PENALTY_KINDS; applies_to: who or which duty
+//               the amount is for; enforced_by: who enforces THAT tier (tiers can differ: the Attorney General for fines, an agency
+//               for a per-day amount; one enforcer for all tiers was refused by the reader on 4 bills in the 30 Oct re-test)
 // }
 import { containsQuote } from './source-text.mjs';
 
 export const MECHANISM_KINDS = ['duty', 'power', 'voluntary', 'incentive', 'program', 'preemption', 'liability', 'private_right', 'whistleblower', 'audit', 'incident_reporting', 'sunset', 'other'];
 export const THRESHOLD_KINDS = ['compute', 'compute_cost', 'revenue', 'users', 'derived_models', 'capability', 'harm'];
 export const PENALTY_KINDS = ['civil', 'per_day', 'criminal', 'damages', 'other'];
-export const FIELD_LIMITS = { mechanism: 900, thresholds: 500, penalties: 500 }; // agents/checks.mjs field_lengths
+// agents/checks.mjs field_lengths. Raised by the owner on 30 Oct 2026 so a complete list of tiers fits (mechanism: the site's 90th percentile).
+export const FIELD_LIMITS = { mechanism: 1100, thresholds: 600, penalties: 600 };
 
 const S = (extra = {}) => ({ type: 'STRING', ...extra });
-const item = (kinds, withAppliesTo) => ({ type: 'OBJECT', required: ['kind', 'text', 'quote'], properties: { kind: S({ enum: kinds }), ...(withAppliesTo ? { applies_to: S({ nullable: true }) } : {}), text: S(), quote: S() } });
+const item = (kinds, withAppliesTo, extra = {}) => ({ type: 'OBJECT', required: ['kind', 'text', 'quote'], properties: { kind: S({ enum: kinds }), ...(withAppliesTo ? { applies_to: S({ nullable: true }) } : {}), text: S(), quote: S(), ...extra } });
 export const SLOTS_SCHEMA = {
   type: 'OBJECT',
   required: ['mechanism', 'thresholds', 'penalties'],
   properties: {
     mechanism: { type: 'ARRAY', items: item(MECHANISM_KINDS, false) },
     thresholds: { type: 'ARRAY', items: item(THRESHOLD_KINDS, true) },
-    penalties: { type: 'ARRAY', items: item(PENALTY_KINDS, true) },
-    enforcer: { type: 'OBJECT', nullable: true, required: ['text', 'quote'], properties: { text: S(), quote: S() } }
+    penalties: { type: 'ARRAY', items: item(PENALTY_KINDS, true, { enforced_by: S({ nullable: true }), enforced_by_quote: S({ nullable: true }) }) }
   }
 };
 
 export const SLOTS_INSTRUCTIONS = `In "slots" (a top-level key; leave "fields" and "evidence" empty: the system writes them from your slots) give one item per fact, each with a "quote": a short span (under 25 words) copied EXACTLY, character for character, from SOURCE that states that fact. Every number in "text" must appear in its quote, written as SOURCE writes it (10^26, $500,000,000). "text" is final wording: never explain or reconsider inside it.
 - mechanism: what the item does. One item per duty, power or program, in SOURCE's order, each "text" ONE plain sentence (under 160 characters) saying who must or may do what, by when, using SOURCE's own terms and legal force ("must" only for a duty; "may" for a power; say "voluntary" or "incentive" when it is). kind: duty, power, voluntary, incentive or program. Then one item for each of these that SOURCE has: preemption of state or local law (preemption), a liability shield, presumption, safe harbor or immunity (liability), a private right of action (private_right), whistleblower protections (whistleblower), audits (audit), an incident-reporting deadline (incident_reporting), a sunset (sunset); other for anything else that matters. In a law with several parts, say in the sentence which part a duty belongs to. At most 8 items: merge minor duties of the same actor.
-- thresholds: who or what it covers. One item per way to be covered that SOURCE sets: compute (training compute), compute_cost, revenue, users (and lower counts for minors), derived_models (models made by fine-tuning or distilling a covered model), capability (a capability or risk definition with no figure), harm (the figure or definition of the harm it targets, such as deaths or a dollar amount of damage). "applies_to" is the defined term the figure sets, in SOURCE's words ("Frontier model", "Large frontier developer", "Covered chatbot"), or null. "text" is the figure and what it measures only, e.g. "trained on more than 10^26 integer or floating-point operations" or "annual gross revenue over $500,000,000 with affiliates". Every tier is its own item. [] only when SOURCE sets no figure and defines no covered models, developers or systems.
-- penalties: read the enforcement or penalties section and give EVERY tier as its own item: first and later violations, per-day amounts (per_day), criminal penalties (criminal), damages a person may recover (damages), different amounts for different kinds of company or different duties (put that in "applies_to", e.g. "Large chatbot provider" or "Later violations"). "text" is the amount and what it is for, e.g. "civil penalty up to $1,000,000 per violation". [] only if SOURCE sets no penalty.
-- enforcer: who enforces, e.g. {"text":"the Attorney General","quote":"..."}; null if SOURCE names none.
-Shape: "slots": {"mechanism":[{"kind":"duty","text":"...","quote":"..."}],"thresholds":[{"kind":"compute","applies_to":"Frontier model","text":"...","quote":"..."}],"penalties":[{"kind":"civil","applies_to":null,"text":"...","quote":"..."}],"enforcer":{"text":"...","quote":"..."}}`;
+- thresholds: who or what it covers. One item per way to be covered that SOURCE sets: compute (training compute), compute_cost, revenue, users (and lower counts for minors), derived_models (models made by fine-tuning or distilling a covered model), capability (a capability or risk definition with no figure), harm (only when SOURCE sets a FIGURE for the harm it targets: give the figures alone, e.g. "50 or more deaths or serious injuries, or at least $1,000,000,000 in damage", under 120 characters; never paraphrase a harm definition, and leave harm out when it has no figure). "applies_to" is the defined term the figure sets, in SOURCE's words ("Frontier model", "Large frontier developer", "Covered chatbot"), or null. "text" is the figure and what it measures only, without repeating applies_to, e.g. "trained on more than 10^26 integer or floating-point operations" or "annual gross revenue over $500,000,000 with affiliates". Every tier is its own item. [] only when SOURCE sets no figure and defines no covered models, developers or systems.
+- penalties: read the enforcement or penalties section and give EVERY tier as its own item: first and later violations, per-day amounts (per_day), criminal penalties (criminal), damages a person may recover (damages), different amounts for different kinds of company or different duties (put that in "applies_to", e.g. "Large chatbot provider" or "Later violations"). "text" is the amount and what it is for, e.g. "civil penalty up to $1,000,000 per violation". "enforced_by" is who enforces or recovers THAT tier as SOURCE says for it (e.g. "the Attorney General", "the Agency after notice and hearing"), with "enforced_by_quote" copied exactly from SOURCE; tiers often have different enforcers, so never copy one tier's enforcer to another; null when SOURCE names none for that tier. [] only if SOURCE sets no penalty.
+Shape: "slots": {"mechanism":[{"kind":"duty","text":"...","quote":"..."}],"thresholds":[{"kind":"compute","applies_to":"Frontier model","text":"...","quote":"..."}],"penalties":[{"kind":"civil","applies_to":null,"text":"...","quote":"...","enforced_by":"...","enforced_by_quote":"..."}]}`;
 
 const clean = (s) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -46,7 +46,12 @@ const order = (kinds) => (a, b) => kinds.indexOf(a.kind) - kinds.indexOf(b.kind)
 // Groups items by applies_to (first appearance order, after sorting by kind) into "Term: a; b." or "a; b." pieces.
 function grouped(items) {
   const groups = new Map();
-  for (const x of items) { const k = clean(x.applies_to); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(phrase(x.text)); }
+  for (const x of items) {
+    const k = clean(x.applies_to); if (!groups.has(k)) groups.set(k, []);
+    // "Developer: Developer: trained …" (30 Oct re-test): a text that repeats its own term drops it
+    const t = k && phrase(x.text).toLowerCase().startsWith(phrase(k).toLowerCase()) ? phrase(x.text).slice(phrase(k).length).replace(/^\s*[:,-]?\s*/, '') : phrase(x.text);
+    groups.get(k).push(`${t}${x.tier || ''}`);
+  }
   return [...groups].map(([k, texts]) => (k ? `${cap(phrase(k))}: ${texts.join('; ')}` : cap(texts.join('; '))));
 }
 
@@ -75,12 +80,17 @@ export function renderSlots(slots) {
     fields.thresholds = figureless ? `Capability-based, no figure: ${phrase(sorted.map((x) => phrase(x.text)).join('; '))}.` : `${grouped(sorted).join('. ')}.`;
     thr.forEach((x) => clean(x.quote) && evidence.push({ field: 'thresholds', quote: clean(x.quote) }));
   }
-  const enf = slots.enforcer && typeof slots.enforcer === 'object' && clean(slots.enforcer.text) ? slots.enforcer : null;
   if (pen.length) {
-    const sorted = [...pen].sort(order(PENALTY_KINDS));
-    fields.penalties = `${grouped(sorted).join('; ')}${enf ? `; enforced by ${phrase(enf.text).replace(/^enforced by\s+/i, '')}` : ''}.`;
-    pen.forEach((x) => clean(x.quote) && evidence.push({ field: 'penalties', quote: clean(x.quote) }));
-    if (enf) { if (clean(enf.quote)) evidence.push({ field: 'penalties', quote: clean(enf.quote) }); else problems.push('the enforcer has no quote: copy the words of SOURCE that name who enforces'); }
+    // Each tier carries its own enforcer. One enforcer named by every tier is said once at the end; otherwise each tier says its own.
+    const by = (x) => phrase(x.enforced_by || '').replace(/^(?:enforced|recovered) by\s+/i, '');
+    const sorted = [...pen].sort(order(PENALTY_KINDS)), named = sorted.map(by);
+    const shared = named.every((e) => e && e.toLowerCase() === named[0].toLowerCase()) ? named[0] : null;
+    const tiers = sorted.map((x) => ({ ...x, tier: !shared && by(x) ? `, enforced by ${by(x)}` : '' }));
+    fields.penalties = `${grouped(tiers).join('; ')}${shared ? `; enforced by ${shared}` : ''}.`;
+    pen.forEach((x, i) => {
+      if (clean(x.quote)) evidence.push({ field: 'penalties', quote: clean(x.quote) });
+      if (by(x)) { if (clean(x.enforced_by_quote)) evidence.push({ field: 'penalties', quote: clean(x.enforced_by_quote) }); else problems.push(`penalties slot ${i + 1} names who enforces it ("${by(x)}") without enforced_by_quote: copy the words of SOURCE that say so`); }
+    });
   }
   for (const [f, v] of Object.entries(fields)) if (v.length > FIELD_LIMITS[f]) problems.push(`${f} written from your slots is ${v.length} characters (limit ${FIELD_LIMITS[f]}): shorten the "text" of its slots (fewer words each, merge minor duties of the same actor); do not drop a threshold tier or a penalty`);
   return { fields, evidence, problems };

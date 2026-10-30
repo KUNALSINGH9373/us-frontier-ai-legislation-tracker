@@ -23,10 +23,9 @@ const IL = {
     { kind: 'users', applies_to: 'Covered chatbot', text: 'at least 1,000,000 monthly active users', quote: 'at least 1,000,000 monthly active users' }
   ],
   penalties: [
-    { kind: 'civil', applies_to: 'Large chatbot provider', text: 'up to $50,000 per violation', quote: '$50,000 per violation' },
-    { kind: 'civil', applies_to: 'Large frontier developer', text: 'civil penalty up to $1,000,000 per violation', quote: 'does not exceed $1,000,000 per violation' }
-  ],
-  enforcer: { text: 'the Attorney General', quote: 'recovered in a civil action brought by the Attorney General' }
+    { kind: 'civil', applies_to: 'Large chatbot provider', text: 'up to $50,000 per violation', quote: '$50,000 per violation', enforced_by: 'the Attorney General', enforced_by_quote: 'recovered in a civil action brought by the Attorney General' },
+    { kind: 'civil', applies_to: 'Large frontier developer', text: 'civil penalty up to $1,000,000 per violation', quote: 'does not exceed $1,000,000 per violation', enforced_by: 'the Attorney General', enforced_by_quote: 'recovered in a civil action brought by the Attorney General' }
+  ]
 };
 
 // ---------- 1. rendering ----------
@@ -35,7 +34,11 @@ const IL = {
   ok('1 duties first in SOURCE order, then features in a fixed order, one sentence each', r.fields.mechanism === 'Large frontier developers must write, implement and publish a public safety and child protection plan. Frontier developers may not prevent employees from making protected disclosures. Frontier developers must report critical safety incidents to the Attorney General within 15 days.', r.fields.mechanism);
   ok('1 thresholds: compute, then fine-tuning, revenue, users; grouped by the term each sets', r.fields.thresholds === 'Frontier model: trained with more than 10^26 operations; including later fine-tuning or reinforcement learning. Large frontier developer: annual revenue of at least $500,000,000 with affiliates. Large chatbot provider: annual revenue of at least $25,000,000. Covered chatbot: at least 1,000,000 monthly active users.', r.fields.thresholds);
   ok('1 every penalty tier, then the enforcer', r.fields.penalties === 'Large chatbot provider: up to $50,000 per violation; Large frontier developer: civil penalty up to $1,000,000 per violation; enforced by the Attorney General.', r.fields.penalties);
-  ok('1 one evidence quote per slot, on its field, plus the enforcer', r.evidence.length === 11 && r.evidence.filter((e) => e.field === 'thresholds').length === 5 && r.evidence.filter((e) => e.field === 'penalties').length === 3);
+  ok('1 one evidence quote per slot, on its field, plus each tier enforcer quote', r.evidence.length === 12 && r.evidence.filter((e) => e.field === 'thresholds').length === 5 && r.evidence.filter((e) => e.field === 'penalties').length === 4);
+  const split = renderSlots({ mechanism: [], thresholds: [], penalties: [{ kind: 'civil', applies_to: 'First violation', text: 'up to $1,000,000', quote: 'q', enforced_by: 'the Attorney General', enforced_by_quote: 'q2' }, { kind: 'per_day', applies_to: null, text: '$1,000 per day', quote: 'q', enforced_by: 'the Agency after notice and hearing', enforced_by_quote: 'q3' }] });
+  ok('1 tiers with different enforcers each say their own (NY RAISE, PA HB 2800)', split.fields.penalties === 'First violation: up to $1,000,000, enforced by the Attorney General; $1,000 per day, enforced by the Agency after notice and hearing.', split.fields.penalties);
+  ok('1 an enforcer without its quote is a problem', renderSlots({ mechanism: [], thresholds: [], penalties: [{ kind: 'civil', text: 'a', quote: 'q', enforced_by: 'the AG' }] }).problems.some((p) => /enforced_by_quote/.test(p)));
+  ok('1 a text that repeats its term drops it ("Developer: Developer:")', renderSlots({ mechanism: [], thresholds: [{ kind: 'compute_cost', applies_to: 'Developer', text: 'Developer: trained with $100,000,000 of compute', quote: 'q' }], penalties: [] }).fields.thresholds === 'Developer: trained with $100,000,000 of compute.');
   ok('1 no problems', r.problems.length === 0, JSON.stringify(r.problems));
   const cap = renderSlots({ mechanism: [{ kind: 'program', text: 'Creates a program', quote: 'q' }], thresholds: [{ kind: 'capability', applies_to: null, text: 'covered AI technologies whose theft would pose a grave national security threat', quote: 'q' }], penalties: [], enforcer: null });
   ok('1 a figureless definition reads "Capability-based, no figure:"', cap.fields.thresholds === 'Capability-based, no figure: covered AI technologies whose theft would pose a grave national security threat.', cap.fields.thresholds);
@@ -47,7 +50,7 @@ const IL = {
 {
   ok('2 no slots object: a problem', renderSlots(null).problems.length === 1);
   ok('2 a slot without a quote: a problem naming it', renderSlots({ mechanism: [{ kind: 'duty', text: 'Developers must test', quote: '' }], thresholds: [], penalties: [] }).problems.some((p) => /mechanism slot 1 .*no quote/.test(p)));
-  const long = renderSlots({ mechanism: Array.from({ length: 10 }, (_, i) => ({ kind: 'duty', text: `Duty number ${i} requires the developer to do a long list of things in great detail and at length, every year`, quote: 'q' })), thresholds: [], penalties: [] });
+  const long = renderSlots({ mechanism: Array.from({ length: 12 }, (_, i) => ({ kind: 'duty', text: `Duty number ${i} requires the developer to do a long list of things in great detail and at length, every year`, quote: 'q' })), thresholds: [], penalties: [] });
   ok('2 too long from slots: "shorten, do not drop"', long.fields.mechanism.length > FIELD_LIMITS.mechanism && long.problems.some((p) => /shorten the "text" of its slots/.test(p) && /do not drop/.test(p)));
   ok('2 a slot quote not in SOURCE is named', slotQuoteProblems({ mechanism: [{ kind: 'duty', text: 'x', quote: 'words not there' }], thresholds: [], penalties: [] }, 'The developer shall test.').length === 1);
 }
@@ -73,7 +76,7 @@ const IL = {
   const item = { item_id: 'legiscan:IL-HB4705', source: 'legiscan', source_url: 'https://legiscan.com/x' };
   const g = await generatePatch({ llm, item, source: 'S', entry: null, reasons: [], operation: 'create', styleExamples: [], feedback: [], previousPatch: null, sections: ['B'] });
   ok('4 the patch is valid and its fields are the rendered slots', g.patch && g.patch.fields.mechanism === renderSlots(IL).fields.mechanism && g.patch.fields.thresholds === renderSlots(IL).fields.thresholds, JSON.stringify(g.problems));
-  ok('4 the model\'s own evidence for those fields is replaced by the slot quotes', g.patch.evidence.length === 11 && !g.patch.evidence.some((e) => e.quote === 'ignored quote'));
+  ok('4 the model\'s own evidence for those fields is replaced by the slot quotes', g.patch.evidence.length === 12 && !g.patch.evidence.some((e) => e.quote === 'ignored quote'));
   ok('4 the slots ride along, outside the patch JSON', g.patch.slots && !('slots' in JSON.parse(JSON.stringify(g.patch))));
   ok('4 the prompt asks for slots, not field prose', /In "slots"/.test(llm.calls[0].prompt) && !/In "fields" give ONLY/.test(llm.calls[0].prompt));
   const again = generatorPrompt({ operation: 'create', item, source: 'S', reasons: [], feedback: ['fix it'], previousPatch: g.patch, sections: ['B'] });

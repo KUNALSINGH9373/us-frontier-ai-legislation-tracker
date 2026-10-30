@@ -237,7 +237,7 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   ok('a rule from the Bureau of Industry and Security is placed in G.3 by rule', r2.outcome === 'publishable' && r2.entry.section === 'G.3' && r2.entry.status === 'export', `${r2.outcome} ${r2.entry && r2.entry.section}`);
 }
 {
-  const bad = goodCreate(); bad.fields.mechanism = 'x'.repeat(1000);
+  const bad = goodCreate(); bad.fields.mechanism = 'x'.repeat(1200);
   const r = await runEo({ generator: scriptedGenerator([bad, goodCreate()]), validator: scriptedValidator({ answerFor: (f) => (f === 'in_scope' ? Q1 : f === 'mechanism' ? Q2 : Q3) }) });
   ok('a rambling field is caught by the length check', r.verdicts[0].code_checks.some((c) => c.name === 'field_lengths' && !c.passed));
 }
