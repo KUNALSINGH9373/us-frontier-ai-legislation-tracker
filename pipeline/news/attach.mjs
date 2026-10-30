@@ -8,17 +8,11 @@
 import crypto from 'crypto';
 import { plain } from './sources/common.mjs';
 import { billNumbersIn } from './jurisdictions.mjs';
+import { KEYWORDS, NOT_A_REPORT, CHAMBER_COMMITTEE } from './lexicon.mjs';
 
-export const KEYWORDS = [
-  [/\b(sign(s|ed|ing)?|into law)\b/i, ['executive-signature', 'became-law']],
-  [/\bveto(es|ed)?\b/i, ['executive-veto']],
-  [/\boverrid(e|es|den)\b/i, ['veto-override-passage']],
-  [/\b(pass(es|ed)?|approv(es|ed))\b/i, ['passage', 'committee-passage', 'concurrence', 'veto-override-passage']],
-  [/\bhearings?\b|\btestif(y|ies|ied)\b/i, ['hearing-scheduled', 'hearing-held']],
-  [/\bintroduc(e|es|ed)\b/i, ['introduction']],
-  [/\bexecutive order\b/i, ['executive-order']],
-  [/\b(final rule|proposed rule|rulemaking)\b/i, ['agency-rule-final', 'agency-rule-proposed']],
-];
+// Headline keywords (KEYWORDS) and headlines that are not a report (NOT_A_REPORT): config/news-lexicon.json, through news/lexicon.mjs.
+export { KEYWORDS, NOT_A_REPORT };
+
 // quote: true when checking a fragment the AI quoted (its subject may sit outside the quote; the whole headline is checked too)
 export function compatibleClasses(title, { quote = false } = {}) {
   const out = new Set();
@@ -73,8 +67,7 @@ export function compatibleClasses(title, { quote = false } = {}) {
 export const plainText = (s) => plain(s);
 // A headline that negates, opposes or urges (review r8 M1) never attaches: it does not report the event ("Senator urges House to pass").
 // Also a headline whose news is the bill's end (kills, shelves, stalls, dies, tables, sustains), one where the event word only describes
-// the bill ("bill passed by House", "Senate-passed bill"), and one about an amendment, a resolution or a budget (review r7 #1).
-export const NOT_A_REPORT = /\b(fail|fails|failed|reject\w*|defeat\w*|block\w*|urg\w*|calls? on|called on|oppos\w*|not|won't|would|should|must|kills|killed|killing|shelves|shelved|stalls|stalled|die|dies|died|dead|tabl\w*|sustain\w*|amendments?|resolutions?|budget|appropriations?)\b|\b(passed|approved|signed|vetoed) by\b|-(passed|approved|signed|vetoed)\b/i;
+// the bill ("bill passed by House", "Senate-passed bill"), and one about an amendment, a resolution or a budget (review r7 #1). The pattern: NOT_A_REPORT (news/lexicon.mjs).
 
 export function canonicalUrl(u) {
   try {
@@ -117,7 +110,7 @@ export function wordsAgree(title, e) {
   // a chamber's vote is only backed by a headline naming that chamber, alone ("Legislature passes" may be a later vote) (review r8 #6)
   if (['passage', 'committee-passage', 'concurrence', 'failure', 'veto-override-passage'].includes(e && e.class) && f.chamber && !(named.length === 1 && named[0] === f.chamber)) return false;
   // a floor vote's chamber is the chamber itself, not one of its committees ("passes House Judiciary") (review r9 #6)
-  if (['passage', 'failure', 'concurrence', 'veto-override-passage'].includes(e && e.class) && /\b(Senate|House|Assembly)\s+(?!(Bill|Floor|Vote|Votes|Passes|Passed|Approves|Approved|Rejects|Overrides|Concurs|On|And|In|To|For|With|After|As)\b)[A-Z][a-z]/.test(String(title || ''))) return false;
+  if (['passage', 'failure', 'concurrence', 'veto-override-passage'].includes(e && e.class) && CHAMBER_COMMITTEE.test(String(title || ''))) return false;
   const cm = /\b([A-Z][\w&,' -]{2,60}?)\s+Committee\b|\bCommittee on (?:the )?([A-Z][\w&,' -]{2,60})/.exec(String(title || ''));
   if (cm && f.committee) {
     const words = (s) => new Set(String(s).toLowerCase().match(/[a-z]{4,}/g) || []);

@@ -11,24 +11,23 @@ import { CARD_WRITER_SYSTEM, cardWriterPrompt, CARD_READER_SYSTEM, cardReaderPro
 import { digitRuns } from '../agents/source-text.mjs';
 import { readFileSync } from 'fs';
 import { candidates } from './phrasebank.mjs';
-import { sentences, datesIn } from './text.mjs';
+import { sentences, datesIn, MONTH_NAMES } from './text.mjs';
+import { SUPERLATIVE, EVALUATIVE, CAUSAL, PREDICTIVE, COLOUR, TITLE_NAME, AFTER_TITLE_OK, COMMON } from './lexicon.mjs';
 
 export const CARD_LIMITS = { headline: 90, body: 400, sentencesMin: 2, sentencesMax: 3 };
 
-const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const MON_RE = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)(?![a-z])\.?(?:\s+(\d{1,2})(?!\d))?/g; // (?![a-z]): "Mayor" is not May (review r5 M5)
 const MONTH_WORD = /^(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)$/;
+const MONTHS = MONTH_NAMES.map((m) => m.toLowerCase());
 const monthNo = (m) => MONTHS.findIndex((x) => x.startsWith(m.slice(0, 3).toLowerCase())) + 1;
 const ISO = /\b(\d{4})-(\d{2})-(\d{2})\b/g;
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const hasWord = (text, w) => new RegExp(`(^|[^a-z0-9])${esc(w.toLowerCase())}([^a-z0-9]|$)`).test(text.toLowerCase());
 const normBill = (s) => s.replace(/[\s.]/g, '').toUpperCase();
 
-// Words that are refused unless the fact sheet itself uses them (evaluative, causal, predictive). Superlatives need a milestone fact.
-export const SUPERLATIVE = /\b(first|only|largest|biggest|sole|unprecedented|landmark|historic|historical|groundbreaking|pioneering|most|strongest|toughest|broadest|never before)\b/gi;
-export const EVALUATIVE = /\b(major|significant|sweeping|key|crucial|important|controversial|contentious|ambitious|strict|tough|robust|bipartisan|partisan|narrow(?:ly)?|overwhelming(?:ly)?|comfortabl[ey]|decisive(?:ly)?|easily|swiftly|quickly|finally|surpris\w*|notabl[ey]|closely watched|high-profile|aggressive|popular|embattled|hotly|fierce|heated|dramatic\w*|massive|huge|watershed|milestone|breakthrough|victory|win|defeat|blow|setback|rebuke|praised|criticized|criticised|welcomed|slammed)\b/gi;
-export const CAUSAL = /\b(because|due to|as a result|in response|prompt(?:ed|ing)|amid|thanks to|leading to|triggered|sparked|so that|in a bid|reaction|backlash|critics|supporters|advocates|opponents|proponents|pressure|aims? to|aimed|seeks? to|intended to|in order to|motivated|concerns?|fears?|worries)\b/gi;
-export const PREDICTIVE = /\b(likely|unlikely|expected|expects?|poised|could|might|soon|eventually|pav(?:es|ed|ing) the way|clears? the way|on track|headed for|chances?|probably|set to become|is set to pass|will (?:likely|probably|become law|pass|be signed|take effect))\b/gi;
+// Words that are refused unless the fact sheet itself uses them (evaluative, causal, predictive), and the other word lists: news/lexicon.mjs
+// (config/news-lexicon.json). Superlatives need a milestone fact.
+export { SUPERLATIVE, EVALUATIVE, CAUSAL, PREDICTIVE, COLOUR };
 export const UNANIMOUS = /\b(unanimous(?:ly)?|without (?:opposition|dissent|objection)|no (?:opposition|dissent)|every member|all members|no one (?:voted|opposed))\b/gi;
 export const NUMBER_WORDS = /\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|billion|trillion|dozen|half|twice|double|triple|single)\b/gi;
 const WEEKDAY = /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/;
@@ -37,13 +36,7 @@ const SCHEDULED_WORDS = /\b(scheduled|will|set to|set for|upcoming|plans to|is t
 const FUTURE_IN_HELD = /\b(scheduled|upcoming|set to|set for|plans to|is to hold)\b/i;
 const NEXT_WORDS = /\b(will|next|heads? to|headed to|moves? to|goes to|now goes|awaits?|awaiting|pending before|transmittal|consideration (?:in|by))\b/i;
 
-// Capitalized words a card may use without the sheet naming them: function words that start sentences, and generic nouns.
-const COMMON = new Set(('the a an it its this that these those on in at by for with under after before from to of and or as its ' +
-  'bill bills act measure law legislation lawmakers legislators committee committees hearing vote votes rule order report court comments ' +
-  'state states federal new under public text version amendment amendments chamber floor proposal resolution members member ' +
-  'judge referred introduced passed signed vetoed approved filed withdrawn sent senators representatives sponsors also both now next ' +
-  'what status hearing amendment new guidance filing ruling comments comment nomination veto override version ' +
-  'there their his her when while once if').split(' '));
+// Capitalized words a card may use without the sheet naming them (COMMON, news/lexicon.mjs): function words that start sentences, and generic nouns.
 // Writing about the fact sheet instead of the event, and a chamber said to introduce a bill (its members do).
 const META = /\b(fact sheet|verified|summary|is listed|listed as|listed at|stage is|its stage|no further step|set out|recorded as|the record)\b/i;
 const CHAMBER_INTRODUCED = /\b(?:Senate|House|Assembly|chamber|Legislature|Congress) (?:has )?introduc(?:ed|es|ing)\b/i;
@@ -175,10 +168,7 @@ const OUTCOME_VERB = /\b(pass(?:ed|es)?|approv\w*|adopt\w*|advanc\w*|clear(?:ed|
 const CHAMBER_WORD = /\b(general assembly|senate|house|assembly|legislature|congress|lawmakers|legislators|both chambers|both houses)\b/gi;
 const BOTH_WORDS = new Set(['legislature', 'congress', 'lawmakers', 'legislators', 'both chambers', 'both houses']);
 export const RELATIVE_TIME = /\b(yesterday|today|tonight|tomorrow|(?:last|this|next|past|coming) (?:week|month|year|session|weekend)|earlier|later this|recently|lately|ago|soon|this (?:morning|afternoon|evening)|just)\b/i;
-export const COLOUR = /\b(super-?majorit\w*|debat\w*|hours?|minutes?|second time|third time|again|once more|narrowly|comfortably|roll[- ]call|voice vote|filibuster\w*|marathon|late-night|overnight|lengthy|heated|packed|testimony|amid)\b/gi;
-// Titles before a person's name: the word after one must be in the sheet (case does not matter).
-const TITLE_NAME = /\b(?:governor|gov\.|senator|sen\.|representative|rep\.|assemblymember|assemblyman|assemblywoman|delegate|president|vice president|judge|justice|secretary|attorney general|mayor|chair(?:man|woman)?|speaker|leader|commissioner|director)\s+([a-z][a-z'’-]{2,})/gi;
-const AFTER_TITLE_OK = /^(?:nominates|nominated|signs|vetoes|approves|receives|issues|signed|vetoed|approved|received|has|had|is|was|will|would|of|and|to|on|in|for|the|a|an|who|that|did|does|also|then|said|issued|after|before|with|by|it|or|but|at|as|from|announced|took|got)$/i;
+// Titles before a person's name (TITLE_NAME, AFTER_TITLE_OK, news/lexicon.mjs): the word after one must be in the sheet (case does not matter).
 // Officials and sponsors the tracker names anywhere: any of these in a card (any case) must be in its sheet.
 let LEXICON = null;
 const KNOWN_OFFICIALS = 'newsom pritzker hochul trump biden vance harris murphy healey whitmer shapiro lamont youngkin spanberger polis kotek hobbs sherrill mamdani adams wiener bores gounardes padilla schiff schumer thune cruz klobuchar cantwell hawley blumenthal warner schatz kim bennet welch cotton liccardo kiley lieu obernolte beyer peters'.split(' ');

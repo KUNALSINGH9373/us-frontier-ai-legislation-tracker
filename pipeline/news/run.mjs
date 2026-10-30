@@ -36,6 +36,7 @@ import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
 import { defaultHttp, sourceConfig, structuredSources, NEWS_FETCH_TIMEOUT_MS, NEWS_TIMING, redact } from './sources/common.mjs';
 import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
+import { daysBefore } from './text.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -45,7 +46,6 @@ export const HEALTH_FILE = path.join(STATE_DIR, 'news-health.json');
 export const SOURCES_FILE = path.join(pipelineDir, 'config', 'news-sources.json');
 const KEEP_DAYS = NEWS_TIMING.keep_days, EVENT_DAYS = NEWS_TIMING.event_days;
 const host = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return null; } };
-const daysBefore = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') - n * 864e5).toISOString().slice(0, 10);
 
 // Reading feeds the polite way: our own honest name, robots.txt obeyed, a site that refuses us is not read.
 // Returns { get(url) -> text, used(), allowed(url) }. fetchImpl is a test hook.

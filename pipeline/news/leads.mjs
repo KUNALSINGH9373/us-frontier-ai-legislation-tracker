@@ -8,12 +8,12 @@ import { parseFeed, parseTeaserPage, linkKey } from './feeds.mjs';
 import { NEWS_SCREEN_SYSTEM } from './prompts.mjs';
 import { norm } from '../agents/source-text.mjs';
 import { STATE_NAMES, FEDERAL_PREFIXES } from './jurisdictions.mjs';
+import { daysBefore } from './text.mjs';
 
 // The code screen: a headline (or its summary) needs an AI or advanced-computing word, or a tracked bill's number or name.
 export const NEWS_TERMS = /\b(?:A\.?I\.?|AGI|artificial intelligence|frontier|superintelligen\w*|super intelligence|foundation models?|large language models?|LLMs?|machine learning|neural|chatbots?|generative|model weights|compute|chips?|semiconductors?|GPUs?|Nvidia|export controls?|OpenAI|Anthropic|xAI|DeepMind|DeepSeek|Gemini|Claude|ChatGPT|Grok|CAISI|AI Safety Institute|algorithm\w*|autonomous|kill switch)\b/i;
 
 const id = (s) => crypto.createHash('sha256').update(s).digest('hex').slice(0, 12);
-const daysBefore = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') - n * 864e5).toISOString().slice(0, 10);
 const titleKey = (t) => norm(t).replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
 
 // Bill numbers as our own entries write them: "S. 2938", "H.R. 10873", "SB 53", "S.B. 813", "HF 4532", "A.5275".

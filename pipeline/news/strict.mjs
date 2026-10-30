@@ -7,6 +7,8 @@
 //   3. what is left (the core) must match one shape of its class in full (SHAPES), case-insensitive
 //   4. a name slot (@NAME@: a committee or a committee code) may hold only name words, never an action word (ACTION_WORD)
 // Classes not listed in SHAPES (introduction, referral, hearing-scheduled) keep news/classify.mjs's rules: they make no outcome claim.
+import { VOTE_WORDS } from './lexicon.mjs';
+import { MONTH_NAMES } from './text.mjs';
 
 const N = String.raw`\d+`;
 const NAME = String.raw`[\w&,:'./() -]{1,110}?`;
@@ -38,9 +40,8 @@ const TAIL = [
 ];
 const TAIL_RE = new RegExp(String.raw`[\s.;,:-]*(?:${TAIL.join('|')})[\s.;,:-]*$`, 'i');
 
-const VOTE_WORDS = new Set('ayes aye noes noe no nays nay yeas yea y n a page vote votes voting were as follows the of in with reservations none excused absent and representative representatives senator senators conference managers senate house assembly pnv present not vacant to consent calendar recommendation re-referred com on s es transmitted for voice'.split(' '));
+const MONTHS = new RegExp(`^(${MONTH_NAMES.join('|')})$`, 'i');
 const UNDO = /^(void\w*|nullif\w*|invalid\w*|ruled|order|again|retaken|retake|redo|cancel\w*|annul\w*|revers\w*|overturn\w*)$/i;
-const MONTHS = /^(january|february|march|april|may|june|july|august|september|october|november|december)$/i;
 export function rollCallOnly(piece) {
   const toks = String(piece).split(/[^A-Za-z'-]+/).filter(Boolean);
   // names are allowed only in a member list ("Representative(s) Cochran, Garcia"): anywhere else a capitalized word could be
