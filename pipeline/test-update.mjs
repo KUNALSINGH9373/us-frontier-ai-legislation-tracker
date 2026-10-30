@@ -458,10 +458,10 @@ function fakeGit(answers) {
     git: g.git,
     // a change no step may make on KEY: the final check puts KEY back
     correctRun: async (o) => { const f = path.join(o.dataDir, 'entries.json'), es = j(f); es.find((x) => x.key === KEY).title += ' (edited)'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); return { ran: true, skipped_why: null, status: 'written', checked: [{ entry_key: KEY }, { entry_key: OTHER }], corrected: [corr(KEY), corr(OTHER)], problems: [], summary: `Self-correction: 2 entries re-checked, 2 fields corrected\n- ${KEY} mechanism (error): x\n- ${OTHER} mechanism (error): y` }; },
-    newsRun: async () => ({ skipped_why: null, status: 'written', leads: [], drafted: [{ tracker: KEY, written: true, date: '2026-10-28', title: 'NewsAboutKeyItem', publisher: 'Senate' }, { tracker: OTHER, written: true, date: '2026-10-28', title: 'NewsAboutOtherItem', publisher: 'House' }], summary: 'News: 0 leads, 2 items drafted from official releases, 2 published\n- 2026-10-28 NewsAboutKeyItem (Senate)\n- 2026-10-28 NewsAboutOtherItem (House)' })
+    newsRun: async () => ({ skipped_why: null, status: 'written', leads: [], drafted: [{ tracker: KEY, written: true, date: '2026-10-28', title: 'NewsAboutKeyItem', publisher: 'Senate' }, { tracker: OTHER, written: true, date: '2026-10-28', title: 'NewsAboutOtherItem', publisher: 'House' }], summary: 'News: 0 new official events, 0 confirmed, 2 items ready from official records, 2 published; 0 leads\n- 2026-10-28 NewsAboutKeyItem (Senate)\n- 2026-10-28 NewsAboutOtherItem (House)' })
   }, {}, { commit: true });
   const commit = g.calls.find((c) => c.args[0] === 'commit'), m = commit ? commit.input : '';
-  ok('revert, news: the commit has no line for the put-back tracker and says "1 published"', code === 0 && !m.includes('NewsAboutKeyItem') && m.includes('NewsAboutOtherItem') && /2 items drafted from official releases, 1 published/.test(m), `${rep.error} ${m}`);
+  ok('revert, news: the commit has no line for the put-back tracker and says "1 published"', code === 0 && !m.includes('NewsAboutKeyItem') && m.includes('NewsAboutOtherItem') && /2 items ready from official records, 1 published/.test(m), `${rep.error} ${m}`);
   ok('revert, self-correction: the commit counts 1 field corrected and has no line for the put-back entry', /Self-correction: 2 entries re-checked, 1 field corrected/.test(m) && m.includes(`- ${OTHER} mechanism`) && !m.includes(`- ${KEY} mechanism`), m);
 }
 {

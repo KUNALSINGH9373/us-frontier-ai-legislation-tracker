@@ -73,7 +73,7 @@ export function finalize(rep, { now = new Date(), spend = null, month = null } =
     entries_updated: pubs.reduce((t, p) => t + p.entries_updated.length, 0), entries_added: pubs.reduce((t, p) => t + p.entries_added.length, 0), news_added: pubs.reduce((t, p) => t + p.news_added, 0), links_added: pubs.reduce((t, p) => t + p.links_added, 0) + (rep.links && rep.links.status === 'written' ? rep.links.applied.length : 0),
     fields_changed: pubs.reduce((t, p) => t + p.fields_changed.length, 0),
     entries_rechecked: rep.corrections ? rep.corrections.checked.length : 0, fields_corrected: rep.corrections && rep.corrections.status === 'written' ? rep.corrections.corrected.length : 0,
-    // News from feeds (news/run.mjs): leads are pointers only; drafted items are written only when auto_publish.news is on.
+    // News (news/run.mjs): items rendered from official events are written only when auto_publish.news is on; leads are pointers only.
     news_leads: rep.news ? rep.news.leads.length : 0, news_drafted: rep.news ? rep.news.drafted.length : 0, news_written: rep.news ? rep.news.drafted.filter((d) => d.written).length : 0
   };
   rep.totals.news_added += rep.totals.news_written;

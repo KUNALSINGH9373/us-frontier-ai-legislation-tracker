@@ -1,8 +1,8 @@
 // News leads: headlines from the feeds in config/news-sources.json that may be news about frontier-AI policy.
 //   fetch each feed -> keep items from the last N days -> drop links already on the news page or seen on an earlier run
 //   -> code keyword screen -> AI headline screen (role "screener"; only a confident "no" is dropped) -> match to tracked entries
-// A lead is only a pointer. Press (secondary) leads are never published; a primary lead may become a news item through
-// news/write.mjs, which reads the official release itself. Pure apart from the fetch function the caller passes in.
+// A lead is only a pointer, listed in the Telegram report. Nothing is published from a lead: a primary (official) lead may only attach
+// to an existing official event as a statement (verbatim headline + link, news/attach.mjs). Pure apart from the fetch function passed in.
 import crypto from 'crypto';
 import { parseFeed, parseTeaserPage, linkKey } from './feeds.mjs';
 import { NEWS_SCREEN_SYSTEM } from './prompts.mjs';
@@ -76,21 +76,6 @@ export function matchEntries({ title, summary, text: body, sponsor, state = null
   }
   const s = index.filter((x) => x.sponsors.some((n) => n === sponsor || (new RegExp(`\\b${n}\\b`).test(text) && NEWS_TERMS.test(text))));
   return { matches: s.map((x) => ({ key: x.key, by: 'sponsor' })), tracker: null };
-}
-
-// The tracked entry a release itself names (by number or name, in its jurisdiction), or null. Only a candidate: the second reader
-// must confirm "This release is about <entry>" with a quote from the release before an item carries it (news/write.mjs).
-// label: the bill as the release itself writes it (its number or its name), so the claim the reader checks holds nothing the release
-// does not say.
-export function releaseTracker({ release, index, state = null }) {
-  const text = String(release || ''), m = matchEntries({ text, state }, index);
-  if (!m.tracker) return null;
-  const x = index.find((e) => e.key === m.tracker);
-  if (m.matches[0].by === 'bill') {
-    const hit = [...text.matchAll(BILL_TEXT)].find((b) => x.bills.has(numOf(b[1] || b[2], b[3])));
-    return { ...x, label: hit ? hit[0].trim() : x.short_name };
-  }
-  return { ...x, label: `the ${x.names.find((n) => norm(text).includes(norm(n)))}` };
 }
 
 // A source's item is secondary even on an official site when it is an op-ed or a repost of a press story (config secondary_paths /

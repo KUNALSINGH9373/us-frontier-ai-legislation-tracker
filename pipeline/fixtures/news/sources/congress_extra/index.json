@@ -1,0 +1,85 @@
+{
+ "recorded_at": "2026-10-29T04:13:08.068Z",
+ "responses": {
+  "https://api.congress.gov/v3/committee-meeting?format=json&limit=50&fromDateTime=2026-10-10T00:00:00Z": {
+   "file": "r1.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/119157?format=json": {
+   "file": "r2.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/119520?format=json": {
+   "file": "r3.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/118597?format=json": {
+   "file": "r4.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/119132?format=json": {
+   "file": "r5.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/119443?format=json": {
+   "file": "r6.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/118809?format=json": {
+   "file": "r7.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/119549?format=json": {
+   "file": "r8.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/118819?format=json": {
+   "file": "r9.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/118804?format=json": {
+   "file": "r10.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/119439?format=json": {
+   "file": "r11.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/119049?format=json": {
+   "file": "r12.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/117854?format=json": {
+   "file": "r13.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/117886?format=json": {
+   "file": "r14.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/117960?format=json": {
+   "file": "r15.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/committee-meeting/119/house/117961?format=json": {
+   "file": "r16.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/crsreport?format=json&limit=100&fromDateTime=2026-10-10T00:00:00Z": {
+   "file": "r17.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/crsreport/IF13336?format=json": {
+   "file": "r18.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/crsreport/LSB11429?format=json": {
+   "file": "r19.json",
+   "status": 200
+  },
+  "https://api.congress.gov/v3/nomination?format=json&limit=100&fromDateTime=2026-10-10T00:00:00Z": {
+   "file": "r20.json",
+   "status": 200
+  }
+ }
+}

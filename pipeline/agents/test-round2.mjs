@@ -1,5 +1,6 @@
 // Round 2 regressions (29 Oct 2026 audit of Tier B new entries and the gate). No AI, no network.
 //   node agents/test-round2.mjs
+import { asSlots } from './test-slots-helper.mjs';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -25,7 +26,7 @@ const rec = (n) => J(path.join(SET, 'records', n + '.json')), draft = (n) => J(p
 const ENTRIES = J(path.join(here, '..', '..', 'web', 'data', 'v2', 'entries.json'));
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
-const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const r = queue.shift(); if (!r) throw new Error('unexpected AI call'); return { data: typeof r === 'function' ? r() : r, usage: {} }; } });
+const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const r = queue.shift(); if (!r) throw new Error('unexpected AI call'); return { data: asSlots(typeof r === 'function' ? r() : r), usage: {} }; } });
 const trap = () => ({ calls: 0, async generate() { this.calls++; throw new Error('AI must not be called'); } });
 const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'test' }] });
 
@@ -74,6 +75,7 @@ const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate
   const r = rec('HR9442'), g = trap(), out = await processItem({ generator: g, validator: trap(), referee: trap(), item: r.item, raw: r.raw, diff: diffOf(r.item), entries: ENTRIES, today: '2026-10-29', runId: 't' });
   ok('4 related bills not read: held before any AI is spent', out.outcome === 'held' && g.calls === 0 && /not read/.test(out.reason));
   const r2 = JSON.parse(JSON.stringify(r)); r2.raw.related_bills = Array.from({ length: r2.raw.bill.relatedBills.count }, (_, k) => ({ congress: 119, type: 'HR', number: 1 + k, relationshipDetails: [{ type: 'Related bill' }] })); // round 3: the whole list, as many as the count
+  r2.raw.bill.title = 'Artificial Intelligence Moratorium Act'; // round 4: a "Data Center" title is held as one of F's OUT subjects
   const g2 = trap(); let reached = false; try { await processItem({ generator: g2, validator: trap(), referee: trap(), item: r2.item, raw: r2.raw, diff: diffOf(r2.item), entries: ENTRIES, today: '2026-10-29', runId: 't' }); } catch { reached = true; }
   ok('4 with its related bills stored (none tracked), it goes on to the readers', reached && g2.calls === 1);
 }

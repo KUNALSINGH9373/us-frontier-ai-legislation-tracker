@@ -1,0 +1,53 @@
+{
+    "results": [
+        {
+            "dateIssued": "2025-03-26",
+            "billVersion": "ih",
+            "packageId": "BILLS-119hr2388ih",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr2388ih/summary",
+            "billVersionLabel": "Introduced in House",
+            "lastModified": "2026-07-10T19:21:25Z"
+        },
+        {
+            "dateIssued": "2025-09-15",
+            "billVersion": "rh",
+            "packageId": "BILLS-119hr2388rh",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr2388rh/summary",
+            "billVersionLabel": "Reported in House",
+            "lastModified": "2026-07-10T19:21:40Z"
+        },
+        {
+            "dateIssued": "2025-12-09",
+            "billVersion": "eh",
+            "packageId": "BILLS-119hr2388eh",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr2388eh/summary",
+            "billVersionLabel": "Engrossed in House",
+            "lastModified": "2026-07-10T19:21:20Z"
+        },
+        {
+            "dateIssued": "2025-12-10",
+            "billVersion": "rfs",
+            "packageId": "BILLS-119hr2388rfs",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr2388rfs/summary",
+            "billVersionLabel": "Referred in Senate",
+            "lastModified": "2026-07-10T19:21:25Z"
+        },
+        {
+            "dateIssued": "2026-09-14",
+            "billVersion": "rs",
+            "packageId": "BILLS-119hr2388rs",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr2388rs/summary",
+            "billVersionLabel": "Reported in Senate",
+            "lastModified": "2026-09-18T05:06:22Z"
+        },
+        {
+            "dateIssued": "2026-10-09",
+            "billVersion": "enr",
+            "packageId": "BILLS-119hr2388enr",
+            "packageLink": "https://api.govinfo.gov/packages/BILLS-119hr2388enr/summary",
+            "billVersionLabel": "Enrolled Bill",
+            "lastModified": "2026-10-09T03:22:53Z"
+        }
+    ],
+    "relatedId": "PLAW-119publ128"
+}

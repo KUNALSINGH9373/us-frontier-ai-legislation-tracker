@@ -1,0 +1,163 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Education and Workforce Subcommittee on Early Childhood, Elementary, and Secondary Education",
+                "systemCode": "hsed14",
+                "url": "https://api.congress.gov/v3/committee/house/hsed14?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-01-13T15:15:00Z",
+        "eventId": "118804",
+        "hearingTranscript": [
+            {
+                "jacketNumber": 64519,
+                "url": "https://api.congress.gov/v3/hearing/119/house/64519?format=json"
+            }
+        ],
+        "isManuallyCurated": true,
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2175"
+        },
+        "meetingDocuments": [
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Robert C. \"Bobby\" Scott | Submission for the Record | National Women's Law Center Article",
+                "url": "https://www.congress.gov/119/meeting/house/118804/documents/HHRG-119-ED14-20260113-SD002.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Ranking Member Suzanne Bonamici | Submission for the Record | Small Business Majority Statement",
+                "url": "https://www.congress.gov/119/meeting/house/118804/documents/HHRG-119-ED14-20260113-SD005.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Hearing Notice",
+                "url": "https://www.congress.gov/119/meeting/house/118804/documents/HHRG-119-ED14-20260113-SD001.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Alma S. Adams | Submission for the Record | First Five Years Fund Statement",
+                "url": "https://www.congress.gov/119/meeting/house/118804/documents/HHRG-119-ED14-20260113-SD003.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Adelita Grijalva | Submission for the Record | American Progress Article",
+                "url": "https://www.congress.gov/119/meeting/house/118804/documents/HHRG-119-ED14-20260113-SD004.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"Who's Watching the Kids? How Employers, Innovators, and Parents are Solving America's Child Care Crunch\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-21T10:27:58Z",
+        "videos": [
+            {
+                "name": "Who’s Watching the Kids? How Employers, Innovators, and Parents Are Solving America’s Child Care...",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/118804"
+            },
+            {
+                "name": "Who’s Watching the Kids? How Employers, Innovators, and Parents Are Solving America’s Child Care...",
+                "url": "https://www.youtube.com/watch?v=vKUDUzuz6uc"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-TTF-Polseno-HensleyH-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Bio-GroverA-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Bio-Polseno-HensleyH-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-TTF-MatsuiA-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-TTF-GroverA-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Bio-MatsuiA-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Bio-AfonsoM-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Wstate-MatsuiA-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-TTF-AfonsoM-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Wstate-Polseno-HensleyH-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Wstate-GroverA-20260113.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/118804/witnesses/HHRG-119-ED14-Wstate-AfonsoM-20260113.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Ms. Alex Grover",
+                "organization": "i2M",
+                "position": "CEO"
+            },
+            {
+                "name": "Ms. Amy Matsui",
+                "organization": "National Women's Law Center",
+                "position": "Vice President for Child Care & Income Security"
+            },
+            {
+                "name": "Ms. Mary Lou Burke Afonso",
+                "organization": "Bright Horizons",
+                "position": "COO"
+            },
+            {
+                "name": "Mr. Haden Polseno-Hensley",
+                "organization": "Red Rooster Coffee Company, LLC",
+                "position": "President and Co-Founder"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "118804",
+        "format": "json"
+    }
+}

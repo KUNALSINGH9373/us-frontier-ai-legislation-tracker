@@ -3,6 +3,7 @@
 import { makeValidator } from '../schema/validate.mjs';
 import { containsQuote, digitRuns, norm, LOST_EXPONENT, COMPUTE_UNIT } from './source-text.mjs';
 import { SECTION_RULES, NEGATIVE_FINDING } from './rules.mjs';
+import { FIELD_LIMITS, coverageProblems, slotQuoteProblems } from './slots.mjs';
 
 const validator = makeValidator();
 // Fields that state facts from the source and so need an evidence quote. short_name and section are labels and a classification, not facts the source states.
@@ -30,6 +31,8 @@ const MONTH = '(?:January|February|March|April|May|June|July|August|September|Oc
 // A month and day with no year after it (ranges such as "Sept 3–16, 2026" and "Sept 3–Oct 1, 2026" count as having one).
 const NO_YEAR = new RegExp(`\\b${MONTH}\\s+\\d{1,2}\\b(?!(?:\\s*[–-]\\s*(?:${MONTH}\\s+)?\\d{1,2})?,?\\s*\\d{4})`);
 const UNDEFINED = /\bnot (?:established|defined|specified|stated)\b[^.;]{0,40}\b(?:sources?|text)\b/i;
+// A line number glued onto an amount ("$500,000,000.8", IL H.B. 4705): an amount never has a single cent digit.
+const GLUED_DIGIT = /\$\d{1,3}(?:,\d{3})+\.\d(?!\d)/;
 const QUOTED = /[“"]([^”"]{8,})[”"]/g;
 // Compute thresholds must parse to a plausible magnitude (AZ H.B. 4098 was published with "10.26 computational operations", a lost 10^26):
 // "10^N operations" needs N from 20 to 30, and a number written out before a compute unit needs at least 10^20. Returns readable problems.
@@ -53,6 +56,8 @@ export function textProblems(field, value, sourceText) {
   const v = String(value || ''), out = [];
   if (GARBLED.test(v)) out.push(`${field} has a garbled exponent ("${(v.match(GARBLED) || [''])[0]}"): write 10^26, not 1026`);
   thresholdNumberProblems(field, v).filter((p) => !(GARBLED.test(v) && /lost exponent/.test(p))).forEach((p) => out.push(p));
+  const glued = v.match(GLUED_DIGIT);
+  if (glued) out.push(`${field} has a stray digit after an amount ("${glued[0]}"): that is a printed line number, not cents; write the amount without it`);
   const d = v.match(NO_YEAR);
   if (d) out.push(`${field} gives a date without its year ("${d[0]}"): write every date with its year, e.g. "Sept 30, 2026"`);
   if (UNDEFINED.test(v)) out.push(`${field} says a term is not established or defined: read the definitions section and give the definition, or leave the field out`);
@@ -60,7 +65,8 @@ export function textProblems(field, value, sourceText) {
   return out;
 }
 
-export function runChecks({ patch, before, after, assembleProblems, source, sourceText, entries = [], operation }) {
+// readText: what the models read (a long bill's frontier sections); coverage is judged on it, every quote and number on sourceText.
+export function runChecks({ patch, before, after, assembleProblems, source, sourceText, readText = sourceText, entries = [], operation }) {
   const checks = [], add = (name, passed, detail = '') => checks.push({ name, passed, ...(detail ? { detail } : {}) });
   add('assembled', assembleProblems.length === 0, assembleProblems.join('; '));
   if (!after) return checks;
@@ -96,8 +102,15 @@ export function runChecks({ patch, before, after, assembleProblems, source, sour
     add('key_is_unique', !entries.some((e) => e.key === after.key), after.key);
   }
 
-  const tooLong = Object.entries(patch.fields).filter(([f, v]) => typeof v === 'string' && v.length > (f === 'mechanism' ? 700 : 500)).map(([f, v]) => `${f} is ${v.length} characters`);
-  add('field_lengths', tooLong.length === 0, tooLong.length ? `too long: ${tooLong.join(', ')}. Keep to one to three short sentences.` : '');
+  const tooLong = Object.entries(patch.fields).filter(([f, v]) => typeof v === 'string' && v.length > (FIELD_LIMITS[f] || 500)).map(([f, v]) => `${f} is ${v.length} characters`);
+  add('field_lengths', tooLong.length === 0, tooLong.length ? `too long: ${tooLong.join(', ')}. ${patch.slots !== undefined ? 'Shorten the text of each slot; do not drop a threshold tier or a penalty.' : 'Keep to one to three short sentences.'}` : '');
+
+  // A new entry written from slots (agents/slots.mjs): every slot has an exact quote, and no figure SOURCE sets in a coverage sentence
+  // (compute, compute cost, revenue, users, a penalty) is missing from the slots.
+  if (patch.slots !== undefined && patch.in_scope !== false) {
+    const sp = [...(patch.slotProblems || []), ...slotQuoteProblems(patch.slots, sourceText), ...coverageProblems(patch.slots, readText)];
+    add('slots_complete', sp.length === 0, sp.join('; '));
+  }
 
   // A model sometimes leaks the JSON it is writing into a text field (a stray brace, a quoted key, '","'). Real prose never contains these.
   const DEBRIS = /[{}]|['"][a-z_]{3,}['"]\s*:|['"],\s*['"]|```|\\n|\\u[0-9a-f]{4}/i;

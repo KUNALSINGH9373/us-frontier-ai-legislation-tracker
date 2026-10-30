@@ -145,6 +145,140 @@
    },
    "expect": "not_created",
    "why": "a hand-written entry names its bill number (no ids): already tracked"
+  },
+  {
+   "id": "CA-SB833",
+   "record": "CA-SB833.json",
+   "expect": "not_created",
+   "why": "round 4 (passing mention): critical-infrastructure human oversight; 'frontier' appears only in findings naming the Joint California Policy Working Group on AI Frontier Models, no threshold of its own"
+  },
+  {
+   "id": "IL-HB5760",
+   "record": "IL-HB5760.json",
+   "expect": "not_created",
+   "why": "round 4 (passing mention): an AI work-transition commission; it defines frontier AI systems only so the Commission can assess their impact on workers, and lays no duty on any developer (workforce studies are OUT)"
+  },
+  {
+   "id": "NJ-S4712",
+   "record": "NJ-S4712.json",
+   "expect": "not_created",
+   "why": "round 4 (passing mention): a 10 percent tax on AI computer processing 'measured in floating-point operations per second'; no frontier threshold and no duty on frontier developers"
+  },
+  {
+   "id": "CA-AB222",
+   "record": "CA-AB222.json",
+   "expect": "not_created",
+   "why": "round 4 (OUT subject): data centers and power usage; data-centre siting and energy are OUT of scope"
+  },
+  {
+   "id": "HR10515",
+   "record": "HR10515.json",
+   "expect": "not_created",
+   "why": "round 4 (passing mention): AI education and workforce readiness; 'safety' and 'incident response' appear only in a list of what students learn"
+  },
+  {
+   "id": "S4633",
+   "record": "S4633.json",
+   "expect": "not_created",
+   "why": "round 4 (passing mention): a DoD unmanned and autonomous systems strategy; 'an evaluation of capability for artificial intelligence integration' is not AI-risk work"
+  },
+  {
+   "id": "NY-A10000-budget",
+   "record": "NY-A10000-excerpt.json",
+   "expect": "not_created",
+   "why": "round 4 (budget bill with an AI line item): the State Operations Budget funds 'the regulation of certain developers of AI frontier models'; a provision inside a broader law is section I, never auto-created (record text is an excerpt)"
+  },
+  {
+   "id": "NJ-SR52-as-bill",
+   "record": "NJ-SR52-as-bill.json",
+   "expect": "not_created",
+   "why": "round 4 (resolution disguised as a bill): NJ SR52 typed and numbered as bill S4999 with its header line rewritten; its 'Whereas' clauses and 'Be It Resolved by the Senate' make it a resolution, and it names the Frontier Model Forum only in passing"
+  },
+  {
+   "id": "PA-HB2829-as-HJ",
+   "record": "PA-HB2829.json",
+   "raw_patch": { "bill": { "bill_number": "HJ45", "bill_type_id": "1", "bill_type": "B" } },
+   "expect": "not_created",
+   "why": "round 4 (resolution disguised as a bill): numbered as a Virginia-style joint resolution (HJ 45) although LegiScan types it as a bill"
+  },
+  {
+   "id": "NE-LB1083-sunset",
+   "record": "NE-LB1083.json",
+   "raw_patch": { "bill": { "title": "Change the termination date of the Transparency in Artificial Intelligence Risk Management Act" } },
+   "expect": "not_created",
+   "why": "round 4 (sunset/extension bill): a bill that only moves a law's termination date updates that law; it is never a new entry"
+  },
+  {
+   "id": "HR10152-ndaa",
+   "record": "HR10152.json",
+   "raw_patch": { "bill": { "title": "National Defense Authorization Act for Fiscal Year 2027" } },
+   "draft": "HR10152.json",
+   "expect": "not_created",
+   "why": "round 4 (budget/authorization act with an AI provision): an AI provision inside a defence authorization is section I, never auto-created"
+  },
+  {
+   "id": "HR10152-companion-title",
+   "record": "HR10152.json",
+   "raw_patch": { "bill": { "title": "Artificial Intelligence Risk Evaluation Act", "sponsors": [ { "fullName": "Rep. Example, Pat [D-XX-1]", "firstName": "Pat", "lastName": "Example" } ] } },
+   "draft": "HR10152.json",
+   "expect": "not_created",
+   "why": "round 4 (companion under a new number): a House bill with the title of the tracked S. 2938 AI Risk Evaluation Act, other sponsors and no related bills listed yet: a possible companion, held"
+  },
+  {
+   "id": "HR10152-related-tracked",
+   "record": "HR10152.json",
+   "raw_patch": { "bill": { "relatedBills": { "count": 1 } }, "related_bills": [ { "congress": 119, "type": "S", "number": 2938, "relationshipDetails": [ { "type": "Related bill" } ] } ] },
+   "draft": "HR10152.json",
+   "expect": "not_created",
+   "why": "round 4 (tracked under a different id): Congress.gov relates it to the tracked S. 2938"
+  },
+  {
+   "id": "PA-HB2829-companion",
+   "record": "PA-HB2829.json",
+   "entries_patch": { "add_entry": { "section": "B", "type": "bill", "level": "state", "state": "PA", "jurisdiction": "PA", "title": "S.B. 1234 — Providing for the establishment of standards, protections and transparency of artificial intelligence frameworks developed by frontier developers; imposing duties on the Pennsylvania Emergency Management Agency and the Attorney General; and imposing penalties.", "short_name": "PA SB 1234", "events": [ { "date": "2026-09-30", "type": "Introduced / published", "text": "Referred to Communications & Technology" } ] } },
+   "expect": "not_created",
+   "why": "round 4 (companion under a new number): a tracked Senate bill of the same state and session with the same official title and no LegiScan link"
+  },
+  {
+   "id": "NY-A08833-number-written-out",
+   "record": "NY-A08833.json",
+   "entries_patch": { "add_entry": { "section": "B", "type": "bill", "level": "state", "state": "NY", "jurisdiction": "NY", "title": "Assembly Bill 8833 — Understanding Artificial Intelligence Responsibility Act (strict liability for covered models)", "short_name": "NY Understanding AI Responsibility Act", "events": [ { "date": "2025-05-20", "type": "Introduced / published", "text": "Referred to consumer affairs and protection" } ] } },
+   "expect": "not_created",
+   "why": "round 4 (tracked under another form of its number): the entry writes 'Assembly Bill 8833'; LegiScan numbers it A08833"
+  },
+  {
+   "id": "HR10152-figure-not-in-quote",
+   "record": "HR10152.json",
+   "draft": "HR10152.json",
+   "draft_patch": { "mechanism": "The Secretary of Commerce shall identify, assess, and make publicly known, as appropriate, any risk related to the adoption and use of foreign adversary models. Authorizes $5 million for the report." },
+   "expect": "not_created",
+   "why": "round 4 (figure not in its quote): the mechanism states $5 million, which no quote contains"
+  },
+  {
+   "id": "HR10152-wrong-section-D",
+   "record": "HR10152.json",
+   "draft": "HR10152.json",
+   "draft_patch": { "section": "D" },
+   "expect": "not_created",
+   "why": "round 4 (wrong section): an open-model risk report by Commerce puts no duty on frontier developers; D's criterion is not met"
+  },
+  {
+   "id": "NY-A08833",
+   "record": "NY-A08833.json",
+   "expect": "to_readers",
+   "why": "round 4 control: covered-model developers strictly liable (B): goes to the readers"
+  },
+  {
+   "id": "NC-S735",
+   "record": "NC-S735.json",
+   "expect": "to_readers",
+   "why": "round 4 control: NC S735 covered models trained with more than 10 to the 26th power operations (B): goes to the readers"
+  },
+  {
+   "id": "VT-H0341",
+   "record": "VT-H0341.json",
+   "expect": "to_readers",
+   "why": "round 4 control: inherently dangerous AI systems, CBRN and catastrophic-risk duties without a frontier threshold (B.2): goes to the readers"
   }
  ]
 }

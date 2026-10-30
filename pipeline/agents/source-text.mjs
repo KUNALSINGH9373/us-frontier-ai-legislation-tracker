@@ -5,7 +5,17 @@ const stripTags = (s) => String(s || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 
 // Texts printed from PDFs lose superscripts: 10²⁶ arrives as "1026", "10�26" or "10ˆ26". Put the exponent back before anyone reads
 // it, so the models, the reader and the quote checks all see "10^26". Only before a compute word, so a year or a count is never touched.
-export const repairExponents = (s) => String(s || '').replace(/\b10(?:�|ˆ|\^)?(2[0-9])(?=\s+(?:integer|floating|operations|computational|FLOP))/g, '10^$1');
+// PA H.B. 2800 prints it "1,026 integer or floating-point operations" (superscript lost, then a thousands comma added).
+// A line number glued onto an amount ("at least $500,000,000.8 "Minor" means", IL H.B. 4705): the amount and its line's text are
+// split, so the stray digit is never read as cents (a real amount has two cent digits and no capital or quote right after).
+// That comma form needs a compute word after it (not "operations" alone), so a count such as "1,025 operations" is never changed.
+export const repairExponents = (s) => String(s || '').replace(/\b10(?:�|ˆ|\^)?(2[0-9])(?=\s+(?:integer|floating|operations|computational|FLOP))/g, '10^$1')
+  .replace(/\b1,0(2[0-9])(?=\s+(?:integer|floating|computational|FLOP))/g, '10^$1')
+  .replace(/(\$\d{1,3}(?:,\d{3})+)\.(\d)(?=\s+["“A-Z(])/g, '$1. ')
+  // CT P.A. 26-15 spells it out, and its PDF splits the word: "ten to the twen ty - sixth power". Written as the figure, so a quote of
+  // it matches and the numbers check sees 10 and 26.
+  .replace(/\bten\s+to\s+the\s+t\s*w\s*e\s*n\s*t\s*(?:y\s*-?\s*(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)|(i\s*e\s*t\s*h))\s+power\b/gi,
+    (m, unit, tieth) => `10^${tieth ? 20 : 20 + ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'].indexOf(unit.toLowerCase()) + 1}`);
 
 export function sourceText(raw, source) { return repairExponents(rawSourceText(raw, source)); }
 
@@ -49,15 +59,24 @@ export function lineNumbers(text) {
     last.set(k.v, j);
     if (chain[j] >= 3) for (let x = j; x >= 0 && !keep.has(x); x = prevOf[x]) keep.add(x);
   });
-  return { positions: [...keep].map((j) => toks[j]).sort((a, b) => a.i - b.i), values: new Set([...keep].map((j) => toks[j].v)) };
+  // Minnesota prints "page.line" at the start of every line ("3.29 affecting the ... 3.30 the developer learns"): a run of three or more
+  // such numbers on the same page, one line apart, is printed line numbering too (MN HF 4532 was held on a quote across a line break).
+  const pl = [...t.matchAll(/(?<=^|\n)[ \t]*((\d{1,3})\.(\d{1,2}))(?=\s)/g)].map((m) => ({ s: m[1], p: +m[2], l: +m[3], i: m.index + m[0].length - m[1].length, len: m[1].length }));
+  const pageLines = new Set(), plKeep = [];
+  for (let a = 0; a < pl.length; ) {
+    let b = a; while (b + 1 < pl.length && pl[b + 1].p === pl[b].p && pl[b + 1].l === pl[b].l + 1) b++;
+    if (b - a >= 2) for (let x = a; x <= b; x++) { plKeep.push({ v: pl[x].s, i: pl[x].i, len: pl[x].len }); pageLines.add(pl[x].s); }
+    a = b + 1;
+  }
+  return { positions: [...[...keep].map((j) => toks[j]), ...plKeep].sort((a, b) => a.i - b.i), values: new Set([...keep].map((j) => toks[j].v)), pageLines };
 }
 const looseForm = (s) => norm(s).replace(/\s*-\s*/g, '').replace(/\s+/g, ' ');
 const stripCache = new Map();
 function strippedSource(text) {
   if (stripCache.has(text)) return stripCache.get(text);
-  const { positions, values } = lineNumbers(text);
+  const { positions, values, pageLines } = lineNumbers(text);
   let out = '', at = 0; for (const p of positions) { out += text.slice(at, p.i) + ' '; at = p.i + p.len; } out += text.slice(at);
-  const r = { loose: looseForm(out), values };
+  const r = { loose: looseForm(out), values, pageLines };
   if (stripCache.size > 8) stripCache.clear(); stripCache.set(text, r);
   return r;
 }
@@ -68,15 +87,28 @@ export const containsQuote = (text, quote) => {
   if (q1.length < 8) return false;
   if (s.loose.includes(q1)) return true;
   // The quote copied the printed line numbers too: drop those numbers from it (only values that are line numbers in this text).
-  const q2 = looseForm(String(quote).replace(/(?<=^|\s)(\d{1,4})(?=\s|$)/g, (m) => (s.values.has(+m) ? ' ' : m)));
+  const q2 = looseForm(String(quote).replace(/(?<=^|\s)(\d{1,3}\.\d{1,2})(?=\s|$)/g, (m) => (s.pageLines.has(m) ? ' ' : m)).replace(/(?<=^|\s)(\d{1,4})(?=\s|$)/g, (m) => (s.values.has(+m) ? ' ' : m)));
   return q2 !== q1 && q2.length >= 8 && s.loose.includes(q2);
 };
 
+// A model's quote as proof, tidied the ways models commonly copy (round 9 field eval: three new bills held because the referee's one
+// quote missed): wrapping quotation marks or a closing full stop added. Returns the words that are in the source, else null. Passages
+// joined by an ellipsis are refused (independent review, 30 Oct 2026: real parts can be joined into a meaning the bill does not have);
+// the caller asks once more for an exact quote instead.
+export function provedQuote(text, quote) {
+  const q = String(quote || '').trim();
+  if (q.length < 8) return null;
+  if (containsQuote(text, q)) return q;
+  const bare = q.replace(/^["“'‘]+|["”'’]+$/g, '').replace(/[.;,]+$/, '').trim();
+  if (bare !== q && bare.length >= 8 && containsQuote(text, bare)) return bare;
+  return null;
+}
+
 // Every run of digits in a piece of text (commas removed, superscript digits read as digits), for the "numbers must come from the source" check.
 const SUP = { '²': '2', '³': '3', '¹': '1', '⁰': '0', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9' };
-// "10" then a lost exponent 20-29 right before a compute unit: only this form is unambiguous (no compute threshold is 10.26 or 1,026 ops).
+// "10" then a lost exponent 20-29 right before a compute unit: only this form is unambiguous (no compute threshold is 10.26, 1026 or 1,026 ops).
 export const COMPUTE_UNIT = String.raw`(?:integer|floating|computational|operations|FLOPs?\b)`;
-export const LOST_EXPONENT = new RegExp(String.raw`\b10[.,]?(2\d)(?=\s+${COMPUTE_UNIT})`, 'gi');
+export const LOST_EXPONENT = new RegExp(String.raw`\b(?:10[.,]?|1,0)(2\d)(?=\s+${COMPUTE_UNIT})`, 'gi');
 export function digitRuns(text) {
   // "10²⁶", "10^26" and GPO's "10\26\" all read as the runs 10 and 26, so an exponent matches however it is printed.
   const t = String(text || '').replace(/[²³¹⁰⁴-⁹]+/g, (m) => '^' + [...m].map((c) => SUP[c]).join('')).replace(/(\d)\\(\d{1,3})\\/g, '$1^$2').replace(/(\d),(?=\d{3}\b)/g, '$1')

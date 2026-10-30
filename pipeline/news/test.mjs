@@ -1,29 +1,19 @@
 // Run:  node news/test.mjs
-// The news step with real feeds recorded on 28 Oct 2026 (fixtures/news/: Politico technology, NIST news, Rep. Liccardo's feed and the
-// release it links to) and scripted models (no AI, no network), on a copy of the real site data. A checked draft from an official
-// release is reported (switch off) or added (switch on); every way an item can be wrong (invented quote or number, a claim the second
-// reader does not confirm, a press-only lead, a duplicate, an irrelevant headline, a stop rule) publishes nothing.
+// News leads with real feeds recorded on 28 Oct 2026 (fixtures/news/: Politico technology, NIST news, Rep. Liccardo's feed) and a
+// scripted headline screen (no AI, no network): reading feeds, robots.txt, matching headlines to tracked entries, the lead window and
+// dedupe, the polite reader, and the whole news step: leads are only reported (a primary one may attach to an official event as a
+// statement), nothing is ever written from a release page. The event model is tested in news/test-events.mjs.
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { parseFeed, robotsAllows, releaseText, linkKey, isoDate } from './feeds.mjs';
+import { parseFeed, robotsAllows, linkKey, isoDate } from './feeds.mjs';
 import { findLeads, matchEntries, entryIndex, billNumbers, releaseUrl, NEWS_TERMS } from './leads.mjs';
-import { draftNews, checkNewsDraft, claimsOf, checkLine } from './write.mjs';
 import { newsRun, createReader } from './run.mjs';
-import { checkPublish, checkNewsAdded } from '../publish/guards.mjs';
-import { loadData } from '../publish/run.mjs';
-import { makeValidator } from '../schema/validate.mjs';
-import { checkIntegrity } from '../schema/integrity.mjs';
-import { containsQuote } from '../agents/source-text.mjs';
+import { emptyState, saveEvents } from './events.mjs';
 import { newReport, finalize } from '../report/build.mjs';
 import { formatReport } from '../report/format.mjs';
 import { formatHtml } from '../report/html.mjs';
-import * as F from './feeds.mjs';
-import * as L from './leads.mjs';
-import * as W from './write.mjs';
-import * as RUN from './run.mjs';
-import * as P from './prompts.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FIX = path.join(here, '..', 'fixtures', 'news'), realData = path.join(here, '..', '..', 'web', 'data', 'v2');
@@ -34,7 +24,6 @@ const clone = (o) => JSON.parse(JSON.stringify(o));
 
 const FEEDS = { 'https://rss.politico.com/technology.xml': read('politico-technology.xml'), 'https://www.nist.gov/news-events/news/rss.xml': read('nist-news.xml'), 'https://liccardo.house.gov/rss.xml': read('liccardo.xml') };
 const RELEASE_URL = 'https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone';
-const RELEASE_HTML = read('release-liccardo.html'), RELEASE = releaseText(RELEASE_HTML);
 const SOURCES = { user_agent: 'test', sources: [
   { id: 'politico-technology', url: 'https://rss.politico.com/technology.xml', type: 'rss', publisher: 'Politico', primary: false, kind: 'federal' },
   { id: 'nist-news', url: 'https://www.nist.gov/news-events/news/rss.xml', type: 'rss', publisher: 'NIST', primary: true, kind: 'executive' },
@@ -49,33 +38,22 @@ const PITCH = 'Anthropic quietly pitches its own AI safety bill to lawmakers', S
 function scripted(fn) { return { calls: [], async generate(req) { this.calls.push(req); const r = fn(req, this.calls.length); if (r instanceof Error) throw r; return { data: r, usage: {} }; } }; }
 // The headline screen: "yes" for the two real stories, "no" for everything else (an irrelevant AI headline among them).
 const screenOf = (yes = [/Liccardo Pushes/, /quietly pitches/, /H\.R\. 9917/]) => scripted((req) => ({ results: req.prompt.split('\n').slice(1).map((l) => { const [id, title] = l.split('\t'); return { id, verdict: yes.some((r) => r.test(title)) ? 'yes' : 'no', reason: 'scripted' }; }) }));
-const GOOD = { newsworthy: true, date: '2026-09-22', title: 'Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill',
-  body: 'Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation "to establish U.S.-China coordination on frontier artificial intelligence safety." It would direct the State Department to seek negotiations with China and authorize $100 million for the Center for AI Standards and Innovation (CAISI).',
-  evidence: [{ quote: 'to establish U.S.-China coordination on frontier artificial intelligence safety' }, { quote: 'Authorize $100 million for the Center for AI Standards and Innovation (CAISI)' }] };
-const writerOf = (...drafts) => scripted((req, n) => clone(drafts[Math.min(n, drafts.length) - 1]));
-const claimCount = (prompt) => (prompt.match(/^\d+\. \[/gm) || []).length;
-const yesChecker = () => scripted((req) => ({ results: Array.from({ length: claimCount(req.prompt) }, (_, i) => ({ n: i + 1, supported: true, quote: 'to establish U.S.-China coordination on frontier artificial intelligence safety', reason: null })) }));
-const factoryOf = ({ screener = screenOf(), writer = writerOf(GOOD), checker = yesChecker(), referee = null } = {}) => ({ keyName: 'ANTHROPIC_API_KEY', made: { screener, writer, checker, referee }, make: (role) => ({ screener, generator: writer, validator: checker, referee })[role] || null });
-const fakeReader = (extra = {}) => { const pages = { ...FEEDS, [RELEASE_URL]: RELEASE_HTML, ...extra }; let n = 0; return { got: [], used: () => n, async get(u) { n++; this.got.push(u); if (pages[u] instanceof Error) throw pages[u]; if (!(u in pages)) throw new Error(`HTTP 404 for ${u}`); return pages[u]; } }; };
-const CONFIG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on }, news_leads: { enabled: true, max_age_days: 40, max_drafts_per_run: 3, max_rounds: 2 } });
-
-function sandbox() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-test-'));
-  for (const d of ['data', 'docs']) {
-    fs.mkdirSync(path.join(dir, d));
-    for (const f of ['entries', 'site', 'changes', 'relationships']) if (fs.existsSync(path.join(realData, f + '.json'))) fs.copyFileSync(path.join(realData, f + '.json'), path.join(dir, d, f + '.json'));
-    fs.writeFileSync(path.join(dir, d, 'news.json'), JSON.stringify(NEWS_BEFORE, null, 1));
-  }
-  return { dir, dataDir: path.join(dir, 'data'), docsDir: path.join(dir, 'docs'), seenFile: path.join(dir, 'state', 'news-seen.json') };
-}
+// Only the screener: no other role exists in the news step any more.
+const factoryOf = ({ screener = screenOf(), validator = null } = {}) => ({ keyName: 'ANTHROPIC_API_KEY', make: (role) => { if (role === 'validator' && validator) return validator; if (role !== 'screener') throw new Error(`role ${role} is not used by the news step`); return screener; } });
+const fakeReader = (extra = {}) => { const pages = { ...FEEDS, ...extra }; let n = 0; return { got: [], used: () => n, async get(u) { n++; this.got.push(u); if (pages[u] instanceof Error) throw pages[u]; if (!(u in pages)) throw new Error(`HTTP 404 for ${u}`); return pages[u]; } }; };
+const CONFIG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on }, news_leads: { enabled: true, max_age_days: 40 } });
 // The site already has the 22 Sept Liccardo item (written by hand). The sandboxes start from the news page as it was before it.
 const NEWS_REAL = JSON.parse(fs.readFileSync(path.join(realData, 'news.json'), 'utf8'));
 const NEWS_BEFORE = { ...NEWS_REAL, items: NEWS_REAL.items.filter((n) => !(n.links || []).some((l) => l.u === RELEASE_URL)) };
 if (NEWS_BEFORE.items.length !== NEWS_REAL.items.length - 1) throw new Error('test expects the real news page to have the 22 Sept Liccardo item once');
-const run = (sb, o = {}) => newsRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, seenFile: sb.seenFile, config: CONFIG(false), sources: SOURCES, factory: factoryOf(), today: TODAY, now: NOW, runId: 'update-test', reader: fakeReader(), ...o });
-const newsOf = (dir) => JSON.parse(fs.readFileSync(path.join(dir, 'news.json'), 'utf8'));
-const LEAD = { id: 'abc', key: 'k', source_id: 'rep-liccardo', publisher: 'Rep. Sam Liccardo', kind: 'federal', primary: true, title: 'Liccardo Pushes for US-China Coordination on AI Safety', link: 'http://liccardo.house.gov/node/671', release_url: RELEASE_URL, date: '2026-09-25', tracker: LICCARDO_KEY, matches: [] };
-const draft = (o) => draftNews({ maxAgeDays: 40, ...o }); // the recorded release is from Sept 22; the tests read it as of Oct 28
+function sandbox() {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-test-'));
+  fs.mkdirSync(path.join(dir, 'data'));
+  for (const f of ['entries', 'site', 'changes', 'relationships']) if (fs.existsSync(path.join(realData, f + '.json'))) fs.copyFileSync(path.join(realData, f + '.json'), path.join(dir, 'data', f + '.json'));
+  fs.writeFileSync(path.join(dir, 'data', 'news.json'), JSON.stringify(NEWS_BEFORE, null, 1));
+  return { dir, dataDir: path.join(dir, 'data'), seenFile: path.join(dir, 'state', 'news-seen.json'), eventsFile: path.join(dir, 'state', 'news-events.json'), healthFile: path.join(dir, 'state', 'news-health.json') };
+}
+const run = (sb, o = {}) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile, eventsFile: sb.eventsFile, healthFile: sb.healthFile, config: CONFIG(false), sources: SOURCES, factory: factoryOf(), today: TODAY, now: NOW, runId: 'update-test', reader: fakeReader(), records: [], ...o });
 
 // ---------- 1. reading real feeds ----------
 {
@@ -89,15 +67,13 @@ const draft = (o) => draftNews({ maxAgeDays: 40, ...o }); // the recorded releas
   ok('1 dates are read in UTC; an unreadable date is null', isoDate('Tue, 27 Oct 2026 21:03:12 -0700') === '2026-10-28' && isoDate('soon') === null);
   ok('1 the same link with http, www, a slash or tracking parameters is one link', linkKey('http://www.politico.com/a/b/?utm_source=x') === linkKey('https://politico.com/a/b'));
 }
-
-// ---------- 2. robots.txt and release text ----------
+// ---------- 2. robots.txt ----------
 {
   const R = 'User-agent: Googlebot\nDisallow: /\n\nUser-agent: *\nDisallow: /private/\nDisallow: /*?f%5B*\nAllow: /private/press/\nDisallow: /*.pdf$\n';
   ok('2 robots: general rules apply, a named crawler\'s rules do not', robotsAllows(R, '/news/rss.xml') && !robotsAllows(R, '/private/x'));
   ok('2 robots: the longest rule wins, Allow beats a shorter Disallow', robotsAllows(R, '/private/press/r1'));
   ok('2 robots: wildcards and "$" (the real NIST and House patterns)', !robotsAllows(R, '/search?f%5B0%5D=1') && !robotsAllows(R, '/a/b.pdf') && robotsAllows(R, '/a/b.pdf?x=1') && robotsAllows('User-agent: *\nDisallow: /*/media/oembed\n', '/rss.xml'));
   ok('2 robots: no file or an empty one allows everything', robotsAllows('', '/x') && robotsAllows('User-agent: *\nDisallow:\n', '/x'));
-  ok('2 release text keeps the release and drops the site menus', /Congressmen Sam Liccardo \(D-CA\) and Kevin Kiley \(I-CA\) will introduce legislation/.test(RELEASE) && /Authorize \$100 million/.test(RELEASE) && !/Skip to main content|Contact Me|Sign up/i.test(RELEASE), RELEASE.slice(0, 300));
 }
 
 // ---------- 3. matching headlines to tracked entries ----------
@@ -138,121 +114,7 @@ const draft = (o) => draftNews({ maxAgeDays: 40, ...o }); // the recorded releas
   ok('4 a feed that fails is recorded and the others are still read', r6.feeds.some((f) => f.id === 'nist-news' && !f.ok && /403/.test(f.why)) && r6.leads.length === 2);
 }
 
-// ---------- 5. drafting from the official release ----------
-{
-  ok('5 the faithful draft passes every code check', checkNewsDraft({ draft: GOOD, release: RELEASE, lead: LEAD, today: TODAY }).length === 0, JSON.stringify(checkNewsDraft({ draft: GOOD, release: RELEASE, lead: LEAD, today: TODAY })));
-  ok('5 claims are the title and each sentence', claimsOf(GOOD).length === 3 && claimsOf(GOOD)[0].field === 'title');
-  const w = writerOf(GOOD), c = yesChecker();
-  const r = await draft({ lead: LEAD, release: RELEASE, writer: w, checker: c, today: TODAY, runId: 'run-x', now: NOW, entryKind: 'federal' });
-  ok('5 drafted in one round', r.outcome === 'drafted' && r.rounds === 1, JSON.stringify(r.problems));
-  const it = r.item || {};
-  ok('5 the item has the site\'s shape and fixed check line', it.check === 'From the official release (Rep. Sam Liccardo), quotes checked by code.' && it.origin === 'automated' && it.verification.method === 'agent' && it.verification.run_id === 'run-x' && it.tracker === null && it.links[0].u === RELEASE_URL && it.links[0].t === 'Rep. Sam Liccardo release, Sept 22');
-  ok('5 its evidence quotes are in the release', it.evidence.length === 2 && it.evidence.every((x) => containsQuote(RELEASE, x.quote) && x.source_url === RELEASE_URL));
-  ok('5 the second reader sees only the release and numbered claims', /^SOURCE:/.test(c.calls[0].prompt) && !c.calls[0].prompt.includes('EXAMPLES') && claimCount(c.calls[0].prompt) === 3);
-
-  const quote = { ...GOOD, body: GOOD.body.replace('It would direct', 'Liccardo called it "a historic step for AI safety." It would direct') };
-  ok('5 an invented quotation is refused by code', checkNewsDraft({ draft: quote, release: RELEASE, lead: LEAD, today: TODAY }).some((p) => /quotation marks that RELEASE does not contain: "a historic step/.test(p)));
-  const rq = await draft({ lead: LEAD, release: RELEASE, writer: writerOf(quote), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
-  ok('5 ...and stays refused after the rewrite round, even though the reader said yes', rq.outcome === 'rejected' && rq.rounds === 2 && !rq.item);
-  const num = { ...GOOD, body: GOOD.body.replace('$100 million', '$200 million') };
-  ok('5 an invented number is refused by code', checkNewsDraft({ draft: num, release: RELEASE, lead: LEAD, today: TODAY }).some((p) => /numbers not in RELEASE: 200/.test(p)));
-  const rn = await draft({ lead: LEAD, release: RELEASE, writer: writerOf(num), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
-  ok('5 ...and never drafted', rn.outcome === 'rejected');
-  const fw = writerOf(quote, GOOD), rf = await draft({ lead: LEAD, release: RELEASE, writer: fw, checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
-  ok('5 complaints go back word for word, and a fixed draft passes in round 2', rf.outcome === 'drafted' && rf.rounds === 2 && rf.item.verification.rounds === 2 && /YOUR PREVIOUS ITEM WAS REFUSED[\s\S]*a historic step/.test(fw.calls[1].prompt));
-  const noChecker = scripted((req) => ({ results: Array.from({ length: claimCount(req.prompt) }, (_, i) => ({ n: i + 1, supported: i !== 2, quote: i !== 2 ? 'to establish U.S.-China coordination on frontier artificial intelligence safety' : null, reason: i === 2 ? 'RELEASE says the bill will be introduced, not that it was' : null })) }));
-  const rc = await draft({ lead: LEAD, release: RELEASE, writer: writerOf(GOOD), checker: noChecker, today: TODAY, runId: 'r', now: NOW });
-  ok('5 a claim the second reader does not confirm is refused', rc.outcome === 'rejected' && /body\[1\].*not supported: RELEASE says/.test(rc.reason), rc.reason);
-  const fakeQuoteChecker = scripted((req) => ({ results: Array.from({ length: claimCount(req.prompt) }, (_, i) => ({ n: i + 1, supported: true, quote: 'the bill passed the House' })) }));
-  ok('5 a reader\'s "yes" with a quote not in the release does not count', (await draft({ lead: LEAD, release: RELEASE, writer: writerOf(GOOD), checker: fakeQuoteChecker, today: TODAY, runId: 'r', now: NOW })).outcome === 'rejected');
-  ok('5 a date neither in the release nor the feed is refused; so is a future one', checkNewsDraft({ draft: { ...GOOD, date: '2026-09-21' }, release: RELEASE, lead: LEAD, today: TODAY }).some((p) => /neither in RELEASE/.test(p)) && checkNewsDraft({ draft: { ...GOOD, date: '2026-11-02' }, release: RELEASE, lead: { ...LEAD, date: '2026-11-02' }, today: TODAY }).some((p) => /future/.test(p)));
-  ok('5 a date without its year is refused', checkNewsDraft({ draft: { ...GOOD, body: GOOD.body.replace('Sept 22, 2026', 'Sept 22') }, release: RELEASE, lead: LEAD, today: TODAY }).some((p) => /without its year/.test(p)));
-  const chk = (body) => checkNewsDraft({ draft: { ...GOOD, body }, release: RELEASE, lead: LEAD, today: TODAY });
-  ok('5 a date in the body that is not in the release is refused (release date vs event date)', chk(GOOD.body.replace('Sept 22, 2026', 'Sept 22, 2026, with a hearing on Oct 5, 2026,')).some((p) => /2026-10-05 written in the item is not in RELEASE/.test(p)));
-  ok('5 ... the release\'s own date and the feed\'s listing date pass', chk(GOOD.body).length === 0 && chk(GOOD.body.replace('Sept 22, 2026', 'Sept 25, 2026')).length === 0);
-  const red = 'By establishing red lines now';
-  ok('5 a quotation given to the person the release gives it to passes', chk(`${GOOD.body} "${red}," Liccardo said.`).length === 0, JSON.stringify(chk(`${GOOD.body} "${red}," Liccardo said.`)));
-  ok('5 ... given to someone else is refused', chk(`${GOOD.body} "${red}," Kiley said.`).some((p) => /given to Kiley/.test(p)) && chk(`${GOOD.body} Rep. Kevin Kiley said "${red}".`).some((p) => /given to Kiley/.test(p)));
-  ok('5 a statement sourced to a press outlet the release does not name is refused', chk(`${GOOD.body} According to Politico, the bill has support.`).some((p) => /"Politico", whom RELEASE does not name/.test(p)) && chk(`${GOOD.body} Axios reported the bill has support.`).some((p) => /"Axios"/.test(p)));
-  const own = await draft({ lead: LEAD, release: RELEASE, writer: writerOf({ ...GOOD, check: 'Official statement, verified.' }), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
-  ok('5 the check line is code\'s, never the writer\'s', own.item && own.item.check === checkLine(LEAD.publisher));
-  const sw = writerOf(GOOD), rs =await draft({ lead: { ...LEAD, primary: false }, release: RELEASE, writer: sw, checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
-  ok('5 a press (secondary) lead is never written, and the writer is never asked', rs.outcome === 'secondary' && sw.calls.length === 0);
-  const nn = await draft({ lead: LEAD, release: RELEASE, writer: writerOf({ newsworthy: false }), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW });
-  ok('5 a release the writer finds off-topic is not drafted', nn.outcome === 'not_newsworthy');
-  const down = await draft({ lead: LEAD, release: RELEASE, writer: scripted(() => Object.assign(new Error('HTTP 529'), { name: 'HttpError' })), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW }).catch((e) => ({ outcome: 'threw', e }));
-  ok('5 an unexpected error is not swallowed as a draft', down.outcome !== 'drafted');
-}
-
-// ---------- 6. the whole step, switch off: drafted items are reported, nothing is written ----------
-{
-  const sb = sandbox(), before = fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8'), f = factoryOf();
-  const r = await run(sb, { factory: f });
-  ok('6 ran: one drafted, one press lead', r.ran && r.status === 'reported' && r.drafted.length === 1 && r.leads.length === 1 && r.leads[0].title === PITCH && /press report/.test(r.leads[0].note), JSON.stringify({ s: r.status, d: r.drafted, l: r.leads, p: r.problems }));
-  ok('6 nothing written while news publishing is off', fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8') === before && r.drafted[0].written === false && !r.publishing);
-  ok('6 only the official release was drafted (the writer saw one release)', f.made.writer.calls.length === 1 && f.made.writer.calls[0].prompt.includes(RELEASE_URL));
-  const seen = JSON.parse(fs.readFileSync(sb.seenFile, 'utf8')).items;
-  ok('6 leads and drafts are remembered', Object.values(seen).some((v) => v.outcome === 'lead' && v.title === PITCH) && Object.values(seen).some((v) => v.outcome === 'drafted'));
-  const f2 = factoryOf(), r2 = await run(sb, { factory: f2 });
-  ok('6 a second run reports nothing new and drafts nothing', r2.leads.length === 0 && r2.drafted.length === 0 && f2.made.writer.calls.length === 0 && r2.status === 'quiet');
-}
-
-// ---------- 7. switch on: the item is added, only added, and passes the stop rules ----------
-{
-  const sb = sandbox(), before = loadData(sb.dataDir);
-  const r = await run(sb, { config: CONFIG(true) });
-  ok('7 written', r.status === 'written' && r.drafted[0].written === true, JSON.stringify(r.problems));
-  const after = loadData(sb.dataDir), docs = newsOf(sb.docsDir);
-  ok('7 one item added, the rest unchanged', after.news.items.length === before.news.items.length + 1 && before.news.items.every((x) => after.news.items.some((y) => JSON.stringify(x) === JSON.stringify(y))));
-  ok('7 the live copy matches', JSON.stringify(docs) === JSON.stringify(after.news));
-  const added = after.news.items.find((x) => x.origin === 'automated' && x.tracker === null && x.date === '2026-09-22');
-  ok('7 the item (its release names no tracked bill by number or name, so no tracker) is filed under its feed kind, federal', added && added.kind === 'federal' && added.check === checkLine('Rep. Sam Liccardo'));
-  ok('7 the news file passes its schema and the cross-file checks', makeValidator().check('news', after.news).length === 0 && checkIntegrity(after).length === 0);
-  ok('7 entries, site and change log untouched', ['entries', 'site', 'changes'].every((k) => JSON.stringify(before[k]) === JSON.stringify(after[k])));
-  ok('7 the summary names the published item', /1 published/.test(r.summary) && r.summary.includes(added.title));
-
-  const sb2 = sandbox(), d2 = loadData(sb2.dataDir);
-  d2.news.items.push({ ...clone(added), title: 'An earlier item on the same day about the same bill' });
-  fs.writeFileSync(path.join(sb2.dataDir, 'news.json'), JSON.stringify(d2.news));
-  const r2 = await run(sb2, { config: CONFIG(true) });
-  ok('7 a draft repeating an item already on the page (same bill, same day) is not added', r2.drafted.length === 0 && r2.duplicates >= 1 && newsOf(sb2.dataDir).items.length === d2.news.items.length);
-}
-
-// ---------- 8. the stop rules for news ----------
-{
-  const before = { ...loadData(realData), news: clone(NEWS_BEFORE) }, item = (await draft({ lead: LEAD, release: RELEASE, writer: writerOf(GOOD), checker: yesChecker(), today: TODAY, runId: 'r', now: NOW })).item;
-  const after = { ...before, news: { ...before.news, items: [...before.news.items, item] } };
-  const line = () => checkLine('Rep. Sam Liccardo');
-  ok('8 a drafted item passes both checks', checkNewsAdded({ before, after, expected: [item], checkLine: line }).length === 0 && checkPublish({ before, after, runDate: TODAY, maxEntries: 15 }).problems.length === 0, JSON.stringify(checkPublish({ before, after, runDate: TODAY, maxEntries: 15 }).problems.slice(0, 3)));
-  const edited = clone(after); edited.news.items[0].body += ' Edited.';
-  ok('8 editing an existing item stops the run', checkPublish({ before, after: edited, runDate: TODAY, maxEntries: 15 }).problems.some((p) => /news items deleted or edited/.test(p)));
-  const extra = clone(after); extra.news.items.push({ ...clone(item), title: 'Something nobody drafted' });
-  ok('8 an item this run did not draft stops the run', checkNewsAdded({ before, after: extra, expected: [item], checkLine: line }).some((p) => /not drafted by this run/.test(p)));
-  const loose = clone(item); loose.check = 'Looks right.';
-  ok('8 an item without the fixed check line stops the run', checkNewsAdded({ before, after: { ...before, news: { ...before.news, items: [...before.news.items, loose] } }, expected: [loose], checkLine: line }).some((p) => /fixed wording/.test(p)));
-  const foreign = clone(item); foreign.evidence[0].source_url = 'https://www.politico.com/x';
-  ok('8 evidence from a page other than the linked release stops the run', checkNewsAdded({ before, after: { ...before, news: { ...before.news, items: [...before.news.items, foreign] } }, expected: [foreign], checkLine: line }).some((p) => /own linked release/.test(p)));
-  const ent = clone(after); ent.entries[0].mechanism += ' x';
-  ok('8 the news step may not change an entry', checkNewsAdded({ before, after: ent, expected: [item], checkLine: line }).some((p) => /entries changed/.test(p)));
-}
-
-// ---------- 9. failures resolve themselves ----------
-{
-  const sb = sandbox(), f = factoryOf();
-  const r = await run(sb, { factory: f, aiOff: 'dry run (no AI calls are made)', dry: true });
-  ok('9 without AI: leads are still reported, nothing is drafted or remembered', r.leads.length > 2 && r.drafted.length === 0 && f.made.writer.calls.length === 0 && !fs.existsSync(sb.seenFile) && r.leads.some((l) => /not drafted: dry run/.test(l.note)));
-  const sb2 = sandbox(), r2 = await run(sb2, { reader: fakeReader({ [RELEASE_URL]: new Error('HTTP 503 for liccardo.house.gov') }) });
-  const s2 = JSON.parse(fs.readFileSync(sb2.seenFile, 'utf8')).items, rec = Object.values(s2).find((v) => /Liccardo/.test(v.title));
-  ok('9 a release that cannot be read is reported and retried on a later run', r2.drafted.length === 0 && r2.leads.some((l) => /could not be read/.test(l.note)) && rec && rec.retry === true && rec.tries === 1, JSON.stringify(rec));
-  const r3 = await run(sb2, { factory: factoryOf() });
-  ok('9 ...and drafted when it can', r3.drafted.length === 1);
-  const sb3 = sandbox(), r4 = await run(sb3, { config: { ...CONFIG(false), news_leads: { ...CONFIG(false).news_leads, max_drafts_per_run: 0 } } });
-  ok('9 a lead over the per-run cap waits for the next run (not remembered)', r4.waiting === 1 && !Object.values(JSON.parse(fs.readFileSync(sb3.seenFile, 'utf8')).items).some((v) => /Liccardo Pushes/.test(v.title)), JSON.stringify(r4.drafted));
-  const off = await run(sandbox(), { config: { auto_publish: { news: true } } });
-  ok('9 the step can be turned off', !off.ran && /turned off/.test(off.skipped_why));
-}
-
-// ---------- 10. the polite reader ----------
+// ---------- 4b. the polite reader ----------
 {
   const calls = [];
   const fetchImpl = async (u, init) => {
@@ -271,209 +133,49 @@ const draft = (o) => draftNews({ maxAgeDays: 40, ...o }); // the recorded releas
   ok('10 robots.txt is fetched once per site', calls.filter((c) => c.u === 'https://ok.gov/robots.txt').length === 1);
 }
 
-// ---------- 11. the Telegram report ----------
+// ---------- 5. the whole step: leads are reported, nothing is written from a release ----------
 {
-  const sb = sandbox(), nw = await run(sb);
+  const sb = sandbox(), before = fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8');
+  const r = await run(sb, { config: CONFIG(true) });
+  ok('5 the official release and the press story are reported as leads; news.json unchanged even with publishing on', r.leads.length === 2 && r.leads.some((l) => l.primary) && r.leads.some((l) => !l.primary && l.title === PITCH) && fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8') === before && r.drafted.length === 0, JSON.stringify(r.leads));
+  ok('5 no page but the feeds is fetched: release pages are never read', r.requests === 3, String(r.requests));
+  const seen = JSON.parse(fs.readFileSync(sb.seenFile, 'utf8')).items;
+  ok('5 leads are remembered, so the next run does not report them again', Object.values(seen).some((v) => v.outcome === 'lead') && (await run(sb)).leads.length === 0);
+  // a primary lead on a tracked entry attaches to an official event as a statement (within 3 days, a compatible headline)
+  const sb2 = sandbox(), st = emptyState();
+  const key = 'US|h-r-9917-ai-kill-switch-act|hearing-held|2026-10-26';
+  st.events[key] = { key, jurisdiction: 'US', entry_id: 'h-r-9917-ai-kill-switch-act', class: 'hearing-held', date: '2026-10-26', facts: { action: 'Committee on Energy and Commerce. Hearings held.' }, sources: [{ role: 'official', source: 'congress_gov', source_id: '119/hr/9917#x', url: 'https://www.congress.gov/bill/119th-congress/house-bill/9917', retrieved_at: '2026-10-26T08:00:00Z' }], status: 'confirmed', confirmations: [], stable_runs: 2, history: [], card: null };
+  fs.mkdirSync(path.dirname(sb2.eventsFile), { recursive: true }); saveEvents(sb2.eventsFile, st);
+  const atom = '<feed><entry><title>Hearing on H.R. 9917, the AI Kill Switch Act</title><link href="https://lieu.house.gov/media-center/press-releases/hearing-hr-9917"/><updated>2026-10-27T10:00:00Z</updated></entry></feed>';
+  const SRC2 = { user_agent: 't', sources: [{ id: 'rep-lieu', url: 'https://lieu.house.gov/rss.xml', type: 'atom', publisher: 'Rep. Ted Lieu', primary: true, kind: 'federal' }] };
+  const r2 = await run(sb2, { sources: SRC2, reader: fakeReader({ 'https://lieu.house.gov/rss.xml': atom }) });
+  const ev = JSON.parse(fs.readFileSync(sb2.eventsFile, 'utf8')).events[key];
+  // without the AI check (publishing off: no AI) a statement never attaches: it stays a lead (news/statement-check.mjs)
+  ok('5 without the AI check a release does not attach to the hearing event; it stays a lead', r2.events.statements === 0 && !ev.sources.some((s) => s.role === 'statement') && r2.leads.some((l) => /9917/.test(l.title)), JSON.stringify({ leads: r2.leads, st: r2.events.statements }));
+  // with publishing on and the AI check agreeing, it attaches (verbatim headline + link) and is not also a lead
+  const sb3 = sandbox(); fs.mkdirSync(path.dirname(sb3.eventsFile), { recursive: true }); saveEvents(sb3.eventsFile, st);
+  const validator = { generate: async () => ({ data: { reports: 'yes', event_class: 'hearing-held', quote: 'Hearing on H.R. 9917', why: 'x' } }) };
+  const r3 = await run(sb3, { sources: SRC2, config: CONFIG(true), factory: factoryOf({ validator }), reader: fakeReader({ 'https://lieu.house.gov/rss.xml': atom }) });
+  const ev3 = JSON.parse(fs.readFileSync(sb3.eventsFile, 'utf8')).events[key];
+  ok('5 a release the AI check confirms attaches to the hearing event as a statement (verbatim headline + link), and is not also a lead', r3.events.statements === 1 && ev3.sources.some((s) => s.role === 'statement' && s.title === 'Hearing on H.R. 9917, the AI Kill Switch Act' && /lieu.house.gov/.test(s.url) && s.checked === 'ai+code') && !r3.leads.some((l) => /9917/.test(l.title)), JSON.stringify({ leads: r3.leads, st: r3.events.statements }));
+  for (const s of [sb, sb2]) fs.rmSync(s.dir, { recursive: true, force: true });
+}
+
+// ---------- 6. the Telegram report ----------
+{
+  const sb = sandbox(), nw = await run(sb, { config: CONFIG(true) }); // the screener runs only while news publishing is on (review r7 L1)
   const rep = newReport({ id: 'update-20261028-0600', now: NOW });
   rep.publish.runs.push({ status: 'quiet', entries_updated: [], entries_added: [], links_added: 0, news_added: 0, fields_changed: [], not_applied: [] });
   rep.news = nw;
   finalize(rep, { now: new Date('2026-10-28T06:02:00Z'), spend: null, month: null });
-  ok('11 totals count leads and drafts; nothing published is not a change', rep.totals.news_leads === 1 && rep.totals.news_drafted === 1 && rep.totals.news_written === 0 && rep.changed === false);
+  ok('6 totals count leads; nothing published is not a change', rep.totals.news_leads === 2 && rep.totals.news_written === 0 && rep.changed === false);
   const plain = formatReport(rep), html = formatHtml(rep).text;
-  ok('11 plain report: "News drafted" says it was not published, "News leads" names the story', /News drafted: 1 from official releases, not published \(news publishing is switched off\)/.test(plain) && /News leads: 1 \(Anthropic quietly pitches its own AI safety bill.*Politico\) — not published/.test(plain), plain);
-  ok('11 phone report: both sections, short lines', /<b>News drafted \(1\)<\/b>\n<i>not published: switched off<\/i>/.test(html) && /<b>News leads \(1\)<\/b>\n<i>not published<\/i>\n▸ Anthropic quietly pitches its own…\n {6}<i>Politico<\/i>/.test(html), html);
-  const sb2 = sandbox(), nw2 = await run(sb2, { config: CONFIG(true) });
-  const rep2 = newReport({ id: 'u', now: NOW }); rep2.news = nw2;
-  finalize(rep2, { now: NOW });
-  ok('11 a published news item counts as a change', rep2.changed === true && rep2.totals.news_added === 1 && /from official releases, published/.test(formatHtml(rep2).text));
+  ok('6 plain and phone reports list the leads as not published', /News leads: 2 \(.*\) — not published/.test(plain) && /<b>News leads \(2\)<\/b>\n<i>not published<\/i>/.test(html), plain + '\n' + html);
   const rep3 = newReport({ id: 'u', now: NOW }); rep3.news = { ...nw, feeds_failed: [{ id: 'nist-news', why: 'HTTP 403' }] };
   finalize(rep3, { now: NOW });
-  ok('11 a feed that could not be read is a warning', /⚠️ 1 news feed could not be read: nist-news/.test(formatReport(rep3)) && formatHtml(rep3).text.startsWith('🟡'));
+  ok('6 a feed that could not be read is a warning', /⚠️ 1 news feed could not be read: nist-news/.test(formatReport(rep3)) && formatHtml(rep3).text.startsWith('🟡'));
   const rep4 = newReport({ id: 'u', now: NOW }); finalize(rep4, { now: NOW });
-  ok('11 no news section when the step did not run', !/News/.test(formatReport(rep4)) && !/News/.test(formatHtml(rep4).text));
-}
-
-// ---------- 12. the audit of 28 Oct 2026 (lane2-news-scratch): each finding, as a case that failed before the fix ----------
-const t = async (name, fn) => { let r; try { r = await fn(); } catch (e) { r = false; name += ` (threw: ${String(e.message).slice(0, 120)})`; } ok(name, r === true, typeof r === 'string' ? r : ''); };
-const pad = (s) => s + '\nIssues:\nInnovation\n' + ' '.repeat(0);
-// A Lieu release about H.R. 9917 (shape of the real ones), an off-topic Liccardo release naming H.R. 9917 in passing.
-const KILL = pad('REPS LIEU AND MORAN INTRODUCE BILL TO REQUIRE KILL SWITCH FOR AI SYSTEMS\nTuesday, October 20, 2026\nWASHINGTON – Today, Reps. Ted Lieu (D-CA) and Jared Moran (R-KS) introduced H.R. 9917, the AI Kill Switch Act, which would require developers of the most capable artificial intelligence systems to build a way to shut them down. "We need a kill switch for AI systems that can cause catastrophic harm," said Lieu. The bill would direct the Department of Commerce to set standards for the shutdown capability.');
-const KILL_LEAD = { id: 'k1', key: 'lieu.house.gov/kill', source_id: 'rep-lieu', publisher: 'Rep. Ted Lieu', kind: 'federal', sponsor: 'Lieu', primary: true, title: 'REPS LIEU AND MORAN INTRODUCE BILL', link: 'https://lieu.house.gov/media-center/press-releases/kill', release_url: 'https://lieu.house.gov/media-center/press-releases/kill', date: '2026-10-20', tracker: null, matches: [] };
-const KILL_DRAFT = { newsworthy: true, date: '2026-10-20', title: 'Reps. Lieu and Moran introduce H.R. 9917, the AI Kill Switch Act', body: 'Reps. Ted Lieu (D-CA) and Jared Moran (R-KS) introduced H.R. 9917, the AI Kill Switch Act, on Oct 20, 2026. It would require developers of the most capable artificial intelligence systems to build a way to shut them down.', evidence: [{ quote: 'introduced H.R. 9917, the AI Kill Switch Act' }] };
-const PASSING = pad('Rep. Liccardo Introduces Bill to Expand Apprenticeships in Advanced Manufacturing\nTuesday, October 20, 2026\nWASHINGTON – Today, Rep. Sam Liccardo (D-CA) introduced a bill to expand apprenticeships in advanced manufacturing across Silicon Valley. Liccardo has previously spoken about H.R. 9917, the AI Kill Switch Act, and about artificial intelligence and jobs. The bill would fund training grants for community colleges.');
-const PASSING_DRAFT = { newsworthy: true, date: '2026-10-20', title: 'Rep. Liccardo introduces a bill to expand apprenticeships in advanced manufacturing', body: 'Rep. Sam Liccardo (D-CA) introduced a bill on Oct 20, 2026 to expand apprenticeships in advanced manufacturing across Silicon Valley.', evidence: [{ quote: 'introduced a bill to expand apprenticeships in advanced manufacturing' }] };
-// A second reader that confirms every item claim with `quote`, and answers "This release is about ..." with `about` (true/false).
-const readerOf = (quote, about) => scripted((req) => ({ results: [...req.prompt.matchAll(/^(\d+)\. \[([^\]]+)\] (.*)$/gm)].map((m) => (/This release is about/.test(m[3]) ? { n: +m[1], supported: about, quote: about ? quote : null, reason: about ? null : 'mentioned in passing only' } : { n: +m[1], supported: true, quote, reason: null })) }));
-// The fixture's H.R. 9917 release is a fresh introduction on Oct 20, so its record (a copy of the real entries) shows that event: a
-// dated bill event must agree with the entry's record (write.mjs eventDisagreements). The real record is used where that is the point.
-const entries12 = clone(entries); entries12.find((e) => e.key === 'h-r-9917-ai-kill-switch-act').events.push({ date: '2026-10-20', precision: 'day', type: 'Introduced / published', text: 'Oct 20, 2026', clause: 'Oct 20, 2026', inferred_year: false, scheduled: false });
-const ix12 = entryIndex(entries12), kindOf = () => 'federal';
-const d12 = (o) => draftNews({ today: TODAY, runId: 'r', now: NOW, index: ix12, kindOf, maxAgeDays: 14, ...o });
-{
-  // 1. entry matching
-  await t('12.1 an off-topic release on a sponsor\'s feed gets no tracker, even when its lead carried the sponsor\'s entry', async () => { const r = await d12({ lead: { ...LEAD, date: '2026-10-20', tracker: LICCARDO_KEY }, release: PASSING, writer: writerOf(PASSING_DRAFT), checker: readerOf('introduced a bill to expand apprenticeships in advanced manufacturing', false) }); return r.outcome === 'drafted' && r.item.tracker === null || JSON.stringify(r.item ? r.item.tracker : r.reason); });
-  await t('12.1 a bill named in passing is only a candidate: the second reader is asked "This release is about H.R. 9917 ..." and says no, so no tracker', async () => { const c = readerOf('introduced a bill to expand apprenticeships in advanced manufacturing', false); const r = await d12({ lead: { ...LEAD, date: '2026-10-20', tracker: 'h-r-9917-ai-kill-switch-act' }, release: PASSING, writer: writerOf(PASSING_DRAFT), checker: c }); return r.outcome === 'drafted' && r.item.tracker === null && /This release is about H\.R\. 9917/.test(c.calls[0].prompt); });
-  await t('12.1 a release that is about the bill, confirmed with a quote from the release, carries the tracker', async () => { const r = await d12({ lead: KILL_LEAD, release: KILL, writer: writerOf(KILL_DRAFT), checker: readerOf('introduced H.R. 9917, the AI Kill Switch Act', true) }); return r.outcome === 'drafted' && r.item.tracker === 'h-r-9917-ai-kill-switch-act' || JSON.stringify(r.problems || r.reason); });
-  await t('12.1 the about-claim names the bill as the release writes it (by name only here, no number the release does not give)', async () => { const c = readerOf('introduced the AI Kill Switch Act', true); const rel = KILL.replace('introduced H.R. 9917, the AI Kill Switch Act', 'introduced the AI Kill Switch Act'); const r = await d12({ lead: KILL_LEAD, release: rel, writer: writerOf({ ...KILL_DRAFT, title: 'Reps. Lieu and Moran introduce the AI Kill Switch Act', body: 'Reps. Ted Lieu (D-CA) and Jared Moran (R-KS) introduced the AI Kill Switch Act on Oct 20, 2026.', evidence: [{ quote: 'introduced the AI Kill Switch Act' }] }), checker: c }); return /This release is about the AI Kill Switch Act: its main subject/.test(c.calls[0].prompt) && !/This release is about H\.R/.test(c.calls[0].prompt) && r.item && r.item.tracker === 'h-r-9917-ai-kill-switch-act' || JSON.stringify(r.problems || r.reason); });
-  await t('12.1 a "yes" on the about-claim without a quote found in the release gives no tracker', async () => { const c = scripted((req) => ({ results: [...req.prompt.matchAll(/^(\d+)\. \[([^\]]+)\] (.*)$/gm)].map((m) => ({ n: +m[1], supported: true, quote: /This release is about/.test(m[3]) ? 'the release is about the AI Kill Switch Act' : 'introduced H.R. 9917, the AI Kill Switch Act' })) })); const r = await d12({ lead: KILL_LEAD, release: KILL, writer: writerOf(KILL_DRAFT), checker: c }); return r.outcome === 'drafted' && r.item.tracker === null; });
-  await t('12.1 "Nevada SB 53" is not California\'s SB 53', () => matchEntries({ title: 'Attorney General Bonta urges Nevada SB 53 to align with California privacy law' }, ix12).tracker === null && matchEntries({ title: 'Nevada SB 53 advances' }, ix12).matches.length === 0);
-  await t('12.1 on California\'s own feed, a release about "Nevada Senate Bill 53 (SB 53)" never matches California\'s SB 53, even where it writes "SB 53" bare', () => { const txt = 'California Attorney General Rob Bonta today sent a comment letter to the Nevada Attorney General regarding the implementation of Nevada Senate Bill 53 (SB 53), a Nevada law on consumer health data. SB 53 took effect July 1, 2026.'; return matchEntries({ text: txt, state: 'CA' }, ix12).tracker === null && L.releaseTracker({ release: txt, index: ix12, state: 'CA' }) === null && L.releaseTracker({ release: 'Bonta today enforced SB 53 against a frontier developer.', index: ix12, state: 'CA' }).key === 'ca-sb-53-tfaia'; });
-  await t('12.1 a state bill number matches with its own state written next to it, or on that state\'s own feed', () => matchEntries({ title: 'California SB 53 report published' }, ix12).tracker === 'ca-sb-53-tfaia' && matchEntries({ title: 'Bonta enforces SB 53 against a developer', state: 'CA' }, ix12).tracker === 'ca-sb-53-tfaia' && matchEntries({ title: 'Politico: SB 53 in the news' }, ix12).tracker === null);
-  await t('12.1 a federal number never matches a state entry ("H.R. 637" is not Pennsylvania\'s House resolution) unless the state is written', () => matchEntries({ title: 'Congress takes up H.R. 637 on AI' }, ix12).tracker === null && matchEntries({ title: 'Pennsylvania H.R. 637 adopted' }, ix12).tracker === 'pa-h-r-637-frontier-ai-resolution');
-  await t('12.1 bare "S 2938", "A 5275" and the "S." of "U.S." are not bill numbers', () => billNumbers('S 2938 and A 5275').size === 0 && billNumbers('the U.S. 2026 plan').size === 0 && billNumbers('S. 2938 and A.5275').has('S2938'));
-
-  // 2. press reposts
-  const lieuSrc = { id: 'rep-lieu', url: 'https://lieu.house.gov/rss.xml', type: 'rss', publisher: 'Rep. Ted Lieu', primary: true, sponsor: 'Lieu', secondary_paths: JSON.parse(read('../../config/news-sources.json')).sources.find((s) => s.id === 'rep-lieu').secondary_paths };
-  const repostItem = { title: '‘Bumper sticker bill’: AI kill switch rides the midterm elections wave', link: 'https://lieu.house.gov/node/9001', date: '2026-10-23', summary: '', links: ['https://lieu.house.gov/media-center/in-the-news/bumper-sticker-bill-ai-kill-switch-rides-midterm-elections-wave'] };
-  await t('12.2 an "In the News" repost is press, tested on the release link as well as the feed link', () => L.isPrimary(lieuSrc, repostItem) === false && L.isPrimary(lieuSrc, { ...repostItem, link: repostItem.links[0], links: [] }) === false && L.isPrimary(lieuSrc, { ...repostItem, links: ['https://lieu.house.gov/media-center/press-releases/x'] }) === true);
-  await t('12.2 every house.gov feed in the config treats /in-the-news/ as press', () => JSON.parse(read('../../config/news-sources.json')).sources.filter((s) => /house\.gov/.test(s.url)).every((s) => (s.secondary_paths || []).includes('/in-the-news/')));
-  const REPOST = releaseText(read('lieu-in-the-news.html'));
-  await t('12.2 a reposted press story (byline, outlet, "In The News") is never written, even reached by a path the config misses', async () => { const w = writerOf(GOOD); const r = await d12({ lead: { ...KILL_LEAD, date: '2026-10-23' }, release: REPOST, writer: w, checker: yesChecker() }); return r.outcome === 'secondary' && w.calls.length === 0; });
-  await t('12.2 the official release itself is not taken for a repost', () => F.pressRepost(RELEASE) === false && F.pressRepost(KILL) === false && F.pressRepost(releaseText(read('release-nist-key-practices.html'))) === false);
-
-  // 3. duplicates
-  const item = (await d12({ lead: KILL_LEAD, release: KILL, writer: writerOf(KILL_DRAFT), checker: readerOf('introduced H.R. 9917, the AI Kill Switch Act', true) })).item;
-  await t('12.3 the same release by another form of its URL is a duplicate', () => !!W.duplicateOf(item, [{ date: '2026-10-01', title: 'Something else entirely', body: 'x', links: [{ t: 'x', u: 'http://www.lieu.house.gov/media-center/press-releases/kill/?utm_source=feed' }] }]));
-  await t('12.3 a sponsor\'s release the day after the Lane 1 record item on the same bill and event is a duplicate', () => !!W.duplicateOf(item, [{ date: '2026-10-19', kind: 'federal', tracker: 'h-r-9917-ai-kill-switch-act', origin: 'automated', title: 'H.R. 9917 introduced in the House', body: 'Congress.gov records that H.R. 9917 was introduced on Oct 19, 2026.', links: [{ t: 'Congress.gov', u: 'https://www.congress.gov/bill/119th-congress/house-bill/9917' }] }]));
-  await t('12.3 the same event from two feeds (no tracker, near-identical words) is a duplicate', () => !!W.duplicateOf({ ...item, tracker: null }, [{ date: '2026-10-21', tracker: null, title: 'Reps. Lieu and Moran introduce the AI Kill Switch Act, H.R. 9917', body: 'Reps. Ted Lieu and Jared Moran introduced H.R. 9917, the AI Kill Switch Act, on Oct 20, 2026; it would require developers of the most capable artificial intelligence systems to build a way to shut them down.', links: [{ t: 'x', u: 'https://moran.house.gov/r/1' }] }]));
-  await t('12.3 a different event on the same bill (a hearing) is not a duplicate', () => W.duplicateOf(item, [{ date: '2026-10-22', tracker: 'h-r-9917-ai-kill-switch-act', title: 'House Science holds a hearing on the AI Kill Switch Act', body: 'The committee heard testimony.', links: [{ t: 'x', u: 'https://science.house.gov/h' }] }]) === null);
-
-  // 4. freshness from the release's own date
-  const LETTER_HTML = read('release-liccardo-letter.html'), LETTER = releaseText(LETTER_HTML);
-  await t('12.4 the release\'s own date is read', () => F.releaseDate(LETTER) === '2026-09-16' && F.releaseDate(RELEASE) === '2026-09-22' && F.releaseDate(releaseText(read('release-nist-key-practices.html'))) === '2026-10-16');
-  const LETTER_DRAFT = { newsworthy: true, date: '2026-09-16', title: '107 House Democrats ask Speaker Johnson to cancel the recess to vote on AI safeguards', body: 'Reps. Sam Liccardo, George Whitesides, Ted Lieu and Lori Trahan led a letter, released Sept 16, 2026, in which 107 House Democrats demanded Speaker Mike Johnson cancel the upcoming recess to vote on legislation creating AI safeguards.', evidence: [{ quote: '107 House Democrats demanded Speaker Mike Johnson cancel the upcoming recess' }] };
-  const LETTER_LEAD = { id: 'l1', key: 'liccardo.house.gov/letter', source_id: 'rep-liccardo', publisher: 'Rep. Sam Liccardo', kind: 'federal', sponsor: 'Liccardo', primary: true, title: 'Over a Hundred House Democrats Demand Congress Stay in Session to Confront AI Crisis', link: 'https://liccardo.house.gov/media/press-releases/over-hundred-house-democrats-demand-congress-stay-session-confront-ai-crisis', release_url: 'https://liccardo.house.gov/media/press-releases/over-hundred-house-democrats-demand-congress-stay-session-confront-ai-crisis', date: '2026-09-16', tracker: null, matches: [] };
-  const letterReader = () => readerOf('107 House Democrats demanded Speaker Mike Johnson cancel the upcoming recess', false);
-  await t('12.4 a Sept 16 release that the feed lists on Sept 25 is old news re-listed: refused', async () => { const r = await d12({ lead: { ...LETTER_LEAD, date: '2026-09-25' }, release: LETTER, writer: writerOf(LETTER_DRAFT), checker: letterReader(), today: '2026-09-26' }); return r.outcome === 'rejected' && /re-listed/.test(r.reason) || r.outcome; });
-  await t('12.4 a release older than the window is refused whatever its feed date', async () => { const r = await d12({ lead: { ...LETTER_LEAD, date: '2026-10-27' }, release: LETTER, writer: writerOf(LETTER_DRAFT), checker: letterReader(), today: TODAY }); return r.outcome === 'rejected' && /older than the 14-day window/.test(r.reason) || r.outcome; });
-  await t('12.4 a release with no date of its own is refused (freshness cannot be checked)', async () => { const r = await d12({ lead: KILL_LEAD, release: KILL.replace('Tuesday, October 20, 2026\n', ''), writer: writerOf(KILL_DRAFT), checker: yesChecker() }); return r.outcome === 'rejected' && /no date of its own/.test(r.reason); });
-  await t('12.4 an item dated more than 7 days before its feed date is refused by code', () => checkNewsDraft({ draft: GOOD, release: RELEASE, lead: { ...LEAD, date: '2026-10-05' }, today: TODAY }).some((p) => /more than 7 days before/.test(p)));
-  await t('12.4 the fresh letter, listed the day it was released, is drafted', async () => { const r = await d12({ lead: LETTER_LEAD, release: LETTER, writer: writerOf(LETTER_DRAFT), checker: letterReader(), today: '2026-09-20' }); return r.outcome === 'drafted' || JSON.stringify(r.problems || r.reason); });
-
-  // 5. over-refusal: examples, prompt, and a second opinion before an AI-safety release on a member feed is dropped for good
-  await t('12.5 the writer\'s examples include the letters the site publishes', () => { const ex = RUN.examplesFrom(NEWS_REAL.items); return ex.length >= 5 && ex.some((x) => /\b(ask|urge|demand)/i.test(x.title) && !/introduc/i.test(x.title)) || JSON.stringify(ex.map((x) => x.title)); });
-  await t('12.5 the writer prompt says letters by members on AI safety are news', () => /letters and demands by members of Congress/.test(P.WRITER_SYSTEM) && /however many members sign/.test(P.WRITER_SYSTEM));
-  const LETTER_URL = LETTER_LEAD.release_url;
-  const letterFeed = `<rss><channel><item><title>${LETTER_LEAD.title}</title><link>${LETTER_URL}</link><pubDate>Wed, 16 Sep 2026 15:00:00 +0000</pubDate><description>Letter on AI safeguards</description></item></channel></rss>`;
-  const LSRC = { user_agent: 'test', sources: [{ id: 'rep-liccardo', url: 'https://liccardo.house.gov/rss.xml', type: 'rss', publisher: 'Rep. Sam Liccardo', primary: true, kind: 'federal', sponsor: 'Liccardo' }] };
-  const letterRun = (factory) => { const sb = sandbox(); return newsRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, seenFile: sb.seenFile, config: { ...CONFIG(false), news_leads: { enabled: true, max_age_days: 14, max_drafts_per_run: 3, max_rounds: 2 } }, sources: LSRC, factory, today: '2026-09-20', now: NOW, runId: 'u', reader: fakeReader({ 'https://liccardo.house.gov/rss.xml': letterFeed, [LETTER_URL]: LETTER_HTML }) }).then((r) => ({ r, seen: JSON.parse(fs.readFileSync(sb.seenFile, 'utf8')).items })); };
-  await t('12.5 an AI-safety letter the writer calls not newsworthy gets one second opinion (referee), which drafts it', async () => { const referee = writerOf(LETTER_DRAFT); const { r } = await letterRun(factoryOf({ screener: screenOf([/Hundred/]), writer: writerOf({ newsworthy: false }), checker: letterReader(), referee })); return referee.calls.length === 1 && r.drafted.length === 1 || JSON.stringify({ calls: referee.calls.length, d: r.drafted, l: r.leads }); });
-  await t('12.5 ... when the referee also says no, it is marked seen as refereed', async () => { const { r, seen } = await letterRun(factoryOf({ screener: screenOf([/Hundred/]), writer: writerOf({ newsworthy: false }), checker: letterReader(), referee: writerOf({ newsworthy: false }) })); const s = Object.values(seen).find((v) => /Hundred/.test(v.title)); return r.drafted.length === 0 && s && s.outcome === 'not_newsworthy' && s.refereed === true && !s.retry; });
-  await t('12.5 ... and with no referee available it is not lost: retried on a later run', async () => { const { seen } = await letterRun(factoryOf({ screener: screenOf([/Hundred/]), writer: writerOf({ newsworthy: false }), checker: letterReader() })); const s = Object.values(seen).find((v) => /Hundred/.test(v.title)); return !!s && s.retry === true; });
-
-  // 6. CAISI coverage
-  const CAISSI = read('nist-caissi.html'), teasers = F.parseTeaserPage ? F.parseTeaserPage(CAISSI, 'https://www.nist.gov/caissi') : [];
-  await t('12.6 the CAISI page (recorded 28 Oct 2026) is read like a feed: its posts with their own dates and full links', () => teasers.length === 8 && teasers.some((i) => i.link === 'https://www.nist.gov/news-events/news/2026/09/caisis-assessment-zais-glm-53-cyber-capabilities' && i.date === '2026-09-17' && /GLM-5\.3/.test(i.title)) && teasers.every((i) => /^\d{4}-\d\d-\d\d$/.test(i.date)) || JSON.stringify(teasers.slice(0, 2)));
-  await t('12.6 the config reads the CAISI page, and leads come from it', async () => { const src = JSON.parse(read('../../config/news-sources.json')).sources.find((s) => s.type === 'html_teasers' && /nist\.gov\/caiss?i/.test(s.url)); if (!src || !src.primary) return false; const r = await findLeads({ sources: [src], fetchFeed: async (u, accept) => (u === src.url && /html/.test(accept || '') ? CAISSI : ''), news: [], entries, screener: null, today: TODAY, maxAgeDays: 14 }); return r.feeds[0].ok && r.leads.some((l) => /Incident Readiness/.test(l.title) && l.primary) || JSON.stringify(r.feeds); });
-
-  // 7. release text and long releases
-  const NIST = releaseText(read('release-nist-key-practices.html'));
-  await t('12.7 a NIST page without <main>: the .gov banner, share buttons and feedback box are dropped, the article kept', () => /Today, NIST’s Center for Advancing Innovation/.test(NIST) && !/Skip to main content|Official websites use \.gov|Secure \.gov websites|^Share$|^Facebook$|Was this page helpful/m.test(NIST) || NIST.slice(0, 400));
-  const LONG = KILL.replace('The bill would direct', 'x '.repeat(20500) + 'The bill would direct');
-  const LONG_DRAFT = { ...KILL_DRAFT, body: KILL_DRAFT.body + ' It would direct the Department of Commerce to set standards for the shutdown capability.', evidence: [...KILL_DRAFT.evidence, { quote: 'direct the Department of Commerce to set standards for the shutdown capability' }] };
-  await t('12.7 a release over 40,000 characters whose claim lies past the cut is refused as too long, not checked against the cut text', async () => { const r = await d12({ lead: KILL_LEAD, release: LONG, writer: writerOf(LONG_DRAFT), checker: readerOf('introduced H.R. 9917, the AI Kill Switch Act', true) }); return r.outcome === 'rejected' && /longer than 40000/.test(r.reason) || r.reason; });
-  await t('12.7 ... a long release whose claims are all in the part read is still drafted', async () => { const r = await d12({ lead: KILL_LEAD, release: LONG, writer: writerOf(KILL_DRAFT), checker: readerOf('introduced H.R. 9917, the AI Kill Switch Act', true) }); return r.outcome === 'drafted'; });
-
-  // the stop rules: the publish check backs up the tracker and duplicate rules
-  const before = { ...loadData(realData), entries: entries12, news: clone(NEWS_BEFORE) }, line = () => checkLine('Rep. Ted Lieu');
-  const add = (n) => checkNewsAdded({ before, after: { ...before, news: { ...before.news, items: [...before.news.items, n] } }, expected: [n], checkLine: line });
-  await t('12.8 a news item whose tracker is not a tracked entry stops the run', () => add({ ...item, tracker: 'no-such-entry' }).some((p) => /not a tracked entry/.test(p)) && add({ ...item, tracker: 'texas-traiga-hb-149' }).some((p) => /not a tracked entry/.test(p)) && add(item).length === 0);
-  const onPage = NEWS_BEFORE.items.find((n) => (n.links || []).length);
-  await t('12.8 a news item repeating a release already on the page (by any form of its URL) stops the run', () => { const u = onPage.links[0].u.replace(/^https:\/\/(www\.)?/, 'http://') + '/'; const dupe = { ...item, links: [{ t: item.links[0].t, u }], evidence: item.evidence.map((x) => ({ ...x, source_url: u })) }; return add(dupe).some((p) => /already on the news page/.test(p)); });
-}
-
-// ---------- 13. the second audit (29 Oct 2026, l2r2-ln-scratch): each wrong output, as a case that failed before the fix ----------
-{
-  const lieuLead = (id, date) => ({ ...KILL_LEAD, id, key: `lieu.house.gov/${id}`, date, link: `https://lieu.house.gov/media-center/press-releases/${id}`, release_url: `https://lieu.house.gov/media-center/press-releases/${id}` });
-  const licLead = (id, date) => ({ ...LETTER_LEAD_13, id, key: `liccardo.house.gov/${id}`, date, link: `https://liccardo.house.gov/media/press-releases/${id}`, release_url: `https://liccardo.house.gov/media/press-releases/${id}` });
-  const LETTER_LEAD_13 = { id: 'x', source_id: 'rep-liccardo', publisher: 'Rep. Sam Liccardo', kind: 'federal', sponsor: 'Liccardo', primary: true, title: 'x', tracker: null, matches: [] };
-  const itemOf13 = (o) => ({ kind: 'federal', tracker: null, origin: 'automated', links: [{ t: 'x', u: `https://example.house.gov/${o.date}/${o.title.length}` }], ...o });
-  const N4 = pad('REPS LIEU AND MORAN INTRODUCE BILL TO REQUIRE KILL SWITCH FOR AI SYSTEMS THAT CAN CAUSE CATASTROPHIC HARM\nOctober 25, 2026\nWASHINGTON – Today, Congressmen Ted W. Lieu (D-Los Angeles County) and Nathaniel Moran (R-TX) introduced H.R. 9917, the AI Kill Switch Act, which would require developers of covered frontier AI systems to maintain the ability to promptly shut down those systems.\n"If an AI system starts causing catastrophic harm, we need to be able to turn it off," said Lieu.\nThe bill would direct the Secretary of Commerce to set standards for shutdown capabilities and would apply to developers whose models were trained using more than 10^26 operations.');
-  const N4_DRAFT = { newsworthy: true, date: '2026-10-25', title: 'Lieu and Moran introduce H.R. 9917, the AI Kill Switch Act, requiring frontier AI shutdown capability', body: 'Reps. Ted Lieu and Nathaniel Moran introduced H.R. 9917, the AI Kill Switch Act, on Oct 25, 2026. The bill would require developers of covered frontier AI systems to maintain the ability to promptly shut down those systems.', evidence: [{ quote: 'introduced H.R. 9917, the AI Kill Switch Act' }] };
-  await t('13.1 N4: a release dated Oct 25 saying "Today ... introduced H.R. 9917", when the record shows it introduced months earlier, is refused before any writing', async () => { const w = writerOf(N4_DRAFT); const r = await d12({ lead: lieuLead('n4', '2026-10-25'), release: N4, writer: w, checker: readerOf('introduced H.R. 9917, the AI Kill Switch Act', true), today: TODAY }); return r.outcome === 'rejected' && /records no "Introduced \/ published" event/.test(r.reason) && w.calls.length === 0 || JSON.stringify(r.reason); });
-  await t('13.1 ... the same with no tracker candidate at all: the bill number alone, in its jurisdiction, finds the entry', () => W.eventDisagreements({ text: N4, date: '2026-10-25', index: ix12 }).length === 1 && W.eventDisagreements({ text: N4.replace(/H\.R\. 9917/g, 'Pennsylvania H.R. 9917'), date: '2026-10-25', index: ix12 }).length === 0);
-  await t('13.1 ... an item stating the re-dated introduction is refused by code, and by the publish check', () => { const it = itemOf13({ date: '2026-10-25', title: N4_DRAFT.title, body: N4_DRAFT.body }); return W.eventDisagreements({ text: `${it.title}. ${it.body}`, date: it.date, index: ix12 }).length > 0 && W.eventDisagreements({ text: N4_DRAFT.body, date: '2026-10-25', index: entryIndex(entries) }).length > 0; });
-  await t('13.1 ... an event that agrees with the record within 3 days passes; a description without a date ("introduced by Reps. ...") is not an event claim', () => W.eventDisagreements({ text: N4.replace('October 25, 2026', 'October 22, 2026'), date: '2026-10-22', index: ix12 }).length === 0 && W.eventDisagreements({ text: 'H.R. 9917, the AI Kill Switch Act, introduced by Reps. Ted Lieu and Nathaniel Moran, would require a shutdown capability.', date: '2026-10-25', index: ix12 }).length === 0 && W.eventDisagreements({ text: 'Reps. Lieu and Jacobs welcomed the introduction of a Senate companion to H.R. 9917 today.', date: '2026-10-21', index: ix12 }).length === 0);
-  await t('13.1 ... a release saying a tracked bill was signed into law, which its record does not show, is refused', () => W.eventDisagreements({ text: 'The release confirms that H.R. 9917, the AI Kill Switch Act, was signed into law on October 17, 2026.', date: '2026-10-17', index: ix12 }).some((p) => /Signed \/ enacted/.test(p)));
-
-  await t('13.1 ... a Nevada bill written bare later in a California release ("Nevada Assembly Bill 1405 (AB 1405)" ... "AB 1405 was introduced") is never read against California\'s entry', () => { const ix = entryIndex(entries); const txt = 'Attorney General Bonta today submitted comments on Nevada Assembly Bill 1405 (AB 1405), a Nevada bill on AI auditors. AB 1405 was introduced in the Nevada Assembly on October 6, 2026.'; return W.eventDisagreements({ text: txt, date: '2026-10-22', index: ix, state: 'CA' }).length === 0 && W.eventDisagreements({ text: 'Bonta said California AB 1405 was signed on October 6, 2026.', date: '2026-10-22', index: ix, state: 'CA' }).length === (ix.some((x) => x.jur === 'CA' && x.bills.has('AB1405') && !x.events.some((v) => v.type === 'Signed / enacted' && Math.abs(Date.parse(v.date) - Date.parse('2026-10-06')) <= 3 * 864e5)) ? 1 : 0); });
-  const N5A = itemOf13({ date: '2026-10-26', title: 'Liccardo, Lieu and 40 members of Congress ask Commerce to publish frontier AI incident reports', body: 'Representatives Sam Liccardo and Ted Lieu led 40 Members of Congress in a letter to Commerce Secretary Howard Lutnick urging the Department to publish the AI incident reports it has received from frontier AI developers. The letter asks the Department to respond by November 20, 2026, and to explain whether CAISSI has reviewed the reports.' });
-  const N5B = itemOf13({ date: '2026-10-26', title: 'Lieu and Liccardo lead 40 members in letter asking Lutnick to make AI incident reports public', body: 'Reps. Ted Lieu and Sam Liccardo sent a letter, signed by 40 Members of Congress, to Commerce Secretary Howard Lutnick on Oct 26, 2026, requesting that the Department of Commerce make public the incident reports frontier AI companies have submitted. The Members requested a response by Nov 20, 2026, and asked about the role of the Department\'s AI safety center in reviewing them.' });
-  await t('13.2 N5a/N5b: one 40-member letter released by two offices, in other words and without a tracker, is one event', () => !!W.duplicateOf(N5B, [N5A]) && !!W.duplicateOf(N5A, [N5B]));
-  const N11 = itemOf13({ date: '2026-09-23', title: 'Liccardo and Kiley announce bill directing State Department to pursue US-China frontier AI safety talks', body: 'Reps. Sam Liccardo and Kevin Kiley announced bipartisan legislation on Sept 22, 2026, directing the State Department to pursue U.S.–China talks on frontier AI safety and crisis communication for AI incidents. The legislation would require a State Department report to Congress within 180 days.' });
-  const onPage13 = NEWS_REAL.items.find((n) => n.title === 'Liccardo and Kiley announce a US–China frontier-AI safety bill');
-  await t('13.2 N11: a second release about the Sept 22 bill announcement already on the page (hand-written, with a tracker) is a duplicate', () => !!onPage13 && !!W.duplicateOf(N11, [onPage13]));
-  const N8I = itemOf13({ date: '2026-10-21', title: 'Lieu and Jacobs welcome Senate companion to H.R. 9917, the AI Kill Switch Act', body: 'Reps. Ted Lieu and Sara Jacobs welcomed the introduction of a Senate companion to H.R. 9917, the AI Kill Switch Act, by Senator Elizabeth Warren. Warren introduced the Senate bill on Tuesday with four cosponsors.' });
-  const N9I = itemOf13({ date: '2026-10-22', title: 'Lieu urges Congress to pass H.R. 9917, the AI Kill Switch Act', body: 'Rep. Ted Lieu urged Congress to pass the AI Kill Switch Act, H.R. 9917, which he and Rep. Nathaniel Moran wrote.' });
-  const N3I = itemOf13({ date: '2026-10-24', title: 'Lieu introduces Chip Location Verification Act requiring location checks on advanced AI chip exports', body: 'On Oct 24, 2026, Rep. Ted Lieu introduced the Chip Location Verification Act. It would direct the Bureau of Industry and Security to issue rules within 180 days of enactment.' });
-  await t('13.2 ... different events by the same member on nearby days are not duplicates (Senate companion vs. a call to pass; a different bill)', () => W.duplicateOf(N8I, [N9I]) === null && W.duplicateOf(N3I, [N8I, N9I, N5A, N5B]) === null && W.duplicateOf(N5A, [N3I, N8I]) === null);
-  await t('13.2 ... the publish check refuses two added items reporting one event', () => { const b = { ...loadData(realData), entries: entries12, news: clone(NEWS_BEFORE) }; const a5 = { ...N5A, verification: { method: 'agent' }, check: 'c', evidence: [{ field: 'body', quote: 'q', source_url: N5A.links[0].u }] }, b5 = { ...N5B, verification: { method: 'agent' }, check: 'c', evidence: [{ field: 'body', quote: 'q', source_url: N5B.links[0].u }] }; return checkNewsAdded({ before: b, after: { ...b, news: { ...b.news, items: [...b.news.items, a5, b5] } }, expected: [a5, b5] }).some((p) => /same event/.test(p)); });
-
-  const N6 = pad('Kill switch bill gains Republican backers as midterms near\nOctober 27, 2026\nBrendan Bordelon reports for Politico that the AI Kill Switch Act, H.R. 9917, introduced by Reps. Ted Lieu and Nathaniel Moran, has picked up 12 new Republican cosponsors in the past month, according to two House aides granted anonymity to discuss internal deliberations.\nAides expect House Energy and Commerce Committee Chair Brett Guthrie to schedule a markup in November, the people said, though no date has been set.');
-  await t('13.3 N6: a Politico story ("reports for Politico") on a press-releases path is press, never written', async () => { const w = writerOf(N4_DRAFT); const r = await d12({ lead: lieuLead('n6', '2026-10-27'), release: N6, writer: w, checker: yesChecker() }); return r.outcome === 'secondary' && w.calls.length === 0; });
-  await t('13.3 ... and "writes for The Hill", "according to Axios", "(c) 2026 POLITICO", "Gabby Miller, Politico", "Originally published in" are press too', () => [N6.replace('reports for Politico', 'writes for The Hill'), 'Title\nOctober 27, 2026\nAccording to Axios, the bill gained cosponsors.', 'Title\nOctober 27, 2026\nText.\n(c) 2026 POLITICO', 'Title\nGabby Miller, Politico\nText', 'Title\nText.\nOriginally published in Roll Call.'].every((x) => F.pressRepost(x)));
-  await t('13.3 ... while the official releases are not', () => [RELEASE, KILL, N4, releaseText(read('release-nist-key-practices.html')), releaseText(read('release-liccardo-letter.html'))].every((x) => !F.pressRepost(x)));
-
-  const N9 = pad('WHY CONGRESS MUST PASS THE AI KILL SWITCH ACT THIS YEAR\nOctober 22, 2026\nI have spent a decade warning about the risks of artificial intelligence. This fall, those risks stopped being hypothetical.\nThat is why Rep. Nathaniel Moran and I wrote H.R. 9917, the AI Kill Switch Act. In my view, every frontier developer should be able to shut down its most capable systems within minutes.\nCongress should pass this bill before the end of the year.\nTed W. Lieu represents California\'s 36th District.');
-  await t('13.4 N9: a first-person op-ed on a press-releases path is a lead, never written', async () => { const w = writerOf(N4_DRAFT); const r = await d12({ lead: lieuLead('n9', '2026-10-22'), release: N9, writer: w, checker: yesChecker() }); return r.outcome === 'secondary' && /opinion/.test(r.reason) && w.calls.length === 0; });
-  await t('13.4 ... a labelled column is a lead; releases and statements quoting a member in the first person are not opinion pieces', () => F.opinionPiece('Op-Ed\nAI needs rules\nBy Rep. X') && [RELEASE, KILL, N4, releaseText(read('release-liccardo-letter.html')), releaseText(read('release-nist-key-practices.html')), 'Statement\nOctober 17, 2026\nWASHINGTON – Congressman Ted W. Lieu issued the following statement: "I am glad. I have long said my bill is needed. I will keep pushing."'].every((x) => !F.opinionPiece(x)));
-
-  const OPEN = 'Committee update on AI safety\nOn October 2, 2026, the committee held a hearing on frontier AI, and members discussed next steps at length.';
-  await t('13.5 the release date: an event date in the opening sentence is not the release date unless it agrees with the feed date within 2 days', () => F.releaseDate(OPEN, '2026-10-20') === null && F.releaseDate(OPEN) === null && F.releaseDate(OPEN, '2026-10-03') === '2026-10-02');
-  await t('13.5 ... a date line or a dateline is the release date', () => F.releaseDate('Title\nWASHINGTON, D.C., October 16, 2026 – Today, the members announced a bill.', '2026-10-25') === '2026-10-16' && F.releaseDate('Title\nOctober 16, 2026 – WASHINGTON – Today, x.', null) === '2026-10-16' && F.releaseDate(N4, null) === '2026-10-25');
-  await t('13.5 ... a release whose only date is an event in its opening, far from the feed date, is held (refused), not dated by that event', async () => { const r = await d12({ lead: lieuLead('open', '2026-10-20'), release: pad(OPEN + ' More text about the frontier AI hearing and the bill follows here, with several more words to make it long enough to read as a release of its own.'), writer: writerOf(N4_DRAFT), checker: yesChecker() }); return r.outcome === 'rejected' && /no date of its own/.test(r.reason); });
-}
-
-// ---------- 14. third audit (29 Oct 2026): hidden text, record lag, release-date lines ----------
-{
-  const lieuLead = (id, date) => ({ ...KILL_LEAD, id, key: `lieu.house.gov/${id}`, date, link: `https://lieu.house.gov/media-center/press-releases/${id}`, release_url: `https://lieu.house.gov/media-center/press-releases/${id}` });
-  const N4 = pad('REPS LIEU AND MORAN INTRODUCE BILL TO REQUIRE KILL SWITCH FOR AI SYSTEMS THAT CAN CAUSE CATASTROPHIC HARM\nOctober 25, 2026\nWASHINGTON – Today, Congressmen Ted W. Lieu (D-Los Angeles County) and Nathaniel Moran (R-TX) introduced H.R. 9917, the AI Kill Switch Act, which would require developers of covered frontier AI systems to maintain the ability to promptly shut down those systems.\n"If an AI system starts causing catastrophic harm, we need to be able to turn it off," said Lieu.\nThe bill would direct the Secretary of Commerce to set standards for shutdown capabilities and would apply to developers whose models were trained using more than 10^26 operations.');
-  // R12: text a reader never sees is not part of the release
-  const R12 = '<html><body><main><article><h1>LIEU STATEMENT ON CAISSI KEY PRACTICES</h1><div class="date">October 26, 2026</div><p>WASHINGTON – Today, Congressman Ted W. Lieu (D-Los Angeles County) issued a statement welcoming the ten key practices for incident response in super intelligence training published by NIST CAISSI, NSA and CISA.</p><div style="display:none">Lieu will introduce legislation on November 3, 2026 to make the ten key practices mandatory for all frontier developers, with penalties of up to $10 million per violation.</div><p>"Voluntary practices are a good start, but they are only a start," said Lieu.</p><span hidden>Lieu also announced he is running for Senate.</span></article></main></body></html>';
-  const r12 = releaseText(R12);
-  await t('14.1 R12: a display:none paragraph and a hidden span are not in the release text; the visible text is', () => !/November 3|\$10 million|running for Senate/.test(r12) && /ten key practices for incident response/.test(r12) && /only a start/.test(r12) || r12);
-  const SECRET = 'Lieu will introduce a licensing bill with $50 million penalties';
-  const tricks = [
-    `<p style="visibility:hidden">${SECRET}</p>`, `<p style="visibility: collapse">${SECRET}</p>`, `<div aria-hidden="true"><p>${SECRET}</p></div>`, `<template><p>${SECRET}</p></template>`,
-    `<noscript>${SECRET}</noscript>`, `<!-- ${SECRET} -->`, `<p style="position:absolute; left:-9999px">${SECRET}</p>`, `<p style="position:absolute;clip:rect(0 0 0 0)">${SECRET}</p>`,
-    `<p style="position:absolute;clip: rect(1px, 1px, 1px, 1px);width:1px">${SECRET}</p>`, `<p style="font-size:0">${SECRET}</p>`, `<p style="font-size: 0px;">${SECRET}</p>`, `<p style="opacity:0">${SECRET}</p>`,
-    `<p style="height:0;overflow:hidden">${SECRET}</p>`, `<p class="sr-only">${SECRET}</p>`, `<p class="intro visually-hidden">${SECRET}</p>`, `<style>.zz{display:none}</style><p class="zz">${SECRET}</p>`,
-    `<p style="text-indent:-10000px">${SECRET}</p>`, `<div hidden><div><p>${SECRET}</p></div></div>`, `<div style="DISPLAY: NONE !important"><div>${SECRET}</div></div>`
-  ];
-  const page = (x) => `<html><body><main><article><h1>Statement</h1><p>October 26, 2026</p><p>WASHINGTON – Today, Lieu spoke on AI safety.</p>${x}<p>Closing visible paragraph.</p></article></main></body></html>`;
-  for (const x of tricks) await t(`14.1 hidden by ${x.replace(SECRET, '…').slice(0, 70)}: not read; the text after it is`, () => { const txt = releaseText(page(x)); return !txt.includes('licensing bill') && /Closing visible paragraph/.test(txt) || txt; });
-  await t('14.1 visible text is kept: a word "hidden" in an attribute value or the text, an ordinary class, display:block', () => { const txt = releaseText(page('<p title="the hidden cost">The hidden cost of AI.</p><p class="lead">Lead text.</p><p style="display:block">Block text.</p>')); return /The hidden cost of AI\./.test(txt) && /Lead text\./.test(txt) && /Block text\./.test(txt) || txt; });
-
-  // R06 / R11: the release's own date
-  await t('14.2 R06: "October 21, 2025" on a release the feed lists on 2026-10-21 is a year typo: dated 2026-10-21', () => F.releaseDate('LIEU AND OBERNOLTE CALL ON CAISSI\nOctober 21, 2025\nWASHINGTON – Today, ...', '2026-10-21') === '2026-10-21');
-  await t('14.2 ... within 2 days of the feed date too; but not 3 days off, not two years off, and not without a feed date', () => F.releaseDate('T\nOctober 19, 2025\nx', '2026-10-21') === '2026-10-19' && F.releaseDate('T\nOctober 18, 2025\nx', '2026-10-21') === '2025-10-18' && F.releaseDate('T\nOctober 21, 2024\nx', '2026-10-21') === '2024-10-21' && F.releaseDate('T\nOctober 21, 2025\nx') === '2025-10-21');
-  await t('14.2 ... a dateline with the typo is corrected the same way', () => F.releaseDate('T\nWASHINGTON, D.C., October 21, 2025 – Today, x.', '2026-10-22') === '2026-10-21');
-  const R06 = pad('LIEU AND OBERNOLTE CALL ON CAISSI TO PUBLISH FRONTIER MODEL EVALUATION SCHEDULE\nOctober 21, 2025\nWASHINGTON – Today, Congressmen Ted W. Lieu (D-Los Angeles County) and Jay Obernolte (R-CA) sent a letter to NIST Director asking the Center for Advancing Innovation and Standards for Super Intelligence (CAISSI) to publish a schedule for its pre-deployment evaluations of frontier super intelligence models.\n"The public deserves to know when and how these models are tested," said Lieu.');
-  await t('14.2 R06: the release is no longer refused as year-old news', async () => { const r = await d12({ lead: lieuLead('r06', '2026-10-21'), release: R06, writer: writerOf({ newsworthy: false }), checker: yesChecker() }); return r.outcome === 'not_newsworthy' || JSON.stringify(r.reason); });
-  const R11 = pad('UPDATED: Casar and Sanders Announce Ban Artificial Superintelligence Act\nSeptember 3, 2026 (updated October 25, 2026)\nARCHIVED RELEASE. Updated October 25, 2026 to add the current list of cosponsors.\nWASHINGTON — Today, Congressman Greg Casar and Senator Bernie Sanders announced the Ban Artificial Superintelligence Act, which would prohibit the development of artificial superintelligence.\n"No company should be allowed to build a machine that could make humanity obsolete," said Casar.');
-  await t('14.2 R11: "September 3, 2026 (updated October 25, 2026)" is a release of September 3', () => F.releaseDate(R11, '2026-10-25') === '2026-09-03' && F.releaseDate('T\nSeptember 3, 2026 [Last updated: October 25, 2026]\nx', '2026-10-25') === '2026-09-03');
-  await t('14.2 R11: so the archived release re-listed in October is refused as old news, never drafted', async () => { const w = writerOf(KILL_DRAFT); const r = await d12({ lead: lieuLead('r11', '2026-10-25'), release: R11, writer: w, checker: yesChecker(), maxAgeDays: 60 }); return r.outcome === 'rejected' && /old news/.test(r.reason) && w.calls.length === 0 || JSON.stringify(r.reason); });
-
-  // R13: an event the record does not show yet is waiting, not refused for good
-  const R13 = pad('HOMELAND SECURITY COMMITTEE ADVANCES LIEU-MORAN AI KILL SWITCH ACT\nOctober 27, 2026\nWASHINGTON – Today, the House Committee on Homeland Security marked up and advanced H.R. 9917, the AI Kill Switch Act, led by Congressmen Ted W. Lieu (D-Los Angeles County) and Nathaniel Moran (R-TX), by a vote of 21 to 4.\n"This is a big step toward making sure the most powerful AI systems always have an off switch," said Lieu.\nThe bill now awaits consideration by the full House.');
-  await t('14.3 R13: a mark-up the record does not show yet is "waiting" (retry, no AI used), not refused', async () => { const w = writerOf(KILL_DRAFT); const r = await d12({ lead: lieuLead('r13', '2026-10-27'), release: R13, writer: w, checker: yesChecker() }); return r.outcome === 'waiting' && r.retry === true && r.release_date === '2026-10-27' && /waiting for the official record/.test(r.reason) && w.calls.length === 0 || JSON.stringify(r); });
-  await t('14.3 ... a record that shows the event on another date still refuses for good (N4: an introduction re-dated)', async () => { const r = await d12({ lead: lieuLead('n4', '2026-10-25'), release: N4, writer: writerOf(KILL_DRAFT), checker: yesChecker(), index: entryIndex(entries) }); return r.outcome === 'rejected' && /refused/.test(r.reason); });
-  const e13 = clone(entries12); e13.find((e) => e.key === 'h-r-9917-ai-kill-switch-act').events.push({ date: '2026-10-27', precision: 'day', type: 'Passed / advanced', text: 'Oct 27, 2026', clause: 'Oct 27, 2026', inferred_year: false, scheduled: false });
-  await t('14.3 ... once the record shows the mark-up, the release goes on to drafting', async () => { const w = writerOf({ newsworthy: false }); const r = await d12({ lead: lieuLead('r13', '2026-10-27'), release: R13, writer: w, checker: yesChecker(), index: entryIndex(e13) }); return r.outcome === 'not_newsworthy' && w.calls.length === 1 || JSON.stringify(r); });
-  // the run: kept for retry (not seen), retried each run, dropped with a report line when the window closes
-  const R13_URL = 'https://lieu.house.gov/media-center/press-releases/r13-markup';
-  const feed13 = `<rss><channel><item><title>HOMELAND SECURITY COMMITTEE ADVANCES LIEU-MORAN AI KILL SWITCH ACT H.R. 9917</title><link>${R13_URL}</link><pubDate>Tue, 27 Oct 2026 15:00:00 +0000</pubDate><description>AI Kill Switch Act advances</description></item></channel></rss>`;
-  const html13 = `<html><body><main><article>${R13.split('\n').map((l) => `<p>${l}</p>`).join('')}</article></main></body></html>`;
-  const LIEU_SRC = { user_agent: 'test', sources: [{ id: 'rep-lieu', url: 'https://lieu.house.gov/rss.xml', type: 'rss', publisher: 'Rep. Ted Lieu', primary: true, kind: 'federal', sponsor: 'Lieu' }] };
-  const sb = sandbox();
-  const run13 = (today, writer = writerOf({ newsworthy: false })) => newsRun({ dataDir: sb.dataDir, docsDir: sb.docsDir, seenFile: sb.seenFile, config: { ...CONFIG(false), news_leads: { enabled: true, max_age_days: 14, max_drafts_per_run: 1, max_rounds: 2 } }, sources: LIEU_SRC, factory: factoryOf({ screener: screenOf([/KILL SWITCH/]), writer, checker: yesChecker() }), today, now: new Date(today + 'T06:00:00Z'), runId: 'u', reader: fakeReader({ 'https://lieu.house.gov/rss.xml': feed13, [R13_URL]: html13 }) });
-  const seen13 = () => JSON.parse(fs.readFileSync(sb.seenFile, 'utf8')).items;
-  const w1 = writerOf(KILL_DRAFT), r1 = await run13('2026-10-28', w1), s1 = Object.values(seen13()).find((v) => /HOMELAND/.test(v.title));
-  await t('14.3 run 1: reported as waiting for the record, kept for retry, nothing drafted, no AI writer call', () => r1.waiting_record.length === 1 && r1.drafted.length === 0 && s1 && s1.outcome === 'waiting_for_record' && s1.retry === true && w1.calls.length === 0 && /waiting for the official record/.test(r1.summary) || JSON.stringify({ r1: r1.waiting_record, s1, leads: r1.leads }));
-  const r2 = await run13('2026-10-29'), r3 = await run13('2026-10-30'), s3 = Object.values(seen13()).find((v) => /HOMELAND/.test(v.title));
-  await t('14.3 runs 2 and 3: retried each run, still waiting, with no limit of tries', () => r2.waiting_record.length === 1 && r3.waiting_record.length === 1 && s3.outcome === 'waiting_for_record' && s3.retry === true && s3.tries === 3 || JSON.stringify(s3));
-  const r4 = await run13('2026-11-20'), s4 = Object.values(seen13()).find((v) => /HOMELAND/.test(v.title));
-  await t('14.3 when the freshness window closes with the record still silent: dropped, with a report line, never retried again', () => r4.waiting_record.length === 0 && r4.leads.some((l) => /dropped: the official record did not show the event/.test(l.note)) && s4.outcome === 'dropped_waiting' && !s4.retry || JSON.stringify({ leads: r4.leads, s4 }));
+  ok('6 no news section when the step did not run', !/News/.test(formatReport(rep4)) && !/News/.test(formatHtml(rep4).text));
   fs.rmSync(sb.dir, { recursive: true, force: true });
 }
 

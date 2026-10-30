@@ -1,0 +1,761 @@
+{
+ "item": {
+  "item_id": "legiscan:1980563",
+  "source": "legiscan",
+  "source_id": "1980563",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB833",
+  "raw_hash": "e159dc24fee1e3e1d1097c7f9dadbb518ed060d1a1d9552e6f9731dab1558a77",
+  "raw_path": "raw/legiscan/CA-SB833-1980563.json",
+  "title": "CA SB833: Critical infrastructure: artificial intelligence systems: human oversight.",
+  "from_run": "run-20261013-0540-2bcb"
+ },
+ "raw": {
+  "id": "1980563",
+  "search_hit": {
+   "relevance": 7,
+   "state": "CA",
+   "bill_number": "SB833",
+   "last_action": "August 13 hearing: Held in committee and under submission.",
+   "last_action_date": "2026-08-13"
+  },
+  "bill": {
+   "bill_id": 1980563,
+   "change_hash": "95ce9754536fa94a6549f1c275ca6af9",
+   "session_id": 2172,
+   "session": {
+    "session_id": 2172,
+    "state_id": 5,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 Regular Session"
+   },
+   "url": "https://legiscan.com/CA/bill/SB833/2025",
+   "state_link": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB833",
+   "completed": 0,
+   "status": 2,
+   "status_date": "2025-06-03",
+   "progress": [
+    {
+     "date": "2025-02-21",
+     "event": 1
+    },
+    {
+     "date": "2025-03-12",
+     "event": 9
+    },
+    {
+     "date": "2025-03-26",
+     "event": 9
+    },
+    {
+     "date": "2025-04-02",
+     "event": 9
+    },
+    {
+     "date": "2025-04-22",
+     "event": 10
+    },
+    {
+     "date": "2025-04-22",
+     "event": 9
+    },
+    {
+     "date": "2025-05-23",
+     "event": 10
+    },
+    {
+     "date": "2025-06-03",
+     "event": 2
+    },
+    {
+     "date": "2025-06-09",
+     "event": 9
+    },
+    {
+     "date": "2025-07-07",
+     "event": 9
+    },
+    {
+     "date": "2025-07-17",
+     "event": 10
+    },
+    {
+     "date": "2025-07-17",
+     "event": 9
+    }
+   ],
+   "state": "CA",
+   "state_id": 5,
+   "bill_number": "SB833",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "S",
+   "body_id": 20,
+   "current_body": "A",
+   "current_body_id": 19,
+   "title": "Critical infrastructure: artificial intelligence systems: human oversight.",
+   "description": "An act to add Article 6.6 (commencing with Section 8954.50) to Chapter 7 of Division 1 of Title 2 of the Government Code, relating to state government.",
+   "pending_committee_id": 449,
+   "committee": {
+    "committee_id": 449,
+    "chamber": "A",
+    "chamber_id": 19,
+    "name": "Appropriations"
+   },
+   "referrals": [
+    {
+     "date": "2025-02-21",
+     "committee_id": 489,
+     "chamber": "S",
+     "chamber_id": 20,
+     "name": "Rules"
+    },
+    {
+     "date": "2025-04-02",
+     "committee_id": 479,
+     "chamber": "S",
+     "chamber_id": 20,
+     "name": "Governmental Organization"
+    },
+    {
+     "date": "2025-04-22",
+     "committee_id": 475,
+     "chamber": "S",
+     "chamber_id": 20,
+     "name": "Appropriations"
+    },
+    {
+     "date": "2025-06-09",
+     "committee_id": 3626,
+     "chamber": "A",
+     "chamber_id": 19,
+     "name": "Privacy and Consumer Protection"
+    },
+    {
+     "date": "2025-07-17",
+     "committee_id": 449,
+     "chamber": "A",
+     "chamber_id": 19,
+     "name": "Appropriations"
+    }
+   ],
+   "history": [
+    {
+     "date": "2025-02-21",
+     "action": "Introduced. To Com. on RLS. for assignment. To print.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 1
+    },
+    {
+     "date": "2025-02-24",
+     "action": "From printer. May be acted upon on or after March 24.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 0
+    },
+    {
+     "date": "2025-02-24",
+     "action": "Read first time.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 0
+    },
+    {
+     "date": "2025-03-12",
+     "action": "Referred to Com. on RLS.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 1
+    },
+    {
+     "date": "2025-03-26",
+     "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on RLS.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 1
+    },
+    {
+     "date": "2025-04-02",
+     "action": "Re-referred to Com. on G.O.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 1
+    },
+    {
+     "date": "2025-04-08",
+     "action": "Set for hearing April 22.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 0
+    },
+    {
+     "date": "2025-04-22",
+     "action": "From committee: Do pass and re-refer to Com. on APPR. (Ayes 12. Noes 0. Page 830.) (April 22). Re-referred to Com. on APPR.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 1
+    },
+    {
+     "date": "2025-04-25",
+     "action": "Set for hearing May 5.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 0
+    },
+    {
+     "date": "2025-05-05",
+     "action": "May 5 hearing: Placed on APPR. suspense file.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 0
+    },
+    {
+     "date": "2025-05-16",
+     "action": "Set for hearing May 23.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 0
+    },
+    {
+     "date": "2025-05-23",
+     "action": "From committee: Do pass. (Ayes 6. Noes 0. Page 1214.) (May 23).",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 1
+    },
+    {
+     "date": "2025-05-23",
+     "action": "Read second time. Ordered to third reading.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 0
+    },
+    {
+     "date": "2025-06-03",
+     "action": "Read third time. Passed. (Ayes 37. Noes 0. Page 1446.) Ordered to the Assembly.",
+     "chamber": "S",
+     "chamber_id": 20,
+     "importance": 1
+    },
+    {
+     "date": "2025-06-04",
+     "action": "In Assembly. Read first time. Held at Desk.",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 0
+    },
+    {
+     "date": "2025-06-09",
+     "action": "Referred to Com. on P. & C.P.",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 1
+    },
+    {
+     "date": "2025-07-07",
+     "action": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on P. & C.P.",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 1
+    },
+    {
+     "date": "2025-07-17",
+     "action": "Assembly Rule 63 suspended. (Ayes 49. Noes 15. Page 2578.)",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 0
+    },
+    {
+     "date": "2025-07-17",
+     "action": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 15. Noes 0.) (July 16).",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 1
+    },
+    {
+     "date": "2025-07-17",
+     "action": "Read second time and amended. Re-referred to Com. on APPR.",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 1
+    },
+    {
+     "date": "2025-08-20",
+     "action": "August 20 set for first hearing. Placed on APPR. suspense file.",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 0
+    },
+    {
+     "date": "2025-08-29",
+     "action": "August 29 hearing postponed by committee.",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 0
+    },
+    {
+     "date": "2026-08-13",
+     "action": "August 13 hearing: Held in committee and under submission.",
+     "chamber": "A",
+     "chamber_id": 19,
+     "importance": 0
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 25355,
+     "person_hash": "0acsxxb7",
+     "party_id": "1",
+     "state_id": 5,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Jerry McNerney",
+     "first_name": "Jerry",
+     "middle_name": "",
+     "last_name": "McNerney",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-005",
+     "ftm_eid": 59506633,
+     "votesmart_id": 29474,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Jerry_McNerney",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 8985,
+     "bio": {
+      "social": {
+       "capitol_phone": "916-651-4005",
+       "district_phone": "209-472-9535",
+       "email": "",
+       "webmail": "https://sd05.senate.ca.gov/",
+       "biography": "https://sd05.senate.ca.gov/",
+       "image": "https://www.senate.ca.gov/sites/senate.ca.gov/files/styles/large/public/media/McNerney%2520new%2520headshot%25203_0_1.jpg",
+       "ballotpedia": "https://ballotpedia.org/Jerry_McNerney",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/29474"
+      },
+      "capitol_address": {
+       "address1": "1021 O Street, Suite 6640",
+       "address2": "",
+       "city": "Sacramento",
+       "state": "CA",
+       "zip": "Suite"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/congressmanjerrymcnerney",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/SenMcNerney",
+        "website": "https://sd05.senate.ca.gov/",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "https://www.instagram.com/sennerney/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [],
+   "texts": [
+    {
+     "doc_id": 3137348,
+     "date": "2025-02-21",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/CA/text/SB833/id/3137348",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB833#99INT",
+     "text_size": 3597,
+     "text_hash": "0a40b14c32d8e98d7e864b57771d556c",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    },
+    {
+     "doc_id": 3191104,
+     "date": "2025-03-26",
+     "type": "Amended",
+     "type_id": 3,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/CA/text/SB833/id/3191104",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB833#98AMD",
+     "text_size": 10393,
+     "text_hash": "29827f5fd66760c80141e6d64d422639",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    },
+    {
+     "doc_id": 3260763,
+     "date": "2025-07-07",
+     "type": "Amended",
+     "type_id": 3,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/CA/text/SB833/id/3260763",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB833#97AMD",
+     "text_size": 23151,
+     "text_hash": "a6ac49b20f9d88a41e08677cbe9f34c8",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    },
+    {
+     "doc_id": 3262151,
+     "date": "2025-07-17",
+     "type": "Amended",
+     "type_id": 3,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/CA/text/SB833/id/3262151",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB833#96AMD",
+     "text_size": 33178,
+     "text_hash": "32466b32925d2e63925b5e58a864873b",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [
+    {
+     "roll_call_id": 1554538,
+     "date": "2025-04-22",
+     "desc": "Do pass, but first be re-referred to the Committee on [Appropriations]",
+     "yea": 12,
+     "nay": 0,
+     "nv": 0,
+     "absent": 3,
+     "total": 15,
+     "passed": 1,
+     "chamber": "S",
+     "chamber_id": 20,
+     "url": "https://legiscan.com/CA/rollcall/SB833/id/1554538",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB833"
+    },
+    {
+     "roll_call_id": 1565262,
+     "date": "2025-05-05",
+     "desc": "Placed on suspense file",
+     "yea": 7,
+     "nay": 0,
+     "nv": 0,
+     "absent": 0,
+     "total": 7,
+     "passed": 1,
+     "chamber": "S",
+     "chamber_id": 20,
+     "url": "https://legiscan.com/CA/rollcall/SB833/id/1565262",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB833"
+    },
+    {
+     "roll_call_id": 1577285,
+     "date": "2025-05-23",
+     "desc": "Do pass",
+     "yea": 6,
+     "nay": 0,
+     "nv": 0,
+     "absent": 1,
+     "total": 7,
+     "passed": 1,
+     "chamber": "S",
+     "chamber_id": 20,
+     "url": "https://legiscan.com/CA/rollcall/SB833/id/1577285",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB833"
+    },
+    {
+     "roll_call_id": 1584341,
+     "date": "2025-06-03",
+     "desc": "Senate 3rd Reading SB833 McNerney",
+     "yea": 37,
+     "nay": 0,
+     "nv": 0,
+     "absent": 3,
+     "total": 40,
+     "passed": 1,
+     "chamber": "S",
+     "chamber_id": 20,
+     "url": "https://legiscan.com/CA/rollcall/SB833/id/1584341",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB833"
+    },
+    {
+     "roll_call_id": 1598700,
+     "date": "2025-07-16",
+     "desc": "Do pass as amended and be re-referred to the Committee on [Appropriations]",
+     "yea": 15,
+     "nay": 0,
+     "nv": 0,
+     "absent": 0,
+     "total": 15,
+     "passed": 1,
+     "chamber": "A",
+     "chamber_id": 19,
+     "url": "https://legiscan.com/CA/rollcall/SB833/id/1598700",
+     "state_link": "https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=202520260SB833"
+    }
+   ],
+   "amendments": [],
+   "supplements": [],
+   "calendar": [
+    {
+     "type_id": 1,
+     "event_hash": "57ead55f",
+     "type": "Hearing",
+     "date": "2025-04-22",
+     "time": "09:00",
+     "location": "1021 O Street, Room 1200",
+     "description": "Senate Governmental Organization Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "2e1692aa",
+     "type": "Hearing",
+     "date": "2025-05-05",
+     "time": "10:00",
+     "location": "1021 O Street, Room 2200",
+     "description": "Senate Appropriations Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "1a64fe50",
+     "type": "Hearing",
+     "date": "2025-05-23",
+     "time": "00:00",
+     "location": "1021 O Street, Room 2200",
+     "description": "Senate Appropriations Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "54ed3c03",
+     "type": "Hearing",
+     "date": "2025-07-16",
+     "time": "00:00",
+     "location": "State Capitol, Room 444",
+     "description": "Assembly Privacy And Consumer Protection Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "2d5fb266",
+     "type": "Hearing",
+     "date": "2025-08-20",
+     "time": "09:00",
+     "location": "1021 O Street, Room 1100",
+     "description": "Assembly Appropriations Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "55629a42",
+     "type": "Hearing",
+     "date": "2025-08-29",
+     "time": "00:00",
+     "location": "1021 O Street, Room 1100",
+     "description": "Assembly Appropriations Hearing"
+    },
+    {
+     "type_id": 1,
+     "event_hash": "3226a148",
+     "type": "Hearing",
+     "date": "2026-08-13",
+     "time": "00:00",
+     "location": "1021 O Street, Room 1100",
+     "description": "Assembly Appropriations Hearing"
+    }
+   ]
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2025-02-21",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Introduced. To Com. on RLS. for assignment. To print.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-02-24",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Read first time.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-03-12",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Referred to Com. on RLS.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-03-26",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on RLS.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-04-02",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Re-referred to Com. on G.O.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-04-08",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Set for hearing April 22.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-04-22",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "From committee: Do pass and re-refer to Com. on APPR. (Ayes 12. Noes 0. Page 830.) (April 22). Re-referred to Com. on APPR.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-04-25",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Set for hearing May 5.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-05-05",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "May 5 hearing: Placed on APPR. suspense file.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-05-16",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Set for hearing May 23.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-05-23",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "From committee: Do pass. (Ayes 6. Noes 0. Page 1214.) (May 23).",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-06-03",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "Read third time. Passed. (Ayes 37. Noes 0. Page 1446.) Ordered to the Assembly.",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-06-04",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "In Assembly. Read first time. Held at Desk.",
+     "chamber": "A"
+    },
+    {
+     "date": "2025-06-09",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Referred to Com. on P. & C.P.",
+     "chamber": "A"
+    },
+    {
+     "date": "2025-07-07",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on P. & C.P.",
+     "chamber": "A"
+    },
+    {
+     "date": "2025-07-17",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 15. Noes 0.) (July 16).",
+     "chamber": "A"
+    },
+    {
+     "date": "2025-07-17",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "Read second time and amended. Re-referred to Com. on APPR.",
+     "chamber": "A"
+    },
+    {
+     "date": "2025-08-20",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "August 20 set for first hearing. Placed on APPR. suspense file.",
+     "chamber": "A"
+    },
+    {
+     "date": "2025-08-29",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "August 29 hearing postponed by committee.",
+     "chamber": "A"
+    },
+    {
+     "date": "2026-08-13",
+     "precision": "day",
+     "type": "Referred / stalled / hearing",
+     "text": "August 13 hearing: Held in committee and under submission.",
+     "chamber": "A"
+    }
+   ]
+  },
+  "text": "Amended\n IN \nAssembly\n July 17, 2025\nAmended\n IN \nAssembly\n July 07, 2025\nAmended\n IN \nSenate\n March 26, 2025\nCALIFORNIA LEGISLATURE—\n2025–2026 REGULAR SESSION\nSenate Bill\nNo. 833Introduced by Senator McNerneyFebruary 21, 2025An act to add Sections 8592.51 and 8592.52 to Article 6.6 (commencing with Section 8954.50) to Chapter 7 of Division 1 of Title 2 of the Government Code, relating to state government.LEGISLATIVE COUNSEL'S DIGESTSB 833, as amended, McNerney.\nCritical infrastructure: automated decision artificial intelligence systems: human oversight: adverse event reporting. oversight.Existing law, the California Emergency Services Act, establishes the California Cybersecurity Integration Center within the Office of Emergency Services to serve as the central organizing hub of state government’s cybersecurity activities and to coordinate information sharing with various entities. Existing law also requires the Technology Recovery Plan element of the State Administrative Manual to ensure the inclusion of cybersecurity strategy incident response standards for each state agency to secure its critical infrastructure controls and information, as prescribed.This bill would require require, on or before July 1, 2026, an operator, defined as a\nstate agency in charge of specified responsible for operating, managing, overseeing, or controlling access to critical infrastructure, that deploys artificial intelligence a covered artificial intelligence (AI) system, as defined, to establish a human oversight mechanism to monitor that ensures a human monitors the system’s operations in real time and review\nreviews and approve\napproves any plan or action proposed by the artificial intelligence covered AI system before execution, except as provided. The bill would require the Department of Technology to administer develop specialized training in artificial intelligence AI safety protocols and risk management techniques to oversight personnel. The bill would require\noversight personnel for an operator to conduct an annual assessment of its artificial intelligence systems and automated decision covered AI systems, as specified, and to submit a summary of the findings to the department. The bill would make findings and declarations related to its provisions. This bill would require any entity that engages in conduct that could materially impact critical infrastructure safety, security, or operations to report an artificial intelligence (AI) adverse event, as defined, in a form and manner prescribed by the Office of Emergency Services, as provided. The bill would subject each entity that fails to provide an AI adverse event report to a specified civil penalty. The bill would authorize the office to, among other things, authorize public or private entities to receive information about individual events or aggregated statistics for the purpose of collaboratively addressing identified harms, except as provided. The bill would include related findings and declarations.The bill would preclude disclosure of specified information by the office.Existing constitutional provisions require that a statute that limits the right of access to the meetings of public bodies or the writings of public officials and agencies be adopted with findings demonstrating the interest protected by the limitation and the need for protecting that interest.This bill would make legislative findings to that effect.Digest Key\nVote:\nMAJORITY  \nAppropriation:\nNO  \nFiscal Committee:\nYES  \nLocal Program:\nNO  Bill TextThe people of the State of California do enact as follows:SECTION 1. The Legislature finds and declares all of the following:(a) In response to the rapid advancement of generative artificial intelligence (GenAI) and its growing integration across public and private sectors, the Governor issued Executive Order No. N-12-23, which established a comprehensive policy framework to responsibly explore and govern the deployment of GenAI systems within the state.(b) The Governor convened the Joint California Policy Working Group on AI Frontier Models to evaluate the potential risks and governance needs associated with the deployment of powerful artificial\nintelligence models.(c)The working group’s 2025 report recommends the establishment of adverse event reporting mechanisms for artificial intelligence systems, especially in high-risk domains such as critical infrastructure, to ensure transparency, accountability, and public safety.(d)The report underscores the importance of centralized, timely, and clear reporting of AI malfunctions or failures that could lead to physical harm, data breaches, or disruption of essential services. These recommendations are echoed by expert consensus on artificial intelligence safety protocols nationally.(e)(c) The Governor’s executive order also emphasized the urgent need for workforce development and training to ensure that public sector employees have the technical expertise and practical tools necessary to oversee and manage artificial intelligence systems safely and effectively.(f)As California integrates artificial intelligence into critical infrastructure operations, it is essential that state agencies implement human verification mechanisms, conduct rigorous risk assessments, and comply with mandatory adverse event reporting standards to protect public health, safety, and the integrity of essential systems.SEC. 2.Section 8592.51 is added to the Government Code, immediately following Section 8592.50, to read:8592.51.(a)For purposes of this section, the following definitions apply:(1)“AI adverse event” means an incident, circumstance, or series of events where the development, deployment, use, or malfunction of an artificial intelligence (AI) system or automated decision system in critical infrastructure has caused or contributed to any of the following:(A)Death of any person.(B)Serious physical injury requiring medical\ntreatment.(C)Significant disruption to critical infrastructure operations lasting more than one hour.(D)Unauthorized access to or compromise of sensitive data affecting more than 100 individuals.(E)Material financial loss greater than fifty thousand dollars ($50,000) to any person or entity. (F)System failure that requires manual intervention to prevent harm or restore service.(G)Any failure of the AI system to perform as intended that could reasonably lead to mass casualty events or widespread critical infrastructure failure.(2)“Artificial intelligence” (“AI”) means an engineered or machine-based system that varies in its level of autonomy that can, for explicit or implicit objectives, infer from the input it receives how to generate outputs that can influence physical or virtual environments.(3)“Automated decision system” means a computational process derived from machine learning, statistical modeling, data analytics,\nor artificial intelligence that issues simplified output, including a score, classification, or recommendation, that is used to assist or replace human discretionary decisionmaking and materially impacts natural persons. “Automated decision system” does not include a spam email filter, firewall, antivirus software, identity and access management tools, or a calculator.(4)“Critical infrastructure” means systems or assets so vital to the state that the incapacity or destruction of those networks, systems, or assets would have a debilitating impact on public health, safety, economic security, or any combination thereof, including any of\nthe following infrastructure:(A)Transportation.(B)Energy.(C)Food and agriculture.(D)Communications.(E)Emergency services.(F)Financial services.(5)“Operator” means a state agency in charge of critical infrastructure.(b)(1)An operator deploying artificial intelligence that could materially impact critical infrastructure safety, security, or operations shall establish a human oversight mechanism to do both of the following:(A)Monitor the artificial intelligence system’s operations in real time.(B)Review and approve any plan or action proposed by an artificial intelligence system before execution.(2)This subdivision shall not apply to an existing automated decision system that is critical to state infrastructure if the required human oversight would cause an immediate pause that would destabilize that system.(c)The Department of Technology shall administer specialized training in artificial intelligence safety protocols and risk management techniques to be given to oversight personnel.(d)(1)An operator shall conduct an annual assessment of its artificial intelligence systems and automated decision systems that does all of the following:(A)Evaluates compliance with this section.(B)Evaluates system performance and safety.(C)Identifies and evaluates potential risks and\nvulnerabilities, including those that could lead to mass casualty events.(2)An operator shall submit a summary of the assessment findings to the Department of Technology.(3)The assessment shall coincide with any requirement on the operator to perform a risk analysis pursuant to\nsubdivision (b) of Section 11549.65.SEC. 3.Section 8592.52 is added to the Government Code, to read:8592.52.(a)Any entity that engages in conduct that could materially impact critical infrastructure safety, security, or operations shall report an AI adverse event in a form and manner prescribed by the office as follows:(1)Within four hours after detection of an AI adverse event that poses an ongoing urgent threat to public health or safety.(2)Within 24 hours after detection of an AI adverse event involving death or serious physical injury.(3)Within 72 hours after detection of an adverse AI event involving significant critical infrastructure disruption or data compromise.(4)Within 14 calendar days after detection of any other AI adverse event.(b)For purposes of this section, detection occurs on the first business day that the AI adverse event is known to the operator or, by exercising reasonable diligence, should have been known to the operator.(c)An AI adverse event report shall include, to the extent known or reasonably ascertainable, all of the following:(1)A description of the artificial intelligence system or automated decision system, including, but not limited to, all of the following:(A)System type, purpose, and intended use.(B)Vendor information and version numbers.(C)Deployment environment and integration details.(D)Training data sources relevant to the incident.(E)Status of human oversight mechanisms at the time of the incident.(2)Details of the adverse event, including, but not limited to, all of the following:(A)Date, time, and location of the occurrence.(B)Circumstances leading to the event.(C)Nature and extent of the harm, damage, or disruption.(D)Number of individuals or systems affected.(E)Root-cause analysis, when available.(F)Effectiveness of human oversight mechanisms in detecting or preventing the incident.(3)Response and mitigation measures taken or being planed, including, but not limited to, any modifications to human oversight mechanisms.(4)Contact information for a designated representative of the operator.(5)Any additional information requested by the department.(d)Each entity shall be subject to a civil penalty not to exceed five hundred dollars ($500) for each seven days that the entity fails to provide an AI adverse event report required under this section.(e)The office\nmay do any of the following:(1)Authorize entities that are not operators to voluntarily participate in the reporting system for the purpose of maximally growing the evidence base.(2)Authorize public or private entities to receive information about individual events or aggregated statistics for the purpose of collaboratively addressing identified harms.(3)Post on its internet website information about individual events or aggregated statistics.(f)The office shall not disclose any record or information within a record of the office related to enforcement of this section that is privileged, protected by copyright, or otherwise prohibited by law from being disclosed; that is exempt from disclosure to the public under express provisions of the\nCalifornia Public Records Act (Division 10 (commencing with Section 7920.000) of Title 1); or in which, based on the facts of the particular case, the public interest served by not disclosing the record clearly outweighs the public interest served by disclosure of the record.SEC. 2. Article 6.6 (commencing with Section 8954.50) is added to Chapter 7 of Division 1 of Title 2 of the Government Code, to read:\nArticle\n 6.6. Artificial Intelligence and Critical Infrastructure8954.50. For purposes of this section, the following definitions apply:(a) “Artificial intelligence” (“AI”) means an engineered or machine-based system that varies in its level of autonomy and that can, for explicit or implicit objectives, infer from the input it receives how to generate outputs that can influence physical or virtual environments.(b) “Automated decision system” means a computational process derived from machine learning, statistical modeling, data analytics, or artificial intelligence that issues simplified output, including a score, classification, or recommendation, that is used to assist or replace human discretionary decisionmaking and materially impacts natural persons. “Automated\ndecision system” does not include a spam email filter, firewall, antivirus software, identity and access management tools, or a calculator.(c) “Covered AI system” means an AI system or automated decision system that an operator uses to operate, manage, oversee, or control access to critical infrastructure.(d) “Critical infrastructure” means systems or assets so vital to the state that the incapacity or destruction of those networks, systems, or assets would have a debilitating impact on public health, safety, economic security, or any combination thereof, but not unintended use, including, but not limited to, the following sectors: chemical, commercial facilities, communications, critical manufacturing, dams, defense industrial base, emergency services, energy, financial services, food and agriculture, government facilities, health care and public health, information technology,\nnuclear reactors, materials, and waste, transportation systems, and water and wastewater systems.(e) “Department” means the Department of Technology.(f) “Office” means the Office of Emergency Services.(g) “Operator” means a state agency responsible for operating, managing, overseeing, or controlling access to critical infrastructure.(h) “State agency” has the same meaning set forth in Section 11000.8954.51. (a) On or before July 1, 2026, an oversight personnel for an operator that deploys a covered AI system shall establish a human oversight mechanism that ensures a human does both of the following:(1) Monitors the artificial intelligence system’s operations in real time.(2) (A) Except as provided in subparagraph (B), reviews and approves any plan or action proposed by an artificial intelligence system before execution.(B) If oversight personnel determine that prior review and approval under subparagraph (A) is substantially disruptive to the operation of the covered AI system, the\noperator shall instead implement a process for periodically reviewing the actions of the covered AI system to ensure accuracy and reliability.(b) (1) The department shall develop specialized training in AI safety protocols and risk management techniques to be given annually to oversight personnel.(2) An operator shall designate at least one employee to serve as oversight personnel who is responsible for administering the human oversight mechanism. The oversight personnel shall complete the annual training under paragraph (1).(c) (1) Oversight personnel for an operator that deploys a covered AI system shall conduct an annual assessment of its covered AI systems that does all of the following:(A) Evaluates\nthe operator’s compliance with this section.(B) Evaluates covered AI system performance and safety.(C) Identifies and evaluates potential risks and vulnerabilities associated with the operation of the covered AI system, including those that could lead to mass casualty events or property damage in excess of five hundred thousand dollars ($500,000).(D) Identifies any necessary updates to the human oversight mechanism used by the operator.(2) Oversight personnel for an operator that deploys a covered AI system shall submit a summary of the assessment findings to the department.8954.52 The office shall not disclose any record or information within a record of the office related to this article that is privileged, protected by copyright, or otherwise prohibited by law from being disclosed that is exempt from disclosure to the public under express provisions of the California Public Records Act (Division 10 (commencing with Section 7920.000) of Title 1) or in which, based on the facts of the particular case, the public interest served by not disclosing the record clearly outweighs the public interest served by disclosure of the record.SEC. 4.SEC. 3. The Legislature finds and declares that Section 3 2 of this act, which adds Section 8592.52 8954.52 to the Government Code, imposes a limitation on the public’s right of access to the meetings of public bodies or the writings of public officials and agencies within the meaning of Section 3 of Article I of the California Constitution. Pursuant to that constitutional provision, the Legislature makes the following findings to demonstrate the interest protected by this limitation and the need for\nprotecting that interest:To protect the sensitive information of an entity that engages in conduct that could materially impact related to operating, managing, overseeing, or controlling access to critical infrastructure safety, security, or operations, infrastructure, it is necessary to limit the public’s right of access to these records.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3262151,
+   "date": "2025-07-17",
+   "type": "Amended",
+   "mime": "text/html",
+   "state_link": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB833#96AMD"
+  }
+ }
+}

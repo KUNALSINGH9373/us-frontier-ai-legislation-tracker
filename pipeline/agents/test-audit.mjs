@@ -1,6 +1,7 @@
 // Regression tests for the 28 Oct 2026 replay audit of the new-entries step (6 entries would have published, 0 correct). Each block
 // is one finding, on the real LegiScan records the audit replayed (fixtures/legiscan/audit-2026-10-28) or a minimal stand-in.
 //   node agents/test-audit.mjs
+import { asSlots } from './test-slots-helper.mjs';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -94,7 +95,7 @@ ok('SCOPE_CLAIM: the classification is the reader\'s own judgement from the prov
   const diff = { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] };
   const Q = 'The Secretary shall require a license for the export of advanced AI chips';
   const patch = () => ({ operation: 'create', in_scope: true, scope_reason: 'Export controls on AI chips.', fields: { mechanism: 'The Secretary shall require a license for the export of advanced AI chips classified under ECCN 3A090.' }, events_add: [], evidence: [{ field: 'mechanism', quote: Q }], notes: '' });
-  const gen = (n = 3) => ({ calls: [], async generate(req) { this.calls.push(req); return { usage: {}, data: patch() }; } });
+  const gen = (n = 3) => ({ calls: [], async generate(req) { this.calls.push(req); return { usage: {}, data: asSlots(patch()) }; } });
   const val = { calls: [], async generate(req) { this.calls.push(req); const ns = [...req.prompt.matchAll(/^(\d+)\. \[/gm)].map((m) => +m[1]); return { usage: {}, data: { results: ns.map((n) => ({ n, supported: true, quote: Q, reason: null })) } }; } };
   const ref = (supported, quote) => ({ calls: [], async generate(req) { this.calls.push(req); return { usage: {}, data: { results: [{ n: 1, supported, quote, reason: supported ? null : 'SOURCE does not state a scope classification.' }] } }; } });
   const go = (referee) => processItem({ generator: gen(), validator: val, referee, item, raw, diff, entries: ENTRIES, today: '2026-10-28', runId: 'r', now: new Date('2026-10-28T00:00:00Z') });
@@ -125,21 +126,21 @@ ok('SCOPE_CLAIM: the classification is the reader\'s own judgement from the prov
 }
 {
   // PA HB2829 / NC S735: held for the 60k item budget with nothing written. The held item is retried at once by the escalated pass.
-  const TEXT = 'SEC. 5. A frontier developer shall report incidents within 72 hours to the Attorney General.';
+  const TEXT = 'SEC. 4. Artificial intelligence models. SEC. 5. A frontier developer shall report incidents within 72 hours to the Attorney General.'; // round 4: a frontier term counts only about AI
   const raw = { bill: { title: 'Test Act', type: 'S', number: '88888', introducedDate: '2026-06-24', sponsors: [{ fullName: 'Sen. Doe, Jane [D-NY]' }], latestAction: { actionDate: '2026-06-24', text: 'Read twice and referred to the Committee on Commerce.' } }, actions: [], text: TEXT };
   const item = { item_id: 'congress_gov:119/s/88888', source: 'congress_gov', source_id: '119/s/88888', source_url: 'https://www.congress.gov/bill/119th-congress/senate-bill/88888', fetched_at: '2026-10-28T00:00:00Z' };
   const diff = { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] };
   const Q = 'A frontier developer shall report incidents within 72 hours to the Attorney General.';
   const okPatch = { operation: 'create', in_scope: true, scope_reason: 'Duties on frontier developers.', section: 'F', fields: { mechanism: 'A frontier developer shall report incidents within 72 hours to the Attorney General.' }, events_add: [], evidence: [{ field: 'mechanism', quote: Q }], notes: '' };
   const broke = { async generate() { throw new BudgetExceeded('60000 tokens for item ' + item.item_id, 'item'); } };
-  const strong = { calls: 0, async generate() { this.calls++; return { usage: {}, data: clone(okPatch) }; } };
+  const strong = { calls: 0, async generate() { this.calls++; return { usage: {}, data: asSlots(clone(okPatch)) }; } };
   const val = { async generate(req) { const ns = [...req.prompt.matchAll(/^(\d+)\. \[/gm)].map((m) => +m[1]); return { usage: {}, data: { results: ns.map((n) => ({ n, supported: true, quote: Q, reason: null })) } }; } };
   const budget = { spent: () => 0, wrap: (l) => l };
   const r = await processItem({ generator: broke, validator: val, referee: val, escalation: { generator: strong, validator: val, budget }, item, raw, diff, entries: ENTRIES, today: '2026-10-28', runId: 'r', now: new Date('2026-10-28T00:00:00Z') });
   ok('a bill held for its token budget is written by the escalated pass', r.outcome === 'publishable' && r.escalated === true && strong.calls >= 1, `${r.outcome} ${r.reason}`);
   const r2 = await processItem({ generator: broke, validator: val, referee: val, escalation: { generator: broke, validator: val, budget }, item, raw, diff, entries: ENTRIES, today: '2026-10-28', runId: 'r' });
   ok('still held after the escalated pass: escalate is set, and it is not retried again in a loop', r2.outcome === 'held' && r2.escalated === true && r2.escalate === true, JSON.stringify(r2));
-  const strong2 = { calls: 0, async generate() { this.calls++; return { usage: {}, data: clone(okPatch) }; } };
+  const strong2 = { calls: 0, async generate() { this.calls++; return { usage: {}, data: asSlots(clone(okPatch)) }; } };
   const r3 = await processItem({ generator: broke, validator: val, referee: val, escalation: { generator: strong2, validator: val, budget }, item, raw, diff, entries: ENTRIES, today: '2026-10-28', runId: 'r', newEntriesOn: false });
   ok('new entries switched off: the escalated pass is never run', strong2.calls === 0 && r3.outcome === 'held' && !r3.escalated, JSON.stringify(r3));
 }

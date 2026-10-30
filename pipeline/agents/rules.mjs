@@ -102,18 +102,30 @@ export const SECTION_CRITERIA = {
 //    one of those risk terms, and never when it is only about agency use, procurement, privacy or civil liberties.
 const AI_SRC = String.raw`artificial\s+intelligence|\bAI\b|machine\s+learning|frontier\s+models?|foundation\s+models?`;
 const D_SRC = `${THRESHOLD_SRC}|\\badvanced\\s+(?:artificial\\s+intelligence|AI)\\s+(?:models?|systems?|developers?)\\b`;
-const F_RISK_SRC = String.raw`\b(?:safety|reliab\w+|testing|tests?|evaluat\w+|red[- ]team\w*|incidents?|vulnerabilit\w+|security\s+risks?|misuse|model\s+weights|dangerous\s+capabilit\w+|whistleblow\w*|preempt\w*|export\s+controls?|advanced\s+(?:computing\s+)?(?:chips?|semiconductors?|integrated\s+circuits?)|autonomous\s+(?:AI\s+)?agents?|loss\s+of\s+control)\b`;
+const F_RISK_SRC = String.raw`\b(?:safety|reliab\w+|testing|tests?|evaluat\w+|red[- ]team\w*|incidents?|vulnerabilit\w+|security\s+risks?|misuse|model\s+weights|dangerous\s+capabilit\w+|whistleblow\w*|preempt\w*|export\s+controls?|exports?\s+(?:of|licen[cs]\w*)|(?:advanced|AI)\s+(?:AI\s+|computing\s+)?(?:chips?|semiconductors?|integrated\s+circuits?)|autonomous\s+(?:AI\s+)?agents?|loss\s+of\s+control)\b`;
 const F_OUT = /\bcivil\s+liberties\b|\bprivacy\b|\bsection\s+702\b|\bprocure\w*|\bacquisition\s+of\s+(?:AI|artificial)|\bdeepfakes?\b|\bchildren\b|\bminors?\b|\bworkforce\b|\bdata\s+cent(?:er|re)s?\b/i;
 SECTION_MARKERS.D = D_SRC;
 SECTION_MARKERS.F = `${THRESHOLD_SRC}|${CATASTROPHIC_SRC}|${F_RISK_SRC}`;
+// Round 4: generic words ("evaluation", "testing") count only right next to an AI term ("evaluation of artificial intelligence models",
+// "AI testing"): a table of contents line "National center for education evaluation" after an AI heading (H.R. 10515, an education and
+// workforce bill), or "an evaluation of capability for artificial intelligence integration" in a drone strategy (S. 4633), is not AI-risk
+// work. Every other risk word needs an AI term in its own sentence; a frontier or catastrophic-risk term needs one within 1500 characters
+// (H.R. 10152 lists "chemical, biological, radiological, or nuclear capabilities" among the risks of foreign adversary AI models).
+const F_GENERIC = /^(?:testing|tests?|evaluat\w+)$/i;
+const sentenceAt = (t, i, n) => t.slice(Math.max(0, t.lastIndexOf('.', i) + 1), (t.indexOf('.', i + n) + 1 || t.length));
 function fPassage(t) {
-  const d = new RegExp(`${THRESHOLD_SRC}|${CATASTROPHIC_SRC}`, 'i').exec(t);
-  if (d) return t.slice(Math.max(0, d.index - 150), d.index + 150);
+  for (const d of t.matchAll(new RegExp(`${THRESHOLD_SRC}|${CATASTROPHIC_SRC}`, 'gi'))) {
+    if (re(AI_SRC).test(t.slice(Math.max(0, d.index - 1500), d.index + d[0].length + 1500))) return t.slice(Math.max(0, d.index - 150), d.index + 150);
+  }
   for (const m of t.matchAll(re(F_RISK_SRC, 'g'))) {
-    const w = t.slice(Math.max(0, m.index - 250), m.index + m[0].length + 250);
-    if (!re(AI_SRC).test(w)) continue;
+    const sentence = sentenceAt(t, m.index, m[0].length);
+    if (F_GENERIC.test(m[0])) {
+      // "testing and evaluation of artificial intelligence systems", "AI safety testing": the AI term within 40 characters, same sentence.
+      const near = t.slice(Math.max(0, m.index - 40), m.index + m[0].length + 40);
+      if (!re(AI_SRC).test(near) || !re(AI_SRC).test(sentence)) continue;
+      if (!/\b(?:of|for|on)\s+(?:the\s+)?(?:(?:advanced|frontier|covered|foundation|dual-use)\s+)?(?:artificial\s+intelligence|AI)\s+(?:models?|systems?|capabilit\w+)|\b(?:artificial\s+intelligence|AI)\s+(?:safety\s+|security\s+|model\s+|system\s+)?(?:testing|tests?|evaluat\w+)/i.test(near)) continue;
+    } else if (!re(AI_SRC).test(sentence)) continue;
     // The risk word must not be one of the OUT subjects' own words in the same sentence (privacy "safeguards" on agency use).
-    const sentence = t.slice(Math.max(0, t.lastIndexOf('.', m.index) + 1), (t.indexOf('.', m.index + m[0].length) + 1 || t.length));
     if (F_OUT.test(sentence)) continue;
     return t.slice(Math.max(0, m.index - 150), m.index + 150);
   }
@@ -125,25 +137,70 @@ function fPassage(t) {
 // a frontier model of a large developer), so any binding duty near it counts. A catastrophic-risk term is common in general AI bills (a
 // risk-assessment list), so for B.2 the duty must be on a developer or deployer.
 const ANY_DUTY = /\b(?:shall|must|may not|is required to)\b/i;
+// Round 4: for A and B the duty near the threshold is laid on a regulated party (a developer, deployer, operator, business, company,
+// person or entity, or the frontier term itself), not only on a commission ("the Commission shall direct State agencies to assess the impact
+// of frontier artificial intelligence systems on workers", IL HB 5760) or a definition ("computing power ... shall include").
+const PARTY_DUTY = new RegExp(String.raw`\b(?:developers?|deployers?|operators?|business(?:es)?|compan(?:y|ies)|persons?|entit(?:y|ies)|providers?|licensees?|frontier\s+(?:models?|developers?))\b[^.;]{0,150}\b(?:shall|must|may not|is required to)\b|\b(?:shall|must)\b[^.;]{0,250}\b(?:large\s+)?frontier\s+(?:\d{1,4}\s+)?developers?\b`, 'i');
 // The duty may sit some way from the definition that names who is regulated (definitions first, duties a section or two later): 4000
 // characters either side.
 const WINDOW = 4000;
-function dutyNear(t, src, duty) {
-  for (const m of t.matchAll(re(src, 'g'))) { const w = t.slice(Math.max(0, m.index - WINDOW), m.index + WINDOW); if (duty.test(w)) return t.slice(Math.max(0, m.index - 150), m.index + 150); }
+function dutyNear(t, src, duty, { ai = false } = {}) {
+  for (const m of t.matchAll(re(src, 'g'))) {
+    const w = t.slice(Math.max(0, m.index - WINDOW), m.index + WINDOW);
+    if (!duty.test(w)) continue;
+    // Round 4: the term must be about AI ("a large developer shall provide affordable units" is a housing bill; "chemical, biological"
+    // hazards in a pesticide bill are not catastrophic AI risk).
+    if (ai && !AI_CONTEXT.test(t.slice(Math.max(0, m.index - 1500), m.index + m[0].length + 1500))) continue;
+    return t.slice(Math.max(0, m.index - 150), m.index + 150);
+  }
   return null;
 }
+// ---------- round 4: an OPERATIVE frontier threshold ----------
+// A frontier phrase in passing never makes a frontier-developer bill: findings that name "the Joint California Policy Working Group on AI
+// Frontier Models" (CA SB 833), members of "the Frontier Model Forum" (a resolution), a workforce commission assessing "frontier artificial
+// intelligence systems" (IL HB 5760), a budget line for "the regulation of certain developers of AI frontier models" (NY A10000), or a tax
+// "measured in floating-point operations per second" (NJ S4712). Sections A, B and D need the bill to set the threshold itself: a compute
+// figure (10^26, "10 to the 26th power", "10.26 operations" with its superscript lost, a number of floating-point operations or FLOPs) or
+// a definition of the regulated term ('"frontier model" means', '"large developer" has the meaning', "Covered model. An artificial
+// intelligence model ..."), with a binding duty near it, as before.
+const NUM_THRESHOLD_SRC = [String.raw`\b10\s?\^\s?2\d\b`, String.raw`\b10[.,]?\s?2\d\s+(?:integer|floating|computational|operations)`, String.raw`\b10\s+to\s+the\s+(?:power\s+of\s+)?2\d(?:st|nd|rd|th)?\b`,
+  String.raw`\d[\d,.]*\s*(?:x\s*10\s?\^?\s?\d+\s*)?(?:(?:integer|computational)\s+or\s+)?${loose('floating-point')}\s+${loose('operations')}(?!\s+per\s+second)`, String.raw`\d[\d,.]*\s+FLOPs?\b`].join('|');
+// State A/B: frontier, large-developer and covered-model terms; federal D also counts "advanced AI" models or systems (S. 5417). An
+// "advanced artificial intelligence system" licence in a state bill (NY A03356) is not a frontier threshold.
+const TERM_STATE = String.raw`(?:(?:large\s+)?${loose('frontier')}\s+(?:${loose('developer')}s?|${loose('model')}s?|artificial\s+intelligence(?:\s+models?)?|AI\s+models?)|${loose('large')}\s+${loose('developer')}s?|${loose('covered')}\s+(?:frontier\s+)?${loose('model')}s?)`;
+const TERM_FED = String.raw`(?:${TERM_STATE}|advanced\s+(?:artificial\s+intelligence|AI)\s+(?:models?|systems?|developers?))`;
+const definitionSrc = (TERM_SRC) => [String.raw`["“”'‘’]\s*${TERM_SRC}\s*["“”'‘’]?\s*,?\s*(?:means|has\s+the\s+(?:same\s+)?meaning|shall\s+mean|includes)\b`,
+  String.raw`\b${TERM_SRC}\s*["“”'‘’]?\s*,?\s*(?:means|has\s+the\s+(?:same\s+)?meaning|shall\s+mean)\b`, String.raw`\b${TERM_SRC}\s*["”’]?\s*,?\s*as\s+(?:such\s+term\s+is\s+)?defined\s+(?:in|by|under)\b`,
+  String.raw`(?:^|[.;:)]\s*|\(\w{1,4}\)\s*|\d+\s+)${TERM_SRC}\.\s+(?:An?|The)\s+(?:artificial\s+intelligence|AI|person|entity|developer|model)\b`].join('|');
+// A bill that amends a frontier law uses the law's defined terms without defining them again (NY S.10373: "A large frontier developer
+// shall annually retain ... a third party verifier"; S. 5417: "Each covered entity shall ensure that the advanced artificial intelligence
+// system ..."), and a compute threshold can be a cost (IL HB 3506: "computational power that costs at least $100,000,000"). A regulated-party
+// term as the subject of a duty, a duty laid on (or regulations made for) frontier developers, and a defined party built on the term count.
+// General phrases ("frontier artificial intelligence systems", "frontier models") count only when defined or with a compute figure.
+const DUTY_WORD = String.raw`(?:shall|must|may\s+not|is\s+required\s+to|are\s+required\s+to)`;
+// LN: a printed line number between two words (NY: "to require large frontier 6 developers' frontier AI frameworks").
+const LN = String.raw`\s+(?:\d{1,4}\s+)?`;
+const useSrc = (TERM_SRC, fed) => [String.raw`\b(?:large${LN})?frontier${LN}developers?\b[^.;]{0,60}\b${DUTY_WORD}`, String.raw`\b(?:shall|must)\b[^.;]{0,250}\b(?:large${LN})?frontier${LN}developers?\b`,
+  String.raw`\b(?:large\s+developers?|covered\s+(?:frontier\s+)?models?${fed ? String.raw`|advanced\s+(?:artificial\s+intelligence|AI)\s+(?:models?|systems?)` : ''})\b[^.;]{0,60}\b${DUTY_WORD}`,
+  String.raw`\bshall\s+ensure\s+that\s+(?:the|each|any|its|every)\s+(?:${fed ? 'advanced|' : ''}frontier|covered)\s+(?:artificial\s+intelligence\s+|AI\s+)?(?:models?|systems?)\b`,
+  String.raw`\bmeans\b[^.;]{0,150}\b(?:develops?|trains?|deploys?|operates?|developed|trained)\b[^.;]{0,40}${TERM_SRC}`,
+  String.raw`\b(?:computational|computing|compute)\s+(?:power|resources|costs?)\b[^.;]{0,120}\$\s?\d[\d,.]*`].join('|');
+const OPERATIVE_SRC = `${NUM_THRESHOLD_SRC}|${definitionSrc(TERM_STATE)}|${useSrc(TERM_STATE, false)}`;
+const OPERATIVE_FED_SRC = `${NUM_THRESHOLD_SRC}|${definitionSrc(TERM_FED)}|${useSrc(TERM_FED, true)}`;
+export const operativeThreshold = (text) => { const t = String(text || '').replace(/\s+/g, ' '); const m = re(OPERATIVE_SRC).exec(t); return m ? m[0] : null; };
 function aiAuditor(t) {
   for (const m of t.matchAll(re(AUDITOR_SRC, 'g'))) if (AI_CONTEXT.test(m[0]) || AI_CONTEXT.test(t.slice(Math.max(0, m.index - 400), m.index + m[0].length + 400))) return t.slice(Math.max(0, m.index - 150), m.index + 150);
   return null;
 }
 export function sectionPassage(section, text) {
   const t = String(text || '').replace(/\s+/g, ' ');
-  if (section === 'A' || section === 'B') return dutyNear(t, THRESHOLD_SRC, ANY_DUTY);
+  // Round 4: an operative threshold (a compute figure or a definition), about AI, with a binding duty near it.
+  if (section === 'A' || section === 'B') return dutyNear(t, OPERATIVE_SRC, PARTY_DUTY, { ai: true });
   // B.2 is for a text WITHOUT a frontier threshold: refused when the text meets B (a threshold with a duty near it), not because a threshold
   // word appears somewhere in passing.
-  if (section === 'B.2') return dutyNear(t, THRESHOLD_SRC, ANY_DUTY) ? null : dutyNear(t, CATASTROPHIC_SRC, DUTY_ON_DEVELOPER);
+  if (section === 'B.2') return dutyNear(t, OPERATIVE_SRC, PARTY_DUTY, { ai: true }) ? null : dutyNear(t, CATASTROPHIC_SRC, DUTY_ON_DEVELOPER, { ai: true });
   if (section === 'C') return aiAuditor(t);
-  if (section === 'D') return dutyNear(t, D_SRC, ANY_DUTY);
+  if (section === 'D') return dutyNear(t, OPERATIVE_FED_SRC, ANY_DUTY, { ai: true });
   if (section === 'F') return fPassage(t);
   return null;
 }
@@ -156,15 +213,29 @@ export const sectionsByCode = (text, allowed) => allowed.filter((s) => !!section
 export const quoteMeetsSection = (section, quote, source = null) => {
   if (section === 'F' && source) {
     const ns = String(source).replace(/\s+/g, ' ').toLowerCase(), nq = String(quote || '').replace(/\s+/g, ' ').trim().toLowerCase(), at = nq.length >= 8 ? ns.indexOf(nq) : -1;
-    if (at >= 0) { const raw = String(source).replace(/\s+/g, ' '); if (fPassage(raw.slice(Math.max(0, at - 250), at + nq.length + 250))) return true; }
+    if (at >= 0) {
+      const raw = String(source).replace(/\s+/g, ' ');
+      if (fPassage(raw.slice(Math.max(0, at - 250), at + nq.length + 250))) return true;
+      // A frontier or catastrophic-risk term in the quote itself, with an AI term within 1500 characters of it (fPassage's own window).
+      if (new RegExp(`${THRESHOLD_SRC}|${CATASTROPHIC_SRC}`, 'i').test(quote) && re(AI_SRC).test(raw.slice(Math.max(0, at - 1500), at + nq.length + 1500))) return true;
+    }
   }
   const q = String(quote || '').replace(/\s+/g, ' ');
   if (!SECTION_MARKERS[section] || !re(SECTION_MARKERS[section]).test(q)) return false;
+  // Round 4: with the record's text, the text itself must meet the section (an operative threshold with a duty for A, B and D; AI
+  // catastrophic-risk duties for B.2): a quote of a frontier phrase in passing ("the Frontier Model Forum") never proves A, B or D.
+  if (source != null && ['A', 'B', 'B.2', 'D'].includes(section) && !sectionPassage(section, source)) return false;
   if (section === 'B.2') return !re(THRESHOLD_SRC).test(q);
   if (section === 'C') return !!aiAuditor(q);
-  if (section === 'F') return !!fPassage(q);
+  // Without the record's text a frontier or catastrophic-risk term in the quote is taken as it stands (its AI context cannot be read).
+  if (section === 'F') return !!fPassage(q) || (source == null && new RegExp(`${THRESHOLD_SRC}|${CATASTROPHIC_SRC}`, 'i').test(q));
   return true;
 };
+// Round 4: a federal bill whose own title names one of F's OUT subjects (H.R. 10515, "Artificial Intelligence Education and Workforce
+// Readiness Act": AI "safety" and "incident response" appear only in a list of what students learn) is never filed in F by code; it may still
+// be D when it meets D's criterion.
+export const F_TITLE_OUT = /\b(?:education\w*|students?|schools?|workforce|workers?|jobs?|employment|apprentic\w+|children|child|kids|minors?|youth|deepfakes?|data\s+cent(?:er|re)s?|energy|electricity|privacy|procurement|acquisition|health(?:\s+care)?|medicare|medicaid|agricultur\w*|farm\w*|veterans?)\b/i;
+export const fTitleOut = (title) => F_TITLE_OUT.test(String(title || '').replace(/^[^—]*—\s*/, (m) => (/^\s*(?:H\.R\.|S\.)/.test(m) ? '' : m)));
 // The federal sections whose criterion code checks (a federal bill's referee quote must meet it; tier B checks it again).
 export const FEDERAL_CHECKED_SECTIONS = ['D', 'F'];
 

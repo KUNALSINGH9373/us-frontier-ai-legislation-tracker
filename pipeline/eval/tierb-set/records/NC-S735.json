@@ -1,0 +1,692 @@
+{
+ "item": {
+  "item_id": "legiscan:2014277",
+  "source": "legiscan",
+  "source_id": "2014277",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.ncleg.gov/BillLookUp/2025/S735",
+  "raw_hash": "805c86e83cb837bc2405ff647003a7cbc8ef870abf4384ba01dac802759a6985",
+  "raw_path": "raw/legiscan/NC-S735-2014277.json",
+  "title": "NC S735: AI Innovation Trust Fund",
+  "from_run": "run-20261013-0714-e97e"
+ },
+ "raw": {
+  "id": "2014277",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 16,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 2014277,
+   "change_hash": "17e888dbead5f96a4c8b47b8d450b6a2",
+   "session_id": 2189,
+   "session": {
+    "session_id": 2189,
+    "state_id": 33,
+    "year_start": 2025,
+    "year_end": 2026,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2025-2026 Regular Session",
+    "session_name": "2025-2026 Session"
+   },
+   "url": "https://legiscan.com/NC/bill/S735/2025",
+   "state_link": "https://www.ncleg.gov/BillLookUp/2025/S735",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2025-03-25",
+   "progress": [
+    {
+     "date": "2025-03-25",
+     "event": 1
+    },
+    {
+     "date": "2025-03-26",
+     "event": 9
+    },
+    {
+     "date": "2025-03-26",
+     "event": 9
+    }
+   ],
+   "state": "NC",
+   "state_id": 33,
+   "bill_number": "S735",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "S",
+   "body_id": 76,
+   "current_body": "S",
+   "current_body_id": 76,
+   "title": "AI Innovation Trust Fund",
+   "description": "AI Innovation Trust Fund",
+   "pending_committee_id": 688,
+   "committee": {
+    "committee_id": 688,
+    "chamber": "S",
+    "chamber_id": 76,
+    "name": "Appropriations/Base Budget"
+   },
+   "referrals": [
+    {
+     "date": "2025-03-26",
+     "committee_id": 698,
+     "chamber": "S",
+     "chamber_id": 76,
+     "name": "Rules and Operations of the Senate"
+    },
+    {
+     "date": "2025-03-26",
+     "committee_id": 688,
+     "chamber": "S",
+     "chamber_id": 76,
+     "name": "Appropriations/Base Budget"
+    }
+   ],
+   "history": [
+    {
+     "date": "2025-03-25",
+     "action": "Filed",
+     "chamber": "S",
+     "chamber_id": 76,
+     "importance": 1
+    },
+    {
+     "date": "2025-03-26",
+     "action": "Passed 1st Reading",
+     "chamber": "S",
+     "chamber_id": 76,
+     "importance": 0
+    },
+    {
+     "date": "2025-03-26",
+     "action": "Ref To Com On Rules and Operations of the Senate",
+     "chamber": "S",
+     "chamber_id": 76,
+     "importance": 1
+    },
+    {
+     "date": "2025-03-26",
+     "action": "Withdrawn From Com",
+     "chamber": "S",
+     "chamber_id": 76,
+     "importance": 0
+    },
+    {
+     "date": "2025-03-26",
+     "action": "Re-ref Com On Appropriations/Base Budget",
+     "chamber": "S",
+     "chamber_id": 76,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 22426,
+     "person_hash": "bo7a043w",
+     "party_id": "1",
+     "state_id": 33,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "DeAndrea Salvador",
+     "first_name": "DeAndrea",
+     "middle_name": "Newman",
+     "last_name": "Salvador",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-039",
+     "ftm_eid": 48627045,
+     "votesmart_id": 189185,
+     "opensecrets_id": "",
+     "knowwho_pid": 726592,
+     "ballotpedia": "DeAndrea_Salvador",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "919-733-5655",
+       "district_phone": "",
+       "email": "[email protected]",
+       "webmail": "https://www.ncleg.gov/Members/ContactMember/S/431",
+       "biography": "https://www.ncleg.gov/Members/Biography/S/431",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/DeAndrea_Salvador",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/189185"
+      },
+      "capitol_address": {
+       "address1": "16 West Jones Street, Rm. 1120",
+       "address2": "",
+       "city": "Raleigh",
+       "state": "NC",
+       "zip": "27601"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "https://www.instagram.com/senatordeandrea/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://www.ncleg.gov/Members/Biography/S/431",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/deandrea",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/deandreas/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://www.deandrea.io/",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 20220,
+     "person_hash": "lhpzp7vl",
+     "party_id": "1",
+     "state_id": 33,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Michael Garrett",
+     "first_name": "Michael",
+     "middle_name": "Kennedy",
+     "last_name": "Garrett",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-027",
+     "ftm_eid": 13004019,
+     "votesmart_id": 119411,
+     "opensecrets_id": "",
+     "knowwho_pid": 564024,
+     "ballotpedia": "Michael_Garrett_(North_Carolina)",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 2,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "919-733-5856",
+       "district_phone": "",
+       "email": "[email protected]",
+       "webmail": "https://www.ncleg.gov/Members/ContactMember/S/414",
+       "biography": "https://www.ncleg.gov/Members/Biography/S/414",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Michael_Garrett_%28North_Carolina%29",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/119411"
+      },
+      "capitol_address": {
+       "address1": "16 West Jones Street, Rm. 1109",
+       "address2": "",
+       "city": "Raleigh",
+       "state": "NC",
+       "zip": "27601"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://www.ncleg.gov/Members/Biography/S/414",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/MichaelKGarrett",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/michael-garrett-12774212/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 21633,
+     "person_hash": "u9d4sxae",
+     "party_id": "1",
+     "state_id": 33,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Natalie Murdock",
+     "first_name": "Natalie",
+     "middle_name": "",
+     "last_name": "Murdock",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-020",
+     "ftm_eid": 45528077,
+     "votesmart_id": 189039,
+     "opensecrets_id": "",
+     "knowwho_pid": 726546,
+     "ballotpedia": "Natalie_Murdock",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 3,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "919-733-4599",
+       "district_phone": "",
+       "email": "[email protected]",
+       "webmail": "https://www.ncleg.gov/Members/ContactMember/S/422",
+       "biography": "https://www.ncleg.gov/Members/Biography/S/422",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Natalie_Murdock",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/189039"
+      },
+      "capitol_address": {
+       "address1": "16 West Jones Street, Rm. 1118",
+       "address2": "",
+       "city": "Raleigh",
+       "state": "NC",
+       "zip": "27601"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://www.ncleg.gov/Members/Biography/S/422",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/natalie.murdock.92",
+        "instagram": "https://www.instagram.com/divamurdock/",
+        "linkedin": "https://www.linkedin.com/in/natalie-murdock-2b8ab425/",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/divamurdock",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 24220,
+     "person_hash": "yjghxi8d",
+     "party_id": "1",
+     "state_id": 33,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Val Applewhite",
+     "first_name": "Valencia",
+     "middle_name": "",
+     "last_name": "Applewhite",
+     "suffix": "",
+     "nickname": "Val",
+     "district": "SD-019",
+     "ftm_eid": 45949457,
+     "votesmart_id": 73772,
+     "opensecrets_id": "",
+     "knowwho_pid": 0,
+     "ballotpedia": "Val_Applewhite",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 4,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "919-733-5776",
+       "district_phone": "",
+       "email": "[email protected]",
+       "webmail": "https://www.ncleg.gov/Members/ContactMember/S/440",
+       "biography": "https://www.ncleg.gov/Members/Biography/S/440",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Val_Applewhite",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/73772"
+      },
+      "capitol_address": {
+       "address1": "300 N. Salisbury Street, Rm. 516",
+       "address2": "",
+       "city": "Raleigh",
+       "state": "NC",
+       "zip": "27603"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/valencia.applewhite",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://www.ncleg.gov/Members/Biography/S/440",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/val.applewhite",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/councilwoman-val-applewhite-8989151b/",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/ValApplewhite",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 20524,
+     "person_hash": "pmxuxnau",
+     "party_id": "1",
+     "state_id": 33,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Kandie Smith",
+     "first_name": "Kandie",
+     "middle_name": "Diane",
+     "last_name": "Smith",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-005",
+     "ftm_eid": 38445521,
+     "votesmart_id": 132843,
+     "opensecrets_id": "",
+     "knowwho_pid": 564220,
+     "ballotpedia": "Kandie_Smith",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 5,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "919-715-8363",
+       "district_phone": "",
+       "email": "[email protected]",
+       "webmail": "https://www.ncleg.gov/Members/ContactMember/S/447",
+       "biography": "https://www.ncleg.gov/Members/Biography/S/447",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Kandie_Smith",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/132843"
+      },
+      "capitol_address": {
+       "address1": "16 West Jones Street, Rm. 1113",
+       "address2": "",
+       "city": "Raleigh",
+       "state": "NC",
+       "zip": "27601"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/KandieSmithNC",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "https://www.twitter.com/Sen_KandieSmith",
+        "website": "https://www.ncleg.gov/Members/Biography/S/447",
+        "youtube": ""
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/kandie.smith.56",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/kandie-smith-aaa3893b/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    },
+    {
+     "people_id": 17163,
+     "person_hash": "tkg633cs",
+     "party_id": "1",
+     "state_id": 33,
+     "party": "D",
+     "role_id": 2,
+     "role": "Sen",
+     "name": "Joyce Waddell",
+     "first_name": "Joyce",
+     "middle_name": "D.",
+     "last_name": "Waddell",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-040",
+     "ftm_eid": 6408760,
+     "votesmart_id": 149844,
+     "opensecrets_id": "",
+     "knowwho_pid": 487128,
+     "ballotpedia": "Joyce_Waddell",
+     "bioguide_id": "",
+     "sponsor_type_id": 2,
+     "sponsor_order": 6,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0,
+     "bio": {
+      "social": {
+       "capitol_phone": "919-733-5650",
+       "district_phone": "",
+       "email": "[email protected]",
+       "webmail": "https://www.ncleg.gov/Members/ContactMember/S/393",
+       "biography": "https://www.ncleg.gov/Members/Biography/S/393",
+       "image": "",
+       "ballotpedia": "https://ballotpedia.org/Joyce_Waddell",
+       "votesmart": "https://justfacts.votesmart.org/candidate/biography/149844"
+      },
+      "capitol_address": {
+       "address1": "16 West Jones Street, Rm. 1106",
+       "address2": "",
+       "city": "Raleigh",
+       "state": "NC",
+       "zip": "27601"
+      },
+      "links": {
+       "official": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/JoyceWaddellNC/",
+        "instagram": "https://www.instagram.com/senjoycewaddell/",
+        "linkedin": "",
+        "tiktok": "",
+        "twitter": "",
+        "website": "https://www.ncleg.gov/Members/Biography/S/393",
+        "youtube": "https://www.youtube.com/@joycewaddell728"
+       },
+       "personal": {
+        "bluesky": "",
+        "facebook": "https://www.facebook.com/joyce.d.waddell",
+        "instagram": "",
+        "linkedin": "https://www.linkedin.com/in/joyce-waddell-730a8527/",
+        "tiktok": "",
+        "twitter": "",
+        "website": "",
+        "youtube": ""
+       }
+      }
+     }
+    }
+   ],
+   "sasts": [],
+   "subjects": [
+    {
+     "subject_id": 342102,
+     "subject_name": "Appropriations"
+    },
+    {
+     "subject_id": 343143,
+     "subject_name": "Attorney General"
+    },
+    {
+     "subject_id": 342104,
+     "subject_name": "Budgeting"
+    },
+    {
+     "subject_id": 342280,
+     "subject_name": "Commerce"
+    },
+    {
+     "subject_id": 343048,
+     "subject_name": "Commerce Dept."
+    },
+    {
+     "subject_id": 342244,
+     "subject_name": "Council Of State"
+    },
+    {
+     "subject_id": 344027,
+     "subject_name": "Emerging Technologies"
+    },
+    {
+     "subject_id": 342110,
+     "subject_name": "Funds & Accounts"
+    },
+    {
+     "subject_id": 342134,
+     "subject_name": "Information Technology"
+    },
+    {
+     "subject_id": 343153,
+     "subject_name": "Justice Dept."
+    },
+    {
+     "subject_id": 342116,
+     "subject_name": "Public"
+    },
+    {
+     "subject_id": 342250,
+     "subject_name": "Public Officials"
+    },
+    {
+     "subject_id": 343376,
+     "subject_name": "Stem"
+    },
+    {
+     "subject_id": 400970,
+     "subject_name": "Artificial Intelligence"
+    }
+   ],
+   "texts": [
+    {
+     "doc_id": 3187933,
+     "date": "2025-03-25",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NC/text/S735/id/3187933",
+     "state_link": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v0.pdf",
+     "text_size": 150974,
+     "text_hash": "5915c14e5579d687918a067ec0833246",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    },
+    {
+     "doc_id": 3190403,
+     "date": "2025-03-26",
+     "type": "Amended",
+     "type_id": 3,
+     "mime": "application/pdf",
+     "mime_id": 2,
+     "url": "https://legiscan.com/NC/text/S735/id/3190403",
+     "state_link": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf",
+     "text_size": 195818,
+     "text_hash": "149fcba7bc7ff35a70842378a7d47bdb",
+     "alt_bill_text": 0,
+     "alt_mime": "",
+     "alt_mime_id": 0,
+     "alt_state_link": "",
+     "alt_text_size": 0,
+     "alt_text_hash": ""
+    }
+   ],
+   "votes": [],
+   "amendments": [],
+   "supplements": [],
+   "calendar": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2025-03-25",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Filed",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-03-26",
+     "precision": "day",
+     "type": "Passed / advanced",
+     "text": "Passed 1st Reading",
+     "chamber": "S"
+    },
+    {
+     "date": "2025-03-26",
+     "precision": "day",
+     "type": "Vetoed / failed / rescinded",
+     "text": "Withdrawn From Com",
+     "chamber": "S"
+    }
+   ]
+  },
+  "text": "GENERAL ASSEMBLY OF NORTH CAROLINA\nSESSION 2025\nS 1\nSENATE BILL 735\nShort Title: AI Innovation Trust Fund. (Public)\nSponsors: Senators Salvador, Garrett, and Murdock (Primary Sponsors).\nReferred to: Rules and Operations of the Senate\nMarch 26, 2025\nA BILL TO BE ENTITLED\nAN ACT TO ENACT THE ARTIFICIAL INTELLIGE NCE INNOVATION TRUST FUND.\nWhereas, recognizing the rapidly evolving nature of artificial intelligence and the\nimportance of responsible innovation, the General Assembly intends this Act to establish an\nexploratory, iterative approach to AI governance, inviting stakeholder input and encouraging\ncollaborative development of appropriate and proportionate AI regulations; Now, therefore,\nThe General Assembly of North Carolina enacts:\nSECTION 1. Article 10 of Chapter 143B of the General Statutes is amended by\nadding a new Part to read:\n\" Part 18A. Artificial Intelligence Innovation.\n\" § 143B - 472.83A . Artificial Intelligence Innovation Trust Fund.\n(a) Fund. – There is established a special, nonrev erting fund to be known as the North\nCarolina Artificial Intelligence Innovation Trust Fund. The Secretary of Commerce shall be the\ntrustee of the fund and shall expend money from the fund to (i) provide grants or other financial\nassistance to companies de veloping or deploying artificial intelligence models in key industry\nsectors or (ii) establish or promote artificial intelligence entrepreneurship programs, which may\ninclude partnerships with research institutions in the State or other entrepreneur suppor t\norganizations. The fund shall consist of appropriations to the Department of Commerce to be\nallocated to the fund, interest earned on money in the fund, and any other grants, premiums, gifts,\nreimbursements or other contributions received by the State fr om any source for or in support of\nthe purposes described in this subsection. Funds in the fund are hereby appropriated to the\nDepartment for the purposes set forth in this section, and, except as otherwise expressly provided,\nthe provisions of this sectio n apply to persons receiving a grant or assistance from the fund. Funds\nprovided under this Part shall not support projects involving artificial intelligence intended for\nmass surveillance infringing constitutional rights, unlawful social scoring, discrimi natory\nprofiling based on protected characteristics, or generating deceptive digital content intended for\nfraudulent or electoral interference purposes.\n(b) Definitions. – The following definitions apply in this section:\n(1) Advanced persistent threat. – A n adversary with sophisticated levels of\nexpertise and significant resources that allow it, through the use of multiple\ndifferent attack vectors including, but not limited to, cyber, physical or\ndeception, to generate opportunities to achieve objectives in cluding, but not\nlimited to, (i) establishing or extending its presence within the information\ntechnology infrastructure of an organization for the purpose of exfiltrating\ninformation; (ii) undermining or impeding critical aspects of a mission,\n*S735 - v - 1*\n\nprogram or organization; or (iii) placing itself in a position to do so in the\nfuture.\n(2) Artificial intelligence. – An engineered or machine - based system that varies\nin its level of autonomy and which may, for explicit or implicit objectives,\ninfer from the input i t receives how to generate outputs that may influence\nphysical or virtual environments.\n(3) Artificial intelligence safety incident. – An incident that demonstrably\nincreases the risk of a critical harm occurring by means of any of the\nfollowing:\na. A cove red model or covered model derivative autonomously engaging\nin behavior other than at the request of a user.\nb. Theft, misappropriation, malicious use, inadvertent release,\nunauthorized access or escape of the model weights of a covered\nmodel or covered mo del derivative.\nc. The critical failure of technical or administrative controls, including\ncontrols limiting the ability to modify a covered model or covered\nmodel derivative.\nd. Unauthorized use of a covered model or covered model derivative to\ncause or materially enable critical harm.\n(4) Computing cluster. – A set of machines transitively connected by data center\nnetworking of over 100 gigabits per second that has a theoretical maximum\ncomputing capacity of at least 10 to the power of 20 integer or floa ting - point\noperations per second and can be used for training artificial intelligence.\n(4a) Covered entity. – The legally responsible organization, corporation, or entity\nthat directly oversees and controls the development, deployment, and ongoing\noperatio ns of a covered model or covered model derivative, including\nresponsibility for compliance with obligations under this Part\n(5) Covered model. – An artificial intelligence model that, due to its scale,\napplication domain, or potential impact, is identified by the Secretary as\nwarranting proportionate regulatory oversight. Factors considered may\ninclude, but are not limited to, computing power utilized, model training cost,\nanticipated scope of application, and foreseeable risks to public safety or\nindividua l rights. The Secretary may establish multiple tiers of covered\nmodels with corresponding compliance frameworks scaled proportionately to\nidentified risk levels.\n(6) Covered model derivative. – A copy of a covered model that: (i) is\nunmodified; (ii) has be en subjected to post - training modifications related to\nfine - tuning; (iii) has been fine - tuned using a quantity of computing power not\nexceeding 3 times 10 to the power of 25 or floating point operations, the cost\nof which, as reasonably assessed by the dev eloper, exceeds $10,000,000 if\ncalculated using the average market price of cloud compute at the start of\nfine - tuning; or (iv) has been combined with other software.\n(7) Critical harm. – A harm caused or materially enabled by a covered model or\ncovered mod el derivative including: (i) the creation or use in a manner that\nresults in mass casualties of a chemical, biological, radiological or nuclear\nweapon; (ii) mass casualties or at least $500,000,000 of damage resulting from\ncyberattacks on critical infrastr ucture by a model conducting, or providing\nprecise instructions for conducting, a cyberattack or series of cyberattacks on\ncritical infrastructure; (iii) mass casualties or at least $500,000,000 of damage\nresulting from an artificial intelligence model eng aging in conduct that acts\nwith limited human oversight, intervention or supervision and results in death,\nPage 2 Senate Bill 735 - First Edition\n\ngreat bodily injury, property damage or property loss, and would, if committed\nby a human, constitute a crime specified in any general or special law that\nrequires intent, recklessness or gross negligence, or the solicitation or aiding\nand abetting of such a crime; or (iv) other grave harms to public safety that\nare of comparable severity to the harms described herein as determined by the\nattorney gene ral.\nThe term does not include harms caused or materially enabled by information\nthat a covered model or covered model derivative outputs if the information\nis otherwise reasonably publicly accessible by an ordinary person from\nsources other than a covere d model or covered model derivative; (ii) harms\ncaused or materially enabled by a covered model combined with other\nsoftware, including other models, if the covered model did not materially\ncontribute to the other software ' s ability to cause or materially enable the\nharm; or (iii) harms that are not caused or materially enabled by the\ndeveloper ' s creation, storage, use or release of a covered model or covered\nmodel derivative; provided further, that monetary harm thresholds established\npursuant to this sect ion shall be adjusted for inflation annually, not later than\nJanuary 31, by the growth rate of the inflation index over the preceding 12\nmonths; and provided further, that the inflation index shall consist of the per\ncent change in inflation as measured by the per cent change in the consumer\nprice index for all urban consumers for the Raleigh metropolitan area as\ndetermined by the bureau of labor statistics of the United States D epartment\nof L abor.\n(8) Critical infrastructure. – Assets, systems and networks, whether physical or\nvirtual, the incapacitation or destruction of which would have a debilitating\neffect on physical security, economic security, public health or safety in the\nState.\n(8a) Department. – The Department of Commerce.\n(9) Developer. – A person that performs the initial training of a covered model\nby: (i) training a model using a sufficient quantity of computing power and\ncost; or (ii) fine - tuning an existing covered model or covered model derivative\nusing a quantity of computing power and cost sufficient to qualify as a covered\nmodel.\n(10) Fine - tuning. – Adjusting the model weights of a trained covered model or\ncovered model derivative by exposing such model to additional data.\n(11) Full shutdown. – The cessation of operation of: (i) t he training of a covered\nmodel; (ii) a covered model controlled by a developer; and (iii) all covered\nmodel derivatives controlled by a developer.\n(11a) Fund. – The Artificial Intelligence Innovation Trust Fund, as established in\nthis section.\n(12) Model w eight. – A numerical parameter in an artificial intelligence model that\nis adjusted through training and that helps determine how inputs are\ntransformed into outputs.\n(13) Person. – An individual, proprietorship, firm, partnership, joint venture,\nsyndicate , business trust, company, corporation, limited liability company,\nassociation, committee or any other nongovernmental organization or group\nof persons acting in concert.\n(14) Post - training modification. – Modifying the capabilities of a covered model\nor c overed model derivative by any means including, but not limited to,\nfine - tuning, providing such model with access to tools or data, removing\nSenate Bill 735 - First Edition Page 3\n\nsafeguards against hazardous misuse or misbehavior of such model or\ncombining such model with, or integrating such model into, other software.\n(15) Safety and security protocol. – Documented, technical, and organizational\nprotocols that: (i) are used to manage the risks of developing and operating\ncovered models or covered model derivatives across their life cycle, inc luding\nrisks posed by causing or enabling or potentially causing or enabling the\ncreation of covered model derivatives; and (ii) specify that compliance with\nsuch protocols is required in order to train, operate, possess or provide external\naccess to the d eveloper ' s covered model or covered model derivatives.\n(16) Secretary. – The Secretary of Commerce.\n(c) Oversight. – The Secretary may convene an AI Innovation and Safety Advisory Panel\ncomposed of representatives from industry, academia, civil liberties a nd consumer advocacy\ngroups, and relevant state agencies. This Panel may provide recommendations, best practices,\nand advice regarding AI technologies, compliance proportionality, and ethical AI - human\ncollaboration. Recommendations of this Panel shall be publicly accessible and may inform future\nregulatory proposals.\n(d) Standards. – The Secretary may consider relevant provisions, guidelines, frameworks,\nand standards established by the U.S. National Institute of Standards and Technology (NIST),\nand compar able frameworks, such as the EU AI Act, when developing proposals and\nrecommendations pursuant to this Part.\n\" § 143B - 472.83B. Requirements for developers of covered models.\n(a) Reserved.\n(b) Reserved.\n(c) Before beginning to train a covered model, a devel oper shall do all of the following:\n(1) Implement reasonable administrative, technical and physical cybersecurity\nprotections to prevent unauthorized access to, misuse of or unsafe\npost - training modifications of the covered model and all covered model\nderi vatives controlled by the developer that are appropriate in light of the risks\nassociated with the covered model, including from advanced persistent threats\nor other sophisticated actors.\n(2) Implement the capability to promptly enact a full shutdown.\n(3) Implement a written and separate safety and security protocol that: (i)\nspecifies protections and procedures that, if successfully implemented, would\ncomply with the developer ' s duty to take reasonable care to avoid producing\na covered model or covered mod el derivative that poses an unreasonable risk\nof causing or materially enabling a critical harm; (ii) states compliance\nrequirements in an objective manner and with sufficient detail and specificity\nto allow the developer or a third party to readily ascert ain whether the\nrequirements of the safety and security protocol have been followed; (iii)\nidentifies a testing procedure which takes safeguards into account as\nappropriate to reasonably evaluate if a covered model poses a substantial risk\nof causing or en abling a critical harm and if any covered model derivatives\npose a substantial risk of causing or enabling a critical harm; (iv) describes in\ndetail how the testing procedure assesses the risks associated with\npost - training modifications; (v) describes in detail how the testing procedure\naddresses the possibility that a covered model or covered model derivative\nmay be used to make post - training modifications or create another covered\nmodel in a manner that may cause or materially enable a critical harm; (vi )\ndescribes in detail how the developer will fulfill their obligations under this\nchapter; (vii) describes in detail how the developer intends to implement any\nsafeguards and requirements referenced in this section; (viii) describes in\nPage 4 Senate Bill 735 - First Edition\n\ndetail the condition s under which a developer would enact a full shutdown\naccount for, as appropriate, the risk that a shutdown of the covered model, or\nparticular covered model derivatives, may cause disruptions to critical\ninfrastructure; and (ix) describes in detail the pr ocedure by which the safety\nand security protocol may be modified.\n(4) Ensure that the safety and security protocol is implemented as written,\nincluding by designating senior personnel to be responsible for ensuring\ncompliance by employees and contractors working on a covered model or any\ncovered model derivatives controlled by the developer, monitoring and\nreporting on implementation.\n(5) Retain an unredacted copy of the safety and security protocol for not less than\nfive years after the covered model is n o longer made available for commercial,\npublic or foreseeably public use,, including records and dates of any updates\nor revisions.\n(6) Conduct an annual review of the safety and security protocol to account for\nany changes to the capabilities of the cover ed model and industry best\npractices and, if necessary, make modifications to such policy.\n(7) Conspicuously publish a redacted copy of the safety and security protocol and\ntransmit a copy of said redacted safety and security protocol to the attorney\ngener al; provided, however, that (i) a redaction in the safety and security\nprotocol may be made only if the redaction is reasonably necessary to protect\npublic safety, trade secrets, or confidential information pursuant to any\ngeneral, special, or federal law; (ii) the developer shall grant to the attorney\ngeneral access to the unredacted safety and security protocol upon request;\n(iii) a safety and security protocol disclosed to the attorney general shall not\nbe a public record; and (iv) if the safety and secu rity protocol is materially\nmodified, the developer shall conspicuously publish and transmit to the\nattorney general an updated redacted copy of such protocol within 30 days of\nthe modification.\n(8) Take reasonable care to implement other appropriate measu res to prevent\ncovered models and covered model derivatives from posing unreasonable\nrisks of causing or materially enabling critical harms.\n(d) Before using a covered model or covered model derivative for a purpose not\nexclusively related to the training or reasonable evaluation of the covered model for compliance\nwith State or federal law or before making a covered model or covered model derivative available\nfor commercial, public or foreseeably public use, the developer of a covered model shall do all\nof the following:\n(1) Assess whether the covered model is reasonably capable of causing or\nmaterially enabling a critical harm.\n(2) Record, as and when reasonably possible, and retain for not less than five\nyears after the covered model is no longer made ava ilable for commercial,\npublic or foreseeably public use, information on any specific tests and test\nresults used in said assessment which provides sufficient detail for third\nparties to replicate the testing procedure.\n(3) Take reasonable care to implement appropriate safeguards to prevent the\ncovered model and covered model derivatives from causing or materially\nenabling a critical harm.\n(4) Take reasonable care to ensure, to the extent reasonably possible, that the\ncovered model ' s actions and the actions of covered model derivatives, as well\nas critical harms resulting from their actions, may be accurately and reliably\nattributed to such model or model derivative.\nSenate Bill 735 - First Edition Page 5\n\n(e) A developer shall not use a covered model or covered model derivative for a purpose\nnot e xclusively related to the training or reasonable evaluation of the covered model for\ncompliance with State or federal law or make a covered model or a covered model derivative\navailable for commercial, public or foreseeably public use if there is an unreas onable risk that\nthe covered model or covered model derivative will cause or materially enable a critical harm.\n(f) A developer of a covered model shall annually reevaluate the procedures, policies,\nprotections, capabilities and safeguards implemented purs uant to this section.\n(g) A developer of a covered model shall annually retain a third - party that conducts\ninvestigations consistent with best practices for investigators to perform an independent\ninvestigation of compliance with the requirements of this s ection.\n(1) The investigator shall conduct investigations consistent with regulations\nissued by the Secretary. The investigator shall be granted access to unredacted\nmaterials as necessary to comply with the investigator ' s obligations contained\nherein. The investigator shall produce an investigation report including, but\nnot limited to: (i) a detailed assessment of the developer ' s steps to comply with\nthe requirements of this section; (ii) if applicable, any identified instances of\nnoncompliance with the re quirements of this section and any\nrecommendations for how the developer can improve its policies and\nprocesses for ensuring compliance with the requirements of this section; (iii)\na detailed assessment of the developer ' s internal controls, including\ndesig nation and empowerment of senior personnel responsible for ensuring\ncompliance by the developer and any employees or contractors thereof; and\n(iv) the signature of the lead investigator certifying the results contained\nwithin the investigation report; and provided further, that the investigator shall\nnot knowingly make a material misrepresentation in said report.\n(2) Covered entities shall transmit to the Attorney General a confidential copy of\nany independent investigator ' s report conducted under this sect ion. An\nexecutive summary outlining compliance status and risk mitigation actions\nshall be made publicly available, with proprietary, sensitive, or\nsecurity - related information redacted as necessary.\n(h) A developer of a covered model shall annually, until such time that the covered model\nand any covered model derivatives controlled by the developer cease to be in or available for\ncommercial or public use, submit to the attorney general a statement of compliance signed by the\ndeveloper ' s chief technology of ficer, or a more senior corporate officer, that shall specify or\nprovide, at a minimum: (i) an assessment of the nature and magnitude of critical harms that the\ncovered model or covered model derivatives may reasonably cause or materially enable and the\nou tcome of the assessment required by this section; (ii) an assessment of the risk that compliance\nwith the safety and security protocol may be insufficient to prevent the covered model or covered\nmodel derivatives from causing or materially enabling critica l harms; and (iii) a description of\nthe process used by the signing officer to verify compliance with the requirements of this section,\nincluding a description of the materials reviewed by the signing officer, a description of testing\nor other evaluation p erformed to support the statement and the contact information of any third\nparties relied upon to validate compliance.\nA developer shall submit such statement to the attorney general not later than 30 days after\nusing a covered model or covered model deriv ative for a purpose not exclusively related to the\ntraining or reasonable evaluation of the covered model for compliance with State or federal law\nor making a covered model or covered model derivative available for commercial, public or\nforeseeably public use; provided, however, that no such initial statement shall be required for a\ncovered model derivative if the developer submitted a compliant initial statement and any\napplicable annual statements for the covered model from which the covered model derivat ive is\nderived.\nPage 6 Senate Bill 735 - First Edition\n\n(i) A developer of a covered model shall report each artificial intelligence safety incident\naffecting the covered model or any covered model derivatives controlled by the developer to the\nattorney general within 72 hours of the developer l earning of the artificial intelligence safety\nincident or facts sufficient to establish a reasonable belief that an artificial intelligence safety\nincident has occurred.\n(j) This section shall apply to the development, use or commercial or public release o f a\ncovered model or covered model derivative for any use that is not the subject of a contract with\na federal government entity, even if that covered model or covered model derivative was\ndeveloped, trained or used by a federal government entity; provided , however, that this section\nshall not apply to a product or service to the extent that compliance would strictly conflict with\nthe terms of a contract between a federal government entity and the developer of a covered model.\n(k) The Secretary may develop and propose a tiered compliance framework\ndifferentiating obligations based on computing scale, intended applications, societal impact, and\norganizational size. This framework shall be developed through stakeholder consultations and\npresented to the Genera l Assembly with recommendations for potential adoption.\n( l ) A developer or covered entity may remain responsible for foreseeable critical harms\narising from misuse or unintended use of a covered model or derivative, irrespective of whether\nsuch misuse invo lved fine - tuning. Covered entities may conduct and document pre - deployment\nrisk assessments to identify and reasonably mitigate foreseeable misuse risks.\n(m) Covered entities funded under this Act developing AI systems that significantly\nimpact individuals ' rights or access to critical services such as employment, housing, education,\nor financial products may conduct exploratory algorithmic fairness assessments to detect and\nmitigate potential bias. These assessments may be shared with stakeholders and the Department\nto inform future policy development.\n(n) Covered entities may voluntarily explore methods for disclosing to end - users when\nthey are interacting with an artificial intelligence system, particularly where the nature of\ninteraction is not immediate ly obvious. Such entities may also explore labeling content generated\nby funded AI systems where there is potential for it to be mistaken for human - generated content.\nFindings from these explorations may be reported to the Department to inform future\ntrans parency guidelines.\n\" § 143B - 472.83C . Requirements for computer resource operators training covered models .\n(a) A person that operates a computing cluster shall implement written policies and\nprocedures to do all of the following when a customer utilizes computer resources which would\nbe sufficient to train a covered model:\n(1) Obtain the prospective customer ' s basic identifying information and business\npurpose for utilizing the computing cluster including, but not limited to: (i)\nthe identity of the prosp ective customer; (ii) the means and source of payment,\nincluding any associated financial institution, credit card number, account\nnumber, customer identifier, transaction identifiers or virtual currency wallet\nor wallet address identifier; and (iii) the e mail address and telephone number\nused to verify the prospective customer ' s identity.\n(2) Assess whether the prospective customer intends to utilize the computing\ncluster to train a covered model.\n(3) Maintain logs of significant access and administrative actions consistent with\ncommercially reasonable cybersecurity practices.\n(4) Maintain for not less than seven years, and provide to the attorney general\nupon request, appropriate records of actions taken under this section,\nincluding policies and procedur es put into effect.\n(5) Implement the capability to promptly enact a full shutdown of any resources\nbeing used to train or operate a covered model under the customer ' s control.\nSenate Bill 735 - First Edition Page 7\n\nIf a customer repeatedly utilizes computer resources that would be sufficient t o train a\ncovered model, the operator of the computer cluster shall validate said basic identifying\ninformation and assess whether such customer intends to utilize the computing cluster to train a\ncovered model prior to each utilization.\n(b) A person that operates a computing cluster shall consider industry best practices and\napplicable guidance from the National Institute of Standards and Technology, including the\nUnited States Artificial Intelligence Safety Institute, and other reputable standard - setting\norganizations.\n(c) In complying with the requirements of this section, a person that operates a computing\ncluster may impose reasonable requirements on customers to prevent the collection or retention\nof personal information that the person operating such computing cluster would not otherwise\ncollect or retain, including a requirement that a corporate customer submit corporate contact\ninformation rather than information that would identify a specific individual.\n\" § 143B - 472.83 D . Enforcement.\n(a) The attorney general shall have the authority to enforce the provisions of this Part .\nExcept as specifically provided in this Part , nothing in this Part shall be construed as creating a\nnew private right of action or serving as the basis for a private righ t of action that would not\notherwise have had a basis under any other law but for the enactment of this Part . This Part\nneither relieves any party from any duties or obligations imposed nor alters any independent\nrights that individuals have under State or federal laws, the North Carolina Constitution or the\nUnited States Constitution.\nThe attorney general may initiate a civil action in the superior court against an entity in the\nname of the State or on behalf of individuals for a violation of this chapter. The attorney general\nmay seek:\n(1) Against a developer of a covered model or covered model derivative for a\nviolation that causes death or bodily harm to another human, harm to property,\ntheft or misappropriation of property, or that constitutes an imminent risk or\nthreat to public safety that occurs on or after January 1, 2026, a civil penalty\nin an amount not exceeding (i) for a first violation, five percent (5%) of the\ncost of the quantity of computing power used to train the covered model to be\nc alculated using the average market prices of cloud compute at the time of\ntraining or (ii) for any subsequent violation, 15 percent (15%) of the cost of\nthe quantity of computing power used to train the covered model as calculated\nherein.\n(2) Against an in vestigator for a violation of this Part , including an investigator\nwho intentionally or with reckless disregard violates any of such investigator ' s\nresponsibilities , or for a person that operates a computing cluster in violation\nof this Part , a civil pena lty in an amount not exceeding (i) twenty - five\nthousand dollars ($25,000) for a first offense; (ii) fifty thousand dollars\n($50,000) for any subsequent violation; and (iii) five million dollars\n($5,000,000) in the aggregate for related violations.\n(3) Inju nctive or declaratory relief.\n(4) Such monetary or punitive damages as the court may allow.\n(5) Attorney ' s fees and costs.\n(6) Any other relief that the court deems appropriate.\n(b) In determining whether a developer exercised reasonable care in the creation, use, or\ndeployment of a covered model or covered model derivative, the attorney general shall consider\nall of the following:\n(1) The quality of such developer ' s safety and security protocol.\n(2) The extent to which the developer faithfully implem ented and followed its\nsafety and security protocol.\nPage 8 Senate Bill 735 - First Edition\n\n(3) Whether, in quality and implementation, the developer ' s safety and security\nprotocol was comparable to those of developers of models trained using a\ncomparable amount of compute resources.\n(4) The qu ality and rigor of the developer ' s investigation, documentation,\nevaluation and management of risks of critical harm posed by its model.\n(c) A provision within a contract or agreement that seeks to waive, preclude, or burden\nthe enforcement of liability ar ising from a violation of this Part , or to shift such liability to any\nperson or entity in exchange for their use or access of, or right to use or access, a developer ' s\nproduct or services, including by means of a contract or adhesion, shall be deemed to b e against\npublic policy and void.\nNotwithstanding any corporate formalities, the court shall impose joint and several liability\non affiliated entities for purposes of effectuating the intent of this section to the maximum extent\npermitted by law if the cou rt concludes all of the following:\n(1) The affiliated entities, in the development of the corporate structure among\nsuch affiliated entities, took steps to purposely and unreasonably limit or avoid\nliability.\n(2) As a result of any such steps, the corporat e structure of the developer or\naffiliated entities would frustrate recovery of penalties, damages, or injunctive\nrelief under this section.\n(d) Penalties collected pursuant to this section by the attorney general shall be deposited\ninto the General Fund a nd subject to appropriation.\n\" § 143B - 472.83E . Cooperation with Attorney General.\n(a) For purposes of this section, the following definitions apply:\n(1) Contractor or subcontractor. – A firm, corporation, partnership or association\nand its responsible managing officer, as well as any supervisors, managers or\nofficers found by the attorney general or director to be personally and\nsubstantially responsible for the rights and responsibilities of employees under\nthis section.\n(2) Employee. – Any person who performs services for wages or salary under a\ncontract of employment, express or implied, for an employer, including:\na. Contractors or subcontractors and unpaid advisors involved with\nassessing, managing or addressing the risk of critical harm from\ncovere d models or covered model derivatives.\nb. Corporate officers.\n(b) A developer of a covered model or a contractor or subcontractor of the developer shall\nnot:\n(1) Prevent an employee from disclosing information to the attorney general or\nany other public bo dy, including through terms and conditions of employment\nor seeking to enforce terms and conditions of employment, if the employee\nhas reasonable cause to believe the information indicates that (i) the developer\nis out of compliance with the requirements o f this section or (ii) an artificial\nintelligence model, including a model that is not a covered model or a covered\nmodel derivative, poses an unreasonable risk of causing or materially enabling\ncritical harm, even if the employer is not out of compliance with any State or\nfederal law.\n(2) Retaliate against an employee for disclosing such information to the attorney\ngeneral or any other public body.\n(3) Make false or materially misleading statements related to its safety and\nsecurity protocol in any manner that would constitute an unfair or deceptive\ntrade practice.\nSenate Bill 735 - First Edition Page 9\n\n(c) An employee harmed by a violation of this section may petition the court for\nappropriate relief.\n(d) The attorney general may publicly release any complaint, or a summary of such\ncomplaint, filed pursuant to this section if the attorney general concludes that doing so will serve\nthe public interest; provided, however, that any information that is confidential, qualifies as a\ntrade secret, or is determined by the attorney general to likely pos e an unreasonable risk to public\nsafety if disclosed shall be redacted from the complaint prior to disclosure.\n(e) A developer shall provide a clear notice to all employees working on covered models\nand covered model derivatives of their rights and respons ibilities under this section, including\nthe rights of employees of contractors and subcontractors to utilize the developer ' s internal\nprocess for making protected disclosures pursuant to subsection (f). A developer is presumed to\nbe in compliance with the requirements of this subsection if the developer:\n(1) At all times posts and displays within all workplaces maintained by the\ndeveloper a notice to all employees of their rights and responsibilities under\nthis section, ensures that all new employees receiv e equivalent notice and\nensures that employees who work remotely periodically receive an equivalent\nnotice; or\n(2) At least annually, provides written notice to all employees of their rights and\nresponsibilities under this section and ensures that such not ice is received and\nacknowledged by all of those employees.\n(f) A developer shall provide a reasonable internal process through which an employee,\ncontractor, subcontractor or employee of a contractor or subcontractor working on a covered\nmodel or covered model derivative may anonymously disclose information to the developer if\nthe employee believes, in good faith, that the developer has violated any provision of this chapter\nor any other general or special law, has made false or materially misleading state ments related to\nits safety and security protocol or has failed to disclose known risks to employees. The developer\nshall conduct an investigation related to any information disclosed through such process and\nprovide, at a minimum, a monthly update to the person who made the disclosure regarding the\nstatus of the developer ' s investigation of the disclosure and the actions taken by the developer in\nresponse to the disclosure.\nAny disclosure and response created pursuant to this subsection shall be maintained for not\nless than seven years from the date when the disclosure or response is created. Each disclosure\nand response shall be shared with officers and directors of the developer whose acts or omissions\nare not implicated by the disclosure or response not less than once per quarter. In the case of a\nreport or disclosure regarding alleged misconduct by a contractor or subcontractor, the developer\nshall notify the officers and directors of the contractor or subcontractor whose acts or omissions\nare not implic ated by the disclosure or response about the status of their investigation not less\nthan once per quarter.\n\" § 143B - 472.83 . Reporting and regulation.\nThe S ecretary shall file an annual report not later than January 31 with the General Assembly\ncontaining: (i) statistical information on the current workforce population in the business of the\ndevelopment of artificial intelligence and in adjacent technology sectors; (ii) any known\nworkforce shortages in the development or deployment of artificial intelligence ; (iii) summary\ninformation related to the efficacy of existing workforce development programs in artificial\nintelligence and related sectors, if any; (iv) summary information related to the availability of\nrelevant training programs available in the State , including any known gaps in such programs\ngenerally available to members of the public; and (iv) any plans, including recommendations for\nlegislation, if any, to remedy any such known workforce shortages.\nThe S ecretary shall promulgate regulations for th e implementation, administration and\nenforcement of this Part ; provided, however, that the S ecretary may convene an advisory board\nfor the purposes of: (i) studying the impact of artificial intelligence on the State, including with\nPage 10 Senate Bill 735 - First Edition\n\nrespect to its employees , constituents, private business and higher education institutions; (ii)\nconducting outreach and collecting input from stakeholders and experts; (iii) studying current\nand emerging capability for critical harms made possible by artificial intelligence deve loped or\ndeployed in the State; or (iv) advising the Governor and General Assembly on recommended\nlegislation or regulations related to the growth of the artificial intelligence industry and\nprevention of critical harms.\nNot less than annually, the S ecreta ry shall do all of the following:\n(1) Update, by regulation, the initial compute threshold and the fine - tuning\ncompute threshold that an artificial intelligence model shall meet to be\nconsidered a covered model, taking into account: (i) the quantity of com puting\npower used to train models that have been identified as being reasonably likely\nto cause or materially enable a critical harm; (ii) similar thresholds used in\nfederal law, guidance or regulations for the management of artificial\nintelligence models with reasonable risks of causing or enabling critical\nharms; and (iii) input from stakeholders, including academics, industry, the\nopen - source community and government entities.\n(2) Update, by regulation, binding investigation requirements applicable to\ninvestigations conducted pursuant to this Part to ensure the integrity,\nindependence, efficiency and effectiveness of the investigation process, taking\ninto account: (i) relevant stand ards or requirements imposed under federal or\nState law or through self - regulatory or standards - setting bodies; (ii) input from\nstakeholders, including academic, industry and government entities, including\nfrom the open - source community; and (iii) consiste ncy with guidance issued\nby the National Institute of Standards and Technology, including the United\nStates Artificial Intelligence Safety Institute.\n(3) Issue guidance for preventing unreasonable risks of covered models and\ncovered model derivatives causi ng or materially enabling critical harms,\nincluding, but not limited to, more specific components of, or requirements\nunder, the duties required under this Part . Such guidance shall be consistent\nwith guidance issued by the National Institute of Standards and Technology,\nincluding the United States Artificial Intelligence Safety Institute. \"\nSECTION 2. There is appropriated from the General Fund to the Department of\nCommerce the nonrecurring sum of seven hundred fifty thousand dollars ($750,000) for the\n202 5 - 2026 fiscal year to accomplish the purposes of this act.\nSECTION 3. This act becomes effective July 1, 2025.\nSenate Bill 735 - First Edition Page 11",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3190403,
+   "date": "2025-03-26",
+   "type": "Amended",
+   "mime": "application/pdf",
+   "state_link": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf",
+   "from": "legiscan",
+   "saved_file": "raw/legiscan/NC-S735-2014277.pdf",
+   "pdf": {
+    "pages": 11,
+    "truncated": false,
+    "reason": null
+   }
+  },
+  "frontier_markers": [
+   "floating point operations",
+   "critical harm",
+   "full shutdown",
+   "safety and security protocol",
+   "artificial intelligence safety"
+  ]
+ }
+}

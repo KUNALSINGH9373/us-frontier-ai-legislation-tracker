@@ -1,0 +1,822 @@
+{
+ "_note": "Live capture from v3.openstates.org /bills?jurisdiction=ca&session=20252026&identifier=SB 53 on 29 Oct 2026 (news/sources live check), trimmed; API key redacted. Do not edit by hand.",
+ "results": [
+  {
+   "id": "ocd-bill/921be457-d273-4be3-9e2d-f0f0314d81b0",
+   "session": "20252026",
+   "jurisdiction": {
+    "id": "ocd-jurisdiction/country:us/state:ca/government",
+    "name": "California"
+   },
+   "identifier": "SB 53",
+   "title": "Artificial intelligence models: large developers.",
+   "openstates_url": "https://openstates.org/ca/bills/20252026/SB53/",
+   "actions": [
+    {
+     "description": "Introduced. Read first time. To Com. on RLS. for assignment. To print.",
+     "date": "2025-01-07",
+     "classification": [
+      "introduction",
+      "reading-1",
+      "referral-committee"
+     ],
+     "order": 0,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "From printer. May be acted upon on or after February 7.",
+     "date": "2025-01-08",
+     "classification": [],
+     "order": 1,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Referred to Com. on RLS.",
+     "date": "2025-01-29",
+     "classification": [
+      "referral-committee"
+     ],
+     "order": 2,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on RLS.",
+     "date": "2025-02-27",
+     "classification": [
+      "amendment-passage",
+      "committee-passage",
+      "reading-1",
+      "reading-2",
+      "referral-committee"
+     ],
+     "order": 3,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Re-referred to Coms. on G.O. and JUD.",
+     "date": "2025-03-12",
+     "classification": [
+      "referral-committee"
+     ],
+     "order": 4,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Set for hearing March 25.",
+     "date": "2025-03-17",
+     "classification": [],
+     "order": 5,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "From committee: Do pass as amended and re-refer to Com. on JUD. (Ayes 13. Noes 0. Page 530.) (March 25).",
+     "date": "2025-03-26",
+     "classification": [
+      "amendment-passage",
+      "committee-passage",
+      "committee-passage-favorable",
+      "referral-committee"
+     ],
+     "order": 6,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Read second time and amended. Re-referred to Com. on JUD.",
+     "date": "2025-03-27",
+     "classification": [
+      "amendment-passage",
+      "reading-1",
+      "reading-2",
+      "referral-committee"
+     ],
+     "order": 7,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Set for hearing April 8.",
+     "date": "2025-04-01",
+     "classification": [],
+     "order": 8,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "From committee: Do pass and re-refer to Com. on APPR. with recommendation: To consent calendar. (Ayes 13. Noes 0. Page 705.) (April 8). Re-referred to Com. on APPR.",
+     "date": "2025-04-09",
+     "classification": [
+      "committee-passage",
+      "committee-passage-favorable",
+      "referral-committee"
+     ],
+     "order": 9,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Set for hearing April 21.",
+     "date": "2025-04-10",
+     "classification": [],
+     "order": 10,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "April 21 hearing: Placed on APPR. suspense file.",
+     "date": "2025-04-21",
+     "classification": [],
+     "order": 11,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Set for hearing May 23.",
+     "date": "2025-05-16",
+     "classification": [],
+     "order": 12,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "From committee: Do pass as amended. (Ayes 6. Noes 0. Page 1189.) (May 23).",
+     "date": "2025-05-23",
+     "classification": [
+      "amendment-passage",
+      "committee-passage",
+      "committee-passage-favorable"
+     ],
+     "order": 13,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Read second time and amended. Ordered to second reading.",
+     "date": "2025-05-23",
+     "classification": [
+      "amendment-passage",
+      "reading-1",
+      "reading-2"
+     ],
+     "order": 14,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Read second time. Ordered to third reading.",
+     "date": "2025-05-27",
+     "classification": [
+      "reading-1",
+      "reading-2",
+      "reading-3"
+     ],
+     "order": 15,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Read third time. Passed. (Ayes 37. Noes 0. Page 1281.) Ordered to the Assembly.",
+     "date": "2025-05-28",
+     "classification": [
+      "passage",
+      "reading-1",
+      "reading-3"
+     ],
+     "order": 16,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "In Assembly. Read first time. Held at Desk.",
+     "date": "2025-05-28",
+     "classification": [
+      "reading-1"
+     ],
+     "order": 17,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Referred to Coms. on P. & C.P. and JUD.",
+     "date": "2025-06-05",
+     "classification": [
+      "referral-committee"
+     ],
+     "order": 18,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Re-referred to Coms. on JUD. and P. & C.P. pursuant to Assembly Rule 96.",
+     "date": "2025-06-12",
+     "classification": [
+      "referral-committee"
+     ],
+     "order": 19,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "From committee: Do pass and re-refer to Com. on P. & C.P. (Ayes 12. Noes 0.) (July 1). Re-referred to Com. on P. & C.P.",
+     "date": "2025-07-02",
+     "classification": [
+      "committee-passage",
+      "committee-passage-favorable",
+      "referral-committee"
+     ],
+     "order": 20,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "From committee with author's amendments. Read second time and amended. Re-referred to Com. on P. & C.P.",
+     "date": "2025-07-08",
+     "classification": [
+      "amendment-passage",
+      "committee-passage",
+      "reading-1",
+      "reading-2",
+      "referral-committee"
+     ],
+     "order": 21,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "From committee: Do pass as amended and re-refer to Com. on APPR. (Ayes 9. Noes 0.) (July 16).",
+     "date": "2025-07-16",
+     "classification": [
+      "amendment-passage",
+      "committee-passage",
+      "committee-passage-favorable",
+      "referral-committee"
+     ],
+     "order": 22,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Read second time and amended. Re-referred to Com. on APPR.",
+     "date": "2025-07-17",
+     "classification": [
+      "amendment-passage",
+      "reading-1",
+      "reading-2",
+      "referral-committee"
+     ],
+     "order": 23,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "August 20 set for first hearing. Placed on APPR. suspense file.",
+     "date": "2025-08-20",
+     "classification": [],
+     "order": 24,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "From committee: Do pass as amended. (Ayes 11. Noes 1.) (August 29).",
+     "date": "2025-08-29",
+     "classification": [
+      "amendment-passage",
+      "committee-passage",
+      "committee-passage-favorable"
+     ],
+     "order": 25,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Read second time and amended. Ordered to second reading.",
+     "date": "2025-09-02",
+     "classification": [
+      "amendment-passage",
+      "reading-1",
+      "reading-2"
+     ],
+     "order": 26,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Read second time. Ordered to third reading.",
+     "date": "2025-09-03",
+     "classification": [
+      "reading-1",
+      "reading-2",
+      "reading-3"
+     ],
+     "order": 27,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Assembly Rule 69(b)(1) suspended.",
+     "date": "2025-09-05",
+     "classification": [],
+     "order": 28,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Read third time and amended.",
+     "date": "2025-09-05",
+     "classification": [
+      "amendment-passage",
+      "reading-1",
+      "reading-3"
+     ],
+     "order": 29,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Ordered to third reading.",
+     "date": "2025-09-05",
+     "classification": [
+      "reading-1",
+      "reading-3"
+     ],
+     "order": 30,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Re-referred to Com. on P. & C.P. pursuant to Assembly Rule 77.2.",
+     "date": "2025-09-08",
+     "classification": [
+      "referral-committee"
+     ],
+     "order": 31,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Joint Rule 62(a) suspended.",
+     "date": "2025-09-09",
+     "classification": [],
+     "order": 32,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "From committee: Do pass. (Ayes 12. Noes 1.) (September 11).",
+     "date": "2025-09-11",
+     "classification": [
+      "committee-passage",
+      "committee-passage-favorable"
+     ],
+     "order": 33,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Read second time. Ordered to third reading.",
+     "date": "2025-09-12",
+     "classification": [
+      "reading-1",
+      "reading-2",
+      "reading-3"
+     ],
+     "order": 34,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Assembly Rule 63 suspended.",
+     "date": "2025-09-12",
+     "classification": [],
+     "order": 35,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "Read third time. Passed. (Ayes 59. Noes 7. Page 3432.) Ordered to the Senate.",
+     "date": "2025-09-12",
+     "classification": [
+      "passage",
+      "reading-1",
+      "reading-3"
+     ],
+     "order": 36,
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     }
+    },
+    {
+     "description": "In Senate. Concurrence in Assembly amendments pending.",
+     "date": "2025-09-13",
+     "classification": [],
+     "order": 37,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Assembly amendments concurred in. (Ayes 29. Noes 8. Page 3039.) Ordered to engrossing and enrolling.",
+     "date": "2025-09-13",
+     "classification": [
+      "amendment-passage",
+      "committee-passage",
+      "committee-passage-favorable"
+     ],
+     "order": 38,
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     }
+    },
+    {
+     "description": "Enrolled and presented to the Governor at 2 p.m.",
+     "date": "2025-09-23",
+     "classification": [
+      "executive-receipt"
+     ],
+     "order": 39,
+     "organization": {
+      "classification": "legislature",
+      "name": "California State Legislature"
+     }
+    },
+    {
+     "description": "Approved by the Governor.",
+     "date": "2025-09-29",
+     "classification": [
+      "executive-signature"
+     ],
+     "order": 40,
+     "organization": {
+      "classification": "legislature",
+      "name": "California State Legislature"
+     }
+    },
+    {
+     "description": "Chaptered by Secretary of State. Chapter 138, Statutes of 2025.",
+     "date": "2025-09-29",
+     "classification": [
+      "became-law"
+     ],
+     "order": 41,
+     "organization": {
+      "classification": "legislature",
+      "name": "California State Legislature"
+     }
+    }
+   ],
+   "votes": [
+    {
+     "id": "ocd-vote/7991b955-cb5e-4e94-b017-6332712ffef7",
+     "motion_text": "SB 53 Wiener Senate Third Reading By BAUER-KAHAN",
+     "start_date": "2025-09-13T05:20:17+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 59
+      },
+      {
+       "option": "no",
+       "value": 7
+      },
+      {
+       "option": "other",
+       "value": 14
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/a007d982-97ac-4d58-a78f-240a71a3d9cd",
+     "motion_text": "Unfinished Business SB53 Wiener et al. Concurrence",
+     "start_date": "2025-09-13T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 29
+      },
+      {
+       "option": "no",
+       "value": 8
+      },
+      {
+       "option": "other",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/76934caf-a06d-4e06-9087-933886497380",
+     "motion_text": "Do pass.",
+     "start_date": "2025-09-11T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 12
+      },
+      {
+       "option": "no",
+       "value": 1
+      },
+      {
+       "option": "other",
+       "value": 2
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/0ccd9e4d-63ff-495b-a1e6-ed0f41ca8cd4",
+     "motion_text": "Do pass as amended.",
+     "start_date": "2025-08-29T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 11
+      },
+      {
+       "option": "no",
+       "value": 1
+      },
+      {
+       "option": "other",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/abb46a89-713c-497c-9b4b-8798834c12df",
+     "motion_text": "Do pass as amended and be re-referred to the Committee on [Appropriations]",
+     "start_date": "2025-07-16T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 10
+      },
+      {
+       "option": "no",
+       "value": 0
+      },
+      {
+       "option": "other",
+       "value": 5
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/33bc9996-0cc7-49e4-8a8c-fd199bc0a7b8",
+     "motion_text": "Do pass and be re-referred to the Committee on [Privacy and Consumer Protection]",
+     "start_date": "2025-07-01T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "lower",
+      "name": "Assembly"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 12
+      },
+      {
+       "option": "no",
+       "value": 0
+      },
+      {
+       "option": "other",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/c3366722-b67f-428a-b57d-bec1236ef3d4",
+     "motion_text": "3rd Reading",
+     "start_date": "2025-05-28T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 37
+      },
+      {
+       "option": "no",
+       "value": 0
+      },
+      {
+       "option": "other",
+       "value": 3
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/0c6ae8d9-1a88-40ff-8ecf-f4abad9400bc",
+     "motion_text": "Do pass as amended",
+     "start_date": "2025-05-23T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 6
+      },
+      {
+       "option": "no",
+       "value": 0
+      },
+      {
+       "option": "other",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/4ef9ff55-2dc6-418f-977b-2e91aa57b3d8",
+     "motion_text": "Placed on suspense file",
+     "start_date": "2025-04-21T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 6
+      },
+      {
+       "option": "no",
+       "value": 0
+      },
+      {
+       "option": "other",
+       "value": 1
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/d80b4b40-4ae8-4726-8806-769baee4ef99",
+     "motion_text": "Do pass, but first be re-referred to the Committee on [Appropriations] with the recommendation: To Consent Calendar",
+     "start_date": "2025-04-08T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 13
+      },
+      {
+       "option": "no",
+       "value": 0
+      },
+      {
+       "option": "other",
+       "value": 0
+      }
+     ]
+    },
+    {
+     "id": "ocd-vote/f8544508-5b81-431c-8d16-bf52ae9070c7",
+     "motion_text": "Do pass as amended, but first amend, and re-refer to the Committee on [Judiciary]",
+     "start_date": "2025-03-25T07:00:00+00:00",
+     "result": "pass",
+     "organization": {
+      "classification": "upper",
+      "name": "Senate"
+     },
+     "counts": [
+      {
+       "option": "yes",
+       "value": 13
+      },
+      {
+       "option": "no",
+       "value": 0
+      },
+      {
+       "option": "other",
+       "value": 2
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "pagination": {
+  "per_page": 10,
+  "page": 1,
+  "max_page": 1,
+  "total_items": 1
+ }
+}

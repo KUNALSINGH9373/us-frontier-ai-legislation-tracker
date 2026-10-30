@@ -1,0 +1,57 @@
+{
+ "recorded_at": "2026-10-29T04:12:38.227Z",
+ "responses": {
+  "https://api.govinfo.gov/collections/PLAW/2026-10-22T00:00:00Z?pageSize=100&offsetMark=*": {
+   "file": "r1.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ130/BILLS": {
+   "file": "r2.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ133/BILLS": {
+   "file": "r3.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ128/BILLS": {
+   "file": "r4.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ131/BILLS": {
+   "file": "r5.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ134/BILLS": {
+   "file": "r6.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ129/BILLS": {
+   "file": "r7.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ132/BILLS": {
+   "file": "r8.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ127/BILLS": {
+   "file": "r9.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ126/BILLS": {
+   "file": "r10.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ125/BILLS": {
+   "file": "r11.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/related/PLAW-119publ122/BILLS": {
+   "file": "r12.json",
+   "status": 200
+  },
+  "https://api.govinfo.gov/collections/BILLS/2026-10-22T00:00:00Z?pageSize=100&offsetMark=*": {
+   "file": "r13.json",
+   "status": 200
+  }
+ }
+}

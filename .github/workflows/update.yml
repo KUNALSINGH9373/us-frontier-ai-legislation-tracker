@@ -2,7 +2,8 @@
 # commits the result to main (served by GitHub Pages from docs/). Runs one at a time. See pipeline/README.md, "How one update run writes".
 #
 # Manual runs default to a dry run (fetch and compare, promote nothing, no AI calls, Telegram report sent). Scheduled runs publish.
-# Secrets: ANTHROPIC_API_KEY, CONGRESS_API_KEY, LEGISCAN_API_KEY, COURTLISTENER_API_TOKEN, TELEGRAM_ACCESS_TOKEN, TELEGRAM_CHAT_ID,
+# Secrets: ANTHROPIC_API_KEY, CONGRESS_API_KEY, LEGISCAN_API_KEY, COURTLISTENER_API_TOKEN, PLURAL_API_KEY (Open States), NYSENATE_API_KEY,
+# TELEGRAM_ACCESS_TOKEN, TELEGRAM_CHAT_ID,
 # and optionally HEALTHCHECK_URL (an outside dead-man's switch, e.g. healthchecks.io, period 4 h + grace 4 h: it alerts when no run
 # succeeds for 8 hours, which also catches a schedule GitHub stopped; the staleness alert below cannot, as it runs inside this workflow).
 name: update
@@ -79,6 +80,8 @@ jobs:
           CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
           LEGISCAN_API_KEY: ${{ secrets.LEGISCAN_API_KEY }}
           COURTLISTENER_API_TOKEN: ${{ secrets.COURTLISTENER_API_TOKEN }}
+          PLURAL_API_KEY: ${{ secrets.PLURAL_API_KEY }}
+          NYSENATE_API_KEY: ${{ secrets.NYSENATE_API_KEY }}
           TELEGRAM_ACCESS_TOKEN: ${{ secrets.TELEGRAM_ACCESS_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |

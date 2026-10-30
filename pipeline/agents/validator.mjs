@@ -21,7 +21,7 @@ export function buildClaims({ patch, operation }) {
 }
 
 export async function validateDraft({ llm, patch, before, after, assembleProblems, source, sourceText, readText = sourceText, entries, operation, itemId, run_id, attempt }) {
-  const code_checks = runChecks({ patch, before, after, assembleProblems, source, sourceText, entries, operation });
+  const code_checks = runChecks({ patch, before, after, assembleProblems, source, sourceText, readText, entries, operation });
   const claims = [], verdict = { run_id, item_id: itemId, attempt, passed: false, code_checks, claims };
   const codePassed = code_checks.every((c) => c.passed);
 

@@ -1,75 +1,5527 @@
 {
- "_note": "The recorded news leads set for the gate (eval/news-set.mjs). Seeded 29 Oct 2026 from the news agent's fixtures (fixtures/news: Rep. Liccardo's 22 Sept 2026 release, recorded 28 Oct 2026) and the ways an item can be wrong that news/test.mjs covers. Each case replays the writer's and the second reader's recorded answers; expect says what must happen. Add real leads as they are recorded.",
+ "_note": "The recorded event set for the news gate (eval/news-set.mjs), rebuilt 29 Oct 2026 for the event model: real official records as the pipeline stores them (fixtures/news/sources/: Congress.gov H.R. 3460, LegiScan CA AB 1405, CourtListener docket entries of two tracked cases) replayed over runs through the adapters, classifier, confirmation and render, on the real news page. expect lists every item that must come out, word for word; anything else rendered is wrong.",
  "cases": [
   {
-   "id": "liccardo-checked",
-   "note": "An official release, every quote and number in it, the second reader confirms every claim: it would be added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\" It would direct the State Department to seek negotiations with China and authorize $100 million for the Center for AI Standards and Innovation (CAISI).", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }, { "quote": "Authorize $100 million for the Center for AI Standards and Innovation (CAISI)" }] }],
-   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
-   "expect": "publish"
+   "id": "hr3460-two-stable-runs",
+   "note": "Congress.gov record read on two runs, unchanged: the referral is confirmed by two stable runs and rendered; the introduction waits for govinfo (independent confirmer for that class) and is not shown.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "H.R. 3460 referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ]
   },
   {
-   "id": "liccardo-invented-quote",
-   "note": "A quote the release does not contain (both rounds): never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China AI safety bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to ban frontier AI exports to China.\"", "evidence": [{ "quote": "to ban frontier AI exports to China" }] }],
-   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
-   "expect": "refuse"
+   "id": "hr3460-one-run-only",
+   "note": "Read once: everything is pending, nothing is shown.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": []
   },
   {
-   "id": "liccardo-invented-number",
-   "note": "A figure the release does not state ($200 million): never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\" It would authorize $200 million for the Center for AI Standards and Innovation (CAISI).", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": { "supported": true, "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" },
-   "expect": "refuse"
+   "id": "hr3460-default-window",
+   "note": "A real run's 14-day window: the 2025 actions are history and are never back-filled.",
+   "since_days": 14,
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": []
   },
   {
-   "id": "liccardo-reader-rejects",
-   "note": "The second reader does not confirm the claims: never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": "no",
-   "expect": "refuse"
+   "id": "ca-ab1405-legiscan-alone",
+   "note": "A state bill from LegiScan alone, on two runs: an independent state record exists for these classes, so nothing is confirmed or shown.",
+   "runs": [
+    {
+     "now": "2026-10-13T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-13T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-13T05:40:19Z"
+    }
+   ],
+   "expect": []
   },
   {
-   "id": "press-lead",
-   "note": "A press story (not an official release) is only reported, never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "p1", "key": "p", "source_id": "politico-technology", "publisher": "Politico", "kind": "federal", "primary": false, "title": "Anthropic quietly pitches its own AI safety bill to lawmakers", "link": "https://www.politico.com/x", "release_url": "https://www.politico.com/x", "date": "2026-10-27", "tracker": null, "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-10-27", "title": "Anthropic pitches an AI safety bill", "body": "Anthropic pitched an AI safety bill to lawmakers.", "evidence": [] }],
-   "checker": "yes",
-   "expect": "refuse"
+   "id": "ca-ab1405-confirmed-by-openstates",
+   "note": "The same record, and an Open States record of the chaptering on the same day: the became-law event is confirmed and shown, nothing else.",
+   "runs": [
+    {
+     "now": "2026-10-13T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-13T12:00:00Z",
+     "run_id": "r2",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-bill/ab1405#chaptered",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-09-09",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026."
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-13T11:00:00Z"
+      }
+     ]
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-13T05:40:19Z"
+    }
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-09-09#AB1405",
+     "title": "AB 1405 becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Sept 9, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ]
   },
   {
-   "id": "liccardo-old-news",
-   "note": "The same release read with the production 14-day window on 28 Oct (dated 22 Sept): old news, never added.",
-   "today": "2026-10-28", "max_age_days": 14,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-22", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 22, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": "yes",
-   "expect": "refuse"
+   "id": "court-dockets",
+   "note": "Docket entries of two tracked cases read by the court step, then two runs: the rulings are shown once per entry and day; an event on a day the page already covers (Lane 1's own item) is not added again; routine entries never.",
+   "court_found": "courtlistener/found.json",
+   "runs": [
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-27T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|x-ai-v-weiser-d-colo|court-ruling|2026-04-27",
+     "title": "X.AI v. Weiser (D. Colo.): Court order",
+     "body": "The court docket (D. Colo.) shows this action on X.AI LLC v. Weiser, No. 1:26-cv-01515 (D. Colo.) on Apr 27, 2026: \"MINUTE ORDER: The parties' Motion, ECF No. 22, is GRANTED. A stay will not prejudice the plaintiff, who does not oppose the motion, ECF No. 22, will avoid burdening the parties with the costs of litigating, promotes judicial economy and efficiency, does not negatively impact nonparties, and is in the public interest\" (opening words of the entry).",
+     "status": "confirmed",
+     "links": [
+      "https://www.courtlistener.com/docket/73171074/"
+     ],
+     "status_note": null
+    },
+    {
+     "event_key": "US|fl-anthropic-v-department-of-war-n-d-cal|court-ruling|2026-08-27",
+     "title": "Anthropic v. Department of War (N.D. Cal.): Judgment entered",
+     "body": "The court docket (N.D. Cal.) shows this action on Anthropic PBC v. U.S. Department of War et al., No. 3:26-cv-01996 (N.D. Cal.) on Aug 27, 2026: \"JUDGMENT. Signed by Judge Rita F. Lin on August 27, 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.courtlistener.com/docket/72379655/"
+     ],
+     "status_note": null
+    }
+   ]
   },
   {
-   "id": "liccardo-wrong-date",
-   "note": "The item dates the announcement a day the release does not give (Sept 21): never added.",
-   "today": "2026-10-28", "max_age_days": 40,
-   "lead": { "id": "abc", "key": "k", "source_id": "rep-liccardo", "publisher": "Rep. Sam Liccardo", "kind": "federal", "primary": true, "title": "Liccardo Pushes for US-China Coordination on AI Safety", "link": "http://liccardo.house.gov/node/671", "release_url": "https://liccardo.house.gov/media/press-releases/new-bipartisan-ai-safety-bill-will-move-us-and-china-beyond-red-phone", "date": "2026-09-25", "tracker": "liccardo-kiley-us-china-ai-safety-bill", "matches": [] },
-   "release_fixture": "release-liccardo.html",
-   "writer": [{ "newsworthy": true, "date": "2026-09-21", "title": "Reps. Liccardo and Kiley announce a US–China frontier-AI safety coordination bill", "body": "Reps. Sam Liccardo (D-CA) and Kevin Kiley (I-CA) announced on Sept 21, 2026 legislation \"to establish U.S.-China coordination on frontier artificial intelligence safety.\"", "evidence": [{ "quote": "to establish U.S.-China coordination on frontier artificial intelligence safety" }] }],
-   "checker": "yes",
-   "expect": "refuse"
+   "id": "hr3460-withdrawn-after-shown",
+   "note": "The referral is published, then the record read again in full no longer shows it: the item stays, marked withdrawn, with a correction line.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2",
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "r3",
+     "drop": "Referred to the House Committee"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "Withdrawn: H.R. 3460 referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "withdrawn",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "The official record no longer shows this action."
+    }
+   ]
+  },
+  {
+   "id": "future-dated-refused",
+   "note": "A record whose actions are dated after the run: refused, nothing created or shown.",
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "r1"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "r2"
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z",
+     "redate": "2026-11-05"
+    }
+   ],
+   "expect": []
+  },
+  {
+   "id": "group-sig-law-same-run",
+   "r2": true,
+   "note": "Signature and chaptering on consecutive days, both confirmed by Open States, one run: one card (became-law).",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20#AB1405",
+     "title": "AB 1405 becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 21, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-21",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-21",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-sig-then-law-later-run",
+   "r2": true,
+   "note": "Signature published on one run, chaptering two days later on the next: the card is updated, no second card.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20#AB1405",
+     "title": "AB 1405 becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 21, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ],
+     "history2": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-21",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-23T08:00:00Z",
+     "run_id": "r9",
+     "history_add": true,
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-21",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-law-then-sig",
+   "r2": true,
+   "note": "Chaptering record first, the signature line arrives a run later: still one card.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|became-law|2026-10-20#AB1405",
+     "title": "AB 1405 becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "group-concurrence-enrolled",
+   "r2": true,
+   "note": "Concurrence and enrolment a day apart: one card (enrolled). (review r5: the concurrence line names no chamber that acted — \"Senate amendments concurred in\" is the Assembly — so it has no card of its own; the enrolment card stands alone.)",
+   "intent": [
+    "enrolled"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|enrolled|2026-10-20#AB1405",
+     "title": "AB 1405 enrolled",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Enrolled\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-19",
+       "action": "Senate amendments concurred in. To Engrossing and Enrolling. (Ayes 60. Noes 4.)",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Enrolled",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-c",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "concurrence",
+       "date": "2026-10-19",
+       "facts": {
+        "action": "Concurred"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-e",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "enrolled",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Enrolled"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-hearing-same-day",
+   "r2": true,
+   "note": "A hearing scheduled and then held on the same hearing day: one card (hearing held).",
+   "intent": [
+    "hearing-held"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|hearing-held|2026-10-20#AB1405",
+     "title": "Hearing held on AB 1405",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Hearing held\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-15",
+       "action": "Set for hearing October 20.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Hearing held.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-hs",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "hearing-scheduled",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Set for hearing",
+        "hearing_date": "2026-10-20"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-hh",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Hearing held"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-comment-proposed",
+   "r2": true,
+   "note": "A proposed rule and its comment period opening, same FR document: one card.",
+   "intent": [
+    "agency-rule-proposed"
+   ],
+   "expect": [
+    {
+     "event_key": "US|caisi-and-nist-aite|comment-period-open|FR2026-22002",
+     "title": "National Institute of Standards and Technology proposes a rule",
+     "body": "The Federal Register shows this action on CAISI voluntary pre-deployment evaluation activity + NIST AITE program on Oct 21, 2026: \"Frontier AI Model Evaluation Practices\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/d/2026-22002"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "agency-rule-proposed"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "comment-period-open"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "agency-rule-proposed"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-22002",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "date": "2026-10-21",
+       "facts": {
+        "title": "Frontier AI Model Evaluation Practices",
+        "document_number": "2026-22002",
+        "agency": "National Institute of Standards and Technology",
+        "comments_close": "2026-12-21",
+        "publication_date": "2026-10-21"
+       },
+       "url": "https://www.federalregister.gov/d/2026-22002",
+       "title": "Frontier AI Model Evaluation Practices",
+       "retrieved_at": "2026-10-21T12:00:00Z",
+       "class": "comment-period-open"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "group-law-ten-days-after-signature",
+   "r2": true,
+   "note": "Signature and chaptering ten days apart: still one card per entry for the law group (no date window, review r3 #5).",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-05#AB1405",
+     "title": "AB 1405 becomes law",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 15, 2026: \"Chaptered by Secretary of State - Chapter 178, Statutes of 2026\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-05",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-15",
+       "action": "Chaptered by Secretary of State - Chapter 178, Statutes of 2026.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-05",
+       "facts": {
+        "action": "Signed by Governor"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-l",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Chaptered"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chamber-upper-confirms-senate",
+   "r2": true,
+   "note": "LegiScan \"S\" and Open States \"upper\": the Senate; confirmed and shown.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Senate",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chamber-lower-is-assembly",
+   "r2": true,
+   "note": "California: LegiScan \"A\" and Open States \"lower\" are both the Assembly.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Assembly",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 70. Noes 1.) Ordered to the Senate\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 70. Noes 1.) Ordered to the Senate.",
+       "chamber": "A",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "lower"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chamber-mismatch-not-confirmed",
+   "r2": true,
+   "note": "LegiScan Senate passage, Open States passage in the lower house: no confirmation, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "lower"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "chamber-contradicting-failure",
+   "r2": true,
+   "note": "Open States records a failure the same day in the same chamber: disagreement, held.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-f",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "failure",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Failed passage",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "disagreement-date",
+   "r2": true,
+   "note": "Open States has the same passage four days later: disagreement on the date, held.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-16",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-passed-over",
+   "r2": true,
+   "note": "\"Passed over and retain a place on the calendar\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Passed over and retain a place on the calendar",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-passed-over",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed over and retain a place on the calendar"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-line-items-approved",
+   "r2": true,
+   "note": "\"Governor approved line items\" with an Open States executive-signature: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Governor approved line items",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-line-items-approved",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Governor approved line items"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-line-items-vetoed",
+   "r2": true,
+   "note": "\"Governor vetoed specific Line Item(s)\" with an Open States executive-veto: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Governor vetoed specific Line Item(s)",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-line-items-vetoed",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-veto",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Governor vetoed specific Line Item(s)"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-concurs-present",
+   "r2": true,
+   "note": "\"Senate concurs in House amendments\" with an Open States concurrence: shown as concurrence.",
+   "intent": [
+    "concurrence"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20#AB1405",
+     "title": "AB 1405: Senate concurs",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Senate concurs in House amendments\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Senate concurs in House amendments",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-concurs-present",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Senate concurs in House amendments"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-second-reading",
+   "r2": true,
+   "note": "\"Passed 2nd Reading\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Passed 2nd Reading",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-second-reading",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed 2nd Reading"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-passed-to-third",
+   "r2": true,
+   "note": "\"Passed to 3rd reading as amended\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Passed to 3rd reading as amended",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-passed-to-third",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed to 3rd reading as amended"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-first-consideration",
+   "r2": true,
+   "note": "\"Introduced, Passed on First Consideration\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Introduced, Passed on First Consideration",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-first-consideration",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Introduced, Passed on First Consideration"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-committee-of-whole",
+   "r2": true,
+   "note": "\"House Committee of the Whole - Be passed as amended\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "House Committee of the Whole - Be passed as amended",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-committee-of-whole",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "House Committee of the Whole - Be passed as amended"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-engrossed",
+   "r2": true,
+   "note": "\"Engrossed\" with an Open States passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Engrossed",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-engrossed",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Engrossed"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-hearing-cancelled",
+   "r2": true,
+   "note": "\"House Hearing: Wednesday, February 12, 2025, 9:00 AM Room 218-N - CANCELED\" with an Open States hearing-held: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "House Hearing: Wednesday, February 12, 2025, 9:00 AM Room 218-N - CANCELED",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-hearing-cancelled",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "House Hearing: Wednesday, February 12, 2025, 9:00 AM Room 218-N - CANCELED"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-held-submission",
+   "r2": true,
+   "note": "\"In committee: Held under submission.\" with an Open States committee-passage: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "In committee: Held under submission.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-held-submission",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "In committee: Held under submission."
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-office-referral",
+   "r2": true,
+   "note": "\"Referred to Office of Legislative Research and Office of Fiscal Analysis 03/25/26 5:00 PM\" with an Open States referral-committee: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Referred to Office of Legislative Research and Office of Fiscal Analysis 03/25/26 5:00 PM",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-office-referral",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "referral-committee",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Referred to Office of Legislative Research and Office of Fiscal Analysis 03/25/26 5:00 PM"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-public-act",
+   "r2": true,
+   "note": "\"Public Act . . . . . . . . . 104-0466\" with an Open States became-law: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Public Act . . . . . . . . . 104-0466",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-public-act",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Public Act . . . . . . . . . 104-0466"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "phrase-conference-meeting",
+   "r2": true,
+   "note": "\"Conference committee meeting to reconvene on 04-28-26 2:40PM; Conference Room 224.\" with an Open States referral-committee: never a card.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Conference committee meeting to reconvene on 04-28-26 2:40PM; Conference Room 224.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-conference-meeting",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "referral-committee",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Conference committee meeting to reconvene on 04-28-26 2:40PM; Conference Room 224."
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "eo-triple",
+   "r2": true,
+   "note": "One order from the White House, the public inspection desk and the published FR document: one card.",
+   "intent": [
+    "executive-order"
+   ],
+   "expect": [
+    {
+     "event_key": "US|eo-14409-pre-release-access|executive-order|EO14409",
+     "title": "President signs Executive Order 14409",
+     "body": "The Federal Register shows this action on EO 14409 — Promoting Advanced AI Innovation and Security on Oct 9, 2026: \"Promoting Pre-Release Access for Frontier AI Model Evaluation\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/d/2026-21001"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-10",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-10T12:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "pi:2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-11",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President",
+        "public_inspection": true
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-09",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President"
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "eo-whitehouse-only",
+   "r2": true,
+   "note": "A White House posting with no FR document yet: needs the Federal Register, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-10",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-10T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "eo-pi-only",
+   "r2": true,
+   "note": "A public-inspection copy alone never creates an event.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "pi:2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-11",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President",
+        "public_inspection": true
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "pi:2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-11",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President",
+        "public_inspection": true
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "eo-wh-later-run",
+   "r2": true,
+   "note": "FR document first, the White House posting a run later: still one card.",
+   "intent": [
+    "executive-order"
+   ],
+   "expect": [
+    {
+     "event_key": "US|eo-14409-pre-release-access|executive-order|EO14409",
+     "title": "President signs Executive Order 14409",
+     "body": "The Federal Register shows this action on EO 14409 — Promoting Advanced AI Innovation and Security on Oct 9, 2026: \"Promoting Pre-Release Access for Frontier AI Model Evaluation\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/d/2026-21001"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-14T13:00:00Z",
+     "run_id": "e0",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-21001",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-09",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+        "document_number": "2026-21001",
+        "eo_number": 14409,
+        "signing_date": "2026-10-09",
+        "publication_date": "2026-10-14",
+        "agency": "Executive Office of the President"
+       },
+       "url": "https://www.federalregister.gov/d/2026-21001",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-14T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T15:00:00Z",
+     "run_id": "e1",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-10",
+       "facts": {
+        "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/pre-release-access/",
+       "title": "Promoting Pre-Release Access for Frontier AI Model Evaluation",
+       "retrieved_at": "2026-10-10T12:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-14T17:00:00Z",
+     "run_id": "e2",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "public-law-confirmed-by-number",
+   "r2": true,
+   "note": "govinfo dateIssued a week after the enactment: confirmed on the public-law number.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|became-law|2026-10-10#HR3460",
+     "title": "H.R. 3460 becomes law",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on Oct 10, 2026: \"Became Public Law No: 119-77\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-20T06:00:00Z",
+     "run_id": "l0",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#law",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-10",
+       "facts": {
+        "action": "Became Public Law No: 119-77.",
+        "number": "H.R. 3460"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      },
+      {
+       "source": "govinfo",
+       "source_id": "PLAW-119publ77",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-17",
+       "facts": {
+        "role": "confirmation",
+        "public_law": "119-77"
+       },
+       "url": "https://www.govinfo.gov/app/details/PLAW-119publ77",
+       "title": "Public Law",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "public-law-number-differs",
+   "r2": true,
+   "note": "govinfo names another public law: disagreement, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-20T06:00:00Z",
+     "run_id": "l0",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#law",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-10",
+       "facts": {
+        "action": "Became Public Law No: 119-77.",
+        "number": "H.R. 3460"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      },
+      {
+       "source": "govinfo",
+       "source_id": "PLAW-119publ78",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-17",
+       "facts": {
+        "role": "confirmation",
+        "public_law": "119-78"
+       },
+       "url": "https://www.govinfo.gov/app/details/PLAW-119publ78",
+       "title": "Public Law",
+       "retrieved_at": "2026-10-20T00:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "l1",
+     "extra_items": []
+    }
+   ]
+  },
+  {
+   "id": "statement-one-candidate",
+   "r2": true,
+   "note": "A release the day after the signing attaches to the card as a statement.",
+   "intent": [
+    "executive-signature"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-20#AB1405",
+     "title": "AB 1405 signed",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Approved by the Governor\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+      "https://gov.ca.gov/2026/10/21/governor-signs-ab-1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Approved by the Governor.",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "allow_hosts": [
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Signed"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "https://www.gov.ca.gov/2026/10/21/governor-signs-ab-1405/",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Gov. Newsom"
+       },
+       "url": "https://www.gov.ca.gov/2026/10/21/governor-signs-ab-1405/",
+       "title": "Governor Newsom signs AB 1405",
+       "retrieved_at": "2026-10-22T12:00:00Z"
+      }
+     ]
+    }
+   ],
+   "ai_answers": {
+    "Governor Newsom signs AB 1405": {
+     "reports": "yes",
+     "event_class": "executive-signature",
+     "quote": "signs AB 1405",
+     "why": "states the signing"
+    }
+   }
+  },
+  {
+   "id": "statement-two-candidates",
+   "r2": true,
+   "note": "Review r8 M1: \"AB 1405 passes\" (no \"committee\") is a floor outcome: it attaches to the floor passage only, never the committee passage; both cards shown. (r8: the headline names the chamber; a chamber-less \"AB 1405 passes\" no longer backs one chamber's vote.)",
+   "intent": [
+    "committee-passage",
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|committee-passage|2026-10-19#AB1405",
+     "title": "AB 1405 advances out of committee",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 19, 2026: \"From committee: Do pass. (Ayes 11. Noes 0.)\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    },
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Senate",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+      "https://gov.ca.gov/2026/10/21/ab-1405-passes"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-19",
+       "action": "From committee: Do pass. (Ayes 11. Noes 0.)",
+       "chamber": "",
+       "chamber_id": 0,
+       "importance": 0
+      },
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "allow_hosts": [
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-cp",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-19",
+       "facts": {
+        "action": "Do pass"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "https://www.gov.ca.gov/2026/10/21/ab-1405-passes/",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Gov. Newsom"
+       },
+       "url": "https://www.gov.ca.gov/2026/10/21/ab-1405-passes/",
+       "title": "Senate passes AB 1405",
+       "retrieved_at": "2026-10-22T12:00:00Z"
+      }
+     ]
+    }
+   ],
+   "ai_answers": {
+    "Senate passes AB 1405": {
+     "reports": "yes",
+     "event_class": "passage",
+     "quote": "Senate passes AB 1405",
+     "why": "states passage"
+    }
+   }
+  },
+  {
+   "id": "withdrawn-by-adapter",
+   "r2": true,
+   "note": "Open States marks the confirming record withdrawn before anything was shown: nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-10-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper",
+        "withdrawn": true
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "r1"
+    }
+   ]
+  },
+  {
+   "id": "backlog-cap",
+   "r2": true,
+   "note": "A confirmed event dated two months before the run when publishing is switched on: timeline only.",
+   "intent": [],
+   "expect": [],
+   "max_age_days": 14,
+   "records": [
+    {
+     "fixture": "legiscan/CA-AB1405.json",
+     "source": "legiscan",
+     "source_id": "1980302",
+     "entry_key": "ca-ab-1405-auditor-registry",
+     "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+     "fetched_at": "2026-10-22T05:00:00Z",
+     "history": [
+      {
+       "date": "2026-08-20",
+       "action": "Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly.",
+       "chamber": "S",
+       "chamber_id": 0,
+       "importance": 0
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "r0",
+     "extra_items": [
+      {
+       "source": "openstates",
+       "source_id": "ocd-p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-08-20",
+       "facts": {
+        "action": "Passed",
+        "chamber": "upper"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T04:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-vote-change-held",
+   "r3": true,
+   "note": "A published 300-100 passage; the record then says 100-300: the card keeps 300-100 with an \"under review\" note.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 300 - 100\". The recorded vote was 300 to 100.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-vote-change-confirmed",
+   "r3": true,
+   "note": "The same change, confirmed over two stable runs: then the card is corrected to 100-300.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 100 - 300\". The recorded vote was 100 to 300.",
+     "status": "corrected",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "Corrected from the official record."
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T10:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-23T06:00:00Z",
+     "run_id": "e",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 100 - 300.",
+        "chamber": "House",
+        "vote": {
+         "yes": 100,
+         "no": 300
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-redated-referral",
+   "r3": true,
+   "note": "The stored H.R. 3460 record, referral published; the record then re-dates the referral a day earlier: one card, with the new date and a note saying what changed.",
+   "intent": [
+    "referral-committee"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "H.R. 3460 referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 14, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "corrected",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "Corrected: the official record now dates this May 14, 2025 (published as May 15, 2025)."
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "a"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "b",
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "c",
+     "redate": [
+      {
+       "match": "^Referred to the House Committee",
+       "date": "2025-05-14"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T12:00:00Z",
+     "run_id": "d",
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-redated-not-yet-confirmed",
+   "r3": true,
+   "note": "The re-dated referral before the new date is confirmed: the card is the withdrawn one, never a second card.",
+   "intent": [
+    "referral-committee"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|referral-committee|2025-05-15#HR3460",
+     "title": "Withdrawn: H.R. 3460 referred to committee",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on May 15, 2025: \"Referred to the House Committee on Education and Workforce\".",
+     "status": "withdrawn",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": "The official record no longer shows this action."
+    }
+   ],
+   "records": [
+    {
+     "fixture": "congress_gov/119-hr-3460.json",
+     "source": "congress_gov",
+     "source_id": "119/hr/3460",
+     "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+     "fetched_at": "2026-10-26T06:54:59Z"
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-26T08:00:00Z",
+     "run_id": "a"
+    },
+    {
+     "now": "2026-10-26T12:00:00Z",
+     "run_id": "b",
+     "publish": true
+    },
+    {
+     "now": "2026-10-27T08:00:00Z",
+     "run_id": "c",
+     "redate": [
+      {
+       "match": "^Referred to the House Committee",
+       "date": "2025-05-14"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-lane1-day-before",
+   "r3": true,
+   "note": "Lane 1 already wrote this passage on the page dated a day earlier: no second card.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "page_add": [
+    {
+     "date": "2026-10-19",
+     "kind": "federal",
+     "title": "S. 1792 / H.R. 3460: Passed House",
+     "body": "Congress.gov records this action on the bill: \"Passed House\" (Oct 19, 2026).",
+     "links": [
+      {
+       "t": "Congress.gov",
+       "u": "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+      }
+     ],
+     "tracker": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+     "origin": "automated",
+     "verification": {
+      "method": "agent",
+      "checked_at": "2026-10-19T00:00:00Z"
+     },
+     "evidence": [
+      {
+       "field": "body",
+       "quote": "Passed House",
+       "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+      }
+     ]
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-law-weeks-after-signature",
+   "r3": true,
+   "note": "Signature published; the public law three weeks later: merged into the one card.",
+   "intent": [
+    "became-law"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|executive-signature|2026-09-25",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act signed",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Sept 25, 2026: \"Signed by President\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "since_days": 800,
+   "runs": [
+    {
+     "now": "2026-09-26T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#sig",
+       "class": "executive-signature",
+       "date": "2026-09-25",
+       "facts": {
+        "action": "Signed by President."
+       },
+       "retrieved_at": "2026-09-25T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-09-26T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#sig",
+       "class": "executive-signature",
+       "date": "2026-09-25",
+       "facts": {
+        "action": "Signed by President."
+       },
+       "retrieved_at": "2026-09-25T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-17T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#law",
+       "class": "became-law",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Became Public Law No: 119-77."
+       },
+       "retrieved_at": "2026-10-16T20:00:00Z"
+      },
+      {
+       "source": "govinfo",
+       "source_id": "PLAW-119publ77",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "became-law",
+       "date": "2026-10-17",
+       "facts": {
+        "role": "confirmation",
+        "public_law": "119-77"
+       },
+       "url": "https://www.govinfo.gov/app/details/PLAW-119publ77",
+       "title": "Public Law 119-77",
+       "retrieved_at": "2026-10-17T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-17T10:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#law",
+       "class": "became-law",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Became Public Law No: 119-77."
+       },
+       "retrieved_at": "2026-10-16T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-same-day-held-next-run",
+   "r3": true,
+   "note": "A hearing and a passage on one day: one card, and the other stays held on later runs.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 300 - 100\". The recorded vote was 300 to 100.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T10:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#h",
+       "class": "hearing-held",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Committee on Education and Workforce. Hearings held."
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r3-host-attacker",
+   "r3": true,
+   "note": "A record linking to legislature.attacker.com, or to an unrelated .gov: refused, nothing shown.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-10-21T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://legislature.attacker.com/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://evil.gov/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "x2",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://legislature.attacker.com/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "hr3460#2026-10-20#p",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "url": "https://evil.gov/hr3460",
+       "title": "AI Whistleblower Protection Act",
+       "source_id": "x2",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On passage Passed by the Yeas and Nays: 300 - 100.",
+        "chamber": "House",
+        "vote": {
+         "yes": 300,
+         "no": 100
+        }
+       },
+       "retrieved_at": "2026-10-20T20:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-ny-aggregators-not-enough",
+   "r3": true,
+   "note": "New York: LegiScan and Open States agree, but neither is independent of the other: not confirmed without the NY Senate record.",
+   "intent": [],
+   "expect": [],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-06-11T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-06-11T10:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r3-ny-confirmed-by-nysenate",
+   "r3": true,
+   "note": "New York: the NY Senate API record confirms the LegiScan passage.",
+   "intent": [
+    "passage"
+   ],
+   "expect": [
+    {
+     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10",
+     "title": "NY RAISE Act (Ch. 699 → Ch. 96) passes the Senate",
+     "body": "The NY Legislature's record shows this action on RAISE Act — Chapter 699 of 2025 (S.6953-B/A.6453-B), repealed and replaced by Chapter 96 of 2026 (S.8828/A.9449) on June 10, 2026: \"PASSED SENATE\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.nysenate.gov/legislation/bills/2025/S6953"
+     ],
+     "status_note": null
+    }
+   ],
+   "records": [],
+   "runs": [
+    {
+     "now": "2026-06-11T06:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      },
+      {
+       "source": "nysenate",
+       "source_id": "nys1",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "upper"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T00:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r5-hearing-scheduled-cancelled",
+   "r5": true,
+   "note": "Review r5 H1: a scheduled hearing seen on three days (the adapter dates it the day seen), then cancelled: one event, one card, withdrawn. Before the fix each day made a new key and a carried copy masked the cancellation. Review r8: a scheduled hearing never has a card, so nothing is ever shown (no card, no withdrawn card).",
+   "intent": [
+    "hearing-scheduled"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "h1",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "h2",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "h3",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-22",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-22T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-23T08:00:00Z",
+     "run_id": "h4",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-23",
+       "facts": {
+        "hearing_date": "2026-11-04",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "withdrawn": true,
+        "meeting_status": "Cancelled"
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-23T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r5-companions-same-day",
+   "r5": true,
+   "note": "Review r5 M6: two companion bills under one entry pass the Senate on one day; the NY Senate record confirms only A 6453. Two events (the number is in the key); S 6953 is never confirmed by the A 6453 record, so only A 6453 gets a card.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10#A6453",
+     "title": "A 6453 passes the Senate",
+     "body": "The NY Legislature's record shows this action on RAISE Act — Chapter 699 of 2025 (S.6953-B/A.6453-B), repealed and replaced by Chapter 96 of 2026 (S.8828/A.9449) (A 6453) on June 10, 2026: \"PASSED SENATE\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.nysenate.gov/legislation/bills/2025/A6453"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-06-11T08:00:00Z",
+     "run_id": "c1",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls-s6953#p",
+       "record": "ls-s6953",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "Senate",
+        "number": "NY S6953"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/S6953",
+       "title": "S6953",
+       "retrieved_at": "2026-06-11T05:00:00Z"
+      },
+      {
+       "source": "legiscan",
+       "source_id": "ls-a6453#p",
+       "record": "ls-a6453",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "Senate",
+        "number": "NY A6453"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/A6453",
+       "title": "A6453",
+       "retrieved_at": "2026-06-11T05:00:00Z"
+      },
+      {
+       "source": "nysenate",
+       "source_id": "2025-A6453-40",
+       "jurisdiction": "NY",
+       "entry_id": "ny-raise-act-ch-699-ch-96",
+       "class": "passage",
+       "date": "2026-06-10",
+       "facts": {
+        "action": "PASSED SENATE",
+        "chamber": "Senate",
+        "number": "A 6453"
+       },
+       "url": "https://www.nysenate.gov/legislation/bills/2025/A6453",
+       "title": "A 6453: PASSED SENATE",
+       "retrieved_at": "2026-06-11T05:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r5-constitutional-amendment-no-executive",
+   "r5": true,
+   "note": "Review r5 M4/M5: a constitutional amendment (CA ACA 1) recorded as sent to the executive gets no card (every wording would name the Governor); its signature card names no Governor and never says \"into law\".",
+   "intent": [
+    "executive-receipt",
+    "executive-signature"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|executive-signature|2026-10-15#ACA1",
+     "title": "ACA 1 signed",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA ACA1) on Oct 15, 2026: \"Approved by the Governor\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a1",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "source_id": "ls-aca1#r",
+       "record": "ls-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-receipt",
+       "date": "2026-10-12",
+       "facts": {
+        "action": "Enrolled and presented to the Governor at 3 p.m.",
+        "number": "CA ACA1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-aca1#r",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-receipt",
+       "date": "2026-10-12",
+       "facts": {
+        "action": "Enrolled and presented to the Governor at 3 p.m.",
+        "number": "ACA 1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA 1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "legiscan",
+       "source_id": "ls-aca1#s",
+       "record": "ls-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved by the Governor.",
+        "number": "CA ACA1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-aca1#s",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved by the Governor.",
+        "number": "ACA 1"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "ACA 1",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r5-hres-passage-no-next-step",
+   "r5": true,
+   "note": "Review r5 M1/M3: an H.Res passage and a conference-report adoption state only what happened: no next step, no \"heads to\" or \"will\".",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-16#HR3460",
+     "title": "H.R. 3460 passes the Senate",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on Oct 16, 2026: \"Conference report agreed to in Senate by Yea-Nay Vote. 70 - 28\". The recorded vote was 70 to 28.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    },
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20#HRES12",
+     "title": "H.Res. 12 passes the House",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.Res. 12) on Oct 20, 2026: \"On agreeing to the resolution Agreed to by recorded vote: 230 - 190\". The recorded vote was 230 to 190.",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/bill/119th-congress/house-bill/3460"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "n1",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hres12#p",
+       "record": "hres12",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On agreeing to the resolution Agreed to by recorded vote: 230 - 190.",
+        "chamber": "House",
+        "number": "H.Res. 12",
+        "vote": {
+         "yes": 230,
+         "no": 190
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.Res. 12",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#conf",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Conference report agreed to in Senate by Yea-Nay Vote. 70 - 28.",
+        "chamber": "Senate",
+        "number": "H.R. 3460",
+        "vote": {
+         "yes": 70,
+         "no": 28
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.R. 3460",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    },
+    {
+     "now": "2026-10-22T10:00:00Z",
+     "run_id": "n2",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "hres12#p",
+       "record": "hres12",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "On agreeing to the resolution Agreed to by recorded vote: 230 - 190.",
+        "chamber": "House",
+        "number": "H.Res. 12",
+        "vote": {
+         "yes": 230,
+         "no": 190
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.Res. 12",
+       "retrieved_at": "2026-10-22T09:00:00Z"
+      },
+      {
+       "source": "congress_gov",
+       "source_id": "hr3460#conf",
+       "record": "hr3460",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "passage",
+       "date": "2026-10-16",
+       "facts": {
+        "action": "Conference report agreed to in Senate by Yea-Nay Vote. 70 - 28.",
+        "chamber": "Senate",
+        "number": "H.R. 3460",
+        "vote": {
+         "yes": 70,
+         "no": 28
+        }
+       },
+       "url": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+       "title": "H.R. 3460",
+       "retrieved_at": "2026-10-22T09:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-ca-scr-res-chapter",
+   "r6": true,
+   "note": "Review r6 #1: \"Chaptered by Secretary of State - Res. Chapter\" of a CA SCR is a resolution chapter, never a law: no card.",
+   "intent": [
+    "became-law"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-scr12",
+       "source_id": "ls-scr12",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 101, Statutes of 2026.",
+        "number": "CA SCR12"
+       },
+       "title": "CA SCR12"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-scr12",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 101, Statutes of 2026.",
+        "number": "SCR 12"
+       },
+       "title": "SCR 12"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-ca-aca-chaptered",
+   "r6": true,
+   "note": "Review r6 #1: a CA constitutional amendment chaptered: never \"became law\": no card.",
+   "intent": [
+    "became-law"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-aca1",
+       "source_id": "ls-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 5, Statutes of 2026.",
+        "number": "CA ACA1"
+       },
+       "title": "CA ACA1"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-aca1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "became-law",
+       "date": "2026-10-20",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Chaptered by Secretary of State - Res. Chapter 5, Statutes of 2026.",
+        "number": "ACA 1"
+       },
+       "title": "ACA 1"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-mn-hr-enrolled",
+   "r6": true,
+   "note": "Review r6 #5: a Minnesota simple resolution (HR) enrolled: no \"both chambers\" wording and no stage.",
+   "intent": [
+    "enrolled"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "MN|mn-hf-4532-no-threshold|enrolled|2026-10-20#HR5",
+     "title": "HR 5 enrolled",
+     "body": "The MN Legislature's record shows this action on H.F. 4532 / S.F. 4509 — titled the \"Responsible Artificial Intelligence Safety and Education Act\" (RAISE Act) (MN HR5) on Oct 20, 2026: \"Enrolled\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.revisor.mn.gov/bills/bill.php?b=House&f=HR5"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-hr5",
+       "source_id": "ls-hr5",
+       "jurisdiction": "MN",
+       "entry_id": "mn-hf-4532-no-threshold",
+       "class": "enrolled",
+       "date": "2026-10-20",
+       "url": "https://www.revisor.mn.gov/bills/bill.php?b=House&f=HR5",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Enrolled",
+        "number": "MN HR5"
+       },
+       "title": "MN HR5"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-hr5",
+       "jurisdiction": "MN",
+       "entry_id": "mn-hf-4532-no-threshold",
+       "class": "enrolled",
+       "date": "2026-10-20",
+       "url": "https://www.revisor.mn.gov/bills/bill.php?b=House&f=HR5",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Enrolled",
+        "number": "HR 5"
+       },
+       "title": "HR 5"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-companion-no-number-joins",
+   "r6": true,
+   "note": "Review r6: a record with no number on a day the entry has exactly one numbered event joins it (one event, confirmed, one card); it is never guessed when there are several.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-20#S4446",
+     "title": "S 4446 passes the Senate",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 20, 2026: \"Passed by the Senate (30-8)\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-s4446",
+       "source_id": "ls-s4446#p",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed by the Senate (30-8)",
+        "chamber": "Senate",
+        "number": "NJ S4446"
+       },
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "title": "S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-nonum",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Passed by the Senate (30-8)",
+        "chamber": "Senate"
+       },
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "title": "Passed",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r6-recycled-number-sessions",
+   "r6": true,
+   "note": "Review r6: the same number in two sessions (2024 and 2026): each card states only its own event; no stage is claimed from the other session.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-19#S4446",
+     "title": "S 4446 passes the General Assembly",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 19, 2026: \"Passed by the Assembly (70-5)\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-s4446-24",
+       "source_id": "ls-s4446-24",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2024-03-04",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Senate (25-10)",
+        "chamber": "Senate",
+        "number": "NJ S4446"
+       },
+       "title": "NJ S4446"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s4446-24",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2024-03-04",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Senate (25-10)",
+        "chamber": "Senate",
+        "number": "S 4446"
+       },
+       "title": "S 4446"
+      },
+      {
+       "source": "legiscan",
+       "record": "ls-s4446-26",
+       "source_id": "ls-s4446-26",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-19",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Assembly (70-5)",
+        "chamber": "Assembly",
+        "number": "NJ S4446"
+       },
+       "title": "NJ S4446"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s4446-26",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "class": "passage",
+       "date": "2026-10-19",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "facts": {
+        "action": "Passed by the Assembly (70-5)",
+        "chamber": "Assembly",
+        "number": "S 4446"
+       },
+       "title": "S 4446"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-override-one-chamber",
+   "r7": true,
+   "note": "Review r7 M1: one chamber's override vote is not \"the veto overridden\".",
+   "intent": [
+    "veto-override-passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|veto-override-passage|2026-10-20#AB1405",
+     "title": "AB 1405: Assembly votes to override veto",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Assembly motion to override the Governor's veto adopted. (Ayes 60. Noes 15.)\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-ov",
+       "source_id": "ls-ov",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "veto-override-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Assembly motion to override the Governor's veto adopted. (Ayes 60. Noes 15.)",
+        "chamber": "Assembly",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-ov",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "veto-override-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Assembly motion to override the Governor's veto adopted. (Ayes 60. Noes 15.)",
+        "chamber": "Assembly",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-withdrawn-from-committee",
+   "r7": true,
+   "note": "Review r7 M2: \"Withdrawn from committee; placed on calendar\" (a discharge) and Texas \"Amendment withdrawn\" are not the bill withdrawn: no card.",
+   "intent": [
+    "withdrawal"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-wd",
+       "source_id": "ls-wd",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Withdrawn from committee; placed on calendar",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-wd",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Withdrawn from committee; placed on calendar",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      },
+      {
+       "source": "legiscan",
+       "record": "ls-wd2",
+       "source_id": "ls-wd2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-18",
+       "facts": {
+        "action": "Amendment withdrawn",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-wd2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "withdrawal",
+       "date": "2026-10-18",
+       "facts": {
+        "action": "Amendment withdrawn",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-refused-to-concur",
+   "r7": true,
+   "note": "Review r7 M3b: \"Senate refused to concur in Assembly amendments\" is not a concurrence: no card.",
+   "intent": [
+    "concurrence"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-rc",
+       "source_id": "ls-rc",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Senate refused to concur in Assembly amendments",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-rc",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Senate refused to concur in Assembly amendments",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-conference-report-concurrence",
+   "r7": true,
+   "note": "Review r7 M3a: a conference-report concurrence is never written as \"concurred in amendments\".",
+   "intent": [
+    "concurrence"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20#AB1405",
+     "title": "AB 1405: Senate concurs",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Conference report adopted by the Senate\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-cr",
+       "source_id": "ls-cr",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Conference report adopted by the Senate",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "title": "CA AB1405"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-cr",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "concurrence",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Conference report adopted by the Senate",
+        "chamber": "Senate",
+        "number": "AB 1405"
+       },
+       "title": "AB 1405"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r7-two-bills-signed-one-entry",
+   "r7": true,
+   "note": "Review r7 L3: two bills under one entry signed on different days: each gets its own signature card (law group per bill).",
+   "intent": [
+    "executive-signature"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|executive-signature|2026-10-15#S4446",
+     "title": "S 4446 signed",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 15, 2026: \"Approved P.L.2026, c.101\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    },
+    {
+     "event_key": "NJ|nj-s-4446-a-5275|executive-signature|2026-10-20#A5275",
+     "title": "A 5275 signed",
+     "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ A5275) on Oct 20, 2026: \"Approved P.L.2026, c.102\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-s1",
+       "source_id": "ls-s1",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved P.L.2026, c.101.",
+        "number": "NJ S4446"
+       },
+       "title": "NJ S4446"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s1",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-15",
+       "facts": {
+        "action": "Approved P.L.2026, c.101.",
+        "number": "S 4446"
+       },
+       "title": "S 4446"
+      },
+      {
+       "source": "legiscan",
+       "record": "ls-s2",
+       "source_id": "ls-s2",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Approved P.L.2026, c.102.",
+        "number": "NJ A5275"
+       },
+       "title": "NJ A5275"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-s2",
+       "jurisdiction": "NJ",
+       "entry_id": "nj-s-4446-a-5275",
+       "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+       "retrieved_at": "2026-10-22T05:00:00Z",
+       "class": "executive-signature",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Approved P.L.2026, c.102.",
+        "number": "A 5275"
+       },
+       "title": "A 5275"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r8-scheduled-then-held",
+   "r8": true,
+   "note": "Review r8: a hearing scheduled (never a card), then held: one hearing-held card dated the hearing day, no correction note.",
+   "intent": [
+    "hearing-held"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|hearing-held|2026-10-27",
+     "title": "Hearing held on S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 27, 2026: \"Hearing: AI whistleblower protections\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/event/119th-congress/house-event/117001"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-28T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-27",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-28T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-28T12:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-27",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-28T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-rescheduled-then-held",
+   "r8": true,
+   "note": "Review r8: scheduled for Oct 27, rescheduled to Oct 29, then held: one hearing-held card dated Oct 29; no card for either scheduled date.",
+   "intent": [
+    "hearing-held"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|hearing-held|2026-10-29",
+     "title": "Hearing held on S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
+     "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 29, 2026: \"Hearing: AI whistleblower protections\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.congress.gov/event/119th-congress/house-event/117001"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-22",
+       "facts": {
+        "hearing_date": "2026-10-29",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-22T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-30T08:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-29",
+       "facts": {
+        "hearing_date": "2026-10-29",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-30T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-30T12:00:00Z",
+     "run_id": "e",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-held",
+       "date": "2026-10-29",
+       "facts": {
+        "hearing_date": "2026-10-29",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "meeting_status": "Held"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-30T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-hearing-cancelled-no-card",
+   "r8": true,
+   "note": "Review r8: a scheduled hearing later cancelled: no card at any point.",
+   "intent": [
+    "hearing-scheduled"
+   ],
+   "records": [],
+   "expect": [],
+   "runs": [
+    {
+     "now": "2026-10-20T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-20",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-20T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-21T08:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-21",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections"
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-21T07:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-22T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "congress_gov",
+       "source_id": "meeting:119/house/117001",
+       "jurisdiction": "US",
+       "entry_id": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+       "class": "hearing-scheduled",
+       "date": "2026-10-22",
+       "facts": {
+        "hearing_date": "2026-10-27",
+        "committee": "House Committee on Education and Workforce",
+        "title": "Hearing: AI whistleblower protections",
+        "withdrawn": true
+       },
+       "url": "https://www.congress.gov/event/119th-congress/house-event/117001",
+       "title": "Hearing: AI whistleblower protections",
+       "retrieved_at": "2026-10-22T07:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-comment-extended",
+   "r8": true,
+   "note": "Review r8: a comment period opens (card with the deadline), a closing record appears, then the period is extended: never a closing card; the open card follows the record.",
+   "intent": [
+    "comment-period-open"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|caisi-and-nist-aite|comment-period-open|FR2026-30001",
+     "title": "Comments open until Nov 30, 2026 on a National Institute of Standards and Technology proposal",
+     "body": "The Federal Register shows this action on CAISI voluntary pre-deployment evaluation activity + NIST AITE program on Oct 1, 2026: \"Request for comments\".",
+     "status": "corrected",
+     "links": [
+      "https://www.federalregister.gov/documents/2026/10/01/2026-30001"
+     ],
+     "status_note": "Corrected from the official record."
+    }
+   ],
+   "max_age_days": 100000,
+   "runs": [
+    {
+     "now": "2026-10-02T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-02T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-02T12:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-02T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-31T08:00:00Z",
+     "run_id": "c",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-31T05:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-closing",
+       "date": "2026-10-31",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-10-31",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-10-31T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-11-01T08:00:00Z",
+     "run_id": "d",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-11-30",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-11-01T05:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-closing",
+       "date": "2026-10-31",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-11-30",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-11-01T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-11-01T12:00:00Z",
+     "run_id": "e",
+     "extra_items": [
+      {
+       "source": "federal_register",
+       "source_id": "2026-30001",
+       "jurisdiction": "US",
+       "entry_id": "caisi-and-nist-aite",
+       "class": "comment-period-open",
+       "date": "2026-10-01",
+       "facts": {
+        "agency": "National Institute of Standards and Technology",
+        "title": "AI evaluation guidelines",
+        "document_number": "2026-30001",
+        "comments_close": "2026-11-30",
+        "action": "Request for comments"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/01/2026-30001",
+       "title": "AI evaluation guidelines",
+       "retrieved_at": "2026-11-01T05:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-eo-wh-fr-title-mismatch",
+   "r8": true,
+   "note": "Review r8 L3: a White House posting whose title differs from the Federal Register order, a day apart: one executive-order card, showing the Federal Register record.",
+   "intent": [
+    "executive-order"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "US|eo-14409-pre-release-access|executive-order|EO14409",
+     "title": "President signs Executive Order 14409",
+     "body": "The Federal Register shows this action on EO 14409 — Promoting Advanced AI Innovation and Security on Oct 15, 2026: \"Executive Order 14409\".",
+     "status": "confirmed",
+     "links": [
+      "https://www.federalregister.gov/documents/2026/10/17/2026-29999"
+     ],
+     "status_note": null
+    }
+   ],
+   "runs": [
+    {
+     "now": "2026-10-16T08:00:00Z",
+     "run_id": "a",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "wh-eo-prerelease",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-14",
+       "facts": {
+        "title": "Ensuring Pre-Release Access to Frontier AI Models",
+        "action": "Executive Order"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/ensuring-pre-release-access/",
+       "title": "Ensuring Pre-Release Access to Frontier AI Models",
+       "retrieved_at": "2026-10-16T05:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-29999",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-15",
+       "facts": {
+        "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+        "eo_number": "14409",
+        "document_number": "2026-29999",
+        "signing_date": "2026-10-15",
+        "action": "Executive Order 14409"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/17/2026-29999",
+       "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+       "retrieved_at": "2026-10-16T05:00:00Z"
+      }
+     ],
+     "publish": true
+    },
+    {
+     "now": "2026-10-16T12:00:00Z",
+     "run_id": "b",
+     "extra_items": [
+      {
+       "source": "whitehouse",
+       "source_id": "wh-eo-prerelease",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-14",
+       "facts": {
+        "title": "Ensuring Pre-Release Access to Frontier AI Models",
+        "action": "Executive Order"
+       },
+       "url": "https://www.whitehouse.gov/presidential-actions/2026/10/ensuring-pre-release-access/",
+       "title": "Ensuring Pre-Release Access to Frontier AI Models",
+       "retrieved_at": "2026-10-16T11:00:00Z"
+      },
+      {
+       "source": "federal_register",
+       "source_id": "2026-29999",
+       "jurisdiction": "US",
+       "entry_id": "eo-14409-pre-release-access",
+       "class": "executive-order",
+       "date": "2026-10-15",
+       "facts": {
+        "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+        "eo_number": "14409",
+        "document_number": "2026-29999",
+        "signing_date": "2026-10-15",
+        "action": "Executive Order 14409"
+       },
+       "url": "https://www.federalregister.gov/documents/2026/10/17/2026-29999",
+       "title": "Pre-Release Access to Frontier Artificial Intelligence Models",
+       "retrieved_at": "2026-10-16T11:00:00Z"
+      }
+     ],
+     "publish": true
+    }
+   ]
+  },
+  {
+   "id": "r8-contradicting-statements",
+   "r8": true,
+   "note": "Review r8 M1: statements that negate or urge (\"fails\", \"urges ... to pass\") never attach to the Senate passage card.",
+   "intent": [
+    "passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "title": "AB 1405 passes the Senate",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "allow_hosts": [
+    "senate.ca.gov",
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "a",
+     "publish": true,
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-ab1405",
+       "source_id": "ls-ab1405#p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-ab1405#p",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "Read third time. Passed.",
+        "chamber": "upper",
+        "number": "AB 1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "s1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. X"
+       },
+       "url": "https://sd99.senate.ca.gov/news/ab-1405-fails",
+       "title": "AB 1405 fails to protect consumers, Senator says",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "release",
+       "source_id": "s2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. Y"
+       },
+       "url": "https://sd98.senate.ca.gov/news/urge-assembly",
+       "title": "Senator urges Assembly to pass AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r9-committee-statements",
+   "note": "Review r9 #3: on a committee passage card, a headline that only mentions a committee (\"Lawmakers pass ... after committee fight\") or announces a hearing to come never attaches.",
+   "intent": [
+    "committee-passage"
+   ],
+   "records": [],
+   "expect": [
+    {
+     "event_key": "CA|ca-ab-1405-auditor-registry|committee-passage|2026-10-20#AB1405",
+     "title": "AB 1405 advances out of committee",
+     "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"From committee: Do pass. (Ayes 11. Noes 0.)\".",
+     "status": "confirmed",
+     "links": [
+      "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+     ],
+     "status_note": null
+    }
+   ],
+   "allow_hosts": [
+    "senate.ca.gov",
+    "ca.gov"
+   ],
+   "runs": [
+    {
+     "now": "2026-10-22T06:00:00Z",
+     "run_id": "a",
+     "publish": true,
+     "extra_items": [
+      {
+       "source": "legiscan",
+       "record": "ls-ab1405",
+       "source_id": "ls-ab1405#c",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "From committee: Do pass. (Ayes 11. Noes 0.)",
+        "chamber": "Senate",
+        "number": "CA AB1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "openstates",
+       "source_id": "os-ab1405#c",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": "committee-passage",
+       "date": "2026-10-20",
+       "facts": {
+        "action": "From committee: Do pass. (Ayes 11. Noes 0.)",
+        "chamber": "upper",
+        "number": "AB 1405"
+       },
+       "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+       "title": "AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ],
+     "statements": [
+      {
+       "source": "release",
+       "source_id": "s1",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. X"
+       },
+       "url": "https://sd98.senate.ca.gov/news/committee-fight",
+       "title": "Lawmakers pass AB 1405 after committee fight",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      },
+      {
+       "source": "release",
+       "source_id": "s2",
+       "jurisdiction": "CA",
+       "entry_id": "ca-ab-1405-auditor-registry",
+       "class": null,
+       "date": "2026-10-21",
+       "facts": {
+        "role": "statement",
+        "publisher": "Sen. Y"
+       },
+       "url": "https://sd98.senate.ca.gov/news/hearing-set",
+       "title": "Hearing set on AB 1405",
+       "retrieved_at": "2026-10-22T05:00:00Z"
+      }
+     ]
+    }
+   ],
+   "r9": true
   }
  ]
 }

@@ -65,3 +65,9 @@ The design-rationale and design-system pages, the RSS feed and the email signup 
 - **Table**: all entries, sortable (`sort`, `dir`), tick up to three to compare, CSV download of the filtered rows.
 
 Event kinds are read from the tracker's wording by v1's rules, so the chart tells the reader so and shows the source sentence; the author should spot-check them.
+
+## Automated News cards
+
+Items with `origin: 'automated'` (see `pipeline/news/CONTRACT.md`) render as event cards: action label, "Official record" badge, statement chips, a stage bar from `stage` (index 0-4 or `introduced|committee|passed-chamber|passed-both|law`), a "What's next" line, comment-deadline countdowns (`comments_close` or `facts.comments_close`), and a visible Corrected/Withdrawn note (from `status_note`, else the last `history` entry). Items with an unknown or null `class` are never shown. News and Updates opens with a weekly digest computed from the items; bill pages list their automated events oldest first. Hand-written items render as before.
+
+Local test: `node web/scripts/fixtures/make-news-fixture.mjs`, serve `web/`, open `Tracker.dc.html?news=scripts/fixtures/news-fixture.json&today=2026-10-29#/updates`. `scripts/fixtures/shoot-news.mjs <base> <outDir> <playwright index.mjs>` screenshots desktop and phone and fails on console errors. `web/scripts` is never published.

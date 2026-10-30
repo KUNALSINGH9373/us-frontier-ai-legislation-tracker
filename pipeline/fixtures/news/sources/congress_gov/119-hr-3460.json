@@ -1,0 +1,121 @@
+{
+ "id": "119/hr/3460",
+ "list_item": {
+  "congress": 119,
+  "introducedDate": "2025-05-15",
+  "latestAction": {
+   "actionDate": "2025-05-15",
+   "text": "Referred to the House Committee on Education and Workforce."
+  },
+  "number": "3460",
+  "originChamber": "House",
+  "originChamberCode": "H",
+  "title": "AI Whistleblower Protection Act",
+  "type": "HR",
+  "updateDate": "2026-10-20",
+  "updateDateIncludingText": "2026-10-20",
+  "url": "https://api.congress.gov/v3/bill/119/hr/3460?format=json"
+ },
+ "bill": {
+  "actions": {
+   "count": 3,
+   "url": "https://api.congress.gov/v3/bill/119/hr/3460/actions?format=json"
+  },
+  "committees": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/hr/3460/committees?format=json"
+  },
+  "congress": 119,
+  "constitutionalAuthorityStatementText": "<pre>\n[Congressional Record Volume 171, Number 82 (Thursday, May 15, 2025)]\n[House]\nFrom the Congressional Record Online through the Government Publishing Office [<a href=\"https://www.gpo.gov\">www.gpo.gov</a>]\nBy Mr. OBERNOLTE:\nH.R. 3460.\nCongress has the power to enact this legislation pursuant\nto the following:\nArticle 1, Section 8\n[Page H2105]\n</pre>",
+  "cosponsors": {
+   "count": 9,
+   "countIncludingWithdrawnCosponsors": 9,
+   "url": "https://api.congress.gov/v3/bill/119/hr/3460/cosponsors?format=json"
+  },
+  "introducedDate": "2025-05-15",
+  "latestAction": {
+   "actionDate": "2025-05-15",
+   "text": "Referred to the House Committee on Education and Workforce."
+  },
+  "legislationUrl": "https://www.congress.gov/bill/119th-congress/house-bill/3460",
+  "number": "3460",
+  "originChamber": "House",
+  "originChamberCode": "H",
+  "policyArea": {
+   "name": "Labor and Employment"
+  },
+  "relatedBills": {
+   "count": 2,
+   "url": "https://api.congress.gov/v3/bill/119/hr/3460/relatedbills?format=json"
+  },
+  "sponsors": [
+   {
+    "bioguideId": "O000019",
+    "district": 23,
+    "firstName": "Jay",
+    "fullName": "Rep. Obernolte, Jay [R-CA-23]",
+    "isByRequest": "N",
+    "lastName": "Obernolte",
+    "party": "R",
+    "state": "CA",
+    "url": "https://api.congress.gov/v3/member/O000019?format=json"
+   }
+  ],
+  "subjects": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/hr/3460/subjects?format=json"
+  },
+  "textVersions": {
+   "count": 1,
+   "url": "https://api.congress.gov/v3/bill/119/hr/3460/text?format=json"
+  },
+  "title": "AI Whistleblower Protection Act",
+  "titles": {
+   "count": 3,
+   "url": "https://api.congress.gov/v3/bill/119/hr/3460/titles?format=json"
+  },
+  "type": "HR",
+  "updateDate": "2026-10-20T08:05:20Z",
+  "updateDateIncludingText": "2026-10-20T08:05:20Z"
+ },
+ "actions": [
+  {
+   "actionCode": "H11100",
+   "actionDate": "2025-05-15",
+   "committees": [
+    {
+     "name": "Education and Workforce Committee",
+     "systemCode": "hsed00",
+     "url": "https://api.congress.gov/v3/committee/house/hsed00?format=json"
+    }
+   ],
+   "sourceSystem": {
+    "code": 2,
+    "name": "House floor actions"
+   },
+   "text": "Referred to the House Committee on Education and Workforce.",
+   "type": "IntroReferral"
+  },
+  {
+   "actionCode": "Intro-H",
+   "actionDate": "2025-05-15",
+   "sourceSystem": {
+    "code": 9,
+    "name": "Library of Congress"
+   },
+   "text": "Introduced in House",
+   "type": "IntroReferral"
+  },
+  {
+   "actionCode": "1000",
+   "actionDate": "2025-05-15",
+   "sourceSystem": {
+    "code": 9,
+    "name": "Library of Congress"
+   },
+   "text": "Introduced in House",
+   "type": "IntroReferral"
+  }
+ ],
+ "summaries": []
+}

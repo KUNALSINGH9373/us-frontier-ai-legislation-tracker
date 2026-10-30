@@ -1,0 +1,215 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "systemCode": "hsii13",
+                "url": "https://api.congress.gov/v3/committee/house/hsii13?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-04-16T14:00:00Z",
+        "eventId": "119132",
+        "location": {
+            "building": "Longworth House Office Building",
+            "room": "1324"
+        },
+        "meetingDocuments": [
+            {
+                "description": "H.R. 4219",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 4219",
+                "url": "https://www.congress.gov/119/meeting/house/119132/documents/BILLS-1194219ih.pdf"
+            },
+            {
+                "description": "H.R. 6451",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 6451",
+                "url": "https://www.congress.gov/119/meeting/house/119132/documents/BILLS-1196451ih.pdf"
+            },
+            {
+                "description": "H.R. 7288",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 7288",
+                "url": "https://www.congress.gov/119/meeting/house/119132/documents/BILLS-1197288ih.pdf"
+            },
+            {
+                "description": "H.R. 8195",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R. 8195",
+                "url": "https://www.congress.gov/119/meeting/house/119132/documents/BILLS-1198195ih.pdf"
+            },
+            {
+                "description": "Hearing Notice",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Hearing Notice",
+                "url": "https://www.congress.gov/119/meeting/house/119132/documents/HHRG-119-II13-20260416-SD005.pdf"
+            },
+            {
+                "description": "Hearing Memo",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Hearing Memo",
+                "url": "https://www.congress.gov/119/meeting/house/119132/documents/HHRG-119-II13-20260416-SD006.pdf"
+            },
+            {
+                "description": "DOI Responses to Elfreth QFR",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "DOI Responses to Elfreth QFR",
+                "url": "https://www.congress.gov/119/meeting/house/119132/documents/HHRG-119-II13-20260416-SD003.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "Oversight Hearing on 4 Bills:\r\n•H.R. 4219 (Rep. Case), “National Wildlife Refuge System Invasive Species Strike Team Act of 2025”\r\n•H.R. 6251 (Rep. Begich), To amend the Marine Mammal Protection Act of 1972 to allow importation of polar bear trophies taken in sport hunts in Canada before the date the polar bear was determined to be a threatened species under the Endangered Species Act of 1973\r\n•\tH.R. 7288 (Rep. Johnson of SD), “Western South Dakota Water Supply Project Feasibility Study Act”\r\n•H.R. 8195 (Rep. Walberg), “Responsible Cormorant Management and Control Act of 2026”",
+        "type": "Hearing",
+        "updateDate": "2026-10-26T17:48:40Z",
+        "videos": [
+            {
+                "name": "Legislative Hearing on H.R. 4219, H.R. 6251, H.R. 7288 and H.R. 8195",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/119132"
+            },
+            {
+                "name": "Legislative Hearing on H.R. 4219, H.R. 6251, H.R. 7288 and H.R. 8195",
+                "url": "https://www.youtube.com/watch?v=isHH8Lp9_wo"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-TTF-MikoD-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Wstate-MikoD-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Wstate-MikoD-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Bio-JonesJ-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Wstate-JonesJ-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-TTF-JonesJ-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-TTF-ConzetK-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Bio-ConzetK-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Wstate-ConzetK-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-TTF-MartinC-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Bio-MartinC-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Wstate-MartinC-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-TTF-DemaskeM-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Bio-DemaskeM-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Wstate-DemaskeM-20260416.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119132/witnesses/HHRG-119-II13-Wstate-C001055-20260416.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "The Honorable Tim Walberg",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "Mr. David Miko",
+                "organization": "U.S. Fish and Wildlife Service",
+                "position": "Acting Deputy Director for Operations"
+            },
+            {
+                "name": "Mr. John Jones",
+                "organization": "Lochow, Pond and Lake Management",
+                "position": "President"
+            },
+            {
+                "name": "The Honorable Ed Case",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "The Honorable Nicholas Begich",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "Ms. Christy Martin",
+                "organization": "Hawaii Coordinating Group on Alien Pest Species",
+                "position": "Program Manager"
+            },
+            {
+                "name": "Ms. Madeline Demaske",
+                "organization": "Safari Club International",
+                "position": "Litigation Assistant"
+            },
+            {
+                "name": "The Honorable Dusty Johnson",
+                "position": "Member of Congress"
+            },
+            {
+                "name": "Ms. Kristin Conzet",
+                "organization": "Western Dakota Regional Water System",
+                "position": "Executive Director"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "119132",
+        "format": "json"
+    }
+}

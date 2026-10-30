@@ -1,0 +1,21 @@
+{
+ "measure": "links",
+ "run_at": "2026-10-29T20:05:38.116Z",
+ "checks_hash": "716d6d38014bc237452ffd455628a277311252a370485b9fc3da30c1ee00cc92",
+ "cases": 246,
+ "wrong": 0,
+ "applied_wrong": 0,
+ "applied_proposals": 16,
+ "records_entries": 26,
+ "errors": 0,
+ "backtest_errors": 0,
+ "backtest": {
+  "proposals": 22,
+  "recovered": 22,
+  "edges": 138,
+  "as_new_proposals": 22
+ },
+ "suite_passed": 202,
+ "suite_failed": 0,
+ "suite_note": null
+}

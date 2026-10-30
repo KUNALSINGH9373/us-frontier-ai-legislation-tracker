@@ -112,7 +112,7 @@
       "required": ["method", "checked_at"],
       "additionalProperties": false,
       "properties": {
-        "method": { "enum": ["author", "agent", "session"], "description": "author: the tracker author. agent: the pipeline. session: written by hand in a Claude session from the official text, quotes checked by code." },
+        "method": { "enum": ["author", "agent", "session", "official-record"], "description": "author: the tracker author. agent: the pipeline. session: written by hand in a Claude session from the official text, quotes checked by code. official-record: a news item written by code from an official record (news/events.mjs)." },
         "checked_at": { "$ref": "#/$defs/isoDateTime" },
         "run_id": { "type": "string" },
         "rounds": { "type": "integer", "minimum": 0, "maximum": 3, "description": "Generator/validator rounds it took to pass." }

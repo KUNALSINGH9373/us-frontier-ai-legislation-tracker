@@ -5,7 +5,7 @@
 //                 model writes, a larger budget, long bills read section by section); still held after that, or held for a reason no
 //                 retry can fix (a resolution, an amendment record, a duplicate, the referee disagreeing), it carries escalate: true and
 //                 is read again only when its record changes. Nothing loops.
-import { sourceText, containsQuote } from './source-text.mjs';
+import { sourceText, containsQuote, provedQuote } from './source-text.mjs';
 import { generatePatch } from './generator.mjs';
 import { assembleEntry } from './assemble.mjs';
 import { validateDraft, complaints } from './validator.mjs';
@@ -17,24 +17,31 @@ import { HttpError, NetworkError } from '../grabber/lib/http.mjs';
 import { writeDuties, DUTY_SECTIONS, DUTY_REQUIRED_SECTIONS } from './duties.mjs';
 import { recordRefusals, federalRefusals } from './record-kind.mjs';
 import { trackerIndex, duplicateOf, relatedUnread, programmeDuplicateOf, refileOf } from './dedupe.mjs';
-import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES, sectionPassage, FEDERAL_CHECKED_SECTIONS } from './rules.mjs';
+import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES, sectionPassage, FEDERAL_CHECKED_SECTIONS, fTitleOut } from './rules.mjs';
 import { normaliseExponents } from './checks.mjs';
 
 export const MAX_ROUNDS = 3;
-const TRIAGE_OVER = 100000, TRIAGE_CHARS = 30000; // sources longer than this are read section by section (or by frontier passages)
+export const TRIAGE_OVER = 100000; const TRIAGE_CHARS = 30000; // sources longer than this are read section by section (or by frontier passages)
 const ESCALATED_READ_OVER = 30000, ESCALATED_READ_CHARS = 45000; // the escalated pass reads a long bill's frontier sections only
 
 // The referee (config role "referee", a stronger model) on scope. Its answer counts only with a quote that code finds in the source:
 // { in: true | false | null, quote }. null = no referee, no usable answer, or "in scope" without a verifiable quote.
+// An unusable answer (not JSON) is not a verdict: the same question is asked once more (Opus as referee answered H.R. 9917 unreadably
+// in two paid re-tests and cleanly when asked again, 30 Oct 2026). A second unusable answer is thrown to the caller as before.
+const askAgainIfUnusable = async (llm, req) => { try { return await llm.generate(req); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; return llm.generate(req); } };
 export async function refereeVerdict(referee, source, itemId, fullText = source) {
   if (!referee) return { in: null, quote: null };
   try {
-    const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
+    const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
-    if (!x) return { in: null, quote: null };
-    if (x.supported === true) return containsQuote(fullText, x.quote) && String(x.quote).trim().length >= 8 ? { in: true, quote: x.quote } : { in: null, quote: null, why: 'the referee said in scope but its quote is not in the source' };
+    if (!x) return { in: null, quote: null, why: 'the referee gave no answer for the claim' };
+    if (x.supported === true) {
+      // A quote that is not in the source is a failed quote, not a verdict: one more ask for an exact one, as the reader gets.
+      const q = provedQuote(fullText, x.quote) || (await exactScopeQuote(referee, source, itemId, fullText) || {}).quote;
+      return q ? { in: true, quote: q } : { in: null, quote: null, why: `the referee said in scope but its quote is not in the source, twice ("${String(x.quote || '').slice(0, 120)}")` };
+    }
     return { in: false, quote: null, reason: x.reason || null };
-  } catch (e) { if (e instanceof LlmOutputError) return { in: null, quote: null }; throw e; }
+  } catch (e) { if (e instanceof LlmOutputError) return { in: null, quote: null, why: `the referee gave an unusable answer: ${e.message}${e.detail ? ` (began: ${JSON.stringify(String(e.detail).slice(0, 200))})` : ''}` }; throw e; }
 }
 // The referee on a state entry's SECTION: it must confirm the section's own criterion (agents/rules.mjs SECTION_CRITERIA) with a quote
 // that code finds in the source AND that carries the section's marker (a frontier threshold for A/B, a catastrophic-risk term without
@@ -43,22 +50,27 @@ export const sectionClaim = (section) => `This item belongs in section ${section
 export async function refereeSection(referee, source, section, itemId, fullText = source) {
   if (!referee) return { ok: false, quote: null, why: 'no referee is configured' };
   try {
-    const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim: sectionClaim(section) }] }), itemId });
-    const x = r && r.data && r.data.results && r.data.results[0];
+    const ask = async (claim) => { const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), itemId }); return r && r.data && r.data.results && r.data.results[0]; };
+    let x = await ask(sectionClaim(section));
     if (!x || x.supported !== true) return { ok: false, quote: null, why: `the referee did not confirm section ${section}${x && x.reason ? ` ("${String(x.reason).slice(0, 140)}")` : ''}` };
-    if (!containsQuote(fullText, x.quote) || String(x.quote).trim().length < 8) return { ok: false, quote: null, why: `the referee's quote for section ${section} is not in the source` };
-    if (!quoteMeetsSection(section, x.quote, fullText)) return { ok: false, quote: null, why: `the referee's quote for section ${section} does not show that section's criterion ("${String(x.quote).slice(0, 100)}")` };
-    return { ok: true, quote: x.quote };
+    let q = provedQuote(fullText, x.quote);
+    // Its quote not in the source: one more ask for an exact one (a failed quote, not a verdict).
+    if (!q) { x = await ask(`${sectionClaim(section)}\n${EXACT_AGAIN}`); q = x && x.supported === true ? provedQuote(fullText, x.quote) : null; }
+    if (!q) return { ok: false, quote: null, why: `the referee's quote for section ${section} is not in the source` };
+    if (!quoteMeetsSection(section, q, fullText)) return { ok: false, quote: null, why: `the referee's quote for section ${section} does not show that section's criterion ("${String(q).slice(0, 100)}")` };
+    return { ok: true, quote: q };
   } catch (e) { if (e instanceof LlmOutputError) return { ok: false, quote: null, why: 'the referee gave an unusable answer' }; throw e; }
 }
 // One more ask of the independent reader for the scope claim when it said "supported" but its quote was not in the source: an exact quote
 // this time. true = supported with a quote code finds; null = still no usable quote.
+const EXACT_AGAIN = 'IMPORTANT: your previous answer to this claim said "supported" but its quote was not found word for word in SOURCE. Copy the quote EXACTLY, character for character, from SOURCE (no ellipses, no paraphrase, no added or changed words).';
 async function exactScopeQuote(validator, source, itemId, fullText) {
-  const claim = `${SCOPE_CLAIM}\nIMPORTANT: your previous answer to this claim said "supported" but its quote was not found word for word in SOURCE. Copy the quote EXACTLY, character for character, from SOURCE (no ellipses, no paraphrase, no added or changed words).`;
+  const claim = `${SCOPE_CLAIM}\n${EXACT_AGAIN}`;
   try {
     const r = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim }] }), itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
-    return x && x.supported === true && containsQuote(fullText, x.quote) && String(x.quote).trim().length >= 8 ? { quote: x.quote } : null;
+    const q = x && x.supported === true ? provedQuote(fullText, x.quote) : null;
+    return q ? { quote: q } : null;
   } catch (e) { if (e instanceof LlmOutputError) return null; throw e; }
 }
 const QUOTE_FAILED = /quote does not appear in the source/;
@@ -111,7 +123,7 @@ async function guarded(args) {
 
 // What the models read of a long source: its frontier-AI sections (agents/sections.mjs), else the passages around frontier-AI terms
 // anywhere in it. null when nothing was found.
-function selectionOf(source, maxChars) {
+export function selectionOf(source, maxChars) {
   const sel = relevantSections(source, maxChars ? { maxChars } : undefined);
   if (sel.chunks.length) return sel;
   const p = markerPassages(source, maxChars ? { maxChars } : undefined);
@@ -143,6 +155,12 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     // A new bill whose text is not published (or could not be fetched): nothing can be described or checked, and its scope is never
     // judged from the title alone (NJ S4934 was ruled out on its title). It is held and read again when its record changes.
     const textMissing = raw.text_missing === true || ((item.source === 'congress_gov' || item.source === 'legiscan') && !String(raw.text || '').trim());
+    // An amendment adopted since the text was printed whose words could not be read: the text may be out of date, so it is held and
+    // read again (grabber/sources/legiscan.mjs withAmendments).
+    // Any amendment adopted since the text was printed: held (independent review, 30 Oct 2026). The printed text still holds the words an
+    // amendment struck, so a quote of them passes every code check, and which amendments were adopted is read from action history that
+    // is not always exact. Read again when the record changes (a re-printed text includes the amendment).
+    if (/ADOPTED AMENDMENT( NOT READ)?:/.test(String(raw.text || ''))) return held('an amendment was adopted since the bill text was printed; code cannot yet apply it to the text, so nothing is written until a version including it is printed', { proposal: `${item.item_id}: an adopted amendment is not yet in the printed text; not created` });
     if (textMissing) return held('the full text is not available yet (not published, or could not be fetched), so nothing can be verified and its scope is not judged from the title; read again next run', { text_missing: true, service_error: true, fetch_error: true });
   }
 
@@ -170,8 +188,10 @@ async function processItemInner({ generator, validator, referee = null, item, ra
 
   // A federal bill no passage of which meets section D's or F's criterion (agents/rules.mjs): it cannot be filed in either, so no AI is
   // spent on it. Held (read again only when its record changes) and reported, as for a state bill.
-  if (operation === 'create' && item.source === 'congress_gov' && !sectionPassage('D', source) && !sectionPassage('F', source)) {
-    return held(`not created: no passage of the text meets the criterion of section D or F (D: ${SECTION_CRITERIA.D}; F: ${SECTION_CRITERIA.F})`, { no_section: true, proposal: `${item.item_id}${item.title ? ` ("${String(item.title).slice(0, 80)}")` : ''} meets neither federal section's criterion; not created` });
+  // Round 4: F is not proved by code for a bill whose own title names one of F's OUT subjects (education, workforce, children, energy ...).
+  const fedTitle = (raw.bill && raw.bill.title) || item.title;
+  if (operation === 'create' && item.source === 'congress_gov' && !sectionPassage('D', source) && (!sectionPassage('F', source) || fTitleOut(fedTitle))) {
+    return held(`not created: no passage of the text meets the criterion of section D or F${fTitleOut(fedTitle) ? ` (its title names a subject F excludes: "${String(fedTitle).slice(0, 80)}")` : ''} (D: ${SECTION_CRITERIA.D}; F: ${SECTION_CRITERIA.F})`, { no_section: true, proposal: `${item.item_id}${item.title ? ` ("${String(item.title).slice(0, 80)}")` : ''} meets neither federal section's criterion; not created` });
   }
 
   // A very long source in which no frontier-AI section or passage was found: whether it is in scope is judged on its opening. If both

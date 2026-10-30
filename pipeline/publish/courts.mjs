@@ -142,5 +142,5 @@ export async function courtsRun({ http, limiter, cases, dataDir, docsDir = null,
     const t = stateFile + '.tmp'; fs.writeFileSync(t, JSON.stringify(next, null, 1) + '\n'); fs.renameSync(t, stateFile);
   }
   log(summary.trim());
-  return { status: a.touched.length ? (dry ? 'dry-run' : 'published') : 'quiet', summary, result: a, check, read, errors, requests: http.used(), nextState: next };
+  return { status: a.touched.length ? (dry ? 'dry-run' : 'published') : 'quiet', summary, result: a, check, read, errors, requests: http.used(), nextState: next, found: material };
 }

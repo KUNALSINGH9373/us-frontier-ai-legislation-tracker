@@ -1,0 +1,1605 @@
+{
+ "_note": "Fact-sheet news writer set (eval/news-writer-set.mjs). Each case is an Event (news/CONTRACT.md) on a real tracked entry (entry_key in web/data/v2/entries.json), with facts taken from that entry's record unless marked constructed. bad: synthetic cards the code checks must refuse (they are replayed with a second reader that wrongly says faithful, so only code stands between them and the page). recorded: the live writer and reader answers, recorded once (node eval/news-writer-set.mjs --record) and replayed offline; review: the human-style verdict on the recorded AI card (ok | bad), made by reading it against the fact sheet.",
+ "today": "2026-10-29",
+ "cases": [
+  {
+   "id": "ny-s8828-senate-58-1",
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "event": {
+    "jurisdiction": "NY",
+    "class": "passage",
+    "date": "2026-01-28",
+    "facts": {
+     "chamber": "Senate",
+     "number": "S.8828",
+     "vote": {
+      "yes": 58,
+      "no": 1
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "unanimous on a 58-1 vote",
+     "headline": "New York Senate unanimously passes S.8828",
+     "body": "The New York Senate passed S.8828 unanimously on January 28, 2026. The bill now goes to the Assembly."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:15:43.789Z",
+    "writer": [
+     {
+      "headline": "New York Senate passes S.8828, the RAISE Act, by 58-1 vote",
+      "body": "The New York Senate passed S.8828, the NY RAISE Act, on January 28, 2026, by a vote of 58 yes to 1 no. The bill's next step is consideration in the Assembly."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "New York Senate passes S.8828, the RAISE Act, by 58-1 vote",
+     "body": "The New York Senate passed S.8828, the NY RAISE Act, on January 28, 2026, by a vote of 58 yes to 1 no. The bill's next step is consideration in the Assembly."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "ma-h5576-house-148-2",
+   "entry_key": "ma-h-5576-s-3178",
+   "event": {
+    "jurisdiction": "MA",
+    "class": "passage",
+    "date": "2026-07-08",
+    "facts": {
+     "chamber": "House",
+     "number": "H.5576",
+     "vote": {
+      "yes": 148,
+      "no": 2
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "evaluative 'overwhelmingly' + 'bipartisan'",
+     "headline": "Massachusetts House overwhelmingly passes H.5576",
+     "body": "The House passed H.5576 148-2 on July 8, 2026 in a bipartisan vote. It now goes to the Senate."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:15:45.961Z",
+    "writer": [
+     {
+      "headline": "Massachusetts House passes H.5576 by 148-2 vote",
+      "body": "The Massachusetts House passed H.5576 on July 8, 2026, by a vote of 148-2. The bill would require critical safety incidents to be reported to the AG within 15 days, or within 24 hours if there is imminent risk of death. The next step is consideration in the Senate."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Massachusetts House passes H.5576 by 148-2 vote",
+     "body": "The Massachusetts House passed H.5576 on July 8, 2026, by a vote of 148-2. The bill would require critical safety incidents to be reported to the AG within 15 days, or within 24 hours if there is imminent risk of death. The next step is consideration in the Senate."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "trap-vote-38-2",
+   "entry_key": "ca-ab-1405-auditor-registry",
+   "constructed": "vote 38-2 is a constructed trap, not the bill's recorded vote",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "passage",
+    "date": "2026-08-30",
+    "facts": {
+     "chamber": "Senate",
+     "number": "AB 1405",
+     "vote": {
+      "yes": 38,
+      "no": 2
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "unanimously on a 38-2 vote",
+     "headline": "California Senate unanimously approves AB 1405",
+     "body": "The California Senate approved AB 1405 unanimously on August 30, 2026. The bill moves to the Assembly."
+    },
+    {
+     "why": "'without opposition' on 38-2",
+     "headline": "AB 1405 clears the California Senate",
+     "body": "AB 1405 passed the Senate without opposition on August 30, 2026. Next is consideration in the Assembly."
+    },
+    {
+     "why": "wrong tally 38-0",
+     "headline": "California Senate passes AB 1405, 38-0",
+     "body": "The Senate voted 38-0 on August 30, 2026 to pass AB 1405. It heads to the Assembly."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:15:50.830Z",
+    "writer": [
+     {
+      "headline": "California AB 1405, on an auditor registry, passes the Senate 38-2",
+      "body": "The California Senate passed AB 1405, which concerns an auditor registry, by a vote of 38-2 on August 30, 2026. The bill's next step is consideration in the Assembly."
+     },
+     {
+      "headline": "California Senate passes AB 1405 on auditor registry, 38-2",
+      "body": "The California Senate passed AB 1405 by a vote of 38-2 on August 30, 2026. The bill's next step is consideration in the Assembly."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "California Senate passes AB 1405 on auditor registry, 38-2",
+     "body": "The California Senate passed AB 1405 by a vote of 38-2 on August 30, 2026. The bill's next step is consideration in the Assembly."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "ca-sb813-concurrence-37-0",
+   "entry_key": "ca-sb-813-ivos",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "concurrence",
+    "date": "2026-08-30",
+    "facts": {
+     "chamber": "Senate",
+     "number": "SB 813",
+     "vote": {
+      "yes": 37,
+      "no": 0
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "prediction: will be signed",
+     "headline": "California Senate concurs on SB 813, 37-0",
+     "body": "The Senate concurred in SB 813 by a 37-0 vote on August 30, 2026. The Governor is expected to sign it."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:15:55.352Z",
+    "writer": [
+     {
+      "headline": "California Senate passes SB 813 concurrence, 37-0",
+      "body": "The California Senate voted 37-0 on August 30, 2026, to concur in SB 813, which concerns IVOs. The bill has passed both chambers and its next step is transmittal to the Governor."
+     },
+     {
+      "headline": "California Senate passes SB 813 concurrence by 37-0 vote",
+      "body": "The California Senate held a concurrence vote on SB 813 on August 30, 2026, approving it 37-0. The bill has passed both chambers and is next due for transmittal to the Governor."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "California Senate passes SB 813 concurrence by 37-0 vote",
+     "body": "The California Senate held a concurrence vote on SB 813 on August 30, 2026, approving it 37-0. The bill has passed both chambers and is next due for transmittal to the Governor."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "ca-ab1405-signed",
+   "entry_key": "ca-ab-1405-auditor-registry",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "executive-signature",
+    "date": "2026-09-09",
+    "facts": {
+     "number": "AB 1405",
+     "executive": "Governor Gavin Newsom",
+     "law_number": "Chapter 178, Statutes of 2026"
+    }
+   },
+   "bad": [
+    {
+     "why": "'first' with no milestone fact",
+     "headline": "Newsom signs first AI auditor registry law, AB 1405",
+     "body": "Governor Gavin Newsom signed AB 1405 on September 9, 2026. It is chaptered as Chapter 178, Statutes of 2026."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:15:59.025Z",
+    "writer": [
+     {
+      "headline": "Governor Gavin Newsom signs AB 1405 on AI auditor registry into law",
+      "body": "Governor Gavin Newsom signed AB 1405 into law in California on September 9, 2026, as Chapter 178, Statutes of 2026. The law requires the creation of an AI Auditor Registry by January 1, 2029."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Governor Gavin Newsom signs AB 1405 on AI auditor registry into law",
+     "body": "Governor Gavin Newsom signed AB 1405 into law in California on September 9, 2026, as Chapter 178, Statutes of 2026. The law requires the creation of an AI Auditor Registry by January 1, 2029."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "il-sb315-signed",
+   "entry_key": "il-sb-315-p-a-104-0538",
+   "event": {
+    "jurisdiction": "IL",
+    "class": "executive-signature",
+    "date": "2026-07-06",
+    "facts": {
+     "number": "SB 315",
+     "executive": "Governor JB Pritzker"
+    }
+   },
+   "bad": [
+    {
+     "why": "'landmark' evaluative",
+     "headline": "Pritzker signs landmark frontier AI bill SB 315",
+     "body": "Governor JB Pritzker signed SB 315 into law on July 6, 2026. The Illinois law covers frontier AI developers."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:04.942Z",
+    "writer": [
+     {
+      "headline": "Illinois Governor signs SB 315 into law",
+      "body": "Governor JB Pritzker signed SB 315 into law on July 6, 2026, as P.A. 104-0538 in Illinois. The law's Section 10 sets out a frontier AI framework that takes effect January 1, 2028."
+     },
+     {
+      "headline": "Pritzker signs SB 315 into law in Illinois",
+      "body": "Governor JB Pritzker signed SB 315 on July 6, 2026, in Illinois, where it is designated P.A. 104-0538. The measure includes a frontier AI framework that applies from January 1, 2028."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Pritzker signs SB 315 into law in Illinois",
+     "body": "Governor JB Pritzker signed SB 315 on July 6, 2026, in Illinois, where it is designated P.A. 104-0538. The measure includes a frontier AI framework that applies from January 1, 2028."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "il-sb315-sent-to-governor",
+   "entry_key": "il-sb-315-p-a-104-0538",
+   "event": {
+    "jurisdiction": "IL",
+    "class": "executive-receipt",
+    "date": "2026-06-26",
+    "facts": {
+     "number": "SB 315"
+    }
+   },
+   "bad": [
+    {
+     "why": "prediction beyond next step",
+     "headline": "Illinois SB 315 sent to the Governor",
+     "body": "SB 315 was sent to the Governor on June 26, 2026. The Governor is likely to sign it."
+    },
+    {
+     "why": "invented name not in sheet",
+     "headline": "SB 315 goes to Governor Pritzker",
+     "body": "SB 315 was sent to Governor Pritzker on June 26, 2026. Action by the Governor is next."
+    },
+    {
+     "why": "bill number read out of P.A. 104-0538 (seen live in the first recording)",
+     "headline": "Illinois SB 315 sent to the Governor",
+     "body": "Illinois SB 315, also listed as A. 104, was sent to the Governor on June 26, 2026. The next step is action by the Governor."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:12.906Z",
+    "writer": [
+     {
+      "headline": "Illinois SB 315 sent to the Governor",
+      "body": "Illinois SB 315 was sent to the Governor on June 26, 2026. Section 10 of the bill covers a frontier AI framework, starting January 1, 2028. The next step is action by the Governor."
+     },
+     {
+      "headline": "Illinois SB 315 sent to the Governor, adds frontier AI framework",
+      "body": "Illinois bill SB 315 was sent to the Governor on June 26, 2026. Its provisions include a frontier AI framework that takes effect January 1, 2028. Action by the Governor is next."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Illinois SB 315 sent to the Governor, adds frontier AI framework",
+     "body": "Illinois bill SB 315 was sent to the Governor on June 26, 2026. Its provisions include a frontier AI framework that takes effect January 1, 2028. Action by the Governor is next."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "nj-s4446-introduced",
+   "entry_key": "nj-s-4446-a-5275",
+   "event": {
+    "jurisdiction": "NJ",
+    "class": "introduction",
+    "date": "2026-06-11",
+    "facts": {
+     "chamber": "Senate",
+     "number": "S.4446"
+    }
+   },
+   "bad": [
+    {
+     "why": "'first' with no milestone fact",
+     "headline": "New Jersey introduces its first frontier AI bill, S.4446",
+     "body": "S.4446 was introduced in the New Jersey Senate on June 11, 2026. It now awaits referral to a committee."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:15.097Z",
+    "writer": [
+     {
+      "headline": "New Jersey S.4446 introduced in Senate, paired with A.5275",
+      "body": "Bill S.4446 was introduced in the New Jersey Senate on June 11, 2026, and is paired with A.5275. The next step is referral to a committee. The bill would require large frontier developers with New Jersey users to implement protocols."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "New Jersey S.4446 introduced in Senate, paired with A.5275",
+     "body": "Bill S.4446 was introduced in the New Jersey Senate on June 11, 2026, and is paired with A.5275. The next step is referral to a committee. The bill would require large frontier developers with New Jersey users to implement protocols."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "nj-a5275-referred",
+   "entry_key": "nj-s-4446-a-5275",
+   "event": {
+    "jurisdiction": "NJ",
+    "class": "referral-committee",
+    "date": "2026-06-15",
+    "facts": {
+     "chamber": "General Assembly",
+     "number": "A.5275",
+     "committee": "Assembly Science, Innovation and Technology Committee"
+    }
+   },
+   "bad": [
+    {
+     "why": "wrong committee name",
+     "headline": "A.5275 referred to Assembly Judiciary Committee",
+     "body": "New Jersey's A.5275 was referred to the Assembly Judiciary Committee on June 15, 2026. Consideration by the committee is next."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:21.914Z",
+    "writer": [
+     {
+      "headline": "New Jersey A.5275 referred to Assembly Science, Innovation and Technology Committee",
+      "body": "New Jersey bill A.5275, listed with S.4446, was referred in the General Assembly to the Assembly Science, Innovation and Technology Committee on June 15, 2026. The bill concerns large frontier developers with NJ users, which must implement protocols. The next step is consideration by the Assembly Science, Innovation and Technology Committee."
+     },
+     {
+      "headline": "New Jersey A.5275 referred to Assembly Science, Innovation and Technology Committee",
+      "body": "On June 15, 2026, the General Assembly referred A.5275 to the Assembly Science, Innovation and Technology Committee. The bill is paired with S.4446 and would require large frontier developers with New Jersey users to implement protocols. The next step is consideration by the Assembly Science, Innovation and Technology Committee."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "New Jersey A.5275 referred to Assembly Science, Innovation and Technology Committee",
+     "body": "On June 15, 2026, the General Assembly referred A.5275 to the Assembly Science, Innovation and Technology Committee. The bill is paired with S.4446 and would require large frontier developers with New Jersey users to implement protocols. The next step is consideration by the Assembly Science, Innovation and Technology Committee."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "oh-hb628-hearing-held",
+   "entry_key": "oh-hb-628",
+   "event": {
+    "jurisdiction": "OH",
+    "class": "hearing-held",
+    "date": "2026-03-17",
+    "facts": {
+     "chamber": "House",
+     "number": "HB 628",
+     "committee": "House Technology and Innovation Committee"
+    }
+   },
+   "bad": [
+    {
+     "why": "held hearing written as upcoming",
+     "headline": "Ohio committee to hear HB 628",
+     "body": "The House Technology and Innovation Committee is scheduled to hold a hearing on HB 628 on March 17, 2026. Testimony will follow."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:27.517Z",
+    "writer": [
+     {
+      "headline": "Ohio House Technology and Innovation Committee holds hearing on HB 628",
+      "body": "The House Technology and Innovation Committee held a hearing on HB 628 in the Ohio House. The bill is one of Ohio's measures before the legislature."
+     },
+     {
+      "headline": "Ohio House Technology and Innovation Committee holds hearing on HB 628",
+      "body": "The House Technology and Innovation Committee held a hearing on HB 628 in Ohio on March 17, 2026. The bill remains in committee."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Ohio House Technology and Innovation Committee holds hearing on HB 628",
+     "body": "The House Technology and Innovation Committee held a hearing on HB 628 in Ohio on March 17, 2026. The bill remains in committee."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "trap-pa-hb2800-hearing-scheduled",
+   "entry_key": "pa-h-b-2800-ai-risk-prevention-act",
+   "constructed": "hearing listing is a constructed trap (the record says no hearing scheduled); listed 2026-10-28, hearing day 2026-11-04",
+   "event": {
+    "jurisdiction": "PA",
+    "class": "hearing-scheduled",
+    "date": "2026-10-28",
+    "facts": {
+     "chamber": "House",
+     "number": "H.B. 2800",
+     "committee": "House Communications and Technology Committee",
+     "hearing_date": "2026-11-04"
+    }
+   },
+   "bad": [
+    {
+     "why": "scheduled hearing written as held",
+     "headline": "Pennsylvania committee holds hearing on H.B. 2800",
+     "body": "The House Communications and Technology Committee held a hearing on H.B. 2800 on November 4, 2026. Members heard testimony on the bill."
+    },
+    {
+     "why": "scheduled written as took place",
+     "headline": "Hearing on H.B. 2800 set for November 4, 2026",
+     "body": "A hearing on H.B. 2800 by the House Communications and Technology Committee took place on November 4, 2026. The committee examined the bill."
+    },
+    {
+     "why": "first-seen date written as the hearing day",
+     "headline": "Pennsylvania committee to hear H.B. 2800",
+     "body": "The House Communications and Technology Committee is scheduled to hold a hearing on H.B. 2800 on October 28, 2026. The bill is in committee."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:29.744Z",
+    "writer": [
+     {
+      "headline": "Pennsylvania House panel to hold hearing on H.B. 2800 AI Risk Prevention Act",
+      "body": "The House Communications and Technology Committee is scheduled to hold a hearing on H.B. 2800, the PA H.B. 2800 AI Risk Prevention Act, on November 4, 2026. The bill is currently in committee in Pennsylvania."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Pennsylvania House panel to hold hearing on H.B. 2800 AI Risk Prevention Act",
+     "body": "The House Communications and Technology Committee is scheduled to hold a hearing on H.B. 2800, the PA H.B. 2800 AI Risk Prevention Act, on November 4, 2026. The bill is currently in committee in Pennsylvania."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "us-s2938-hearing-held",
+   "entry_key": "s-2938-ai-risk-evaluation-act",
+   "event": {
+    "jurisdiction": "US",
+    "class": "hearing-held",
+    "date": "2026-09-30",
+    "facts": {
+     "chamber": "Senate",
+     "number": "S. 2938",
+     "committee": "Senate Homeland Security and Governmental Affairs Committee"
+    }
+   },
+   "bad": [
+    {
+     "why": "invented witness name",
+     "headline": "Senate panel holds hearing on S. 2938",
+     "body": "The Senate Homeland Security and Governmental Affairs Committee held a hearing on S. 2938 on September 30, 2026. Senator Peters chaired the session."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:32.010Z",
+    "writer": [
+     {
+      "headline": "Senate committee holds hearing on S. 2938 AI Risk Evaluation Act",
+      "body": "The Senate Homeland Security and Governmental Affairs Committee held a hearing on S. 2938, the AI Risk Evaluation Act, on September 30, 2026. The bill would require the Dept. of Energy to establish a mandatory Advanced AI Evaluation Program within 90 days. The bill remains in committee."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Senate committee holds hearing on S. 2938 AI Risk Evaluation Act",
+     "body": "The Senate Homeland Security and Governmental Affairs Committee held a hearing on S. 2938, the AI Risk Evaluation Act, on September 30, 2026. The bill would require the Dept. of Energy to establish a mandatory Advanced AI Evaluation Program within 90 days. The bill remains in committee."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "us-hr9363-markup-29-0",
+   "entry_key": "h-r-9363-ai-security-and-innovation-act",
+   "event": {
+    "jurisdiction": "US",
+    "class": "committee-passage",
+    "date": "2026-06-25",
+    "facts": {
+     "chamber": "House",
+     "number": "H.R. 9363",
+     "committee": "House Science, Space, and Technology Committee",
+     "vote": {
+      "yes": 29,
+      "no": 0
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "wrong date",
+     "headline": "House Science Committee advances H.R. 9363, 29-0",
+     "body": "The House Science, Space, and Technology Committee ordered H.R. 9363 reported 29-0 on June 26, 2026. A vote of the full House is next."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:34.216Z",
+    "writer": [
+     {
+      "headline": "House Science Committee passes H.R. 9363, AI Security and Innovation Act, 29-0",
+      "body": "The House Science, Space, and Technology Committee passed H.R. 9363, the AI Security and Innovation Act, by a vote of 29-0 on June 25, 2026. The bill's next step is a vote of the full House."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "House Science Committee passes H.R. 9363, AI Security and Innovation Act, 29-0",
+     "body": "The House Science, Space, and Technology Committee passed H.R. 9363, the AI Security and Innovation Act, by a vote of 29-0 on June 25, 2026. The bill's next step is a vote of the full House."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "tn-hb1898-house-94-0",
+   "entry_key": "tn-hb-1898-sb-2171",
+   "event": {
+    "jurisdiction": "TN",
+    "class": "passage",
+    "date": "2026-04-16",
+    "facts": {
+     "chamber": "House",
+     "number": "HB 1898",
+     "vote": {
+      "yes": 94,
+      "no": 0
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "wrong tally",
+     "headline": "Tennessee House passes HB 1898, 94-1",
+     "body": "The Tennessee House passed HB 1898 94-1 on April 16, 2026. The bill now goes to the Senate."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:37.341Z",
+    "writer": [
+     {
+      "headline": "Tennessee House passes HB 1898 by 94-0 vote",
+      "body": "The Tennessee House passed HB 1898 on April 16, 2026, by a vote of 94-0. The next step is consideration in the Senate, where the companion bill is SB 2171."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Tennessee House passes HB 1898 by 94-0 vote",
+     "body": "The Tennessee House passed HB 1898 on April 16, 2026, by a vote of 94-0. The next step is consideration in the Senate, where the companion bill is SB 2171."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "ny-s10701-withdrawn",
+   "entry_key": "ny-s-10701-terminator-act-withdrawn",
+   "event": {
+    "jurisdiction": "NY",
+    "class": "withdrawal",
+    "date": "2026-09-18",
+    "facts": {
+     "chamber": "Senate",
+     "number": "S.10701"
+    }
+   },
+   "bad": [
+    {
+     "why": "causal claim",
+     "headline": "New York S.10701 withdrawn after industry pressure",
+     "body": "S.10701 was withdrawn in the New York Senate on September 18, 2026 because of pressure from industry. It was introduced the same day."
+    },
+    {
+     "why": "present-tense mechanism of a withdrawn bill + meta (seen live in the first recording)",
+     "headline": "New York S.10701 withdrawn on September 18, 2026",
+     "body": "S.10701 was withdrawn in the New York Senate on September 18, 2026. The bill amends the RAISE Act. Its stage is listed as Withdrawn."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:39.914Z",
+    "writer": [
+     {
+      "headline": "New York Senate bill S.10701 withdrawn",
+      "body": "The New York Senate withdrew bill S.10701, known as the TERMINATOR Act, on September 18, 2026. The bill's current stage is withdrawn, and no further step has been set."
+     },
+     {
+      "headline": "New York S.10701 TERMINATOR Act withdrawn in Senate",
+      "body": "The New York Senate withdrew bill S.10701, known as the TERMINATOR Act, on September 18, 2026. No further steps have been set for the bill."
+     }
+    ],
+    "reader": [],
+    "written_by": "template",
+    "card": null,
+    "review": null
+   }
+  },
+  {
+   "id": "us-s5493-referred",
+   "entry_key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+   "event": {
+    "jurisdiction": "US",
+    "class": "referral-committee",
+    "date": "2026-09-23",
+    "facts": {
+     "chamber": "Senate",
+     "number": "S. 5493",
+     "committee": "Senate Committee on Commerce, Science, and Transportation"
+    }
+   },
+   "bad": [
+    {
+     "why": "invented bill number",
+     "headline": "S. 5493 referred to Senate Commerce",
+     "body": "S. 5493 was referred to the Senate Committee on Commerce, Science, and Transportation on September 23, 2026. Its House companion is H.R. 10539."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:44.443Z",
+    "writer": [
+     {
+      "headline": "S. 5493 referred to Senate Commerce, Science, and Transportation Committee",
+      "body": "S. 5493, the Ban Artificial Superintelligence Act, was referred to the Senate Committee on Commerce, Science, and Transportation. The bill is also numbered H.R. 10538 and remains in committee. Its next step is consideration by the Senate Committee on Commerce, Science, and Transportation."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "S. 5493 referred to Senate Commerce, Science, and Transportation Committee",
+     "body": "S. 5493, the Ban Artificial Superintelligence Act, was referred to the Senate Committee on Commerce, Science, and Transportation. The bill is also numbered H.R. 10538 and remains in committee. Its next step is consideration by the Senate Committee on Commerce, Science, and Transportation."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "trap-us-hr10873-no-milestone",
+   "entry_key": "h-r-10873-ai-cyber-defense-act",
+   "event": {
+    "jurisdiction": "US",
+    "class": "introduction",
+    "date": "2026-10-22",
+    "facts": {
+     "chamber": "House",
+     "number": "H.R. 10873"
+    }
+   },
+   "bad": [
+    {
+     "why": "'first' with no milestone fact",
+     "headline": "H.R. 10873 is the first federal AI cyber defense bill",
+     "body": "H.R. 10873 was introduced in the House on October 22, 2026. It now awaits referral to a committee."
+    },
+    {
+     "why": "'only' with no milestone fact",
+     "headline": "House bill H.R. 10873 introduced",
+     "body": "H.R. 10873, the only bill of its kind, was introduced in the House on October 22, 2026. Referral to a committee is next."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:47.668Z",
+    "writer": [
+     {
+      "headline": "H.R. 10873, AI Cyber Defense Act, introduced in the House",
+      "body": "The AI Cyber Defense Act, designated H.R. 10873, was introduced in the House on October 22, 2026. The next step is referral to a committee. The bill's summary says NIST would work with private-sector AI developers within 180 days to define artificial intelligence distillation attacks and set voluntary standards."
+     },
+     {
+      "headline": "H.R. 10873 AI Cyber Defense Act introduced in House",
+      "body": "The AI Cyber Defense Act, H.R. 10873, was introduced in the House on October 22, 2026. The next step is referral to a committee."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "H.R. 10873 AI Cyber Defense Act introduced in House",
+     "body": "The AI Cyber Defense Act, H.R. 10873, was introduced in the House on October 22, 2026. The next step is referral to a committee."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "us-s5576-introduced",
+   "entry_key": "s-5576-warner-schatz-kim-ai-risk-management-and-security-act",
+   "event": {
+    "jurisdiction": "US",
+    "class": "introduction",
+    "date": "2026-09-29",
+    "facts": {
+     "chamber": "Senate",
+     "number": "S. 5576"
+    }
+   },
+   "bad": [
+    {
+     "why": "number in words + invented figure",
+     "headline": "Senators introduce S. 5576",
+     "body": "S. 5576 was introduced in the Senate on September 29, 2026 with three sponsors. It awaits referral to a committee."
+    },
+    {
+     "why": "a chamber said to introduce the bill (seen live in the first recording)",
+     "headline": "S. 5576 introduced in the Senate",
+     "body": "The Senate introduced S. 5576 on September 29, 2026. The next step is referral to a committee."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:50.749Z",
+    "writer": [
+     {
+      "headline": "Senate introduces S. 5576, the AI Risk Management and Security Act",
+      "body": "On September 29, 2026, S. 5576, the Warner–Schatz–Kim AI Risk Management and Security Act, was introduced in the Senate. The next step is referral to a committee. The bill would establish an Artificial Intelligence Safety Board within Commerce, with NIST, CISA, NSA, Treasury and independent technical experts, to evaluate risks and set technical safety and security standards."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Senate introduces S. 5576, the AI Risk Management and Security Act",
+     "body": "On September 29, 2026, S. 5576, the Warner–Schatz–Kim AI Risk Management and Security Act, was introduced in the Senate. The next step is referral to a committee. The bill would establish an Artificial Intelligence Safety Board within Commerce, with NIST, CISA, NSA, Treasury and independent technical experts, to evaluate risks and set technical safety and security standards."
+    },
+    "review": "bad",
+    "review_note": "headline says the Senate introduces the bill (a chamber does not introduce a bill); check widened after review"
+   }
+  },
+  {
+   "id": "us-eo-14434",
+   "entry_key": "eo-14434-super-intelligence-terminology-order",
+   "event": {
+    "jurisdiction": "US",
+    "class": "executive-order",
+    "date": "2026-09-29",
+    "facts": {
+     "number": "Executive Order 14434",
+     "executive": "the President"
+    }
+   },
+   "bad": [
+    {
+     "why": "evaluative 'sweeping'",
+     "headline": "President signs sweeping Executive Order 14434",
+     "body": "The President signed Executive Order 14434 on September 29, 2026. The order covers super intelligence terminology."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:16:57.676Z",
+    "writer": [
+     {
+      "headline": "President Signs Executive Order 14434 on AI Terminology",
+      "body": "On September 29, 2026, the President signed Executive Order 14434, a terminology order. It directs the executive branch, to the maximum extent permitted by law, to use the terms Super Intelligence and SI in place of Artificial Intelligence and AI."
+     },
+     {
+      "headline": "Executive Order 14434 Replaces AI Terms With Super Intelligence and SI",
+      "body": "The President signed Executive Order 14434 on September 29, 2026. To the maximum extent permitted by law, the executive branch shall use the terms Super Intelligence and SI in place of Artificial Intelligence and AI."
+     }
+    ],
+    "reader": [],
+    "written_by": "template",
+    "card": null,
+    "review": null
+   }
+  },
+  {
+   "id": "us-eo-14409",
+   "entry_key": "eo-14409-pre-release-access",
+   "event": {
+    "jurisdiction": "US",
+    "class": "executive-order",
+    "date": "2026-06-02",
+    "facts": {
+     "number": "Executive Order 14409",
+     "document_number": "2026-11415",
+     "executive": "the President"
+    }
+   },
+   "bad": [
+    {
+     "why": "date not in sheet",
+     "headline": "Executive Order 14409 signed",
+     "body": "The President signed Executive Order 14409 on June 5, 2026. Its Federal Register document number is 2026-11415."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:06.050Z",
+    "writer": [
+     {
+      "headline": "Executive Order 14409 directs agencies on cyber benchmarks for frontier models",
+      "body": "The President signed Executive Order 14409 on June 2, 2026. It directs Treasury, the Department of War/NSA, and DHS/CISA, after consulting the White House, Commerce/NIST and others, to develop a classified cyber-capability benchmark and threshold for covered frontier models. It also directs them to design a voluntary developer framework."
+     },
+     {
+      "headline": "Executive Order 14409 Directs Agencies on Classified Cyber Benchmark and Threshold",
+      "body": "On June 2, 2026, the President signed Executive Order 14409. It directs Treasury, the Department of War/NSA, and DHS/CISA, consulting the White House, Commerce/NIST and others, to develop a classified cyber-capability benchmark and threshold for covered frontier models. It also directs them to design a voluntary developer framework permitting pre-release access."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": false,
+      "added_or_overstated": [
+       "The card says the order directs them to 'design a voluntary developer framework' while the fact sheet says the framework is one 'permitting' pre-release access; the card omits the stated purpose, so the framework's function is not conveyed as the fact sheet describes it.",
+       "The headline describes the order as directing agencies on 'cyber benchmarks for frontier models', which is a characterisation not stated in the fact sheet beyond the benchmark and threshold directive."
+      ]
+     }
+    ],
+    "written_by": "template",
+    "card": null,
+    "review": null
+   }
+  },
+  {
+   "id": "us-bis-chip-rule-final",
+   "entry_key": "bis-final-rule-on-ai-chip-licensing-to-china-macau",
+   "event": {
+    "jurisdiction": "US",
+    "class": "agency-rule-final",
+    "date": "2026-01-15",
+    "facts": {
+     "agency": "Bureau of Industry and Security",
+     "title": "AI chip licensing to China and Macau",
+     "effective": "2026-01-15"
+    }
+   },
+   "bad": [
+    {
+     "why": "agency name not in sheet",
+     "headline": "Commerce Department issues final AI chip rule",
+     "body": "The Commerce Department's Bureau of Industry and Security published a final rule on AI chip licensing to China and Macau on January 15, 2026. The rule takes effect on January 15, 2026."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:13.430Z",
+    "writer": [
+     {
+      "headline": "Bureau of Industry and Security issues final rule on AI chip licensing to China and Macau",
+      "body": "The Bureau of Industry and Security issued a final rule on January 15, 2026, covering AI chip licensing to China and Macau. The rule provides case-by-case review for certain US exports of chips below specified performance and memory-bandwidth limits, including H200 and MI325X examples, to end users in China or Macau, subject to conditions. The rule takes effect on January 15, 2026."
+     },
+     {
+      "headline": "Bureau of Industry and Security final rule on AI chip licensing to China, Macau",
+      "body": "On January 15, 2026, the Bureau of Industry and Security issued a final rule providing case-by-case review for certain exports from the United States of chips below specified performance and memory-bandwidth limits to end users in China or Macau. Those exports are subject to conditions including independent US testing. The rule took effect on January 15, 2026."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Bureau of Industry and Security final rule on AI chip licensing to China, Macau",
+     "body": "On January 15, 2026, the Bureau of Industry and Security issued a final rule providing case-by-case review for certain exports from the United States of chips below specified performance and memory-bandwidth limits to end users in China or Macau. Those exports are subject to conditions including independent US testing. The rule took effect on January 15, 2026."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "us-xai-v-weiser-filed",
+   "entry_key": "x-ai-v-weiser-d-colo",
+   "event": {
+    "jurisdiction": "US",
+    "class": "court-filing",
+    "date": "2026-04-09",
+    "facts": {
+     "court": "U.S. District Court for the District of Colorado",
+     "title": "X.AI v. Weiser"
+    }
+   },
+   "bad": [
+    {
+     "why": "outcome claimed (won)",
+     "headline": "xAI wins in X.AI v. Weiser",
+     "body": "X.AI v. Weiser was filed in the U.S. District Court for the District of Colorado on April 9, 2026. The company won a quick victory."
+    },
+    {
+     "why": "writes about the sheet, not the event (seen live in the first recording)",
+     "headline": "X.AI v. Weiser filed in Colorado federal court",
+     "body": "X.AI v. Weiser was filed on April 9, 2026, in the U.S. District Court for the District of Colorado. The case is listed at the filing stage, and no further step has been set out."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:15.947Z",
+    "writer": [
+     {
+      "headline": "X.AI files suit against Weiser in Colorado federal court",
+      "body": "X.AI v. Weiser was filed in the U.S. District Court for the District of Colorado on April 9, 2026. The case is listed as a court filing with no further steps specified."
+     },
+     {
+      "headline": "X.AI files suit against Weiser in Colorado federal court",
+      "body": "X.AI v. Weiser was filed in the U.S. District Court for the District of Colorado. The case was filed on April 9, 2026. No further steps have been set."
+     }
+    ],
+    "reader": [],
+    "written_by": "template",
+    "card": null,
+    "review": null
+   }
+  },
+  {
+   "id": "fl-v-openai-motion",
+   "entry_key": "florida-v-openai-injunction-motion",
+   "event": {
+    "jurisdiction": "US",
+    "class": "court-filing",
+    "date": "2026-09-28",
+    "facts": {
+     "court": "Highlands County Circuit Court",
+     "judge": "Heather Beato",
+     "title": "Florida v. OpenAI"
+    }
+   },
+   "bad": [
+    {
+     "why": "invented judge name",
+     "headline": "Motion filed in Florida v. OpenAI",
+     "body": "A motion was filed in Florida v. OpenAI in Highlands County Circuit Court on September 28, 2026. Judge Smith will hear it."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:20.800Z",
+    "writer": [
+     {
+      "headline": "Florida v. OpenAI injunction motion filed in Highlands County Circuit Court",
+      "body": "A court filing in Florida v. OpenAI was held on September 28, 2026, in the Highlands County Circuit Court before Judge Heather Beato. The matter concerns an injunction motion, which has been filed in court."
+     },
+     {
+      "headline": "Injunction motion filed in Florida v. OpenAI in Highlands County Circuit Court",
+      "body": "A motion for an injunction was filed in Florida v. OpenAI in the Highlands County Circuit Court on September 28, 2026. The case is before Judge Heather Beato."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Injunction motion filed in Florida v. OpenAI in Highlands County Circuit Court",
+     "body": "A motion for an injunction was filed in Florida v. OpenAI in the Highlands County Circuit Court on September 28, 2026. The case is before Judge Heather Beato."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "us-protect-democracy-v-oncd",
+   "entry_key": "protect-democracy-v-oncd",
+   "event": {
+    "jurisdiction": "US",
+    "class": "court-filing",
+    "date": "2026-09-01",
+    "facts": {
+     "court": "U.S. District Court for the District of Columbia",
+     "docket": "1:26-cv-03064",
+     "judge": "Ana C. Reyes",
+     "title": "Protect Democracy v. ONCD"
+    }
+   },
+   "bad": [
+    {
+     "why": "wrong docket digits",
+     "headline": "Protect Democracy v. ONCD filed in D.C.",
+     "body": "Protect Democracy v. ONCD was filed on September 1, 2026 in the U.S. District Court for the District of Columbia. The docket is 1:26-cv-03046."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:23.785Z",
+    "writer": [
+     {
+      "headline": "Protect Democracy v. ONCD case filed in U.S. District Court for D.C.",
+      "body": "A court filing was made on September 1, 2026, in Protect Democracy v. ONCD, docket 1:26-cv-03064, in the U.S. District Court for the District of Columbia. The case is before Judge Ana C. Reyes."
+     },
+     {
+      "headline": "Protect Democracy v. ONCD case filed in D.C. federal court",
+      "body": "A court filing in Protect Democracy v. ONCD was filed in the U.S. District Court for the District of Columbia on September 1, 2026. The case, docket 1:26-cv-03064, is assigned to Judge Ana C. Reyes."
+     }
+    ],
+    "reader": [],
+    "written_by": "template",
+    "card": null,
+    "review": null
+   }
+  },
+  {
+   "id": "ct-omnibus-senate-32-4",
+   "entry_key": "ct-p-a-26-15-omnibus",
+   "event": {
+    "jurisdiction": "CT",
+    "class": "passage",
+    "date": "2026-05-01",
+    "facts": {
+     "chamber": "Senate",
+     "vote": {
+      "yes": 32,
+      "no": 4
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "evaluative 'overwhelmingly'",
+     "headline": "Connecticut Senate overwhelmingly passes the omnibus",
+     "body": "The Connecticut Senate passed the omnibus 32-4 on May 1, 2026. It now goes to the House."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:26.504Z",
+    "writer": [
+     {
+      "headline": "Connecticut Senate passes omnibus bill CT P.A. 26-15 by 32-4 vote",
+      "body": "The Connecticut Senate passed CT P.A. 26-15 (omnibus) on May 1, 2026, by a vote of 32 yes to 4 no. The bill next goes to consideration in the House."
+     },
+     {
+      "headline": "Connecticut Senate passes omnibus bill CT P.A. 26-15 on 32-4 vote",
+      "body": "The Connecticut Senate passed the CT P.A. 26-15 omnibus bill by a vote of 32-4 on May 1, 2026. The bill now moves to consideration in the House."
+     }
+    ],
+    "reader": [],
+    "written_by": "template",
+    "card": null,
+    "review": null
+   }
+  },
+  {
+   "id": "ca-sb1047-veto",
+   "entry_key": "ca-sb-1047-vetoed-2024",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "executive-veto",
+    "date": "2024-09-29",
+    "facts": {
+     "number": "SB 1047",
+     "executive": "Governor Gavin Newsom"
+    }
+   },
+   "bad": [
+    {
+     "why": "next step not in sheet (no next)",
+     "headline": "Newsom vetoes SB 1047",
+     "body": "Governor Gavin Newsom vetoed SB 1047 on September 29, 2024. Lawmakers will next try to override the veto."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:28.602Z",
+    "writer": [
+     {
+      "headline": "Governor Gavin Newsom vetoes California bill SB 1047",
+      "body": "Governor Gavin Newsom vetoed SB 1047 on September 29, 2024. The bill had passed both chambers of the California Legislature before the veto."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Governor Gavin Newsom vetoes California bill SB 1047",
+     "body": "Governor Gavin Newsom vetoed SB 1047 on September 29, 2024. The bill had passed both chambers of the California Legislature before the veto."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "va-hb797-signed",
+   "entry_key": "va-ch-425-426-jcots-study",
+   "event": {
+    "jurisdiction": "VA",
+    "class": "executive-signature",
+    "date": "2026-04-08",
+    "facts": {
+     "number": "HB 797",
+     "law_number": "Chapter 425"
+    }
+   },
+   "bad": [
+    {
+     "why": "money figure not in sheet",
+     "headline": "Virginia HB 797 approved by the Governor",
+     "body": "The Governor approved HB 797 on April 8, 2026 as Chapter 425. It funds a $2 million study."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:30.513Z",
+    "writer": [
+     {
+      "headline": "Virginia Governor signs HB 797 into law as Chapter 425",
+      "body": "The Governor signed HB 797 into law on April 8, 2026, as Chapter 425. The bill directs the Joint Commission on Technology and Science (JCOTS) to evaluate the feasibility and impact of developing a framework for IVOs assessing AI models' adherence to injury and property-damage prevention standards."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Virginia Governor signs HB 797 into law as Chapter 425",
+     "body": "The Governor signed HB 797 into law on April 8, 2026, as Chapter 425. The bill directs the Joint Commission on Technology and Science (JCOTS) to evaluate the feasibility and impact of developing a framework for IVOs assessing AI models' adherence to injury and property-damage prevention standards."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "pa-hr637-reported",
+   "entry_key": "pa-h-r-637-frontier-ai-resolution",
+   "event": {
+    "jurisdiction": "PA",
+    "class": "committee-passage",
+    "date": "2026-10-07",
+    "facts": {
+     "chamber": "House",
+     "number": "H.R. 637",
+     "committee": "House Communications and Technology Committee"
+    }
+   },
+   "bad": [
+    {
+     "why": "tally with no recorded vote",
+     "headline": "Pennsylvania committee reports H.R. 637",
+     "body": "The House Communications and Technology Committee voted 20-5 to report H.R. 637 on October 7, 2026. A vote of the full House is next."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:33.413Z",
+    "writer": [
+     {
+      "headline": "Pennsylvania House panel passes H.R. 637 on frontier AI models",
+      "body": "The House Communications and Technology Committee passed H.R. 637 on October 7, 2026. The non-binding resolution urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. The next step is a vote of the full House."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "Pennsylvania House panel passes H.R. 637 on frontier AI models",
+     "body": "The House Communications and Technology Committee passed H.R. 637 on October 7, 2026. The non-binding resolution urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. The next step is a vote of the full House."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "us-hr3447-hfac-42-0",
+   "entry_key": "chip-security-act-h-r-3447-cotton-companion",
+   "event": {
+    "jurisdiction": "US",
+    "class": "committee-passage",
+    "date": "2026-03-26",
+    "facts": {
+     "chamber": "House",
+     "number": "H.R. 3447",
+     "committee": "House Foreign Affairs Committee",
+     "vote": {
+      "yes": 42,
+      "no": 0
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "quotation not in sheet",
+     "headline": "House Foreign Affairs advances H.R. 3447",
+     "body": "The House Foreign Affairs Committee ordered H.R. 3447 reported 42-0 on March 26, 2026, calling it \"a vital safeguard\". A vote of the full House is next."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:35.709Z",
+    "writer": [
+     {
+      "headline": "House Foreign Affairs Committee passes H.R. 3447, the Chip Security Act, 42-0",
+      "body": "The House Foreign Affairs Committee passed H.R. 3447, the Chip Security Act, on March 26, 2026, by a vote of 42-0. The next step is a vote of the full House."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "House Foreign Affairs Committee passes H.R. 3447, the Chip Security Act, 42-0",
+     "body": "The House Foreign Affairs Committee passed H.R. 3447, the Chip Security Act, on March 26, 2026, by a vote of 42-0. The next step is a vote of the full House."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "ca-ballot-withdrawn",
+   "entry_key": "ca-ballot-initiative-25-0034-withdrawn",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "withdrawal",
+    "date": "2026-02-27",
+    "facts": {
+     "number": "Initiative 25-0034",
+     "title": "California ballot initiative 25-0034"
+    }
+   },
+   "bad": [
+    {
+     "why": "named proponent not in sheet + motive",
+     "headline": "Alexander Oldham withdraws California initiative 25-0034",
+     "body": "Initiative 25-0034 was withdrawn on February 27, 2026. The proponent withdrew it amid concerns about cost."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:17:38.211Z",
+    "writer": [
+     {
+      "headline": "California ballot initiative 25-0034 withdrawn",
+      "body": "California ballot initiative 25-0034 was withdrawn on February 27, 2026. No further step is listed for the measure."
+     },
+     {
+      "headline": "California Initiative 25-0034 withdrawn",
+      "body": "Initiative 25-0034 in California was withdrawn on February 27, 2026. No further step has been set for the measure."
+     }
+    ],
+    "reader": [],
+    "written_by": "template",
+    "card": null,
+    "review": null
+   }
+  },
+  {
+   "id": "review-ca-sb53-senate-30-10",
+   "entry_key": "ca-sb-53-tfaia",
+   "constructed": "vote and date are a constructed review sheet (independent review, 29 Oct)",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "passage",
+    "date": "2025-05-28",
+    "facts": {
+     "chamber": "Senate",
+     "number": "SB 53",
+     "vote": {
+      "yes": 30,
+      "no": 10
+     }
+    }
+   },
+   "bad": [
+    {
+     "why": "review 29 Oct: wrong chamber",
+     "headline": "California Assembly passes SB 53, 30-10",
+     "body": "The California Assembly passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: wrong chamber (body only)",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The Assembly approved SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: whole legislature for one chamber",
+     "headline": "California Legislature passes SB 53",
+     "body": "The California Legislature passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: both chambers for one chamber",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill has now passed both chambers."
+    },
+    {
+     "why": "review 29 Oct: lawmakers passed for one chamber",
+     "headline": "Lawmakers pass SB 53, 30-10",
+     "body": "Lawmakers passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: sent to governor",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025 and sent SB 53 to the governor. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: governor desk",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill is headed to the Governor's desk."
+    },
+    {
+     "why": "review 29 Oct: yesterday",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 yesterday by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: last week",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 last week by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: earlier this month",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "Earlier this month the California Senate passed SB 53 by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: recently",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate recently passed SB 53 by a vote of 30-10. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: signed into law",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. Governor Gavin Newsom signed it into law."
+    },
+    {
+     "why": "review 29 Oct: is now law",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. SB 53 is now law."
+    },
+    {
+     "why": "review 29 Oct: was enacted",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill was enacted."
+    },
+    {
+     "why": "review 29 Oct: opposite outcome: rejected",
+     "headline": "California Senate rejects SB 53, 30-10",
+     "body": "The California Senate rejected SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: opposite outcome: did not pass",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "SB 53 did not pass the California Senate on May 28, 2025, with a 30-10 vote. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: opposite outcome: failed",
+     "headline": "SB 53 fails in California Senate",
+     "body": "SB 53 failed in the California Senate by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: lowercase name",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. Governor newsom signed it."
+    },
+    {
+     "why": "review 29 Oct: lowercase name, no title",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. It was backed by wiener."
+    },
+    {
+     "why": "review 29 Oct: lowercase name with title, bill passed",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. It was authored by senator wiener."
+    },
+    {
+     "why": "review 29 Oct: supermajority",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a supermajority of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: after hours of debate",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "After hours of debate, the California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: second time it passed",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. It was the second time it passed. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: again",
+     "headline": "California Senate passes SB 53 again",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: narrowly",
+     "headline": "California Senate narrowly passes SB 53",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: comfortably",
+     "headline": "California Senate comfortably passes SB 53",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: unanimously on 30-10",
+     "headline": "California Senate unanimously passes SB 53",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The next step is consideration in the Assembly."
+    },
+    {
+     "why": "review 29 Oct: vetoed on passage",
+     "headline": "California Senate passes SB 53, 30-10",
+     "body": "The California Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The Governor vetoed it."
+    },
+    {
+     "why": "review 29 Oct: no outcome stated",
+     "headline": "SB 53 in the California Senate",
+     "body": "SB 53 was before the California Senate on May 28, 2025, with a 30-10 tally. The next step is consideration in the Assembly."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:58:40.528Z",
+    "writer": [
+     {
+      "headline": "California Senate passes SB 53 by 30-10 vote",
+      "body": "The California Senate passed SB 53 on May 28, 2025, by a vote of 30-10. The bill, also known as CA SB 53 (TFAIA), next moves to consideration in the Assembly. It sets critical-incident reporting within 15 days, or within 24 hours if there is imminent risk of death or serious injury."
+     },
+     {
+      "headline": "California SB 53 passes the Senate 30-10",
+      "body": "The Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill next moves to consideration in the Assembly."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "California SB 53 passes the Senate 30-10",
+     "body": "The Senate passed SB 53 by a vote of 30-10 on May 28, 2025. The bill next moves to consideration in the Assembly."
+    },
+    "review": "ok"
+   }
+  },
+  {
+   "id": "review-ca-sb53-receipt",
+   "entry_key": "ca-sb-53-tfaia",
+   "constructed": "date is a constructed review sheet (independent review, 29 Oct)",
+   "event": {
+    "jurisdiction": "CA",
+    "class": "executive-receipt",
+    "date": "2025-09-15",
+    "facts": {
+     "number": "SB 53"
+    }
+   },
+   "bad": [
+    {
+     "why": "review 29 Oct: receipt written as signed",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to the Governor on September 15, 2025. The Governor signed it into law."
+    },
+    {
+     "why": "review 29 Oct: receipt written as law",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was presented to the Governor on September 15, 2025. It became law."
+    },
+    {
+     "why": "review 29 Oct: receipt written as vetoed",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to the Governor on September 15, 2025. The Governor vetoed it."
+    },
+    {
+     "why": "review 29 Oct: receipt: tomorrow",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to the Governor on September 15, 2025. Action by the Governor is due tomorrow."
+    },
+    {
+     "why": "review 29 Oct: receipt: lowercase name",
+     "headline": "California SB 53 sent to the Governor",
+     "body": "SB 53 was sent to governor newsom on September 15, 2025. Action by the Governor is next."
+    }
+   ],
+   "recorded": {
+    "at": "2026-10-29T04:58:44.506Z",
+    "writer": [
+     {
+      "headline": "California SB 53 (TFAIA) sent to the Governor",
+      "body": "California SB 53, also known as the TFAIA, was sent to the Governor on September 15, 2025, after passing both chambers. The next step is action by the Governor."
+     }
+    ],
+    "reader": [
+     {
+      "faithful": true,
+      "added_or_overstated": []
+     }
+    ],
+    "written_by": "ai",
+    "card": {
+     "headline": "California SB 53 (TFAIA) sent to the Governor",
+     "body": "California SB 53, also known as the TFAIA, was sent to the Governor on September 15, 2025, after passing both chambers. The next step is action by the Governor."
+    },
+    "review": "ok"
+   }
+  }
+ ],
+ "models": {
+  "generator": "claude-haiku-5-5",
+  "validator": "claude-haiku-5-5"
+ }
+}

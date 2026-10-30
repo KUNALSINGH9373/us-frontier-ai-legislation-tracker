@@ -1,0 +1,216 @@
+{
+ "item": {
+  "item_id": "legiscan:9990052",
+  "source": "legiscan",
+  "source_id": "9990052",
+  "entry_key": null,
+  "change": "new",
+  "reason": "discovery",
+  "source_url": "https://www.njleg.state.nj.us/bill-search/2026/SR52",
+  "fetched_at": "2026-10-13T07:20:05Z",
+  "raw_hash": "58bbdceb24ce8675a0a9b8d8f7fa5ae2512acbf3c2f33977d33857d996d97e44",
+  "raw_path": "x",
+  "title": "NJ S4999: Urges generative artificial intelligence companies to make voluntary commitments regarding employee whistleblower protections."
+ },
+ "raw": {
+  "id": "2077383",
+  "search_hit": {
+   "search": "precise",
+   "relevance": 8,
+   "intent": null
+  },
+  "bill": {
+   "bill_id": 9990052,
+   "change_hash": "04af04a587f45ae1a3482741ac852b8e",
+   "session_id": 2250,
+   "session": {
+    "session_id": 2250,
+    "state_id": 30,
+    "year_start": 2026,
+    "year_end": 2027,
+    "prefile": 0,
+    "sine_die": 0,
+    "prior": 0,
+    "special": 0,
+    "session_tag": "Regular Session",
+    "session_title": "2026-2027 Regular Session",
+    "session_name": "2026-2027 Regular Session"
+   },
+   "url": "https://legiscan.com/NJ/bill/SR52/2026",
+   "state_link": "https://www.njleg.state.nj.us/bill-search/2026/SR52",
+   "completed": 0,
+   "status": 1,
+   "status_date": "2026-01-13",
+   "progress": [
+    {
+     "date": "2026-01-13",
+     "event": 1
+    },
+    {
+     "date": "2026-01-13",
+     "event": 9
+    }
+   ],
+   "state": "NJ",
+   "state_id": 30,
+   "bill_number": "S4999",
+   "bill_type": "B",
+   "bill_type_id": "1",
+   "body": "S",
+   "body_id": 70,
+   "current_body": "S",
+   "current_body_id": 70,
+   "title": "Urges generative artificial intelligence companies to make voluntary commitments regarding employee whistleblower protections.",
+   "description": "Urges generative artificial intelligence companies to make voluntary commitments regarding employee whistleblower protections.",
+   "pending_committee_id": 881,
+   "committee": {
+    "committee_id": 881,
+    "chamber": "S",
+    "chamber_id": 70,
+    "name": "Labor"
+   },
+   "referrals": [
+    {
+     "date": "2026-01-13",
+     "committee_id": 881,
+     "chamber": "S",
+     "chamber_id": 70,
+     "name": "Labor"
+    }
+   ],
+   "history": [
+    {
+     "date": "2026-01-13",
+     "action": "Introduced in the Senate, Referred to Senate Labor Committee",
+     "chamber": "S",
+     "chamber_id": 70,
+     "importance": 1
+    }
+   ],
+   "sponsors": [
+    {
+     "people_id": 16150,
+     "person_hash": "c7wvrvjh",
+     "party_id": "1",
+     "state_id": 30,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Raj Mukherji",
+     "first_name": "Raj",
+     "middle_name": "",
+     "last_name": "Mukherji",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-032",
+     "ftm_eid": 6422591,
+     "votesmart_id": 144606,
+     "opensecrets_id": "",
+     "knowwho_pid": 455829,
+     "ballotpedia": "Raj_Mukherji",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 1,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0
+    },
+    {
+     "people_id": 16148,
+     "person_hash": "9us27g50",
+     "party_id": "1",
+     "state_id": 30,
+     "party": "D",
+     "role_id": 1,
+     "role": "Rep",
+     "name": "Joseph Lagana",
+     "first_name": "Joseph",
+     "middle_name": "A.",
+     "last_name": "Lagana",
+     "suffix": "",
+     "nickname": "",
+     "district": "SD-038",
+     "ftm_eid": 18930609,
+     "votesmart_id": 145269,
+     "opensecrets_id": "",
+     "knowwho_pid": 465666,
+     "ballotpedia": "Joseph_Lagana",
+     "bioguide_id": "",
+     "sponsor_type_id": 1,
+     "sponsor_order": 2,
+     "committee_sponsor": 0,
+     "committee_id": 0,
+     "state_federal": 0
+    }
+   ],
+   "sasts": [
+    {
+     "type_id": 9,
+     "type": "Carry Over",
+     "sast_bill_number": "SR121",
+     "sast_bill_id": 1897803
+    },
+    {
+     "type_id": 9,
+     "type": "Carry Over",
+     "sast_bill_number": "AR158",
+     "sast_bill_id": 1887538
+    }
+   ],
+   "subjects": [
+    {
+     "subject_id": 2557,
+     "subject_name": "Labor"
+    }
+   ],
+   "texts": [
+    {
+     "doc_id": 3314386,
+     "date": "2026-01-07",
+     "type": "Introduced",
+     "type_id": 1,
+     "mime": "text/html",
+     "mime_id": 1,
+     "url": "https://legiscan.com/NJ/text/SR52/id/3314386",
+     "state_link": "https://pub.njleg.gov/Bills/2026/SR/52_I1.HTM",
+     "text_size": 17316,
+     "text_hash": "bc43e4e9915244396d8f02dcbd01d49b",
+     "alt_bill_text": 1,
+     "alt_mime": "application/pdf",
+     "alt_mime_id": 2,
+     "alt_state_link": "https://pub.njleg.gov/Bills/2026/SR/52_I1.PDF",
+     "alt_text_size": 198620,
+     "alt_text_hash": "0a23c8bb43318c1b9150c3ffd9a5057a"
+    }
+   ],
+   "amendments": [],
+   "supplements": []
+  },
+  "derived": {
+   "status": "pending",
+   "events": [
+    {
+     "date": "2026-01-13",
+     "precision": "day",
+     "type": "Introduced / published",
+     "text": "Introduced in the Senate, Referred to Senate Labor Committee",
+     "chamber": "S"
+    }
+   ]
+  },
+  "text": "SENATE, No. 4999 \r\n\r\n\r\n\r\nSTATE OF NEW JERSEY\r\n\r\n222nd LEGISLATURE\r\n\r\n\r\n\r\nPRE-FILED FOR INTRODUCTION IN THE 2026 SESSION\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nSponsored by:\r\n\r\nSenator RAJ MUKHERJI\r\n\r\nDistrict 32 (Hudson)\r\n\r\nSenator JOSEPH A. LAGANA\r\n\r\nDistrict 38 (Bergen)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nSYNOPSIS\r\n\r\nUrges generative artificial intelligence companies to\r\nmake voluntary commitments regarding employee whistleblower protections.\r\n\r\n\r\n\r\nCURRENT VERSION OF TEXT \r\n\r\nIntroduced Pending Technical Review by Legislative\r\nCounsel.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nA Senate measure urging generative artificial\r\nintelligence companies to make voluntary commitments regarding employee\r\nwhistleblower protections.\r\n\r\n\r\n\r\nWhereas,\r\nArtificial intelligence technology has the potential to provide unprecedented\r\nbenefits to humanity, but it also poses serious risks; and \r\n\r\nWhereas,\r\nThe risks associated with artificial intelligence technology are of grave\r\nconcern and range from the further entrenchment of existing inequalities, to the\r\nmanipulation and dissemination of misinformation; and\r\n\r\nWhereas,\r\nMany risks associated with artificial intelligence are currently unregulated,\r\nand existing whistleblower protections are inadequate to protect employees from\r\nretaliation for disclosing information regarding company risk-related concerns;\r\nand\r\n\r\nWhereas,\r\nIn the absence of government oversight, employees of artificial intelligence\r\ncompanies possess the most comprehensive knowledge of the risks involved and\r\nare among the few individuals capable of holding the companies accountable; and\r\n\r\nWhereas,\r\nBroad confidentiality agreements prevent employees of artificial intelligence\r\ncompanies from voicing concerns beyond the company failing to address the\r\nissues; and \r\n\r\nWhereas,\r\nArtificial intelligence companies such as OpenAI, Anthropic, and Google have\r\nalso acknowledged the risks posed by artificial intelligence technology; and\r\n\r\nWhereas,\r\nIndependent evaluation is critical to identifying the risk posed by artificial\r\nintelligence systems, yet the terms of service and enforcement strategies used\r\nby artificial intelligence companies disincentive good faith safety evaluations\r\nfor fear of legal reprisal or account suspension; and\r\n\r\nWhereas,\r\nTo varying degrees, artificial companies provide legal safe harbor for system\r\nevaluation for security research but do not include technical safe harbor for\r\ngood faith research that may lead to account termination, such as evaluating\r\nsystems on the generation of hate speech, misinformation, or abusive imagery,\r\nthereby inhibiting the discovery of all forms of system flaws; and\r\n\r\nWhereas,\r\nGoogle, OpenAI, Microsoft, Anthropic, Amazon, and Meta participate in the\r\nFrontier Model Forum, enabling cross-organizational collaboration on artificial\r\nintelligence safety and responsibility and enabling independent, standardized\r\nevaluations, but do not address concerns of unbiased assessment that would be\r\nafforded through both legal and technical safe harbor; and\r\n\r\nWhereas,\r\nThe risks of artificial intelligence may be mitigated by the commitment of\r\nartificial intelligence companies to certain principles concerning employee\r\nprotections, transparency, and safety; now, therefore,\r\n\r\n\r\nBe It\r\nResolved by the Senate of the State of New\r\nJersey:\r\n\r\n\r\n\r\n1. This House urges\r\ngenerative artificial intelligence companies to commit to the following\r\nprinciples:\r\n\r\na. The company shall not\r\nenter into or enforce any agreement prohibiting disparagement or criticism of\r\nthe company for risk-related concerns or retaliate for risk-related criticism\r\nby hindering any vested economic benefit;\r\n\r\nb. The company shall\r\nfacilitate a verifiably anonymous process for current and former employees to\r\nraise risk-related concerns to the company board, to regulators, and to an\r\nappropriate independent organization with relevant expertise;\r\n\r\nc. The company shall\r\nsupport a culture of open criticism and allow current and former employees to\r\nraise risk-related concerns about its technologies to the public, to the\r\ncompany board, to regulators, or an appropriate independent organization with\r\nrelevant expertise, so long as trade secrets and other intellectual property\r\ninterests are appropriately protected;\r\n\r\nd. The company shall\r\nprovide legal and technical safe harbor for good faith system evaluation,\r\nensuring safety from legal reprisal, account suspension, or termination, while\r\nmaintaining the protection of trade secrets and other intellectual property. Safe\r\nharbor should enable independent identification of all forms of risks posed by\r\nartificial intelligence systems;\r\n\r\ne. The company shall not\r\nretaliate against current and former employees who publicly share risk-related\r\nconfidential information after other processes have failed; and\r\n\r\nf. Employees shall retain\r\nthe freedom to publicly report concerns until the creation of an appropriate\r\nprocess for anonymously reporting concerns to the company board, regulators,\r\nand an independent organization with relevant expertise. Any effort to report\r\nrisk-related concerns should avoid releasing confidential information\r\nunnecessarily. \r\n\r\n\r\n\r\n2. Copies of this\r\nresolution, as filed with the Secretary of State, shall be transmitted by the Secretary\r\nof the Senate to the Chief Executive Officers of leading generative artificial\r\nintelligence companies including, but not limited to, OpenAI, Anthropic,\r\nGoogle, Inflection, Meta, Midjourney, and Cohere.\r\n\r\n\r\n\r\n\r\n\r\nSTATEMENT\r\n\r\n\r\n\r\nThis resolution urges generative\r\nartificial intelligence companies to make voluntary commitments to protect\r\nemployees who raise risk-related concerns.\r\n\r\nArtificial intelligence\r\ntechnology has the potential to provide unprecedented benefits to humanity but\r\nalso poses serious risks, such as perpetuating inequalities, manipulation and\r\nmisinformation, and the potential loss of control of autonomous artificial\r\nintelligence systems. Many risks associated with artificial intelligence\r\nare currently unregulated, and existing whistleblower protections are\r\ninadequate to protect employees from retaliation for publicly disclosing\r\nconcerns. \r\n\r\nIn the absence of government\r\noversight, employees of artificial intelligence companies are among the few\r\nindividuals capable of holding the companies accountable. However, broad\r\nconfidentiality agreements prevent employees from voicing concerns beyond the\r\ncompany failing to address the issues. \r\n\r\nAdditionally, independent\r\nevaluation is critical to identifying the risk posed by artificial intelligence\r\nsystems, but is stymied by the lack of both legal and technical safe harbor,\r\nwithout which evaluators face legal reprisal or account suspension or\r\ntermination. Legal safe harbor protects evaluators from legal reprisal, and\r\ntechnical safe harbor protects evaluators from account suspension or\r\ntermination.\r\n\r\nThe resolution urges generative\r\nartificial intelligence companies to make voluntary commitments to mitigate the\r\nrisks of artificial intelligence by adhering to the following principles:\r\n\r\n(1) The company will not\r\nenter into or enforce any agreement prohibiting disparagement or criticism of\r\nthe company for risk-related concerns or retaliate for risk-related criticism\r\nby hindering any vested economic benefit;\r\n\r\n(2) The company will\r\nfacilitate a verifiably anonymous process for current and former employees to\r\nraise risk-related concerns to the company board, to regulators, and to an\r\nappropriate independent organization with relevant expertise;\r\n\r\n(3) The company will support\r\na culture of open criticism and allow current and former employees to raise\r\nrisk-related concerns about its technologies to the public, to the company\r\nboard, to regulators, or to an appropriate independent organization with relevant\r\nexpertise, so long as trade secrets and other intellectual property interests\r\nare appropriately protected;\r\n\r\n(4) The company will provide\r\nlegal and technical safe harbor for good faith system evaluation, ensuring\r\nsafety from legal reprisal, account suspension, or termination, while\r\nmaintaining the protection of trade secrets and other intellectual property. \r\nSafe harbor should enable independent identification of all forms of risks\r\nposed by artificial intelligence systems;\r\n\r\n(5) The company will not\r\nretaliate against current and former employees who publicly share risk-related\r\nconfidential information after other processes have failed. \r\n\r\n(6) Current and former\r\nemployees should retain the freedom to publicly report concerns until the\r\ncreation of an adequate process for anonymously raising concerns. Efforts to\r\nreport risk-related concerns should avoid releasing confidential information\r\nunnecessarily.",
+  "text_truncated": false,
+  "text_missing": false,
+  "text_version": {
+   "doc_id": 3314386,
+   "date": "2026-01-07",
+   "type": "Introduced",
+   "mime": "text/html",
+   "state_link": "https://pub.njleg.gov/Bills/2026/SR/52_I1.HTM",
+   "from": "legiscan"
+  },
+  "frontier_markers": [
+   "frontier model"
+  ]
+ }
+}

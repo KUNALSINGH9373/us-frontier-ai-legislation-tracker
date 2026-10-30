@@ -1,0 +1,169 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Education and Workforce Subcommittee on Higher Education and Workforce Development",
+                "systemCode": "hsed13",
+                "url": "https://api.congress.gov/v3/committee/house/hsed13?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2025-03-05T15:15:00Z",
+        "eventId": "117960",
+        "hearingTranscript": [
+            {
+                "jacketNumber": 60918,
+                "url": "https://api.congress.gov/v3/hearing/119/house/60918?format=json"
+            }
+        ],
+        "isManuallyCurated": true,
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2175"
+        },
+        "meetingDocuments": [
+            {
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Mr. Robert Sainz | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117960/documents/HHRG-119-ED13-20250305-QFR001-U1.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Mark DeSaulnier | Submission for the Record | FRBSF Economic Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117960/documents/HHRG-119-ED13-20250305-SD001.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Burgess Owens | Submission for the Record | NRF Letter of Support",
+                "url": "https://www.congress.gov/119/meeting/house/117960/documents/HHRG-119-ED13-20250305-SD002.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Alma Adams | Submission for the Record | Bipartisan Opportunity Youth Coalition Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117960/documents/HHRG-119-ED13-20250305-SD003.pdf"
+            },
+            {
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Rep. Tim Walberg | Submission for the Record | Jobs and Careers Coalition Letter",
+                "url": "https://www.congress.gov/119/meeting/house/117960/documents/HHRG-119-ED13-20250305-SD004.pdf"
+            },
+            {
+                "documentType": "Hearing: Questions for the Record",
+                "format": "PDF",
+                "name": "Mr. Robert Sainz | Questions and Responses for the Record",
+                "url": "https://www.congress.gov/119/meeting/house/117960/documents/HHRG-119-ED13-20250305-QFR001.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "\"Strengthening WIOA: Improving Outcomes for America's Workforce\"",
+        "type": "Hearing",
+        "updateDate": "2026-10-19T15:40:59Z",
+        "videos": [
+            {
+                "name": "Strengthening WIOA: Improving Outcomes for America's Workforce",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/117960"
+            },
+            {
+                "name": "Strengthening WIOA: Improving Outcomes for America's Workforce",
+                "url": "https://www.youtube.com/watch?v=4kp3S_R5fmU"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-TTF-MoretS-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Bio-MoretS-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Bio-DodgeM-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Bio-SainzR-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-TTF-DodgeM-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-TTF-SainzR-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Wstate-MoretS-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Wstate-DodgeM-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Wstate-SainzR-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-TTF-MooreN-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Bio-MooreN-20250305.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/117960/witnesses/HHRG-119-ED13-Wstate-MooreN-20250305.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Dr. Stephen Moret",
+                "organization": "Strada Education Foundation",
+                "position": "President and Chief Executive Officer"
+            },
+            {
+                "name": "Ms. Molly Dodge",
+                "organization": "Ivy Tech Community College",
+                "position": "Senior Vice President of Workforce and Careers"
+            },
+            {
+                "name": "Mr. Robert Sainz",
+                "organization": "National Youth Employment Coalition",
+                "position": "President, Board of Directors"
+            },
+            {
+                "name": "Mr. Nicholas Moore",
+                "organization": "Office of the Governor of Alabama",
+                "position": "Director, Office of Education and Workforce Transformation"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "117960",
+        "format": "json"
+    }
+}

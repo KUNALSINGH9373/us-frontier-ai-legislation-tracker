@@ -1,0 +1,13 @@
+{
+ "recorded_at": "2026-10-29T04:12:40.134Z",
+ "responses": {
+  "https://api.regulations.gov/v4/documents?filter%5BsearchTerm%5D=artificial+intelligence&filter%5BcommentEndDate%5D%5Bge%5D=2026-10-15&page%5Bsize%5D=250&sort=-postedDate": {
+   "file": "r1.json",
+   "status": 200
+  },
+  "https://api.regulations.gov/v4/documents?filter%5BsearchTerm%5D=super+intelligence&filter%5BcommentEndDate%5D%5Bge%5D=2026-10-15&page%5Bsize%5D=250&sort=-postedDate": {
+   "file": "r2.json",
+   "status": 200
+  }
+ }
+}

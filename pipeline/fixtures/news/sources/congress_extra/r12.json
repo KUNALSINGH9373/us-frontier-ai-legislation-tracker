@@ -1,0 +1,187 @@
+{
+    "committeeMeeting": {
+        "chamber": "House",
+        "committees": [
+            {
+                "name": "House Financial Services",
+                "systemCode": "hsba00",
+                "url": "https://api.congress.gov/v3/committee/house/hsba00?format=json"
+            }
+        ],
+        "congress": 119,
+        "date": "2026-03-17T14:00:00Z",
+        "eventId": "119049",
+        "location": {
+            "building": "Rayburn House Office Building",
+            "room": "2128"
+        },
+        "meetingDocuments": [
+            {
+                "description": "Notice",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Notice",
+                "url": "https://www.congress.gov/119/meeting/house/119049/documents/HHRG-119-BA00-20260317-SD001.pdf"
+            },
+            {
+                "description": "Memorandum",
+                "documentType": "Support Document",
+                "format": "PDF",
+                "name": "Memorandum",
+                "url": "https://www.congress.gov/119/meeting/house/119049/documents/HHRG-119-BA00-20260317-SD002.pdf"
+            },
+            {
+                "description": "H.R.____, a bill to make improvements to title V of the Gramm-Leach-Bliley\r\nAct, and for other purposes",
+                "documentType": "Bills and Resolutions",
+                "format": "PDF",
+                "name": "H.R.____, a bill to make improvements to title V of the Gramm-Leach-Bliley\r\nAct, and for other purposes",
+                "url": "https://www.congress.gov/119/meeting/house/119049/documents/BILLS-119pih-makesimprovementstoTitleVoftheGLBAt.pdf"
+            }
+        ],
+        "meetingStatus": "Scheduled",
+        "title": "Updating America’s Financial Privacy Framework for the 21st Century",
+        "type": "Hearing",
+        "updateDate": "2026-10-19T21:03:24Z",
+        "videos": [
+            {
+                "name": "Hearing Entitled: Updating America’s Financial Privacy Framework for the 21st Century",
+                "url": "https://www.congress.gov/event/119th-Congress/house-event/119049"
+            },
+            {
+                "name": "Hearing Entitled: Updating America’s Financial Privacy Framework for the 21st Century",
+                "url": "https://www.youtube.com/watch?v=bNgfFr5TW8s"
+            }
+        ],
+        "witnessDocuments": [
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Bio-TaylorN-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Wstate-TaylorN-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-TTF-TaylorN-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Bio-TaylorN-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Wstate-TaylorN-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-TTF-TaylorN-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Bio-BomsS-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Wstate-BomsS-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-TTF-BomsS-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Bio-CrenshawJ-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Wstate-CrenshawJ-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-TTF-CrenshawJ-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Wstate-KimC-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-TTF-KimC-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Bio-MacCleeryL-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Statement",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Wstate-MacCleeryL-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Truth in Testimony",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-TTF-MacCleeryL-20260317.pdf"
+            },
+            {
+                "documentType": "Witness Biography",
+                "format": "PDF",
+                "url": "https://www.congress.gov/119/meeting/house/119049/witnesses/HHRG-119-BA00-Bio-KimC-20260317-U1.pdf"
+            }
+        ],
+        "witnesses": [
+            {
+                "name": "Mr. Nathan Taylor",
+                "organization": "Morrison Foerster",
+                "position": "Partner"
+            },
+            {
+                "name": "Ms. Laura MacCleery",
+                "organization": "Policy and Advocacy, UnidosUS",
+                "position": "Senior Director"
+            },
+            {
+                "name": "Ms. Clara Kim",
+                "organization": "Bank Policy Institute",
+                "position": "Senior Vice President"
+            },
+            {
+                "name": "Mr. Jordan Crenshaw",
+                "organization": "Technology Engagement Center, U.S. Chamber of Commerce",
+                "position": "Senior Vice President"
+            },
+            {
+                "name": "Mr. Nathan Taylor",
+                "organization": "Morrison Foster",
+                "position": "Partner"
+            },
+            {
+                "name": "Mr. Steve Boms",
+                "organization": "Financial Data and Technology Association",
+                "position": "Executive Director"
+            }
+        ]
+    },
+    "request": {
+        "chamber": "house",
+        "congress": "119",
+        "contentType": "application/json",
+        "eventId": "119049",
+        "format": "json"
+    }
+}

@@ -60,7 +60,8 @@ function done(rep) {
   }
   const nw = rep.news;
   if (nw && nw.ran) {
-    if (nw.drafted.length) L.push(`<b>News drafted (${nw.drafted.length})</b>`, `<i>${nw.drafted.some((d) => d.written) ? 'from official releases, published' : nw.publishing ? 'not published (see the text report)' : 'not published: switched off'}</i>`, ...bullets(nw.drafted, 4, (d) => `▸ ${esc(clip(d.title, 34))}\n      <i>${esc(clip(d.publisher, 30))}</i>`), '');
+    if (nw.events && (nw.events.added.length || nw.events.confirmed.length)) L.push(`<b>News events</b>`, `<i>${nw.events.added.length} new, ${nw.events.confirmed.length} confirmed, ${nw.events.pending} pending</i>`, '');
+    if (nw.drafted.length) L.push(`<b>News items (${nw.drafted.length})</b>`, `<i>${nw.drafted.some((d) => d.written) ? 'from official records, published' : nw.publishing ? 'not published (see the text report)' : 'not published: switched off'}</i>`, ...bullets(nw.drafted, 4, (d) => `▸ ${esc(clip(d.title, 34))}\n      <i>${esc(clip(d.publisher, 30))}</i>`), '');
     if (nw.leads.length) L.push(`<b>News leads (${nw.leads.length})</b>`, '<i>not published</i>', ...bullets(nw.leads, 4, (l) => `▸ ${esc(clip(l.title, 34))}\n      <i>${esc(clip(l.publisher, 30))}</i>`), '');
   }
   L.push(numbers(rep));

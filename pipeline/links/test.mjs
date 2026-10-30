@@ -49,7 +49,7 @@ const proseEdges = (r) => r.proposals.map(edgeOf);
 {
   const b = backtest({ entries: real.entries, relationships: real.relationships });
   ok('1 the code proposer makes no false link, no wrong direction and no wrong label on the real network (strict scoring)', errorsOf(b) === 0, [...b.falseLinks, ...b.wrongDirection, ...b.wrongLabel].map((f) => `${f.from} -> ${f.to} ${f.label}`).join(', '));
-  ok('1 the only conflict is NYTERM -> RAISE against the hand-written RAISE -> NYTERM, whose label names its own from', b.conflicts.length === 1 && b.conflicts[0].from === 'NYTERM' && b.conflicts[0].to === 'RAISE', JSON.stringify(b.conflicts.map((c) => c.from + '>' + c.to)));
+  ok('1 no conflicts with the hand-written network (its NYTERM -> RAISE edge was flipped to the amender -> amended direction on 29 Oct 2026)', b.conflicts.length === 0, JSON.stringify(b.conflicts.map((c) => c.from + '>' + c.to)));
   ok('1 it recovers at least the 24 links it recovered on 28 Oct 2026 with full-name sponsor matching (23 sponsors, 1 amendment)', b.recovered.size >= 24, `recovered ${b.recovered.size}`);
   ok('1 every succession link it recovers is a bill amending the RAISE Act', [...b.recovered].filter((k) => k.endsWith('|succession')).every((k) => k.includes('RAISE')));
   const fresh = backtest({ entries: real.entries, relationships: real.relationships, asNew: true });
