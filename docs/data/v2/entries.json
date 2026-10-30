@@ -587,7 +587,7 @@
   "title": "H.5576 — \"An Act relative to economic development in the commonwealth\" (Senate AI language = amendment S.3178; lineage: S.37 → S.2630 → S.3178)",
   "short_name": "MA H.5576 / S.3178",
   "sponsor_text": "Sen. Barry Finegold (D); Sen. Mike Rush amendment for stronger evaluations",
-  "mechanism": "Frontier AI framework; risk reports every 180 days; critical safety incidents reported to AG within 15 days (24 hours if imminent risk of death); annual independent third-party audit; AG civil-action enforcement, up to $1,000,000 first violation, $3,000,000 subsequent; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections; commission on further AI regulation. Chapter 93M effective July 1, 2027. House version (passed July 8) contains no AI-safety language — only funding.",
+  "mechanism": "Frontier AI framework; risk reports every 180 days; critical safety incidents reported to AG within 15 days (24 hours if imminent risk of death); annual independent third-party audit; AG civil-action enforcement, up to $1,000,000 first violation, $3,000,000 subsequent; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections (covered employees may petition superior court for injunctive relief; court may award attorney's fees and court costs to a successful plaintiff); commission on further AI regulation. Chapter 93M effective July 1, 2027. House version (passed July 8) contains no AI-safety language — only funding.",
   "thresholds": "Senate text: frontier model = foundation model trained using >10^26 integer or floating-point operations (including fine-tuning and other modifications); large frontier developer = >$500,000,000 annual gross revenues together with affiliates; catastrophic risk 50+ deaths or $1B",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [PENDING] House passed 148-2 July 8; Senate struck all after the enacting clause and inserted S.3178 text July 24 (reprinted as S.3228); House non-concurred July 30; conference committee appointed July 30 (Senate: Finegold-Rodrigues-Durant; House: Michlewitz-Fiola-Soter). Official bill history checked live Sept 4, 2026: no action since July 30. Formal session ended July 31; informal sessions can still act but can't override a veto. Not enacted. Bill history re-checked Sept 28, 2026: still no action since July 30. OpenAI lobbying for IL-style annual audits; Anthropic for the stronger Rush amendment",
@@ -673,6 +673,11 @@
     "label": "S.3178 fact sheet",
     "url": "https://malegislature.gov/PressRoom/Detail?pressReleaseId=1445",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://malegislature.gov/Bills/194/S3228",
+    "kind": "primary"
    }
   ],
   "source_label": "H.5576 bill history — malegislature.gov · S.2630 text · S.3178 fact sheet",
@@ -685,13 +690,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-10-30T00:05:47Z",
+   "run_id": "update-20261030-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-30",
+  "last_changed": "2026-10-30",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-5576-an-act-relative-to-economic-development-in-the-commonwealth-sen",
    "section_name": "Pending, stalled and failed state bills"
@@ -789,6 +796,29 @@
    "chars": 630351,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "In a civil action brought pursuant to this section, a covered employee may petition",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The court may award reasonable attorney’s fees and court costs to a plaintiff who",
+    "source_url": "https://malegislature.gov/Bills/194/S3228"
+   }
+  ],
+  "identifiers": {
+   "session": "194th General Court",
+   "external": {
+    "legiscan": [
+     2155731,
+     2155977,
+     1998184,
+     2046676
+    ]
+   }
   }
  },
  {
@@ -3662,7 +3692,7 @@
   "title": "S.B. 5 / Public Act 26-15 — IVO pilot program",
   "short_name": "CT P.A. 26-15 IVO pilot",
   "sponsor_text": "Sen. Martin M. Looney (D), lead sponsor, with co-sponsors",
-  "mechanism": "A Department of Consumer Protection-administered IVO pilot program (Sec. 33, effective July 1, 2027) through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation (admissible solely in private personal-injury or property-damage actions; not in AG or state-agency enforcement actions). DCP must evaluate the pilot by Dec. 31, 2028 with UConn's Institute for Municipal and Regional Policy. This is an operating pilot, not merely a study",
+  "mechanism": "A Department of Consumer Protection-administered IVO pilot program (Sec. 33, effective July 1, 2027) through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation (admissible solely in private personal-injury or property-damage actions; not in AG or state-agency enforcement actions, nor presumption, inference or defense there). Except: wilful, wanton or reckless conduct; misrepresentation; failure to implement corrective action. DCP must evaluate the pilot by Dec. 31, 2028 with UConn's Institute for Municipal and Regional Policy. This is an operating pilot, not merely a study",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Enacted May 27, 2026",
@@ -3684,6 +3714,11 @@
     "label": "Enacted text — cga.ct.gov",
     "url": "https://www.cga.ct.gov/2026/act/pa/pdf/2026PA-00015-R00SB-00005-PA.pdf",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+    "kind": "primary"
    }
   ],
   "source_label": "Enacted text — cga.ct.gov",
@@ -3696,16 +3731,48 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-10-30T00:05:47Z",
+   "run_id": "update-20261030-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-30",
+  "last_changed": "2026-10-30",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-5-public-act-26-15-ivo-pilot-program-r",
    "section_name": "State IVO / AI-auditor licensing measures"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "nor shall it give rise to any presumption, inference or defense in any such action",
+    "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Acted in a wilful, wanton or reckless manner",
+    "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Materially misrepresented information to the independent",
+    "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Failed to implement any corrective action required by the",
+    "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
+   }
+  ],
+  "identifiers": {
+   "session": "2026 General Assembly",
+   "external": {
+    "legiscan": [
+     2106638
+    ]
+   }
   }
  },
  {

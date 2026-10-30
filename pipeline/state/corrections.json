@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-10-29",
+ "last_run": "2026-10-30",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -117,12 +117,13 @@
    "retries": 0
   },
   "mn-hf-4532-no-threshold": {
-   "text_sha": "96d1c1cd8fdb7d1f2150050e99e4939339276211dd87ac008f3d09f6e4ba9424",
+   "text_sha": "6c010c6fcb7b3afed6a886f7049297c732068a3211446aa96c47e16e333c61d5",
    "text_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
-   "retry": false,
-   "retries": 0
+   "checked_at": "2026-10-30",
+   "outcome": "rejected",
+   "retry": true,
+   "retries": 1,
+   "reason": "the confirmer's quote is not in the source"
   },
   "pa-h-r-637-frontier-ai-resolution": {
    "text_sha": "bda716c6ba80ca5f07c57ba4941a6938149393a8412ffcbde37a101a677e655d",
@@ -349,18 +350,19 @@
    "retries": 0
   },
   "ma-h-5576-s-3178": {
-   "text_sha": "32ef365b4c8ea2f070f94a17d4209720f59dfe22559ae813e110f3ed572dfc48",
+   "text_sha": "6b934d5737e6ed571d80ee5292a1c580dd43bda7c33796aa4e3c87a85aa838de",
    "text_url": "https://malegislature.gov/Bills/194/S3228",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-10-30",
+   "outcome": "corrected",
    "retry": false,
-   "retries": 0
+   "retries": 0,
+   "reason": "not confirmed: The problem is real, but the proposed text overstates and misstates the source: it says 'violent crimes' although the source lists murder, assault, extortion or theft (including theft by false pretense), and it omits 'serious injury' and property loss."
   },
   "ct-p-a-26-15-ivo-pilot": {
-   "text_sha": "9c7c31309ca9ff903f258c7f46f94cd737dfcff20d55ae413e1f4647816cb5b1",
+   "text_sha": "ba1a93117f1b4a0075273219c7b15d100abe8b77e483995d7ae46e25ea01ffcc",
    "text_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-10-30",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
