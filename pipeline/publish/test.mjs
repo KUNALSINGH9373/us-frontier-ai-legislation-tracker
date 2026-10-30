@@ -270,8 +270,9 @@ function tierA({ key = KEY, editEntry = () => {}, latest = null, actions = [], r
   const S = ['pending', 'stalled', 'enacted', 'failed', 'executive', 'litigation', 'export', 'excluded'];
   const moves = S.flatMap((a) => S.filter((b) => statusMayMove(a, b)).map((b) => `${a}>${b}`)).sort().join(' ');
   ok('status rules: only pending and stalled move, to each other or to enacted / failed', moves === 'pending>enacted pending>failed pending>stalled stalled>enacted stalled>failed stalled>pending', moves);
-  const yes = ['Became Public Law No: 119-61.', 'Veto overridden by the Senate', "Passed over the Governor's veto", 'Became law without signature', "Override of the governor's veto"];
-  const no = ['Signed by President.', 'Motion to override veto failed', 'Veto sustained', 'Failed to override', ''];
+  const yes = ['Became Public Law No: 119-61.', 'Veto overridden by the Senate', "Passed over the Governor's veto", 'Became law without signature', "Override of the governor's veto",
+    'Senate overrode the veto', 'House overrode governor veto 70-25', 'Overridden by the House', 'Veto overridden; motion to reconsider failed', 'Motion to reconsider failed. Veto overridden by the Senate'];
+  const no = ['Signed by President.', 'Motion to override veto failed', 'Veto sustained', 'Failed to override', '', 'Override of the veto failed; bill dead', 'Veto sustained; override vote unsuccessful', 'Vetoed by the Governor'];
   ok('override wording: an override or a law is recognised; a failed override, a sustained veto or a plain signature is not', yes.every(saysOverride) && !no.some(saysOverride), JSON.stringify([yes.filter((q) => !saysOverride(q)), no.filter(saysOverride)]));
 }
 console.log(`publisher: ${pass} passed, ${fail} failed`);

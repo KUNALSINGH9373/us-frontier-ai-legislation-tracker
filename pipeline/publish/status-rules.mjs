@@ -10,8 +10,10 @@ const OPEN = ['pending', 'stalled'];
 const FINAL_STATUSES = [...new Set(Object.values(FINAL))];
 // A status may only move forward: from an open status to another open one or to a final one; a final status stays.
 export const statusMayMove = (from, to) => OPEN.includes(from) && from !== to && [...OPEN, ...FINAL_STATUSES].includes(to);
-// A failed bill may still become law, but only on a record that says so: a veto overridden, or the bill became (public) law.
-// A record of an override that failed or a veto sustained is not one.
-const OVERRIDE_YES = /\bover (?:the )?(?:\w+'s )?veto\b|\bveto (?:was |is )?overrid\w*|\boverrid\w* (?:of )?(?:the )?(?:\w+'s )?veto\b|\bbecame (?:public )?law\b/i;
-const OVERRIDE_NO = /\bfail\w*\b|\bsustain\w*\b|\bnot overrid/i;
-export const saysOverride = (quote) => OVERRIDE_YES.test(quote || '') && !OVERRIDE_NO.test(quote || '');
+// A failed bill may still become law, but only on a record that says so: a veto overridden (override / overrode / overridden),
+// or the bill became (public) law. Read clause by clause (split at ; and sentence ends): a clause about an override that
+// failed or a veto sustained does not count, and does not cancel another clause ("Veto overridden; motion to reconsider failed").
+const OVERRIDE_YES = /\bover (?:the )?(?:\w+'s )?veto\b|\bveto(?:es)? (?:was |is |were )?overr(?:id|od)\w*|\boverr(?:id|od)\w* (?:of )?(?:the )?(?:\w+'s )?vetoe?s?\b|\boverr(?:idden|ode)\b|\bbecame (?:public )?law\b/i;
+const OVERRIDE_NO = /\bfail\w*\b|\bsustain\w*\b|\bnot (?:be )?overr\w*|\bunsuccessful\b/i;
+const clauses = (q) => String(q || '').split(/;|\.\s+(?=[A-Z])/);
+export const saysOverride = (quote) => clauses(quote).some((c) => OVERRIDE_YES.test(c) && !OVERRIDE_NO.test(c));
