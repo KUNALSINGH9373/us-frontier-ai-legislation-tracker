@@ -51,7 +51,7 @@ const IL = {
 {
   ok('2 no slots object: a problem', renderSlots(null).problems.length === 1);
   ok('2 a slot without a quote: a problem naming it', renderSlots({ mechanism: [{ kind: 'duty', text: 'Developers must test', quote: '' }], thresholds: [], penalties: [] }).problems.some((p) => /mechanism slot 1 .*no quote/.test(p)));
-  const long = renderSlots({ mechanism: Array.from({ length: 12 }, (_, i) => ({ kind: 'duty', text: `Duty number ${i} requires the developer to do a long list of things in great detail and at length, every year`, quote: 'q' })), thresholds: [], penalties: [] });
+  const long = renderSlots({ mechanism: Array.from({ length: 14 }, (_, i) => ({ kind: 'duty', text: `Duty number ${i} requires the developer to do a long list of things in great detail and at length, every year`, quote: 'q' })), thresholds: [], penalties: [] });
   ok('2 too long from slots: "shorten, do not drop"', long.fields.mechanism.length > FIELD_LIMITS.mechanism && long.problems.some((p) => /shorten the "text" of its slots/.test(p) && /do not drop/.test(p)));
   ok('2 a slot quote not in SOURCE is named', slotQuoteProblems({ mechanism: [{ kind: 'duty', text: 'x', quote: 'words not there' }], thresholds: [], penalties: [] }, 'The developer shall test.').length === 1);
 }

@@ -66,13 +66,17 @@ export function codeChecks(patch, text) {
 }
 
 // Scores one finished item against the author's entry. Pure: used by the tests.
+// Owner, 30 Oct 2026: a harm or risk definition is not who a bill covers, so the entry's thresholds leave it out. The author's thresholds
+// often add one ("catastrophic risk 50+ deaths or >$1B"): the parts of it that describe a harm are not expected in thresholds.
+const HARM_PART = /harm|catastroph|\brisk\b|death|injur|damage|casualt|loss[- ]of[- ]control|\bpeople\b|\bpersons\b/i;
+export const withoutHarm = (s) => (s == null ? s : String(s).split(/(?<=;)\s+|(?<=\.)\s+(?=[A-Z"“])|\s+[—–]\s+/).filter((p) => !HARM_PART.test(p)).join(' '));
 export function scoreItem({ gold, text, result }) {
   // Scope: an in-scope bill must not be dropped as out of scope; an excluded bill must not be published (held is safe).
   const out = { key: gold.key, outcome: result.outcome, scope_ok: gold.in_scope ? result.outcome !== 'out_of_scope' : result.outcome !== 'published', fields: {} };
   // Section: scored only where the model chooses it (a published federal bill, D or F in the tracker).
   if (['D', 'F', 'G.3'].includes(gold.section) && gold.level === 'federal' && result.outcome === 'published') out.section_ok = result.section === gold.section;
   for (const f of FIELDS) {
-    const want = gold[f], got = result.outcome === 'published' ? result.fields[f] || null : null;
+    const want = f === 'thresholds' ? withoutHarm(gold[f]) : gold[f], got = result.outcome === 'published' ? result.fields[f] || null : null;
     const provable = [...factNumbers(want)].filter((n) => digitRuns(text).has(n));
     const gotNums = factNumbers(got);
     const found = provable.filter((n) => gotNums.has(n));
