@@ -713,6 +713,34 @@
    "proposal": "legiscan:1908094 (\"Budget Act of 2026.\") meets no state section's criterion; not created",
    "date": "2026-10-30",
    "dead": false
+  },
+  "congress_gov:119/hr/7786": {
+   "raw_hash": "9aa52730db62b3a936c86581cf220b36da869da2360e8f40f71a1a0c274a5700",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/7786 (\"AI Fraud Accountability Act\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "congress_gov:119/s/3404": {
+   "raw_hash": "c45e48268b45bff98c1f38bcb45b1e133b625546fce7ca755c3a300b37138d1a",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/3404 (\"Satellite Cybersecurity Act of 2025\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "congress_gov:119/hr/9501": {
+   "raw_hash": "93d5c2f9d42d343e5523ddd7eae92815a03dd614cb08f184d211ea7ac668f808",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/9501 (\"AI Tax Integrity Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "congress_gov:119/hr/7436": {
+   "raw_hash": "2e742e82e8fa9a5b52c710a4daa49fbd331d0b92a6d06a66f0b2bc37867dec7e",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/7436 (\"Department of Homeland Security Intelligence and Analysis Training Act\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
   }
  }
 }
