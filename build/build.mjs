@@ -189,6 +189,9 @@ tablesData.forEach((t) => t.rows.forEach((row) => {
   const statusI = pick(H, /status|introduced|signed|effective|^date/i);
   const srcI = pick(H, /^source/i);
   const confI = pick(H, /^confidence/i);
+  // Sponsor and threshold columns are optional; a record table without these four would silently empty a table column.
+  const need = { mechanism: mechI, "status or date": statusI, source: srcI, confidence: confI };
+  Object.entries(need).forEach(([n, idx]) => { if (!idx.length) throw new Error(`comparison table: section ${meta.section} has no ${n} column (headings: ${H.join(" / ")})`); });
   const cellsOf = (idx) => idx.map((i) => `<div class="tc"><span class="tl">${H[i]}</span>${row.html[i]}</div>`).join("");
   const confText = confI.length ? row.cells[confI[0]] : "";
   const confKey = (confText.match(/^(HIGH|MED-HIGH|MED|SEARCH-QUALIFIED|LOW)/) || ["", ""])[1];
@@ -385,6 +388,8 @@ const cnt = (l) => (secBy(l) ? secBy(l).count : 0);
 const href = (l) => (secBy(l) ? "#" + secBy(l).id : "#");
 const statusTags = { PENDING: 0, STALLED: 0, FAILED: 0 };
 tablesData.forEach((t) => { const si = t.heads.findIndex((h) => /^status/i.test(h)); if (si < 0) return; t.rows.forEach((r) => { const mm = r.cells[si].match(/\[(PENDING|STALLED|FAILED)/); if (mm) statusTags[mm[1]]++; }); });
+if (!tablesData.some((t) => t.heads.some((h) => /^status/i.test(h)))) throw new Error("overview: no table has a Status column, so the pending/stalled/failed counts would be empty");
+if (!tablesData.some((t) => t.heads.some((h) => /^state$/i.test(h)))) throw new Error("overview: no table has a State column, so the state bars would be empty");
 const stateCounts = {};
 tablesData.forEach((t) => { const si = t.heads.findIndex((h) => /^state$/i.test(h)); if (si < 0) return; t.rows.forEach((r) => { stateCounts[r.cells[si]] = (stateCounts[r.cells[si]] || 0) + 1; }); });
 const states = Object.entries(stateCounts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
@@ -397,6 +402,8 @@ const latest = events.filter((e) => e.date <= CUTOFF && !/^Search/.test(e.type))
 const upcoming = events.filter((e) => e.date > CUTOFF).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
 const evLi = (e) => `<li><span class="dt">${esc(fmtD(e.date, e.precision))}${e.inferredYear ? "*" : ""}</span><i style="background:${esc(VIZ.colors[TYPES.indexOf(e.type)])}"></i><span class="what"><a href="#${esc(e.id)}">${esc(entryMeta[e.id].title)}</a><span class="ty">${esc(e.type)} · ${esc(e.column)}</span></span></li>`;
 const KEEP_DIMS = ["Casualty threshold", "Developer trigger", "FLOP threshold", "Incident reporting", "Third-party audit", "Whistleblower protection", "Private right of action", "Penalty ceiling"];
+if (!matricesData[0]) throw new Error("overview: no comparison matrix (a table whose first heading is Dimension) was found");
+{ const have = new Set(matricesData[0].rows.map((r) => plain(r[0]))), gone = KEEP_DIMS.filter((d) => !have.has(d)); if (gone.length) throw new Error(`overview: comparison matrix has no row for ${gone.join(", ")}; update KEEP_DIMS to the matrix's own dimension names`); }
 const kmini = matricesData[0] ? `<div class="kmini"><table><thead><tr>${matricesData[0].heads.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${matricesData[0].rows.filter((r) => KEEP_DIMS.includes(plain(r[0]))).map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${c}</th>` : `<td>${c}</td>`)).join("")}</tr>`).join("")}</tbody></table></div>` : "";
 const glance = `<section class="panel snapshot" aria-labelledby="glance-h"><div class="panel-head"><h2 id="glance-h" class="panel-title">Snapshot</h2><p class="panel-note">Counts come from the tracker's sections and the status class written at the start of each status cell. The year chart counts instruments with at least one dated event in each year, one line per group; click a year to filter the whole tracker.</p></div>
 <div class="snapshot-grid">
