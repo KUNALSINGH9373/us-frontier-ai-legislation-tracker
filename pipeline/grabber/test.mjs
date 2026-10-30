@@ -4,7 +4,7 @@ import fs from 'fs';
 import crypto from 'crypto';
 import os from 'os';
 import path from 'path';
-import { runCongress } from './run.mjs';
+import { runCongress, congressOn } from './run.mjs';
 import { createHttp, HttpError, QuotaExceeded } from './lib/http.mjs';
 import { loadEnv } from './lib/env.mjs';
 import { readState, writeState, emptyState } from './lib/state.mjs';
@@ -254,6 +254,16 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
   } finally {
     fs.rmSync(stateDir, { recursive: true, force: true }); fs.rmSync(counterDir, { recursive: true, force: true });
   }
+}
+
+// ---------- the Congress comes from the run date: a new one starts on 3 January of each odd year ----------
+{
+  const c = (iso) => congressOn(new Date(iso));
+  ok('congress: 3 Jan 2025 is the 119th, 2 Jan 2025 still the 118th', c('2025-01-03T12:00:00Z') === 119 && c('2025-01-02T12:00:00Z') === 118);
+  ok('congress: Oct 2026 is the 119th', c('2026-10-30T12:00:00Z') === 119);
+  ok('congress: 2 Jan 2027 is still the 119th', c('2027-01-02T23:00:00Z') === 119);
+  ok('congress: 3 Jan 2027 is the 120th', c('2027-01-03T00:30:00Z') === 120);
+  ok('congress: the 1st sat in 1789', c('1789-03-04T12:00:00Z') === 1);
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

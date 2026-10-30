@@ -28,7 +28,10 @@ import { CUTOFF_ISO } from './lib/cutoff.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
 export const DATA_CUTOFF = CUTOFF_ISO; // the tracker's last verified date (config/publish.json data_cutoff): nothing before this is re-examined
-export const CONGRESS = 119; // the current Congress: every tracked bill and every candidate belongs to it
+// The Congress sitting on a date: each one starts on 3 January of an odd year (the 119th on 3 Jan 2025, 1st in 1789).
+// Every tracked bill and every candidate of a run belongs to the Congress sitting on the run's date.
+export const congressOn = (d) => { let y = d.getUTCFullYear(); if (d.getUTCMonth() === 0 && d.getUTCDate() < 3) y -= 1; return Math.floor((y - 1789) / 2) + 1; };
+export const CONGRESS = congressOn(new Date()); // the current Congress
 const hashOf = (b) => sha(JSON.stringify([b.updateDate, b.updateDateIncludingText, b.latestAction && b.latestAction.actionDate, b.latestAction && b.latestAction.text]));
 const safeName = (id) => id.replace(/\//g, '-');
 const MAX_TEXT = 1_500_000; // characters of bill text kept
@@ -93,7 +96,7 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
       for (const id of bills) { const ref = parseBillId(id); if (!ref) throw new Error(`not a bill id: ${id}`); await collect(ref, 'reconcile', tracked.get(id)); }
     } else {
       const onFallback = (f) => { stats.list_fallback = true; stats.fallback_pages = f.pages; log(`fallback used: ${f.reason}; read ${f.pages} page(s) of the plain list instead (${f.bills} bill(s) in the window)`); };
-      for await (const b of congress.listUpdated({ from, to, congress: CONGRESS, onFallback })) {
+      for await (const b of congress.listUpdated({ from, to, congress: congressOn(now), onFallback })) {
         stats.listed++;
         const ref = { congress: b.congress, type: String(b.type).toLowerCase(), number: b.number }, id = billId(ref);
         const newHash = hashOf(b);
