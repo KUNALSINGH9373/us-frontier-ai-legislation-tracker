@@ -53,6 +53,9 @@ const actNames = (e) => [...String(`${e.short_name} ${e.title}`).matchAll(/((?:[
 // Sponsors' surnames from the sponsor line ("Reps. Sam Liccardo (D-CA), Kevin Kiley (I-CA)" -> Liccardo, Kiley).
 const surnames = (e) => [...String(e.sponsor_text || '').matchAll(/([A-Z][a-zA-Z'’-]{2,})\s*\((?:[DRI])-[A-Z]{2}\)/g)].map((m) => m[1]);
 
+// The screener's answer shape (llm/schema.mjs): one verdict per headline.
+const SCREEN_SCHEMA = { type: 'OBJECT', required: ['results'], properties: { results: { type: 'ARRAY', items: { type: 'OBJECT', required: ['id', 'verdict', 'reason'], properties: { id: { type: 'STRING' }, verdict: { type: 'STRING', enum: ['yes', 'maybe', 'no'] }, reason: { type: 'STRING' } } } } } };
+
 // Index of tracked entries (section J, the excluded list, is never matched).
 export function entryIndex(entries) {
   return entries.filter((e) => e.section !== 'J').map((e) => {
@@ -126,7 +129,7 @@ export async function findLeads({ sources, fetchFeed, news, seen = {}, entries, 
   let verdicts = new Map();
   if (screener && pending.length) {
     try {
-      const r = await screener.generate({ system: NEWS_SCREEN_SYSTEM, prompt: 'Headlines (id<TAB>headline<TAB>summary):\n' + pending.map((l) => `${l.id}\t${l.title}\t${String(l.summary || '').slice(0, 200)}`).join('\n'), itemId: 'news-screen' });
+      const r = await screener.generate({ system: NEWS_SCREEN_SYSTEM, prompt: 'Headlines (id<TAB>headline<TAB>summary):\n' + pending.map((l) => `${l.id}\t${l.title}\t${String(l.summary || '').slice(0, 200)}`).join('\n'), itemId: 'news-screen', responseSchema: SCREEN_SCHEMA });
       verdicts = new Map(((r.data && r.data.results) || []).filter((x) => ['yes', 'maybe', 'no'].includes(x.verdict)).map((x) => [String(x.id), x]));
     } catch (e) { log(`headline screen failed, every headline kept as "maybe": ${String(e.message).slice(0, 120)}`); }
   }

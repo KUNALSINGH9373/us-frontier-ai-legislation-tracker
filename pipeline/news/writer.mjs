@@ -230,6 +230,10 @@ export function templateCard(event, sheet) {
 
 const shapeOk = (d) => d && typeof d.headline === 'string' && typeof d.body === 'string';
 
+// Answer shapes the writer and reader prompts ask for (llm/schema.mjs).
+const CARD_SCHEMA = { type: 'OBJECT', required: ['headline', 'body'], properties: { headline: { type: 'STRING' }, body: { type: 'STRING' } } };
+const READER_SCHEMA = { type: 'OBJECT', required: ['faithful', 'added_or_overstated'], properties: { faithful: { type: 'BOOLEAN' }, added_or_overstated: { type: 'ARRAY', items: { type: 'STRING' } } } };
+
 // event: contract Event; entry: tracker entry (or null); writer, reader: AI clients ({ generate({system, prompt, itemId}) }).
 // Returns { card: { headline, body, template_headline, template_body, written_by }, sheet, rounds, problems, reason }. Never throws.
 // The phrase-bank card (news/phrasebank.mjs): the first deterministic candidate that passes checkCard; the template when none does.
@@ -268,13 +272,13 @@ async function writeCardAI({ event, entry = null, sheet = null, writer, reader, 
   let complaints = [], rounds = 0;
   try {
     for (rounds = 1; rounds <= maxRounds; rounds++) {
-      const g = await writer.generate({ system: CARD_WRITER_SYSTEM, prompt: cardWriterPrompt(fs, complaints), itemId });
+      const g = await writer.generate({ system: CARD_WRITER_SYSTEM, prompt: cardWriterPrompt(fs, complaints), itemId, responseSchema: CARD_SCHEMA });
       const d = g && g.data;
       if (!shapeOk(d)) { complaints = ['answer as JSON {"headline": string, "body": string}']; continue; }
       const draft = { headline: d.headline.trim(), body: d.body.trim() };
       const p = checkCard(draft, fs);
       if (p.length) { complaints = p; log(`round ${rounds}: code refused: ${p.join('; ')}`); continue; }
-      const r = await reader.generate({ system: CARD_READER_SYSTEM, prompt: cardReaderPrompt(fs, draft), itemId });
+      const r = await reader.generate({ system: CARD_READER_SYSTEM, prompt: cardReaderPrompt(fs, draft), itemId, responseSchema: READER_SCHEMA });
       const v = (r && r.data) || {};
       const list = Array.isArray(v.added_or_overstated) ? v.added_or_overstated.map(String).filter((x) => x.trim()) : null;
       if (v.faithful === true && list && list.length === 0) return out('ai', draft, rounds, [], null);

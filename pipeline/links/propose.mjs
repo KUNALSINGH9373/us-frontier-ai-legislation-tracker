@@ -373,6 +373,10 @@ export function dedupe(proposals, rel, notes = []) {
 }
 
 // ---------- by AI ----------
+// Answer shapes the reader and confirm prompts ask for (llm/schema.mjs).
+const LINKS_SCHEMA = { type: 'OBJECT', required: ['links'], properties: { links: { type: 'ARRAY', items: { type: 'OBJECT', required: ['to', 'kind', 'label', 'quote_from', 'quote_to'], properties: { to: { type: 'STRING' }, kind: { type: 'STRING', enum: ['copies', 'modeled_on', 'overlaps'] }, label: { type: 'STRING' }, quote_from: { type: 'STRING' }, quote_to: { type: 'STRING' } } } } } };
+const CONFIRM_SCHEMA = { type: 'OBJECT', required: ['confirmed', 'reason'], properties: { confirmed: { type: 'BOOLEAN' }, reason: { type: 'STRING' } } };
+
 // texts: { entry key: { text, url } } official bill texts. reader / validator: AI clients (generate({ system, prompt, itemId }) -> { data }).
 // The reader lists links from one changed bill to bills in the network; code then needs each quote word for word in the right
 // bill's text, and the validator must confirm the relation from the two quotes. Anything short of that is dropped (reported).
@@ -385,14 +389,14 @@ export async function proposeByAI({ entries, relationships: rel, changed, texts 
     if (!e || !mine || !mine.text || !nodeOf[key]) continue;
     const cands = entries.filter((x) => x.key !== key && nodeOf[x.key] && texts[x.key] && texts[x.key].text).slice(0, maxCandidates);
     if (!cands.length) continue;
-    const r = await reader.generate({ system: READER_SYSTEM, prompt: readerPrompt({ entry: e, text: mine.text, candidates: cands }), itemId: 'links:' + key });
+    const r = await reader.generate({ system: READER_SYSTEM, prompt: readerPrompt({ entry: e, text: mine.text, candidates: cands }), itemId: 'links:' + key, responseSchema: LINKS_SCHEMA });
     for (const l of ((r.data && r.data.links) || []).filter((x) => x && typeof x === 'object')) {
       const t = cands.find((x) => x.key === l.to), type = KIND[l.kind];
       const why = !t ? `unknown bill ${l.to}` : !type || !types.has(type) ? `kind ${l.kind} is not a link type the network draws`
         : !containsQuote(mine.text, l.quote_from) || String(l.quote_from).trim().length < 20 ? 'the quote from this bill is not in its text'
         : !containsQuote(texts[t.key].text, l.quote_to) || String(l.quote_to).trim().length < 20 ? 'the quote from the other bill is not in its text' : null;
       if (why) { dropped.push({ entry_key: key, to: l.to, why }); log(`${key} -> ${l.to}: dropped (${why})`); continue; }
-      const v = await validator.generate({ system: CONFIRM_SYSTEM, prompt: confirmPrompt({ a: e, b: t, kind: l.kind, quoteA: l.quote_from, quoteB: l.quote_to }), itemId: 'links-confirm:' + key + ':' + t.key });
+      const v = await validator.generate({ system: CONFIRM_SYSTEM, prompt: confirmPrompt({ a: e, b: t, kind: l.kind, quoteA: l.quote_from, quoteB: l.quote_to }), itemId: 'links-confirm:' + key + ':' + t.key, responseSchema: CONFIRM_SCHEMA });
       if (!(v.data && v.data.confirmed === true)) { dropped.push({ entry_key: key, to: t.key, why: 'the validator did not confirm: ' + String((v.data && v.data.reason) || 'no reason') }); continue; }
       const label = type === 'template' ? LABEL.copies : OVERLAP_PREFIX + String(l.label || '').replace(/^overlap:\s*/i, '').trim().slice(0, 100);
       if (label.length < 12) { dropped.push({ entry_key: key, to: t.key, why: 'no label for the overlap' }); continue; }
