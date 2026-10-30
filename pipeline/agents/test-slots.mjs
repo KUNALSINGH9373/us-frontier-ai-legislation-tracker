@@ -126,6 +126,11 @@ const IL = {
 {
   ok('8 two tests in one slot are sent back (IL SB 3444, MI HB 4668)', renderSlots({ mechanism: [], thresholds: [{ kind: 'compute', applies_to: 'Frontier model', text: 'trained using greater than 10^26 operations; compute cost that exceeds $100,000,000', quote: 'q' }], penalties: [] }).problems.some((p) => /more than one test/.test(p)));
   ok('8 the prompt says one test per item', /never put two tests in one "text"/.test(SLOTS_INSTRUCTIONS));
+  const { codeChecks } = await import('../eval/run.mjs');
+  const p = { fields: {}, evidence: [], in_scope: true };
+  Object.defineProperty(p, 'slots', { value: { mechanism: [], thresholds: [], penalties: [] }, enumerable: false });
+  Object.defineProperty(p, 'slotProblems', { value: ['thresholds for "X" give several tests without "combine"'], enumerable: false });
+  ok('8 the eval runs the slot checks production runs (they were missing from its own code checks)', codeChecks(p, 'A developer shall be subject to a civil penalty of not more than $1,000,000 per violation.').some((x) => /without "combine"/.test(x)) && codeChecks(p, 'A developer shall be subject to a civil penalty of not more than $1,000,000 per violation.').some((x) => /penalties slots are empty/.test(x)));
 }
 
 console.log(`slots: ${pass} passed, ${fail} failed`);

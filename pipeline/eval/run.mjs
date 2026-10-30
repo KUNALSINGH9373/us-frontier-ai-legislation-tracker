@@ -22,7 +22,7 @@ import { createHttp } from '../grabber/lib/http.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { createLlmFromConfig, LlmOutputError, InputTooLarge } from '../llm/index.mjs';
 import { generatePatch } from '../agents/generator.mjs';
-import { FIELD_LIMITS } from '../agents/slots.mjs';
+import { FIELD_LIMITS, slotQuoteProblems, coverageProblems } from '../agents/slots.mjs';
 import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from '../agents/prompts.mjs';
 import { buildClaims } from '../agents/validator.mjs';
 import { containsQuote, digitRuns, repairExponents } from '../agents/source-text.mjs';
@@ -65,6 +65,9 @@ export function codeChecks(patch, text) {
     if (v.length > FIELD_LIMITS[f]) problems.push(`${f} is too long (${v.length} characters)`);
     problems.push(...textProblems(f, v, text));
   }
+  // The slot checks, as agents/checks.mjs runs them in production (slots_complete). Missing here until 30 Oct 2026: the field evals
+  // that day were scored without them, so drafts production would have sent back (no "or"/"and", a dropped tier) could pass.
+  if (patch.slots !== undefined && patch.in_scope !== false) problems.push(...(patch.slotProblems || []), ...slotQuoteProblems(patch.slots, text), ...coverageProblems(patch.slots, text));
   return problems;
 }
 

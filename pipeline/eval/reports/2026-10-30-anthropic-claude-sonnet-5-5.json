@@ -1,5 +1,5 @@
 {
- "run_at": "2026-10-30T08:54:07.069Z",
+ "run_at": "2026-10-30T09:00:03.058Z",
  "provider": "anthropic",
  "generator": "claude-sonnet-5-5",
  "reader": "claude-haiku-5-5",
@@ -8,96 +8,93 @@
  "partial": true,
  "prompt_version": "b136495d84f9",
  "measure": "fields",
- "checks_hash": "ed09dbd717ed19a8f52a6da9ee5f0e8e8a03857748a1b19c0210ed70484758fd",
+ "checks_hash": "1e2a14a0ccd783128fc78de8cc0f819ad93430bd686cbbc2c99718d7cc160caf",
  "summary": {
-  "items": 9,
+  "items": 4,
   "outcomes": {
-   "published": 7,
-   "held": 2
+   "published": 4
   },
   "scope_agreement": 1,
   "scope_wrong": [],
   "fields": {
    "mechanism": {
-    "items": 9,
-    "passed": 7,
-    "pass_rate": 0.7777777777777778,
-    "published": 7,
-    "unsupported_fields": 0,
-    "fact_recall": 0.24999999999999997,
-    "items_with_provable_facts": 6
-   },
-   "thresholds": {
-    "items": 9,
-    "passed": 7,
-    "pass_rate": 0.7777777777777778,
-    "published": 7,
+    "items": 4,
+    "passed": 4,
+    "pass_rate": 1,
+    "published": 4,
     "unsupported_fields": 0,
     "fact_recall": 0.5,
-    "items_with_provable_facts": 4
+    "items_with_provable_facts": 2
+   },
+   "thresholds": {
+    "items": 4,
+    "passed": 4,
+    "pass_rate": 1,
+    "published": 4,
+    "unsupported_fields": 0,
+    "fact_recall": 1,
+    "items_with_provable_facts": 1
    },
    "penalties": {
-    "items": 9,
-    "passed": 7,
-    "pass_rate": 0.7777777777777778,
-    "published": 3,
+    "items": 4,
+    "passed": 4,
+    "pass_rate": 1,
+    "published": 1,
     "unsupported_fields": 0,
     "fact_recall": null,
     "items_with_provable_facts": 0
    }
   },
-  "section_items": 4,
-  "section_agreement": 0.75,
-  "section_wrong": [
-   "h-r-9914-s-5105-catsr"
-  ]
+  "section_items": 2,
+  "section_agreement": 1,
+  "section_wrong": []
  },
  "usage": {
-  "calls": 41,
-  "input_tokens": 368332,
-  "output_tokens": 45449,
-  "total_tokens": 413781,
+  "calls": 16,
+  "input_tokens": 122129,
+  "output_tokens": 15641,
+  "total_tokens": 137770,
   "by_role": {
    "generator": {
-    "calls": 16,
-    "input": 184734,
-    "output": 19955,
-    "cost": 0.5690180000000001
+    "calls": 6,
+    "input": 58691,
+    "output": 7773,
+    "cost": 0.19511199999999998
    },
    "validator": {
-    "calls": 16,
-    "input": 128879,
-    "output": 24353,
-    "cost": 0.0250644
+    "calls": 6,
+    "input": 38753,
+    "output": 7585,
+    "cost": 0.007667800000000001
    },
    "referee": {
-    "calls": 9,
-    "input": 54719,
-    "output": 1141,
-    "cost": 0.241696
+    "calls": 4,
+    "input": 24685,
+    "output": 283,
+    "cost": 0.10439999999999999
    }
   },
   "by_model": {
    "claude-sonnet-5-5": {
-    "calls": 16,
-    "input": 184734,
-    "output": 19955,
-    "cost": 0.5690180000000001
+    "calls": 6,
+    "input": 58691,
+    "output": 7773,
+    "cost": 0.19511199999999998
    },
    "claude-haiku-5-5": {
-    "calls": 16,
-    "input": 128879,
-    "output": 24353,
-    "cost": 0.0250644
+    "calls": 6,
+    "input": 38753,
+    "output": 7585,
+    "cost": 0.007667800000000001
    },
    "claude-opus-5-5": {
-    "calls": 9,
-    "input": 54719,
-    "output": 1141,
-    "cost": 0.241696
+    "calls": 4,
+    "input": 24685,
+    "output": 283,
+    "cost": 0.10439999999999999
    }
   },
-  "estimated_cost_usd": 0.835778
+  "estimated_cost_usd": 0.30718
  },
  "items": [
   {
@@ -107,7 +104,7 @@
    "fields": {
     "mechanism": {
      "gold": "Requires Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval mechanism modelled on arms-sales review, and codifies the prohibition on the most capable chips for 18 months ; Commerce certification that exports of lesser chips do not divert US supply or foundry capacity or permit unauthorized remote access; an \"American AI Victory Strategy.\" The AIPN conference letter also lists House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors), 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers) as provisions in play",
-     "got": "Beginning on enactment, the Under Secretary of Commerce for Industry and Security shall require a license to export a covered integrated circuit to an entity tied to a country of concern. The Under Secretary may not issue a general license for this requirement. Not fewer than 30 days before approving a license, the Under Secretary shall submit the application and certifications to Congress. Congress may block a proposed export by enacting a joint resolution within 30 days after receiving the certification. Trusted United States person exemption from license requirements under sections 742.6 and 744.23 for chips kept under trusted ownership and control. Not later than 90 days after enactment, the Under Secretary shall seek public input and prescribe trusted person regulations.",
+     "got": "The Under Secretary of Commerce for Industry and Security shall require a license for export, reexport, or in-country transfer of a covered integrated circuit to an entity in or headquartered in a country of concern. The Under Secretary may not issue a general license to fulfill the license requirement. Not fewer than 30 days before approving any such license, the Under Secretary shall submit the license application and certifications to the appropriate congressional committees. Trusted United States persons are exempt from certain license requirements for covered circuits destined for a country that is not a country of concern and remaining under their ownership and control. Not later than 90 days after enactment, the Under Secretary shall seek public input and prescribe regulations setting standards for trusted United States person designation. The Under Secretary shall deny all such licenses until 14 days after the national security strategy is submitted to Congress. A license may not be issued if Congress enacts a joint resolution prohibiting the proposed export within 30 days after the committees received the certification. Any license issued or approved before enactment for covered integrated circuits to an entity in a country of concern is terminated.",
      "provable": [
       "30",
       "18"
@@ -121,7 +118,7 @@
     },
     "thresholds": {
      "gold": null,
-     "got": "Covered integrated circuit: integrated circuit, computer or product classified under Export Control Classification Number 3A090 or 4A090 or related numbers, or functionally equivalent; digital processing units with a total processing performance of 4,800 or more; total processing performance of 2,400 or more and a performance density of 1.6 or more; total processing performance of 1,600 or more and a performance density of 3.2 or more; total DRAM bandwidth of 1,400 gigabytes per second or more, interconnect bandwidth of 1,100 gigabytes per second or more, or a sum of DRAM bandwidth and interconnect bandwidth of 1,700 gigabytes per second or more; excludes circuits or products not designed or marketed for use in data centers.",
+     "got": "Covered integrated circuit: total processing performance of 4,800 or more; total processing performance of 2,400 or more and a performance density of 1.6 or more; total processing performance of 1,600 or more and a performance density of 3.2 or more; total DRAM bandwidth of 1,400 gigabytes per second or more, interconnect bandwidth of 1,100 gigabytes per second or more, or a sum of both of 1,700 gigabytes per second or more; product classified under Export Control Classification Number 3A090 or 4A090 or related numbers, or functionally equivalent or substantially similar.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -140,7 +137,7 @@
    },
    "section_ok": true,
    "gold_in_scope": true,
-   "rounds": 3,
+   "rounds": 1,
    "problems": [],
    "section": "G.3"
   },
@@ -151,7 +148,7 @@
    "fields": {
     "mechanism": {
      "gold": "Requires an applicant for a license to export advanced AI chips to a country of concern to certify that US persons have priority in acquiring those chips, subject to the bill's conditions and exceptions",
-     "got": "The Under Secretary shall require a license to export, reexport, or transfer a covered circuit or product to entities in or headquartered in a country of concern. A license applicant must certify US persons had a right of first refusal, with not fewer than 15 business days to inquire. The Under Secretary shall deny the license if the certification is not submitted. Not later than 90 days after enactment, the Under Secretary shall seek public input and prescribe certification compliance regulations. Certain license requirements do not apply to exports to non-concern countries if chips stay under a trusted United States person's ownership and control. Trusted United States person regulations must include annual audit or attestation requirements.",
+     "got": "The Under Secretary of Commerce for Industry and Security shall require a license to export, reexport, or transfer covered circuits or products to entities in or headquartered in a country of concern. A license applicant must certify that United States persons had a right of first refusal and that it has no backlog of requests from them. The Under Secretary shall deny the license if the certification is not submitted with the application. Not later than 90 days after the date of the enactment of this section, the Under Secretary shall seek public input and prescribe regulations guiding certification compliance. The license requirement under sections 742.4 and 744.23 of the Export Administration Regulations does not apply to covered products bound for non-concern countries and kept under a trusted United States person's control. Beginning 36 months after the date of the enactment of this section, the Under Secretary may add new technical parameters to the advanced integrated circuit definition after notice and comment. Trusted United States person regulations shall include annual audit or attestation requirements.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -160,7 +157,7 @@
     },
     "thresholds": {
      "gold": null,
-     "got": "Advanced integrated circuit: total processing performance of 4,800 or more; total processing performance of 2,400 or more and a performance density of 1.6 or more; total processing performance of 1,600 or more and a performance density of 3.2 or more; total DRAM bandwidth of 1,400 gigabytes per second or more, interconnect bandwidth of 1,100 gigabytes per second or more, or sum of both of 1,700 gigabytes per second or more.",
+     "got": "Advanced integrated circuit: total processing performance of 4,800 or more; total processing performance of 2,400 or more and a performance density of 1.6 or more; total processing performance of 1,600 or more and a performance density of 3.2 or more; total DRAM bandwidth of 1,400 gigabytes per second or more; interconnect bandwidth of 1,100 gigabytes per second or more; sum of DRAM bandwidth and interconnect bandwidth of 1,700 gigabytes per second or more; classified under Export Control Classification Number 3A090 or 4A090 or related numbers, or functionally equivalent or substantially similar.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -184,152 +181,13 @@
    "section": "G.3"
   },
   {
-   "key": "h-r-9914-s-5105-catsr",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Antitrust safe harbor for frontier labs sharing model-risk and security information (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
-     "got": "Two or more non-Federal entities exchanging information or assistance on a covered artificial intelligence security risk in good faith for the exclusive purpose of a security purpose is not an antitrust violation. Non-Federal entities coordinating to delay or limit AI release, deployment or development are exempt from antitrust laws if they submit written notice to the Assistant Attorney General before acting. The Attorney General may seek an injunction in court against such non-Federal entities to prohibit an action that violates the antitrust laws. The exemption is an affirmative defense; the entity claiming it bears the burden of proving by a preponderance of the evidence good faith and exclusive purpose. Nothing in the Act limits any private right of action for antitrust violations that are not exempt under section 3. Notices submitted to the Assistant Attorney General are used solely for section 4 and are exempt from disclosure under section 552 of title 5, United States Code.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "—",
-     "got": "Capability-based, no figure: AI potential to be stolen or weaponized by a covered nation, facilitate chemical, biological, radiological, nuclear or offensive cyber weapons, disrupt critical infrastructure, reduce oversight or control, autonomously improve, or be vulnerable to unauthorized access.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": false,
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "h-r-9917-ai-kill-switch-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Penalties $2M/day for ordinary violations and $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
-     "got": "The Secretary must by rule require covered entities to keep a technical capability to stop inference, end user access, suspend access and shut down covered technology. A covered entity must report a covered incident to the Secretary not later than 15 days after becoming aware of it. The Secretary must publish voluntary standards for shutting down covered technology not later than 180 days after enactment. After determining a covered incident occurred, the Secretary may order the covered entity to take proportionate action, including shutdown actions. Upon an emergency order, the covered entity must as soon as practicable preserve model weights and telemetry, notify users and confirm compliance. The Secretary may administer oaths, subpoena testimony and documents, and conduct investigations. After confirmation of an order, the Secretary shall verify compliance through audit, telemetry, on-site inspection, or other forensic review.",
-     "provable": [
-      "10",
-      "100000000",
-      "15",
-      "48",
-      "2000000",
-      "20000000"
-     ],
-     "found": [
-      "15"
-     ],
-     "recall": 0.16666666666666666,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
-     "got": "Covered technology: AI system developed using computing power costing more than $100,000,000 at prevailing US cloud market price, as determined by the Secretary. Covered entity: not less than $500,000,000 in gross revenue from covered technology in the preceding calendar year, together with affiliates.",
-     "provable": [
-      "100000000",
-      "500000000"
-     ],
-     "found": [
-      "100000000",
-      "500000000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "General violations: civil penalty of not more than $2,000,000 for each day on which the violation occurs; Violations of emergency order subsection (c): civil penalty of not more than $20,000,000 for each day on which the violation occurs; enforced by the Secretary, acting through the Director, after reasonable notice and opportunity for a hearing.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "D"
-  },
-  {
-   "key": "il-hb-3506-2025",
-   "outcome": "held",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
-     "got": null,
-     "provable": [
-      "90"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months the original-RAISE test",
-     "got": null,
-     "provable": [
-      "5000000",
-      "100000000",
-      "12"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 0,
-   "problems": [
-    "an amendment was adopted since the bill text was printed (held, as production does: agents/process-item.mjs)"
-   ],
-   "section": null
-  },
-  {
    "key": "il-sb-3444",
    "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Different design from SB 315: a liability shield — developer not liable for critical harms absent intent/recklessness if it publishes a safety & security protocol and transparency report; deemed compliant if bound by EU rules or a federal agency agreement; sunsets if federal law creates overlapping requirements",
-     "got": "A developer shall not be held liable for critical harms if it did not intentionally or recklessly cause them and published a safety and security protocol and transparency report. To qualify, a developer shall create a safety and security protocol to manage, assess, and mitigate risk of critical harm. To qualify, a developer shall create a transparency report identifying the frontier model and summarizing assessment results. A developer is deemed compliant if it agrees to be bound by EU AI Act Article 56 requirements or enters an agreement with a federal agency. A developer that enters a federal agency agreement shall file a certification with the Attorney General. The Act shall no longer apply if the federal government enacts overlapping requirements for frontier model developers.",
+     "got": "A developer shall not be held liable for critical harms if it did not intentionally or recklessly cause them and publishes a safety and security protocol and transparency report. To qualify for the shield, a developer shall create a safety and security protocol to manage, assess, and mitigate risk of critical harm (Section 15). To qualify for the shield, a developer shall create a transparency report summarizing assessment results (Section 20). A developer may make appropriate redactions to protect model security, trade secrets, and proprietary information. A developer is deemed compliant if it agrees to be bound by EU Article 56 requirements or enters into a specified federal agency agreement. A developer with a federal agency agreement shall file a certification with the Attorney General. A developer is deemed in compliance if it complies with another state's substantially similar frontier model framework. The Act shall no longer apply if the federal government enacts a law or regulations with overlapping requirements for frontier model developers.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -338,7 +196,7 @@
     },
     "thresholds": {
      "gold": "Frontier models defined by compute or cost",
-     "got": "Frontier model: trained using greater than 10^26 computational operations, such as integer or floating-point operations; compute cost that exceeds $100,000,000.",
+     "got": "Frontier model: trained using greater than 10^26 computational operations, such as integer or floating-point operations; or compute cost that exceeds $100,000,000.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -367,7 +225,7 @@
    "fields": {
     "mechanism": {
      "gold": "Safety & security protocol; transparency reports every 90 days ; annual third-party audit (published within 90 days); whistleblower protections with private right of action (90-day window, clear-and-convincing standard) + anonymous channel with monthly updates; AG enforcement. Appears to be a clone of the original June 2025 RAISE Act text — same $5M/$100M compute-cost thresholds, same 100-death threshold, same audit/whistleblower structure that NY later stripped out. Effective dates are written as \"Beginning January 1, 2026\" — already past, since the bill hasn't moved",
-     "got": "Beginning on January 1, 2026, a large developer shall produce, implement, follow, and conspicuously publish a safety and security protocol. A large developer shall, not less than once every 90 days, produce and conspicuously publish a transparency report. A large developer shall record and retain for 5 years any specific tests used and results obtained as part of a critical risk assessment. A large developer shall conspicuously publish the auditor's report not more than 90 days after the report is completed. A large developer shall provide an internal process for anonymous employee disclosures, with a monthly update to the employee on the investigation. A large developer shall not discharge, threaten, or discriminate against an employee who reports information indicating its activities pose a critical risk; the employee may bring a civil action within 90 days. Beginning on January 1, 2026, not less than once per year, a large developer shall retain a reputable third-party auditor to produce a report on its compliance.",
+     "got": "Beginning on January 1, 2026, a large developer shall produce, implement, follow, and conspicuously publish a safety and security protocol. A large developer shall, not less than once every 90 days, produce and conspicuously publish a transparency report. A large developer shall record and retain for 5 years the specific tests used and results obtained in critical risk assessments. A large developer shall conspicuously publish the auditor's report not more than 90 days after the report is completed. If a large developer violates section 7 or 9, the attorney general may bring a civil action seeking a civil fine or injunctive or declaratory relief. A large developer shall not discharge, threaten, or discriminate against an employee for reporting information indicating the developer's activities pose a critical risk. An employee alleging a whistleblower violation may bring a civil action not more than 90 days after the alleged violation seeking injunctive relief, damages, fees or other relief. Beginning on January 1, 2026, a large developer shall, not less than once per year, retain a reputable third-party auditor to produce a report on compliance with its protocol.",
      "provable": [
       "90",
       "100"
@@ -381,7 +239,7 @@
     },
     "thresholds": {
      "gold": "Cost-based, not FLOP-based: \"large developer\" = trained a model costing ≥$5M in compute (at prevailing cloud prices) and ≥$100M aggregate compute cost in preceding 12 months;",
-     "got": "Large developer: has developed a foundation model using computing power costing not less than $5,000,000.00 at prevailing cloud market prices; has developed, within the immediately preceding 12 months, foundation models with total computing power costing not less than $100,000,000.00.",
+     "got": "Large developer: developed a foundation model with computing power costing not less than $5,000,000.00 at prevailing U.S. cloud market prices; within the preceding 12 months, developed foundation models with total computing power costing not less than $100,000,000.00.",
      "provable": [
       "12"
      ],
@@ -394,7 +252,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": "Violations of section 7 or 9: civil fine of not more than $1,000,000.00 per violation, plus injunctive or declaratory relief, enforced by the attorney general; Violations of the whistleblower section (section 11): civil fine of not more than $500.00.",
+     "got": "Violation of section 7 or 9: civil fine of not more than $1,000,000.00 per violation, enforced by the attorney general; Whistleblower protection violation (section 11): civil fine of not more than $500.00, deposited into the general fund.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -406,102 +264,6 @@
    "rounds": 1,
    "problems": [],
    "section": "B"
-  },
-  {
-   "key": "mn-hf-4532-no-threshold",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person",
-     "got": "Before deploying an artificial intelligence model, a developer must implement a written safety and security protocol. A developer must conspicuously publish a redacted copy of the protocol, transmit it to the attorney general, and grant the attorney general access on request. A developer must record and retain information on specific tests and test results for the entire period a model is deployed, plus five years. A developer must not deploy an artificial intelligence model if doing so creates an unreasonable risk of critical harm. A developer must conduct an annual review of the safety and security protocol and modify it, and republish it after a material modification. The attorney general may bring a civil action for a violation of section 325M.41 and recover civil penalties and injunctive or declaratory relief. A person injured by a violation may bring a civil action to recover damages, costs, and disbursements, including reasonable attorney fees. A developer must disclose each safety incident to the attorney general within 72 hours of the date it learns of the incident or learns sufficient facts to establish a reasonable belief that one has occurred.",
-     "provable": [
-      "72",
-      "10000000",
-      "30000000"
-     ],
-     "found": [
-      "72"
-     ],
-     "recall": 0.3333333333333333,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "No compute, cost, or revenue threshold: \"developer\" = any person that has trained at least one AI model.",
-     "got": "No threshold: covers a person that has trained at least one artificial intelligence model.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "First violation: civil penalty not exceeding $10,000,000, enforced by the attorney general; Subsequent violation: civil penalty not exceeding $30,000,000, enforced by the attorney general; Private right of action: damages, costs, and disbursements, including reasonable attorney fees, and other equitable relief.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "B.2"
-  },
-  {
-   "key": "pa-h-b-2800-ai-risk-prevention-act",
-   "outcome": "held",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Introduced text read (Printer's No. 3904, 26 pp.). Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee; publish and comply with a frontier AI framework , reviewed at least annually and re-published within 30 days of a material modification; transparency reports before deployment; annual third-party audit of framework compliance with auditor-independence limits; critical safety incident reports to PEMA and the Attorney General within 72 hours , and within 24 hours to an appropriate authority where an incident poses an imminent risk of death or serious physical injury; whistleblower protections preserving the state Whistleblower Law; enforcement by the agency and the Attorney General with civil penalties up to $1,000,000 per violation for a first violation and $3,000,000 for a subsequent violation , plus injunctive relief",
-     "got": null,
-     "provable": [
-      "3904",
-      "26",
-      "30",
-      "72",
-      "24",
-      "1000000",
-      "3000000"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": "Frontier model = trained on more than 10²⁶ operations , counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates;",
-     "got": null,
-     "provable": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "claim about mechanism (\"Beginning January 1, 2027, a large frontier developer may not operate a frontier model in Pennsylvan\") is not supported: Most of the claim matches the source, but the 72-hour clock is misstated. Section 902(a) starts the clock when the frontier developer learns facts sufficient to establish a reasonable belief that an incident occurred, not when a reasonable belief arises that it occurred. The claim changes the trigger for the deadline."
-   ],
-   "section": null
   }
  ]
 }
