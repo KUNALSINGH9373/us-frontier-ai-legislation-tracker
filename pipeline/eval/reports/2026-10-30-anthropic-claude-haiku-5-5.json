@@ -1,5 +1,5 @@
 {
- "run_at": "2026-10-30T06:20:16.936Z",
+ "run_at": "2026-10-30T06:38:12.490Z",
  "provider": "anthropic",
  "generator": "claude-haiku-5-5",
  "reader": "claude-haiku-5-5",
@@ -8,40 +8,40 @@
  "partial": true,
  "prompt_version": "b3f9a256901c",
  "measure": "fields",
- "checks_hash": "7b585d16e5e43675be2dd242caecaab9168eac4399c30448a288a0fd2cf72883",
+ "checks_hash": "ba84a3574d800937b69adee3902b62b5b0343c1435ae592950096c79158aa57a",
  "summary": {
   "items": 20,
   "outcomes": {
    "out_of_scope": 3,
-   "published": 6,
-   "held": 11
+   "published": 11,
+   "held": 6
   },
   "scope_agreement": 1,
   "scope_wrong": [],
   "fields": {
    "mechanism": {
     "items": 17,
-    "passed": 6,
-    "pass_rate": 0.35294117647058826,
-    "published": 6,
+    "passed": 11,
+    "pass_rate": 0.6470588235294118,
+    "published": 11,
     "unsupported_fields": 0,
-    "fact_recall": 0.15,
+    "fact_recall": 0.32857142857142857,
     "items_with_provable_facts": 10
    },
    "thresholds": {
     "items": 17,
-    "passed": 6,
-    "pass_rate": 0.35294117647058826,
-    "published": 6,
+    "passed": 8,
+    "pass_rate": 0.47058823529411764,
+    "published": 10,
     "unsupported_fields": 0,
-    "fact_recall": 0.25,
+    "fact_recall": 0.4861111111111111,
     "items_with_provable_facts": 12
    },
    "penalties": {
     "items": 17,
-    "passed": 6,
-    "pass_rate": 0.35294117647058826,
-    "published": 5,
+    "passed": 11,
+    "pass_rate": 0.6470588235294118,
+    "published": 8,
     "unsupported_fields": 0,
     "fact_recall": 0,
     "items_with_provable_facts": 1
@@ -50,49 +50,49 @@
   "section_items": 4,
   "section_agreement": 0.75,
   "section_wrong": [
-   "h-r-9965-atomic-act"
+   "s-5061-secure-ai-development-act"
   ]
  },
  "usage": {
-  "calls": 116,
-  "input_tokens": 1694756,
-  "output_tokens": 282641,
-  "total_tokens": 1977397,
+  "calls": 103,
+  "input_tokens": 1564726,
+  "output_tokens": 233575,
+  "total_tokens": 1798301,
   "by_role": {
    "generator": {
-    "calls": 50,
-    "input": 834084,
-    "output": 204465,
-    "cost": 0.18564089999999997
+    "calls": 41,
+    "input": 726459,
+    "output": 168438,
+    "cost": 0.15686490000000003
    },
    "validator": {
-    "calls": 50,
-    "input": 665752,
-    "output": 76541,
-    "cost": 0.1048457
+    "calls": 41,
+    "input": 587021,
+    "output": 63082,
+    "cost": 0.09024309999999998
    },
    "referee": {
-    "calls": 16,
-    "input": 194920,
-    "output": 1635,
-    "cost": 0.40619
+    "calls": 21,
+    "input": 251246,
+    "output": 2055,
+    "cost": 0.523042
    }
   },
   "by_model": {
    "claude-haiku-5-5": {
-    "calls": 100,
-    "input": 1499836,
-    "output": 281006,
-    "cost": 0.29048660000000015
+    "calls": 82,
+    "input": 1313480,
+    "output": 231520,
+    "cost": 0.2471080000000001
    },
    "claude-sonnet-5-5": {
-    "calls": 16,
-    "input": 194920,
-    "output": 1635,
-    "cost": 0.40619
+    "calls": 21,
+    "input": 251246,
+    "output": 2055,
+    "cost": 0.523042
    }
   },
-  "estimated_cost_usd": 0.696677
+  "estimated_cost_usd": 0.77015
  },
  "items": [
   {
@@ -144,21 +144,22 @@
    "fields": {
     "mechanism": {
      "gold": "Frontier AI framework; transparency reports; critical-incident reporting 15 days, or 24 hrs if imminent risk of death/serious injury ; whistleblower protections incl. anonymous channel with monthly updates; annual definitional review; CalCompute consortium; preempts local ordinances adopted on/after Jan 1, 2025 regulating frontier catastrophic risk",
-     "got": "Large frontier developers must write, implement and publish a frontier AI framework on their website. Frontier developers must publish a transparency report before or concurrently with deploying a new or modified frontier model. Large frontier developers must send the Office of Emergency Services internal-use catastrophic risk summaries every three months. Preempts local laws adopted on or after January 1, 2025 specifically regulating frontier developers' management of catastrophic risk. The court may award reasonable attorney fees to a plaintiff who wins a whistleblower action. Frontier developers must not prevent or retaliate against covered employees who disclose catastrophic-risk dangers or violations. Frontier developers must report critical safety incidents to the Office of Emergency Services within 15 days of discovery.",
+     "got": "Large frontier developers must write, implement, and publish a frontier AI framework. Frontier developers must publish a transparency report with each new or substantially modified frontier model. Large frontier developers must send the Office of Emergency Services summaries of internal-use catastrophic risk assessments. Large frontier developers must provide an anonymous internal process for covered employee disclosures. Preempts local laws adopted on or after January 1, 2025 on frontier developers' catastrophic risk management. Frontier developers must not stop covered employees disclosing to the Attorney General or federal authorities. Frontier developers must report critical safety incidents to the Office of Emergency Services within 15 days. Imminent-risk critical safety incidents must be disclosed within 24 hours to an authority.",
      "provable": [
       "15",
       "24"
      ],
      "found": [
-      "15"
+      "15",
+      "24"
      ],
-     "recall": 0.5,
+     "recall": 1,
      "unsupported": [],
      "pass": true
     },
     "thresholds": {
      "gold": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$500M revenue; catastrophic risk = >50 deaths/serious injuries or >$1B damage",
-     "got": "Frontier model: Trained with more than 10^26 integer or floating-point operations. Large frontier developer: Annual gross revenues in excess of $500,000,000 with affiliates in the preceding calendar year. Catastrophic risk: Death or serious injury to more than 50 people, or more than $1,000,000,000 in property damage, from a single incident.",
+     "got": "Frontier model: trained using a quantity of computing power greater than 10^26 integer or floating-point operations. Large frontier developer: annual gross revenues in excess of $500,000,000 with affiliates, in the preceding calendar year. Catastrophic risk: material contribution to a single incident involving listed conduct, including expert-level chemical, biological, radiological or nuclear weapons assistance; death of, or serious injury to, more than 50 people, or more than $1,000,000,000 in damage to or loss of property.",
      "provable": [
       "10",
       "26",
@@ -175,7 +176,7 @@
     },
     "penalties": {
      "gold": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation",
-     "got": "Large frontier developer: Civil penalty not exceeding $1,000,000 per violation; enforced by the Attorney General.",
+     "got": "Large frontier developer: civil penalty not exceeding $1,000,000 per violation; enforced by the Attorney General.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -184,7 +185,7 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 2,
+   "rounds": 3,
    "problems": [],
    "section": "A"
   },
@@ -195,7 +196,7 @@
    "fields": {
     "mechanism": {
      "gold": "Requires an applicant for a license to export advanced AI chips to a country of concern to certify that US persons have priority in acquiring those chips, subject to the bill's conditions and exceptions",
-     "got": "The Under Secretary of Commerce for Industry and Security must require a license for exports of covered circuits or products to entities in countries of concern. License applicants must certify that US persons had a right of first refusal and that the applicant meets the backlog and pricing conditions. The Under Secretary must deny any license application that lacks the required priority certification. Not later than 90 days after enactment, the Under Secretary must seek public input and prescribe regulations for certification compliance. The Under Secretary may add new technical parameters to the definition of advanced integrated circuit. Covered products of designated trusted US persons, destined for non-countries of concern, are exempt from listed EAR license requirements. Trusted US person standards must include annual audit or attestation requirements to ensure compliance.",
+     "got": "Commerce Under Secretary must require a license to export, reexport or transfer covered advanced chips to entities in countries of concern. Applicants for those licenses must certify they have no current backlog of requests from US persons and cannot reasonably foresee one. Under Secretary must deny any license application lacking the required certification. Within 90 days after enactment, the Under Secretary must seek public input and prescribe certification compliance regulations. The license requirement under EAR sections 742.4 and 744.23 shall not apply to covered chips for non-concern countries kept under a trusted US person's control. Trusted-person designation regulations must include annual audit or attestation requirements to ensure compliance.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -204,7 +205,7 @@
     },
     "thresholds": {
      "gold": null,
-     "got": "Capability-based, no figure: A circuit with one or more digital processing units with total processing performance of 4,800 or more is covered; A circuit with total DRAM bandwidth of 1,400 gigabytes per second or more meets the advanced integrated circuit definition; Covered circuit or product excludes advanced integrated circuits not designed or marketed for data centers.",
+     "got": "Capability-based, no figure: total processing performance of 4,800 or more; total DRAM bandwidth of 1,400 gigabytes per second or more.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -213,7 +214,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": "Regulations must include penalties for misrepresentation and concealment of material facts.",
+     "got": null,
      "provable": [],
      "found": [],
      "recall": null,
@@ -223,7 +224,7 @@
    },
    "section_ok": true,
    "gold_in_scope": true,
-   "rounds": 3,
+   "rounds": 2,
    "problems": [],
    "section": "G.3"
   },
@@ -267,7 +268,7 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "thresholds is too long (667 characters)"
+    "thresholds is too long (745 characters)"
    ],
    "section": null
   },
@@ -317,8 +318,7 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "mechanism is too long (912 characters)",
-    "thresholds is too long (694 characters)"
+    "penalties is too long (759 characters)"
    ],
    "section": null
   },
@@ -329,7 +329,7 @@
    "fields": {
     "mechanism": {
      "gold": "Full text read. DOE, through the National Laboratories/NNSA, establishes an Advanced AI Nuclear Evaluation Program within 90 days: testing for \"AI nuclear incidents\" (nuclear-weapon uplift, Restricted Data generation, loss-of-control involving nuclear systems, adversary access, scheming behavior), red-teaming at sophisticated-adversary level, third-party and blind evaluations. Participation is mandatory for large advanced AI developers, who must provide secure access to model weights and, where necessary, versions without safety mitigations ; Secretary may subpoena weights and software . Penalty up to $1M per violation, each day a separate violation ; DOJ referral. FOIA-exempt with carve-outs incl. congressional committee requests. Annual report with legislative recommendations that may include licensing or a new federal agency ; program sunsets after 7 years. Defines \"evaluation awareness\" and \"scheming behavior\" in statute",
-     "got": "Secretary of Energy, acting through National Laboratories, must establish a nuclear AI evaluation program within 90 days of enactment. The Program must test and evaluate AI to assess the likelihood of an AI nuclear incident, including red-teaming against jailbreaking. Large advanced AI developers must participate in the Program. Large advanced AI developers may not fail to provide secure access to artificial intelligence, including model weights. The Secretary may subpoena a developer that fails to participate or provide access, to compel model weights and documentation. The Secretary may refer a violation to the Attorney General to bring a civil action in a federal district court. The Secretary must assess Program data and submit to Congress a report with legislative recommendations within 1 year after enactment. The Program terminates 7 years after the date of enactment.",
+     "got": "Secretary of Energy, acting through the National Laboratories, must establish the Advanced Artificial Intelligence Nuclear Evaluation Program within 90 days of enactment. Large advanced AI developers must participate in the Program. Large advanced AI developers may not fail to participate, obstruct the Program, conceal material information, or fail to provide secure access to AI, including model weights. Program must develop containment protocols, contingency planning and mitigation recommendations for large advanced AI developers and the National Laboratories. Secretary may issue a subpoena to compel production of AI, including model weights, from a developer that fails to participate or provide access. Secretary must submit to Congress a report with recommendations for legislation to prevent an AI nuclear incident, within 1 year of enactment. The Program terminates 7 years after the date of enactment.",
      "provable": [
       "90"
      ],
@@ -342,7 +342,7 @@
     },
     "thresholds": {
      "gold": "\"Advanced AI\" = >10²⁶ ops (Secretary may revise by rule); \"large advanced AI developer\" = ≥**$2B AI investment over the preceding 5 years**; \"substantially modify\" = ≥$5M. Loss-of-control scenario = ≥5 deaths, ≥50 serious injuries, or >$100M — a fifth casualty formula",
-     "got": "Advanced artificial intelligence: Trained with more than 10^26 integer or floating-point operations. Large advanced artificial intelligence developer: Developer with affiliates spending not less than $2,000,000,000 on AI investments over five prior years. Loss-of-control scenario: Loss of control causing death of not fewer than five individuals; Loss of control causing serious bodily injury to not fewer than 50 individuals or over $100,000,000 in damages.",
+     "got": "Advanced artificial intelligence: trained using a quantity of computing power greater than 10^26 integer or floating-point operations, or another quantity the Secretary specifies by rule; other artificial intelligence the Secretary specifies by rule. Large advanced artificial intelligence developer: expended not less than $2,000,000,000 on AI investments in the five calendar years before the year at issue, with affiliates.",
      "provable": [
       "10",
       "26",
@@ -350,16 +350,63 @@
      ],
      "found": [
       "10",
-      "26",
-      "50"
+      "26"
+     ],
+     "recall": 0.6666666666666666,
+     "unsupported": [],
+     "pass": false
+    },
+    "penalties": {
+     "gold": null,
+     "got": "Large advanced artificial intelligence developer: civil penalty of not more than $1 million for each violation, after reasonable notice and opportunity for a hearing, enforced by the Secretary; Civil action in district court for relief against a violation of this section, enforced by the Attorney General; Continuing violation: each day during which a continuing violation continues is a separate violation, enforced by the Secretary.",
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "section_ok": true,
+   "gold_in_scope": true,
+   "rounds": 2,
+   "problems": [],
+   "section": "D"
+  },
+  {
+   "key": "il-hb-3506-2025",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
+     "got": "Developer must produce, implement, follow and publish a safety and security protocol, and publish material modifications to it. Developer must publish a risk assessment report no less than every 90 days. Developer may redact published compliance documents when reasonably necessary to protect trade secrets, public safety or national security. Attorney General may seek injunctive or declaratory relief for any violation of this Act. The Whistleblower Act applies to this Act, with criminal penalties under that Act not assessed for this Act. Developer must retain a reputable third-party auditor at least once every calendar year to produce a report.",
+     "provable": [
+      "90"
+     ],
+     "found": [
+      "90"
      ],
      "recall": 1,
      "unsupported": [],
      "pass": true
     },
+    "thresholds": {
+     "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months — the original-RAISE test",
+     "got": "Developer: Trained at least one foundation model with computational power costing at least $100,000,000 at prevailing cloud market prices. Critical risk: Risk of creating and releasing a chemical, biological, radiological or nuclear weapon, a cyber-attack, certain crimes with limited human intervention, or evading developer or user control; more than 100 people, or more than $1,000,000,000 in damage to rights in money or property.",
+     "provable": [
+      "100",
+      "12"
+     ],
+     "found": [
+      "100"
+     ],
+     "recall": 0.5,
+     "unsupported": [],
+     "pass": false
+    },
     "penalties": {
      "gold": null,
-     "got": "Large advanced artificial intelligence developer: civil penalty of not more than $1 million per violation, assessed by the Secretary after notice and hearing; Continuing violation: each day of a continuing violation, including failure to participate, is a separate violation; enforced by the Secretary of Energy.",
+     "got": "Civil penalty not to exceed $1,000,000 for violating Sections 15 or 25; enforced by the Attorney General.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -367,100 +414,54 @@
      "pass": true
     }
    },
-   "section_ok": false,
    "gold_in_scope": true,
-   "rounds": 2,
+   "rounds": 1,
    "problems": [],
-   "section": null
-  },
-  {
-   "key": "il-hb-3506-2025",
-   "outcome": "held",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
-     "got": null,
-     "provable": [
-      "90"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months — the original-RAISE test",
-     "got": null,
-     "provable": [
-      "100",
-      "12"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "thresholds is too long (571 characters)",
-    "claim about thresholds (\"Developer: Developer: trained at least one foundation model with compute costing at least $100,000,0\") is not supported: The claim drops the limiting qualifier. SOURCE defines critical risk as a risk that a developer's development, storage, or deployment of a foundation model will result in death or serious injury to more than 100 people, or more than $1,000,000,000 in damage, \"through any of the following\" four listed pathways (CBRN weapons, cyber-attack, certain crimes, evading control). The claim presents it as any such risk, which overstates the definition."
-   ],
-   "section": null
+   "section": "B"
   },
   {
    "key": "il-hb-4705-sb-3261",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking",
-     "got": null,
+     "got": "Large frontier developers and large chatbot providers must write, implement and publish on their website a public safety and child protection plan. Large frontier developers must not use or deploy a frontier model if doing so would pose unreasonable catastrophic risk. Large frontier developers must implement safeguards against unreasonable catastrophic risk before deploying a new or substantially modified frontier model. The Attorney General must establish a mechanism for a frontier developer, a large chatbot provider, or a member of the public to report safety incidents. Frontier developers and large chatbot providers must not adopt rules or contracts that prevent employees from making protected whistleblower disclosures. Large frontier developers must retain a reputable third-party auditor at least once every calendar year to produce a compliance report. Frontier developers must report critical safety incidents to the Attorney General within 15 days after discovering them.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "10²⁶ ops; large frontier developer = ≥$500M annual revenue; large chatbot provider = ≥$25M annual revenue; a covered chatbot must also have ≥1M monthly active users and be foreseeably accessible by minors",
-     "got": null,
+     "got": "Frontier model: training compute greater than 10^26 integer or floating-point operations, including later fine-tuning and reinforcement learning. Large frontier developer: annual revenue of at least $500,000,000 together with affiliates. Large chatbot provider: annual revenue of at least $25,000,000 together with affiliates. Covered chatbot: at least 1,000,000 monthly active users. Catastrophic risk: more than 50 people or more than $1,000,000,000 in damage from one incident of specified frontier-model conduct.",
      "provable": [
       "10",
       "26",
       "25"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "10",
+      "26"
+     ],
+     "recall": 0.6666666666666666,
      "unsupported": [],
      "pass": false
     },
     "penalties": {
      "gold": null,
-     "got": null,
+     "got": "Large frontier developer: civil penalty up to $1,000,000 per violation, amount dependent on severity; Large chatbot provider: civil penalty up to $50,000 per violation, amount dependent on severity; enforced by the Attorney General.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
    "rounds": 3,
-   "problems": [
-    "thresholds is too long (797 characters)"
-   ],
+   "problems": [],
    "section": null
   },
   {
@@ -513,10 +514,8 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "mechanism is too long (1047 characters)",
-    "thresholds is too long (511 characters)",
-    "penalties is too long (523 characters)",
-    "claim about penalties (\"Large frontier developer, first violation: Civil penalty up to $1,000,000 for the first violation, d\") is not supported: The $1,000 per day penalty is in Section 18(e), where the Agency (not the Attorney General) may levy it after notice and hearing. Section 25(b), which says civil penalties are recovered exclusively by the Attorney General, covers only Section 25(a) violations, so the claim's attribution of enforcement to the Attorney General under Section 25 is wrong for this penalty."
+    "evidence quote for mechanism is not in the source: \"Beginning January 1, 2028, a large frontier developer shall write, implement, co\"",
+    "claim about thresholds (\"Frontier model: trained using a quantity of computing power greater than 10^26 integer or floating-p\") is not supported: The catastrophic-risk threshold in SOURCE is death of, or serious injury to, more than 50 people, or more than $1,000,000,000 in damage to or loss of property, from a single incident. The claim drops the death or serious injury qualifier, so 'more than 50 people' is stated without the harm it applies to. The frontier model and large frontier developer thresholds are accurately stated."
    ],
    "section": null
   },
@@ -561,32 +560,32 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "claim about mechanism (\"Section 10: large frontier developers must publish a frontier AI framework. Section 10: frontier dev\") is not supported: Most sub-claims are supported, but the claim that large frontier developers must send risk summaries to the Agency 'every 3 months' omits that SOURCE allows 'another reasonable schedule specified by the large frontier developer and communicated in writing to the Agency'. The 3-month interval is therefore not a fixed mandate."
+    "claim about thresholds (\"Frontier model: Foundation model trained with greater than 10^26 integer or floating-point operation\") is not supported: The catastrophic-risk definition is misstated. SOURCE defines it as a risk of death or serious injury to more than 50 people or more than $1,000,000,000 in property damage or loss from a single incident involving a frontier model doing one of three things: (1) providing expert-level assistance with chemical, biological, radiological or nuclear weapons; (2) conduct with no meaningful human oversight that is a cyberattack or would be murder, assault, extortion or theft; or (3) evading control. The claim reduces it to evasion of control only."
    ],
    "section": null
   },
   {
    "key": "il-sb-3444",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Different design from SB 315: a liability shield — developer not liable for critical harms absent intent/recklessness if it publishes a safety & security protocol and transparency report; deemed compliant if bound by EU rules or a federal agency agreement; sunsets if federal law creates overlapping requirements",
-     "got": null,
+     "got": "A developer must create a safety and security protocol covering testing, thresholds, mitigations and cybersecurity for critical harm risk. A developer must publish a transparency report on its website at the time of a frontier model's release, summarizing assessment results. A developer with a protocol substantially similar to this Act, and bound by EU Article 56 or a federal agreement, is deemed to comply with subsection (a). A developer is not liable for critical harms if it did not intentionally or recklessly cause them and meets the protocol and transparency report requirements. The Act no longer applies if the federal government enacts a law or adopts regulations establishing overlapping requirements for frontier model developers.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "Frontier models defined by compute or cost",
-     "got": null,
+     "got": "Frontier model: trained using greater than 10^26 computational operations, such as integer or floating-point operations; compute cost that exceeds $100,000,000. Critical harm: death or serious injury of 100 or more people or at least $1,000,000,000 of damages to rights in property. Developer: has trained, or initiated the training of, at least one frontier model.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": null,
@@ -595,15 +594,13 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "mechanism is too long (958 characters)"
-   ],
-   "section": null
+   "rounds": 2,
+   "problems": [],
+   "section": "B"
   },
   {
    "key": "mn-hf-4532-no-threshold",
@@ -646,11 +643,10 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [
-    "mechanism is too long (921 characters)",
+    "evidence quote for mechanism is not in the source: \"within 72 hours of the date the developer learns of the safety incident or withi\"",
     "claim about mechanism (\"Before deploying an AI model, a developer must implement a written safety and security protocol. A d\") is not supported: the reader could not confirm it word for word",
-    "claim about thresholds (\"Developer: a person that has trained at least one artificial intelligence model. Critical harm: caus\") is not supported: the reader could not confirm it word for word",
-    "claim about penalties (\"First violation: civil penalty not exceeding $10,000,000 for a first violation; Subsequent violation\") is not supported: The penalty amounts ($10,000,000 first violation, $30,000,000 subsequent) are correct, but the claim says the private right of action is 'enforced by the attorney general.' SOURCE says the opposite: the AG may bring civil actions for penalties under Subd. 1, while under Subd. 2 'A person injured by a violation of this section may bring a civil action' themselves.",
-    "an independent reader judged this item out of scope: no answer"
+    "claim about thresholds (\"Developer: trained at least one artificial intelligence model. Critical harm: death, serious physica\") is not supported: the reader could not confirm it word for word",
+    "claim about penalties (\"First violation: civil penalty not exceeding $10,000,000 for a first violation, enforced by The atto\") is not supported: the reader could not confirm it word for word"
    ],
    "section": null
   },
@@ -731,60 +727,57 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
+   "rounds": 2,
    "problems": [
-    "mechanism is too long (1029 characters)",
-    "thresholds is too long (675 characters)",
-    "claim about thresholds (\"Frontier model: Foundation model trained with computing power greater than 10^26 integer or floating\") is not supported: The catastrophic harm definition does not require that harm arise from evading control. It lists three alternatives (a: expert-level weapons assistance; b: conduct with no meaningful human oversight that would be murder, assault or theft; c: evading control), and harm from any one of them can qualify. The claim wrongly makes evasion of control a required element and omits the alternatives. The other threshold figures match the source."
+    "the referee did not confirm the scope with a quote found in the text"
    ],
    "section": null
   },
   {
    "key": "ny-raise-act-ch-699-ch-96",
-   "outcome": "held",
+   "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Chapter 96 repeals the original Gen. Bus. Law Art. 44-B and enacts a new Art. 44-B (§§1420–1429) that copies TFAIA's frontier AI framework (§1421(1)) and transparency report (§1421(3)) — deemed compliant if published within a system/model card; incident reporting 72 hrs to the DFS Office, 24 hrs to law enforcement if imminent risk (§1422(3)); quarterly internal-use catastrophic-risk summaries (§1422(2)); large-developer disclosure statement with 5%/50% beneficial owners, renewed every 2 years , pro-rata assessment, $1,000/day for non-filing (§1428); new office within Dept. of Financial Services with broad rulemaking authority incl. \"additional reporting or publication requirements\" (§1429); scope limited to models \"developed, deployed, or operating in whole or in part in New York\" (§1425); exempts accredited colleges/universities and the Empire AI Consortium (§1426); §1427(3) expressly preserves a developer's right to argue another party caused the harm. Federal reciprocity is narrower than IL's: it covers incident reporting only (§1422(8)–(9)), and the designated federal standard need not require audits. Contains no whistleblower section and no audit mandate — both were in the June 2025 version and were removed",
-     "got": null,
+     "got": "A large frontier developer must write, implement, comply with, and publish on its website a frontier AI framework covering frontier models. A large frontier developer must review and update its frontier AI framework at least once per year. A frontier developer must publish a transparency report before or concurrently with deploying a new or substantially modified frontier model; large developers must add catastrophic-risk assessment summaries. A frontier developer must not make a materially false or misleading statement about catastrophic risk from its frontier models or its management of catastrophic risk. No private right of action is created for violations of the article. A frontier developer must report a critical safety incident to the office within seventy-two hours of determining it occurred or learning facts giving reasonable belief it occurred. A frontier developer must disclose a critical safety incident posing imminent risk of death or serious physical injury within twenty-four hours to an appropriate authority.",
      "provable": [
       "44"
      ],
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "10²⁶ ops incl. fine-tuning/RL/material modifications (§1420(9)); >$500M revenue with affiliates, preceding calendar year (§1420(10)); catastrophic risk >50 deaths/serious injury or >$1B; equity-value loss excluded (§1423)",
-     "got": null,
+     "got": "Frontier model: trained using more than 10^26 integer or floating-point operations, including fine-tuning and reinforcement learning from prior foundation models. Large frontier developer: annual gross revenues in excess of five hundred million dollars in the preceding calendar year, with affiliates. Catastrophic risk: frontier model providing expert-level assistance in the creation or release of a chemical, biological, radiological, or nuclear weapon; more than fifty people or more than one billion dollars in damage to, or loss of, property.",
      "provable": [
       "10",
       "26"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "10",
+      "26"
+     ],
+     "recall": 1,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "penalties": {
      "gold": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
-     "got": null,
+     "got": "First violation: civil penalty not to exceed one million dollars for a first violation, enforced by the attorney general; Subsequent violation: civil penalty not to exceed three million dollars per subsequent violation, enforced by the attorney general; Large frontier developer failing to file a disclosure statement: civil penalty of one thousand dollars for each day the entity fails to file a disclosure or correct false information, enforced by the office.",
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": false
+     "pass": true
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "mechanism is too long (957 characters)",
-    "thresholds is too long (663 characters)",
-    "claim about penalties (\"First violation: Civil penalty not to exceed one million dollars for a first violation; Later violat\") is not supported: The $1,000-per-day disclosure penalty is not enforced by the attorney general. SOURCE says the office (the Department of Financial Services office) \"may, after notice and hearing, levy civil penalties\" for that failure. The attorney general's civil action under § 1427(1) covers only listed violations, not violations of the article generally."
-   ],
-   "section": null
+   "rounds": 1,
+   "problems": [],
+   "section": "A"
   },
   {
    "key": "oh-hb-628",
@@ -793,7 +786,7 @@
    "fields": {
     "mechanism": {
      "gold": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; \"soft law\" — nothing requires a developer to seek verification",
-     "got": "An IVO licensed under this chapter must implement its submitted plan to verify ongoing risk mitigation. The attorney general may license an applicant as an IVO if it shows independence from industry and an adequate plan. The attorney general must revoke an IVO license if its plan is materially misleading or inaccurate, or if non-adherence materially impairs its duties. An IVO must submit an annual report to the general assembly, the attorney general, and the auditor of state. The attorney general may convey its IVO licensing and other powers to the artificial intelligence safety advisory council. The advisory council must publish redacted versions of IVO reports on the attorney general's web site. Rebuttable presumption against liability in injury or property damage suits if a licensed IVO verified the model at injury for its licensed risk and segment.",
+     "got": "Licensed independent verification organization must implement its submitted plan to verify ongoing mitigation of risks. Attorney general may license applicants as independent verification organizations. Attorney general must revoke an IVO license on specified grounds, including a materially misleading plan or a verified model causing material harm. Licensed independent verification organization must submit an annual report to the general assembly, attorney general and auditor of state. Artificial intelligence safety advisory council is established in the attorney general's office. Artificial intelligence safety advisory council must publish redacted versions of reports issued by independent verification organizations. Civil claims for personal injury or property damage caused by a verified AI model or application carry a rebuttable presumption against liability if specified conditions apply. Presumption may be rebutted by clear and convincing evidence of specified defendant conduct that was a proximate cause of the injuries.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -802,7 +795,7 @@
     },
     "thresholds": {
      "gold": null,
-     "got": "Independent verification organization: Standards reflecting best practices for the prevention of personal injury and property damage.",
+     "got": null,
      "provable": [],
      "found": [],
      "recall": null,
@@ -812,6 +805,67 @@
     "penalties": {
      "gold": null,
      "got": null,
+     "provable": [],
+     "found": [],
+     "recall": null,
+     "unsupported": [],
+     "pass": true
+    }
+   },
+   "gold_in_scope": true,
+   "rounds": 1,
+   "problems": [],
+   "section": "C"
+  },
+  {
+   "key": "pa-h-b-2800-ai-risk-prevention-act",
+   "outcome": "published",
+   "scope_ok": true,
+   "fields": {
+    "mechanism": {
+     "gold": "Introduced text read (Printer's No. 3904, 26 pp.). Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee; publish and comply with a frontier AI framework , reviewed at least annually and re-published within 30 days of a material modification; transparency reports before deployment; annual third-party audit of framework compliance with auditor-independence limits; critical safety incident reports to PEMA and the Attorney General within 72 hours , and within 24 hours to an appropriate authority where an incident poses an imminent risk of death or serious physical injury; whistleblower protections preserving the state Whistleblower Law; enforcement by the agency and the Attorney General with civil penalties up to $1,000,000 per violation for a first violation and $3,000,000 for a subsequent violation , plus injunctive relief",
+     "got": "Large frontier developers must file registration, disclosure statement and fee before operating frontier models in PA, from Jan 1, 2027. Large frontier developers must implement their frontier AI framework from Jan 1, 2028, publish it, and comply with it. Frontier developers must publish a transparency report before or with deploying a new frontier model. Nothing in the Act creates a private right of action for violations. Frontier developers may not retaliate against a covered employee for disclosures and must give covered employees notice of rights. Large frontier developers must annually retain a third party for an independent audit, from Jan 1, 2028 or 90 days after qualifying, if later. Frontier developers must report critical safety incidents to the agency and Attorney General within 72 hours. Frontier developers must disclose incidents posing imminent risk of death or serious injury within 24 hours to an authority.",
+     "provable": [
+      "3904",
+      "26",
+      "30",
+      "72",
+      "24",
+      "1000000",
+      "3000000"
+     ],
+     "found": [
+      "72",
+      "24"
+     ],
+     "recall": 0.2857142857142857,
+     "unsupported": [],
+     "pass": true
+    },
+    "thresholds": {
+     "gold": "Frontier model = trained on more than 10²⁶ operations , counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident",
+     "got": "Frontier model: Foundation model trained using computing power greater than 10^26 integer or floating-point operations, counting later fine-tuning and reinforcement learning. Large frontier developer: Annual gross revenues over $500,000,000 in the preceding calendar year, with affiliates. Catastrophic risk: Death or serious injury to more than 50 people from a single incident; More than $1,000,000,000 in damage to or loss of property from a single incident.",
+     "provable": [
+      "10",
+      "26",
+      "500000000",
+      "50",
+      "1000000000"
+     ],
+     "found": [
+      "10",
+      "26",
+      "500000000",
+      "50",
+      "1000000000"
+     ],
+     "recall": 1,
+     "unsupported": [],
+     "pass": true
+    },
+    "penalties": {
+     "gold": null,
+     "got": "Large frontier developer, first violation: Civil penalty not exceeding $1,000,000 per violation for a first violation, enforced by the Attorney General; Large frontier developer, later violations: Civil penalty not exceeding $3,000,000 per violation for a subsequent violation, enforced by the Attorney General; Any person violating the Act: Civil penalty not exceeding $1,000 for each day that the person is in violation, enforced by the agency after notice and hearing; Injunctive relief against a person violating the Act, in addition to other penalties, enforced by the agency.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -822,63 +876,7 @@
    "gold_in_scope": true,
    "rounds": 3,
    "problems": [],
-   "section": "C"
-  },
-  {
-   "key": "pa-h-b-2800-ai-risk-prevention-act",
-   "outcome": "held",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Introduced text read (Printer's No. 3904, 26 pp.). Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee; publish and comply with a frontier AI framework , reviewed at least annually and re-published within 30 days of a material modification; transparency reports before deployment; annual third-party audit of framework compliance with auditor-independence limits; critical safety incident reports to PEMA and the Attorney General within 72 hours , and within 24 hours to an appropriate authority where an incident poses an imminent risk of death or serious physical injury; whistleblower protections preserving the state Whistleblower Law; enforcement by the agency and the Attorney General with civil penalties up to $1,000,000 per violation for a first violation and $3,000,000 for a subsequent violation , plus injunctive relief",
-     "got": null,
-     "provable": [
-      "3904",
-      "26",
-      "30",
-      "72",
-      "24",
-      "1000000",
-      "3000000"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": "Frontier model = trained on more than 10²⁶ operations , counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident",
-     "got": null,
-     "provable": [
-      "10",
-      "26",
-      "500000000",
-      "50",
-      "1000000000"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "thresholds is too long (916 characters)",
-    "claim about thresholds (\"Frontier model: Trained using computing power greater than 10^26 integer or floating-point operation\") is not supported: The claim merges the catastrophic-risk prongs. SOURCE lists evading control of the developer or user as its own prong (iii), not one that needs conduct without human oversight. The murder-type prong also requires conduct without meaningful human oversight and covers murder, assault, extortion or theft, not just 'murder-type crime'. The claim also omits that the risk must be foreseeable and material and that the exclusions apply.",
-    "claim about penalties (\"Large frontier developer, first violation: Civil penalty up to $1,000,000 per violation for the firs\") is not supported: SOURCE says the $1,000,000 and $3,000,000 penalties are recovered in a civil action brought exclusively by the Attorney General (Sec. 1304(c)), and the $1,000-per-day penalty is imposed by the agency after notice and hearing (Sec. 1304(a)(1)). The claim's statement that the penalties are enforced by the agency in consultation with the Attorney General misattributes who recovers the large-developer penalties."
-   ],
-   "section": null
+   "section": "B"
   },
   {
    "key": "s-2938-ai-risk-evaluation-act",
@@ -887,7 +885,7 @@
    "fields": {
     "mechanism": {
      "gold": "Dept. of Energy runs a mandatory Advanced AI Evaluation Program: classified red-team testing, blind third-party evaluations; ≥$1M/day non-participation penalty. Earliest of the federal testing-mandate bills",
-     "got": "Each covered advanced AI system developer must participate in the program and provide the Secretary, on request, materials and information. No person may deploy an advanced AI system in interstate or foreign commerce unless it complies with the developer participation and materials duty. Secretary of Energy must establish the Advanced Artificial Intelligence Evaluation Program within the Department of Energy within 90 days of enactment. The program must offer standardized and classified testing and evaluation of advanced AI systems to collect data on the likelihood of adverse AI incidents. Secretary must submit to Congress a detailed recommendation for Federal oversight of advanced AI systems within 360 days of enactment. The program terminates 7 years after enactment unless renewed by Congress.",
+     "got": "Covered advanced artificial intelligence system developers must participate in the Advanced Artificial Intelligence Evaluation Program. Covered developers must provide the Secretary of Energy, on request, materials and information necessary to carry out the program. No person may deploy an advanced AI system in interstate or foreign commerce unless that person complies with the participation and information duties. The Secretary of Energy must establish the Advanced Artificial Intelligence Evaluation Program within the Department of Energy. The program must offer standardized and classified testing and evaluation of advanced AI systems to collect data on adverse AI incident likelihood. The Secretary of Energy must submit a recommendation to Congress for Federal oversight of advanced AI systems, drawing on program results. The program terminates unless renewed by Congress. The Secretary may, by rule, propose a new definition of advanced artificial intelligence system, which takes effect only after a joint resolution approving it is enacted.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -896,7 +894,7 @@
     },
     "thresholds": {
      "gold": "10²⁶ ops",
-     "got": "Advanced artificial intelligence system: trained using a quantity of computing power greater than 10^26 integer or floating-point operations.",
+     "got": "Advanced artificial intelligence system: Trained using a quantity of computing power greater than 10^26 integer or floating-point operations.",
      "provable": [
       "10",
       "26"
@@ -911,7 +909,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": "Fine of not less than $1,000,000 per day of the violation for violating the developer duty or the deployment prohibition.",
+     "got": "Fined not less than $1,000,000 per day of the violation for violating the participation or deployment duties.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -932,7 +930,7 @@
    "fields": {
     "mechanism": {
      "gold": "Mandatory NSA-led pre-deployment testing of frontier models; AI Risk Board; voluntary incident reporting modeled on aviation safety. Centerpiece of Warner's \"Framework for America's AI Future\" (also: Data Center Tax Accountability Act, AI AGENT Act, National Workforce Transition Fund)",
-     "got": "Frontier model providers must give NSA's AI Security Center access to the model 21 days before release. Each frontier model provider must register the model with NIST's registry before introduction. NIST must establish a public registry of frontier models. The Secretary of Commerce must establish an Artificial Intelligence Risk Board within NIST. The Board must develop a process for technical evaluations of capabilities posing serious risk. The Director must share relevant guidance to inform voluntary vendor actions on threats to frontier models. No cause of action may be brought against a covered person for sharing information with the US Government under this section. Before enforcement, the Attorney General must notify the provider and allow 7 calendar days to cure.",
+     "got": "Frontier model providers must give the NSA Artificial Intelligence Security Center access to the model at least 21 calendar days before introducing it into commerce. Each provider of a frontier model must register it with the NIST frontier model registry before introducing it into interstate or foreign commerce. NIST must establish a public registry of frontier models within 90 days of enactment. The Commerce Secretary must establish an Artificial Intelligence Risk Board within NIST within 90 days of enactment, to develop technical evaluations of frontier model capabilities. The Director shares guidance from pre-deployment testing to inform voluntary vendor actions against security threats to frontier models. No cause of action may be brought against a covered person for sharing information with the US Government or another covered person under this section.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -941,7 +939,7 @@
     },
     "thresholds": {
      "gold": "Capability-based: models posing \"serious risk to national security, national economic security, or public health or safety\" — no compute threshold",
-     "got": "Capability-based, no figure: Model that exhibits or could be modified to exhibit high levels of performance at tasks posing serious risk to national security, economic security, or public health or safety.",
+     "got": "Capability-based, no figure: Models that exhibit or could be modified to exhibit high levels of performance at tasks that pose a serious risk to national security, economic security, or public health or safety; no figure set.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -950,7 +948,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": "Violation of subsection (c) without having obtained the voluntary security guidance: fine of not less than $100,000 per day for each day a frontier model is available; enforced by the Attorney General.",
+     "got": "Violation of subsection (c) (pre-release access): Fine of not less than $100,000 per day for each day a frontier model is available in commerce without the voluntary security guidance; enforced by the Attorney General.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -958,11 +956,11 @@
      "pass": true
     }
    },
-   "section_ok": true,
+   "section_ok": false,
    "gold_in_scope": true,
-   "rounds": 3,
+   "rounds": 2,
    "problems": [],
-   "section": "D"
+   "section": null
   },
   {
    "key": "texas-traiga-hb-149",

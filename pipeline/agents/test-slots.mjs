@@ -1,6 +1,7 @@
 // Slot-based writing of a new entry (agents/slots.mjs; owner, 30 Oct 2026). Code only, no AI.
 //   node agents/test-slots.mjs
-import { renderSlots, coverageProblems, slotQuoteProblems, FIELD_LIMITS } from './slots.mjs';
+import { renderSlots, coverageProblems, slotQuoteProblems, FIELD_LIMITS, THRESHOLD_KINDS, SLOTS_INSTRUCTIONS } from './slots.mjs';
+import { factNumbers } from '../eval/run.mjs';
 import { generatePatch } from './generator.mjs';
 import { generatorPrompt } from './prompts.mjs';
 import { runChecks } from './checks.mjs';
@@ -95,6 +96,13 @@ const IL = {
   const after = { key: 'k' };
   const c = runChecks({ patch, before: null, after, assembleProblems: [], source: 'legiscan', sourceText: SRC, entries: [], operation: 'update' }).find((x) => x.name === 'slots_complete');
   ok('5 a compute figure with no compute slot fails slots_complete, and says which', c && !c.passed && /kind compute/.test(c.detail), JSON.stringify(c));
+}
+
+// ---------- 6. owner decisions of 30 Oct 2026 ----------
+{
+  ok('6 no harm kind in thresholds, and the prompt says to leave harm definitions out', !THRESHOLD_KINDS.includes('harm') && /Never put the definition of the harm/.test(SLOTS_INSTRUCTIONS));
+  ok('6 thresholds may run to 1,000 characters', FIELD_LIMITS.thresholds === 1000);
+  ok('6 the eval reads the author shorthand "$25M" and "1M" as the full figures', factNumbers('≥$25M revenue; ≥1M users').has('25000000') && factNumbers('≥$25M revenue; ≥1M users').has('1000000'));
 }
 
 console.log(`slots: ${pass} passed, ${fail} failed`);

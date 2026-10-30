@@ -41,7 +41,10 @@ const MAX_ROUNDS = 3;
 // Numbers worth checking: amounts, thresholds, deadlines. Single digits and 4-digit years are too common to mean anything.
 // Section citations in the author's entries ("§1420(9)", "Sec. 8", "Secs. 1652–1655") are references, not facts, and are not counted.
 const CITATION = /§+\s*[\d.]+(?:\([0-9a-z]+\))*(?:\s*[–-]\s*[\d.]+)?|\bSecs?\.\s*[\d.]+(?:\([0-9a-z]+\))*(?:\s*[–-]\s*[\d.]+)?/gi;
-export const factNumbers = (s) => new Set([...digitRuns(String(s || '').replace(CITATION, ' '))].filter((n) => n.replace('.', '').length > 1 && !/^(19|20)\d\d$/.test(n)));
+// The author's shorthand ("$25M", "$1.5B", "1M users") is the full figure an entry writes ("$25,000,000"): expanded before matching.
+const MULT = { k: 1e3, thousand: 1e3, m: 1e6, million: 1e6, b: 1e9, billion: 1e9 };
+export const expandShorthand = (s) => String(s || '').replace(/(\d+(?:\.\d+)?)\s?(thousand|million|billion|[KMB])(?![A-Za-z])/gi, (m, n, u) => String(Math.round(Number(n) * MULT[u.toLowerCase()])));
+export const factNumbers = (s) => new Set([...digitRuns(expandShorthand(s).replace(CITATION, ' '))].filter((n) => n.replace('.', '').length > 1 && !/^(19|20)\d\d$/.test(n)));
 
 // Code checks on one patch (the same rules as agents/checks.mjs, without the parts that need an assembled entry).
 export function codeChecks(patch, text) {
@@ -145,7 +148,7 @@ async function runItem({ gold, text, generator, validator, referee = null, style
     // code finds in the text. No referee or no confirmation: held.
     if (!problems.length) {
       const ref = referee ? await refereeVerdict(referee, text, gold.key) : { in: null };
-      if (ref.in !== true) return { outcome: 'held', in_scope: ref.in === false ? false : null, rounds: round, fields: {}, problems: [ref.in === false ? 'the referee ruled it out of scope after both readers said in' : 'the referee did not confirm the scope with a quote found in the text'] };
+      if (ref.in !== true) return { outcome: 'held', in_scope: ref.in === false ? false : null, rounds: round, fields: {}, problems: [ref.in === false ? 'the referee ruled it out of scope after both readers said in' : `the referee did not confirm the scope with a quote found in the text${ref.why ? ` (${ref.why})` : ''}`] };
     }
     if (!problems.length) return { outcome: 'published', in_scope: true, rounds: round, fields: patch.fields, section: ruleSection || patch.fields.section || null, problems: [] };
     feedback = problems;
