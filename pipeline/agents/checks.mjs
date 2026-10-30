@@ -1,7 +1,8 @@
 // The Validator's plain-code checks. Each returns { name, passed, detail }. Code cannot be talked into agreeing,
 // so these catch the most dangerous mistakes (an invented quote, number or date) with no AI involved.
 import { makeValidator } from '../schema/validate.mjs';
-import { containsQuote, digitRuns, norm, LOST_EXPONENT, COMPUTE_UNIT } from './source-text.mjs';
+import { containsQuote } from './source-text.mjs';
+import { digitRuns, norm, LOST_EXPONENT_IN_VALUE as LOST_EXPONENT, COMPUTE_UNIT, ENCODING_DEBRIS, GLUED_AMOUNT } from './text-norm.mjs';
 import { SECTION_RULES, NEGATIVE_FINDING } from './rules.mjs';
 import { FIELD_LIMITS, coverageProblems, slotQuoteProblems } from './slots.mjs';
 
@@ -26,13 +27,14 @@ export function dateSupported(date, text) {
 }
 
 // Rules learned from the 27 Oct 2026 review of all entries. Each returns readable problems for one text field.
-const GARBLED = /\b10(2[0-9])\s+(?:integer|floating|operations|computational)|�/i; // 10²⁶ printed as "1026" or "10�26"
+// 10²⁶ printed as "1026", "10.26" or "10�26" (agents/text-norm.mjs LOST_EXPONENT), or a superscript's encoding debris on its own.
+const GARBLED = new RegExp(`${LOST_EXPONENT.source}|${ENCODING_DEBRIS.source}`, 'i');
 const MONTH = '(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\\.?';
 // A month and day with no year after it (ranges such as "Sept 3–16, 2026" and "Sept 3–Oct 1, 2026" count as having one).
 const NO_YEAR = new RegExp(`\\b${MONTH}\\s+\\d{1,2}\\b(?!(?:\\s*[–-]\\s*(?:${MONTH}\\s+)?\\d{1,2})?,?\\s*\\d{4})`);
 const UNDEFINED = /\bnot (?:established|defined|specified|stated)\b[^.;]{0,40}\b(?:sources?|text)\b/i;
-// A line number glued onto an amount ("$500,000,000.8", IL H.B. 4705): an amount never has a single cent digit.
-const GLUED_DIGIT = /\$\d{1,3}(?:,\d{3})+\.\d(?!\d)/;
+// A line number glued onto an amount ("$500,000,000.8", IL H.B. 4705): an amount never has a single cent digit (agents/text-norm.mjs).
+const GLUED_DIGIT = GLUED_AMOUNT;
 const QUOTED = /[“"]([^”"]{8,})[”"]/g;
 // Compute thresholds must parse to a plausible magnitude (AZ H.B. 4098 was published with "10.26 computational operations", a lost 10^26):
 // "10^N operations" needs N from 20 to 30, and a number written out before a compute unit needs at least 10^20. Returns readable problems.

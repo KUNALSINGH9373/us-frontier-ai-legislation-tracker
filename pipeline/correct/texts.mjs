@@ -8,7 +8,7 @@ import { parseBillId, billUrl } from '../grabber/sources/congress.mjs';
 import { latestText, normNumber, officialUrl, adoptedAmendments, withAmendments } from '../grabber/sources/legiscan.mjs';
 import { pdfToText } from '../grabber/lib/pdf.mjs';
 import { stripLineNumbering } from '../grabber/lib/text.mjs';
-import { repairExponents } from '../agents/source-text.mjs';
+import { cleanText } from '../agents/text-norm.mjs';
 
 // Entries whose description follows a later bill than the first mapped one (NY RAISE: Ch. 699 was repealed and replaced by Ch. 96 = S.8828).
 export const USE_BILL = { 'ny-raise-act-ch-699-ch-96': ['NY', 'S8828'], 'ma-h-5576-s-3178': ['MA', 'S3228'] };
@@ -79,7 +79,7 @@ export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {
         rec = { kind, bill: id, url: billUrl(b) + '/text', text, why: text ? null : 'no text published on Congress.gov yet' };
       } else rec = await fromState(il[key] ? il[key].bills[0].bill_id : await findStateBill(...extra[key]), (extra[key] || []).join(' ')); // a multi-bill entry is read from its first mapped bill
     } catch (err) { rec = { kind, text: null, why: 'fetch failed: ' + String(err.message).slice(0, 120) }; }
-    if (rec.text && repair) rec.text = repairExponents(rec.text);
+    if (rec.text && repair) rec.text = cleanText(rec.text);
     return rec;
   }
   return { textFor, sourceOf };

@@ -25,7 +25,8 @@ import { generatePatch } from '../agents/generator.mjs';
 import { FIELD_LIMITS, slotQuoteProblems, coverageProblems } from '../agents/slots.mjs';
 import { VERDICT_SCHEMA, VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from '../agents/prompts.mjs';
 import { buildClaims } from '../agents/validator.mjs';
-import { containsQuote, digitRuns, repairExponents } from '../agents/source-text.mjs';
+import { containsQuote } from '../agents/source-text.mjs';
+import { digitRuns, cleanText } from '../agents/text-norm.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { foreignLetters, textProblems } from '../agents/checks.mjs';
 import { exportControlBill, stateSections } from '../agents/derive.mjs';
@@ -199,7 +200,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
     for (let g; (g = queue.shift());) {
       const s = sources[g.key], f = path.join(P, 'data', 'eval', 'texts', g.key + '.txt');
       const stored = fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null;
-      const text = stored && repairExponents(stored); // as agents/source-text.mjs does for production sources
+      const text = stored && cleanText(stored); // as agents/source-text.mjs does for production sources
       let result;
       if (!stored || sha(stored) !== s.sha256) result = { outcome: 'no_text', in_scope: null, fields: {}, problems: ['text missing or changed since eval/sources.json; run eval/fetch-texts.mjs'] };
       else if (/ADOPTED AMENDMENT( NOT READ)?:/.test(text)) result = { outcome: 'held', in_scope: null, fields: {}, problems: ['an amendment was adopted since the bill text was printed (held, as production does: agents/process-item.mjs)'] };

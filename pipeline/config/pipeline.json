@@ -1,0 +1,10 @@
+{
+ "_note": "Tuning numbers for the new-bills pipeline, read once by pipeline/lib/pipeline-config.mjs. Change them here, not in code.",
+ "text": {
+  "_note": "Printed line numbering (agents/text-norm.mjs). A run of at least min_run numbers, each the one before plus one and min_gap to max_gap characters after it, is line numbering, not a figure.",
+  "numbering": [
+   { "name": "line", "min_gap": 15, "max_gap": 400, "min_run": 3 },
+   { "name": "page.line", "min_gap": 15, "max_gap": 400, "min_run": 3 }
+  ]
+ }
+}
