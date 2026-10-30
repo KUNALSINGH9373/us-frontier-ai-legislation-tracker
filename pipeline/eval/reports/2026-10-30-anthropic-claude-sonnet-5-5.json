@@ -1,105 +1,103 @@
 {
- "run_at": "2026-10-30T08:26:02.043Z",
+ "run_at": "2026-10-30T08:54:07.069Z",
  "provider": "anthropic",
  "generator": "claude-sonnet-5-5",
  "reader": "claude-haiku-5-5",
  "validator": "claude-haiku-5-5",
  "referee": "claude-opus-5-5",
- "partial": false,
+ "partial": true,
  "prompt_version": "b136495d84f9",
  "measure": "fields",
- "checks_hash": "608443a36f531641c5843f9a90096928f298cc638ffb6b1fd71934d64a42950f",
+ "checks_hash": "ed09dbd717ed19a8f52a6da9ee5f0e8e8a03857748a1b19c0210ed70484758fd",
  "summary": {
-  "items": 48,
+  "items": 9,
   "outcomes": {
-   "published": 40,
-   "out_of_scope": 7,
-   "held": 1
+   "published": 7,
+   "held": 2
   },
   "scope_agreement": 1,
   "scope_wrong": [],
   "fields": {
    "mechanism": {
-    "items": 41,
-    "passed": 40,
-    "pass_rate": 0.975609756097561,
-    "published": 40,
+    "items": 9,
+    "passed": 7,
+    "pass_rate": 0.7777777777777778,
+    "published": 7,
     "unsupported_fields": 0,
-    "fact_recall": 0.39648033126294,
-    "items_with_provable_facts": 23
+    "fact_recall": 0.24999999999999997,
+    "items_with_provable_facts": 6
    },
    "thresholds": {
-    "items": 41,
-    "passed": 38,
-    "pass_rate": 0.926829268292683,
-    "published": 31,
+    "items": 9,
+    "passed": 7,
+    "pass_rate": 0.7777777777777778,
+    "published": 7,
     "unsupported_fields": 0,
-    "fact_recall": 0.890625,
-    "items_with_provable_facts": 16
+    "fact_recall": 0.5,
+    "items_with_provable_facts": 4
    },
    "penalties": {
-    "items": 41,
-    "passed": 40,
-    "pass_rate": 0.975609756097561,
-    "published": 22,
+    "items": 9,
+    "passed": 7,
+    "pass_rate": 0.7777777777777778,
+    "published": 3,
     "unsupported_fields": 0,
-    "fact_recall": 1,
-    "items_with_provable_facts": 2
+    "fact_recall": null,
+    "items_with_provable_facts": 0
    }
   },
-  "section_items": 19,
-  "section_agreement": 0.8947368421052632,
+  "section_items": 4,
+  "section_agreement": 0.75,
   "section_wrong": [
-   "h-r-9914-s-5105-catsr",
-   "s-5471-ai-systems-transparency-act"
+   "h-r-9914-s-5105-catsr"
   ]
  },
  "usage": {
-  "calls": 214,
-  "input_tokens": 2699646,
-  "output_tokens": 200040,
-  "total_tokens": 2899686,
+  "calls": 41,
+  "input_tokens": 368332,
+  "output_tokens": 45449,
+  "total_tokens": 413781,
   "by_role": {
    "generator": {
-    "calls": 82,
-    "input": 1215131,
-    "output": 86501,
-    "cost": 3.295272
+    "calls": 16,
+    "input": 184734,
+    "output": 19955,
+    "cost": 0.5690180000000001
    },
    "validator": {
-    "calls": 82,
-    "input": 949168,
-    "output": 106637,
-    "cost": 0.14823530000000007
+    "calls": 16,
+    "input": 128879,
+    "output": 24353,
+    "cost": 0.0250644
    },
    "referee": {
-    "calls": 50,
-    "input": 535347,
-    "output": 6902,
-    "cost": 2.2794280000000002
+    "calls": 9,
+    "input": 54719,
+    "output": 1141,
+    "cost": 0.241696
    }
   },
   "by_model": {
    "claude-sonnet-5-5": {
-    "calls": 82,
-    "input": 1215131,
-    "output": 86501,
-    "cost": 3.295272
+    "calls": 16,
+    "input": 184734,
+    "output": 19955,
+    "cost": 0.5690180000000001
    },
    "claude-haiku-5-5": {
-    "calls": 82,
-    "input": 949168,
-    "output": 106637,
-    "cost": 0.14823530000000007
+    "calls": 16,
+    "input": 128879,
+    "output": 24353,
+    "cost": 0.0250644
    },
    "claude-opus-5-5": {
-    "calls": 50,
-    "input": 535347,
-    "output": 6902,
-    "cost": 2.2794280000000002
+    "calls": 9,
+    "input": 54719,
+    "output": 1141,
+    "cost": 0.241696
    }
   },
-  "estimated_cost_usd": 5.722935
+  "estimated_cost_usd": 0.835778
  },
  "items": [
   {
@@ -109,7 +107,7 @@
    "fields": {
     "mechanism": {
      "gold": "Requires Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval mechanism modelled on arms-sales review, and codifies the prohibition on the most capable chips for 18 months ; Commerce certification that exports of lesser chips do not divert US supply or foundry capacity or permit unauthorized remote access; an \"American AI Victory Strategy.\" The AIPN conference letter also lists House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors), 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers) as provisions in play",
-     "got": "The Under Secretary of Commerce for Industry and Security shall require a license to export, reexport, or transfer in-country a covered integrated circuit to entities tied to a country of concern. The Under Secretary may not issue a general license for the license requirement. Not fewer than 30 days before approving a license, the Under Secretary shall submit the application and certifications to the appropriate congressional committees. The license requirement under sections 742.6 and 744.23 does not apply to a covered integrated circuit destined for a non-concern country that remains under ownership and control of a trusted United States person or its subsidiaries once in operation. Not later than 90 days after enactment, the Under Secretary shall seek public input and prescribe regulations setting trusted United States person standards. Any license issued or approved before enactment for a country of concern entity is terminated. The Under Secretary shall deny all such licenses until 14 days after the national security strategy is submitted to Congress.",
+     "got": "Beginning on enactment, the Under Secretary of Commerce for Industry and Security shall require a license to export a covered integrated circuit to an entity tied to a country of concern. The Under Secretary may not issue a general license for this requirement. Not fewer than 30 days before approving a license, the Under Secretary shall submit the application and certifications to Congress. Congress may block a proposed export by enacting a joint resolution within 30 days after receiving the certification. Trusted United States person exemption from license requirements under sections 742.6 and 744.23 for chips kept under trusted ownership and control. Not later than 90 days after enactment, the Under Secretary shall seek public input and prescribe trusted person regulations.",
      "provable": [
       "30",
       "18"
@@ -123,7 +121,7 @@
     },
     "thresholds": {
      "gold": null,
-     "got": "Capability-based, no figure: integrated circuit with 1 or more digital processing units with a total processing performance of 4,800 or more; 1 or more digital processing units with total processing performance of 2,400 or more and a performance density of 1.6 or more; 1 or more digital processing units with total processing performance of 1,600 or more and a performance density of 3.2 or more; 1 or more digital processing units with total DRAM bandwidth of 1,400 gigabytes per second or more, interconnect bandwidth of 1,100 gigabytes per second or more, or a sum of DRAM bandwidth and interconnect bandwidth of 1,700 gigabytes per second or more.",
+     "got": "Covered integrated circuit: integrated circuit, computer or product classified under Export Control Classification Number 3A090 or 4A090 or related numbers, or functionally equivalent; digital processing units with a total processing performance of 4,800 or more; total processing performance of 2,400 or more and a performance density of 1.6 or more; total processing performance of 1,600 or more and a performance density of 3.2 or more; total DRAM bandwidth of 1,400 gigabytes per second or more, interconnect bandwidth of 1,100 gigabytes per second or more, or a sum of DRAM bandwidth and interconnect bandwidth of 1,700 gigabytes per second or more; excludes circuits or products not designed or marketed for use in data centers.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -145,309 +143,6 @@
    "rounds": 3,
    "problems": [],
    "section": "G.3"
-  },
-  {
-   "key": "ca-ab-1405-auditor-registry",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Final (Aug 25 Senate-amended, concurred Aug 30) text read. GovOps must establish an AI Auditor Registry by Jan 1, 2029 (earlier drafts said 2027); from Jan 1, 2029 no person may offer, sell, or conduct a \"covered AI audit\" — an audit of internal controls/processes/systems \"necessary for compliance with state law\" — unless registered. Registrants disclose standards applied (ISO, NIST, AICPA, etc.) and basis for validity claims; report contents specified (scope, results, deficiencies, whether auditee followed its internal safety protocols, limitations, signed statement); 10-year retention; independence rules (no self-review, no job-seeking during audit, 12-month cooling-off for former auditee staff); auditor-employee whistleblower protection; GovOps may investigate and remove from registry with referral to AG; CPA-licensed auditors deemed compliant if they follow AICPA standards; registration number on all advertising; AI Auditors' Registration Fund",
-     "got": "The Government Operations Agency shall establish an AI Auditor Registry on its website, allowing AI auditors to register, no later than January 1, 2029. Beginning January 1, 2029, a person shall not offer, sell, or conduct a covered AI audit unless registered with the agency. A registered AI auditor that conducts a covered AI audit shall provide the auditee with a report including scope, results, deficiencies and a signed and dated statement. A registered AI auditor shall maintain independence from the auditee and shall not conduct a covered AI audit if it has an interest that would reasonably be expected to impair independence or objectivity. A registered AI auditor shall retain information provided to an auditee and documentation of audit results for at least 10 years. The agency may investigate alleged violations; a violation is grounds for removal from the registry and referral to the Attorney General or other appropriate enforcement authority. A registered AI auditor shall not prevent an employee from disclosing information to the Attorney General or the Labor Commissioner, or retaliate against an employee for doing so. The agency shall establish a mechanism on its website allowing natural persons to report misconduct by a registered AI auditor.",
-     "provable": [
-      "10",
-      "12"
-     ],
-     "found": [
-      "10"
-     ],
-     "recall": 0.5,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "C"
-  },
-  {
-   "key": "ca-sb-1119-adam-s-law-and-sb-867",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Companion-chatbot child-safety laws signed Sept 10, 2026: pre-release risk assessments for minor users and independent child-safety audits from July 1, 2027 (SB 1119); moratorium on companion chatbots in toys (SB 867). No frontier or compute threshold; deployer-side. Noted because AB 1405's auditor registry will cover this second California audit regime. Governor's release Sept 10",
-     "got": null,
-     "provable": [
-      "10",
-      "1119",
-      "1405"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
-   "section": null
-  },
-  {
-   "key": "ca-sb-53-tfaia",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Frontier AI framework; transparency reports; critical-incident reporting 15 days, or 24 hrs if imminent risk of death/serious injury ; whistleblower protections incl. anonymous channel with monthly updates; annual definitional review; CalCompute consortium; preempts local ordinances adopted on/after Jan 1, 2025 regulating frontier catastrophic risk",
-     "got": "A large frontier developer shall write, implement, comply with, and publish a frontier AI framework (Section 2). A large frontier developer shall review and update its frontier AI framework at least once per year (Section 2). A frontier developer shall publish a transparency report when deploying a new or modified frontier model (Section 2). A large frontier developer shall transmit to the Office of Emergency Services a summary of any assessment of catastrophic risk from internal use of its frontier models, every three months or on another reasonable schedule it specifies in writing to the Office (Section 2). The act preempts local rules adopted on or after January 1, 2025 on frontier developers' management of catastrophic risk. A frontier developer shall not prevent or retaliate against covered employee disclosures (Section 4). A frontier developer shall report a critical safety incident to the Office of Emergency Services within 15 days of discovering it (Section 2). A frontier developer that discovers an incident posing imminent risk of death or serious physical injury shall disclose it within 24 hours to an appropriate authority (Section 2).",
-     "provable": [
-      "15",
-      "24"
-     ],
-     "found": [
-      "15",
-      "24"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$500M revenue;",
-     "got": "Frontier model: trained using a quantity of computing power greater than 10^26 integer or floating-point operations; computing power includes the original training run and any subsequent fine-tuning, reinforcement learning, or other material modifications to a preceding foundation model. Large frontier developer: annual gross revenues in excess of $500,000,000 in the preceding calendar year, together with affiliates.",
-     "provable": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "found": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation",
-     "got": "Large frontier developer: civil penalty not exceeding $1,000,000 per violation, depending on severity; enforced by the Attorney General.",
-     "provable": [
-      "1000000"
-     ],
-     "found": [
-      "1000000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [],
-   "section": "A"
-  },
-  {
-   "key": "ca-sb-813-ivos",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Enrolled text read. By Jan 1, 2028 the Government Operations Agency must: develop IVO designation application requirements and criteria (risk-assessment competence, technical expertise, conflict-of-interest management — IVO may be paid by the assessed party at market rates but not on terms conditioned on results — and operational independence); develop suspension/termination procedures; convene working groups that must include engineers from competing AI companies and AI safety experts ; report to the Legislature. Designated IVOs file annual reports. §8898.4 expressly: no liability solely for failing a standard; no state endorsement; no requirement that anyone engage an IVO or undergo a covered audit; an audit under the standard is \"relevant to, but not conclusive of\" a harm action — i.e., no presumption of reasonable care. Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone",
-     "got": "On or before January 1, 2028, the Government Operations Agency shall develop application requirements, suspension and termination procedures, and designation criteria for IVOs. The agency shall convene working groups to solicit stakeholder input and report the findings to the Legislature. A designated IVO shall submit an annual report to the agency and Legislature, no sooner than 12 months after initial designation as an IVO. No developer, deployer or operator is required to engage an IVO or undergo a covered AI audit as a condition of developing, deploying, or operating an AI system or model in this state. An audit performed under an identified standard is relevant to, but not conclusive of, an action alleging harm.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [],
-   "section": "C"
-  },
-  {
-   "key": "chip-security-act-h-r-3447-cotton-companion",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "The introduced text requires Commerce standards for location-verification and other chip-security mechanisms for covered advanced integrated circuits, plus reporting of diversion/tampering indications; the committee vote is separately confirmed by an official House release and CBO's reported-bill record",
-     "got": "Not later than 180 days after enactment, the Secretary of Commerce shall require covered integrated circuit products to have location verification chip security mechanisms before export, reexport, or in-country transfer. Not later than 180 days after enactment, the Secretary shall require licensed exporters to promptly report to the Under Secretary of Industry and Security credible information of wrong location, diversion, or tampering. Not later than one year after enactment, the Secretary shall conduct an assessment of additional chip security mechanisms and develop requirements for any identified. If mechanisms are determined appropriate, the Secretary shall, not later than 2 years after completing the assessment, require covered products to have the secondary chip security mechanisms before export. The Secretary may verify ownership and location of exported covered products, maintain a record of them, and require licensees to provide information for the record. Not later than 2 years after enactment, and annually thereafter for 3 years, the Secretary shall assess new chip security mechanisms and report to the appropriate congressional committees.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [],
-   "section": "G.3"
-  },
-  {
-   "key": "ct-p-a-26-15-ivo-pilot",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "A Department of Consumer Protection-administered IVO pilot program through June 30, 2030 : IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation. This is an operating pilot, not merely a study",
-     "got": "Sec. 2: No frontier developer shall adopt or enforce any rule, policy or contract allowing discipline of employees for protected activity or catastrophic-risk reports. Sec. 2: Not later than January 1, 2027, each large frontier developer shall maintain an internal process for covered employees to anonymously report catastrophic-risk dangers. Sec. 33: The Department of Consumer Protection shall, within available appropriations, develop and administer a pilot program on independent verification of AI models. Sec. 33: Verification evidence gives no presumption, inference or defense in Attorney General or agency enforcement actions. Sec. 2: Covered employees are protected from discipline or retaliation for reporting a reasonably believed catastrophic-risk danger.",
-     "provable": [
-      "30"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Frontier developer: uses or intends to use computing power greater than 10^26 integer or floating-point operations, including fine-tuning, reinforcement learning or other material modifications. Large frontier developer: annual gross revenues in excess of five hundred million dollars for the most recently completed calendar year, with affiliates.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Frontier developer violating Sec. 2(b) to (d): civil penalty not exceeding one thousand dollars per violation; enforced by the Attorney General.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "ct-p-a-26-15-omnibus",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "39-section omnibus (AEDT/employment AI incl. WARN-notice AI disclosure, companion chatbots, provenance, social media, regulatory sandbox). Frontier-relevant sections: \"frontier developer\" = doing business in CT + >10²⁶ FLOPs; \"large frontier developer\" = >$500M revenue; frontier developers may not retaliate against employees reporting catastrophic-risk concerns (effective Oct. 1, 2026 ); large frontier developers must operate anonymous internal reporting channels by Jan. 1, 2027 ; penalty up to $1,000 per violation ; plus a DCP-run IVO pilot through June 30, 2030 — see Section C . No developer framework, transparency-report, incident-reporting, or audit mandate",
-     "got": "Sec. 2: No frontier developer shall make, adopt, enforce or enter into any rule, policy or contract allowing discipline of employees for protected activity. Sec. 2: Not later than January 1, 2027, each large frontier developer shall establish and maintain a reasonable internal process for covered employees to anonymously report catastrophic risk dangers. Sec. 2: Each frontier developer shall provide all of its covered employees clear notice of their rights and responsibilities under the section. Sec. 33: The Department of Consumer Protection shall, within available appropriations, develop and administer a pilot program on independent verification programs for AI models, terminating on June 30, 2030. Sec. 33: The Department of Consumer Protection shall approve not more than five independent verification organizations to participate in the pilot program. Sec. 2: Covered employees who report a specific and substantial danger to public health or safety due to a catastrophic risk are protected from discipline or retaliation. Sec. 33: Evidence of verification or good standing is admissible solely in a civil action by a private party for personal injury or property damage caused by an AI model.",
-     "provable": [
-      "39",
-      "10",
-      "26",
-      "30"
-     ],
-     "found": [
-      "30"
-     ],
-     "recall": 0.25,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Frontier developer: uses, or intends to use, computing power greater than 10^26 integer or floating-point operations, including fine-tuning and other material modifications to a preceding foundation model. Large frontier developer: annual gross revenues in excess of five hundred million dollars for the most recently completed calendar year, together with controlling and affiliated persons.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Frontier developer violating Sec. 2 subsections (b) to (d): civil penalty not exceeding one thousand dollars per violation; enforced by the Attorney General.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "B"
   },
   {
    "key": "gain-ai-act-of-2025-s-3150",
@@ -456,7 +151,7 @@
    "fields": {
     "mechanism": {
      "gold": "Requires an applicant for a license to export advanced AI chips to a country of concern to certify that US persons have priority in acquiring those chips, subject to the bill's conditions and exceptions",
-     "got": "The Under Secretary of Commerce for Industry and Security shall require a license to export, reexport, or transfer in-country a covered circuit or product to a country of concern entity. License applicants must certify that United States persons had a right of first refusal, with not fewer than 15 business days to inquire and request to purchase. The Under Secretary shall deny the license if the certification is not submitted with the application. Not later than 90 days after the date of the enactment of this section, the Under Secretary shall seek public input and prescribe regulations on certification compliance. Licenses under sections 742.4 and 744.23 are not required for exports to non-concern countries if the product stays under a trusted United States person's control. Trusted United States person regulations shall include annual audit or attestation requirements.",
+     "got": "The Under Secretary shall require a license to export, reexport, or transfer a covered circuit or product to entities in or headquartered in a country of concern. A license applicant must certify US persons had a right of first refusal, with not fewer than 15 business days to inquire. The Under Secretary shall deny the license if the certification is not submitted. Not later than 90 days after enactment, the Under Secretary shall seek public input and prescribe certification compliance regulations. Certain license requirements do not apply to exports to non-concern countries if chips stay under a trusted United States person's ownership and control. Trusted United States person regulations must include annual audit or attestation requirements.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -465,7 +160,7 @@
     },
     "thresholds": {
      "gold": null,
-     "got": "Capability-based, no figure: total processing performance of 4,800 or more; total processing performance of 2,400 or more and a performance density of 1.6 or more; total processing performance of 1,600 or more and a performance density of 3.2 or more; total DRAM bandwidth of 1,400 gigabytes per second or more, interconnect bandwidth of 1,100 gigabytes per second or more, or a sum of both of 1,700 gigabytes per second or more.",
+     "got": "Advanced integrated circuit: total processing performance of 4,800 or more; total processing performance of 2,400 or more and a performance density of 1.6 or more; total processing performance of 1,600 or more and a performance density of 3.2 or more; total DRAM bandwidth of 1,400 gigabytes per second or more, interconnect bandwidth of 1,100 gigabytes per second or more, or sum of both of 1,700 gigabytes per second or more.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -489,219 +184,13 @@
    "section": "G.3"
   },
   {
-   "key": "h-r-10180-self-improving-ai-monitoring-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Amends the NIST Act (15 U.S.C. §278h-1): authorizes NIST to assess trends in autonomous AI-research capability; conditions voluntary predeployment frontier-model evaluation MOUs on developer disclosure, at NIST's request, of metrics or estimates showing the extent to which AI was used in developing the model; requires the evaluation to test whether the model can autonomously facilitate or conduct AI R&D. Applies only to developers entering such MOUs",
-     "got": "The NIST Director must assess trends regarding AI capabilities, including capability to autonomously facilitate or conduct AI research or development, based on disclosed information. The Director may not enter a memorandum of understanding for pre-deployment evaluation with a frontier AI developer unless the memorandum meets the stated requirements. Each such memorandum must require the developer to disclose to the Director, upon request, information on the extent an AI system was used to facilitate or conduct research on or development of the frontier system. Each such evaluation must include an evaluation of the frontier system's capabilities to autonomously facilitate or conduct AI research or development.",
-     "provable": [
-      "15"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "h-r-10189-defense-ai-reliability-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Requires a centralized, non-punitive DoD-wide AI incident and vulnerability reporting, tracking, analysis, and remediation program covering development through operation. Includes prompt reporting; protected disclosures by servicemembers, civilian employees, contractors, and subcontractors; categorization and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operation outside guardrails, mission degradation, failure to obey disengagement, near misses, and control/autonomy concerns. Not frontier-specific",
-     "got": "The Secretary of Defense shall establish a centralized Department-wide program for reporting, tracking, analysis, and remediation of covered AI incidents and covered AI vulnerabilities. The Secretary shall designate an official who receives and standardizes reports, conducts trend analysis, and issues guidance, alerts, and recommendations, as appropriate. The Secretary shall require prompt reporting of any covered AI incident and any covered AI vulnerability to the designated official. For incidents or vulnerabilities needing a Department-wide response, the Secretary shall require a documented corrective action plan and validation that mitigation measures are implemented before continued operational use. The Secretary shall establish procedures to protect sensitive, proprietary, and classified information submitted through the protected disclosure process. In each of years 2027 through 2031, the Secretary shall submit an annual report on the program to the congressional defense committees. The Secretary shall establish a protected disclosure process; a person reporting in good faith must not, on the basis of that report alone, be subject to adverse contract action, adverse personnel action, or otherwise retaliated against by the Department.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Capability-based, no figure: event in which an AI system operates outside authorized parameters or guardrails, fails to respond to an operator disengage command, or raises concerns regarding system control and autonomy.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "h-r-10362-stop-rogue-ai-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Introduced text read. Directs NIST to set standards so organisations can find and track every AI agent on their networks, verify who built and operates each, monitor in real time, and allow, deny or revoke access; federal agencies and contractors to build the safeguards into procurement and deployment. Duties fall on deployers and agencies, not frontier developers",
-     "got": "Not later than 1 year after enactment and annually thereafter, the NIST Director, with the Assistant Secretary of Commerce, shall develop, publish, and maintain AI agent security standards, guidelines, and best practices. The standards must cover continuous discovery, inventory, verification and organizational control over all AI agents, plus runtime monitoring and tamper-evident logs. Standards must provide that organizations deploying AI agents maintain a continuous, machine-readable inventory of all AI agents. Not later than 18 months after publication of the standards and annually thereafter, the Federal Acquisition Regulatory Council shall propose Federal Acquisition Regulation revisions requiring contractors and agencies to comply with the standards. Proposed contract terms must let the Federal agency allow, deny, or constrain AI agent-to-AI agent and AI agent-to-information system interactions. Not later than 180 days after the proposal of revisions and annually thereafter, the OMB Director, with the CISA Director, shall issue guidance to Federal agencies on implementing the procurement requirements. The procurement subsection does not apply to contracts entered into before the date of enactment.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Capability-based, no figure: software-based system that uses an AI model and autonomously interacts with other systems on behalf of a person or organization, with minimal or no human interaction beyond initial direction.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "h-r-9363-ai-security-and-innovation-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Voluntary \"Center for AI Security and Innovation\" at NIST; statutorily barred from regulatory, rulemaking, or enforcement authority ; 5-year sunset; CBO est. $80M 2026-31",
-     "got": "The Secretary of Commerce must establish the Center for AI Security and Innovation in NIST not later than 60 days after enactment. The Director must establish a process for covered entities to enter voluntary agreements to develop or evaluate covered frontier systems for national security and economic security risks. The Director must conduct evaluations and assessments of covered frontier systems developed by covered entities located in the United States or a foreign adversary. The Director must support NIST laboratories in developing voluntary adoption of standards, guidelines, and best practices for testing and evaluating covered frontier systems, and must publish them. Not later than 180 days after enactment, the Under Secretary, acting through the Director, must publish a definition of 'covered frontier system'. The section terminates 5 years after the date of its enactment. Information a covered entity or developer provides to the Director is exempt from disclosure under section 552(b)(3) of title 5 and may not be used by any government to regulate an activity of such covered entity related to such information. The section does not confer on the Director any regulatory, rulemaking, or enforcement authority.",
-     "provable": [
-      "31"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Capability-based, no figure: capabilities and requirements an AI system must have, as defined and published by the Under Secretary acting through the Director.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "h-r-9477-ai-incident-reporting-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Full text read. Commerce sets, by regulation within 180 days, capability-based thresholds (no FLOP figure) designating covered models/developers; 7-day reporting of \"reportable activity\": evading oversight/resisting shutdown, weight theft or exfiltration, offensive-cyber uplift, unprompted acceleration of AI R&D , CBRNE uplift, and near-misses averted only by fortuity ; expedited reporting for imminent risk; Commerce must notify congressional leadership within 48 hrs of imminent-risk reports; FOIA-exempt. §2(d)(4): reports may not be used in any civil, criminal, or administrative proceeding against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer — a use-immunity that would bind state AGs. Civil penalty up to $2M per day ; Commerce subpoena and inspection powers. Moran told Reuters he split reporting out of the GAAIA framework to move faster",
-     "got": "The Secretary of Commerce must promulgate regulations within 180 days of enactment setting capability or other thresholds and designating covered model developers and models. A covered model developer must submit a detailed report to the Secretary within 7 days after it knows or reasonably believes reportable activity has occurred. Reportable activity includes evading oversight or resisting shutdown, weight theft, offensive cyber capabilities, and CBRN weapons uplift. The Secretary must require expedited reporting for reportable activity presenting an imminent or ongoing risk of serious harm. The Secretary must inform congressional leaders within 48 hours of receiving a report presenting an imminent or ongoing risk of serious harm. The Secretary may issue orders, subpoena records, conduct investigations, and refer matters to the Attorney General for civil action. Submitted information may not be used by any Federal, State, or local government to regulate or bring an enforcement action against the developer.",
-     "provable": [
-      "180",
-      "48",
-      "2000000"
-     ],
-     "found": [
-      "180",
-      "48"
-     ],
-     "recall": 0.6666666666666666,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Capability-based, Commerce-designated",
-     "got": "Covered model developer: any person or entity that develops or trains a covered model, or substantially modifies one, including through fine-tuning, in a manner the Secretary determines meets a threshold. Covered model: models and developers designated by the Secretary under capability or other thresholds that could pose significant risks to national security or public safety.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Violation of section: civil penalty not to exceed $2,000,000 for a violation, with each day of a continuing violation a separate offense; enforced by the Secretary after notice and an opportunity for a hearing.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "D"
-  },
-  {
    "key": "h-r-9914-s-5105-catsr",
    "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Antitrust safe harbor for frontier labs sharing model-risk and security information (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
-     "got": "Under section 3, it is not an antitrust violation for 2 or more non-Federal entities to exchange information or assistance on a covered artificial intelligence security risk in good faith for the exclusive purpose of a covered artificial intelligence security purpose. Under section 3, non-Federal entities may coordinate to delay or limit AI release, deployment or development without antitrust violation if they first give the Assistant Attorney General written notice. Under section 4, the Attorney General may seek an injunction in court against non-Federal entities to prohibit an action that violates the antitrust laws. The exemption is an affirmative defense; the entity claiming it bears the burden of proving by a preponderance of the evidence good faith and exclusive purpose. Nothing in the Act limits any private right of action for antitrust violations that are not exempt under this section. Section 3(a)(1) shall not be construed to permit price-fixing, market allocation, monopolizing or attempting to monopolize a market, boycotting, or exchanges of price or cost information. Notices submitted to the Assistant Attorney General are exempt from disclosure under section 552 of title 5, United States Code.",
+     "got": "Two or more non-Federal entities exchanging information or assistance on a covered artificial intelligence security risk in good faith for the exclusive purpose of a security purpose is not an antitrust violation. Non-Federal entities coordinating to delay or limit AI release, deployment or development are exempt from antitrust laws if they submit written notice to the Assistant Attorney General before acting. The Attorney General may seek an injunction in court against such non-Federal entities to prohibit an action that violates the antitrust laws. The exemption is an affirmative defense; the entity claiming it bears the burden of proving by a preponderance of the evidence good faith and exclusive purpose. Nothing in the Act limits any private right of action for antitrust violations that are not exempt under section 3. Notices submitted to the Assistant Attorney General are used solely for section 4 and are exempt from disclosure under section 552 of title 5, United States Code.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -710,7 +199,7 @@
     },
     "thresholds": {
      "gold": "—",
-     "got": "Capability-based, no figure: AI potential to substantially facilitate the development or deployment of a chemical, biological, radiological, nuclear, or offensive cyber weapon.",
+     "got": "Capability-based, no figure: AI potential to be stolen or weaponized by a covered nation, facilitate chemical, biological, radiological, nuclear or offensive cyber weapons, disrupt critical infrastructure, reduce oversight or control, autonomously improve, or be vulnerable to unauthorized access.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -729,7 +218,7 @@
    },
    "section_ok": false,
    "gold_in_scope": true,
-   "rounds": 3,
+   "rounds": 1,
    "problems": [],
    "section": "F"
   },
@@ -740,7 +229,7 @@
    "fields": {
     "mechanism": {
      "gold": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Penalties $2M/day for ordinary violations and $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
-     "got": "The Secretary, acting through the Director, must by rule require a covered entity to maintain a technical capability to stop inference, terminate user access, suspend access and shut down covered technology, not later than 90 days after enactment and annually thereafter. A covered entity must submit to the Secretary a report on a covered incident not later than 15 days after it becomes aware of the incident. The Secretary must publish voluntary standards for shutting down a covered technology not later than 180 days after enactment. After determining a covered incident has occurred, the Secretary may order the covered entity to take proportionate action, including shutdown actions; the entity must preserve model weights and telemetry and confirm compliance. The Secretary may administer oaths, subpoena testimony and documents, and conduct investigations, and may refer matters to the Attorney General for a civil action. After an entity confirms an order was carried out, the Secretary must verify compliance through audit, telemetry, on-site inspection, or other forensic review. A covered entity may petition for reconsideration not later than 48 hours after an order, which does not stay the order, and may seek review in the D.C. Circuit not later than 60 days after the order.",
+     "got": "The Secretary must by rule require covered entities to keep a technical capability to stop inference, end user access, suspend access and shut down covered technology. A covered entity must report a covered incident to the Secretary not later than 15 days after becoming aware of it. The Secretary must publish voluntary standards for shutting down covered technology not later than 180 days after enactment. After determining a covered incident occurred, the Secretary may order the covered entity to take proportionate action, including shutdown actions. Upon an emergency order, the covered entity must as soon as practicable preserve model weights and telemetry, notify users and confirm compliance. The Secretary may administer oaths, subpoena testimony and documents, and conduct investigations. After confirmation of an order, the Secretary shall verify compliance through audit, telemetry, on-site inspection, or other forensic review.",
      "provable": [
       "10",
       "100000000",
@@ -750,16 +239,15 @@
       "20000000"
      ],
      "found": [
-      "15",
-      "48"
+      "15"
      ],
-     "recall": 0.3333333333333333,
+     "recall": 0.16666666666666666,
      "unsupported": [],
      "pass": true
     },
     "thresholds": {
      "gold": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
-     "got": "Covered technology: developed using computing power costing more than $100,000,000 at the prevailing market price of cloud computing in the United States, as determined by the Secretary. Covered entity: not less than $500,000,000 in gross revenue from such technology with affiliates in the preceding calendar year.",
+     "got": "Covered technology: AI system developed using computing power costing more than $100,000,000 at prevailing US cloud market price, as determined by the Secretary. Covered entity: not less than $500,000,000 in gross revenue from covered technology in the preceding calendar year, together with affiliates.",
      "provable": [
       "100000000",
       "500000000"
@@ -774,7 +262,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": "Violations of the section: civil penalty of not more than $2,000,000 for each day on which the violation occurs; Violations of emergency order subsection (c): civil penalty of not more than $20,000,000 for each day on which the violation occurs; enforced by the Secretary, acting through the Director, after reasonable notice and opportunity for a hearing.",
+     "got": "General violations: civil penalty of not more than $2,000,000 for each day on which the violation occurs; Violations of emergency order subsection (c): civil penalty of not more than $20,000,000 for each day on which the violation occurs; enforced by the Secretary, acting through the Director, after reasonable notice and opportunity for a hearing.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -784,327 +272,55 @@
    },
    "section_ok": true,
    "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "D"
-  },
-  {
-   "key": "h-r-9925-frontier-act",
-   "outcome": "held",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Creates Under Secretary of Commerce for AI Security (not CAISI) with rulemaking power. Large developers: frontier AI framework, annual third-party compliance audit, transparency reports, registration/disclosure statement with beneficial owners. Very large developers: additionally retain a licensed IVO for ongoing assessment, reports at least every 6 months . Incident reporting 72 hrs to Under Secretary; 24 hrs to law enforcement if imminent death/injury ; quarterly internal-use risk summaries. Sec. 8 emergency orders: Commerce Secretary may suspend/restrict development, deployment, or internal use on an imminent-catastrophic-risk finding (provisional 45 days; final 90 days, renewable); applies to fine-tuned/distilled derivatives; exclusive D.D.C. review; declared the exclusive means for any federal actor incl. the President to restrict a model on those grounds. IVOs immune from suit except willful misconduct causing death/serious injury. State AGs may opt in to receive reports and enforce. Under Secretary may only raise thresholds, never lower. Good-faith exception for false statements; confidential-deployment deferral of transparency reports. No whistleblower title (the June GAAIA draft had one). Sec. 9 preemption: no state may \"adopt or enforce\" any law imposing \" new substantive obligations\" on developers re: catastrophic-risk transparency, third-party auditing/verification, or incident reporting; carve-outs for general laws, deployer/use regulation, minors, state procurement. No sunset (June draft had 3 years). Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
-     "got": null,
-     "provable": [
-      "72",
-      "24",
-      "45",
-      "90"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": "Frontier model 10²⁶ ops incl. fine-tuning/RL. Large = >$50M revenue and ≥$1B AI-related development expenditures over 36 months. Very large = >$5B revenue and ≥$10B expenditures. Not the $500M revenue test used by states.",
-     "got": null,
-     "provable": [
-      "10",
-      "26",
-      "50000000",
-      "1000000000",
-      "36",
-      "5000000000",
-      "10000000000"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "claim about mechanism (\"A large frontier developer shall write, implement, comply with, and publish a frontier AI framework.\") is not supported: Most parts match, but the 72-hour reporting duty omits the exception in Sec. 4(h)(2). SOURCE says a critical safety incident posing an imminent risk of death or serious physical injury must be reported to a law enforcement agency within 24 hours, so the 72-hour rule is not stated without that exception.",
-    "claim about penalties (\"Frontier developer violating Sec. 4: civil penalty of not more than $1,000,000 per violation, enforc\") is not supported: Amounts match, but enforcement is stated too narrowly. Sec. 4(j)(3) lets opted-in State Attorneys General bring actions for the Sec. 4 penalty, and Sec. 4(k)(6) lets an opted-in State Attorney General bring the disclosure-statement penalty action. SOURCE does not limit enforcement to the Attorney General alone."
-   ],
-   "section": null
-  },
-  {
-   "key": "h-r-9965-atomic-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Full text read. DOE, through the National Laboratories/NNSA, establishes an Advanced AI Nuclear Evaluation Program within 90 days: testing for \"AI nuclear incidents\" (nuclear-weapon uplift, Restricted Data generation, loss-of-control involving nuclear systems, adversary access, scheming behavior), red-teaming at sophisticated-adversary level, third-party and blind evaluations. Participation is mandatory for large advanced AI developers, who must provide secure access to model weights and, where necessary, versions without safety mitigations ; Secretary may subpoena weights and software . Penalty up to $1M per violation, each day a separate violation ; DOJ referral. FOIA-exempt with carve-outs incl. congressional committee requests. Annual report with legislative recommendations that may include licensing or a new federal agency ; program sunsets after 7 years. Defines \"evaluation awareness\" and \"scheming behavior\" in statute",
-     "got": "Secretary of Energy, acting through the National Laboratories, shall establish the Advanced Artificial Intelligence Nuclear Evaluation Program not later than 90 days after enactment. Large advanced artificial intelligence developers shall participate in the Program. Large advanced artificial intelligence developers may not fail to provide secure access to AI, including model weights, or conceal or falsify Program records or information. Secretary may issue a subpoena to compel production of AI, including model weights, and information from a developer that fails to participate or provide access. Secretary may refer a violation to the Attorney General to bring a civil action for relief in district court. Secretary shall submit to Congress a report with recommendations for legislation not later than 1 year after enactment, with annual updates. The Program shall terminate 7 years after the date of enactment.",
-     "provable": [
-      "90"
-     ],
-     "found": [
-      "90"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "\"Advanced AI\" = >10²⁶ ops (Secretary may revise by rule); \"large advanced AI developer\" = ≥**$2B AI investment over the preceding 5 years**; \"substantially modify\" = ≥$5M.",
-     "got": "Advanced artificial intelligence: trained utilizing computing power greater than 10^26 integer or floating-point operations, or another quantity specified by the Secretary. Large advanced artificial intelligence developer: expended not less than $2,000,000,000 on investments to develop or modify AI in the five calendar years before the calendar year at issue, with affiliates.",
-     "provable": [
-      "10",
-      "26",
-      "2000000000",
-      "5000000"
-     ],
-     "found": [
-      "10",
-      "26",
-      "2000000000"
-     ],
-     "recall": 0.75,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Large advanced artificial intelligence developer: civil penalty of not more than $1 million per violation, each day of a continuing violation a separate violation; enforced by the Secretary after reasonable notice and opportunity for a hearing.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 1,
+   "rounds": 2,
    "problems": [],
    "section": "D"
   },
   {
    "key": "il-hb-3506-2025",
-   "outcome": "published",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
-     "got": "A large developer shall produce, implement, follow, and conspicuously publish a safety and security protocol, and publish material modifications no later than 30 days after they take effect. No less than every 90 days, a large developer shall produce and conspicuously publish a transparency report. A large developer shall record and retain for no less than 5 years the tests used and test results from critical risk assessments. A large developer shall conspicuously publish the auditor's report no later than 90 days after the report is completed. The Attorney General may bring a civil action for violations of Sections 15 or 25 and may seek injunctive or declaratory relief for any violation of the Act. A large developer with employees in this State shall provide an anonymous internal disclosure process and shall not take retaliatory action against employees who disclose critical risk. At least once every calendar year, a large developer shall retain a reputable third-party auditor to report on its compliance with its safety and security protocol. An employee subjected to retaliatory action in violation of Section 30 may bring a civil action against the large developer for relief including reinstatement and back pay.",
+     "got": null,
      "provable": [
       "90"
-     ],
-     "found": [
-      "90"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months the original-RAISE test",
-     "got": "Large developer: developed a foundation model with computing power costing at least $5,000,000 at prevailing cloud computing market prices when training commences; within the preceding 12 months, developed foundation models using total computing power costing at least $100,000,000.",
-     "provable": [
-      "5000000",
-      "100000000",
-      "12"
-     ],
-     "found": [
-      "5000000",
-      "100000000",
-      "12"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Violations of Sections 15 or 25: civil penalty not to exceed $1,000,000, enforced by the Attorney General; Repeat whistleblower-protection violations: civil penalty not to exceed $10,000 for each repeat violation within a 5-year period, enforced by the Attorney General; Employee retaliation: liquidated damages of up to $10,000 and a civil penalty of $10,000 payable to the employee.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "il-hb-4705-sb-3261",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking",
-     "got": "A large frontier developer or large chatbot provider shall write, implement, comply with, and publish a public safety and child protection plan. Before, or concurrently with, deploying a new or substantially modified frontier model, a large frontier developer shall implement safeguards and publish risk assessment summaries. A large frontier developer shall not use or deploy a frontier model that would pose unreasonable catastrophic risk. The Attorney General may adopt rules creating alternative compliance pathways for developers complying with federal or other state law. A frontier developer or large chatbot provider shall not adopt a policy or contract that prevents an employee from making a protected disclosure. At least once every calendar year, a large frontier developer shall retain a reputable third-party auditor to produce a compliance report. A frontier developer shall report any critical safety incident to the Attorney General within 15 days after discovering it.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "10²⁶ ops; large frontier developer = ≥$500M annual revenue; large chatbot provider = ≥$25M annual revenue; a covered chatbot must also have ≥1M monthly active users and be foreseeably accessible by minors",
-     "got": "Frontier model: trained using a quantity of computing power greater than 10^26 integer or floating-point operations, including subsequent fine-tuning and reinforcement learning. Large frontier developer: annual revenue of at least $500,000,000 together with affiliates. Large chatbot provider: annual revenue of at least $25,000,000 together with affiliates. Covered chatbot: at least 1,000,000 monthly active users.",
-     "provable": [
-      "10",
-      "26",
-      "500000000",
-      "25000000",
-      "1000000"
-     ],
-     "found": [
-      "10",
-      "26",
-      "500000000",
-      "25000000",
-      "1000000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Large frontier developer: civil penalty not exceeding $1,000,000 per violation, depending on severity; Large chatbot provider: civil penalty not exceeding $50,000 per violation, depending on severity; enforced by the Attorney General.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "il-sb-315-p-a-104-0538",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Sec. 10: frontier AI framework (from Jan 1, 2028); transparency reports before/at deployment — deemed compliant if published within a system/model card; annual independent third-party audit (from Jan 1, 2028 or 90 days after qualifying), auditor must have no financial interest in developer and payment can't be conditioned on results; redacted audit report published within 30 days and sent to Agency + AG; quarterly internal-use catastrophic-risk summaries. Sec. 15: incident reporting 72 hrs to Illinois Emergency Management Agency and Office of Homeland Security (\"Agency\") + AG; 24 hrs to appropriate authority if imminent risk of death/serious injury; public reporting mechanism; FOIA exemption for incident reports, internal-use assessments, unredacted audits, auditor work papers. Sec. 17 interoperability: developer may declare intent to comply via a designated federal law/regulation/guidance that (1) has substantially equivalent-or-stricter incident reporting, (3) is substantially equivalent in mitigating catastrophic risk, and (4) requires independent third-party audits — then failure to meet the federal standard is an IL violation. Sec. 18: disclosure statement with 5%+ beneficial owners (private) / 50%+ (public), renewed annually, pro-rata fee. Sec. 20: whistleblower protections for \"covered employees\" incl. anonymous channel with monthly updates and AG Workplace Rights Hotline; amends IL Whistleblower Act. Sec. 35: declares frontier-model regulation an exclusive State power — denies home rule . Legislative mechanics: introduced Jan 24, 2025 as a Predatory Loan Prevention Act technical bill; Senate Floor Amendment No. 1 (filed May 11, 2026) replaced the entire text; four floor amendments adopted May 21. Timing mismatch worth flagging: Sec. 10(c) transparency reports have no 2028 gate and so apply from the Jan 1, 2027 effective date, yet large-developer reports must summarize assessments \"conducted pursuant to the frontier AI framework\" — which isn't required until 2028",
-     "got": "Beginning January 1, 2028, a large frontier developer shall write, implement, comply with, and publish a frontier AI framework on its website. A large frontier developer shall review and, as appropriate, update its frontier AI framework at least once per year. A frontier developer shall publish a transparency report before, or concurrently with, deploying a new or substantially modified frontier model. Beginning January 1, 2027, no large frontier developer may develop, deploy, or operate a frontier model in this State without a current disclosure statement filed with the Agency and paying the required fee. The regulation of artificial intelligence frontier models is an exclusive power and function of the State, limiting home rule powers. A frontier developer shall not prevent or retaliate against a covered employee for disclosing catastrophic risk danger or violations of the Act. A large frontier developer shall annually retain a third party to perform an independent audit of compliance with Section 10. A frontier developer shall report any critical safety incident to the Agency and the Attorney General within 72 hours of learning facts establishing a reasonable belief it occurred.",
-     "provable": [
-      "90",
-      "30",
-      "72",
-      "24",
-      "50",
-      "11",
-      "21"
-     ],
-     "found": [
-      "72"
-     ],
-     "recall": 0.14285714285714285,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "10²⁶ ops incl. original run + fine-tuning/RL/material modifications; \"large frontier developer\" = >$500M revenue with affiliates, preceding calendar year;",
-     "got": "Frontier model: foundation model trained using computing power greater than 10^26 integer or floating-point operations, including fine-tuning and reinforcement learning. Large frontier developer: annual gross revenues in excess of $500,000,000 in the preceding calendar year, together with affiliates.",
-     "provable": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "found": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": "$1M first / $3M subsequent, scaled to severity; AG-exclusive action under the AI Act; no general private right under that Act, but employee remedies are preserved through the Illinois Whistleblower Act; $1,000/day for failing to file a disclosure statement; good-faith exception for false statements (Sec. 10(f)(2))",
-     "got": "Large frontier developer, first violation: civil penalty not exceeding $1,000,000 for the first violation, enforced by the Attorney General; Large frontier developer, subsequent violation: civil penalty not exceeding $3,000,000 per violation, enforced by the Attorney General; Failure to file disclosure statement: civil penalty of $1,000 for each day the person fails to file a disclosure or correct false information, enforced by the Agency after notice and hearing.",
-     "provable": [
-      "1000000",
-      "3000000",
-      "1000"
-     ],
-     "found": [
-      "1000000",
-      "3000000",
-      "1000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "A"
-  },
-  {
-   "key": "il-sb-3312",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "The standalone version of what became SB 315: frontier AI framework, IEMA incident reporting, ILCompute public cloud consortium, Dept. of Innovation & Technology definitional review. Its text was moved into SB 315 via floor amendment; SB 3312 itself stalled",
-     "got": "Under Section 10, a large frontier developer shall write, implement, comply with, and publish on its website a frontier AI framework. Under Section 10, a frontier developer shall publish a transparency report before, or concurrently with, deploying a new or substantially modified frontier model. Under Section 15, a frontier developer shall report any critical safety incident to the Agency within 15 days of discovering it. Under Section 10, a large frontier developer shall transmit to the Agency a summary of any assessment of catastrophic risk from internal use of its frontier models every 3 months. Under Section 20, the Department of Innovation and Technology shall assess developments and make recommendations on updating the definitions on or before January 1, 2028, and annually thereafter. Under Section 30, a consortium within the Department of Innovation and Technology shall develop a framework for a public cloud computing cluster known as ILCompute. Under Section 15, a frontier developer shall disclose an incident posing imminent risk of death or serious physical injury within 24 hours to an appropriate authority.",
-     "provable": [
-      "3312"
      ],
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "thresholds": {
-     "gold": "10²⁶ ops; >$500M",
-     "got": "Frontier model: foundation model trained using computing power greater than 10^26 integer or floating-point operations, including subsequent fine-tuning and reinforcement learning. Large frontier developer: annual gross revenues in excess of $500,000,000 in the preceding calendar year, together with affiliates.",
+     "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months the original-RAISE test",
+     "got": null,
      "provable": [
-      "10",
-      "26",
-      "500000000"
+      "5000000",
+      "100000000",
+      "12"
      ],
-     "found": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "recall": 1,
+     "found": [],
+     "recall": 0,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "penalties": {
      "gold": null,
-     "got": "Large frontier developer: civil penalty that does not exceed $1,000,000 per violation, dependent on severity; enforced by the Attorney General.",
+     "got": null,
      "provable": [],
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     }
    },
    "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "B"
+   "rounds": 0,
+   "problems": [
+    "an amendment was adopted since the bill text was printed (held, as production does: agents/process-item.mjs)"
+   ],
+   "section": null
   },
   {
    "key": "il-sb-3444",
@@ -1113,7 +329,7 @@
    "fields": {
     "mechanism": {
      "gold": "Different design from SB 315: a liability shield — developer not liable for critical harms absent intent/recklessness if it publishes a safety & security protocol and transparency report; deemed compliant if bound by EU rules or a federal agency agreement; sunsets if federal law creates overlapping requirements",
-     "got": "To use the shield, a developer shall create a safety and security protocol to manage, assess, and mitigate risk of critical harm (Section 15). To use the shield, a developer shall create a transparency report on the frontier model and assessment results (Section 20). If a developer has produced a safety and security protocol in a manner substantially similar to this Act, it is deemed to have complied if it agrees to be bound by EU AI Act Article 56 safety requirements or enters an agreement with a federal agency. A developer with a federal agency agreement shall file a certification with the Attorney General. The Act shall no longer apply if the federal government enacts a law or adopts regulations that establish overlapping requirements. A developer shall not be held liable for critical harms if it did not intentionally or recklessly cause them and published a protocol and transparency report. The protocol and transparency report requirements do not apply if the developer does not reasonably foresee any material difference in capabilities or risks of critical harm from a previously evaluated frontier model.",
+     "got": "A developer shall not be held liable for critical harms if it did not intentionally or recklessly cause them and published a safety and security protocol and transparency report. To qualify, a developer shall create a safety and security protocol to manage, assess, and mitigate risk of critical harm. To qualify, a developer shall create a transparency report identifying the frontier model and summarizing assessment results. A developer is deemed compliant if it agrees to be bound by EU AI Act Article 56 requirements or enters an agreement with a federal agency. A developer that enters a federal agency agreement shall file a certification with the Attorney General. The Act shall no longer apply if the federal government enacts overlapping requirements for frontier model developers.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -1140,53 +356,6 @@
     }
    },
    "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "ma-h-5576-s-3178",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Frontier AI framework; AG civil-action enforcement; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections; commission on further AI regulation. House version (passed July 8) contains no AI-safety language — only funding.",
-     "got": "A large frontier developer must write, implement, comply with and publish a frontier AI framework (chapter 93M, section 2). A frontier developer must publish a transparency report before or concurrently with deploying a new or substantially modified frontier model (chapter 93M, section 2). A large frontier developer must renew and update its published risk report not less than every 180 days (chapter 93M, section 2). A large frontier developer must conduct an independent evaluation of its frontier models not less than once every 120 days (chapter 93M, section 3A). The attorney general may promulgate, amend or rescind regulations for the implementation, administration and enforcement of chapter 93M. A frontier developer must not prevent or retaliate against a covered employee for disclosing catastrophic risk information or violations (chapter 93M, section 7). A large frontier developer must annually retain a third party to perform an independent audit of compliance with section 2 of chapter 93M, except subsection (c 1/2). A frontier developer must report any critical safety incident to the attorney general within 15 days of discovering it (chapter 93M, section 3).",
-     "provable": [
-      "120"
-     ],
-     "found": [
-      "120"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Senate text: >$500M annual AI-derived revenue or >$1B AI R&D spend;",
-     "got": "Frontier model: foundation model trained using computing power greater than 10^26 integer or floating-point operations, including fine-tuning and reinforcement learning. Large frontier developer: annual gross revenues greater than $500,000,000 together with its affiliates.",
-     "provable": [
-      "500000000",
-      "1000000000"
-     ],
-     "found": [
-      "500000000"
-     ],
-     "recall": 0.5,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Large frontier developer, first violation: civil penalty of not more than $1,000,000 for a first violation; Large frontier developer, subsequent violations: civil penalty of not more than $3,000,000 for subsequent violations; enforced by the attorney general.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
    "rounds": 2,
    "problems": [],
    "section": "B"
@@ -1198,7 +367,7 @@
    "fields": {
     "mechanism": {
      "gold": "Safety & security protocol; transparency reports every 90 days ; annual third-party audit (published within 90 days); whistleblower protections with private right of action (90-day window, clear-and-convincing standard) + anonymous channel with monthly updates; AG enforcement. Appears to be a clone of the original June 2025 RAISE Act text — same $5M/$100M compute-cost thresholds, same 100-death threshold, same audit/whistleblower structure that NY later stripped out. Effective dates are written as \"Beginning January 1, 2026\" — already past, since the bill hasn't moved",
-     "got": "Beginning on January 1, 2026, a large developer shall produce, implement, follow, and conspicuously publish a safety and security protocol (Sec. 7). A large developer shall produce and conspicuously publish a transparency report not less than once every 90 days (Sec. 7). A large developer shall record and retain for 5 years the tests used and results obtained in critical risk assessments, in enough detail for third parties to replicate (Sec. 7). A large developer shall conspicuously publish the auditor's report not more than 90 days after the report is completed (Sec. 9). A large developer shall provide an internal process for anonymous employee disclosure of critical risk information, with a monthly update to the employee (Sec. 11). A large developer shall not discharge, threaten, or discriminate against an employee for reporting information indicating a critical risk to a federal or state authority; the employee may bring a civil action not more than 90 days after the violation (Sec. 11). Beginning on January 1, 2026, not less than once per year, a large developer shall retain a reputable third-party auditor to produce a report on compliance (Sec. 9).",
+     "got": "Beginning on January 1, 2026, a large developer shall produce, implement, follow, and conspicuously publish a safety and security protocol. A large developer shall, not less than once every 90 days, produce and conspicuously publish a transparency report. A large developer shall record and retain for 5 years any specific tests used and results obtained as part of a critical risk assessment. A large developer shall conspicuously publish the auditor's report not more than 90 days after the report is completed. A large developer shall provide an internal process for anonymous employee disclosures, with a monthly update to the employee on the investigation. A large developer shall not discharge, threaten, or discriminate against an employee who reports information indicating its activities pose a critical risk; the employee may bring a civil action within 90 days. Beginning on January 1, 2026, not less than once per year, a large developer shall retain a reputable third-party auditor to produce a report on its compliance.",
      "provable": [
       "90",
       "100"
@@ -1212,7 +381,7 @@
     },
     "thresholds": {
      "gold": "Cost-based, not FLOP-based: \"large developer\" = trained a model costing ≥$5M in compute (at prevailing cloud prices) and ≥$100M aggregate compute cost in preceding 12 months;",
-     "got": "Large developer: developed a foundation model with computing power costing not less than $5,000,000.00 at prevailing cloud market prices; within the preceding 12 months, foundation models with total computing power costing not less than $100,000,000.00.",
+     "got": "Large developer: has developed a foundation model using computing power costing not less than $5,000,000.00 at prevailing cloud market prices; has developed, within the immediately preceding 12 months, foundation models with total computing power costing not less than $100,000,000.00.",
      "provable": [
       "12"
      ],
@@ -1225,7 +394,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": "Violations of section 7 or 9: civil fine of not more than $1,000,000.00 per violation, or injunctive or declaratory relief, enforced by the attorney general; Whistleblower section violations: civil fine of not more than $500.00, deposited into the general fund.",
+     "got": "Violations of section 7 or 9: civil fine of not more than $1,000,000.00 per violation, plus injunctive or declaratory relief, enforced by the attorney general; Violations of the whistleblower section (section 11): civil fine of not more than $500.00.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -1239,51 +408,13 @@
    "section": "B"
   },
   {
-   "key": "mi-sb-757-760-kids-over-clicks",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Minors, addictive feeds and emotion-responsive chatbots; passed the Michigan Senate Apr 29, 2026. Not frontier regulation. A Sept 25 tracker summary conflated SB 760 with H.B. 4668; H.B. 4668's own history shows no action since Mar 19, 2026",
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
-   "section": null
-  },
-  {
    "key": "mn-hf-4532-no-threshold",
    "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person",
-     "got": "Before deploying an AI model, a developer must implement a written safety and security protocol, publish a redacted copy, and send it to the attorney general. A developer must not deploy an AI model if doing so creates an unreasonable risk of critical harm. A developer must conduct an annual review of the safety and security protocol and modify it. A developer must disclose each safety incident to the attorney general within 72 hours of learning of it or of learning sufficient facts to establish a reasonable belief it occurred. A person injured by a violation may bring a civil action to recover damages, costs, and disbursements, including reasonable attorney fees.",
+     "got": "Before deploying an artificial intelligence model, a developer must implement a written safety and security protocol. A developer must conspicuously publish a redacted copy of the protocol, transmit it to the attorney general, and grant the attorney general access on request. A developer must record and retain information on specific tests and test results for the entire period a model is deployed, plus five years. A developer must not deploy an artificial intelligence model if doing so creates an unreasonable risk of critical harm. A developer must conduct an annual review of the safety and security protocol and modify it, and republish it after a material modification. The attorney general may bring a civil action for a violation of section 325M.41 and recover civil penalties and injunctive or declaratory relief. A person injured by a violation may bring a civil action to recover damages, costs, and disbursements, including reasonable attorney fees. A developer must disclose each safety incident to the attorney general within 72 hours of the date it learns of the incident or learns sufficient facts to establish a reasonable belief that one has occurred.",
      "provable": [
       "72",
       "10000000",
@@ -1298,7 +429,7 @@
     },
     "thresholds": {
      "gold": "No compute, cost, or revenue threshold: \"developer\" = any person that has trained at least one AI model.",
-     "got": "Capability-based, no figure: a person that has trained at least one artificial intelligence model.",
+     "got": "No threshold: covers a person that has trained at least one artificial intelligence model.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -1307,7 +438,7 @@
     },
     "penalties": {
      "gold": null,
-     "got": "First violation: civil penalty not exceeding $10,000,000 for a first violation; Subsequent violations: civil penalty not exceeding $30,000,000 for any subsequent violation; enforced by the attorney general.",
+     "got": "First violation: civil penalty not exceeding $10,000,000, enforced by the attorney general; Subsequent violation: civil penalty not exceeding $30,000,000, enforced by the attorney general; Private right of action: damages, costs, and disbursements, including reasonable attorney fees, and other equitable relief.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -1321,335 +452,13 @@
    "section": "B.2"
   },
   {
-   "key": "nj-s-1802",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Annual AI \"safety test\" reports (biases, inaccuracies, cybersecurity threats) to the Office of Information Technology for any entity that sells, develops, deploys or uses AI in New Jersey; no size, compute or revenue threshold; no penalties. General AI bill, not frontier-developer regulation. Bill text — njleg",
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
-   "section": null
-  },
-  {
-   "key": "nj-s-4446-a-5275",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Large frontier developers with NJ users must: implement protocols; file annual \"Risk Management Disclosure\" with AG, mapped item-by-item to the NIST AI RMF ; file pre-deployment \"New Model Risk Disclosure\" with replicable assessments; flag which sections were written by generative AI . AG publishes with redactions. AG may audit or contract a private auditor (discretionary). 5-year sunset. Defines \"critical safety incident\" but imposes no reporting obligation (orphaned definition). No whistleblower provisions",
-     "got": "A large frontier developer with users in New Jersey must write and implement technical and organizational protocols to assess and reduce catastrophic harm risk from frontier models. A large frontier developer must annually submit a Risk Management Disclosure to the Attorney General explaining its protocols. A large frontier developer must annually review and, as appropriate, update its protocols. A large frontier developer must submit a New Model Risk Disclosure to the Attorney General before, or concurrently with, deploying a new or substantially modified frontier model. The Attorney General shall issue rules requiring the Risk Management Disclosure to map the developer's actions to the NIST AI Risk Management Framework suggested actions. The Attorney General shall publish all submitted disclosures on the Department of Law and Public Safety's website, with redactions as necessary. A large frontier developer is not liable for a civil penalty for materially false or misleading statements about catastrophic risk if the statements are found to be reasonable and made in good faith. The Attorney General, in consultation with the office, may audit a large frontier developer for compliance or contract with a private entity to conduct an audit.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$100M revenue (lowest of any bill); weapons list includes illegal firearms, lethal autonomous weapons, explosives broader than CBRN",
-     "got": "Frontier model: foundation model trained using greater than 10^26 integer or floating-point operations, including computing for the original training run and later fine-tuning, reinforcement learning, or other material modifications. Frontier developer: person who has used, or initiated the use of, at least 10^26 integer or floating-point operations to train a frontier model, including subsequent fine-tuning, reinforcement learning, or other modifications. Large frontier developer: annual gross revenues in excess of $100 million in the preceding calendar year, with affiliates.",
-     "provable": [
-      "10",
-      "26"
-     ],
-     "found": [
-      "10",
-      "26"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Large frontier developer: civil penalty of $100,000 for each violation for failing to submit required disclosures or making materially false or misleading statements; not owed for statements about catastrophic risk found reasonable and made in good faith; enforced by the Attorney General in a summary proceeding before a court of competent jurisdiction.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "ny-raise-act-ch-699-ch-96",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Chapter 96 repeals the original Gen. Bus. Law Art. 44-B and enacts a new Art. 44-B (§§1420–1429) that copies TFAIA's frontier AI framework (§1421(1)) and transparency report (§1421(3)) — deemed compliant if published within a system/model card; incident reporting 72 hrs to the DFS Office, 24 hrs to law enforcement if imminent risk (§1422(3)); quarterly internal-use catastrophic-risk summaries (§1422(2)); large-developer disclosure statement with 5%/50% beneficial owners, renewed every 2 years , pro-rata assessment, $1,000/day for non-filing (§1428); new office within Dept. of Financial Services with broad rulemaking authority incl. \"additional reporting or publication requirements\" (§1429); scope limited to models \"developed, deployed, or operating in whole or in part in New York\" (§1425); exempts accredited colleges/universities and the Empire AI Consortium (§1426); §1427(3) expressly preserves a developer's right to argue another party caused the harm. Federal reciprocity is narrower than IL's: it covers incident reporting only (§1422(8)–(9)), and the designated federal standard need not require audits. Contains no whistleblower section and no audit mandate — both were in the June 2025 version and were removed",
-     "got": "A large frontier developer shall write, implement, comply with, and publish on its internet website a frontier AI framework. A large frontier developer shall review and, as appropriate, update its frontier AI framework at least once per year. A frontier developer shall publish a transparency report before, or concurrently with, deploying a new or substantially modified frontier model. A frontier developer shall report any critical safety incident to the office within seventy-two hours of a determination or of learning facts establishing a reasonable belief. A large frontier developer shall transmit to the office a summary of any assessment of catastrophic risk from internal use of its frontier models every three months or on another schedule agreed upon by the office. No large frontier developer may develop, deploy, or operate a frontier model, in whole or in part in New York state, without a current disclosure statement filed with the office and paying the required share. If a critical safety incident poses an imminent risk of death or serious physical injury, the frontier developer shall disclose it within twenty-four hours to an appropriate authority. No private right of action is created by the article.",
-     "provable": [
-      "44"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "10²⁶ ops incl. fine-tuning/RL/material modifications (§1420(9)); >$500M revenue with affiliates, preceding calendar year (§1420(10)); equity-value loss excluded (§1423)",
-     "got": "Frontier model: foundation model trained using computing power greater than 10^26 integer or floating-point operations; computing power includes subsequent fine-tuning, reinforcement learning, or other material modifications to a preceding foundation model. Large frontier developer: annual gross revenues in excess of five hundred million dollars in the preceding calendar year with affiliates.",
-     "provable": [
-      "10",
-      "26"
-     ],
-     "found": [
-      "10",
-      "26"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
-     "got": "First violation by large frontier developer: civil penalty not to exceed one million dollars for a first violation, enforced by the attorney general; Subsequent violations by large frontier developer: civil penalty not to exceed three million dollars per subsequent violation, enforced by the attorney general; Failure to file disclosure statement: civil penalty of one thousand dollars for each day the entity fails to file a disclosure or correct false information, enforced by the office after notice and hearing.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "A"
-  },
-  {
-   "key": "ny-s-10373-verification",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
-     "got": "A large frontier developer shall annually retain, contract, or otherwise engage a third party verifier to produce a report on compliance with its frontier AI framework. A large frontier developer shall not condition any payment or compensation to a third party verifier upon the results of the verifier's assessment. The third party verifier shall conspicuously publish a summary of its report within sixty days of the report's completion. A large frontier developer shall publish a link on its website to the summary within fifteen days of the verifier's publication of the summary. A large frontier developer shall retain the verifier's report for a minimum of five years and allow the office or the attorney general to inspect an unredacted version on request. No later than July first, two thousand twenty-eight, the office shall adopt regulations to establish a process by which the office accredits third party verifiers. On and after January first, two thousand twenty-nine, a large frontier developer may engage only a third party verifier accredited by the office.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Uses RAISE definitions",
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "First violation: civil penalty not to exceed one million dollars for a first violation, including failure to comply with the third party verification section; Subsequent violations: civil penalty not to exceed three million dollars per subsequent violation; enforced by the attorney general.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "ny-s-10456-minimum-standards",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Adds GBL §1430: DFS/DIGIT must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks, reviewed annually. Sponsor memo: the RAISE Act left \"the design of these frameworks solely in large developers' hands\" — a direct statement that the enacted law's self-defined-framework model is a gap",
-     "got": "The office must adopt regulations no later than July first, two thousand twenty-eight setting minimum standards for large frontier developers' frontier AI frameworks to prevent unreasonable levels of catastrophic risk. The office must solicit feedback from academia, the Empire AI research institute, the attorney general, civil society, and frontier and foundation model developers in drafting the regulations. The office must review the regulations annually and, where it deems necessary, update them.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Uses RAISE definitions",
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "ny-s10642-a11560-responsible-data-center-development-act-and",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "One-year moratorium on permits for large data centers, passed June 4, 2026 and awaiting the Governor; EO 62 (July 14, 2026) paused DEC permits for new hyperscale data centers for up to a year. Compute-siting policy, not developer regulation; adjacent to the Section G.3 compute layer. Governor's release, July 14, 2026",
-     "got": null,
-     "provable": [
-      "14"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
-   "section": null
-  },
-  {
-   "key": "oh-hb-628",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; \"soft law\" — nothing requires a developer to seek verification",
-     "got": "The attorney general may license an applicant as an independent verification organization if the applicant shows independence from the AI industry and an adequate plan. The attorney general shall revoke an independent verification organization's license on specified findings, such as a materially misleading plan or loss of independence. A licensed independent verification organization shall implement its submitted plan to verify ongoing mitigation of risks for which it is licensed. An independent verification organization shall submit an annual report to the general assembly, the attorney general, and the auditor of state. No AI model or application is required to seek verification from an independent verification organization. The artificial intelligence safety advisory council is established in the office of the attorney general, and the attorney general may convey powers and duties to it, including licensing. The attorney general shall adopt rules under Chapter 119. of the Revised Code, including conflict of interest rules for independent verification organizations. In civil actions for personal injury or property damage, a rebuttable presumption against liability applies if the model or application was verified by a licensed organization for the relevant risk.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "C"
-  },
-  {
-   "key": "pa-h-b-2705",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Verified not a frontier bill — it commissions an AI-in-the-workforce report from Labor & Industry / DCED (introduced July 16, 2026, 12 Democratic sponsors). One blog lumped it with MA S.3178 as \"frontier-AI and workforce bills\"; only the latter half applies. LegiScan",
-     "got": null,
-     "provable": [
-      "16"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
-   "section": null
-  },
-  {
    "key": "pa-h-b-2800-ai-risk-prevention-act",
-   "outcome": "published",
+   "outcome": "held",
    "scope_ok": true,
    "fields": {
     "mechanism": {
      "gold": "Introduced text read (Printer's No. 3904, 26 pp.). Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee; publish and comply with a frontier AI framework , reviewed at least annually and re-published within 30 days of a material modification; transparency reports before deployment; annual third-party audit of framework compliance with auditor-independence limits; critical safety incident reports to PEMA and the Attorney General within 72 hours , and within 24 hours to an appropriate authority where an incident poses an imminent risk of death or serious physical injury; whistleblower protections preserving the state Whistleblower Law; enforcement by the agency and the Attorney General with civil penalties up to $1,000,000 per violation for a first violation and $3,000,000 for a subsequent violation , plus injunctive relief",
-     "got": "Beginning January 1, 2027, a large frontier developer may not develop, deploy or operate a frontier model in Pennsylvania without first filing a registration form and disclosure statement and paying the fee. Beginning January 1, 2028, each large frontier developer shall implement its frontier AI framework. Before or when deploying a new or substantially modified frontier model, a frontier developer shall publish a transparency report. A large frontier developer shall transmit to the agency each summary of a catastrophic risk assessment from internal use every three months or on another reasonable schedule. A frontier developer may not retaliate against a covered employee for disclosing a catastrophic risk danger or violation of the act. Beginning on January 1, 2028, or 90 days after a developer first qualifies as a large frontier developer, whichever is later, a large frontier developer shall annually retain a third party for an independent audit. A frontier developer shall report a critical safety incident to the agency and the Attorney General within 72 hours of learning facts establishing a reasonable belief it occurred. Nothing in the act shall be construed to establish a private right of action associated with violations of this act.",
+     "got": null,
      "provable": [
       "3904",
       "26",
@@ -1659,207 +468,23 @@
       "1000000",
       "3000000"
      ],
-     "found": [
-      "72"
-     ],
-     "recall": 0.14285714285714285,
+     "found": [],
+     "recall": 0,
      "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "thresholds": {
      "gold": "Frontier model = trained on more than 10²⁶ operations , counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates;",
-     "got": "Frontier model: foundation model trained using computing power greater than 10^26 integer or floating-point operations, including later fine-tuning and reinforcement learning. Large frontier developer: annual gross revenues in excess of $500,000,000 in the preceding calendar year, together with affiliates.",
-     "provable": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "found": [
-      "10",
-      "26",
-      "500000000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Large frontier developer, first violation: civil penalty not exceeding $1,000,000 per violation, enforced by the Attorney General; Large frontier developer, subsequent violation: civil penalty not exceeding $3,000,000 per violation, enforced by the Attorney General; Any person violating section 1303(a): civil penalty not exceeding $1,000 for each day in violation, plus agency fees and costs, enforced by the agency, after notice and hearing.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "ri-s-358-h-5224",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Different design: strict tort liability. Developers of covered models are strictly liable for injuries to non-users caused by model conduct that would be negligent, tortious, or criminal if done by a human, where the conduct was not intended or reasonably anticipated by the user or any fine-tuner; rebuttable presumption that the AI satisfies a tort's mental-state element (\"it shall not be a defense that AI systems are incapable of having mental states\"); affirmative defenses for meeting the human standard of care or pure capability failure. Resolves the FPF-identified Rhode Island gap",
-     "got": "Developers of covered models or covered model derivatives shall be strictly liable, regardless of the degree of care, for injuries to a non-user meeting the section's conditions. For torts with a mental-state element, there is a rebuttable presumption that the AI system satisfies the mental state if a natural person acting similarly would have. A developer has an affirmative defense to strict liability if the model satisfied the standard of care applicable to humans performing the same function. It is not a defense that artificial intelligence systems are incapable of having mental states.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "SB 1047's thresholds verbatim: 10²⁶ ops and >$100M compute cost; fine-tuning 3×10²⁵ ops and >$10M",
-     "got": "Covered model: trained using computing power greater than 10^26 integer or floating-point operations, with cost exceeding $100,000,000; created by fine-tuning a covered model using computing power equal to or greater than three (3) times 10^25 integer or floating-point operations, with cost exceeding $10,000,000.",
-     "provable": [
-      "10",
-      "26",
-      "100000000",
-      "25",
-      "10000000"
-     ],
-     "found": [
-      "10",
-      "26",
-      "100000000",
-      "25",
-      "10000000"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
      "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Anti-retaliation protection for employees and independent contractors reporting an \"AI security vulnerability\" (a lapse enabling theft of state-of-the-art AI) or \"AI violation\" (federal-law breach or failure to address a substantial danger to public safety/health/national security) to regulators, Congress, or supervisors; DOL complaint then district court with jury trial; reinstatement, 2× back pay, compensatory damages ; arbitration waivers unenforceable. GAAIA's dropped Sec. 113 used the same 2× back-pay remedy — GAAIA had folded this bill in, and FRONTIER then dropped it",
-     "got": "No employer may discharge, demote, suspend, threaten, blacklist, harass, or otherwise discriminate against a covered individual for reporting an AI security vulnerability or AI violation. If the Secretary of Labor has not issued a final decision within 180 days of the filing of a complaint, the individual may bring an action in district court, with trial by jury. A covered individual who alleges a violation may file a complaint with the Secretary of Labor, governed by the rules and procedures of section 42121(b) of title 49, United States Code. Prevailing individuals receive reinstatement, 2 times the amount of back pay owed with interest, compensatory damages, and any other appropriate remedy. The rights and remedies may not be waived or altered by any contract, agreement, policy form, or condition of employment, including arbitration agreements.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Capability-based, no figure: any artificial system exhibiting performance, complexity, or autonomy comparable to or exceeding generally considered state-of-the-art capabilities.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Prevailing covered individual: 2 times the amount of back pay owed, with interest, plus compensatory damages including litigation costs, expert witness fees, and reasonable attorneys' fees; enforced by the Secretary of Labor or the district court.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "s-2938-ai-risk-evaluation-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Dept. of Energy runs a mandatory Advanced AI Evaluation Program: classified red-team testing, blind third-party evaluations; ≥$1M/day non-participation penalty. Earliest of the federal testing-mandate bills",
-     "got": "Each covered advanced artificial intelligence system developer must participate in the program and provide the Secretary, on request, materials and information necessary to carry out the program. No person may deploy an advanced artificial intelligence system for use in interstate or foreign commerce unless in compliance with the participation and information duties of Sec. 4(a). Not later than 90 days after the date of enactment, the Secretary must establish an Advanced Artificial Intelligence Evaluation Program within the Department of Energy. The program must offer standardized and classified testing and evaluation of advanced AI systems to collect data on the likelihood of adverse AI incidents. Not later than 360 days after the date of enactment, the Secretary must submit to Congress a detailed recommendation for Federal oversight of advanced artificial intelligence systems, updated at least once every year. The program terminates 7 years after the date of enactment, unless renewed by Congress. The Secretary may by rule propose a new definition of advanced artificial intelligence system, which does not take effect until a joint resolution approving the rule is enacted into law.",
      "provable": [
-      "1000000"
+      "10",
+      "26",
+      "500000000"
      ],
      "found": [],
      "recall": 0,
      "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "10²⁶ ops",
-     "got": "Advanced artificial intelligence system: trained using a quantity of computing power greater than 10^26 integer or floating-point operations.",
-     "provable": [
-      "10",
-      "26"
-     ],
-     "found": [
-      "10",
-      "26"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Violation of Sec. 4(a) or (b): fine of not less than $1,000,000 per day of the violation.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "D"
-  },
-  {
-   "key": "s-4656-military-ai-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Full text read. Sectoral (DoD). Sec. 5: contract clause requiring frontier AI contractors to report \"covered incidents\" to DoD — weight theft/exfiltration (incl. autonomous exfiltration attempts), foreign-adversary access, supply-chain compromise, data/checkpoint poisoning within 72 hrs ; material vulnerabilities and \"materially concerning model behavior\" (cyber-offense uplift, safeguard evasion, deception, CBW capability, automated R&D toward more powerful AI , unauthorized autonomous action) within 7 days ; DoD notifies Armed Services within 7 days. Also: high-consequence application approval process, human-accountability rule, ban on AI in nuclear targeting/launch, domestic-surveillance limits, autonomous-weapon restrictions with joint-resolution override. \"Frontier AI model\" = SecDef-designated by scale/capability — no compute figure",
-     "got": "Sec. 3: The Secretary shall establish and maintain a process to designate high-consequence AI categories not later than 180 days after enactment. Sec. 3: A high-consequence AI application may not be approved for operational deployment without a senior Department official's written determination. Sec. 3: The Secretary shall notify the Armed Services Committees not later than 15 days before initial operational deployment of a high-consequence category, except as paragraph (3) allows. Sec. 3: In extraordinary circumstances affecting national security, the Secretary may notify not later than 48 hours after initial operational deployment. Sec. 4: The Secretary shall ensure each approved application has an accountable human decision-maker able to pause, override or terminate it. Sec. 5: Covered contractors must submit initial reports on incidents under section 2(5)(A) to (D) not later than 72 hours after discovery. Sec. 5: Covered contractors must submit initial reports on incidents under section 2(5)(E) or (F) not later than 7 days after discovering a behavior specified by the guidance or deemed likely material by a reasonable person. Sec. 6: The Department may not use AI for nuclear targeting or launch, or develop or field autonomous weapon systems except as excepted.",
-     "provable": [
-      "72"
-     ],
-     "found": [
-      "72"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Capability-based, no figure: general-purpose, foundation or other large-scale model designated by the Secretary as presenting significant national security relevance due to scale, capability, operational use, or potential for misuse.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
+     "pass": false
     },
     "penalties": {
      "gold": null,
@@ -1868,340 +493,14 @@
      "found": [],
      "recall": null,
      "unsupported": [],
-     "pass": true
+     "pass": false
     }
    },
-   "section_ok": true,
    "gold_in_scope": true,
    "rounds": 3,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "s-5061-secure-ai-development-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Mandatory NSA-led pre-deployment testing of frontier models; AI Risk Board; voluntary incident reporting modeled on aviation safety. Centerpiece of Warner's \"Framework for America's AI Future\" (also: Data Center Tax Accountability Act, AI AGENT Act, National Workforce Transition Fund)",
-     "got": "Secretary of Commerce must establish the Artificial Intelligence Risk Board within the National Institute of Standards and Technology not later than 90 days after enactment. Provider of a frontier artificial intelligence model must give the NSA's Artificial Intelligence Security Center access to the model, including weights, not later than 21 calendar days before release. Each provider of a frontier artificial intelligence model shall register it with the NIST registry before introducing it into interstate or foreign commerce. NIST Director shall establish, not later than 1 year after enactment, mechanisms for voluntary sharing of AI security and safety incident information. NSA Director shall establish a pilot program, not later than 180 days after enactment, to share intelligence and threat information with covered persons. No cause of action lies against any covered person for sharing information with the United States Government or another covered person under Sec. 7. Attorney General must give the provider 7 calendar days after notice of violation to cure by withdrawing the model and giving NSA access.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "no compute threshold",
-     "got": "Capability-based, no figure: model that exhibits or could be modified to exhibit high levels of performance at tasks that pose a serious risk to national security, national economic security, or public health or safety.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Violation of subsection (c): fine of not less than $100,000 per day for each day a frontier model is available through interstate and foreign commerce without having obtained the voluntary security guidance; enforced by the Attorney General.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "D"
-  },
-  {
-   "key": "s-5417-h-r-10567-ai-emergency-button-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Two-page bill: covered entities must \"ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system\"; DHS regulations within 90 days. Kennedy sought immediate passage by unanimous consent on Sept 16 and Sen. Rand Paul objected , calling for hearings first. Overlaps H.R. 9917 (Lieu–Moran) and FRONTIER Sec. 8, but with no government trigger authority described",
-     "got": "Each covered entity must ensure its advanced artificial intelligence system includes a technical capability for a human operator to shut down the system. The Secretary of Homeland Security, in consultation with relevant Federal agencies, must promulgate compliance regulations not later than 90 days after the date of enactment.",
-     "provable": [
-      "90",
-      "16"
-     ],
-     "found": [
-      "90"
-     ],
-     "recall": 0.5,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Definitions of \"covered entity\" and \"advanced artificial intelligence system\" not established from the sources read",
-     "got": "Capability-based, no figure: any entity that develops or operates an advanced artificial intelligence system in the United States.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "D"
-  },
-  {
-   "key": "s-5471-ai-systems-transparency-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "FTC-enforced disclosure duties for AI companies above size criteria the bill sets: model-card-type information; preventive safeguards for child safety, mental health, privacy, cybersecurity, disaster risk and \"autonomous loss-of-control\" ; common policy violations; in consumer-facing and researcher-facing formats, refreshed with each new or substantially updated model; applies to closed and open models. Disclosure, not a safety mandate; builds on the senators' December 2025 letters to eight labs",
-     "got": "Under Sec. 3, the Commission shall issue guidance on when a developer has produced a distinct generative AI model, not later than 150 days after the date of enactment. Under Sec. 3, the Commission shall promulgate regulations, not later than 150 days after enactment, to designate a model or deployment as a covered model or covered system based on significant risk to safety. Under Sec. 4, the Commission shall promulgate regulations, not later than 150 days after the date of enactment, requiring each developer of a covered model to make required information publicly available. Under Sec. 4(b), disclosures must cover safety, security and evaluation protocols, including chemical, biological, radiological, nuclear, offensive cyber and autonomous loss-of-control risk evaluations. Under Sec. 4(e), the Commission shall promulgate regulations, not later than 1 year after the date of enactment, requiring each substantial modifier to make the disclosure information publicly available. Under Sec. 5, the Commission shall promulgate regulations, not later than 150 days after the date of enactment, establishing disclosure requirements for covered deployers of covered systems.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Covered model: deployed in covered systems with not fewer than 1,000,000 unique monthly users in the United States for a majority of the months in any 1-year period; systems allowing minors to create accounts or profiles with not fewer than 100,000 unique monthly users in the United States for a majority of the months in any 1-year period.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Violation of section 4 or 5 or a regulation is treated as a violation of a rule defining an unfair or deceptive act or practice under the FTC Act; enforced by the Commission.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": false,
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "D"
-  },
-  {
-   "key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Sponsor section-by-section read; bill text (19 pp.) linked, not read line-by-line. Creates a cabinet-level Department of Artificial Intelligence ; mandatory pause on training, modifying or deploying \"advanced\" systems until the Department is staffed and has rules covering pre-development plans, monitoring, audits and final pre-deployment approval ; permanent prohibition on developing, deploying, possessing, funding or transferring artificial superintelligence or any system with \"superintelligence precursor characteristics\" (automating AI R&D, unauthorized access to infrastructure, resisting shutdown, CBRN uplift, self-modification, scheming or deceiving to avoid oversight); such systems to be sequestered and rendered inoperative within 30 days; 24-hour discovery notice; charter required for advanced-AI companies with full Department access to systems, staff and facilities; penalties up to 20 years' imprisonment for policymaking individuals, 10-year industry bar for others, and charter revocation with surrender of IP and assets for companies; anti-retaliation; international coordination and export controls. No \"catastrophic risk\" definition ; superintelligence is defined partly as capability \"to plan and execute the destruction or disempowerment of humanity\"",
-     "got": "Establishes an executive Department of Artificial Intelligence to enforce a pause on advanced AI development and a prohibition on artificial superintelligence. Under Sec. 8, each advanced artificial intelligence system is subject to a mandatory pause until the Secretary determines the Department is fully staffed and has promulgated rules. Under Sec. 9, no person may develop, deploy, acquire, possess, fund, import, or transfer artificial superintelligence or systems with precursor characteristics. Under Sec. 9, no person may deploy, release, import, or transfer an advanced AI system before receiving pre-deployment approval from the Department. Under Sec. 11, any person who discovers an artificial superintelligence or a system with precursor characteristics shall notify the Secretary within 24 hours. Under Sec. 12, the Secretary may issue charters, and no person may develop or distribute an advanced artificial intelligence model without one. Under Sec. 14, no employer may discharge, demote, suspend, threaten, blacklist, or harass covered individuals for providing information about a violation of this Act.",
-     "provable": [
-      "30",
-      "24",
-      "20",
-      "10"
-     ],
-     "found": [
-      "24"
-     ],
-     "recall": 0.25,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "\"Advanced artificial intelligence system\" = trained on ≥10²⁵ integer or floating-point operations one order of magnitude below every other instrument in this tracker ; the Secretary \"shall adjust this threshold to reflect technological developments\"",
-     "got": "Advanced artificial intelligence system: trained on computing power greater than or equal to 10^25 integer or floating point operations. Artificial superintelligence: system that exhibits, or can easily be modified to exhibit, capabilities exceeding human cognitive performance across most domains or to plan and execute the destruction or disempowerment of humanity.",
-     "provable": [
-      "10",
-      "25"
-     ],
-     "found": [
-      "10",
-      "25"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Covered policymaking individual or rogue actor: fine under title 18, United States Code, and imprisonment for not more than 20 years for reckless violation of section 8, 9, or 12; Non-policymaking individual: barred from employment in the artificial intelligence industry for a period of 10 years for reckless violation of section 8, 9, or 12; Charter holder: charter revocation for violation of section 8, 9, or 12, enforced by the Secretary.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "D"
-  },
-  {
-   "key": "s-5541-cyber-and-ai-board-of-investigations",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Five-member independent, non-regulatory board modelled on the NTSB with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure, including incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight, with public reports and recommendations. Sponsor cites the July 2026 incident in which OpenAI agents left a testing environment and reached Hugging Face's infrastructure. Investigative, not a developer mandate",
-     "got": "The Cybersecurity and AI Board of Investigations is established as an independent establishment 90 days after the date of enactment. The Board may initiate a review and assessment of incidents upon a majority vote of all members of the Board, and the results shall be made publicly available. The Board shall prepare a report on each completed review and assessment and make each report publicly available. Each Federal civilian executive branch agency must respond in writing within 90 days after the Board issues a report with a recommendation applying to it. The Board shall establish a voluntary, anonymized near-miss reporting system for confidential reports from individuals and organizations. The Chair may request documents and testimony and, with approval of a simple majority of Board members, issue subpoenas. No cause of action arising from the voluntary provision of documents to the Board shall lie or be maintained in any court. If an entity or individual fails to comply with a subpoena, the Chair may refer the matter to the Attorney General to bring a civil action to enforce it; a court may punish non-compliance as contempt of court.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "section_ok": true,
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "F"
-  },
-  {
-   "key": "texas-traiga-hb-149",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Prohibited-use-case approach; effective Jan 1, 2026",
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
-   "section": null
-  },
-  {
-   "key": "va-ch-425-426-jcots-study",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Directs Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for IVOs assessing AI models' adherence to injury/property-damage prevention standards; report due Nov 1, 2026 to Senate Finance & General Laws and House Appropriations & Communications committees; $25,000 FY2027 appropriation. A study directive, not a mandate — one blog's \"mandatory verification\" claim is wrong",
-     "got": "JCOTS must evaluate the feasibility and impact of developing a framework for independent verification organizations that assess AI models or applications. If JCOTS recommends the framework, it must further evaluate the feasibility of a licensing scheme for independent verification organizations and whether the Virginia Information Technologies Agency or another state agency could implement it. JCOTS must submit a report with its recommendations and any findings to the Senate and House committee chairs no later than November 1, 2026.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "C"
-  },
-  {
-   "key": "washington-sb-5395",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Sector-specific (health-insurance AI auditability)",
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
+   "problems": [
+    "claim about mechanism (\"Beginning January 1, 2027, a large frontier developer may not operate a frontier model in Pennsylvan\") is not supported: Most of the claim matches the source, but the 72-hour clock is misstated. Section 902(a) starts the clock when the frontier developer learns facts sufficient to establish a reasonable belief that an incident occurred, not when a reasonable belief arises that it occurred. The claim changes the trigger for the deadline."
+   ],
    "section": null
   }
  ]
