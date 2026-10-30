@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import { publishRun, loadData } from './run.mjs';
 import { checkPublish } from './guards.mjs';
 import { applyTierA } from './tier-a.mjs';
+import { statusMayMove, saysOverride } from './status-rules.mjs';
 import { makeValidator } from '../schema/validate.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -264,5 +265,14 @@ function tierA({ key = KEY, editEntry = () => {}, latest = null, actions = [], r
   ok('guard: changing the author\'s punctuation is refused', stp({ status_text: 'Introduced Jan 5... referred', events: [] }, { status_text: 'Introduced Jan 5. referred; Hearings held (Sept 30, 2026)', events: ev }) !== null);
 }
 
+// The shared status rules (status-rules.mjs), used by Tier A and the guards alike.
+{
+  const S = ['pending', 'stalled', 'enacted', 'failed', 'executive', 'litigation', 'export', 'excluded'];
+  const moves = S.flatMap((a) => S.filter((b) => statusMayMove(a, b)).map((b) => `${a}>${b}`)).sort().join(' ');
+  ok('status rules: only pending and stalled move, to each other or to enacted / failed', moves === 'pending>enacted pending>failed pending>stalled stalled>enacted stalled>failed stalled>pending', moves);
+  const yes = ['Became Public Law No: 119-61.', 'Veto overridden by the Senate', "Passed over the Governor's veto", 'Became law without signature', "Override of the governor's veto"];
+  const no = ['Signed by President.', 'Motion to override veto failed', 'Veto sustained', 'Failed to override', ''];
+  ok('override wording: an override or a law is recognised; a failed override, a sustained veto or a plain signature is not', yes.every(saysOverride) && !no.some(saysOverride), JSON.stringify([yes.filter((q) => !saysOverride(q)), no.filter(saysOverride)]));
+}
 console.log(`publisher: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

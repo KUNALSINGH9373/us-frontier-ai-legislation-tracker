@@ -8,6 +8,7 @@ import { datesMentioned, COSPONSOR_SUFFIX, cosponsorSuffix, actionKind } from '.
 import { stateActionKind } from '../grabber/sources/legiscan.mjs';
 import { statusFor } from '../agents/rules.mjs';
 import { removeStale } from './guards.mjs';
+import { saysOverride } from './status-rules.mjs';
 
 const FULL_MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const clone = (x) => JSON.parse(JSON.stringify(x));
@@ -86,7 +87,6 @@ function statusQuote(item, raw, status) {
   const h = (b.history || []).filter((x) => typeOf(x.action, "legiscan") === want).sort((x, y) => String(x.date).localeCompare(String(y.date))).pop();
   return h ? clean(h.action) : null;
 }
-const OVER_VETO = /\bover (the )?(\w+'s )?veto\b|veto overrid|became public law/i;
 
 export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, config = {}, identifiersFor = () => null }) {
   const out = { entries: clone(data.entries), news: clone(data.news), site: clone(data.site), changes: clone(data.changes || { items: [] }) };
@@ -197,7 +197,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
         if (!next || next === e.status) { if (api && !next) skipped.push({ item_id: d.item_id, entry_key: e.key, why: `status ${api}: section ${e.section} has no such status by rule; the action is kept as an event` }); continue; }
         const quote = statusQuote(item, raw, next);
         if (!quote || (item.source === 'congress_gov' && !(next === 'enacted' ? /became public law|signed by president/i : /vetoed/i).test(quote))) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `status ${next}: the record's own words do not say it${quote ? ` ("${quote}")` : ''}` }); continue; }
-        if (e.status === 'failed' && next === 'enacted' && !OVER_VETO.test(quote)) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `status failed -> enacted only over a veto or as a public law; the record says "${quote}"` }); continue; }
+        if (e.status === 'failed' && next === 'enacted' && !saysOverride(quote)) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `status failed -> enacted only over a veto or as a public law; the record says "${quote}"` }); continue; }
         log.push({ entry_key: e.key, field: 'status', old: e.status, new: next, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
         e.status = next;
         (e.evidence = e.evidence || []).push({ field: 'status', quote, source_url: item.source_url });

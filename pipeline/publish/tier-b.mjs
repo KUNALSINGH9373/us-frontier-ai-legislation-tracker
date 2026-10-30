@@ -10,6 +10,7 @@ import { statusFor } from '../agents/rules.mjs';
 import { sourceText, containsQuote } from '../agents/source-text.mjs';
 import { statusFromAction } from '../compare/congress.mjs';
 import { checkNewEntry } from './guards.mjs';
+import { EVENT_RANK } from './status-rules.mjs';
 import { checkDuties } from '../duties/check.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { newsKind, advanceCutoff } from './tier-a.mjs';
@@ -39,10 +40,9 @@ function stateProblems(e, item, raw) {
 // The "added to the tracker" news item, in fixed wording, dated the day it is added and describing the bill's CURRENT status as the record
 // gives it (an enacted bill is reported as enacted, never as a backdated "introduced" item; round 2 audit, CT H.B. 5222).
 // The current status is the latest event, the most important one on that date; the introduction is named after it.
-const STATUS_RANK = { 'Signed / enacted': 100, 'Vetoed / failed / rescinded': 90, 'Passed / advanced': 80, Effective: 70, 'Referred / stalled / hearing': 40, 'Introduced / published': 30 };
 const STATUS_WORDS = { 'Signed / enacted': ['enacted', 'was enacted'], 'Vetoed / failed / rescinded': ['vetoed or failed', 'was vetoed or failed'], 'Passed / advanced': ['advanced', 'advanced'], Effective: ['in effect', 'took effect'], 'Referred / stalled / hearing': ['in committee', 'was last in committee'], 'Introduced / published': ['introduced', 'was introduced'] };
 export function currentStatusEvent(events = []) {
-  return [...events].filter((v) => STATUS_RANK[v.type] && !v.scheduled).sort((a, b) => b.date.localeCompare(a.date) || STATUS_RANK[b.type] - STATUS_RANK[a.type])[0] || null;
+  return [...events].filter((v) => EVENT_RANK[v.type] && !v.scheduled).sort((a, b) => b.date.localeCompare(a.date) || EVENT_RANK[b.type] - EVENT_RANK[a.type])[0] || null;
 }
 // "General Law Committee" -> "the General Law Committee"; a person's name is left as it is.
 const sponsorPhrase = (s) => (/^(?:the\s|Rep\.|Sen\.|Del\.|Asm\.|Assembly|President|Resident)/.test(s) || !/\b(?:committee|commission|caucus)\b/i.test(s) ? s : `the ${s}`);

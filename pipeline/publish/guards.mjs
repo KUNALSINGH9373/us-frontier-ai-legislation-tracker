@@ -10,6 +10,7 @@ import { containsQuote } from '../agents/source-text.mjs';
 import { trackerUrl, ENTRY_FIELDS, edgeShapeProblem, AMEND_PREFIX } from '../links/rules.mjs';
 import { sponsorQuoteProblem, amendsLaw, recordProofProblem } from '../links/propose.mjs';
 import { loadActorIds } from '../links/records.mjs';
+import { statusMayMove, saysOverride } from './status-rules.mjs';
 
 // Fields only a reading of the text can supply. On a new entry each one that is filled needs a quote from the record.
 export const READING_FIELDS = ['mechanism', 'thresholds', 'penalties'];
@@ -127,8 +128,6 @@ export function checkNewEntry(e, ctx = {}) {
   return problems;
 }
 
-// A status may only move forward. Authored judgement calls ("stalled") may still become law or fail.
-const FORWARD = { pending: ['stalled', 'enacted', 'failed'], stalled: ['pending', 'enacted', 'failed'] };
 // Fields Tier A may change on an entry. Everything else (mechanism, thresholds, penalties, title, ...) must be identical.
 const TIER_A_FIELDS = new Set(['events', 'status', 'status_text', 'last_checked', 'last_changed', 'origin', 'verification', 'evidence', 'identifiers', 'record_facts']); // identifiers: added once, when an entry first becomes mixed
 // The sponsor text is written by hand. Tier A may change only its fixed-wording end ("; N cosponsors in all (Congress.gov)"), to the
@@ -145,8 +144,6 @@ export function sponsorTextProblem(o, n) {
 }
 const evKey = (v) => `${v.date}|${v.type}|${v.text}`;
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-// A failed bill may still become law, but only on a record that says so (a veto overridden, or the law's own number).
-const OVERRIDE = /\bover(ridden|ride\b|.{0,40}\bveto)|became public law|became law/i;
 
 // The status text is the author's; the pipeline may only add to its end. The new text must start with the old one (its closing
 // punctuation aside), allowing exactly the two edits Tier A makes inside it (publish/tier-a.mjs): a stale "No (further) action in N
@@ -232,8 +229,8 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
     // 2. no status goes backwards; a new status follows the section's rule and is quoted from its record
     if (o.status !== n.status) {
       const quotes = (n.evidence || []).filter((x) => x.field === 'status' && x.quote && !(o.evidence || []).some((y) => same(x, y)));
-      const override = o.status === 'failed' && n.status === 'enacted' && quotes.some((x) => OVERRIDE.test(x.quote));
-      if (!(FORWARD[o.status] || []).includes(n.status) && !override) problems.push(`status went backwards on ${key}: ${o.status} -> ${n.status}`);
+      const override = o.status === 'failed' && n.status === 'enacted' && quotes.some((x) => saysOverride(x.quote));
+      if (!statusMayMove(o.status, n.status) && !override) problems.push(`status went backwards on ${key}: ${o.status} -> ${n.status}`);
       if (n.status !== statusFor(n.section, n.status)) problems.push(`status ${n.status} does not follow the rule for section ${n.section} on ${key}`);
       if (!quotes.length) problems.push(`status changed on ${key} (${o.status} -> ${n.status}) without a status evidence quote`);
     }
