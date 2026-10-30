@@ -52,6 +52,8 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   // Opus as referee (30 Oct 2026): a sentence around the JSON is not an unusable answer; text with no JSON object still is
   const r = await createAnthropic({ client: fake(msg('Here is my answer:\n{"results":[{"n":1,"supported":true}]}\nDone.')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
   ok('JSON with a sentence around it is read', r.data.results[0].supported === true);
+  const twice = await createAnthropic({ client: fake(msg('{"results":[{"n":1,"supported":true,"quote":"a \\nb"}]}\n\nWait, the quote must be exact; let me check {the text}.\n\n{"results":[{"n":1,"supported":true,"quote":"a b"}]}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
+  ok('an answer, second thoughts and a second answer: the last answer counts (Opus, H.R. 9917)', twice.data.results[0].quote === 'a b', JSON.stringify(twice.data));
   ok('text with no JSON object is still unusable', await fails(msg('I think it is in scope.'), /valid JSON/) && await fails(msg('text { broken'), /valid JSON/));
 }
 console.log(`anthropic client: ${pass} passed, ${fail} failed`);

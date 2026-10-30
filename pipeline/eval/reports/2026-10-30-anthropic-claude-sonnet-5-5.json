@@ -1,5 +1,5 @@
 {
- "run_at": "2026-10-30T07:51:41.457Z",
+ "run_at": "2026-10-30T08:01:27.340Z",
  "provider": "anthropic",
  "generator": "claude-sonnet-5-5",
  "reader": "claude-haiku-5-5",
@@ -8,192 +8,103 @@
  "partial": true,
  "prompt_version": "b136495d84f9",
  "measure": "fields",
- "checks_hash": "6545cbe847ba325bfa10247a0d424327d523deabafb5531f13098e8f1ddf79ab",
+ "checks_hash": "608443a36f531641c5843f9a90096928f298cc638ffb6b1fd71934d64a42950f",
  "summary": {
-  "items": 9,
+  "items": 1,
   "outcomes": {
-   "held": 2,
-   "published": 6,
-   "out_of_scope": 1
+   "published": 1
   },
   "scope_agreement": 1,
   "scope_wrong": [],
   "fields": {
    "mechanism": {
-    "items": 8,
-    "passed": 6,
-    "pass_rate": 0.75,
-    "published": 6,
+    "items": 1,
+    "passed": 1,
+    "pass_rate": 1,
+    "published": 1,
     "unsupported_fields": 0,
-    "fact_recall": 0.2261904761904762,
-    "items_with_provable_facts": 7
+    "fact_recall": 0.16666666666666666,
+    "items_with_provable_facts": 1
    },
    "thresholds": {
-    "items": 8,
-    "passed": 5,
-    "pass_rate": 0.625,
-    "published": 5,
+    "items": 1,
+    "passed": 1,
+    "pass_rate": 1,
+    "published": 1,
     "unsupported_fields": 0,
-    "fact_recall": 0.625,
-    "items_with_provable_facts": 4
+    "fact_recall": 1,
+    "items_with_provable_facts": 1
    },
    "penalties": {
-    "items": 8,
-    "passed": 6,
-    "pass_rate": 0.75,
-    "published": 5,
+    "items": 1,
+    "passed": 1,
+    "pass_rate": 1,
+    "published": 1,
     "unsupported_fields": 0,
     "fact_recall": null,
     "items_with_provable_facts": 0
    }
   },
-  "section_items": 0,
-  "section_agreement": null,
+  "section_items": 1,
+  "section_agreement": 1,
   "section_wrong": []
  },
  "usage": {
-  "calls": 38,
-  "input_tokens": 675797,
-  "output_tokens": 38124,
-  "total_tokens": 713921,
+  "calls": 5,
+  "input_tokens": 43416,
+  "output_tokens": 5006,
+  "total_tokens": 48422,
   "by_role": {
    "generator": {
-    "calls": 15,
-    "input": 309988,
-    "output": 16399,
-    "cost": 0.7839659999999999
+    "calls": 2,
+    "input": 21818,
+    "output": 2564,
+    "cost": 0.069276
    },
    "validator": {
-    "calls": 15,
-    "input": 264119,
-    "output": 20832,
-    "cost": 0.036827900000000004
+    "calls": 2,
+    "input": 14743,
+    "output": 2315,
+    "cost": 0.0026318
    },
    "referee": {
-    "calls": 8,
-    "input": 101690,
-    "output": 893,
-    "cost": 0.42462
+    "calls": 1,
+    "input": 6855,
+    "output": 127,
+    "cost": 0.02996
    }
   },
   "by_model": {
    "claude-sonnet-5-5": {
-    "calls": 15,
-    "input": 309988,
-    "output": 16399,
-    "cost": 0.7839659999999999
+    "calls": 2,
+    "input": 21818,
+    "output": 2564,
+    "cost": 0.069276
    },
    "claude-haiku-5-5": {
-    "calls": 15,
-    "input": 264119,
-    "output": 20832,
-    "cost": 0.036827900000000004
+    "calls": 2,
+    "input": 14743,
+    "output": 2315,
+    "cost": 0.0026318
    },
    "claude-opus-5-5": {
-    "calls": 8,
-    "input": 101690,
-    "output": 893,
-    "cost": 0.42462
+    "calls": 1,
+    "input": 6855,
+    "output": 127,
+    "cost": 0.02996
    }
   },
-  "estimated_cost_usd": 1.245414
+  "estimated_cost_usd": 0.101868
  },
  "items": [
   {
-   "key": "ct-p-a-26-15-ivo-pilot",
-   "outcome": "held",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "A Department of Consumer Protection-administered IVO pilot program through June 30, 2030 : IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation. This is an operating pilot, not merely a study",
-     "got": null,
-     "provable": [
-      "30"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 3,
-   "problems": [
-    "claim about thresholds (\"Frontier developer: uses or intends to use computing power greater than ten to the twenty-sixth powe\") is not supported: the reader could not confirm it word for word"
-   ],
-   "section": null
-  },
-  {
-   "key": "ct-p-a-26-15-omnibus",
+   "key": "h-r-9917-ai-kill-switch-act",
    "outcome": "published",
    "scope_ok": true,
    "fields": {
     "mechanism": {
-     "gold": "39-section omnibus (AEDT/employment AI incl. WARN-notice AI disclosure, companion chatbots, provenance, social media, regulatory sandbox). Frontier-relevant sections: \"frontier developer\" = doing business in CT + >10²⁶ FLOPs; \"large frontier developer\" = >$500M revenue; frontier developers may not retaliate against employees reporting catastrophic-risk concerns (effective Oct. 1, 2026 ); large frontier developers must operate anonymous internal reporting channels by Jan. 1, 2027 ; penalty up to $1,000 per violation ; plus a DCP-run IVO pilot through June 30, 2030 — see Section C . No developer framework, transparency-report, incident-reporting, or audit mandate",
-     "got": "Sec. 2: no frontier developer shall make, adopt, enforce or enter into any rule, policy or contract allowing discipline of employees for protected whistleblowing activity. Sec. 2: not later than January 1, 2027, each large frontier developer shall establish and maintain a reasonable internal process for anonymous reports of catastrophic risk. Sec. 2: each frontier developer shall provide all covered employees clear notice of their rights and responsibilities. Sec. 33: the Department of Consumer Protection shall, within available appropriations, develop and administer a pilot program on independent verification organizations, terminating June 30, 2030. Sec. 33: the Department shall approve not more than five independent verification organizations to participate in the pilot program. Sec. 33: the Commissioner of Consumer Protection may suspend or revoke an independent verification organization's approval to participate in the pilot program. Sec. 33: not later than December 31, 2028, the Department shall evaluate the pilot program and recommend legislation. Sec. 33: evidence of verification is admissible solely in civil actions by private parties for personal injury or property damage, and not in Attorney General or state agency enforcement actions.",
-     "provable": [
-      "39",
-      "10",
-      "26",
-      "30"
-     ],
-     "found": [
-      "30"
-     ],
-     "recall": 0.25,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": "Frontier developer: uses or intends to use computing power greater than ten to the twen ty - sixth power integer or floating - point operations. Large frontier developer: annual gross revenues in excess of five hundred million dollars for the most recently completed calendar year, with controlled and controlling persons.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Frontier developer violating Sec. 2 subsections (b) to (d): civil penalty not exceeding one thousand dollars per violation; enforced by the Attorney General.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "h-r-9917-ai-kill-switch-act",
-   "outcome": "held",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
      "gold": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Penalties $2M/day for ordinary violations and $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
-     "got": null,
+     "got": "Secretary must by rule require a covered entity to maintain a technical capability to stop inference, terminate user access, suspend access and shut down covered technology. Secretary must publish voluntary standards for shutting down a covered technology not later than 180 days after enactment. If a covered incident has occurred, the Secretary may order the covered entity to take proportionate action, including shutdown actions. After an entity confirms an order was carried out, the Secretary must verify compliance through audit, telemetry, on-site inspection, or other forensic review. A covered entity must submit to the Secretary a report on a covered incident not later than 15 days after becoming aware of it.",
      "provable": [
       "10",
       "100000000",
@@ -202,251 +113,31 @@
       "2000000",
       "20000000"
      ],
-     "found": [],
-     "recall": 0,
+     "found": [
+      "15"
+     ],
+     "recall": 0.16666666666666666,
      "unsupported": [],
-     "pass": false
+     "pass": true
     },
     "thresholds": {
      "gold": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
-     "got": null,
+     "got": "Covered technology: developed using computing power costing more than $100,000,000 at prevailing cloud market price. Covered entity: not less than $500,000,000 in gross revenue from such technology with affiliates in the preceding calendar year.",
      "provable": [
       "100000000",
       "500000000"
      ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [
-    "the referee did not confirm the scope with a quote found in the text (the referee gave an unusable answer: the model did not return valid JSON)"
-   ],
-   "section": null
-  },
-  {
-   "key": "il-hb-3506-2025",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "The FPF-counted 2025 Illinois frontier bill — gap resolved. Original-RAISE-style design, the same template as MI H.B. 4668: developers publish a safety and security protocol; risk assessment report every 90 days ; annual third-party audit of protocol compliance; redaction rules; whistleblower protections (Committee Amendment No. 1 narrowed scope to \"large developer\" and added employee civil damages); civil penalties. Illinois lineage: this 2025 SSP bill did not advance; the 2026 S.B. 3312/S.B. 315 switched to the TFAIA template and added the audit back — the state moved from the original-RAISE structure to California-plus-audits within twelve months",
-     "got": "A large developer must produce, implement, follow, and conspicuously publish a safety and security protocol. No less than every 90 days, a large developer must publish a transparency report. A large developer must retain critical risk test records for no less than 5 years. The Attorney General may seek injunctive or declaratory relief for any violation of the Act. A large developer with employees in this State must not take retaliatory action against employees who disclose critical risk to government. At least once every calendar year, a large developer must retain a reputable third-party auditor to produce a compliance report.",
-     "provable": [
-      "90"
-     ],
      "found": [
-      "90"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months the original-RAISE test",
-     "got": "Large developer: developed a foundation model with computing power costing at least $5,000,000 at market cloud prices when training commences; within the preceding 12 months, developed foundation models using total computing power costing at least $100,000,000.",
-     "provable": [
-      "5000000",
       "100000000",
-      "12"
-     ],
-     "found": [
-      "5000000",
-      "100000000",
-      "12"
-     ],
-     "recall": 1,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Violations of Sections 15 or 25: civil penalty not to exceed $1,000,000, enforced by the Attorney General; Repeat whistleblower violations: civil penalty not to exceed $10,000 for each repeat violation within a 5-year period, enforced by the Attorney General; Employee retaliation under Section 45: liquidated damages of up to $10,000 and a civil penalty of $10,000 payable to the employee.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "ma-h-5576-s-3178",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Frontier AI framework; AG civil-action enforcement; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections; commission on further AI regulation. House version (passed July 8) contains no AI-safety language — only funding.",
-     "got": "A large frontier developer shall write, implement, comply with and publish a frontier AI framework (chapter 93M, section 2). A frontier developer shall publish a transparency report before or with deploying a new frontier model (chapter 93M, section 2). A large frontier developer shall renew and update its risk report not less than every 180 days (chapter 93M, section 2). The attorney general may promulgate, amend or rescind regulations for the implementation, administration and enforcement of chapter 93M. A frontier developer shall not prevent or retaliate against a covered employee disclosing a catastrophic-risk danger or a chapter 93M violation (chapter 93M, section 7). A large frontier developer shall annually retain a third party to audit compliance with section 2, except subsection (c 1/2) (chapter 93M, section 3A). A frontier developer shall report a critical safety incident to the attorney general within 15 days of discovering it (chapter 93M, section 3).",
-     "provable": [
-      "120"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "Senate text: >$500M annual AI-derived revenue or >$1B AI R&D spend;",
-     "got": "Frontier model: foundation model trained using computing power greater than 10^26 integer or floating-point operations, including subsequent fine-tuning and reinforcement learning. Large frontier developer: annual gross revenues greater than $500,000,000 together with its affiliates.",
-     "provable": [
-      "500000000",
-      "1000000000"
-     ],
-     "found": [
       "500000000"
      ],
-     "recall": 0.5,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": "Large frontier developer, first violation: civil penalty of not more than $1,000,000 for a first violation; Large frontier developer, subsequent violations: civil penalty of not more than $3,000,000 for subsequent violations; enforced by the attorney general.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 2,
-   "problems": [],
-   "section": "B"
-  },
-  {
-   "key": "mn-hf-4532-no-threshold",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person",
-     "got": "Before deploying an artificial intelligence model, a developer must implement a written safety and security protocol. A developer must publish a redacted copy of the safety and security protocol and transmit it to the attorney general. A developer must not deploy an artificial intelligence model if doing so creates an unreasonable risk of critical harm. A developer must conduct an annual review of the safety and security protocol and modify it. A developer must disclose each safety incident to the attorney general within 72 hours of learning of it or learning sufficient facts to establish a reasonable belief it occurred. A person injured by a violation may bring a civil action to recover damages, costs, and disbursements, including reasonable attorney fees. Safety incident disclosure to the attorney general is due within 72 hours of the date the developer learns of the incident.",
-     "provable": [
-      "72",
-      "10000000",
-      "30000000"
-     ],
-     "found": [
-      "72"
-     ],
-     "recall": 0.3333333333333333,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "No compute, cost, or revenue threshold: \"developer\" = any person that has trained at least one AI model.",
-     "got": "Capability-based, no figure: a person that has trained at least one artificial intelligence model.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": "First violation: civil penalty not exceeding $10,000,000 for a first violation, enforced by the attorney general; Subsequent violation: civil penalty not exceeding $30,000,000 for any subsequent violation, enforced by the attorney general; Private action: damages, costs, and disbursements, including reasonable attorney fees.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "B.2"
-  },
-  {
-   "key": "nj-s-1802",
-   "outcome": "out_of_scope",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Annual AI \"safety test\" reports (biases, inaccuracies, cybersecurity threats) to the Office of Information Technology for any entity that sells, develops, deploys or uses AI in New Jersey; no size, compute or revenue threshold; no penalties. General AI bill, not frontier-developer regulation. Bill text — njleg",
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": false
-    }
-   },
-   "gold_in_scope": false,
-   "rounds": 1,
-   "problems": [],
-   "section": null
-  },
-  {
-   "key": "ny-raise-act-ch-699-ch-96",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Chapter 96 repeals the original Gen. Bus. Law Art. 44-B and enacts a new Art. 44-B (§§1420–1429) that copies TFAIA's frontier AI framework (§1421(1)) and transparency report (§1421(3)) — deemed compliant if published within a system/model card; incident reporting 72 hrs to the DFS Office, 24 hrs to law enforcement if imminent risk (§1422(3)); quarterly internal-use catastrophic-risk summaries (§1422(2)); large-developer disclosure statement with 5%/50% beneficial owners, renewed every 2 years , pro-rata assessment, $1,000/day for non-filing (§1428); new office within Dept. of Financial Services with broad rulemaking authority incl. \"additional reporting or publication requirements\" (§1429); scope limited to models \"developed, deployed, or operating in whole or in part in New York\" (§1425); exempts accredited colleges/universities and the Empire AI Consortium (§1426); §1427(3) expressly preserves a developer's right to argue another party caused the harm. Federal reciprocity is narrower than IL's: it covers incident reporting only (§1422(8)–(9)), and the designated federal standard need not require audits. Contains no whistleblower section and no audit mandate — both were in the June 2025 version and were removed",
-     "got": "A large frontier developer shall write, implement, comply with, and publish on its website a frontier AI framework, and review and update it at least once per year. A large frontier developer shall publish a modified frontier AI framework and a justification within thirty days of a material modification. A frontier developer shall publish a transparency report before, or concurrently with, deploying a new or substantially modified frontier model. A large frontier developer shall transmit to the office a summary of any assessment of catastrophic risk from internal use of its frontier models every three months or on another agreed schedule. A large frontier developer must have a current disclosure statement filed with the office, renewed every two years, and pay pro rata assessments to defray the costs of administering the article. A frontier developer shall report any critical safety incident to the office within seventy-two hours; if imminent risk of death or serious physical injury, disclose to an appropriate authority within twenty-four hours. The act takes effect January 1, 2027.",
-     "provable": [
-      "44"
-     ],
-     "found": [],
-     "recall": 0,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": "10²⁶ ops incl. fine-tuning/RL/material modifications (§1420(9)); >$500M revenue with affiliates, preceding calendar year (§1420(10)); equity-value loss excluded (§1423)",
-     "got": "Frontier model: foundation model trained using computing power greater than 10^26 integer or floating-point operations, including fine-tuning and reinforcement learning. Large frontier developer: annual gross revenues in excess of five hundred million dollars in the preceding calendar year, together with affiliates.",
-     "provable": [
-      "10",
-      "26"
-     ],
-     "found": [
-      "10",
-      "26"
-     ],
      "recall": 1,
      "unsupported": [],
      "pass": true
     },
     "penalties": {
-     "gold": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
-     "got": "First violation by a large frontier developer: civil penalty not to exceed one million dollars, enforced by the attorney general; Subsequent violations: civil penalty not to exceed three million dollars per subsequent violation, enforced by the attorney general; Failure to file disclosure statement: civil penalty of one thousand dollars for each day the entity fails to file a disclosure or correct false information, enforced by the office after notice and hearing.",
+     "gold": null,
+     "got": "Violations of the section generally: civil penalty of not more than $2,000,000 for each day on which the violation occurs; Violations of emergency order subsection (c): civil penalty of not more than $20,000,000 for each day on which the violation occurs; enforced by the Secretary after reasonable notice and opportunity for a hearing.",
      "provable": [],
      "found": [],
      "recall": null,
@@ -454,48 +145,11 @@
      "pass": true
     }
    },
-   "gold_in_scope": true,
-   "rounds": 1,
-   "problems": [],
-   "section": "A"
-  },
-  {
-   "key": "oh-hb-628",
-   "outcome": "published",
-   "scope_ok": true,
-   "fields": {
-    "mechanism": {
-     "gold": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; \"soft law\" — nothing requires a developer to seek verification",
-     "got": "The attorney general may license an applicant as an independent verification organization if it shows independence from the AI industry and an adequate plan. The attorney general shall revoke an independent verification organization's license on specified grounds. A licensed independent verification organization shall implement the plan it submitted to the attorney general. A licensed independent verification organization shall revoke verification of a model or application whose developer or deployer fails specified requirements. The artificial intelligence safety advisory council is established in the office of the attorney general. An independent verification organization shall submit an annual report to the general assembly, the attorney general, and the auditor of state. Nothing in the chapter requires a model or application to seek verification from an independent verification organization. In civil actions for personal injury or property damage, a rebuttable presumption against liability applies only if all three listed conditions on verification, licensed risk and market segment are met.",
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "thresholds": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    },
-    "penalties": {
-     "gold": null,
-     "got": null,
-     "provable": [],
-     "found": [],
-     "recall": null,
-     "unsupported": [],
-     "pass": true
-    }
-   },
+   "section_ok": true,
    "gold_in_scope": true,
    "rounds": 2,
    "problems": [],
-   "section": "C"
+   "section": "D"
   }
  ]
 }
