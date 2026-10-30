@@ -1,25 +1,22 @@
 // Assembles the public site in docs/ (what GitHub Pages serves from main):
 //   docs/        the new UI (Tracker.dc.html as index.html, its scripts, fonts, logo, data/v2, downloads)
-//   docs/v1/     the v1 site, rebuilt from tracker.md exactly as before
-// v1's own files are not edited. The old root files (tracker-table.csv, tracker.md, handbook.pdf) stay at the root so
-// existing links to them keep working. Safe to run again: it rebuilds v1 first, then lays the new UI on top.
-//   node web/scripts/publish-site.mjs
+//   docs/v1/     the v1 site, frozen since 15 Oct 2026: never written here
+// The v1 build (build/build.mjs) still runs first, as a check that tracker.md renders and passes its fidelity checks, but
+// it writes only to build/out/ (gitignored), never into docs/. The old root files (tracker-table.csv, tracker.md,
+// handbook.pdf) stay at the root so existing links keep working. This is the one step that writes docs/; it ends with
+// the docs/-matches-web/ check, so the two cannot drift.
+//   node web/scripts/publish-site.mjs        (npm run site)
 import fs from 'fs';
 import path from 'path';
 import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const docs = path.join(root, 'docs'), web = path.join(root, 'web'), v1 = path.join(docs, 'v1');
+const docs = path.join(root, 'docs'), web = path.join(root, 'web');
 const cp = (from, to) => { fs.mkdirSync(path.dirname(to), { recursive: true }); fs.cpSync(from, to, { recursive: true }); };
 
-// 1. Rebuild v1 (writes docs/index.html, tracker-table.csv, tracker.md, favicon.svg, .nojekyll)
-execFileSync(process.execPath, ['build/build.mjs'], { cwd: root, stdio: 'inherit' });
-
-// 2. Park the v1 site in docs/v1/
-fs.rmSync(v1, { recursive: true, force: true });
-['index.html', 'tracker-table.csv', 'tracker.md', 'favicon.svg', 'handbook.pdf'].forEach((f) => cp(path.join(docs, f), path.join(v1, f)));
-fs.writeFileSync(path.join(v1, '.nojekyll'), '');
+// 1. The v1 build, as a check (its output goes to build/out/)
+execFileSync(process.execPath, ['build/build.mjs', path.join('build', 'out')], { cwd: root, stdio: 'inherit' });
 
 // 3. Lay the new UI on the root
 cp(path.join(web, 'Tracker.dc.html'), path.join(docs, 'index.html'));

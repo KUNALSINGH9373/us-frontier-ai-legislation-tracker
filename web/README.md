@@ -17,7 +17,7 @@ Then open http://127.0.0.1:8768/Tracker.dc.html (the page must be served over ht
 Data is generated from v1's own sources, from the repository root:
 
 ```bash
-npm run build            # v1 build: writes docs/tracker-table.csv
+npm run build            # v1 build check: writes build/out/ (docs/tracker-table.csv is the frozen v1 export build-data reads)
 node web/scripts/build-data.mjs
 ```
 

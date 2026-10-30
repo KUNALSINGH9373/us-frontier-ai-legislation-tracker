@@ -13,11 +13,16 @@
 //  - every table cell in the markdown is rendered exactly once
 //  - every (link text, URL) pair in the markdown appears in the HTML
 //  - every word in the markdown appears in the page at least as often
-import { readFileSync, writeFileSync, copyFileSync } from "node:fs";
+import { readFileSync, writeFileSync, copyFileSync, mkdirSync } from "node:fs";
+import { resolve as resolvePath, sep } from "node:path";
 import { marked } from "marked";
 import { extractEvents, TYPES } from "./events.mjs";
 import { renderHandbook } from "./handbook.mjs";
 
+// Output folder: argv[2], default build/out/. Never docs/: docs/ is the new UI (web/scripts/publish-site.mjs) and docs/v1 is frozen.
+const OUT = (process.argv[2] || "build/out").replace(/[\\/]+$/, "");
+if ((resolvePath(OUT) + sep).startsWith(resolvePath("docs") + sep)) throw new Error(`build.mjs: refusing to write into ${OUT} (docs/ is assembled by publish-site.mjs; docs/v1 is frozen)`);
+mkdirSync(OUT, { recursive: true });
 const REPO_URL = process.env.REPO_URL || "https://github.com/KUNALSINGH9373/us-frontier-ai-legislation-tracker";
 const md = readFileSync("tracker.md", "utf8");
 const template = readFileSync("build/template.html", "utf8");
@@ -210,7 +215,7 @@ pairsData.forEach((pr) => { const meta = entryMeta[pr.id]; if (!meta) return; ta
 const csvEsc = (v) => `"${String(v).replace(/"/g, '""')}"`;
 const csv = [["Section", "Entry", "Jurisdiction", "Sponsor", "Core mechanism / description", "Thresholds / scope", "Status and dates", "Source", "Confidence", "Years with dated events", "Permalink"].join(","),
   ...tableRows.map((r) => [r.section, r.titlePlain, r.juris, r.csv.sponsor, r.csv.mech, r.csv.thresh, r.csv.status, r.csv.source, r.csv.conf, r.years, `https://usfrontierlaw.com/#${r.id}`].map(csvEsc).join(","))].join("\n");
-writeFileSync("docs/tracker-table.csv", "\ufeff" + csv);
+writeFileSync(`${OUT}/tracker-table.csv`, "\ufeff" + csv);
 
 const sectionsWithRows = [...new Set(tableRows.map((r) => r.section))];
 const groupsWithRows = GROUPS.filter((g) => tableRows.some((r) => r.group === g.key));
@@ -495,10 +500,10 @@ const out = template
   .replaceAll("{{MAP_SCRIPT}}", readFileSync("build/map.js", "utf8"))
   .replaceAll("{{BUILT}}", new Date().toISOString().slice(0, 10));
 
-writeFileSync("docs/index.html", out);
-copyFileSync("tracker.md", "docs/tracker.md");
-writeFileSync("docs/.nojekyll", "");
-copyFileSync("web/logo/us-frontier-law-seal.svg", "docs/favicon.svg"); // the site seal, as on the new UI
+writeFileSync(`${OUT}/index.html`, out);
+copyFileSync("tracker.md", `${OUT}/tracker.md`);
+writeFileSync(`${OUT}/.nojekyll`, "");
+copyFileSync("web/logo/us-frontier-law-seal.svg", `${OUT}/favicon.svg`); // the site seal, as on the new UI
 console.log(`timeline: ${events.length} events from ${Object.keys(usedEntries).length} entries; by type: ${TYPES.map((t) => t.split(" ")[0] + "=" + events.filter((e) => e.type === t).length).join(", ")}`);
 console.log(`map: ${mapNodes.length} nodes, ${mapEdges.length} edges, all quotes verified`);
-console.log(`built docs/index.html: ${sections.length} sections, ${totalEntries} entries, ${renderedCells.length} cells, ${htmlLinks.length} links, ${mdWords.length} words verified`);
+console.log(`built ${OUT}/index.html: ${sections.length} sections, ${totalEntries} entries, ${renderedCells.length} cells, ${htmlLinks.length} links, ${mdWords.length} words verified`);

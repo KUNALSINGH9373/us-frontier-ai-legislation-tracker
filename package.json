@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "node build/build.mjs",
+    "build": "node build/build.mjs build/out",
     "site": "node web/scripts/publish-site.mjs",
     "check:docs": "node web/scripts/check-docs-sync.mjs"
   },
