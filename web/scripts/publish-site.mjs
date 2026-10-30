@@ -23,11 +23,14 @@ fs.writeFileSync(path.join(v1, '.nojekyll'), '');
 
 // 3. Lay the new UI on the root
 cp(path.join(web, 'Tracker.dc.html'), path.join(docs, 'index.html'));
-['support.js', 'tracker-lib.js', 'viz-lib.js', 'fonts', 'logo', 'downloads', path.join('data', 'v2')].forEach((f) => cp(path.join(web, f), path.join(docs, f)));
+// every script at the top of web/ is a site library: copy them all, so a new one cannot be left behind
+[...fs.readdirSync(web).filter((f) => f.endsWith('.js')), 'fonts', 'logo', 'downloads', path.join('data', 'v2')].forEach((f) => cp(path.join(web, f), path.join(docs, f)));
 cp(path.join(web, 'logo', 'us-frontier-law-seal.svg'), path.join(docs, 'favicon.svg'));
 fs.writeFileSync(path.join(docs, '.nojekyll'), '');
 
 const must = ['index.html', 'CNAME', 'support.js', 'tracker-lib.js', 'viz-lib.js', 'data/v2/entries.json', 'v1/index.html', 'v1/handbook.pdf'];
 const missing = must.filter((f) => !fs.existsSync(path.join(docs, f)));
 if (missing.length) { console.error('missing from docs/: ' + missing.join(', ')); process.exit(1); }
+// docs/ must now match web/ exactly (the same check runs on its own: node web/scripts/check-docs-sync.mjs)
+execFileSync(process.execPath, [path.join(web, 'scripts', 'check-docs-sync.mjs')], { cwd: root, stdio: 'inherit' });
 console.log('docs/ now serves the new UI at / and v1 at /v1/');
