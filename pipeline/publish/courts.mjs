@@ -22,13 +22,17 @@ const SOURCE = 'court docket via CourtListener';
 // "NOTICE OF APPEAL to the 9th Circuit ... filed by Paul S. Atkins, ..., Chris Wright. Appeal of Order on ..., Judgment 252 (Appeal fee ...)"
 //   -> { head: "NOTICE OF APPEAL to the 9th Circuit Court of Appeals", filers: [names], rest: "Appeal of Order on ..., Judgment 252" }
 // head and rest are the court's own words, unaltered. The filer list ends at the first full stop that is not an initial ("Paul S.",
-// "U.S.") or "Jr". Null when the text names no filers.
+// "U.S.", "L.L.C.") or a name suffix (NAME_SUFFIX: "Jr.", "Inc.", "Corp.", "Ltd.", "LLC." ...). Null when the text names no filers.
+const NAME_SUFFIX = ['Jr', 'Sr', 'Inc', 'Co', 'Corp', 'Ltd', 'LLC', 'LLP', 'LP', 'PLC', 'Bros', 'Assn', 'Ass\'n', 'Cos'];
+const SUFFIX_ALT = NAME_SUFFIX.map((s) => s.replace(/[.'*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+const FILERS_END = new RegExp(`(?<!\\b[A-Z]|\\b(?:${SUFFIX_ALT}))\\.\\s+(?=[A-Z])|\\.?\\s*$`);
+const FILER_SPLIT = new RegExp(`,(?!\\s*(?:${SUFFIX_ALT})\\b)\\s*`); // "OpenAI, Inc." is one filer
 export function partsOf(full) {
   const m = /^(.+?)\s+filed by\s+(.+)$/is.exec(full || '');
   if (!m) return null;
-  const end = /(?<!\b[A-Z]|\bJr|\bInc|\bCo)\.\s+(?=[A-Z])|\.?\s*$/.exec(m[2]);
+  const end = FILERS_END.exec(m[2]);
   const list = m[2].slice(0, end.index), after = m[2].slice(end.index + end[0].length);
-  return { head: m[1].replace(/[\s.;,]+$/, ''), filers: list.split(/,(?!\s*(?:Jr|Inc)\b)\s*/).map((x) => x.trim()).filter(Boolean), rest: after.split(/\s+\(/)[0].replace(/[\s.;,]+$/, '') };
+  return { head: m[1].replace(/[\s.;,]+$/, ''), filers: list.split(FILER_SPLIT).map((x) => x.trim()).filter(Boolean), rest: after.split(/\s+\(/)[0].replace(/[\s.;,]+$/, '') };
 }
 // Who filed it, by rule: a short list as written; a long one with federal agencies is "the federal defendants" ("plaintiffs" when
 // the filing says the filers are plaintiffs).

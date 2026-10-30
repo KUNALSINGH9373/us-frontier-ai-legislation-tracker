@@ -28,6 +28,9 @@ const appeal = entries.find((x) => x.entry_number === 253), order = entries.find
   ok('a long federal list filed as plaintiffs is "the federal plaintiffs"', partiesOf(p.filers, 'Notice filed by Intervenor Plaintiff United States, x') === 'the federal plaintiffs');
   ok('a long private list: the first and a count', partiesOf(['Ann Lee', 'Bo Kim', 'Cy Fox', 'Di Ray']) === 'Ann Lee and 3 others');
   ok('an order names no filers', partsOf(classifyEntry(order).full) === null);
+  // company suffixes and initials are not the end of the filer list
+  const q = partsOf('MOTION to Dismiss filed by OpenAI, Inc., Microsoft Corp., Acme Holdings Ltd., Beta Labs LLC., Gamma L.L.C., U.S. Department of Commerce. Responses due by 11/2/2026 (Attachments: # 1 Exhibit)');
+  ok('filers: Inc., Corp., Ltd., LLC., L.L.C. and U.S. do not end the list; the next sentence does', q && JSON.stringify(q.filers) === JSON.stringify(['OpenAI, Inc.', 'Microsoft Corp.', 'Acme Holdings Ltd.', 'Beta Labs LLC.', 'Gamma L.L.C.', 'U.S. Department of Commerce']) && q.rest === 'Responses due by 11/2/2026', JSON.stringify(q));
 }
 
 // ---------- the publish ----------
