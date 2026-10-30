@@ -34,7 +34,7 @@ import * as congressExtra from './sources/congress_extra.mjs';
 import * as nist from './sources/nist.mjs';
 import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
-import { defaultHttp, sourceConfig, structuredSources, NEWS_FETCH_TIMEOUT_MS, redact } from './sources/common.mjs';
+import { defaultHttp, sourceConfig, structuredSources, NEWS_FETCH_TIMEOUT_MS, NEWS_TIMING, redact } from './sources/common.mjs';
 import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
@@ -43,7 +43,7 @@ export const SEEN_FILE = NEWS_SEEN_FILE;
 export const EVENTS_FILE = path.join(STATE_DIR, 'news-events.json');
 export const HEALTH_FILE = path.join(STATE_DIR, 'news-health.json');
 export const SOURCES_FILE = path.join(pipelineDir, 'config', 'news-sources.json');
-const KEEP_DAYS = 120, EVENT_DAYS = 14;
+const KEEP_DAYS = NEWS_TIMING.keep_days, EVENT_DAYS = NEWS_TIMING.event_days;
 const host = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return null; } };
 const daysBefore = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') - n * 864e5).toISOString().slice(0, 10);
 
@@ -94,9 +94,11 @@ export function recordsFromRuns(runDirs = []) {
 // (health 'truncated'); the remaining adapters are not run. An adapter whose transport fails 3 times in a row is stopped. A source read
 // within its cadence_hours (config/news-sources.json "structured"; lastFetch from news-health.json) is not read again this run.
 // Never throws. clock: ms now (tests).
-export const NEWS_BUDGET_MS = 6 * 60 * 1000;
-export const LEADS_BUDGET_MS = 2 * 60 * 1000; // the feeds' share of the total, at most
-const CADENCE_SLACK_MS = 15 * 60 * 1000; // a 24 h source read at 06:00 is due again at the 06:00 run the next day
+// The limits: config/news-sources.json "timing".
+export const NEWS_BUDGET_MS = NEWS_TIMING.budget_ms;
+export const LEADS_BUDGET_MS = NEWS_TIMING.leads_budget_ms; // the feeds' share of the total, at most
+const LEADS_MAX_PART = NEWS_TIMING.leads_max_part; // and never more than this part of the total
+const CADENCE_SLACK_MS = NEWS_TIMING.cadence_slack_ms; // a 24 h source read at 06:00 is due again at the 06:00 run the next day
 function guardedHttp(http, { deadline, clock, onStop }) {
   let consecutive = 0, stopped = null;
   const stop = (why) => { if (!stopped) { stopped = why; onStop(why); } };
@@ -136,7 +138,7 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
       let timer;
       const timeout = new Promise((res) => { timer = setTimeout(() => res({ timedOut: true }), Math.max(0, mine - clock())); });
       try {
-        r = await Promise.race([mod.fetchItems({ ...args, http: g.http, sleep: g.sleep, deadline: mine - 15000, clock }), timeout]);
+        r = await Promise.race([mod.fetchItems({ ...args, http: g.http, sleep: g.sleep, deadline: mine - NEWS_FETCH_TIMEOUT_MS, clock }), timeout]);
       } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [redact(String(e.message || e))] }, fetched: [] }; }
       finally { clearTimeout(timer); }
       if (r && r.timedOut) { why = why || 'time budget reached'; r = { items: [], health: { ok: true, count: 0, newest: null, errors: [] }, fetched: [] }; }
@@ -231,7 +233,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
   // (feeds) get what is left, at most LEADS_BUDGET_MS, under the same deadline
   const totalMs = (config.news && config.news.time_budget_ms) || NEWS_BUDGET_MS, stepStart = clock(), stepDeadline = stepStart + totalMs;
   const prevHealth = loadHealth(healthFile), lastFetch = Object.fromEntries(Object.entries(prevHealth.sources || {}).map(([n, s]) => [n, s.last_fetch || null]));
-  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp({ timeoutMs: NEWS_FETCH_TIMEOUT_MS })) : null, lastFetch, budgetMs: Math.max(0, totalMs - Math.min(LEADS_BUDGET_MS, Math.floor(totalMs / 3))), clock });
+  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp({ timeoutMs: NEWS_FETCH_TIMEOUT_MS })) : null, lastFetch, budgetMs: Math.max(0, totalMs - Math.min(LEADS_BUDGET_MS, Math.floor(totalMs / LEADS_MAX_PART))), clock });
   Object.assign(rep.events, { added: ev.up.added, confirmed: ev.up.confirmed, corrected: ev.up.corrected, withdrawn: ev.up.withdrawn, refused: ev.up.refused.slice(0, 20), report: ev.up.report.slice(0, 50) });
   const health = updateHealth(prevHealth, ev.results, { now, items: ev.itemsBy });
   rep.events.alerts = alerts(health, { now, config: { congress_gov: { cadence_hours: 24 * 30 }, legiscan: { cadence_hours: 24 * 30 }, courtlistener: { cadence_hours: 24 * 30 } } }).filter((a) => !/stale|zero items/.test(a)); // these sources are read only when they changed
