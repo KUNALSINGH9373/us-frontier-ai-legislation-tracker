@@ -149,7 +149,7 @@ ok('r11 a veto message referred is no referral card', classifyState('Veto read a
 // ---------- review round 12 ----------
 {
   const { chamberOf } = await import('./classify.mjs');
-  ok('r12 Missouri "S Third Read and Passed" filed under H is the Senate', chamberOf('S Third Read and Passed', 'H') === 'Senate' && chamberOf('H Third Read and Passed', 'S') === 'House');
+  ok('r12 Missouri "S Third Read and Passed" filed under H is the Senate; the one-letter prefix is read in Missouri only (D2)', chamberOf('S Third Read and Passed', 'H', 'MO') === 'Senate' && chamberOf('H Third Read and Passed', 'S', 'MO') === 'House' && chamberOf('S Third Read and Passed', 'H', 'KS') === 'House');
 }
 for (const [t, j] of [['Passed Enrolled', 'MD'], ['Truly Agreed To and Finally Passed', 'MO'], ['HCS Reported Do Pass H Professional Registration and Licensing', 'MO'], ['Reported from S Emerging Issues and Professional Registration Committee', 'MO'],
   ['Passed to be engrossed - 2 YEAS to 148 NAYS (See YEA and NAY No. 231 )', 'MA'], ['Report adopted; Passed Third Reading. Ayes, 10; Aye(s) with reservations: none . 15 No(es): A, B. 0 Excused: none.', 'HI'],

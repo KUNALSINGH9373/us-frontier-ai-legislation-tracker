@@ -96,7 +96,7 @@ ok('2.2 hostAllowed: https on the list only (subdomains ok)', C.hostAllowed('htt
 ok('2.3 redact removes keys', !C.redact(`x?api_key=${KEY}&a=1`, KEY).includes(KEY) && !C.redact('u?api_key=SECRET999', '').includes('SECRET999'));
 ok('2.4 etDate in Washington time', C.etDate('2026-10-14T03:59:59Z') === '2026-10-13' && C.etDate('2026-10-28T20:03:48Z') === '2026-10-28');
 ok('2.5 isAI', C.isAI('Inaugurating the Era of Super Intelligence') && C.isAI('AI Kill Switch Act') && !C.isAI('Thai food') && !C.isAI('Said a thing') && !C.isAI('Music Streaming Fraud'));
-ok('2.6 config has hosts for every adapter', ['federal_register', 'congress_extra', 'govinfo', 'regulations_gov', 'whitehouse', 'nist', 'cbo', 'ca_ag'].every((n) => C.sourceConfig(n).hosts.length > 0 && C.sourceConfig(n).cadence));
+ok('2.6 config has hosts for every adapter', ['federal_register', 'congress_extra', 'govinfo', 'regulations_gov', 'whitehouse', 'nist', 'cbo', 'ca_ag'].every((n) => C.sourceConfig(n).hosts.length > 0 && C.sourceConfig(n).cadence_hours > 0 && !('cadence' in C.sourceConfig(n))));
 
 const run = async (mod, name, opts = {}) => {
   const f = fixtureHttp(name, opts);

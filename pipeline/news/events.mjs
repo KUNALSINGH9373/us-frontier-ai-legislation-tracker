@@ -18,16 +18,17 @@ import { templateFor, quoteOf } from './templates.mjs';
 import { ownStageCode, billKey, displayNumber, skipsExecutive } from './factsheet.mjs';
 import { upperOf, lowerOf } from './jurisdictions.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
-import { sourceConfig } from './sources/common.mjs';
+import { sourceConfig, structuredSources } from './sources/common.mjs';
 import { guardClass } from './sources/openstates.mjs';
 
 // Hosts an official record may link to. A raw item whose url is elsewhere is refused.
 // Hosts an official record may link to, per source, from config/news-sources.json "structured" (review r3 #7: exact hosts, never a
-// pattern): a host matches exactly or as a subdomain. State bill sources (LegiScan, Open States, NY Senate) use the state_legislature list.
-const STATE_SOURCES = new Set(["legiscan", "openstates", "nysenate"]);
+// pattern): a host matches exactly or as a subdomain. State bill sources (config role aggregator or legislature_api: LegiScan, Open States,
+// NY Senate) also use the legislatures' own sites (role legislature_site: state_legislature).
 export function hostsFor(source) {
   const own = sourceConfig(source).hosts || [];
-  return STATE_SOURCES.has(source) ? [...own, ...(sourceConfig("state_legislature").hosts || [])] : own;
+  if (!['aggregator', 'legislature_api'].includes(sourceConfig(source).role)) return own;
+  return [...own, ...structuredSources().filter(([, c]) => c.role === 'legislature_site').flatMap(([, c]) => c.hosts || [])];
 }
 export const hostOk = (h, source) => !!h && hostsFor(source).some((a) => h === a || h.endsWith("." + a));
 const DAY = 864e5;
@@ -38,7 +39,8 @@ const sortObj = (o) => (o && typeof o === 'object' && !Array.isArray(o) ? Object
 export const factsHash = (facts) => sha(sortObj(facts || {}));
 
 // Which source is the official record when several give the same event first time: the body's own record before an aggregator.
-export const OFFICIAL_ORDER = ['congress_gov', 'federal_register', 'whitehouse', 'courtlistener', 'nysenate', 'legiscan', 'openstates', 'govinfo'];
+// config/news-sources.json official_rank: the body's own record before an aggregator.
+export const OFFICIAL_ORDER = structuredSources().filter(([, c]) => Number.isFinite(c.official_rank)).sort((a, b) => a[1].official_rank - b[1].official_rank).map(([n]) => n);
 const rank = (s) => { const i = OFFICIAL_ORDER.indexOf(s); return i < 0 ? OFFICIAL_ORDER.length : i; };
 
 // The key: jurisdiction|entry|class|date, except where the record has its own number, which is the same whatever date a source gives it

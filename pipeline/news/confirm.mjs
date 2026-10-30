@@ -6,9 +6,9 @@
 // records never delete: status changes and a history entry is added.
 import crypto from 'crypto';
 import { billKey } from './factsheet.mjs';
+import { structuredSources, covers, STATE_ROLES } from './sources/common.mjs';
 
 export const BILL_CLASSES = new Set(['introduction', 'referral-committee', 'hearing-scheduled', 'hearing-held', 'committee-passage', 'committee-failure', 'passage', 'failure', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'executive-signature', 'executive-veto', 'became-law', 'veto-override-passage', 'withdrawal', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate']);
-const STATE_LEG = ['openstates', 'nysenate', 'state_legislature', 'legiscan'];
 // Classes govinfo publishes for federal bills: bill text versions (BILLS), enrolled text, public laws (PLAW).
 export const GOVINFO_CLASSES = new Set(['introduction', 'new-text-version', 'enrolled', 'became-law']);
 export const STABLE_RUNS = 2;
@@ -19,9 +19,11 @@ export function confirmersFor({ jurisdiction, class: cls }, official) {
   if (BILL_CLASSES.has(cls) && jurisdiction && jurisdiction !== 'US') {
     if (cls === 'crs-report' || cls === 'cbo-estimate') return [];
     // LegiScan and Open States both copy the legislature's own site, so they are not truly independent (review r3 #9). Where the state's
-    // own legislature API is read (New York: nysenate), it is the confirmer for the aggregators, and they confirm it.
-    if (jurisdiction === 'NY') return official === 'nysenate' ? ['legiscan', 'openstates', 'state_legislature'] : ['nysenate'];
-    return STATE_LEG.filter((s) => s !== official && s !== 'nysenate');
+    // own legislature API is read (config/news-sources.json role legislature_api: nysenate for New York), it is the confirmer for the
+    // aggregators, and they confirm it. Otherwise every other state source covering the jurisdiction confirms.
+    const mine = structuredSources().filter(([, c]) => STATE_ROLES.has(c.role) && covers(c, jurisdiction)).map(([n, c]) => [n, c.role]);
+    const api = mine.filter(([, r]) => r === 'legislature_api').map(([n]) => n);
+    return api.length && !api.includes(official) ? api : mine.map(([n]) => n).filter((s) => s !== official);
   }
   if (BILL_CLASSES.has(cls) && jurisdiction === 'US') {
     if (official === 'congress_gov' && GOVINFO_CLASSES.has(cls)) return ['govinfo'];
