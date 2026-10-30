@@ -226,8 +226,8 @@ const tableBody = `<header class="sec-head"><p class="sec-meta"><span class="sec
 <div class="tbl-controls">
   <label class="tsearch"><span class="vh">Filter rows</span><input id="tq" type="search" placeholder="Filter rows: any word in any column" autocomplete="off"></label>
   <select id="tgroup" aria-label="Group"><option value="">All groups</option>${groupsWithRows.map((g) => `<option value="${g.key}">${esc(g.name)}</option>`).join("")}</select>
-  <select id="tsection" aria-label="Section"><option value="">All sections</option>${sections.filter((x) => sectionsWithRows.includes(x.label)).map((x) => `<option value="${x.label}">${x.label}. ${x.short}</option>`).join("")}</select>
-  <select id="tstate" aria-label="Jurisdiction"><option value="">All jurisdictions</option>${statesWithRows.map((x) => `<option value="${x}">${x}</option>`).join("")}</select>
+  <select id="tsection" aria-label="Section"><option value="">All sections</option>${sections.filter((x) => sectionsWithRows.includes(x.label)).map((x) => `<option value="${esc(x.label)}">${esc(x.label)}. ${esc(x.short)}</option>`).join("")}</select>
+  <select id="tstate" aria-label="Jurisdiction"><option value="">All jurisdictions</option>${statesWithRows.map((x) => `<option value="${esc(x)}">${esc(x)}</option>`).join("")}</select>
   <select id="tstatus" aria-label="Status class"><option value="">Any status class</option><option value="ENACTED">Enacted (section A)</option><option value="PENDING">[PENDING]</option><option value="STALLED">[STALLED]</option><option value="FAILED">[FAILED]</option><option value="EXCLUDED">Excluded (section J)</option></select>
   <button type="button" id="texpand" class="viz-btn">Expand all rows</button>
   <span class="tcount" id="tcount"></span>
@@ -446,7 +446,7 @@ sections.forEach((s, i) => {
   if (i === 0) {
     body = `<div class="hero"><h1 class="display">${heroTitle}</h1><p class="lede">${heroLede}</p><ul class="stats"><li><b>${totalEntries}</b><span>entries</span></li><li><b>${sections.filter((x) => !x.synthetic).length - 1}</b><span>sections</span></li><li><b>${mdLinkCount}</b><span>source links</span></li><li><b>${events.length}</b><span>dated events</span></li></ul></div>\n${glance}\n${directory}`;
   } else {
-    const meta = `<p class="sec-meta"><span class="sec-group">${s.group.name}</span><span class="sec-count">${s.count ? `${s.count} ${s.count === 1 ? "entry" : "entries"}` : "Reference"}</span></p>`;
+    const meta = `<p class="sec-meta"><span class="sec-group">${esc(s.group.name)}</span><span class="sec-count">${s.count ? `${s.count} ${s.count === 1 ? "entry" : "entries"}` : "Reference"}</span></p>`;
     if (!s.synthetic) body = body.replace(/^(<h2 id="[^"]+">)([\s\S]*?)(<\/h2>)/, (_, a, t, b) => `<header class="sec-head">${meta}${a}${t}${b}</header>${jumpList(s)}`);
   }
   const prev = sections[i - 1], next = sections[i + 1];
@@ -483,7 +483,7 @@ const sidebar = GROUPS.map((g) => {
   if (!secs.length) return "";
   return `<div class="grp"><p class="grp-title">${esc(g.name)}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "MP" ? "⬡" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${esc(s.short)}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${esc(h.id)}">${esc(h.text)}</a></li>`), ...s.entries.map((e) => `<li data-years="${esc(yearsOf(e.id))}"><a href="#${esc(e.id)}">${esc(linkText(e.text, 72))}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
-const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "HB", "MP", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
+const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "HB", "MP", "i"].includes(s.label) ? esc(s.short) : esc(s.label + ". " + s.short)}${s.count ? ` (${s.count})` : ""}</option>`).join("");
 
 const out = template
   .replaceAll("{{TITLE}}", title)
