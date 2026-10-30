@@ -5,6 +5,7 @@
 //                 model writes, a larger budget, long bills read section by section); still held after that, or held for a reason no
 //                 retry can fix (a resolution, an amendment record, a duplicate, the referee disagreeing), it carries escalate: true and
 //                 is read again only when its record changes. Nothing loops.
+import { PIPELINE } from './pipeline-config.mjs';
 import { sourceText, containsQuote, provedQuote } from './source-text.mjs';
 import { generatePatch } from './generator.mjs';
 import { assembleEntry } from './assemble.mjs';
@@ -80,7 +81,7 @@ const IN_SCOPE_NOW = (sections) => `An independent reader judged this item IN sc
 
 function styleExamplesFor({ source, entry, entries }) {
   const sections = entry ? [entry.section] : source === 'federal_register' ? ['G', 'G.3'] : source === 'legiscan' ? ['A', 'B'] : ['D', 'F'];
-  return entries.filter((e) => sections.includes(e.section) && (!entry || e.key !== entry.key) && e.mechanism && e.mechanism.length < 600).slice(0, 2);
+  return entries.filter((e) => sections.includes(e.section) && (!entry || e.key !== entry.key) && e.mechanism && e.mechanism.length < PIPELINE.style_examples.max_mechanism_chars).slice(0, PIPELINE.style_examples.count);
 }
 
 const heldResult = (item, operation, reason, extra = {}) => ({ item_id: item.item_id, outcome: 'held', operation, attempts: 0, entry: null, patch: null, verdicts: [], reason, ...extra });

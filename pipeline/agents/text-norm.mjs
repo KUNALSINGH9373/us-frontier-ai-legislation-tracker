@@ -2,7 +2,7 @@
 // checks, the threshold rules, the section markers, the self-correction texts) imports from here, so they all agree on one compute-unit
 // vocabulary, one exponent pattern, one number-words reader and one line-numbering detector. Nothing here knows any bill: each rule is
 // stated in terms of the printed form it repairs. Later readers of a bill's structure build on detectNumbering and cleanText.
-import { PIPELINE } from '../lib/pipeline-config.mjs';
+import { PIPELINE } from './pipeline-config.mjs';
 
 // ---------- words split by PDF extraction ----------
 // "cove red model", "floa ting - point", "twen ty - sixth": one optional space between any two letters, and an optional spaced hyphen.
