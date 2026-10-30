@@ -7,6 +7,7 @@ import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { correctRun } from './run.mjs';
+import { operativeBillId } from './texts.mjs';
 import { pickEntries, nextState } from './select.mjs';
 import { checkCorrection, fieldsFor, MAX_SOURCE_CHARS } from './review.mjs';
 import { checkPublish } from '../publish/guards.mjs';
@@ -252,6 +253,21 @@ for (const [name, c, re] of bad) {
   const rrev = scripted(() => ({ corrections: [] }));
   await run(sandbox(), { factory: factoryOf(rrev, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1) }), il: { [E1.key]: { status: 'rejected', bills: [{ bill_id: 1 }] } }, only: [E1.key] });
   ok('8 ... a single bill is not multi-bill; the reviewer prompt says omissions keep the old text', !/NOTE: this entry covers more than one bill/.test(rrev.calls[0].prompt) && /An "omission" only ADDS/.test(rrev.calls[0].system));
+}
+
+// ---------- D3: the bill in force is read from LegiScan's records, not a hand-kept list ----------
+{
+  // Shapes as LegiScan returns them (status 4 = Passed; sasts "Replaced by"; texts with dates), modelled on the NY RAISE and MA cases.
+  const B = (id, status, status_date, textDates, sasts = []) => ({ bill_id: id, status, status_date, texts: textDates.map((date) => ({ date })), sasts });
+  const get = (db) => async (id) => db[id] || null;
+  const ny = { 1: B(1, 4, '2025-12-19', ['2025-03-27']), 2: B(2, 1, '2025-03-05', ['2025-03-05'], [{ type: 'Replaced by', sast_bill_id: 1 }]), 3: B(3, 4, '2026-03-27', ['2026-01-08']), 4: B(4, 1, '2026-01-06', ['2026-01-06'], [{ type: 'Replaced by', sast_bill_id: 3 }]) };
+  ok('D3 of several enacted bills, the one enacted last is in force (a chapter amendment after the law)', (await operativeBillId([1, 2, 3, 4], get(ny))) === 3);
+  const ma = { 10: B(10, 2, '2026-07-08', ['2026-07-08'], [{ type: 'Replaces', sast_bill_id: 9 }, { type: 'Replaced by', sast_bill_id: 30 }]), 20: B(20, 1, '2026-07-16', ['2026-07-16']), 30: B(30, 1, '2026-07-24', ['2026-07-24'], [{ type: 'Replaced by', sast_bill_id: 10 }]) };
+  ok('D3 none enacted: the first bill is followed to the bill that replaced it with a newer text (not back again)', (await operativeBillId([10, 20], get(ma))) === 30);
+  const plain = { 40: B(40, 1, '2026-01-01', ['2026-01-01']), 41: B(41, 1, '2026-02-01', ['2026-02-01']) };
+  ok('D3 no enactment and no replacement: the first mapped bill, as before', (await operativeBillId([40, 41], get(plain))) === 40);
+  const older = { 50: B(50, 1, '2026-05-01', ['2026-05-01'], [{ type: 'Replaced by', sast_bill_id: 51 }]), 51: B(51, 1, '2026-01-01', ['2026-01-01']) };
+  ok('D3 a "Replaced by" link to an older text is not followed', (await operativeBillId([50], get(older))) === 50);
 }
 
 console.log(`\ncorrect: ${pass} passed, ${fail} failed`);

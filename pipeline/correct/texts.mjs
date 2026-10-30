@@ -5,21 +5,44 @@
 import fs from 'fs';
 import path from 'path';
 import { parseBillId, billUrl } from '../grabber/sources/congress.mjs';
-import { latestText, normNumber, officialUrl, adoptedAmendments, withAmendments } from '../grabber/sources/legiscan.mjs';
+import { latestText, normNumber, officialUrl, adoptedAmendments, withAmendments, STATUS } from '../grabber/sources/legiscan.mjs';
 import { pdfToText } from '../grabber/lib/pdf.mjs';
 import { stripLineNumbering } from '../grabber/lib/text.mjs';
 import { cleanText } from '../agents/text-norm.mjs';
 
-// Entries whose description follows a later bill than the first mapped one (NY RAISE: Ch. 699 was repealed and replaced by Ch. 96 = S.8828).
-export const USE_BILL = { 'ny-raise-act-ch-699-ch-96': ['NY', 'S8828'], 'ma-h-5576-s-3178': ['MA', 'S3228'] };
+// Which of an entry's bills is in force or current, from LegiScan's own records (no per-entry list): mapped: the entry's bill ids in
+// identifiers-legiscan.json order; getBill: id -> LegiScan bill record.
+// 1. Enacted ones first: of the mapped bills LegiScan marks Passed, the latest by its status date (a chapter amendment signed after the
+//    law it amends is the law as it now reads).
+// 2. Otherwise the first mapped bill, followed along LegiScan's "Replaced by" links while the bill it points to has a newer text (a
+//    reprint as amended, a conference or substitute bill). A link back to an older text (LegiScan lists these both ways) is not followed.
+const PASSED = Number(Object.keys(STATUS).find((k) => STATUS[k] === 'Passed'));
+const newestText = (b) => (b && b.texts || []).reduce((d, t) => (t.date > d ? t.date : d), '');
+export async function operativeBillId(mapped, getBill) {
+  const recs = [];
+  for (const id of mapped) recs.push(await getBill(id));
+  const enacted = recs.filter((b) => b && b.status === PASSED).sort((a, b) => String(b.status_date || '').localeCompare(String(a.status_date || '')));
+  if (enacted.length) return enacted[0].bill_id;
+  let cur = recs[0]; const seen = new Set([mapped[0]]);
+  while (cur) {
+    const link = (cur.sasts || []).find((x) => /^replaced by$/i.test(String(x.type || '')) && !seen.has(x.sast_bill_id));
+    if (!link) break;
+    seen.add(link.sast_bill_id);
+    const next = await getBill(link.sast_bill_id);
+    if (!next || !(newestText(next) > newestText(cur))) break;
+    cur = next;
+  }
+  return cur ? cur.bill_id : mapped[0];
+}
 
 // cg, ls: Congress.gov and LegiScan clients. ic, il: config/identifiers.json "congress_gov" and identifiers-legiscan.json "legiscan".
 // extra: more { key: [state, number] } bills to look up by number (the accuracy test's excluded bills). noCache: re-read from LegiScan.
 // repair: put PDF-mangled exponents back (the accuracy test stores texts as fetched and repairs them when it reads them).
 export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {}, noCache = false, repair = true, withAdopted = false }) {
-  const sessionCache = new Map();
+  const sessionCache = new Map(), billCache = new Map();
+  const getBill = async (id) => { if (!billCache.has(id)) billCache.set(id, await ls.bill(id)); return billCache.get(id); };
   async function stateText(billId) {
-    const bill = await ls.bill(billId), v = latestText(bill);
+    const bill = await getBill(billId), v = latestText(bill);
     if (!v) return { text: null, why: 'no text version on LegiScan', bill };
     const cache = cacheDir && path.join(cacheDir, `${billId}-${v.doc_id}.txt`);
     let r;
@@ -64,7 +87,7 @@ export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {
   };
 
   // Which bill an entry is read from, or null when it has none (no fetch is made).
-  const sourceOf = (key) => USE_BILL[key] ? 'legiscan' : ic[key] && ic[key].congress_gov && ic[key].congress_gov.length ? 'congress_gov' : il[key] || extra[key] ? 'legiscan' : null;
+  const sourceOf = (key) => ic[key] && ic[key].congress_gov && ic[key].congress_gov.length ? 'congress_gov' : il[key] || extra[key] ? 'legiscan' : null;
 
   // { kind, bill, url, text, why } — text is null (with why) when no text could be read; null for an entry with no bill.
   async function textFor(key) {
@@ -72,12 +95,14 @@ export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {
     if (!kind) return null;
     let rec;
     try {
-      if (USE_BILL[key]) rec = await fromState(await findStateBill(...USE_BILL[key]), USE_BILL[key].join(' '));
-      else if (kind === 'congress_gov') {
+      if (kind === 'congress_gov') {
         const id = ic[key].congress_gov[0], b = parseBillId(id);
         const text = await cg.getText(b);
         rec = { kind, bill: id, url: billUrl(b) + '/text', text, why: text ? null : 'no text published on Congress.gov yet' };
-      } else rec = await fromState(il[key] ? il[key].bills[0].bill_id : await findStateBill(...extra[key]), (extra[key] || []).join(' ')); // a multi-bill entry is read from its first mapped bill
+      } else if (il[key]) {
+        const ids = il[key].bills.map((b) => b.bill_id); // one bill: read it; several: the one in force (operativeBillId)
+        rec = await fromState(ids.length > 1 ? await operativeBillId(ids, getBill) : ids[0], '');
+      } else rec = await fromState(await findStateBill(...extra[key]), extra[key].join(' '));
     } catch (err) { rec = { kind, text: null, why: 'fetch failed: ' + String(err.message).slice(0, 120) }; }
     if (rec.text && repair) rec.text = cleanText(rec.text);
     return rec;
