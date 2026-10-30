@@ -25,6 +25,9 @@ const template = readFileSync("build/template.html", "utf8");
 const strip = (s) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 const decode = (t) => t.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, " ");
 const plain = (h) => decode(strip(h));
+// Every plain-text value placed into HTML (text or a double-quoted attribute) goes through esc(). Cells that marked has
+// already rendered to HTML (r.title, matrix cells, prose blocks) are markup, not text, and are placed as they are.
+const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const slug = (s) => plain(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const ids = new Set();
 const uniq = (id) => { let x = id, n = 2; while (ids.has(x)) x = `${id}-${n++}`; ids.add(x); return x; };
@@ -214,7 +217,7 @@ const tableBody = `<header class="sec-head"><p class="sec-meta"><span class="sec
 <p class="viz-intro">Every entry in the tracker as one row: state laws and bills, federal bills and drafts, executive actions, litigation, export controls, precursors and exclusions. Cells are the tracker's own text under the tracker's own headings; long cells are clipped to three lines until you expand the row. Sort by clicking a heading, filter with the controls, or <a href="tracker-table.csv" download>download the table as CSV</a>.</p>
 <div class="tbl-controls">
   <label class="tsearch"><span class="vh">Filter rows</span><input id="tq" type="search" placeholder="Filter rows: any word in any column" autocomplete="off"></label>
-  <select id="tgroup" aria-label="Group"><option value="">All groups</option>${groupsWithRows.map((g) => `<option value="${g.key}">${g.name}</option>`).join("")}</select>
+  <select id="tgroup" aria-label="Group"><option value="">All groups</option>${groupsWithRows.map((g) => `<option value="${g.key}">${esc(g.name)}</option>`).join("")}</select>
   <select id="tsection" aria-label="Section"><option value="">All sections</option>${sections.filter((x) => sectionsWithRows.includes(x.label)).map((x) => `<option value="${x.label}">${x.label}. ${x.short}</option>`).join("")}</select>
   <select id="tstate" aria-label="Jurisdiction"><option value="">All jurisdictions</option>${statesWithRows.map((x) => `<option value="${x}">${x}</option>`).join("")}</select>
   <select id="tstatus" aria-label="Status class"><option value="">Any status class</option><option value="ENACTED">Enacted (section A)</option><option value="PENDING">[PENDING]</option><option value="STALLED">[STALLED]</option><option value="FAILED">[FAILED]</option><option value="EXCLUDED">Excluded (section J)</option></select>
@@ -234,10 +237,10 @@ const tableBody = `<header class="sec-head"><p class="sec-meta"><span class="sec
 <th data-sort="conf" aria-sort="none"><button type="button">Confidence</button></th>
 </tr></thead>
 <tbody>
-${tableRows.map((r) => `<tr id="row-${r.id}" data-years="${r.years}" data-group="${r.group}" data-section="${r.section}" data-state="${r.juris}" data-status="${r.statusTag}" data-conf="${r.confRank}" data-title="${r.titlePlain.replace(/"/g, "&quot;").toLowerCase()}">
-<td class="c-sec"><a href="#sec-${slug(sections.find((x) => x.label === r.section).id.replace(/^sec-/, ""))}" title="${r.sectionName.replace(/"/g, "&quot;")}"><span class="lbl">${r.section}</span></a></td>
+${tableRows.map((r) => `<tr id="row-${r.id}" data-years="${esc(r.years)}" data-group="${esc(r.group)}" data-section="${esc(r.section)}" data-state="${esc(r.juris)}" data-status="${esc(r.statusTag)}" data-conf="${esc(r.confRank)}" data-title="${esc(r.titlePlain.toLowerCase())}">
+<td class="c-sec"><a href="#sec-${slug(sections.find((x) => x.label === r.section).id.replace(/^sec-/, ""))}" title="${esc(r.sectionName)}"><span class="lbl">${r.section}</span></a></td>
 <td class="c-title"><a href="#${r.id}">${r.title}</a><button type="button" class="rowtgl" aria-expanded="false">Expand</button></td>
-<td class="c-juris">${r.juris ? `<span class="chip state">${r.juris}</span>` : ""}</td>
+<td class="c-juris">${r.juris ? `<span class="chip state">${esc(r.juris)}</span>` : ""}</td>
 <td class="c-sponsor clip">${r.sponsor}</td>
 <td class="c-mech clip">${r.mech}</td>
 <td class="c-thresh clip">${r.thresh}</td>
@@ -310,7 +313,6 @@ sections.splice(3, 0, { id: "sec-table", label: "TB", name: "Comparison table of
 
 // ---- News tab: dated September 2026 record (build/news.json), colour-coded by level of government ----
 const news = JSON.parse(readFileSync("build/news.json", "utf8"));
-const nwEsc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const nwDate = (d) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
 news.items.forEach((it, i) => {
   if (!news.kinds[it.kind]) throw new Error(`news: unknown kind ${it.kind} in item ${i}`);
@@ -318,23 +320,23 @@ news.items.forEach((it, i) => {
 });
 const nwByDate = []; news.items.slice().sort((a, b) => a.date.localeCompare(b.date)).forEach((it) => { const last = nwByDate[nwByDate.length - 1]; if (last && last.date === it.date) last.items.push(it); else nwByDate.push({ date: it.date, items: [it] }); });
 const nwCounts = {}; news.items.forEach((it) => { nwCounts[it.kind] = (nwCounts[it.kind] || 0) + 1; });
-const nwKindCss = Object.keys(news.kinds).map((k) => `.nw-item[data-kind="${k}"]{--nw:${news.kinds[k].color};--nw-soft:${news.kinds[k].soft}}`).join("");
+const nwKindCss = Object.keys(news.kinds).map((k) => `.nw-item[data-kind="${esc(k)}"]{--nw:${esc(news.kinds[k].color)};--nw-soft:${esc(news.kinds[k].soft)}}`).join("");
 const newsBody = `<style>${nwKindCss}</style>
-<section class="panel nw-head" aria-labelledby="nw-h"><h2 id="nw-h" class="panel-title">${nwEsc(news.title)}</h2>
-<p class="panel-note">${nwEsc(news.intro)}</p>
+<section class="panel nw-head" aria-labelledby="nw-h"><h2 id="nw-h" class="panel-title">${esc(news.title)}</h2>
+<p class="panel-note">${esc(news.intro)}</p>
 <div class="nw-legend" role="group" aria-label="Filter by level of government">
 <button type="button" class="nw-f" data-kind="all" aria-pressed="true">All <span class="nw-n">${news.items.length}</span></button>
-${Object.keys(news.kinds).map((k) => `<button type="button" class="nw-f" data-kind="${k}" aria-pressed="false" style="--nw:${news.kinds[k].color};--nw-soft:${news.kinds[k].soft}"><i class="nw-dot" aria-hidden="true"></i>${nwEsc(news.kinds[k].name)} <span class="nw-n">${nwCounts[k] || 0}</span><small>${nwEsc(news.kinds[k].desc)}</small></button>`).join("")}
+${Object.keys(news.kinds).map((k) => `<button type="button" class="nw-f" data-kind="${esc(k)}" aria-pressed="false" style="--nw:${esc(news.kinds[k].color)};--nw-soft:${esc(news.kinds[k].soft)}"><i class="nw-dot" aria-hidden="true"></i>${esc(news.kinds[k].name)} <span class="nw-n">${nwCounts[k] || 0}</span><small>${esc(news.kinds[k].desc)}</small></button>`).join("")}
 </div></section>
 <ol class="nw-list">
-${nwByDate.map((g) => `<li class="nw-day" data-date="${g.date}"><h3 class="nw-date"><time datetime="${g.date}">${nwDate(g.date)}</time><span class="nw-year">2026</span></h3>
-<ul class="nw-items">${g.items.map((it) => { const k = news.kinds[it.kind]; const tid = it.tracker ? rel.aliases[it.tracker] : null; return `<li class="nw-item" data-kind="${it.kind}">
-<div class="nw-tag"><i class="nw-dot" aria-hidden="true"></i>${nwEsc(k.name)}</div>
-<div class="nw-main"><h4 class="nw-title">${nwEsc(it.title)}</h4><p class="nw-body">${nwEsc(it.body)}</p>
-<p class="nw-links">${it.links.map((l) => `<a data-site href="${nwEsc(l.u)}" target="_blank" rel="noopener">${nwEsc(l.t)}</a>`).join("")}${tid ? `<a class="nw-tr" href="#${tid}">Tracker entry: ${nwEsc(rel.short[it.tracker] || entryMeta[tid].title)}</a>` : ""}</p>
-<p class="nw-check"><b>Checked:</b> ${nwEsc(it.check)}</p></div></li>`; }).join("")}</ul></li>`).join("\n")}
+${nwByDate.map((g) => `<li class="nw-day" data-date="${esc(g.date)}"><h3 class="nw-date"><time datetime="${esc(g.date)}">${esc(nwDate(g.date))}</time><span class="nw-year">2026</span></h3>
+<ul class="nw-items">${g.items.map((it) => { const k = news.kinds[it.kind]; const tid = it.tracker ? rel.aliases[it.tracker] : null; return `<li class="nw-item" data-kind="${esc(it.kind)}">
+<div class="nw-tag"><i class="nw-dot" aria-hidden="true"></i>${esc(k.name)}</div>
+<div class="nw-main"><h4 class="nw-title">${esc(it.title)}</h4><p class="nw-body">${esc(it.body)}</p>
+<p class="nw-links">${it.links.map((l) => `<a data-site href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.t)}</a>`).join("")}${tid ? `<a class="nw-tr" href="#${tid}">Tracker entry: ${esc(rel.short[it.tracker] || entryMeta[tid].title)}</a>` : ""}</p>
+<p class="nw-check"><b>Checked:</b> ${esc(it.check)}</p></div></li>`; }).join("")}</ul></li>`).join("\n")}
 </ol>
-<section class="panel nw-foot"><h3 class="sub-title">Where September ended</h3><p>${nwEsc(news.bottom)}</p><p class="panel-foot">Record as of ${nwEsc(news.asof)}. Federal, state, executive, litigation and industry items are colour-coded by the tag on each row; use the buttons above to show one kind at a time.</p></section>`;
+<section class="panel nw-foot"><h3 class="sub-title">Where September ended</h3><p>${esc(news.bottom)}</p><p class="panel-foot">Record as of ${esc(news.asof)}. Federal, state, executive, litigation and industry items are colour-coded by the tag on each row; use the buttons above to show one kind at a time.</p></section>`;
 sections.splice(4, 0, { id: "sec-news", label: "NW", name: "News: September 2026 developments", short: "News", count: 0, entries: [], h3s: [], group: GROUPS[0], body: newsBody, synthetic: true });
 
 // ---- About section (doc's confidence key + verification note, plus how the site was made) ----
@@ -373,7 +375,7 @@ const mdLinkCount = (md.match(/\]\(https?:\/\//g) || []).length;
 const linkText = (t, n = 96) => (t.length > n ? t.slice(0, n - 2).trimEnd() + "…" : t);
 const lblPrefix = (s) => (["Overview", "TL", "TB", "HB", "MP", "i"].includes(s.label) ? "" : s.label + ". ");
 const jumpList = (s) => {
-  const items = [...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text)}</a></li>`)];
+  const items = [...s.h3s.map((h) => `<li class="sub"><a href="#${esc(h.id)}">${esc(h.text)}</a></li>`), ...s.entries.map((e) => `<li data-years="${esc(yearsOf(e.id))}"><a href="#${esc(e.id)}">${esc(linkText(e.text))}</a></li>`)];
   return items.length ? `<nav class="jump" aria-label="Entries in this section"><p class="jump-title">In this section</p><ol>${items.join("")}</ol></nav>` : "";
 };
 
@@ -391,7 +393,7 @@ const fmtD = (iso, precision) => { const [y, mo, d] = iso.split("-").map(Number)
 const CUTOFF = "2026-10-08"; // latest verification date: "Latest movement" is on or before it, "Dates ahead" after it
 const latest = events.filter((e) => e.date <= CUTOFF && !/^Search/.test(e.type)).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8); // search-date stamps are not movement
 const upcoming = events.filter((e) => e.date > CUTOFF).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 8);
-const evLi = (e) => `<li><span class="dt">${fmtD(e.date, e.precision)}${e.inferredYear ? "*" : ""}</span><i style="background:${VIZ.colors[TYPES.indexOf(e.type)]}"></i><span class="what"><a href="#${e.id}">${entryMeta[e.id].title}</a><span class="ty">${e.type} · ${e.column}</span></span></li>`;
+const evLi = (e) => `<li><span class="dt">${esc(fmtD(e.date, e.precision))}${e.inferredYear ? "*" : ""}</span><i style="background:${esc(VIZ.colors[TYPES.indexOf(e.type)])}"></i><span class="what"><a href="#${esc(e.id)}">${esc(entryMeta[e.id].title)}</a><span class="ty">${esc(e.type)} · ${esc(e.column)}</span></span></li>`;
 const KEEP_DIMS = ["Casualty threshold", "Developer trigger", "FLOP threshold", "Incident reporting", "Third-party audit", "Whistleblower protection", "Private right of action", "Penalty ceiling"];
 const kmini = matricesData[0] ? `<div class="kmini"><table><thead><tr>${matricesData[0].heads.map((h) => `<th>${h}</th>`).join("")}</tr></thead><tbody>${matricesData[0].rows.filter((r) => KEEP_DIMS.includes(plain(r[0]))).map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${c}</th>` : `<td>${c}</td>`)).join("")}</tr>`).join("")}</tbody></table></div>` : "";
 const glance = `<section class="panel snapshot" aria-labelledby="glance-h"><div class="panel-head"><h2 id="glance-h" class="panel-title">Snapshot</h2><p class="panel-note">Counts come from the tracker's sections and the status class written at the start of each status cell. The year chart counts instruments with at least one dated event in each year, one line per group; click a year to filter the whole tracker.</p></div>
@@ -408,12 +410,12 @@ const glance = `<section class="panel snapshot" aria-labelledby="glance-h"><div 
 </ul>
 <div class="yearblock"><h3 class="sub-title">Activity by year</h3>
 ${(() => { const groups = ["state", "federal", "exec", "context"]; const W = 640, H = 260, L = 36, R = 24, T = 18, B = 40; const xs = YEARS.map((_, i) => L + i * ((W - L - R) / (YEARS.length - 1))); const max = Math.max(1, ...groups.flatMap((g) => yearPanelData.map((d) => d.counts[g] || 0))); const top = Math.ceil(max / 5) * 5; const y = (v) => T + (H - T - B) * (1 - v / top); const ticks = [0, top / 2, top].map((v) => Math.round(v)); const grid = ticks.map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="ygrid"/><text x="${L - 8}" y="${y(v) + 4}" class="yax" text-anchor="end">${v}</text>`).join(""); const lines = groups.map((g) => { const pts = yearPanelData.map((d, i) => [xs[i], y(d.counts[g] || 0), d.counts[g] || 0, d.y]); const path = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" "); const dots = pts.map((p) => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" fill="${GROUP_COLORS[g]}" class="ydot"><title>${p[3] === "2027+" ? "2027 and later" : p[3]} · ${GROUPS.find((x) => x.key === g).name}: ${p[2]}</title></circle>`).join(""); const last = pts[pts.length - 1]; const peak = pts.reduce((m, p) => (p[2] > m[2] ? p : m), pts[0]); const lab = `<text x="${peak[0].toFixed(1)}" y="${(peak[1] - 9).toFixed(1)}" class="ylab" text-anchor="middle" fill="${GROUP_COLORS[g]}">${peak[2]}</text>`; return `<path d="${path}" fill="none" stroke="${GROUP_COLORS[g]}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${dots}${lab}`; }).join(""); const xlab = YEARS.map((yy, i) => { const total = Object.values(yearPanelData[i].counts).reduce((a2, b2) => a2 + b2, 0); return `<a href="#" class="ybar" data-year="${yy}" aria-label="Filter to ${yy === "2027+" ? "2027 and later" : yy}: ${total} instruments"><text x="${xs[i].toFixed(1)}" y="${H - 14}" class="xax" text-anchor="middle">${yy}</text><text x="${xs[i].toFixed(1)}" y="${H - 1}" class="xtot" text-anchor="middle">${total} total</text></a>`; }).join(""); return `<svg class="ylines" viewBox="0 0 ${W} ${H}" role="img" aria-label="Instruments with at least one dated event per year, one line per group">${grid}${lines}${xlab}</svg>`; })()}
-<ul class="ylegend">${["state", "federal", "exec", "context"].map((g) => `<li><i style="background:${GROUP_COLORS[g]}"></i>${GROUPS.find((x) => x.key === g).name}</li>`).join("")}</ul>
+<ul class="ylegend">${["state", "federal", "exec", "context"].map((g) => `<li><i style="background:${esc(GROUP_COLORS[g])}"></i>${esc(GROUPS.find((x) => x.key === g).name)}</li>`).join("")}</ul>
 <p class="panel-foot">Click a year to filter the whole tracker to it.</p></div>
 </div></section>
 <section class="panel whenwhere" aria-labelledby="states-h"><div class="panel-head"><h2 id="states-h" class="panel-title">Where and when</h2><p class="panel-note">Left: entries with a State column, across enacted laws, pending bills, IVO measures, precursors and adjacent laws. Right: the most recent dated events on or before the verification date, then the effective dates, deadlines and scheduled steps after it. Colour is the kind of event; * marks a year inferred from the same cell.</p></div>
 <div class="whenwhere-grid">
-<div><h3 class="sub-title">State measures</h3><ul class="statebars">${states.map(([st, n]) => `<li><span class="st">${st}</span><span class="bar"><span style="width:${(n / stateMax) * 100}%"></span></span><span class="n">${n}</span></li>`).join("")}</ul></div>
+<div><h3 class="sub-title">State measures</h3><ul class="statebars">${states.map(([st, n]) => `<li><span class="st">${esc(st)}</span><span class="bar"><span style="width:${esc((n / stateMax) * 100)}%"></span></span><span class="n">${esc(n)}</span></li>`).join("")}</ul></div>
 <div><h3 class="sub-title">Latest movement</h3><ul class="movement">${latest.map(evLi).join("")}</ul></div>
 <div><h3 class="sub-title">Dates ahead</h3><ul class="movement">${upcoming.map(evLi).join("")}</ul><p class="panel-foot">Full record in <a href="#sec-timeline">Changes over time</a>.</p></div>
 </div></section>
@@ -422,7 +424,7 @@ ${kmini ? `<section class="panel" aria-labelledby="cmp-h"><div class="panel-head
 const directory = `<div class="directory">
 <h2 class="dir-title" id="directory">Browse the tracker</h2>
 <p class="dir-lede">${totalEntries} entries across ${sections.filter((s) => !s.synthetic).length - 1} sections. Each section opens on its own page; every entry has a permanent link. For the same record as a chart, open <a href="#sec-timeline">Changes over time</a>; as one sortable comparison table, open <a href="#sec-table">Comparison table</a>; for the legal background in plain English, open the <a href="#sec-info">Handbook</a>; for how the instruments connect, open the <a href="#sec-map">Map</a>; for a dated record of hearings, letters, investigations and incidents around the bills, open <a href="#sec-news">News</a>; for the confidence key and how this site was built, see <a href="#sec-about">About</a>.</p>
-<div class="dir-cols">${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${g.name}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${s.name}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}</div>
+<div class="dir-cols">${GROUPS.filter((g) => g.key !== "start").map((g) => `<div class="dir-group"><h3 class="dir-group-title">${esc(g.name)}</h3><ul>${sections.filter((s) => s.group === g).map((s) => `<li><a href="#${s.id}"><span class="lbl">${s.label}</span><span class="txt">${esc(s.name)}</span>${s.count ? `<span class="n">${s.count}</span>` : `<span class="n ref">ref</span>`}</a></li>`).join("")}</ul></div>`).join("\n")}</div>
 </div>`;
 
 sections.forEach((s, i) => {
@@ -434,8 +436,8 @@ sections.forEach((s, i) => {
     if (!s.synthetic) body = body.replace(/^(<h2 id="[^"]+">)([\s\S]*?)(<\/h2>)/, (_, a, t, b) => `<header class="sec-head">${meta}${a}${t}${b}</header>${jumpList(s)}`);
   }
   const prev = sections[i - 1], next = sections[i + 1];
-  const pn = `<nav class="pn" aria-label="Previous and next section">${prev ? `<a class="prev" href="#${prev.id}"><span>Previous</span><b>${lblPrefix(prev)}${prev.name}</b></a>` : "<span></span>"}${next ? `<a class="next" href="#${next.id}"><span>Next</span><b>${lblPrefix(next)}${next.name}</b></a>` : "<span></span>"}</nav>`;
-  s.html = `<section class="sec" id="${s.id}" data-label="${s.label}" aria-label="${s.label === "Overview" ? "Overview" : s.synthetic ? s.name : `Section ${s.label}`}">\n${body}\n${pn}\n</section>`;
+  const pn = `<nav class="pn" aria-label="Previous and next section">${prev ? `<a class="prev" href="#${prev.id}"><span>Previous</span><b>${lblPrefix(prev)}${esc(prev.name)}</b></a>` : "<span></span>"}${next ? `<a class="next" href="#${next.id}"><span>Next</span><b>${lblPrefix(next)}${esc(next.name)}</b></a>` : "<span></span>"}</nav>`;
+  s.html = `<section class="sec" id="${s.id}" data-label="${s.label}" aria-label="${s.label === "Overview" ? "Overview" : s.synthetic ? esc(s.name) : `Section ${s.label}`}">\n${body}\n${pn}\n</section>`;
 });
 
 html = sections.map((s) => s.html).join("\n");
@@ -465,7 +467,7 @@ if (missing.length) throw new Error(`words missing from page: ${missing.slice(0,
 const sidebar = GROUPS.map((g) => {
   const secs = sections.filter((s) => s.group === g && s.id !== "sec-info" && s.id !== "sec-news"); // the Handbook and News have their own tabs
   if (!secs.length) return "";
-  return `<div class="grp"><p class="grp-title">${g.name}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "MP" ? "⬡" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${s.short}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${h.id}">${h.text}</a></li>`), ...s.entries.map((e) => `<li data-years="${yearsOf(e.id)}"><a href="#${e.id}">${linkText(e.text, 72)}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
+  return `<div class="grp"><p class="grp-title">${esc(g.name)}</p><ul>${secs.map((s) => `<li><a href="#${s.id}" data-sec="${s.id}"><span class="lbl">${s.label === "Overview" ? "•" : s.label === "TL" ? "◔" : s.label === "TB" ? "▤" : s.label === "HB" ? "¶" : s.label === "MP" ? "⬡" : s.label === "i" ? "ⓘ" : s.label}</span><span class="txt">${esc(s.short)}</span>${s.count ? `<span class="n">${s.count}</span>` : ""}</a>${s.entries.length || s.h3s.length ? `<ol class="entries" data-for="${s.id}" hidden>${[...s.h3s.map((h) => `<li class="sub"><a href="#${esc(h.id)}">${esc(h.text)}</a></li>`), ...s.entries.map((e) => `<li data-years="${esc(yearsOf(e.id))}"><a href="#${esc(e.id)}">${esc(linkText(e.text, 72))}</a></li>`)].join("")}</ol>` : ""}</li>`).join("")}</ul></div>`;
 }).join("\n");
 const picker = sections.map((s) => `<option value="${s.id}">${s.label === "Overview" ? "Overview" : ["TL", "TB", "HB", "MP", "i"].includes(s.label) ? s.short : s.label + ". " + s.short}${s.count ? ` (${s.count})` : ""}</option>`).join("");
 
