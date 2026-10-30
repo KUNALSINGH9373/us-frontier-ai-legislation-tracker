@@ -14,25 +14,31 @@ import { cleanText } from '../agents/text-norm.mjs';
 // identifiers-legiscan.json order; getBill: id -> LegiScan bill record.
 // 1. Enacted ones first: of the mapped bills LegiScan marks Passed, the latest by its status date (a chapter amendment signed after the
 //    law it amends is the law as it now reads).
-// 2. Otherwise the first mapped bill, followed along LegiScan's "Replaced by" links while the bill it points to has a newer text (a
-//    reprint as amended, a conference or substitute bill). A link back to an older text (LegiScan lists these both ways) is not followed.
+// 2. Otherwise the newest text in the entry's lineage: the first mapped bill, every mapped bill LegiScan links to a replacement ("Replaces"
+//    or "Replaced by"), and every bill reached from those along "Replaced by" links (a reprint as amended, a conference or substitute
+//    bill). Whatever order the bills were mapped in, MA's H.5576 / S.3178 / S.37 / S.2630 read S.3228 (the Senate text as amended, the
+//    newest), and a later conference report replacing it would be read in its place. A tie keeps the earlier bill (mapped order first).
+//    LegiScan lists links both ways (S.3228 "Replaced by" H.5576), so a link back to an older text is reached but never chosen.
 const PASSED = Number(Object.keys(STATUS).find((k) => STATUS[k] === 'Passed'));
 const newestText = (b) => (b && b.texts || []).reduce((d, t) => (t.date > d ? t.date : d), '');
-export async function operativeBillId(mapped, getBill) {
+const linksOf = (b, re) => ((b && b.sasts) || []).filter((x) => re.test(String(x.type || ''))).map((x) => x.sast_bill_id);
+export async function operativeBillId(mapped, getBill, { maxFetch = 12 } = {}) {
   const recs = [];
   for (const id of mapped) recs.push(await getBill(id));
   const enacted = recs.filter((b) => b && b.status === PASSED).sort((a, b) => String(b.status_date || '').localeCompare(String(a.status_date || '')));
   if (enacted.length) return enacted[0].bill_id;
-  let cur = recs[0]; const seen = new Set([mapped[0]]);
-  while (cur) {
-    const link = (cur.sasts || []).find((x) => /^replaced by$/i.test(String(x.type || '')) && !seen.has(x.sast_bill_id));
-    if (!link) break;
-    seen.add(link.sast_bill_id);
-    const next = await getBill(link.sast_bill_id);
-    if (!next || !(newestText(next) > newestText(cur))) break;
-    cur = next;
+  const byId = new Map(mapped.map((id, i) => [id, recs[i]]));
+  const lineage = [mapped[0], ...mapped.slice(1).filter((id, i) => linksOf(recs[i + 1], /^replace(s|d by)$/i).length)];
+  const queue = [...lineage]; let fetched = 0;
+  while (queue.length) {
+    for (const next of linksOf(byId.get(queue.shift()), /^replaced by$/i)) {
+      if (byId.has(next) || fetched >= maxFetch) continue;
+      fetched++; byId.set(next, await getBill(next)); lineage.push(next); queue.push(next);
+    }
   }
-  return cur ? cur.bill_id : mapped[0];
+  let best = mapped[0];
+  for (const id of lineage) if (byId.get(id) && newestText(byId.get(id)) > newestText(byId.get(best))) best = id;
+  return best;
 }
 
 // cg, ls: Congress.gov and LegiScan clients. ic, il: config/identifiers.json "congress_gov" and identifiers-legiscan.json "legiscan".

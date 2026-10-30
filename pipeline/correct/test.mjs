@@ -291,6 +291,13 @@ for (const [name, c, re] of bad) {
   ok('D3 of several enacted bills, the one enacted last is in force (a chapter amendment after the law)', (await operativeBillId([1, 2, 3, 4], get(ny))) === 3);
   const ma = { 10: B(10, 2, '2026-07-08', ['2026-07-08'], [{ type: 'Replaces', sast_bill_id: 9 }, { type: 'Replaced by', sast_bill_id: 30 }]), 20: B(20, 1, '2026-07-16', ['2026-07-16']), 30: B(30, 1, '2026-07-24', ['2026-07-24'], [{ type: 'Replaced by', sast_bill_id: 10 }]) };
   ok('D3 none enacted: the first bill is followed to the bill that replaced it with a newer text (not back again)', (await operativeBillId([10, 20], get(ma))) === 30);
+  // The real MA records (30 Oct): H5576 <-> S3228 linked both ways, S3178 unlinked, S37 -> S2630 an older lineage. Any mapped order reads S3228.
+  const ma4 = { 10: B(10, 2, '2026-07-08', ['2026-07-08'], [{ type: 'Replaces', sast_bill_id: 9 }, { type: 'Replaced by', sast_bill_id: 30 }]), 20: B(20, 1, '2026-07-16', ['2026-07-16']),
+    30: B(30, 1, '2026-07-24', ['2026-07-24'], [{ type: 'Replaced by', sast_bill_id: 10 }]), 37: B(37, 1, '2025-02-27', ['2025-02-27'], [{ type: 'Replaced by', sast_bill_id: 38 }]), 38: B(38, 1, '2025-10-16', ['2025-10-16'], [{ type: 'Replaces', sast_bill_id: 37 }]) };
+  const orders = [[10, 20, 37, 38], [20, 10, 37, 38], [37, 38, 10, 20], [38, 37, 20, 10]];
+  ok('D3 MA: the newest text in the lineage (S3228) whatever order the bills were mapped in', (await Promise.all(orders.map((o) => operativeBillId(o, get(ma4))))).every((x) => x === 30));
+  const conf = { ...ma4, 30: B(30, 1, '2026-07-24', ['2026-07-24'], [{ type: 'Replaced by', sast_bill_id: 10 }, { type: 'Replaced by', sast_bill_id: 60 }]), 60: B(60, 1, '2026-11-02', ['2026-11-02'], [{ type: 'Replaces', sast_bill_id: 30 }]) };
+  ok('D3 MA: a later conference report replacing S3228 is read in its place', (await operativeBillId([10, 20, 37, 38], get(conf))) === 60);
   const plain = { 40: B(40, 1, '2026-01-01', ['2026-01-01']), 41: B(41, 1, '2026-02-01', ['2026-02-01']) };
   ok('D3 no enactment and no replacement: the first mapped bill, as before', (await operativeBillId([40, 41], get(plain))) === 40);
   const older = { 50: B(50, 1, '2026-05-01', ['2026-05-01'], [{ type: 'Replaced by', sast_bill_id: 51 }]), 51: B(51, 1, '2026-01-01', ['2026-01-01']) };
