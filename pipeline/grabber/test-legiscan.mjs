@@ -154,12 +154,12 @@ ok('frontier markers flag frontier text only', frontierMarkers('a frontier model
 const b = (k) => structuredClone(BILLS[k]);
 // search: [{ bill, precise }]: precise hits answer the precise query; every hit answers the wide query
 function fakeApi({ bills, sessions, search = [], texts = {}, failOp = null }) {
-  const calls = [];
+  const calls = [], urls = [];
   const resp = (body, status = 200) => ({ ok: status === 200, status, headers: { get: () => null }, json: async () => body, text: async () => JSON.stringify(body) });
   const all = () => [...Object.values(bills), ...search.map((s) => s.bill)];
   const fetchImpl = async (url) => {
     const u = new URL(url), op = u.searchParams.get('op'), id = u.searchParams.get('id');
-    calls.push(op);
+    calls.push(op); urls.push(url);
     if (u.searchParams.get('key') !== KEY) return resp({ status: 'ERROR', alert: { message: 'bad key' } });
     if (op === failOp) return resp('server down ' + url, 500);
     if (op === 'getMasterListRaw') { const ml = { session: { session_id: +id } }; (sessions[id] || []).forEach((x, i) => { ml[i] = { bill_id: x.bill_id, number: x.bill_number, change_hash: x.change_hash }; }); return resp({ status: 'OK', masterlist: ml }); }
@@ -170,7 +170,7 @@ function fakeApi({ bills, sessions, search = [], texts = {}, failOp = null }) {
     if (op === 'getBillText') { const t = texts[id] || { mime: 'text/html', bytes: Buffer.from('<p>SECTION 1. A frontier model shall&nbsp;be safe.</p>') }; return resp({ status: 'OK', text: { doc_id: +id, date: '2026-02-01', type: 'Introduced', mime: t.mime, doc: t.bytes.toString('base64') } }); }
     return resp({ status: 'ERROR' });
   };
-  return { fetchImpl, calls, sleep: async () => {} };
+  return { fetchImpl, calls, urls, sleep: async () => {} };
 }
 const http = (api, max = 100) => createHttp({ fetchImpl: api.fetchImpl, sleep: api.sleep, secrets: [KEY], maxRequests: max, retries: 1 });
 // a fake model: "no" for any title with "plastic", "yes" for "frontier", nothing for the rest (-> maybe)
@@ -279,6 +279,18 @@ ok('precise query is one OR of quoted phrases', preciseQuery({ precise_phrases: 
   ok('candidate cap delays the rest, it does not drop them', r.stats.candidates === 4 && r.stats.waiting_for_next_run === 26 && r.truncated && Object.keys(r.nextSeen).length === 0, JSON.stringify(r.stats));
   const r2 = await runLegiScan({ http: http(fakeApi({ bills: {}, sessions: {}, search: many }), 200), apiKey: KEY, llm: fakeLlm(), state: r.nextState, seen: r.nextSeen, ids: { legiscan: {} }, cfg: c6, outDir: tmp(), now: NOW });
   ok('the next run continues with the ones that waited', r2.stats.candidates === 4 && !r2.changeset.items.some((i) => r.changeset.items.some((j) => j.source_id === i.source_id)));
+
+  // the titled search pages continue from a saved cursor, wrapping round, instead of restarting at page 1 every run
+  const c7 = { ...c6, title_pages_per_run: 4 }, pagesOf = (api) => api.urls.filter((u) => /op=getSearch(&|$)/.test(u)).map((u) => +new URL(u).searchParams.get('page'));
+  const a1 = fakeApi({ bills: {}, sessions: {}, search: many });
+  const p1 = await runLegiScan({ http: http(a1, 200), apiKey: KEY, llm: fakeLlm(), state: emptyState(), seen: {}, ids: { legiscan: {} }, cfg: c7, outDir: tmp(), now: NOW });
+  ok('title pages: the first run reads pages 1-4 and saves page 5 as the cursor', JSON.stringify(pagesOf(a1)) === '[1,2,3,4]' && p1.nextState.sources.legiscan.cursor === '5', JSON.stringify([pagesOf(a1), p1.nextState.sources.legiscan.cursor]));
+  const a2 = fakeApi({ bills: {}, sessions: {}, search: many });
+  const p2 = await runLegiScan({ http: http(a2, 200), apiKey: KEY, llm: fakeLlm(), state: p1.nextState, seen: p1.nextSeen, ids: { legiscan: {} }, cfg: c7, outDir: tmp(), now: NOW });
+  ok('title pages: the next run continues at page 5', JSON.stringify(pagesOf(a2)) === '[5,6,7,8]' && p2.nextState.sources.legiscan.cursor === '9', JSON.stringify(pagesOf(a2)));
+  const a3 = fakeApi({ bills: {}, sessions: {}, search: many }), wrapState = structuredClone(emptyState()); wrapState.sources.legiscan = { last_success: '2026-10-01T00:00:00Z', cursor: '14', hashes: {} };
+  const p3 = await runLegiScan({ http: http(a3, 200), apiKey: KEY, llm: fakeLlm(), state: wrapState, seen: {}, ids: { legiscan: {} }, cfg: c7, outDir: tmp(), now: NOW });
+  ok('title pages: past the last page the cursor wraps round to page 1', JSON.stringify(pagesOf(a3)) === '[14,15,1,2]' && p3.nextState.sources.legiscan.cursor === '3', JSON.stringify([pagesOf(a3), p3.nextState.sources.legiscan.cursor]));
 
   const r3 = await runLegiScan({ http: http(fakeApi({ bills: { ny, ca }, sessions, search: [] }), 3), apiKey: KEY, state: emptyState(), ids, cfg, outDir: tmp(), now: NOW });
   ok('per-run budget is a hard stop, not an error', r3.truncated === true && r3.requests === 3);

@@ -188,11 +188,17 @@ export async function runLegiScan({ http, apiKey, llm = null, official = null, o
         if (needTitle.length && needTitle.length <= cfg.title_by_bill_max) {
           for (const h of needTitle) { const b = await getBill(h.bill_id); info.set(String(h.bill_id), { title: b.title, state: b.state, number: b.bill_number }); }
         } else if (needTitle.length) {
+          // The pages are read from the saved cursor (block.cursor: the next page to read), wrapping round to page 1, so a run that
+          // stops at title_pages_per_run is followed by one that reads the pages after it, never the same first pages again.
+          // The cursor moves after every page read, so a run cut off by the request budget keeps its place too.
           const want = new Set(needTitle.map((h) => String(h.bill_id)));
-          for (let page = 1; want.size && page <= cfg.title_pages_per_run; page++) {
+          let page = Math.max(1, parseInt(block.cursor, 10) || 1);
+          for (let n = 0, total = Infinity; want.size && n < cfg.title_pages_per_run && n < total; n++) {
             const r = await ls.search({ query: cfg.wide_query, page }); stats.title_pages++;
             for (const x of r.results) if (want.delete(String(x.bill_id))) info.set(String(x.bill_id), { title: x.title, state: x.state, number: x.bill_number });
-            if (!r.summary || page >= Number(r.summary.page_total)) break;
+            total = r.summary ? Number(r.summary.page_total) || 1 : 1;
+            page = page >= total ? 1 : page + 1;
+            block.cursor = String(page);
           }
           stats.waiting_for_next_run += want.size; // titles not reached this run: left unseen, so the next run continues
         }
@@ -243,7 +249,7 @@ export async function runLegiScan({ http, apiKey, llm = null, official = null, o
   // Bills the AI check dropped are listed next to the change set, with its reason, so nothing disappears silently.
   const changeset = writeChangeset({ outDir, runId, items });
   if (screenedOut.length) fs.writeFileSync(path.join(outDir, runId, 'legiscan-screened-out.json'), JSON.stringify(screenedOut, null, 1) + '\n');
-  const next = { ...state, sources: { ...state.sources, legiscan: { ...block, last_success: isoZ(new Date()), cursor: null, quota: { period: 'run', used: http.used(), limit: http.maxRequests } } } };
+  const next = { ...state, sources: { ...state.sources, legiscan: { ...block, last_success: isoZ(new Date()), cursor: block.cursor || null, quota: { period: 'run', used: http.used(), limit: http.maxRequests } } } };
   // The entries whose tracked bills were all read (an entry with two bills counts only when both were).
   const checkedKeys = [...new Set(tracked.map((t) => t.entry_key))].filter((k) => tracked.filter((t) => t.entry_key === k).every((t) => read.has(String(t.bill_id))));
   return { runId, changeset, stats, truncated, requests: http.used(), nextState: next, nextSeen, screenedOut, checked: checkedKeys, saved: !dryRun };
