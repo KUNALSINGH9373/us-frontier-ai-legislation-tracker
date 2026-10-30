@@ -1,8 +1,9 @@
 // Data model + derivations for the tracker prototype. All values derive from data/*.json.
-// Defaults for the v1 data; applySite() replaces them from site.json when the v2 data is loaded.
-export let ASOF = new Date(2026, 9, 15), VERIFIED = new Date(2026, 9, 15);
-export let WEEK_FROM = new Date(2026, 9, 9);
-export let HC = { enacted: 3, pending: 5, stalled: 6, failed: 5, ivo: 6, fed: 10, exec: 12, lit: 9, total: 93, sources: 176, events: 192 };
+// Set from the data before anything is drawn: applySite() reads them from site.json (v2); build() takes them from the
+// v1 news record's own "as of" date. No typed-in fallback: until data loads there is nothing to count, and the page shows "—".
+export let ASOF = null, VERIFIED = null;
+export let WEEK_FROM = null;
+export let HC = {};
 export const SN = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
 export const GRID = [['AK',0,0],['ME',0,10],['WI',1,5],['VT',1,9],['NH',1,10],['WA',2,0],['ID',2,1],['MT',2,2],['ND',2,3],['MN',2,4],['IL',2,5],['MI',2,6],['NY',2,8],['MA',2,9],['OR',3,0],['NV',3,1],['WY',3,2],['SD',3,3],['IA',3,4],['IN',3,5],['OH',3,6],['PA',3,7],['NJ',3,8],['CT',3,9],['RI',3,10],['CA',4,0],['UT',4,1],['CO',4,2],['NE',4,3],['MO',4,4],['KY',4,5],['WV',4,6],['VA',4,7],['MD',4,8],['DE',4,9],['AZ',5,1],['NM',5,2],['KS',5,3],['AR',5,4],['TN',5,5],['NC',5,6],['SC',5,7],['DC',5,8],['OK',6,3],['LA',6,4],['MS',6,5],['AL',6,6],['GA',6,7],['HI',7,0],['TX',7,3],['FL',7,8]];
 export const ST = {
@@ -172,6 +173,9 @@ export function leadOf(mech) {
 }
 
 export function build(entries, news, rel) {
+  // v1 has no site.json: its record date is the news file's "as of"; "this week" is the 7 days ending on it, as in v2.
+  const asof = new Date(news.asof); if (isNaN(asof)) throw new Error('v1 news.json has no usable "asof" date');
+  ASOF = VERIFIED = asof; WEEK_FROM = new Date(asof.getFullYear(), asof.getMonth(), asof.getDate() - 6);
   const anchorToId = {}; entries.forEach(x => { anchorToId[(x.permalink_old_site||'').split('#')[1]] = x.id; });
   const keyToId = {}, idToKey = {};
   Object.entries(rel.aliases).forEach(([k, a]) => { if (anchorToId[a]) { keyToId[k] = anchorToId[a]; idToKey[anchorToId[a]] = k; } });
@@ -199,6 +203,7 @@ export function build(entries, news, rel) {
   const edges = rel.edges.map(ed => ({ ...ed, fromId: keyToId[ed.from] || null, toId: keyToId[ed.to] || null }));
   const pulse = {};
   N.filter(n => n.d >= WEEK_FROM && n.entryId).forEach(n => { const s = byId[n.entryId].st; if (s) pulse[s] = true; });
+  HC = headline(E);
   return { E, byId, keyToId, idToKey, N, edges, rel, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom };
 }
 
@@ -286,7 +291,7 @@ export function headline(E) {
   const n = (f) => E.filter(f).length, B = (st) => n((x) => (x.section === 'B' || x.section === 'B.2') && x.status === st);
   return { enacted: n((x) => x.section === 'A'), pending: B('pending'), stalled: B('stalled'), failed: B('failed'), stalledOrFailed: B('stalled') + B('failed'), ivo: n((x) => x.section === 'C'),
     fed: n((x) => x.section === 'D'), fedEnacted: n((x) => x.section === 'D' && x.status === 'enacted'), exec: n((x) => x.section === 'G'), lit: n((x) => x.section === 'G.2'), total: E.length,
-    sources: E.reduce((t, x) => t + x.srcLinks.length, 0), events: E.reduce((t, x) => t + x.v2events.length, 0) };
+    sources: E.reduce((t, x) => t + x.srcLinks.length, 0), events: E.reduce((t, x) => t + (x.v2events || []).length, 0) };
 }
 
 export function buildV2(entries, news, rel, site, content) {
