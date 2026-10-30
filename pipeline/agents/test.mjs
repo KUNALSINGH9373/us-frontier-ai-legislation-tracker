@@ -382,7 +382,9 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   ok('and nothing else is touched (years, counts, an exponent already written)', repairExponents('In 2026 operations began; 1026 people; 10^26 operations') === 'In 2026 operations began; 1026 people; 10^26 operations');
   const { textProblems } = await import('./checks.mjs');
   const src = 'A developer shall publish a "safety and security protocol" before deployment.';
-  ok('text rule: a garbled exponent in a field is refused', textProblems('thresholds', 'Trained on more than 1026 operations', src).some((p) => /garbled exponent/.test(p)));
+  // "1026 integer" is a lost exponent; "1026 operations" may be a count, so it is not rewritten, but as a threshold it is still refused.
+  ok('text rule: a garbled exponent in a field is refused', textProblems('thresholds', 'Trained on more than 1026 integer operations', src).some((p) => /garbled exponent/.test(p))
+    && textProblems('thresholds', 'Trained on more than 1026 operations', src).some((p) => /1026 operations, which is not a plausible magnitude/.test(p)));
   ok('text rule: a date without its year is refused, a full date or a range with a year is not', textProblems('status_text', 'Received in the Senate Sept 14', src).some((p) => /without its year/.test(p)) && !textProblems('status_text', 'Received Sept 14, 2026; cosponsors added Sept 3–16, 2026 and Sept 3–Oct 1, 2026; May 1, 2026', src).length);
   ok('text rule: words in quotation marks must be in the source; correct ones pass', textProblems('mechanism', 'Disclaims "mandatory governmental review of models"', src).some((p) => /quotation marks/.test(p)) && !textProblems('mechanism', 'Requires a "safety and security protocol"', src).length);
   ok('text rule: "not established from the sources" is refused', textProblems('thresholds', 'Definitions of "covered entity" not established from the sources read', 'covered entity').some((p) => /definitions section/.test(p)));

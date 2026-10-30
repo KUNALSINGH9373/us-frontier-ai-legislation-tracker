@@ -13,22 +13,21 @@ export const loose = (w) => [...w].map((c, i) => (c === '-' ? String.raw`\s?[- ]
 // comma forms of a lost exponent ("1,026 operations" could be a count) need one of the strong words.
 const STRONG_UNIT = String.raw`(?:integer|floating|computational|FLOPs?\b)`;
 export const COMPUTE_UNIT = String.raw`(?:integer|floating|computational|operations|FLOPs?\b)`;
-// 10²⁶ printed without its superscript: "1026", "10.26", "10�26", "10ˆ26", and (before a strong unit only) "10,26" or "1,026" (a
-// thousands comma added after the superscript was lost, PA H.B. 2800's form). Only an exponent of 20-29 right before a compute unit:
-// no compute threshold is 10.26, 1026 or 1,026 operations, and a year or count elsewhere is never touched. Group 1 is the exponent.
-// In a written value about thresholds (a draft field, a quote's figures) a count is not plausible, so there the comma forms need only
-// a compute unit: lostExponent({ inValue: true }). One pattern, in two strengths.
-export const lostExponent = ({ inValue = false } = {}) => {
-  const u = inValue ? COMPUTE_UNIT : STRONG_UNIT;
-  return new RegExp(String.raw`\b(?:10[�ˆ.]?|10,(?=2\d\s+${u})|1,0(?=2\d\s+${u}))(2\d)(?=\s+${COMPUTE_UNIT})`, 'gi');
-};
-export const LOST_EXPONENT = lostExponent();
-export const LOST_EXPONENT_IN_VALUE = lostExponent({ inValue: true });
+// 10²⁶ printed without its superscript: "10�26" or "10ˆ26" (the debris proves a superscript) before any compute unit; "1026",
+// "10.26", "10,26" or "1,026" (PA H.B. 2800's form) only before a strong unit (integer, floating-point, computational operations,
+// FLOPs), since "1025 operations" or "10.21 operations" can be a count or a citation. A number cited as a provision ("Section 10.21",
+// "§ 1026", "paragraph 10.20") is never read as an exponent. The same pattern holds in bill text and in written values. Group 1 is
+// the exponent.
+const CITED = String.raw`(?<!(?:\bsections?|\bsec|\bsubsections?|\bsubdivisions?|\bparagraphs?|\bsubparagraphs?|\bclauses?|\brules?|\barticles?|\bchapters?|\bparts?|\btitles?|\bitems?|\bno|§|¶)\.?\s*)`;
+export const LOST_EXPONENT = new RegExp(String.raw`${CITED}\b(?:10[�ˆ](2\d)(?=\s+${COMPUTE_UNIT})|(?:10[.,]?|1,0)(2\d)(?=\s+${STRONG_UNIT}))`, 'gi');
+export const LOST_EXPONENT_IN_VALUE = LOST_EXPONENT;
+// The exponent of a LOST_EXPONENT match.
+export const exponentOf = (m) => m[1] || m[2];
+const fixExponent = (m, a, b) => `10^${a || b}`;
 // Encoding debris a superscript leaves behind on its own.
 export const ENCODING_DEBRIS = /[�ˆ]/;
 // An amount with one stray digit after its point, in a written value ("$500,000,000.8"): a line number, since cents have two digits.
 export const GLUED_AMOUNT = /\$\d{1,3}(?:,\d{3})+\.\d(?!\d)/;
-const STRAY_AFTER_AMOUNT = /(\$\d{1,3}(?:,\d{3})+)\.\d(?=\s+["“A-Z(])/g;
 
 // ---------- numbers written in words ----------
 const UNITS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
@@ -98,12 +97,11 @@ export function detectNumbering(text) {
 // - a line number glued onto an amount -> removed and the amount ended, so it is never read as cents (only when it is in the run).
 export function cleanText(s) {
   let t = String(s || '');
-  const found = detectNumbering(t).positions, glued = found.filter((p) => p.glued);
+  const glued = detectNumbering(t).positions.filter((p) => p.glued);
   for (let k = glued.length - 1; k >= 0; k--) { const p = glued[k]; t = t.slice(0, p.i - 1) + '. ' + t.slice(p.i + p.len); } // "$500,000,000.8 " -> "$500,000,000.  "
-  // A text whose separate line numbers were dropped in extraction (IL H.B. 4705's LegiScan text keeps only the glued ones) has no run
-  // to test against: there one digit after an amount, before a new sentence or definition, is removed (cents have two digits).
-  if (!found.some((p) => p.format === 'line')) t = t.replace(STRAY_AFTER_AMOUNT, '$1. ');
-  return t.replace(new RegExp(LOST_EXPONENT.source, 'gi'), '10^$1')
+  // With no run to test against (a text whose separate line numbers were dropped in extraction) a digit after an amount is left as
+  // printed: a guess could turn "$1,000.5 million" into a wrong figure. A draft quoting such an amount is refused (checks GLUED_AMOUNT).
+  return t.replace(new RegExp(LOST_EXPONENT.source, 'gi'), fixExponent)
     .replace(new RegExp(String.raw`${POWER_PHRASE}(?=\s+${COMPUTE_UNIT})`, 'gi'), (m, n) => { const v = parseNumberWords(n); return v == null ? m : `10^${v}`; });
 }
 
@@ -113,7 +111,7 @@ const SUP = { '²': '2', '³': '3', '¹': '1', '⁰': '0', '⁴': '4', '⁵': '5
 // source" check. "10²⁶", "10^26" and GPO's "10\26\" all read as the runs 10 and 26, and a lost superscript as 10^N.
 export function digitRuns(text) {
   const t = String(text || '').replace(/[²³¹⁰⁴-⁹]+/g, (m) => '^' + [...m].map((c) => SUP[c]).join('')).replace(/(\d)\\(\d{1,3})\\/g, '$1^$2')
-    .replace(new RegExp(LOST_EXPONENT_IN_VALUE.source, 'gi'), '10^$1').replace(/(\d),(?=\d{3}\b)/g, '$1');
+    .replace(new RegExp(LOST_EXPONENT_IN_VALUE.source, 'gi'), fixExponent).replace(/(\d),(?=\d{3}\b)/g, '$1');
   return new Set(t.match(/\d+(?:\.\d+)?/g) || []);
 }
 

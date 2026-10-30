@@ -1,6 +1,7 @@
 // The shared text-cleanup and number module (agents/text-norm.mjs) and the quote check built on it (C3, C4). Code only, no AI.
 //   node agents/test-text-norm.mjs
-import { cleanText, parseNumberWords, detectNumbering, digitRuns, NUMBER_WORD, COMPUTE_POWER_PHRASE, LOST_EXPONENT_IN_VALUE } from './text-norm.mjs';
+import { cleanText, parseNumberWords, detectNumbering, digitRuns, NUMBER_WORD, COMPUTE_POWER_PHRASE, LOST_EXPONENT_IN_VALUE, LOST_EXPONENT, exponentOf } from './text-norm.mjs';
+import { normaliseExponents, thresholdNumberProblems } from './checks.mjs';
 import { containsQuote } from './source-text.mjs';
 import { SECTION_MARKERS } from './rules.mjs';
 
@@ -16,7 +17,23 @@ ok('"1026 FLOPs"', cleanText('over 1026 FLOPs') === 'over 10^26 FLOPs');
 ok('years, counts and written exponents are untouched', same('In 2026 operations began; 1026 people; 10^26 operations; 1,025 operations were logged; 1026 inserting'));
 // new: one pattern, so the source repair now also reads "10.26" (AZ H.B. 4098's misprint), as the threshold check always did
 ok('"10.26 computational operations" is 10^26 (AZ form)', cleanText('greater than 10.26 computational operations') === 'greater than 10^26 computational operations');
-ok('a written value "1,026 operations" is a lost exponent; a source count is not', LOST_EXPONENT_IN_VALUE.test('more than 1,026 operations') && same('1,026 operations were logged'));
+ok('"1,026 operations" (no strong unit) is a count, in a source and in a written value', same('1,026 operations were logged') && !new RegExp(LOST_EXPONENT_IN_VALUE.source, 'i').test('more than 1,026 operations'));
+
+// ---------- false rewrites (independent review): a figure that is not a lost exponent is never changed ----------
+ok('a cited provision is not an exponent: "Section 10.21", "sec. 10.25", "§ 1026", "paragraph 10.20", "§1026"',
+  same('under Section 10.21 integer') && same('see sec. 10.25 FLOPs') && same('as in § 1026 computational operations') && same('paragraph 10.20 floating-point') && same('§1026 integer'));
+ok('"10.21 operations" / "1025 operations" (weak unit only) are left as printed', same('within 10.21 operations of') && same('the first 1025 operations'));
+ok('no guess at a digit after an amount: "$1,000.5 million" and "$500,000,000.8 Minor" stay as printed with no line run',
+  same('a fine of $1,000.5 million. The') && same('at least $500,000,000.8 "Minor" means'));
+ok('normaliseExponents does not rewrite a cited section or a count', normaliseExponents('Section 10.26 integer; 1,026 operations') === 'Section 10.26 integer; 1,026 operations');
+
+// ---------- true rewrites: a lost superscript is still put back, in a source and in a written value ----------
+ok('10^26 with a lost superscript ("1026 integer", "10.26 computational", "10,26 FLOPs", "10�26 operations")',
+  cleanText('more than 1026 integer') === 'more than 10^26 integer' && cleanText('10,26 FLOPs') === '10^26 FLOPs' && cleanText('of 10�26 operations') === 'of 10^26 operations');
+ok('PA H.B. 2800 "1,026 integer or floating-point operations" -> 10^26', cleanText('using greater than 1,026 integer or floating-point operations') === 'using greater than 10^26 integer or floating-point operations'
+  && normaliseExponents('more than 1,026 integer or floating-point operations') === 'more than 10^26 integer or floating-point operations');
+ok('exponentOf reads both match forms', [...'1,026 integer and 10ˆ25 operations'.matchAll(new RegExp(LOST_EXPONENT.source, 'gi'))].map(exponentOf).join() === '26,25');
+ok('the threshold check names the right exponent for either form', /10\^26; write it as 10\^26/.test(thresholdNumberProblems('t', 'over 1,026 integer operations').join()) && /10\^25; write it as 10\^25/.test(thresholdNumberProblems('t', '10ˆ25 operations').join()));
 
 // ---------- powers written out ----------
 ok('CT "ten to the twen ty - sixth power" (previous one-off)', cleanText('greater than ten to the twen ty - sixth power integer or') === 'greater than 10^26 integer or');

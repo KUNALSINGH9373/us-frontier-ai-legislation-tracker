@@ -15,7 +15,10 @@ const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const 
 {
   const pa = '(1) A foundation model that was trained using a\ncomputing power greater than 1,026 integer or floating-point\noperations.';
   ok('1 PA HB 2800 "1,026 integer or floating-point operations" is the bill\'s 10^26', /greater than 10\^26 integer/.test(repairExponents(pa)), repairExponents(pa));
-  ok('1 a writer\'s "1,026 operations" is normalised and flagged until then', normaliseExponents('more than 1,026 operations') === 'more than 10^26 operations' && thresholdNumberProblems('t', 'more than 1,026 operations').some((p) => /lost exponent/.test(p)));
+  // Independent review: "1,026 operations" with no strong unit may be a count, so it is no longer rewritten; as a threshold it is still refused.
+  ok('1 a writer\'s "1,026 operations" is not rewritten but is refused as an implausible threshold', normaliseExponents('more than 1,026 operations') === 'more than 1,026 operations'
+    && thresholdNumberProblems('t', 'more than 1,026 operations').some((p) => /not a plausible magnitude/.test(p))
+    && normaliseExponents('more than 1,026 integer operations') === 'more than 10^26 integer operations');
   ok('1 "1,026" still reads as the runs 10 and 26 for the numbers check', digitRuns(pa).has('10') && digitRuns(pa).has('26'));
   ok('1 a year or count before "operations" is untouched', repairExponents('in 2026 operations began; 1,025 operations were logged') === 'in 2026 operations began; 1,025 operations were logged');
   // C3: the glued digit is removed only when it is a member of the text's detected line-number run (not by the amount's shape).
@@ -23,7 +26,10 @@ const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const 
   const fixed = repairExponents(il);
   ok('1 IL HB 4705: a line number glued onto an amount is removed when it belongs to the line-number run', !/000\.8|000\.10/.test(fixed) && /\$500,000,000\. +"Minor"/.test(fixed) && /\$25,000,000\. +"Large/.test(fixed), fixed);
   const lone = 'collectively have an annual revenue of at least $500,000,000.8 "Minor" means';
-  ok('1 a text whose line numbers were dropped (only glued ones left) still has the stray digit removed', /\$500,000,000\. +"Minor"/.test(repairExponents(lone)), repairExponents(lone));
+  // Independent review: with no line-number run to test against, the digit is not guessed away (a guess could rewrite a real figure);
+  // the text is left as printed and a draft that copies the glued amount is refused (checks.mjs GLUED_AMOUNT).
+  ok('1 a text whose line numbers were dropped (only glued ones left) is left as printed; a draft copying the glued amount is refused', repairExponents(lone) === lone
+    && textProblems('thresholds', 'annual revenue of at least $500,000,000.8', '').some((p) => /500,000,000\.8/.test(p)), repairExponents(lone));
   const numbered = '6 a fee of exactly\n7 $9,000,000.4 "Fees" means that the\n8 department of revenue each';
   ok('1 in a numbered text a digit after an amount that is not in the run is kept', repairExponents(numbered) === numbered);
   ok('1 real cents inside a numbered text are kept (no run member of that value there)', repairExponents('6 a fee of exactly\n7 $1,000.50 per day as assessed by the\n8 department of revenue each') === '6 a fee of exactly\n7 $1,000.50 per day as assessed by the\n8 department of revenue each');
