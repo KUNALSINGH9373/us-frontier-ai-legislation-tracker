@@ -10,6 +10,7 @@
 //               the amount is for; enforced_by: who enforces THAT tier (tiers can differ: the Attorney General for fines, an agency
 //               for a per-day amount; one enforcer for all tiers was refused by the reader on 4 bills in the 30 Oct re-test)
 // }
+import { PIPELINE } from './pipeline-config.mjs';
 import { containsQuote } from './source-text.mjs';
 
 export const MECHANISM_KINDS = ['duty', 'power', 'voluntary', 'incentive', 'program', 'preemption', 'liability', 'private_right', 'whistleblower', 'audit', 'incident_reporting', 'sunset', 'other'];
@@ -20,7 +21,8 @@ export const MECHANISM_KINDS = ['duty', 'power', 'voluntary', 'incentive', 'prog
 export const THRESHOLD_KINDS = ['compute', 'derived_models', 'compute_cost', 'revenue', 'users', 'other_figure', 'capability', 'no_threshold'];
 export const PENALTY_KINDS = ['civil', 'per_day', 'criminal', 'damages', 'other'];
 // agents/checks.mjs field_lengths. Raised by the owner on 30 Oct 2026 so a complete list of tiers fits (mechanism: the site's 90th percentile).
-export const FIELD_LIMITS = { mechanism: 1300, thresholds: 1300, penalties: 600 }; // thresholds 1300: owner, 30 Oct 2026 (chip definitions with 5-6 specifications)
+const { _note: _limitsNote, ...LIMITS } = PIPELINE.field_limits;
+export const FIELD_LIMITS = LIMITS; // config/pipeline.json field_limits
 
 const S = (extra = {}) => ({ type: 'STRING', ...extra });
 const item = (kinds, withAppliesTo, extra = {}) => ({ type: 'OBJECT', required: ['kind', 'text', 'quote'], properties: { kind: S({ enum: kinds }), ...(withAppliesTo ? { applies_to: S({ nullable: true }) } : {}), text: S(), quote: S(), ...extra } });

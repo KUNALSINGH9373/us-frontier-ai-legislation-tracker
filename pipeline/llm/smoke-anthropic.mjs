@@ -18,7 +18,8 @@ const bill = 'Section 2. A "frontier model" means a foundation model trained usi
 const t0 = Date.now();
 const r = await llm.generate({
   system: 'You read bill text. Answer as JSON: {"compute_threshold": string, "reporting_deadline_hours": number, "quote": string} where quote is copied word for word from the text.',
-  prompt: bill
+  prompt: bill,
+  responseSchema: { type: 'OBJECT', required: ['compute_threshold', 'reporting_deadline_hours', 'quote'], properties: { compute_threshold: { type: 'STRING' }, reporting_deadline_hours: { type: 'NUMBER' }, quote: { type: 'STRING' } } }
 });
 const okQuote = typeof r.data.quote === 'string' && bill.includes(r.data.quote);
 console.log(JSON.stringify(r.data, null, 1));

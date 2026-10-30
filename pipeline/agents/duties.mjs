@@ -4,8 +4,8 @@
 //   2) the independent reader (role validator) confirms every yes / partial / no answer, with its own quote checked word for word
 // The schema has no "unknown" answer (not_in_bill claims the text is silent, which nobody proved), so a failed answer cannot be blanked:
 // after one round of feedback, if any answer still fails the whole duties object is left off the entry. Never an unverified duty.
-import { DUTIES_SYSTEM, dutiesPrompt, dutyClaim, DUTY_NAMES } from './duties-prompt.mjs';
-import { VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
+import { DUTIES_SYSTEM, dutiesPrompt, dutyClaim, DUTY_NAMES, DUTIES_SCHEMA } from './duties-prompt.mjs';
+import { VERDICT_SCHEMA, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
 import { containsQuote } from './source-text.mjs';
 import { checkAnswer, checkDuties } from '../duties/check.mjs';
 import { makeValidator } from '../schema/validate.mjs';
@@ -41,7 +41,7 @@ export async function confirmDuties({ llm, sourceText, readText = sourceText, du
   const rejected = {};
   if (!list.length) return rejected;
   let res;
-  try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: readText, claims: list }), itemId }); }
+  try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: readText, claims: list }), responseSchema: VERDICT_SCHEMA, itemId }); }
   catch (e) {
     if (!(e instanceof LlmOutputError)) throw e;
     list.forEach((c) => { rejected[c.field] = `the independent reader gave an unusable answer (${e.message}); treated as unsupported`; });
@@ -60,7 +60,7 @@ export async function confirmDuties({ llm, sourceText, readText = sourceText, du
 // One round: ask, normalise, check every answer in code and with the reader. Returns { duties, problems: { name: [problem] }, notes }.
 async function dutyRound({ generator, validator, entry, sourceText, readText = sourceText, sourceUrl, itemId, feedback, previous }) {
   let res;
-  try { res = await generator.generate({ system: DUTIES_SYSTEM, prompt: dutiesPrompt({ entry, source: readText, sourceUrl, feedback, previous }), itemId }); }
+  try { res = await generator.generate({ system: DUTIES_SYSTEM, prompt: dutiesPrompt({ entry, source: readText, sourceUrl, feedback, previous }), responseSchema: DUTIES_SCHEMA, itemId }); }
   catch (e) { if (e instanceof LlmOutputError) return { duties: null, problems: { answer: [`your answer was unusable: ${e.message}`] } }; throw e; }
   const data = res && res.data;
   if (!data || typeof data !== 'object' || !data.duties || typeof data.duties !== 'object') return { duties: null, problems: { answer: ['your answer had no "duties" object'] } };

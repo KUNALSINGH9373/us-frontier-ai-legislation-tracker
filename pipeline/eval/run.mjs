@@ -23,9 +23,10 @@ import { sha } from '../grabber/lib/run-common.mjs';
 import { createLlmFromConfig, LlmOutputError, InputTooLarge } from '../llm/index.mjs';
 import { generatePatch } from '../agents/generator.mjs';
 import { FIELD_LIMITS, slotQuoteProblems, coverageProblems } from '../agents/slots.mjs';
-import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from '../agents/prompts.mjs';
+import { VERDICT_SCHEMA, VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from '../agents/prompts.mjs';
 import { buildClaims } from '../agents/validator.mjs';
-import { containsQuote, digitRuns, repairExponents } from '../agents/source-text.mjs';
+import { containsQuote } from '../agents/source-text.mjs';
+import { digitRuns, cleanText } from '../agents/text-norm.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { foreignLetters, textProblems } from '../agents/checks.mjs';
 import { exportControlBill, stateSections } from '../agents/derive.mjs';
@@ -133,7 +134,7 @@ async function runItem({ gold, text, read = text, generator, validator, referee 
     const patch = g.patch; previousPatch = patch;
     if (patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
-      let r = null; try { r = (await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), itemId: gold.key })).data.results[0]; } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
+      let r = null; try { r = (await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), responseSchema: VERDICT_SCHEMA, itemId: gold.key })).data.results[0]; } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       // Same rule as agents/process-item.mjs: the referee decides when the readers rule it out or disagree.
       const ref = await askReferee();
       if (ref === false || (ref === null && r && r.supported === false)) return { outcome: 'out_of_scope', in_scope: false, rounds: round, fields: {}, problems: [], referee: ref };
@@ -143,7 +144,7 @@ async function runItem({ gold, text, read = text, generator, validator, referee 
     const problems = codeChecks(patch, text, read);
     const claims = buildClaims({ patch, operation: 'create' });
     let res = null;
-    try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims }), itemId: gold.key }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; problems.push('the independent reader gave an unusable answer'); }
+    try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims }), responseSchema: VERDICT_SCHEMA, itemId: gold.key }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; problems.push('the independent reader gave an unusable answer'); }
     const byN = new Map(((res && res.data && res.data.results) || []).map((r) => [r.n, r]));
     for (const [i, c] of claims.entries()) {
       const r = byN.get(i + 1);
@@ -199,7 +200,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
     for (let g; (g = queue.shift());) {
       const s = sources[g.key], f = path.join(P, 'data', 'eval', 'texts', g.key + '.txt');
       const stored = fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null;
-      const text = stored && repairExponents(stored); // as agents/source-text.mjs does for production sources
+      const text = stored && cleanText(stored); // as agents/source-text.mjs does for production sources
       let result;
       if (!stored || sha(stored) !== s.sha256) result = { outcome: 'no_text', in_scope: null, fields: {}, problems: ['text missing or changed since eval/sources.json; run eval/fetch-texts.mjs'] };
       else if (/ADOPTED AMENDMENT( NOT READ)?:/.test(text)) result = { outcome: 'held', in_scope: null, fields: {}, problems: ['an amendment was adopted since the bill text was printed (held, as production does: agents/process-item.mjs)'] };

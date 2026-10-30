@@ -3,10 +3,12 @@
 // escalation.max_tokens_per_item in config/models.json. The extra budget is spent under the item's own sub-keys ("<id>#esc1", "#esc2",
 // ...), each under the per-item cap, so the ledger's run-wide limit and the monthly cost cap still apply to every call.
 import { BudgetExceeded } from '../llm/gemini.mjs';
+import { PIPELINE } from './pipeline-config.mjs';
 
 export function escalationBudget({ ledger, perItem, total }) {
-  const SWITCH = 0.75; // move to the next sub-key well before the ledger's own per-item cap would refuse a call
-  const keys = (id) => { const out = []; for (let k = 1; k < 1000; k++) { const key = `${id}#esc${k}`; out.push(key); if (ledger.itemTokens(key) < perItem * SWITCH) break; } return out; };
+  // move to the next sub-key well before the ledger's own per-item cap would refuse a call (config/pipeline.json escalation)
+  const SWITCH = PIPELINE.escalation.switch_fraction, MAX_KEYS = PIPELINE.escalation.max_sub_keys;
+  const keys = (id) => { const out = []; for (let k = 1; k < MAX_KEYS; k++) { const key = `${id}#esc${k}`; out.push(key); if (ledger.itemTokens(key) < perItem * SWITCH) break; } return out; };
   const spent = (id) => keys(id).reduce((t, k) => t + ledger.itemTokens(k), 0);
   const keyFor = (id) => {
     if (spent(id) >= total) throw new BudgetExceeded(`${total} tokens for item ${id} (escalated pass)`, 'item');

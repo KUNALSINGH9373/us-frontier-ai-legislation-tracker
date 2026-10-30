@@ -4,6 +4,11 @@ import { limitFor } from './review.mjs';
 // current entry and lists errors and omissions, each with a quote; the confirmer (role "confirmer", a stronger model) sees one
 // proposed correction at a time and must agree before code applies it. Neither sees the other's reasoning.
 
+// The answer shapes (llm/schema.mjs): the API returns exactly one answer of this shape and code checks it again.
+const STR = (extra = {}) => ({ type: 'STRING', ...extra });
+export const REVIEWER_SCHEMA = { type: 'OBJECT', required: ['corrections'], properties: { corrections: { type: 'ARRAY', items: { type: 'OBJECT', required: ['field', 'kind', 'problem', 'new_text', 'evidence'], properties: { field: STR(), kind: STR({ enum: ['error', 'omission'] }), problem: STR(), new_text: STR(), evidence: { type: 'ARRAY', items: { type: 'OBJECT', required: ['quote'], properties: { quote: STR() } } } } } } } };
+export const CONFIRMER_SCHEMA = { type: 'OBJECT', required: ['confirmed', 'quote', 'reason'], properties: { confirmed: { type: 'BOOLEAN' }, quote: STR({ nullable: true }), reason: STR() } };
+
 export const REVIEWER_SYSTEM = `You check one entry of a tracker of US laws and bills aimed at the largest ("frontier") AI developers against the bill's official text. The entry was written earlier, by a person or by software. Find what is WRONG or MISSING in it, and write the corrected field.
 
 What counts:

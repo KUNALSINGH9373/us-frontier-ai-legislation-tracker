@@ -6,6 +6,8 @@ export class BudgetExceeded extends Error { constructor(what, scope = 'run') { s
 export class LlmOutputError extends Error { constructor(msg, detail) { super(msg); this.name = 'LlmOutputError'; this.detail = detail; } }
 export class InputTooLarge extends Error { constructor(n, max) { super(`prompt is ${n} characters, over the limit of ${max}`); this.name = 'InputTooLarge'; } }
 
+import { schemaProblems } from './schema.mjs';
+
 const BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
 
 // Counts usage, prices every call, and enforces the limits from config/models.json.
@@ -50,6 +52,12 @@ export function createGemini({ http, apiKey, role, model, temperature = 0, maxOu
     const clean = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
     try { return JSON.parse(clean); } catch (e) { throw new LlmOutputError('the model did not return valid JSON', clean.slice(0, 300)); }
   };
+  // The same shape check as the Claude client: an answer that does not fit the caller's schema is unusable.
+  const fit = (data, responseSchema, text) => {
+    const problems = responseSchema ? schemaProblems(responseSchema, data) : [];
+    if (problems.length) throw new LlmOutputError('the answer does not fit its schema: ' + problems.slice(0, 3).join('; '), text.slice(0, 300));
+    return data;
+  };
   return {
     role, model,
     // system: instructions. prompt: the material. responseSchema (optional): a Gemini-style schema to steer the shape.
@@ -71,7 +79,7 @@ export function createGemini({ http, apiKey, role, model, temperature = 0, maxOu
       const text = (cand.content && cand.content.parts ? cand.content.parts.map((p) => p.text || '').join('') : '');
       if (!text.trim()) throw new LlmOutputError('the model returned an empty answer');
       log(`${role}/${model}: ${usage.promptTokenCount || 0} in, ${usage.candidatesTokenCount || 0} out`);
-      return { data: parseJson(text), text, usage, finishReason: cand.finishReason || 'STOP' };
+      return { data: fit(parseJson(text), responseSchema, text), text, usage, finishReason: cand.finishReason || 'STOP' };
     }
   };
 }

@@ -1,0 +1,40 @@
+{
+ "_note": "Tuning numbers for the new-bills pipeline, read once by pipeline/lib/pipeline-config.mjs. Change them here, not in code.",
+ "text": {
+  "_note": "Printed line numbering (agents/text-norm.mjs). A run of at least min_run numbers, each the one before plus one and min_gap to max_gap characters after it, is line numbering, not a figure.",
+  "numbering": [
+   {
+    "name": "line",
+    "min_gap": 15,
+    "max_gap": 400,
+    "min_run": 3
+   },
+   {
+    "name": "page.line",
+    "min_gap": 15,
+    "max_gap": 400,
+    "min_run": 3
+   }
+  ]
+ },
+ "field_limits": {
+  "_note": "Longest a rendered reading field may be, in characters (agents/slots.mjs). thresholds 1300: owner, 30 Oct 2026 (chip definitions with 5-6 specifications).",
+  "mechanism": 1300,
+  "thresholds": 1300,
+  "penalties": 600
+ },
+ "style_examples": {
+  "_note": "Entries shown to the writer as style examples (agents/process-item.mjs): how many, and only those whose mechanism is shorter than this.",
+  "count": 2,
+  "max_mechanism_chars": 600
+ },
+ "dedupe": {
+  "_note": "agents/dedupe.mjs: how much of a new bill's opening text is searched for the numbers of tracked bills it names.",
+  "text_head_chars": 3000
+ },
+ "escalation": {
+  "_note": "agents/budget.mjs: the most sub-keys one escalated item may spread its budget over (a guard against an endless loop, never reached in practice).",
+  "max_sub_keys": 1000,
+  "switch_fraction": 0.75
+ }
+}
