@@ -498,7 +498,7 @@ const out = template
 writeFileSync("docs/index.html", out);
 copyFileSync("tracker.md", "docs/tracker.md");
 writeFileSync("docs/.nojekyll", "");
-writeFileSync("docs/favicon.svg", `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#1D57A5"/><text x="32" y="41" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="30" fill="#fff" letter-spacing="-1">KS</text></svg>`);
+copyFileSync("web/logo/us-frontier-law-seal.svg", "docs/favicon.svg"); // the site seal, as on the new UI
 console.log(`timeline: ${events.length} events from ${Object.keys(usedEntries).length} entries; by type: ${TYPES.map((t) => t.split(" ")[0] + "=" + events.filter((e) => e.type === t).length).join(", ")}`);
 console.log(`map: ${mapNodes.length} nodes, ${mapEdges.length} edges, all quotes verified`);
 console.log(`built docs/index.html: ${sections.length} sections, ${totalEntries} entries, ${renderedCells.length} cells, ${htmlLinks.length} links, ${mdWords.length} words verified`);
