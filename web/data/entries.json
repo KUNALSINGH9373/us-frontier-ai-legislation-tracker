@@ -4465,12 +4465,6 @@
     "t": "Hearing page, Sept 30, 2026 — HSGAC",
     "u": "https://www.hsgac.senate.gov/subcommittees/dmdcc/hearings/rogue-ai-securing-the-homeland-against-ai-agent-attacks/"
    }
-  ],
-  "milestones": [
-   {
-    "date": "2025-12-11",
-    "caption": "EO 14365 directs agencies to challenge state AI laws"
-   }
   ]
  },
  {
@@ -4532,6 +4526,12 @@
    {
     "t": "White House text",
     "u": "https://www.whitehouse.gov/presidential-actions/2025/12/eliminating-state-law-obstruction-of-national-artificial-intelligence-policy/"
+   }
+  ],
+  "milestones": [
+   {
+    "date": "2025-12-11",
+    "caption": "EO 14365 directs agencies to challenge state AI laws"
    }
   ]
  },
@@ -5162,13 +5162,7 @@
     "u": "https://ktvz.com/news/2026/09/23/gov-tina-kotek-orders-new-ai-safety-standards-for-oregon-state-agencies/"
    }
   ],
-  "state": "OR",
-  "milestones": [
-   {
-    "date": "2026-09-29",
-    "caption": "White House accord: voluntary principles, no binding rule"
-   }
-  ]
+  "state": "OR"
  },
  {
   "id": 61,
@@ -5253,6 +5247,12 @@
    {
     "t": "NBC News",
     "u": "https://www.nbcnews.com/politics/donald-trump/trump-host-summit-top-ai-leaders-washington-rcna599853"
+   }
+  ],
+  "milestones": [
+   {
+    "date": "2026-09-29",
+    "caption": "White House accord: voluntary principles, no binding rule"
    }
   ]
  },
@@ -6353,12 +6353,6 @@
     "t": "Sen. Banks release",
     "u": "https://www.banks.senate.gov/news/press-releases/banks-secures-ai-overwatch-act-in-senate-ndaa/"
    }
-  ],
-  "milestones": [
-   {
-    "date": "2023-10-01",
-    "caption": "The 10²⁶-operation compute threshold enters US policy"
-   }
   ]
  },
  {
@@ -6508,12 +6502,6 @@
     "t": "Affiliates Rule — Federal Register public-inspection PDF",
     "u": "https://public-inspection.federalregister.gov/2025-19001.pdf"
    }
-  ],
-  "milestones": [
-   {
-    "date": "2024-09-29",
-    "caption": "California’s SB 1047 is vetoed"
-   }
   ]
  },
  {
@@ -6591,8 +6579,8 @@
   ],
   "milestones": [
    {
-    "date": "2025-07-01",
-    "caption": "The Senate strips a 10-year moratorium on state AI laws, 99–1"
+    "date": "2023-10-01",
+    "caption": "The 10²⁶-operation compute threshold enters US policy"
    }
   ]
  },
@@ -6761,7 +6749,13 @@
     "u": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1047"
    }
   ],
-  "state": "CA"
+  "state": "CA",
+  "milestones": [
+   {
+    "date": "2024-09-29",
+    "caption": "California’s SB 1047 is vetoed"
+   }
+  ]
  },
  {
   "id": 81,
@@ -6839,6 +6833,12 @@
    {
     "t": "Senate Commerce Committee account",
     "u": "https://www.commerce.senate.gov/press/dem/release/senate-strikes-ai-moratorium-from-budget-reconciliation-bill-in-overwhelming-99-1-vote-2025-7/"
+   }
+  ],
+  "milestones": [
+   {
+    "date": "2025-07-01",
+    "caption": "The Senate strips a 10-year moratorium on state AI laws, 99–1"
    }
   ]
  },
