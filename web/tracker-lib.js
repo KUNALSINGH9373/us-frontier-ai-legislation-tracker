@@ -36,12 +36,8 @@ export const DUTIES = [
 export const DUTY_VALUE = { yes: { g: '●', l: 'Yes' }, partial: { g: '◐', l: 'Partly' }, no: { g: '○', l: 'Expressly not' }, not_in_bill: { g: '–', l: 'Not in the text' } };
 export const CONF_ORDER = ['HIGH','MED-HIGH','MED','SEARCH-QUALIFIED','LOW'];
 export const KINDS = {federal:{l:'Congress',g:'■',v:'var(--k-fed)'},state:{l:'States',g:'●',v:'var(--k-state)'},executive:{l:'White House and agencies',g:'▲',v:'var(--k-exec)'},litigation:{l:'Courts',g:'§',v:'var(--k-lit)'},industry:{l:'Industry and incidents',g:'◇',v:'var(--k-ind)'}};
-// Entries filed under a federal section that belong on a state's tile. Matched by title, not row id: row ids shift
-// whenever v1 inserts a row (the old id map drifted one row on Oct 8 and put California's order on Illinois).
-export const STATE_OVERRIDE = [[/Executive Order N-9-26/, 'CA'], [/Executive Order 2026-07/, 'IL'], [/Executive Order 26-26/, 'OR'], [/^Anthropic PBC v\. U\.S\. Department of War(?!.*D\.C\. Cir)/, 'CA'], [/^State of Florida v\. OpenAI/, 'FL']];
 // Titles as shown: v1's editing notes ("(moved from Section E, where …)") are for editors, not readers.
 const showTitle = (s) => clean(s).replace(/\s*\((?:moved|formerly listed) from Section [^)]*\)/gi, '');
-const stateOverride = (t) => (STATE_OVERRIDE.find(([re]) => re.test(t)) || [])[1];
 export let FED_GROUPS = [
   {k:'D',l:'Bills in Congress',sub:'Introduced. None enacted.'},
   {k:'F',l:'Related federal bills',sub:'Adjacent and sector-specific'},
@@ -51,19 +47,8 @@ export let FED_GROUPS = [
   {k:'G.3',l:'Chips and export controls',sub:'Compute and diffusion rules'},
   {k:'H',l:'Earlier proposals',sub:'Withdrawn or stripped'}
 ];
-export let MILESTONES = [
-  ['2023-10-01',75,'The 10²⁶-operation compute threshold enters US policy'],
-  ['2024-09-29',77,'California’s SB 1047 is vetoed'],
-  ['2025-07-01',78,'The Senate strips a 10-year moratorium on state AI laws, 99–1'],
-  ['2025-09-29',1,'California signs SB 53, the first frontier-developer law'],
-  ['2025-12-11',51,'EO 14365 directs agencies to challenge state AI laws'],
-  ['2025-12-19',2,'New York signs the RAISE Act'],
-  ['2026-03-27',2,'New York replaces RAISE with a law on the SB 53 template'],
-  ['2026-07-06',3,'Illinois signs SB 315, adding annual audits'],
-  ['2026-07-23',27,'The FRONTIER Act is introduced in the House'],
-  ['2026-09-09',20,'California signs auditor laws SB 813 and AB 1405'],
-  ['2026-09-29',60,'White House accord: voluntary principles, no binding rule']
-].map(([d,id,c]) => ({d:new Date(d+'T12:00:00'), id, c}));
+// Replay milestones come from the data: v1 entries carry their own `milestones` (build), v2 reads site.json (applySite).
+export let MILESTONES = [];
 export let REPLAY_START = new Date(2023, 8, 1);
 // Section groups, as v1 groups its sections (build/build.mjs GROUPS). Used by the Explore sidebar and the table's Group filter.
 export let GROUPS = [
@@ -73,37 +58,6 @@ export let GROUPS = [
   { k: 'context', l: 'Precursors, adjacent laws, exclusions', sections: ['H', 'I', 'J'] }
 ];
 export const groupOf = (sec) => (GROUPS.find((g) => g.sections.includes(sec)) || { k: 'other' }).k;
-
-// Plain-English summaries are OFF for the v1-parity showcase: the app shows the tracker's own core-mechanism text.
-// Real summaries will arrive with the automated pipeline (reviewed, stored in a separate field). Set to true to preview the 22 drafts.
-export const USE_DRAFT_SUMMARIES = false;
-
-// Draft plain-English summaries, derived only from each entry's `mechanism` (and status where noted). For author review.
-export const SUM = {
-  1:'Requires the largest frontier AI developers to publish a safety framework and transparency reports, report critical safety incidents within 15 days (24 hours if there is imminent risk of death or serious injury), and protect whistleblowers.',
-  2:'New York’s replacement law copies California’s framework and transparency-report duties, requires incident reports within 72 hours, and creates an office in the Department of Financial Services with rulemaking power. It has no whistleblower section and no audit mandate.',
-  3:'Requires large frontier developers to publish a safety framework and transparency reports, undergo an annual independent audit from 2028, report incidents within 72 hours, and protects whistleblowers.',
-  4:'The Senate text would require an independent catastrophic-risk review at least every 120 days, with whistleblower protections and enforcement by the Attorney General. The House version contains only funding.',
-  6:'Large frontier developers with New Jersey users would file risk disclosures with the Attorney General, mapped to the NIST AI framework, including before new models deploy. The bill would sunset after five years.',
-  11:'Frontier developers would publish a safety plan, large chatbot providers would publish child-protection plans, and incidents would be reported within 15 days.',
-  13:'Would require a frontier AI framework, transparency reports, incident reports within 15 days, and an annual independent audit from July 1, 2028.',
-  17:'Would have amended the RAISE Act to require an independent pre-deployment safety evaluation of every frontier model.',
-  18:'Pennsylvania’s version of the SB 53 model, plus registration: large frontier developers would register with the state emergency agency, publish a framework, face annual audits and report critical incidents within 72 hours. Penalties reach $1 million, then $3 million.',
-  20:'From 2029, anyone conducting an AI audit required by California law must be on a state registry run by the Government Operations Agency.',
-  21:'By 2028, California’s Government Operations Agency must set up a way to designate independent verification organizations, with conflict-of-interest rules.',
-  22:'Creates a voluntary license for organizations that verify AI risks. Nothing requires a developer to seek verification.',
-  24:'Directs a Virginia commission to study whether a framework for independent verification organizations is feasible. A study, not a mandate.',
-  25:'Runs a pilot program for independent verification organizations through June 30, 2030.',
-  26:'The Department of Energy would run a mandatory evaluation program for advanced AI, including classified red-team testing, with a penalty of at least $1 million a day for not taking part.',
-  27:'Would create an Under Secretary of Commerce for AI Security, require frameworks, annual audits and 72-hour incident reports, let the Commerce Secretary suspend a model posing imminent catastrophic risk, and bar states from adding new obligations in these areas.',
-  33:'Would create a Department of Artificial Intelligence, pause training and deployment of advanced systems until it has rules, and permanently ban artificial superintelligence.',
-  35:'A two-page bill requiring advanced AI systems to include a way for a human operator to shut them down.',
-  51:'Directs federal agencies to challenge state AI laws that are not “minimally burdensome” and sets up an AI Litigation Task Force. It cannot itself preempt state law.',
-  53:'Directs agencies to build a classified cyber-capability benchmark and a voluntary framework allowing up to 30 days of government access before release. It expressly rules out mandatory licensing.',
-  60:'Companies signed voluntary principles at a White House meeting. No binding rule was announced.',
-  77:'The vetoed predecessor to SB 53. It required a safety protocol, an annual independent auditor, compliance certifications and a full-shutdown capability.',
-  78:'A proposed 10-year moratorium on state AI laws in the 2025 reconciliation bill.'
-};
 
 // Section K comparison matrix (verbatim from tracker-full.md), keyed by entry id.
 export let K_IDS = [1,2,3,5,6,4,27];
@@ -223,7 +177,7 @@ export function build(entries, news, rel) {
   Object.entries(rel.aliases).forEach(([k, a]) => { if (anchorToId[a]) { keyToId[k] = anchorToId[a]; idToKey[anchorToId[a]] = k; } });
   const events = [];
   const E = entries.map(x => {
-    const t = showTitle(x.title), st = stateOverride(t) || (/^[A-Z]{2}$/.test(x.jurisdiction) && x.jurisdiction !== 'US' ? x.jurisdiction : null);
+    const t = showTitle(x.title), st = x.state || null; // the state an entry belongs to is stored on the entry (web/data/entries.json)
     const fy = (x.years || []).find(y => /^\d{4}$/.test(y));
     const { segs, dated, first, kd, verb } = stepsOf(x.status_and_dates, fy);
     const key = idToKey[x.id];
@@ -234,11 +188,12 @@ export function build(entries, news, rel) {
     const o = { id:x.id, raw:x, title:t, short, key, section:x.section, sec:SEC[x.section], st, juris: st ? SN[st] : (x.section==='J' ? 'Not tracked' : 'Federal'), level: st ? 'state' : (x.section==='J' ? 'none' : 'federal'),
       status, type: TYPE_OF[x.section], conf: x.confidence_level || null, confNote: clean(x.confidence_note), sponsor: clean(x.sponsor), mech, thresholds: clean(x.thresholds), source: clean(x.source),
       years: x.years || [], U: /⟨U⟩/.test(x.title), R: /⟨R⟩/.test(x.title), NCSL: /⟨NCSL⟩/.test(x.title), segs, dated, first, kd, kdLabel: kd ? `${verb ? verb[0].toUpperCase()+verb.slice(1).toLowerCase()+' · ' : ''}${fmt(kd.d)}` : 'No dated event',
-      summary: USE_DRAFT_SUMMARIES ? (SUM[x.id] || null) : null, lead, link: x.permalink_old_site,
+      summary: null, lead, link: x.permalink_old_site,
       srcLinks: x.source_links || [], moreLinks: (x.all_links || []).filter(l => !(x.source_links || []).some(s => s.u === l.u)), penalties: clean(x.penalties), signed: clean(x.signed), effective: clean(x.effective), statusText: statusOf(x.status_and_dates) };
     dated.forEach(s => events.push({ d: s.d, id: x.id, t: s.t }));
     return o;
   });
+  MILESTONES = entries.flatMap(x => (x.milestones || []).map(m => ({ d: new Date(m.date + 'T12:00:00'), id: x.id, c: m.caption }))).sort((a, b) => a.d - b.d);
   const byId = {}; E.forEach(e => byId[e.id] = e);
   const N = news.items.map((n, i) => ({ ...n, i, d: new Date(n.date + 'T12:00:00'), entryId: n.tracker ? keyToId[n.tracker] : null }));
   const edges = rel.edges.map(ed => ({ ...ed, fromId: keyToId[ed.from] || null, toId: keyToId[ed.to] || null }));
@@ -360,7 +315,7 @@ export function buildV2(entries, news, rel, site, content) {
       status: x.status, type: x.type, conf: conf.level || null, confNote: clean(conf.note || conf.level || ''), sponsor: clean(x.sponsor_text), mech, thresholds: clean(x.thresholds), source: clean(x.source_label),
       years, U: !!tags.updated_after_verification, R: tags.found_via === 'dedicated_search', NCSL: tags.found_via === 'ncsl', segs, dated, first, kd,
       kdLabel: kd ? `${verb ? verb[0].toUpperCase() + verb.slice(1).toLowerCase() + ' · ' : ''}${fmt(kd.d)}` : 'No dated event',
-      summary: USE_DRAFT_SUMMARIES ? (SUM[x.id] || null) : null, lead, link: x.legacy ? x.legacy.permalink : null,
+      summary: null, lead, link: x.legacy ? x.legacy.permalink : null,
       srcLinks: (x.sources || []).map((l) => ({ t: l.label, u: l.url })), moreLinks: (x.more_links || []).map((l) => ({ t: l.t, u: l.u })),
       penalties: clean(x.penalties), signed: clean(x.signed_text), effective: clean(x.effective_text), statusText: statusOf(x.status_text),
       origin: x.origin, lastChecked: x.last_checked, v2events: x.events };

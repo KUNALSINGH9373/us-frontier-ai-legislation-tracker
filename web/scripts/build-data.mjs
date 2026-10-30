@@ -99,6 +99,11 @@ const secOf = new Map(entries.map((e) => [e.id, e.section]));
 const events = extractEvents(evTables, (id) => (secOf.has(id) ? { label: secOf.get(id) } : null));
 fs.writeFileSync(path.join(out, 'events.json'), JSON.stringify({ types: EVENT_TYPES, events }, null, 1));
 
+// Fields v1 does not have (the state an entry belongs on, replay milestones) are kept in entries.json itself; carry
+// them over from the previous file, matched by the entry's permalink anchor (stable when v1 inserts a row).
+const anchor = (e) => (e.permalink_old_site || '').split('#')[1];
+const prev = fs.existsSync(path.join(out, 'entries.json')) ? new Map(JSON.parse(fs.readFileSync(path.join(out, 'entries.json'), 'utf8')).map((e) => [anchor(e), e])) : new Map();
+entries.forEach((e) => { const p = prev.get(anchor(e)); if (p) for (const f of ['state', 'milestones']) if (p[f] != null) e[f] = p[f]; });
 fs.writeFileSync(path.join(out, 'entries.json'), JSON.stringify(entries, null, 1));
 for (const f of ['news.json', 'relationships.json']) fs.copyFileSync(R('build', f), path.join(out, f));
 

@@ -27,11 +27,10 @@ node web/scripts/build-data.mjs
 
 ## What is hardcoded for now
 
-The entry ids are referenced by `tracker-lib.js` (state overrides, replay milestones, the comparison matrix `K_IDS/K_ROWS`) and the headline numbers are typed in. Both go away in the dynamic-data phase.
+The entry ids are referenced by `tracker-lib.js` (the comparison matrix `K_IDS/K_ROWS`; the state an entry belongs on and the replay milestones are fields in `data/entries.json`) and the headline numbers are typed in. Both go away in the dynamic-data phase.
 
 ## Switches
 
-- `USE_DRAFT_SUMMARIES` in `tracker-lib.js` — `false`: every entry shows the tracker's own core-mechanism text. `true` previews the 22 hand-written plain-English drafts.
 - `SHOW_FOLLOW` in `Tracker.dc.html` — `false` hides the Follow button on bill pages. It only saves to the browser and nothing notifies the user, so it stays off until alerts exist.
 
 The design-rationale and design-system pages, the RSS feed and the email signup were removed from this folder; the originals are still in the `Design1` folder next to the repository.

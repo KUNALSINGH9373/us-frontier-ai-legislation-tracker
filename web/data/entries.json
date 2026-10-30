@@ -89,7 +89,14 @@
   ],
   "penalties": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation",
   "signed": "Sept 29, 2025",
-  "effective": "Jan 1, 2026 (OES anonymized reporting & annual reviews from Jan 1, 2027)"
+  "effective": "Jan 1, 2026 (OES anonymized reporting & annual reviews from Jan 1, 2027)",
+  "state": "CA",
+  "milestones": [
+   {
+    "date": "2025-09-29",
+    "caption": "California signs SB 53, the first frontier-developer law"
+   }
+  ]
  },
  {
   "id": 2,
@@ -193,7 +200,18 @@
   ],
   "penalties": "$1M first / $3M subsequent, scaled to severity; AG civil action (§1427(1)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
   "signed": "Original Dec 19, 2025; S.8828 passed Senate 58-1 (Jan 28, 2026), passed Assembly Mar 11, signed Mar 27, 2026",
-  "effective": "Jan 1, 2027 (Chapter 96 §3 replaced the original \"90th day\" effective clause)"
+  "effective": "Jan 1, 2027 (Chapter 96 §3 replaced the original \"90th day\" effective clause)",
+  "state": "NY",
+  "milestones": [
+   {
+    "date": "2025-12-19",
+    "caption": "New York signs the RAISE Act"
+   },
+   {
+    "date": "2026-03-27",
+    "caption": "New York replaces RAISE with a law on the SB 53 template"
+   }
+  ]
  },
  {
   "id": 3,
@@ -308,7 +326,14 @@
   ],
   "penalties": "$1M first / $3M subsequent, scaled to severity; AG-exclusive action under the AI Act; no general private right under that Act, but employee remedies are preserved through the Illinois Whistleblower Act; $1,000/day for failing to file a disclosure statement; good-faith exception for false statements (Sec. 10(f)(2))",
   "signed": "Sent to Governor June 26; signed July 6, 2026 (Gov. Pritzker)",
-  "effective": "Jan 1, 2027 (disclosure statements, incident reporting, whistleblower, transparency reports); framework + audit obligations from Jan 1, 2028"
+  "effective": "Jan 1, 2027 (disclosure statements, incident reporting, whistleblower, transparency reports); framework + audit obligations from Jan 1, 2028",
+  "state": "IL",
+  "milestones": [
+   {
+    "date": "2026-07-06",
+    "caption": "Illinois signs SB 315, adding annual audits"
+   }
+  ]
  },
  {
   "id": 4,
@@ -409,7 +434,8 @@
     "t": "S.3178 fact sheet",
     "u": "https://malegislature.gov/PressRoom/Detail?pressReleaseId=1445"
    }
-  ]
+  ],
+  "state": "MA"
  },
  {
   "id": 5,
@@ -487,7 +513,8 @@
     "t": "Official introduced text — Michigan Legislature",
     "u": "https://www.legislature.mi.gov/documents/2025-2026/billintroduced/House/pdf/2025-HIB-4668.pdf"
    }
-  ]
+  ],
+  "state": "MI"
  },
  {
   "id": 6,
@@ -576,7 +603,8 @@
     "t": "S.4446 official text",
     "u": "https://pub.njleg.gov/Bills/2026/S4500/4446_I1.HTM"
    }
-  ]
+  ],
+  "state": "NJ"
  },
  {
   "id": 7,
@@ -665,7 +693,8 @@
     "t": "ILGA status + amendments",
     "u": "https://www.ilga.gov/Legislation/BillStatus?GAID=18&DocNum=3506&DocTypeID=HB&LegId=0&SessionID=114"
    }
-  ]
+  ],
+  "state": "IL"
  },
  {
   "id": 8,
@@ -742,7 +771,8 @@
     "t": "ilga.gov status",
     "u": "https://www.ilga.gov/ftp/legislation/104/BillStatus/HTML/10400SB3444.html"
    }
-  ]
+  ],
+  "state": "IL"
  },
  {
   "id": 9,
@@ -828,7 +858,8 @@
     "t": "ilga.gov status",
     "u": "https://www.ilga.gov/ftp/legislation/104/BillStatus/HTML/10400SB3312.html"
    }
-  ]
+  ],
+  "state": "IL"
  },
  {
   "id": 10,
@@ -926,7 +957,8 @@
     "t": "H.B. 4705 status",
     "u": "https://www.ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB4705.html"
    }
-  ]
+  ],
+  "state": "IL"
  },
  {
   "id": 11,
@@ -1040,7 +1072,8 @@
     "t": "CCIA opposition letter",
     "u": "https://ccianet.org/wp-content/uploads/2026/04/TN-HB-1898.pdf"
    }
-  ]
+  ],
+  "state": "TN"
  },
  {
   "id": 12,
@@ -1141,7 +1174,8 @@
     "t": "Official substitute comparison",
     "u": "https://le.utah.gov/Session/2026/bills/introduced/CP%20HB0286%20To%20HB0286S01.pdf"
    }
-  ]
+  ],
+  "state": "UT"
  },
  {
   "id": 13,
@@ -1243,7 +1277,8 @@
     "t": "Bill status",
     "u": "https://www.legis.la.gov/legis/BillInfo.aspx?b=SB474&s=26rs&sbi=y"
    }
-  ]
+  ],
+  "state": "LA"
  },
  {
   "id": 14,
@@ -1332,7 +1367,8 @@
     "t": "H.5224 text",
     "u": "https://webserver.rilegislature.gov/BillText25/HouseText25/H5224.pdf"
    }
-  ]
+  ],
+  "state": "RI"
  },
  {
   "id": 15,
@@ -1409,7 +1445,8 @@
     "t": "S.10373 text + sponsor memo — nysenate.gov",
     "u": "https://www.nysenate.gov/legislation/bills/2025/S10373"
    }
-  ]
+  ],
+  "state": "NY"
  },
  {
   "id": 16,
@@ -1486,7 +1523,8 @@
     "t": "S.10456 text + sponsor memo — nysenate.gov",
     "u": "https://www.nysenate.gov/legislation/bills/2025/S10456"
    }
-  ]
+  ],
+  "state": "NY"
  },
  {
   "id": 17,
@@ -1575,7 +1613,8 @@
     "t": "Senate bill page — nysenate.gov",
     "u": "https://www.nysenate.gov/legislation/bills/2025/S10701"
    }
-  ]
+  ],
+  "state": "NY"
  },
  {
   "id": 18,
@@ -1664,7 +1703,8 @@
     "t": "Printer's No. 3904 (PDF)",
     "u": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HB2800/PN3904"
    }
-  ]
+  ],
+  "state": "PA"
  },
  {
   "id": 19,
@@ -1753,7 +1793,8 @@
     "t": "Status",
     "u": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
    }
-  ]
+  ],
+  "state": "MN"
  },
  {
   "id": 20,
@@ -1849,6 +1890,13 @@
    {
     "t": "Governor's EO release naming AB 1405 as signed",
     "u": "https://www.gov.ca.gov/2026/09/18/governor-newsom-issues-executive-order-to-accelerate-independent-oversight-and-advance-the-creation-of-an-ai-kill-switch/"
+   }
+  ],
+  "state": "CA",
+  "milestones": [
+   {
+    "date": "2026-09-09",
+    "caption": "California signs auditor laws SB 813 and AB 1405"
    }
   ]
  },
@@ -1947,7 +1995,8 @@
     "t": "Sponsor release — sd05.senate.ca.gov",
     "u": "https://sd05.senate.ca.gov/news/legislature-approves-mcnerneys-landmark-bill-assess-artificial-intelligence-safety-risks"
    }
-  ]
+  ],
+  "state": "CA"
  },
  {
   "id": 22,
@@ -2031,7 +2080,8 @@
     "t": "LSC bill analysis",
     "u": "https://www.legislature.ohio.gov/download?key=27288"
    }
-  ]
+  ],
+  "state": "OH"
  },
  {
   "id": 23,
@@ -2127,7 +2177,8 @@
     "t": "S.F. 4636 text/status",
     "u": "https://www.revisor.mn.gov/bills/94/2026/0/SF/4636/"
    }
-  ]
+  ],
+  "state": "MN"
  },
  {
   "id": 24,
@@ -2211,7 +2262,8 @@
     "t": "HB 797 summary + votes",
     "u": "https://fastdemocracy.com/bill/va/2026/bills/VAB00040165"
    }
-  ]
+  ],
+  "state": "VA"
  },
  {
   "id": 25,
@@ -2283,7 +2335,8 @@
     "t": "Enacted text — cga.ct.gov",
     "u": "https://www.cga.ct.gov/2026/act/pa/pdf/2026PA-00015-R00SB-00005-PA.pdf"
    }
-  ]
+  ],
+  "state": "CT"
  },
  {
   "id": 26,
@@ -2463,6 +2516,12 @@
    {
     "t": "Bill status XML — GovInfo",
     "u": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9925.xml"
+   }
+  ],
+  "milestones": [
+   {
+    "date": "2026-07-23",
+    "caption": "The FRONTIER Act is introduced in the House"
    }
   ]
  },
@@ -4406,6 +4465,12 @@
     "t": "Hearing page, Sept 30, 2026 — HSGAC",
     "u": "https://www.hsgac.senate.gov/subcommittees/dmdcc/hearings/rogue-ai-securing-the-homeland-against-ai-agent-attacks/"
    }
+  ],
+  "milestones": [
+   {
+    "date": "2025-12-11",
+    "caption": "EO 14365 directs agencies to challenge state AI laws"
+   }
   ]
  },
  {
@@ -4958,7 +5023,8 @@
     "t": "Experts announced Sept 23",
     "u": "https://www.gov.ca.gov/2026/09/23/governor-newsom-announces-world-leading-experts-to-deliver-on-his-ai-executive-order-including-advancing-creation-of-a-kill-switch/"
    }
-  ]
+  ],
+  "state": "CA"
  },
  {
   "id": 59,
@@ -5032,7 +5098,8 @@
     "t": "Governor's release",
     "u": "https://gov-pritzker-newsroom.prezly.com/gov-pritzker-establishs-illinois-artificial-intelligence-ai-cabinet"
    }
-  ]
+  ],
+  "state": "IL"
  },
  {
   "id": 60,
@@ -5093,6 +5160,13 @@
    {
     "t": "KTVZ, Sept 23, 2026",
     "u": "https://ktvz.com/news/2026/09/23/gov-tina-kotek-orders-new-ai-safety-standards-for-oregon-state-agencies/"
+   }
+  ],
+  "state": "OR",
+  "milestones": [
+   {
+    "date": "2026-09-29",
+    "caption": "White House accord: voluntary principles, no binding rule"
    }
   ]
  },
@@ -5735,7 +5809,8 @@
     "t": "Docket chronology — Civil Rights Litigation Clearinghouse",
     "u": "https://clearinghouse.net/case/47876/"
    }
-  ]
+  ],
+  "state": "CA"
  },
  {
   "id": 69,
@@ -5957,7 +6032,8 @@
     "t": "Ars Technica, Sept 28, 2026",
     "u": "https://arstechnica.com/ai/2026/09/florida-asks-court-to-put-the-brakes-on-openais-frontier-ai-development/"
    }
-  ]
+  ],
+  "state": "FL"
  },
  {
   "id": 72,
@@ -6277,6 +6353,12 @@
     "t": "Sen. Banks release",
     "u": "https://www.banks.senate.gov/news/press-releases/banks-secures-ai-overwatch-act-in-senate-ndaa/"
    }
+  ],
+  "milestones": [
+   {
+    "date": "2023-10-01",
+    "caption": "The 10²⁶-operation compute threshold enters US policy"
+   }
   ]
  },
  {
@@ -6426,6 +6508,12 @@
     "t": "Affiliates Rule — Federal Register public-inspection PDF",
     "u": "https://public-inspection.federalregister.gov/2025-19001.pdf"
    }
+  ],
+  "milestones": [
+   {
+    "date": "2024-09-29",
+    "caption": "California’s SB 1047 is vetoed"
+   }
   ]
  },
  {
@@ -6499,6 +6587,12 @@
    {
     "t": "White House revocation of EO 14110",
     "u": "https://www.whitehouse.gov/presidential-actions/2025/01/initial-rescissions-of-harmful-executive-orders-and-actions/"
+   }
+  ],
+  "milestones": [
+   {
+    "date": "2025-07-01",
+    "caption": "The Senate strips a 10-year moratorium on state AI laws, 99–1"
    }
   ]
  },
@@ -6666,7 +6760,8 @@
     "t": "Official bill page, enrolled text, history, and veto message",
     "u": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1047"
    }
-  ]
+  ],
+  "state": "CA"
  },
  {
   "id": 81,
@@ -6824,7 +6919,8 @@
     "t": "AG inactive measures",
     "u": "https://oag.ca.gov/initiatives/inactive-measures"
    }
-  ]
+  ],
+  "state": "CA"
  },
  {
   "id": 83,
@@ -6903,7 +6999,8 @@
     "t": "MoFo analysis",
     "u": "https://www.mofo.com/resources/insights/260608-connecticut-enacts-sweeping-ai-law"
    }
-  ]
+  ],
+  "state": "CT"
  },
  {
   "id": 84,
