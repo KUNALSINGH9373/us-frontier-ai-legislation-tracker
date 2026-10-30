@@ -52,7 +52,7 @@ function done(rep) {
   if (added.length) L.push(`<b>New bills added (${added.length})</b>`, ...bullets(added, 6, (e) => `▸ ${esc(clip(names[e.entry_key] || e.entry_key, 34))}`), '');
   const addedIds = new Set(added.map((e) => e.item_id));
   const found = rep.sources.flatMap((s) => s.new_candidates.filter((c) => !addedIds.has(c.item_id)).map((c) => clip(c.title, 34)));
-  if (found.length) L.push(`<b>New bills spotted (${found.length})</b>`, '<i>not published yet</i>', ...bullets(found, 4, (t) => `▸ ${esc(t)}`), '');
+  if (found.length) L.push(`<b>Candidate bills found (${found.length})</b>`, '<i>candidates only, not published on the site</i>', ...bullets(found, 4, (t) => `▸ ${esc(t)}`), '');
   const c = rep.corrections;
   if (c && c.ran) {
     const fixed = c.status === 'written' || c.status === 'dry-run' ? c.corrected : [];

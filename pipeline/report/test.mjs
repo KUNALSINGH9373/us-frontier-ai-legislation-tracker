@@ -53,7 +53,7 @@ ok('a changed run counts entries, news and fields', ch.changed === true && ch.to
 ok('held items collect AI holds with a reason', ch.held.length === 1 && /not published yet/.test(ch.held[0].reason));
 const cm = formatReport(ch);
 ok('the changed message leads with the update and names the bill', /^✅ Update done · 27 Oct, 16:03 UTC · 3m 0s/.test(cm) && /Bills updated: 1 \(S\. 2938 AI Risk Evaluation Act\)/.test(cm), cm);
-ok('it says how many new bills were spotted, by name, and that they are not published yet', /New bills spotted: 2 \(Frontier Test Act, Another Act\) — not published yet/.test(cm), cm);
+ok('it says how many candidate bills were found, by name, and that they are candidates, not published', /Candidate bills found: 2 \(Frontier Test Act, Another Act\) — candidates only, not published/.test(cm), cm);
 ok('it shows AI cost (run and month) and free queries', /AI cost: \$0\.0067 this run · \$21\.00 of \$25\.00 this month/.test(cm) && /Free API queries used: 4 \(Congress\.gov 4\)/.test(cm), cm);
 ok('it warns about spending at 84% and about the held item', /⚠️ AI spending is at 84% of the monthly limit/.test(cm) && /⚠️ 1 item on hold: .*the bill text is not published yet/.test(cm), cm);
 ok('a changed message is still short', cm.length < 900 && chunk(cm).length === 1, String(cm.length));
@@ -145,7 +145,7 @@ ok('a dry run is labelled and says it saves nothing', /dry run, nothing saved/.t
   finalize(add, { now: new Date('2026-10-27T20:00:30Z'), spend: SPEND0 });
   const names = { 'h-r-1-frontier-test-act': 'H.R. 1 Frontier Test Act' }, h = formatHtml({ ...add, names }).text, t = formatDone(add, names);
   ok('an added bill counts as a change and is named under "New bills added"', add.changed && add.totals.entries_added === 1 && /<b>New bills added \(1\)<\/b>\n▸ H\.R\. 1 Frontier Test Act/.test(h) && /New bills added: 1 \(H\.R\. 1 Frontier Test Act\)/.test(t), h);
-  ok('the added bill is no longer listed as spotted; the other one still is', /New bills spotted \(1\)/.test(h) && !/▸ Frontier Test Act/.test(h) && /▸ Another Act/.test(h) && /New bills spotted: 1 \(Another Act\)/.test(t), h + '\n' + t);
+  ok('the added bill is no longer listed as spotted; the other one still is', /Candidate bills found \(1\)/.test(h) && /candidates only, not published on the site/.test(h) && !/▸ Frontier Test Act/.test(h) && /▸ Another Act/.test(h) && /Candidate bills found: 1 \(Another Act\)/.test(t), h + '\n' + t);
 }
 
 console.log(`report: ${pass} passed, ${fail} failed`);

@@ -97,7 +97,7 @@ export function formatDone(rep, names = {}) {
   if (added.length) L.push(`New bills added: ${added.length} (${list(added)})`);
   const addedIds = new Set(rep.publish.runs.flatMap((p) => p.entries_added.map((e) => e.item_id)));
   const found = rep.sources.flatMap((s) => s.new_candidates.filter((c) => !addedIds.has(c.item_id)).map((c) => clip(c.title, 60)));
-  if (found.length) L.push(`New bills spotted: ${found.length} (${list(found, 3)}) — not published yet`);
+  if (found.length) L.push(`Candidate bills found: ${found.length} (${list(found, 3)}) — candidates only, not published`);
   const c = rep.corrections;
   if (c && c.ran) {
     const fixed = c.status === 'written' || c.status === 'dry-run' ? c.corrected : [];
