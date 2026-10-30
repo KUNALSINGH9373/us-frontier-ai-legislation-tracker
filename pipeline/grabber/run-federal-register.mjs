@@ -4,8 +4,9 @@ import { createFederalRegister, watchPhrases } from './sources/federal-register.
 import { QuotaExceeded, HttpError, NetworkError } from './lib/http.mjs';
 import { sha, isoZ, makeRunId, saveRaw, writeChangeset } from './lib/run-common.mjs';
 import { makeScreen } from './screen.mjs';
+import { CUTOFF_DATE } from './lib/cutoff.mjs';
 
-export const FR_CUTOFF = '2026-09-29';
+export const FR_CUTOFF = CUTOFF_DATE; // config/publish.json data_cutoff
 const MAX_TEXT = 1_500_000; // characters of full text kept per document
 const hashOf = (d) => sha(JSON.stringify([d.title, d.publication_date, d.abstract, d.type, d.effective_on]));
 

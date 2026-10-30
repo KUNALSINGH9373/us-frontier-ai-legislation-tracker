@@ -20,8 +20,9 @@ import { LEGISCAN_USAGE_FILE } from './lib/state.mjs';
 export { LEGISCAN_USAGE_FILE };
 import { pdfToText } from './lib/pdf.mjs';
 import { classifyTitles, fetchIt } from './intent.mjs';
+import { CUTOFF_ISO } from './lib/cutoff.mjs';
 
-export const LS_CUTOFF = '2026-09-29T00:00:00Z';
+export const LS_CUTOFF = CUTOFF_ISO; // config/publish.json data_cutoff
 const MAX_TEXT = 1_500_000;
 const RESCREEN_DAYS = 30;
 

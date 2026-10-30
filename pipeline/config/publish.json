@@ -1,5 +1,9 @@
 {
  "_note": "Publisher settings (publish/run.mjs). Tier A = official facts written by code (events, status, dates). A run that would change more tracked entries than max_entries_changed_per_run is treated as an anomaly: nothing is written. auto_publish switches stay off until the field scores at the bar on the accuracy test set (phase 4).",
+ "data_cutoff": {
+  "_note": "The tracker's last verified date (YYYY-MM-DD). The grabbers (Congress.gov, LegiScan, Federal Register) never re-examine anything before it; it is also their starting cursor when a source has no saved state.",
+  "date": "2026-09-29"
+ },
  "max_entries_changed_per_run": 15,
  "max_new_entries_per_run": 3,
  "auto_publish": {

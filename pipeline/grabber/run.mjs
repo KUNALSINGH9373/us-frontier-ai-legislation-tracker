@@ -23,10 +23,11 @@ import { runLegiScan, readUsage, addUsage } from './run-legiscan.mjs';
 import { createOfficial } from './sources/official.mjs';
 import { createLlmFactory, roleModel } from '../llm/make.mjs';
 import { sha, isoZ, makeRunId, saveRaw, writeChangeset } from './lib/run-common.mjs';
+import { CUTOFF_ISO } from './lib/cutoff.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
-export const DATA_CUTOFF = '2026-09-29T00:00:00Z'; // the tracker's last verified date: nothing before this is re-examined
+export const DATA_CUTOFF = CUTOFF_ISO; // the tracker's last verified date (config/publish.json data_cutoff): nothing before this is re-examined
 export const CONGRESS = 119; // the current Congress: every tracked bill and every candidate belongs to it
 const hashOf = (b) => sha(JSON.stringify([b.updateDate, b.updateDateIncludingText, b.latestAction && b.latestAction.actionDate, b.latestAction && b.latestAction.text]));
 const safeName = (id) => id.replace(/\//g, '-');
