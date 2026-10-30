@@ -11,7 +11,11 @@ const stripTags = (s) => String(s || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp
 // That comma form needs a compute word after it (not "operations" alone), so a count such as "1,025 operations" is never changed.
 export const repairExponents = (s) => String(s || '').replace(/\b10(?:�|ˆ|\^)?(2[0-9])(?=\s+(?:integer|floating|operations|computational|FLOP))/g, '10^$1')
   .replace(/\b1,0(2[0-9])(?=\s+(?:integer|floating|computational|FLOP))/g, '10^$1')
-  .replace(/(\$\d{1,3}(?:,\d{3})+)\.(\d)(?=\s+["“A-Z(])/g, '$1. ');
+  .replace(/(\$\d{1,3}(?:,\d{3})+)\.(\d)(?=\s+["“A-Z(])/g, '$1. ')
+  // CT P.A. 26-15 spells it out, and its PDF splits the word: "ten to the twen ty - sixth power". Written as the figure, so a quote of
+  // it matches and the numbers check sees 10 and 26.
+  .replace(/\bten\s+to\s+the\s+t\s*w\s*e\s*n\s*t\s*(?:y\s*-?\s*(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)|(i\s*e\s*t\s*h))\s+power\b/gi,
+    (m, unit, tieth) => `10^${tieth ? 20 : 20 + ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'].indexOf(unit.toLowerCase()) + 1}`);
 
 export function sourceText(raw, source) { return repairExponents(rawSourceText(raw, source)); }
 

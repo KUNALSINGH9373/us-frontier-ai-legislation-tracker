@@ -109,5 +109,20 @@ const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const 
   ok('7 a 110,000-character run of frontier sections in a long bill is read whole', sel && sel.text.length > 100000 && /\(29\)/.test(sel.text) && !/highway signage/.test(sel.text), sel && String(sel.text.length));
 }
 
+// ---------- 8. spelled-out exponent; the referee asked again after an unusable answer ----------
+{
+  ok('8 CT P.A. 26-15 "ten to the twen ty - sixth power" is 10^26', repairExponents('greater than ten to the twen ty - sixth power integer or') === 'greater than 10^26 integer or');
+  ok('8 "ten to the sixth power" (not a compute figure) is left alone', repairExponents('ten to the sixth power') === 'ten to the sixth power');
+  const t = '"Frontier model" means a model trained using greater than 10^26 integer or floating-point operations. A large developer shall publish a safety and security protocol.';
+  let n = 0;
+  const flaky = { async generate() { n++; if (n === 1) { const { LlmOutputError } = await import('../llm/gemini.mjs'); throw new LlmOutputError('the model did not return valid JSON'); } return { data: { results: [{ n: 1, supported: true, quote: 'A large developer shall publish a safety and security protocol', reason: null }] }, usage: {} }; } };
+  const v = await refereeVerdict(flaky, t, 'x');
+  ok('8 an unusable referee answer is asked once more, and a good second answer counts', v.in === true && n === 2, JSON.stringify(v));
+  let m = 0;
+  const broken = { async generate() { m++; const { LlmOutputError } = await import('../llm/gemini.mjs'); throw new LlmOutputError('the model did not return valid JSON'); } };
+  const w = await refereeVerdict(broken, t, 'x');
+  ok('8 two unusable answers: not confirmed (held), with the reason, and no third call', w.in === null && /unusable/.test(w.why) && m === 2);
+}
+
 console.log(`round 9: ${pass} passed, ${fail} failed`);
 if (fail) process.exit(1);

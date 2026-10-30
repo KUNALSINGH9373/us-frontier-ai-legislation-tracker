@@ -26,10 +26,13 @@ const ESCALATED_READ_OVER = 30000, ESCALATED_READ_CHARS = 45000; // the escalate
 
 // The referee (config role "referee", a stronger model) on scope. Its answer counts only with a quote that code finds in the source:
 // { in: true | false | null, quote }. null = no referee, no usable answer, or "in scope" without a verifiable quote.
+// An unusable answer (not JSON) is not a verdict: the same question is asked once more (Opus as referee answered H.R. 9917 unreadably
+// in two paid re-tests and cleanly when asked again, 30 Oct 2026). A second unusable answer is thrown to the caller as before.
+const askAgainIfUnusable = async (llm, req) => { try { return await llm.generate(req); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; return llm.generate(req); } };
 export async function refereeVerdict(referee, source, itemId, fullText = source) {
   if (!referee) return { in: null, quote: null };
   try {
-    const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
+    const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
     if (!x) return { in: null, quote: null, why: 'the referee gave no answer for the claim' };
     if (x.supported === true) {
@@ -47,7 +50,7 @@ export const sectionClaim = (section) => `This item belongs in section ${section
 export async function refereeSection(referee, source, section, itemId, fullText = source) {
   if (!referee) return { ok: false, quote: null, why: 'no referee is configured' };
   try {
-    const ask = async (claim) => { const r = await referee.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), itemId }); return r && r.data && r.data.results && r.data.results[0]; };
+    const ask = async (claim) => { const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), itemId }); return r && r.data && r.data.results && r.data.results[0]; };
     let x = await ask(sectionClaim(section));
     if (!x || x.supported !== true) return { ok: false, quote: null, why: `the referee did not confirm section ${section}${x && x.reason ? ` ("${String(x.reason).slice(0, 140)}")` : ''}` };
     let q = provedQuote(fullText, x.quote);
