@@ -6,7 +6,7 @@
 // 3. A second reader (role "validator") answers {faithful, added_or_overstated}; it must be faithful with an empty list.
 // Up to maxRounds rounds, each refusal fed back word for word; otherwise the template card (written_by 'template').
 // Never throws: an API failure, a budget stop or bad JSON means the template card.
-import { buildFactSheet, sheetText, billNumbers, STATE_NAMES } from './factsheet.mjs';
+import { buildFactSheet, sheetText, billNumbers, STATE_NAMES, isUnicameral } from './factsheet.mjs';
 import { CARD_WRITER_SYSTEM, cardWriterPrompt, CARD_READER_SYSTEM, cardReaderPrompt } from './writer-prompts.mjs';
 import { digitRuns } from '../agents/source-text.mjs';
 import { readFileSync } from 'fs';
@@ -217,7 +217,7 @@ export function outcomeProblems(headline, body, sheet) {
   for (const s of [headline, ...sentences(body)]) {
     for (const m of s.matchAll(CHAMBER_WORD)) {
       const w = m[1].toLowerCase();
-      if (BOTH_WORDS.has(w)) { if (own.has(w)) continue; // a unicameral legislature is its own chamber
+      if (BOTH_WORDS.has(w)) { if (own.has(w) && isUnicameral(b.jurisdiction)) continue; // a unicameral legislature is its own chamber
         if (!both && (OUTCOME_VERB.test(s) || /both/.test(w))) p.push(`"${m[1]}" states an act of the whole legislature, but the event is ${cls}${ev.chamber ? ` in the ${ev.chamber}` : ''}`); continue; }
       if (OUTCOME_VERB.test(s) && !own.has(w) && !(w === 'assembly' && own.has('general assembly'))) p.push(`"${m[1]}" in a sentence stating the outcome, but the event is ${ev.chamber ? `in the ${ev.chamber}` : 'not a chamber action'}`);
     }

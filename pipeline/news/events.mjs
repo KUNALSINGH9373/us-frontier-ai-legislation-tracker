@@ -16,6 +16,7 @@ import { applyRun, showable, BILL_CLASSES } from './confirm.mjs';
 import { longDate } from '../agents/derive.mjs';
 import { templateFor, quoteOf } from './templates.mjs';
 import { ownStageCode, billKey, displayNumber, skipsExecutive } from './factsheet.mjs';
+import { upperOf, lowerOf } from './jurisdictions.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
 import { sourceConfig } from './sources/common.mjs';
 import { guardClass } from './sources/openstates.mjs';
@@ -57,14 +58,13 @@ export const eventKey = (x) => {
   return `${x.jurisdiction}|${x.entry_id || '-'}|${x.class}|${id}${bk ? `#${bk}` : ''}`;
 };
 
-// Chambers in one vocabulary (review r2 #5): Open States / NY Senate "upper"/"lower" -> Senate / House (Assembly where the lower house is
-// called that), LegiScan "H"/"S"/"A" likewise.
-const ASSEMBLY_STATES = new Set(['CA', 'NY', 'NV', 'NJ', 'WI']);
+// Chambers in one vocabulary (review r2 #5): Open States / NY Senate "upper"/"lower" -> the jurisdiction's upper / lower chamber name
+// (config/jurisdictions.json: Assembly, General Assembly, House), LegiScan "H"/"S"/"A" likewise.
 export function normChamber(c, jurisdiction) {
   if (c == null || c === '') return null;
   const t = String(c).trim().toLowerCase();
-  if (['upper', 's', 'senate'].includes(t)) return 'Senate';
-  if (['lower', 'h', 'house', 'a', 'assembly'].includes(t)) return ASSEMBLY_STATES.has(jurisdiction) ? 'Assembly' : 'House';
+  if (['upper', 's', 'senate'].includes(t)) return upperOf(jurisdiction);
+  if (['lower', 'h', 'house', 'a', 'assembly'].includes(t)) return lowerOf(jurisdiction);
   if (t === 'legislature' || t === 'executive') return null;
   return String(c);
 }

@@ -7,6 +7,7 @@ import crypto from 'crypto';
 import { parseFeed, parseTeaserPage, linkKey } from './feeds.mjs';
 import { NEWS_SCREEN_SYSTEM } from './prompts.mjs';
 import { norm } from '../agents/source-text.mjs';
+import { STATE_NAMES, FEDERAL_PREFIXES } from './jurisdictions.mjs';
 
 // The code screen: a headline (or its summary) needs an AI or advanced-computing word, or a tracked bill's number or name.
 export const NEWS_TERMS = /\b(?:A\.?I\.?|AGI|artificial intelligence|frontier|superintelligen\w*|super intelligence|foundation models?|large language models?|LLMs?|machine learning|neural|chatbots?|generative|model weights|compute|chips?|semiconductors?|GPUs?|Nvidia|export controls?|OpenAI|Anthropic|xAI|DeepMind|DeepSeek|Gemini|Claude|ChatGPT|Grok|CAISI|AI Safety Institute|algorithm\w*|autonomous|kill switch)\b/i;
@@ -22,7 +23,8 @@ const BILL = /\b(H\.?\s?R|S\.?\s?B|H\.?\s?B|A\.?\s?B|H\.?\s?F|S\.?\s?F|S|A)\.?\s
 export const BILL_TEXT = /(?<![.\w])(?:(H\.?\s?R|S\.?\s?B|H\.?\s?B|A\.?\s?B|H\.?\s?F|S\.?\s?F)\.?|(S|A)\.)\s?(\d{1,5})\b/g;
 export const numOf = (prefix, n) => prefix.replace(/[.\s]/g, '').toUpperCase() + n;
 export const billNumbers = (s) => new Set([...String(s || '').matchAll(BILL_TEXT)].map((m) => numOf(m[1] || m[2], m[3])));
-const STATES = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming' };
+// Every jurisdiction but the federal one (config/jurisdictions.json): the states, DC and the territories.
+const STATES = Object.fromEntries(Object.entries(STATE_NAMES).filter(([c]) => c !== 'US'));
 const CODE_OF = Object.fromEntries(Object.entries(STATES).map(([c, n]) => [n.toLowerCase(), c]));
 const NAMES_RE = Object.values(STATES).sort((a, b) => b.length - a.length).join('|');
 // The state written right before a bill number: "Nevada SB 53", "California's SB 53", "New York State Senate Bill S.10373", "NV SB 53".
@@ -62,7 +64,9 @@ export function entryIndex(entries) {
 // A bill number in the text names this entry only in the entry's own jurisdiction: a federal entry needs a federal number ("H.R." or
 // "S.") with no state written before it; a state entry needs its own state written before the number ("Nevada SB 53" is never
 // California's SB 53), or no state written and the feed being that state's own (source config "state").
-export const billHit = (x, mentions, srcState) => mentions.some((b) => x.bills.has(b.num) && (x.jur === 'US' ? b.state === null && /^(HR|S)\d/.test(b.num) : b.state === x.jur || (b.state === null && srcState === x.jur)));
+// a federal number: one of the federal prefixes in config/jurisdictions.json (H.R., S., H.Res., S.J.Res., ...)
+const FEDERAL_NUMBER = new RegExp(`^(${FEDERAL_PREFIXES.join('|')})\\d`);
+export const billHit = (x, mentions, srcState) => mentions.some((b) => x.bills.has(b.num) && (x.jur === 'US' ? b.state === null && FEDERAL_NUMBER.test(b.num) : b.state === x.jur || (b.state === null && srcState === x.jur)));
 const nameHit = (x, text, low, srcState) => x.names.some((n) => low.includes(norm(n))) && (x.jur === 'US' || srcState === x.jur || namesState(text, x.jur));
 
 // Which tracked entries a text (a headline, or a release) is about: by bill number or by the bill's name, in the entry's own

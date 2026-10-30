@@ -7,6 +7,7 @@
 // Before any of that: verbatim title as plain text, allowlisted host, and exact duplicates (canonical URL or content hash) removed.
 import crypto from 'crypto';
 import { plain } from './sources/common.mjs';
+import { billNumbersIn } from './jurisdictions.mjs';
 
 export const KEYWORDS = [
   [/\b(sign(s|ed|ing)?|into law)\b/i, ['executive-signature', 'became-law']],
@@ -96,14 +97,8 @@ export function allowHostsFrom(cfg) {
   return [...new Set(((cfg && cfg.sources) || []).filter((s) => s.primary).map((s) => { try { return new URL(s.url).hostname.replace(/^www\./, ''); } catch { return null; } }).filter(Boolean))];
 }
 
-// Bill numbers in a headline: "SB 530", "S. 2938", "A.B. 1018", "H.R. 1" -> [{ prefix, num }]
-export function billNumbersIn(s) {
-  const out = [];
-  // also "Senate Bill 530", "Assembly Bill 1018", "SB-530", "SB No. 530" (review r8 #5)
-  const SPELLED = { 'senate bill': 'SB', 'assembly bill': 'AB', 'house bill': 'HB', 'house resolution': 'HRES', 'senate resolution': 'SRES' };
-  for (const m of String(s || '').matchAll(/\b(senate bill|assembly bill|house bill|house resolution|senate resolution|HF|SF|LD|LB|HP|SP|SJR|HJR|SCR|HCR|AJR|ACR|SR|S\.?\s?B|A\.?\s?B|H\.?\s?R|H\.?\s?B|S|A)\.?\s?(?:-\s?|no\.\s?)?(\d{1,5})\b/gi)) out.push({ prefix: SPELLED[m[1].toLowerCase()] || m[1].toUpperCase().replace(/[.\s]/g, ''), num: String(+m[2]) });
-  return out;
-}
+// Bill numbers in a headline: news/jurisdictions.mjs billNumbersIn (the table's prefixes and spelled forms).
+export { billNumbersIn };
 export function numberConflict(title, eventNumber) {
   const ev = billNumbersIn(eventNumber)[0];
   if (!ev) return false;

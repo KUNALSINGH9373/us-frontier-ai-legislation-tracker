@@ -11,13 +11,14 @@ import { actionKind } from '../compare/congress.mjs';
 import { stateActionKind } from '../grabber/sources/legiscan.mjs';
 import { classifyEntry } from '../grabber/sources/courtlistener.mjs';
 import { provenState } from './strict.mjs';
+import { CHAMBER_LETTERS } from './jurisdictions.mjs';
 
 export const BILL_CLASSES = ['introduction', 'referral-committee', 'hearing-scheduled', 'hearing-held', 'committee-passage', 'committee-failure', 'passage', 'failure', 'amendment-passage', 'concurrence', 'enrolled', 'executive-receipt', 'executive-signature', 'executive-veto', 'became-law', 'veto-override-passage', 'withdrawal', 'carried-over', 'new-text-version', 'crs-report', 'cbo-estimate'];
 export const NON_BILL_CLASSES = ['executive-order', 'presidential-memo', 'agency-rule-proposed', 'agency-rule-final', 'agency-guidance', 'comment-period-open', 'comment-period-closing', 'nomination', 'court-filing', 'court-ruling'];
 export const EVENT_CLASSES = [...BILL_CLASSES, ...NON_BILL_CLASSES];
 
 const clean = (t) => String(t || '').replace(/\s+/g, ' ').trim();
-const CHAMBER_WORD = { H: 'House', S: 'Senate', A: 'Assembly' };
+const CHAMBER_WORD = CHAMBER_LETTERS; // LegiScan's chamber letters (config/jurisdictions.json chamber_letters)
 // The chamber an action names, in its own words ("Passed Senate", "In Assembly. Read third time. Passed."), or null.
 export function chamberOf(text, hint = null) {
   const t = clean(text);

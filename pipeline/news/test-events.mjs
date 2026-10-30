@@ -8,7 +8,7 @@ import os from 'os';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { attachStatements, compatibleClasses } from './attach.mjs';
-import { eventKey, checkItem, upsertItems, renderNews, renderItem, checkNewsEvents, emptyState, visible, markShown, loadEvents, normalizeItem } from './events.mjs';
+import { eventKey, checkItem, upsertItems, renderNews, renderItem, checkNewsEvents, emptyState, visible, markShown, loadEvents, normalizeItem, normChamber } from './events.mjs';
 import { templateFor } from './templates.mjs';
 import { eventsStep, newsRun, recordsFromRuns } from './run.mjs';
 import * as congressGov from './sources/congress_gov.mjs';
@@ -485,6 +485,17 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   ok('r9 D one kind still attaches: an override is not the veto, an order signing is the order, May is a month', cc('Legislature overrides veto of AI bill') === 'veto-override-passage' && cc('President signs executive order on AI') === 'executive-order' && cc('Committee approves AI bill in May') === 'committee-passage' && cc('Senator introduces AI safety bill') === 'introduction');
   ok('r9 E3/E4 a vote or schedule to come, an effective date, a companion bill or a question attaches to nothing', ['Senate passes AI bill, House vote next', 'Assembly passes AI bill, effective 2027', 'Senate passes AI bill to take effect January 1', 'Governor vetoes AI bill; override vote scheduled', 'House passes companion AI bill', 'Did the Senate pass the AI bill?'].every((t) => cc(t) === ''), ['Governor vetoes AI bill; override vote scheduled', 'Senate passes AI bill, House vote next'].map(cc).join('|'));
   ok('r9 #3 a hearing held still attaches', cc('Senator testifies at hearing on AI bill') === 'hearing-held' && cc('House passes AI safety bill').includes('passage') && !cc('House passes AI safety bill').includes('committee'));
+}
+
+// ---------- jurisdictions table (config/jurisdictions.json, generic cleanup D1) ----------
+{
+  const JU = await import('./jurisdictions.mjs'), FS = await import('./factsheet.mjs'), L = await import('./leads.mjs');
+  ok('D1 every state, DC and the five territories are in the table', JU.JURISDICTION_CODES.length === 57 && ['DC', 'PR', 'GU', 'VI', 'AS', 'MP'].every((j) => JU.jurisdiction(j)));
+  ok('D1 New Jersey: the lower chamber is the General Assembly, everywhere', normChamber('lower', 'NJ') === 'General Assembly' && normChamber('A', 'NJ') === 'General Assembly' && FS.stageOf('passage', 'NJ', { chamber: 'Assembly' }) === 'Passed the General Assembly');
+  ok('D1 territories have governors; cards still name none (news_executive_wording, review r6 #7)', ['PR', 'GU', 'VI', 'AS', 'MP'].every((j) => JU.jurisdiction(j).executive === 'the Governor' && FS.executiveOf(j) === null));
+  ok('D1 unicameral bodies by name: Guam passes its Legislature, DC its Council', FS.stageOf('enrolled', 'GU', { number: 'B 1' }) === 'Passed the Legislature' && FS.stageOf('enrolled', 'DC', { number: 'B 26-0123' }) === 'Passed the Council');
+  const idx = L.entryIndex([{ key: 'dc-b', section: 'B', level: 'state', state: 'DC', short_name: 'B 26-0123', title: 'x' }, { key: 'us-hj', section: 'A', level: 'federal', short_name: 'S. 12', title: 'x' }]);
+  ok('D1 a DC bill named with its jurisdiction matches in the leads', L.matchEntries({ title: 'District of Columbia SB 12 heard' }, [{ ...idx[0], bills: new Set(['SB12']) }]).tracker === 'dc-b');
 }
 
 console.log(`news events: ${pass} passed, ${fail} failed`);
