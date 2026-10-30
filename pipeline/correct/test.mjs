@@ -255,6 +255,33 @@ for (const [name, c, re] of bad) {
   ok('8 ... a single bill is not multi-bill; the reviewer prompt says omissions keep the old text', !/NOTE: this entry covers more than one bill/.test(rrev.calls[0].prompt) && /An "omission" only ADDS/.test(rrev.calls[0].system));
 }
 
+// ---------- E2: no starvation ----------
+{
+  // A backlog cleared in one day (41 entries, as on 28 Oct) all falls due on one day. Simulate 120 days of daily runs at 3 a run: every
+  // entry must be re-checked within recheck_after_days, never sooner than half of it, and no run may go unused while entries are due.
+  const e = (key) => ({ key, section: 'D', mechanism: 'm', thresholds: 't' });
+  const keys = Array.from({ length: 41 }, (_, i) => 'k' + String(i).padStart(2, '0'));
+  const cands = keys.map((k) => ({ key: k, entry: e(k), sha: 's' }));
+  const st = Object.fromEntries(keys.map((k) => [k, { text_sha: 's', checked_at: '2026-10-28' }]));
+  const day = (n) => new Date(Date.parse('2026-10-28') + n * 86400e3).toISOString().slice(0, 10);
+  const gaps = [];
+  for (let n = 1; n <= 120; n++) {
+    for (const p of pickEntries({ candidates: cands, state: st, today: day(n), max: 3, recheckDays: 30 }).picked) {
+      gaps.push(Math.round((Date.parse(day(n)) - Date.parse(st[p.key].checked_at)) / 86400e3));
+      st[p.key] = { ...st[p.key], checked_at: day(n) };
+    }
+  }
+  ok('E2 a same-day backlog is re-checked within 30 days, never sooner than 15', gaps.length >= 41 * 3 && Math.max(...gaps) <= 30 && Math.min(...gaps) >= 15, `${gaps.length} checks, gaps ${Math.min(...gaps)}-${Math.max(...gaps)}`);
+  // A run stopped by the run budget before it checked its entries does not use up the day.
+  const { BudgetExceeded } = await import('../llm/gemini.mjs');
+  const sb = sandbox(), broke = scripted(() => new BudgetExceeded('600000 tokens per run'));
+  const r = await run(sb, { factory: factoryOf(broke, scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1), [E2.key]: TEXT(E2) }) });
+  const s = fs.existsSync(sb.stateFile) ? state(sb) : { last_run: null, items: {} };
+  ok('E2 a run stopped by the budget leaves the day open, so the next run checks the entries', /stopped/.test(r.problems.join()) && s.last_run == null && !s.items[E1.key]);
+  const again = await run(sb, { factory: factoryOf(scripted(() => ({ corrections: [] })), scripted(yes)), texts: fakeTexts({ [E1.key]: TEXT(E1), [E2.key]: TEXT(E2) }) });
+  ok('E2 ... and the next run that day does check them', !again.skipped_why && again.checked.length === 2 && state(sb).last_run === '2026-10-28');
+}
+
 // ---------- D3: the bill in force is read from LegiScan's records, not a hand-kept list ----------
 {
   // Shapes as LegiScan returns them (status 4 = Passed; sasts "Replaced by"; texts with dates), modelled on the NY RAISE and MA cases.
