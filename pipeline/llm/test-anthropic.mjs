@@ -54,6 +54,9 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   ok('JSON with a sentence around it is read', r.data.results[0].supported === true);
   // Independent review, 30 Oct 2026: two different answers in one reply are not trusted (a "false" then a weaker "true"); the caller asks again.
   ok('two different answers in one reply are unusable (Opus, H.R. 9917)', await fails(msg('{"results":[{"n":1,"supported":false}]}\n\nWait, let me check {the text}.\n\n{"results":[{"n":1,"supported":true,"quote":"a b"}]}'), /two different answers/));
+  const fixedQuote = await createAnthropic({ client: fake(msg('{"results":[{"n":1,"supported":true,"quote":"a \\nb","reason":null}]}\n\nWait, the quote must be exact; let me check.\n\n{"results":[{"n":1,"supported":true,"quote":"a b","reason":null}]}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
+  ok('the same verdict re-sent with a corrected quote: the last answer is used (Opus, 4 bills in the 48-bill run)', fixedQuote.data.results[0].quote === 'a b');
+  ok('a flipped verdict is still unusable even when only the verdict differs', await fails(msg('{"results":[{"n":1,"supported":false,"quote":null}]}\nWait.\n{"results":[{"n":1,"supported":true,"quote":"x"}]}'), /two different answers/));
   const same = await createAnthropic({ client: fake(msg('{"a":1}\nTo repeat: {"a":1}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
   ok('the same answer repeated is used', same.data.a === 1);
   const inner = await createAnthropic({ client: fake(msg('Answer: {"q":"text with {braces} and \\"quotes\\" inside","n":1}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });

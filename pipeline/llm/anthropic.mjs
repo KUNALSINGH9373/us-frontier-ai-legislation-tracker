@@ -28,6 +28,11 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
       const parsed = objects.map((o) => { try { return JSON.parse(o); } catch (e2) { return undefined; } }).filter((o) => o !== undefined);
       // an unreadable object next to a readable one may be a different first answer (second review): unusable too
       if (parsed.length && parsed.length === objects.length && parsed.every((o) => JSON.stringify(o) === JSON.stringify(parsed[0]))) return parsed[0];
+      // Opus often answers, writes "Wait, the quote must be exact", and answers again with the same verdict and a corrected quote
+      // (second 48-bill run: four bills held on it). Answers that differ ONLY in their quote or reason are one answer: the last is used
+      // (its quote is still checked word for word by the caller). Any other difference, such as a flipped verdict, stays unusable.
+      const verdictOnly = (o) => JSON.stringify(o, (k, v) => (k === 'quote' || k === 'reason' ? undefined : v));
+      if (parsed.length > 1 && parsed.length === objects.length && parsed.every((o) => verdictOnly(o) === verdictOnly(parsed[0]))) return parsed[parsed.length - 1];
       throw new LlmOutputError(parsed.length > 1 ? 'the model gave two different answers' : 'the model did not return valid JSON', clean.slice(0, 300));
     }
   };
