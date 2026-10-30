@@ -1,5 +1,6 @@
 // Round 2 regressions (29 Oct 2026 audit of Tier B new entries and the gate). No AI, no network.
 //   node agents/test-round2.mjs
+import { asSlots } from './test-slots-helper.mjs';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -25,7 +26,7 @@ const rec = (n) => J(path.join(SET, 'records', n + '.json')), draft = (n) => J(p
 const ENTRIES = J(path.join(here, '..', '..', 'web', 'data', 'v2', 'entries.json'));
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
-const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const r = queue.shift(); if (!r) throw new Error('unexpected AI call'); return { data: typeof r === 'function' ? r() : r, usage: {} }; } });
+const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const r = queue.shift(); if (!r) throw new Error('unexpected AI call'); return { data: asSlots(typeof r === 'function' ? r() : r), usage: {} }; } });
 const trap = () => ({ calls: 0, async generate() { this.calls++; throw new Error('AI must not be called'); } });
 const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'test' }] });
 

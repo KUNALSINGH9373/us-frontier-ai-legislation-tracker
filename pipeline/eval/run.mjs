@@ -22,6 +22,7 @@ import { createHttp } from '../grabber/lib/http.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
 import { createLlmFromConfig, LlmOutputError, InputTooLarge } from '../llm/index.mjs';
 import { generatePatch } from '../agents/generator.mjs';
+import { FIELD_LIMITS } from '../agents/slots.mjs';
 import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from '../agents/prompts.mjs';
 import { buildClaims } from '../agents/validator.mjs';
 import { containsQuote, digitRuns, repairExponents } from '../agents/source-text.mjs';
@@ -55,7 +56,7 @@ export function codeChecks(patch, text) {
     if (NEGATIVE_FINDING.test(v)) problems.push(`a "none located" style claim in ${f}`);
     if (/[{}]|```|\\n/.test(v)) problems.push(`stray code or JSON syntax in ${f}`);
     if (foreignLetters(v, text)) problems.push(`letters that do not occur in the source in ${f}`);
-    if (v.length > (f === 'mechanism' ? 700 : 400)) problems.push(`${f} is too long (${v.length} characters)`);
+    if (v.length > FIELD_LIMITS[f]) problems.push(`${f} is too long (${v.length} characters)`);
     problems.push(...textProblems(f, v, text));
   }
   return problems;

@@ -2,6 +2,7 @@
 // Long bills read section by section: splitting at the bill's own headings, choosing the frontier-AI sections of two real omnibus
 // texts (MA S.3228, CT P.A. 26-15; fixtures/long-bills, read from LegiScan through correct/texts.mjs and trimmed to whole sections),
 // and the Generator/Validator and the self-correction reader no longer holding or skipping a long bill (scripted models, no AI).
+import { asSlots } from './test-slots-helper.mjs';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -102,7 +103,7 @@ const ct = relevantSections(ctText);
 
 // ---------- 5. the Generator/Validator write up a long bill instead of holding it ----------
 function scriptedGenerator(queue) {
-  return { calls: [], async generate(req) { this.calls.push(req); const r = queue.shift(); if (r instanceof Error) throw r; return { data: typeof r === 'function' ? r(req) : r, usage: {} }; } };
+  return { calls: [], async generate(req) { this.calls.push(req); const r = queue.shift(); if (r instanceof Error) throw r; return { data: asSlots(typeof r === 'function' ? r(req) : r), usage: {} }; } };
 }
 function scriptedValidator(answerFor) {
   return { calls: [], async generate(req) { this.calls.push(req); const claims = [...req.prompt.matchAll(/^(\d+)\. \[([^\]]+)\] (.*)$/gm)].map((m) => ({ n: +m[1], field: m[2] })); return { usage: {}, data: { results: claims.map((c) => ({ n: c.n, supported: true, quote: answerFor(c.field), reason: null })) } }; } };
@@ -120,7 +121,15 @@ function scriptedValidator(answerFor) {
     operation: 'create', in_scope: true, scope_reason: 'Sets duties for frontier developers.',
     fields: { title: 'Executive Order 14434: Inaugurating the Era of Super Intelligence', short_name: 'EO 14434 (Super Intelligence)', section: 'G', sponsor_text: 'President', mechanism: 'Requires a frontier developer to report a critical safety incident to the attorney general within 15 days', status_text: 'Signed Sept 29, 2026; published Oct 2, 2026' },
     events_add: [{ date: '2026-09-29', precision: 'day', type: 'Signed / enacted', text: 'Executive Order 14434 signed' }],
-    evidence: [{ field: 'title', quote: Q1, source_url: url }, { field: 'sponsor_text', quote: 'By the authority vested in me as President by the Constitution', source_url: url }, { field: 'mechanism', quote: q2, source_url: url }, { field: 'status_text', quote: Q3, source_url: url }, { field: 'events_add[0]', quote: Q3, source_url: url }], notes: ''
+    evidence: [{ field: 'title', quote: Q1, source_url: url }, { field: 'sponsor_text', quote: 'By the authority vested in me as President by the Constitution', source_url: url }, { field: 'status_text', quote: Q3, source_url: url }, { field: 'events_add[0]', quote: Q3, source_url: url }], notes: '',
+    // slots (agents/slots.mjs): the MA sections it reads set a compute figure, a revenue figure and penalties, so all are given
+    slots: {
+      mechanism: [{ kind: 'duty', text: 'Requires a frontier developer to report a critical safety incident to the attorney general within 15 days', quote: q2 }],
+      thresholds: [{ kind: 'compute', applies_to: 'Frontier model', text: 'trained using more than 10^26 integer or floating-point operations', quote: 'greater than 10^26 integer or floating-point operations' },
+        { kind: 'revenue', applies_to: 'Large frontier developer', text: 'annual gross revenues greater than $500,000,000 with affiliates', quote: 'collectively has annual gross revenues greater than $500,000,000' }],
+      penalties: [{ kind: 'civil', applies_to: null, text: 'civil penalty of not more than $1,000,000 for a first violation', quote: 'subject to a civil penalty of not more than $1,000,000 for a first violation' }],
+      enforcer: null
+    }
   });
   const long = clone(eo); long.text = `${eo.text}\n${maText}`;
   const answer = (f) => (f === 'mechanism' ? Q2 : f === 'in_scope' ? Q2 : Q3);
@@ -139,7 +148,7 @@ function scriptedValidator(answerFor) {
 // ---------- 6. the self-correction reader re-checks a long bill instead of skipping it ----------
 {
   const entry = J(path.join(here, '..', '..', 'web', 'data', 'v2', 'entries.json')).find((e) => e.key === 'ma-h-5576-s-3178');
-  const scripted = (fn) => ({ calls: [], async generate(req) { this.calls.push(req); return { data: fn(req), usage: {} }; } });
+  const scripted = (fn) => ({ calls: [], async generate(req) { this.calls.push(req); return { data: asSlots(fn(req)), usage: {} }; } });
   const Q = 'to the attorney general within 15 days of discovering the critical safety incident';
   const omitted = 'There shall be within the division of highways an automated road safety'; // in the bill, not in the selection
   ok('the quote used below is in the bill but outside the selection', containsQuote(maText, omitted) && !containsQuote(ma.text, omitted));

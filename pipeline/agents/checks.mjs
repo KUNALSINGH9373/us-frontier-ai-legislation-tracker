@@ -3,6 +3,7 @@
 import { makeValidator } from '../schema/validate.mjs';
 import { containsQuote, digitRuns, norm, LOST_EXPONENT, COMPUTE_UNIT } from './source-text.mjs';
 import { SECTION_RULES, NEGATIVE_FINDING } from './rules.mjs';
+import { FIELD_LIMITS, coverageProblems, slotQuoteProblems } from './slots.mjs';
 
 const validator = makeValidator();
 // Fields that state facts from the source and so need an evidence quote. short_name and section are labels and a classification, not facts the source states.
@@ -100,8 +101,15 @@ export function runChecks({ patch, before, after, assembleProblems, source, sour
     add('key_is_unique', !entries.some((e) => e.key === after.key), after.key);
   }
 
-  const tooLong = Object.entries(patch.fields).filter(([f, v]) => typeof v === 'string' && v.length > (f === 'mechanism' ? 700 : 500)).map(([f, v]) => `${f} is ${v.length} characters`);
-  add('field_lengths', tooLong.length === 0, tooLong.length ? `too long: ${tooLong.join(', ')}. Keep to one to three short sentences.` : '');
+  const tooLong = Object.entries(patch.fields).filter(([f, v]) => typeof v === 'string' && v.length > (FIELD_LIMITS[f] || 500)).map(([f, v]) => `${f} is ${v.length} characters`);
+  add('field_lengths', tooLong.length === 0, tooLong.length ? `too long: ${tooLong.join(', ')}. ${patch.slots !== undefined ? 'Shorten the text of each slot; do not drop a threshold tier or a penalty.' : 'Keep to one to three short sentences.'}` : '');
+
+  // A new entry written from slots (agents/slots.mjs): every slot has an exact quote, and no figure SOURCE sets in a coverage sentence
+  // (compute, compute cost, revenue, users, a penalty) is missing from the slots.
+  if (patch.slots !== undefined && patch.in_scope !== false) {
+    const sp = [...(patch.slotProblems || []), ...slotQuoteProblems(patch.slots, sourceText), ...coverageProblems(patch.slots, sourceText)];
+    add('slots_complete', sp.length === 0, sp.join('; '));
+  }
 
   // A model sometimes leaks the JSON it is writing into a text field (a stray brace, a quoted key, '","'). Real prose never contains these.
   const DEBRIS = /[{}]|['"][a-z_]{3,}['"]\s*:|['"],\s*['"]|```|\\n|\\u[0-9a-f]{4}/i;

@@ -3,6 +3,7 @@
 // the Congress.gov record plus the official bill text). The "correct" answers are the session-written ones (duties/drafts), which
 // duties/check.mjs already accepts. An invented quote, a "yes" the reader rejects, a wrong section and a missing field each keep the
 // duties off the entry; a clean set lands on it with its basis and the entry still passes its schema.
+import { asSlots } from './test-slots-helper.mjs';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -32,7 +33,7 @@ const good = () => { const d = clone(J('duties', 'drafts', 's-2938-ai-risk-evalu
 const READER_Q = 'trained using a quantity of computing power greater than 10^26 integer or floating-point operations';
 
 function scriptedGenerator(queue) {
-  return { calls: [], async generate(req) { this.calls.push(req); const r = queue.shift(); if (r instanceof Error) throw r; return { data: typeof r === 'function' ? r(req) : r, usage: {} }; } };
+  return { calls: [], async generate(req) { this.calls.push(req); const r = queue.shift(); if (r instanceof Error) throw r; return { data: asSlots(typeof r === 'function' ? r(req) : r), usage: {} }; } };
 }
 // Reads the numbered claims out of the prompt as a real reader would; rejects the duties named in `reject`.
 function scriptedValidator({ reject = {}, quote = READER_Q, quotes = {} } = {}) {

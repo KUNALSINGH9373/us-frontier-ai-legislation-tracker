@@ -1,4 +1,5 @@
 // The prompts, in one reviewable file. Changing a rule here changes the behaviour of every run.
+import { SLOTS_INSTRUCTIONS, SLOTS_SCHEMA } from './slots.mjs';
 export const EVENT_TYPES = ['Introduced / published', 'Passed / advanced', 'Signed / enacted', 'Effective', 'Referred / stalled / hearing', 'Vetoed / failed / rescinded', 'Litigation', 'Search date / deadline / scheduled'];
 
 // Owner-approved 16 Oct 2026, written from the tracker's own sections A-I and its section J exclusion reasons. Widened by the owner
@@ -49,12 +50,12 @@ export function patchResponseSchema(operation, needsSection = false, sections = 
   const fieldNames = operation === 'create' ? ['mechanism', 'thresholds', 'penalties'] : ['sponsor_text', 'mechanism', 'thresholds', 'penalties', 'status_text', 'signed_text', 'effective_text'];
   return {
     type: 'OBJECT',
-    required: ['operation', 'in_scope', 'scope_reason', 'fields', 'events_add', 'evidence', ...(operation === 'create' && needsSection ? ['section'] : [])],
+    required: ['operation', 'in_scope', 'scope_reason', 'fields', 'events_add', 'evidence', ...(operation === 'create' ? ['slots'] : []), ...(operation === 'create' && needsSection ? ['section'] : [])],
     properties: {
       operation: S({ enum: ['update', 'create'] }),
       in_scope: { type: 'BOOLEAN' },
       scope_reason: S(),
-      ...(operation === 'create' ? { section: S({ enum: sections || ['D', 'F', 'G', 'G.3'] }) } : {}),
+      ...(operation === 'create' ? { section: S({ enum: sections || ['D', 'F', 'G', 'G.3'] }), slots: SLOTS_SCHEMA } : {}),
       fields: { type: 'OBJECT', properties: Object.fromEntries(fieldNames.map((k) => [k, S({ nullable: true })])) },
       events_add: { type: 'ARRAY', items: { type: 'OBJECT', required: ['date', 'precision', 'type', 'text'], properties: { date: S(), precision: S({ enum: ['day', 'month'] }), type: S({ enum: EVENT_TYPES }), text: S(), clause: S() } } },
       evidence: { type: 'ARRAY', items: { type: 'OBJECT', required: ['field', 'quote'], properties: { field: S(), quote: S() } } },
@@ -83,18 +84,15 @@ export function generatorPrompt({ operation, item, source, entry, reasons, style
     parts.push(`WHAT THE COMPARISON CODE FOUND (these are facts from the official record; your update should reflect them):\n${reasons.map((r) => `- ${r.kind}: ${r.detail}`).join('\n')}`);
   } else {
     parts.push(`TASK: write the part of a NEW tracker entry that needs reading. Return operation "create". The title, short name, sponsor, dates and status line are exact fields in the official record and are written by the system, so do NOT write them.
-In "fields" give ONLY:
-- mechanism: what the item does, two to four plain sentences (at most 600 characters), using the source's own terms. Say who must do what, by when, and with what legal force (a duty, a power, voluntary, or an incentive). Where SOURCE has them, also name: preemption of state or local law, a liability shield, presumption, safe harbor or immunity, a private right of action, whistleblower protections, audits, incident-reporting deadlines, and a sunset. In a law with several parts, say which part each duty belongs to.
-- thresholds: who or what it covers, at most 300 characters. List EVERY way to be covered that SOURCE sets: compute, compute cost, revenue, spending, user counts (and lower counts for minors), models made by fine-tuning or distilling a covered model, and capability definitions. If SOURCE sets figures, list the figures only, e.g. "Trained on more than 10^26 operations; annual revenue over $500,000,000", with one evidence quote per figure, each a short span (under 25 words) around that figure. If SOURCE instead defines what it covers by capability or risk with no figure (e.g. "covered AI technologies" are systems whose theft would pose a grave national security threat), say so in one short sentence starting "Capability-based, no figure:" and quote the key words of that definition (under 25 words). Never paste a whole definition. null only when SOURCE sets no figure and defines no covered models, developers or systems.
-- penalties: read the enforcement or penalties section and give EVERY tier, at most 300 characters: first and later violations, per-day amounts, criminal penalties, different amounts for different kinds of company or for different duties, and who enforces (e.g. "Civil penalty up to $1,000,000 for a first violation and $3,000,000 for each later one; $50,000 per violation for chatbot providers; enforced by the Attorney General"). null only if SOURCE sets no penalty.
+${SLOTS_INSTRUCTIONS}
 ${item.source === 'legiscan' ? stateSectionRule(sections) : FEDERAL_SECTION_RULE}
-Each field value is final text: never explain, think aloud or reconsider inside a field. Every field you give needs an evidence quote. Add events_add only for dated steps in SOURCE that the system cannot know, such as a deadline stated in the text ("within 60 days"), and only when the source gives the date.
+Add events_add only for dated steps in SOURCE that the system cannot know, such as a deadline stated in the text ("within 60 days"), and only when the source gives the date.
 ${SCOPE_TEST}`);
     parts.push(`WHAT THE COMPARISON CODE FOUND:\n${reasons.map((r) => `- ${r.kind}: ${r.detail}`).join('\n')}`);
   }
   if (styleExamples && styleExamples.length) parts.push(`STYLE EXAMPLES (existing entries, for tone and density only; do not copy their facts):\n${styleExamples.map((e, i) => `Example ${i + 1}\n${fmtEntry(e)}`).join('\n\n')}`);
   parts.push(`SOURCE (${item.source}, ${item.source_url}):\n<<<SOURCE\n${source}\nSOURCE>>>`);
-  if (feedback && feedback.length) parts.push(`YOUR PREVIOUS ATTEMPT WAS REJECTED. Fix exactly these problems and nothing else:\n${feedback.map((f) => `- ${f}`).join('\n')}\n\nPrevious attempt:\n${JSON.stringify(previousPatch)}`);
+  if (feedback && feedback.length) parts.push(`YOUR PREVIOUS ATTEMPT WAS REJECTED. Fix exactly these problems and nothing else:\n${feedback.map((f) => `- ${f}`).join('\n')}\n\nPrevious attempt:\n${JSON.stringify(previousPatch && previousPatch.slots ? { ...previousPatch, fields: {}, evidence: previousPatch.evidence.filter((e) => !['mechanism', 'thresholds', 'penalties'].includes(e.field)), slots: previousPatch.slots } : previousPatch)}`);
   return parts.join('\n\n');
 }
 

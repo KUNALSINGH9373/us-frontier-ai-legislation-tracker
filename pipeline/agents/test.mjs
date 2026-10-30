@@ -1,6 +1,7 @@
 // Run:  node agents/test.mjs   (or npm run test:agents)
 // Scripted LLMs force every situation: a clean pass, an invented quote, an invented number, a rejected claim, running out of rounds...
 // The sources are real records saved from live checks (fixtures/).
+import { asSlots } from './test-slots-helper.mjs';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -23,7 +24,7 @@ const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; conso
 
 // ---------- scripted LLMs ----------
 function scriptedGenerator(queue) {
-  return { calls: [], async generate(req) { this.calls.push(req); const r = queue.shift(); if (r instanceof Error) throw r; return { data: typeof r === 'function' ? r(req) : r, usage: {} }; } };
+  return { calls: [], async generate(req) { this.calls.push(req); const r = queue.shift(); if (r instanceof Error) throw r; return { data: asSlots(typeof r === 'function' ? r(req) : r), usage: {} }; } };
 }
 // The validator reads the numbered claims out of the prompt, like a real reader would, and answers each one.
 function scriptedValidator({ unsupported = {}, quotes = {}, answerFor } = {}) {
@@ -236,7 +237,7 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   ok('a rule from the Bureau of Industry and Security is placed in G.3 by rule', r2.outcome === 'publishable' && r2.entry.section === 'G.3' && r2.entry.status === 'export', `${r2.outcome} ${r2.entry && r2.entry.section}`);
 }
 {
-  const bad = goodCreate(); bad.fields.mechanism = 'x'.repeat(800);
+  const bad = goodCreate(); bad.fields.mechanism = 'x'.repeat(1000);
   const r = await runEo({ generator: scriptedGenerator([bad, goodCreate()]), validator: scriptedValidator({ answerFor: (f) => (f === 'in_scope' ? Q1 : f === 'mechanism' ? Q2 : Q3) }) });
   ok('a rambling field is caught by the length check', r.verdicts[0].code_checks.some((c) => c.name === 'field_lengths' && !c.passed));
 }
