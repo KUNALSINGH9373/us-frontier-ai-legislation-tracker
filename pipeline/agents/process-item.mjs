@@ -9,7 +9,7 @@ import { sourceText, containsQuote, provedQuote } from './source-text.mjs';
 import { generatePatch } from './generator.mjs';
 import { assembleEntry } from './assemble.mjs';
 import { validateDraft, complaints } from './validator.mjs';
-import { SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
+import { VERDICT_SCHEMA, SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
 import { LlmOutputError, InputTooLarge, BudgetExceeded } from '../llm/gemini.mjs';
 import { deriveCreate } from './derive.mjs';
 import { relevantSections, markerPassages } from './sections.mjs';
@@ -32,7 +32,7 @@ const askAgainIfUnusable = async (llm, req) => { try { return await llm.generate
 export async function refereeVerdict(referee, source, itemId, fullText = source) {
   if (!referee) return { in: null, quote: null };
   try {
-    const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
+    const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), responseSchema: VERDICT_SCHEMA, itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
     if (!x) return { in: null, quote: null, why: 'the referee gave no answer for the claim' };
     if (x.supported === true) {
@@ -50,7 +50,7 @@ export const sectionClaim = (section) => `This item belongs in section ${section
 export async function refereeSection(referee, source, section, itemId, fullText = source) {
   if (!referee) return { ok: false, quote: null, why: 'no referee is configured' };
   try {
-    const ask = async (claim) => { const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), itemId }); return r && r.data && r.data.results && r.data.results[0]; };
+    const ask = async (claim) => { const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), responseSchema: VERDICT_SCHEMA, itemId }); return r && r.data && r.data.results && r.data.results[0]; };
     let x = await ask(sectionClaim(section));
     if (!x || x.supported !== true) return { ok: false, quote: null, why: `the referee did not confirm section ${section}${x && x.reason ? ` ("${String(x.reason).slice(0, 140)}")` : ''}` };
     let q = provedQuote(fullText, x.quote);
@@ -67,7 +67,7 @@ const EXACT_AGAIN = 'IMPORTANT: your previous answer to this claim said "support
 async function exactScopeQuote(validator, source, itemId, fullText) {
   const claim = `${SCOPE_CLAIM}\n${EXACT_AGAIN}`;
   try {
-    const r = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim }] }), itemId });
+    const r = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim }] }), responseSchema: VERDICT_SCHEMA, itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
     const q = x && x.supported === true ? provedQuote(fullText, x.quote) : null;
     return q ? { quote: q } : null;
@@ -202,7 +202,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     const g = await generatePatch({ llm: generator, item, source: head, entry, reasons: [...diff.reasons, note], operation, styleExamples: [], feedback: [], previousPatch: null, sections });
     if (g.patch && g.patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
-      let res; try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: head, claims: scopeClaim }), itemId: item.item_id }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
+      let res; try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: head, claims: scopeClaim }), responseSchema: VERDICT_SCHEMA, itemId: item.item_id }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
       if (r && r.supported === false && (await refereeSays(referee, head, item.item_id, source)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on the first ${TRIAGE_CHARS} characters of a ${source.length}-character text in which no frontier-AI term appears)` };
     }
@@ -229,7 +229,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     if (operation === 'create' && patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let res;
-      try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), itemId: item.item_id }); }
+      try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), responseSchema: VERDICT_SCHEMA, itemId: item.item_id }); }
       catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
       // Both readers say out, or they disagree: the referee decides. Without a referee, both saying out drops it; a disagreement gets one firm retry.

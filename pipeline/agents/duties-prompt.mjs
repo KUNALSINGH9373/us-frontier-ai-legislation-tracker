@@ -18,6 +18,9 @@ export const DUTY_MEANINGS = {
   effective_date: 'the text itself states when it takes effect or becomes operative (never a date from outside knowledge)'
 };
 export const DUTY_NAMES = Object.keys(DUTY_MEANINGS);
+// The answer shape (llm/schema.mjs): every duty with its value and summary; section and quote are null for not_in_bill.
+const DUTY_ANSWER = { type: 'OBJECT', required: ['value', 'summary'], properties: { value: { type: 'STRING', enum: ['yes', 'partial', 'no', 'not_in_bill'] }, summary: { type: 'STRING' }, section: { type: 'STRING', nullable: true }, quote: { type: 'STRING', nullable: true } } };
+export const DUTIES_SCHEMA = { type: 'OBJECT', required: ['duties'], properties: { duties: { type: 'OBJECT', required: DUTY_NAMES, properties: Object.fromEntries(DUTY_NAMES.map((k) => [k, DUTY_ANSWER])) }, notes: { type: 'STRING' } } };
 
 export const DUTIES_SYSTEM = `You read ONE official bill text and answer 13 fixed questions about what the bill requires, for a tracker of US frontier-AI laws. Code checks every quote word for word against the text and a second reader checks every answer, so an answer that cannot be proved from SOURCE is thrown away.
 

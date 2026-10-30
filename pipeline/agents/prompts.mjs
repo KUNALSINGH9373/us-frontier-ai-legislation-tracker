@@ -46,6 +46,8 @@ export const SCOPE_CLAIM = `This item falls within at least one of the IN-scope 
 const S = (extra = {}) => ({ type: 'STRING', ...extra });
 // The shape differs by task. For a new entry the model may only write mechanism, thresholds and penalties, and must give a section
 // when no rule decides it (a required top-level key, so the API itself refuses an answer without one).
+// The independent reader's answer: one result per numbered claim. quote and reason may be null (a quote is checked in code).
+export const VERDICT_SCHEMA = { type: 'OBJECT', required: ['results'], properties: { results: { type: 'ARRAY', items: { type: 'OBJECT', required: ['n', 'supported'], properties: { n: { type: 'INTEGER' }, supported: { type: 'BOOLEAN' }, quote: S({ nullable: true }), reason: S({ nullable: true }) } } } } };
 export function patchResponseSchema(operation, needsSection = false, sections = null) {
   const fieldNames = operation === 'create' ? ['mechanism', 'thresholds', 'penalties'] : ['sponsor_text', 'mechanism', 'thresholds', 'penalties', 'status_text', 'signed_text', 'effective_text'];
   return {
