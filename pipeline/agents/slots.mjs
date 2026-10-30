@@ -69,7 +69,10 @@ function grouped(items) {
   });
 }
 // the kinds that are tests of coverage on their own (derived_models qualifies a compute test; capability and no_threshold stand alone)
-const TESTS = ['compute', 'compute_cost', 'revenue', 'users', 'other_figure'];
+// capability counts too when it sits next to a figure (second review: "10^26 operations; capable of ..." hid either-or).
+const TESTS = ['compute', 'compute_cost', 'revenue', 'users', 'other_figure', 'capability'];
+// A group whose items carry both "or" and "and" cannot be said as a flat list ("(A and B) or C"): sent back, never flattened.
+export const conflictingCombine = (items) => [...new Set(items.map((x) => clean(x.applies_to)))].filter((k) => new Set(items.filter((x) => clean(x.applies_to) === k && (x.combine === 'or' || x.combine === 'and')).map((x) => x.combine)).size > 1);
 
 // slots -> { fields: { mechanism, thresholds, penalties }, evidence: [{ field, quote }], problems: [string] }
 export function renderSlots(slots) {
@@ -101,6 +104,7 @@ export function renderSlots(slots) {
     // a group with several tests and no "combine" is sent back: either-or and all-of read the same with a semicolon
     const multi = [...new Set(sorted.map((x) => clean(x.applies_to)))].filter((k) => sorted.filter((x) => clean(x.applies_to) === k && TESTS.includes(x.kind)).length > 1 && !sorted.some((x) => clean(x.applies_to) === k && (x.combine === 'or' || x.combine === 'and')));
     for (const k of multi) problems.push(`thresholds for "${k || 'the item'}" give several tests without "combine": say whether either one is enough ("or") or all are needed ("and")`);
+    for (const k of conflictingCombine(sorted)) problems.push(`thresholds for "${k || 'the item'}" mix "or" and "and": a nested test such as "(A and B) or C" cannot be written as one list; give the tests for each defined term with one "combine" only`);
     fields.thresholds = figureless ? `Capability-based, no figure: ${phrase(sorted.map((x) => phrase(x.text)).join('; '))}.`
       : open ? `No threshold: covers ${phrase(sorted.map((x) => phrase(x.text)).join('; ')).replace(/^covers\s+/i, '')}.`
         : `${grouped(sorted).join('. ')}.`;
@@ -133,7 +137,19 @@ const SIGNALS = [
   { kind: 'users', field: 'thresholds', re: /\b\d{1,3}(?:,\d{3})+\s+(?:(?:monthly|daily|weekly|annual)\s+)?(?:active\s+)?users\b/i, needsWho: false },
   { kind: 'penalty', field: 'penalties', re: /\bcivil penalt(?:y|ies)\b[^.;]{0,120}\$\s?\d|\$\s?\d[\d,]*[^.;]{0,40}\bper (?:violation|day)\b|\bcriminal penalt|\bguilty of a (?:misdemeanor|felony)/i, needsWho: false }
 ];
-const NEGATED = /\b(?:shall|may|must) not (?:be )?(?:assessed|imposed|apply|applied)\b|\bno (?:civil|criminal) penalty\b/i;
+// Spelled-out dollar amounts: "five thousand dollars", "one million dollars", "twenty-five thousand dollars", "two hundred fifty thousand dollars".
+const WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
+const SPELLED = /\b((?:(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|billion)[\s-]+)+)dollars\b/gi;
+function spelledValue(words) {
+  let total = 0, cur = 0;
+  for (const w of words.toLowerCase().split(/[\s-]+/).filter(Boolean)) {
+    if (WORDS[w] != null) cur += WORDS[w];
+    else if (w === 'hundred') cur = (cur || 1) * 100;
+    else { const m = { thousand: 1e3, million: 1e6, billion: 1e9 }[w]; if (!m) return null; total += (cur || 1) * m; cur = 0; }
+  }
+  return String(total + cur || '') || null;
+}
+const NEGATED =/\b(?:shall|may|must) not (?:be )?(?:assessed|imposed|apply|applied)\b|\bno (?:civil|criminal) penalty\b/i;
 function sentenceAround(text, i, len) {
   const start = Math.max(text.lastIndexOf('.', i) + 1, i - 300), end = Math.min((text.indexOf('.', i + len) + 1) || text.length, i + len + 300);
   return text.slice(start, end);
@@ -147,7 +163,11 @@ export function coverageProblems(slots, sourceText) {
   // amounts compared by value: "$1 million" = "$1,000,000", "$5,000,000.00" = "$5,000,000"
   const valueOf = (a) => String(Math.round(Number(a.replace(/[$,\s]|million|billion/gi, '')) * (/billion/i.test(a) ? 1e9 : /million/i.test(a) ? 1e6 : 1)));
   const given = (field) => new Set((list(slots[field]).map((x) => clean(x.text)).join(' ').match(/\d[\d,]*(?:\.\d+)?(?:\s+(?:million|billion))?/gi) || []).map(valueOf));
-  const amountsIn = (s) => (s.match(/\$\s?\d[\d,]*(?:\.\d+)?(?:\s+(?:million|billion))?/gi) || []).map((a) => ({ a: a.trim(), n: valueOf(a) }));
+  // "$10,000", "$1 million" and spelled-out "five thousand dollars" / "one million dollars" (second review: state codes spell them out)
+  const amountsIn = (s) => [
+    ...(s.match(/\$\s?\d[\d,]*(?:\.\d+)?(?:\s+(?:million|billion))?/gi) || []).map((a) => ({ a: a.trim(), n: valueOf(a) })),
+    ...[...s.matchAll(SPELLED)].map((m) => ({ a: m[0].trim(), n: spelledValue(m[1]) })).filter((x) => x.n)
+  ];
   for (const s of SIGNALS) {
     const re = new RegExp(s.re.source, 'gi'), field = s.kind === 'penalty' ? 'penalties' : 'thresholds', seen = new Set();
     for (const m of text.matchAll(re)) {
@@ -163,7 +183,9 @@ export function coverageProblems(slots, sourceText) {
         break;
       }
       // the match can end inside an amount ("...civil penalty of not more than $5"): the amounts are read to the end of its clause
-      const clause = text.slice(m.index, m.index + m[0].length + 60).split(/[.;](?=\s)/)[0];
+      // to the end of its sentence (a second tier often follows: "...not to exceed $10,000 for a first violation, and not to exceed
+      // $50,000 for each subsequent violation"), at most 400 characters
+      const clause = text.slice(m.index, m.index + m[0].length + 400).split(/\.(?=\s+[A-Z(“"])/)[0];
       const missing = amountsIn(clause).filter((x) => !given(field).has(x.n) && !seen.has(x.n));
       for (const x of missing) { seen.add(x.n); out.push(`SOURCE sets ${x.a} ("…${excerpt}…") but no ${field} slot gives it: give every tier as its own slot`); }
     }

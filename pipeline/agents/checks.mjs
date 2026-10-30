@@ -65,7 +65,8 @@ export function textProblems(field, value, sourceText) {
   return out;
 }
 
-export function runChecks({ patch, before, after, assembleProblems, source, sourceText, entries = [], operation }) {
+// readText: what the models read (a long bill's frontier sections); coverage is judged on it, every quote and number on sourceText.
+export function runChecks({ patch, before, after, assembleProblems, source, sourceText, readText = sourceText, entries = [], operation }) {
   const checks = [], add = (name, passed, detail = '') => checks.push({ name, passed, ...(detail ? { detail } : {}) });
   add('assembled', assembleProblems.length === 0, assembleProblems.join('; '));
   if (!after) return checks;
@@ -107,7 +108,7 @@ export function runChecks({ patch, before, after, assembleProblems, source, sour
   // A new entry written from slots (agents/slots.mjs): every slot has an exact quote, and no figure SOURCE sets in a coverage sentence
   // (compute, compute cost, revenue, users, a penalty) is missing from the slots.
   if (patch.slots !== undefined && patch.in_scope !== false) {
-    const sp = [...(patch.slotProblems || []), ...slotQuoteProblems(patch.slots, sourceText), ...coverageProblems(patch.slots, sourceText)];
+    const sp = [...(patch.slotProblems || []), ...slotQuoteProblems(patch.slots, sourceText), ...coverageProblems(patch.slots, readText)];
     add('slots_complete', sp.length === 0, sp.join('; '));
   }
 

@@ -133,5 +133,26 @@ const IL = {
   ok('8 the eval runs the slot checks production runs (they were missing from its own code checks)', codeChecks(p, 'A developer shall be subject to a civil penalty of not more than $1,000,000 per violation.').some((x) => /without "combine"/.test(x)) && codeChecks(p, 'A developer shall be subject to a civil penalty of not more than $1,000,000 per violation.').some((x) => /penalties slots are empty/.test(x)));
 }
 
+// ---------- 9. second independent review, 30 Oct 2026 ----------
+{
+  const r = (thresholds, penalties = []) => renderSlots({ mechanism: [], thresholds, penalties });
+  ok('9 a figure test next to a capability test needs "combine"', r([{ kind: 'compute', applies_to: 'Frontier model', text: 'more than 10^26 operations', quote: 'q' }, { kind: 'capability', applies_to: 'Frontier model', text: 'capable of designing chemical weapons', quote: 'q' }]).problems.some((p) => /without "combine"/.test(p)));
+  ok('9 "or" and "and" mixed in one term are sent back', r([{ kind: 'compute', applies_to: 'X', text: 'a', quote: 'q', combine: 'and' }, { kind: 'revenue', applies_to: 'X', text: 'b', quote: 'q' }, { kind: 'users', applies_to: 'X', text: 'c', quote: 'q', combine: 'or' }]).problems.some((p) => /mix "or" and "and"/.test(p)));
+  ok('9 no_threshold next to a threshold is sent back', r([{ kind: 'no_threshold', applies_to: null, text: 'any developer', quote: 'q' }, { kind: 'compute', applies_to: null, text: 'more than 10^26 operations', quote: 'q' }]).problems.some((p) => /no_threshold slot sits next to/.test(p)));
+  const pen = { mechanism: [], thresholds: [], penalties: [{ kind: 'civil', text: 'up to $10,000 for a first violation', quote: 'q' }] };
+  ok('9 a later tier beyond 60 characters is still caught', coverageProblems(pen, 'A person who violates this act shall be liable for a civil penalty not to exceed $10,000 for a first violation, and not to exceed $50,000 for each subsequent violation. Other text.').some((x) => /\$50,000/.test(x)));
+  ok('9 a spelled-out tier is caught ("twenty-five thousand dollars")', coverageProblems({ ...pen, penalties: [{ kind: 'civil', text: '$5,000 per affected child', quote: 'q' }] }, 'A civil penalty of not more than five thousand dollars ($5,000) per affected child, and not more than twenty-five thousand dollars per intentional violation.').some((x) => /twenty-five thousand dollars/.test(x)));
+  ok('9 amounts compare by value: "$1 million" and "$5,000,000.00" match "$1,000,000" and "$5,000,000"', coverageProblems({ ...pen, penalties: [{ kind: 'civil', text: 'up to $1,000,000 per violation; later $5,000,000', quote: 'q' }] }, 'A developer shall be subject to a civil penalty of not more than $1 million per violation, and $5,000,000.00 for later violations.').length === 0);
+}
+{
+  const { createAnthropic } = await import('../llm/anthropic.mjs');
+  const reply = (text) => createAnthropic({ client: { messages: { create: async () => ({ content: [{ type: 'text', text }], stop_reason: 'end_turn', usage: {} }) } }, role: 'r', model: 'm' }).generate({ prompt: 'p' }).then((x) => x.data, (e) => e.message);
+  ok('9 an unreadable first answer next to a readable second is unusable', /two different answers|valid JSON/.test(String(await reply('{"supported": false, quote: "x"}\nWait.\n{"supported": true, "quote": "y"}'))));
+  const { adoptedAmendments } = await import('../grabber/sources/legiscan.mjs');
+  const bill = { texts: [{ doc_id: 1, date: '2025-02-07', mime: 'text/html' }], amendments: [{ amendment_id: 7, title: 'Floor Amendment 2 (Smith)', chamber: 'S', date: '2025-01-15', adopted: 0 }], history: [{ date: '2025-03-01', chamber: 'S', action: 'Senate Floor Amendment No. 2 Adopted' }] };
+  ok('9 an amendment number not at the end of the title is found, and one filed before the text but adopted after it counts', adoptedAmendments(bill).length === 1);
+  ok('9 adopted before the newest text was printed: already in it', adoptedAmendments({ ...bill, texts: [{ doc_id: 2, date: '2025-04-01', mime: 'text/html' }] }).length === 0);
+}
+
 console.log(`slots: ${pass} passed, ${fail} failed`);
 if (fail) process.exit(1);

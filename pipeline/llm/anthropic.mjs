@@ -26,7 +26,8 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
       // Two different answers in one reply (independent review: a "false" then a weaker "true") are not trusted: unusable, and the
       // caller asks again. Repeats of the same answer are fine.
       const parsed = objects.map((o) => { try { return JSON.parse(o); } catch (e2) { return undefined; } }).filter((o) => o !== undefined);
-      if (parsed.length && parsed.every((o) => JSON.stringify(o) === JSON.stringify(parsed[0]))) return parsed[0];
+      // an unreadable object next to a readable one may be a different first answer (second review): unusable too
+      if (parsed.length && parsed.length === objects.length && parsed.every((o) => JSON.stringify(o) === JSON.stringify(parsed[0]))) return parsed[0];
       throw new LlmOutputError(parsed.length > 1 ? 'the model gave two different answers' : 'the model did not return valid JSON', clean.slice(0, 300));
     }
   };

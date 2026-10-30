@@ -164,23 +164,26 @@ export function createLegiScan(http, key) {
 export function adoptedAmendments(bill) {
   const v = latestText(bill), since = (v && v.date) || '';
   const history = bill.history || [];
-  const numberOf = (a) => Number((/(\d+)\s*$/.exec(a.title || '') || [])[1]);
-  const adoptedIn = (a) => {
+  // the last number in the title, wherever it is ("House Amendment 001", "Floor Amendment 2 (Smith)", "House Amendment #1")
+  const numberOf = (a) => Number((/(\d+)(?!.*\d)/.exec(a.title || '') || [])[1]);
+  // The date of its adoption in the history, or null. Counting one that was not adopted only holds the bill (agents/process-item.mjs);
+  // missing one would describe stale text, so doubtful cases count as adopted: only a plain "tabled" / "withdrawn" of it undoes one.
+  const adoptedOn = (a) => {
     const n = numberOf(a);
-    if (!n) return false;
-    const re = new RegExp(`\\bamendment no\\.?\\s*0*${n}\\b`, 'i');
-    let state = false;
+    if (!n) return null;
+    const re = new RegExp(`\\bamendment (?:no\\.?\\s*|#\\s*)?0*${n}\\b`, 'i');
+    let on = null;
     for (const h of history) {
       if ((h.chamber || '') !== (a.chamber || '') || !re.test(h.action || '')) continue;
-      // A failed motion against it ("Motion to Table Amendment No. 1 - Lost") leaves it adopted. Counting one that was not adopted only
-      // holds the bill (agents/process-item.mjs); missing one would describe stale text, so doubtful cases count as adopted.
-      if (/\bmotion to (table|reconsider|strike)\b/i.test(h.action) && /\b(lost|failed|not adopted)\b/i.test(h.action)) continue;
-      if (/\badopted\b/i.test(h.action) && !/\bnot adopted\b/i.test(h.action)) state = true;
-      else if (/\b(tabled|withdrawn|stricken)\b/i.test(h.action) && !/\bmotion\b/i.test(h.action)) state = false;
+      // a failed motion against it ("Motion to Table Amendment No. 1 - Lost") leaves it as it was
+      if (/\bmotion\b/i.test(h.action) || /\breconsider/i.test(h.action)) continue;
+      if (/\badopted\b/i.test(h.action) && !/\bnot adopted\b/i.test(h.action)) on = h.date || a.date || since;
+      else if (/\b(tabled|withdrawn)\b/i.test(h.action)) on = null;
     }
-    return state;
+    return on;
   };
-  return (bill.amendments || []).filter((a) => a.amendment_id && (a.date || '') >= since && (Number(a.adopted) === 1 || adoptedIn(a)))
+  // Not yet in the newest text: adopted on or after its date (from the history), or LegiScan's flag on an amendment dated since then.
+  return (bill.amendments || []).filter((a) => { if (!a.amendment_id) return false; const on = adoptedOn(a); return on ? on >= since : Number(a.adopted) === 1 && (a.date || '') >= since; })
     .sort((x, y) => String(x.date || '').localeCompare(String(y.date || '')));
 }
 

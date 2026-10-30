@@ -50,7 +50,7 @@ export const expandShorthand = (s) => String(s || '').replace(/(\d+(?:\.\d+)?)\s
 export const factNumbers = (s) => new Set([...digitRuns(expandShorthand(s).replace(CITATION, ' '))].filter((n) => n.replace('.', '').length > 1 && !/^(19|20)\d\d$/.test(n)));
 
 // Code checks on one patch (the same rules as agents/checks.mjs, without the parts that need an assembled entry).
-export function codeChecks(patch, text) {
+export function codeChecks(patch, text, read = text) {
   const problems = [];
   for (const ev of patch.evidence) if (!containsQuote(text, ev.quote)) problems.push(`evidence quote for ${ev.field} is not in the source: "${String(ev.quote).slice(0, 80)}"`);
   const src = digitRuns(text);
@@ -60,14 +60,14 @@ export function codeChecks(patch, text) {
     if (!patch.evidence.some((e) => e.field === f)) problems.push(`no evidence quote for ${f}`);
     for (const n of digitRuns(v)) if (n.length > 1 && !src.has(n)) problems.push(`number ${n} in ${f} is not in the source`);
     if (NEGATIVE_FINDING.test(v)) problems.push(`a "none located" style claim in ${f}`);
-    if (/[{}]|```|\\n/.test(v)) problems.push(`stray code or JSON syntax in ${f}`);
+    if (/[{}]|['"][a-z_]{3,}['"]\s*:|['"],\s*['"]|```|\\n|\\u[0-9a-f]{4}/i.test(v)) problems.push(`stray code or JSON syntax in ${f}`); // agents/checks.mjs clean_text
     if (foreignLetters(v, text)) problems.push(`letters that do not occur in the source in ${f}`);
     if (v.length > FIELD_LIMITS[f]) problems.push(`${f} is too long (${v.length} characters)`);
     problems.push(...textProblems(f, v, text));
   }
   // The slot checks, as agents/checks.mjs runs them in production (slots_complete). Missing here until 30 Oct 2026: the field evals
   // that day were scored without them, so drafts production would have sent back (no "or"/"and", a dropped tier) could pass.
-  if (patch.slots !== undefined && patch.in_scope !== false) problems.push(...(patch.slotProblems || []), ...slotQuoteProblems(patch.slots, text), ...coverageProblems(patch.slots, text));
+  if (patch.slots !== undefined && patch.in_scope !== false) problems.push(...(patch.slotProblems || []), ...slotQuoteProblems(patch.slots, text), ...coverageProblems(patch.slots, read));
   return problems;
 }
 
@@ -140,7 +140,7 @@ async function runItem({ gold, text, read = text, generator, validator, referee 
       if (ref === null || scopeRetries++ >= 1) return { outcome: 'held', in_scope: null, rounds: round, fields: {}, problems: [ref === true ? 'scope: the generator still says out after the referee ruled it in' : 'scope disagreement: generator out, reader in'] };
       feedback = ['An independent reader judged this item IN scope for the tracker. Set in_scope to true and write the entry now: mechanism, thresholds and penalties only if the source states them, and section. Do not return an empty "fields" object.']; continue;
     }
-    const problems = codeChecks(patch, text);
+    const problems = codeChecks(patch, text, read);
     const claims = buildClaims({ patch, operation: 'create' });
     let res = null;
     try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims }), itemId: gold.key }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; problems.push('the independent reader gave an unusable answer'); }
