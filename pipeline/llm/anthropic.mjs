@@ -12,7 +12,13 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
   const api = client || new Anthropic({ apiKey, maxRetries: 3, timeout: 120000 });
   const parseJson = (text) => {
     const clean = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
-    try { return JSON.parse(clean); } catch (e) { throw new LlmOutputError('the model did not return valid JSON', clean.slice(0, 300)); }
+    try { return JSON.parse(clean); } catch (e) {
+      // A model sometimes puts a sentence before or after its JSON (Opus as referee, 30 Oct 2026 re-test): the one JSON object in the
+      // text is used. The callers still check every field of it; anything else is still an unusable answer.
+      const a = clean.indexOf('{'), b = clean.lastIndexOf('}');
+      if (a >= 0 && b > a) { try { return JSON.parse(clean.slice(a, b + 1)); } catch (e2) { /* falls through */ } }
+      throw new LlmOutputError('the model did not return valid JSON', clean.slice(0, 300));
+    }
   };
   return {
     role, model,
