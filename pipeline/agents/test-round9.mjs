@@ -1,9 +1,11 @@
 // Round 9 regressions (Tier B new entries; the 29 Oct 2026 paid field eval). Code only, no AI.
 //   node agents/test-round9.mjs
-import { repairExponents, digitRuns, provedQuote } from './source-text.mjs';
+import { repairExponents, digitRuns, provedQuote, containsQuote } from './source-text.mjs';
 import { textProblems, normaliseExponents, thresholdNumberProblems } from './checks.mjs';
-import { refereeVerdict, refereeSection } from './process-item.mjs';
+import { refereeVerdict, refereeSection, processItem, selectionOf } from './process-item.mjs';
 import { SCOPE_DEFINITION } from './prompts.mjs';
+import { adoptedAmendments, withAmendments } from '../grabber/sources/legiscan.mjs';
+import { SECTION_CHARS } from './sections.mjs';
 
 let pass = 0, fail = 0;
 const ok = (name, cond, detail) => { if (cond) pass++; else { fail++; console.log('FAIL ', name, detail || ''); } };
@@ -65,6 +67,46 @@ const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const 
   ok('4 a small-company revenue exemption on an OUT-list rule does not make it frontier (CA SB 1119)', /only exempts smaller companies from an OUT-list rule/.test(SCOPE_DEFINITION));
   ok('4 testing duties on every AI company with no threshold are OUT (NJ S 1802)', /on every AI company or every AI system, with no frontier, compute or capability threshold and no catastrophic-risk aim, are OUT/.test(SCOPE_DEFINITION) && /aimed at catastrophic risk .* are type \(1\) even with no threshold/.test(SCOPE_DEFINITION));
   ok('4 but duties aimed at catastrophic risk with no threshold stay in (MN HF 4532)', /duties aimed at catastrophic risk \(critical harm, mass casualties, weapons, loss of control\) are type \(1\)/.test(SCOPE_DEFINITION));
+}
+
+// ---------- 5. Minnesota "page.line" numbering (MN HF 4532) ----------
+{
+  const mn = '3.28 Subd. 4. Safety incident disclosure. A developer must disclose each safety incident\n3.29 affecting the artificial intelligence model to the attorney general within 72 hours of the date\n3.30 the developer learns of the safety incident or within 72 hours of the date the developer learns\n3.31 sufficient facts to establish a reasonable belief that a safety incident has occurred.';
+  ok('5 a quote across a page.line break matches', containsQuote(mn, 'to the attorney general within 72 hours of the date the developer learns of the safety incident'));
+  ok('5 a quote that copied the page.line number matches', containsQuote(mn, 'within 72 hours of the date 3.30 the developer learns'));
+  ok('5 a paraphrase still does not', !containsQuote(mn, 'must tell the attorney general within 72 hours'));
+  ok('5 a decimal figure is never taken for a line number', !containsQuote('A fee of 3.5 percent applies. A rate of 3.6 percent applies.', 'A fee of percent applies'));
+}
+
+// ---------- 6. amendments adopted since the text was printed (IL HB 3506) ----------
+{
+  const bill = { texts: [{ doc_id: 1, date: '2025-02-07', mime: 'text/html' }],
+    amendments: [{ amendment_id: 11, title: 'House Amendment 001', chamber: 'H', date: '2025-03-18', adopted: 0 }, { amendment_id: 12, title: 'House Amendment 002', chamber: 'H', date: '2025-04-08', adopted: 0 }],
+    history: [{ chamber: 'H', action: 'House Committee Amendment No. 1 Adopted in Cybersecurity, Data Analytics, & IT Committee; 007-004-000' }, { chamber: 'H', action: 'House Floor Amendment No. 2 Filed with Clerk' }, { chamber: 'H', action: 'House Floor Amendment No. 2 Rule 19(c) / Re-referred to Rules Committee' }] };
+  const a = adoptedAmendments(bill);
+  ok('6 an amendment the history says was adopted counts though LegiScan says not; a filed one does not', a.length === 1 && a[0].amendment_id === 11, JSON.stringify(a));
+  ok('6 one adopted then tabled does not count', adoptedAmendments({ ...bill, history: [...bill.history, { chamber: 'H', action: 'House Committee Amendment No. 1 Tabled' }] }).length === 0);
+  ok('6 another chamber\'s "Amendment No. 1" does not count', adoptedAmendments({ ...bill, history: [{ chamber: 'S', action: 'Senate Committee Amendment No. 1 Adopted' }] }).length === 0);
+  ok('6 an amendment older than the newest text is already in it', adoptedAmendments({ ...bill, texts: [{ doc_id: 2, date: '2025-05-01', mime: 'text/html' }] }).length === 0);
+  ok('6 LegiScan\'s own adopted flag counts', adoptedAmendments({ ...bill, history: [], amendments: [{ ...bill.amendments[1], adopted: 1 }] }).length === 1);
+  const t = withAmendments('BILL TEXT', [{ title: 'House Amendment 001', date: '2025-03-18', text: 'AMENDMENT TEXT' }]);
+  ok('6 the amendment follows the bill text under a header saying it changes it', /^BILL TEXT\n\nADOPTED AMENDMENT: House Amendment 001 \(dated 2025-03-18\)\. It changes the bill text above/.test(t) && t.endsWith('AMENDMENT TEXT'));
+  ok('6 one not read is named, not dropped', /ADOPTED AMENDMENT NOT READ: X/.test(withAmendments('B', [{ title: 'X', date: 'd', text: null }])));
+  const trap = { calls: 0, async generate() { this.calls++; throw new Error('AI must not be called'); } };
+  const raw = { bill: { bill_id: 1, state: 'IL', bill_number: 'HB1', title: 'Test', status: 1, history: [], sponsors: [], texts: [] }, text: withAmendments('A frontier developer shall publish a safety plan.', [{ title: 'House Amendment 001', date: '2025-03-18', text: null }]) };
+  const item = { item_id: 'legiscan:IL-HB1', source: 'legiscan', source_id: '1', source_url: 'https://legiscan.com/IL/bill/HB1/2025', fetched_at: '2026-10-30T00:00:00Z' };
+  const out = await processItem({ generator: trap, validator: trap, referee: trap, item, raw, diff: { item_id: item.item_id, verdict: 'new_entry_candidate', reasons: [{ kind: 'candidate', detail: 'x' }] }, entries: [], today: '2026-10-30', runId: 't' });
+  ok('6 a new bill whose adopted amendment could not be read is held, read again next run, no AI spent', out.outcome === 'held' && /amendment adopted since/.test(out.reason) && trap.calls === 0, `${out.outcome} ${out.reason}`);
+}
+
+// ---------- 7. a long bill's frontier sections are read together, not cut ----------
+{
+  ok('7 a selection may hold 160,000 characters', SECTION_CHARS === 160000);
+  const sec = (n, body) => `Sec. ${n}. ${body}\n`;
+  const filler = Array.from({ length: 60 }, (_, i) => sec(i + 1, 'The department shall maintain highway signage and roadside facilities. '.repeat(40))).join('');
+  const frontier = Array.from({ length: 30 }, (_, i) => sec(100 + i, `A large frontier developer shall publish a frontier AI framework and report each critical safety incident (${i}). `.repeat(30))).join('');
+  const sel = selectionOf(filler + frontier);
+  ok('7 a 110,000-character run of frontier sections in a long bill is read whole', sel && sel.text.length > 100000 && /\(29\)/.test(sel.text) && !/highway signage/.test(sel.text), sel && String(sel.text.length));
 }
 
 console.log(`round 9: ${pass} passed, ${fail} failed`);

@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 import { parseBillId, billUrl } from '../grabber/sources/congress.mjs';
-import { latestText, normNumber, officialUrl } from '../grabber/sources/legiscan.mjs';
+import { latestText, normNumber, officialUrl, adoptedAmendments, withAmendments } from '../grabber/sources/legiscan.mjs';
 import { pdfToText } from '../grabber/lib/pdf.mjs';
 import { stripLineNumbering } from '../grabber/lib/text.mjs';
 import { repairExponents } from '../agents/source-text.mjs';
@@ -22,15 +22,29 @@ export function createEntryTexts({ cg, ls, ic = {}, il = {}, cacheDir, extra = {
     const bill = await ls.bill(billId), v = latestText(bill);
     if (!v) return { text: null, why: 'no text version on LegiScan', bill };
     const cache = cacheDir && path.join(cacheDir, `${billId}-${v.doc_id}.txt`);
-    if (cache && fs.existsSync(cache) && !noCache) return { text: stripLineNumbering(fs.readFileSync(cache, 'utf8')), bill, version: v };
-    const t = await ls.text(v.doc_id);
     let r;
-    if (t.text != null) r = { text: t.text, bill, version: v };
+    if (cache && fs.existsSync(cache) && !noCache) r = { text: stripLineNumbering(fs.readFileSync(cache, 'utf8')), bill, version: v };
     else {
-      const p = /pdf/i.test(t.mime) ? await pdfToText(t.bytes) : { text: null, reason: 'unsupported format ' + t.mime };
-      r = { text: p.text, why: p.reason, bill, version: v, pdf_warnings: (p.warnings || []).map((w) => `${w.found} may be ${w.reads_as}`) };
+      const t = await ls.text(v.doc_id);
+      if (t.text != null) r = { text: t.text, bill, version: v };
+      else {
+        const p = /pdf/i.test(t.mime) ? await pdfToText(t.bytes) : { text: null, reason: 'unsupported format ' + t.mime };
+        r = { text: p.text, why: p.reason, bill, version: v, pdf_warnings: (p.warnings || []).map((w) => `${w.found} may be ${w.reads_as}`) };
+      }
+      if (cache && r.text) { fs.mkdirSync(cacheDir, { recursive: true }); fs.writeFileSync(cache, r.text); }
     }
-    if (cache && r.text) { fs.mkdirSync(cacheDir, { recursive: true }); fs.writeFileSync(cache, r.text); }
+    // Amendments adopted since that version was printed are read too (grabber/sources/legiscan.mjs adoptedAmendments).
+    if (r.text) {
+      const parts = [];
+      for (const a of adoptedAmendments(bill)) {
+        const ac = cacheDir && path.join(cacheDir, `${billId}-a${a.amendment_id}.txt`);
+        if (ac && fs.existsSync(ac) && !noCache) { parts.push({ title: a.title, date: a.date, text: fs.readFileSync(ac, 'utf8') }); continue; }
+        let t = null; try { t = await ls.amendment(a.amendment_id); } catch (e) { t = null; }
+        parts.push({ title: a.title, date: a.date, text: t && t.text });
+        if (ac && t && t.text) { fs.mkdirSync(cacheDir, { recursive: true }); fs.writeFileSync(ac, t.text); }
+      }
+      if (parts.length) r = { ...r, text: withAmendments(r.text, parts), amendments: parts.map((p) => ({ title: p.title, date: p.date, read: !!p.text })) };
+    }
     return r;
   }
   async function findStateBill(state, number) {

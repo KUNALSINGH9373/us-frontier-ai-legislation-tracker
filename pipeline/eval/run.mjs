@@ -30,7 +30,10 @@ import { NEGATIVE_FINDING } from '../agents/rules.mjs';
 import { foreignLetters, textProblems } from '../agents/checks.mjs';
 import { exportControlBill, stateSections } from '../agents/derive.mjs';
 import { sectionsByCode } from '../agents/rules.mjs';
-import { refereeSays, refereeVerdict } from '../agents/process-item.mjs';
+import { refereeSays, refereeVerdict, selectionOf, TRIAGE_OVER } from '../agents/process-item.mjs';
+// As production (agents/process-item.mjs): a bill over TRIAGE_OVER characters is read as its frontier sections.
+const longReads = new Map();
+const longRead = (text) => { if (!longReads.has(text)) longReads.set(text, selectionOf(text)); return longReads.get(text); };
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 const args = process.argv.slice(2), opt = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : null; };
@@ -109,7 +112,8 @@ export function summarise(scored) {
 }
 
 // One item: up to 3 Generator rounds, each checked by code and by the independent reader; complaints fed back.
-async function runItem({ gold, text, generator, validator, referee = null, styleExamples }) {
+// read: what the models read (a long bill's frontier sections, as production reads it); text: the full bill, for every code check.
+async function runItem({ gold, text, read = text, generator, validator, referee = null, styleExamples }) {
   const item = { item_id: gold.key, source: gold.kind, source_url: gold.url };
   const reasons = [{ kind: 'candidate', detail: 'Describe this bill for the tracker from its official text.' }];
   // As in production (agents/derive.mjs): an export-control bill is filed under G.3 by rule, not by the model.
@@ -118,14 +122,14 @@ async function runItem({ gold, text, generator, validator, referee = null, style
   const allowed = gold.kind === 'legiscan' ? stateSections(gold.section === 'A' ? 'enacted' : 'pending') : null;
   const sections = allowed ? (sectionsByCode(text, allowed).length ? sectionsByCode(text, allowed) : allowed) : null;
   let feedback = [], previousPatch = null, last = null, refereeIn = null, scopeRetries = 0;
-  const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, text, gold.key)) : refereeIn);
+  const askReferee = async () => (refereeIn === null && referee ? (refereeIn = await refereeSays(referee, read, gold.key, text)) : refereeIn);
   for (let round = 1; round <= MAX_ROUNDS; round++) {
-    const g = await generatePatch({ llm: generator, item, source: text, entry: null, reasons, operation: 'create', styleExamples, feedback, previousPatch, needsSection: gold.level === 'federal' && !ruleSection, sections });
+    const g = await generatePatch({ llm: generator, item, source: read, entry: null, reasons, operation: 'create', styleExamples, feedback, previousPatch, needsSection: gold.level === 'federal' && !ruleSection, sections });
     if (!g.patch) { feedback = g.problems; continue; }
     const patch = g.patch; previousPatch = patch;
     if (patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
-      let r = null; try { r = (await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: text, claims: scopeClaim }), itemId: gold.key })).data.results[0]; } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
+      let r = null; try { r = (await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), itemId: gold.key })).data.results[0]; } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       // Same rule as agents/process-item.mjs: the referee decides when the readers rule it out or disagree.
       const ref = await askReferee();
       if (ref === false || (ref === null && r && r.supported === false)) return { outcome: 'out_of_scope', in_scope: false, rounds: round, fields: {}, problems: [], referee: ref };
@@ -135,7 +139,7 @@ async function runItem({ gold, text, generator, validator, referee = null, style
     const problems = codeChecks(patch, text);
     const claims = buildClaims({ patch, operation: 'create' });
     let res = null;
-    try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: text, claims }), itemId: gold.key }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; problems.push('the independent reader gave an unusable answer'); }
+    try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims }), itemId: gold.key }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; problems.push('the independent reader gave an unusable answer'); }
     const byN = new Map(((res && res.data && res.data.results) || []).map((r) => [r.n, r]));
     for (const [i, c] of claims.entries()) {
       const r = byN.get(i + 1);
@@ -151,7 +155,7 @@ async function runItem({ gold, text, generator, validator, referee = null, style
     // As in production (agents/process-item.mjs): a new entry is published only when the referee also rules it in scope, with a quote
     // code finds in the text. No referee or no confirmation: held.
     if (!problems.length) {
-      const ref = referee ? await refereeVerdict(referee, text, gold.key) : { in: null };
+      const ref = referee ? await refereeVerdict(referee, read, gold.key, text) : { in: null };
       if (ref.in !== true) return { outcome: 'held', in_scope: ref.in === false ? false : null, rounds: round, fields: {}, problems: [ref.in === false ? 'the referee ruled it out of scope after both readers said in' : `the referee did not confirm the scope with a quote found in the text${ref.why ? ` (${ref.why})` : ''}`] };
     }
     if (!problems.length) return { outcome: 'published', in_scope: true, rounds: round, fields: patch.fields, section: ruleSection || patch.fields.section || null, problems: [] };
@@ -194,10 +198,10 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
       const text = stored && repairExponents(stored); // as agents/source-text.mjs does for production sources
       let result;
       if (!stored || sha(stored) !== s.sha256) result = { outcome: 'no_text', in_scope: null, fields: {}, problems: ['text missing or changed since eval/sources.json; run eval/fetch-texts.mjs'] };
-      else if (text.length > maxChars) result = { outcome: 'too_long', in_scope: null, fields: {}, problems: [`${text.length} characters: needs section-by-section reading (not built yet)`] };
+      else if (text.length > TRIAGE_OVER && !(longRead(text) && longRead(text).text.length <= maxChars)) result = { outcome: 'too_long', in_scope: null, fields: {}, problems: [`${text.length} characters, and its frontier sections do not fit one read`] };
       else {
         const styleExamples = entries.filter((e) => e.key !== g.key && e.section === g.section && e.mechanism && e.mechanism.length < 600).slice(0, 2);
-        try { result = await runItem({ gold: { ...g, kind: s.kind, url: s.url }, text, generator, validator, referee, styleExamples }); }
+        try { result = await runItem({ gold: { ...g, kind: s.kind, url: s.url }, text, read: text.length > TRIAGE_OVER ? longRead(text).text : text, generator, validator, referee, styleExamples }); }
         catch (e) { result = { outcome: 'error', in_scope: null, fields: {}, problems: [String(e.message).slice(0, 200)] }; }
       }
       const sc = { ...scoreItem({ gold: g, text: text || '', result }), gold_in_scope: g.in_scope, rounds: result.rounds || 0, problems: result.problems, section: result.section || null };

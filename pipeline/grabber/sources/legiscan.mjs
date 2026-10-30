@@ -146,8 +146,48 @@ export function createLegiScan(http, key) {
       if (/html/i.test(t.mime)) return { text: stripLineNumbering(htmlToText(buf.toString('utf8'))), mime: t.mime, date: t.date, type: t.type };
       if (/text\/plain/i.test(t.mime)) return { text: stripLineNumbering(buf.toString('utf8')), mime: t.mime, date: t.date, type: t.type };
       return { text: null, mime: t.mime, date: t.date, type: t.type, bytes: buf };
+    },
+    // An amendment's words (HTML / plain text only; a PDF amendment comes back as { text: null }).
+    async amendment(amendmentId) {
+      const a = (await call('getAmendment', { id: amendmentId })).amendment;
+      const buf = Buffer.from(a.doc || '', 'base64');
+      if (/html/i.test(a.mime)) return { text: stripLineNumbering(htmlToText(buf.toString('utf8'))), mime: a.mime, date: a.date, title: a.title };
+      if (/text\/plain/i.test(a.mime)) return { text: stripLineNumbering(buf.toString('utf8')), mime: a.mime, date: a.date, title: a.title };
+      return { text: null, mime: a.mime, date: a.date, title: a.title };
     }
   };
+}
+
+// Amendments adopted after the newest text version, so not yet printed in it (IL H.B. 3506: Committee Amendment No. 1 adopted in
+// committee, the bill never re-printed). LegiScan's "adopted" flag lags, so the bill's own history counts too: an action saying that
+// chamber's "Amendment No. N" was adopted, with no later action tabling, withdrawing or striking it. Oldest first.
+export function adoptedAmendments(bill) {
+  const v = latestText(bill), since = (v && v.date) || '';
+  const history = bill.history || [];
+  const numberOf = (a) => Number((/(\d+)\s*$/.exec(a.title || '') || [])[1]);
+  const adoptedIn = (a) => {
+    const n = numberOf(a);
+    if (!n) return false;
+    const re = new RegExp(`\\bamendment no\\.?\\s*0*${n}\\b`, 'i');
+    let state = false;
+    for (const h of history) {
+      if ((h.chamber || '') !== (a.chamber || '') || !re.test(h.action || '')) continue;
+      if (/\badopted\b/i.test(h.action) && !/\bnot adopted\b/i.test(h.action)) state = true;
+      else if (/\b(tabled|withdrawn|stricken|lost|failed|reconsidered)\b/i.test(h.action)) state = false;
+    }
+    return state;
+  };
+  return (bill.amendments || []).filter((a) => a.amendment_id && (a.date || '') >= since && (Number(a.adopted) === 1 || adoptedIn(a)))
+    .sort((x, y) => String(x.date || '').localeCompare(String(y.date || '')));
+}
+
+// The bill text with its adopted amendments after it, each under a header that says it changes the text above. Amendments whose words
+// could not be read are named (so a reader knows the text may be out of date) rather than silently left out.
+export function withAmendments(text, parts) {
+  if (!parts || !parts.length) return text;
+  return [text, ...parts.map((p) => p.text
+    ? `\n\nADOPTED AMENDMENT: ${p.title || 'amendment'} (dated ${p.date || 'unknown'}). It changes the bill text above; where they differ, the text as amended by this amendment is the current version.\n${p.text}`
+    : `\n\nADOPTED AMENDMENT NOT READ: ${p.title || 'amendment'} (dated ${p.date || 'unknown'}); its words were not available, so the bill text above may be out of date.`)].join('');
 }
 
 // The newest text version, preferring HTML over PDF when both exist for the same date.

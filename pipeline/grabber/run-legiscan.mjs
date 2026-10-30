@@ -13,7 +13,7 @@
 // Caps only DELAY work: anything not reached in a run is not marked seen and is picked up by the next run.
 import fs from 'fs';
 import path from 'path';
-import { createLegiScan, normNumber, billNumbersIn, officialUrl, latestText, trackerStatus, eventsFrom } from './sources/legiscan.mjs';
+import { createLegiScan, normNumber, billNumbersIn, officialUrl, latestText, trackerStatus, eventsFrom, adoptedAmendments, withAmendments } from './sources/legiscan.mjs';
 import { QuotaExceeded, HttpError, NetworkError } from './lib/http.mjs';
 import { isoZ, makeRunId, saveRaw, writeChangeset } from './lib/run-common.mjs';
 import { LEGISCAN_USAGE_FILE } from './lib/state.mjs';
@@ -72,7 +72,20 @@ export async function runLegiScan({ http, apiKey, llm = null, official = null, o
   let truncated = false;
   const read = new Set(); // tracked bill ids read this run (status.json "checked" counts only these)
 
+  // The newest text version plus the amendments adopted since it was printed (one LegiScan query each; a failed one is named in the
+  // text, and agents/process-item.mjs holds a new bill whose adopted amendment could not be read).
   async function readText(bill) {
+    const r = await readBaseText(bill);
+    if (r.text == null) return r;
+    const parts = [];
+    for (const a of adoptedAmendments(bill)) {
+      let t = null;
+      try { t = await ls.amendment(a.amendment_id); } catch (e) { if (!(e instanceof HttpError || e instanceof NetworkError)) throw e; log(`amendment ${a.amendment_id} of ${bill.bill_id} unreadable: ${String(e.message).slice(0, 80)}`); }
+      parts.push({ title: a.title, date: a.date, text: t && t.text });
+    }
+    return parts.length ? { text: withAmendments(r.text, parts), meta: { ...r.meta, amendments: parts.map((p) => ({ title: p.title, date: p.date, read: !!p.text })) } } : r;
+  }
+  async function readBaseText(bill) {
     const v = latestText(bill);
     if (!v) return { text: null, meta: null };
     // 1. the legislature's own copy: no LegiScan query, and it is the official source

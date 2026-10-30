@@ -5,7 +5,9 @@
 // whole (a section over the limit is split only at its own (a)/(b) subsections), and a closing note lists what was left out.
 // Code checks still verify every quote against the FULL text; this only decides what the models read.
 
-export const SECTION_CHARS = 90000; // the most a selection may hold, note included
+// the most a selection may hold, note included. 160,000 since 30 Oct 2026 (owner): a long bill's frontier sections are read together in
+// one request rather than cut (CT P.A. 26-15's are 111,000 characters); a bill whose frontier sections are longer is still held.
+export const SECTION_CHARS = 160000;
 
 // A heading at the start of a line: federal "SEC. 2.", state "Section 1." / "SECTION 33." / "Sec. 33.", MA "Section 3A." and
 // "Section 9A 1/2.", "§ 3.". A printed line number left in front of it ("3208 SECTION 164.") is allowed.

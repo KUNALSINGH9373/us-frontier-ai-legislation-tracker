@@ -21,7 +21,7 @@ import { SECTION_CRITERIA, quoteMeetsSection, SECTION_RULES, sectionPassage, FED
 import { normaliseExponents } from './checks.mjs';
 
 export const MAX_ROUNDS = 3;
-const TRIAGE_OVER = 100000, TRIAGE_CHARS = 30000; // sources longer than this are read section by section (or by frontier passages)
+export const TRIAGE_OVER = 100000; const TRIAGE_CHARS = 30000; // sources longer than this are read section by section (or by frontier passages)
 const ESCALATED_READ_OVER = 30000, ESCALATED_READ_CHARS = 45000; // the escalated pass reads a long bill's frontier sections only
 
 // The referee (config role "referee", a stronger model) on scope. Its answer counts only with a quote that code finds in the source:
@@ -120,7 +120,7 @@ async function guarded(args) {
 
 // What the models read of a long source: its frontier-AI sections (agents/sections.mjs), else the passages around frontier-AI terms
 // anywhere in it. null when nothing was found.
-function selectionOf(source, maxChars) {
+export function selectionOf(source, maxChars) {
   const sel = relevantSections(source, maxChars ? { maxChars } : undefined);
   if (sel.chunks.length) return sel;
   const p = markerPassages(source, maxChars ? { maxChars } : undefined);
@@ -152,6 +152,9 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     // A new bill whose text is not published (or could not be fetched): nothing can be described or checked, and its scope is never
     // judged from the title alone (NJ S4934 was ruled out on its title). It is held and read again when its record changes.
     const textMissing = raw.text_missing === true || ((item.source === 'congress_gov' || item.source === 'legiscan') && !String(raw.text || '').trim());
+    // An amendment adopted since the text was printed whose words could not be read: the text may be out of date, so it is held and
+    // read again (grabber/sources/legiscan.mjs withAmendments).
+    if (/ADOPTED AMENDMENT NOT READ:/.test(String(raw.text || ''))) return held('an amendment adopted since the bill text was printed could not be read, so the text may be out of date; read again next run', { text_missing: true, service_error: true, fetch_error: true });
     if (textMissing) return held('the full text is not available yet (not published, or could not be fetched), so nothing can be verified and its scope is not judged from the title; read again next run', { text_missing: true, service_error: true, fetch_error: true });
   }
 

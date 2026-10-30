@@ -45,9 +45,10 @@
     }
   },
   "limits": {
-    "max_tokens_per_run": 400000,
-    "max_tokens_per_item": 60000,
-    "max_input_chars_per_call": 120000
+    "_note": "30 Oct 2026 (owner): a long bill's frontier sections (up to 160,000 characters, agents/sections.mjs) are read in one request, so one call may hold 200,000 characters and one item 250,000 tokens; the monthly cap still bounds the month.",
+    "max_tokens_per_run": 600000,
+    "max_tokens_per_item": 250000,
+    "max_input_chars_per_call": 200000
   },
   "scope_check_limits": {
     "_note": "Own limits for scope-check/run.mjs (the one-off LegiScan catch-up reads hundreds of bills).",

@@ -55,15 +55,24 @@ export function lineNumbers(text) {
     last.set(k.v, j);
     if (chain[j] >= 3) for (let x = j; x >= 0 && !keep.has(x); x = prevOf[x]) keep.add(x);
   });
-  return { positions: [...keep].map((j) => toks[j]).sort((a, b) => a.i - b.i), values: new Set([...keep].map((j) => toks[j].v)) };
+  // Minnesota prints "page.line" at the start of every line ("3.29 affecting the ... 3.30 the developer learns"): a run of three or more
+  // such numbers on the same page, one line apart, is printed line numbering too (MN HF 4532 was held on a quote across a line break).
+  const pl = [...t.matchAll(/(?<=^|\n)[ \t]*((\d{1,3})\.(\d{1,2}))(?=\s)/g)].map((m) => ({ s: m[1], p: +m[2], l: +m[3], i: m.index + m[0].length - m[1].length, len: m[1].length }));
+  const pageLines = new Set(), plKeep = [];
+  for (let a = 0; a < pl.length; ) {
+    let b = a; while (b + 1 < pl.length && pl[b + 1].p === pl[b].p && pl[b + 1].l === pl[b].l + 1) b++;
+    if (b - a >= 2) for (let x = a; x <= b; x++) { plKeep.push({ v: pl[x].s, i: pl[x].i, len: pl[x].len }); pageLines.add(pl[x].s); }
+    a = b + 1;
+  }
+  return { positions: [...[...keep].map((j) => toks[j]), ...plKeep].sort((a, b) => a.i - b.i), values: new Set([...keep].map((j) => toks[j].v)), pageLines };
 }
 const looseForm = (s) => norm(s).replace(/\s*-\s*/g, '').replace(/\s+/g, ' ');
 const stripCache = new Map();
 function strippedSource(text) {
   if (stripCache.has(text)) return stripCache.get(text);
-  const { positions, values } = lineNumbers(text);
+  const { positions, values, pageLines } = lineNumbers(text);
   let out = '', at = 0; for (const p of positions) { out += text.slice(at, p.i) + ' '; at = p.i + p.len; } out += text.slice(at);
-  const r = { loose: looseForm(out), values };
+  const r = { loose: looseForm(out), values, pageLines };
   if (stripCache.size > 8) stripCache.clear(); stripCache.set(text, r);
   return r;
 }
@@ -74,7 +83,7 @@ export const containsQuote = (text, quote) => {
   if (q1.length < 8) return false;
   if (s.loose.includes(q1)) return true;
   // The quote copied the printed line numbers too: drop those numbers from it (only values that are line numbers in this text).
-  const q2 = looseForm(String(quote).replace(/(?<=^|\s)(\d{1,4})(?=\s|$)/g, (m) => (s.values.has(+m) ? ' ' : m)));
+  const q2 = looseForm(String(quote).replace(/(?<=^|\s)(\d{1,3}\.\d{1,2})(?=\s|$)/g, (m) => (s.pageLines.has(m) ? ' ' : m)).replace(/(?<=^|\s)(\d{1,4})(?=\s|$)/g, (m) => (s.values.has(+m) ? ' ' : m)));
   return q2 !== q1 && q2.length >= 8 && s.loose.includes(q2);
 };
 
