@@ -2,7 +2,7 @@
  "version": 1,
  "sources": {
   "legiscan": {
-   "last_success": "2026-10-30T16:06:04Z",
+   "last_success": "2026-10-30T20:06:07Z",
    "cursor": null,
    "hashes": {
     "1893423": "d3385d1ecaa0c403856481e3854f2c82",
@@ -485,8 +485,8 @@
     "2155731": "d379b9be19e8881a47dc107b5d633935",
     "2155843": "55a6ed634765bf7c21115ca001f7a6f4",
     "2155977": "a1e3189226d8c3409bf80b15f67ba327",
-    "2156473": "f08e81ac616c4860da8727ee4ea01dde",
-    "2156598": "01f81d4bdc55825428f9837510486276",
+    "2156473": "ec190f6f9c1dfbfcd5a24222edb324c6",
+    "2156598": "007a7daa270f761cc9ef54919a0f0dc9",
     "2157282": "bcdefdd7f04922be6ff58ffeb56f9b0b",
     "2158054": "5c210768817ae3dce1c12734af4029bb",
     "2158619": "880b6eb92949bb8c9721c0fb518ef463",
@@ -514,13 +514,13 @@
    },
    "quota": {
     "period": "run",
-    "used": 15,
+    "used": 18,
     "limit": 100
    }
   },
   "congress_gov": {
-   "last_success": "2026-10-30T16:06:00Z",
-   "cursor": "2026-10-30T16:03:52Z",
+   "last_success": "2026-10-30T20:05:52Z",
+   "cursor": "2026-10-30T20:03:48Z",
    "hashes": {
     "119/hr/9925": "aaf161e11110510dc1852e3ef9b295427c9f00eee9a7e1fb7c88d0ee2d432d76",
     "119/s/1792": "01e7bbbd5cf87aa09c2850f3b456110cd1aae337aa7c7df363e83e933a7cd2d4",
@@ -583,9 +583,9 @@
     "119/sres/448": "a02a232fbea7fc0f6d6f885c95bb0c2c5ee4409845209b9a6da6a008835e9c34",
     "119/sres/924": "1b3d0ed821d983dd0140bd36b523e332606de31e16344d023f75f0b185094065",
     "119/hr/7625": "c65c87640cc59f118592df21f1ffd984ae17f9bbda8ddec6dbb741b80dbc6dc9",
-    "119/hr/9501": "b68fc54d0c4760658e320b4dfa378a848099effadc4cba752e2476f13dffae07",
+    "119/hr/9501": "3add53a640c1c285e6984d29fb92f22dc52ee6380eb5c41e117f211850efd3a3",
     "119/hr/9180": "bb9d29bbb25d79b727bef393c687917eea0f01368ff584b6c9ad712f8ab530ee",
-    "119/s/3404": "3170cdf362d4c069efb6b7d7f1ff4b845b034e2c8d043ae12d95a05006c09f7d",
+    "119/s/3404": "6d0f9b60e4f1dd7683186d6279f8e9d258479581d969a075f03c26836e39c791",
     "119/sres/920": "e07f03cfcc8b438e42b8b6b47c856bbc7b86a41a79e265fedc793233de21b232",
     "119/sres/918": "47667bacfc5fc3b4ba45f0b4c252bd2158dac4ca2d3d5ff3a826fb0b836e0852",
     "119/s/4444": "da7b863feb939f3bf0fd34027749842fc935ad13072f5d54b5a43ccba3be3135",
@@ -667,16 +667,16 @@
     "119/hr/10925": "43ab0132c8b70426fe55ce5040a5d68cff39433ae4004c98f81247c9c4e8fa0c",
     "119/hr/7786": "3aa926a67ef1ed8aa73036e7892ae9c3c264297d5bd8dd012a816394df0fbbfd",
     "119/hr/9339": "c4c1bfce9562a2efde28d086950c4dde139d2449578618cc54d02fef4c52e845",
-    "119/hr/7436": "79dbf71f04bc75275a0741f67ed83277eb271a624a033372633f72813a026a24"
+    "119/hr/7436": "b0bd70c95a745075a7013028d953e33902a8171377a5ccda76b13f98bd0fc400"
    },
    "quota": {
     "period": "run",
-    "used": 25,
+    "used": 3,
     "limit": 400
    }
   },
   "federal_register": {
-   "last_success": "2026-10-30T16:06:01Z",
+   "last_success": "2026-10-30T20:05:54Z",
    "cursor": "2026-10-30",
    "hashes": {
     "2026-20023": "2224a32ef5f0d63f651a4011e8f5a281337d66f5a905aab7b6d538cb235a4d7b",

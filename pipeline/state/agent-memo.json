@@ -741,6 +741,20 @@
    "proposal": "congress_gov:119/hr/7436 (\"Department of Homeland Security Intelligence and Analysis Training Act\") meets neither federal section's criterion; not created",
    "date": "2026-10-30",
    "dead": false
+  },
+  "legiscan:2156598": {
+   "raw_hash": "1c0b047b459b6d30a2f74713a300a2207694076b723b1dda7857efe214171c39",
+   "reason": "not created: an amendment record, not a bill: LegiScan titles it as an amendment",
+   "proposal": "legiscan:2156598: not a bill (an amendment record, not a bill: LegiScan titles it as an amendment); not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:2156473": {
+   "raw_hash": "581167a834fd00214a9d1bddd799a7a4b3cdd61ece22e9dd1aaff45a71d31c1f",
+   "reason": "not created: an amendment record, not a bill: its text is an amendment to another bill",
+   "proposal": "legiscan:2156473: not a bill (an amendment record, not a bill: its text is an amendment to another bill); not created",
+   "date": "2026-10-30",
+   "dead": false
   }
  }
 }
