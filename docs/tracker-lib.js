@@ -1,8 +1,9 @@
 // Data model + derivations for the tracker prototype. All values derive from data/*.json.
-// Defaults for the v1 data; applySite() replaces them from site.json when the v2 data is loaded.
-export let ASOF = new Date(2026, 9, 15), VERIFIED = new Date(2026, 9, 15);
-export let WEEK_FROM = new Date(2026, 9, 9);
-export let HC = { enacted: 3, pending: 5, stalled: 6, failed: 5, ivo: 6, fed: 10, exec: 12, lit: 9, total: 93, sources: 176, events: 192 };
+// Set from the data before anything is drawn: applySite() reads them from site.json (v2); build() takes them from the
+// v1 news record's own "as of" date. No typed-in fallback: until data loads there is nothing to count, and the page shows "—".
+export let ASOF = null, VERIFIED = null;
+export let WEEK_FROM = null;
+export let HC = {};
 export const SN = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
 export const GRID = [['AK',0,0],['ME',0,10],['WI',1,5],['VT',1,9],['NH',1,10],['WA',2,0],['ID',2,1],['MT',2,2],['ND',2,3],['MN',2,4],['IL',2,5],['MI',2,6],['NY',2,8],['MA',2,9],['OR',3,0],['NV',3,1],['WY',3,2],['SD',3,3],['IA',3,4],['IN',3,5],['OH',3,6],['PA',3,7],['NJ',3,8],['CT',3,9],['RI',3,10],['CA',4,0],['UT',4,1],['CO',4,2],['NE',4,3],['MO',4,4],['KY',4,5],['WV',4,6],['VA',4,7],['MD',4,8],['DE',4,9],['AZ',5,1],['NM',5,2],['KS',5,3],['AR',5,4],['TN',5,5],['NC',5,6],['SC',5,7],['DC',5,8],['OK',6,3],['LA',6,4],['MS',6,5],['AL',6,6],['GA',6,7],['HI',7,0],['TX',7,3],['FL',7,8]];
 export const ST = {
@@ -36,12 +37,8 @@ export const DUTIES = [
 export const DUTY_VALUE = { yes: { g: '●', l: 'Yes' }, partial: { g: '◐', l: 'Partly' }, no: { g: '○', l: 'Expressly not' }, not_in_bill: { g: '–', l: 'Not in the text' } };
 export const CONF_ORDER = ['HIGH','MED-HIGH','MED','SEARCH-QUALIFIED','LOW'];
 export const KINDS = {federal:{l:'Congress',g:'■',v:'var(--k-fed)'},state:{l:'States',g:'●',v:'var(--k-state)'},executive:{l:'White House and agencies',g:'▲',v:'var(--k-exec)'},litigation:{l:'Courts',g:'§',v:'var(--k-lit)'},industry:{l:'Industry and incidents',g:'◇',v:'var(--k-ind)'}};
-// Entries filed under a federal section that belong on a state's tile. Matched by title, not row id: row ids shift
-// whenever v1 inserts a row (the old id map drifted one row on Oct 8 and put California's order on Illinois).
-export const STATE_OVERRIDE = [[/Executive Order N-9-26/, 'CA'], [/Executive Order 2026-07/, 'IL'], [/Executive Order 26-26/, 'OR'], [/^Anthropic PBC v\. U\.S\. Department of War(?!.*D\.C\. Cir)/, 'CA'], [/^State of Florida v\. OpenAI/, 'FL']];
 // Titles as shown: v1's editing notes ("(moved from Section E, where …)") are for editors, not readers.
 const showTitle = (s) => clean(s).replace(/\s*\((?:moved|formerly listed) from Section [^)]*\)/gi, '');
-const stateOverride = (t) => (STATE_OVERRIDE.find(([re]) => re.test(t)) || [])[1];
 export let FED_GROUPS = [
   {k:'D',l:'Bills in Congress',sub:'Introduced. None enacted.'},
   {k:'F',l:'Related federal bills',sub:'Adjacent and sector-specific'},
@@ -51,19 +48,8 @@ export let FED_GROUPS = [
   {k:'G.3',l:'Chips and export controls',sub:'Compute and diffusion rules'},
   {k:'H',l:'Earlier proposals',sub:'Withdrawn or stripped'}
 ];
-export let MILESTONES = [
-  ['2023-10-01',75,'The 10²⁶-operation compute threshold enters US policy'],
-  ['2024-09-29',77,'California’s SB 1047 is vetoed'],
-  ['2025-07-01',78,'The Senate strips a 10-year moratorium on state AI laws, 99–1'],
-  ['2025-09-29',1,'California signs SB 53, the first frontier-developer law'],
-  ['2025-12-11',51,'EO 14365 directs agencies to challenge state AI laws'],
-  ['2025-12-19',2,'New York signs the RAISE Act'],
-  ['2026-03-27',2,'New York replaces RAISE with a law on the SB 53 template'],
-  ['2026-07-06',3,'Illinois signs SB 315, adding annual audits'],
-  ['2026-07-23',27,'The FRONTIER Act is introduced in the House'],
-  ['2026-09-09',20,'California signs auditor laws SB 813 and AB 1405'],
-  ['2026-09-29',60,'White House accord: voluntary principles, no binding rule']
-].map(([d,id,c]) => ({d:new Date(d+'T12:00:00'), id, c}));
+// Replay milestones come from the data: v1 entries carry their own `milestones` (build), v2 reads site.json (applySite).
+export let MILESTONES = [];
 export let REPLAY_START = new Date(2023, 8, 1);
 // Section groups, as v1 groups its sections (build/build.mjs GROUPS). Used by the Explore sidebar and the table's Group filter.
 export let GROUPS = [
@@ -73,37 +59,6 @@ export let GROUPS = [
   { k: 'context', l: 'Precursors, adjacent laws, exclusions', sections: ['H', 'I', 'J'] }
 ];
 export const groupOf = (sec) => (GROUPS.find((g) => g.sections.includes(sec)) || { k: 'other' }).k;
-
-// Plain-English summaries are OFF for the v1-parity showcase: the app shows the tracker's own core-mechanism text.
-// Real summaries will arrive with the automated pipeline (reviewed, stored in a separate field). Set to true to preview the 22 drafts.
-export const USE_DRAFT_SUMMARIES = false;
-
-// Draft plain-English summaries, derived only from each entry's `mechanism` (and status where noted). For author review.
-export const SUM = {
-  1:'Requires the largest frontier AI developers to publish a safety framework and transparency reports, report critical safety incidents within 15 days (24 hours if there is imminent risk of death or serious injury), and protect whistleblowers.',
-  2:'New York’s replacement law copies California’s framework and transparency-report duties, requires incident reports within 72 hours, and creates an office in the Department of Financial Services with rulemaking power. It has no whistleblower section and no audit mandate.',
-  3:'Requires large frontier developers to publish a safety framework and transparency reports, undergo an annual independent audit from 2028, report incidents within 72 hours, and protects whistleblowers.',
-  4:'The Senate text would require an independent catastrophic-risk review at least every 120 days, with whistleblower protections and enforcement by the Attorney General. The House version contains only funding.',
-  6:'Large frontier developers with New Jersey users would file risk disclosures with the Attorney General, mapped to the NIST AI framework, including before new models deploy. The bill would sunset after five years.',
-  11:'Frontier developers would publish a safety plan, large chatbot providers would publish child-protection plans, and incidents would be reported within 15 days.',
-  13:'Would require a frontier AI framework, transparency reports, incident reports within 15 days, and an annual independent audit from July 1, 2028.',
-  17:'Would have amended the RAISE Act to require an independent pre-deployment safety evaluation of every frontier model.',
-  18:'Pennsylvania’s version of the SB 53 model, plus registration: large frontier developers would register with the state emergency agency, publish a framework, face annual audits and report critical incidents within 72 hours. Penalties reach $1 million, then $3 million.',
-  20:'From 2029, anyone conducting an AI audit required by California law must be on a state registry run by the Government Operations Agency.',
-  21:'By 2028, California’s Government Operations Agency must set up a way to designate independent verification organizations, with conflict-of-interest rules.',
-  22:'Creates a voluntary license for organizations that verify AI risks. Nothing requires a developer to seek verification.',
-  24:'Directs a Virginia commission to study whether a framework for independent verification organizations is feasible. A study, not a mandate.',
-  25:'Runs a pilot program for independent verification organizations through June 30, 2030.',
-  26:'The Department of Energy would run a mandatory evaluation program for advanced AI, including classified red-team testing, with a penalty of at least $1 million a day for not taking part.',
-  27:'Would create an Under Secretary of Commerce for AI Security, require frameworks, annual audits and 72-hour incident reports, let the Commerce Secretary suspend a model posing imminent catastrophic risk, and bar states from adding new obligations in these areas.',
-  33:'Would create a Department of Artificial Intelligence, pause training and deployment of advanced systems until it has rules, and permanently ban artificial superintelligence.',
-  35:'A two-page bill requiring advanced AI systems to include a way for a human operator to shut them down.',
-  51:'Directs federal agencies to challenge state AI laws that are not “minimally burdensome” and sets up an AI Litigation Task Force. It cannot itself preempt state law.',
-  53:'Directs agencies to build a classified cyber-capability benchmark and a voluntary framework allowing up to 30 days of government access before release. It expressly rules out mandatory licensing.',
-  60:'Companies signed voluntary principles at a White House meeting. No binding rule was announced.',
-  77:'The vetoed predecessor to SB 53. It required a safety protocol, an annual independent auditor, compliance certifications and a full-shutdown capability.',
-  78:'A proposed 10-year moratorium on state AI laws in the 2025 reconciliation bill.'
-};
 
 // Section K comparison matrix (verbatim from tracker-full.md), keyed by entry id.
 export let K_IDS = [1,2,3,5,6,4,27];
@@ -218,12 +173,15 @@ export function leadOf(mech) {
 }
 
 export function build(entries, news, rel) {
+  // v1 has no site.json: its record date is the news file's "as of"; "this week" is the 7 days ending on it, as in v2.
+  const asof = new Date(news.asof); if (isNaN(asof)) throw new Error('v1 news.json has no usable "asof" date');
+  ASOF = VERIFIED = asof; WEEK_FROM = new Date(asof.getFullYear(), asof.getMonth(), asof.getDate() - 6);
   const anchorToId = {}; entries.forEach(x => { anchorToId[(x.permalink_old_site||'').split('#')[1]] = x.id; });
   const keyToId = {}, idToKey = {};
   Object.entries(rel.aliases).forEach(([k, a]) => { if (anchorToId[a]) { keyToId[k] = anchorToId[a]; idToKey[anchorToId[a]] = k; } });
   const events = [];
   const E = entries.map(x => {
-    const t = showTitle(x.title), st = stateOverride(t) || (/^[A-Z]{2}$/.test(x.jurisdiction) && x.jurisdiction !== 'US' ? x.jurisdiction : null);
+    const t = showTitle(x.title), st = x.state || null; // the state an entry belongs to is stored on the entry (web/data/entries.json)
     const fy = (x.years || []).find(y => /^\d{4}$/.test(y));
     const { segs, dated, first, kd, verb } = stepsOf(x.status_and_dates, fy);
     const key = idToKey[x.id];
@@ -234,16 +192,18 @@ export function build(entries, news, rel) {
     const o = { id:x.id, raw:x, title:t, short, key, section:x.section, sec:SEC[x.section], st, juris: st ? SN[st] : (x.section==='J' ? 'Not tracked' : 'Federal'), level: st ? 'state' : (x.section==='J' ? 'none' : 'federal'),
       status, type: TYPE_OF[x.section], conf: x.confidence_level || null, confNote: clean(x.confidence_note), sponsor: clean(x.sponsor), mech, thresholds: clean(x.thresholds), source: clean(x.source),
       years: x.years || [], U: /⟨U⟩/.test(x.title), R: /⟨R⟩/.test(x.title), NCSL: /⟨NCSL⟩/.test(x.title), segs, dated, first, kd, kdLabel: kd ? `${verb ? verb[0].toUpperCase()+verb.slice(1).toLowerCase()+' · ' : ''}${fmt(kd.d)}` : 'No dated event',
-      summary: USE_DRAFT_SUMMARIES ? (SUM[x.id] || null) : null, lead, link: x.permalink_old_site,
+      summary: null, lead, link: x.permalink_old_site,
       srcLinks: x.source_links || [], moreLinks: (x.all_links || []).filter(l => !(x.source_links || []).some(s => s.u === l.u)), penalties: clean(x.penalties), signed: clean(x.signed), effective: clean(x.effective), statusText: statusOf(x.status_and_dates) };
     dated.forEach(s => events.push({ d: s.d, id: x.id, t: s.t }));
     return o;
   });
+  MILESTONES = entries.flatMap(x => (x.milestones || []).map(m => ({ d: new Date(m.date + 'T12:00:00'), id: x.id, c: m.caption }))).sort((a, b) => a.d - b.d);
   const byId = {}; E.forEach(e => byId[e.id] = e);
   const N = news.items.map((n, i) => ({ ...n, i, d: new Date(n.date + 'T12:00:00'), entryId: n.tracker ? keyToId[n.tracker] : null }));
   const edges = rel.edges.map(ed => ({ ...ed, fromId: keyToId[ed.from] || null, toId: keyToId[ed.to] || null }));
   const pulse = {};
   N.filter(n => n.d >= WEEK_FROM && n.entryId).forEach(n => { const s = byId[n.entryId].st; if (s) pulse[s] = true; });
+  HC = headline(E);
   return { E, byId, keyToId, idToKey, N, edges, rel, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom };
 }
 
@@ -331,7 +291,7 @@ export function headline(E) {
   const n = (f) => E.filter(f).length, B = (st) => n((x) => (x.section === 'B' || x.section === 'B.2') && x.status === st);
   return { enacted: n((x) => x.section === 'A'), pending: B('pending'), stalled: B('stalled'), failed: B('failed'), stalledOrFailed: B('stalled') + B('failed'), ivo: n((x) => x.section === 'C'),
     fed: n((x) => x.section === 'D'), fedEnacted: n((x) => x.section === 'D' && x.status === 'enacted'), exec: n((x) => x.section === 'G'), lit: n((x) => x.section === 'G.2'), total: E.length,
-    sources: E.reduce((t, x) => t + x.srcLinks.length, 0), events: E.reduce((t, x) => t + x.v2events.length, 0) };
+    sources: E.reduce((t, x) => t + x.srcLinks.length, 0), events: E.reduce((t, x) => t + (x.v2events || []).length, 0) };
 }
 
 export function buildV2(entries, news, rel, site, content) {
@@ -360,7 +320,7 @@ export function buildV2(entries, news, rel, site, content) {
       status: x.status, type: x.type, conf: conf.level || null, confNote: clean(conf.note || conf.level || ''), sponsor: clean(x.sponsor_text), mech, thresholds: clean(x.thresholds), source: clean(x.source_label),
       years, U: !!tags.updated_after_verification, R: tags.found_via === 'dedicated_search', NCSL: tags.found_via === 'ncsl', segs, dated, first, kd,
       kdLabel: kd ? `${verb ? verb[0].toUpperCase() + verb.slice(1).toLowerCase() + ' · ' : ''}${fmt(kd.d)}` : 'No dated event',
-      summary: USE_DRAFT_SUMMARIES ? (SUM[x.id] || null) : null, lead, link: x.legacy ? x.legacy.permalink : null,
+      summary: null, lead, link: x.legacy ? x.legacy.permalink : null,
       srcLinks: (x.sources || []).map((l) => ({ t: l.label, u: l.url })), moreLinks: (x.more_links || []).map((l) => ({ t: l.t, u: l.u })),
       penalties: clean(x.penalties), signed: clean(x.signed_text), effective: clean(x.effective_text), statusText: statusOf(x.status_text),
       origin: x.origin, lastChecked: x.last_checked, v2events: x.events };
@@ -368,7 +328,7 @@ export function buildV2(entries, news, rel, site, content) {
     return o;
   });
   const byId = {}; E.forEach((e) => { byId[e.id] = e; });
-  const N = news.items.map((n, i) => ({ ...n, tracker: n.tracker ? idToKey[idOfKey[n.tracker]] || null : null, i, d: noonOf(n.date), entryId: n.tracker ? idOfKey[n.tracker] || null : null }));
+  const N = news.items.filter((n) => newsVisible(n)).map((n, i) => ({ ...n, tracker: n.tracker ? idToKey[idOfKey[n.tracker]] || null : null, i, d: noonOf(n.date), entryId: n.tracker ? idOfKey[n.tracker] || null : null }));
   const edges = rel.edges.map((ed) => ({ ...ed, fromId: keyToId[ed.from] || null, toId: keyToId[ed.to] || null }));
   const pulse = {};
   N.filter((n) => n.d >= WEEK_FROM && n.entryId).forEach((n) => { const s = byId[n.entryId].st; if (s) pulse[s] = true; });
@@ -379,4 +339,69 @@ export function buildV2(entries, news, rel, site, content) {
   // "None enacted" is counted, not typed: it changes the day a federal frontier bill becomes law.
   FED_GROUPS = FED_GROUPS.map((g) => (g.k === 'D' ? { ...g, sub: 'Introduced. ' + (HC.fedEnacted ? HC.fedEnacted + ' enacted.' : 'None enacted.') } : g));
   return { E, byId, keyToId, idToKey, idOfKey, N, edges, rel: R, events: events.sort((a, b) => b.d - a.d), pulse, kinds: news.kinds, newsBottom: news.bottom, tev, site, content: content || null, v2: true };
+}
+
+// ---- Automated News events (pipeline/news/CONTRACT.md) ----
+// An automated item has origin 'automated' plus event_key, class, status, statements, stage (no next step: review r5). Hand-written items
+// never get the extra rendering. Labels and weekly-digest bucket (b) of every class the UI shows; an unknown class is
+// never shown (the contract records those with class null).
+export const NEWS_CLASS = {
+  'introduction': { l: 'Introduced' }, 'referral-committee': { l: 'Referred to committee' },
+  // no 'hearing-scheduled' or 'comment-period-closing': future events never have a card (review r8); an item with either class is hidden
+  'hearing-held': { l: 'Hearing held', b: 'hearings' },
+  'committee-passage': { l: 'Passed committee', b: 'advanced' }, 'committee-failure': { l: 'Failed in committee' },
+  'passage': { l: 'Passed a chamber', b: 'advanced' }, 'failure': { l: 'Failed a floor vote' },
+  'amendment-passage': { l: 'Amendment adopted', b: 'advanced' }, 'concurrence': { l: 'Concurrence', b: 'advanced' },
+  'enrolled': { l: 'Enrolled', b: 'advanced' }, 'executive-receipt': { l: 'Sent to the executive', b: 'advanced' },
+  'executive-signature': { l: 'Signed', b: 'signed' }, 'executive-veto': { l: 'Vetoed' }, 'became-law': { l: 'Became law', b: 'signed' },
+  'veto-override-passage': { l: 'Veto overridden', b: 'advanced' }, 'withdrawal': { l: 'Withdrawn by sponsor' }, 'carried-over': { l: 'Carried over' },
+  'new-text-version': { l: 'New text version' }, 'crs-report': { l: 'CRS report' }, 'cbo-estimate': { l: 'CBO cost estimate' },
+  'executive-order': { l: 'Executive order' }, 'presidential-memo': { l: 'Presidential memorandum' },
+  'agency-rule-proposed': { l: 'Proposed rule' }, 'agency-rule-final': { l: 'Final rule' }, 'agency-guidance': { l: 'Agency guidance' },
+  'comment-period-open': { l: 'Comment period open', b: 'comments' },
+  'nomination': { l: 'Nomination' }, 'court-filing': { l: 'Court filing' }, 'court-ruling': { l: 'Court ruling' }
+};
+export const NEWS_BUCKETS = [['advanced', 'Bills advanced'], ['signed', 'Signed or became law'], ['hearings', 'Hearings'], ['comments', 'Comment deadlines']];
+export const STAGES = ['Introduced', 'Committee', 'Passed chamber', 'Passed both', 'Signed / Law'];
+const STAGE_KEY = { introduced: 0, introduction: 0, committee: 1, 'passed-chamber': 2, chamber: 2, 'passed-both': 3, both: 3, signed: 4, law: 4, 'signed/law': 4, 'signed-law': 4, enacted: 4 };
+export const isAuto = (n) => !!n && n.origin === 'automated';
+// An automated item is shown only with a known class; hand-written items always.
+export const newsVisible = (n) => !isAuto(n) || !!NEWS_CLASS[n.class];
+// stage: an index 0-4, a key above, or a STAGES label. Anything else: no bar (never guessed).
+export function stageIdx(stage) {
+  if (stage == null || stage === '') return -1;
+  if (typeof stage === 'number') return stage >= 0 && stage <= 4 ? Math.floor(stage) : -1;
+  const s = String(stage).trim().toLowerCase().replace(/[\s_]+/g, '-');
+  const i = STAGES.findIndex((x) => x.toLowerCase().replace(/\s+/g, '-') === s);
+  return i >= 0 ? i : (s in STAGE_KEY ? STAGE_KEY[s] : -1);
+}
+const DAY = 864e5, noonD = (s) => new Date(s + 'T12:00:00');
+// Comment deadline: item.comments_close or item.facts.comments_close (YYYY-MM-DD). Null when the item has none.
+export function commentClose(n) { const c = n.comments_close || (n.facts && n.facts.comments_close); return /^\d{4}-\d{2}-\d{2}$/.test(c || '') ? c : null; }
+export function countdown(n, today) {
+  const c = commentClose(n); if (!c) return null;
+  const t = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12), days = Math.round((noonD(c) - t) / DAY), when = fmt(noonD(c));
+  return { days, closed: days < 0, text: days < 0 ? `Comment period closed ${when}` : days === 0 ? `Comments close today (${when})` : `Comments close in ${days} day${days === 1 ? '' : 's'} · ${when}` };
+}
+// Weekly digest: automated, shown, not-withdrawn items dated in the 7 days ending today. Counts only, never padded.
+export function weekDigest(N, today) {
+  const end = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59), start = new Date(end.getTime() - 7 * DAY);
+  const wk = N.filter((n) => isAuto(n) && newsVisible(n) && n.status !== 'withdrawn' && n.d > start && n.d <= end);
+  const counts = NEWS_BUCKETS.map(([k, l]) => ({ k, l, n: wk.filter((n) => NEWS_CLASS[n.class].b === k).length }));
+  return { total: wk.length, counts, from: fmt(new Date(start.getTime() + DAY)), to: fmt(today) };
+}
+// Jurisdiction of an item: its own field if present, else its tracker entry's state (or US for a federal entry).
+export function newsJur(n, byId) {
+  if (n.jurisdiction) return n.jurisdiction;
+  const e = n.entryId ? byId[n.entryId] : null;
+  if (e) return e.st || (e.level === 'federal' ? 'US' : null);
+  return n.kind === 'federal' || n.kind === 'executive' ? 'US' : null;
+}
+// The visible history note of a corrected or withdrawn item: item.history [{at, change, from, to}] (latest last), or item.status_note.
+export function historyNote(n) {
+  if (n.status_note) return String(n.status_note);
+  const h = Array.isArray(n.history) ? n.history[n.history.length - 1] : null;
+  if (!h) return '';
+  const at = h.at ? fmt(new Date(String(h.at).slice(0, 10) + 'T12:00:00')) + ': ' : '';
+  return at + (h.change || '') + (h.from != null && h.to != null ? ` (was “${h.from}”, now “${h.to}”)` : '');
 }
