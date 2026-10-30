@@ -901,7 +901,7 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20@senate#AB1405",
      "title": "AB 1405 passes the Senate",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
      "status": "confirmed",
@@ -963,7 +963,7 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20@assembly#AB1405",
      "title": "AB 1405 passes the Assembly",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 70. Noes 1.) Ordered to the Senate\".",
      "status": "confirmed",
@@ -1340,7 +1340,7 @@
    ],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20#AB1405",
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20@senate#AB1405",
      "title": "AB 1405: Senate concurs",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Senate concurs in House amendments\".",
      "status": "confirmed",
@@ -2395,7 +2395,7 @@
      "status_note": null
     },
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20@senate#AB1405",
      "title": "AB 1405 passes the Senate",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed. (Ayes 30. Noes 6.) Ordered to the Assembly\".",
      "status": "confirmed",
@@ -2611,7 +2611,7 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20@house",
      "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 300 - 100\". The recorded vote was 300 to 100.",
      "status": "confirmed",
@@ -2714,7 +2714,7 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20@house",
      "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 100 - 300\". The recorded vote was 100 to 300.",
      "status": "corrected",
@@ -3195,7 +3195,7 @@
    ],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20@house",
      "title": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act passes the House",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act on Oct 20, 2026: \"On passage Passed by the Yeas and Nays: 300 - 100\". The recorded vote was 300 to 100.",
      "status": "confirmed",
@@ -3569,7 +3569,7 @@
    ],
    "expect": [
     {
-     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10",
+     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10@senate",
      "title": "NY RAISE Act (Ch. 699 → Ch. 96) passes the Senate",
      "body": "The NY Legislature's record shows this action on RAISE Act — Chapter 699 of 2025 (S.6953-B/A.6453-B), repealed and replaced by Chapter 96 of 2026 (S.8828/A.9449) on June 10, 2026: \"PASSED SENATE\".",
      "status": "confirmed",
@@ -3734,7 +3734,7 @@
    "records": [],
    "expect": [
     {
-     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10#A6453",
+     "event_key": "NY|ny-raise-act-ch-699-ch-96|passage|2026-06-10@senate#A6453",
      "title": "A 6453 passes the Senate",
      "body": "The NY Legislature's record shows this action on RAISE Act — Chapter 699 of 2025 (S.6953-B/A.6453-B), repealed and replaced by Chapter 96 of 2026 (S.8828/A.9449) (A 6453) on June 10, 2026: \"PASSED SENATE\".",
      "status": "confirmed",
@@ -3905,7 +3905,7 @@
    "records": [],
    "expect": [
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-16#HR3460",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-16@senate#HR3460",
      "title": "H.R. 3460 passes the Senate",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.R. 3460) on Oct 16, 2026: \"Conference report agreed to in Senate by Yea-Nay Vote. 70 - 28\". The recorded vote was 70 to 28.",
      "status": "confirmed",
@@ -3915,7 +3915,7 @@
      "status_note": null
     },
     {
-     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20#HRES12",
+     "event_key": "US|s-1792-h-r-3460-ai-whistleblower-protection-act|passage|2026-10-20@house#HRES12",
      "title": "H.Res. 12 passes the House",
      "body": "Congress.gov shows this action on S. 1792 / H.R. 3460 — AI Whistleblower Protection Act (H.Res. 12) on Oct 20, 2026: \"On agreeing to the resolution Agreed to by recorded vote: 230 - 190\". The recorded vote was 230 to 190.",
      "status": "confirmed",
@@ -4192,7 +4192,7 @@
    "records": [],
    "expect": [
     {
-     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-20#S4446",
+     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-20@senate#S4446",
      "title": "S 4446 passes the Senate",
      "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 20, 2026: \"Passed by the Senate (30-8)\".",
      "status": "confirmed",
@@ -4253,7 +4253,7 @@
    "records": [],
    "expect": [
     {
-     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-19#S4446",
+     "event_key": "NJ|nj-s-4446-a-5275|passage|2026-10-19@general-assembly#S4446",
      "title": "S 4446 passes the General Assembly",
      "body": "The NJ Legislature's record shows this action on S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\" (NJ S4446) on Oct 19, 2026: \"Passed by the Assembly (70-5)\".",
      "status": "confirmed",
@@ -4348,7 +4348,7 @@
    "records": [],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|veto-override-passage|2026-10-20#AB1405",
+     "event_key": "CA|ca-ab-1405-auditor-registry|veto-override-passage|2026-10-20@assembly#AB1405",
      "title": "AB 1405: Assembly votes to override veto",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Assembly motion to override the Governor's veto adopted. (Ayes 60. Noes 15.)\".",
      "status": "confirmed",
@@ -4545,7 +4545,7 @@
    "records": [],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20#AB1405",
+     "event_key": "CA|ca-ab-1405-auditor-registry|concurrence|2026-10-20@senate#AB1405",
      "title": "AB 1405: Senate concurs",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Conference report adopted by the Senate\".",
      "status": "confirmed",
@@ -5335,7 +5335,7 @@
    "records": [],
    "expect": [
     {
-     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20#AB1405",
+     "event_key": "CA|ca-ab-1405-auditor-registry|passage|2026-10-20@senate#AB1405",
      "title": "AB 1405 passes the Senate",
      "body": "The CA Legislature's record shows this action on A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86) (CA AB1405) on Oct 20, 2026: \"Read third time. Passed\".",
      "status": "confirmed",

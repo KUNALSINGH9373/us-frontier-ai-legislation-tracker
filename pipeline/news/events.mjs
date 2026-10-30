@@ -1,6 +1,6 @@
 // The news event model (pipeline/news/CONTRACT.md). Only official structured records create events; a statement (a release: verbatim
 // headline + link) only attaches to an event that already exists. Code only, no AI.
-//   eventKey(x)                         `${jurisdiction}|${entry_id||'-'}|${class}|${date}` (+ `#<bill>` for a bill action with a number;
+//   eventKey(x)                         `${jurisdiction}|${entry_id||'-'}|${class}|${date}` (+ `@<chamber>` for a floor vote, `#<bill>` for a bill action with a number;
 //                                       a scheduled hearing by its hearing day and committee, not the day seen)
 //   checkItem(item, { now })            why a raw item is refused (bad shape, future date, date after retrieval, host not official), or null
 //   upsertItems(state, items, opts)     new events, fact corrections, withdrawals (never a deletion), confirmations; returns what changed
@@ -51,13 +51,18 @@ const FR_CLASSES = new Set(['agency-rule-proposed', 'agency-rule-final', 'agency
 // A scheduled hearing (review r5 H1) is keyed by its hearing day and committee, never by the day it was seen (a new key every day let a
 // carried copy mask a cancellation); without a hearing day, by the source's own id. A bill action with a number (review r5 M6) carries
 // the normalised number: one entry may track several companion bills, and their same-day actions are separate events.
+// A floor vote (E5) carries its chamber: the Senate's and the House's passage on one day are two events, never merged.
 const slug = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const CHAMBER_CLASSES = new Set(['passage', 'failure', 'concurrence', 'veto-override-passage']);
+const chamberPart = (x) => (CHAMBER_CLASSES.has(x.class) && x.facts && x.facts.chamber ? slug(x.facts.chamber) || null : null);
+// A key's parts: base (jurisdiction|entry|class|id), chamber (@...), bill (#...).
+const keyParts = (k) => { const m = /^(.*?)(?:@([a-z0-9-]+))?(?:#([A-Z0-9]+))?$/.exec(k); return { base: m[1], chamber: m[2] || null, bill: m[3] || null }; };
 export const eventKey = (x) => {
   const f = x.facts || {};
   let id = EO_CLASSES.has(x.class) && f.eo_number ? `EO${f.eo_number}` : (EO_CLASSES.has(x.class) || FR_CLASSES.has(x.class)) && f.document_number ? `FR${f.document_number}` : x.date;
   if (x.class === 'hearing-scheduled') id = f.hearing_date ? `HD${f.hearing_date}${f.committee ? `@${slug(f.committee)}` : ''}` : `SRC${x.source || ''}:${x.source_id || x.date}`;
-  const bk = BILL_CLASSES.has(x.class) ? billKey(f.number, x.jurisdiction) : null;
-  return `${x.jurisdiction}|${x.entry_id || '-'}|${x.class}|${id}${bk ? `#${bk}` : ''}`;
+  const bk = BILL_CLASSES.has(x.class) ? billKey(f.number, x.jurisdiction) : null, ch = chamberPart(x);
+  return `${x.jurisdiction}|${x.entry_id || '-'}|${x.class}|${id}${ch ? `@${ch}` : ''}${bk ? `#${bk}` : ''}`;
 };
 
 // Chambers in one vocabulary (review r2 #5): Open States / NY Senate "upper"/"lower" -> the jurisdiction's upper / lower chamber name
@@ -180,12 +185,17 @@ export function upsertItems(state, items, { runId, now = new Date(), since = nul
     norm.push(n.item);
   }
   // a bill action whose record gives no number joins the one numbered event of its entry/class/date (this run's or stored); with several
-  // (companion bills) it keeps its own key: never guessed (review r5 M6). Numbered items are grouped first.
-  const noNumber = (x) => BILL_CLASSES.has(x.class) && !billKey(x.facts && x.facts.number, x.jurisdiction);
+  // (companion bills) it keeps its own key: never guessed (review r5 M6). Likewise a floor vote whose record gives no chamber joins the one
+  // event of its entry/class/date that has one (E5). Items with every key part are grouped first.
+  const noNumber = (x) => (BILL_CLASSES.has(x.class) && !billKey(x.facts && x.facts.number, x.jurisdiction)) || (CHAMBER_CLASSES.has(x.class) && !chamberPart(x));
   const keyOf = (it) => {
     const k = eventKey({ ...it, entry_id: it.entry_id || null });
     if (!noNumber(it) || it.class === 'hearing-scheduled') return k;
-    const near = new Set([...groups.keys(), ...Object.keys(state.events)].filter((x) => x.startsWith(`${k}#`)));
+    const me = keyParts(k);
+    const near = new Set([...groups.keys(), ...Object.keys(state.events)].filter((x) => {
+      const p = keyParts(x);
+      return x !== k && p.base === me.base && (!me.chamber || p.chamber === me.chamber) && (!me.bill || p.bill === me.bill);
+    }));
     return near.size === 1 ? [...near][0] : k;
   };
   const checked = linkWhiteHouse(norm, state).filter((it0) => {

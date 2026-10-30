@@ -49,7 +49,7 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
 // ---------- 2. keys, dedupe, date rules ----------
 {
   const it = { source: 'congress_gov', source_id: 'a', jurisdiction: 'US', entry_id: 'x', class: 'passage', date: '2026-10-20', facts: { action: 'Passed Senate without amendment by Unanimous Consent.', chamber: 'Senate' }, url: 'https://www.congress.gov/bill/1', title: 't', retrieved_at: '2026-10-21T00:00:00Z' };
-  ok('2 the key is jurisdiction|entry|class|date', eventKey(it) === 'US|x|passage|2026-10-20' && eventKey({ ...it, entry_id: null }) === 'US|-|passage|2026-10-20');
+  ok('2 the key is jurisdiction|entry|class|date (+ @chamber for a floor vote)', eventKey(it) === 'US|x|passage|2026-10-20@senate' && eventKey({ ...it, entry_id: null }) === 'US|-|passage|2026-10-20@senate');
   const now = new Date('2026-10-21T06:00:00Z');
   ok('2 a future date is refused', /future/.test(checkItem({ ...it, date: '2026-10-22' }, { now })));
   ok('2 a date more than a day after retrieval is refused', /after retrieval/.test(checkItem({ ...it, date: '2026-10-21', retrieved_at: '2026-10-19T00:00:00Z' }, { now })));
@@ -57,7 +57,7 @@ const T1 = new Date('2026-10-26T08:00:00Z'), T2 = new Date('2026-10-26T12:00:00Z
   ok('2 a good item passes', checkItem(it, { now }) === null);
   const s = emptyState();
   const r = upsertItems(s, [it, { ...it, source_id: 'b', facts: { ...it.facts } }, { ...it, source_id: 'c', facts: { action: 'Passed Senate with an amendment by Unanimous Consent.', chamber: 'Senate' } }], { runId: 'r1', now });
-  const ev = s.events['US|x|passage|2026-10-20'];
+  const ev = s.events['US|x|passage|2026-10-20@senate'];
   ok('2 three items with one key are one event; the different official words are both kept, sorted', r.added.length === 1 && Object.keys(s.events).length === 1 && ev.facts.actions.length === 2 && ev.sources.filter((x) => x.role === 'official').length === 3);
   const r2 = upsertItems(s, [it, { ...it, source_id: 'b' }, { ...it, source_id: 'c', facts: { action: 'Passed Senate with an amendment by Unanimous Consent.', chamber: 'Senate' } }], { runId: 'r1', now });
   ok('2 the same items again: no new event', r2.added.length === 0 && Object.keys(s.events).length === 1);
@@ -293,7 +293,7 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   ok('r2#5 LegiScan "S" and Open States "upper" are both the Senate: confirmed', Object.keys(s5.events).length === 1 && e5.facts.chamber === 'Senate' && e5.status === 'confirmed' && e5.confirmations.includes('openstates'));
   ok('r2#5 an Assembly state: "lower" is the Assembly', normalizeItem({ ...os5, facts: { chamber: 'lower' } }).item.facts.chamber === 'Assembly' && normalizeItem({ ...os5, jurisdiction: 'TX', facts: { chamber: 'lower' } }).item.facts.chamber === 'House');
   const s5b = emptyState(); upsertItems(s5b, [ls, { ...os5, source_id: 'ocd-act-2', class: 'failure', facts: { action: 'Failed passage.', chamber: 'upper' } }], { runId: 'a', now: new Date('2026-10-21T06:00:00Z') });
-  const e5b = s5b.events[eventKey({ ...ls, facts: {} })];
+  const e5b = s5b.events[eventKey({ ...ls, facts: { chamber: 'Senate' } })];
   ok('r2#5 an Open States failure on the same day in the same chamber: disagreement, held', e5b.status === 'pending' && (e5b.disagreements || []).some((d) => d.conflict === 'class') && !visible(e5b));
 
   // #9 a public law confirmed by govinfo on its number, whatever dateIssued says
@@ -496,6 +496,20 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   ok('D1 unicameral bodies by name: Guam passes its Legislature, DC its Council', FS.stageOf('enrolled', 'GU', { number: 'B 1' }) === 'Passed the Legislature' && FS.stageOf('enrolled', 'DC', { number: 'B 26-0123' }) === 'Passed the Council');
   const idx = L.entryIndex([{ key: 'dc-b', section: 'B', level: 'state', state: 'DC', short_name: 'B 26-0123', title: 'x' }, { key: 'us-hj', section: 'A', level: 'federal', short_name: 'S. 12', title: 'x' }]);
   ok('D1 a DC bill named with its jurisdiction matches in the leads', L.matchEntries({ title: 'District of Columbia SB 12 heard' }, [{ ...idx[0], bills: new Set(['SB12']) }]).tracker === 'dc-b');
+}
+
+// ---------- E5: same-day passages in two chambers ----------
+{
+  const now = new Date('2026-10-21T06:00:00Z');
+  const base = { source: 'congress_gov', jurisdiction: 'US', entry_id: 'x', class: 'passage', date: '2026-10-20', url: 'https://www.congress.gov/bill/119th-congress/house-bill/1', retrieved_at: '2026-10-21T05:00:00Z' };
+  const sen = { ...base, source_id: 's', facts: { action: 'Passed Senate without amendment by Unanimous Consent.', chamber: 'Senate', number: 'H.R. 1' } };
+  const hou = { ...base, source_id: 'h', facts: { action: 'On passage Passed by recorded vote: 300 - 120.', chamber: 'House', number: 'H.R. 1' } };
+  const s = emptyState();
+  upsertItems(s, [sen, hou], { runId: 'r1', now });
+  ok('E5 a Senate and a House passage on one day are two events', Object.keys(s.events).sort().join() === 'US|x|passage|2026-10-20@house#HR1,US|x|passage|2026-10-20@senate#HR1');
+  const s2 = emptyState();
+  upsertItems(s2, [sen, { ...base, source_id: 'n', facts: { action: 'Passed Senate.', number: 'H.R. 1' } }], { runId: 'r1', now });
+  ok('E5 a passage record with no chamber joins the one chambered event of its day', Object.keys(s2.events).join() === 'US|x|passage|2026-10-20@senate#HR1');
 }
 
 console.log(`news events: ${pass} passed, ${fail} failed`);
