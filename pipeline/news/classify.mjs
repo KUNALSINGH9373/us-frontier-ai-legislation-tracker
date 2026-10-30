@@ -59,17 +59,15 @@ export function classifyCongress(action) {
 
 // ---------- state legislatures (LegiScan history) ----------
 // A legislature's own wording, first. Checked against the stored history steps (fixtures/news/action-strings.json): each wording below
-// occurs there in that state only (a wording seen in several states stays in the general rules). Per state:
+// occurs there in that state only, and gives a card a meaning it has only there (a wording seen in several states, and any exclusion, stays
+// in the general rules below). Per state:
 //   classes            [regex, class]: the class, before the general rules
 //   chamber            the acting chamber written as a one-letter prefix (chamberOf)
 //   committee_passage  a committee's recommendation (after the executive-receipt rule)
-//   committee_failure  a failed step that is the committee's; floor_vote: a failed step that is the chamber's own vote
-//   not_referral       a "referred" step that is not a committee referral
 export const JURISDICTION_RULES = {
   // California: the Secretary of State's chapter number is the bill becoming law; "Approved by the Governor" is the signature.
   // A "Res. Chapter" is a resolution's chapter (SCR, ACA ...), never a law (review r6 #1): no class, so no card.
-  // "Referred to suspense file" is a hold in Appropriations, not a referral (review r13 #2).
-  CA: { classes: [[/^\W*chaptered by secretary of state\b[^.]*\bres\.?\s*chapter\b/i, null], [/^\W*chaptered by secretary of state\b/i, 'became-law'], [/^\W*approved by (the )?governor\b/i, 'executive-signature']], not_referral: /\bsuspense\b/i },
+  CA: { classes: [[/^\W*chaptered by secretary of state\b[^.]*\bres\.?\s*chapter\b/i, null], [/^\W*chaptered by secretary of state\b/i, 'became-law'], [/^\W*approved by (the )?governor\b/i, 'executive-signature']] },
   // New York: "SIGNED CHAP.123" is the governor's signature, which makes it a chapter of law that day.
   NY: { classes: [[/^\W*signed chap\.\s*\d+/i, 'executive-signature'], [/^\W*delivered to governor\b/i, 'executive-receipt']] },
   // Hawaii: "Passed Second Reading ... and referred to the committee(s)" is a committee passage there (Lane 1 agrees).
@@ -78,13 +76,17 @@ export const JURISDICTION_RULES = {
   // writes the acting chamber as a one-letter prefix ("S Third Read and Passed"), whatever LegiScan files it under (review r12 #1).
   MO: { classes: [[/^\W*((hcs|hs|scs)\s+)?reported\b/i, null]], chamber: /^\W*([SH])\s+(?=[A-Z])/ },
   // Tennessee: "Recommended for passage" is a committee's recommendation.
-  TN: { committee_passage: /\brec(ommended|ommends)? for pass(age)?\b/i },
-  // New Hampshire: "Inexpedient to Legislate" is the committee's report; "Inexpedient to Legislate: Motion Adopted" is the chamber's vote
-  // killing the bill, not its committee's (review r9 A3).
-  NH: { committee_failure: /\binexpedient\b/i, floor_vote: /\bmotion adopted\b/i },
-  // Connecticut: "Referred to Office of Legislative Research and Office of Fiscal Analysis" sends the bill to staff, not a committee.
-  CT: { not_referral: /\boffice of (legislative|fiscal)\b/i }
+  TN: { committee_passage: /\brec(ommended|ommends)? for pass(age)?\b/i }
 };
+// Rules that hold in every state, though first seen in one: an exclusion or a committee-level reading only ever removes or narrows a card,
+// so it is never scoped to the state it was seen in (an unseen state using the same words gets the same, safe reading).
+// A "referred" step that is not a committee referral: a veto message referred (review r11 #8); "Assigned to ..." (AZ, DE, IL, TN, UT, VA);
+// a hold on the suspense file (California, review r13 #2); the bill sent to staff offices ("Referred to Office of Legislative Research and
+// Office of Fiscal Analysis", Connecticut).
+const NOT_REFERRAL = /\bveto\b|\bassigned\b|\bsuspense\b|\boffice of (legislative|fiscal)\b/i;
+// A failed step that is a committee's: "Inexpedient to Legislate" is a committee's report (New Hampshire), except "...: Motion Adopted",
+// the chamber's own vote killing the bill (review r9 A3).
+const COMMITTEE_FAILURE = /committee|\bheld in\b|\binexpedient\b/i, FLOOR_VOTE = /\bmotion adopted\b/i;
 const test = (re, t) => !!re && re.test(t);
 const TO_GOVERNOR = /\b(presented|delivered|sent|transmitted|forwarded) to (the )?governor\b|\bto governor\b/i;
 const CHAPTERED = /\bchaptered\b|\bsecretary of state\b[^.]*\bchapter \d+|\bbecame law\b|\bbecomes law without\b/i;
@@ -118,12 +120,11 @@ function classifyStateRules(text, ctx = {}) {
   switch (k.kind) {
     case 'veto_override': return 'veto-override-passage';
     case 'vetoed': return NOT_WHOLE.test(t) ? null : 'executive-veto';
-    case 'failed': return /\b(sustain|overrid)/i.test(t) ? null : (/committee|\bheld in\b/i.test(t) || test(own.committee_failure, t)) && !test(own.floor_vote, t) ? 'committee-failure' : 'failure';
+    case 'failed': return /\b(sustain|overrid)/i.test(t) ? null : COMMITTEE_FAILURE.test(t) && !FLOOR_VOTE.test(t) ? 'committee-failure' : 'failure';
     case 'enacted': return NOT_WHOLE.test(t) ? null : CHAPTERED.test(t) ? 'became-law' : GOV_SIGNED.test(t) ? 'executive-signature' : null; // line items: not the bill
     case 'carried_over': return 'carried-over';
     case 'introduced': return 'introduction';
-    // a veto message referred is not the bill referred (review r11 #8); "Assigned to ..." (AZ, DE, IL, TN, UT, VA) is not a referral
-    case 'referred': return REFERRAL.test(t) && !/\bveto\b/i.test(t) && !/\bassigned\b/i.test(t) && !test(own.not_referral, t) ? 'referral-committee' : null;
+    case 'referred': return REFERRAL.test(t) && !NOT_REFERRAL.test(t) ? 'referral-committee' : null;
     case 'hearing': return /held under submission/i.test(t) || CANCELLED.test(t) ? null : HEARING_SET.test(t) ? 'hearing-scheduled' : /\bhearings? (was |were )?(held|conducted|completed)\b|\bheard\b/i.test(t) ? 'hearing-held' : null;
     case 'passed':
       if (CONCUR.test(t)) return NOT_CONCUR.test(t) ? null : 'concurrence';

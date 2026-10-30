@@ -26,7 +26,9 @@ export const billNumbers = (s) => new Set([...String(s || '').matchAll(BILL_TEXT
 // Every jurisdiction but the federal one (config/jurisdictions.json): the states, DC and the territories.
 const STATES = Object.fromEntries(Object.entries(STATE_NAMES).filter(([c]) => c !== 'US'));
 const CODE_OF = Object.fromEntries(Object.entries(STATES).map(([c, n]) => [n.toLowerCase(), c]));
-const NAMES_RE = Object.values(STATES).sort((a, b) => b.length - a.length).join('|');
+// names are matched literally ("U.S. Virgin Islands": its full stops are not wildcards)
+const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const NAMES_RE = Object.values(STATES).sort((a, b) => b.length - a.length).map(escRe).join('|');
 // The state written right before a bill number: "Nevada SB 53", "California's SB 53", "New York State Senate Bill S.10373", "NV SB 53".
 const STATE_BEFORE = new RegExp(`(?:\\b(${NAMES_RE})|\\b(${Object.keys(STATES).join('|')}))(?:['’]s)?(?:\\s+State)?(?:\\s+(?:Senate|House|Assembly|General Assembly|Legislature))?(?:\\s+(?:Bill|Resolution))?(?:\\s+No\\.)?\\s*$`);
 const stateBefore = (text, at) => { const m = STATE_BEFORE.exec(text.slice(Math.max(0, at - 60), at)); return m ? (m[1] ? CODE_OF[m[1].toLowerCase()] : m[2]) : null; };
@@ -45,7 +47,7 @@ export const billMentions = (s) => {
     return { num: b.num, state: st && st !== '?' ? st : st === '?' ? '?' : null };
   });
 };
-const namesState = (text, code) => new RegExp(`\\b${STATES[code]}\\b`, 'i').test(text) || new RegExp(`\\b${code}\\b`).test(text);
+const namesState = (text, code) => new RegExp(`\\b${escRe(STATES[code])}(?!\\w)`, 'i').test(text) || new RegExp(`\\b${code}\\b`).test(text);
 // A bill's own name: the words before "Act" in the short name ("AI Kill Switch Act", "FRONTIER Act"), at least two words or one in capitals.
 const actNames = (e) => [...String(`${e.short_name} ${e.title}`).matchAll(/((?:[A-Z][\w'’-]*\s+){1,7}Act)\b/g)].map((m) => m[1].replace(/^(?:H\.?R|S)\.?\s+/, '').trim()).filter((n) => n.split(/\s+/).length > 2 || /^[A-Z]{3,}\s+Act$/.test(n));
 // Sponsors' surnames from the sponsor line ("Reps. Sam Liccardo (D-CA), Kevin Kiley (I-CA)" -> Liccardo, Kiley).

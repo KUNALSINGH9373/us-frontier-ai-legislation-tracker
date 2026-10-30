@@ -17,8 +17,9 @@ export const STATE_NAMES = Object.fromEntries(Object.entries(J).map(([c, e]) => 
 export const CHAMBER_LETTERS = TABLE.chamber_letters;
 export const isUnicameral = (j) => !!(J[j] && J[j].unicameral);
 export const unicameralBody = (j) => (J[j] && J[j].unicameral) || null;
-export const upperOf = (j) => (J[j] && J[j].upper) || 'Senate';
-export const lowerOf = (j) => (J[j] && J[j].lower) || 'House';
+// A one-body legislature is its own upper and lower chamber (a Nebraska record filed under "S" or "upper" is the Legislature, never a Senate).
+export const upperOf = (j) => (J[j] && (J[j].unicameral || J[j].upper)) || 'Senate';
+export const lowerOf = (j) => (J[j] && (J[j].unicameral || J[j].lower)) || 'House';
 // Whether a card may name the executive and say "signed into law" (news_executive_wording false: the territories, review r6 #7).
 export const namesExecutive = (j) => !(J[j] && J[j].news_executive_wording === false);
 // Who acts on a passed measure, as a card names it (null where the card names none).

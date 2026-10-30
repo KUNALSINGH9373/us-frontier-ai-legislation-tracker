@@ -16,7 +16,7 @@ import { applyRun, showable, BILL_CLASSES } from './confirm.mjs';
 import { longDate } from '../agents/derive.mjs';
 import { templateFor, quoteOf } from './templates.mjs';
 import { ownStageCode, billKey, displayNumber, skipsExecutive } from './factsheet.mjs';
-import { upperOf, lowerOf } from './jurisdictions.mjs';
+import { upperOf, lowerOf, unicameralBody } from './jurisdictions.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
 import { sourceConfig, structuredSources } from './sources/common.mjs';
 import { guardClass } from './sources/openstates.mjs';
@@ -54,7 +54,13 @@ const FR_CLASSES = new Set(['agency-rule-proposed', 'agency-rule-final', 'agency
 // A floor vote (E5) carries its chamber: the Senate's and the House's passage on one day are two events, never merged.
 const slug = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const CHAMBER_CLASSES = new Set(['passage', 'failure', 'concurrence', 'veto-override-passage']);
-const chamberPart = (x) => (CHAMBER_CLASSES.has(x.class) && x.facts && x.facts.chamber ? slug(x.facts.chamber) || null : null);
+// Only a chamber the jurisdiction has (config/jurisdictions.json, after normChamber) is a key part: any other spelling a record gives is no
+// chamber, so the record joins its day's one chambered event instead of making a second card for the same vote.
+const chamberPart = (x) => {
+  if (!CHAMBER_CLASSES.has(x.class) || !x.facts || !x.facts.chamber) return null;
+  const c = normChamber(x.facts.chamber, x.jurisdiction), j = x.jurisdiction;
+  return c && [upperOf(j), lowerOf(j), unicameralBody(j)].includes(c) ? slug(c) : null;
+};
 // A key's parts: base (jurisdiction|entry|class|id), chamber (@...), bill (#...).
 const keyParts = (k) => { const m = /^(.*?)(?:@([a-z0-9-]+))?(?:#([A-Z0-9]+))?$/.exec(k); return { base: m[1], chamber: m[2] || null, bill: m[3] || null }; };
 export const eventKey = (x) => {
@@ -128,8 +134,32 @@ export function loadEvents(file, { now = new Date() } = {}) {
   const events = {};
   for (const [k, v] of Object.entries(s.events || {})) if (validEvent(v) && v.key === k) events[k] = v;
   const dropped = Object.keys(s.events || {}).length - Object.keys(events).length;
-  return { ...emptyState(), ...s, events, ...(dropped ? { dropped_malformed: dropped } : {}) };
+  return migrateKeys({ ...emptyState(), ...s, events, ...(dropped ? { dropped_malformed: dropped } : {}) });
 }
+// Keys stored before E5 (a floor vote without its chamber): the event is moved to its current key, every reference to it (merged,
+// merged_into) follows, and state.renamed keeps old -> new so a news item written under the old key is still its event's card (never
+// re-emitted as a new card). A current key that is already taken keeps both as they are (no merge is guessed).
+export function migrateKeys(state) {
+  const renamed = { ...(state.renamed || {}) };
+  for (const [k, v] of Object.entries(state.events)) {
+    const p = keyParts(k);
+    if (p.chamber || !CHAMBER_CLASSES.has(v.class)) continue;
+    const nk = eventKey(v), q = keyParts(nk);
+    if (nk === k || !q.chamber || q.base !== p.base || q.bill !== p.bill || state.events[nk]) continue;
+    delete state.events[k]; state.events[nk] = { ...v, key: nk }; renamed[k] = nk;
+  }
+  const fix = (x) => renamed[x] || x;
+  if (Object.keys(renamed).length) {
+    for (const v of Object.values(state.events)) {
+      if (v.merged) v.merged = v.merged.map(fix);
+      if (v.merged_into) v.merged_into = fix(v.merged_into);
+    }
+    state.renamed = renamed;
+  }
+  return state;
+}
+// A news item's event key as the state now has it (state.renamed, migrateKeys).
+export const currentKey = (state, k) => (state && state.renamed && state.renamed[k]) || k;
 export const validEvent = (v) => !!v && typeof v === 'object' && !Array.isArray(v) && typeof v.key === 'string' && typeof v.jurisdiction === 'string' && typeof v.date === 'string'
   && Array.isArray(v.sources) && v.sources.every((s) => s && typeof s === 'object' && typeof s.source === 'string' && (typeof s.source_id === 'string' || typeof s.source_id === 'number'))
   && Array.isArray(v.history) && (v.class === null || typeof v.class === 'string') && v.facts && typeof v.facts === 'object';
@@ -429,9 +459,9 @@ export function renderNews(news, stateIn, entries, { at, maxAgeDays = 14 } = {})
   const owners = []; // events that own a card on the page (or added this run)
   for (const n of news.items) {
     if (!n.event_key) { out.items.push(n); continue; }
-    const ev = state.events[n.event_key];
+    const k = currentKey(state, n.event_key), ev = state.events[k]; // an item under a pre-E5 key is its event's card (migrateKeys)
     if (ev) owners.push(ev);
-    out.items.push(n);
+    out.items.push(k === n.event_key ? n : { ...n, event_key: k });
   }
   // items written another way (by hand, or Lane 1's official-action news), by entry: an event within a day of one is not added (review r3 #4)
   const otherItems = news.items.filter((n) => !n.event_key && n.tracker);
@@ -490,7 +520,7 @@ export function checkNewsEvents({ before, after, state, entries, at }) {
   const problems = [];
   const plainB = before.news.items.filter((n) => !n.event_key), plainA = after.news.items.filter((n) => !n.event_key);
   if (JSON.stringify(plainB) !== JSON.stringify(plainA)) problems.push('news items not written by the event model changed');
-  const keysB = before.news.items.filter((n) => n.event_key).map((n) => n.event_key), keysA = new Set(after.news.items.filter((n) => n.event_key).map((n) => n.event_key));
+  const keysB = before.news.items.filter((n) => n.event_key).map((n) => currentKey(state, n.event_key)), keysA = new Set(after.news.items.filter((n) => n.event_key).map((n) => n.event_key));
   keysB.filter((k) => !keysA.has(k)).forEach((k) => problems.push(`news item ${k} was removed (corrections never delete)`));
   const byKey = new Map(entries.map((e) => [e.key, e]));
   for (const n of after.news.items.filter((x) => x.event_key)) {

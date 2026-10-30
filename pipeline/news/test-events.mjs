@@ -510,6 +510,30 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const s2 = emptyState();
   upsertItems(s2, [sen, { ...base, source_id: 'n', facts: { action: 'Passed Senate.', number: 'H.R. 1' } }], { runId: 'r1', now });
   ok('E5 a passage record with no chamber joins the one chambered event of its day', Object.keys(s2.events).join() === 'US|x|passage|2026-10-20@senate#HR1');
+  const s3 = emptyState();
+  upsertItems(s3, [sen, { ...base, source_id: 'f', facts: { action: 'Passed Senate.', chamber: 'Senate Floor', number: 'H.R. 1' } }], { runId: 'r1', now });
+  ok('E5 a chamber spelling the jurisdiction does not have is no key part: one event, not two cards', Object.keys(s3.events).join() === 'US|x|passage|2026-10-20@senate#HR1');
+  ok('E5 a raw "upper" keys like "Senate"', eventKey({ ...sen, facts: { ...sen.facts, chamber: 'upper' } }) === eventKey(sen));
+  // a state stored before E5: the event moves to its new key, references follow, and its card on the page stays its card
+  const old = emptyState();
+  upsertItems(old, [sen], { runId: 'r0', now });
+  const ev0 = Object.values(old.events)[0], legacy = 'US|x|passage|2026-10-20#HR1';
+  const other = { ...ev0, key: 'US|x|enrolled|2026-10-20#HR1', class: 'enrolled', merged: [legacy] };
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'e5-')), file = path.join(dir, 'ev.json');
+  fs.writeFileSync(file, JSON.stringify({ events: { [legacy]: { ...ev0, key: legacy }, [other.key]: other } }));
+  const st = loadEvents(file, { now });
+  ok('E5 a pre-E5 key is migrated on load (event, merged refs, renamed map)', !!st.events['US|x|passage|2026-10-20@senate#HR1'] && !st.events[legacy] && st.events[other.key].merged[0] === 'US|x|passage|2026-10-20@senate#HR1' && st.renamed[legacy] === 'US|x|passage|2026-10-20@senate#HR1');
+  upsertItems(st, [sen], { runId: 'r1', now });
+  ok('E5 the same record after migration is no new event', Object.keys(st.events).length === 2);
+}
+
+// ---------- review of the generic cleanup ----------
+{
+  const FS = await import('./factsheet.mjs'), CL = await import('./classify.mjs'), L = await import('./leads.mjs');
+  ok('review: a one-body legislature is never called a Senate or House', FS.stageOf('passage', 'NE', { number: 'LB 1', chamber: 'Senate' }) === 'Passed the Legislature' && normChamber('upper', 'NE') === 'Legislature' && normChamber('lower', 'GU') === 'Legislature');
+  ok('review: exclusions hold in every state (suspense file, staff offices): no referral card', ['KY', 'TN', 'CA', 'CT'].every((j) => CL.classifyState('Referred to suspense file', { jurisdiction: j }) === null && CL.classifyState('Referred to Office of Fiscal Analysis', { jurisdiction: j }) === null));
+  const idx = L.entryIndex([{ key: 'vi-b', section: 'B', level: 'state', state: 'VI', short_name: 'SB 12', title: 'x' }]);
+  ok('review: a state name with full stops is matched literally', L.matchEntries({ title: 'U.S. Virgin Islands SB 12 heard' }, idx).tracker === 'vi-b' && L.matchEntries({ title: 'UxSx Virgin Islands SB 12 heard' }, idx).tracker === null);
 }
 
 console.log(`news events: ${pass} passed, ${fail} failed`);
