@@ -638,7 +638,7 @@
    "dead": false
   },
   "congress_gov:119/hres/1642": {
-   "raw_hash": "58c5264735a5309f8fa7e84360bd80f5c97269ce26a50ecaa720adb9dab10f2f",
+   "raw_hash": "e9daa8c55feb4beea1971d2120452535601908f67f4fb2fe400acdd290cd7e7c",
    "reason": "not created: a H.Res. resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)",
    "proposal": "congress_gov:119/hres/1642: not a bill (a H.Res. resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)); not created",
    "date": "2026-10-30",
@@ -711,6 +711,48 @@
    "raw_hash": "18959fac129e3b958f7092d1e2ca10ecf25a57abdbc2c7bde005d6bc67704e6c",
    "reason": "not created: no passage of the text meets the criterion of section A, C (A: an enacted law that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); C: a measure on who ",
    "proposal": "legiscan:1908094 (\"Budget Act of 2026.\") meets no state section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "congress_gov:119/hr/7786": {
+   "raw_hash": "9aa52730db62b3a936c86581cf220b36da869da2360e8f40f71a1a0c274a5700",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/7786 (\"AI Fraud Accountability Act\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "congress_gov:119/s/3404": {
+   "raw_hash": "c45e48268b45bff98c1f38bcb45b1e133b625546fce7ca755c3a300b37138d1a",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/3404 (\"Satellite Cybersecurity Act of 2025\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "congress_gov:119/hr/9501": {
+   "raw_hash": "5f4929c61b820fdcbfa62abfe382ee2182b259a0cf67217c53fc45046e3cf085",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/9501 (\"AI Tax Integrity Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-10-31",
+   "dead": false
+  },
+  "congress_gov:119/hr/7436": {
+   "raw_hash": "2e742e82e8fa9a5b52c710a4daa49fbd331d0b92a6d06a66f0b2bc37867dec7e",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/7436 (\"Department of Homeland Security Intelligence and Analysis Training Act\") meets neither federal section's criterion; not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:2156598": {
+   "raw_hash": "1c0b047b459b6d30a2f74713a300a2207694076b723b1dda7857efe214171c39",
+   "reason": "not created: an amendment record, not a bill: LegiScan titles it as an amendment",
+   "proposal": "legiscan:2156598: not a bill (an amendment record, not a bill: LegiScan titles it as an amendment); not created",
+   "date": "2026-10-30",
+   "dead": false
+  },
+  "legiscan:2156473": {
+   "raw_hash": "581167a834fd00214a9d1bddd799a7a4b3cdd61ece22e9dd1aaff45a71d31c1f",
+   "reason": "not created: an amendment record, not a bill: its text is an amendment to another bill",
+   "proposal": "legiscan:2156473: not a bill (an amendment record, not a bill: its text is an amendment to another bill); not created",
    "date": "2026-10-30",
    "dead": false
   }

@@ -450,3 +450,15 @@
 {"at":"2026-10-30T12:06:31.954Z","role":"generator","model":"claude-haiku-5-5","itemId":"congress_gov:119/hr/10594","input":7701,"output":732,"cost":0.0011361000000000001}
 {"at":"2026-10-30T12:06:37.341Z","role":"validator","model":"claude-haiku-5-5","itemId":"congress_gov:119/hr/10594","input":4868,"output":1019,"cost":0.0009962999999999999}
 {"at":"2026-10-30T12:06:44.159Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1321,"output":71,"cost":0.00016759999999999998}
+{"at":"2026-10-30T15:06:05.279Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":1771,"output":211,"cost":0.00028260000000000004}
+{"at":"2026-10-30T16:05:58.686Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":1790,"output":742,"cost":0.00055}
+{"at":"2026-10-30T20:05:52.683Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":1745,"output":141,"cost":0.000245}
+{"at":"2026-10-31T00:07:08.825Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:il-hb-4705-sb-3261","input":10327,"output":2346,"cost":0.0022056999999999997}
+{"at":"2026-10-31T00:07:18.108Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:il-hb-4705-sb-3261:rewrite","input":10856,"output":2246,"cost":0.0022086}
+{"at":"2026-10-31T00:07:20.280Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:il-hb-4705-sb-3261:mechanism","input":9498,"output":184,"cost":0.020836}
+{"at":"2026-10-31T00:07:26.983Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-s-10456-minimum-standards","input":2307,"output":1449,"cost":0.0009552}
+{"at":"2026-10-31T00:07:34.375Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-s-10456-minimum-standards:rewrite","input":2532,"output":1475,"cost":0.0009907}
+{"at":"2026-10-31T00:07:36.666Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:ny-s-10456-minimum-standards:mechanism","input":1622,"output":161,"cost":0.004854}
+{"at":"2026-10-31T00:07:44.274Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:oh-hb-628","input":8740,"output":1474,"cost":0.001611}
+{"at":"2026-10-31T00:07:45.902Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:oh-hb-628:mechanism","input":8071,"output":135,"cost":0.017492}
+{"at":"2026-10-31T04:05:56.569Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":1769,"output":182,"cost":0.0002679}

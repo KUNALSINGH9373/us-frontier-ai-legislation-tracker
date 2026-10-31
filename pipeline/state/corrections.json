@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-10-30",
+ "last_run": "2026-10-31",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -150,10 +150,10 @@
    "retries": 0
   },
   "oh-hb-628": {
-   "text_sha": "ac1e4ee748371f50d29971a96a93101ebd8f809c576a81c270f623e3f50ed9bf",
+   "text_sha": "e968e3dfe9a549f5585f15c648ad3c48933b6397fc58a81e4e085dff2a1637be",
    "text_url": "https://www.legislature.ohio.gov/legislation/136/hb628",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-10-31",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -294,12 +294,13 @@
    "retries": 0
   },
   "il-hb-4705-sb-3261": {
-   "text_sha": "13ee257db4d3ac55491211b104c8c0e5974d97eccea71f8b9bfd0b7eb55fcadf",
+   "text_sha": "aa9bae42df04986e33528efec7b658d8a6507cc9147abc55c94046cd6ef54af1",
    "text_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-10-31",
+   "outcome": "corrected",
    "retry": false,
-   "retries": 0
+   "retries": 0,
+   "reason": "code check: figures the new text adds or uses again that no evidence quote contains: 26"
   },
   "ca-ab-1405-auditor-registry": {
    "text_sha": "70025db06cf606861b3b4baee6405739d6f354c1a34d3c722c03233c1ad94fbb",
@@ -342,12 +343,13 @@
    "retries": 0
   },
   "ny-s-10456-minimum-standards": {
-   "text_sha": "8a28b76bc1a86c4a2a6eead05f65f756492384bc1c9f09be6375cef9b0b327ff",
+   "text_sha": "609f0a2258be07ee1ee3be7b0ebea8622d845740a17a053f9113ef20a9ae93ba",
    "text_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
-   "retry": false,
-   "retries": 0
+   "checked_at": "2026-10-31",
+   "outcome": "rejected",
+   "retry": true,
+   "retries": 1,
+   "reason": "not confirmed: SOURCE states the purpose, but it does not name DFS/DIGIT (it says only \"the office\"). The proposal keeps the sponsor memo quote, which SOURCE does not contain. Those unchanged parts are not judged. The added purpose clause is accurate but the proposed sentence is garbled and redundan"
   },
   "ma-h-5576-s-3178": {
    "text_sha": "6b934d5737e6ed571d80ee5292a1c580dd43bda7c33796aa4e3c87a85aa838de",
