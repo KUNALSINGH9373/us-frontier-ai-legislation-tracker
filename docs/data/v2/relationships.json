@@ -704,6 +704,42 @@
    "column": 4,
    "kind": "entry",
    "entry_key": "pa-h-b-2829-frontier-ai"
+  },
+  "AZ4098": {
+   "name": "AZ HB 4098",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "az-hb-4098"
+  },
+  "NC735": {
+   "name": "NC S 735",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "nc-s-735"
+  },
+  "NE1083": {
+   "name": "NE LB 1083",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ne-lb-1083"
+  },
+  "CO1212": {
+   "name": "CO HB 25-1212",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "co-hb-25-1212"
+  },
+  "S2604": {
+   "name": "S. 2604 AGI Steering Committee",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-2604"
+  },
+  "NYA8833": {
+   "name": "NY A.8833 Understanding AI Act",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ny-a-8833"
   }
  },
  "edges": [
@@ -2274,6 +2310,66 @@
    "quote": "Free-standing act on the SB 53 pattern",
    "src": "PAHB2829",
    "col": "Mechanism"
+  },
+  {
+   "from": "NC735",
+   "to": "SB1047",
+   "type": "template",
+   "label": "Same covered-model, full-shutdown and safety-and-security-protocol structure as CA SB 1047",
+   "quote": "Implement the capability to promptly enact a full shutdown.",
+   "src": "NC735",
+   "col": "Mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "NE1083",
+   "to": "SB53",
+   "type": "template",
+   "label": "NE LB 1083 follows the SB 53 frontier pattern (10^26 compute, $500M revenue, 15-day and 24-hour incident reports) and adds a child-safety layer",
+   "quote": "a quantity of computing power greater than 10^26 integer or floating-",
+   "src": "NE1083",
+   "col": "Mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "NE1083",
+   "to": "HB4705",
+   "type": "template",
+   "label": "Same \"public safety and child protection plan\" model as the Illinois child-protection transparency bill",
+   "quote": "publish a public safety and child protection plan",
+   "src": "NE1083",
+   "col": "Mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "NE1083",
+   "to": "TN",
+   "type": "template",
+   "label": "Same \"public safety and child protection plan\" model as the Tennessee bill",
+   "quote": "publish a public safety and child protection plan",
+   "src": "NE1083",
+   "col": "Mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "CO1212",
+   "to": "S1792",
+   "type": "template",
+   "label": "State counterpart to the federal AI Whistleblower Protection Act: worker protections at large foundation-model developers",
+   "quote": "RETALIATE AGAINST A WORKER FOR, DISCLOSING OR THREATENING TO",
+   "src": "CO1212",
+   "col": "Mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "act-bores",
+   "to": "NYA8833",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Assemblymember Alex Bores (D)",
+   "src": "NYA8833",
+   "col": "Sponsor",
+   "origin": "authored"
   }
  ]
 }
