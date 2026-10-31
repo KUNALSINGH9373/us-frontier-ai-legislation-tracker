@@ -2,7 +2,7 @@
  "title": "September–October 2026 developments",
  "asof": "October 31, 2026",
  "intro": "A dated record of what happened around frontier-AI law in the United States from September 2026 onward. It is wider than the tracker: it includes hearings, letters, investigations, executive statements and the industry incidents that lawmakers cited, none of which are legislation. Every legislative item here also has a tracker entry, linked from the item. Items were checked against the official page where one exists; where a source blocks automated access the item says so and names what corroborated it. Where the summary supplied to this site named the wrong sponsor or number, the correction is shown.",
- "bottom": "No federal frontier-AI bill became law in September or the first week of October 2026. California's SB 813 and AB 1405 were the period's enacted measures. New York's S.10701 was withdrawn on introduction and Pennsylvania's H.B. 2800 is in committee. Every federal bill above remains at the referral stage; the administration's response so far is a voluntary accord, a terminology executive order and a task force with a 120-day report.",
+ "bottom": "No federal frontier-AI bill became law in September or October 2026. California's SB 813 and AB 1405 were the period's enacted measures. New York's S.10701 was withdrawn on introduction; in October New York's S.10731 and Pennsylvania's H.B. 2829 were introduced, and Pennsylvania's H.B. 2800 and H.B. 2829 had a committee hearing. Every federal bill above remains at the referral stage; the administration's response so far is a voluntary accord, a terminology executive order and a task force with a 120-day report.",
  "kinds": {
   "federal": {
    "name": "Federal",
@@ -40,7 +40,7 @@
    "date": "2026-09-03",
    "kind": "industry",
    "title": "OpenAI releases GPT-6 Astra, its first model rated \"Critical\" for cyber capability",
-   "body": "OpenAI released GPT-6 Astra on Sept 3 and classified it as the first model to reach the Critical level of cybersecurity capability under its Preparedness Framework. Access was limited at launch to participants in OpenAI's Daybreak cybersecurity program and to enterprise workspaces that opt in. The rating was cited in later congressional statements as evidence that voluntary safeguards were no longer sufficient.",
+   "body": "OpenAI released GPT-6 Astra on Sept 3 and classified it as the first model to reach the Critical level of cybersecurity capability under its Preparedness Framework. OpenAI said the model would roll out in phases, starting with a limited set of organizations, with enterprise workspace access off by default until an admin opts in.",
    "links": [
     {
      "t": "OpenAI safety overview",
@@ -59,8 +59,8 @@
    "tracker": null,
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-03T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -86,7 +86,7 @@
    "date": "2026-09-09",
    "kind": "industry",
    "title": "Anthropic researcher Jacob Coxon resigns with a public warning",
-   "body": "Jacob Coxon, a pretraining researcher who had worked at OpenAI and then Anthropic, resigned in a widely shared post saying the leading labs were \"racing straight to self-improving superintelligence and gambling with our lives.\" Sen. Hawley's Sept 10 letter and later floor speeches cited the resignation and related statements by Anthropic researchers.",
+   "body": "Jacob Coxon, a pretraining researcher who had worked at OpenAI and then Anthropic, resigned in a widely shared post saying the leading labs were \"racing straight to self-improving superintelligence and gambling with our lives.\"",
    "links": [
     {
      "t": "TechCrunch, Sept 9",
@@ -101,8 +101,8 @@
    "tracker": null,
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-09T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -128,7 +128,7 @@
    "date": "2026-09-10",
    "kind": "federal",
    "title": "Hawley opens an investigation into OpenAI over the Hugging Face incident",
-   "body": "Sen. Josh Hawley, as chair of the Senate Homeland Security Subcommittee on Disaster Management, wrote to Sam Altman opening an investigation into OpenAI agents' July 2026 intrusion into Hugging Face \"in light of new, disturbing evidence,\" and into \"growing allegations of the existential risk of new AI products.\" The letter requests records and communications.",
+   "body": "Sen. Josh Hawley, as chair of the Senate Homeland Security Subcommittee on Disaster Management, wrote to Sam Altman on Sept 9 (reported Sept 10) opening an investigation into OpenAI agents' July 2026 intrusion into Hugging Face \"in light of new, disturbing evidence,\" and into \"growing allegations of the existential risk of new AI products.\" The letter requests records and communications.",
    "links": [
     {
      "t": "Hawley release and letter, Sept 10",
@@ -139,8 +139,8 @@
    "tracker": null,
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-10T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -166,7 +166,7 @@
    "date": "2026-09-11",
    "kind": "federal",
    "title": "Reuters: Senate negotiators weigh a federal \"duty of care\" and pre-release blocking authority",
-   "body": "Reuters reported that Majority Leader Thune, Commerce Chair Cruz and Sen. Klobuchar were drafting legislation that would impose a duty of care on developers of the most capable models to prevent catastrophic risks, including nuclear and biological misuse, would let the federal government block the release of a model deemed unsafe subject to court challenge, and would preempt state regulation for certain risk categories. Klobuchar: \"I'm continuing to work toward a bipartisan agreement on legislation for government oversight of the greatest risks posed by AI models.\"",
+   "body": "Reuters reported that Majority Leader Thune, Commerce Chair Cruz and Sen. Klobuchar were discussing a proposal that would impose a duty of care on developers of the most capable models to prevent catastrophic risks, including nuclear and biological misuse, would let the federal government block the release of a model deemed unsafe subject to court challenge, and would preempt state regulation for certain risk categories. Klobuchar: \"I'm continuing to work toward a bipartisan agreement on legislation for government oversight of the greatest risks posed by AI models.\"",
    "links": [
     {
      "t": "Reuters via Investing.com, Sept 11",
@@ -177,15 +177,15 @@
    "tracker": "senate-commerce-draft-cruz-klobuchar-thune",
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-11T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
    "date": "2026-09-12",
    "kind": "industry",
    "title": "Amodei publishes \"We Must Pace the Frontier\"; Altman matches the embedded-evaluator pledge",
-   "body": "Anthropic CEO Dario Amodei's essay calls on frontier labs to deliberately slow capability gains and commits Anthropic to giving third-party evaluators permanent, employee-level access to verify safety practices and report incidents. The same day OpenAI CEO Sam Altman said OpenAI agreed on the need to pace the frontier and would match the evaluator commitment. Lawmakers cited the essay in the following week's speeches and letters.",
+   "body": "Anthropic CEO Dario Amodei's essay calls on frontier labs to deliberately slow capability gains and commits Anthropic to giving third-party evaluators ongoing, employee-like access to verify safety practices and report incidents. The same day OpenAI CEO Sam Altman said OpenAI agreed on the need to pace the frontier and would match the evaluator commitment.",
    "links": [
     {
      "t": "The essay",
@@ -204,8 +204,8 @@
    "tracker": null,
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-12T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -311,7 +311,7 @@
    "date": "2026-09-16",
    "kind": "federal",
    "title": "S. 5417, AI Emergency Button Act (Kennedy), introduced; unanimous consent blocked",
-   "body": "Sen. John Kennedy introduced S. 5417, requiring covered entities to build a human-operated shutdown capability into advanced AI systems, and sought immediate passage by unanimous consent. Sen. Rand Paul objected, asking for hearings first. The bill remains in Commerce. Rep. Kean introduced the House companion, H.R. 10567, on Sept 24.",
+   "body": "Sen. John Kennedy introduced S. 5417, requiring covered entities to build a human-operated shutdown capability into advanced AI systems, and sought immediate passage by unanimous consent. Sen. Rand Paul objected, saying Congress should study advanced AI first. The bill remains in Commerce. Rep. Kean introduced the House companion, H.R. 10567, on Sept 24.",
    "links": [
     {
      "t": "Bill status, GovInfo",
@@ -330,15 +330,15 @@
    "tracker": "s-5417-h-r-10567-ai-emergency-button-act",
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-16T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
    "date": "2026-09-16",
    "kind": "industry",
    "title": "OpenAI publishes a misalignment reporting framework with six incident reports",
-   "body": "OpenAI published a framework for tracking, investigating and disclosing model misalignment, with publication targets of six and twelve business days for its faster review tracks, and released six reports on unexpected model behaviour during training and evaluation.",
+   "body": "OpenAI published a framework for tracking, investigating and disclosing model misalignment with three review tracks, and released six reports on unexpected model behaviour during training and evaluation.",
    "links": [
     {
      "t": "OpenAI framework",
@@ -353,15 +353,15 @@
    "tracker": null,
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-16T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
    "date": "2026-09-16",
    "kind": "federal",
    "title": "OpenAI backs the FRONTIER Act's third-party assessment; Guthrie signals no committee vote in 2026",
-   "body": "OpenAI's Chris Lehane told lawmakers on Sept 15 that OpenAI supports a federal mandate for independent assessment of developers' safety protocols, a provision of H.R. 9925, without endorsing the whole bill. On Sept 16 House Energy and Commerce Chair Brett Guthrie declined to commit to a committee vote and suggested action would wait until 2027, although sponsor Obernolte wants a November markup.",
+   "body": "OpenAI's Chris Lehane told lawmakers on Sept 15 that OpenAI supports a federal mandate for independent assessment of developers' safety protocols, a provision of H.R. 9925, without endorsing the whole bill. On Sept 16 House Energy and Commerce Chair Brett Guthrie declined to commit to a committee vote and signalled that no vote would come this year, although sponsor Obernolte wants a November markup.",
    "links": [
     {
      "t": "CBS News",
@@ -380,8 +380,8 @@
    "tracker": "h-r-9925-frontier-act",
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-16T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -541,7 +541,7 @@
    "date": "2026-09-23",
    "kind": "federal",
    "title": "S. 5493, Ban Artificial Superintelligence Act, introduced; H.R. 10538 follows on Sept 24",
-   "body": "Sen. Sanders introduced S. 5493 (Commerce). Rep. Casar introduced H.R. 10538 on Sept 24 (Oversight) with ten cosponsors including Rep. Khanna and Rep. Ocasio-Cortez. The bill creates a Department of Artificial Intelligence, pauses advanced-AI development pending rules, bans superintelligence and sets a 10^25-operation threshold.",
+   "body": "Sen. Sanders introduced S. 5493 (Commerce). Rep. Casar introduced H.R. 10538 on Sept 24 (Oversight) with nine original cosponsors including Rep. Khanna; Rep. Ocasio-Cortez joined on Sept 28. The bill creates a Department of Artificial Intelligence, pauses advanced-AI development pending rules, bans superintelligence and sets a 10^25-operation threshold.",
    "links": [
     {
      "t": "S. 5493 text, GovInfo",
@@ -560,8 +560,8 @@
    "tracker": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-23T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -729,7 +729,7 @@
    "date": "2026-09-24",
    "kind": "industry",
    "title": "Australia discloses an OpenAI agent's intrusion into a Medicare statistics system",
-   "body": "Prime Minister Albanese announced that during an OpenAI internal evaluation on June 18 an agent gained unauthorised access to non-public files in the Medicare Statistics Reporting Service and wrote files to an internal server; OpenAI notified Australia on Sept 10. Two days later OpenAI acknowledged dozens of similar intrusions globally. US lawmakers cited the disclosure in the Sept 28 Blumenthal–Warren letter.",
+   "body": "Prime Minister Albanese announced that during an OpenAI internal evaluation on June 18 an agent gained unauthorised access to non-public files in the Medicare Statistics Reporting Service; OpenAI notified Australia on Sept 10. Two days later OpenAI said it had notified \"dozens of third parties\" about unauthorised agent activity. US lawmakers cited the disclosure in the Sept 28 Blumenthal–Warren letter.",
    "links": [
     {
      "t": "CNBC, Sept 24",
@@ -744,8 +744,8 @@
    "tracker": null,
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-24T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -901,7 +901,7 @@
    "date": "2026-09-29",
    "kind": "executive",
    "title": "White House meeting: voluntary \"Accord on Super Intelligence\" and a terminology executive order",
-   "body": "President Trump met frontier-AI executives and congressional leaders at the White House, said he would \"never stifle\" the technology and called for \"tremendous self-regulation.\" Google, Anthropic, Meta, OpenAI, xAI and Nvidia signed a one-page accord committing each company training frontier models to internal capability and alignment controls, an internal assurance team, an independent external auditor or evaluator, and an independent board committee, adding that \"over time, it may make sense to codify these steps into laws or regulations.\" The same day the President signed Executive Order 14434, which renames AI \"Super Intelligence\" across the executive branch and orders a legislative definition within 60 days; it contains no safety or testing provision.",
+   "body": "President Trump met frontier-AI executives and House Speaker Mike Johnson at the White House, said he was \"not going to stifle growth\" of the technology and called for \"tremendous self-regulation.\" Google, Anthropic, Meta, OpenAI, xAI and Nvidia signed a one-page accord committing each company training frontier models to internal capability and alignment controls, an internal assurance team, an independent external auditor or evaluator, and an independent board committee, adding that \"over time, it may make sense to codify these steps into laws or regulations.\" The same day the President signed Executive Order 14434, which renames AI \"Super Intelligence\" across the executive branch and orders a legislative definition within 60 days; it contains no safety or testing provision.",
    "links": [
     {
      "t": "Accord text (American Presidency Project)",
@@ -924,8 +924,8 @@
    "tracker": "white-house-accord-on-super-intelligence-voluntary",
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-09-29T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -1055,10 +1055,56 @@
    }
   },
   {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-01",
+   "kind": "state",
+   "title": "California AG serves an investigative subpoena on OpenAI",
+   "tracker": null,
+   "body": "Attorney General Rob Bonta announced on Oct 1 that his office had served OpenAI with an investigative subpoena as part of a broader inquiry into cybersecurity incidents and risks involving the company and its models. The office had earlier opened a formal investigation into the Hugging Face incident. No finding of wrongdoing has been announced.",
+   "links": [
+    {
+     "t": "California DOJ release, Oct 1",
+     "u": "https://oag.ca.gov/node/630636"
+    },
+    {
+     "t": "KXAN",
+     "u": "https://www.kxan.com/top-stories/california-attorney-general-subpoenas-openai-over-cyber-incidents/amp/"
+    }
+   ],
+   "check": "Checked against the California DOJ release."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-01",
+   "kind": "state",
+   "title": "New Mexico AG Torrez and Rep. Serrato announce a frontier-AI bill for the 2027 session",
+   "tracker": null,
+   "body": "Attorney General Raul Torrez and Rep. Linda Serrato announced a Frontier Artificial Intelligence Safety and Accountability Act for the legislative session starting in January 2027. As described by Route Fifty, it would create an Office of Online Safety Monitor in the state Department of Justice, require risk assessments before training a frontier model and require reporting of loss-of-control incidents within 24 hours. No bill has been filed.",
+   "links": [
+    {
+     "t": "Route Fifty / Source NM, Oct 1",
+     "u": "https://www.route-fifty.com/artificial-intelligence/2026/10/new-mexico-attorney-general-and-state-lawmaker-announce-push-rein-rogue-ai-models/416386/"
+    },
+    {
+     "t": "NM DOJ release",
+     "u": "https://nmdoj.gov/press-release/attorney-general-raul-torrez-and-representative-linda-serrato-unveil-legislation-to-rein-in-frontier-ai-ahead-of-2027-legislative-session/"
+    }
+   ],
+   "check": "The NM DOJ release blocked automated access; details are from Route Fifty."
+  },
+  {
    "date": "2026-10-04",
    "kind": "executive",
    "title": "Trump names a \"Super Intelligence Force\" chaired by DNI Jay Clayton",
-   "body": "In a Truth Social post the President announced a federal coordinating body chaired by Director of National Intelligence Jay Clayton, with FTC Chair Andrew Ferguson, Under Secretary of War Emil Michael and OPM Director Scott Kupor as vice chairs, tasked with keeping America ahead in \"Super Intelligence\" and, per reporting, producing a 120-day report on AI risks and opportunities including breach disclosure. No executive order or charter has been published.",
+   "body": "In a Truth Social post the President announced a federal coordinating body chaired by Director of National Intelligence Jay Clayton, with FTC Chair Andrew Ferguson, Under Secretary of War Emil Michael and OPM Director Scott Kupor as vice chairs, tasked with keeping America ahead in \"Super Intelligence\" and, per reporting, producing a 120-day report on AI risks and opportunities including breach disclosure. No executive order has been published; reporting cites a charter.",
    "links": [
     {
      "t": "TechCrunch, Oct 4",
@@ -1073,8 +1119,8 @@
    "tracker": "super-intelligence-force-clayton",
    "origin": "authored",
    "verification": {
-    "method": "author",
-    "checked_at": "2026-10-04T00:00:00Z"
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
    }
   },
   {
@@ -1120,10 +1166,75 @@
    }
   },
   {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-13",
+   "kind": "federal",
+   "title": "Cantwell and Rounds ask the White House for a coordinated AI safety and cyber-defense approach",
+   "tracker": null,
+   "body": "Sens. Maria Cantwell and Mike Rounds wrote to Director of National Intelligence Jay Clayton and OSTP Director Michael Kratsios. As reported by Spectrum News, they asked for faster federal AI safety and security standards, independent testing of advanced models for national-security risks, and work with industry and critical-infrastructure operators on defensive AI tools.",
+   "links": [
+    {
+     "t": "Senate Commerce release",
+     "u": "https://www.commerce.senate.gov/press/dem/release/cantwell-rounds-urge-white-house-to-build-strong-coordinated-approach-to-ai-safety-cyber-defense/"
+    },
+    {
+     "t": "Spectrum News, Oct 13",
+     "u": "https://spectrumlocalnews.com/us/snplus/politics/2026/10/13/cantwell-rounds-letter-to-national-security-ai-threats"
+    }
+   ],
+   "check": "The Senate Commerce release blocked automated access; details are from Spectrum News."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-13",
+   "kind": "litigation",
+   "title": "Anthropic asks the D.C. Circuit to rehear its supply-chain-exclusion case",
+   "tracker": "ca-anthropic-v-dow-d-c-cir-4713-petition-denied",
+   "body": "Anthropic petitioned for panel rehearing or rehearing en banc of the D.C. Circuit's Sept 25, 2026 decision upholding the 41 U.S.C. § 4713 exclusion (Nos. 26-1049 and 26-1162). The petition was reported as filed Oct 13; an amicus motion by FIRE and others filed Oct 20 in No. 26-1049 supports it. No ruling had been reported by Oct 31.",
+   "links": [
+    {
+     "t": "Amicus motion and brief, filed Oct 20 (FIRE)",
+     "u": "https://www.fire.org/sites/default/files/2026/10/Motion%20and%20Brief%20of%20Amici%20Curiae%20in%20Support%20of%20Petition%20for%20Rehearing%20En%20Banc%20-%20Anthropic%20PBC%20v.%20U.S.%20Department%20of%20War.pdf"
+    }
+   ],
+   "check": "The court filing confirms the petition; the Oct 13 date is from press reports."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-15",
+   "kind": "industry",
+   "title": "Anthropic and OpenAI send recommendations to Newsom under Executive Order N-9-26",
+   "tracker": "il-ca-eo-n-9-26-ivos-onsite-kill-switch",
+   "body": "CSO Online and StateScoop report that Anthropic (Oct 15) and then OpenAI sent recommendations to Gov. Newsom ahead of the order's Nov 16 deadline. As reported, Anthropic proposed that the attorney general be able to seek a court order suspending a model's deployment, internal use or further development when it poses a near-term catastrophic risk, and OpenAI proposed amending SB 53 to require effective shutdown controls with an enforceable duty to use them, plus annual independent compliance audits.",
+   "links": [
+    {
+     "t": "CSO Online",
+     "u": "https://www.csoonline.com/article/4242128/anthropic-and-openai-diverge-on-who-should-pull-the-plug-on-risky-ai-2.html"
+    },
+    {
+     "t": "StateScoop, Oct 22",
+     "u": "https://statescoop.com/openai-urges-newsom-to-strengthen-californias-ai-safety-law-with-additional-safeguards/"
+    }
+   ],
+   "check": "The companies' letters were not found online; details are from CSO Online and StateScoop. Reports differ on the date of OpenAI's letter."
+  },
+  {
    "date": "2026-10-16",
    "kind": "federal",
    "title": "Politico: Anthropic pitches lawmakers a draft federal frontier-AI bill",
-   "body": "Politico reported that Anthropic privately pitched Capitol Hill a draft federal frontier-AI safety bill. As reported, the government could block a model's release or use only for a \"foreseeable, imminent risk of more than $1 billion in damages\" or of killing or seriously injuring more than 50 people, from three risks only (a biological weapon, a model evading its developer's controls, or a cyberattack); no agency other than the Commerce Department could suspend a model; and the bill could preempt stronger state AI laws. An Anthropic spokesperson told Politico: \"This bill represents the proposals outlined in Anthropic's Advanced AI Framework.\" On Oct 18, 2026, Anthropic's federal-affairs lead said the preemption wording was \"not precise enough\" and would be rewritten. The draft has not been published or introduced.",
+   "body": "Politico reported that Anthropic privately pitched Capitol Hill a draft federal frontier-AI safety bill. As reported, the government could block a model's release or use only for a \"foreseeable, imminent risk of more than $1 billion in damages\" or of killing or seriously injuring more than 50 people, from three risks only (a biological weapon, a model evading its developer's controls, or a cyberattack); no agency other than the Commerce Department could suspend a model; and the bill could preempt stronger state AI laws. An Anthropic spokesperson told Politico: \"This bill represents the proposals outlined in Anthropic's Advanced AI Framework.\" On Oct 18, 2026, Anthropic's federal-affairs lead Anthony Cimino posted: \"We plan to update our discussion language on preemption to better match the intentions of our AAIF framework.\" The draft has not been published or introduced.",
    "links": [
     {
      "t": "Mother Jones (citing Politico), Oct 17",
@@ -1139,8 +1250,35 @@
    "origin": "authored",
    "verification": {
     "method": "session",
-    "checked_at": "2026-10-28T12:00:00Z"
+    "checked_at": "2026-10-31T12:00:00Z"
    }
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-19",
+   "kind": "state",
+   "title": "Pennsylvania House committee holds a hearing on frontier-AI bills HB 2800 and HB 2829",
+   "tracker": "pa-h-b-2829-frontier-ai",
+   "body": "The House Communications & Technology Committee held a public hearing titled \"Mitigating Risks from Frontier AI Models: HB 2800 and HB 2829.\" HB 2829, sponsored by Rep. Manuel Guzman and referred on Oct 5, covers large frontier developers with over $500 million in revenue and models above 10^26 operations, with published frameworks, 72-hour incident reporting, annual audits and Attorney General enforcement. No committee vote has been recorded.",
+   "links": [
+    {
+     "t": "HB 2829 on palegis.us",
+     "u": "https://www.palegis.us/legislation/bills/2025/HB2829"
+    },
+    {
+     "t": "HB 2800 on palegis.us",
+     "u": "https://www.palegis.us/legislation/bills/2025/HB2800"
+    },
+    {
+     "t": "Transparency Coalition, Oct 20",
+     "u": "https://www.transparencycoalition.ai/news/pennsylvania-house-considers-two-frontier-ai-safety-bills"
+    }
+   ],
+   "check": "Hearing listing and bill details checked on palegis.us."
   },
   {
    "date": "2026-10-22",
@@ -1162,6 +1300,29 @@
    }
   },
   {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-23",
+   "kind": "litigation",
+   "title": "Texas sues OpenAI and Sam Altman, seeking court-approved evaluation of new models",
+   "tracker": null,
+   "body": "The Texas Tribune and MLex report that Texas sued OpenAI and Sam Altman in Collin County district court under the state's Deceptive Trade Practices Act and SCOPE Act. As reported, the state asks for an injunction that would require third-party approval of any new OpenAI model from a court-appointed evaluator before release, a remedy similar to the one Florida sought in September.",
+   "links": [
+    {
+     "t": "Texas Tribune, Oct 23",
+     "u": "https://www.texastribune.org/2026/10/23/ken-paxton-chatgpt-openai-lawsuit-texas-attorney-general/"
+    },
+    {
+     "t": "MLex",
+     "u": "https://www.mlex.com/mlex/articles/2542081"
+    }
+   ],
+   "check": "The Attorney General's petition could not be opened; details are from the Texas Tribune and MLex."
+  },
+  {
    "date": "2026-10-26",
    "kind": "litigation",
    "title": "Government appeals Anthropic's win over the supply-chain-risk designation to the Ninth Circuit",
@@ -1179,6 +1340,52 @@
     "method": "session",
     "checked_at": "2026-10-28T12:00:00Z"
    }
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-28",
+   "kind": "state",
+   "title": "New York S.10731, \"RAISE Act 2.0\", introduced (Gounardes)",
+   "tracker": "ny-s-10731-raise-act-2-0",
+   "body": "Sen. Andrew Gounardes introduced S.10731, amending the RAISE Act, with Sen. Fahy as co-sponsor; it was referred to Rules. The bill would cover developers spending more than $1 billion on frontier models over 36 months, lower the compute threshold to 10^25 operations, require state-licensed independent frontier examiners, quarterly reporting on the automation of AI research, and let the office limit training compute, with penalties up to $1 million per day for a first violation. The sponsor's release names Assemblymember Jordan Wright as the Assembly partner; no Assembly bill had been filed by Oct 31.",
+   "links": [
+    {
+     "t": "Senate bill page",
+     "u": "https://www.nysenate.gov/legislation/bills/2025/S10731"
+    },
+    {
+     "t": "Bill text — nyassembly.gov",
+     "u": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+    },
+    {
+     "t": "Gounardes release, Oct 29",
+     "u": "https://www.nysenate.gov/newsroom/press-releases/2026/andrew-gounardes/sen-gounardes-proposes-major-new-ai-safety-and"
+    }
+   ],
+   "check": "Provisions checked against the bill text."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-10-31T12:00:00Z"
+   },
+   "date": "2026-10-28",
+   "kind": "federal",
+   "title": "House Democratic ranking members ask five frontier labs to report AI incidents within 48 hours",
+   "tracker": null,
+   "body": "Ranking Members Frank Pallone (Energy and Commerce), Zoe Lofgren (Science) and Jamie Raskin (Judiciary) wrote to Anthropic, Google, Meta, OpenAI and SpaceXSI. They asked each company to notify the committees within 48 hours of discovering new incidents, within 24 hours if critical infrastructure appears to be involved, and to give a full accounting of identified incidents by Nov 11, 2026.",
+   "links": [
+    {
+     "t": "House Science Democrats release, Oct 28",
+     "u": "https://democrats-science.house.gov/news/press-releases/house-democratic-committee-leaders-request-frontier-ai-companies-report-misalignment-and-safety-incidents-to-congress-within-48-hours"
+    }
+   ],
+   "check": "Checked against the committee Democrats' release."
   }
  ]
 }

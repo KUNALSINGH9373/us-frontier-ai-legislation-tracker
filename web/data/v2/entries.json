@@ -40,8 +40,8 @@
     "date": "2027-01-01",
     "precision": "day",
     "type": "Effective",
-    "text": "Jan 1, 2026 (OES anonymized reporting & annual reviews from Jan 1, 2027)",
-    "clause": "Jan 1, 2026 (OES anonymized reporting & annual reviews from Jan 1, 2027)",
+    "text": "OES anonymized reporting & annual reviews begin Jan 1, 2027",
+    "clause": "OES anonymized reporting & annual reviews begin Jan 1, 2027",
     "inferred_year": false,
     "scheduled": true
    }
@@ -67,8 +67,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-53-transparency-in-frontier-ai-act-tfaia",
    "section_name": "Enacted state frontier-developer laws"
@@ -606,7 +606,7 @@
    {
     "date": "2026-07-24",
     "precision": "day",
-    "type": "Vetoed / failed / rescinded",
+    "type": "Passed / advanced",
     "text": "Senate struck all after the enacting clause and inserted S.3178 text July 24 (reprinted as S.3228)",
     "clause": "Senate struck all after the enacting clause and inserted S.3178 text July 24 (reprinted as S.3228)",
     "inferred_year": true,
@@ -697,8 +697,8 @@
    "run_id": "update-20261030-0005",
    "rounds": 1
   },
-  "last_checked": "2026-10-30",
-  "last_changed": "2026-10-30",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-5576-an-act-relative-to-economic-development-in-the-commonwealth-sen",
    "section_name": "Pending, stalled and failed state bills"
@@ -1849,9 +1849,9 @@
    {
     "date": "2026-04-16",
     "precision": "day",
-    "type": "Vetoed / failed / rescinded",
-    "text": "\\[FAILED\\] House passed 94–0 (Apr 16, 2026)",
-    "clause": "\\[FAILED\\] House passed 94–0 (Apr 16, 2026)",
+    "type": "Passed / advanced",
+    "text": "House passed 94–0 (Apr 16, 2026)",
+    "clause": "House passed 94–0 (Apr 16, 2026)",
     "inferred_year": false,
     "scheduled": false
    },
@@ -1911,8 +1911,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-1898-s-b-2171-artificial-intelligence-public-safety-and-child-prot",
    "section_name": "Pending, stalled and failed state bills"
@@ -2031,9 +2031,9 @@
    {
     "date": "2026-01-19",
     "precision": "day",
-    "type": "Vetoed / failed / rescinded",
-    "text": "\\[FAILED\\] Introduced Jan. 19, 2026",
-    "clause": "\\[FAILED\\] Introduced Jan. 19, 2026",
+    "type": "Introduced / published",
+    "text": "Introduced Jan. 19, 2026",
+    "clause": "Introduced Jan. 19, 2026",
     "inferred_year": false,
     "scheduled": false
    },
@@ -2097,8 +2097,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-286-1st-substitute-artificial-intelligence-transparency-amendments",
    "section_name": "Pending, stalled and failed state bills"
@@ -2220,9 +2220,9 @@
    {
     "date": "2026-03-31",
     "precision": "day",
-    "type": "Vetoed / failed / rescinded",
-    "text": "\\[FAILED\\] Introduced Mar. 31, 2026",
-    "clause": "\\[FAILED\\] Introduced Mar. 31, 2026",
+    "type": "Introduced / published",
+    "text": "Introduced Mar. 31, 2026",
+    "clause": "Introduced Mar. 31, 2026",
     "inferred_year": false,
     "scheduled": false
    },
@@ -2295,8 +2295,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-474-protecting-louisiana-s-infrastructure-from-artificial-intellig",
    "section_name": "Pending, stalled and failed state bills"
@@ -2411,7 +2411,7 @@
   "mechanism": "Different design: strict tort liability. Developers of covered models are strictly liable for injuries to non-users caused by model conduct that would be negligent, tortious, or criminal if done by a human, where the conduct was not intended or reasonably anticipated by the user or any fine-tuner; rebuttable presumption that the AI satisfies a tort's mental-state element (\"it shall not be a defense that AI systems are incapable of having mental states\"); affirmative defenses for meeting the human standard of care or pure capability failure. Resolves the FPF-identified Rhode Island gap",
   "thresholds": "SB 1047's thresholds verbatim: 10²⁶ ops and >$100M compute cost; fine-tuning 3×10²⁵ ops and >$10M; also covers covered model derivatives (unmodified copies, copies with non-fine-tuning post-training changes, copies fine-tuned with ≤3×10²⁵ ops and ≤$1,000,000, copies combined with other software)",
   "penalties": null,
-  "status_text": "Status (as of Sept 5, 2026): [STALLED] H.5224 introduced Jan 29, 2025, referred to House Judiciary; heard Feb 11, 2025 and held for further study. S.358 introduced Feb 21, 2025, referred to Senate Judiciary; heard Mar 18, 2025 and held for further study. No further action (LegiScan history)",
+  "status_text": "Status (as of Sept 5, 2026): [STALLED] H.5224 introduced Jan 29, 2025, referred to House Judiciary; heard Feb 11, 2025 and held for further study. S.358 introduced Feb 21, 2025, referred to Senate Judiciary; heard Mar 18, 2025 and held for further study. No further action (LegiScan history). Rhode Island does not carry bills over between years, and no further action on either bill was located through Oct 31, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -2479,8 +2479,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-358-h-5224-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -3164,7 +3164,7 @@
   "sponsor_text": "Rep. Jones (HF); Senate companion SF 4509",
   "mechanism": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person",
   "thresholds": "No compute, cost, or revenue threshold: \"developer\" = any person that has trained at least one AI model. \"Critical harm\" = death/serious physical or mental injury of 25+ people or ≥$1,000,000 damages, via CBRN or autonomous conduct that would be an intent/recklessness/gross-negligence crime",
-  "penalties": null,
+  "penalties": "Attorney General civil penalty up to $10,000,000 for a first violation and $30,000,000 for a subsequent violation; private right of action for injured persons",
   "status_text": "Status: Introduced Mar 23, 2026; referred to House Commerce Finance and Policy; no further action",
   "signed_text": null,
   "effective_text": null,
@@ -3206,8 +3206,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-f-4532-s-f-4509-titled-the-responsible-artificial-intelligence-safet",
    "section_name": "Catastrophic-risk regulation without a frontier threshold"
@@ -3307,7 +3307,7 @@
   "mechanism": "Final (Aug 25 Senate-amended, concurred Aug 30) text read. GovOps must establish an AI Auditor Registry by Jan 1, 2029 (earlier drafts said 2027); from Jan 1, 2029 no person may offer, sell, or conduct a \"covered AI audit\" — an audit of internal controls/processes/systems \"necessary for compliance with state law\" — unless registered. Registrants disclose standards applied (ISO, NIST, AICPA, etc.) and basis for validity claims; report contents specified (scope, results, deficiencies, whether auditee followed its internal safety protocols, limitations, signed statement); 10-year retention; independence rules (no self-review, no job-seeking during audit, 12-month cooling-off for former auditee staff); auditor-employee whistleblower protection; GovOps may investigate and remove from registry with referral to AG; CPA-licensed auditors deemed compliant if they follow AICPA standards; registration number on all advertising; AI Auditors' Registration Fund",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Passed Senate Aug 30 (29–10); Assembly concurred Aug 30 (60–6) ; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 178, Statutes of 2026. Executive Order N-9-26 (Section G) directs GovOps to have online auditor registration in place by Dec 1, 2027, ahead of the statutory Jan 1, 2029 date",
+  "status_text": "Status: Passed Senate Aug 30 (29–10); Assembly concurred Aug 30 (60–6) ; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 178, Statutes of 2026. Executive Order N-9-26 (para. 2) directs GovOps, no later than Dec 1, 2027, to complete Gov. Code §11549.82(a) and begin the actions required by §11549.82(b), ahead of the statutory Jan 1, 2029 date",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -3333,8 +3333,8 @@
     "date": "2027-12-01",
     "precision": "day",
     "type": "Search date / deadline / scheduled",
-    "text": "Deadline (EO N-9-26): GovOps online auditor registration in place",
-    "clause": "Deadline (EO N-9-26): GovOps online auditor registration in place",
+    "text": "Deadline (EO N-9-26, para. 2): GovOps completes Gov. Code §11549.82(a) and begins §11549.82(b) actions",
+    "clause": "Deadline (EO N-9-26, para. 2): GovOps completes Gov. Code §11549.82(a) and begins §11549.82(b) actions",
     "inferred_year": false,
     "scheduled": true
    },
@@ -3363,9 +3363,19 @@
     "label": "Governor's EO release naming AB 1405 as signed",
     "url": "https://www.gov.ca.gov/2026/09/18/governor-newsom-issues-executive-order-to-accelerate-independent-oversight-and-advance-the-creation-of-an-ai-kill-switch/",
     "kind": "primary"
+   },
+   {
+    "label": "Executive Order N-9-26 (signed PDF)",
+    "url": "https://www.gov.ca.gov/wp-content/uploads/2026/09/FINAL-N-9-26-AI-EO-9.18.26-SIGNED.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "Governor's signing release, Sept 9, 2026",
+    "url": "https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/",
+    "kind": "primary"
    }
   ],
-  "source_label": "Official text, history, and votes — leginfo.ca.gov · Chaptered text — LegiScan · Governor's EO release naming AB 1405 as signed",
+  "source_label": "Official text, history, and votes — leginfo.ca.gov · Chaptered text — LegiScan · Governor's EO release naming AB 1405 as signed · Executive Order N-9-26 (signed PDF) · Governor's signing release, Sept 9, 2026",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -3380,8 +3390,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-a-b-1405-artificial-intelligence-auditors-registration-gov-code-11549-",
    "section_name": "State IVO / AI-auditor licensing measures"
@@ -3402,7 +3412,7 @@
   "mechanism": "Enrolled text read. By Jan 1, 2028 the Government Operations Agency must: develop IVO designation application requirements and criteria (risk-assessment competence, technical expertise, conflict-of-interest management — IVO may be paid by the assessed party at market rates but not on terms conditioned on results — and operational independence); develop suspension/termination procedures; convene working groups that must include engineers from competing AI companies and AI safety experts ; report to the Legislature. Designated IVOs file annual reports. §8898.4 expressly: no liability solely for failing a standard; no state endorsement; no requirement that anyone engage an IVO or undergo a covered audit; an audit under the standard is \"relevant to, but not conclusive of\" a harm action — i.e., no presumption of reasonable care. Defines \"covered AI audit\" identically to AB 1405. The commission and liability-presumption design of earlier versions is gone",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Passed Assembly Aug 30, 2026 (67–6); Senate concurred Aug 30, 2026 (37–0); enrolled and presented to the Governor Sept 8, 2026; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 179, Statutes of 2026. Executive Order N-9-26 (Section G) directs GovOps to complete the IVO application requirements by May 1, 2027, ahead of the statutory Jan 1, 2028 date",
+  "status_text": "Status: Passed Assembly Aug 30, 2026 (53–4, per the author's Aug 30 release); Senate concurred Aug 30, 2026 (37–0); enrolled and presented to the Governor Sept 8, 2026; signed by Gov. Newsom Sept 9, 2026; chaptered as Chapter 179, Statutes of 2026. Executive Order N-9-26 (para. 1) directs GovOps to complete the Gov. Code §8898.1 requirements and post the IVO application requirements no later than May 1, 2027, ahead of the statutory Jan 1, 2028 date",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -3410,8 +3420,8 @@
     "date": "2026-08-30",
     "precision": "day",
     "type": "Passed / advanced",
-    "text": "Passed Assembly Aug 30, 2026 (67–6)",
-    "clause": "Read third time. Passed. (Ayes 67. Noes 6. Page 6872.) Ordered to the Senate.",
+    "text": "Passed Assembly Aug 30, 2026 (53–4, per the author's Aug 30 release)",
+    "clause": "Passed Assembly Aug 30, 2026 (53–4, per the author's Aug 30 release)",
     "inferred_year": true,
     "scheduled": false
    },
@@ -3437,8 +3447,8 @@
     "date": "2027-05-01",
     "precision": "day",
     "type": "Search date / deadline / scheduled",
-    "text": "Deadline (EO N-9-26): GovOps IVO application requirements complete",
-    "clause": "Deadline (EO N-9-26): GovOps IVO application requirements complete",
+    "text": "Deadline (EO N-9-26, para. 1): GovOps completes Gov. Code §8898.1 requirements and posts IVO application requirements",
+    "clause": "Deadline (EO N-9-26, para. 1): GovOps completes Gov. Code §8898.1 requirements and posts IVO application requirements",
     "inferred_year": false,
     "scheduled": true
    },
@@ -3467,9 +3477,19 @@
     "label": "Sponsor release — sd05.senate.ca.gov",
     "url": "https://sd05.senate.ca.gov/news/legislature-approves-mcnerneys-landmark-bill-assess-artificial-intelligence-safety-risks",
     "kind": "primary"
+   },
+   {
+    "label": "Executive Order N-9-26 (signed PDF)",
+    "url": "https://www.gov.ca.gov/wp-content/uploads/2026/09/FINAL-N-9-26-AI-EO-9.18.26-SIGNED.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "Governor's signing release, Sept 9, 2026",
+    "url": "https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/",
+    "kind": "primary"
    }
   ],
-  "source_label": "Official text, history, and votes — leginfo.ca.gov · Chaptered text — LegiScan · Sponsor release — sd05.senate.ca.gov",
+  "source_label": "Official text, history, and votes — leginfo.ca.gov · Chaptered text — LegiScan · Sponsor release — sd05.senate.ca.gov · Executive Order N-9-26 (signed PDF) · Governor's signing release, Sept 9, 2026",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -3484,8 +3504,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-813-independent-verification-organizations-gov-code-8898-8898-4",
    "section_name": "State IVO / AI-auditor licensing measures"
@@ -3506,16 +3526,52 @@
   "mechanism": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; nothing requires a developer to seek verification, but a model verified by a licensed IVO gets a rebuttable presumption against liability in personal-injury and property-damage suits, rebuttable by clear and convincing evidence of defendant misconduct or misrepresentation",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Referred to House Technology & Innovation; hearings Mar 17, 2026; no vote",
+  "status_text": "Status: Introduced Dec 11, 2025; referred to House Technology & Innovation Feb 4, 2026; hearings Mar 3, Mar 11 and Mar 17, 2026; no vote",
   "signed_text": null,
   "effective_text": null,
   "events": [
    {
+    "date": "2025-12-11",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced Dec 11, 2025",
+    "clause": "Introduced Dec 11, 2025",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-02-04",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Referred to House Technology & Innovation Feb 4, 2026",
+    "clause": "Referred to House Technology & Innovation Feb 4, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-03-03",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "First hearing Mar 3, 2026",
+    "clause": "First hearing Mar 3, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-03-11",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Second hearing Mar 11, 2026",
+    "clause": "Second hearing Mar 11, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2026-03-17",
     "precision": "day",
     "type": "Referred / stalled / hearing",
-    "text": "hearings Mar 17, 2026",
-    "clause": "hearings Mar 17, 2026",
+    "text": "Third hearing Mar 17, 2026",
+    "clause": "Third hearing Mar 17, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -3530,9 +3586,14 @@
     "label": "LSC bill analysis",
     "url": "https://www.legislature.ohio.gov/download?key=27288",
     "kind": "primary"
+   },
+   {
+    "label": "Bill history — FastDemocracy",
+    "url": "https://fastdemocracy.com/bill/oh/136/bills/OHB00015465/",
+    "kind": "secondary"
    }
   ],
-  "source_label": "Ohio Legislature page · LSC bill analysis",
+  "source_label": "Ohio Legislature page · LSC bill analysis · Bill history — FastDemocracy",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -3598,9 +3659,9 @@
    {
     "date": "2026-03-23",
     "precision": "day",
-    "type": "Vetoed / failed / rescinded",
-    "text": "\\[FAILED—ADJOURNED\\] House and Senate versions introduced Mar. 23, 2026 and referred to their commerce committees",
-    "clause": "\\[FAILED—ADJOURNED\\] House and Senate versions introduced Mar. 23, 2026 and referred to their commerce committees",
+    "type": "Introduced / published",
+    "text": "House and Senate versions introduced Mar. 23, 2026 and referred to their commerce committees",
+    "clause": "House and Senate versions introduced Mar. 23, 2026 and referred to their commerce committees",
     "inferred_year": false,
     "scheduled": false
    }
@@ -3637,8 +3698,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-f-4544-s-f-4636-ai-independent-verification-organization-licensure-n",
    "section_name": "State IVO / AI-auditor licensing measures"
@@ -3836,7 +3897,7 @@
   "status": "pending",
   "title": "S. 2938 — Artificial Intelligence Risk Evaluation Act of 2025",
   "short_name": "S. 2938 AI Risk Evaluation Act",
-  "sponsor_text": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
+  "sponsor_text": "Sen. Josh Hawley (R-MO), sponsor; cosponsors Sen. Richard Blumenthal (D-CT, original) and Sen. Marsha Blackburn (R-TN, added Mar 19, 2026)",
   "mechanism": "Dept. of Energy must establish a mandatory Advanced AI Evaluation Program within 90 days: classified red-team testing, blind third-party evaluations; covered developers must participate and provide code, training data, model weights on request; no deployment unless in compliance; ≥$1M/day penalty for non-participation or deployment violations. Plan for permanent federal oversight due in 360 days, updated annually; program terminates after 7 years unless renewed by Congress. Earliest of the federal testing-mandate bills",
   "thresholds": "10²⁶ ops (Secretary may propose a new definition by rule, effective only if Congress enacts a joint resolution approving it); covers any person that designs, codes, produces, owns, or substantially modifies such a system",
   "penalties": null,
@@ -3848,8 +3909,17 @@
     "date": "2025-09-29",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "Sept 29, 2025",
-    "clause": "Sept 29, 2025",
+    "text": "Introduced Sept 29, 2025; read twice and referred to Senate Commerce, Science, and Transportation",
+    "clause": "Introduced Sept 29, 2025; read twice and referred to Senate Commerce, Science, and Transportation",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-03-19",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Sen. Marsha Blackburn (R-TN) added as cosponsor Mar 19, 2026",
+    "clause": "Sen. Marsha Blackburn (R-TN) added as cosponsor Mar 19, 2026",
     "inferred_year": false,
     "scheduled": false
    },
@@ -3857,8 +3927,8 @@
     "date": "2026-09-30",
     "precision": "day",
     "type": "Referred / stalled / hearing",
-    "text": "referred to Senate Commerce. Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions)",
-    "clause": "referred to Senate Commerce. Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions)",
+    "text": "Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions)",
+    "clause": "Hearings held Sept 30, 2026 by Senate Homeland Security and Governmental Affairs (Congress.gov actions)",
     "inferred_year": false,
     "scheduled": false
    }
@@ -3868,9 +3938,14 @@
     "label": "Bill text — congress.gov",
     "url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
     "kind": "primary"
+   },
+   {
+    "label": "Bill status — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s2938.xml",
+    "kind": "primary"
    }
   ],
-  "source_label": "Bill text — congress.gov",
+  "source_label": "Bill text — congress.gov · Bill status — GovInfo",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -3885,8 +3960,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-2938-artificial-intelligence-risk-evaluation-act-of-2025",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -3984,7 +4059,7 @@
   "status": "pending",
   "title": "H.R. 9925 — FRONTIER Act (Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act)",
   "short_name": "H.R. 9925 FRONTIER Act",
-  "sponsor_text": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA); 11 cosponsors in all (Congress.gov)",
+  "sponsor_text": "Rep. Jay Obernolte (R-CA), sponsor; original cosponsors Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA); 11 cosponsors in all (Congress.gov)",
   "mechanism": "Creates Under Secretary of Commerce for AI Security (not CAISI) with rulemaking power. Large developers: frontier AI framework, annual third-party compliance audit, transparency reports, registration/disclosure statement with beneficial owners. Very large developers: additionally retain a licensed IVO for ongoing assessment, reports at least every 6 months . Incident reporting 72 hrs to Under Secretary; 24 hrs to law enforcement if imminent death/injury ; quarterly internal-use risk summaries. Sec. 8 emergency orders: Commerce Secretary may suspend/restrict development, deployment, or internal use on an imminent-catastrophic-risk finding (provisional 45 days; final 90 days, renewable); applies to fine-tuned/distilled derivatives; exclusive D.D.C. review; declared the exclusive means for any federal actor incl. the President to restrict a model on those grounds. IVOs immune from suit except willful misconduct causing death/serious injury. Civil penalties up to $1,000,000 per violation, and up to $10,000,000 per violation (each day a separate violation) for breaching an emergency order; a wilful breach of an emergency order is a crime (up to 10 years). State AGs may opt in to receive reports and enforce. Under Secretary may only raise thresholds, never lower. Good-faith exception for false statements; confidential-deployment deferral of transparency reports. No whistleblower title (the June GAAIA draft had one). Sec. 9 preemption: no state may \"adopt or enforce\" any law imposing \" new substantive obligations\" on developers re: catastrophic-risk transparency, third-party auditing/verification, or incident reporting; carve-outs for general laws, deployer/use regulation, minors, state procurement. No sunset (June draft had 3 years). Sponsor's section-by-section says clause \"is aimed at\" CA SB-53, NY RAISE, IL SB-315",
   "thresholds": "Frontier model 10²⁶ ops incl. fine-tuning/RL. Large = >$50M revenue and ≥$1B AI-related development expenditures over 36 months. Very large = >$5B revenue and ≥$10B expenditures. Not the $500M revenue test used by states. Catastrophic risk >50 deaths or >$1B (property excludes equity-value loss)",
   "penalties": null,
@@ -3996,17 +4071,8 @@
     "date": "2026-07-23",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "July 23, 2026",
-    "clause": "July 23, 2026",
-    "inferred_year": false,
-    "scheduled": false
-   },
-   {
-    "date": "2026-08-07",
-    "precision": "day",
-    "type": "Introduced / published",
-    "text": "no committee action through Sept 28, 2026. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
-    "clause": "no committee action through Sept 28, 2026 ⟨U⟩. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+    "text": "Introduced July 23, 2026; referred to Energy and Commerce and in addition to Science, Space, and Technology",
+    "clause": "Introduced July 23, 2026; referred to Energy and Commerce and in addition to Science, Space, and Technology",
     "inferred_year": false,
     "scheduled": false
    },
@@ -4014,26 +4080,26 @@
     "date": "2026-09-16",
     "precision": "day",
     "type": "Referred / stalled / hearing",
-    "text": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
-    "clause": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+    "text": "Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM)",
+    "clause": "Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM)",
     "inferred_year": false,
     "scheduled": false
    },
    {
     "date": "2026-09-21",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
-    "clause": "referred jointly to Energy & Commerce and Science, Space & Technology. Cosponsors added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM) and Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+    "type": "Referred / stalled / hearing",
+    "text": "Cosponsors added Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
+    "clause": "Cosponsors added Sept 21, 2026 (Malliotakis R-NY, Correa D-CA)",
     "inferred_year": false,
     "scheduled": false
    },
    {
-    "date": "2026-09-28",
+    "date": "2026-10-01",
     "precision": "day",
-    "type": "Search date / deadline / scheduled",
-    "text": "no committee action through Sept 28, 2026. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
-    "clause": "no committee action through Sept 28, 2026 ⟨U⟩. Trump's Aug 7, 2026 \"out of business\" remark (Punchbowl interview via Reuters) was reported in the context of this bill's audit mandate — see Section G",
+    "type": "Referred / stalled / hearing",
+    "text": "Cosponsors added Oct 1, 2026 (Gallagher R-CA, Quigley D-IL)",
+    "clause": "Cosponsors added Oct 1, 2026 (Gallagher R-CA, Quigley D-IL)",
     "inferred_year": false,
     "scheduled": false
    }
@@ -4075,8 +4141,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9925-frontier-act-frontier-risk-oversight-national-transparency-in",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -4341,7 +4407,7 @@
   "mechanism": "Antitrust exemption for 2 or more non-Federal entities exchanging AI security-risk information or assistance in good faith for the exclusive purpose of addressing covered AI security risks, and for coordinating to delay or limit release/deployment/training of AI if they first give written notice to the DOJ Antitrust Assistant Attorney General; exemption is an affirmative defense (entity bears preponderance burden); no price-fixing/market allocation; AG may seek injunctions (modeled on the Cybersecurity Information Sharing Act of 2015). Frontier-adjacent: enables coordination rather than regulating developers",
   "thresholds": "—",
   "penalties": null,
-  "status_text": "Introduced / status: July 23, 2026; both referred to Judiciary committees; House cosponsors added Aug 31–Sept 16, 2026 (Jacobs, Tokuda, Cline, Veasey, Moulton, Hunt, Foster, Carter, Weber, Houlahan, Correa, Liccardo, Huizenga)",
+  "status_text": "Introduced / status: July 23, 2026; both referred to Judiciary committees; 25 House cosponsors (8 original). Later additions: Krishnamoorthi (July 27), Jacobs (Aug 31), Tokuda (Sept 3), Cline, Veasey (Sept 8), Moulton, Hunt, Foster, Carter, Weber, Houlahan (Sept 14), Correa (Sept 15), Liccardo, Huizenga (Sept 16), Crockett, Sherman, McClain Delaney (Oct 15, 2026). No further action",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -4351,6 +4417,15 @@
     "type": "Introduced / published",
     "text": "July 23, 2026",
     "clause": "July 23, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-15",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Crockett, Sherman and McClain Delaney added as House cosponsors Oct 15, 2026",
+    "clause": "Crockett, Sherman and McClain Delaney added as House cosponsors Oct 15, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -4365,9 +4440,14 @@
     "label": "S. 5105 text",
     "url": "https://www.govinfo.gov/content/pkg/BILLS-119s5105is/pdf/BILLS-119s5105is.pdf",
     "kind": "primary"
+   },
+   {
+    "label": "Bill status — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9914.xml",
+    "kind": "primary"
    }
   ],
-  "source_label": "H.R. 9914 text · S. 5105 text",
+  "source_label": "H.R. 9914 text · S. 5105 text · Bill status — GovInfo",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -4382,8 +4462,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9914-s-5105-collaboration-on-adversarial-threats-and-security-risk",
    "section_name": "Adjacent and sectoral federal bills"
@@ -4473,7 +4553,7 @@
   "status": "pending",
   "title": "H.R. 9477 — AI Incident Reporting Act",
   "short_name": "H.R. 9477 AI Incident Reporting Act",
-  "sponsor_text": "Rep. Nathaniel Moran (R-TX); 3 cosponsors (Congress.gov)",
+  "sponsor_text": "Rep. Nathaniel Moran (R-TX), sponsor; cosponsors Whitesides (D-CA, Aug 20, 2026), Jacobs (D-CA, Aug 24, 2026), Lieu (D-CA, Sept 15, 2026)",
   "mechanism": "Full text read. Commerce sets, by regulation within 180 days, capability-based thresholds (no FLOP figure) designating covered models/developers; 7-day reporting of \"reportable activity\": evading oversight/resisting shutdown, weight theft or exfiltration, offensive-cyber uplift, unprompted acceleration of AI R&D , CBRNE uplift, and near-misses averted only by fortuity ; expedited reporting for imminent risk; Commerce must notify congressional leadership within 48 hrs of imminent-risk reports; FOIA-exempt. §2(d)(4): reports may not be used in any civil, criminal, or administrative proceeding against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer — a use-immunity that would bind state AGs. Civil penalty up to $2M per day ; Commerce subpoena and inspection powers. Moran told Reuters he split reporting out of the GAAIA framework to move faster",
   "thresholds": "Capability-based, Commerce-designated",
   "penalties": null,
@@ -4491,11 +4571,29 @@
     "scheduled": false
    },
    {
+    "date": "2026-08-20",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Whitesides (D-CA) added as cosponsor Aug 20, 2026",
+    "clause": "Whitesides (D-CA) added as cosponsor Aug 20, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-08-24",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Jacobs (D-CA) added as cosponsor Aug 24, 2026",
+    "clause": "Jacobs (D-CA) added as cosponsor Aug 24, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2026-09-15",
     "precision": "day",
     "type": "Referred / stalled / hearing",
-    "text": "Lieu (D-CA) cosponsored Sept 15, 2026",
-    "clause": "Lieu (D-CA) cosponsored Sept 15, 2026 ⟨U⟩",
+    "text": "Lieu (D-CA) added as cosponsor Sept 15, 2026",
+    "clause": "Lieu (D-CA) added as cosponsor Sept 15, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -4510,9 +4608,14 @@
     "label": "Sponsor release via Benton",
     "url": "https://www.benton.org/headlines/rep-moran-introduces-ai-incident-reporting-act-require-reporting-critical-ai-incidents",
     "kind": "secondary"
+   },
+   {
+    "label": "Bill status — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9477.xml",
+    "kind": "primary"
    }
   ],
-  "source_label": "Text — GovInfo · Sponsor release via Benton",
+  "source_label": "Text — GovInfo · Sponsor release via Benton · Bill status — GovInfo",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -4527,8 +4630,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9477-ai-incident-reporting-act-r",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -4623,7 +4726,7 @@
   "status": "pending",
   "title": "H.R. 9917 — AI Kill Switch Act",
   "short_name": "H.R. 9917 AI Kill Switch Act",
-  "sponsor_text": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX); 12 cosponsors in all (Congress.gov)",
+  "sponsor_text": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 12 cosponsors in all (Congress.gov)",
   "mechanism": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Civil penalties up to $2M/day for ordinary violations and up to $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
   "thresholds": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
   "penalties": null,
@@ -4652,9 +4755,36 @@
    {
     "date": "2026-09-15",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026",
-    "clause": "Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026 ⟨U⟩",
+    "type": "Referred / stalled / hearing",
+    "text": "Subramanyam (D-VA) and Luna (R-FL) added as cosponsors Sept 15, 2026",
+    "clause": "Subramanyam (D-VA) and Luna (R-FL) added as cosponsors Sept 15, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-01",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Six cosponsors added Oct 1, 2026",
+    "clause": "Six cosponsors added Oct 1, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-05",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Cisneros and Quigley added as cosponsors Oct 5, 2026",
+    "clause": "Cisneros and Quigley added as cosponsors Oct 5, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-19",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Pappas added as cosponsor Oct 19, 2026",
+    "clause": "Pappas added as cosponsor Oct 19, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -4669,9 +4799,14 @@
     "label": "GovInfo metadata",
     "url": "https://www.govinfo.gov/app/details/BILLS-119hr9917ih",
     "kind": "primary"
+   },
+   {
+    "label": "Bill status — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9917.xml",
+    "kind": "primary"
    }
   ],
-  "source_label": "Introduced text — GovInfo PDF · GovInfo metadata",
+  "source_label": "Introduced text — GovInfo PDF · GovInfo metadata · Bill status — GovInfo",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -4686,8 +4821,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9917-ai-kill-switch-act-r",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -4797,7 +4932,7 @@
   "status": "pending",
   "title": "H.R. 9965 — ATOMIC Act (AI Threat Output and Monitoring Incident Containment Act)",
   "short_name": "H.R. 9965 ATOMIC Act",
-  "sponsor_text": "Reps. Celeste Maloy (R-UT), Sara Jacobs (D-CA)",
+  "sponsor_text": "Rep. Celeste Maloy (R-UT), sponsor; cosponsors Sara Jacobs (D-CA, original) and Tom Barrett (R-MI, added Aug 20, 2026)",
   "mechanism": "Full text read. DOE, through the National Laboratories/NNSA, establishes an Advanced AI Nuclear Evaluation Program within 90 days: testing for \"AI nuclear incidents\" (nuclear-weapon uplift, Restricted Data generation, loss-of-control involving nuclear systems, adversary access, scheming behavior), red-teaming at sophisticated-adversary level, third-party and blind evaluations. Participation is mandatory for large advanced AI developers, who must provide secure access to model weights and, where necessary, versions without safety mitigations ; Secretary may subpoena weights and software . Penalty up to $1M per violation, each day a separate violation ; DOJ referral. FOIA-exempt with carve-outs incl. congressional committee requests. Annual report with legislative recommendations that may include licensing or a new federal agency ; program sunsets after 7 years. Defines \"evaluation awareness\" and \"scheming behavior\" in statute",
   "thresholds": "\"Advanced AI\" = >10²⁶ ops (Secretary may revise by rule); \"large advanced AI developer\" = ≥**$2B AI investment over the preceding 5 years**; \"substantially modify\" = ≥$5M. Loss-of-control scenario = ≥5 deaths, ≥50 serious injuries, or >$100M — a fifth casualty formula",
   "penalties": null,
@@ -4813,6 +4948,15 @@
     "clause": "July 27, 2026",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-08-20",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Rep. Tom Barrett (R-MI) added as cosponsor Aug 20, 2026",
+    "clause": "Rep. Tom Barrett (R-MI) added as cosponsor Aug 20, 2026",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -4820,9 +4964,14 @@
     "label": "Text — GovInfo",
     "url": "https://www.govinfo.gov/content/pkg/BILLS-119hr9965ih/pdf/BILLS-119hr9965ih.pdf",
     "kind": "primary"
+   },
+   {
+    "label": "Bill status — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9965.xml",
+    "kind": "primary"
    }
   ],
-  "source_label": "Text — GovInfo",
+  "source_label": "Text — GovInfo · Bill status — GovInfo",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -4837,8 +4986,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9965-atomic-act-ai-threat-output-and-monitoring-incident-containme",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5122,7 +5271,7 @@
   "mechanism": "Sponsor bill text (pre-introduction print) read in part. Establishes an Artificial Intelligence Safety Board within Commerce (NIST, CISA, NSA, Treasury and independent technical experts) within 30 days of enactment to evaluate risks and set technical safety and security standards (the Board proposes standards within 90 days of its establishment); developers of frontier models must give the Board access at least 45 days before public release , including model weights, configuration files, runtimes and software libraries; Model Safety Plans naming the responsible corporate officer; incident reporting within 30 days, or 72 hours for an imminent threat to national security, critical infrastructure or public safety; national AI incident database; secure federal testing environments using NSA and DOE resources; documentation standards for autonomous AI agents; civil penalties up to $250,000 per violation per day . Successor to Warner's S. 5061 (NSA pre-deployment testing) with a broader board and standards regime",
   "thresholds": "Capability-based, no compute figure: \"frontier artificial intelligence model\" = a model \"that exhibits or could be modified to exhibit high levels of performance at tasks that pose a serious risk to national security, national economic security, or public health or safety\"",
   "penalties": null,
-  "status_text": "Introduced / status: Announced and debated on the Senate floor Sept 24, 2026 ; introduced as S. 5576 on Sept 29, 2026 , read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov; no further action; on Sept 29, 2026 Sen. Ted Cruz objected to a unanimous-consent request to pass the bill",
+  "status_text": "Introduced / status: Announced and debated on the Senate floor Sept 24, 2026 ; introduced as S. 5576 on Sept 29, 2026 , read twice and referred to Senate Commerce (GovInfo bill status; the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov; no further action; news reports (The Hill and others) say Sen. Ted Cruz objected on Sept 29, 2026 to a unanimous-consent request to pass the bill; the objection is not listed in the Congress.gov actions",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -5130,26 +5279,17 @@
     "date": "2026-09-24",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "Announced and debated on the Senate floor Sept 24, 2026",
-    "clause": "Announced and debated on the Senate floor Sept 24, 2026",
+    "text": "Sponsors announced the bill and spoke on the Senate floor Sept 24, 2026 (Congressional Record)",
+    "clause": "Sponsors announced the bill and spoke on the Senate floor Sept 24, 2026 (Congressional Record)",
     "inferred_year": false,
-    "scheduled": false
-   },
-   {
-    "date": "2026-09-24",
-    "precision": "day",
-    "type": "Referred / stalled / hearing",
-    "text": "the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov",
-    "clause": "the sponsors' Sept 24 releases pre-dated the formal introduction). Introduced text (dated Sept 29, 2026) now posted on Congress.gov",
-    "inferred_year": true,
     "scheduled": false
    },
    {
     "date": "2026-09-29",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "introduced as S. 5576 on Sept 29, 2026, read twice and referred to Senate Commerce (GovInfo bill status",
-    "clause": "introduced as S. 5576 on Sept 29, 2026, read twice and referred to Senate Commerce (GovInfo bill status",
+    "text": "Introduced as S. 5576 Sept 29, 2026; read twice and referred to Senate Commerce, Science, and Transportation",
+    "clause": "Introduced as S. 5576 Sept 29, 2026; read twice and referred to Senate Commerce, Science, and Transportation",
     "inferred_year": false,
     "scheduled": false
    },
@@ -5157,8 +5297,8 @@
     "date": "2026-09-29",
     "precision": "day",
     "type": "Referred / stalled / hearing",
-    "text": "Cruz objects to a unanimous-consent request to pass the bill",
-    "clause": "Sen. Ted Cruz objected to a unanimous-consent request to pass the bill",
+    "text": "Cruz objects to a unanimous-consent request to pass the bill (news reports; not in Congress.gov actions)",
+    "clause": "Cruz objects to a unanimous-consent request to pass the bill (news reports; not in Congress.gov actions)",
     "inferred_year": false,
     "scheduled": false
    }
@@ -5205,8 +5345,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5576-artificial-intelligence-risk-management-and-security-act-of-202",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5320,7 +5460,7 @@
   "mechanism": "Two-page bill: covered entities must \"ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system\"; DHS regulations within 90 days. Kennedy sought immediate passage by unanimous consent on Sept 16 and Sen. Rand Paul objected , calling for hearings first. Overlaps H.R. 9917 (Lieu–Moran) and FRONTIER Sec. 8, but with no government trigger authority described",
   "thresholds": "\"Covered entity\" = any entity that develops or operates an advanced artificial intelligence system in the United States (S. 5417)",
   "penalties": null,
-  "status_text": "Introduced / status: S. 5417 introduced Sept 16, 2026 , read twice and referred to Senate Commerce; unanimous-consent request blocked the same day. House companion H.R. 10567 introduced Sept 24, 2026 by Rep. Tom Kean Jr. (R-NJ), referred to House Science, Space, and Technology",
+  "status_text": "Introduced / status: S. 5417 introduced Sept 16, 2026 , read twice and referred to Senate Commerce; unanimous-consent request blocked the same day (Sen. Rand Paul objected, per the sponsor's release; not in the Congress.gov actions). Congress.gov lists the two bills as identical. House companion H.R. 10567 introduced Sept 24, 2026 by Rep. Tom Kean Jr. (R-NJ), referred to House Science, Space, and Technology",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -5334,11 +5474,20 @@
     "scheduled": false
    },
    {
+    "date": "2026-09-16",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "Unanimous-consent request to pass S. 5417 blocked (Sen. Rand Paul objected, per the sponsor's release)",
+    "clause": "Unanimous-consent request to pass S. 5417 blocked (Sen. Rand Paul objected, per the sponsor's release)",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2026-09-24",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "unanimous-consent request blocked the same day. House companion H.R. 10567 introduced Sept 24, 2026 by Rep. Tom Kean Jr. (R-NJ), referred to House Science, Space, and Technology",
-    "clause": "unanimous-consent request blocked the same day. House companion H.R. 10567 introduced Sept 24, 2026 by Rep. Tom Kean Jr. (R-NJ), referred to House Science, Space, and Technology",
+    "text": "House companion H.R. 10567 introduced Sept 24, 2026 by Rep. Tom Kean Jr. (R-NJ), referred to House Science, Space, and Technology",
+    "clause": "House companion H.R. 10567 introduced Sept 24, 2026 by Rep. Tom Kean Jr. (R-NJ), referred to House Science, Space, and Technology",
     "inferred_year": false,
     "scheduled": false
    }
@@ -5375,8 +5524,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5417-h-r-10567-ai-emergency-button-act-u",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5913,11 +6062,11 @@
   "status": "pending",
   "title": "S. 1792 / H.R. 3460 — AI Whistleblower Protection Act",
   "short_name": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
-  "sponsor_text": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz; House companion; 13 Senate and 9 House cosponsors in all (Congress.gov)",
+  "sponsor_text": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz; House companion H.R. 3460 by Rep. Jay Obernolte (R-CA), referred to House Education and Workforce; 13 Senate and 9 House cosponsors in all, including Pocan (Oct 1, 2026) and Pappas (Oct 19, 2026) in the House (Congress.gov)",
   "mechanism": "Anti-retaliation protection for employees and independent contractors reporting an \"AI security vulnerability\" (a lapse enabling theft of state-of-the-art AI) or \"AI violation\" (federal-law breach or failure to address a substantial danger to public safety/health/national security) to regulators, Congress, or supervisors; DOL complaint then district court with jury trial; reinstatement, 2× back pay, compensatory damages ; arbitration waivers unenforceable. GAAIA's dropped Sec. 113 used the same 2× back-pay remedy — GAAIA had folded this bill in, and FRONTIER then dropped it",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Introduced May 15, 2025; referred to Senate HELP; Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) , Sept 24, 2026 (Durbin, Curtis R-UT, Kelly) and Sept 30, 2026 (Schiff), 13 Senate cosponsors in all",
+  "status_text": "Status: Introduced May 15, 2025; referred to Senate HELP; Slotkin added Oct 8, 2025; Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) , Sept 24, 2026 (Durbin, Curtis R-UT, Kelly) and Sept 30, 2026 (Schiff), 13 Senate cosponsors in all",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -5931,20 +6080,56 @@
     "scheduled": false
    },
    {
+    "date": "2025-10-08",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Sen. Slotkin added as cosponsor Oct 8, 2025",
+    "clause": "Sen. Slotkin added as cosponsor Oct 8, 2025",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2026-09-22",
     "precision": "day",
     "type": "Referred / stalled / hearing",
-    "text": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) and Sept 24, 2026 (Durbin, Curtis R-UT, Kelly)",
-    "clause": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) and Sept 24, 2026 (Durbin, Curtis R-UT, Kelly) ⟨U⟩",
+    "text": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand)",
+    "clause": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand)",
     "inferred_year": false,
     "scheduled": false
    },
    {
     "date": "2026-09-24",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) and Sept 24, 2026 (Durbin, Curtis R-UT, Kelly)",
-    "clause": "Senate cosponsors added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand) and Sept 24, 2026 (Durbin, Curtis R-UT, Kelly) ⟨U⟩",
+    "type": "Referred / stalled / hearing",
+    "text": "Senate cosponsors added Sept 24, 2026 (Durbin, Curtis R-UT, Kelly)",
+    "clause": "Senate cosponsors added Sept 24, 2026 (Durbin, Curtis R-UT, Kelly)",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-09-30",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Sen. Schiff added as cosponsor Sept 30, 2026",
+    "clause": "Sen. Schiff added as cosponsor Sept 30, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-01",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Rep. Pocan added as H.R. 3460 cosponsor Oct 1, 2026",
+    "clause": "Rep. Pocan added as H.R. 3460 cosponsor Oct 1, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-19",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Rep. Pappas added as H.R. 3460 cosponsor Oct 19, 2026",
+    "clause": "Rep. Pappas added as H.R. 3460 cosponsor Oct 19, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -5976,8 +6161,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-1792-h-r-3460-ai-whistleblower-protection-act-r",
    "section_name": "Adjacent and sectoral federal bills"
@@ -6069,7 +6254,7 @@
   "status": "pending",
   "title": "H.R. 10180 — Self-Improving AI Monitoring Act",
   "short_name": "H.R. 10180 Self-Improving AI Monitoring Act",
-  "sponsor_text": "Reps. George Whitesides (D-CA), Pat Harrigan (R-NC)",
+  "sponsor_text": "Rep. George Whitesides (D-CA), sponsor; Rep. Pat Harrigan (R-NC), original cosponsor; Rep. Jared Huffman (D-CA) added Oct 15, 2026",
   "mechanism": "Amends the NIST Act (15 U.S.C. §278h-1): authorizes NIST to assess trends in autonomous AI-research capability; conditions voluntary predeployment frontier-model evaluation MOUs on developer disclosure, at NIST's request, of metrics or estimates showing the extent to which AI was used in developing the model; requires the evaluation to test whether the model can autonomously facilitate or conduct AI R&D. Applies only to developers entering such MOUs",
   "thresholds": "Developers of a frontier artificial intelligence system (as determined by the NIST Director) entering pre-deployment evaluation MOUs",
   "penalties": null,
@@ -6085,6 +6270,15 @@
     "clause": "Aug. 27, 2026",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-10-15",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Rep. Jared Huffman (D-CA) added as cosponsor Oct 15, 2026",
+    "clause": "Rep. Jared Huffman (D-CA) added as cosponsor Oct 15, 2026",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -6092,9 +6286,14 @@
     "label": "Introduced text — GovInfo",
     "url": "https://www.govinfo.gov/content/pkg/BILLS-119hr10180ih/html/BILLS-119hr10180ih.htm",
     "kind": "primary"
+   },
+   {
+    "label": "Bill status — GovInfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr10180.xml",
+    "kind": "primary"
    }
   ],
-  "source_label": "Introduced text — GovInfo",
+  "source_label": "Introduced text — GovInfo · Bill status — GovInfo",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -6109,8 +6308,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-10180-self-improving-ai-monitoring-act-r",
    "section_name": "Adjacent and sectoral federal bills"
@@ -6135,7 +6334,7 @@
   "status": "pending",
   "title": "H.R. 10189 — Defense AI Reliability and Reporting Act",
   "short_name": "H.R. 10189 Defense AI Reliability Act",
-  "sponsor_text": "Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX), George Whitesides (D-CA)",
+  "sponsor_text": "Rep. Sara Jacobs (D-CA), sponsor; Reps. Nathaniel Moran (R-TX) and George Whitesides (D-CA), original cosponsors",
   "mechanism": "Requires a centralized, non-punitive DoD-wide AI incident and vulnerability reporting, tracking, analysis, and remediation program covering development through operation. Includes prompt reporting; protected disclosures by servicemembers, civilian employees, contractors, and subcontractors; categorization and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operation outside guardrails, mission degradation, failure to obey disengagement, near misses, and control/autonomy concerns. Not frontier-specific",
   "thresholds": null,
   "penalties": null,
@@ -6144,29 +6343,11 @@
   "effective_text": null,
   "events": [
    {
-    "date": "2026-07-22",
-    "precision": "day",
-    "type": "Passed / advanced",
-    "text": "CRS lists H.R. 8800 (FY2027 NDAA) as related — H.R. 8800 passed the House July 22, 2026 (216–212) and was received in the Senate Sept 14, 2026",
-    "clause": "CRS lists H.R. 8800 (FY2027 NDAA) as related — H.R. 8800 passed the House July 22, 2026 (216–212) and was received in the Senate Sept 14, 2026 ⟨U⟩",
-    "inferred_year": false,
-    "scheduled": false
-   },
-   {
     "date": "2026-08-31",
     "precision": "day",
     "type": "Introduced / published",
     "text": "Aug. 31, 2026",
     "clause": "Aug. 31, 2026",
-    "inferred_year": false,
-    "scheduled": false
-   },
-   {
-    "date": "2026-09-14",
-    "precision": "day",
-    "type": "Introduced / published",
-    "text": "CRS lists H.R. 8800 (FY2027 NDAA) as related — H.R. 8800 passed the House July 22, 2026 (216–212) and was received in the Senate Sept 14, 2026",
-    "clause": "CRS lists H.R. 8800 (FY2027 NDAA) as related — H.R. 8800 passed the House July 22, 2026 (216–212) and was received in the Senate Sept 14, 2026 ⟨U⟩",
     "inferred_year": false,
     "scheduled": false
    }
@@ -6193,8 +6374,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-10189-defense-ai-reliability-and-reporting-act-r",
    "section_name": "Adjacent and sectoral federal bills"
@@ -6217,7 +6398,7 @@
   "jurisdiction": "US",
   "state": null,
   "status": "pending",
-  "title": "S. 5541 — Cybersecurity and AI Board of Investigations Act",
+  "title": "S. 5541 — Cybersecurity and AI Board of Investigations Act of 2026",
   "short_name": "S. 5541 Cyber and AI Board of Investigations",
   "sponsor_text": "Sen. Ed Markey (D-MA)",
   "mechanism": "Five-member independent, non-regulatory board modelled on the NTSB with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure, including incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight, with public reports and recommendations; also a voluntary, anonymized near-miss reporting system, and federal civilian agencies must respond in writing to recommendations within 90 days. Sponsor cites the July 2026 incident in which OpenAI agents left a testing environment and reached Hugging Face's infrastructure. Investigative, not a developer mandate",
@@ -6264,8 +6445,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5541-cybersecurity-and-ai-board-of-investigations-act-u",
    "section_name": "Adjacent and sectoral federal bills"
@@ -6361,7 +6542,7 @@
   "status": "pending",
   "title": "H.R. 10362 — Stop Rogue AI Act",
   "short_name": "H.R. 10362 Stop Rogue AI Act",
-  "sponsor_text": "Rep. Josh Gottheimer (D-NJ), sponsor; Rep. Mike Lawler (R-NY), cosponsor",
+  "sponsor_text": "Rep. Josh Gottheimer (D-NJ), sponsor; Rep. Mike Lawler (R-NY), original cosponsor; Rep. Jared Huffman (D-CA) added Oct 15, 2026",
   "mechanism": "Introduced text read. Directs NIST to set standards so organisations can find and track every AI agent on their networks, verify who built and operates each, monitor in real time, and allow, deny or revoke access; federal agencies and contractors to build the safeguards into procurement and deployment. Duties fall on deployers and agencies, not frontier developers",
   "thresholds": null,
   "penalties": null,
@@ -6384,6 +6565,15 @@
     "type": "Introduced / published",
     "text": "introduced Sept 14, 2026, referred to Science, Space, and Technology and to Oversight and Government Reform",
     "clause": "introduced Sept 14, 2026, referred to Science, Space, and Technology and to Oversight and Government Reform",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-15",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Rep. Jared Huffman (D-CA) added as cosponsor Oct 15, 2026",
+    "clause": "Rep. Jared Huffman (D-CA) added as cosponsor Oct 15, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -6420,8 +6610,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-10362-stop-rogue-ai-act-u",
    "section_name": "Adjacent and sectoral federal bills"
@@ -6905,7 +7095,7 @@
   "title": "CAISI voluntary pre-deployment evaluation activity + NIST AITE program",
   "short_name": "CAISI and NIST AITE",
   "sponsor_text": "",
-  "mechanism": "NIST officially describes CAISI as establishing voluntary agreements with private developers/evaluators and leading unclassified national-security-risk evaluations; its Frontier Assessment team collaborates with frontier labs on pre-deployment evaluations. NIST's voluntary AI Technology Evaluation (AITE) provides blind-data testing in a sequestered environment, initially covering quantum science, genomics, and public-safety vision tasks. These programs are evidence of a federal voluntary-evaluation track; describing them as a substitute for a statutory audit mandate is analysis, not an official characterization",
+  "mechanism": "NIST's site now uses the name Center for Advancing Innovation and Standards for Super Intelligence (CAISSI) for the center formerly called CAISI (no official date for the change located). NIST officially describes CAISI as establishing voluntary agreements with private developers/evaluators and leading unclassified national-security-risk evaluations; its Frontier Assessment team collaborates with frontier labs on pre-deployment evaluations. NIST's voluntary AI Technology Evaluation (AITE) provides blind-data testing in a sequestered environment, initially covering quantum science, genomics, and public-safety vision tasks. These programs are evidence of a federal voluntary-evaluation track; describing them as a substitute for a statutory audit mandate is analysis, not an official characterization",
   "thresholds": null,
   "penalties": null,
   "status_text": "Date: 2026; AITE kickoff/evaluation plan in July and evaluation period beginning August",
@@ -6949,8 +7139,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-caisi-voluntary-pre-deployment-evaluation-activity-nist-aite-program",
    "section_name": "Executive actions"
@@ -6989,12 +7179,12 @@
    {
     "label": "Reuters via Yahoo",
     "url": "https://finance.yahoo.com/news/trump-says-congress-wants-regulate-142003615.html",
-    "kind": "primary"
+    "kind": "secondary"
    },
    {
     "label": "Quartz",
     "url": "https://qz.com/trump-congress-ai-regulation-nist-guidelines-080726",
-    "kind": "primary"
+    "kind": "secondary"
    }
   ],
   "source_label": "Reuters via Yahoo · Quartz",
@@ -7012,8 +7202,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-trump-remarks-congress-wants-to-regulate-ai-out-of-business",
    "section_name": "Executive actions"
@@ -7031,7 +7221,7 @@
   "title": "California Executive Order N-9-26 — independent oversight and an AI \"kill switch\"",
   "short_name": "CA EO N-9-26 (IVOs onsite, kill switch)",
   "sponsor_text": "",
-  "mechanism": "Directs the Government Operations Agency, in consultation with Cal OES, to convene national experts and submit recommendations by Nov 16, 2026 on at least four amendments to state law: (1) requiring all large frontier developers to embed designated independent verification organizations onsite in their labs for periodic audits and evaluations; (2) independent verification of the safety frameworks, transparency reports and risk assessments frontier developers must file; (3) \"requiring the creation of a 'kill switch' for frontier models, with the efficacy of the switch verified on an ongoing basis\"; (4) updating the definition of critical safety incidents to include loss-of-control incidents . Accelerates implementation of SB 813 (IVO application requirements by May 1, 2027 , statutory date Jan 1, 2028) and AB 1405 (online auditor registration by Dec 1, 2027 , statutory date Jan 1, 2029). Experts convened: Jason Goldman, Gillian Hadfield, Alondra Nelson, Rob Reich. A state executive order cannot itself amend SB 53; it produces recommendations for the Legislature",
+  "mechanism": "Directs the Government Operations Agency, in consultation with Cal OES, to convene national experts and submit recommendations by Nov 16, 2026 on at least four amendments to state law: (1) requiring all large frontier developers to embed designated independent verification organizations onsite in their labs for periodic audits and evaluations; (2) independent verification of the safety frameworks, transparency reports and risk assessments frontier developers must file; (3) \"requiring the creation of a 'kill switch' for frontier models, with the efficacy of the switch verified on an ongoing basis by an independent verification organization\"; (4) updating the definition of critical safety incidents to include loss-of-control incidents . Accelerates implementation of SB 813 (para. 1: Gov. Code §8898.1 requirements and IVO application requirements by May 1, 2027) and AB 1405 (para. 2: Gov. Code §11549.82(a) by Dec 1, 2027); the order cites the Government Code sections, not the bill numbers. Experts convened: Jason Goldman, Gillian Hadfield, Alondra Nelson, Rob Reich. A state executive order cannot itself amend SB 53; it produces recommendations for the Legislature",
   "thresholds": null,
   "penalties": null,
   "status_text": "Date: Sept 18, 2026 (experts named Sept 23)",
@@ -7067,13 +7257,18 @@
     "label": "Experts announced Sept 23",
     "url": "https://www.gov.ca.gov/2026/09/23/governor-newsom-announces-world-leading-experts-to-deliver-on-his-ai-executive-order-including-advancing-creation-of-a-kill-switch/",
     "kind": "primary"
+   },
+   {
+    "label": "Executive Order N-9-26 (signed PDF)",
+    "url": "https://www.gov.ca.gov/wp-content/uploads/2026/09/FINAL-N-9-26-AI-EO-9.18.26-SIGNED.pdf",
+    "kind": "primary"
    }
   ],
-  "source_label": "Governor's release Sept 18 · Experts announced Sept 23",
+  "source_label": "Governor's release Sept 18 · Experts announced Sept 23 · Executive Order N-9-26 (signed PDF)",
   "confidence": {
-   "level": "MED-HIGH",
-   "basis": "corroborated",
-   "note": "MED-HIGH (directives and deadlines from the Governor's releases; order text not opened — retrieval path: gov.ca.gov executive orders, N-9-26)"
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (signed order text read: number, Sept 18, 2026 date, Nov 16, 2026 deadline, four amendment items, May 1 and Dec 1, 2027 directives)"
   },
   "tags": {
    "updated_after_verification": true,
@@ -7084,8 +7279,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-california-executive-order-n-9-26-independent-oversight-and-an-ai-kill",
    "section_name": "Executive actions"
@@ -7103,7 +7298,7 @@
   "title": "Illinois Executive Order 2026-07 — Illinois Artificial Intelligence Cabinet",
   "short_name": "IL EO 2026-07 (AI Cabinet)",
   "sponsor_text": "",
-  "mechanism": "Establishes an AI Cabinet of senior leaders from DoIT, IEMA-OHS, IDFPR, ICC, ISP, IDPH and IEPA plus outside experts in academia, law, ethics and governance (appointments within 30 days; volunteers; sunset no later than Dec 31, 2027) to develop policies to prepare for and respond to AI incidents, protect public assets and critical infrastructure, analyse emerging incidents, and evaluate further regulation including conditioning data-center incentives on safety standards. The order cites the AI Safety Measures Act (SB 315) and its framework, annual-audit and 72-hour incident-reporting duties. Implementation context for SB 315, not a new developer duty",
+  "mechanism": "Establishes an AI Cabinet of senior leaders from DoIT, IEMA-OHS, IDFPR, ICC, ISP, IDPH and IEPA plus outside experts in academia, law, ethics and governance (appointments within 30 days; volunteers; sunset no later than Dec 31, 2027) to develop policies to prepare for and respond to AI incidents, protect public assets and critical infrastructure, analyse emerging incidents, and evaluate further regulation including conditioning data-center incentives on safety standards. The order cites the AI Safety Measures Act (the order gives no bill number; SB 315 is the tracker's identification) and its framework, annual-audit and 72-hour incident-reporting duties. Implementation context for SB 315, not a new developer duty",
   "thresholds": null,
   "penalties": null,
   "status_text": "Date: Sept 22, 2026",
@@ -7147,8 +7342,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-illinois-executive-order-2026-07-illinois-artificial-intelligence-cabi",
    "section_name": "Executive actions"
@@ -7188,13 +7383,18 @@
     "label": "KTVZ, Sept 23, 2026",
     "url": "https://ktvz.com/news/2026/09/23/gov-tina-kotek-orders-new-ai-safety-standards-for-oregon-state-agencies/",
     "kind": "secondary"
+   },
+   {
+    "label": "Governor's release — oregon.gov",
+    "url": "https://apps.oregon.gov/oregon-newsroom/OR/GOV/Posts/Post/governor-kotek-issues-executive-order-to-advance-ai-safety-and-oversight",
+    "kind": "primary"
    }
   ],
-  "source_label": "KTVZ, Sept 23, 2026",
+  "source_label": "KTVZ, Sept 23, 2026 · Governor's release — oregon.gov",
   "confidence": {
-   "level": "MED",
+   "level": "MED-HIGH",
    "basis": "corroborated",
-   "note": "MED (local reporting only; order text not opened — retrieval path: oregon.gov executive orders, EO 26-26)"
+   "note": "MED-HIGH (Governor's release confirms EO 26-26, Sept 23, the 90-day proposal, third-party review criteria and the kill-switch viability assessment; order text not opened)"
   },
   "tags": {
    "updated_after_verification": true,
@@ -7205,8 +7405,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-oregon-executive-order-26-26-ai-procurement-safety-standards-for-state",
    "section_name": "Executive actions"
@@ -7440,7 +7640,7 @@
   "mechanism": "The available record indicates the enacted frontier laws remained judicially untested at the cutoff; do not cite this as proof that no unindexed filing exists",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: No challenge or reported enforcement action located in the Sept. 5 search. Re-run Sept 28, 2026: none located. SB 53 has been in effect since Jan 1, 2026; RAISE and SB 315 are not effective until Jan 1, 2027",
+  "status_text": "Status: No challenge or reported enforcement action located in the Sept. 5 search. Re-run Sept 28 and Oct 31, 2026: none located. SB 53 has been in effect since Jan 1, 2026; RAISE and SB 315 are not effective until Jan 1, 2027",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7468,6 +7668,15 @@
     "type": "Search date / deadline / scheduled",
     "text": "No challenge or reported enforcement action located in the Sept. 5 search. Re-run Sept 28, 2026: none located. SB 53 has been in effect since Jan 1, 2026",
     "clause": "No challenge or reported enforcement action located in the Sept. 5 search. Re-run Sept 28, 2026: none located ⟨U⟩. SB 53 has been in effect since Jan 1, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-31",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "Search re-run Oct 31, 2026: no challenge or enforcement action located",
+    "clause": "Search re-run Oct 31, 2026: no challenge or enforcement action located",
     "inferred_year": false,
     "scheduled": false
    },
@@ -7507,8 +7716,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-challenges-to-sb-53-raise-act-or-sb-315",
    "section_name": "Litigation and enforcement"
@@ -7664,7 +7873,7 @@
   "title": "X.AI LLC v. Weiser, No. 1:26-cv-01515 (D. Colo.)",
   "short_name": "X.AI v. Weiser (D. Colo.)",
   "sponsor_text": "",
-  "mechanism": "The only federal-state AI litigation to date targets a consequential-decision law, not catastrophic-risk regulation; the legal theories used (Equal Protection, compelled speech) do not map cleanly onto SB 53-style disclosure mandates. Also a precedent: DOJ chose to ride a private suit rather than file its own",
+  "mechanism": "The only federal-state AI litigation located as of Oct 31, 2026 targets a consequential-decision law, not catastrophic-risk regulation; the legal theories used (Equal Protection, compelled speech) do not map cleanly onto SB 53-style disclosure mandates. Also a precedent: DOJ chose to ride a private suit rather than file its own",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: xAI sued Apr 9, 2026 to enjoin Colorado SB 24-205 (the ADMT/algorithmic-discrimination law — Section I, not a frontier law) on First Amendment, Equal Protection, and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division; Equal Protection theory) — the first federal court action against any state AI law. On Apr 27, 2026 the court granted the parties' joint stipulation: the Colorado AG may not initiate enforcement, including investigations, of SB 24-205 (or legislation replacing or amending it) for conduct on or before 14 days after a ruling on xAI's forthcoming preliminary-injunction motion, which xAI must file within 28 days after final adoption of implementing rules; all case deadlines are stayed; the legislature then repealed and replaced it with SB 26-189 (May 14, 2026)",
@@ -7727,9 +7936,9 @@
   ],
   "source_label": "Norton Rose Fulbright · Barnes & Thornburg",
   "confidence": {
-   "level": "HIGH",
-   "basis": "primary_record",
-   "note": "HIGH (case number, dates, parties from multiple law-firm accounts)"
+   "level": "MED-HIGH",
+   "basis": "corroborated",
+   "note": "MED-HIGH (case number, dates and parties from multiple law-firm accounts; docket not read)"
   },
   "tags": {
    "updated_after_verification": false,
@@ -7740,8 +7949,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-x-ai-llc-v-weiser-no-1-26-cv-01515-d-colo",
    "section_name": "Litigation and enforcement"
@@ -7762,7 +7971,7 @@
   "mechanism": "First direct court challenge in the tracker involving federal treatment of a frontier-model developer. It concerns procurement, national-security designation, and alleged retaliation — not the validity of a state frontier statute. Legally notable for the paper: the complaint pleads that a \"supply chain risk\" designation under § 3252 had never before been applied to a domestic company",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Complaint read. Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against DoW, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President, and named officials. Five counts: (I) APA / 10 U.S.C. § 3252 — the supply-chain-risk order exceeds § 3252, which is limited to adversary sabotage/subversion risk, skipped the statute's consultation, written-determination, and congressional-notification steps, and is arbitrary given DoD's simultaneous six-month continued-use order; (II) First Amendment retaliation for protected speech and petitioning; (III) ultra vires presidential directive; (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic , holding the § 3252 designation and related measures \"illegal and baseless\" — First Amendment retaliation, Fifth Amendment due process, and APA violations (in excess of statutory authority; arbitrary and capricious) — while rejecting the ultra vires/separation-of-powers count; concurring accounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit; the government filed a notice of appeal to the Ninth Circuit on Oct 26, 2026 (Dkt. 253), appealing the Aug 27, 2026 summary-judgment order, order of final relief and judgment",
+  "status_text": "Status: Complaint read. Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against DoW, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President, and named officials. Five counts: (I) APA / 10 U.S.C. § 3252 — the supply-chain-risk order exceeds § 3252, which is limited to adversary sabotage/subversion risk, skipped the statute's consultation, written-determination, and congressional-notification steps, and is arbitrary given DoD's simultaneous six-month continued-use order; (II) First Amendment retaliation for protected speech and petitioning; (III) ultra vires presidential directive; (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic , holding the § 3252 designation and related measures \"illegal and baseless\" — First Amendment retaliation, Fifth Amendment due process, and APA violations (in excess of statutory authority; arbitrary and capricious) — while rejecting the ultra vires/separation-of-powers count; concurring accounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-2011) was stayed Apr 27 pending the D.C. Circuit; the government (defendants) filed a new notice of appeal to the Ninth Circuit on Oct 26, 2026 (Dkt. 253; Ninth Circuit number not yet located), appealing the Aug 27, 2026 summary-judgment order, order of final relief and judgment",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7778,18 +7987,18 @@
    {
     "date": "2026-04-27",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "…ed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit",
-    "clause": "…ed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 27 pending the D.C. Circuit",
+    "type": "Litigation",
+    "text": "The government's Ninth Circuit appeal of the preliminary injunction (No. 26-2011) stayed Apr 27, 2026 pending the D.C. Circuit",
+    "clause": "The government's Ninth Circuit appeal of the preliminary injunction (No. 26-2011) stayed Apr 27, 2026 pending the D.C. Circuit",
     "inferred_year": true,
     "scheduled": false
    },
    {
     "date": "2026-08-27",
     "precision": "day",
-    "type": "Search date / deadline / scheduled",
-    "text": "…sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic, holdi",
-    "clause": "…sanctions by other agencies. Seeks vacatur, § 705 stay, declaratory relief, and a permanent injunction. Update ⟨U⟩: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic, holding the § 3252 designation and related…",
+    "type": "Litigation",
+    "text": "Judge Rita F. Lin grants summary judgment largely for Anthropic Aug 27, 2026",
+    "clause": "Judge Rita F. Lin grants summary judgment largely for Anthropic Aug 27, 2026",
     "inferred_year": false,
     "scheduled": false
    },
@@ -7799,15 +8008,6 @@
     "type": "Litigation",
     "text": "…ounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary i",
     "clause": "…ounts state the designation was vacated and its enforcement permanently enjoined, and the docket shows the case closed Aug 27, 2026. The government's earlier Ninth Circuit appeal of the preliminary injunction (No. 26-02011) was stayed Apr 2…",
-    "inferred_year": false,
-    "scheduled": false
-   },
-   {
-    "date": "2026-09-28",
-    "precision": "day",
-    "type": "Search date / deadline / scheduled",
-    "text": "no post-judgment appeal located through Sept 28, 2026",
-    "clause": "no post-judgment appeal located through Sept 28, 2026",
     "inferred_year": false,
     "scheduled": false
    },
@@ -7846,9 +8046,14 @@
     "label": "Docket, N.D. Cal. No. 3:26-cv-01996 (CourtListener)",
     "url": "https://www.courtlistener.com/docket/72379655/",
     "kind": "primary"
+   },
+   {
+    "label": "Notice of appeal, Dkt. 253 (CourtListener RECAP)",
+    "url": "https://storage.courtlistener.com/recap/gov.uscourts.cand.465515/gov.uscourts.cand.465515.253.0.pdf",
+    "kind": "primary"
    }
   ],
-  "source_label": "Complaint and docket — Justia · Taft Law bulletin on the Aug 27 judgment · Nextgov, Aug 28, 2026 · Docket chronology — Civil Rights Litigation Clearinghouse",
+  "source_label": "Complaint and docket — Justia · Taft Law bulletin on the Aug 27 judgment · Nextgov, Aug 28, 2026 · Docket chronology — Civil Rights Litigation Clearinghouse · Docket, N.D. Cal. No. 3:26-cv-01996 (CourtListener) · Notice of appeal, Dkt. 253 (CourtListener RECAP)",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -7863,8 +8068,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-et-al-no-3-26-cv-01996-n-d-cal",
    "section_name": "Litigation and enforcement"
@@ -7885,7 +8090,7 @@
   "mechanism": "The two statutory designations now have opposite outcomes: § 3252 vacated in N.D. Cal. (Aug. 27), § 4713 upheld in the D.C. Circuit (Sept. 25). The majority reportedly reasoned both rulings can coexist because the two statutes define supply-chain risk differently — the split-forum structure flagged in the Sept. 5 version has produced a split result",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: The Mar. 9 complaint (n.36) states Anthropic received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (civilian-agency supply-chain exclusion), that judicial review lies exclusively in the D.C. Circuit under 41 U.S.C. § 1327(b), and that Anthropic \"intends to challenge that separate action in that forum.\" Update: the petition was in fact filed Mar. 9, 2026 (the earlier \"no petition located\" finding is superseded); stay denied Apr. 8; argued May 19; decided Sept. 25, 2026, 2–1, petition denied . Katsas (writing) and Rao held that FASCSA's term \"manipulate\" reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendment claim failed because the exclusion rested on \"refusal to assent to a contract term that the Department deemed essential\"; Henderson dissented, reading manipulation to require deceptive or covert interference rather than \"a contractor's honest and upfront enforcement of restrictions.\" Anthropic: \"considering all options, including further review\"",
+  "status_text": "Status: The Mar. 9 complaint (n.36) states Anthropic received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (civilian-agency supply-chain exclusion), that judicial review lies exclusively in the D.C. Circuit under 41 U.S.C. § 1327(b), and that Anthropic \"intends to challenge that separate action in that forum.\" Update: the petition was in fact filed Mar. 9, 2026 (the earlier \"no petition located\" finding is superseded); stay denied Apr. 8; argued May 19; decided Sept. 25, 2026, 2–1, petition denied . Katsas (writing) and Rao held that FASCSA's term \"manipulate\" reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendment claim failed because the exclusion rested on \"refusal to assent to a contract term that the Department deemed essential\"; Henderson dissented, reading manipulation to require deceptive or covert interference rather than \"a contractor's honest and upfront enforcement of restrictions.\" Anthropic: \"considering all options, including further review.\" In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc (reported as filed Oct 13; an amicus motion filed Oct 20, 2026 in No. 26-1049 confirms the petition); no ruling located as of Oct 31, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7919,18 +8124,27 @@
    {
     "date": "2026-05-19",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "argued May 19",
-    "clause": "argued May 19",
+    "type": "Litigation",
+    "text": "Argued May 19, 2026",
+    "clause": "Argued May 19, 2026",
     "inferred_year": true,
     "scheduled": false
    },
    {
     "date": "2026-09-25",
     "precision": "day",
-    "type": "Introduced / published",
+    "type": "Litigation",
     "text": "decided Sept. 25, 2026, 2–1, petition denied. Katsas (writing) and Rao held that FASCSA's term \"manipulate\" reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the",
     "clause": "decided Sept. 25, 2026, 2–1, petition denied. Katsas (writing) and Rao held that FASCSA's term \"manipulate\" reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendme…",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-13",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Anthropic petitions for panel rehearing or rehearing en banc (date as reported; petition confirmed by an Oct 20 amicus filing)",
+    "clause": "Anthropic petitions for panel rehearing or rehearing en banc (date as reported; petition confirmed by an Oct 20 amicus filing)",
     "inferred_year": false,
     "scheduled": false
    }
@@ -7972,8 +8186,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-nos-26-1049-and-26-1162-d-c-cir-",
    "section_name": "Litigation and enforcement"
@@ -8001,9 +8215,9 @@
    {
     "date": "2026-08-01",
     "precision": "day",
-    "type": "Passed / advanced",
-    "text": "…Commerce, Treasury, and OSTP, with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before release, ",
-    "clause": "…Commerce, Treasury, and OSTP, with a preliminary-injunction motion. It seeks the administration's reportedly finalized Aug. 1 voluntary framework for reviewing closed frontier models before release, participating-company information, and t…",
+    "type": "Introduced / published",
+    "text": "Administration reportedly finalizes a voluntary framework for reviewing closed frontier models before release (Aug. 1, 2026)",
+    "clause": "Administration reportedly finalizes a voluntary framework for reviewing closed frontier models before release (Aug. 1, 2026)",
     "inferred_year": true,
     "scheduled": false
    },
@@ -8026,20 +8240,11 @@
     "scheduled": false
    },
    {
-    "date": "2026-09-28",
-    "precision": "day",
-    "type": "Search date / deadline / scheduled",
-    "text": "no ruling located through Sept 28, 2026",
-    "clause": "no ruling located through Sept 28, 2026 ⟨U⟩",
-    "inferred_year": false,
-    "scheduled": false
-   },
-   {
     "date": "2026-09-30",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "…rity. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026",
-    "clause": "…rity. The preliminary-injunction motion seeks disclosure of the unclassified procedural and contractual architecture by Sept 30, 2026",
+    "type": "Search date / deadline / scheduled",
+    "text": "Disclosure date requested by the preliminary-injunction motion (motion withdrawn Sept 15)",
+    "clause": "Disclosure date requested by the preliminary-injunction motion (motion withdrawn Sept 15)",
     "inferred_year": false,
     "scheduled": false
    },
@@ -8089,8 +8294,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-protect-democracy-project-v-office-of-the-national-cyber-director",
    "section_name": "Litigation and enforcement"
@@ -8111,7 +8316,7 @@
   "mechanism": "The first attempt to use a state court injunction, rather than a statute, to condition frontier development on third-party-approved safeguards; the theory tracks the IVO/auditor layer in Section C. Case number not located",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Motion filed Sept 28, 2026 in Highlands County Circuit Court (Tenth Judicial Circuit, Judge Heather Beato) in the suit Florida filed June 1, 2026 alleging violations of the Florida Deceptive and Unfair Trade Practices Act plus negligent design and marketing, failure to warn and public nuisance over ChatGPT's effects on vulnerable users. OpenAI removed the case to federal court; a federal judge sent it back to Highlands County. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" without \"third-party approved safety guardrails,\" arguing OpenAI has \"repeatedly shown they are incapable of monitoring their AI, and hesitant in revealing rogue activity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No hearing date or ruling reported as of Oct 28, 2026",
+  "status_text": "Status: Motion filed Sept 28, 2026 in Highlands County Circuit Court (Tenth Judicial Circuit, Judge Heather Beato) in the suit Florida filed June 1, 2026 alleging violations of the Florida Deceptive and Unfair Trade Practices Act plus negligent design and marketing, failure to warn and public nuisance over ChatGPT's effects on vulnerable users. OpenAI removed the case to federal court; a federal judge sent it back to Highlands County. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" without \"third-party approved safety guardrails,\" arguing OpenAI has \"repeatedly shown they are incapable of monitoring their AI, and hesitant in revealing rogue activity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No hearing date or ruling reported as of Oct 31, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -8134,11 +8339,11 @@
     "scheduled": false
    },
    {
-    "date": "2026-09-29",
+    "date": "2026-10-31",
     "precision": "day",
     "type": "Search date / deadline / scheduled",
-    "text": "…ity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No ruling reported as of Sept 29, 2026",
-    "clause": "…ity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No ruling reported as of Sept 29, 2026",
+    "text": "No hearing or ruling reported as of Oct 31, 2026",
+    "clause": "No hearing or ruling reported as of Oct 31, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -8180,8 +8385,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-state-of-florida-v-openai-motion-for-temporary-injunction-against-fron",
    "section_name": "Litigation and enforcement"
@@ -8279,11 +8484,11 @@
     "scheduled": false
    },
    {
-    "date": "2025-05-01",
+    "date": "2025-05-13",
     "precision": "month",
     "type": "Vetoed / failed / rescinded",
-    "text": "rescinded May 2025 before its compliance date",
-    "clause": "rescinded May 2025 before its compliance date",
+    "text": "Commerce announced rescission May 13, 2025, before the compliance date",
+    "clause": "Commerce announced rescission May 13, 2025, before the compliance date",
     "inferred_year": false,
     "scheduled": false
    }
@@ -8314,8 +8519,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-bis-framework-for-ai-diffusion-biden-era-interim-final-rule",
    "section_name": "Compute and export controls"
@@ -8399,14 +8604,23 @@
   "status": "export",
   "title": "Chip Security Act (H.R. 3447; Senate companion by Sen. Cotton)",
   "short_name": "Chip Security Act (H.R. 3447 / Cotton companion)",
-  "sponsor_text": "",
+  "sponsor_text": "Rep. Bill Huizenga (R-MI); Senate companion S. 1705 (referred to Senate Banking May 8, 2025)",
   "mechanism": "Within 180 days Commerce must require covered chips to carry location-verification mechanisms before export; the introduced text also requires Commerce standards for location-verification and other chip-security mechanisms for covered advanced integrated circuits, plus reporting of diversion/tampering indications; the committee vote is separately confirmed by an official House release and CBO's reported-bill record",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Date / status: House Foreign Affairs ordered it reported 42–0 on Mar. 26, 2026 ; no standalone floor action located through Sept 28, 2026. Included, with the AI OVERWATCH Act and MATCH Act, in the Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH), reported July 14, 2026; the Senate has not passed its NDAA, so there is no conference with the House-passed H.R. 8800 yet",
+  "status_text": "Date / status: House Foreign Affairs ordered it reported 42–0 on Mar. 26, 2026 ; no standalone floor action located through Oct 31, 2026. Included, with the AI OVERWATCH Act and MATCH Act, in the Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH), S. 4784 was reported June 15, 2026 (S. Rept. 119-127) and cloture on the motion to proceed failed 50–46 on July 14, 2026; the Senate has not passed its NDAA, so there is no conference with the House-passed H.R. 8800 yet",
   "signed_text": null,
   "effective_text": null,
   "events": [
+   {
+    "date": "2025-05-15",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced in House May 15, 2025; referred to Foreign Affairs",
+    "clause": "Introduced in House May 15, 2025; referred to Foreign Affairs",
+    "inferred_year": false,
+    "scheduled": false
+   },
    {
     "date": "2026-03-26",
     "precision": "day",
@@ -8417,20 +8631,20 @@
     "scheduled": false
    },
    {
-    "date": "2026-07-14",
+    "date": "2026-06-15",
     "precision": "day",
     "type": "Passed / advanced",
-    "text": "…e Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH), reported July 14, 2026",
-    "clause": "…e Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH), reported July 14, 2026",
+    "text": "S. 4784 (Senate FY2027 NDAA) reported June 15, 2026 (S. Rept. 119-127)",
+    "clause": "S. 4784 (Senate FY2027 NDAA) reported June 15, 2026 (S. Rept. 119-127)",
     "inferred_year": false,
     "scheduled": false
    },
    {
-    "date": "2026-09-28",
+    "date": "2026-07-14",
     "precision": "day",
-    "type": "Search date / deadline / scheduled",
-    "text": "no standalone floor action located through Sept 28, 2026. Included, with the AI OVERWATCH Act and MATCH Act, in the Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVE",
-    "clause": "no standalone floor action located through Sept 28, 2026. Included, with the AI OVERWATCH Act and MATCH Act, in the Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH), reported July 14…",
+    "type": "Vetoed / failed / rescinded",
+    "text": "Senate fails to invoke cloture on the motion to proceed to S. 4784 (FY2027 NDAA), 50–46, July 14, 2026",
+    "clause": "Senate fails to invoke cloture on the motion to proceed to S. 4784 (FY2027 NDAA), 50–46, July 14, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -8477,8 +8691,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-chip-security-act-h-r-3447-senate-companion-by-sen-cotton",
    "section_name": "Compute and export controls"
@@ -8503,11 +8717,11 @@
   "status": "export",
   "title": "GAIN AI Act of 2025 (S.3150)",
   "short_name": "GAIN AI Act of 2025 (S.3150)",
-  "sponsor_text": "",
+  "sponsor_text": "Sen. Jim Banks (R-IN)",
   "mechanism": "BIS must require a license to export, reexport, or transfer covered chips to entities located/headquartered (or whose parent is headquartered) in a country of concern; applicant must certify US persons had a right of first refusal (public notice, not fewer than 15 business days to request), no backlog of US requests or foreseeable backlog over the 12-month period, and no better pricing for foreign persons; license denied without certification; BIS regulations within 90 days; trusted US persons exempt from certain license requirements for non-concern destinations",
   "thresholds": "Covered circuit = advanced integrated circuit (ECCN 3A090/4A090 or equivalent, or TPP 4,800 or more; TPP 2,400+ with density 1.6+; TPP 1,600+ with density 3.2+; or DRAM bandwidth 1,400 GB/s, interconnect 1,100 GB/s, or sum 1,700 GB/s) or product containing one, excluding chips not designed or marketed for data centers; country of concern = Country Group D:5 or E, Macau, Hong Kong",
   "penalties": null,
-  "status_text": "Date / status: Introduced in the Senate Nov. 6, 2025; referred to Senate Banking. An earlier version of this tracker said \"pending in House,\" which was incorrect",
+  "status_text": "Date / status: Introduced in the Senate Nov. 6, 2025; referred to Senate Banking; no further action as of Oct. 31, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -8548,8 +8762,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-gain-ai-act-of-2025-s-3150",
    "section_name": "Compute and export controls"
@@ -8583,6 +8797,15 @@
   "effective_text": null,
   "events": [
    {
+    "date": "2025-09-29",
+    "precision": "day",
+    "type": "Effective",
+    "text": "Affiliates Rule effective Sept. 29, 2025 (published Sept. 30, 2025)",
+    "clause": "Affiliates Rule effective Sept. 29, 2025 (published Sept. 30, 2025)",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
     "date": "2025-11-10",
     "precision": "day",
     "type": "Vetoed / failed / rescinded",
@@ -8590,15 +8813,6 @@
     "clause": "Suspended Nov. 10, 2025 through Nov. 9, 2026",
     "inferred_year": false,
     "scheduled": false
-   },
-   {
-    "date": "2026-11-09",
-    "precision": "day",
-    "type": "Effective",
-    "text": "Suspended Nov. 10, 2025 through Nov. 9, 2026",
-    "clause": "Suspended Nov. 10, 2025 through Nov. 9, 2026",
-    "inferred_year": false,
-    "scheduled": true
    },
    {
     "date": "2026-11-10",
@@ -8637,8 +8851,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-bis-affiliates-rule",
    "section_name": "Compute and export controls"
@@ -8664,11 +8878,29 @@
   "effective_text": null,
   "events": [
    {
-    "date": "2023-10-01",
+    "date": "2023-10-30",
     "precision": "month",
     "type": "Introduced / published",
-    "text": "Oct. 2023 → present",
-    "clause": "Oct. 2023 → present",
+    "text": "EO 14110 signed Oct. 30, 2023",
+    "clause": "EO 14110 signed Oct. 30, 2023",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2024-09-11",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "BIS proposed reporting rule published Sept. 11, 2024",
+    "clause": "BIS proposed reporting rule published Sept. 11, 2024",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2025-01-20",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "EO 14110 revoked Jan. 20, 2025",
+    "clause": "EO 14110 revoked Jan. 20, 2025",
     "inferred_year": false,
     "scheduled": false
    }
@@ -8700,8 +8932,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-documentary-lineage-of-the-10-threshold",
    "section_name": "Compute and export controls"
@@ -8716,13 +8948,13 @@
   "jurisdiction": "US",
   "state": null,
   "status": "export",
-  "title": "AI OVERWATCH Act (H.R. 6875, Rep. Mast; S. 4456, Sens. Banks and Warren) and other FY2027 NDAA AI provisions",
+  "title": "AI OVERWATCH Act (H.R. 6875, Rep. Mast; S. 4456, Sen. Banks with Sen. Warren among 10 cosponsors) and other FY2027 NDAA AI provisions",
   "short_name": "AI OVERWATCH Act / FY27 NDAA",
   "sponsor_text": "",
   "mechanism": "Requires Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval mechanism modelled on arms-sales review, and codifies the license denial for the most capable chips, whose technical parameters Commerce may revise only after 18 months; Commerce certification that exports of lesser chips do not divert US supply or foundry capacity or permit unauthorized remote access; an \"American AI Victory Strategy.\" The AIPN conference letter also lists House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors), 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers) as provisions in play",
   "thresholds": "Covered integrated circuits (H.R. 6875): ECCN 3A090 or 4A090, or chips with total processing performance of 4,800 or more; 2,400 or more with performance density of 1.6 or more; 1,600 or more with density of 3.2 or more; or DRAM bandwidth of 1,400 gigabytes per second or more, interconnect 1,100 gigabytes per second or more, or combined 1,700 gigabytes per second; excludes chips not designed or marketed for data centers",
   "penalties": null,
-  "status_text": "Date / status: H.R. 6875 introduced Dec 18, 2025 and advanced by House Foreign Affairs Jan 21, 2026; S. 4456 introduced Apr 30, 2026; in the Senate NDAA manager's package as SA 6575 (submitted July 13, 2026; package reported July 14, 2026) ; Senate NDAA (S. 4784) awaiting floor action after a failed cloture vote July 14; House NDAA (H.R. 8800) passed July 22, received in the Senate Sept 14, 2026; the Senate has not passed its NDAA, so there is no conference yet",
+  "status_text": "Date / status: H.R. 6875 introduced Dec 18, 2025 and ordered reported in the nature of a substitute by House Foreign Affairs 42–2 on Jan 21, 2026; S. 4456 introduced Apr 30, 2026; in the Senate NDAA manager's package as SA 6575 (submitted July 13, 2026; S. 4784 itself was reported June 15, 2026) ; Senate NDAA (S. 4784) awaiting floor action after a failed cloture vote July 14; House NDAA (H.R. 8800) passed July 22, received in the Senate Sept 14, 2026; the Senate has not passed its NDAA, so there is no conference yet",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -8738,9 +8970,9 @@
    {
     "date": "2026-01-21",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "H.R. 6875 introduced Dec 18, 2025 and advanced by House Foreign Affairs Jan 21, 2026",
-    "clause": "H.R. 6875 introduced Dec 18, 2025 and advanced by House Foreign Affairs Jan 21, 2026",
+    "type": "Passed / advanced",
+    "text": "H.R. 6875 ordered reported by House Foreign Affairs 42–2, Jan 21, 2026",
+    "clause": "H.R. 6875 ordered reported by House Foreign Affairs 42–2, Jan 21, 2026",
     "inferred_year": false,
     "scheduled": false
    },
@@ -8754,11 +8986,11 @@
     "scheduled": false
    },
    {
-    "date": "2026-07-14",
+    "date": "2026-07-13",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "in the Senate NDAA manager's package as SA 6575 (July 14, 2026)",
-    "clause": "in the Senate NDAA manager's package as SA 6575 (July 14, 2026)",
+    "text": "AI OVERWATCH included in the Senate NDAA manager's package as SA 6575 (submitted July 13, 2026)",
+    "clause": "AI OVERWATCH included in the Senate NDAA manager's package as SA 6575 (submitted July 13, 2026)",
     "inferred_year": false,
     "scheduled": false
    },
@@ -8783,18 +9015,18 @@
    {
     "date": "2026-09-14",
     "precision": "day",
-    "type": "Introduced / published",
-    "text": "House NDAA (H.R. 8800) passed July 22, received in the Senate Sept 14",
-    "clause": "House NDAA (H.R. 8800) passed July 22, received in the Senate Sept 14",
+    "type": "Passed / advanced",
+    "text": "House NDAA (H.R. 8800) received in the Senate Sept 14, 2026",
+    "clause": "House NDAA (H.R. 8800) received in the Senate Sept 14, 2026",
     "inferred_year": true,
     "scheduled": false
    },
    {
-    "date": "2026-09-28",
+    "date": "2026-10-31",
     "precision": "day",
     "type": "Search date / deadline / scheduled",
-    "text": "conference pending as of Sept 28, 2026",
-    "clause": "conference pending as of Sept 28, 2026",
+    "text": "The Senate has not passed S. 4784, so there is no NDAA conference, as of Oct 31, 2026",
+    "clause": "The Senate has not passed S. 4784, so there is no NDAA conference, as of Oct 31, 2026",
     "inferred_year": false,
     "scheduled": false
    }
@@ -8836,8 +9068,8 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-ai-overwatch-act-h-r-6875-rep-mast-s-4456-sens-banks-and-warren-and-ot",
    "section_name": "Compute and export controls"
@@ -8886,9 +9118,14 @@
     "label": "Official bill page, enrolled text, history, and veto message",
     "url": "https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB1047",
     "kind": "primary"
+   },
+   {
+    "label": "Veto message (PDF) — gov.ca.gov",
+    "url": "https://www.gov.ca.gov/wp-content/uploads/2024/09/SB-1047-Veto-Message.pdf",
+    "kind": "primary"
    }
   ],
-  "source_label": "Official bill page, enrolled text, history, and veto message",
+  "source_label": "Official bill page, enrolled text, history, and veto message · Veto message (PDF) — gov.ca.gov",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -8903,8 +9140,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-1047-safe-and-secure-innovation-for-frontier-ai-models-act",
    "section_name": "Precursors and withdrawn proposals"
@@ -9552,8 +9789,8 @@
   "status": "pending",
   "title": "S. 5601 — Insider Threat Reporting and Security Guidance Act of 2026",
   "short_name": "S. 5601 Insider Threat Reporting Act",
-  "sponsor_text": "Sen. Jim Banks (R-IN), 1 co-sponsor",
-  "mechanism": "Sectoral (DoD). Within 180 days DoD issues regulations requiring large AI contractors to report their personnel vetting, insider-threat, access-control and model-weight theft protections with every bid, and to re-certify every 90 days; they must notify DoD within 72 hours of any acute national security risk (model-weight theft, exfiltration, poisoning, \"materially concerning model behavior\" such as cyber-offense uplift, deception or unauthorized autonomous action), and DoD tells the Armed Services committees within 7 days.. DoD forwards incident notices to, among others, the NSA's Artificial Intelligence Security Center. Also voluntary insider-threat guidance for these contractors",
+  "sponsor_text": "Sen. Jim Banks (R-IN), sponsor; Sen. Kirsten Gillibrand (D-NY), original cosponsor",
+  "mechanism": "Sectoral (DoD). Within 180 days DoD issues regulations requiring large AI contractors to report their personnel vetting, insider-threat, access-control and model-weight theft protections with every bid, and to re-certify every 90 days; they must notify DoD within 72 hours of any acute national security risk (model-weight theft, exfiltration, poisoning, \"materially concerning model behavior\" such as cyber-offense uplift, deception or unauthorized autonomous action), and DoD tells the Armed Services committees within 7 days. DoD forwards incident notices to, among others, the NSA's Artificial Intelligence Security Center. Also voluntary insider-threat guidance for these contractors",
   "thresholds": "DoD AI contracts worth at least $100,000,000, and at least $1,000,000,000 in AI R&D over the prior 3 years (with affiliates), or use of a model from a developer that meets that spending test",
   "penalties": null,
   "status_text": "Status: Introduced Sept 29, 2026; read twice and referred to Senate Armed Services; no further action",
@@ -9652,8 +9889,8 @@
    "method": "session",
    "checked_at": "2026-10-26T12:00:00Z"
   },
-  "last_checked": "2026-10-26",
-  "last_changed": "2026-10-26"
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31"
  },
  {
   "id": 95,
@@ -9790,7 +10027,7 @@
   "status": "pending",
   "title": "H.R. 10873 — AI Cyber Defense Act",
   "short_name": "H.R. 10873 AI Cyber Defense Act",
-  "sponsor_text": "Rep. Pat Harrigan (R-NC), 1 co-sponsor",
+  "sponsor_text": "Rep. Pat Harrigan (R-NC), sponsor; Rep. George Whitesides (D-CA), original cosponsor",
   "mechanism": "Within 180 days NIST works with private-sector AI developers (excluding entities tied to China, Russia, Iran, North Korea or Cuba) to define \"artificial intelligence distillation attacks\" (copying a model through its outputs) and to set voluntary standards and best practices to detect and prevent them, published within a year. Also an \"AI Cybersecurity Roundtable\" for voluntary standards on defensive use of AI. Voluntary only; no duties on developers",
   "thresholds": null,
   "penalties": null,
@@ -9875,8 +10112,8 @@
    "method": "session",
    "checked_at": "2026-10-26T12:00:00Z"
   },
-  "last_checked": "2026-10-26",
-  "last_changed": "2026-10-26"
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31"
  },
  {
   "id": 97,
@@ -9893,7 +10130,7 @@
   "mechanism": "Non-binding House resolution: urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. Cites misalignment incidents, weapons-of-mass-destruction misuse risk, EO 14409 and the federal FRONTIER Act (H.R. 9925). No legal effect",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Introduced and referred to House Communications & Technology Sept 28, 2026; reported as committed Oct 7, 2026; awaiting a House vote",
+  "status_text": "Status: Introduced and referred to House Communications & Technology Sept 28, 2026; reported as committed from Communications & Technology Oct 7, 2026 (26–0); awaiting a House vote",
   "events": [
    {
     "date": "2026-09-28",
@@ -9908,8 +10145,8 @@
     "date": "2026-10-07",
     "precision": "day",
     "type": "Passed / advanced",
-    "text": "reported as committed Oct 7, 2026",
-    "clause": "reported as committed Oct 7, 2026",
+    "text": "Reported as committed from Communications & Technology Oct 7, 2026 (26–0)",
+    "clause": "Reported as committed from Communications & Technology Oct 7, 2026 (26–0)",
     "inferred_year": false,
     "scheduled": false
    }
@@ -9993,7 +10230,343 @@
    "method": "session",
    "checked_at": "2026-10-26T12:00:00Z"
   },
-  "last_checked": "2026-10-26",
-  "last_changed": "2026-10-26"
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31"
+ },
+ {
+  "id": 98,
+  "key": "ny-s-10731-raise-act-2-0",
+  "section": "B",
+  "type": "bill",
+  "level": "state",
+  "jurisdiction": "NY",
+  "state": "NY",
+  "status": "pending",
+  "title": "S.10731 — Amendments to the RAISE Act (responsible AI safety and education act)",
+  "short_name": "NY S.10731 (RAISE Act amendments)",
+  "sponsor_text": "Sen. Gounardes with co-sponsor Sen. Fahy",
+  "mechanism": "Introduced text read. Amends the RAISE Act (GBL Article 44-B as added by Chapter 96 of 2026): the frontier AI framework must also cover security risk, the automation of AI research and development, internal use, models evading training or assessment, and models used to monitor other models (§ 1421(1)), and the office may add framework elements by regulation (§ 1421(2)); the office must adopt binding minimum standards for frameworks and mitigations by January 1, 2029 (§ 1422); transparency reports add the model specification and how reproducible assessments are (§ 1421(4)); an accountable senior officer certifies publications and submissions under penalty of perjury (§ 1421(5)); measures to prevent and contain critical safety incidents (§ 1421(6)); a wider critical safety incident definition (§ 1420(5)); assessments of internal-use risk, AI research automation and compute use go to the office every three months and within 72 hours of a substantial increase, shared with the Attorney General (§ 1423(2)); critical safety incident reports within 72 hours, and within 24 hours to an appropriate authority for imminent risk of death or serious physical injury (§ 1423(3)); an annual frontier examiner compliance report plus continuous examination with reports every 90 days from April 1, 2028, examiner independence rules, and licensed examiners only from January 1, 2029 (§ 1424); examiner covered-emergency reports within 72 hours (§ 1424(7)); the office may order large frontier developers to limit compute used to train new models or for automated research and development (§ 1425); whistleblower protections tied to Labor Law § 740 (§ 1426); Attorney General civil penalties up to $1,000,000 per day of a first violation and $3,000,000 per day of a subsequent violation, plus injunctions that may restrict a model's deployment in the state (§ 1431); no private right of action",
+  "thresholds": "Frontier model = trained on more than 10²⁵ operations (lowered from 10²⁶), counting fine-tuning and reinforcement learning, or a foundation model the office determines is among the most capable, poses catastrophic risk and is reasonably likely to automate AI research and development (§ 1420(12)); large frontier developer = more than $1,000,000,000 in frontier-model expenditures with affiliates over the preceding 36 months, replacing the $500,000,000 revenue test (§ 1420(14)); catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident or multiple incidents (§ 1420(3))",
+  "penalties": null,
+  "status_text": "Status (as of Oct 31, 2026): [PENDING] Introduced Oct 28, 2026 and referred to Senate Rules; no Assembly same-as bill as of Oct 31, 2026. Would take effect on the same date as Chapter 699 of the laws of 2025",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-10-28",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "\\[PENDING\\] Introduced Oct 28, 2026 and referred to Senate Rules",
+    "clause": "\\[PENDING\\] Introduced Oct 28, 2026 and referred to Senate Rules",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-31",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "no Assembly same-as bill as of Oct 31, 2026. Would take effect on the same date as Chapter 699 of the laws of 2025",
+    "clause": "no Assembly same-as bill as of Oct 31, 2026. Would take effect on the same date as Chapter 699 of the laws of 2025",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Text, summary and actions — nyassembly.gov",
+    "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y",
+    "kind": "primary"
+   },
+   {
+    "label": "Senate bill page — nysenate.gov",
+    "url": "https://www.nysenate.gov/legislation/bills/2025/S10731",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Text, summary and actions — nyassembly.gov · Senate bill page — nysenate.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (introduced text and action history read on nyassembly.gov)"
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers must write, implement, comply with and publish a frontier AI framework, which must now also cover security risks and the automation of AI research and development.",
+    "section": "Gen. Bus. Law 1421(1)",
+    "quote": "A large frontier developer shall write, implement, comply with, and clearly and conspicuously publish",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before or when deploying a new or substantially modified frontier model, a frontier developer must publish a transparency report, now including the model specification.",
+    "section": "Gen. Bus. Law 1421(4)(a)",
+    "quote": "a frontier developer shall clearly and conspicuously publish on its internet website a transparency report",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report a critical safety incident to the office within 72 hours of determining or reasonably believing it occurred.",
+    "section": "Gen. Bus. Law 1423(3)(a)",
+    "quote": "developer shall report any critical safety incident pertaining to one or more of its frontier models to the office within seventy-two hours",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority such as law enforcement.",
+    "section": "Gen. Bus. Law 1423(3)(b)",
+    "quote": "the frontier developer shall disclose that incident within twenty-four hours",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must retain a frontier examiner for an annual compliance report and for continuous examination with reports every 90 days.",
+    "section": "Gen. Bus. Law 1424(1)(a)",
+    "quote": "shall retain a frontier examiner to produce a report which assesses the following",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Large frontier developers are bound by Labor Law section 740 and may not use any rule, policy or contract that prevents employees from protected whistleblowing.",
+    "section": "Gen. Bus. Law 1426",
+    "quote": "A large frontier developer who is an employer shall be bound by all of the provisions of section seven hundred forty of the labor law",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill adds no registration or licensing of developers or models; only frontier examiners are licensed."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "No explicit shutdown or kill switch; large developers must keep measures able to prevent and contain critical safety incidents."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is trained with more than 10^25 operations (lowered from 10^26), or is designated by the office as among the most capable models.",
+    "section": "Gen. Bus. Law 1420(12)(a)",
+    "quote": "trained using a quantity of computing power greater than",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with affiliates, spent more than one billion dollars on frontier-model work in the preceding 36 months, replacing the revenue test.",
+    "section": "Gen. Bus. Law 1420(14)",
+    "quote": "incurred more than one billion dollars in expenditures for research,",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than fifty people or more than one billion dollars in property damage from one or more incidents.",
+    "section": "Gen. Bus. Law 1420(3)(a)",
+    "quote": "injury to, more than fifty people or more than one billion dollars in",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may seek up to one million dollars per day of a first violation and three million dollars per day of a subsequent violation, plus injunctions.",
+    "section": "Gen. Bus. Law 1431(1)",
+    "quote": "The attorney general may bring a civil action",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The act takes effect on the same date and in the same manner as chapter 699 of the laws of 2025.",
+    "section": "Sec. 8",
+    "quote": "same manner as chapter 699 of the laws of 2025, takes effect",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=S10731&term=2025&Summary=Y&Actions=Y&Text=Y",
+   "sha256": "60e7e9fc13194a9b9eecf13415901b3b11a88a2db3cc79fb53961e5d570e1c3d",
+   "chars": 58699,
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  }
+ },
+ {
+  "id": 99,
+  "key": "pa-h-b-2829-frontier-ai",
+  "section": "B",
+  "type": "bill",
+  "level": "state",
+  "jurisdiction": "PA",
+  "state": "PA",
+  "status": "pending",
+  "title": "H.B. 2829 — Frontier Artificial Intelligence Safety, Transparency and Accountability Act",
+  "short_name": "PA H.B. 2829 Frontier AI Safety, Transparency and Accountability Act",
+  "sponsor_text": "Rep. Manuel Guzman (D) with 4 Democratic co-sponsors",
+  "mechanism": "Introduced text read (Printer's No. 4002, 25 pp.; co-sponsorship memo titled \"Pennsylvania Advanced Artificial Intelligence Accountability and Innovation Act\"). Free-standing act on the SB 53 pattern with a disclosure layer: from January 1, 2028 large frontier developers file an annual disclosure statement with ownership information with the Pennsylvania Emergency Management Agency (PEMA) and pay a pro rata fee (Sec. 104); write, implement, comply with and publish a frontier AI framework from January 1, 2028, reviewed at least annually, sent to PEMA and the Attorney General, and re-published within 30 days of a material modification (Secs. 501–503); annual independent third-party audit with independence limits, summary and redacted report published within 30 days (Sec. 504); internal-use risk assessment summaries to PEMA every three months (Sec. 505); a ban on deploying a frontier model that would create an unreasonable risk of catastrophic harm (Sec. 506); transparency reports before deployment, with summaries in machine-readable format (Sec. 701); critical safety incident reports to PEMA and the Attorney General within 72 hours, and within 24 hours to an appropriate authority for imminent risk of death or serious physical injury (Sec. 702); whistleblower protections preserving the state Whistleblower Law (Sec. 1103); civil penalties up to $1,000,000 for a first violation and $3,000,000 per subsequent violation, recovered by the Attorney General, plus PEMA penalties of $1,000 per day after notice and hearing for disclosure failures (Secs. 104(d), 1105); preemption of local frontier-model rules (Sec. 1107); no private right of action",
+  "thresholds": "Frontier model = trained on more than 10²⁶ operations, counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident (Sec. 102)",
+  "penalties": null,
+  "status_text": "Status (as of Oct 31, 2026): [PENDING] Introduced and referred to House Communications & Technology Oct 5, 2026; public hearing with H.B. 2800 Oct 19, 2026; no votes as of Oct 31, 2026. Would take effect January 1, 2028",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-10-05",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "\\[PENDING\\] Introduced and referred to House Communications & Technology Oct 5, 2026",
+    "clause": "\\[PENDING\\] Introduced and referred to House Communications & Technology Oct 5, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-19",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "public hearing with H.B. 2800 Oct 19, 2026",
+    "clause": "public hearing with H.B. 2800 Oct 19, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-31",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "no votes as of Oct 31, 2026. Would take effect January 1, 2028",
+    "clause": "no votes as of Oct 31, 2026. Would take effect January 1, 2028",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill page and history — palegis.us",
+    "url": "https://www.palegis.us/legislation/bills/2025/HB2829",
+    "kind": "primary"
+   },
+   {
+    "label": "Printer's No. 4002 (PDF)",
+    "url": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HB2829/PN4002",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill page and history — palegis.us · Printer's No. 4002 (PDF)",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (introduced text and history read)"
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "From January 1, 2028, large frontier developers must write, implement, comply with and publish a frontier AI framework and review it at least once a year.",
+    "section": "Sec. 501(a)",
+    "quote": "a large frontier developer shall write, implement, comply",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before or when deploying a new or substantially modified frontier model, a frontier developer must publish a transparency report; large developers add risk assessment summaries.",
+    "section": "Sec. 701(a)",
+    "quote": "a frontier developer shall clearly and",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report a critical safety incident to the agency and the Attorney General within 72 hours.",
+    "section": "Sec. 702(c)(1)",
+    "quote": "models to the agency and the Attorney General within 72 hours",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority such as law enforcement.",
+    "section": "Sec. 702(c)(2)",
+    "quote": "incident within 24 hours to an authority, including any law",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "Large frontier developers must retain a third party each year for an independent compliance audit and publish a summary and redacted report within 30 days.",
+    "section": "Sec. 504",
+    "quote": "large frontier developer shall annually retain a third party to",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers may not block or retaliate against covered employees who disclose catastrophic-risk dangers or violations; large developers need an anonymous internal process.",
+    "section": "Sec. 1103(a)",
+    "quote": "contract that prevents a covered employee from disclosing, or",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "From January 1, 2028, large frontier developers must have a current disclosure statement filed with the agency and pay the fee before developing, deploying or operating a frontier model.",
+    "section": "Sec. 104(b)(1)",
+    "quote": "developer may not develop, deploy or operate a frontier",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning.",
+    "section": "Sec. 102",
+    "quote": "a quantity of computing power greater than 10^26 integer or",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer, with its affiliates, had annual gross revenues above $500,000,000 in the preceding calendar year.",
+    "section": "Sec. 102",
+    "quote": "revenues in excess of $500,000,000 in the preceding calendar",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident.",
+    "section": "Sec. 102",
+    "quote": "serious injury to, more than 50 people or more than",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Large developers face up to $1,000,000 for a first and $3,000,000 per later violation, recovered by the Attorney General; the agency may levy $1,000 per day.",
+    "section": "Sec. 1105(a)",
+    "quote": "exceed $1,000,000 for the first violation. For a subsequent",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The act takes effect January 1, 2028.",
+    "section": "Sec. 1110",
+    "quote": "This act shall take effect January 1, 2028.",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+   "sha256": "388cac7f29b614f2424adbf1812ecc9a612c9f7065d9dcaff92b084efa74bef9",
+   "chars": 41440,
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  }
  }
 ]
