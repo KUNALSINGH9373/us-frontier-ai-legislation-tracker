@@ -1639,7 +1639,7 @@
   "title": "H.B. 4705 — AI Public Safety and Child Protection Transparency Act",
   "short_name": "IL HB 4705 / SB 3261",
   "sponsor_text": "Rep. Daniel Didech (D); Senate parallel S.B. 3261 , sponsored by Sen. Mary Edly-Allen (D) and co-sponsors ( ILGA )",
-  "mechanism": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; frontier developers must report critical safety incidents to the AG within 15 days, or within 24 hours to an appropriate authority if imminent risk of death or serious physical injury; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers)",
+  "mechanism": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; frontier developers must report critical safety incidents to the AG within 15 days, or within 24 hours to an appropriate authority if imminent risk of death or serious physical injury; chatbot providers report child safety incidents to AG within 15 days; plan modifications published within 30 days; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers)",
   "thresholds": "10²⁶ ops; large frontier developer = ≥$500M annual revenue; large chatbot provider = ≥$25M annual revenue; a covered chatbot must also have ≥1M monthly active users and be foreseeably accessible by minors",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [STALLED] H.B. 4705 re-referred to Rules Committee Mar. 27, 2026; S.B. 3261 re-referred to Assignments May 22, 2026",
@@ -1675,6 +1675,11 @@
     "label": "H.B. 4705 status",
     "url": "https://www.ilga.gov/ftp/legislation/104/BillStatus/HTML/10400HB4705.html",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+    "kind": "primary"
    }
   ],
   "source_label": "Official H.B. 4705 text · H.B. 4705 status",
@@ -1687,13 +1692,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-10-31T00:05:56Z",
+   "run_id": "update-20261031-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-4705-ai-public-safety-and-child-protection-transparency-act",
    "section_name": "Pending, stalled and failed state bills"
@@ -1797,6 +1804,27 @@
    "chars": 28196,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "A large chatbot provider shall report any child safety incident pertaining to one of its covered chatbots to the Attorney General within 15 days after discovering the child safety incident.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   {
+    "field": "mechanism",
+    "quote": "shall clearly and conspicuously publish the modified public safety and child protection plan and a justification for that modification within 30 days after the modification is made",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   }
+  ],
+  "identifiers": {
+   "session": "104th General Assembly",
+   "external": {
+    "legiscan": [
+     2102227,
+     2104994
+    ]
+   }
   }
  },
  {
@@ -3475,7 +3503,7 @@
   "title": "H.B. 628 — License AI risk mitigation organizations",
   "short_name": "OH HB 628",
   "sponsor_text": "Rep. Ty Mathews (R)",
-  "mechanism": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; \"soft law\" — nothing requires a developer to seek verification, but a model verified by a licensed IVO gets a rebuttable presumption against liability in personal-injury and property-damage suits",
+  "mechanism": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; nothing requires a developer to seek verification, but a model verified by a licensed IVO gets a rebuttable presumption against liability in personal-injury and property-damage suits, rebuttable by clear and convincing evidence of defendant misconduct or misrepresentation",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Referred to House Technology & Innovation; hearings Mar 17, 2026; no vote",
@@ -3514,16 +3542,38 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-10-31T00:05:56Z",
+   "run_id": "update-20261031-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-628-license-ai-risk-mitigation-organizations",
    "section_name": "State IVO / AI-auditor licensing measures"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Nothing in this chapter requires an artificial intelligence model or artificial intelligence application to seek verification",
+    "source_url": "https://www.legislature.ohio.gov/legislation/136/hb628"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The presumption against liability described in division (A) of this section may be rebutted upon showing, by clear and convincing evidence, both of the following",
+    "source_url": "https://www.legislature.ohio.gov/legislation/136/hb628"
+   }
+  ],
+  "identifiers": {
+   "session": "136th General Assembly",
+   "external": {
+    "legiscan": [
+     2058716
+    ]
+   }
   }
  },
  {

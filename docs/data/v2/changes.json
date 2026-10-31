@@ -104,6 +104,48 @@
    "run_id": "update-20261030-0005",
    "source_url": "https://malegislature.gov/Bills/194/S3228",
    "tier": "C"
+  },
+  {
+   "entry_key": "il-hb-4705-sb-3261",
+   "field": "mechanism",
+   "old": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; frontier developers must report critical safety incidents to the AG within 15 days, or within 24 hours to an appropriate authority if imminent risk of death or serious physical injury; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers)",
+   "new": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; frontier developers must report critical safety incidents to the AG within 15 days, or within 24 hours to an appropriate authority if imminent risk of death or serious physical injury; chatbot providers report child safety incidents to AG within 15 days; plan modifications published within 30 days; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers)",
+   "date": "2026-10-31",
+   "run_id": "update-20261031-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that large chatbot providers must report child safety incidents to the AG within 15 days and that material plan modifications must be published within 30 days; SOURCE states both. Quote: \"A large chatbot provider shall report any child safety incident pertaining to one of its covered chatbots to the Attorney General within 15 days after discovering the child safety incident.\""
+  },
+  {
+   "entry_key": "il-hb-4705-sb-3261",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-10-31",
+   "run_id": "update-20261031-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
+   "tier": "C"
+  },
+  {
+   "entry_key": "oh-hb-628",
+   "field": "mechanism",
+   "old": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; \"soft law\" — nothing requires a developer to seek verification, but a model verified by a licensed IVO gets a rebuttable presumption against liability in personal-injury and property-damage suits",
+   "new": "Voluntary IVO license via AG; IVO proposes which specific risks it will verify; nothing requires a developer to seek verification, but a model verified by a licensed IVO gets a rebuttable presumption against liability in personal-injury and property-damage suits, rebuttable by clear and convincing evidence of defendant misconduct or misrepresentation",
+   "date": "2026-10-31",
+   "run_id": "update-20261031-0005",
+   "source_url": "https://www.legislature.ohio.gov/legislation/136/hb628",
+   "tier": "C",
+   "note": "self-correction (error): The quoted term \"soft law\" and the em dash before it do not appear in SOURCE; the removed words are the quotation marks, \"soft law\", and the dash. The entry also omits that the presumption is rebuttable by clear and convincing evidence of specified defendant conduct. Quote: \"Nothing in this chapter requires an artificial intelligence model or artificial intelligence application to seek verification\""
+  },
+  {
+   "entry_key": "oh-hb-628",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-10-31",
+   "run_id": "update-20261031-0005",
+   "source_url": "https://www.legislature.ohio.gov/legislation/136/hb628",
+   "tier": "C"
   }
  ]
 }
