@@ -1,30 +1,31 @@
 {
- "updated_at": "2026-10-31T00:05:56.951Z",
+ "updated_at": "2026-10-31T04:05:51.953Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-10-31T00:05:56.951Z",
-   "last_fetch": "2026-10-31T00:05:56.951Z",
-   "last_ok": "2026-10-31T00:05:56.951Z",
+   "last_run": "2026-10-31T04:05:51.953Z",
+   "last_fetch": "2026-10-31T04:05:51.953Z",
+   "last_ok": "2026-10-31T04:05:51.953Z",
    "ok": true,
    "newest": "2026-10-29",
-   "run_newest": null,
-   "replay": false,
-   "count": 0,
+   "run_newest": "2026-09-08",
+   "replay": true,
+   "count": 8,
    "counts": [
     5,
     43,
     0,
     0,
-    0
+    0,
+    8
    ],
    "errors": [],
    "consecutive_failures": 0,
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-10-31T00:05:56.951Z",
-   "last_fetch": "2026-10-31T00:05:56.951Z",
-   "last_ok": "2026-10-31T00:05:56.951Z",
+   "last_run": "2026-10-31T04:05:51.953Z",
+   "last_fetch": "2026-10-31T04:05:51.953Z",
+   "last_ok": "2026-10-31T04:05:51.953Z",
    "ok": true,
    "newest": "2026-07-24",
    "run_newest": null,
@@ -35,6 +36,7 @@
     125,
     3,
     0,
+    0,
     0
    ],
    "errors": [],
@@ -42,15 +44,16 @@
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-10-31T00:05:56.951Z",
-   "last_fetch": "2026-10-31T00:05:56.951Z",
-   "last_ok": "2026-10-31T00:05:56.951Z",
+   "last_run": "2026-10-31T04:05:51.953Z",
+   "last_fetch": "2026-10-31T04:05:51.953Z",
+   "last_ok": "2026-10-31T04:05:51.953Z",
    "ok": true,
    "newest": null,
    "run_newest": null,
    "replay": false,
    "count": 0,
    "counts": [
+    0,
     0,
     0,
     0,
@@ -76,7 +79,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "whitehouse": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -93,7 +96,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "govinfo": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -110,7 +113,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "regulations_gov": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -127,7 +130,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "congress_extra": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -144,7 +147,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "nist": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -161,7 +164,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "cbo": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -178,7 +181,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "ca_ag": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -195,7 +198,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "nysenate": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -212,7 +215,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T00:05:56.951Z"
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   },
   "openstates": {
    "last_run": "2026-10-31T00:05:56.951Z",
@@ -236,7 +239,8 @@
     "request cap: time budget reached; remaining bills next run"
    ],
    "consecutive_failures": 2,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-10-31T04:05:51.953Z"
   }
  }
 }
