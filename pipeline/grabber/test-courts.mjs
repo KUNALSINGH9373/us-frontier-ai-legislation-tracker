@@ -159,8 +159,12 @@ function tempData() {
 
 // ---------- 5. first read, errors, dry run, stop rules ----------
 {
-  // a docket never read starts from its entry's last check (28 Oct): nothing in the recording is newer
+  // a docket never read starts from its entry's last check (28 Oct): nothing in the recording is newer. The copied live entries carry
+  // whatever date they were last checked, so the test sets the one it asserts.
   const t = tempData();
+  const ef = path.join(t.dataDir, 'entries.json'), es = j(ef);
+  for (const e of es) if (Object.keys(CASES).includes(e.key)) e.last_checked = '2026-10-28';
+  fs.writeFileSync(ef, JSON.stringify(es, null, 2));
   const r = await courtsRun({ http: mkHttp(), limiter: async () => {}, cases: CASES, dataDir: t.dataDir, stateFile: t.stateFile, config: {}, runId: 'u', now: NOW });
   ok('a first read starts from the entry\'s last check: no old entry is re-published', r.status === 'quiet' && r.read.every((x) => x.since === '2026-10-28') && j(t.stateFile).dockets['73171074'].last_date === '2026-10-28');
   // one docket failing: the others are still read, and the failed one keeps its state

@@ -8,8 +8,8 @@
 // receipt never implies signature, committee never implies the floor, a concurrence never implies both chambers passed).
 import crypto from 'crypto';
 import { isUnicameral } from './factsheet.mjs';
+import { MONTH_NAMES as MON } from './text.mjs';
 
-const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const longDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || '')); return m ? `${MON[+m[2] - 1]} ${+m[3]}, ${m[1]}` : null; };
 const longDates = (s) => String(s).replace(/\b(\d{4})-(\d{2})-(\d{2})\b/g, (x) => longDate(x));
 const cap = (s) => s ? s[0].toUpperCase() + s.slice(1) : s;

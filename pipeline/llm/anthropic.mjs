@@ -1,46 +1,33 @@
 // A small Claude client with the same shape as the Gemini one (llm/gemini.mjs), so the agents need no change
 // when config/models.json switches "provider" to "anthropic".
-// - JSON output only, validated by the caller against our own schemas
+// - JSON output only: one answer in the caller's schema (structured outputs), checked again in code
 // - every call is counted on the shared ledger and checked against the budget BEFORE it is made
 // - the key comes from the environment and never appears in logs (the SDK sends it in a header)
 // Production runs on Claude; build and tests run on Gemini (owner's decision, 15 Oct 2026).
 // Each attempt times out after 2 minutes (the SDK default is 10), so a stuck call cannot hold a scheduled run for an hour.
 import Anthropic from '@anthropic-ai/sdk';
 import { LlmOutputError, InputTooLarge } from './gemini.mjs';
+import { toJsonSchema, schemaProblems } from './schema.mjs';
 
-export function createAnthropic({ apiKey, client, role, model, maxOutputTokens = 4000, effort = null, ledger, maxInputChars = 120000, log = () => {} }) {
-  const api = client || new Anthropic({ apiKey, maxRetries: 3, timeout: 120000 });
-  const parseJson = (text) => {
+// timeoutMs: each attempt's limit. 2 minutes by default, so a stuck call cannot hold a scheduled run; a role that reads a whole bill and
+// writes a long answer sets more in config/models.json (timeout_ms), or every long bill times out on every run (live run, 31 Oct 2026).
+export function createAnthropic({ apiKey, client, role, model, maxOutputTokens = 4000, effort = null, ledger, maxInputChars = 120000, timeoutMs = 120000, log = () => {} }) {
+  const api = client || new Anthropic({ apiKey, maxRetries: 3, timeout: timeoutMs });
+  // With a schema the API constrains the reply to exactly one JSON value of that shape (structured outputs), so there is nothing to
+  // pick between. It is still checked in code: an answer of the wrong shape is unusable (LlmOutputError) and the caller asks once more.
+  const parse = (text, responseSchema) => {
     const clean = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
-    try { return JSON.parse(clean); } catch (e) {
-      // A model sometimes writes around its JSON (Opus as referee, 30 Oct 2026 re-tests): every complete top-level JSON object in the
-      // text is found. One answer (or the same answer repeated) is used and the callers still check every field of it.
-      const objects = [];
-      for (let i = 0, depth = 0, start = -1, inStr = false, esc = false; i < clean.length; i++) {
-        const c = clean[i];
-        if (inStr) { if (esc) esc = false; else if (c === '\\') esc = true; else if (c === '"') inStr = false; continue; }
-        if (c === '"' && depth > 0) inStr = true;
-        else if (c === '{') { if (depth++ === 0) start = i; }
-        else if (c === '}' && depth > 0 && --depth === 0) objects.push(clean.slice(start, i + 1));
-      }
-      // Two different answers in one reply (independent review: a "false" then a weaker "true") are not trusted: unusable, and the
-      // caller asks again. Repeats of the same answer are fine.
-      const parsed = objects.map((o) => { try { return JSON.parse(o); } catch (e2) { return undefined; } }).filter((o) => o !== undefined);
-      // an unreadable object next to a readable one may be a different first answer (second review): unusable too
-      if (parsed.length && parsed.length === objects.length && parsed.every((o) => JSON.stringify(o) === JSON.stringify(parsed[0]))) return parsed[0];
-      // Opus often answers, writes "Wait, the quote must be exact", and answers again with the same verdict and a corrected quote
-      // (second 48-bill run: four bills held on it). Answers that differ ONLY in their quote or reason are one answer: the last is used
-      // (its quote is still checked word for word by the caller). Any other difference, such as a flipped verdict, stays unusable.
-      const verdictOnly = (o) => JSON.stringify(o, (k, v) => (k === 'quote' || k === 'reason' ? undefined : v));
-      if (parsed.length > 1 && parsed.length === objects.length && parsed.every((o) => verdictOnly(o) === verdictOnly(parsed[0]))) return parsed[parsed.length - 1];
-      throw new LlmOutputError(parsed.length > 1 ? 'the model gave two different answers' : 'the model did not return valid JSON', clean.slice(0, 300));
-    }
+    let data; try { data = JSON.parse(clean); } catch (e) { throw new LlmOutputError('the model did not return valid JSON', clean.slice(0, 300)); }
+    const problems = responseSchema ? schemaProblems(responseSchema, data) : [];
+    if (problems.length) throw new LlmOutputError('the answer does not fit its schema: ' + problems.slice(0, 3).join('; '), clean.slice(0, 300));
+    return data;
   };
   return {
-    role, model,
-    // Same call as the Gemini client. responseSchema (a Gemini-style schema) is not sent: the prompts already ask for
-    // JSON and the callers validate the result against our own schemas.
-    async generate({ system, prompt, itemId }) {
+    role, model, timeoutMs,
+    // Same call as the Gemini client. responseSchema (a Gemini-style schema, llm/schema.mjs) is sent as the structured-output
+    // format, so the reply is exactly one answer of that shape. Forced tool use (tool_choice "tool") would do the same, but the
+    // current Sonnet and Opus models refuse it with a 400; output_config.format is the API's route for a JSON-only answer.
+    async generate({ system, prompt, itemId, responseSchema }) {
       if (prompt.length + (system || '').length > maxInputChars) throw new InputTooLarge(prompt.length + (system || '').length, maxInputChars);
       if (ledger) ledger.assertWithin(itemId);
       // No temperature: current Claude models reject non-default sampling values. Thinking stays adaptive (the default);
@@ -48,7 +35,7 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
       const res = await api.messages.create({
         model, max_tokens: maxOutputTokens,
         ...(system ? { system: system + '\n\nReply with one JSON value only, no prose and no code fences.' } : {}),
-        ...(effort ? { output_config: { effort } } : {}),
+        ...(effort || responseSchema ? { output_config: { ...(effort ? { effort } : {}), ...(responseSchema ? { format: { type: 'json_schema', schema: toJsonSchema(responseSchema) } } : {}) } } : {}),
         messages: [{ role: 'user', content: prompt }]
       });
       const usage = res.usage || {};
@@ -58,7 +45,7 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
       const text = (res.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
       if (!text.trim()) throw new LlmOutputError('the model returned an empty answer');
       log(`${role}/${model}: ${usage.input_tokens || 0} in, ${usage.output_tokens || 0} out`);
-      return { data: parseJson(text), text, usage, finishReason: res.stop_reason || 'end_turn' };
+      return { data: parse(text, responseSchema), text, usage, finishReason: res.stop_reason || 'end_turn' };
     }
   };
 }

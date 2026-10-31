@@ -32,6 +32,9 @@ export function statementPrompt(title, event) {
 
 const norm = (s) => String(s || '').toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim();
 // code's check of the AI's answer. -> { ok, why }
+// The answer shape the prompt asks for (llm/schema.mjs); acceptAnswer still checks every value in code.
+const STATEMENT_SCHEMA = { type: 'OBJECT', required: ['reports', 'event_class', 'quote', 'why'], properties: { reports: { type: 'STRING', enum: ['yes', 'no'] }, event_class: { type: 'STRING' }, quote: { type: 'STRING' }, why: { type: 'STRING' } } };
+
 export function acceptAnswer(answer, title, event) {
   const a = answer || {};
   if (a.reports !== 'yes') return { ok: false, why: `AI: does not report it (${String(a.why || '').slice(0, 80)})` };
@@ -55,7 +58,7 @@ export function makeStatementVerifier(llm, { log = () => {} } = {}) {
     if (!llm) return { ok: false, why: 'no AI check available: not attached' };
     if (!CHECK_CLASSES.includes(event.class)) return { ok: false, why: `no AI check for class ${event.class}` };
     try {
-      const r = await llm.generate({ system: STATEMENT_CHECK_SYSTEM, prompt: statementPrompt(title, event), itemId: `statement:${event.key || ''}` });
+      const r = await llm.generate({ system: STATEMENT_CHECK_SYSTEM, prompt: statementPrompt(title, event), itemId: `statement:${event.key || ''}`, responseSchema: STATEMENT_SCHEMA });
       return acceptAnswer(r && r.data, title, event);
     } catch (e) { log(`statement check failed, not attached: ${String((e && e.message) || e).slice(0, 120)}`); return { ok: false, why: 'AI check failed: not attached' }; }
   };

@@ -23,6 +23,13 @@ const adapter = (fn) => ({ fetchItems: fn });
   ok('F2a the hanging adapter is recorded truncated; the adapters after it are not run (truncated)', r.results.slow.truncated && r.results.after.truncated && /time budget/.test(r.results.after.errors[0]));
   ok('F2 default budget 6 min, per-call fetch timeout 15 s', NEWS_BUDGET_MS === 360000 && NEWS_FETCH_TIMEOUT_MS === 15000);
 }
+// a source's own share of the budget (config run.budget_share, D2): a hanging source stops at its share, the next source still runs
+{
+  const t0 = Date.now();
+  const r = await eventsStep({ state: emptyState(), now: NOW, budgetMs: 800, cadenceOf: () => null, shareOf: (n) => (n === 'slow' ? 0.25 : 1), http: async () => hang(),
+    extra: [['slow', adapter(async ({ http }) => { await http('https://x.example/a'); return { items: [], health: { ok: true } }; })], ['after', adapter(async () => ({ items: [], health: { ok: true, count: 0 } }))]] });
+  ok('D2 a hanging source stops at its budget share; the source after it still runs', Date.now() - t0 < 700 && r.results.slow.truncated && r.results.after.ok && !r.results.after.truncated, `${Date.now() - t0} ms`);
+}
 // a slow, paced adapter (Open States style): past the deadline its transport refuses and its sleeps end at once
 {
   let calls = 0;

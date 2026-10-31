@@ -382,7 +382,9 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   ok('and nothing else is touched (years, counts, an exponent already written)', repairExponents('In 2026 operations began; 1026 people; 10^26 operations') === 'In 2026 operations began; 1026 people; 10^26 operations');
   const { textProblems } = await import('./checks.mjs');
   const src = 'A developer shall publish a "safety and security protocol" before deployment.';
-  ok('text rule: a garbled exponent in a field is refused', textProblems('thresholds', 'Trained on more than 1026 operations', src).some((p) => /garbled exponent/.test(p)));
+  // "1026 integer" is a lost exponent; "1026 operations" may be a count, so it is not rewritten, but as a threshold it is still refused.
+  ok('text rule: a garbled exponent in a field is refused', textProblems('thresholds', 'Trained on more than 1026 integer operations', src).some((p) => /garbled exponent/.test(p))
+    && textProblems('thresholds', 'Trained on more than 1026 operations', src).some((p) => /1026 operations, which is not a plausible magnitude/.test(p)));
   ok('text rule: a date without its year is refused, a full date or a range with a year is not', textProblems('status_text', 'Received in the Senate Sept 14', src).some((p) => /without its year/.test(p)) && !textProblems('status_text', 'Received Sept 14, 2026; cosponsors added Sept 3–16, 2026 and Sept 3–Oct 1, 2026; May 1, 2026', src).length);
   ok('text rule: words in quotation marks must be in the source; correct ones pass', textProblems('mechanism', 'Disclaims "mandatory governmental review of models"', src).some((p) => /quotation marks/.test(p)) && !textProblems('mechanism', 'Requires a "safety and security protocol"', src).length);
   ok('text rule: "not established from the sources" is refused', textProblems('thresholds', 'Definitions of "covered entity" not established from the sources read', 'covered entity').some((p) => /definitions section/.test(p)));
@@ -441,7 +443,14 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   const azPatch = (section = 'B') => ({
     operation: 'create', in_scope: true, scope_reason: 'Duties on businesses using a frontier model owned or operated by a large developer.', section,
     fields: { mechanism: 'An artificial intelligence business must assess each high risk AI system before using or selling it, submit a transparency report to the attorney general, post the reports on its website and conduct a quarterly audit.', thresholds: 'A large developer has spent more than $5,000,000 developing and more than $100,000,000 training the frontier model.', penalties: 'Civil penalty of not more than $50,000 per violation, enforced by the attorney general.' },
-    events_add: [], evidence: ['mechanism', 'thresholds', 'penalties'].map((field) => ({ field, quote: AZ[field] })), notes: ''
+    events_add: [], evidence: ['mechanism', 'thresholds', 'penalties'].map((field) => ({ field, quote: AZ[field] })), notes: '',
+    // The bill's compute figure is printed "10.26 computational operations" (a lost superscript), read as 10^26 by agents/text-norm.mjs.
+    slots: {
+      mechanism: [{ kind: 'duty', text: 'An artificial intelligence business must assess each high risk AI system before using or selling it, submit a transparency report to the attorney general, post the reports on its website and conduct a quarterly audit', quote: AZ.mechanism }],
+      thresholds: [{ kind: 'compute', applies_to: 'Frontier model', text: 'trained using greater than 10^26 computational operations', quote: 'greater than 10^26 computational operations' },
+        { kind: 'compute_cost', applies_to: null, text: 'A large developer has spent more than $5,000,000 developing and more than $100,000,000 training the frontier model', quote: AZ.thresholds }],
+      penalties: [{ kind: 'civil', applies_to: null, text: 'Civil penalty of not more than $50,000 per violation, enforced by the attorney general', quote: AZ.penalties }]
+    }
   });
   const none = (summary) => ({ value: 'not_in_bill', summary });
   const azDuties = {
@@ -496,7 +505,7 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
     ok('wrong section: a pending state bill may not go in A (enacted laws)', r2.outcome === 'held' && r2.verdicts[0].code_checks.some((c) => c.name === 'assembled' && /a pending state bill goes in section B, C, not A/.test(c.detail)), r2.reason);
   }
   {
-    const bad = () => { const p = azPatch(); p.evidence[0].quote = 'shall submit a transparency report to the attorney general within 30 days'; return p; };
+    const bad = () => { const p = azPatch(); p.evidence[0].quote = p.slots.mechanism[0].quote = 'shall submit a transparency report to the attorney general within 30 days'; return p; };
     const r = await runLs(az, { generator: scriptedGenerator([bad(), bad(), bad()]), validator: scriptedValidator({ answerFor: quoteFor }) });
     ok('invented quote: a state draft whose quote is not in the bill is never publishable', r.outcome === 'held' && r.verdicts.every((x) => x.code_checks.some((c) => c.name === 'evidence_quotes_are_in_the_source' && !c.passed)), r.reason);
   }

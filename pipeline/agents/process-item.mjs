@@ -5,11 +5,13 @@
 //                 model writes, a larger budget, long bills read section by section); still held after that, or held for a reason no
 //                 retry can fix (a resolution, an amendment record, a duplicate, the referee disagreeing), it carries escalate: true and
 //                 is read again only when its record changes. Nothing loops.
+import { PIPELINE } from './pipeline-config.mjs';
 import { sourceText, containsQuote, provedQuote } from './source-text.mjs';
 import { generatePatch } from './generator.mjs';
 import { assembleEntry } from './assemble.mjs';
 import { validateDraft, complaints } from './validator.mjs';
-import { SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
+import { VERDICT_SCHEMA, SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt, stateSectionRule, FEDERAL_SECTION_RULE } from './prompts.mjs';
+import { runNewBill } from './newbill.mjs';
 import { LlmOutputError, InputTooLarge, BudgetExceeded } from '../llm/gemini.mjs';
 import { deriveCreate } from './derive.mjs';
 import { relevantSections, markerPassages } from './sections.mjs';
@@ -32,7 +34,7 @@ const askAgainIfUnusable = async (llm, req) => { try { return await llm.generate
 export async function refereeVerdict(referee, source, itemId, fullText = source) {
   if (!referee) return { in: null, quote: null };
   try {
-    const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), itemId });
+    const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim: SCOPE_CLAIM }] }), responseSchema: VERDICT_SCHEMA, itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
     if (!x) return { in: null, quote: null, why: 'the referee gave no answer for the claim' };
     if (x.supported === true) {
@@ -50,7 +52,7 @@ export const sectionClaim = (section) => `This item belongs in section ${section
 export async function refereeSection(referee, source, section, itemId, fullText = source) {
   if (!referee) return { ok: false, quote: null, why: 'no referee is configured' };
   try {
-    const ask = async (claim) => { const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), itemId }); return r && r.data && r.data.results && r.data.results[0]; };
+    const ask = async (claim) => { const r = await askAgainIfUnusable(referee, { system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'section', claim }] }), responseSchema: VERDICT_SCHEMA, itemId }); return r && r.data && r.data.results && r.data.results[0]; };
     let x = await ask(sectionClaim(section));
     if (!x || x.supported !== true) return { ok: false, quote: null, why: `the referee did not confirm section ${section}${x && x.reason ? ` ("${String(x.reason).slice(0, 140)}")` : ''}` };
     let q = provedQuote(fullText, x.quote);
@@ -67,7 +69,7 @@ const EXACT_AGAIN = 'IMPORTANT: your previous answer to this claim said "support
 async function exactScopeQuote(validator, source, itemId, fullText) {
   const claim = `${SCOPE_CLAIM}\n${EXACT_AGAIN}`;
   try {
-    const r = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim }] }), itemId });
+    const r = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source, claims: [{ field: 'in_scope', claim }] }), responseSchema: VERDICT_SCHEMA, itemId });
     const x = r && r.data && r.data.results && r.data.results[0];
     const q = x && x.supported === true ? provedQuote(fullText, x.quote) : null;
     return q ? { quote: q } : null;
@@ -80,7 +82,7 @@ const IN_SCOPE_NOW = (sections) => `An independent reader judged this item IN sc
 
 function styleExamplesFor({ source, entry, entries }) {
   const sections = entry ? [entry.section] : source === 'federal_register' ? ['G', 'G.3'] : source === 'legiscan' ? ['A', 'B'] : ['D', 'F'];
-  return entries.filter((e) => sections.includes(e.section) && (!entry || e.key !== entry.key) && e.mechanism && e.mechanism.length < 600).slice(0, 2);
+  return entries.filter((e) => sections.includes(e.section) && (!entry || e.key !== entry.key) && e.mechanism && e.mechanism.length < PIPELINE.style_examples.max_mechanism_chars).slice(0, PIPELINE.style_examples.count);
 }
 
 const heldResult = (item, operation, reason, extra = {}) => ({ item_id: item.item_id, outcome: 'held', operation, attempts: 0, entry: null, patch: null, verdicts: [], reason, ...extra });
@@ -130,7 +132,7 @@ export function selectionOf(source, maxChars) {
   return p.chunks.length ? p : null;
 }
 
-async function processItemInner({ generator, validator, referee = null, item, raw, diff, entry = null, entries = [], today, runId, now = new Date(), maxRounds = MAX_ROUNDS, escalated = false, newEntriesOn = true, log = () => {} }) {
+async function processItemInner({ generator, validator, referee = null, writer = null, billReviewer = null, scopeJudge = null, item, raw, diff, entry = null, entries = [], today, runId, now = new Date(), maxRounds = MAX_ROUNDS, escalated = false, newEntriesOn = true, log = () => {} }) {
   // New entries switched off: no referee call is made on a new bill (its drafts can never publish).
   const unconfirmedOnly = newEntriesOn === false && diff.verdict === 'new_entry_candidate';
   if (unconfirmedOnly) referee = null;
@@ -194,6 +196,14 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     return held(`not created: no passage of the text meets the criterion of section D or F${fTitleOut(fedTitle) ? ` (its title names a subject F excludes: "${String(fedTitle).slice(0, 80)}")` : ''} (D: ${SECTION_CRITERIA.D}; F: ${SECTION_CRITERIA.F})`, { no_section: true, proposal: `${item.item_id}${item.title ? ` ("${String(item.title).slice(0, 80)}")` : ''} meets neither federal section's criterion; not created` });
   }
 
+  // The simple build (config/pipeline.json new_bills.engine "simple", owner 31 Oct 2026): a new bill that passed every code-only step
+  // above is written by the writer and checked by the reviewer (agents/newbill.mjs). The older loop below stays for updates and other
+  // sources, and for new bills when the engine is switched back.
+  if (operation === 'create' && (item.source === 'congress_gov' || item.source === 'legiscan') && PIPELINE.new_bills && PIPELINE.new_bills.engine === 'simple' && writer) {
+    const secs = derivedNow.section ? [derivedNow.section] : sections && sections.length ? sections : item.source === 'legiscan' ? derivedNow.allowed : ['D', 'F', 'G.3'];
+    return runNewBill({ writer, reviewer: billReviewer, scopeJudge, item, raw, entries, sections: secs, sectionRule: item.source === 'legiscan' ? stateSectionRule(secs) : FEDERAL_SECTION_RULE, today, runId, now, newEntriesOn, log });
+  }
+
   // A very long source in which no frontier-AI section or passage was found: whether it is in scope is judged on its opening. If both
   // readers (and the referee) say it is out of scope we are done; otherwise it is held and reported.
   if (operation === 'create' && source.length > TRIAGE_OVER && read === source) {
@@ -202,7 +212,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     const g = await generatePatch({ llm: generator, item, source: head, entry, reasons: [...diff.reasons, note], operation, styleExamples: [], feedback: [], previousPatch: null, sections });
     if (g.patch && g.patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
-      let res; try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: head, claims: scopeClaim }), itemId: item.item_id }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
+      let res; try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: head, claims: scopeClaim }), responseSchema: VERDICT_SCHEMA, itemId: item.item_id }); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
       if (r && r.supported === false && (await refereeSays(referee, head, item.item_id, source)) !== true) return { item_id: item.item_id, outcome: 'out_of_scope', operation, attempts: 1, entry: null, patch: g.patch, verdicts, reason: `${g.patch.scope_reason} (judged on the first ${TRIAGE_CHARS} characters of a ${source.length}-character text in which no frontier-AI term appears)` };
     }
@@ -229,7 +239,7 @@ async function processItemInner({ generator, validator, referee = null, item, ra
     if (operation === 'create' && patch.in_scope === false) {
       const scopeClaim = [{ field: 'in_scope', claim: SCOPE_CLAIM }];
       let res;
-      try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), itemId: item.item_id }); }
+      try { res = await validator.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: read, claims: scopeClaim }), responseSchema: VERDICT_SCHEMA, itemId: item.item_id }); }
       catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       const r = res && res.data && res.data.results && res.data.results[0];
       // Both readers say out, or they disagree: the referee decides. Without a referee, both saying out drops it; a disagreement gets one firm retry.

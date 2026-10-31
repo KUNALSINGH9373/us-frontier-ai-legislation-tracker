@@ -53,11 +53,15 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
   const byKey = new Map(entries.map((e) => [e.key, e]));
   // A thinking model with a large output budget can take a minute or more, so the timeout is generous.
-  let generator, validator, referee = null, ledger, escalation = null;
+  let generator, validator, referee = null, writer = null, billReviewer = null, scopeJudge = null, ledger, escalation = null;
   if (factory) {
     generator = factory.make('generator'); validator = factory.make('validator'); ledger = factory.ledger;
     // The scope referee (a stronger model, asked only on disputed scope calls). A provider with no "referee" role runs without one.
     try { referee = factory.make('referee'); } catch { referee = null; }
+    // The new-bills writer and reviewer (agents/newbill.mjs). Without a "writer" role new bills take the older loop.
+    try { writer = factory.make('writer'); } catch { writer = null; }
+    try { billReviewer = factory.make('bill_reviewer'); } catch { billReviewer = null; }
+    try { scopeJudge = factory.make('scope_judge'); } catch { scopeJudge = null; }
     if (!generator) throw new Error(`${factory.keyName} is not set`);
     // The escalated pass (config/models.json "escalation"): an item held for its token budget or for running out of rounds is tried once
     // more, written by the stronger model of escalation.generator_role, within escalation.max_tokens_per_item (and the monthly cap).
@@ -93,7 +97,7 @@ export async function runAgents({ runDir, entries, config, apiKey, fetchImpl, fa
     }
     let r;
     try {
-      r = await processItem({ generator, validator, referee, escalation, item, raw, diff: d, entry: d.entry_key ? byKey.get(d.entry_key) : null, entries, today, runId: changeset.run_id, now, newEntriesOn, log });
+      r = await processItem({ generator, validator, referee, writer, billReviewer, scopeJudge, escalation, item, raw, diff: d, entry: d.entry_key ? byKey.get(d.entry_key) : null, entries, today, runId: changeset.run_id, now, newEntriesOn, log });
     } catch (e) {
       if (e instanceof BudgetExceeded) { summary.stopped_by_budget = true; if (e.scope === 'month') summary.stopped_by_month_cap = true; summary.items.push({ item_id: d.item_id, outcome: 'not_processed', reason: e.message }); summary.outcomes.not_processed = (summary.outcomes.not_processed || 0) + 1; log(`stopped: ${e.message}`); break; }
       throw e;

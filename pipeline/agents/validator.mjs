@@ -2,7 +2,7 @@
 //   1) plain-code checks (checks.mjs): schema, quotes found verbatim in the source, numbers and dates present in the source
 //   2) an independent LLM pass that sees ONLY the source and a numbered list of claims, never the Generator's reasoning
 // A draft passes only if every code check passes and every claim is supported.
-import { VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from './prompts.mjs';
+import { VERDICT_SCHEMA, VALIDATOR_SYSTEM, validatorPrompt, SCOPE_CLAIM } from './prompts.mjs';
 import { runChecks } from './checks.mjs';
 import { containsQuote } from './source-text.mjs';
 import { LlmOutputError } from '../llm/gemini.mjs';
@@ -29,7 +29,7 @@ export async function validateDraft({ llm, patch, before, after, assembleProblem
   const list = after ? buildClaims({ patch, operation }) : [];
   if (list.length) {
     let res;
-    try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: readText, claims: list }), itemId }); }
+    try { res = await llm.generate({ system: VALIDATOR_SYSTEM, prompt: validatorPrompt({ source: readText, claims: list }), responseSchema: VERDICT_SCHEMA, itemId }); }
     catch (e) {
       if (!(e instanceof LlmOutputError)) throw e;
       list.forEach((c) => claims.push({ field: c.field, claim: c.claim, supported: false, evidence_quote: null, reason: `the independent reader gave an unusable answer (${e.message}); treated as unsupported` }));

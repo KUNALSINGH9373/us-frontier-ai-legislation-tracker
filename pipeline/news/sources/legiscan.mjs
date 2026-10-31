@@ -16,7 +16,7 @@ export function itemsFromRecord(rec) {
     const text = clean(h.action);
     if (!text || !/^\d{4}-\d{2}-\d{2}$/.test(h.date || '')) return null;
     const cls = classifyState(text, { jurisdiction: state, isFirst: i === 0, chamber: h.chamber });
-    const chamber = chamberOf(text, h.chamber);
+    const chamber = chamberOf(text, h.chamber, state);
     const record = String(bill.bill_id || rec.source_id);
     return { source: 'legiscan', source_id: actionId(record, h.date, text), record, jurisdiction: state, entry_id: rec.entry_key || null, class: cls, date: h.date,
       facts: { action: text, ...(chamber ? { chamber } : {}), ...(number ? { number } : {}), ...(title ? { title } : {}) },

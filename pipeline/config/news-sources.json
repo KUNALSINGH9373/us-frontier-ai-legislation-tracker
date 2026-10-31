@@ -1,9 +1,20 @@
 {
  "_note": "News leads (news/leads.mjs). Only feeds meant for automated reading, each fetched live with the pipeline's own honest user agent and allowed by the site's robots.txt on the date in verified_at. primary: the official body's own releases (a news item may be written from them, quotes and numbers checked by code); secondary: press (never published automatically, reported as leads only). A site that blocks automated readers (403, a bot challenge) is listed under rejected and is never worked around. secondary_paths / secondary_titles mark op-eds on an official site: opinion, not an official release, so those items are leads only. sponsor: the member whose own feed it is (a weak match only: it never sets an item's tracker). secondary_paths are tested on both the feed link and the release link (\"In the News\" press reposts on house.gov are press). state: the two-letter code of a state body's own feed (a bill number with no state written next to it is read as that state's). type html_teasers: an official listing page read like a feed (only teasers with their own machine-readable date).",
  "user_agent": "us-frontier-ai-tracker-pipeline/0.1 (news leads; RSS reader)",
+ "timing": {
+  "_note": "The news step's time limits and windows (news/run.mjs, news/sources/common.mjs). budget_ms: the whole news step (config/publish.json news.time_budget_ms overrides it); leads_budget_ms: the feeds' share of it, at most, and never more than 1/leads_max_part of the total; cadence_slack_ms: a 24 h source read at 06:00 is due again at the 06:00 run the next day; fetch_timeout_ms: one news request (review F2d), also the margin an adapter keeps before its deadline; event_days: no new event older than this; keep_days: links remembered as seen.",
+  "budget_ms": 360000,
+  "leads_budget_ms": 120000,
+  "leads_max_part": 3,
+  "cadence_slack_ms": 900000,
+  "fetch_timeout_ms": 15000,
+  "event_days": 14,
+  "keep_days": 120
+ },
  "structured": {
-  "_note": "Structured official-record adapters (news/sources/*.mjs) and news/health.mjs. cadence_hours: how often the source is read and normally has new records; no ok read for 2x cadence is reported stale. max_requests_per_run caps each run (Open States allows about 500 requests/day, 1 per second); min_interval_ms paces requests.",
+  "_note": "Structured official-record adapters (news/sources/*.mjs) and news/health.mjs. cadence_hours: how often the source is read and normally has new records; no ok read for 2x cadence is reported stale. max_requests_per_run caps each run (Open States allows about 500 requests/day, 1 per second); min_interval_ms paces requests. jurisdictions: what a source covers (\"all\", \"states\" = every jurisdiction but the federal one, or a list). role (state bill sources): aggregator (LegiScan, Open States), legislature_api (a legislature's own API: it confirms the aggregators there and they confirm it, news/confirm.mjs), legislature_site (the legislatures' own hosts, which state bill sources may link to). official_rank: which source is the official record when several give the same event first (news/events.mjs OFFICIAL_ORDER; lower first). run: records true = read from the records the run already has; else order (when the network adapter runs) and budget_share (the most of the news time budget it may use, news/run.mjs).",
   "openstates": {
+   "jurisdictions": "states", "role": "aggregator", "official_rank": 7, "run": { "order": 10, "budget_share": 1 },
    "cadence_hours": 24,
    "max_requests_per_run": 80,
    "min_interval_ms": 6500,
@@ -11,21 +22,25 @@
    "base": "https://v3.openstates.org"
   },
   "nysenate": {
+   "jurisdictions": ["NY"], "role": "legislature_api", "official_rank": 5, "run": { "order": 9, "budget_share": 0.5 },
    "cadence_hours": 24,
    "max_requests_per_run": 40,
    "min_interval_ms": 500,
    "base": "https://legislation.nysenate.gov/api/3"
   },
   "legiscan": {
+   "jurisdictions": "states", "role": "aggregator", "official_rank": 6, "run": { "records": true },
    "cadence_hours": 24
   },
   "congress_gov": {
+   "jurisdictions": ["US"], "official_rank": 1, "run": { "records": true },
    "cadence_hours": 24,
    "hosts": [
     "congress.gov"
    ]
   },
   "govinfo": {
+   "jurisdictions": ["US"], "official_rank": 8, "run": { "order": 3, "budget_share": 0.25 },
    "cadence_hours": 24,
    "endpoint": "https://api.govinfo.gov/collections/{PLAW,BILLS}/{since} + /related/{id}/BILLS",
    "env": [
@@ -36,34 +51,34 @@
    "hosts": [
     "govinfo.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": null,
    "verified_at": "2026-10-29"
   },
   "federal_register": {
+   "jurisdictions": ["US"], "official_rank": 2, "run": { "order": 1, "budget_share": 0.25 },
    "cadence_hours": 24,
    "endpoint": "https://www.federalregister.gov/api/v1/documents.json + /public-inspection-documents/current.json",
    "env": [],
    "hosts": [
     "federalregister.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": 21,
    "verified_at": "2026-10-29"
   },
   "whitehouse": {
+   "jurisdictions": ["US"], "official_rank": 3, "run": { "order": 2, "budget_share": 0.25 },
    "cadence_hours": 24,
    "endpoint": "https://www.whitehouse.gov/presidential-actions/feed/",
    "env": [],
    "hosts": [
     "whitehouse.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": null,
    "_note": "feed itself must answer every run; AI orders are rare",
    "verified_at": "2026-10-29"
   },
   "regulations_gov": {
+   "jurisdictions": ["US"], "run": { "order": 4, "budget_share": 0.25 },
    "cadence_hours": 24,
    "endpoint": "https://api.regulations.gov/v4/documents",
    "env": [
@@ -74,17 +89,18 @@
    "hosts": [
     "regulations.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": 45,
    "verified_at": "2026-10-29"
   },
   "courtlistener": {
+   "jurisdictions": "all", "official_rank": 4, "run": { "records": true },
    "cadence_hours": 72,
    "hosts": [
     "courtlistener.com"
    ]
   },
   "congress_extra": {
+   "jurisdictions": ["US"], "run": { "order": 5, "budget_share": 0.25 },
    "endpoint": "https://api.congress.gov/v3/{committee-meeting,crsreport,nomination}",
    "env": [
     "CONGRESS_API_KEY"
@@ -92,46 +108,46 @@
    "hosts": [
     "congress.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": null,
    "rate_limit": "5000/hour; at most 28 calls a run",
    "verified_at": "2026-10-29",
    "cadence_hours": 24
   },
   "nist": {
+   "jurisdictions": ["US"], "run": { "order": 6, "budget_share": 0.25 },
    "endpoint": "https://www.nist.gov/news-events/news/rss.xml",
    "env": [],
    "hosts": [
     "nist.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": null,
    "verified_at": "2026-10-29",
    "cadence_hours": 24
   },
   "cbo": {
+   "jurisdictions": ["US"], "run": { "order": 7, "budget_share": 0.25 },
    "endpoint": "https://www.cbo.gov/publications/all/rss.xml",
    "env": [],
    "hosts": [
     "cbo.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": null,
    "verified_at": "2026-10-29",
    "cadence_hours": 24
   },
   "ca_ag": {
+   "jurisdictions": ["CA"], "run": { "order": 8, "budget_share": 0.25 },
    "endpoint": "https://oag.ca.gov/news/feed",
    "env": [],
    "hosts": [
     "oag.ca.gov"
    ],
-   "cadence": "daily",
    "max_silence_days": null,
    "verified_at": "2026-10-29",
    "cadence_hours": 24
   },
   "state_legislature": {
+   "jurisdictions": "states", "role": "legislature_site",
    "_note": "Hosts a state bill record may link to (LegiScan state_link, Open States, NY Senate): each legislature's own site, matched exactly or as a subdomain (news/events.mjs hostsFor). legiscan.com is LegiScan's own page, used only when a bill has no state link.",
    "hosts": [
     "akleg.gov",
@@ -416,5 +432,5 @@
    "why": "no feed (404)"
   }
  ],
- "structured_note": "Official structured sources for the news rebuild (news/sources/*.mjs, news/CONTRACT.md). hosts: the only hosts an item url may have (https). cadence / cadence_hours: how often a run reads it. max_silence_days: health alarm when no item for longer than this (null = silence is normal: the adapter only emits items for tracked entries or AI documents). env: the key variables, first found wins. verified_at: fetched live on that day."
+ "structured_note": "Official structured sources for the news rebuild (news/sources/*.mjs, news/CONTRACT.md). hosts: the only hosts an item url may have (https). cadence_hours: how often a run reads it. max_silence_days: health alarm when no item for longer than this (null = silence is normal: the adapter only emits items for tracked entries or AI documents). env: the key variables, first found wins. verified_at: fetched live on that day."
 }

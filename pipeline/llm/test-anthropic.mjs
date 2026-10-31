@@ -22,7 +22,7 @@ const msg = (text, extra = {}) => ({ content: [{ type: 'thinking', thinking: '' 
   const llm = createAnthropic({ client: fake(msg('```json\n{"a":1}\n```')), role: 'r', model: 'm' });
   ok('code fences are stripped', (await llm.generate({ prompt: 'p' })).data.a === 1);
 }
-const fails = async (reply, re, opts = {}) => { try { await createAnthropic({ client: fake(reply), role: 'r', model: 'm', ...opts }).generate({ prompt: opts.prompt || 'p' }); return false; } catch (e) { return e instanceof (opts.type || LlmOutputError) && re.test(e.message); } };
+const fails = async (reply, re, opts = {}) => { try { await createAnthropic({ client: fake(reply), role: 'r', model: 'm', ...opts }).generate({ prompt: opts.prompt || 'p', responseSchema: opts.schema }); return false; } catch (e) { return e instanceof (opts.type || LlmOutputError) && re.test(e.message); } };
 ok('a refusal is an error with its category', await fails(msg('', { stop_reason: 'refusal', stop_details: { category: 'cyber' } }), /declined \(cyber\)/));
 ok('hitting max_tokens is an error, not a half answer', await fails(msg('{"a":', { stop_reason: 'max_tokens' }), /max_tokens/));
 ok('prose instead of JSON is an error', await fails(msg('Sure, here it is'), /valid JSON/));
@@ -49,19 +49,42 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
 }
 
 {
-  // Opus as referee (30 Oct 2026): a sentence around the JSON is not an unusable answer; text with no JSON object still is
-  const r = await createAnthropic({ client: fake(msg('Here is my answer:\n{"results":[{"n":1,"supported":true}]}\nDone.')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
-  ok('JSON with a sentence around it is read', r.data.results[0].supported === true);
-  // Independent review, 30 Oct 2026: two different answers in one reply are not trusted (a "false" then a weaker "true"); the caller asks again.
-  ok('two different answers in one reply are unusable (Opus, H.R. 9917)', await fails(msg('{"results":[{"n":1,"supported":false}]}\n\nWait, let me check {the text}.\n\n{"results":[{"n":1,"supported":true,"quote":"a b"}]}'), /two different answers/));
-  const fixedQuote = await createAnthropic({ client: fake(msg('{"results":[{"n":1,"supported":true,"quote":"a \\nb","reason":null}]}\n\nWait, the quote must be exact; let me check.\n\n{"results":[{"n":1,"supported":true,"quote":"a b","reason":null}]}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
-  ok('the same verdict re-sent with a corrected quote: the last answer is used (Opus, 4 bills in the 48-bill run)', fixedQuote.data.results[0].quote === 'a b');
-  ok('a flipped verdict is still unusable even when only the verdict differs', await fails(msg('{"results":[{"n":1,"supported":false,"quote":null}]}\nWait.\n{"results":[{"n":1,"supported":true,"quote":"x"}]}'), /two different answers/));
-  const same = await createAnthropic({ client: fake(msg('{"a":1}\nTo repeat: {"a":1}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
-  ok('the same answer repeated is used', same.data.a === 1);
-  const inner = await createAnthropic({ client: fake(msg('Answer: {"q":"text with {braces} and \\"quotes\\" inside","n":1}')), role: 'r', model: 'm' }).generate({ prompt: 'p' });
-  ok('braces inside a string do not split the answer', inner.data.n === 1 && /braces/.test(inner.data.q));
-  ok('text with no JSON object is still unusable', await fails(msg('I think it is in scope.'), /valid JSON/) && await fails(msg('text { broken'), /valid JSON/));
+  // C2: every call with a schema asks the API for exactly one answer of that shape (structured outputs, output_config.format).
+  const { VERDICT_SCHEMA } = await import('../agents/prompts.mjs');
+  const client = fake(msg('{"results":[{"n":1,"supported":true,"quote":"a b","reason":null}]}'));
+  const r = await createAnthropic({ client, role: 'r', model: 'm', effort: 'high' }).generate({ prompt: 'p', responseSchema: VERDICT_SCHEMA });
+  const f = client.calls[0].output_config;
+  ok('a schema is sent as output_config.format json_schema, next to effort', f.effort === 'high' && f.format.type === 'json_schema' && f.format.schema.type === 'object' && f.format.schema.additionalProperties === false);
+  const item = f.format.schema.properties.results.items;
+  ok('the schema is JSON Schema: lower-case types, nullable as a null type, required kept', item.properties.n.type === 'integer' && JSON.stringify(item.properties.quote.type) === '["string","null"]' && item.required.includes('supported') && item.additionalProperties === false);
+  ok('no tool and no tool_choice is sent (the current Sonnet and Opus models refuse forced tool use)', !('tools' in client.calls[0]) && !('tool_choice' in client.calls[0]));
+  ok('the one answer is returned', r.data.results[0].quote === 'a b');
+  const noSchema = fake(msg('{"a":1}'));
+  await createAnthropic({ client: noSchema, role: 'r', model: 'm' }).generate({ prompt: 'p' });
+  ok('without a schema no format is sent', !('output_config' in noSchema.calls[0]));
+  ok('an answer that does not fit the schema is unusable (the caller asks once more)', await fails(msg('{"results":[{"n":"one","supported":true}]}'), /does not fit its schema/, { schema: VERDICT_SCHEMA }));
+  ok('a missing required key is unusable', await fails(msg('{"verdict":true}'), /results is missing/, { schema: VERDICT_SCHEMA }));
+  // The old free-text heuristics are gone: text around the JSON or two answers in one reply are simply not valid JSON.
+  ok('a sentence around the JSON is not read', await fails(msg('Here is my answer:\n{"a":1}\nDone.'), /valid JSON/));
+  ok('two answers in one reply are not read', await fails(msg('{"a":1}\n{"a":2}'), /valid JSON/));
+  ok('text with no JSON object is unusable', await fails(msg('I think it is in scope.'), /valid JSON/));
+  // The agents' retry: an unusable answer, then a good one.
+  let n = 0; const twice = fake(() => msg(n++ ? '{"results":[{"n":1,"supported":false}]}' : '{"results":[]', {}));
+  const llm = createAnthropic({ client: twice, role: 'r', model: 'm' });
+  const askAgain = async (req) => { try { return await llm.generate(req); } catch (e) { if (!(e instanceof LlmOutputError)) throw e; return llm.generate(req); } };
+  ok('an unusable answer is asked once more and the second answer is used', (await askAgain({ prompt: 'p', responseSchema: VERDICT_SCHEMA })).data.results[0].supported === false && twice.calls.length === 2);
+}
+{
+  const { schemaProblems, toJsonSchema } = await import('./schema.mjs');
+  const S = { type: 'OBJECT', required: ['v'], properties: { v: { type: 'STRING', enum: ['yes', 'no'], nullable: true }, k: { type: 'ARRAY', items: { type: 'NUMBER' } } } };
+  ok('schema: enum, nullable and arrays are checked', !schemaProblems(S, { v: null, k: [1, 2.5] }).length && schemaProblems(S, { v: 'maybe' }).length === 1 && schemaProblems(S, { v: 'yes', k: ['x'] }).length === 1);
+  ok('schema: a nullable enum lists null', toJsonSchema(S).properties.v.enum.includes(null));
+}
+// a role's time limit (config/models.json timeout_ms): 2 minutes by default, more for the roles that read whole bills
+{
+  const cfg = { provider: 'anthropic', limits: {}, prices_per_million_tokens: {}, anthropic: { roles: { quick: { model: 'm' }, long: { model: 'm', timeout_ms: 600000 } } } };
+  const quick = createLlmFromConfig({ config: cfg, http: {}, role: 'quick', claudeKey: 'k' }).llm, long = createLlmFromConfig({ config: cfg, http: {}, role: 'long', claudeKey: 'k' }).llm;
+  ok('a role\'s timeout_ms reaches the client; without it the 2-minute default holds', quick.timeoutMs === 120000 && long.timeoutMs === 600000);
 }
 console.log(`anthropic client: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

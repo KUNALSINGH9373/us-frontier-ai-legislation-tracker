@@ -1,0 +1,191 @@
+{
+ "measure": "new_bills",
+ "method": "simple",
+ "set": "test",
+ "run_at": "2026-10-31T15:42:24.449Z",
+ "provider": "anthropic",
+ "writer": "claude-sonnet-5-5",
+ "reviewer": "claude-opus-5-5",
+ "scope_judge": "claude-opus-5-5",
+ "scorer": "claude-opus-5-5",
+ "checks_hash": "4dae09aea754281ed104d702eaa95eef59160f1d791e89fb5089798b6dce7d5f",
+ "partial": true,
+ "set_size": 48,
+ "gold_sha256": "c178451ca65e05d4e97a83f75e567dc3646f1e469a12f33eaeb16426122a72cb",
+ "references_sha256": null,
+ "summary": {
+  "items": 5,
+  "published": 2,
+  "facts_only": 0,
+  "out_of_scope": 3,
+  "held": 0,
+  "errors": 0,
+  "no_text": 0,
+  "scope_errors": 0,
+  "missed": 0,
+  "wrong": 0,
+  "misleading": 3,
+  "omission": 0,
+  "misleading_per_published": 1.5,
+  "publish_rate": 1
+ },
+ "usage": {
+  "calls": 17,
+  "input_tokens": 312715,
+  "output_tokens": 81430,
+  "total_tokens": 394145,
+  "by_role": {
+   "writer": {
+    "calls": 9,
+    "input": 188662,
+    "output": 76031,
+    "cost": 1.137634
+   },
+   "scope_judge": {
+    "calls": 2,
+    "input": 12987,
+    "output": 939,
+    "cost": 0.07072800000000001
+   },
+   "bill_reviewer": {
+    "calls": 4,
+    "input": 76401,
+    "output": 3698,
+    "cost": 0.379564
+   },
+   "scorer": {
+    "calls": 2,
+    "input": 34665,
+    "output": 762,
+    "cost": 0.15389999999999998
+   }
+  },
+  "by_model": {
+   "claude-sonnet-5-5": {
+    "calls": 9,
+    "input": 188662,
+    "output": 76031,
+    "cost": 1.137634
+   },
+   "claude-opus-5-5": {
+    "calls": 8,
+    "input": 124053,
+    "output": 5399,
+    "cost": 0.604192
+   }
+  },
+  "estimated_cost_usd": 1.741826
+ },
+ "items": [
+  {
+   "key": "ca-sb-813-ivos",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 2,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "duties u6 text",
+     "bill_quote": "(f) Regularly review requirements and criteria identified pursuant to this chapter and revise them as appropriate",
+     "problem": "The entry says the agency must \"regularly review\" the requirements and criteria by January 1, 2028. Ongoing review is a continuing duty, not a one-time task completed by that date. Attaching the deadline misstates when the duty applies."
+    },
+    {
+     "severity": "MISLEADING",
+     "where": "duties u4 conditions",
+     "bill_quote": "An IVO may accept payment from a party being assessed at reasonable market rates but shall not accept terms which condition any payment or the amount of any payment on the results of their assessment.",
+     "problem": "The entry treats this sentence as a binding ban on IVOs. In the bill it sits inside the list of criteria the agency must consider when designating IVOs. The entry also lists \"at reasonable market rates\" as a condition of the ban, when that phrase actually describes the permission to accept payment."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "h-r-9917-ai-kill-switch-act",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.applies_to.text",
+     "bill_quote": "``(1) In general.--Except as provided in paragraph (3), not later than 90 days after the date of the enactment of this section and annually thereafter, the Secretary, acting through the Director, shall update by rule the definitions",
+     "problem": "The box presents the $100M compute and $500M revenue tests as the fixed coverage. It does not say that the annual rule can replace them. The note that the Secretary must update the definitions is there, but a reader would not see that the thresholds themselves may change."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "mi-sb-757-760-kids-over-clicks",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The bill regulates addictive social media feeds and notifications for minors (Secs. 7, 9), which falls under the OUT-list item on children's online safety, social media and addictive feeds; it has no frontier-AI or catastrophic-risk provision.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "nj-s-1802",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding provisions (Sec. 1(c)) require every company that sells, develops, deploys or uses any AI technology in New Jersey to run bias, accuracy and cybersecurity safety tests. There is no frontier threshold and no catastrophic-harm aim, so it is a general safety-testing duty on all AI companies, which is out of scope.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "pa-h-b-2705",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The bill only directs a state workforce impact study on artificial intelligence and job displacement, which falls under the OUT-list item of workforce or economic studies; it has no frontier, catastrophic-risk or other in-scope provision.",
+   "writer_calls": 1,
+   "reviews": 0
+  }
+ ]
+}

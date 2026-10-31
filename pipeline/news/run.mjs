@@ -34,8 +34,9 @@ import * as congressExtra from './sources/congress_extra.mjs';
 import * as nist from './sources/nist.mjs';
 import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
-import { defaultHttp, sourceConfig, NEWS_FETCH_TIMEOUT_MS, redact } from './sources/common.mjs';
+import { defaultHttp, sourceConfig, structuredSources, NEWS_FETCH_TIMEOUT_MS, NEWS_TIMING, redact } from './sources/common.mjs';
 import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
+import { daysBefore } from './text.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), pipelineDir = path.resolve(here, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -43,9 +44,8 @@ export const SEEN_FILE = NEWS_SEEN_FILE;
 export const EVENTS_FILE = path.join(STATE_DIR, 'news-events.json');
 export const HEALTH_FILE = path.join(STATE_DIR, 'news-health.json');
 export const SOURCES_FILE = path.join(pipelineDir, 'config', 'news-sources.json');
-const KEEP_DAYS = 120, EVENT_DAYS = 14;
+const KEEP_DAYS = NEWS_TIMING.keep_days, EVENT_DAYS = NEWS_TIMING.event_days;
 const host = (u) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return null; } };
-const daysBefore = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') - n * 864e5).toISOString().slice(0, 10);
 
 // Reading feeds the polite way: our own honest name, robots.txt obeyed, a site that refuses us is not read.
 // Returns { get(url) -> text, used(), allowed(url) }. fetchImpl is a test hook.
@@ -94,9 +94,11 @@ export function recordsFromRuns(runDirs = []) {
 // (health 'truncated'); the remaining adapters are not run. An adapter whose transport fails 3 times in a row is stopped. A source read
 // within its cadence_hours (config/news-sources.json "structured"; lastFetch from news-health.json) is not read again this run.
 // Never throws. clock: ms now (tests).
-export const NEWS_BUDGET_MS = 6 * 60 * 1000;
-export const LEADS_BUDGET_MS = 2 * 60 * 1000; // the feeds' share of the total, at most
-const CADENCE_SLACK_MS = 15 * 60 * 1000; // a 24 h source read at 06:00 is due again at the 06:00 run the next day
+// The limits: config/news-sources.json "timing".
+export const NEWS_BUDGET_MS = NEWS_TIMING.budget_ms;
+export const LEADS_BUDGET_MS = NEWS_TIMING.leads_budget_ms; // the feeds' share of the total, at most
+const LEADS_MAX_PART = NEWS_TIMING.leads_max_part; // and never more than this part of the total
+const CADENCE_SLACK_MS = NEWS_TIMING.cadence_slack_ms; // a 24 h source read at 06:00 is due again at the 06:00 run the next day
 function guardedHttp(http, { deadline, clock, onStop }) {
   let consecutive = 0, stopped = null;
   const stop = (why) => { if (!stopped) { stopped = why; onStop(why); } };
@@ -112,13 +114,14 @@ function guardedHttp(http, { deadline, clock, onStop }) {
   return { http: g, stopped: () => stopped, sleep: (ms) => new Promise((r) => setTimeout(r, stopped ? 0 : Math.max(0, Math.min(ms, deadline - clock())))) };
 }
 
-export async function eventsStep({ state, records = [], courtFound = [], now = new Date(), runId = null, sinceDays = EVENT_DAYS, today = now.toISOString().slice(0, 10), extra = [], http = null, env = {}, entries = [], items: given = [], budgetMs = NEWS_BUDGET_MS, lastFetch = {}, cadenceOf = (n) => sourceConfig(n).cadence_hours ?? null, clock = () => Date.now() }) {
+export async function eventsStep({ state, records = [], courtFound = [], now = new Date(), runId = null, sinceDays = EVENT_DAYS, today = now.toISOString().slice(0, 10), extra = [], http = null, env = {}, entries = [], items: given = [], budgetMs = NEWS_BUDGET_MS, lastFetch = {}, cadenceOf = (n) => sourceConfig(n).cadence_hours ?? null, shareOf = (n) => (sourceConfig(n).run || {}).budget_share ?? 1, clock = () => Date.now() }) {
   const results = {}, itemsBy = {}, fetched = [], all = [], statements = [];
   const since = daysBefore(today, sinceDays);
   state.adapters = state.adapters || {};
   const runs = [['congress_gov', congressGov, { records }], ['legiscan', legiscan, { records }], ['courtlistener', courtlistener, { found: courtFound, now }],
     ...extra.map(([name, mod]) => [name, mod, { http, env, since, state: state.adapters[name] || {}, entries, now }])];
-  const deadline = clock() + budgetMs, local = new Set(['congress_gov', 'legiscan', 'courtlistener']);
+  // local: the sources read from the records the run already has (config run.records), not over the network
+  const deadline = clock() + budgetMs, local = new Set(structuredSources().filter(([, c]) => c.run && c.run.records).map(([n]) => n));
   let outOfTime = false;
   for (const [name, mod, args] of runs) {
     let r;
@@ -129,17 +132,19 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
       if (cad && !unfinished && Number.isFinite(last) && now.getTime() - last < cad * 3600e3 - CADENCE_SLACK_MS) { results[name] = { ok: true, skipped: 'cadence', count: 0, newest: null, errors: [] }; itemsBy[name] = []; continue; }
       if (outOfTime || clock() >= deadline) { outOfTime = true; results[name] = { ok: true, truncated: true, count: 0, newest: null, errors: ['time budget reached; not read this run'] }; itemsBy[name] = []; continue; }
       let why = null;
-      const g = guardedHttp(args.http, { deadline, clock, onStop: (w) => { why = w; } });
+      // the adapter's own share of the budget (config run.budget_share), never past the shared deadline
+      const mine = Math.min(deadline, clock() + shareOf(name) * budgetMs);
+      const g = guardedHttp(args.http, { deadline: mine, clock, onStop: (w) => { why = w; } });
       let timer;
-      const timeout = new Promise((res) => { timer = setTimeout(() => res({ timedOut: true }), Math.max(0, deadline - clock())); });
+      const timeout = new Promise((res) => { timer = setTimeout(() => res({ timedOut: true }), Math.max(0, mine - clock())); });
       try {
-        r = await Promise.race([mod.fetchItems({ ...args, http: g.http, sleep: g.sleep, deadline: deadline - 15000, clock }), timeout]);
+        r = await Promise.race([mod.fetchItems({ ...args, http: g.http, sleep: g.sleep, deadline: mine - NEWS_FETCH_TIMEOUT_MS, clock }), timeout]);
       } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [redact(String(e.message || e))] }, fetched: [] }; }
       finally { clearTimeout(timer); }
       if (r && r.timedOut) { why = why || 'time budget reached'; r = { items: [], health: { ok: true, count: 0, newest: null, errors: [] }, fetched: [] }; }
       if (why) {
         r.health = { ...(r.health || {}), truncated: true, ok: why !== '3 consecutive errors' && (r.health ? r.health.ok !== false || (r.health.errors || []).every((x) => /not read this run|request cap/.test(x)) : true), errors: [...((r.health && r.health.errors) || []).filter((x) => !/not read this run/.test(x)).slice(0, 5), `stopped: ${why}`] };
-        if (why === 'time budget reached') outOfTime = true;
+        if (why === 'time budget reached' && clock() >= deadline) outOfTime = true; // its own share used up: the next source still runs
       }
     } else {
       try { r = await mod.fetchItems(args); } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [String(e.message || e)] }, fetched: [] }; }
@@ -159,9 +164,12 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
 
 // The structured official sources other than the records the run already has (network; each needs its own key where noted). Run only
 // when the caller passes env (update.mjs does; tests and hand runs without env read none).
-// Order: the quick sources first; Open States (paced to Plural's free-tier rate, several minutes) and NY Senate last, so a slow source can
-// never starve the others of the shared time budget (local live run, 30 Oct 2026: Open States used it all and nothing after it was read).
-export const EXTRA_ADAPTERS = [['federal_register', federalRegister], ['whitehouse', whitehouse], ['govinfo', govinfo], ['regulations_gov', regulationsGov], ['congress_extra', congressExtra], ['nist', nist], ['cbo', cbo], ['ca_ag', caAg], ['nysenate', nysenate], ['openstates', openstates]];
+// Order and share of the time budget: config/news-sources.json run.order and run.budget_share. The quick sources first, each with a
+// quarter of the budget at most; NY Senate (half) and Open States (paced to Plural's free-tier rate, several minutes; what is left) last, so a
+// slow source can never starve the others (local live run, 30 Oct 2026: Open States used it all and nothing after it was read).
+const ADAPTER_MODULES = { federal_register: federalRegister, whitehouse, govinfo, regulations_gov: regulationsGov, congress_extra: congressExtra, nist, cbo, ca_ag: caAg, nysenate, openstates };
+const orderOf = (n) => (sourceConfig(n).run || {}).order ?? Infinity;
+export const EXTRA_ADAPTERS = Object.entries(ADAPTER_MODULES).sort((a, b) => orderOf(a[0]) - orderOf(b[0]));
 
 // The card writer (news/writer.mjs, roles generator + validator) for showable events whose card is still the template; a card that fails
 // any check stays the template. Only when news publishing is on and AI may run. Returns how many cards the AI wrote.
@@ -225,7 +233,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
   // (feeds) get what is left, at most LEADS_BUDGET_MS, under the same deadline
   const totalMs = (config.news && config.news.time_budget_ms) || NEWS_BUDGET_MS, stepStart = clock(), stepDeadline = stepStart + totalMs;
   const prevHealth = loadHealth(healthFile), lastFetch = Object.fromEntries(Object.entries(prevHealth.sources || {}).map(([n, s]) => [n, s.last_fetch || null]));
-  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp({ timeoutMs: NEWS_FETCH_TIMEOUT_MS })) : null, lastFetch, budgetMs: Math.max(0, totalMs - Math.min(LEADS_BUDGET_MS, Math.floor(totalMs / 3))), clock });
+  const ev = await eventsStep({ state, records: recs, courtFound, now, runId, today, entries: before.entries, env: env || {}, extra: env ? adapters : [], http: env ? (http || defaultHttp({ timeoutMs: NEWS_FETCH_TIMEOUT_MS })) : null, lastFetch, budgetMs: Math.max(0, totalMs - Math.min(LEADS_BUDGET_MS, Math.floor(totalMs / LEADS_MAX_PART))), clock });
   Object.assign(rep.events, { added: ev.up.added, confirmed: ev.up.confirmed, corrected: ev.up.corrected, withdrawn: ev.up.withdrawn, refused: ev.up.refused.slice(0, 20), report: ev.up.report.slice(0, 50) });
   const health = updateHealth(prevHealth, ev.results, { now, items: ev.itemsBy });
   rep.events.alerts = alerts(health, { now, config: { congress_gov: { cadence_hours: 24 * 30 }, legiscan: { cadence_hours: 24 * 30 }, courtlistener: { cadence_hours: 24 * 30 } } }).filter((a) => !/stale|zero items/.test(a)); // these sources are read only when they changed

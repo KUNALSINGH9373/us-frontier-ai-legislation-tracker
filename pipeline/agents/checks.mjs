@@ -1,7 +1,8 @@
 // The Validator's plain-code checks. Each returns { name, passed, detail }. Code cannot be talked into agreeing,
 // so these catch the most dangerous mistakes (an invented quote, number or date) with no AI involved.
 import { makeValidator } from '../schema/validate.mjs';
-import { containsQuote, digitRuns, norm, LOST_EXPONENT, COMPUTE_UNIT } from './source-text.mjs';
+import { containsQuote } from './source-text.mjs';
+import { digitRuns, norm, LOST_EXPONENT_IN_VALUE as LOST_EXPONENT, exponentOf, COMPUTE_UNIT, ENCODING_DEBRIS, GLUED_AMOUNT } from './text-norm.mjs';
 import { SECTION_RULES, NEGATIVE_FINDING } from './rules.mjs';
 import { FIELD_LIMITS, coverageProblems, slotQuoteProblems } from './slots.mjs';
 
@@ -26,13 +27,14 @@ export function dateSupported(date, text) {
 }
 
 // Rules learned from the 27 Oct 2026 review of all entries. Each returns readable problems for one text field.
-const GARBLED = /\b10(2[0-9])\s+(?:integer|floating|operations|computational)|�/i; // 10²⁶ printed as "1026" or "10�26"
+// 10²⁶ printed as "1026 integer", "10.26 computational" or "10�26" (agents/text-norm.mjs LOST_EXPONENT), or a superscript's encoding debris on its own.
+const GARBLED = new RegExp(`${LOST_EXPONENT.source}|${ENCODING_DEBRIS.source}`, 'i');
 const MONTH = '(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)\\.?';
 // A month and day with no year after it (ranges such as "Sept 3–16, 2026" and "Sept 3–Oct 1, 2026" count as having one).
 const NO_YEAR = new RegExp(`\\b${MONTH}\\s+\\d{1,2}\\b(?!(?:\\s*[–-]\\s*(?:${MONTH}\\s+)?\\d{1,2})?,?\\s*\\d{4})`);
 const UNDEFINED = /\bnot (?:established|defined|specified|stated)\b[^.;]{0,40}\b(?:sources?|text)\b/i;
-// A line number glued onto an amount ("$500,000,000.8", IL H.B. 4705): an amount never has a single cent digit.
-const GLUED_DIGIT = /\$\d{1,3}(?:,\d{3})+\.\d(?!\d)/;
+// A line number glued onto an amount ("$500,000,000.8", IL H.B. 4705): an amount never has a single cent digit (agents/text-norm.mjs).
+const GLUED_DIGIT = GLUED_AMOUNT;
 const QUOTED = /[“"]([^”"]{8,})[”"]/g;
 // Compute thresholds must parse to a plausible magnitude (AZ H.B. 4098 was published with "10.26 computational operations", a lost 10^26):
 // "10^N operations" needs N from 20 to 30, and a number written out before a compute unit needs at least 10^20. Returns readable problems.
@@ -40,7 +42,7 @@ const POWER = new RegExp(String.raw`\b10\s?\^\s?(\d{1,3})(?=\s+${COMPUTE_UNIT})`
 const PLAIN = new RegExp(String.raw`(?<![\d^.,]|\^\s)(\d[\d,]*(?:\.\d+)?)(?:\s+(?:billion|million|trillion))?(?=\s+${COMPUTE_UNIT})`, 'gi');
 export function thresholdNumberProblems(field, value) {
   const v = String(value || ''), out = [];
-  for (const m of v.matchAll(new RegExp(LOST_EXPONENT.source, 'gi'))) out.push(`${field} has a lost exponent ("${m[0]}" before a compute unit): the bill's threshold is 10^${m[1]}; write it as 10^${m[1]}`);
+  for (const m of v.matchAll(new RegExp(LOST_EXPONENT.source, 'gi'))) out.push(`${field} has a lost exponent ("${m[0]}" before a compute unit): the bill's threshold is 10^${exponentOf(m)}; write it as 10^${exponentOf(m)}`);
   for (const m of v.matchAll(POWER)) if (+m[1] < 20 || +m[1] > 30) out.push(`${field} gives a compute threshold of 10^${m[1]} operations, which is not a plausible training-compute threshold`);
   for (const m of v.matchAll(PLAIN)) {
     if (new RegExp(LOST_EXPONENT.source, 'i').test(v.slice(m.index, m.index + m[0].length + 30))) continue; // reported above
@@ -50,7 +52,7 @@ export function thresholdNumberProblems(field, value) {
   return out;
 }
 // The one unambiguous repair: "10.26" / "1026" right before a compute unit is 10^26. Anything else implausible is left as it is (and held).
-export const normaliseExponents = (value) => (typeof value === 'string' ? value.replace(new RegExp(LOST_EXPONENT.source, 'gi'), '10^$1') : value);
+export const normaliseExponents = (value) => (typeof value === 'string' ? value.replace(new RegExp(LOST_EXPONENT.source, 'gi'), (...m) => `10^${exponentOf(m)}`) : value);
 
 export function textProblems(field, value, sourceText) {
   const v = String(value || ''), out = [];

@@ -6,6 +6,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { runCongress, CONGRESS } from './run.mjs';
+import { congressOn } from '../lib/congress.mjs';
 import { createCongress } from './sources/congress.mjs';
 import { createHttp } from './lib/http.mjs';
 import { emptyState } from './lib/state.mjs';
@@ -58,7 +59,7 @@ const bill = (n, title, updateDate, congress = 119) => ({ congress, type: 'HR', 
     bill(5, 'E', '2026-10-23T05:00:00Z'), bill(6, 'F', '2026-10-24T05:00:00Z'), bill(7, 'G', '2026-10-25T05:00:00Z'),
     bill(8, 'old', '2026-10-10T01:00:00Z'), bill(9, 'older', '2026-09-30T01:00:00Z'), bill(10, 'too new', '2026-10-28T11:59:00Z')
   ];
-  const window = { from: '2026-10-19T00:00:00Z', to: '2026-10-28T11:58:00Z', pageSize: 3, congress: CONGRESS };
+  const window = { from: '2026-10-19T00:00:00Z', to: '2026-10-28T11:58:00Z', pageSize: 3, congress: congressOn('2026-10-19T00:00:00Z') }; // the recorded window's own Congress (119), not today's
   const list = async (srv) => { const out = [], info = []; for await (const b of createCongress(mk(srv)).listUpdated({ ...window, onFallback: (f) => info.push(f) })) out.push(`${b.congress}/${b.number}@${b.updateDate}`); return { out, info }; };
   const a = await list(fakeServer({ bills }));
   const b = await list(fakeServer({ bills, filterDown: true }));

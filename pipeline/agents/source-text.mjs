@@ -3,21 +3,14 @@
 
 const stripTags = (s) => String(s || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
 
-// Texts printed from PDFs lose superscripts: 10²⁶ arrives as "1026", "10�26" or "10ˆ26". Put the exponent back before anyone reads
-// it, so the models, the reader and the quote checks all see "10^26". Only before a compute word, so a year or a count is never touched.
-// PA H.B. 2800 prints it "1,026 integer or floating-point operations" (superscript lost, then a thousands comma added).
-// A line number glued onto an amount ("at least $500,000,000.8 "Minor" means", IL H.B. 4705): the amount and its line's text are
-// split, so the stray digit is never read as cents (a real amount has two cent digits and no capital or quote right after).
-// That comma form needs a compute word after it (not "operations" alone), so a count such as "1,025 operations" is never changed.
-export const repairExponents = (s) => String(s || '').replace(/\b10(?:�|ˆ|\^)?(2[0-9])(?=\s+(?:integer|floating|operations|computational|FLOP))/g, '10^$1')
-  .replace(/\b1,0(2[0-9])(?=\s+(?:integer|floating|computational|FLOP))/g, '10^$1')
-  .replace(/(\$\d{1,3}(?:,\d{3})+)\.(\d)(?=\s+["“A-Z(])/g, '$1. ')
-  // CT P.A. 26-15 spells it out, and its PDF splits the word: "ten to the twen ty - sixth power". Written as the figure, so a quote of
-  // it matches and the numbers check sees 10 and 26.
-  .replace(/\bten\s+to\s+the\s+t\s*w\s*e\s*n\s*t\s*(?:y\s*-?\s*(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)|(i\s*e\s*t\s*h))\s+power\b/gi,
-    (m, unit, tieth) => `10^${tieth ? 20 : 20 + ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth'].indexOf(unit.toLowerCase()) + 1}`);
+import { cleanText, readerText, printingNoise, detectNumbering, digitRuns, norm, looseForm, mappedLoose, LOST_EXPONENT, COMPUTE_UNIT } from './text-norm.mjs';
+// The text cleanup and number reading live in agents/text-norm.mjs (one module for every check); re-exported for existing callers.
+export { cleanText, digitRuns, norm, LOST_EXPONENT, COMPUTE_UNIT };
+export const repairExponents = cleanText;
 
-export function sourceText(raw, source) { return repairExponents(rawSourceText(raw, source)); }
+export function sourceText(raw, source) { return cleanText(rawSourceText(raw, source)); }
+// The cleaner copy the new-bills writer and reviewer read (agents/text-norm.mjs readerText).
+export function readerSourceText(raw, source) { return readerText(rawSourceText(raw, source)); }
 
 function rawSourceText(raw, source) {
   if (source === 'congress_gov') {
@@ -44,51 +37,47 @@ function rawSourceText(raw, source) {
   throw new Error('no source reader for ' + source);
 }
 
-// Quotes are compared after the same light normalisation on both sides: case, whitespace, curly quotes and dashes.
-export const norm = (s) => String(s || '').toLowerCase().replace(/[‘’‛]/g, "'").replace(/[“”„]/g, '"').replace(/[‐-―−]/g, '-').replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
-// Line-numbered texts (NY and MA print a line number every line: "a frontier 1136 developer's") and PDF hyphenation ("devel- oper",
-// "floating - point") would make a faithful quote fail. As a second try both sides are compared without the printed line numbers and
-// without hyphen spacing. Only numbers that form the line-number run are removed (consecutive integers, each 15 to 400 characters after
-// the one before, at least 3 in a row), so a real figure in the text never disappears, and nothing else is loosened.
-export function lineNumbers(text) {
-  const t = String(text || ''), toks = [...t.matchAll(/(?<=^|\s)(\d{1,4})(?=\s)/g)].map((m) => ({ v: +m[1], i: m.index, len: m[1].length }));
-  const last = new Map(), chain = new Array(toks.length).fill(1), prevOf = new Array(toks.length).fill(-1), keep = new Set();
-  toks.forEach((k, j) => {
-    const p = last.get(k.v - 1);
-    if (p != null && k.i - toks[p].i >= 15 && k.i - toks[p].i <= 400) { chain[j] = chain[p] + 1; prevOf[j] = p; }
-    last.set(k.v, j);
-    if (chain[j] >= 3) for (let x = j; x >= 0 && !keep.has(x); x = prevOf[x]) keep.add(x);
-  });
-  // Minnesota prints "page.line" at the start of every line ("3.29 affecting the ... 3.30 the developer learns"): a run of three or more
-  // such numbers on the same page, one line apart, is printed line numbering too (MN HF 4532 was held on a quote across a line break).
-  const pl = [...t.matchAll(/(?<=^|\n)[ \t]*((\d{1,3})\.(\d{1,2}))(?=\s)/g)].map((m) => ({ s: m[1], p: +m[2], l: +m[3], i: m.index + m[0].length - m[1].length, len: m[1].length }));
-  const pageLines = new Set(), plKeep = [];
-  for (let a = 0; a < pl.length; ) {
-    let b = a; while (b + 1 < pl.length && pl[b + 1].p === pl[b].p && pl[b + 1].l === pl[b].l + 1) b++;
-    if (b - a >= 2) for (let x = a; x <= b; x++) { plKeep.push({ v: pl[x].s, i: pl[x].i, len: pl[x].len }); pageLines.add(pl[x].s); }
-    a = b + 1;
-  }
-  return { positions: [...[...keep].map((j) => toks[j]), ...plKeep].sort((a, b) => a.i - b.i), values: new Set([...keep].map((j) => toks[j].v)), pageLines };
-}
-const looseForm = (s) => norm(s).replace(/\s*-\s*/g, '').replace(/\s+/g, ' ');
+// Line-numbered texts (NY and MA print a line number every line: "a frontier 1136 developer's"; MN prints "3.29" at the start of
+// every line) and PDF hyphenation ("devel- oper", "floating - point") would make a faithful quote fail. As a second try both sides are
+// compared without the printed line numbers (agents/text-norm.mjs detectNumbering: only numbers in a line-number run, so a real figure
+// never disappears) and without hyphen spacing. Nothing else is loosened.
+export const lineNumbers = detectNumbering;
 const stripCache = new Map();
-function strippedSource(text) {
-  if (stripCache.has(text)) return stripCache.get(text);
-  const { positions, values, pageLines } = lineNumbers(text);
-  let out = '', at = 0; for (const p of positions) { out += text.slice(at, p.i) + ' '; at = p.i + p.len; } out += text.slice(at);
-  const r = { loose: looseForm(out), values, pageLines };
-  if (stripCache.size > 8) stripCache.clear(); stripCache.set(text, r);
+function strippedSource(original) {
+  if (stripCache.has(original)) return stripCache.get(original);
+  // read line breaks as readerText does (a form feed starts a line, a carriage return is space), keeping every offset unchanged
+  const text = original.replace(/\r/g, ' ').replace(/\f/g, '\n');
+  const { positions, values, pageLines } = detectNumbering(text);
+  // printing noise (page headers and footers, converter markers) is dropped too, so a quote taken from readerText still matches; a
+  // header line covers any line number inside it, so the header span wins
+  const noise = printingNoise(text);
+  const inNoise = (p) => noise.some((n) => p.i < n.i + n.len && n.i < p.i + p.len);
+  const remove = [...positions.filter((p) => !inNoise(p)), ...noise].sort((a, b) => a.i - b.i);
+  const r = { ...mappedLoose(text, remove), values, pageLines };
+  r.loose = r.s;
+  if (stripCache.size > 8) stripCache.clear(); stripCache.set(original, r);
   return r;
+}
+// Every place `q` occurs in the loose source, as the original printed span.
+function spansOf(text, s, q) {
+  const out = [];
+  for (let k = s.loose.indexOf(q); k >= 0 && out.length < 20; k = s.loose.indexOf(q, k + 1)) out.push(text.slice(s.m[k], s.m[k + q.length - 1] + 1));
+  return out;
 }
 export const containsQuote = (text, quote) => {
   if (!quote) return false;
   if (norm(text).includes(norm(quote))) return true;
-  const s = strippedSource(String(text || '')), q1 = looseForm(quote);
+  text = String(text || '');
+  const s = strippedSource(text), q1 = looseForm(quote);
   if (q1.length < 8) return false;
   if (s.loose.includes(q1)) return true;
-  // The quote copied the printed line numbers too: drop those numbers from it (only values that are line numbers in this text).
+  // The quote copied the printed line numbers too: drop those numbers from it (only values that are line numbers in this text). A
+  // number dropped this way may also be a misquoted figure that happens to equal a line number, so the match only counts when every
+  // figure of the quote is in the printed span it matched.
   const q2 = looseForm(String(quote).replace(/(?<=^|\s)(\d{1,3}\.\d{1,2})(?=\s|$)/g, (m) => (s.pageLines.has(m) ? ' ' : m)).replace(/(?<=^|\s)(\d{1,4})(?=\s|$)/g, (m) => (s.values.has(+m) ? ' ' : m)));
-  return q2 !== q1 && q2.length >= 8 && s.loose.includes(q2);
+  if (q2 === q1 || q2.length < 8) return false;
+  const figures = [...digitRuns(quote)];
+  return spansOf(text, s, q2).some((span) => { const have = digitRuns(span); return figures.every((f) => have.has(f)); });
 };
 
 // A model's quote as proof, tidied the ways models commonly copy (round 9 field eval: three new bills held because the referee's one
@@ -102,17 +91,4 @@ export function provedQuote(text, quote) {
   const bare = q.replace(/^["“'‘]+|["”'’]+$/g, '').replace(/[.;,]+$/, '').trim();
   if (bare !== q && bare.length >= 8 && containsQuote(text, bare)) return bare;
   return null;
-}
-
-// Every run of digits in a piece of text (commas removed, superscript digits read as digits), for the "numbers must come from the source" check.
-const SUP = { '²': '2', '³': '3', '¹': '1', '⁰': '0', '⁴': '4', '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9' };
-// "10" then a lost exponent 20-29 right before a compute unit: only this form is unambiguous (no compute threshold is 10.26, 1026 or 1,026 ops).
-export const COMPUTE_UNIT = String.raw`(?:integer|floating|computational|operations|FLOPs?\b)`;
-export const LOST_EXPONENT = new RegExp(String.raw`\b(?:10[.,]?|1,0)(2\d)(?=\s+${COMPUTE_UNIT})`, 'gi');
-export function digitRuns(text) {
-  // "10²⁶", "10^26" and GPO's "10\26\" all read as the runs 10 and 26, so an exponent matches however it is printed.
-  const t = String(text || '').replace(/[²³¹⁰⁴-⁹]+/g, (m) => '^' + [...m].map((c) => SUP[c]).join('')).replace(/(\d)\\(\d{1,3})\\/g, '$1^$2').replace(/(\d),(?=\d{3}\b)/g, '$1')
-    // A superscript lost in the state's text ("10.26 computational operations", "1026 operations"): the bill's 10^26 (agents/checks.mjs).
-    .replace(LOST_EXPONENT, '10^$1');
-  return new Set(t.match(/\d+(?:\.\d+)?/g) || []);
 }

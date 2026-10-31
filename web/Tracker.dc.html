@@ -556,7 +556,35 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       </section>
 
       <section aria-labelledby="b-mech">
-        <sc-if value="{{noSummary}}">
+        <sc-if value="{{isFactsOnly}}">
+          <h2 id="b-mech" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">What it does</h2>
+          <div data-facts-only style="padding:calc(18px*var(--ps)) calc(20px*var(--ps));border-radius:min(22px,var(--r));background:var(--surface);border:1px dashed var(--line-2)">
+            <p style="margin:0 0 4px;font-size:calc(15px*var(--fs));font-weight:750">Description coming soon</p>
+            <p style="margin:0;font-size:calc(14.5px*var(--fs));line-height:1.55;color:var(--ink-2);text-wrap:pretty">This bill is tracked and its official record is shown on this page. Its plain-English description has not passed its checks yet and is written again automatically. Until then, see the official record and text under Primary sources.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{hasPlain}}">
+          <sc-for list="{{plainGroups}}" as="g"><div data-plain-group style="margin:0 0 18px">
+            <h2 style="margin:0 0 10px;font-size:calc(18px*var(--fs))">{{g.h}}</h2>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{g.items}}" as="i"><li style="border-radius:min(16px,var(--r));border:1px solid var(--line);background:var(--surface)">
+                <details>
+                  <summary style="cursor:pointer;list-style:none;padding:calc(14px*var(--ps)) calc(16px*var(--ps));min-height:calc(44px*var(--hs));display:flex;gap:12px;align-items:flex-start">
+                    <span style="min-width:0;font-size:calc(15px*var(--fs));line-height:1.45;overflow-wrap:anywhere;text-wrap:pretty">{{i.t}}</span>
+                    <span aria-hidden="true" style="margin-left:auto;flex:none;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3);white-space:nowrap;padding-left:8px">Exact words ▾</span>
+                  </summary>
+                  <div style="padding:0 calc(16px*var(--ps)) calc(14px*var(--ps)) calc(16px*var(--ps))">
+                    <sc-if value="{{i.hasSec}}"><p style="margin:0 0 6px;font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{i.sec}}</p></sc-if>
+                    <blockquote style="margin:0;padding:2px 0 2px calc(12px*var(--ps));border-left:3px solid var(--line-2);font-size:calc(14px*var(--fs));line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere"><sc-if value="{{i.hasLead}}"><span>“{{i.lead}} …”<br></span></sc-if>“{{i.q}}”</blockquote>
+                    <sc-if value="{{i.hasU}}"><a href="{{i.u}}" target="_blank" rel="noopener" style="margin-top:6px;font-weight:700;font-size:calc(13.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Official text ↗</a></sc-if>
+                  </div>
+                </details>
+              </li></sc-for>
+            </ul>
+          </div></sc-for>
+          <p style="margin:0;font-size:calc(13px*var(--fs));line-height:1.5;color:var(--ink-3)">Each line is a plain-English summary written automatically and checked against the official text; open it to see the bill's exact words. Not legal advice.</p>
+        </sc-if>
+        <sc-if value="{{showMechText}}">
           <h2 id="b-mech" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">What it does</h2>
           <div style="padding:calc(22px*var(--ps));border-radius:min(22px,var(--r));background:var(--surface);border:1px solid var(--line)"><p style="margin:0;font-size:calc(17px*var(--fs));line-height:1.6;text-wrap:pretty;overflow-wrap:anywhere">{{bMech}}</p><p style="margin:12px 0 0;font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-3)">The tracker’s own wording.</p></div>
         </sc-if>
@@ -1396,6 +1424,23 @@ class Component extends DCLogic {
       h('text', { key: 'lab', x: 200, y: 205, textAnchor: 'middle', fill: '#FFFFFF', fontSize: 'calc(13px*var(--fs))', fontWeight: 800 }, es.length + ' links'));
     return { cGraph, cName: nameOf(c), cHref: cid ? '#/bill/' + cid : '', cIsEntry: !!cid, cLines: lines, cNodes: nodes, cTypes: types, cN: es.length, cHubs: hubs, cEmpty: !es.length };
   }
+  // A new-bills entry (entry.plain, written by the pipeline's simple build): each line of what it does, who it covers, penalties and
+  // when it takes effect, with the bill's exact words one click away (the same "Exact words" disclosure as the duty rows). Entries
+  // without `plain` (every hand-written entry) are shown exactly as before. A facts-only entry shows a "description pending" note.
+  plainView(x) {
+    const p = x.raw && x.raw.plain;
+    if (!p) return { hasPlain: false, plainGroups: [], isFactsOnly: false };
+    if (p.facts_only) return { hasPlain: false, plainGroups: [], isFactsOnly: true };
+    const u = (x.srcLinks[0] || {}).u || '';
+    const it = (list) => (p.items[list] || []).map(i => ({ t: i.text, sec: i.sec || '', hasSec: !!i.sec, q: i.quote, lead: i.lead_in || '', hasLead: !!i.lead_in, u, hasU: !!u }));
+    const groups = [
+      { h: 'What it does', items: [...it('duties'), ...it('other_provisions')] },
+      { h: 'Who it covers', items: [...it('coverage'), ...it('definitions'), ...it('exclusions').map(i => ({ ...i, t: 'Excludes: ' + i.t }))] },
+      { h: 'Penalties and enforcement', items: it('penalties') },
+      { h: 'When it takes effect', items: it('effective') }
+    ].filter(g => g.items.length);
+    return { hasPlain: groups.length > 0, plainGroups: groups, isFactsOnly: false };
+  }
   // What the bill requires, from entry.duties (each answer carries its section and an exact quote that code has checked).
   dutyView(x) {
     const L = this.L, dts = x.raw && x.raw.duties;
@@ -1434,6 +1479,8 @@ class Component extends DCLogic {
       statusText: stx.text, hasStatusText: !!stx.text, statusLabel: x.raw && x.raw.verification && x.raw.verification.method === 'session' ? 'Status as recorded (read from the official record on ' + L.fmt(new Date(x.raw.verification.checked_at)) + '; added after the 15 Oct verification)' : 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
       relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0, bTl: tl, hasTl: tl.length > 0,
       ...this.dutyView(x),
+      ...this.plainView(x),
+      showMechText: !x.summary && !(x.raw && x.raw.plain),
       hasAutoBadge: !!x.raw && x.raw.origin !== 'authored', autoTitle: 'The latest official actions on this entry were added automatically from the official record and checked by code.',
       marks, hasMarks: marks.length > 0,
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',

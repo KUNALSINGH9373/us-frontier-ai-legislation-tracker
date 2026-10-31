@@ -4,6 +4,7 @@ import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
 import { SECTION_RULES, AUTO_CREATE_SECTIONS, statusFor, NEGATIVE_FINDING, stateSectionProblems, SECTION_MARKERS, SECTION_CRITERIA, quoteMeetsSection, FEDERAL_CHECKED_SECTIONS, fTitleOut } from '../agents/rules.mjs';
 import { subjectRefusals } from '../agents/record-kind.mjs';
+import { FACTS_ONLY_MECHANISM } from '../agents/newbill-entry.mjs';
 import { FACT_FIELDS, thresholdNumberProblems } from '../agents/checks.mjs';
 import { COSPONSOR_SUFFIX, cosponsorSuffix } from '../compare/congress.mjs';
 import { containsQuote } from '../agents/source-text.mjs';
@@ -100,7 +101,12 @@ export function checkNewEntry(e, ctx = {}) {
     if (!(x.legiscan || []).length || !e.identifiers.session) problems.push('a new state entry needs its LegiScan id and session in identifiers');
   } else if (rule && rule.level === 'federal' && (e.jurisdiction !== 'Federal' || e.state != null)) problems.push(`a federal entry has jurisdiction Federal and no state (has ${e.jurisdiction}/${e.state})`);
   if (e.origin !== 'automated' || !e.verification || e.verification.method !== 'agent') problems.push('not marked as written and checked by the pipeline');
-  READING_FIELDS.filter((f) => e[f] && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
+  // A facts-only new entry (agents/newbill.mjs) shows the fixed notice that its description is pending, not a claim about the bill, so
+  // that one sentence needs no quote; it still carries checked scope quotes and its section's proof, and nothing else may be written.
+  const factsOnly = e.plain && e.plain.facts_only === true && e.mechanism === FACTS_ONLY_MECHANISM && !e.thresholds && !e.penalties;
+  if (e.plain && e.plain.facts_only === true && !factsOnly) problems.push('a facts-only entry may carry only the pending-description notice');
+  READING_FIELDS.filter((f) => e[f] && !(factsOnly && f === 'mechanism') && !(e.evidence || []).some((x) => x.field === f && x.quote)).forEach((f) => problems.push(`no evidence quote for ${f}`));
+  if (factsOnly && !(e.evidence || []).some((x) => x.field === 'in_scope' && x.quote)) problems.push('a facts-only entry needs a checked scope quote');
   // A state section is published only with the referee's quote that shows that section's own criterion (agents/rules.mjs SECTION_CRITERIA);
   // tier-b.mjs checks that the quote is in the stored record.
   // Round 3: a federal D or F entry too (the federal sections' criteria; H.R. 10502, a report on agency use of AI, meets neither).

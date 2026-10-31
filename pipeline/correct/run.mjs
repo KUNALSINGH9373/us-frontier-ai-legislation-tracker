@@ -78,13 +78,13 @@ export async function correctRun({ dataDir, docsDir = null, stateFile = STATE_FI
   const reviewer = factory.make('reviewer'), confirmer = factory.make('confirmer');
   if (!reviewer || !confirmer) return { ...rep, skipped_why: `${factory.keyName} is not set` };
   const results = [], newState = {};
-  let serviceErrors = 0;
+  let serviceErrors = 0, stoppedEarly = false;
   for (const c of picked) {
     let r;
     try { r = await reviewEntry({ reviewer, confirmer, entry: c.entry, text: c.text, url: c.url, otherBills: otherBills(c.key, ic, il), mapped: mappedIds(c.key, ic, il), log }); }
     catch (e) {
       if (!(e instanceof BudgetExceeded)) throw e;
-      if (e.scope !== 'item') { rep.problems.push(`stopped: ${e.message}`); break; }
+      if (e.scope !== 'item') { rep.problems.push(`stopped: ${e.message}`); stoppedEarly = true; break; }
       r = { outcome: 'error', corrections: [], rejected: [], reason: e.message }; // this entry used its own budget; retried later
     }
     results.push({ key: c.key, ...r });
@@ -92,7 +92,7 @@ export async function correctRun({ dataDir, docsDir = null, stateFile = STATE_FI
     rep.checked.push({ entry_key: c.key, why: c.why, outcome: r.outcome, ...(r.reason ? { reason: r.reason } : {}) });
     r.rejected.forEach((x) => rep.rejected.push({ entry_key: c.key, ...x }));
     serviceErrors = r.service_error ? serviceErrors + 1 : 0;
-    if (serviceErrors >= 2) { rep.problems.push('stopped: the model service failed twice in a row'); break; }
+    if (serviceErrors >= 2) { rep.problems.push('stopped: the model service failed twice in a row'); stoppedEarly = true; break; }
   }
 
   // 4. apply, then the publisher's stop rules; any problem means nothing is written and the entries are retried
@@ -110,9 +110,10 @@ export async function correctRun({ dataDir, docsDir = null, stateFile = STATE_FI
       if (!dry) { writeData(dataDir, after, DATA_KEYS); if (docsDir) writeData(docsDir, after, DATA_KEYS); }
     }
   }
-  // A hand-picked run (--only) records what it checked but does not count as the day's run.
+  // A hand-picked run (--only) records what it checked but does not count as the day's run. Neither does a run stopped before it
+  // checked what it picked (budget or service outage, E2): the next update run today picks up the rest instead of waiting a day.
   if (!dry) {
-    if (!only) state.last_run = today;
+    if (!only && !stoppedEarly) state.last_run = today;
     Object.assign(state.items, newState);
     fs.mkdirSync(path.dirname(stateFile), { recursive: true });
     const t = stateFile + '.tmp'; fs.writeFileSync(t, JSON.stringify(state, null, 1) + '\n'); fs.renameSync(t, stateFile);

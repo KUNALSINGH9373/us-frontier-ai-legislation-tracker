@@ -7,6 +7,10 @@
       "temperature": 0,
       "max_output_tokens": 4000
     },
+    "writer": { "model": "gemini-3.5-flash-lite", "temperature": 0, "max_output_tokens": 32000 },
+    "bill_reviewer": { "model": "gemini-3.5-flash-lite", "temperature": 0, "max_output_tokens": 32000 },
+    "scorer": { "model": "gemini-3.5-flash-lite", "temperature": 0, "max_output_tokens": 16000 },
+    "scope_judge": { "model": "gemini-3.5-flash-lite", "temperature": 0, "max_output_tokens": 8000 },
     "validator": {
       "model": "gemini-3.5-flash-lite",
       "temperature": 0,
@@ -75,6 +79,34 @@
         "model": "claude-opus-5-5",
         "max_output_tokens": 32000,
         "effort": "low"
+      },
+      "writer": {
+       "_note": "New bills (agents/newbill.mjs, owner 31 Oct 2026): reads the whole bill and writes every field of its page with the bill words behind each line. Medium effort: the hand tests used it.",
+       "model": "claude-sonnet-5-5",
+       "max_output_tokens": 32000,
+       "timeout_ms": 600000,
+       "effort": "medium"
+      },
+      "bill_reviewer": {
+       "_note": "New bills: the independent fact-check of the writer's entry (WRONG / MISLEADING / OMISSION, each proved by a bill quote that code finds). A wrong scope call it proves keeps the bill out. Must be a stronger model than the writer. Low effort (owner, 31 Oct 2026: cost).",
+       "model": "claude-opus-5-5",
+       "max_output_tokens": 32000,
+       "timeout_ms": 600000,
+       "effort": "low"
+      },
+      "scorer": {
+       "_note": "The new-bills eval only (eval/newbill-eval.mjs): an independent third reader that scores every published entry against the bill and the human reference note for the gate. Never runs in a daily update. Low effort (owner, 31 Oct 2026: cost).",
+       "model": "claude-opus-5-5",
+       "max_output_tokens": 16000,
+       "timeout_ms": 600000,
+       "effort": "low"
+      },
+      "scope_judge": {
+       "_note": "New bills: the separate scope check (agents/newbill.mjs, owner 31 Oct 2026), run when the writer says in scope and before the reviewer. A wrong scope call puts a whole wrong page on the site, and the low-effort reviewer missed one in the live run, so this one short call gets medium effort; its answer is small (one provision and its quote).",
+       "model": "claude-opus-5-5",
+       "max_output_tokens": 8000,
+       "timeout_ms": 600000,
+       "effort": "medium"
       },
       "reviewer": {
         "_note": "Self-correction (correct/): re-reads a bill against its current entry and lists errors and omissions, each with a quote.",

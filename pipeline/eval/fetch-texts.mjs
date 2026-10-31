@@ -13,6 +13,7 @@ import { createCongress } from '../grabber/sources/congress.mjs';
 import { createLegiScan } from '../grabber/sources/legiscan.mjs';
 import { createEntryTexts } from '../correct/texts.mjs';
 import { sha } from '../grabber/lib/run-common.mjs';
+import { stateNumbersOf } from '../agents/dedupe.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 loadEnv(P);
@@ -20,14 +21,13 @@ const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'ut
 const entries = readJson(path.join(P, '..', 'web', 'data', 'v2', 'entries.json'));
 const ic = readJson(path.join(P, 'config', 'identifiers.json')).congress_gov;
 const il = readJson(path.join(P, 'config', 'identifiers-legiscan.json')).legiscan;
-// Excluded entries (section J) give the scope test its "no" answers. Bill numbers from the entries; looked up by session.
-const J_BILLS = {
-  'pa-h-b-2705': ['PA', 'HB2705'], 'texas-traiga-hb-149': ['TX', 'HB149'], 'washington-sb-5395': ['WA', 'SB5395'],
-  'ca-sb-1119-adam-s-law-and-sb-867': ['CA', 'SB1119'], 'nj-s-1802': ['NJ', 'S1802'],
-  'ny-s10642-a11560-responsible-data-center-development-act-and': ['NY', 'S10642'], 'mi-sb-757-760-kids-over-clicks': ['MI', 'SB757'],
-  // Failed state bills the tracker lists but does not follow (no LegiScan mapping); fetched for the duty backfill.
-  'tn-hb-1898-sb-2171': ['TN', 'HB1898'], 'ut-hb-286': ['UT', 'HB286'], 'la-sb-474': ['LA', 'SB474'], 'ny-s-10701-terminator-act-withdrawn': ['NY', 'S10701']
-};
+// Bills the tracker lists but does not follow (excluded section J entries, failed state bills with no LegiScan mapping) give the scope
+// test its "no" answers and the duty backfill its texts. Each is looked up by its first bill number, read from the entry the same way
+// agents/dedupe.mjs reads bill numbers (stateNumbersOf), so no list is kept by hand.
+const mapped = (e) => (ic[e.key] && (ic[e.key].congress_gov || []).length) || il[e.key];
+const isStateBill = (e) => e.section === 'J' || (e.level === 'state' && ['bill', 'auditor'].includes(e.type));
+const J_BILLS = Object.fromEntries(entries.filter((e) => e.origin === 'authored' && !mapped(e) && isStateBill(e))
+  .map((e) => [e.key, stateNumbersOf(e)[0]]).filter(([, n]) => n).map(([k, n]) => [k, n.split(':')]));
 const only = (() => { const i = process.argv.indexOf('--only'); return i > 0 ? process.argv[i + 1].split(',') : null; })();
 const outDir = path.join(P, 'data', 'eval', 'texts'), cacheDir = path.join(P, 'data', 'text-cache');
 fs.mkdirSync(outDir, { recursive: true });

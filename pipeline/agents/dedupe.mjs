@@ -8,6 +8,7 @@
 //     other-chamber twin, an earlier session's version, or the bill an amendment was folded into;
 //   - Congress.gov related bills marked "Identical bill" (raw.related_bills, when the grabber stored them);
 //   - a state bill whose own text names a tracked bill of the same state ("If and only if Senate Bill 315 ... becomes law ... is amended").
+import { PIPELINE } from './pipeline-config.mjs';
 import { billNumbersIn, normNumber } from '../grabber/sources/legiscan.mjs';
 
 export const STATES = { AL: 'Alabama', AK: 'Alaska', AZ: 'Arizona', AR: 'Arkansas', CA: 'California', CO: 'Colorado', CT: 'Connecticut', DE: 'Delaware', FL: 'Florida', GA: 'Georgia', HI: 'Hawaii', ID: 'Idaho', IL: 'Illinois', IN: 'Indiana', IA: 'Iowa', KS: 'Kansas', KY: 'Kentucky', LA: 'Louisiana', ME: 'Maine', MD: 'Maryland', MA: 'Massachusetts', MI: 'Michigan', MN: 'Minnesota', MS: 'Mississippi', MO: 'Missouri', MT: 'Montana', NE: 'Nebraska', NV: 'Nevada', NH: 'New Hampshire', NJ: 'New Jersey', NM: 'New Mexico', NY: 'New York', NC: 'North Carolina', ND: 'North Dakota', OH: 'Ohio', OK: 'Oklahoma', OR: 'Oregon', PA: 'Pennsylvania', RI: 'Rhode Island', SC: 'South Carolina', SD: 'South Dakota', TN: 'Tennessee', TX: 'Texas', UT: 'Utah', VT: 'Vermont', VA: 'Virginia', WA: 'Washington', WV: 'West Virginia', WI: 'Wisconsin', WY: 'Wyoming', DC: 'District of Columbia', PR: 'Puerto Rico' };
@@ -146,7 +147,7 @@ export function duplicateOf({ item, raw = {}, idx }) {
     // Its history points at another bill ("See S3178", "Substituted by HB 12"): an amendment or substitute folded into that bill.
     for (const h of b.history || []) for (const n of numbersIn(h.action)) if (n !== own && idx.numbers.has(`${st}:${n}`) && /\b(see|substitut|replaced|amend|companion|identical|similar)/i.test(h.action)) return { key: idx.numbers.get(`${st}:${n}`), why: `its history points at a tracked bill ("${h.action}")` };
     // Its own text names a tracked bill of the same state (an amendment to it, or a bill that depends on it becoming law).
-    for (const n of [...textBillNumbers(raw.text), ...numbersIn(String(raw.text || '').slice(0, 3000))]) if (n !== own && !numberAliases(`${st}:${n}`).includes(`${st}:${own}`) && idx.numbers.has(`${st}:${normNumber(n)}`)) return { key: idx.numbers.get(`${st}:${normNumber(n)}`), why: `its text names a tracked bill (${st} ${normNumber(n)}); it may amend it or depend on it` };
+    for (const n of [...textBillNumbers(raw.text), ...numbersIn(String(raw.text || '').slice(0, PIPELINE.dedupe.text_head_chars))]) if (n !== own && !numberAliases(`${st}:${n}`).includes(`${st}:${own}`) && idx.numbers.has(`${st}:${normNumber(n)}`)) return { key: idx.numbers.get(`${st}:${normNumber(n)}`), why: `its text names a tracked bill (${st} ${normNumber(n)}); it may amend it or depend on it` };
     // Round 4: a companion or refile with no LegiScan link and another number: the same official title as a tracked entry of the same
     // state, in an overlapping session (or an entry that states no years). Possible duplicate, never created, reported.
     const s = b.session || {}, from = +s.year_start || null, to = +s.year_end || from;

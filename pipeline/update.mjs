@@ -319,8 +319,11 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   // latest full test-set report for the production model meets eval_bar (eval/gate.mjs); otherwise it is OFF for this run, and why is
   // written in the run report. config/publish.json itself is never changed.
   const { config, gate: gateNow, off: gatedOff } = applyGate(publishConfig, models, deps.gateInputs);
-  rep.gate = { model: gateNow ? gateNow.model : null, report: gateNow ? gateNow.report : null, off: gatedOff };
+  const overridden = gateNow && gateNow.fields ? Object.entries(gateNow.fields).filter(([, x]) => x.on && x.override).map(([field, x]) => ({ field, ...x.override })) : [];
+  rep.gate = { model: gateNow ? gateNow.model : null, report: gateNow ? gateNow.report : null, off: gatedOff, overridden };
   gatedOff.forEach((x) => rep.notes.push(`auto_publish.${x.field} is on in config/publish.json but treated as OFF this run: ${x.why}`));
+  // an owner's override is reported on every run, so it is never forgotten (config/publish.json gate_override)
+  overridden.forEach((x) => rep.notes.push(`auto_publish.${x.field} is ON by owner override (${x.by}, ${x.date}${x.reason ? `: ${x.reason}` : ''}), without a passing test report; remove gate_override.${x.field} in config/publish.json to restore the gate`));
   const scrub = scrubWith(env), today = startedAt.toISOString().slice(0, 10);
   const git = deps.git || runGit, parity = deps.parity || defaultParity(P);
   const usageFile = path.join(P.stateDir, path.basename(LEGISCAN_USAGE_FILE)), ledgerDir = path.join(P.stateDir, path.basename(LEDGER_DIR));

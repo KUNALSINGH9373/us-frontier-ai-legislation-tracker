@@ -2,7 +2,7 @@
 // the confirmer (a stronger model) must agree -> the correction is returned for apply.mjs. Nothing is written here.
 // Only reading fields can change (mechanism, thresholds, and penalties in section A, where that field is used); everything the
 // official record states exactly (title, sponsor, status, dates, events) is code's and is never touched.
-import { REVIEWER_SYSTEM, reviewerPrompt, CONFIRMER_SYSTEM, confirmerPrompt } from './prompts.mjs';
+import { REVIEWER_SYSTEM, reviewerPrompt, CONFIRMER_SYSTEM, confirmerPrompt, REVIEWER_SCHEMA, CONFIRMER_SCHEMA } from './prompts.mjs';
 import { textProblems, foreignLetters } from '../agents/checks.mjs';
 import { containsQuote, digitRuns, norm } from '../agents/source-text.mjs';
 import { NEGATIVE_FINDING } from '../agents/rules.mjs';
@@ -165,7 +165,7 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
   }
   try {
     let r;
-    try { r = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills, multiBill }), itemId }); }
+    try { r = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills, multiBill }), responseSchema: REVIEWER_SCHEMA, itemId }); }
     catch (e) { if (e instanceof LlmOutputError) return { ...out, outcome: 'error', reason: `the reader gave an unusable answer: ${e.message}` }; throw e; }
     const proposed = ((r.data && r.data.corrections) || []).filter((c) => c && typeof c === 'object');
     const seen = new Set(), failed = [];
@@ -180,7 +180,7 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
     if (failed.length) {
       let again = [];
       try {
-        const r2 = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills, multiBill }) + `\n\nYOUR PREVIOUS CORRECTIONS WERE REFUSED BY CODE. Return corrected versions of ONLY these fields, fixing exactly these problems (or leave a field out if it cannot be fixed):\n${failed.map((f) => `- ${f.c.field}: ${f.problems.join('; ')}\n  your text was: ${String(f.c.new_text || '').slice(0, 1200)}`).join('\n')}`, itemId: itemId + ':rewrite' });
+        const r2 = await reviewer.generate({ system: REVIEWER_SYSTEM, prompt: reviewerPrompt({ entry, fields, source: read, url, otherBills, multiBill }) + `\n\nYOUR PREVIOUS CORRECTIONS WERE REFUSED BY CODE. Return corrected versions of ONLY these fields, fixing exactly these problems (or leave a field out if it cannot be fixed):\n${failed.map((f) => `- ${f.c.field}: ${f.problems.join('; ')}\n  your text was: ${String(f.c.new_text || '').slice(0, 1200)}`).join('\n')}`, responseSchema: REVIEWER_SCHEMA, itemId: itemId + ':rewrite' });
         again = ((r2.data && r2.data.corrections) || []).filter((c) => c && typeof c === 'object');
       } catch (e) { if (!(e instanceof LlmOutputError)) throw e; }
       for (const f of failed) {
@@ -203,7 +203,7 @@ export async function reviewEntry({ reviewer, confirmer, entry, text, url, other
   async function confirm(c) {
     let v;
     // Each confirmation is its own item for the per-item token budget: a long bill sends its whole text once per proposed field.
-    try { v = await confirmer.generate({ system: CONFIRMER_SYSTEM, prompt: confirmerPrompt({ source: read, field: c.field, current: entry[c.field], proposed: c.new_text.trim(), problem: c.problem || '' }), itemId: `${itemId}:${c.field}` }); }
+    try { v = await confirmer.generate({ system: CONFIRMER_SYSTEM, prompt: confirmerPrompt({ source: read, field: c.field, current: entry[c.field], proposed: c.new_text.trim(), problem: c.problem || '' }), responseSchema: CONFIRMER_SCHEMA, itemId: `${itemId}:${c.field}` }); }
     catch (e) { if (!(e instanceof LlmOutputError)) throw e; out.rejected.push({ field: c.field, problem: c.problem || '', why: `the confirmer gave an unusable answer (${e.message})` }); return; }
     const d = v.data || {};
     if (d.confirmed !== true) { out.rejected.push({ field: c.field, problem: c.problem || '', why: 'not confirmed: ' + String(d.reason || 'no reason given').slice(0, 300) }); log(`${entry.key} ${c.field}: not confirmed`); return; }

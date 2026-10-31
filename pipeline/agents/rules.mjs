@@ -1,5 +1,6 @@
 // The tracker's own classification rules, written once and applied by code. The LLM may suggest a section,
 // but status, type, level and confidence are decided here, so they cannot drift or be talked into something.
+import { loose, LOST_EXPONENT, COMPUTE_POWER_PHRASE } from './text-norm.mjs';
 
 // Which sections the pipeline may create new entries in. Everything else is never auto-created (reported as a proposal). State bills (LegiScan) go in A, B, B.2 or C:
 // the four state sections whose entries are bills or laws, with a status the record gives (agents/derive.mjs stateSections decides which
@@ -69,11 +70,11 @@ export function frontierDutyPassage(text) {
 // criterion (quoteMeetsSection), or the entry is held.
 // A lost superscript ("10.26 computational operations", "1026 operations") still marks a compute threshold here: it is the bill's own
 // threshold misprinted, and the numeric check (agents/checks.mjs thresholdNumberProblems) keeps it out of any field until normalised.
-// Round 3: PDF-split words ("cove red model", "floa ting - point") are matched by loose(): one optional space between any two letters.
+// Round 3: PDF-split words ("cove red model", "floa ting - point") are matched by loose() (agents/text-norm.mjs): one optional space
+// between any two letters. The lost exponent and the power in words are text-norm's single patterns, shared with every check.
 // "Covered model" (NC S735, the SB 1047 family) and a threshold in words ("10 to the 26th power", "10 to the power of 25") count too.
-const loose = (w) => [...w].map((c, i) => (c === '-' ? String.raw`\s?[- ]?\s?` : c + (i < w.length - 1 && w[i + 1] !== '-' ? String.raw`\s?` : ''))).join('');
-const THRESHOLD_SRC = [String.raw`\b(?:large\s+)?frontier\s+(?:developers?|models?|artificial\s+intelligence)\b`, String.raw`\b10\s?\^\s?2\d\b`, String.raw`\b10[.,]?2\d\s+(?:integer|floating|computational|operations)`,
-  String.raw`\b10\s+to\s+the\s+(?:power\s+of\s+)?2\d(?:st|nd|rd|th)?\b`, String.raw`\b${loose('floating-point')}\s+${loose('operations')}`, String.raw`\bcomputational\s+operations\b`, String.raw`\bFLOPs?\b`,
+const THRESHOLD_SRC = [String.raw`\b(?:large\s+)?frontier\s+(?:developers?|models?|artificial\s+intelligence)\b`, String.raw`\b10\s?\^\s?2\d\b`, LOST_EXPONENT.source,
+  COMPUTE_POWER_PHRASE, String.raw`\b${loose('floating-point')}\s+${loose('operations')}`, String.raw`\bcomputational\s+operations\b`, String.raw`\bFLOPs?\b`,
   String.raw`\b${loose('large')}\s+${loose('developer')}s?\b`, String.raw`\b${loose('covered')}\s+(?:frontier\s+)?${loose('model')}s?\b`, String.raw`\b${loose('frontier')}\s+${loose('model')}s?\b`].join('|');
 const CATASTROPHIC_SRC = String.raw`\bcatastrophic\s+risks?\b|\bcritical\s+(?:safety\s+)?(?:harms?|risks?|incidents?)\b|\bmass\s+casualt\w*|\bchemical,?\s+biological\b|\bweapons?\s+of\s+mass\s+destruction\b|\bloss\s+of\s+control\b`;
 // C must be about AI: an auditor or verification-organization term counts only with an AI term near it (NJ S1927's compost "third-party
@@ -163,7 +164,7 @@ function dutyNear(t, src, duty, { ai = false } = {}) {
 // figure (10^26, "10 to the 26th power", "10.26 operations" with its superscript lost, a number of floating-point operations or FLOPs) or
 // a definition of the regulated term ('"frontier model" means', '"large developer" has the meaning', "Covered model. An artificial
 // intelligence model ..."), with a binding duty near it, as before.
-const NUM_THRESHOLD_SRC = [String.raw`\b10\s?\^\s?2\d\b`, String.raw`\b10[.,]?\s?2\d\s+(?:integer|floating|computational|operations)`, String.raw`\b10\s+to\s+the\s+(?:power\s+of\s+)?2\d(?:st|nd|rd|th)?\b`,
+const NUM_THRESHOLD_SRC = [String.raw`\b10\s?\^\s?2\d\b`, LOST_EXPONENT.source, COMPUTE_POWER_PHRASE,
   String.raw`\d[\d,.]*\s*(?:x\s*10\s?\^?\s?\d+\s*)?(?:(?:integer|computational)\s+or\s+)?${loose('floating-point')}\s+${loose('operations')}(?!\s+per\s+second)`, String.raw`\d[\d,.]*\s+FLOPs?\b`].join('|');
 // State A/B: frontier, large-developer and covered-model terms; federal D also counts "advanced AI" models or systems (S. 5417). An
 // "advanced artificial intelligence system" licence in a state bill (NY A03356) is not a frontier threshold.

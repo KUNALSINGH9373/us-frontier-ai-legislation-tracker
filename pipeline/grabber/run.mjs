@@ -10,6 +10,7 @@
 //                                             when the whole run succeeded (the LegiScan usage counter and the AI ledger are always the real ones)
 //   node grabber/run.mjs --source legiscan [--dry-run] [--no-search] [--only precise,yes] [--max-candidates N] [--legiscan-bill <bill_id>]   state bills (see run-legiscan.mjs)
 import fs from 'fs';
+import { congressOn, congressesBetween } from '../lib/congress.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadEnv } from './lib/env.mjs';
@@ -27,7 +28,9 @@ import { sha, isoZ, makeRunId, saveRaw, writeChangeset } from './lib/run-common.
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
 export const DATA_CUTOFF = '2026-09-29T00:00:00Z'; // the tracker's last verified date: nothing before this is re-examined
-export const CONGRESS = 119; // the current Congress: every tracked bill and every candidate belongs to it
+// The current Congress (lib/congress.mjs, from today's date: 119 until 2 Jan 2027, 120 from 3 Jan 2027). Discovery lists every Congress
+// the run's window touches, so a run spanning 3 January reads the closing Congress and the new one.
+export const CONGRESS = congressOn(new Date());
 const hashOf = (b) => sha(JSON.stringify([b.updateDate, b.updateDateIncludingText, b.latestAction && b.latestAction.actionDate, b.latestAction && b.latestAction.text]));
 const safeName = (id) => id.replace(/\//g, '-');
 const MAX_TEXT = 1_500_000; // characters of bill text kept
@@ -92,7 +95,7 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
       for (const id of bills) { const ref = parseBillId(id); if (!ref) throw new Error(`not a bill id: ${id}`); await collect(ref, 'reconcile', tracked.get(id)); }
     } else {
       const onFallback = (f) => { stats.list_fallback = true; stats.fallback_pages = f.pages; log(`fallback used: ${f.reason}; read ${f.pages} page(s) of the plain list instead (${f.bills} bill(s) in the window)`); };
-      for await (const b of congress.listUpdated({ from, to, congress: CONGRESS, onFallback })) {
+      for (const congressNo of congressesBetween(from, to)) for await (const b of congress.listUpdated({ from, to, congress: congressNo, onFallback })) {
         stats.listed++;
         const ref = { congress: b.congress, type: String(b.type).toLowerCase(), number: b.number }, id = billId(ref);
         const newHash = hashOf(b);
