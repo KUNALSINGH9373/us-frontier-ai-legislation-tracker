@@ -682,6 +682,28 @@
    "column": 4,
    "kind": "entry",
    "entry_key": "pa-h-r-637-frontier-ai-resolution"
+  },
+  "act-gillibrand": {
+   "name": "Sen. Kirsten Gillibrand (D-NY)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "act-harrigan": {
+   "name": "Rep. Pat Harrigan (R-NC)",
+   "column": 0,
+   "kind": "actor"
+  },
+  "S10731": {
+   "name": "NY S.10731 (RAISE Act amendments)",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ny-s-10731-raise-act-2-0"
+  },
+  "PAHB2829": {
+   "name": "PA H.B. 2829",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "pa-h-b-2829-frontier-ai"
   }
  },
  "edges": [
@@ -1528,7 +1550,7 @@
    "to": "FRONTIER",
    "type": "actor",
    "label": "Lead sponsor",
-   "quote": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
+   "quote": "Rep. Jay Obernolte (R-CA), sponsor; original cosponsors Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
    "src": "FRONTIER",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1537,8 +1559,8 @@
    "from": "act-trahan",
    "to": "FRONTIER",
    "type": "actor",
-   "label": "Sponsor",
-   "quote": "Reps. Jay Obernolte (R-CA), Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
+   "label": "Original cosponsor (Democratic co-lead)",
+   "quote": "Rep. Jay Obernolte (R-CA), sponsor; original cosponsors Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA)",
    "src": "FRONTIER",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1597,8 +1619,8 @@
    "from": "act-moran",
    "to": "HR9917",
    "type": "actor",
-   "label": "Sponsor with Lieu",
-   "quote": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX)",
+   "label": "Original cosponsor",
+   "quote": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor",
    "src": "HR9917",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1608,7 +1630,7 @@
    "to": "HR9917",
    "type": "actor",
    "label": "Sponsor with Moran",
-   "quote": "Reps. Ted Lieu (D-CA), Nathaniel Moran (R-TX)",
+   "quote": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor",
    "src": "HR9917",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1617,8 +1639,8 @@
    "from": "act-moran",
    "to": "HR10189",
    "type": "actor",
-   "label": "Sponsor",
-   "quote": "Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX), George Whitesides (D-CA)",
+   "label": "Original cosponsor",
+   "quote": "Rep. Sara Jacobs (D-CA), sponsor; Reps. Nathaniel Moran (R-TX) and George Whitesides (D-CA), original cosponsors",
    "src": "HR10189",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1628,7 +1650,7 @@
    "to": "HR10189",
    "type": "actor",
    "label": "Sponsor",
-   "quote": "Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX), George Whitesides (D-CA)",
+   "quote": "Rep. Sara Jacobs (D-CA), sponsor; Reps. Nathaniel Moran (R-TX) and George Whitesides (D-CA), original cosponsors",
    "src": "HR10189",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1637,8 +1659,8 @@
    "from": "act-whitesides",
    "to": "HR10189",
    "type": "actor",
-   "label": "Sponsor",
-   "quote": "Reps. Sara Jacobs (D-CA), Nathaniel Moran (R-TX), George Whitesides (D-CA)",
+   "label": "Original cosponsor",
+   "quote": "Rep. Sara Jacobs (D-CA), sponsor; Reps. Nathaniel Moran (R-TX) and George Whitesides (D-CA), original cosponsors",
    "src": "HR10189",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1647,8 +1669,8 @@
    "from": "act-jacobs",
    "to": "HR9965",
    "type": "actor",
-   "label": "Sponsor",
-   "quote": "Reps. Celeste Maloy (R-UT), Sara Jacobs (D-CA)",
+   "label": "Original cosponsor",
+   "quote": "cosponsors Sara Jacobs (D-CA, original)",
    "src": "HR9965",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1658,7 +1680,7 @@
    "to": "HR10180",
    "type": "actor",
    "label": "Sponsor",
-   "quote": "Reps. George Whitesides (D-CA), Pat Harrigan (R-NC)",
+   "quote": "Rep. George Whitesides (D-CA), sponsor; Rep. Pat Harrigan (R-NC), original cosponsor",
    "src": "HR10180",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1678,7 +1700,7 @@
    "to": "S2938",
    "type": "actor",
    "label": "Sponsor",
-   "quote": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
+   "quote": "Sen. Josh Hawley (R-MO), sponsor; cosponsors Sen. Richard Blumenthal (D-CT, original) and Sen. Marsha Blackburn (R-TN, added Mar 19, 2026)",
    "src": "S2938",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1687,8 +1709,8 @@
    "from": "act-blumenthal",
    "to": "S2938",
    "type": "actor",
-   "label": "Sponsor",
-   "quote": "Sens. Josh Hawley (R-MO), Richard Blumenthal (D-CT)",
+   "label": "Original cosponsor",
+   "quote": "Sen. Josh Hawley (R-MO), sponsor; cosponsors Sen. Richard Blumenthal (D-CT, original) and Sen. Marsha Blackburn (R-TN, added Mar 19, 2026)",
    "src": "S2938",
    "col": "Sponsor(s)",
    "origin": "authored"
@@ -1972,7 +1994,7 @@
    "to": "SB315",
    "type": "executive",
    "label": "Implementation context for SB 315",
-   "quote": "The order cites the AI Safety Measures Act (SB 315) and its framework, annual-audit and 72-hour incident-reporting duties",
+   "quote": "The order cites the AI Safety Measures Act (the order gives no bill number; SB 315 is the tracker's identification)",
    "src": "ILEO",
    "col": "What it does",
    "origin": "authored"
@@ -1991,8 +2013,8 @@
    "from": "act-anthropic",
    "to": "DCCIR",
    "type": "actor",
-   "label": "Petitioner; considering further review",
-   "quote": "Anthropic: \"considering all options, including further review\"",
+   "label": "Party; petitioned for rehearing en banc (Oct 2026)",
+   "quote": "In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc",
    "src": "DCCIR",
    "col": "Status",
    "origin": "authored"
@@ -2001,8 +2023,8 @@
    "from": "OVERWATCH",
    "to": "CHIPSEC",
    "type": "succession",
-   "label": "Both ride the Senate NDAA manager's package",
-   "quote": "in the Senate NDAA manager's package as SA 6575 (July 14, 2026)",
+   "label": "Both offered as amendments to the Senate FY2027 NDAA (S. 4784)",
+   "quote": "in the Senate NDAA manager's package as SA 6575",
    "dashed": true,
    "src": "OVERWATCH",
    "col": "Date / status",
@@ -2122,6 +2144,136 @@
    "src": "S5601",
    "col": "Core mechanism",
    "origin": "authored"
+  },
+  {
+   "origin": "authored",
+   "from": "act-blackburn",
+   "to": "S2938",
+   "type": "actor",
+   "label": "Cosponsor (added Mar 19, 2026)",
+   "quote": "Sen. Josh Hawley (R-MO), sponsor; cosponsors Sen. Richard Blumenthal (D-CT, original) and Sen. Marsha Blackburn (R-TN, added Mar 19, 2026)",
+   "src": "S2938",
+   "col": "Sponsor(s)"
+  },
+  {
+   "origin": "authored",
+   "from": "act-gillibrand",
+   "to": "S5601",
+   "type": "actor",
+   "label": "Original cosponsor",
+   "quote": "Sen. Kirsten Gillibrand (D-NY), original cosponsor",
+   "src": "S5601",
+   "col": "Sponsor"
+  },
+  {
+   "origin": "authored",
+   "from": "act-harrigan",
+   "to": "HR10180",
+   "type": "actor",
+   "label": "Original cosponsor",
+   "quote": "Rep. Pat Harrigan (R-NC), original cosponsor",
+   "src": "HR10180",
+   "col": "Sponsor"
+  },
+  {
+   "origin": "authored",
+   "from": "act-obernolte",
+   "to": "S1792",
+   "type": "actor",
+   "label": "Sponsor of House companion H.R. 3460",
+   "quote": "House companion H.R. 3460 by Rep. Jay Obernolte (R-CA)",
+   "src": "S1792",
+   "col": "Sponsor"
+  },
+  {
+   "origin": "authored",
+   "from": "act-jacobs",
+   "to": "CATSR",
+   "type": "actor",
+   "label": "House cosponsor (added Aug 31, 2026)",
+   "quote": "Jacobs (Aug 31)",
+   "src": "CATSR",
+   "col": "Status"
+  },
+  {
+   "origin": "authored",
+   "from": "SB813",
+   "to": "AB1405",
+   "type": "assurance",
+   "label": "Signed together Sept 9, 2026",
+   "quote": "today signed legislation (Senate Bill 813 and Assembly Bill 1405)",
+   "source_url": "https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/"
+  },
+  {
+   "origin": "authored",
+   "from": "OREO",
+   "to": "CAEO",
+   "type": "executive",
+   "label": "Both orders direct a frontier-model kill-switch assessment, five days apart",
+   "quote": "assess the viability of a 'kill switch' requirement for frontier AI models",
+   "source_url": "https://apps.oregon.gov/oregon-newsroom/OR/GOV/Posts/Post/governor-kotek-issues-executive-order-to-advance-ai-safety-and-oversight"
+  },
+  {
+   "origin": "authored",
+   "from": "act-gounardes",
+   "to": "S10731",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Gounardes with co-sponsor Sen. Fahy",
+   "src": "S10731",
+   "col": "Sponsor"
+  },
+  {
+   "origin": "authored",
+   "from": "RAISE",
+   "to": "S10731",
+   "type": "succession",
+   "label": "S.10731 amends the RAISE Act (Article 44-B)",
+   "quote": "Amends the RAISE Act (GBL Article 44-B as added by Chapter 96 of 2026)",
+   "src": "S10731",
+   "col": "Mechanism"
+  },
+  {
+   "origin": "authored",
+   "from": "S10456",
+   "to": "S10731",
+   "type": "succession",
+   "label": "Binding minimum framework standards, as S.10456 proposed",
+   "quote": "the office must adopt binding minimum standards for frameworks and mitigations by January 1, 2029 (§ 1422)",
+   "src": "S10731",
+   "col": "Mechanism",
+   "dashed": true
+  },
+  {
+   "origin": "authored",
+   "from": "S10373",
+   "to": "S10731",
+   "type": "assurance",
+   "label": "Third-party examination of developers, as S.10373 proposed",
+   "quote": "an annual frontier examiner compliance report plus continuous examination with reports every 90 days from April 1, 2028",
+   "src": "S10731",
+   "col": "Mechanism",
+   "dashed": true
+  },
+  {
+   "origin": "authored",
+   "from": "PAHB2800",
+   "to": "PAHB2829",
+   "type": "template",
+   "label": "Heard together Oct 19, 2026; both on the SB 53 pattern",
+   "quote": "public hearing with H.B. 2800 Oct 19, 2026",
+   "src": "PAHB2829",
+   "col": "Status"
+  },
+  {
+   "origin": "authored",
+   "from": "SB53",
+   "to": "PAHB2829",
+   "type": "template",
+   "label": "Free-standing act on the SB 53 pattern",
+   "quote": "Free-standing act on the SB 53 pattern",
+   "src": "PAHB2829",
+   "col": "Mechanism"
   }
  ]
 }
