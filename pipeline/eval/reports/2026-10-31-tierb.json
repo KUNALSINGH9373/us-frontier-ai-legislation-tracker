@@ -1,10 +1,10 @@
 {
  "measure": "tierb",
- "run_at": "2026-10-31T17:10:55.871Z",
- "checks_hash": "ff68635408f8fc5075f63df6f312f8bbf387b6d221e44eb06fdcab5ade53f0a9",
+ "run_at": "2026-10-31T17:43:06.462Z",
+ "checks_hash": "3aa481214e52a0c1917edf3234f87074097a86c0e287852e3d31ffc2894b3ef3",
  "cases": 39,
  "wrong": 0,
- "missed": 1,
+ "missed": 5,
  "partial": false,
  "rows": [
   {
@@ -46,11 +46,11 @@
   {
    "id": "NE-LB1083",
    "expect": "to_readers",
-   "stage": "readers",
+   "stage": "held",
    "created": null,
    "wrong": false,
-   "missed": false,
-   "why": ""
+   "missed": true,
+   "why": "already tracked (an entry covers NE LB1083) (entry ne-lb-1083): not created; the id belongs on that entry"
   },
   {
    "id": "CT-HB5222",
@@ -64,11 +64,11 @@
   {
    "id": "AZ-HB4098",
    "expect": "not_created",
-   "stage": "readers",
+   "stage": "held",
    "created": null,
    "wrong": false,
    "missed": false,
-   "why": "not proved: no evidence quote showing section B's criterion (a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large develop"
+   "why": "already tracked (an entry covers AZ HB4098) (entry az-hb-4098): not created; the id belongs on that entry"
   },
   {
    "id": "NJ-A2478",
@@ -118,11 +118,11 @@
   {
    "id": "NE-LB1083-r2",
    "expect": "to_readers",
-   "stage": "readers",
+   "stage": "held",
    "created": null,
    "wrong": false,
-   "missed": false,
-   "why": ""
+   "missed": true,
+   "why": "already tracked (an entry covers NE LB1083) (entry ne-lb-1083): not created; the id belongs on that entry"
   },
   {
    "id": "PA-HB2829",
@@ -158,7 +158,7 @@
    "created": null,
    "wrong": false,
    "missed": false,
-   "why": "LegiScan links it to a tracked bill (Refiled S6953) (entry ny-raise-act-ch-699-ch-96): not created; the id belongs on that entry"
+   "why": "already tracked (an entry covers NE LB1083) (entry ne-lb-1083): not created; the id belongs on that entry"
   },
   {
    "id": "KS-HR6023-typed-bill",
@@ -176,7 +176,7 @@
    "created": null,
    "wrong": false,
    "missed": false,
-   "why": "already tracked (an entry covers NE LB1083) (entry hand-written-test-entry): not created; the id belongs on that entry"
+   "why": "already tracked (an entry covers NE LB1083) (entry ne-lb-1083): not created; the id belongs on that entry"
   },
   {
    "id": "CA-SB833",
@@ -311,7 +311,7 @@
    "created": null,
    "wrong": false,
    "missed": false,
-   "why": "already tracked (an entry covers NY A8833) (entry round4-test-entry): not created; the id belongs on that entry"
+   "why": "already tracked (an entry covers NY A8833) (entry ny-a-8833): not created; the id belongs on that entry"
   },
   {
    "id": "HR10152-figure-not-in-quote",
@@ -334,20 +334,20 @@
   {
    "id": "NY-A08833",
    "expect": "to_readers",
-   "stage": "readers",
+   "stage": "held",
    "created": null,
    "wrong": false,
-   "missed": false,
-   "why": ""
+   "missed": true,
+   "why": "already tracked (an entry covers NY A8833) (entry ny-a-8833): not created; the id belongs on that entry"
   },
   {
    "id": "NC-S735",
    "expect": "to_readers",
-   "stage": "readers",
+   "stage": "held",
    "created": null,
    "wrong": false,
-   "missed": false,
-   "why": ""
+   "missed": true,
+   "why": "already tracked (an entry covers NC S735) (entry nc-s-735): not created; the id belongs on that entry"
   },
   {
    "id": "VT-H0341",
