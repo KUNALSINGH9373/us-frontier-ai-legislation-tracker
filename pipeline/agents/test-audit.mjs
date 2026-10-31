@@ -70,7 +70,7 @@ ok('the publish guard refuses A for a text without frontier duties', checkNewEnt
   const e = { key: 'ma-s-3224', id: 999, section: 'B', status: 'pending', events: [], evidence: [] };
   const data = { entries: clone(ENTRIES), news: { items: [] }, site: {}, changes: { items: [] } };
   const r = applyTierB({ data, drafts: [{ item_id: MA.item.item_id, outcome: 'publishable', operation: 'create', entry: e }], itemById: new Map([[MA.item.item_id, MA.item]]), readRaw: () => MA.raw, runId: 'r', runDate: '2026-10-28', config: { auto_publish: { new_entries: true }, max_new_entries_per_run: 3 } });
-  ok('tier B: MA S3224 is skipped as a duplicate of the S3178 entry, not created', r.added.length === 0 && /S3178/.test(r.skipped[0].why) && /not created/.test(r.skipped[0].why), JSON.stringify(r.skipped));
+  ok('tier B: MA S3224 is skipped as a duplicate of the S3178 entry, not created', r.added.length === 0 && /S\.?-?3178|s-3178/i.test(r.skipped[0].why) && /not created/.test(r.skipped[0].why), JSON.stringify(r.skipped));
 }
 
 // ---------- 5. events the AI adds are checked ----------

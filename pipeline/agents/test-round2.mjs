@@ -24,6 +24,10 @@ const J = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 const SET = path.join(here, '..', 'eval', 'tierb-set');
 const rec = (n) => J(path.join(SET, 'records', n + '.json')), draft = (n) => J(path.join(SET, 'drafts', n + '.json'));
 const ENTRIES = J(path.join(here, '..', '..', 'web', 'data', 'v2', 'entries.json'));
+// The live site data without any entry that already tracks this record (by its LegiScan id, or its state and number in the entry's key),
+// for a test that uses a real bill as an example NEW bill: the test keeps measuring what it means to as the site adds bills (AZ H.B. 4098
+// was added by hand on 31 Oct 2026, and the duplicate check then held it before the step this test checks).
+const asNew = (r) => { const b = (r.raw && r.raw.bill) || {}, tag = `${b.state || ''}${b.bill_number || ''}`.toLowerCase(); return ENTRIES.filter((e) => !(((e.identifiers || {}).external || {}).legiscan || []).map(String).includes(String(r.item.source_id)) && !(tag && e.key.replace(/-/g, '').includes(tag))); };
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
 const scripted = (queue) => ({ calls: 0, async generate() { this.calls++; const r = queue.shift(); if (!r) throw new Error('unexpected AI call'); return { data: asSlots(typeof r === 'function' ? r() : r), usage: {} }; } });
@@ -86,7 +90,7 @@ const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate
   const claimsIn = (p) => [...p.matchAll(/^(\d+)\. \[([^\]]+)\]/gm)].map((m) => ({ n: +m[1], field: m[2] }));
   const val = (retryQuote) => ({ calls: 0, async generate(req) { this.calls++; const retry = /previous answer to this claim/.test(req.prompt); return { usage: {}, data: { results: claimsIn(req.prompt).map((c) => ({ n: c.n, supported: true, quote: c.field === 'in_scope' ? (retry ? retryQuote : 'words that are not in the bill at all') : 'shall submit a transparency report to the attorney general', reason: null })) } }; } });
   const refOut = scripted([{ results: [{ n: 1, supported: false, quote: null, reason: 'not about frontier AI' }] }]);
-  const out = await processItem({ generator: scripted([patch]), validator: val('also not in the bill'), referee: refOut, item: r.item, raw: r.raw, diff: diffOf(r.item), entries: ENTRIES, today: '2026-10-29', runId: 't' });
+  const out = await processItem({ generator: scripted([patch]), validator: val('also not in the bill'), referee: refOut, item: r.item, raw: r.raw, diff: diffOf(r.item), entries: asNew(r), today: '2026-10-29', runId: 't' });
   ok('5 a supported verdict with a failed quote: retry, then referee, then held and reported (not "out")', out.outcome === 'held' && /scope was not proved/.test(out.reason) && !!out.proposal && !/person/.test(out.reason), `${out.outcome} ${out.reason}`);
   const v2 = val('frontier model of artificial intelligence that is owned or operated by a large developer');
   const out2 = await processItem({ generator: scripted([patch, () => { throw new Error('stop'); }]), validator: v2, referee: scripted([{ results: [{ n: 1, supported: true, quote: 'frontier model of artificial intelligence that is owned or operated by a large developer', reason: null }] }, { results: [{ n: 1, supported: true, quote: 'frontier model of artificial intelligence that is owned or operated by a large developer', reason: null }] }]), item: r.item, raw: r.raw, diff: diffOf(r.item), entries: ENTRIES, today: '2026-10-29', runId: 't' }).catch((e) => ({ outcome: 'reached-duties', e }));
