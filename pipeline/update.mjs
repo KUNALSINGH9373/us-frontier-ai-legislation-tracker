@@ -46,7 +46,8 @@ import { formatReport } from './report/format.mjs';
 import { formatHtml } from './report/html.mjs';
 import { createTelegram, tokenFromEnv } from './notify/telegram.mjs';
 import { gatedPublishConfig, readGateInputs } from './eval/gate.mjs';
-import { loadActorIds } from './links/records.mjs';
+import { loadActorIds, loadRunRecords } from './links/records.mjs';
+import { linksMeasure, runSuite } from './eval/links-measure.mjs';
 
 const pipelineDir = path.dirname(fileURLToPath(import.meta.url)), root = path.resolve(pipelineDir, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -85,6 +86,25 @@ export function applyGate(config, models, inputs = null) {
     const off = Object.keys(out.auto_publish).filter((f) => out.auto_publish[f]).map((field) => ({ field, why }));
     off.forEach((x) => (out.auto_publish[x.field] = false));
     return { config: out, gate: null, off };
+  }
+}
+
+// The gate's inputs for this run. The relationships measure is tied to the site data it was made on (eval/hash.mjs), and the data
+// changes on most runs (Lane 1), so a report made by hand goes stale within hours and relationships would stay off for good. So when
+// the relationships switch is on, the links measure (code only, a few seconds) is run here on the data as it is at the start of the run,
+// and that fresh report replaces any older one: relationships publish exactly while the link finder is at zero wrong on today's network.
+// A measure that cannot be run leaves no fresh report (relationships off this run, with why). deps.gateInputs (tests) is used as given.
+export function gateInputsFor({ P, config, deps = {} }) {
+  if (deps.gateInputs) return { inputs: deps.gateInputs, links: null };
+  const inputs = readGateInputs();
+  if (!config || !config.auto_publish || !config.auto_publish.relationships || inputs.error) return { inputs, links: null };
+  try {
+    const read = (f) => JSON.parse(fs.readFileSync(path.join(P.dataDir, f), 'utf8'));
+    const entries = read('entries.json');
+    const rep = (deps.linksMeasure || linksMeasure)({ entries, relationships: read('relationships.json'), suite: (deps.runLinksSuite || runSuite)(), records: loadRunRecords(path.join(P.workDir, 'runs'), entries) });
+    return { inputs: { ...inputs, measures: [...(inputs.measures || []).filter((r) => r.measure !== 'links'), rep] }, links: rep };
+  } catch (err) {
+    return { inputs: { ...inputs, measures: (inputs.measures || []).filter((r) => r.measure !== 'links') }, links: null, linksError: String(err && err.message || err).slice(0, 200) };
   }
 }
 
@@ -318,12 +338,16 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   // ---- the accuracy gate, enforced: an auto_publish switch (new entries, relationships, news, the reading fields) is used only when the
   // latest full test-set report for the production model meets eval_bar (eval/gate.mjs); otherwise it is OFF for this run, and why is
   // written in the run report. config/publish.json itself is never changed.
-  const { config, gate: gateNow, off: gatedOff } = applyGate(publishConfig, models, deps.gateInputs);
+  const gi = gateInputsFor({ P, config: publishConfig, deps });
+  const { config, gate: gateNow, off: gatedOff } = applyGate(publishConfig, models, gi.inputs);
   const overridden = gateNow && gateNow.fields ? Object.entries(gateNow.fields).filter(([, x]) => x.on && x.override).map(([field, x]) => ({ field, ...x.override })) : [];
   rep.gate = { model: gateNow ? gateNow.model : null, report: gateNow ? gateNow.report : null, off: gatedOff, overridden };
   gatedOff.forEach((x) => rep.notes.push(`auto_publish.${x.field} is on in config/publish.json but treated as OFF this run: ${x.why}`));
   // an owner's override is reported on every run, so it is never forgotten (config/publish.json gate_override)
   overridden.forEach((x) => rep.notes.push(`auto_publish.${x.field} is ON by owner override (${x.by}, ${x.date}${x.reason ? `: ${x.reason}` : ''}), without a passing test report; remove gate_override.${x.field} in config/publish.json to restore the gate`));
+  // the links measure run for this run's gate (gateInputsFor), so the report shows why relationships are on or off
+  if (gi.links) rep.notes.push(`links measure on this run's data: ${gi.links.cases} cases, ${gi.links.wrong} wrong${gi.links.wrong ? ' (relationships off this run)' : ''}`);
+  if (gi.linksError) rep.notes.push(`the links measure could not be run (${gi.linksError}); relationships are off this run`);
   const scrub = scrubWith(env), today = startedAt.toISOString().slice(0, 10);
   const git = deps.git || runGit, parity = deps.parity || defaultParity(P);
   const usageFile = path.join(P.stateDir, path.basename(LEGISCAN_USAGE_FILE)), ledgerDir = path.join(P.stateDir, path.basename(LEDGER_DIR));

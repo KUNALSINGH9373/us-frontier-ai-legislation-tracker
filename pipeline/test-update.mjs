@@ -10,7 +10,7 @@ import { runUpdate } from './update.mjs';
 import { publishRun } from './publish/run.mjs';
 import { compareRun } from './compare/run.mjs';
 import { writeChangeset, sha } from './grabber/lib/run-common.mjs';
-import { heldDue, namedIn, isLimit, applyGate } from './update.mjs';
+import { heldDue, namedIn, isLimit, applyGate, gateInputsFor } from './update.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FX = path.join(here, 'fixtures', 'publish');
@@ -593,6 +593,20 @@ function fakeGit(answers) {
   const after = j(rel), commit = g.calls.find((c) => c.args[0] === 'commit');
   ok('links partial revert: the new entry and its edge are put back, the other edge promoted', code === 0 && !after.nodes.NEWN && after.edges.length === edgesBefore + 1 && after.edges.some((e) => e.from === 'act-hawley' && e.to === 'S2938'), `${code} ${rep.error} ${after.edges.length - edgesBefore} ${JSON.stringify(rep.held)} ${rep.links.status} ${JSON.stringify(rep.links.applied)} ${JSON.stringify(rep.links.problems)} ${JSON.stringify(rep.gate)}`);
   ok('links partial revert: the commit message keeps the links summary of the surviving edge', commit && /Links: .*1 added to the network/.test(commit.input), commit && commit.input);
+}
+// the links measure is run on each run's own data for the gate (gateInputsFor), so relationships never wait on a report made by hand
+{
+  const P = setup();
+  const fresh = { measure: 'links', run_at: '2026-11-01T00:00:00Z', checks_hash: 'now', cases: 250, wrong: 0 };
+  let seen = null;
+  const g = gateInputsFor({ P, config: { auto_publish: { relationships: true } }, deps: { linksMeasure: (o) => { seen = o; return fresh; }, runLinksSuite: () => ({ passed: 202, failed: 0 }) } });
+  ok('relationships on: the links measure runs on the run\'s own data and replaces any older links report', g.links === fresh && seen && Array.isArray(seen.entries) && seen.entries.length > 0 && seen.relationships && seen.suite.passed === 202 && g.inputs.measures.filter((r) => r.measure === 'links').length === 1 && g.inputs.measures.includes(fresh));
+  const bad = gateInputsFor({ P, config: { auto_publish: { relationships: true } }, deps: { linksMeasure: () => { throw new Error('boom'); }, runLinksSuite: () => null } });
+  ok('a links measure that cannot run leaves no links report (relationships off this run) and says why', !bad.links && /boom/.test(bad.linksError) && !bad.inputs.measures.some((r) => r.measure === 'links'));
+  let ran = false;
+  const off = gateInputsFor({ P, config: { auto_publish: { relationships: false } }, deps: { linksMeasure: () => { ran = true; return fresh; } } });
+  ok('relationships off: no measure is run', !ran && !off.links);
+  ok('test inputs (deps.gateInputs) are used as given', gateInputsFor({ P, config: { auto_publish: { relationships: true } }, deps: { gateInputs: { reports: [], x: 1 } } }).inputs.x === 1);
 }
 console.log(`update: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
