@@ -704,6 +704,42 @@
    "column": 4,
    "kind": "entry",
    "entry_key": "pa-h-b-2829-frontier-ai"
+  },
+  "AZ4098": {
+   "name": "AZ HB 4098",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "az-hb-4098"
+  },
+  "NC735": {
+   "name": "NC S 735",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "nc-s-735"
+  },
+  "NE1083": {
+   "name": "NE LB 1083",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ne-lb-1083"
+  },
+  "CO1212": {
+   "name": "CO HB 25-1212",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "co-hb-25-1212"
+  },
+  "S2604": {
+   "name": "S. 2604 AGI Steering Committee",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "s-2604"
+  },
+  "NYA8833": {
+   "name": "NY A.8833 Understanding AI Act",
+   "column": 4,
+   "kind": "entry",
+   "entry_key": "ny-a-8833"
   }
  },
  "edges": [
@@ -929,8 +965,8 @@
    "origin": "authored"
   },
   {
-   "from": "S10373",
-   "to": "RAISE",
+   "from": "RAISE",
+   "to": "S10373",
    "type": "succession",
    "label": "Adds GBL §1425, re-adding the audit requirement the chapter amendment removed",
    "quote": "the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
@@ -939,8 +975,8 @@
    "origin": "authored"
   },
   {
-   "from": "S10456",
-   "to": "RAISE",
+   "from": "RAISE",
+   "to": "S10456",
    "type": "succession",
    "label": "Adds GBL §1430: state-set minimum standards for frameworks",
    "quote": "Adds GBL §1430: DFS/DIGIT must adopt regulations",
@@ -991,7 +1027,7 @@
   {
    "from": "HR9917",
    "to": "FRONTIER",
-   "type": "succession",
+   "type": "template",
    "label": "Overlaps FRONTIER Sec. 8 emergency orders, but lodges the power in DHS",
    "quote": "overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
    "dashed": true,
@@ -1122,17 +1158,6 @@
    "origin": "authored"
   },
   {
-   "from": "WHFW",
-   "to": "FRONTIER",
-   "type": "fedstate",
-   "label": "'No new federal rulemaking body', which FRONTIER's Under Secretary contradicts",
-   "quote": "which H.R. 9925's new Under Secretary contradicts",
-   "dashed": true,
-   "src": "WHFW",
-   "col": "Key content",
-   "origin": "authored"
-  },
-  {
    "from": "LINEAGE",
    "to": "SB53",
    "type": "fedstate",
@@ -1168,23 +1193,12 @@
   {
    "from": "RAISE",
    "to": "SB315",
-   "type": "fedstate",
+   "type": "template",
    "label": "NY's federal reciprocity is narrower than IL's: incident reporting only",
    "quote": "Federal reciprocity is narrower than IL's: it covers incident reporting only",
    "dashed": true,
    "src": "RAISE",
    "col": "Core mechanism",
-   "origin": "authored"
-  },
-  {
-   "from": "MORATORIUM",
-   "to": "EO14365",
-   "type": "fedstate",
-   "label": "Legislative history for preemption; causation is interpretation",
-   "quote": "Any claim that this vote *caused* later actors to choose narrower routes is interpretation and should be framed as such",
-   "dashed": true,
-   "src": "MORATORIUM",
-   "col": "Relevance",
    "origin": "authored"
   },
   {
@@ -1218,8 +1232,8 @@
    "origin": "authored"
   },
   {
-   "from": "JUNE12",
-   "to": "EO14409",
+   "from": "EO14409",
+   "to": "JUNE12",
    "type": "executive",
    "label": "Anthropic commits to the EO 14409 §2(d) clearinghouse",
    "quote": "participation in the EO 14409 §2(d) clearinghouse",
@@ -1239,8 +1253,8 @@
    "origin": "authored"
   },
   {
-   "from": "BANASI",
-   "to": "FEB27",
+   "from": "FEB27",
+   "to": "BANASI",
    "type": "executive",
    "label": "The Sanders–Casar release references the same events",
    "quote": "The Sanders–Casar release and Reuters coverage cited above reference the same events",
@@ -1629,7 +1643,7 @@
    "from": "act-lieu",
    "to": "HR9917",
    "type": "actor",
-   "label": "Sponsor with Moran",
+   "label": "Sponsor",
    "quote": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor",
    "src": "HR9917",
    "col": "Sponsor(s)",
@@ -1896,16 +1910,6 @@
    "origin": "authored"
   },
   {
-   "from": "act-sanders",
-   "to": "BANASI",
-   "type": "actor",
-   "label": "Senate sponsor of S. 5493",
-   "quote": "S. 5493 introduced Sept 23, 2026",
-   "src": "BANASI",
-   "col": "Introduced / status",
-   "origin": "authored"
-  },
-  {
    "from": "act-warner",
    "to": "AIRMSA",
    "type": "actor",
@@ -1928,7 +1932,7 @@
   {
    "from": "AIEBA",
    "to": "HR9917",
-   "type": "succession",
+   "type": "template",
    "label": "Overlaps H.R. 9917 and FRONTIER Sec. 8, without a government trigger",
    "quote": "Overlaps H.R. 9917 (Lieu–Moran) and FRONTIER Sec. 8, but with no government trigger authority described",
    "dashed": true,
@@ -1963,7 +1967,7 @@
    "to": "SB813",
    "type": "assurance",
    "label": "Accelerates SB 813's IVO application requirements to May 1, 2027",
-   "quote": "Accelerates implementation of SB 813 (IVO application requirements by May 1, 2027, statutory date Jan 1, 2028)",
+   "quote": "SB 813 (para. 1: Gov. Code §8898.1 requirements and IVO application requirements by May 1, 2027)",
    "src": "CAEO",
    "col": "What it does",
    "origin": "authored"
@@ -1972,8 +1976,8 @@
    "from": "CAEO",
    "to": "AB1405",
    "type": "assurance",
-   "label": "Accelerates AB 1405's auditor registration to Dec 1, 2027",
-   "quote": "AB 1405 (online auditor registration by Dec 1, 2027, statutory date Jan 1, 2029)",
+   "label": "Accelerates AB 1405's auditor-registry requirements to Dec 1, 2027",
+   "quote": "AB 1405 (para. 2: Gov. Code §11549.82(a) by Dec 1, 2027)",
    "src": "CAEO",
    "col": "What it does",
    "origin": "authored"
@@ -2000,16 +2004,6 @@
    "origin": "authored"
   },
   {
-   "from": "ANTHvDOW",
-   "to": "DCCIR",
-   "type": "litigation",
-   "label": "Opposite outcomes under the two statutes",
-   "quote": "The two statutory designations now have opposite outcomes: § 3252 vacated in N.D. Cal. (Aug. 27), § 4713 upheld in the D.C. Circuit (Sept. 25)",
-   "src": "DCCIR",
-   "col": "Relevance",
-   "origin": "authored"
-  },
-  {
    "from": "act-anthropic",
    "to": "DCCIR",
    "type": "actor",
@@ -2020,22 +2014,11 @@
    "origin": "authored"
   },
   {
-   "from": "OVERWATCH",
-   "to": "CHIPSEC",
-   "type": "succession",
-   "label": "Both offered as amendments to the Senate FY2027 NDAA (S. 4784)",
-   "quote": "in the Senate NDAA manager's package as SA 6575",
-   "dashed": true,
-   "src": "OVERWATCH",
-   "col": "Date / status",
-   "origin": "authored"
-  },
-  {
-   "from": "NYTERM",
-   "to": "RAISE",
+   "from": "RAISE",
+   "to": "NYTERM",
    "type": "succession",
    "label": "Would amend the RAISE Act (Chapter 96) to add independent evaluations",
-   "quote": "Amends the RAISE Act (GBL Article 44-B as replaced by Chapter 96 of 2026) by adding GBL §§ 1429–1436",
+   "quote": "Amends the RAISE Act (GBL Article 44-B as replaced by Chapter 96 of 2026) by adding GBL §§ 1430–1436",
    "src": "NYTERM",
    "col": "Core mechanism",
    "origin": "authored"
@@ -2104,18 +2087,8 @@
    "origin": "authored"
   },
   {
-   "from": "PAHR637",
-   "to": "FRONTIER",
-   "type": "fedstate",
-   "label": "Urges Congress to regulate frontier AI and cites the FRONTIER Act",
-   "quote": "the federal FRONTIER Act (H.R. 9925)",
-   "src": "PAHR637",
-   "col": "Core mechanism",
-   "origin": "authored"
-  },
-  {
-   "from": "PAHR637",
-   "to": "EO14409",
+   "from": "EO14409",
+   "to": "PAHR637",
    "type": "executive",
    "label": "Cites EO 14409 as recognising new national-security risks from advanced AI",
    "quote": "weapons-of-mass-destruction misuse risk, EO 14409",
@@ -2126,7 +2099,7 @@
   {
    "from": "S5601",
    "to": "HR3919",
-   "type": "succession",
+   "type": "template",
    "label": "Overlap: incident notices go to the NSA AI Security Center that H.R. 3919 tasks with its AI Security Playbook",
    "quote": "the NSA's Artificial Intelligence Security Center",
    "dashed": true,
@@ -2137,7 +2110,7 @@
   {
    "from": "S5601",
    "to": "S4656",
-   "type": "succession",
+   "type": "template",
    "label": "Overlap: both make AI contractors report incidents to DoD within 72 hours",
    "quote": "notify DoD within 72 hours of any acute national security risk",
    "dashed": true,
@@ -2206,12 +2179,13 @@
   },
   {
    "origin": "authored",
-   "from": "OREO",
-   "to": "CAEO",
-   "type": "executive",
+   "from": "CAEO",
+   "to": "OREO",
+   "type": "template",
    "label": "Both orders direct a frontier-model kill-switch assessment, five days apart",
    "quote": "assess the viability of a 'kill switch' requirement for frontier AI models",
-   "source_url": "https://apps.oregon.gov/oregon-newsroom/OR/GOV/Posts/Post/governor-kotek-issues-executive-order-to-advance-ai-safety-and-oversight"
+   "source_url": "https://apps.oregon.gov/oregon-newsroom/OR/GOV/Posts/Post/governor-kotek-issues-executive-order-to-advance-ai-safety-and-oversight",
+   "dashed": true
   },
   {
    "origin": "authored",
@@ -2237,7 +2211,7 @@
    "origin": "authored",
    "from": "S10456",
    "to": "S10731",
-   "type": "succession",
+   "type": "template",
    "label": "Binding minimum framework standards, as S.10456 proposed",
    "quote": "the office must adopt binding minimum standards for frameworks and mitigations by January 1, 2029 (§ 1422)",
    "src": "S10731",
@@ -2263,7 +2237,8 @@
    "label": "Heard together Oct 19, 2026; both on the SB 53 pattern",
    "quote": "public hearing with H.B. 2800 Oct 19, 2026",
    "src": "PAHB2829",
-   "col": "Status"
+   "col": "Status",
+   "dashed": true
   },
   {
    "origin": "authored",
@@ -2274,6 +2249,71 @@
    "quote": "Free-standing act on the SB 53 pattern",
    "src": "PAHB2829",
    "col": "Mechanism"
+  },
+  {
+   "from": "SB1047",
+   "to": "NC735",
+   "type": "template",
+   "label": "Same covered-model, full-shutdown and safety-and-security-protocol structure as CA SB 1047",
+   "quote": "Implement the capability to promptly enact a full shutdown.",
+   "src": "NC735",
+   "col": "Mechanism",
+   "origin": "authored",
+   "dashed": true
+  },
+  {
+   "from": "SB53",
+   "to": "NE1083",
+   "type": "template",
+   "label": "NE LB 1083 follows the SB 53 frontier pattern (10^26 compute, $500M revenue, 15-day and 24-hour incident reports) and adds a child-safety layer",
+   "quote": "a quantity of computing power greater than 10^26 integer or floating-",
+   "src": "NE1083",
+   "col": "Mechanism",
+   "origin": "authored",
+   "dashed": true
+  },
+  {
+   "from": "NE1083",
+   "to": "HB4705",
+   "type": "template",
+   "label": "Same \"public safety and child protection plan\" model as the Illinois child-protection transparency bill",
+   "quote": "publish a public safety and child protection plan",
+   "src": "NE1083",
+   "col": "Mechanism",
+   "origin": "authored",
+   "dashed": true
+  },
+  {
+   "from": "NE1083",
+   "to": "TN",
+   "type": "template",
+   "label": "Same \"public safety and child protection plan\" model as the Tennessee bill",
+   "quote": "publish a public safety and child protection plan",
+   "src": "NE1083",
+   "col": "Mechanism",
+   "origin": "authored",
+   "dashed": true
+  },
+  {
+   "from": "CO1212",
+   "to": "S1792",
+   "type": "template",
+   "label": "State counterpart to the federal AI Whistleblower Protection Act: worker protections at large foundation-model developers",
+   "quote": "RETALIATE AGAINST A WORKER FOR, DISCLOSING OR THREATENING TO",
+   "src": "CO1212",
+   "col": "Mechanism",
+   "origin": "authored",
+   "dashed": true
+  },
+  {
+   "from": "act-bores",
+   "to": "NYA8833",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Assemblymember Alex Bores (D)",
+   "src": "NYA8833",
+   "col": "Sponsor",
+   "origin": "authored"
   }
  ]
 }

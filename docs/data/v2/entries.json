@@ -590,10 +590,19 @@
   "mechanism": "Frontier AI framework; risk reports every 180 days; critical safety incidents reported to AG within 15 days (24 hours if imminent risk of death); annual independent third-party audit; AG civil-action enforcement, up to $1,000,000 first violation, $3,000,000 subsequent; Senate version: mandatory independent third-party catastrophic-risk review at least every 120 days (the most frequent evaluation cadence among the bills reviewed); whistleblower protections (covered employees may petition superior court for injunctive relief; court may award attorney's fees and court costs to a successful plaintiff); commission on further AI regulation. Chapter 93M effective July 1, 2027. House version (passed July 8) contains no AI-safety language — only funding.",
   "thresholds": "Senate text: frontier model = foundation model trained using >10^26 integer or floating-point operations (including fine-tuning and other modifications); large frontier developer = >$500,000,000 annual gross revenues together with affiliates; catastrophic risk 50+ deaths or $1B",
   "penalties": null,
-  "status_text": "Status (as of Sept 5, 2026): [PENDING] House passed 148-2 July 8; Senate struck all after the enacting clause and inserted S.3178 text July 24 (reprinted as S.3228); House non-concurred July 30; conference committee appointed July 30 (Senate: Finegold-Rodrigues-Durant; House: Michlewitz-Fiola-Soter). Official bill history checked live Sept 4, 2026: no action since July 30. Formal session ended July 31; informal sessions can still act but can't override a veto. Not enacted. Bill history re-checked Sept 28, 2026: still no action since July 30. OpenAI lobbying for IL-style annual audits; Anthropic for the stronger Rush amendment",
+  "status_text": "Status (as of Sept 5, 2026): [PENDING] House passed 148-2 July 8; Senate struck all after the enacting clause and inserted S.3178 text July 24 (reprinted as S.3228); House non-concurred July 30; conference committee appointed July 30 (Senate: Finegold-Rodrigues-Durant; House: Michlewitz-Fiola-Soter). Official bill history checked live Sept 4, 2026: no action since July 30. Formal session ended July 31; informal sessions can still act but can't override a veto. Not enacted. Bill history re-checked Sept 28, 2026: still no action since July 30. OpenAI lobbying for IL-style annual audits; Anthropic for the stronger Rush amendment. Earlier House text: the Joint Committee on Economic Development and Emerging Technologies reported H.5527 on June 22, 2026 (its redraft of the Governor's H.5386), which included a Chapter 93M \"Transparency in Frontier Artificial Intelligence Act\" (frontier model trained on more than 10^26 operations). S.3224 (Sen. Rush, filed July 23, 2026) is a floor amendment to the Senate Ways and Means text S.3178, not a separate bill; whether it was adopted could not be confirmed",
   "signed_text": null,
   "effective_text": null,
   "events": [
+   {
+    "date": "2026-06-22",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "Joint Committee on Economic Development reports H.5527, with a Chapter 93M frontier AI section",
+    "clause": "Joint Committee on Economic Development reports H.5527, with a Chapter 93M frontier AI section",
+    "inferred_year": false,
+    "scheduled": false
+   },
    {
     "date": "2026-07-08",
     "precision": "day",
@@ -678,9 +687,19 @@
     "label": "Bill text (official)",
     "url": "https://malegislature.gov/Bills/194/S3228",
     "kind": "primary"
+   },
+   {
+    "label": "H.5527 text — malegislature.gov",
+    "url": "https://malegislature.gov/Bills/194/H5527.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "S.3224 history — FastDemocracy",
+    "url": "https://fastdemocracy.com/bill-search/ma/194th/bills/MAB00085431/",
+    "kind": "secondary"
    }
   ],
-  "source_label": "H.5576 bill history — malegislature.gov · S.2630 text · S.3178 fact sheet",
+  "source_label": "H.5576 bill history — malegislature.gov · S.2630 text · S.3178 fact sheet · Bill text (official) · H.5527 text — malegislature.gov · S.3224 history — FastDemocracy",
   "confidence": {
    "level": "HIGH",
    "basis": "primary_record",
@@ -10116,6 +10135,114 @@
   "last_changed": "2026-10-31"
  },
  {
+  "id": 104,
+  "key": "s-2604",
+  "section": "F",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "S. 2604 — Artificial General Intelligence Steering Committee (Department of Defense)",
+  "short_name": "S. 2604 AGI Steering Committee",
+  "sponsor_text": "Sen. Mike Rounds (R-SD), sponsor; Sen. Mark Kelly (D-AZ) added as cosponsor Nov 20, 2025",
+  "mechanism": "Sectoral (DoD), no duties on developers. By April 1, 2026 the Secretary of Defense establishes an \"Artificial General Intelligence Steering Committee\", co-chaired by the Deputy Secretary of Defense and the Vice Chairman of the Joint Chiefs of Staff, to analyze the trajectory of AI models toward artificial general intelligence (including frontier and world models and agentic algorithms), adversaries' progress toward AGI, military applications, a DoD adoption strategy with \"ethical and policy guardrails\", and counter-AGI strategies; report to the congressional defense committees by January 31, 2027 (unclassified portion public, classified annex allowed); sunsets December 31, 2027",
+  "thresholds": null,
+  "penalties": null,
+  "status_text": "Status (as of Oct 31, 2026): [PENDING] Introduced July 31, 2025; read twice and referred to Senate Armed Services; Sen. Kelly added as cosponsor Nov 20, 2025; no further action in the BILLSTATUS record. CRS lists the FY2026 NDAA (S. 2296) as a related bill",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2025-07-31",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "[PENDING] Introduced July 31, 2025; read twice and referred to Senate Armed Services",
+    "clause": "[PENDING] Introduced July 31, 2025; read twice and referred to Senate Armed Services",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2025-11-20",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Sen. Kelly added as cosponsor Nov 20, 2025",
+    "clause": "Sen. Kelly added as cosponsor Nov 20, 2025",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/s/2604"
+    ]
+   }
+  },
+  "sources": [
+   {
+    "label": "Bill status — Congress.gov",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/2604",
+    "kind": "primary"
+   },
+   {
+    "label": "BILLSTATUS XML — govinfo",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/s/BILLSTATUS-119s2604.xml",
+    "kind": "primary"
+   },
+   {
+    "label": "Introduced text — govinfo",
+    "url": "https://www.govinfo.gov/content/pkg/BILLS-119s2604is/html/BILLS-119s2604is.htm",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill status — Congress.gov · BILLSTATUS XML — govinfo · Introduced text — govinfo",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (official introduced text and govinfo BILLSTATUS read). Not a developer-regulation bill; listed with the federal frontier-adjacent bills because it targets AGI and frontier models"
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Not later than April 1, 2026, the Secretary of Defense shall establish a steering committee on artificial general intelligence",
+    "source_url": "https://www.govinfo.gov/content/pkg/BILLS-119s2604is/html/BILLS-119s2604is.htm"
+   },
+   {
+    "field": "mechanism",
+    "quote": "current and emerging models, including frontier and world models",
+    "source_url": "https://www.govinfo.gov/content/pkg/BILLS-119s2604is/html/BILLS-119s2604is.htm"
+   },
+   {
+    "field": "mechanism",
+    "quote": "articulation of ethical and policy guardrails",
+    "source_url": "https://www.govinfo.gov/content/pkg/BILLS-119s2604is/html/BILLS-119s2604is.htm"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than January 31, 2027, the Deputy Secretary shall submit to the congressional defense committees a report",
+    "source_url": "https://www.govinfo.gov/content/pkg/BILLS-119s2604is/html/BILLS-119s2604is.htm"
+   },
+   {
+    "field": "mechanism",
+    "quote": "shall terminate on December 31, 2027",
+    "source_url": "https://www.govinfo.gov/content/pkg/BILLS-119s2604is/html/BILLS-119s2604is.htm"
+   }
+  ],
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31"
+ },
+ {
   "id": 97,
   "key": "pa-h-r-637-frontier-ai-resolution",
   "section": "B",
@@ -10565,6 +10692,783 @@
    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
    "sha256": "388cac7f29b614f2424adbf1812ecc9a612c9f7065d9dcaff92b084efa74bef9",
    "chars": 41440,
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  }
+ },
+ {
+  "type": "bill",
+  "level": "state",
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "penalties": null,
+  "signed_text": null,
+  "effective_text": null,
+  "id": 100,
+  "key": "az-hb-4098",
+  "section": "B",
+  "jurisdiction": "AZ",
+  "state": "AZ",
+  "status": "failed",
+  "title": "HB 4098 — artificial intelligence business; attorney general",
+  "short_name": "AZ HB 4098 AI business; attorney general",
+  "sponsor_text": "Rep. Travers",
+  "mechanism": "Introduced text read (2026, Fifty-seventh Legislature, Second Regular Session). Would add A.R.S. 44-1383: an \"artificial intelligence business\" (one whose public-facing AI systems use a frontier model owned or operated by a large developer) must run a comprehensive risk assessment of each high risk AI system before use or sale, covering bias, safety risks to children, privacy and catastrophic risks; submit a transparency report to the Attorney General and post it on its website; adopt bias mitigation measures; run a quarterly audit; give child-accessible systems parental monitoring tools and content filtering; and obtain an Attorney General certification before entering the stream of commerce. The Attorney General enforces, with civil penalties up to $50,000 per violation, each day a separate violation",
+  "thresholds": "Frontier model = trained using greater than 10^26 computational operations (printed \"10.26\") at costs of more than $100,000,000, or by knowledge distillation of a frontier model; large developer = has trained a frontier model and spent more than $5,000,000 developing and more than $100,000,000 training it, excluding accredited colleges and universities doing academic research (A.R.S. 44-1383(K))",
+  "status_text": "Status (as of Oct 31, 2026): [FAILED] Introduced Feb 9, 2026; first read Feb 10 and second read Feb 11, 2026, assigned to House committees (AII, Rules); final disposition \"Held in Committees\" — died when the 2026 regular session ended",
+  "events": [
+   {
+    "date": "2026-02-09",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "\\[FAILED\\] Introduced Feb 9, 2026",
+    "clause": "\\[FAILED\\] Introduced Feb 9, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-02-11",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "second read Feb 11, 2026, assigned to House committees (AII, Rules)",
+    "clause": "second read Feb 11, 2026, assigned to House committees (AII, Rules)",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Introduced text — azleg.gov",
+    "url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm",
+    "kind": "primary"
+   },
+   {
+    "label": "Bill status — apps.azleg.gov",
+    "url": "https://apps.azleg.gov/BillStatus/BillOverview?SessionID=130",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Introduced text — azleg.gov · Bill status — apps.azleg.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (introduced text and official azleg status record read)"
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires a risk assessment of each high risk AI system but no written safety framework or protocol."
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before using or selling a high risk AI system, the business must submit a transparency report to the Attorney General and post it publicly on its website.",
+    "section": "A.R.S. 44-1383(C)–(D)",
+    "quote": "submit a transparency report to the attorney general before",
+    "source_url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm"
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no incident reporting."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no shorter reporting window for imminent risk."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires a quarterly audit by the business itself, with no third-party auditor."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower protections."
+   },
+   "registration": {
+    "value": "yes",
+    "summary": "The Attorney General must issue a certification before an artificial intelligence business enters the stream of commerce.",
+    "section": "A.R.S. 44-1383(H)",
+    "quote": "The attorney general shall issue a",
+    "source_url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm"
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is one trained using greater than 10^26 computational operations at a cost of more than $100,000,000 (the superscript is lost in the printed text), or by distilling a frontier model.",
+    "section": "A.R.S. 44-1383(K)(2)",
+    "quote": "greater than 10.26 computational operations",
+    "source_url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large developer has trained a frontier model and spent more than $5,000,000 developing it and more than $100,000,000 training it.",
+    "section": "A.R.S. 44-1383(K)(4)",
+    "quote": "more than $5,000,000 in developing the frontier model",
+    "source_url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "The large developer definition refers to a foreseeable risk of death or serious injury to more than one hundred people from a CBRN weapon or from crime-like conduct by a foundation model with limited human intervention.",
+    "section": "A.R.S. 44-1383(K)(4)(c)",
+    "quote": "serious injury to more than one hundred people",
+    "source_url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may impose a civil penalty of up to $50,000 per violation; each day is a separate violation.",
+    "section": "A.R.S. 44-1383(I)",
+    "quote": "$50,000 per violation",
+    "source_url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.azleg.gov/legtext/57leg/2r/bills/hb4098p.htm",
+   "sha256": "1381c25fa08a5b8947cb0f62317df4af741bc50ed1391bfbe7fb6b15db61b882",
+   "chars": 5134,
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  }
+ },
+ {
+  "type": "bill",
+  "level": "state",
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "penalties": null,
+  "signed_text": null,
+  "effective_text": null,
+  "id": 101,
+  "key": "nc-s-735",
+  "section": "B",
+  "jurisdiction": "NC",
+  "state": "NC",
+  "status": "pending",
+  "title": "S 735 — AI Innovation Trust Fund",
+  "short_name": "NC S 735 AI Innovation Trust Fund",
+  "sponsor_text": "Sens. Salvador, Garrett and Murdock (primary sponsors)",
+  "mechanism": "First edition read (2025 Session). Creates the North Carolina Artificial Intelligence Innovation Trust Fund in the Department of Commerce (grants for AI companies, $750,000 appropriated for 2025-26) and, in the same Part, SB 1047-style duties for developers of covered models: before training, cybersecurity protections, full-shutdown capability, a written safety and security protocol implemented as written, retained five years, reviewed annually and published in redacted form to the Attorney General (G.S. 143B-472.83B(c)); pre-deployment assessment of critical-harm capability, test records and safeguards (83B(d)); a ban on use or release with an unreasonable risk of critical harm (83B(e)); an annual independent third-party compliance investigation (83B(g)); an annual signed statement of compliance to the Attorney General (83B(h)); safety incident reports within 72 hours (83B(i)); know-your-customer and shutdown duties for computing-cluster operators (83C); Attorney General enforcement with penalties tied to training compute cost (83D); whistleblower protections and an anonymous internal process (83E); Secretary of Commerce regulations and annual threshold updates (83)",
+  "thresholds": "Covered model = an AI model the Secretary of Commerce identifies as warranting oversight, considering computing power, training cost, scope and foreseeable risks; covered model derivative includes fine-tuning with up to 3 x 10^25 operations costing over $10,000,000; computing cluster = at least 10^20 operations per second; critical harm = mass casualties from CBRN weapons, or mass casualties or at least $500,000,000 of damage from cyberattacks on critical infrastructure or autonomous crime-like conduct (G.S. 143B-472.83A(b))",
+  "status_text": "Status: [PENDING] Filed Mar 26, 2025 and referred to Senate Rules and Operations (first-edition text); later actions could not be checked as of Oct 31, 2026 because the official NC legislature site blocked access. Would take effect July 1, 2025",
+  "events": [
+   {
+    "date": "2025-03-26",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "\\[PENDING\\] Filed Mar 26, 2025 and referred to Senate Rules and Operations",
+    "clause": "\\[PENDING\\] Filed Mar 26, 2025 and referred to Senate Rules and Operations",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill page — ncleg.gov",
+    "url": "https://www.ncleg.gov/BillLookUp/2025/S735",
+    "kind": "primary"
+   },
+   {
+    "label": "First edition (PDF)",
+    "url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill page — ncleg.gov · First edition (PDF)",
+  "confidence": {
+   "level": "MED-HIGH",
+   "basis": "primary_record",
+   "note": "MED-HIGH (first-edition text read; later history not confirmed because ncleg.gov is blocked from this machine)"
+  },
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Before training a covered model, a developer must implement a written safety and security protocol, follow it as written, review it annually, and publish a redacted copy sent to the Attorney General.",
+    "section": "G.S. 143B-472.83B(c)(3)",
+    "quote": "Implement a written and separate safety and security protocol",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "transparency_report": {
+    "value": "partial",
+    "summary": "No model transparency report; a developer must instead file an annual statement of compliance with the Attorney General, signed by its chief technology officer or a more senior officer.",
+    "section": "G.S. 143B-472.83B(h)",
+    "quote": "submit to the attorney general a statement of compliance",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "A developer must report each artificial intelligence safety incident to the Attorney General within 72 hours of learning of it.",
+    "section": "G.S. 143B-472.83B(i)",
+    "quote": "attorney general within 72 hours",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no shorter reporting window for imminent risk."
+   },
+   "third_party_audit": {
+    "value": "yes",
+    "summary": "A developer must annually retain a third-party investigator for an independent compliance investigation; the report goes to the Attorney General and an executive summary is published.",
+    "section": "G.S. 143B-472.83B(g)",
+    "quote": "annually retain a third-party",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Developers and their contractors may not stop employees from disclosing risks or non-compliance to the Attorney General or retaliate against them; developers need an anonymous internal disclosure process.",
+    "section": "G.S. 143B-472.83E(b)",
+    "quote": "Retaliate against an employee",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no registration or licensing of developers or models."
+   },
+   "shutdown": {
+    "value": "yes",
+    "summary": "Before training, a developer must be able to promptly enact a full shutdown; computing-cluster operators must have the same capability for customers training covered models.",
+    "section": "G.S. 143B-472.83B(c)(2)",
+    "quote": "Implement the capability to promptly enact a full shutdown.",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "compute_threshold": {
+    "value": "partial",
+    "summary": "Covered models are identified by the Secretary of Commerce, who considers computing power and training cost among other factors and must update the compute thresholds by regulation each year; the bill sets no fixed training figure.",
+    "section": "G.S. 143B-472.83A(b)(5)",
+    "quote": "is identified by the Secretary as",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no revenue or spending threshold for developers."
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Critical harm includes mass casualties from a CBRN weapon, and mass casualties or at least $500,000,000 of damage from cyberattacks on critical infrastructure or from crime-like autonomous model conduct.",
+    "section": "G.S. 143B-472.83A(b)(7)",
+    "quote": "at least $500,000,000 of damage",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may seek civil penalties of up to 5% of the training compute cost for a first violation and 15% for later ones, plus injunctions and damages; investigators and cluster operators face up to $25,000, then $50,000.",
+    "section": "G.S. 143B-472.83D(a)",
+    "quote": "five percent (5%) of the",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The act would take effect July 1, 2025.",
+    "section": "Section 3",
+    "quote": "This act becomes effective July 1, 2025.",
+    "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.ncleg.gov/Sessions/2025/Bills/Senate/PDF/S735v1.pdf",
+   "sha256": "12f9962e1c38764c5f1357a76c04080b740696bfdb01f339242ffc47d12e2115",
+   "chars": 47209,
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  }
+ },
+ {
+  "id": 102,
+  "key": "ne-lb-1083",
+  "section": "B",
+  "type": "bill",
+  "level": "state",
+  "jurisdiction": "NE",
+  "state": "NE",
+  "status": "failed",
+  "title": "L.B. 1083 — Transparency in Artificial Intelligence Risk Management Act",
+  "short_name": "NE L.B. 1083 Transparency in AI Risk Management Act",
+  "sponsor_text": "Sen. Tanya Storer (District 43), with Sen. Bosn (District 25)",
+  "mechanism": "Introduced text read (109th Legislature, Second Session). SB 53-pattern act with a child-safety layer for large chatbot providers: large frontier developers and large chatbot providers must write, implement, comply with and publish a \"public safety and child protection plan\" and re-publish it within thirty days of a material modification (Sec. 4(1)–(2)); large frontier developers publish summaries of catastrophic-risk assessments before or when deploying a new or substantially modified frontier model (Sec. 4(4)); no materially false or misleading statements about covered risks (Sec. 4(5)); frontier developers report critical safety incidents to the Attorney General within fifteen days, and within twenty-four hours to an appropriate authority for imminent risk of death or serious physical injury; large chatbot providers report child safety incidents within fifteen days; large frontier developers send the Attorney General internal-use catastrophic-risk assessment summaries every three months (Sec. 5); the Attorney General may update the coverage definitions by rule (Sec. 6); whistleblower protections with an anonymous internal process at large frontier developers and a private civil action (Sec. 7); Attorney General enforcement with civil penalties up to one million dollars per violation for large frontier developers and fifty thousand dollars for large chatbot providers (Sec. 8); creates a Juvenile Mental Health Support Fund (Sec. 10); public-records exemption for submitted summaries and disclosures (Sec. 11). Operative January 1, 2027 (Sec. 12). Committee amendment AM2618 not read",
+  "thresholds": "Frontier model = foundation model trained on more than 10^26 integer or floating-point operations, counting fine-tuning and reinforcement learning; large frontier developer = collective annual revenue of five hundred million dollars or more with affiliates; large chatbot provider = covered chatbot (at least one million monthly active users, foreseeably likely to be accessed by minors) and annual revenue of twenty-five million dollars or more; catastrophic risk = death or serious injury to more than fifty people or more than one billion dollars in property damage from a single incident (Sec. 3)",
+  "penalties": null,
+  "status_text": "Status (as of Oct 31, 2026): [FAILED] Introduced Jan 15, 2026; referred to Banking, Commerce and Insurance Jan 20, 2026; hearing Feb 9, 2026; Storer priority bill Feb 19, 2026; placed on General File with committee amendment AM2618 Mar 24, 2026; indefinitely postponed Apr 17, 2026",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-01-15",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced Jan 15, 2026",
+    "clause": "Introduced Jan 15, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-01-20",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "referred to Banking, Commerce and Insurance Jan 20, 2026",
+    "clause": "referred to Banking, Commerce and Insurance Jan 20, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-02-09",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "hearing Feb 9, 2026",
+    "clause": "hearing Feb 9, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-03-24",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "placed on General File with committee amendment AM2618 Mar 24, 2026",
+    "clause": "placed on General File with committee amendment AM2618 Mar 24, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-04-17",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "[FAILED] indefinitely postponed Apr 17, 2026",
+    "clause": "[FAILED] indefinitely postponed Apr 17, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Introduced text (PDF) — nebraskalegislature.gov",
+    "url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "Bill history — FastDemocracy",
+    "url": "https://fastdemocracy.com/bill-search/ne/109/bills/NEB00014153",
+    "kind": "secondary"
+   },
+   {
+    "label": "Bill status — BillTrack50",
+    "url": "https://www.billtrack50.com/billdetail/1937262",
+    "kind": "secondary"
+   }
+  ],
+  "source_label": "Introduced text (PDF) — nebraskalegislature.gov · Bill history — FastDemocracy · Bill status — BillTrack50",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH for the introduced text (read in full). Status from two independent trackers that agree (FastDemocracy history; BillTrack50 \"Dead 04/17/2026\"); the official Nebraska bill page was unreachable from this machine"
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
+  "duties": {
+   "framework": {
+    "value": "yes",
+    "summary": "Large frontier developers and large chatbot providers must write, implement, comply with and publish a public safety and child protection plan, re-published within thirty days of a material change.",
+    "section": "Sec. 4(1)",
+    "quote": "shall write, implement, comply with, and clearly and conspicuously",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "transparency_report": {
+    "value": "yes",
+    "summary": "Before or when deploying a new or substantially modified frontier model, a large frontier developer must publish summaries of its catastrophic-risk assessments and their results.",
+    "section": "Sec. 4(4)(a)",
+    "quote": "Before, or concurrently with, deploying a new frontier model",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier developers must report a critical safety incident to the Attorney General within 15 days of discovering it; large chatbot providers report child safety incidents the same way.",
+    "section": "Sec. 5(2)",
+    "quote": "fifteen days after discovering the critical safety incident.",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "imminent_risk_reporting": {
+    "value": "yes",
+    "summary": "An incident posing an imminent risk of death or serious physical injury must be disclosed within 24 hours to an appropriate authority, such as law enforcement.",
+    "section": "Sec. 5(3)",
+    "quote": "frontier developer shall disclose that incident within twenty-four hours",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "third_party_audit": {
+    "value": "partial",
+    "summary": "The plan must describe how the developer uses third parties to assess catastrophic risks and mitigations; no independent audit is required.",
+    "section": "Sec. 4(1)(a)(iv)",
+    "quote": "Uses third parties to assess the potential for catastrophic",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Frontier developers and large chatbot providers may not penalize employees who report dangers or violations; large frontier developers need an anonymous internal process with monthly updates.",
+    "section": "Sec. 7(2)",
+    "quote": "adverse action against or otherwise penalize an employee for disclosing",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no registration or license before developing or deploying a model."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A frontier model is a foundation model trained with more than 10^26 operations, counting fine-tuning and reinforcement learning; the Attorney General may update this by rule.",
+    "section": "Sec. 3(12)",
+    "quote": "a quantity of computing power greater than 10^26 integer or floating-",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A large frontier developer had, with affiliates, annual revenue of five hundred million dollars or more in the preceding calendar year; large chatbot providers, twenty-five million dollars.",
+    "section": "Sec. 3(14)",
+    "quote": "collective annual revenue in the preceding calender year of five hundred",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "harm_threshold": {
+    "value": "yes",
+    "summary": "Catastrophic risk means contributing to death or serious injury of more than fifty people or more than one billion dollars in property damage from a single incident.",
+    "section": "Sec. 3(3)(a)",
+    "quote": "injury to, more than fifty people or more than one billion dollars in",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "The Attorney General may sue; large frontier developers face up to one million dollars per violation and large chatbot providers up to fifty thousand dollars.",
+    "section": "Sec. 8(1)",
+    "quote": "does not exceed one million dollars per violation",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The act becomes operative on January 1, 2027.",
+    "section": "Sec. 12",
+    "quote": "This act becomes operative on January 1, 2027.",
+    "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://nebraskalegislature.gov/FloorDocs/109/PDF/Intro/LB1083.pdf",
+   "sha256": "db58b3ea5f89983e5229f9e7a0a1a3da90e1a7f3f0fc8a632a573d820e5b5d40",
+   "chars": 50607,
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  }
+ },
+ {
+  "id": 103,
+  "key": "co-hb-25-1212",
+  "section": "B",
+  "type": "bill",
+  "level": "state",
+  "jurisdiction": "CO",
+  "state": "CO",
+  "status": "failed",
+  "title": "H.B. 25-1212 — Public Safety Protection from the Risks of Artificial Intelligence Systems (whistleblower protections for AI workers)",
+  "short_name": "CO H.B. 25-1212 AI Worker Whistleblower Protections",
+  "sponsor_text": "Reps. Rutinel and Soper (House sponsors); no Senate sponsor on the introduced text",
+  "mechanism": "Introduced text read. Whistleblower-only bill aimed at developers that have trained a foundation model at a computational cost of at least one hundred million dollars (new C.R.S. title 8, article 13.6): developers may not prevent or retaliate against workers (employees, independent contractors, corporate officers) who disclose information about non-compliance with public-safety law, substantial risks to public safety or security, or false or misleading safety statements (8-13.6-102(1)); contracts limiting such disclosures are void (8-13.6-102(3)); notice of rights to all workers on a foundation model (8-13.6-103); an anonymous internal reporting process with monthly updates, records kept seven years and shared quarterly with officers and directors (8-13.6-104); private civil action with reinstatement, the greater of ten thousand dollars or lost pay, punitive damages and attorney fees (8-13.6-105). No safety framework, reporting or audit duties",
+  "thresholds": "Developer = employer (or entity contracting with five or more independent contractors in the state each year) that has trained at least one foundation model at a computational cost of at least one hundred million dollars, measured by the average cost of equivalent cloud computing when training starts (8-13.6-101(2))",
+  "penalties": null,
+  "status_text": "Status (as of Oct 31, 2026): [FAILED] Introduced and assigned to House Judiciary Feb 11, 2025; Judiciary referred it, amended, to the Committee of the Whole Mar 4, 2025; second reading laid over several times, last on May 5, 2025; the official page lists it as Lost. The 2025 regular session ended without passage",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2025-02-11",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Introduced and assigned to House Judiciary Feb 11, 2025",
+    "clause": "Introduced and assigned to House Judiciary Feb 11, 2025",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2025-03-04",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "Judiciary referred it, amended, to the Committee of the Whole Mar 4, 2025",
+    "clause": "Judiciary referred it, amended, to the Committee of the Whole Mar 4, 2025",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2025-05-05",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "[FAILED] second reading laid over May 5, 2025; listed as Lost",
+    "clause": "[FAILED] second reading laid over May 5, 2025; listed as Lost",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill page and history — leg.colorado.gov",
+    "url": "https://leg.colorado.gov/bills/hb25-1212",
+    "kind": "primary"
+   },
+   {
+    "label": "Introduced text (PDF)",
+    "url": "https://leg.colorado.gov/sites/default/files/documents/2025A/bills/2025a_1212_01.pdf",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill page and history — leg.colorado.gov · Introduced text (PDF)",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH for the introduced text (read in full) and the official history page. The House Judiciary amendment of Mar 4, 2025 was not read"
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no safety framework or plan."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no public report about a model."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no incident reports to a government body."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no shorter window for imminent-risk incidents."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no independent audit."
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Covered developers may not prevent or retaliate against workers who disclose public-safety risks or violations, must give notice of rights and run an anonymous internal process with monthly updates.",
+    "section": "8-13.6-102(1)",
+    "quote": "RETALIATE AGAINST A WORKER FOR, DISCLOSING OR THREATENING TO",
+    "source_url": "https://leg.colorado.gov/sites/default/files/documents/2025A/bills/2025a_1212_01.pdf"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no registration or license."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage is set by training cost in dollars, not by a count of operations."
+   },
+   "revenue_threshold": {
+    "value": "yes",
+    "summary": "A developer is one that has trained a foundation model at a computational cost of at least one hundred million dollars, measured by equivalent cloud computing cost.",
+    "section": "8-13.6-101(2)",
+    "quote": "OF AT LEAST ONE HUNDRED MILLION DOLLARS AS MEASURED BY THE",
+    "source_url": "https://leg.colorado.gov/sites/default/files/documents/2025A/bills/2025a_1212_01.pdf"
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no catastrophic harm by deaths or damages."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Aggrieved workers may sue in district court for reinstatement, the greater of ten thousand dollars or lost pay, punitive damages in some cases, and attorney fees.",
+    "section": "8-13.6-105(1)",
+    "quote": "COMMENCE A CIVIL ACTION IN DISTRICT COURT AGAINST A DEVELOPER FOR",
+    "source_url": "https://leg.colorado.gov/sites/default/files/documents/2025A/bills/2025a_1212_01.pdf"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The act would take effect the day after the ninety-day period following final adjournment of the general assembly, unless a referendum petition is filed.",
+    "section": "Section 2(1)",
+    "quote": "the expiration of the ninety-day period after final adjournment of the",
+    "source_url": "https://leg.colorado.gov/sites/default/files/documents/2025A/bills/2025a_1212_01.pdf"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://leg.colorado.gov/sites/default/files/documents/2025A/bills/2025a_1212_01.pdf",
+   "sha256": "92a1e34125e5426a8cb70db842e2b82d2d1af86b3412e5ce66a2cabca7580397",
+   "chars": 12937,
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  }
+ },
+ {
+  "id": 105,
+  "key": "ny-a-8833",
+  "section": "B",
+  "type": "bill",
+  "level": "state",
+  "jurisdiction": "NY",
+  "state": "NY",
+  "status": "pending",
+  "title": "A.8833 — Understanding Artificial Intelligence Act (strict liability for covered-model developers)",
+  "short_name": "NY A.8833 Understanding AI Act",
+  "sponsor_text": "Assemblymember Alex Bores (D), with co-sponsor Assemblymember Simone; no Senate same-as bill listed",
+  "mechanism": "Introduced text read. Adds GBL Article 45-A (§§ 1510–1512). Except for defamation claims, developers of covered models are strictly liable, regardless of the degree of care exercised, for injuries to a non-user of the model that meet the actual harm element of a negligence claim, if the model engaged in conduct that would be negligence or an intentional tort or crime if done by an adult human of sound mind, and the conduct was neither intended nor reasonably anticipated by the user or by an intermediary that fine-tuned, scaffolded or modified the model (§ 1512(1)). Rebuttable presumption that the AI system had the relevant mental state where a natural person acting similarly would have; it is no defense that AI systems cannot have mental states (§ 1512(2)). Affirmative defenses: the model met the human standard of care for the same function, or the injury was a capabilities failure (§ 1512(3)). No framework, reporting, audit or agency duties",
+  "thresholds": "Covered model = trained using more than 10²⁶ integer or floating-point operations, the cost of which exceeds $100 million at average cloud compute market prices at the start of training (§ 1511(2)); developer = the person that performs the initial training of a covered model (§ 1511(3))",
+  "penalties": "No fines; civil strict liability to injured non-users (§ 1512)",
+  "status_text": "Status (as of Oct 31, 2026): [PENDING] Introduced and referred to Assembly Science and Technology June 9, 2025; re-referred Jan 7, 2026; no further action. Would take effect immediately",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2025-06-09",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "[PENDING] Introduced and referred to Assembly Science and Technology June 9, 2025",
+    "clause": "[PENDING] Introduced and referred to Assembly Science and Technology June 9, 2025",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-01-07",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "re-referred Jan 7, 2026; no further action",
+    "clause": "re-referred Jan 7, 2026; no further action",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Bill text and actions — nyassembly.gov",
+    "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y",
+    "kind": "primary"
+   }
+  ],
+  "source_label": "Bill text and actions — nyassembly.gov",
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "HIGH (introduced text and actions read on nyassembly.gov)"
+  },
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "last_checked": "2026-10-31",
+  "last_changed": "2026-10-31",
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no safety framework; it only sets civil liability rules."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no transparency report."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no incident reporting."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no imminent-risk reporting."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no third-party audit."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no whistleblower provisions."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no registration or disclosure filing."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or kill-switch capability."
+   },
+   "compute_threshold": {
+    "value": "yes",
+    "summary": "A covered model is one trained with more than 10^26 integer or floating-point operations.",
+    "section": "§ 1511(2)",
+    "quote": "an  artificial intelligence model trained using a quantity of computing power greater than",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "revenue_threshold": {
+    "value": "partial",
+    "summary": "No revenue test; a covered model must also cost more than one hundred million dollars to train, at average cloud compute prices.",
+    "section": "§ 1511(2)",
+    "quote": "the cost of  which  exceeds  one  hundred  million dollars",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "No harm size threshold; liability covers all injuries to non-users meeting the actual harm element of negligence."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "No fines; developers are strictly liable in civil suits for injuries to non-users caused by covered model conduct, with two affirmative defenses.",
+    "section": "§ 1512(1)",
+    "quote": "developers  of covered  models  shall  be  strictly liable, regardless of the degree of care they exercised",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y"
+   },
+   "effective_date": {
+    "value": "yes",
+    "summary": "The act takes effect immediately on enactment.",
+    "section": "§ 2",
+    "quote": "This act shall take effect immediately.",
+    "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y",
+   "sha256": "e23dae14427fe286a7c2c598b250c8b067ebd6b747bb101af162c651dcbf4b7c",
+   "chars": 5961,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
   }
