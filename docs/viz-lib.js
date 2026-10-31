@@ -339,11 +339,17 @@ const ROLE = {
 };
 // Short form for inside a card (about 20 characters); the dashed line marks unproven links, the details strip says it in words.
 const ROLE_SHORT = { template: { out: 'Copied its framework', in: 'Its template' }, succession: { out: 'Successor or revival', in: 'Earlier version' }, fedstate: { out: 'State law it targets', in: 'Federal pressure on it' }, executive: { out: 'Follows from this order', in: 'Order behind it' }, litigation: { out: 'Resulting case or step', in: 'What led to this case' }, assurance: { out: 'Auditor link', in: 'Auditor link' } };
-const roleShort = (e, parent) => { const out = e.from === parent; if (e.type === 'template' && e.dashed) return out ? 'Similar framework' : 'Similar to it'; return ROLE_SHORT[e.type] ? ROLE_SHORT[e.type][out ? 'out' : 'in'] : e.label; };
-const roleOf = (e, parent) => {
+// An amendment link (type succession, its label saying the bill amends or adds to a law: "S.10731 amends the RAISE Act", "Would amend
+// ...", "Adds GBL §1425 ..."). The network draws these amending bill -> law (pipeline/links/rules.mjs), so the arrow's direction would
+// call an amending bill an "Earlier version" of the law. Its roles are read from what the link says instead, whichever way it runs: from
+// the law, the other end is the amendment bill; from the bill, it is the law it amends.
+export const isAmendment = (e) => e.type === 'succession' && /\b(?:amends?|amending|would amend)\b|^\s*adds\b/i.test(String(e.label || ''));
+const amendRole = (e, parent) => (e.to === parent ? 'Amendment bill' : 'Law it amends');
+export const roleShort = (e, parent) => { const out = e.from === parent; if (e.type === 'template' && e.dashed) return out ? 'Similar framework' : 'Similar to it'; if (isAmendment(e)) return amendRole(e, parent); return ROLE_SHORT[e.type] ? ROLE_SHORT[e.type][out ? 'out' : 'in'] : e.label; };
+export const roleOf = (e, parent) => {
   const out = e.from === parent;
   if (e.type === 'template' && e.dashed) return out ? 'Similar framework · not proven copied' : 'Similar to · not proven copied';
-  const r = ROLE[e.type] ? ROLE[e.type][out ? 'out' : 'in'] : e.label;
+  const r = isAmendment(e) ? amendRole(e, parent) : ROLE[e.type] ? ROLE[e.type][out ? 'out' : 'in'] : e.label;
   return r + (e.dashed ? ' · unproven' : '');
 };
 
