@@ -3,12 +3,14 @@
 
 const stripTags = (s) => String(s || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
 
-import { cleanText, detectNumbering, digitRuns, norm, looseForm, mappedLoose, LOST_EXPONENT, COMPUTE_UNIT } from './text-norm.mjs';
+import { cleanText, readerText, printingNoise, detectNumbering, digitRuns, norm, looseForm, mappedLoose, LOST_EXPONENT, COMPUTE_UNIT } from './text-norm.mjs';
 // The text cleanup and number reading live in agents/text-norm.mjs (one module for every check); re-exported for existing callers.
 export { cleanText, digitRuns, norm, LOST_EXPONENT, COMPUTE_UNIT };
 export const repairExponents = cleanText;
 
 export function sourceText(raw, source) { return cleanText(rawSourceText(raw, source)); }
+// The cleaner copy the new-bills writer and reviewer read (agents/text-norm.mjs readerText).
+export function readerSourceText(raw, source) { return readerText(rawSourceText(raw, source)); }
 
 function rawSourceText(raw, source) {
   if (source === 'congress_gov') {
@@ -41,12 +43,19 @@ function rawSourceText(raw, source) {
 // never disappears) and without hyphen spacing. Nothing else is loosened.
 export const lineNumbers = detectNumbering;
 const stripCache = new Map();
-function strippedSource(text) {
-  if (stripCache.has(text)) return stripCache.get(text);
+function strippedSource(original) {
+  if (stripCache.has(original)) return stripCache.get(original);
+  // read line breaks as readerText does (a form feed starts a line, a carriage return is space), keeping every offset unchanged
+  const text = original.replace(/\r/g, ' ').replace(/\f/g, '\n');
   const { positions, values, pageLines } = detectNumbering(text);
-  const r = { ...mappedLoose(text, positions), values, pageLines };
+  // printing noise (page headers and footers, converter markers) is dropped too, so a quote taken from readerText still matches; a
+  // header line covers any line number inside it, so the header span wins
+  const noise = printingNoise(text);
+  const inNoise = (p) => noise.some((n) => p.i < n.i + n.len && n.i < p.i + p.len);
+  const remove = [...positions.filter((p) => !inNoise(p)), ...noise].sort((a, b) => a.i - b.i);
+  const r = { ...mappedLoose(text, remove), values, pageLines };
   r.loose = r.s;
-  if (stripCache.size > 8) stripCache.clear(); stripCache.set(text, r);
+  if (stripCache.size > 8) stripCache.clear(); stripCache.set(original, r);
   return r;
 }
 // Every place `q` occurs in the loose source, as the original printed span.

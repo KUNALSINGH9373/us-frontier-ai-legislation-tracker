@@ -90,6 +90,111 @@ export function detectNumbering(text) {
   return { positions, values: new Set(positions.filter((p) => p.format === 'line').map((p) => p.key)), pageLines: new Set(positions.filter((p) => p.format === 'page.line').map((p) => p.v)) };
 }
 
+// ---------- printing noise ----------
+// What a printer adds to a bill that is not the bill: a page header or footer on its own line on every page, a converter's markers
+// ("START_STATUTE", "END_STATUTE") and the replacement character "�" a lost glyph leaves. Nothing here knows a state or a bill:
+// - a page header or footer: see pageLines below (whole lines only, a page number going up by one, page-like spacing);
+// - a converter marker: capital words joined by underscores;
+// - "�" is a space, except between two digits or before a bracket, where it stays: a guess there could join "1�000" into a figure
+//   the bill may not state ("10�[26] 25" is read by readerText's amended-exponent rule).
+// Every removal is replaced by one space, so no two words or numbers are ever joined; a figure of the bill is never changed.
+// (Ported from the C5 archive, reviewed 31 Oct 2026: FAIL CLOSED.)
+export const HEADER_MIN_REPEATS = 3;
+const MARKER = /\b[A-Z]{2,}(?:_[A-Z]{2,})+\b/g;
+const CODE_TOKEN = /^(?:[A-Z0-9#][A-Z0-9#.\-/]*|[A-Za-z]*[\d#][\w#.\-/]*|[a-z]|-+)$/;
+const NUM_TOKEN = /^[A-Za-z]*\d/;
+const tokensIn = (s) => s.split(/\s+/).map((x) => x.replace(/^[(\[-]+|[)\],;:-]+$/g, '')).filter(Boolean);
+const digitsAny = (s) => s.replace(/\d+/g, '#');
+// A header or footer is removed only when ALL hold:
+// - it is a whole line (a line break, or the text's edge, on both sides);
+// - the same line (digits read as any digits) recurs at least HEADER_MIN_REPEATS times, made of identifier-like tokens or a "Page n of
+//   m" / "- n -" form, with a letter or a page form in it;
+// - exactly one number changes from place to place and it goes up by exactly one each time (a page number);
+// - the places are page-like apart: every gap at least PAGE_MIN_GAP characters and no gap more than PAGE_GAP_RATIO times another.
+// A header glued into a sentence (the extraction lost its line breaks) is left in; deleting real text (a citation list, a schedule's
+// rows, a repeated citation at line ends) is not acceptable.
+export const PAGE_MIN_GAP = 400;
+export const PAGE_GAP_RATIO = 4;
+function pageLines(t) {
+  const lines = [], counts = new Map();
+  for (const m of t.matchAll(/[^\n]+/g)) {
+    const s = m[0].trim(); if (s.length < 3 || s.length > 100) continue;
+    const key = digitsAny(s.replace(/\s+/g, ' '));
+    lines.push({ i: m.index, len: m[0].length, key, s }); counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  const page = /^(?:page\s+#+(?:\s+of\s+#+)?|#+\s+of\s+#+|-\s*#+\s*-)$/i;
+  // A line that names its page ("Page 2", "Page 5 of 16", "-3-") beside other header text ("2025   Page 5 of 16", "Page 2   Senate Bill
+  // 735-First Edition", "-2-   HB25-1212"): the page form is enough evidence, given the counter and spacing rules below.
+  const pageForm = (l) => /(?:^|\s)(?:page\s+#+(?:\s+of\s+#+)?|-\s*#+\s*-)(?=\s|$)/i.test(l.key) && !/[$%^§]/.test(l.s);
+  const looks = (l) => page.test(l.key) || pageForm(l) || (!/[$%^§]/.test(l.s) && /[A-Za-z]/.test(l.s) && tokensIn(l.s).length >= 2 && tokensIn(l.s).every((x) => CODE_TOKEN.test(x)) && tokensIn(l.s).filter((x) => NUM_TOKEN.test(x)).length >= 2);
+  // The page number goes up by one; by two when the line names its page and the layout alternates sides, so that odd and even pages
+  // print it in two forms ("Page 2   Senate Bill 735" / "Senate Bill 735   Page 3"), each its own group.
+  const counter = (group) => {
+    const nums = group.map((l) => (l.s.match(/\d+/g) || []).map(Number));
+    if (nums.some((n) => n.length !== nums[0].length)) return false;
+    const vary = nums[0].map((_, k) => k).filter((k) => nums.some((n) => n[k] !== nums[0][k]));
+    if (vary.length !== 1) return false;
+    const steps = nums.slice(1).map((n, j) => n[vary[0]] - nums[j][vary[0]]);
+    return steps.every((d) => d === 1) || (pageForm(group[0]) && steps.every((d) => d === 2));
+  };
+  // Page-like apart; the last page may be short, so the final gap only has to be positive.
+  const spaced = (group) => {
+    const gaps = group.slice(1).map((l, j) => l.i - group[j].i), body = gaps.length > 2 ? gaps.slice(0, -1) : gaps;
+    return gaps.every((g) => g > 0) && body.every((g) => g >= PAGE_MIN_GAP) && Math.max(...body) <= PAGE_GAP_RATIO * Math.min(...body);
+  };
+  const out = [];
+  for (const [key, n] of counts) {
+    if (n < HEADER_MIN_REPEATS || !/#/.test(key)) continue;
+    const group = lines.filter((l) => l.key === key);
+    if (looks(group[0]) && counter(group) && spaced(group)) out.push(...group.map((l) => ({ i: l.i, len: l.len })));
+  }
+  // A fixed header line ("LB1083   LB1083", "BILL AS INTRODUCED   H.341", "General Assembly Of North Carolina   Session 2025": the
+  // same text on every page, no page number in it) is removed only when, besides recurring page-like apart and being short header
+  // words (letters, digits, "#", ".", "-", "/"; at most HEADER_MAX_TOKENS of them; no sentence punctuation), EVERY copy sits within
+  // PAGE_BLOCK characters of a page line found above. Without a confirmed page line next to it, a repeated line is left as printed.
+  const confirmed = out.slice();
+  // (the first page's header sits at the top of the text, before any page line: a copy within PAGE_BLOCK of the text's start counts)
+  const nearPage = (l) => l.i <= PAGE_BLOCK || confirmed.some((p) => Math.abs(p.i - l.i) <= PAGE_BLOCK);
+  for (const [key, n] of counts) {
+    if (n < HEADER_MIN_REPEATS || !confirmed.length) continue;
+    const group = lines.filter((l) => l.key === key);
+    if (confirmed.some((p) => p.i === group[0].i)) continue;
+    const toks = tokensIn(group[0].s);
+    if (!toks.length || toks.length > HEADER_MAX_TOKENS || !toks.every((x) => HEADER_WORD.test(x)) || /[$%^§,;:]|\.$/.test(group[0].s)) continue;
+    const same = (l) => l.s.replace(/\s+/g, ' ') === group[0].s.replace(/\s+/g, ' ');
+    // the copy at either end of the text may have no page line beside it (the last page's footer, the first header after an unnumbered
+    // page), provided every other copy has one and at least HEADER_MIN_REPEATS do
+    const inner = group.filter((l, j) => (j > 0 && j < group.length - 1) || nearPage(l));
+    const ends = group.length - inner.length;
+    const besidePage = group.filter(nearPage).length >= HEADER_MIN_REPEATS && inner.every(nearPage) && ends <= 2;
+    if (group.every(same) && spaced(group) && besidePage) out.push(...group.map((l) => ({ i: l.i, len: l.len })));
+  }
+  return out;
+}
+const PAGE_BLOCK = 300;
+const HEADER_MAX_TOKENS = 10;
+const HEADER_WORD = /^[A-Za-z0-9#][A-Za-z0-9#.\-/]*$/;
+// The noise spans of a text: [{ i, len, kind }] in text order, never overlapping.
+export function printingNoise(text) {
+  const t = String(text || ''), spans = [];
+  for (const p of pageLines(t)) spans.push({ ...p, kind: 'line' });
+  for (const m of t.matchAll(MARKER)) spans.push({ i: m.index, len: m[0].length, kind: 'marker' });
+  for (const m of t.matchAll(/�+/g)) { const a = t[m.index - 1] || '', b = t[m.index + m[0].length] || ''; if (!(/\d/.test(a) && /[\d[]/.test(b))) spans.push({ i: m.index, len: m[0].length, kind: 'replacement' }); }
+  spans.sort((a, b) => a.i - b.i || b.len - a.len);
+  // a span whose edge would cut a number in two is left in the text ("1234" never becomes "12")
+  const splits = (p) => (/\d/.test(t[p.i - 1] || '') && /\d/.test(t[p.i])) || (/\d/.test(t[p.i + p.len - 1]) && /\d/.test(t[p.i + p.len] || ''));
+  const out = [];
+  for (const p of spans.filter((x) => !splits(x))) { const last = out[out.length - 1]; if (last && p.i < last.i + last.len) { last.len = Math.max(last.len, p.i + p.len - last.i); continue; } out.push({ ...p }); }
+  return out;
+}
+// The text with its printing noise replaced by single spaces.
+export function removePrintingNoise(text) {
+  let t = String(text || '');
+  const spans = printingNoise(t);
+  for (let k = spans.length - 1; k >= 0; k--) { const p = spans[k]; t = t.slice(0, p.i) + ' ' + t.slice(p.i + p.len); }
+  return t;
+}
+
 // ---------- the cleanup every reader sees ----------
 // Puts back what printing lost, so the models, the reader and the quote checks all see the bill's own figures:
 // - a lost superscript before a compute unit -> 10^N;
@@ -103,6 +208,28 @@ export function cleanText(s) {
   // printed: a guess could turn "$1,000.5 million" into a wrong figure. A draft quoting such an amount is refused (checks GLUED_AMOUNT).
   return t.replace(new RegExp(LOST_EXPONENT.source, 'gi'), fixExponent)
     .replace(new RegExp(String.raw`${POWER_PHRASE}(?=\s+${COMPUTE_UNIT})`, 'gi'), (m, n) => { const v = parseNumberWords(n); return v == null ? m : `10^${v}`; });
+}
+
+// ---------- the text a model reads (new bills) ----------
+// cleanText keeps every printed character a tracked entry's quotes may contain. The new-bills writer and reviewer read a cleaner copy,
+// so a sentence reads as one sentence. Their quotes still match the bill: containsQuote's second try drops the same line numbers and
+// printing noise from the source. Each rule is stated in terms of the printed form it repairs; none knows a state or a bill.
+// - printed line numbers (a detectNumbering run: never a real figure) -> removed;
+// - page headers and footers, converter markers, a stray "�" (printingNoise) -> removed;
+// - an amended exponent before a compute unit, the deleted value in brackets and the inserted one after it ("10�[26] 25 operations",
+//   "10 [26] 25 integer") -> 10^25, the inserted value. Brackets anywhere else are left as printed: the writer reports unclear markup;
+// - a word hyphenated across a line break ("AI-\n   related") -> "AI-related": the line break is closed and the hyphen kept, since
+//   dropping it could join a real compound. Not before "and", "or", "to" or "through" ("pre- and post-deployment").
+// Spaces inside a line are collapsed; line breaks are kept, so sections still start on their own lines.
+const AMENDED_EXPONENT = new RegExp(String.raw`\b10\s?[�ˆ^]?\s?\[\s?(\d{1,2})\s?\]\s?(\d{1,2})(?=\s+${COMPUTE_UNIT})`, 'gi');
+export function readerText(s) {
+  let t = cleanText(String(s || '').replace(/\r\n?/g, '\n').replace(/\f/g, '\n'));
+  const nums = detectNumbering(t).positions.filter((p) => !p.glued);
+  for (let k = nums.length - 1; k >= 0; k--) { const p = nums[k]; t = t.slice(0, p.i) + ' ' + t.slice(p.i + p.len); }
+  t = t.replace(AMENDED_EXPONENT, (m, del, ins) => `10^${ins}`);
+  t = removePrintingNoise(t);
+  t = t.replace(/([A-Za-z])-[ \t]*\n\s*(?!(?:and|or|to|through)\b)([a-z])/g, '$1-$2');
+  return t.replace(/[ \t]+/g, ' ').replace(/ *\n */g, '\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
 // ---------- figures ----------

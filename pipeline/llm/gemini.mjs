@@ -99,7 +99,7 @@ export function createLlmFromConfig({ config, apiKey, http, role, log, provider 
     if (!createAnthropic) throw new Error('provider "anthropic" needs createAnthropic (import createLlmFromConfig from llm/index.mjs)');
     const key = claudeKey || process.env.ANTHROPIC_API_KEY;
     if (!key) throw new Error('ANTHROPIC_API_KEY is not set');
-    return { llm: createAnthropic({ apiKey: key, role, model: r.model, maxOutputTokens: r.max_output_tokens, effort: r.effort || null, ledger, maxInputChars, log }), ledger };
+    return { llm: createAnthropic({ apiKey: key, role, model: r.model, maxOutputTokens: r.max_output_tokens, effort: r.effort || null, ledger, maxInputChars, ...(r.timeout_ms ? { timeoutMs: r.timeout_ms } : {}), log }), ledger };
   }
   return { llm: createGemini({ http, apiKey, role, model: r.model, temperature: r.temperature, maxOutputTokens: r.max_output_tokens, thinkingLevel: r.thinking_level || null, ledger, maxInputChars, log }), ledger };
 }

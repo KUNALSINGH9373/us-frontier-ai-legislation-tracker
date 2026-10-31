@@ -2,6 +2,7 @@
 // Everything the model must not decide is decided here: status, type, level, jurisdiction, confidence, identifiers,
 // sources, verification and dates of checking.
 import { SECTION_RULES, AUTO_CREATE_SECTIONS, SECTION_NAMES, statusFor, confidenceFor, stateSectionProblems } from './rules.mjs';
+import { congressOn, congressOfId, sessionLabel } from '../lib/congress.mjs';
 import { measureKind } from './record-kind.mjs';
 import { statusFromAction } from '../compare/congress.mjs';
 import { deriveCreate } from './derive.mjs';
@@ -35,7 +36,8 @@ export function assembleEntry({ entry, patch: patchIn, item, raw, today, runId, 
     if (source === 'congress_gov') id.external.congress_gov = [...new Set([...(id.external.congress_gov || []), item.source_id])];
     else if (source === 'legiscan') id.external.legiscan = [...new Set([...(id.external.legiscan || []), Number(item.source_id)])];
     else id.external.federal_register_doc = item.source_id;
-    if (source === 'congress_gov' && !id.session) id.session = '119th Congress';
+    // the bill's own Congress: from its id ("120/hr/12") or its record, never assumed (lib/congress.mjs)
+    if (source === 'congress_gov' && !id.session) { const c = congressOfId(item.source_id) || Number(raw.bill && raw.bill.congress) || congressOn(now); id.session = sessionLabel(c); }
     return id;
   };
   const addEvents = (events, status = null) => {

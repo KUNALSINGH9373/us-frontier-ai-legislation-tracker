@@ -267,6 +267,12 @@
    "kind": "entry",
    "entry_key": "h-r-10180-self-improving-ai-monitoring-act"
   },
+  "HR10873": {
+   "name": "H.R. 10873 AI Cyber Defense Act",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "h-r-10873-ai-cyber-defense-act"
+  },
   "HR10189": {
    "name": "H.R. 10189 Defense AI Reliability Act",
    "column": 2,
@@ -2158,12 +2164,32 @@
   {
    "origin": "authored",
    "from": "act-gillibrand",
+   "to": "S4656",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Sen. Kirsten Gillibrand (D-NY)",
+   "src": "S4656",
+   "col": "Sponsor(s)"
+  },
+  {
+   "origin": "authored",
+   "from": "act-gillibrand",
    "to": "S5601",
    "type": "actor",
    "label": "Original cosponsor",
    "quote": "Sen. Kirsten Gillibrand (D-NY), original cosponsor",
    "src": "S5601",
    "col": "Sponsor"
+  },
+  {
+   "origin": "authored",
+   "from": "act-harrigan",
+   "to": "HR10873",
+   "type": "actor",
+   "label": "Sponsor",
+   "quote": "Rep. Pat Harrigan (R-NC)",
+   "src": "HR10873",
+   "col": "Sponsor(s)"
   },
   {
    "origin": "authored",
@@ -2225,8 +2251,8 @@
   },
   {
    "origin": "authored",
-   "from": "RAISE",
-   "to": "S10731",
+   "from": "S10731",
+   "to": "RAISE",
    "type": "succession",
    "label": "S.10731 amends the RAISE Act (Article 44-B)",
    "quote": "Amends the RAISE Act (GBL Article 44-B as added by Chapter 96 of 2026)",

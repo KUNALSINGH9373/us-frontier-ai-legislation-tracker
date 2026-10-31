@@ -12,6 +12,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { currentHashes } from './hash.mjs';
+import { PIPELINE } from '../agents/pipeline-config.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 
 export const FIELD_SWITCHES = ['mechanism', 'thresholds', 'penalties'];
@@ -19,6 +20,8 @@ const MEASURED = { new_entries: 'tierb', relationships: 'links', news: 'news' };
 export const HOW = [
   'cd pipeline',
   'node eval/fetch-texts.mjs && node eval/run.mjs --provider anthropic      # field eval (whole test set, production models; paid)',
+  'node eval/newbill-eval.mjs --set test                                    # new bills, test set (writer + reviewer + scorer; paid)',
+  'node eval/newbill-eval.mjs --set unseen --gold <unseen>/gold.json --sources <unseen>/run/sources.json --texts <unseen>/run/texts --references <unseen>/references   # new bills, unseen set (paid)',
   'node eval/tierb-set.mjs                                                  # Tier B replay set (code only, no AI)',
   'node eval/links-measure.mjs                                              # links backtest + links synthetic suite (code only)',
   'node eval/news-set.mjs                                                   # news event set (code only, real records replayed)',
@@ -32,7 +35,7 @@ const latestOf = (measures, kind) => (measures || []).filter((r) => r && r.measu
 // The production model of a role (generator, validator, referee) in config/models.json; null when the provider has no such role.
 export const roleModel = (models, role) => { if (!models) return null; const roles = models.provider === 'anthropic' ? models.anthropic && models.anthropic.roles : models.roles; return roles && roles[role] ? roles[role].model : null; };
 
-export function gate({ config, models, reports = [], goldItems, measures = [], hashes = null, expected = {}, error = null }) {
+export function gate({ config, models, reports = [], goldItems, measures = [], hashes = null, expected = {}, error = null, engine = (PIPELINE.new_bills || {}).engine || null }) {
   const bar = config.eval_bar || { pass_rate: 1, unsupported_fields: 0, scope_agreement: 1 };
   const prod = roleModel(models, 'generator'), prodReader = roleModel(models, 'validator'), prodReferee = roleModel(models, 'referee');
   const auto = config.auto_publish || {};
@@ -68,10 +71,35 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
   // links: wrong record-proved (applied) edges are counted on their own and must be 0 (a report without the count does not count).
   const zeroOf = (kind) => (r) => complete(r, kind) && r.wrong === 0 && (!('errors' in r) || r.errors === 0);
   const incomplete = (r, kind) => `the latest ${kind} report is not over the whole case set (${r.partial === true ? 'partial run' : `${r.cases} cases${expected[kind] ? ` of ${expected[kind]}` : ''}`})`;
-  // new_entries: the reading fields AND the Tier B replay set. Relationships are their own measure, never part of this.
+  // new_entries under the simple build (config/pipeline.json new_bills.engine "simple", owner 31 Oct 2026): the Tier B replay set AND
+  // the new-bills measure (eval/newbill-eval.mjs) on BOTH case sets: "test" (eval/gold.json) and "unseen" (outside the repo, its size and
+  // fingerprints pinned in config/eval-sets.json). A report counts only when made by the production writer and reviewer with the current
+  // code, over the whole set (or at least new_bills_gate.min_items of it); the latest such report of each set decides (an older passing one never makes up for a newer failing one).
+  // It passes at the new-bills bar: zero WRONG (a published out-of-scope bill is WRONG), every scope call right (no missed bill either),
+  // no error or missing text, and at least one bill published. Misleading findings are reported, not blocking (quotes are shown and
+  // self-correction runs). Otherwise: the reading fields AND the Tier B replay set (the older generator loop).
   if ('new_entries' in auto) {
     const t = measured('tierb', 'new_entries'), zero = zeroOf('tierb');
-    fields.new_entries = { on: !!auto.new_entries, meets: fieldsMeet && zero(t), report: t ? t.run_at : null, note: !fieldsMeet ? 'every reading field must meet the bar on the field eval' : !t ? 'no Tier B replay report made by the current code (eval/tierb-set.mjs)' : zero(t) ? null : !complete(t, 'tierb') ? incomplete(t, 'tierb') : `the Tier B replay set has ${t.wrong} wrong of ${t.cases}` };
+    const tierbNote = !t ? 'no Tier B replay report made by the current code (eval/tierb-set.mjs)' : zero(t) ? null : !complete(t, 'tierb') ? incomplete(t, 'tierb') : `the Tier B replay set has ${t.wrong} wrong of ${t.cases}`;
+    if (engine === 'simple') {
+      const prodWriter = roleModel(models, 'writer'), prodReviewer = roleModel(models, 'bill_reviewer'), pin = expected.unseen || null;
+      // How many bills of a set a report must cover: the whole set, unless config/publish.json new_bills_gate.min_items sets a smaller
+      // number for that set (owner, 31 Oct 2026: at least 5 bills of each set, to keep the paid test small). A smaller run still has to be
+      // over the right set (its size, and for the unseen set its pinned fingerprints), by the current code and the production models.
+      const minOf = (set, size) => { const m = Number(((config.new_bills_gate || {}).min_items || {})[set]); return m > 0 ? Math.min(m, size) : size; };
+      // (a run limited with --only or --limit counts only under a smaller bar; when the whole set is required it never does)
+      const enough = (r, size) => !!r.summary && Number(r.summary.items) >= minOf(r.set, size) && (minOf(r.set, size) < size || r.partial !== true);
+      const whole = (r, set) => !!r.summary && (set === 'test' ? Number(goldItems) > 0 && Number(r.set_size) === goldItems && enough(r, goldItems)
+        : !!pin && Number(pin.items) > 0 && Number(r.set_size) === Number(pin.items) && !!pin.gold_sha256 && r.gold_sha256 === pin.gold_sha256 && !!pin.references_sha256 && r.references_sha256 === pin.references_sha256 && enough(r, Number(pin.items)));
+      const latestNb = (set) => (measures || []).filter((r) => r && r.measure === 'new_bills' && r.method === 'simple' && r.set === set && r.writer === prodWriter && r.reviewer === prodReviewer && hashOk(r, 'new_entries') && whole(r, set)).sort((a, b) => String(a.run_at).localeCompare(String(b.run_at))).pop() || null;
+      const passes = (r) => { const s = r.summary; return s.wrong === 0 && s.scope_errors === 0 && s.errors === 0 && s.no_text === 0 && Number(s.published) > 0; };
+      const nb = { test: latestNb('test'), unseen: latestNb('unseen') };
+      const nbNote = (set) => { const r = nb[set]; if (!r) return `no new-bills report covering ${set === 'test' ? 'the' : 'the pinned'} ${set} set${minOf(set, set === 'test' ? Number(goldItems) : Number((pin || {}).items)) < (set === 'test' ? Number(goldItems) : Number((pin || {}).items)) ? ` (at least ${minOf(set, set === 'test' ? Number(goldItems) : Number((pin || {}).items))} bills, config/publish.json new_bills_gate)` : ' (whole set)'} for the production writer and reviewer made by the current code (eval/newbill-eval.mjs --set ${set})`; const s = r.summary; return passes(r) ? null : `the latest new-bills report on the ${set} set (${r.run_at}) has ${s.wrong} wrong, ${s.scope_errors} scope error(s), ${s.errors} error(s), ${s.no_text} without text, ${s.published} published`; };
+      const nbOk = ['test', 'unseen'].every((s) => nb[s] && passes(nb[s]));
+      fields.new_entries = { on: !!auto.new_entries, meets: zero(t) && nbOk, report: t ? t.run_at : null, new_bills_reports: { test: nb.test ? nb.test.run_at : null, unseen: nb.unseen ? nb.unseen.run_at : null }, note: tierbNote || nbNote('test') || nbNote('unseen') };
+    } else {
+      fields.new_entries = { on: !!auto.new_entries, meets: fieldsMeet && zero(t), report: t ? t.run_at : null, note: !fieldsMeet ? 'every reading field must meet the bar on the field eval' : tierbNote };
+    }
   }
   if ('relationships' in auto) {
     const l = measured('links', 'relationships'), zero = zeroOf('links');
@@ -99,9 +127,9 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
 
 // The gate at run time (update.mjs): every auto_publish switch whose measure does not meet the bar is treated as OFF for the run, whatever
 // config/publish.json says. Returns { config: a copy with the switches the run may use, gate, off: [{ field, why }] }. Never throws.
-export function gatedPublishConfig({ config, models, reports, goldItems, measures, hashes, expected, error }) {
+export function gatedPublishConfig({ config, models, reports, goldItems, measures, hashes, expected, error, engine }) {
   let g;
-  try { g = gate({ config, models, reports, goldItems, measures, hashes, expected, error }); }
+  try { g = gate({ config, models, reports, goldItems, measures, hashes, expected, error, ...(engine !== undefined ? { engine } : {}) }); }
   catch (e) { g = gate({ config, models, error: `the gate failed: ${e.message}` }); }
   const out = JSON.parse(JSON.stringify(config)), off = [];
   for (const [f, x] of Object.entries(g.fields)) {
@@ -122,7 +150,9 @@ export function readGateInputs(dir = path.join(here, 'reports'), goldFile = path
     if (!gold || !Array.isArray(gold.items)) throw new Error('gold.json has no items list');
     // The size of each fixed case set: a measure report with fewer cases does not count.
     const setSize = (f) => { const s = read(f); if (!s || !Array.isArray(s.cases)) throw new Error(`${path.basename(path.dirname(f))}/cases.json has no cases list`); return s.cases.length; };
-    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), news_writer: setSize(path.join(here, 'news-writer-set', 'cases.json')), links: null };
+    // The unseen set lives outside the repo; its size and fingerprints are pinned here, so only a run over exactly that set counts.
+    const sets = fs.existsSync(path.join(P, 'config', 'eval-sets.json')) ? read(path.join(P, 'config', 'eval-sets.json')) : {};
+    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), news_writer: setSize(path.join(here, 'news-writer-set', 'cases.json')), links: null, unseen: sets.unseen || null };
     return { expected, reports: all.filter((r) => !r.measure || r.measure === 'fields'), measures: all.filter((r) => r.measure && r.measure !== 'fields'), goldItems: gold.items.length, hashes: currentHashes() };
   } catch (e) { return { reports: [], measures: [], goldItems: 0, hashes: null, error: String(e.message || e).slice(0, 200) }; }
 }

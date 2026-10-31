@@ -2,6 +2,10 @@
  "_note": "Publisher settings (publish/run.mjs). Tier A = official facts written by code (events, status, dates). A run that would change more tracked entries than max_entries_changed_per_run is treated as an anomaly: nothing is written. auto_publish switches stay off until the field scores at the bar on the accuracy test set (phase 4).",
  "max_entries_changed_per_run": 15,
  "max_new_entries_per_run": 3,
+ "new_bills_gate": {
+  "_note": "eval/gate.mjs (owner, 31 Oct 2026): the new-bills measure (eval/newbill-eval.mjs) may cover at least this many bills of each set instead of the whole set, to keep the paid test small. Still at zero wrong, every scope call right, no error, at least one bill published, by the current code and the production models, and over the right set (the unseen set by its pinned fingerprints). Remove a set's number to require the whole set again.",
+  "min_items": { "test": 5, "unseen": 5 }
+ },
  "auto_publish": {
   "mechanism": false,
   "thresholds": false,

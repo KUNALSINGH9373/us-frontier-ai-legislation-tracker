@@ -111,7 +111,8 @@ const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate
     fs.writeFileSync(path.join(dir, 'changeset.json'), JSON.stringify({ run_id: 'run-t', items: [{ ...r.item, raw_path: 'raw/ct.json', raw_hash: hash }] }));
     fs.writeFileSync(path.join(dir, 'diff.json'), JSON.stringify({ items: [diffOf(r.item)] }));
     const g = scripted([{ operation: 'create', in_scope: true, scope_reason: 'IVO pilot.', fields: { mechanism: ct.mechanism }, events_add: [], evidence: [], notes: '' }]);
-    const factory = { keyName: 'K', ledger: { itemTokens: () => g.calls * 1000, totals: () => ({}) }, make: (role) => (role === 'generator' ? g : trap()) };
+    // No "writer" role: this memo test scripts the generator loop (the simple build has its own tests, agents/test-newbill.mjs).
+    const factory = { keyName: 'K', ledger: { itemTokens: () => g.calls * 1000, totals: () => ({}) }, make: (role) => (role === 'generator' ? g : role === 'writer' ? null : trap()) };
     const s = await runAgents({ runDir: dir, entries: ENTRIES, config: {}, factory, today: '2026-10-29', memoFile });
     return { s, g };
   };

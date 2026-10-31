@@ -1,6 +1,6 @@
 // The shared text-cleanup and number module (agents/text-norm.mjs) and the quote check built on it (C3, C4). Code only, no AI.
 //   node agents/test-text-norm.mjs
-import { cleanText, parseNumberWords, detectNumbering, digitRuns, NUMBER_WORD, COMPUTE_POWER_PHRASE, LOST_EXPONENT_IN_VALUE, LOST_EXPONENT, exponentOf } from './text-norm.mjs';
+import { cleanText, readerText, parseNumberWords, detectNumbering, digitRuns, NUMBER_WORD, COMPUTE_POWER_PHRASE, LOST_EXPONENT_IN_VALUE, LOST_EXPONENT, exponentOf } from './text-norm.mjs';
 import { normaliseExponents, thresholdNumberProblems } from './checks.mjs';
 import { containsQuote } from './source-text.mjs';
 import { SECTION_MARKERS } from './rules.mjs';
@@ -68,6 +68,30 @@ ok('a misquoted figure equal to a line number elsewhere is refused', !containsQu
 ok('a figure in the bill that is also a line number (15 days) still matches', containsQuote(src, 'in a civil action within 15 days'));
 ok('a misquoted deadline equal to a line number is refused', !containsQuote(src, 'the attorney general shall recover 12 the penalty in a civil action'));
 ok('digitRuns reads an exponent printed any way alike', ['10^26', '10²⁶', '1026 integer', '10\\26\\'].every((x) => digitRuns(x).has('26')));
+
+// ---------- readerText: the copy the new-bills writer and reviewer read (3.2). Invented text only. ----------
+// a numbered page: margin line numbers 1..n, a page number line, and a fixed header on every page
+const filler = (n) => Array.from({ length: n }, (_, k) => `${k + 1} the covered operator shall keep records of each model for the period required`).join('\n');
+const pageOf = (p) => `XB9999          XB9999\n2031             2031\n${filler(8)}\n                    -${p}-\n`;
+const paged = [1, 2, 3, 4].map(pageOf).join('\f');
+const rp = readerText(paged);
+ok('readerText removes margin line numbers', !/^\d+ the covered/m.test(rp) && /the covered operator shall keep records/.test(rp));
+ok('readerText removes page numbers and the fixed header next to them', !/-\d-/.test(rp) && !/XB9999/.test(rp) && !/2031/.test(rp));
+const noPage = ['ABC123 DEF456', 'x'.repeat(500), 'ABC123 DEF456', 'y'.repeat(500), 'ABC123 DEF456', 'z'.repeat(500)].join('\n');
+ok('a repeated line with no page number beside it is kept (fail closed)', (readerText(noPage).match(/ABC123 DEF456/g) || []).length === 3);
+ok('an amended exponent before a compute unit reads as the inserted value', readerText('trained using greater than 10�[26] 25 integer operations') === 'trained using greater than 10^25 integer operations'
+  && readerText('more than 10 [26] 24 floating-point operations') === 'more than 10^24 floating-point operations');
+ok('brackets anywhere else are left as printed', readerText('the [Commissioner] Secretary shall report') === 'the [Commissioner] Secretary shall report');
+ok('a word hyphenated across a line break is closed, hyphen kept', readerText('an AI-\n   related incident') === 'an AI-related incident' && readerText('an AI-\r\n\r\nrelated incident') === 'an AI-related incident');
+ok('"pre- and post-" across a line break is not joined', readerText('pre-\n and post-deployment testing') === 'pre-\nand post-deployment testing');
+ok('readerText keeps every real figure', ['$75,000', '72 hours', '10^25', 'January 1, 2032'].every((f) => readerText(`a fine of $75,000 within 72 hours for models over 10^25 operations from January 1, 2032`).includes(f)));
+// a quote taken from readerText still matches the printed bill
+const firstQuote = 'the covered operator shall keep records of each model for the period required';
+ok('a quote from readerText matches the printed text (line numbers and page furniture dropped)', containsQuote(paged, firstQuote));
+const broken = paged.replace(/8 the covered operator shall keep records of each model for the period required\n {20}-2-/, '8 an operator that fails to comply shall pay a civil\n                    -2-')
+  .replace(/(-2-\n\fXB9999 {10}XB9999\n2031 {13}2031\n)1 the covered operator[^\n]*/, '$11 penalty of not more than $75,000 for each violation');
+ok('a quote across a page break matches without the page furniture', containsQuote(broken, 'shall pay a civil penalty of not more than $75,000 for each violation')
+  && /shall pay a civil\n+penalty of not more than \$75,000/.test(readerText(broken)));
 
 console.log(`text-norm: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

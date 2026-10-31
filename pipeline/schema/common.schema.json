@@ -86,9 +86,9 @@
       "description": "One duty or figure of a bill. Every one except not_in_bill needs a section number and a word-for-word quote from the official text; the duty checker confirms both in code.",
       "properties": {
         "value": { "$ref": "#/$defs/dutyValue" },
-        "summary": { "type": "string", "minLength": 3, "maxLength": 240, "description": "One plain-English line. Every number in it must appear in the official text." },
+        "summary": { "type": "string", "minLength": 3, "maxLength": 600, "description": "One plain-English line. Every number in it must appear in the official text. A new-bills entry keeps every condition, so it may run longer than a hand-written one." },
         "section": { "type": "string", "minLength": 1, "maxLength": 80, "description": "Section as the bill numbers it, e.g. 22757.12(a) or Sec. 4." },
-        "quote": { "type": "string", "minLength": 8, "maxLength": 400, "description": "One exact span of the official text." },
+        "quote": { "type": "string", "minLength": 8, "maxLength": 2000, "description": "One exact span of the official text. A new-bills entry quotes the whole clause, conditions included." },
         "source_url": { "$ref": "#/$defs/url" }
       },
       "allOf": [

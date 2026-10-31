@@ -80,5 +80,11 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   ok('schema: enum, nullable and arrays are checked', !schemaProblems(S, { v: null, k: [1, 2.5] }).length && schemaProblems(S, { v: 'maybe' }).length === 1 && schemaProblems(S, { v: 'yes', k: ['x'] }).length === 1);
   ok('schema: a nullable enum lists null', toJsonSchema(S).properties.v.enum.includes(null));
 }
+// a role's time limit (config/models.json timeout_ms): 2 minutes by default, more for the roles that read whole bills
+{
+  const cfg = { provider: 'anthropic', limits: {}, prices_per_million_tokens: {}, anthropic: { roles: { quick: { model: 'm' }, long: { model: 'm', timeout_ms: 600000 } } } };
+  const quick = createLlmFromConfig({ config: cfg, http: {}, role: 'quick', claudeKey: 'k' }).llm, long = createLlmFromConfig({ config: cfg, http: {}, role: 'long', claudeKey: 'k' }).llm;
+  ok('a role\'s timeout_ms reaches the client; without it the 2-minute default holds', quick.timeoutMs === 120000 && long.timeoutMs === 600000);
+}
 console.log(`anthropic client: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

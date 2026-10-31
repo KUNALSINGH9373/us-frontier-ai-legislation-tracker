@@ -8,6 +8,7 @@
 // --commit makes one git commit with the summary as its message (never pushes). A quiet run writes nothing.
 // Any stop rule (publish/guards.mjs) failing means nothing is written and the exit code is 1.
 import fs from 'fs';
+import { congressOn, congressOfId, sessionLabel } from '../lib/congress.mjs';
 import path from 'path';
 import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
@@ -108,7 +109,7 @@ export function publishRun({ runDir, dataDir, docsDir, dry = false, config, idsF
   const cgFile = idsFile || IDENTIFIERS_FILE;
   const cg = fs.existsSync(cgFile) ? JSON.parse(fs.readFileSync(cgFile, 'utf8')).congress_gov || {} : {};
   const identifiersFor = (key) => (ls[key] && ls[key].status !== 'rejected' ? { session: ls[key].bills[0].session_name, external: { legiscan: ls[key].bills.map((b) => b.bill_id) } }
-    : cg[key] && cg[key].status !== 'rejected' && (cg[key].congress_gov || []).length ? { session: '119th Congress', external: { congress_gov: [...cg[key].congress_gov] } } : null);
+    : cg[key] && cg[key].status !== 'rejected' && (cg[key].congress_gov || []).length ? { session: sessionLabel(congressOfId(cg[key].congress_gov[0]) || congressOn(new Date())), external: { congress_gov: [...cg[key].congress_gov] } } : null);
   const a = applyTierA({ data: before, diff, changeset, readRaw, runId, runDate, config, identifiersFor });
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
   // A draft whose stored record changed since it was fetched is not used (the run stops below, stop rule 5).

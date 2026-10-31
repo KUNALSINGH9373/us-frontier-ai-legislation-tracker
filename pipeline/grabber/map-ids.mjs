@@ -2,6 +2,7 @@
 //   node grabber/map-ids.mjs            writes config/identifiers.json and out/identifier-review.md
 // A person confirms the result (set "status": "confirmed" or fix an id); the converter then uses it.
 import fs from 'fs';
+import { congressOn, congressOfEntry } from '../lib/congress.mjs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadEnv } from './lib/env.mjs';
@@ -10,13 +11,14 @@ import { createCongress, billId, parseBillId } from './sources/congress.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
-const CONGRESS = '119'; // the tracker covers 2025-2026, the 119th Congress
+// Each entry's own Congress (lib/congress.mjs congressOfEntry: its stored session, else its earliest event), so a 120th-Congress bill
+// from January 2027 is looked up as 120/..., not 119/...; an entry with neither falls back to the current Congress.
 const TYPE = { 'H.R.': 'hr', 'S.': 's', 'H.J.Res.': 'hjres', 'S.J.Res.': 'sjres', 'H.Res.': 'hres', 'S.Res.': 'sres' };
 const RE = /\b(H\.R\.|S\.J\.Res\.|H\.J\.Res\.|S\.Res\.|H\.Res\.|S\.)\s?(\d+)/g;
 const STOP = new Set(['the', 'and', 'act', 'for', 'bill', 'new', 'with', 'ndaa']);
 const tokens = (s) => new Set((s || '').toLowerCase().replace(/\bh\.?r\.?\s?\d+|\bs\.?\s?\d+/g, ' ').normalize('NFKD').replace(/[̀-ͯ]/g, '').match(/[a-z]{3,}/g)?.filter((t) => !STOP.has(t)) || []);
 
-export const proposeIds = (e) => [...new Set([...(e.title + ' ' + e.short_name).matchAll(RE)].map((m) => `${CONGRESS}/${TYPE[m[1]]}/${m[2]}`))];
+export const proposeIds = (e, today = new Date()) => { const c = congressOfEntry(e) || congressOn(today); return [...new Set([...(e.title + ' ' + e.short_name).matchAll(RE)].map((m) => `${c}/${TYPE[m[1]]}/${m[2]}`))]; };
 export const surname = (fullName) => (fullName || '').replace(/^(Rep\.|Sen\.|Del\.)\s*/, '').split(',')[0].trim().toLowerCase();
 
 const INITIAL_SKIP = new Set(['of', 'and', 'the', 'for', 'on', 'to', 'in', 'act', 'a', 'an']);

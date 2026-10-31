@@ -36,5 +36,9 @@
   "_note": "agents/budget.mjs: the most sub-keys one escalated item may spread its budget over (a guard against an endless loop, never reached in practice).",
   "max_sub_keys": 1000,
   "switch_fraction": 0.75
+ },
+ "new_bills": {
+  "_note": "agents/newbill.mjs (owner, 31 Oct 2026): engine \"simple\" writes a new Congress.gov or LegiScan bill with the writer (role writer) and checks it with the reviewer (role bill_reviewer): code checks with one retry, at most one fix round, then publish, facts-only, or out of scope. Any other value keeps the older generator / validator / referee loop (agents/process-item.mjs). The prompt is agents/newbill-prompt.md.",
+  "engine": "simple"
  }
 }

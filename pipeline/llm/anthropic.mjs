@@ -9,8 +9,10 @@ import Anthropic from '@anthropic-ai/sdk';
 import { LlmOutputError, InputTooLarge } from './gemini.mjs';
 import { toJsonSchema, schemaProblems } from './schema.mjs';
 
-export function createAnthropic({ apiKey, client, role, model, maxOutputTokens = 4000, effort = null, ledger, maxInputChars = 120000, log = () => {} }) {
-  const api = client || new Anthropic({ apiKey, maxRetries: 3, timeout: 120000 });
+// timeoutMs: each attempt's limit. 2 minutes by default, so a stuck call cannot hold a scheduled run; a role that reads a whole bill and
+// writes a long answer sets more in config/models.json (timeout_ms), or every long bill times out on every run (live run, 31 Oct 2026).
+export function createAnthropic({ apiKey, client, role, model, maxOutputTokens = 4000, effort = null, ledger, maxInputChars = 120000, timeoutMs = 120000, log = () => {} }) {
+  const api = client || new Anthropic({ apiKey, maxRetries: 3, timeout: timeoutMs });
   // With a schema the API constrains the reply to exactly one JSON value of that shape (structured outputs), so there is nothing to
   // pick between. It is still checked in code: an answer of the wrong shape is unusable (LlmOutputError) and the caller asks once more.
   const parse = (text, responseSchema) => {
@@ -21,7 +23,7 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
     return data;
   };
   return {
-    role, model,
+    role, model, timeoutMs,
     // Same call as the Gemini client. responseSchema (a Gemini-style schema, llm/schema.mjs) is sent as the structured-output
     // format, so the reply is exactly one answer of that shape. Forced tool use (tool_choice "tool") would do the same, but the
     // current Sonnet and Opus models refuse it with a 400; output_config.format is the API's route for a JSON-only answer.

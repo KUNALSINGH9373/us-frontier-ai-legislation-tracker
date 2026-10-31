@@ -1,0 +1,165 @@
+{
+ "measure": "new_bills",
+ "method": "simple",
+ "set": "unseen",
+ "run_at": "2026-10-31T15:56:44.112Z",
+ "provider": "anthropic",
+ "writer": "claude-sonnet-5-5",
+ "reviewer": "claude-opus-5-5",
+ "scope_judge": "claude-opus-5-5",
+ "scorer": "claude-opus-5-5",
+ "checks_hash": "4dae09aea754281ed104d702eaa95eef59160f1d791e89fb5089798b6dce7d5f",
+ "partial": true,
+ "set_size": 26,
+ "gold_sha256": "d6ecc5c301a1e156e116801eecb492eb9dbda5b613fc4ae461c27238afdabe75",
+ "references_sha256": "61282773c15fd085779eb9658edd627107d4543bff5ebb8b2231b98e78d764a9",
+ "summary": {
+  "items": 5,
+  "published": 0,
+  "facts_only": 0,
+  "out_of_scope": 4,
+  "held": 0,
+  "errors": 1,
+  "no_text": 0,
+  "scope_errors": 0,
+  "missed": 0,
+  "wrong": 0,
+  "misleading": 0,
+  "omission": 0,
+  "misleading_per_published": null,
+  "publish_rate": 0
+ },
+ "usage": {
+  "calls": 10,
+  "input_tokens": 291546,
+  "output_tokens": 50530,
+  "total_tokens": 342076,
+  "by_role": {
+   "writer": {
+    "calls": 7,
+    "input": 203726,
+    "output": 47438,
+    "cost": 0.881832
+   },
+   "scope_judge": {
+    "calls": 2,
+    "input": 50489,
+    "output": 1556,
+    "cost": 0.233076
+   },
+   "bill_reviewer": {
+    "calls": 1,
+    "input": 37331,
+    "output": 1536,
+    "cost": 0.180044
+   }
+  },
+  "by_model": {
+   "claude-sonnet-5-5": {
+    "calls": 7,
+    "input": 203726,
+    "output": 47438,
+    "cost": 0.881832
+   },
+   "claude-opus-5-5": {
+    "calls": 3,
+    "input": 87820,
+    "output": 3092,
+    "cost": 0.41312000000000004
+   }
+  },
+  "estimated_cost_usd": 1.294952
+ },
+ "items": [
+  {
+   "key": "il-hb4799",
+   "gold_in_scope": true,
+   "decision": "error",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": true,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "Request timed out.",
+   "writer_calls": 0,
+   "reviews": 0
+  },
+  {
+   "key": "md-sb294",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The bill changes the membership and chair of the Maryland Cybersecurity Council and tells it to work on cybersecurity threats from artificial intelligence and quantum computing. It has no frontier-model threshold and no duty on AI developers. It is a State advisory body on general cybersecurity, not a catastrophic-risk rule for advanced AI.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "nj-a5676",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The bill is a 10 percent tax on AI computer processing that funds a displaced-worker transition fund, with record-keeping duties; it has no frontier threshold or catastrophic-risk aim and falls under the OUT-list item for workforce or economic measures.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "va-hb747",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The bill regulates high-risk AI systems used to make consequential decisions (credit, employment, housing and similar) and targets algorithmic discrimination. This falls under the OUT-list item for bills that only regulate AI use in one kind of decision. It has no frontier threshold and no catastrophic-harm provision.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "vt-h0711",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding duties (9 V.S.A. §§ 2495d-2495f) apply to every 'inherently dangerous artificial intelligence system', defined to include any generative AI system or any high-risk system, so a small company's chatbot is covered. They are aimed at ordinary harms (consumer injury, discrimination, privacy, consequential decisions), not at catastrophic harm; the 10 billion parameter dual-use definition is only one limb of that broad class. This falls under the out-of-scope class of general duties on all AI systems and sector or decision-specific AI rules.",
+   "writer_calls": 1,
+   "reviews": 0
+  }
+ ]
+}

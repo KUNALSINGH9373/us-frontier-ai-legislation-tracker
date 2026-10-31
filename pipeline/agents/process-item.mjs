@@ -10,7 +10,8 @@ import { sourceText, containsQuote, provedQuote } from './source-text.mjs';
 import { generatePatch } from './generator.mjs';
 import { assembleEntry } from './assemble.mjs';
 import { validateDraft, complaints } from './validator.mjs';
-import { VERDICT_SCHEMA, SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt } from './prompts.mjs';
+import { VERDICT_SCHEMA, SCOPE_CLAIM, VALIDATOR_SYSTEM, validatorPrompt, stateSectionRule, FEDERAL_SECTION_RULE } from './prompts.mjs';
+import { runNewBill } from './newbill.mjs';
 import { LlmOutputError, InputTooLarge, BudgetExceeded } from '../llm/gemini.mjs';
 import { deriveCreate } from './derive.mjs';
 import { relevantSections, markerPassages } from './sections.mjs';
@@ -131,7 +132,7 @@ export function selectionOf(source, maxChars) {
   return p.chunks.length ? p : null;
 }
 
-async function processItemInner({ generator, validator, referee = null, item, raw, diff, entry = null, entries = [], today, runId, now = new Date(), maxRounds = MAX_ROUNDS, escalated = false, newEntriesOn = true, log = () => {} }) {
+async function processItemInner({ generator, validator, referee = null, writer = null, billReviewer = null, scopeJudge = null, item, raw, diff, entry = null, entries = [], today, runId, now = new Date(), maxRounds = MAX_ROUNDS, escalated = false, newEntriesOn = true, log = () => {} }) {
   // New entries switched off: no referee call is made on a new bill (its drafts can never publish).
   const unconfirmedOnly = newEntriesOn === false && diff.verdict === 'new_entry_candidate';
   if (unconfirmedOnly) referee = null;
@@ -193,6 +194,14 @@ async function processItemInner({ generator, validator, referee = null, item, ra
   const fedTitle = (raw.bill && raw.bill.title) || item.title;
   if (operation === 'create' && item.source === 'congress_gov' && !sectionPassage('D', source) && (!sectionPassage('F', source) || fTitleOut(fedTitle))) {
     return held(`not created: no passage of the text meets the criterion of section D or F${fTitleOut(fedTitle) ? ` (its title names a subject F excludes: "${String(fedTitle).slice(0, 80)}")` : ''} (D: ${SECTION_CRITERIA.D}; F: ${SECTION_CRITERIA.F})`, { no_section: true, proposal: `${item.item_id}${item.title ? ` ("${String(item.title).slice(0, 80)}")` : ''} meets neither federal section's criterion; not created` });
+  }
+
+  // The simple build (config/pipeline.json new_bills.engine "simple", owner 31 Oct 2026): a new bill that passed every code-only step
+  // above is written by the writer and checked by the reviewer (agents/newbill.mjs). The older loop below stays for updates and other
+  // sources, and for new bills when the engine is switched back.
+  if (operation === 'create' && (item.source === 'congress_gov' || item.source === 'legiscan') && PIPELINE.new_bills && PIPELINE.new_bills.engine === 'simple' && writer) {
+    const secs = derivedNow.section ? [derivedNow.section] : sections && sections.length ? sections : item.source === 'legiscan' ? derivedNow.allowed : ['D', 'F', 'G.3'];
+    return runNewBill({ writer, reviewer: billReviewer, scopeJudge, item, raw, entries, sections: secs, sectionRule: item.source === 'legiscan' ? stateSectionRule(secs) : FEDERAL_SECTION_RULE, today, runId, now, newEntriesOn, log });
   }
 
   // A very long source in which no frontier-AI section or passage was found: whether it is in scope is judged on its opening. If both

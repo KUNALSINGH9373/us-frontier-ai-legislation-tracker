@@ -1,0 +1,8 @@
+{
+ "_note": "The held-out case sets the gate measures against (eval/gate.mjs). The unseen set lives outside the repo (never copied in, so the pipeline's builders never read it); only its size and fingerprints are pinned here: a new-bills report on the unseen set counts only over exactly these 26 bills, from these exact gold and reference files (eval/newbill-eval.mjs setFingerprint). Pinned 31 Oct 2026. Changing the set means re-pinning, which makes every older unseen report stop counting.",
+ "unseen": {
+  "items": 26,
+  "gold_sha256": "d6ecc5c301a1e156e116801eecb492eb9dbda5b613fc4ae461c27238afdabe75",
+  "references_sha256": "61282773c15fd085779eb9658edd627107d4543bff5ebb8b2231b98e78d764a9"
+ }
+}

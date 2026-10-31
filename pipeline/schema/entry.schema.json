@@ -350,6 +350,42 @@
         "checked_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
       }
     },
+    "plain": {
+      "type": "object",
+      "required": ["box", "items"],
+      "additionalProperties": false,
+      "description": "A new-bills entry's plain-English page (agents/newbill-entry.mjs): the four-slot box and every item with the bill words it rests on. The site shows each item's text beside its quote. Written only by the new-bills writer, checked by code (every quote in the bill) and by the reviewer.",
+      "properties": {
+        "name_quote": { "type": "string", "description": "The bill words the headline name is copied from (empty when the name is descriptive)." },
+        "box": {
+          "type": "object",
+          "required": ["applies_to", "requires_lead", "requires", "enforcement", "effective"],
+          "additionalProperties": false,
+          "properties": {
+            "applies_to": { "type": "string" },
+            "requires_lead": { "enum": ["Requires them to", "Directs"] },
+            "requires": { "type": "string" },
+            "enforcement": { "type": "string" },
+            "effective": { "type": "string" }
+          }
+        },
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "coverage": { "$ref": "#/$defs/plainItems" },
+            "definitions": { "$ref": "#/$defs/plainItems" },
+            "exclusions": { "$ref": "#/$defs/plainItems" },
+            "duties": { "$ref": "#/$defs/plainItems" },
+            "penalties": { "$ref": "#/$defs/plainItems" },
+            "effective": { "$ref": "#/$defs/plainItems" },
+            "other_provisions": { "$ref": "#/$defs/plainItems" }
+          }
+        },
+        "text_problems": { "type": "array", "items": { "type": "string" }, "description": "Damaged or inconsistent passages the writer reported (shown as a note, never guessed at)." },
+        "facts_only": { "type": "boolean", "description": "true: the description did not pass its checks, so only the official facts are shown; retried on the next run." }
+      }
+    },
     "origin": {
       "$ref": "common.schema.json#/$defs/origin"
     },
@@ -658,5 +694,29 @@
         }
       }
     }
-  ]
+  ],
+  "$defs": {
+    "plainItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "quote", "text"],
+        "additionalProperties": false,
+        "description": "One fact of the bill: the plain line the page shows, the bill words it rests on (lead_in opens a list the quote is one item of), and where it is.",
+        "properties": {
+          "id": { "type": "string", "pattern": "^[cdxupeo][0-9]+$" },
+          "text": { "type": "string", "minLength": 1 },
+          "quote": { "type": "string", "minLength": 8 },
+          "lead_in": { "type": "string" },
+          "sec": { "type": "string" },
+          "party": { "type": "string" },
+          "term": { "type": "string" },
+          "kind": { "type": "string" },
+          "force": { "enum": ["duty", "power", "ban"] },
+          "deadline": { "type": "string" },
+          "conditions": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
 }
