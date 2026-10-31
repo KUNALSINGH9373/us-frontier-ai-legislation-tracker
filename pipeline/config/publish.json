@@ -10,8 +10,8 @@
   "mechanism": false,
   "thresholds": false,
   "penalties": false,
-  "new_entries": false,
-  "relationships": false,
+  "new_entries": true,
+  "relationships": true,
   "news": false
  },
  "links": {
