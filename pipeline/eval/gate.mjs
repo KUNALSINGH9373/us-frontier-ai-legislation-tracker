@@ -121,6 +121,13 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
     const lane1 = !config || config.news_from_official_actions !== false;
     fields.news = { on: !!auto.news, meets: zero(n) && wOk && !lane1, report: n ? n.run_at : null, writer_report: w ? w.run_at : null, note: lane1 ? 'news_from_official_actions is on in config/publish.json: Lane 1 already writes official-action news; switch it off before news publishing goes on' : nNote || wNote };
   }
+  // An owner's override (config/publish.json gate_override.<switch>: { by, date, reason }): the switch counts as meeting its bar without a
+  // passing report, by the owner's explicit decision. It is never silent: the field says "on by owner override" with who, when and why,
+  // and update.mjs puts that in every run report. Every other check of the entries themselves still runs. Remove it to restore the gate.
+  for (const [f, o] of Object.entries(config.gate_override || {})) {
+    if (f.startsWith('_') || !fields[f] || fields[f].meets || !o || !o.by || !o.date) continue;
+    fields[f] = { ...fields[f], meets: true, override: { by: o.by, date: o.date, reason: o.reason || '' }, note: `on by owner override (${o.by}, ${o.date}${o.reason ? `: ${o.reason}` : ''}); no passing report: ${fields[f].note || 'below the bar'}` };
+  }
   const violations = Object.entries(fields).filter(([, x]) => x.on && !x.meets).map(([f]) => f);
   return { model: prod, report: latest ? latest.run_at : null, bar, fields, violations };
 }

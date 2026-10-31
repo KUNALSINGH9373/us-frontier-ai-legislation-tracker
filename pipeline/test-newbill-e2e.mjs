@@ -120,5 +120,14 @@ const run = (P, on) => runUpdate({ P, config: CONFIG, models, factory, flags: { 
   ok('and only the writer runs: its draft is a reported proposal, no scope check or reviewer (Opus) spend, nothing published', calls.writer === 1 && calls.reviewer === 0 && calls.judge === judgedBefore && fs.readFileSync(path.join(P.dataDir, 'entries.json')).equals(before) && rep.notes.some((n) => /proposal/.test(n) && /99901|Frontier Model Accountability Act/.test(n)), JSON.stringify(calls));
 }
 
+{
+  // the owner's override (config/publish.json gate_override): no passing reports, the bill is still published, and the run report says why
+  calls.writer = 0; calls.reviewer = 0;
+  const P = setup(), before = j(path.join(P.dataDir, 'entries.json')).length;
+  const { code, rep } = await runUpdate({ P, config: { ...CONFIG, gate_override: { new_entries: { by: 'owner', date: '2026-10-31', reason: 'accepted the live test' } } }, models, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-11-01T12:00:00Z'), deps: { ...steps, gateInputs: gateInputs(false) }, log: () => {}, logErr: () => {} });
+  ok('under an owner override the new bill publishes without passing reports, through the scope check and the reviewer', code === 0 && j(path.join(P.dataDir, 'entries.json')).length === before + 1 && calls.reviewer === 1, `${code} ${JSON.stringify(calls)}`);
+  ok('and every run report says new entries are on by owner override', rep.notes.some((n) => /auto_publish\.new_entries is ON by owner override \(owner, 2026-10-31/.test(n)) && rep.gate.overridden.length === 1);
+}
+
 console.log(`newbill e2e: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

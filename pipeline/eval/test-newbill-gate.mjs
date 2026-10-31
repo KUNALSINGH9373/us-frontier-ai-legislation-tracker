@@ -59,5 +59,14 @@ ok('the older engine keeps the older rule (field eval + Tier B), ignoring new-bi
   ok('without min_items a small run never counts (the whole set is required)', !run([tierb, part('test', 5), part('unseen', 5)]).meets);
 }
 
+// the owner's override (config/publish.json gate_override)
+{
+  const ov = { ...config, gate_override: { new_entries: { by: 'owner', date: '2026-10-31', reason: 'accepted the live test' } } };
+  const g = run([tierb], { config: ov });
+  ok('an owner override lets the switch on without a report, and says so with who, when and why', g.meets && g.override && g.override.by === 'owner' && /on by owner override \(owner, 2026-10-31: accepted the live test\)/.test(g.note));
+  ok('an override missing who or when does nothing', !run([tierb], { config: { ...config, gate_override: { new_entries: { reason: 'x' } } } }).meets);
+  ok('without the override the gate holds again', !run([tierb]).meets);
+}
+
 console.log(`newbill gate: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

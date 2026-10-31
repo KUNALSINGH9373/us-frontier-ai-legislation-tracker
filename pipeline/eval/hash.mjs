@@ -2,7 +2,7 @@
 // while that hash matches the pipeline as it is now: any change that could change a measured outcome needs a new report.
 // What is hashed (round 3, audit gate item 2): ALL of pipeline/ (code, prompts, config, case sets, eval gold and sources, fixtures, tests),
 // except what a run writes: node_modules/, data/, out/, state/, eval/reports/, eval/report.md and .env files. config/publish.json is hashed
-// without its auto_publish switches (turning a switch on must not make its own report stale). The relationships measure also hashes its
+// without its auto_publish switches and gate_override (turning a switch on, or the owner overriding the gate, must not make a report stale). The relationships measure also hashes its
 // inputs on the real network (web/data/v2/entries.json and relationships.json): a changed network needs a new links report.
 import fs from 'fs';
 import path from 'path';
@@ -43,7 +43,7 @@ export const MEASURE_FILES = MEASURE_INPUTS; // older name
 const contentOf = (rel, p) => {
   if (!fs.existsSync(p)) return '(missing)';
   let s = fs.readFileSync(p, 'utf8').replace(/\r\n/g, '\n');
-  if (rel === 'config/publish.json') { try { const j = JSON.parse(s); delete j.auto_publish; s = JSON.stringify(j); } catch { /* hashed as is */ } }
+  if (rel === 'config/publish.json') { try { const j = JSON.parse(s); delete j.auto_publish; delete j.gate_override; s = JSON.stringify(j); } catch { /* hashed as is */ } }
   return s;
 };
 
