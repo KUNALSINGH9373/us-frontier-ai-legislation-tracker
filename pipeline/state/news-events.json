@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 10,
+   "stable_runs": 11,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 10,
+   "stable_runs": 11,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -114,15 +114,15 @@
      "url": "https://www.federalregister.gov/documents/2026/10/26/2026-21723/cooperative-research-and-development-agreement-super-intelligence-si-situational-awareness-tools-for",
      "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
      "publisher": null,
-     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "retrieved_at": "2026-10-31T16:05:45.961Z",
      "hash": "89ccaa83a68fe096"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 10,
+   "stable_runs": 11,
    "first_seen": "2026-10-30T15:06:01.949Z",
-   "last_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-31T16:05:45.961Z",
    "facts_digest": "0ba506c37c8914c4",
    "history": [
     {
@@ -164,15 +164,15 @@
      "url": "https://www.federalregister.gov/documents/2026/10/26/2026-21723/cooperative-research-and-development-agreement-super-intelligence-si-situational-awareness-tools-for",
      "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
      "publisher": null,
-     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "retrieved_at": "2026-10-31T16:05:45.961Z",
      "hash": "89ccaa83a68fe096"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 10,
+   "stable_runs": 11,
    "first_seen": "2026-10-30T15:06:01.949Z",
-   "last_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-31T16:05:45.961Z",
    "facts_digest": "0ba506c37c8914c4",
    "history": [
     {
@@ -213,15 +213,15 @@
      "url": "https://www.federalregister.gov/documents/2026/10/20/2026-21447/notice-of-order-regarding-exclusion-and-removal-of-deepseek-products-from-federal-civilian-executive",
      "title": "Notice of Order Regarding Exclusion and Removal of DeepSeek Products From Federal Civilian Executive Branch Information Technology Systems and Procurements",
      "publisher": null,
-     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "retrieved_at": "2026-10-31T16:05:45.961Z",
      "hash": "27d82e7f67a2e3aa"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 10,
+   "stable_runs": 11,
    "first_seen": "2026-10-30T15:06:01.949Z",
-   "last_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-31T16:05:45.961Z",
    "facts_digest": "276c7aed410381f5",
    "history": [
     {
@@ -260,15 +260,15 @@
      "url": "https://www.govinfo.gov/app/details/BILLS-119hr10873ih",
      "title": "AI Cyber Defense Act",
      "publisher": null,
-     "retrieved_at": "2026-10-30T15:06:01.949Z",
+     "retrieved_at": "2026-10-31T16:05:45.961Z",
      "hash": "67729b2d3d521cdb"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 10,
+   "stable_runs": 11,
    "first_seen": "2026-10-30T15:06:01.949Z",
-   "last_seen": "2026-10-30T15:06:01.949Z",
+   "last_seen": "2026-10-31T16:05:45.961Z",
    "facts_digest": "905ea3751cd4242b",
    "history": [
     {
@@ -314,7 +314,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -362,7 +362,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -404,7 +404,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -452,7 +452,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -470,16 +470,16 @@
  },
  "adapters": {
   "federal_register": {
-   "since": "2026-10-30"
+   "since": "2026-10-31"
   },
   "govinfo": {
-   "since": "2026-10-28"
+   "since": "2026-10-29"
   },
   "regulations_gov": {
-   "since": "2026-10-16"
+   "since": "2026-10-17"
   },
   "congress_extra": {
-   "since": "2026-10-29"
+   "since": "2026-10-30"
   },
   "openstates": {
    "sessions": {
