@@ -755,6 +755,20 @@
    "proposal": "legiscan:2156473: not a bill (an amendment record, not a bill: its text is an amendment to another bill); not created",
    "date": "2026-10-30",
    "dead": false
+  },
+  "congress_gov:119/hr/10950": {
+   "raw_hash": "b280a806cb8618f26bc5060ee7f5d4015c2644ba9a6cc7804146a6a7920d354e",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (its title names a subject F excludes: \"Data Center Oversight Act\") (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (train",
+   "proposal": "congress_gov:119/hr/10950 (\"Data Center Oversight Act\") meets neither federal section's criterion; not created",
+   "date": "2026-10-31",
+   "dead": false
+  },
+  "congress_gov:119/hr/10925": {
+   "raw_hash": "a765eefbebcf2050cc036ce107255c56d5c1e3c6048ad1e8592fa9eb3f30f9e3",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10925 (\"Countering Online Trafficking Act\") meets neither federal section's criterion; not created",
+   "date": "2026-10-31",
+   "dead": false
   }
  }
 }

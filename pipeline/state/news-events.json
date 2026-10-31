@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -170,7 +170,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -219,7 +219,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "276c7aed410381f5",
@@ -266,7 +266,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "905ea3751cd4242b",
@@ -286,6 +286,174 @@
    ],
    "card": null,
    "facts_hash": "688a2d527157b647"
+  },
+  "US|-|referral-committee|2026-10-29#HR10950": {
+   "key": "US|-|referral-committee|2026-10-29#HR10950",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "referral-committee",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Referred to the House Committee on Energy and Commerce.",
+    "committee": "Energy and Commerce Committee",
+    "number": "H.R. 10950",
+    "title": "Data Center Oversight Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10950#2026-10-29#a479e581",
+     "record": "119/hr/10950",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10950",
+     "title": "Data Center Oversight Act",
+     "publisher": null,
+     "retrieved_at": "2026-10-31T12:05:52Z",
+     "hash": "dd0bb1e111832f7c"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-31T12:05:48.630Z",
+   "last_seen": "2026-10-31T12:05:48.630Z",
+   "facts_digest": "01b204e925a28aac",
+   "history": [
+    {
+     "at": "2026-10-31T12:05:48.630Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "a559e02683eacaa7"
+  },
+  "US|-|introduction|2026-10-29#HR10950": {
+   "key": "US|-|introduction|2026-10-29#HR10950",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Introduced in House",
+    "chamber": "House",
+    "number": "H.R. 10950",
+    "title": "Data Center Oversight Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10950#2026-10-29#40e2cd5e",
+     "record": "119/hr/10950",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10950",
+     "title": "Data Center Oversight Act",
+     "publisher": null,
+     "retrieved_at": "2026-10-31T12:05:52Z",
+     "hash": "bf49c22dbd3a5803"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-31T12:05:48.630Z",
+   "last_seen": "2026-10-31T12:05:48.630Z",
+   "facts_digest": "906ec7dae2a05cf1",
+   "history": [
+    {
+     "at": "2026-10-31T12:05:48.630Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "0334d0b6c991dfb2"
+  },
+  "US|-|referral-committee|2026-10-29#HR10925": {
+   "key": "US|-|referral-committee|2026-10-29#HR10925",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "referral-committee",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Referred to the House Committee on Foreign Affairs.",
+    "committee": "Foreign Affairs Committee",
+    "number": "H.R. 10925",
+    "title": "Countering Online Trafficking Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10925#2026-10-29#22a7e224",
+     "record": "119/hr/10925",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10925",
+     "title": "Countering Online Trafficking Act",
+     "publisher": null,
+     "retrieved_at": "2026-10-31T12:05:52Z",
+     "hash": "aee94e1e858126fe"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-31T12:05:48.630Z",
+   "last_seen": "2026-10-31T12:05:48.630Z",
+   "facts_digest": "ea1db7479f77ce51",
+   "history": [
+    {
+     "at": "2026-10-31T12:05:48.630Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "c54f7d6d54d6ba8d"
+  },
+  "US|-|introduction|2026-10-29#HR10925": {
+   "key": "US|-|introduction|2026-10-29#HR10925",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Introduced in House",
+    "chamber": "House",
+    "number": "H.R. 10925",
+    "title": "Countering Online Trafficking Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10925#2026-10-29#40e2cd5e",
+     "record": "119/hr/10925",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10925",
+     "title": "Countering Online Trafficking Act",
+     "publisher": null,
+     "retrieved_at": "2026-10-31T12:05:52Z",
+     "hash": "c36794608c851ce1"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-10-31T12:05:48.630Z",
+   "last_seen": "2026-10-31T12:05:48.630Z",
+   "facts_digest": "2d4afe4147425460",
+   "history": [
+    {
+     "at": "2026-10-31T12:05:48.630Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "ecea398b6be02632"
   }
  },
  "adapters": {

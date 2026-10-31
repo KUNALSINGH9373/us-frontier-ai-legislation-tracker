@@ -1,15 +1,15 @@
 {
- "updated_at": "2026-10-31T08:05:44.352Z",
+ "updated_at": "2026-10-31T12:05:48.630Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-10-31T08:05:44.352Z",
-   "last_fetch": "2026-10-31T08:05:44.352Z",
-   "last_ok": "2026-10-31T08:05:44.352Z",
+   "last_run": "2026-10-31T12:05:48.630Z",
+   "last_fetch": "2026-10-31T12:05:48.630Z",
+   "last_ok": "2026-10-31T12:05:48.630Z",
    "ok": true,
    "newest": "2026-10-29",
-   "run_newest": null,
+   "run_newest": "2026-10-29",
    "replay": false,
-   "count": 0,
+   "count": 6,
    "counts": [
     5,
     43,
@@ -18,16 +18,17 @@
     0,
     8,
     0,
-    0
+    0,
+    6
    ],
    "errors": [],
    "consecutive_failures": 0,
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-10-31T08:05:44.352Z",
-   "last_fetch": "2026-10-31T08:05:44.352Z",
-   "last_ok": "2026-10-31T08:05:44.352Z",
+   "last_run": "2026-10-31T12:05:48.630Z",
+   "last_fetch": "2026-10-31T12:05:48.630Z",
+   "last_ok": "2026-10-31T12:05:48.630Z",
    "ok": true,
    "newest": "2026-07-24",
    "run_newest": null,
@@ -41,6 +42,7 @@
     0,
     0,
     0,
+    0,
     0
    ],
    "errors": [],
@@ -48,15 +50,16 @@
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-10-31T08:05:44.352Z",
-   "last_fetch": "2026-10-31T08:05:44.352Z",
-   "last_ok": "2026-10-31T08:05:44.352Z",
+   "last_run": "2026-10-31T12:05:48.630Z",
+   "last_fetch": "2026-10-31T12:05:48.630Z",
+   "last_ok": "2026-10-31T12:05:48.630Z",
    "ok": true,
    "newest": null,
    "run_newest": null,
    "replay": false,
    "count": 0,
    "counts": [
+    0,
     0,
     0,
     0,
@@ -85,7 +88,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "whitehouse": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -102,7 +105,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "govinfo": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -119,7 +122,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "regulations_gov": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -136,7 +139,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "congress_extra": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -153,7 +156,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "nist": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -170,7 +173,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "cbo": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -187,7 +190,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "ca_ag": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -204,7 +207,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "nysenate": {
    "last_run": "2026-10-30T15:06:01.949Z",
@@ -221,7 +224,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   },
   "openstates": {
    "last_run": "2026-10-31T00:05:56.951Z",
@@ -246,7 +249,7 @@
    ],
    "consecutive_failures": 2,
    "future_items": [],
-   "last_skipped": "2026-10-31T08:05:44.352Z"
+   "last_skipped": "2026-10-31T12:05:48.630Z"
   }
  }
 }
