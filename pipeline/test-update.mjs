@@ -76,7 +76,7 @@ const okSteps = {
   correctRun: async (o) => { fs.writeFileSync(o.stateFile, '{"last_run":"2026-10-28","items":{}}\n'); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; },
   linkRun: async () => ({ status: 'nothing', proposed: [], applied: [], companions: [], dropped: [], problems: [], summary: '' }),
   newsRun: async (o) => { fs.writeFileSync(o.seenFile, '{"items":{"x":{"first_seen":"2026-10-28"}}}\n'); return { skipped_why: null, status: 'quiet', leads: [], drafted: [], summary: '' }; },
-  parity: () => {}
+  siteCheck: async () => ({ problems: [] })
 };
 const run = (P, over = {}, config = {}, flags = {}) => runUpdate({ P, config: { ...CONFIG, ...config }, models: {}, factory, flags: { source: 'all', ...flags }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T12:00:00Z'), deps: { ...okSteps, ...over }, log: () => {}, logErr: () => {} });
 
@@ -100,6 +100,26 @@ const run = (P, over = {}, config = {}, flags = {}) => runUpdate({ P, config: { 
   ok('the run report lists what was promoted', rep.promoted.includes('web/data/v2/entries.json') && rep.promoted.includes('docs/data/v2/entries.json') && rep.promoted.includes('pipeline/state/state.json'));
 }
 
+// ---------- the site check fails: the run's entries are put back and held, the rest (state) is promoted, the reason is reported ----------
+{
+  const P = setup();
+  let calls = 0;
+  const { code, rep } = await run(P, { siteCheck: async () => (calls++ ? { problems: [] } : { problems: [`${KEY}: .mech builds differently
+    before: "a"
+    after:  "b"`] }) });
+  const e = j(path.join(P.dataDir, 'entries.json')).find((x) => x.key === KEY), held = j(path.join(P.stateDir, 'held-items.json'));
+  ok('site check: the run goes on (exit 0) and checks again after holding', code === 0 && calls === 2, `${code} ${calls} ${rep && rep.error}`);
+  ok('site check: the entry is put back (the hearing is not promoted)', !e.events.some((v) => v.date === '2026-09-30'));
+  ok('site check: the entry\'s items are held at the site check step, with the reason', Object.values(held.items).some((h) => h.entry_key === KEY && h.step === 'site check' && /\.mech builds differently/.test(h.reason)), JSON.stringify(held.items).slice(0, 300));
+  ok('site check: the run state is still promoted (no paid step is redone every run)', j(path.join(P.stateDir, 'corrections.json')).last_run === '2026-10-28');
+  ok('site check: the report says what failed and what was held', rep.site_check && rep.notes.some((n) => /^site check: 1 problem/.test(n) && n.includes(KEY)), rep.notes.join(' | '));
+}
+{
+  const P = setup();
+  const { code, rep } = await run(P, { siteCheck: async () => ({ problems: ['news: new item 2026-10-28 "X" points at no entry'] }) });
+  ok('site check that holding does not clear: exit 1 with the reason in the error (shown in the message)', code === 1 && rep.failed_step === 'site check' && /points at no entry/.test(rep.error), rep && rep.error);
+}
+
 // ---------- a failure in any step: nothing is promoted ----------
 const boom = (what) => async (o) => { throw new Error(what + ' failed'); };
 const cases = [
@@ -110,7 +130,7 @@ const cases = [
   ['the links step throws', { linkRun: async (o) => { const f = path.join(o.dataDir, 'relationships.json'), r = j(f); r.edges.pop(); fs.writeFileSync(f, JSON.stringify(r)); throw new Error('links failed'); } }, {}, 'links'],
   ['the news step throws', { newsRun: async (o) => { fs.writeFileSync(o.seenFile, '{"items":{"y":1}}'); throw new Error('feed down'); } }, {}, 'news'],
   ['status.json fails its schema', { validateStatus: () => ['/last_checked must match format'] }, {}, 'status'],
-  ['the site check fails', { parity: () => { throw new Error('exit 1'); } }, {}, 'site check'],
+  ['the site check fails even after holding', { siteCheck: async () => ({ problems: ['news: new item points at no entry'] }) }, {}, 'site check'],
   ['the final check finds a problem that names no entry (a step changed the site file)', { correctRun: async (o) => { const f = path.join(o.dataDir, 'site.json'), x = j(f); x.extra_field = 1; fs.writeFileSync(f, JSON.stringify(x, null, 1)); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; } }, {}, 'final check'],
   ['a publish stop that names no entry or item (unexplained)', { publishRun: (o) => { const r = publishRun({ ...o, dry: true }); return { ...r, status: 'stopped', summary: 'stopped\n', check: { problems: ['3 entries would change, over the limit of 2 per run'] } }; } }, {}, 'publish'],
   ['the grabber stops', { grab: boom('the grabber') }, {}, 'grab'],

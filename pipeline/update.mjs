@@ -4,7 +4,7 @@
 //   node update.mjs [--dry-run] [--commit] [--source <congress_gov|federal_register|legiscan|all>] [--no-search] [--no-ai] [--no-notify] [--notify]
 // Every step writes to a staging copy (data/staging/<run id>/: the site data, the tracked-bill lists and the run-to-run state). After
 // the last step the whole run is checked once against the data as it was at the start (publish/guards.mjs, with the union of what each
-// step was allowed to change, and the per-run limit over the whole run), then the site check (web/scripts/parity-v2.mjs) reads the staged
+// step was allowed to change, and the per-run limit over the whole run), then the site check (web/scripts/site-check.mjs) compares the staged
 // data. Only then is everything promoted at once: the same bytes to web/data/v2 and docs/data/v2, the lists to config/, the state to
 // state/. Any failure anywhere leaves every one of those files as it was (the LegiScan usage counter and the AI ledger in state/ count
 // what was really spent, so they are written at once).
@@ -22,7 +22,7 @@
 // monthly cap in config/models.json bound it.
 import fs from 'fs';
 import path from 'path';
-import { execFileSync, spawnSync } from 'child_process';
+import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { compareRun } from './compare/run.mjs';
 import { publishRun, loadData, writeData, IDENTIFIERS_FILE, LEGISCAN_IDS_FILE } from './publish/run.mjs';
@@ -39,6 +39,7 @@ import { loadEnv } from './grabber/lib/env.mjs';
 import { STATE_DIR, WORK_DIR, PROMOTED_STATE, LEGISCAN_USAGE_FILE, LEDGER_DIR, forgetItem } from './grabber/lib/state.mjs';
 import { actionRank } from './publish/tier-a.mjs';
 import { createStaging, plan, promote, rollback } from './lib/staging.mjs';
+import { siteCheck as runSiteCheck } from '../web/scripts/site-check.mjs';
 import { createLlmFactory } from './llm/make.mjs';
 import { summarize } from './llm/spend.mjs';
 import { newReport, sourceEntry, aiEntry, publishEntry, finalize, writeReport } from './report/build.mjs';
@@ -290,7 +291,6 @@ function runGit(args, { cwd, input } = {}) {
   return { status: r.status, stdout: r.stdout || '', stderr: r.stderr || '' };
 }
 
-const defaultParity = (P) => (v2dir) => execFileSync(process.execPath, [path.join(P.root, 'web', 'scripts', 'parity-v2.mjs'), v2dir], { cwd: P.root, stdio: 'inherit' });
 
 // The commit. Stages the full list (data files and their docs copies, the tracked-bill lists, state/), commits when anything is staged.
 // status.json goes in with a data or state change, or alone at most once a day. Any git failure throws.
@@ -349,7 +349,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   if (gi.links) rep.notes.push(`links measure on this run's data: ${gi.links.cases} cases, ${gi.links.wrong} wrong${gi.links.wrong ? ' (relationships off this run)' : ''}`);
   if (gi.linksError) rep.notes.push(`the links measure could not be run (${gi.linksError}); relationships are off this run`);
   const scrub = scrubWith(env), today = startedAt.toISOString().slice(0, 10);
-  const git = deps.git || runGit, parity = deps.parity || defaultParity(P);
+  const git = deps.git || runGit, siteCheck = deps.siteCheck || runSiteCheck;
   const usageFile = path.join(P.stateDir, path.basename(LEGISCAN_USAGE_FILE)), ledgerDir = path.join(P.stateDir, path.basename(LEDGER_DIR));
   const validateStatus = deps.validateStatus || ((s) => makeValidator().check('status', s));
   let step = 'start', code = 0, S = null;
@@ -663,10 +663,37 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
         if (named.size) holdEntries(named, 'final check');
         else if (over.length) holdEntries(new Map(over.map((k) => [k, limits[0]])), 'limit');
       }
+      // ---- 7. the site check on the staged data (web/scripts/site-check.mjs): it builds, and everything the run did not say it changed
+      // builds exactly as it did from the data at the start of the run. A failure is held, never retried every run: the entries the run
+      // changed and any entry a problem names are put back and held (retried on the held schedule), the link network too if a link
+      // problem remains, and the rest is promoted. Only a problem still there after that stops the run, with its reasons in the error.
+      if (published.length) {
+        step = 'site check';
+        const claimed = () => [...new Set([...partKeys.flat().filter(Boolean), ...newKeys])];
+        let sc = await siteCheck({ before, after: loadData(S.v2), changed: claimed() });
+        if (sc.problems.length) {
+          rep.site_check = sc.problems.slice(0, 20);
+          const all = new Set(loadData(S.v2).entries.concat(before.entries).map((e) => e.key));
+          const named = sc.problems.map((x) => x.split(':')[0]).filter((k) => all.has(k));
+          const line = (x) => x.split('\n')[0];
+          const keys = [...new Set([...claimed(), ...named])], why = 'site check: ' + line(sc.problems[0]);
+          if (keys.length) holdEntries(new Map(keys.map((k) => [k, why])), 'site check');
+          sc = await siteCheck({ before, after: loadData(S.v2), changed: claimed() });
+          if (sc.problems.some((x) => x.startsWith('links:')) && linksOn) {
+            writeData(S.v2, before, ['relationships']);
+            hold({ step: 'links' }, 'site check: ' + sc.problems.find((x) => x.startsWith('links:')));
+            linksOn = false; rep.links = { ...l, status: 'held', applied: [] };
+            const i = published.indexOf('links'); if (i >= 0) { published.splice(i, 1); summaries.splice(i, 1); partKeys.splice(i, 1); }
+            sc = await siteCheck({ before, after: loadData(S.v2), changed: claimed() });
+          }
+          if (sc.problems.length) throw new Error(`site check failed on the staged data (${sc.problems.length} problem(s)), nothing was promoted: ${sc.problems.slice(0, 3).map((x) => x.replace(/\s+/g, ' ')).join('; ')}`.slice(0, 1200));
+          rep.notes.push(`site check: ${rep.site_check.length} problem(s) on the staged data (${line(rep.site_check[0])}); ${keys.length} entr${keys.length === 1 ? 'y' : 'ies'} put back and held (${keys.join(', ')}), everything else passed and was promoted`);
+        }
+      }
       writeStatus();
       // Held items tried again this run that no check refused leave the list; an entry or step held by the final check (or a limit)
       // leaves it once a run that was due to retry it passes.
-      Object.entries(held.items).filter(([id, h]) => !heldNow.includes(h) && (tried.has(id) || (['final check', 'links', 'limit'].includes(h.step) && !h.item_id && isDue(h)))).forEach(([id]) => delete held.items[id]);
+      Object.entries(held.items).filter(([id, h]) => !heldNow.includes(h) && (tried.has(id) || (['final check', 'site check', 'links', 'limit'].includes(h.step) && !h.item_id && isDue(h)))).forEach(([id]) => delete held.items[id]);
       // Nothing stays held for ever: an item still held HELD_DAYS after it was first seen is dropped, and the report says so.
       Object.entries(held.items).filter(([, h]) => +startedAt - Date.parse(h.first_seen) >= HELD_DAYS * 86400e3).forEach(([id, h]) => {
         delete held.items[id];
@@ -683,12 +710,6 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
       if (Object.keys(held.items).length || held.expired || fs.existsSync(S.stateFile(HELD_FILE))) fs.writeFileSync(S.stateFile(HELD_FILE), JSON.stringify(held, null, 1) + '\n');
       rep.stops = Object.values(held.items).map(({ replay, ...h }) => h);
       if (heldNow.length) rep.notes.push(`${heldNow.length} item(s) refused by a stop rule and held (state/held-items.json): ${heldNow.map((h) => `${h.item_id || h.entry_key || h.step} at ${h.step}`).join(', ')}; everything else was promoted`);
-
-      // ---- 7. the site check on the staged data: v1 and v2 still build the same model for every entry the pipeline has not changed ----
-      if (published.length) {
-        step = 'site check';
-        try { parity(S.v2); } catch (e) { throw new Error('site check failed on the staged data; nothing was promoted'); }
-      }
 
       // ---- 8. promote: everything at once, or nothing ----
       step = 'promote';
