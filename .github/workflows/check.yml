@@ -1,0 +1,56 @@
+# Checks every change that does not come from the update run itself (a pull request, or a person's push to main): the pipeline tests,
+# the site data against its schemas, and the site check against the data before the change (web/scripts/site-check.mjs, "auto": every
+# changed entry is claimed, so what is checked is that the data builds and the change moved nothing about the other entries).
+# The update run's own commits are checked inside the run, before promotion, so they are skipped here.
+name: check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: UTC
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: pipeline/package-lock.json
+
+      - name: Install
+        working-directory: pipeline
+        run: npm ci
+
+      - name: Site data against the schemas
+        working-directory: pipeline
+        run: |
+          for s in entry news relationships site content changes status; do
+            f=../web/data/v2/$( [ "$s" = entry ] && echo entries || echo $s ).json
+            [ -f "$f" ] && node schema/validate.mjs "$s" "$f"
+          done
+
+      - name: Site check against the data before the change
+        run: |
+          base=${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          mkdir -p "$RUNNER_TEMP/before"
+          for f in entries news relationships site; do git show "$base:web/data/v2/$f.json" > "$RUNNER_TEMP/before/$f.json"; done
+          node web/scripts/site-check.mjs "$RUNNER_TEMP/before" web/data/v2 auto
+
+      - name: Pipeline tests
+        working-directory: pipeline
+        run: npm test

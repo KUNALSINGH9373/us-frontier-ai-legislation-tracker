@@ -96,7 +96,7 @@ const steps = {
   correctRun: async (o) => { fs.writeFileSync(o.stateFile, '{"last_run":"2026-11-01","items":{}}\n'); return { ran: true, skipped_why: null, status: 'quiet', checked: [], corrected: [], problems: [], summary: '' }; },
   linkRun: async () => ({ status: 'nothing', proposed: [], applied: [], companions: [], dropped: [], problems: [], summary: '' }),
   newsRun: async (o) => { fs.writeFileSync(o.seenFile, '{"items":{}}\n'); return { skipped_why: null, status: 'quiet', leads: [], drafted: [], summary: '' }; },
-  parity: () => {}
+  siteCheck: async () => ({ problems: [] })
 };
 const run = (P, on) => runUpdate({ P, config: CONFIG, models, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-11-01T12:00:00Z'), deps: { ...steps, gateInputs: gateInputs(on) }, log: () => {}, logErr: () => {} });
 

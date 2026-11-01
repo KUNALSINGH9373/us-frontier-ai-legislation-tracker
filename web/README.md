@@ -49,7 +49,8 @@ The design-rationale and design-system pages, the RSS feed and the email signup 
 | `downloads/` | v1's handbook (PDF, Markdown) and tracker Markdown, copied by `scripts/sync-v2.mjs` |
 | `scripts/build-data.mjs` | Data generator and verifier |
 | `scripts/sync-v2.mjs` | Copies `pipeline/out/*.v2.json` (entries, relationships, news, site, content) to `data/v2/` and the downloads to `downloads/` |
-| `scripts/parity-v2.mjs` | The UI builds the same model from the v1 and v2 files; the comparison matrix is checked against `tracker.md` section K |
+| `scripts/site-check.mjs` | The gate before an update run promotes, and the check on every pull request: the data builds, and everything not changed builds as it did from the data before (`auto` claims every changed entry) |
+| `scripts/parity-v2.mjs` | The UI builds the same model from the v1 and v2 files; the comparison matrix is checked against `tracker.md` section K. A tool from the v1-to-v2 move; it gates nothing (v1 is frozen and v2 has moved on) |
 | `scripts/check-bill-text.mjs` | Renders all 90 bill pages in headless Chrome; every clause of every v1 cell must appear |
 | `scripts/check-v1-content.mjs` | Renders the Handbook, About, Methodology, Compare and section views; every piece of v1 reference text must appear |
 | `scripts/audit-layout.js` | In-page layout audit (`await auditLayout()`): no sideways page scroll, controls in a row share height and centre, square icon buttons, heading aligned with the logo, no console errors |
