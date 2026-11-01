@@ -146,6 +146,70 @@
    "run_id": "update-20261031-0005",
    "source_url": "https://www.legislature.ohio.gov/legislation/136/hb628",
    "tier": "C"
+  },
+  {
+   "entry_key": "pa-h-b-2800-ai-risk-prevention-act",
+   "field": "mechanism",
+   "old": "Introduced text read (Printer's No. 3904, 26 pp.). Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee; publish and comply with a frontier AI framework , reviewed at least annually and re-published within 30 days of a material modification; transparency reports before deployment; annual third-party audit of framework compliance with auditor-independence limits; critical safety incident reports to PEMA and the Attorney General within 72 hours , and within 24 hours to an appropriate authority where an incident poses an imminent risk of death or serious physical injury; whistleblower protections preserving the state Whistleblower Law; enforcement by the agency and the Attorney General with civil penalties up to $1,000,000 per violation for a first violation and $3,000,000 for a subsequent violation , plus PEMA penalties up to $1,000 per day of violation after notice and hearing, and injunctive relief",
+   "new": "Introduced text read (Printer's No. 3904, 26 pp.). Free-standing act on the SB 53 pattern with a registration layer: large frontier developers file a registration form and ownership disclosure with the Pennsylvania Emergency Management Agency (PEMA) and pay an annual fee; publish and comply with a frontier AI framework , reviewed at least annually and re-published within 30 days of a material modification; transparency reports before deployment; annual third-party audit of compliance with this act with auditor-independence limits; critical safety incident reports to PEMA and the Attorney General within 72 hours , and within 24 hours to an appropriate authority where an incident poses an imminent risk of death or serious physical injury; whistleblower protections preserving the state Whistleblower Law; enforcement by the agency and the Attorney General with civil penalties up to $1,000,000 per violation for a first violation and $3,000,000 for a subsequent violation , plus PEMA penalties up to $1,000 per day of violation after notice and hearing, and injunctive relief",
+   "date": "2026-11-01",
+   "run_id": "update-20261101-0805",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+   "tier": "C",
+   "note": "self-correction (error): The audit is described as covering 'framework compliance' (words removed: 'framework compliance'), but SOURCE requires an independent audit of compliance with the requirements of the act itself, not only the frontier AI framework. Quote: \"perform an independent audit of compliance with the requirements of this act\""
+  },
+  {
+   "entry_key": "pa-h-b-2800-ai-risk-prevention-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-01",
+   "run_id": "update-20261101-0805",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ct-p-a-26-15-omnibus",
+   "field": "mechanism",
+   "old": "39-section omnibus (AEDT/employment AI incl. WARN-notice AI disclosure, companion chatbots, provenance, social media, regulatory sandbox). Frontier-relevant sections: \"frontier developer\" = doing business in CT + >10²⁶ FLOPs; \"large frontier developer\" = >$500M revenue; frontier developers may not retaliate against employees reporting catastrophic-risk concerns (effective Oct. 1, 2026 ); large frontier developers must operate anonymous internal reporting channels by Jan. 1, 2027 ; civil penalty up to $1,000 per violation for the whistleblower duties, in an AG action in Hartford superior court ; plus a DCP-run IVO pilot through June 30, 2030 — see Section C . No developer framework, transparency-report, incident-reporting, or audit mandate",
+   "new": "39-section omnibus (AEDT/employment AI incl. WARN-notice AI disclosure, companion chatbots, provenance, social media, regulatory sandbox). Frontier-relevant sections: \"frontier developer\" = doing business in CT + >10²⁶ FLOPs; \"large frontier developer\" = >$500M revenue; frontier developers may not retaliate against employees reporting catastrophic-risk concerns (effective Oct. 1, 2026 ); large frontier developers must operate anonymous internal reporting channels by Jan. 1, 2027 ; civil penalty up to $1,000 per violation for the whistleblower duties, in an AG action in Hartford superior court ; plus a DCP-run IVO pilot through June 30, 2030 — see Section C . No developer framework, transparency-report, incident-reporting, or audit mandate. Reports go to officers/directors quarterly unless alleging their wrongdoing; AG also recovers fees.",
+   "date": "2026-11-01",
+   "run_id": "update-20261101-0805",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that large frontier developers must share whistleblower reports and updates with officers and directors at least quarterly, except reports alleging officer or director wrongdoing, and that the state recovers investigation costs and attorneys' fees when it prevails. Quote: \"shall be shared with the officers and directors of the large frontier developer at least quarterly\""
+  },
+  {
+   "entry_key": "ct-p-a-26-15-omnibus",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-01",
+   "run_id": "update-20261101-0805",
+   "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "field": "thresholds",
+   "old": "10²⁶ ops incl. fine-tuning/RL/material modifications (§1420(9)); >$500M revenue with affiliates, preceding calendar year (§1420(10)); catastrophic risk >50 deaths/serious injury or >$1B; equity-value loss excluded (§1423)",
+   "new": "10²⁶ ops incl. fine-tuning/RL/material modifications (§1420(9)); >$500M revenue with affiliates, preceding calendar year (§1420(10)); catastrophic risk >50 deaths/serious injury or >$1B; catastrophic risk involves expert-level assistance in creating a chemical, biological, radiological, or nuclear weapon, cyberattack or crime without meaningful human oversight, or evading developer control (§1420(3)(a)); equity-value loss excluded (§1423)",
+   "date": "2026-11-01",
+   "run_id": "update-20261101-0805",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the capability definition of catastrophic risk, which SOURCE sets out in §1420(3)(a) as risk from a frontier model providing expert-level assistance with chemical, biological, radiological, or nuclear weapons, cyberattacks or crimes without meaningful human oversight, or evading its developer's control. Quote: \"providing expert-level assistance in the creation or release of a chemical, biological, radiological, or nuclear weapon\""
+  },
+  {
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "field": "penalties",
+   "old": "$1M first / $3M subsequent violation, scaled to severity (AG civil action, §1427(1)); DFS office may, after notice and hearing, levy one thousand dollars per day for no disclosure statement or uncorrected false information, plus assessments owed (§1428(5)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+   "new": "$1M first / $3M subsequent violation, scaled to severity (AG civil action, §1427(1)) for unpublished/untransmitted compliant documents, false statements, unreported incidents, or breaching own framework; DFS office may, after notice and hearing, levy one thousand dollars per day for no disclosure statement or uncorrected false information, plus assessments owed (§1428(5)); no private right of action (§1427(2)); good-faith exception for false statements (§1421(4)(b))",
+   "date": "2026-11-01",
+   "run_id": "update-20261101-0805",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits which conduct the attorney general's civil penalties apply to, which SOURCE lists in §1427(1) as unpublished or untransmitted compliant documents, false statements, unreported incidents, and breaching the developer's own framework. Quote: \"in an amount not to exceed one million dollars for a first violation and in an amount not to exceed three million dollars per subsequent violation\""
   }
  ]
 }

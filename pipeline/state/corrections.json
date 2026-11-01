@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-10-31",
+ "last_run": "2026-11-01",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -11,13 +11,12 @@
    "retries": 0
   },
   "ny-raise-act-ch-699-ch-96": {
-   "text_sha": "d8c588849f5e773ab725d7b8336d7cd619048f1941ab9aed93f5b5fb195596e3",
+   "text_sha": "5f052aa84141e09a0e8c5213443fa9869ec6159f872eadc308319050bb707993",
    "text_url": "https://www.nysenate.gov/legislation/bills/2025/S8828",
-   "checked_at": "2026-10-28",
+   "checked_at": "2026-11-01",
    "outcome": "corrected",
    "retry": false,
-   "retries": 0,
-   "reason": "not confirmed: The effective date is stated in SOURCE, but the proposal also keeps unsupported claims such as 'both were in the June 2025 version', which SOURCE does not state. More importantly, '(§3)' mislabels the effective date: the January 1, 2027 date is in §3 of the 2025 chapter as amended by "
+   "retries": 0
   },
   "h-r-9965-atomic-act": {
    "text_sha": "6ee73705b0dd28aeffe038c54777c26889a5ac13f3ca80c7fcaf3c8afac0033c",
@@ -286,10 +285,10 @@
    "retries": 0
   },
   "pa-h-b-2800-ai-risk-prevention-act": {
-   "text_sha": "d4cbe078587500869cf3f59f49e2d93020ceb1708ccb474e386f6e3650a61209",
+   "text_sha": "853443a3f38457a61e2de9c8874faf5c8d5787611a6e5fa86a4cd8c74caa1503",
    "text_url": "https://www.palegis.us/legislation/bills/2025/hb2800",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-01",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -377,13 +376,12 @@
    "retries": 0
   },
   "ct-p-a-26-15-omnibus": {
-   "text_sha": "9c7c31309ca9ff903f258c7f46f94cd737dfcff20d55ae413e1f4647816cb5b1",
+   "text_sha": "b928b7ab5df94d48ff02d3852373552145256074a7edaeb70f51b7c8e34c3929",
    "text_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026",
-   "checked_at": "2026-10-28",
-   "outcome": "rejected",
-   "retry": true,
-   "retries": 1,
-   "reason": "code check: mechanism is 1194 characters, over 948; the new text drops figures the current text has: 10, 26, 500000000; keep every fact that is not wrong"
+   "checked_at": "2026-11-01",
+   "outcome": "corrected",
+   "retry": false,
+   "retries": 0
   }
  }
 }
