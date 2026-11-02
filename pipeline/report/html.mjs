@@ -21,6 +21,9 @@ function numbers(rep) {
   if (ss.length) { L.push(`🔎 <b>Free queries</b>  ${num(ss.reduce((t, s) => t + s.requests, 0))}`); if (ss.length > 1) L.push(`<i>${ss.map((s) => `${SHORT[s.name] || s.name} ${num(s.requests)}`).join(' · ')}</i>`); }
   const ls = rep.legiscan;
   if (ls && ls.month_cap) L.push(`🏛 <b>LegiScan month</b>  ${num(ls.month_used)} / ${num(ls.month_cap)}`);
+  // whether news could publish this run, on every message (update.mjs rep.news_publishing)
+  const np = rep.news_publishing;
+  if (np) L.push(np.on ? '📰 <b>News publishing</b>  on' : `📰 <b>News publishing</b>  OFF\n<i>${esc(clip(np.why, 120))}</i>`);
   return L.join('\n');
 }
 
@@ -43,8 +46,9 @@ const bullets = (items, max, each) => [...items.slice(0, max).map(each), ...(ite
 function done(rep) {
   const names = rep.names || {};
   // Held items get their own short block below, so the one-line version from the plain report is left out here.
-  const watch = watchLines(rep).filter((w) => !/^LegiScan this month/.test(w) && !/items? on hold:/.test(w));
-  const warn = watch.some((w) => w.startsWith('⚠️')) || rep.held.length > 0;
+  // the news switch has its own line (numbers), so its gate note is left out here; news off is a warning
+  const watch = watchLines(rep).filter((w) => !/^LegiScan this month/.test(w) && !/items? on hold:/.test(w) && !(rep.news_publishing && /auto_publish\.news is on in config/.test(w)));
+  const warn = watch.some((w) => w.startsWith('⚠️')) || rep.held.length > 0 || !!(rep.news_publishing && !rep.news_publishing.on);
   const L = [head(rep, warn ? '🟡' : '🟢', rep.changed ? 'Update complete' : 'Update complete, no changes'), ''];
   const updated = rep.publish.runs.flatMap((p) => p.entries_updated), added = rep.publish.runs.flatMap((p) => p.entries_added);
   if (updated.length) L.push(`<b>Bills updated (${updated.length})</b>`, ...bullets(updated, 6, (e) => { const d = clip(detailOf(rep, e.entry_key), 42); return `▸ ${esc(clip(names[e.entry_key] || e.entry_key, 34))}${d ? `\n      <i>${esc(d)}</i>` : ''}`; }), '');

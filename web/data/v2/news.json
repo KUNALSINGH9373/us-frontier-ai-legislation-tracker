@@ -1254,6 +1254,29 @@
    }
   },
   {
+   "date": "2026-10-16",
+   "kind": "executive",
+   "title": "NIST, NSA and CISA issue voluntary incident-response practices for training and evaluating frontier SI models",
+   "body": "NIST’s Center for Advancing Innovation and Standards for Super Intelligence (CAISSI), the NSA’s Super Intelligence Security Center and CISA published Key Practices for Incident Readiness and Response in Super Intelligence Training and Evaluation: ten voluntary practices for the frontier SI industry, organized into five stages (preparation, detection, response, recovery and reporting). The document covers incidents involving “significant uninstructed actions that compromise explicit or implicit policies” imposed by the operator during training and evaluation. It creates no binding obligation.",
+   "links": [
+    {
+     "t": "NIST announcement",
+     "u": "https://www.nist.gov/news-events/news/2026/10/key-practices-incident-readiness-and-response-super-intelligence-training"
+    },
+    {
+     "t": "The practices (PDF)",
+     "u": "https://www.nist.gov/system/files/documents/2026/10/16/Key_Practices_for_Incident_Readiness_and_Response_in_Super_Intelligence%20_Training_and_Evaluation.pdf"
+    }
+   ],
+   "check": "Date, issuing bodies, scope and the five stages read on the NIST announcement page.",
+   "tracker": null,
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-02T12:00:00Z"
+   }
+  },
+  {
    "origin": "authored",
    "verification": {
     "method": "session",

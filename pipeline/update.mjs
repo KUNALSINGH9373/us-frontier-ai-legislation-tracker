@@ -49,6 +49,8 @@ import { createTelegram, tokenFromEnv } from './notify/telegram.mjs';
 import { gatedPublishConfig, readGateInputs } from './eval/gate.mjs';
 import { loadActorIds, loadRunRecords } from './links/records.mjs';
 import { linksMeasure, runSuite } from './eval/links-measure.mjs';
+import { runNewsSet, NEWS_SET } from './eval/news-set.mjs';
+import { runBankMeasure, runWriterSet, loadEntries, WRITER_SET } from './eval/news-writer-set.mjs';
 
 const pipelineDir = path.dirname(fileURLToPath(import.meta.url)), root = path.resolve(pipelineDir, '..');
 const readJson = (f, d) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : d);
@@ -106,6 +108,35 @@ export function gateInputsFor({ P, config, deps = {} }) {
     return { inputs: { ...inputs, measures: [...(inputs.measures || []).filter((r) => r.measure !== 'links'), rep] }, links: rep };
   } catch (err) {
     return { inputs: { ...inputs, measures: (inputs.measures || []).filter((r) => r.measure !== 'links') }, links: null, linksError: String(err && err.message || err).slice(0, 200) };
+  }
+}
+
+// The news measures for this run's gate. Both are code only (the event set replays recorded records; the writer set replays the phrase
+// bank, or the recorded AI answers when news.ai_writer is on), free and deterministic, and both are tied to the code (every file under
+// pipeline/), the writer set also to the live entries (eval/hash.mjs). A report made by hand therefore goes stale with any code change and
+// any data change, and news would be off most of the time without anyone deciding so. So when the news switch is on and a stored report
+// no longer matches, the measure is run again here, on the code and data as they are at the start of the run, and that report replaces
+// the stale one. The bar is the gate's, unchanged: zero wrong over the whole set; a fresh report with anything wrong keeps news off.
+// A measure that cannot be run leaves no fresh report (news off this run, with why). Returns { inputs, ran: [{ measure, cases, wrong }], error }.
+export async function refreshNewsMeasures({ inputs, config, deps = {} }) {
+  if (!config || !config.auto_publish || !config.auto_publish.news || !inputs || inputs.error || !inputs.hashes) return { inputs, ran: [] };
+  const fresh = (m) => (inputs.measures || []).some((r) => r.measure === m && r.checks_hash === inputs.hashes[m]);
+  const ai = !!(config.news && config.news.ai_writer === true);
+  const run = {
+    news: deps.newsSet || (async () => runNewsSet({ cases: JSON.parse(fs.readFileSync(NEWS_SET, 'utf8')).cases })),
+    news_writer: deps.newsWriterSet || (async () => { const set = JSON.parse(fs.readFileSync(WRITER_SET, 'utf8')); return (ai ? runWriterSet : runBankMeasure)({ cases: set.cases, today: set.today, entries: loadEntries(), models: set.models || null }); })
+  };
+  let measures = inputs.measures || [];
+  const ran = [];
+  try {
+    for (const m of ['news', 'news_writer'].filter((x) => !fresh(x))) {
+      const rep = await run[m]();
+      measures = [...measures.filter((r) => r.measure !== m), rep];
+      ran.push({ measure: m, cases: rep.cases, wrong: rep.wrong });
+    }
+    return { inputs: { ...inputs, measures }, ran };
+  } catch (err) {
+    return { inputs: { ...inputs, measures }, ran, error: String(err && err.message || err).slice(0, 200) };
   }
 }
 
@@ -339,7 +370,8 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   // latest full test-set report for the production model meets eval_bar (eval/gate.mjs); otherwise it is OFF for this run, and why is
   // written in the run report. config/publish.json itself is never changed.
   const gi = gateInputsFor({ P, config: publishConfig, deps });
-  const { config, gate: gateNow, off: gatedOff } = applyGate(publishConfig, models, gi.inputs);
+  const nm = await refreshNewsMeasures({ inputs: gi.inputs, config: publishConfig, deps });
+  const { config, gate: gateNow, off: gatedOff } = applyGate(publishConfig, models, nm.inputs);
   const overridden = gateNow && gateNow.fields ? Object.entries(gateNow.fields).filter(([, x]) => x.on && x.override).map(([field, x]) => ({ field, ...x.override })) : [];
   rep.gate = { model: gateNow ? gateNow.model : null, report: gateNow ? gateNow.report : null, off: gatedOff, overridden };
   gatedOff.forEach((x) => rep.notes.push(`auto_publish.${x.field} is on in config/publish.json but treated as OFF this run: ${x.why}`));
@@ -347,6 +379,10 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   overridden.forEach((x) => rep.notes.push(`auto_publish.${x.field} is ON by owner override (${x.by}, ${x.date}${x.reason ? `: ${x.reason}` : ''}), without a passing test report; remove gate_override.${x.field} in config/publish.json to restore the gate`));
   // the links measure run for this run's gate (gateInputsFor), so the report shows why relationships are on or off
   if (gi.links) rep.notes.push(`links measure on this run's data: ${gi.links.cases} cases, ${gi.links.wrong} wrong${gi.links.wrong ? ' (relationships off this run)' : ''}`);
+  nm.ran.forEach((x) => rep.notes.push(`${x.measure === 'news' ? 'news event set' : 'news writer set'} measured again on this run's code and data (the stored report no longer matched): ${x.cases} cases, ${x.wrong} wrong${x.wrong ? ' (news off this run)' : ''}`));
+  if (nm.error) rep.notes.push(`a news measure could not be run (${nm.error}); news is off this run`);
+  // whether news can publish this run, on every report, so it is never off without the message saying so
+  if (publishConfig && publishConfig.auto_publish && 'news' in publishConfig.auto_publish) { const g = gatedOff.find((x) => x.field === 'news'); rep.news_publishing = !publishConfig.auto_publish.news ? { on: false, why: 'switched off in config/publish.json' } : g ? { on: false, why: g.why } : { on: true, why: null }; }
   if (gi.linksError) rep.notes.push(`the links measure could not be run (${gi.linksError}); relationships are off this run`);
   const scrub = scrubWith(env), today = startedAt.toISOString().slice(0, 10);
   const git = deps.git || runGit, siteCheck = deps.siteCheck || runSiteCheck;
