@@ -10,7 +10,9 @@ import { runUpdate } from './update.mjs';
 import { publishRun } from './publish/run.mjs';
 import { compareRun } from './compare/run.mjs';
 import { writeChangeset, sha } from './grabber/lib/run-common.mjs';
-import { heldDue, namedIn, isLimit, applyGate, gateInputsFor } from './update.mjs';
+import { heldDue, namedIn, isLimit, applyGate, gateInputsFor, refreshNewsMeasures } from './update.mjs';
+import { formatHtml } from './report/html.mjs';
+import { newReport, finalize } from './report/build.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FX = path.join(here, 'fixtures', 'publish');
@@ -627,6 +629,24 @@ function fakeGit(answers) {
   const off = gateInputsFor({ P, config: { auto_publish: { relationships: false } }, deps: { linksMeasure: () => { ran = true; return fresh; } } });
   ok('relationships off: no measure is run', !ran && !off.links);
   ok('test inputs (deps.gateInputs) are used as given', gateInputsFor({ P, config: { auto_publish: { relationships: true } }, deps: { gateInputs: { reports: [], x: 1 } } }).inputs.x === 1);
+}
+// the news measures are run again for the gate when their stored report no longer matches the code or data (refreshNewsMeasures)
+{
+  const hashes = { news: 'n-now', news_writer: 'w-now' };
+  const stale = { measures: [{ measure: 'news', checks_hash: 'n-old', cases: 75, wrong: 0 }, { measure: 'news_writer', checks_hash: 'w-now', cases: 32, wrong: 0 }], hashes };
+  const calls = [], mk = (m, wrong = 0) => async () => { calls.push(m); return { measure: m, checks_hash: hashes[m], cases: 5, wrong }; };
+  const r1 = await refreshNewsMeasures({ inputs: stale, config: { auto_publish: { news: true } }, deps: { newsSet: mk('news'), newsWriterSet: mk('news_writer') } });
+  ok('news on, event-set report stale: only that measure runs again, and its fresh report replaces the stale one', calls.join() === 'news' && r1.ran.length === 1 && r1.inputs.measures.filter((x) => x.measure === 'news').length === 1 && r1.inputs.measures.find((x) => x.measure === 'news').checks_hash === 'n-now', JSON.stringify(r1));
+  calls.length = 0;
+  const r2 = await refreshNewsMeasures({ inputs: stale, config: { auto_publish: { news: false } }, deps: { newsSet: mk('news'), newsWriterSet: mk('news_writer') } });
+  ok('news switched off: no measure is run', !calls.length && !r2.ran.length);
+  const r3 = await refreshNewsMeasures({ inputs: { measures: [], hashes }, config: { auto_publish: { news: true } }, deps: { newsSet: mk('news', 2), newsWriterSet: mk('news_writer') } });
+  ok('a fresh report with something wrong is kept as it is (the gate then keeps news off)', r3.inputs.measures.find((x) => x.measure === 'news').wrong === 2 && r3.ran.some((x) => x.wrong === 2));
+  const r4 = await refreshNewsMeasures({ inputs: stale, config: { auto_publish: { news: true } }, deps: { newsSet: async () => { throw new Error('boom'); } } });
+  ok('a news measure that cannot run says why and adds no report for it', /boom/.test(r4.error) && r4.inputs.measures.find((x) => x.measure === 'news').checks_hash === 'n-old');
+  const base = finalize(newReport({ id: 'update-x', now: new Date('2026-11-02T00:00:00Z'), dry: false, sources: [] }), { now: new Date('2026-11-02T00:00:20Z') });
+  const on = formatHtml({ ...base, news_publishing: { on: true, why: null } }), offm = formatHtml({ ...base, news_publishing: { on: false, why: 'no news-set report made by the current code' }, notes: ['auto_publish.news is on in config/publish.json but treated as OFF this run: no news-set report made by the current code'] });
+  ok('every message says whether news can publish; off is a warning (not silent) and not repeated under Watch', /News publishing<\/b>  on/.test(on.text) && /News publishing<\/b>  OFF/.test(offm.text) && !offm.silent && (offm.text.match(/no news-set report/g) || []).length === 1, offm.text);
 }
 console.log(`update: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
