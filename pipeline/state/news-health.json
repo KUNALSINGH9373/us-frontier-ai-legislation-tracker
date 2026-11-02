@@ -1,10 +1,10 @@
 {
- "updated_at": "2026-11-02T16:05:46.847Z",
+ "updated_at": "2026-11-02T18:29:46.483Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-11-02T16:05:46.847Z",
-   "last_fetch": "2026-11-02T16:05:46.847Z",
-   "last_ok": "2026-11-02T16:05:46.847Z",
+   "last_run": "2026-11-02T18:29:46.483Z",
+   "last_fetch": "2026-11-02T18:29:46.483Z",
+   "last_ok": "2026-11-02T18:29:46.483Z",
    "ok": true,
    "newest": "2026-10-29",
    "run_newest": null,
@@ -31,9 +31,9 @@
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-11-02T16:05:46.847Z",
-   "last_fetch": "2026-11-02T16:05:46.847Z",
-   "last_ok": "2026-11-02T16:05:46.847Z",
+   "last_run": "2026-11-02T18:29:46.483Z",
+   "last_fetch": "2026-11-02T18:29:46.483Z",
+   "last_ok": "2026-11-02T18:29:46.483Z",
    "ok": true,
    "newest": "2026-07-24",
    "run_newest": null,
@@ -60,9 +60,9 @@
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-11-02T16:05:46.847Z",
-   "last_fetch": "2026-11-02T16:05:46.847Z",
-   "last_ok": "2026-11-02T16:05:46.847Z",
+   "last_run": "2026-11-02T18:29:46.483Z",
+   "last_fetch": "2026-11-02T18:29:46.483Z",
+   "last_ok": "2026-11-02T18:29:46.483Z",
    "ok": true,
    "newest": null,
    "run_newest": null,
@@ -105,7 +105,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "whitehouse": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -124,7 +125,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "govinfo": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -143,7 +145,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "regulations_gov": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -162,7 +165,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "congress_extra": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -181,7 +185,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "nist": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -200,7 +205,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "cbo": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -219,7 +225,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "ca_ag": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -238,7 +245,8 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "nysenate": {
    "last_run": "2026-11-02T16:05:46.847Z",
@@ -257,20 +265,20 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": []
+   "future_items": [],
+   "last_skipped": "2026-11-02T18:29:46.483Z"
   },
   "openstates": {
-   "last_run": "2026-11-02T16:05:46.847Z",
-   "last_fetch": "2026-11-02T16:05:46.847Z",
+   "last_run": "2026-11-02T18:29:46.483Z",
+   "last_fetch": "2026-11-02T18:29:46.483Z",
    "truncated": true,
    "last_ok": "2026-11-02T16:05:46.847Z",
-   "ok": true,
+   "ok": false,
    "newest": "2026-09-09",
    "run_newest": "2026-09-09",
    "replay": false,
-   "count": 310,
+   "count": 117,
    "counts": [
-    259,
     186,
     285,
     269,
@@ -283,12 +291,14 @@
     269,
     316,
     289,
-    310
+    310,
+    117
    ],
    "errors": [
+    "This operation was aborted",
     "request cap: time budget reached; remaining bills next run"
    ],
-   "consecutive_failures": 0,
+   "consecutive_failures": 1,
    "future_items": []
   }
  }
