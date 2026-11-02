@@ -34,3 +34,11 @@
 {"at":"2026-11-01T08:06:59.163Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-raise-act-ch-699-ch-96:rewrite","input":12100,"output":3170,"cost":0.002795}
 {"at":"2026-11-01T08:07:00.757Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:ny-raise-act-ch-699-ch-96:thresholds","input":10058,"output":136,"cost":0.021476}
 {"at":"2026-11-01T08:07:02.999Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:ny-raise-act-ch-699-ch-96:penalties","input":10041,"output":149,"cost":0.021572}
+{"at":"2026-11-02T00:06:18.998Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-s-10373-verification","input":4952,"output":1939,"cost":0.0014647}
+{"at":"2026-11-02T00:06:28.541Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-s-10373-verification:rewrite","input":5361,"output":2125,"cost":0.0015986000000000002}
+{"at":"2026-11-02T00:06:35.693Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ct-p-a-26-15-ivo-pilot","input":36854,"output":1687,"cost":0.0045289}
+{"at":"2026-11-02T00:06:41.972Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ct-p-a-26-15-ivo-pilot:rewrite","input":37258,"output":1418,"cost":0.0044348}
+{"at":"2026-11-02T00:06:47.471Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:ct-p-a-26-15-ivo-pilot:mechanism","input":36110,"output":127,"cost":0.07349}
+{"at":"2026-11-02T00:06:59.652Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:il-hb-4705-sb-3261","input":10816,"output":3052,"cost":0.0026076}
+{"at":"2026-11-02T00:07:01.193Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:il-hb-4705-sb-3261:mechanism","input":9829,"output":107,"cost":0.020728}
+{"at":"2026-11-02T00:07:04.046Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:il-hb-4705-sb-3261:thresholds","input":9578,"output":151,"cost":0.020666}

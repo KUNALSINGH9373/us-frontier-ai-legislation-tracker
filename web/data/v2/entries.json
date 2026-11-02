@@ -1703,8 +1703,8 @@
   "title": "H.B. 4705 — AI Public Safety and Child Protection Transparency Act",
   "short_name": "IL HB 4705 / SB 3261",
   "sponsor_text": "Rep. Daniel Didech (D); Senate parallel S.B. 3261 , sponsored by Sen. Mary Edly-Allen (D) and co-sponsors ( ILGA )",
-  "mechanism": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; frontier developers must report critical safety incidents to the AG within 15 days, or within 24 hours to an appropriate authority if imminent risk of death or serious physical injury; chatbot providers report child safety incidents to AG within 15 days; plan modifications published within 30 days; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers)",
-  "thresholds": "10²⁶ ops; large frontier developer = ≥$500M annual revenue; large chatbot provider = ≥$25M annual revenue; a covered chatbot must also have ≥1M monthly active users and be foreseeably accessible by minors",
+  "mechanism": "Hybrid: frontier developers and large chatbot providers must publish a public-safety and child-protection plan; AG incident-reporting mechanism; frontier developers must report critical safety incidents to the AG within 15 days, or within 24 hours to an appropriate authority if imminent risk of death or serious physical injury; chatbot providers report child safety incidents to AG within 15 days; plan modifications published within 30 days; whistleblower protections; annual third-party audits of large frontier developers; AG rulemaking; civil penalties up to $1,000,000 per violation (frontier developers) and $50,000 per violation (large chatbot providers); large frontier developer shall not use or deploy a frontier model if doing so would pose unreasonable catastrophic risk",
+  "thresholds": "10²⁶ ops (computing for original training run plus any subsequent fine-tuning, reinforcement learning, or other material modifications); large frontier developer = ≥$500M annual revenue including affiliates; large chatbot provider = ≥$25M annual revenue including affiliates; a covered chatbot must also have ≥1M monthly active users and be foreseeably accessible by minors",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [STALLED] H.B. 4705 re-referred to Rules Committee Mar. 27, 2026; S.B. 3261 re-referred to Assignments May 22, 2026",
   "signed_text": null,
@@ -1759,12 +1759,12 @@
   "origin": "mixed",
   "verification": {
    "method": "agent",
-   "checked_at": "2026-10-31T00:05:56Z",
-   "run_id": "update-20261031-0005",
+   "checked_at": "2026-11-02T00:05:45Z",
+   "run_id": "update-20261102-0005",
    "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-02",
+  "last_changed": "2026-11-02",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-4705-ai-public-safety-and-child-protection-transparency-act",
    "section_name": "Pending, stalled and failed state bills"
@@ -1872,12 +1872,22 @@
   "evidence": [
    {
     "field": "mechanism",
-    "quote": "A large chatbot provider shall report any child safety incident pertaining to one of its covered chatbots to the Attorney General within 15 days after discovering the child safety incident.",
+    "quote": "A large frontier developer shall not use or deploy a frontier model if doing so would pose unreasonable catastrophic risk.",
     "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
    },
    {
-    "field": "mechanism",
-    "quote": "shall clearly and conspicuously publish the modified public safety and child protection plan and a justification for that modification within 30 days after the modification is made",
+    "field": "thresholds",
+    "quote": "The quantity of computing power described in this definition shall include computing for the original training run and for any subsequent fine-tuning, reinforcement learning, or other material modifications",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   {
+    "field": "thresholds",
+    "quote": "together with the large frontier developer's affiliates, collectively have an annual revenue of at least $500,000,000",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
+   },
+   {
+    "field": "thresholds",
+    "quote": "who, together with the provider's affiliates, collectively have an annual revenue of at least $25,000,000",
     "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114"
    }
   ],
@@ -3889,7 +3899,7 @@
   "title": "S.B. 5 / Public Act 26-15 — IVO pilot program",
   "short_name": "CT P.A. 26-15 IVO pilot",
   "sponsor_text": "Sen. Martin M. Looney (D), lead sponsor, with co-sponsors",
-  "mechanism": "A Department of Consumer Protection-administered IVO pilot program (Sec. 33, effective July 1, 2027) through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation (admissible solely in private personal-injury or property-damage actions; not in AG or state-agency enforcement actions, nor presumption, inference or defense there). Except: wilful, wanton or reckless conduct; misrepresentation; failure to implement corrective action. DCP must evaluate the pilot by Dec. 31, 2028 with UConn's Institute for Municipal and Regional Policy. This is an operating pilot, not merely a study",
+  "mechanism": "A Department of Consumer Protection-administered IVO pilot program (Sec. 33, effective July 1, 2027) through June 30, 2030 (no more than five IVOs, each under a memorandum of understanding): IVO applications and designation standards, annual reporting, reassessment and suspension, public transparency, and rules for the evidentiary treatment of verification in private litigation (admissible solely in private personal-injury or property-damage actions; not in AG or state-agency enforcement actions, nor presumption, inference or defense there). Except: wilful, wanton or reckless conduct; misrepresentation; failure to implement corrective action. DCP must evaluate the pilot by Dec. 31, 2028 with UConn's Institute for Municipal and Regional Policy. This is an operating pilot, not merely a study. The Institute shall submit a report with the evaluation results to the joint consumer protection committee by January 31, 2029.",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Enacted May 27, 2026",
@@ -3931,12 +3941,12 @@
   "origin": "mixed",
   "verification": {
    "method": "agent",
-   "checked_at": "2026-10-30T00:05:47Z",
-   "run_id": "update-20261030-0005",
+   "checked_at": "2026-11-02T00:05:45Z",
+   "run_id": "update-20261102-0005",
    "rounds": 1
   },
-  "last_checked": "2026-10-30",
-  "last_changed": "2026-10-30",
+  "last_checked": "2026-11-02",
+  "last_changed": "2026-11-02",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-5-public-act-26-15-ivo-pilot-program-r",
    "section_name": "State IVO / AI-auditor licensing measures"
@@ -3944,22 +3954,7 @@
   "evidence": [
    {
     "field": "mechanism",
-    "quote": "nor shall it give rise to any presumption, inference or defense in any such action",
-    "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Acted in a wilful, wanton or reckless manner",
-    "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Materially misrepresented information to the independent",
-    "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Failed to implement any corrective action required by the",
+    "quote": "Not later than January 31, 2029, the Institute for Municipal and Regional Policy at The University of Connecticut shall submit a report",
     "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00005&which_year=2026"
    }
   ],
