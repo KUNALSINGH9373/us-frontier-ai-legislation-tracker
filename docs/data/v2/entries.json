@@ -2645,7 +2645,7 @@
   "title": "S.10373 / A.11636 — third-party verification of RAISE compliance",
   "short_name": "NY S.10373 (verification)",
   "sponsor_text": "Sen. Andrew Gounardes (D) — the RAISE Act's own sponsor",
-  "mechanism": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; AG civil penalties ($1M first/$3M subsequent) extended to §1425 violations; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
+  "mechanism": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; AG civil penalties ($1M first/$3M subsequent) extended to §1425 violations; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed Verifier gets unredacted access; payment not tied to results; report kept at least five years; summary linked developer website within fifteen days.",
   "thresholds": "Uses RAISE definitions",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [PENDING] S.10373 introduced May 15, 2026; in Senate Internet & Technology Committee. Assembly companion A.11636 introduced and referred to Science & Technology July 29, 2026 (LegiScan)",
@@ -2688,13 +2688,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-03T00:05:44Z",
+   "run_id": "update-20261103-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-11-03",
+  "last_changed": "2026-11-03",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-10373-a-11636-third-party-verification-of-raise-compliance-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -2771,6 +2773,37 @@
    "chars": 10229,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Unredacted versions of all documents published by the large frontier developer",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   },
+   {
+    "field": "mechanism",
+    "quote": "shall not condition any payment or form of compensation to a third party verifier upon the results of such verifier's assessment",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   },
+   {
+    "field": "mechanism",
+    "quote": "shall retain the third party verifier's report provided in subdivision one of this section for a minimum of five years",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   },
+   {
+    "field": "mechanism",
+    "quote": "shall clearly and conspicuously publish a link on its internet website to the summary provided in subdivision six of this section within fifteen days",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373"
+   }
+  ],
+  "identifiers": {
+   "session": "2025-2026 General Assembly",
+   "external": {
+    "legiscan": [
+     2150136,
+     2157282
+    ]
+   }
   }
  },
  {
@@ -2785,7 +2818,7 @@
   "title": "S.10456 — minimum standards for frontier AI frameworks",
   "short_name": "NY S.10456 (minimum standards)",
   "sponsor_text": "Sen. Andrew Gounardes (D)",
-  "mechanism": "Adds GBL §1430: DFS/DIGIT must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks, reviewed annually. Sponsor memo: the RAISE Act left \"the design of these frameworks solely in large developers' hands\" — a direct statement that the enacted law's self-defined-framework model is a gap",
+  "mechanism": "Adds GBL §1430: The office must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks, reviewed annually.",
   "thresholds": "Uses RAISE definitions",
   "penalties": null,
   "status_text": "Status (as of Sept 5, 2026): [PENDING] Introduced May 15, 2026; in Senate Internet & Technology Committee",
@@ -2819,13 +2852,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-03T00:05:44Z",
+   "run_id": "update-20261103-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-11-03",
+  "last_changed": "2026-11-03",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-10456-minimum-standards-for-frontier-ai-frameworks-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -2896,6 +2931,26 @@
    "chars": 3703,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "The office shall adopt regulations no later than July first, two thousand twenty-eight",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The office shall review the regulations promulgated under this section on an annual basis",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456"
+   }
+  ],
+  "identifiers": {
+   "session": "2025-2026 General Assembly",
+   "external": {
+    "legiscan": [
+     2150234
+    ]
+   }
   }
  },
  {
@@ -3258,7 +3313,7 @@
   "title": "H.F. 4532 / S.F. 4509 — titled the \"Responsible Artificial Intelligence Safety and Education Act\" (RAISE Act)",
   "short_name": "MN HF 4532 (no threshold)",
   "sponsor_text": "Rep. Jones (HF); Senate companion SF 4509",
-  "mechanism": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person",
+  "mechanism": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person. Developer must retain an unredacted protocol with update records, and test records, for the entire deployment period plus five years.",
   "thresholds": "No compute, cost, or revenue threshold: \"developer\" = any person that has trained at least one AI model. \"Critical harm\" = death/serious physical or mental injury of 25+ people or ≥$1,000,000 damages, via CBRN or autonomous conduct that would be an intent/recklessness/gross-negligence crime",
   "penalties": "Attorney General civil penalty up to $10,000,000 for a first violation and $30,000,000 for a subsequent violation; private right of action for injured persons",
   "status_text": "Status: Introduced Mar 23, 2026; referred to House Commerce Finance and Policy; no further action",
@@ -3297,13 +3352,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-03T00:05:44Z",
+   "run_id": "update-20261103-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-03",
+  "last_changed": "2026-11-03",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-f-4532-s-f-4509-titled-the-responsible-artificial-intelligence-safet",
    "section_name": "Catastrophic-risk regulation without a frontier threshold"
@@ -3386,6 +3443,32 @@
    "chars": 7848,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Before deploying an artificial intelligence model, a developer must:",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   {
+    "field": "mechanism",
+    "quote": "retain an unredacted copy of the safety and security protocol, including records and",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   },
+   {
+    "field": "mechanism",
+    "quote": "is deployed, plus five years;",
+    "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/"
+   }
+  ],
+  "identifiers": {
+   "session": "94th Legislature 2025-2026",
+   "external": {
+    "legiscan": [
+     2136898,
+     2133932
+    ]
+   }
   }
  },
  {

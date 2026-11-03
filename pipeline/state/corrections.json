@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-02",
+ "last_run": "2026-11-03",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -45,11 +45,10 @@
   "ny-s-10373-verification": {
    "text_sha": "ce7e40fedabed3efe0d821cb1a1cc4df806c39daa17e4668c0cbf64ef61fd816",
    "text_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
-   "checked_at": "2026-11-02",
-   "outcome": "rejected",
-   "retry": true,
-   "retries": 1,
-   "reason": "code check: mechanism is 841 characters, over 807; figures the new text adds or uses again that no evidence quote contains: 2029, 15, 15 day, 5 year"
+   "checked_at": "2026-11-03",
+   "outcome": "corrected",
+   "retry": false,
+   "retries": 0
   },
   "h-r-3919-advanced-ai-security-readiness-act": {
    "text_sha": "e99f8af7c3b4cecd7aef716b8ee38a6d44b848f371edcd8c85a41f03b4c929e9",
@@ -118,11 +117,11 @@
   "mn-hf-4532-no-threshold": {
    "text_sha": "6c010c6fcb7b3afed6a886f7049297c732068a3211446aa96c47e16e333c61d5",
    "text_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
-   "checked_at": "2026-10-30",
-   "outcome": "rejected",
-   "retry": true,
-   "retries": 1,
-   "reason": "the confirmer's quote is not in the source"
+   "checked_at": "2026-11-03",
+   "outcome": "corrected",
+   "retry": false,
+   "retries": 0,
+   "reason": "code check: quote not in the source: \"(2) injunctive or declaratory relief;\""
   },
   "pa-h-r-637-frontier-ai-resolution": {
    "text_sha": "bda716c6ba80ca5f07c57ba4941a6938149393a8412ffcbde37a101a677e655d",
@@ -343,11 +342,10 @@
   "ny-s-10456-minimum-standards": {
    "text_sha": "609f0a2258be07ee1ee3be7b0ebea8622d845740a17a053f9113ef20a9ae93ba",
    "text_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
-   "checked_at": "2026-10-31",
-   "outcome": "rejected",
-   "retry": true,
-   "retries": 1,
-   "reason": "not confirmed: SOURCE states the purpose, but it does not name DFS/DIGIT (it says only \"the office\"). The proposal keeps the sponsor memo quote, which SOURCE does not contain. Those unchanged parts are not judged. The added purpose clause is accurate but the proposed sentence is garbled and redundan"
+   "checked_at": "2026-11-03",
+   "outcome": "corrected",
+   "retry": false,
+   "retries": 0
   },
   "ma-h-5576-s-3178": {
    "text_sha": "6b934d5737e6ed571d80ee5292a1c580dd43bda7c33796aa4e3c87a85aa838de",

@@ -243,6 +243,69 @@
    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=4705&GAID=18&DocTypeID=HB&LegId=165724&SessionID=114",
    "tier": "C",
    "note": "self-correction (omission): The entry omits that large-developer and large-provider revenue thresholds count affiliates together, and that frontier-model compute includes fine-tuning and material modifications of a preceding model. Quote: \"The quantity of computing power described in this definition shall include computing for the original training run and for any subsequent fine-tuning, reinforcement learning, or other material modifications\""
+  },
+  {
+   "entry_key": "mn-hf-4532-no-threshold",
+   "field": "mechanism",
+   "old": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person",
+   "new": "Written safety and security protocol before deployment (published, redacted copy to AG); deployment prohibited if it creates an \"unreasonable risk of critical harm\" ; annual protocol review; safety-incident disclosure to AG within 72 hrs; test records retained for replication; false-statement prohibition. Enforcement: AG civil penalties up to $10M first / $30M subsequent (the original NY RAISE Act figures) plus a private right of action for any injured person. Developer must retain an unredacted protocol with update records, and test records, for the entire deployment period plus five years.",
+   "date": "2026-11-03",
+   "run_id": "update-20261103-0005",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+   "tier": "C",
+   "note": "self-correction (omission): The mechanism omits the record-retention duty: before deployment a developer must retain an unredacted protocol with update records and test records for the deployment period plus five years. Quote: \"Before deploying an artificial intelligence model, a developer must:\""
+  },
+  {
+   "entry_key": "mn-hf-4532-no-threshold",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-03",
+   "run_id": "update-20261103-0005",
+   "source_url": "https://www.revisor.mn.gov/bills/94/2026/0/HF/4532/",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ny-s-10456-minimum-standards",
+   "field": "mechanism",
+   "old": "Adds GBL §1430: DFS/DIGIT must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks, reviewed annually. Sponsor memo: the RAISE Act left \"the design of these frameworks solely in large developers' hands\" — a direct statement that the enacted law's self-defined-framework model is a gap",
+   "new": "Adds GBL §1430: The office must adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frameworks, reviewed annually.",
+   "date": "2026-11-03",
+   "run_id": "update-20261103-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+   "tier": "C",
+   "note": "self-correction (error): The regulator is named DFS/DIGIT, but SOURCE says 'The office'. The words 'Sponsor memo: the RAISE Act left \"the design of these frameworks solely in large developers' hands\" — a direct statement that the enacted law's self-defined-framework model is a gap' are removed because SOURCE contains no sponsor memo and no such quoted words. Quote: \"The office shall adopt regulations no later than July first, two thousand twenty-eight\""
+  },
+  {
+   "entry_key": "ny-s-10456-minimum-standards",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-03",
+   "run_id": "update-20261103-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10456",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ny-s-10373-verification",
+   "field": "mechanism",
+   "old": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; AG civil penalties ($1M first/$3M subsequent) extended to §1425 violations; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed",
+   "new": "Adds new GBL §1425: large frontier developers must annually retain a third-party verifier to assess framework compliance, permissibility of redactions, and whether public statements match findings; summary published within 60 days; DFS/DIGIT to accredit verifiers by July 1, 2028 ; only accredited verifiers from Jan 1, 2029 ; AG civil penalties ($1M first/$3M subsequent) extended to §1425 violations; FOIL exemption. Sponsor memo concedes the amended RAISE Act \"left a significant gap: … no mechanism exists to verify\" — the sponsor re-adding the audit requirement the March 2026 chapter amendment removed Verifier gets unredacted access; payment not tied to results; report kept at least five years; summary linked developer website within fifteen days.",
+   "date": "2026-11-03",
+   "run_id": "update-20261103-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the verifier access right, the bar on payment tied to results, the five-year minimum retention of the report, and the 15-day website link duty for the summary, all stated in SOURCE. Quote: \"Unredacted versions of all documents published by the large frontier developer\""
+  },
+  {
+   "entry_key": "ny-s-10373-verification",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-03",
+   "run_id": "update-20261103-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
+   "tier": "C"
   }
  ]
 }

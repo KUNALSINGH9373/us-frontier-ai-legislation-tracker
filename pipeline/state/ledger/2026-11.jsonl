@@ -43,3 +43,11 @@
 {"at":"2026-11-02T00:07:01.193Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:il-hb-4705-sb-3261:mechanism","input":9829,"output":107,"cost":0.020728}
 {"at":"2026-11-02T00:07:04.046Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:il-hb-4705-sb-3261:thresholds","input":9578,"output":151,"cost":0.020666}
 {"at":"2026-11-02T12:09:58.592Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1917,"output":250,"cost":0.00031670000000000005}
+{"at":"2026-11-03T00:06:27.758Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:mn-hf-4532-no-threshold","input":5117,"output":1513,"cost":0.0012682000000000001}
+{"at":"2026-11-03T00:06:36.060Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:mn-hf-4532-no-threshold:rewrite","input":5547,"output":1972,"cost":0.0015406999999999999}
+{"at":"2026-11-03T00:06:39.771Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:mn-hf-4532-no-threshold:mechanism","input":3983,"output":169,"cost":0.009656000000000001}
+{"at":"2026-11-03T00:06:49.521Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-s-10456-minimum-standards","input":2760,"output":2162,"cost":0.001357}
+{"at":"2026-11-03T00:06:57.090Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-s-10456-minimum-standards:rewrite","input":3027,"output":1550,"cost":0.0010777}
+{"at":"2026-11-03T00:06:59.060Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:ny-s-10456-minimum-standards:mechanism","input":1848,"output":120,"cost":0.004896}
+{"at":"2026-11-03T00:07:10.528Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:ny-s-10373-verification","input":4952,"output":2414,"cost":0.0017022}
+{"at":"2026-11-03T00:07:12.906Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:ny-s-10373-verification:mechanism","input":4096,"output":141,"cost":0.009602}
