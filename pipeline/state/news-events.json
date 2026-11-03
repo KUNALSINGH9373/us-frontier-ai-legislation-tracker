@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 33,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 33,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 33,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -170,7 +170,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 33,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -219,7 +219,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 33,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "276c7aed410381f5",
@@ -266,7 +266,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 33,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "905ea3751cd4242b",
@@ -314,7 +314,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 24,
+   "stable_runs": 25,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -362,7 +362,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 24,
+   "stable_runs": 25,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -404,7 +404,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 24,
+   "stable_runs": 25,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -452,7 +452,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 24,
+   "stable_runs": 25,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -492,9 +492,9 @@
      "hash": "030426bb4eb1c303"
     }
    ],
-   "status": "pending",
+   "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-03T08:05:44.743Z",
    "facts_digest": "e6dcf90065e2d86e",
@@ -504,6 +504,12 @@
      "change": "created",
      "from": null,
      "to": "pending"
+    },
+    {
+     "at": "2026-11-03T12:00:19.676Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
     }
    ],
    "card": null,
@@ -536,7 +542,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-03T08:05:44.743Z",
    "facts_digest": "51b56a9261a7eeef",
@@ -550,6 +556,104 @@
    ],
    "card": null,
    "facts_hash": "f3a2f6e603f08c7e"
+  },
+  "US|h-r-10873-ai-cyber-defense-act|referral-committee|2026-10-22#HR10873": {
+   "key": "US|h-r-10873-ai-cyber-defense-act|referral-committee|2026-10-22#HR10873",
+   "jurisdiction": "US",
+   "entry_id": "h-r-10873-ai-cyber-defense-act",
+   "class": "referral-committee",
+   "date": "2026-10-22",
+   "facts": {
+    "action": "Referred to the House Committee on Science, Space, and Technology.",
+    "committee": "Science, Space, and Technology Committee",
+    "number": "H.R. 10873",
+    "title": "AI Cyber Defense Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10873#2026-10-22#a8475dbd",
+     "record": "119/hr/10873",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10873",
+     "title": "AI Cyber Defense Act",
+     "publisher": null,
+     "retrieved_at": "2026-11-03T12:00:39Z",
+     "hash": "b8b4f060f74dddf2"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-03T12:00:19.676Z",
+   "last_seen": "2026-11-03T12:00:19.676Z",
+   "facts_digest": "84179ed4a526e56a",
+   "history": [
+    {
+     "at": "2026-11-03T12:00:19.676Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": {
+    "headline": "H.R. 10873 referred to committee",
+    "body": "Congress.gov shows this action on H.R. 10873 — AI Cyber Defense Act (H.R. 10873) on Oct 22, 2026: \"Referred to the House Committee on Science, Space, and Technology\".",
+    "template_headline": "H.R. 10873 referred to committee",
+    "template_body": "Congress.gov shows this action on H.R. 10873 — AI Cyber Defense Act (H.R. 10873) on Oct 22, 2026: \"Referred to the House Committee on Science, Space, and Technology\".",
+    "written_by": "template",
+    "facts_hash": "84179ed4a526e56a"
+   },
+   "facts_hash": "7450f0c24a82cfe5"
+  },
+  "US|h-r-10873-ai-cyber-defense-act|introduction|2026-10-22#HR10873": {
+   "key": "US|h-r-10873-ai-cyber-defense-act|introduction|2026-10-22#HR10873",
+   "jurisdiction": "US",
+   "entry_id": "h-r-10873-ai-cyber-defense-act",
+   "class": "introduction",
+   "date": "2026-10-22",
+   "facts": {
+    "action": "Introduced in House",
+    "chamber": "House",
+    "number": "H.R. 10873",
+    "title": "AI Cyber Defense Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10873#2026-10-22#40e2cd5e",
+     "record": "119/hr/10873",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10873",
+     "title": "AI Cyber Defense Act",
+     "publisher": null,
+     "retrieved_at": "2026-11-03T12:00:39Z",
+     "hash": "37c12260a5676ff3"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-03T12:00:19.676Z",
+   "last_seen": "2026-11-03T12:00:19.676Z",
+   "facts_digest": "ffc725e4318a18f1",
+   "history": [
+    {
+     "at": "2026-11-03T12:00:19.676Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": {
+    "headline": "H.R. 10873 introduced",
+    "body": "Congress.gov shows this action on H.R. 10873 — AI Cyber Defense Act (H.R. 10873) on Oct 22, 2026: \"Introduced in House\".",
+    "template_headline": "H.R. 10873 introduced",
+    "template_body": "Congress.gov shows this action on H.R. 10873 — AI Cyber Defense Act (H.R. 10873) on Oct 22, 2026: \"Introduced in House\".",
+    "written_by": "template",
+    "facts_hash": "ffc725e4318a18f1"
+   },
+   "facts_hash": "505bfad8374cbdb5"
   }
  },
  "adapters": {
@@ -1438,10 +1542,10 @@
      }
     ]
    },
-   "cursor": 14,
+   "cursor": 5,
    "quota": {
     "day": "2026-11-03",
-    "used": 124
+    "used": 155
    }
   }
  },

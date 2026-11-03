@@ -306,6 +306,50 @@
    "run_id": "update-20261103-0005",
    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10373",
    "tier": "C"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "record_facts.cosponsors",
+   "old": null,
+   "new": {
+    "count": 13,
+    "as_of": "2026-11-03",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917"
+   },
+   "date": "2026-11-03",
+   "run_id": "run-20261103-1200-8d79",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+   "tier": "A"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "sponsor_text",
+   "old": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 12 cosponsors in all (Congress.gov)",
+   "new": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 13 cosponsors in all (Congress.gov)",
+   "date": "2026-11-03",
+   "run_id": "run-20261103-1200-8d79",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+   "tier": "A"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "status_text",
+   "old": "Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all",
+   "new": "Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all; 13 cosponsors in all as of Nov 3, 2026 (Congress.gov)",
+   "date": "2026-11-03",
+   "run_id": "run-20261103-1200-8d79",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+   "tier": "A"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-03",
+   "run_id": "run-20261103-1200-8d79",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+   "tier": "A"
   }
  ]
 }

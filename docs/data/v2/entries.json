@@ -4890,11 +4890,11 @@
   "status": "pending",
   "title": "H.R. 9917 — AI Kill Switch Act",
   "short_name": "H.R. 9917 AI Kill Switch Act",
-  "sponsor_text": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 12 cosponsors in all (Congress.gov)",
+  "sponsor_text": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 13 cosponsors in all (Congress.gov)",
   "mechanism": "Amends the Homeland Security Act. Covered developers must maintain the technical capability to throttle inference/compute/user access, suspend, or fully shut down covered systems; DHS Secretary (with Commerce and DNI) may order graduated throttling-to-shutdown on a \"loss-of-control scenario\" (resisting shutdown, concealing actions from monitoring, unauthorized pursuit of high-stakes goals) or unintended conduct causing ≥10 deaths or ≥$100M damage — lower than the core state template but above H.R. 9965 ATOMIC's five-death trigger; 15-day covered-incident reporting to DHS; weights and telemetry preserved under an order; 48-hour reconsideration petition that does not stay the order; CISA rulemaking defines scope annually. Civil penalties up to $2M/day for ordinary violations and up to $20M/day for violating an emergency order. Revives the SB 1047 \"full shutdown\" mandate at federal level and overlaps FRONTIER Sec. 8 emergency orders — but lodges the power in DHS rather than Commerce",
   "thresholds": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
   "penalties": null,
-  "status_text": "Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all",
+  "status_text": "Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all; 13 cosponsors in all as of Nov 3, 2026 (Congress.gov)",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -4980,13 +4980,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-03T00:00:00Z",
+   "run_id": "run-20261103-1200-8d79",
+   "rounds": 0
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-03",
+  "last_changed": "2026-11-03",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9917-ai-kill-switch-act-r",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5083,7 +5085,21 @@
    "chars": 14045,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
-  }
+  },
+  "record_facts": {
+   "cosponsors": {
+    "count": 13,
+    "as_of": "2026-11-03",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917"
+   }
+  },
+  "evidence": [
+   {
+    "field": "record_facts.cosponsors",
+    "quote": "\"count\": 13",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917"
+   }
+  ]
  },
  {
   "id": 32,
