@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 31,
+   "stable_runs": 32,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 31,
+   "stable_runs": 32,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 31,
+   "stable_runs": 32,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -170,7 +170,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 31,
+   "stable_runs": 32,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -219,7 +219,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 31,
+   "stable_runs": 32,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "276c7aed410381f5",
@@ -266,7 +266,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 31,
+   "stable_runs": 32,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-02T16:05:46.847Z",
    "facts_digest": "905ea3751cd4242b",
@@ -314,7 +314,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 23,
+   "stable_runs": 24,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -362,7 +362,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 23,
+   "stable_runs": 24,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -404,7 +404,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 23,
+   "stable_runs": 24,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -452,7 +452,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 23,
+   "stable_runs": 24,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -466,6 +466,90 @@
    ],
    "card": null,
    "facts_hash": "ecea398b6be02632"
+  },
+  "US|-|referral-committee|2026-10-29#HR10946": {
+   "key": "US|-|referral-committee|2026-10-29#HR10946",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "referral-committee",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Referred to the House Committee on House Administration.",
+    "committee": "Committee on House Administration",
+    "number": "H.R. 10946",
+    "title": "Congressional Office of Technology Improvement and Enhancement Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10946#2026-10-29#99ec7717",
+     "record": "119/hr/10946",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
+     "title": "Congressional Office of Technology Improvement and Enhancement Act",
+     "publisher": null,
+     "retrieved_at": "2026-11-03T08:05:55Z",
+     "hash": "030426bb4eb1c303"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-03T08:05:44.743Z",
+   "last_seen": "2026-11-03T08:05:44.743Z",
+   "facts_digest": "e6dcf90065e2d86e",
+   "history": [
+    {
+     "at": "2026-11-03T08:05:44.743Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "3827798abc5297c8"
+  },
+  "US|-|introduction|2026-10-29#HR10946": {
+   "key": "US|-|introduction|2026-10-29#HR10946",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-10-29",
+   "facts": {
+    "action": "Introduced in House",
+    "chamber": "House",
+    "number": "H.R. 10946",
+    "title": "Congressional Office of Technology Improvement and Enhancement Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10946#2026-10-29#40e2cd5e",
+     "record": "119/hr/10946",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
+     "title": "Congressional Office of Technology Improvement and Enhancement Act",
+     "publisher": null,
+     "retrieved_at": "2026-11-03T08:05:55Z",
+     "hash": "be4f59f59a52eb45"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-03T08:05:44.743Z",
+   "last_seen": "2026-11-03T08:05:44.743Z",
+   "facts_digest": "51b56a9261a7eeef",
+   "history": [
+    {
+     "at": "2026-11-03T08:05:44.743Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "f3a2f6e603f08c7e"
   }
  },
  "adapters": {
@@ -1354,10 +1438,10 @@
      }
     ]
    },
-   "cursor": 20,
+   "cursor": 14,
    "quota": {
     "day": "2026-11-03",
-    "used": 92
+    "used": 124
    }
   }
  },
