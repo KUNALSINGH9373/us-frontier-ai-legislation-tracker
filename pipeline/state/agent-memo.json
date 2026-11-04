@@ -776,6 +776,20 @@
    "proposal": "congress_gov:119/hr/10946 (\"Congressional Office of Technology Improvement and Enhancement Act\") meets neither federal section's criterion; not created",
    "date": "2026-11-03",
    "dead": false
+  },
+  "congress_gov:119/hr/10329": {
+   "raw_hash": "5e1eff7eccfe05e7ce8abe79d550478ed0c289af1af3624074f28228d0c2fe5c",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10329 (\"Combating Foreign Threats to Main Street Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-04",
+   "dead": false
+  },
+  "congress_gov:119/hr/10238": {
+   "raw_hash": "3cc76a444ba0dd5690a6c8592538e9fbf795ed1d87917329a2e1c8c2e0fe1102",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10238 (\"Cybersecurity for Small Businesses Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-04",
+   "dead": false
   }
  }
 }
