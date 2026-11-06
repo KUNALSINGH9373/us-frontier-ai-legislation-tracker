@@ -790,6 +790,13 @@
    "proposal": "congress_gov:119/hr/10238 (\"Cybersecurity for Small Businesses Act of 2026\") meets neither federal section's criterion; not created",
    "date": "2026-11-04",
    "dead": false
+  },
+  "congress_gov:119/s/5360": {
+   "raw_hash": "ccf86bbd32d2b316319823201912a741eae3e73aea38d6bd7573b8fec14dae9f",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/5360 (\"Rural and Municipal Utility Cybersecurity Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-06",
+   "dead": false
   }
  }
 }
