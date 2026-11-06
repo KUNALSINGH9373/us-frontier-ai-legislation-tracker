@@ -78,7 +78,8 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   const { schemaProblems, toJsonSchema } = await import('./schema.mjs');
   const S = { type: 'OBJECT', required: ['v'], properties: { v: { type: 'STRING', enum: ['yes', 'no'], nullable: true }, k: { type: 'ARRAY', items: { type: 'NUMBER' } } } };
   ok('schema: enum, nullable and arrays are checked', !schemaProblems(S, { v: null, k: [1, 2.5] }).length && schemaProblems(S, { v: 'maybe' }).length === 1 && schemaProblems(S, { v: 'yes', k: ['x'] }).length === 1);
-  ok('schema: a nullable enum lists null', toJsonSchema(S).properties.v.enum.includes(null));
+  ok('schema: a nullable enum is anyOf [enum, null], never a type list with an enum', JSON.stringify(toJsonSchema(S).properties.v) === JSON.stringify({ anyOf: [{ type: 'string', enum: ['yes', 'no'] }, { type: 'null' }] }));
+  ok('schema: a nullable plain field stays a type list', JSON.stringify(toJsonSchema({ type: 'STRING', nullable: true })) === JSON.stringify({ type: ['string', 'null'] }));
 }
 // a role's time limit (config/models.json timeout_ms): 2 minutes by default, more for the roles that read whole bills
 {
