@@ -9,9 +9,12 @@ const typeOf = (s) => TYPES[String(s.type || '').toUpperCase()] || String(s.type
 export function toJsonSchema(s) {
   if (!s || typeof s !== 'object') return s;
   const t = typeOf(s), out = {};
+  // a nullable enum is anyOf [enum, null]: since 5 Nov 2026 the Claude API refuses a type list with an enum ("Enum value 'or' does
+  // not match declared type")
+  if (s.nullable && s.enum) return { anyOf: [toJsonSchema({ ...s, nullable: false }), { type: 'null' }] };
   out.type = s.nullable ? [t, 'null'] : t;
   if (s.description) out.description = s.description;
-  if (s.enum) out.enum = s.nullable ? [...s.enum, null] : [...s.enum];
+  if (s.enum) out.enum = [...s.enum];
   if (t === 'object') {
     out.properties = Object.fromEntries(Object.entries(s.properties || {}).map(([k, v]) => [k, toJsonSchema(v)]));
     if (s.required && s.required.length) out.required = [...s.required];
