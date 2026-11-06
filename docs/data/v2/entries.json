@@ -8199,6 +8199,15 @@
     "clause": "Government files a notice of appeal to the Ninth Circuit from the Aug 27, 2026 judgment (Dkt. 253)",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-11-06",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Withdrawn: NOTICE of Withdrawal filed by Susan J Hennessey, no longer appearing on behalf of Anthropic PBC in this case (Hennessey, Susan)",
+    "clause": "NOTICE of Withdrawal filed by Susan J Hennessey, no longer appearing on behalf of Anthropic PBC in this case (Hennessey, Susan)",
+    "scheduled": false,
+    "source_url": "https://www.courtlistener.com/docket/72379655/"
    }
   ],
   "sources": [
@@ -8243,16 +8252,30 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-06T00:00:00Z",
+   "run_id": "update-20261106-2135",
+   "rounds": 0
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-06",
+  "last_changed": "2026-11-06",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-et-al-no-3-26-cv-01996-n-d-cal",
    "section_name": "Litigation and enforcement"
+  },
+  "evidence": [
+   {
+    "field": "events",
+    "quote": "NOTICE of Withdrawal filed by Susan J Hennessey, no longer appearing on behalf of Anthropic PBC in this case (Hennessey, Susan)",
+    "source_url": "https://www.courtlistener.com/docket/72379655/"
+   }
+  ],
+  "identifiers": {
+   "external": {
+    "courtlistener_docket": "72379655"
+   }
   }
  },
  {

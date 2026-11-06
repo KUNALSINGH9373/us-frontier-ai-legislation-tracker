@@ -350,6 +350,30 @@
    "run_id": "run-20261103-1200-8d79",
    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
    "tier": "A"
+  },
+  {
+   "entry_key": "fl-anthropic-v-department-of-war-n-d-cal",
+   "field": "events",
+   "old": null,
+   "new": {
+    "date": "2026-11-06",
+    "type": "Litigation",
+    "text": "NOTICE of Withdrawal filed by Susan J Hennessey, no longer appearing on behalf of Anthropic PBC in this case (Hennessey, Susan)"
+   },
+   "date": "2026-11-06",
+   "run_id": "update-20261106-2135",
+   "source_url": "https://www.courtlistener.com/docket/72379655/",
+   "tier": "A"
+  },
+  {
+   "entry_key": "fl-anthropic-v-department-of-war-n-d-cal",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-06",
+   "run_id": "update-20261106-2135",
+   "source_url": "https://www.courtlistener.com/docket/72379655/",
+   "tier": "A"
   }
  ]
 }
