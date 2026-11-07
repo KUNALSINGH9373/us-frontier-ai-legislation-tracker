@@ -804,6 +804,13 @@
    "proposal": "congress_gov:119/hr/1032 (\"Stop Funding Our Adversaries Act of 2023\") meets neither federal section's criterion; not created",
    "date": "2026-11-06",
    "dead": false
+  },
+  "legiscan:2155516": {
+   "raw_hash": "d6fe2b1ee423d77a8edaeab67efa916579a8c4219ed25c2870ff8dd88396b54c",
+   "reason": "not created: a budget, appropriations or defence authorization measure (\"Fiscal Year 2027 Budget Support Emergency Act of 2026\"): an AI provision inside it is section I, which is never auto-created",
+   "proposal": "legiscan:2155516: not a bill (a budget, appropriations or defence authorization measure (\"Fiscal Year 2027 Budget Support Emergency Act of 2026\"): an AI provision inside it is section I, which is never auto-created); not created",
+   "date": "2026-11-07",
+   "dead": false
   }
  }
 }
