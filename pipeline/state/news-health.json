@@ -1,17 +1,16 @@
 {
- "updated_at": "2026-11-07T14:56:03.165Z",
+ "updated_at": "2026-11-07T16:05:42.937Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-11-07T14:56:03.165Z",
-   "last_fetch": "2026-11-07T14:56:03.165Z",
-   "last_ok": "2026-11-07T14:56:03.165Z",
+   "last_run": "2026-11-07T16:05:42.937Z",
+   "last_fetch": "2026-11-07T16:05:42.937Z",
+   "last_ok": "2026-11-07T16:05:42.937Z",
    "ok": true,
    "newest": "2026-10-29",
    "run_newest": null,
    "replay": false,
    "count": 0,
    "counts": [
-    0,
     0,
     0,
     0,
@@ -24,6 +23,7 @@
     0,
     0,
     0,
+    0,
     0
    ],
    "errors": [],
@@ -31,14 +31,14 @@
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-11-07T14:56:03.165Z",
-   "last_fetch": "2026-11-07T14:56:03.165Z",
-   "last_ok": "2026-11-07T14:56:03.165Z",
+   "last_run": "2026-11-07T16:05:42.937Z",
+   "last_fetch": "2026-11-07T16:05:42.937Z",
+   "last_ok": "2026-11-07T16:05:42.937Z",
    "ok": true,
    "newest": "2026-10-22",
-   "run_newest": "2026-10-22",
+   "run_newest": null,
    "replay": false,
-   "count": 8,
+   "count": 0,
    "counts": [
     0,
     0,
@@ -52,17 +52,17 @@
     0,
     0,
     0,
-    0,
-    8
+    8,
+    0
    ],
    "errors": [],
    "consecutive_failures": 0,
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-11-07T14:56:03.165Z",
-   "last_fetch": "2026-11-07T14:56:03.165Z",
-   "last_ok": "2026-11-07T14:56:03.165Z",
+   "last_run": "2026-11-07T16:05:42.937Z",
+   "last_fetch": "2026-11-07T16:05:42.937Z",
+   "last_ok": "2026-11-07T16:05:42.937Z",
    "ok": true,
    "newest": "2026-11-06",
    "run_newest": null,
@@ -75,8 +75,8 @@
     0,
     0,
     0,
-    0,
     1,
+    0,
     0,
     0,
     0,
@@ -110,7 +110,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "whitehouse": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -134,7 +134,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "govinfo": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -158,7 +158,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "regulations_gov": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -182,7 +182,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "congress_extra": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -206,7 +206,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "nist": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -230,7 +230,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "cbo": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -254,7 +254,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "ca_ag": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -278,7 +278,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "nysenate": {
    "last_run": "2026-11-07T08:05:44.294Z",
@@ -302,7 +302,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   },
   "openstates": {
    "last_run": "2026-11-07T06:08:45.934Z",
@@ -338,7 +338,7 @@
    ],
    "consecutive_failures": 1,
    "future_items": [],
-   "last_skipped": "2026-11-07T14:56:03.165Z"
+   "last_skipped": "2026-11-07T16:05:42.937Z"
   }
  }
 }
