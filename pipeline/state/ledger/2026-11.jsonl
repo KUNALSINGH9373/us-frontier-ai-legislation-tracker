@@ -80,3 +80,4 @@
 {"at":"2026-11-09T00:06:18.295Z","role":"referee","model":"claude-opus-5-5","itemId":"federal_register:2026-22799","input":4284,"output":154,"cost":0.020215999999999998}
 {"at":"2026-11-09T00:10:27.606Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1916,"output":78,"cost":0.0002306}
 {"at":"2026-11-09T16:06:04.414Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1939,"output":66,"cost":0.00022689999999999999}
+{"at":"2026-11-09T18:53:55.988Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2025,"output":52,"cost":0.0002285}
