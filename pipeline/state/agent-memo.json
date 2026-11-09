@@ -811,6 +811,13 @@
    "proposal": "legiscan:2155516: not a bill (a budget, appropriations or defence authorization measure (\"Fiscal Year 2027 Budget Support Emergency Act of 2026\"): an AI provision inside it is section I, which is never auto-created); not created",
    "date": "2026-11-07",
    "dead": false
+  },
+  "legiscan:2161686": {
+   "raw_hash": "899ff4be5c5704d407c312583318f499a8ec97715c27789852cf6a1c49161030",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2161686 (\"Establishes the understanding artificial intelligence act requiring developers o\") meets no state section's criterion; not created",
+   "date": "2026-11-09",
+   "dead": false
   }
  }
 }
