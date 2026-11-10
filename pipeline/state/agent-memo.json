@@ -771,10 +771,10 @@
    "dead": false
   },
   "congress_gov:119/hr/10946": {
-   "raw_hash": "83094bf3a5fc70a9a292bdbc7129518259c14a6c63353d3f1ae1b9e8252597c1",
+   "raw_hash": "74fb6fb5eaa1b2a00488ff9127954e9bbe6b2e8be1559a78ca32421b25eda058",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10946 (\"Congressional Office of Technology Improvement and Enhancement Act\") meets neither federal section's criterion; not created",
-   "date": "2026-11-03",
+   "date": "2026-11-10",
    "dead": false
   },
   "congress_gov:119/hr/10329": {
@@ -817,6 +817,34 @@
    "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
    "proposal": "legiscan:2161686 (\"Establishes the understanding artificial intelligence act requiring developers o\") meets no state section's criterion; not created",
    "date": "2026-11-09",
+   "dead": false
+  },
+  "congress_gov:119/hr/10197": {
+   "raw_hash": "e65eaa79f56d08170dc74ae8dd40c9489bb6e506e71a7451b8b16f89e02bcc5c",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10197 (\"Biosecurity Modernization and Innovation Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "congress_gov:119/hr/4602": {
+   "raw_hash": "019adbfdaf96ff5e3926786066f98d03400f4d7c0b9683038b3dde4babfeacb7",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/4602 (\"Countering Threats and Attacks on Our Judges Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "congress_gov:119/hr/5511": {
+   "raw_hash": "cd18d0234e48673debe0196e0a0c9d0edfadb26560eecc273b7ff606d0fec2cf",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/5511 (\"Algorithmic Accountability Act of 2025\") meets neither federal section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "congress_gov:119/hr/10772": {
+   "raw_hash": "108952c8af45cd023cf9e17f4c3c1eb68a92adb57421e99f8f3cdb1c410469ce",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10772 (\"Frontline Innovation Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-10",
    "dead": false
   }
  }
