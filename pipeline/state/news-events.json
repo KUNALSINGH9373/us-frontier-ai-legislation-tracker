@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 81,
+   "stable_runs": 82,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 81,
+   "stable_runs": 82,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 81,
+   "stable_runs": 82,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -168,9 +168,9 @@
      "hash": "89ccaa83a68fe096"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 81,
+   "stable_runs": 0,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -186,6 +186,12 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-10T08:05:48.948Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending"
     }
    ],
    "card": null,
@@ -219,7 +225,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 81,
+   "stable_runs": 82,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-03T16:06:05.861Z",
    "facts_digest": "276c7aed410381f5",
@@ -266,7 +272,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 81,
+   "stable_runs": 82,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-06T06:56:55.820Z",
    "facts_digest": "905ea3751cd4242b",
@@ -314,7 +320,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -362,7 +368,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -404,7 +410,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -452,7 +458,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -494,7 +500,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 50,
+   "stable_runs": 51,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-03T08:05:44.743Z",
    "facts_digest": "e6dcf90065e2d86e",
@@ -542,7 +548,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 50,
+   "stable_runs": 51,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-03T08:05:44.743Z",
    "facts_digest": "51b56a9261a7eeef",
@@ -584,7 +590,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 49,
+   "stable_runs": 50,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-03T12:00:19.676Z",
    "facts_digest": "84179ed4a526e56a",
@@ -639,7 +645,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 49,
+   "stable_runs": 50,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-03T12:00:19.676Z",
    "facts_digest": "ffc725e4318a18f1",
@@ -688,7 +694,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 26,
+   "stable_runs": 27,
    "first_seen": "2026-11-06T21:35:14.206Z",
    "last_seen": "2026-11-06T21:35:14.206Z",
    "facts_digest": "ff5864f074760c67",
@@ -736,7 +742,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 4,
+   "stable_runs": 5,
    "first_seen": "2026-11-09T20:05:46.683Z",
    "last_seen": "2026-11-09T20:05:46.683Z",
    "facts_digest": "77c780b3eca47992",
@@ -754,16 +760,16 @@
  },
  "adapters": {
   "federal_register": {
-   "since": "2026-11-09"
+   "since": "2026-11-10"
   },
   "govinfo": {
-   "since": "2026-11-07"
+   "since": "2026-11-08"
   },
   "regulations_gov": {
-   "since": "2026-10-26"
+   "since": "2026-10-27"
   },
   "congress_extra": {
-   "since": "2026-11-08"
+   "since": "2026-11-09"
   },
   "openstates": {
    "sessions": {
@@ -1638,10 +1644,10 @@
      }
     ]
    },
-   "cursor": 0,
+   "cursor": 18,
    "quota": {
-    "day": "2026-11-09",
-    "used": 104
+    "day": "2026-11-10",
+    "used": 25
    }
   }
  },
