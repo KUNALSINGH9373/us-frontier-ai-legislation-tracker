@@ -771,17 +771,17 @@
    "dead": false
   },
   "congress_gov:119/hr/10946": {
-   "raw_hash": "74fb6fb5eaa1b2a00488ff9127954e9bbe6b2e8be1559a78ca32421b25eda058",
+   "raw_hash": "ea772bb1b93b89d2dceeeb9c9648e8a9e7cc33b86be8ec8b50e29a4f7daa72bd",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10946 (\"Congressional Office of Technology Improvement and Enhancement Act\") meets neither federal section's criterion; not created",
    "date": "2026-11-10",
    "dead": false
   },
   "congress_gov:119/hr/10329": {
-   "raw_hash": "5e1eff7eccfe05e7ce8abe79d550478ed0c289af1af3624074f28228d0c2fe5c",
+   "raw_hash": "2d3975a0daed2c08f96531a79496d403b4c7432ef4d6d87778186695553f0361",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10329 (\"Combating Foreign Threats to Main Street Act of 2026\") meets neither federal section's criterion; not created",
-   "date": "2026-11-04",
+   "date": "2026-11-10",
    "dead": false
   },
   "congress_gov:119/hr/10238": {
@@ -844,6 +844,76 @@
    "raw_hash": "108952c8af45cd023cf9e17f4c3c1eb68a92adb57421e99f8f3cdb1c410469ce",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10772 (\"Frontline Innovation Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "congress_gov:119/hr/1468": {
+   "raw_hash": "6bebf4c5d3ee1fbdbd92699e306d677b4f0b566dfb4354f210f0429db830e1b9",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/1468 (\"Protect America’s Innovation and Economic Security from CCP Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "congress_gov:119/hr/1495": {
+   "raw_hash": "3d99a9788f96bce07046988b8a0b94b1ed3d92a8f1ffe0cfa05d0b67edf9a592",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/1495 (\"Digital Economy Cybersecurity Advisory Act of 2025\") meets neither federal section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2161817": {
+   "raw_hash": "1664ff912b47ef0d9edc80fc7b42596a4d7ccf60e57854e81ad97b9f97d18039",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2161817 (\"Relating to a prohibition on the use of certain personalized dynamic pricing mod\") meets no state section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2162899": {
+   "raw_hash": "30810f2524adebe35daa7bb763a69710c26d6cb851cb4ee77d8c4bb0702de2d0",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2162899 (\"Relating to human oversight and override for certain high-risk artificial intell\") meets no state section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2162475": {
+   "raw_hash": "77fa6aaabc23f65e45be723b6b6ed713ef02ae3ef47356aa45cfec4d4a2a2cd4",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2162475 (\"Relating to the inclusion of provenance data on certain content created or poste\") meets no state section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2162506": {
+   "raw_hash": "40986c95b988f19fca800ebde583751a867323a3eb8fdcaa8c3188a1157d8679",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2162506 (\"Relating to the labeling of artificial intelligence systems by businesses for co\") meets no state section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2162614": {
+   "raw_hash": "465d89cdf6782c74b1b3bbeb8129bf9768b03de14b9ec0a5a8c0c3a48be1ec18",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2162614 (\"Relating to human oversight and review of decisions and actions involving artifi\") meets no state section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2161904": {
+   "raw_hash": "d3d9dd69f4961c395769acdc1ba9c6cf14b7238731eaf24e79f99bc980e4f469",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2161904 (\"Relating to the required disclosure to a consumer that the consumer is interacti\") meets no state section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2162757": {
+   "raw_hash": "ab1d899c561f13b6e4d93494b8c4d0ce9897f22549994b8a7d040d97ac33f9bf",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2162757 (\"Relating to requiring a business in this state to disclose the use of certain pe\") meets no state section's criterion; not created",
+   "date": "2026-11-10",
+   "dead": false
+  },
+  "legiscan:2162717": {
+   "raw_hash": "87964459e69c5f8b9ef67f03979f85388c79aba7a9bcb4ffbe56d5af99e36c92",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2162717 (\"Relating to the public disclosure of local economic development agreements invol\") meets no state section's criterion; not created",
    "date": "2026-11-10",
    "dead": false
   }

@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 85,
+   "stable_runs": 86,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 85,
+   "stable_runs": 86,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 85,
+   "stable_runs": 86,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -170,7 +170,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 3,
+   "stable_runs": 4,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -231,7 +231,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 85,
+   "stable_runs": 86,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-03T16:06:05.861Z",
    "facts_digest": "276c7aed410381f5",
@@ -278,7 +278,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 85,
+   "stable_runs": 86,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-06T06:56:55.820Z",
    "facts_digest": "905ea3751cd4242b",
@@ -326,7 +326,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 77,
+   "stable_runs": 78,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -374,7 +374,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 77,
+   "stable_runs": 78,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -416,7 +416,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 77,
+   "stable_runs": 78,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -464,7 +464,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 77,
+   "stable_runs": 78,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -500,15 +500,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-10T16:07:08Z",
+     "retrieved_at": "2026-11-10T20:06:17Z",
      "hash": "030426bb4eb1c303"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 54,
+   "stable_runs": 55,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-10T16:05:47.702Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "e6dcf90065e2d86e",
    "history": [
     {
@@ -548,15 +548,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-10T16:07:08Z",
+     "retrieved_at": "2026-11-10T20:06:17Z",
      "hash": "be4f59f59a52eb45"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 54,
+   "stable_runs": 55,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-10T16:05:47.702Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "51b56a9261a7eeef",
    "history": [
     {
@@ -596,7 +596,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 53,
+   "stable_runs": 54,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-10T16:05:47.702Z",
    "facts_digest": "84179ed4a526e56a",
@@ -651,7 +651,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 53,
+   "stable_runs": 54,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-10T16:05:47.702Z",
    "facts_digest": "ffc725e4318a18f1",
@@ -700,7 +700,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 30,
+   "stable_runs": 31,
    "first_seen": "2026-11-06T21:35:14.206Z",
    "last_seen": "2026-11-06T21:35:14.206Z",
    "facts_digest": "ff5864f074760c67",
@@ -748,7 +748,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-09T20:05:46.683Z",
    "last_seen": "2026-11-09T20:05:46.683Z",
    "facts_digest": "77c780b3eca47992",
@@ -762,6 +762,510 @@
    ],
    "card": null,
    "facts_hash": "da04da8e4a0a730c"
+  },
+  "TX|-|introduction|2026-11-09#HB605": {
+   "key": "TX|-|introduction|2026-11-09#HB605",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB605",
+    "title": "Relating to the establishment of the Texas Department of Artificial Intelligence and oversight of artificial intelligence systems used by state agencies."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162049#2026-11-09#e7c1f91c",
+     "record": "2162049",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB605",
+     "title": "Relating to the establishment of the Texas Department of Artificial Intelligence and oversight of artificial intelligence systems used by state agencies.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:11Z",
+     "hash": "2bd46e03a09ea0b9"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "97f2fac0fc60a5ff",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "8f8ef8cef08aad91"
+  },
+  "TX|-|introduction|2026-11-09#HB280": {
+   "key": "TX|-|introduction|2026-11-09#HB280",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB280",
+    "title": "Relating to a prohibition on the use of certain personalized dynamic pricing models by a business in this state."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2161817#2026-11-09#e7c1f91c",
+     "record": "2161817",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB280",
+     "title": "Relating to a prohibition on the use of certain personalized dynamic pricing models by a business in this state.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "247f97cc4a2aee44"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "807adc20a8a354e9",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "efe01fb30a5f39c2"
+  },
+  "TX|-|introduction|2026-11-09#HB510": {
+   "key": "TX|-|introduction|2026-11-09#HB510",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB510",
+    "title": "Relating to human oversight and override for certain high-risk artificial intelligence systems; providing a civil penalty."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162899#2026-11-09#e7c1f91c",
+     "record": "2162899",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB510",
+     "title": "Relating to human oversight and override for certain high-risk artificial intelligence systems; providing a civil penalty.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "4f621b3bea8cb27d"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "afca5d3c2a1c9fdf",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "15d21c12b869474d"
+  },
+  "TX|-|introduction|2026-11-09#HB248": {
+   "key": "TX|-|introduction|2026-11-09#HB248",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB248",
+    "title": "Relating to the inclusion of provenance data on certain content created or posted on a social media platform."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162475#2026-11-09#e7c1f91c",
+     "record": "2162475",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB248",
+     "title": "Relating to the inclusion of provenance data on certain content created or posted on a social media platform.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "b35a802f52b993ca"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "68018eee17f79bc4",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "056a65b661acc990"
+  },
+  "TX|-|introduction|2026-11-09#HB625": {
+   "key": "TX|-|introduction|2026-11-09#HB625",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB625",
+    "title": "Relating to the labeling of artificial intelligence systems by businesses for commercial purposes."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162506#2026-11-09#e7c1f91c",
+     "record": "2162506",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB625",
+     "title": "Relating to the labeling of artificial intelligence systems by businesses for commercial purposes.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "ed59566961ec87c6"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "dec07252f028d3aa",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "d2a017502d4cfe12"
+  },
+  "TX|-|introduction|2026-11-09#HB474": {
+   "key": "TX|-|introduction|2026-11-09#HB474",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB474",
+    "title": "Relating to human oversight and review of decisions and actions involving artificial intelligence systems used by state agencies."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162614#2026-11-09#e7c1f91c",
+     "record": "2162614",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB474",
+     "title": "Relating to human oversight and review of decisions and actions involving artificial intelligence systems used by state agencies.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "365c4fb6aae4c8f5"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "9e8cdbe559aeff15",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "492a6109da84a9ba"
+  },
+  "TX|-|introduction|2026-11-09#HB914": {
+   "key": "TX|-|introduction|2026-11-09#HB914",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB914",
+    "title": "Relating to the required disclosure to a consumer that the consumer is interacting with an artificial intelligence system."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2161904#2026-11-09#e7c1f91c",
+     "record": "2161904",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB914",
+     "title": "Relating to the required disclosure to a consumer that the consumer is interacting with an artificial intelligence system.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "b6751b4612ffcb3e"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "4870b58e1e9eeeb7",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "bc05eabde8a00a19"
+  },
+  "TX|-|introduction|2026-11-09#HB405": {
+   "key": "TX|-|introduction|2026-11-09#HB405",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB405",
+    "title": "Relating to requiring a business in this state to disclose the use of certain personalized dynamic pricing models."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162757#2026-11-09#e7c1f91c",
+     "record": "2162757",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB405",
+     "title": "Relating to requiring a business in this state to disclose the use of certain personalized dynamic pricing models.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "57151e79117567c8"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "cf39d362fea5fe85",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "2a1b50d2eaf3998e"
+  },
+  "TX|-|introduction|2026-11-09#HB585": {
+   "key": "TX|-|introduction|2026-11-09#HB585",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB585",
+    "title": "Relating to the requirements for artificial intelligence operations of state agencies, establishing artificial intelligence divisions."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162254#2026-11-09#e7c1f91c",
+     "record": "2162254",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB585",
+     "title": "Relating to the requirements for artificial intelligence operations of state agencies, establishing artificial intelligence divisions.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:12Z",
+     "hash": "1f9425ecc7456bec"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "c436af4d541c4977",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "fc7787cf4f1461bf"
+  },
+  "TX|-|introduction|2026-11-09#HB734": {
+   "key": "TX|-|introduction|2026-11-09#HB734",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB734",
+    "title": "Relating to the public disclosure of local economic development agreements involving data centers."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162717#2026-11-09#e7c1f91c",
+     "record": "2162717",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB734",
+     "title": "Relating to the public disclosure of local economic development agreements involving data centers.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:13Z",
+     "hash": "5e496fedcc1656a3"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "102bd1564f63aaf8",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "3a3d6135188ffe74"
+  },
+  "TX|-|introduction|2026-11-09#HB561": {
+   "key": "TX|-|introduction|2026-11-09#HB561",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB561",
+    "title": "Relating to cybersecurity safeguards, required contractual protections, and civil remedies for certain commercial agreements involving artificial intelligence vendors."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162088#2026-11-09#e7c1f91c",
+     "record": "2162088",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB561",
+     "title": "Relating to cybersecurity safeguards, required contractual protections, and civil remedies for certain commercial agreements involving artificial intelligence vendors.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:13Z",
+     "hash": "0a1a3c0ada83bd9f"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "bf08fd7640676ae9",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "5486d6464796747e"
+  },
+  "TX|-|introduction|2026-11-09#HB732": {
+   "key": "TX|-|introduction|2026-11-09#HB732",
+   "jurisdiction": "TX",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-09",
+   "facts": {
+    "action": "Filed",
+    "chamber": "House",
+    "number": "TX HB732",
+    "title": "Relating to the ineligibility of certain data centers for state and local economic development incentives."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2162829#2026-11-09#e7c1f91c",
+     "record": "2162829",
+     "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=90R&Bill=HB732",
+     "title": "Relating to the ineligibility of certain data centers for state and local economic development incentives.",
+     "publisher": null,
+     "retrieved_at": "2026-11-10T20:07:13Z",
+     "hash": "0d084c7fa37e4fb9"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-10T20:05:44.895Z",
+   "last_seen": "2026-11-10T20:05:44.895Z",
+   "facts_digest": "1c767958d003d4cf",
+   "history": [
+    {
+     "at": "2026-11-10T20:05:44.895Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "0d3c695d14514775"
   }
  },
  "adapters": {
@@ -1650,10 +2154,10 @@
      }
     ]
    },
-   "cursor": 25,
+   "cursor": 16,
    "quota": {
     "day": "2026-11-10",
-    "used": 115
+    "used": 145
    }
   }
  },
