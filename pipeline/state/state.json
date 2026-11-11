@@ -2,7 +2,7 @@
  "version": 1,
  "sources": {
   "legiscan": {
-   "last_success": "2026-11-11T16:17:13Z",
+   "last_success": "2026-11-11T20:06:17Z",
    "cursor": null,
    "hashes": {
     "1893423": "d3385d1ecaa0c403856481e3854f2c82",
@@ -508,7 +508,7 @@
     "2161055": "dfbd89fdf9b0931a1b5a10471792f01d",
     "2161143": "88bb5c7b0807dafd15c6c32666e8dacb",
     "2161182": "4531543b03ce9adf3874bceb4e1a288c",
-    "2161257": "414ba4a4c1f358b26a1977eb2db851a9",
+    "2161257": "bba8dcaad8439820ab2ada7aa7af8b4a",
     "2161306": "3c1ea6c22f07585b2c7e08a97308d1d3",
     "2161394": "34f84735c680f389c67527ff0fe43de9",
     "2161592": "0b906cec2b8f5af6247c3e27f9c45573",
@@ -528,13 +528,13 @@
    },
    "quota": {
     "period": "run",
-    "used": 14,
+    "used": 15,
     "limit": 100
    }
   },
   "congress_gov": {
-   "last_success": "2026-11-11T16:17:09Z",
-   "cursor": "2026-11-11T16:15:04Z",
+   "last_success": "2026-11-11T20:06:07Z",
+   "cursor": "2026-11-11T20:04:02Z",
    "hashes": {
     "119/hr/9925": "aaf161e11110510dc1852e3ef9b295427c9f00eee9a7e1fb7c88d0ee2d432d76",
     "119/s/1792": "01e7bbbd5cf87aa09c2850f3b456110cd1aae337aa7c7df363e83e933a7cd2d4",
@@ -703,17 +703,17 @@
     "119/hr/9144": "37b21516e68c29c6b9b538062bc1f0f0a14d60d5d43b146f77e41021ba0b96f4",
     "119/s/2615": "bb5f5b6c55bcfc42c5eff564a81ab81f4d008fa84560168f0d5a810e6f406aaa",
     "119/hr/10981": "2f07323611facd6e2497b8f104c17e298d770ce214f4e0720387cd2375b7689b",
-    "119/hr/10976": "c965c09f0c75a55a6ec29533bc6d4ddfed94a90e3d0bc7949b0fb46f0bd46811",
+    "119/hr/10976": "9063a0ac7c269ba2b806a32f7f6437bba4fe010e52c6ee2f8888ddcdf4e3a5f8",
     "119/s/4281": "7a35cb09e9497e894d4583256304f19c4b7dd423343467e54bed0cc895314756"
    },
    "quota": {
     "period": "run",
-    "used": 3,
+    "used": 6,
     "limit": 400
    }
   },
   "federal_register": {
-   "last_success": "2026-11-11T16:17:10Z",
+   "last_success": "2026-11-11T20:06:08Z",
    "cursor": "2026-11-11",
    "hashes": {
     "2026-20023": "2224a32ef5f0d63f651a4011e8f5a281337d66f5a905aab7b6d538cb235a4d7b",
