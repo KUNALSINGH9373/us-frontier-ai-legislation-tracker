@@ -2,7 +2,7 @@
  "version": 1,
  "sources": {
   "legiscan": {
-   "last_success": "2026-11-11T04:06:39Z",
+   "last_success": "2026-11-11T06:39:31Z",
    "cursor": null,
    "hashes": {
     "1893423": "d3385d1ecaa0c403856481e3854f2c82",
@@ -528,12 +528,12 @@
    },
    "quota": {
     "period": "run",
-    "used": 16,
+    "used": 14,
     "limit": 100
    }
   },
   "congress_gov": {
-   "last_success": "2026-11-11T04:06:30Z",
+   "last_success": "2026-11-11T06:39:26Z",
    "cursor": "2026-11-09T23:59:59Z",
    "hashes": {
     "119/hr/9925": "aaf161e11110510dc1852e3ef9b295427c9f00eee9a7e1fb7c88d0ee2d432d76",
@@ -709,7 +709,7 @@
    }
   },
   "federal_register": {
-   "last_success": "2026-11-11T04:06:31Z",
+   "last_success": "2026-11-11T06:39:27Z",
    "cursor": "2026-11-11",
    "hashes": {
     "2026-20023": "2224a32ef5f0d63f651a4011e8f5a281337d66f5a905aab7b6d538cb235a4d7b",
