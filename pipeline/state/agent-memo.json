@@ -937,6 +937,13 @@
    "proposal": "congress_gov:119/s/259 (\"Foreign Adversary Communications Transparency Act\") meets neither federal section's criterion; not created",
    "date": "2026-11-11",
    "dead": false
+  },
+  "legiscan:2038933": {
+   "raw_hash": "5bb1ef5fd58d3e92bebe01bde993b1636b8b2cfad529877c93bb99d16652cdd9",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2038933 (\"Enact the Ohio Right to Compute Act\") meets no state section's criterion; not created",
+   "date": "2026-11-11",
+   "dead": false
   }
  }
 }
