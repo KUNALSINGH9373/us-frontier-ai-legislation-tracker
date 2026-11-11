@@ -105,3 +105,11 @@
 {"at":"2026-11-11T04:10:50.741Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1972,"output":112,"cost":0.0002532}
 {"at":"2026-11-11T06:39:21.204Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2319,"output":577,"cost":0.0005204000000000001}
 {"at":"2026-11-11T08:06:11.618Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2319,"output":584,"cost":0.0005239}
+{"at":"2026-11-11T12:06:17.807Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2601,"output":820,"cost":0.0006701000000000001}
+{"at":"2026-11-11T12:06:53.922Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/s/2615","input":17494,"output":4385,"cost":0.07883799999999999}
+{"at":"2026-11-11T12:07:22.194Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/s/2615","input":22574,"output":5422,"cost":0.099368}
+{"at":"2026-11-11T12:07:28.733Z","role":"scope_judge","model":"claude-opus-5-5","itemId":"congress_gov:119/s/2615","input":7871,"output":695,"cost":0.045383999999999994}
+{"at":"2026-11-11T12:07:41.495Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"congress_gov:119/s/2615","input":14074,"output":1380,"cost":0.083896}
+{"at":"2026-11-11T12:08:18.843Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/s/2615","input":23027,"output":7145,"cost":0.117504}
+{"at":"2026-11-11T12:08:27.121Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"congress_gov:119/s/2615","input":15302,"output":813,"cost":0.077468}
+{"at":"2026-11-11T12:12:07.329Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1917,"output":70,"cost":0.00022670000000000004}

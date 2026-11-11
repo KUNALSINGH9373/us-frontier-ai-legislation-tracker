@@ -374,6 +374,59 @@
    "run_id": "update-20261106-2135",
    "source_url": "https://www.courtlistener.com/docket/72379655/",
    "tier": "A"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "record_facts.cosponsors",
+   "old": {
+    "count": 13,
+    "as_of": "2026-11-03",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917"
+   },
+   "new": {
+    "count": 14,
+    "as_of": "2026-11-11",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917"
+   },
+   "date": "2026-11-11",
+   "run_id": "run-20261111-1205-1d23",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+   "tier": "A"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "sponsor_text",
+   "old": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 13 cosponsors in all (Congress.gov)",
+   "new": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 14 cosponsors in all (Congress.gov)",
+   "date": "2026-11-11",
+   "run_id": "run-20261111-1205-1d23",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+   "tier": "A"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "status_text",
+   "old": "Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all; 13 cosponsors in all as of Nov 3, 2026 (Congress.gov)",
+   "new": "Introduced / status: July 23, 2026 (same day as FRONTIER and CATSR); referred to Homeland Security; to its Cybersecurity and Infrastructure Protection Subcommittee July 24; Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026; nine more joined Oct 1–19, 2026, for 12 cosponsors in all; 13 cosponsors in all as of Nov 3, 2026 (Congress.gov); 14 cosponsors in all as of Nov 11, 2026 (Congress.gov)",
+   "date": "2026-11-11",
+   "run_id": "run-20261111-1205-1d23",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917",
+   "tier": "A"
+  },
+  {
+   "entry_key": "s-2615-vet-artificial-intelligence-act",
+   "field": "entry",
+   "old": null,
+   "new": {
+    "title": "S. 2615 — VET Artificial Intelligence Act",
+    "section": "F",
+    "status": "pending"
+   },
+   "date": "2026-11-11",
+   "run_id": "run-20261111-1205-1d23",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615",
+   "tier": "B",
+   "note": "new entry; reading fields written by the AI with quotes checked by code"
   }
  ]
 }
