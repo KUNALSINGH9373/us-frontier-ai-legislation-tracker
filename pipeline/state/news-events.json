@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 90,
+   "stable_runs": 91,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 90,
+   "stable_runs": 91,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-10-30T15:06:01.949Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 90,
+   "stable_runs": 91,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -168,9 +168,9 @@
      "hash": "89ccaa83a68fe096"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 0,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -198,6 +198,12 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-11T08:05:44.086Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending"
     }
    ],
    "card": null,
@@ -231,7 +237,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 90,
+   "stable_runs": 91,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-03T16:06:05.861Z",
    "facts_digest": "276c7aed410381f5",
@@ -278,7 +284,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 90,
+   "stable_runs": 91,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-06T06:56:55.820Z",
    "facts_digest": "905ea3751cd4242b",
@@ -326,7 +332,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 82,
+   "stable_runs": 83,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -374,7 +380,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 82,
+   "stable_runs": 83,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -416,7 +422,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 82,
+   "stable_runs": 83,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -464,7 +470,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 82,
+   "stable_runs": 83,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -500,15 +506,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-11T06:39:23Z",
+     "retrieved_at": "2026-11-11T08:06:15Z",
      "hash": "030426bb4eb1c303"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 59,
+   "stable_runs": 60,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-11T06:38:52.586Z",
+   "last_seen": "2026-11-11T08:05:44.086Z",
    "facts_digest": "e6dcf90065e2d86e",
    "history": [
     {
@@ -548,15 +554,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-11T06:39:23Z",
+     "retrieved_at": "2026-11-11T08:06:15Z",
      "hash": "be4f59f59a52eb45"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 59,
+   "stable_runs": 60,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-11T06:38:52.586Z",
+   "last_seen": "2026-11-11T08:05:44.086Z",
    "facts_digest": "51b56a9261a7eeef",
    "history": [
     {
@@ -590,15 +596,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10873",
      "title": "AI Cyber Defense Act",
      "publisher": null,
-     "retrieved_at": "2026-11-11T06:39:12Z",
+     "retrieved_at": "2026-11-11T08:05:58Z",
      "hash": "b8b4f060f74dddf2"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 58,
+   "stable_runs": 59,
    "first_seen": "2026-11-03T12:00:19.676Z",
-   "last_seen": "2026-11-11T06:38:52.586Z",
+   "last_seen": "2026-11-11T08:05:44.086Z",
    "facts_digest": "84179ed4a526e56a",
    "history": [
     {
@@ -645,15 +651,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10873",
      "title": "AI Cyber Defense Act",
      "publisher": null,
-     "retrieved_at": "2026-11-11T06:39:12Z",
+     "retrieved_at": "2026-11-11T08:05:58Z",
      "hash": "37c12260a5676ff3"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 58,
+   "stable_runs": 59,
    "first_seen": "2026-11-03T12:00:19.676Z",
-   "last_seen": "2026-11-11T06:38:52.586Z",
+   "last_seen": "2026-11-11T08:05:44.086Z",
    "facts_digest": "ffc725e4318a18f1",
    "history": [
     {
@@ -700,7 +706,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 35,
+   "stable_runs": 36,
    "first_seen": "2026-11-06T21:35:14.206Z",
    "last_seen": "2026-11-06T21:35:14.206Z",
    "facts_digest": "ff5864f074760c67",
@@ -748,7 +754,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 13,
+   "stable_runs": 14,
    "first_seen": "2026-11-09T20:05:46.683Z",
    "last_seen": "2026-11-09T20:05:46.683Z",
    "facts_digest": "77c780b3eca47992",
@@ -790,7 +796,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "97f2fac0fc60a5ff",
@@ -832,7 +838,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "807adc20a8a354e9",
@@ -874,7 +880,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "afca5d3c2a1c9fdf",
@@ -916,7 +922,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "68018eee17f79bc4",
@@ -958,7 +964,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "dec07252f028d3aa",
@@ -1000,7 +1006,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "9e8cdbe559aeff15",
@@ -1042,7 +1048,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "4870b58e1e9eeeb7",
@@ -1084,7 +1090,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "cf39d362fea5fe85",
@@ -1126,7 +1132,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "c436af4d541c4977",
@@ -1168,7 +1174,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "102bd1564f63aaf8",
@@ -1210,7 +1216,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "bf08fd7640676ae9",
@@ -1252,7 +1258,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 5,
+   "stable_runs": 6,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "1c767958d003d4cf",
@@ -1309,7 +1315,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-11-11T04:05:46.546Z",
    "last_seen": "2026-11-11T04:05:46.546Z",
    "facts_digest": "25dda743fd8b6223",
@@ -1327,16 +1333,16 @@
  },
  "adapters": {
   "federal_register": {
-   "since": "2026-11-10"
+   "since": "2026-11-11"
   },
   "govinfo": {
-   "since": "2026-11-08"
+   "since": "2026-11-09"
   },
   "regulations_gov": {
-   "since": "2026-10-27"
+   "since": "2026-10-28"
   },
   "congress_extra": {
-   "since": "2026-11-09"
+   "since": "2026-11-10"
   },
   "openstates": {
    "sessions": {
@@ -2211,10 +2217,10 @@
      }
     ]
    },
-   "cursor": 13,
+   "cursor": 2,
    "quota": {
     "day": "2026-11-11",
-    "used": 80
+    "used": 106
    }
   }
  },
