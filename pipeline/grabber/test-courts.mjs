@@ -133,6 +133,9 @@ function tempData() {
 {
   const t = tempData();
   fs.writeFileSync(t.stateFile, JSON.stringify({ dockets: { 72379655: { last_date: '2026-07-01', seen: {} } } }));
+  // The live entry became "mixed" when the real court step first read this docket (6 Nov 2026); the copy starts it as the author left
+  // it, so this step's first automated change (authored -> mixed) is what is tested.
+  { const f = path.join(t.dataDir, 'entries.json'), es = JSON.parse(fs.readFileSync(f, 'utf8')); es.find((x) => x.key === ANTHROPIC).origin = 'authored'; fs.writeFileSync(f, JSON.stringify(es, null, 1)); }
   const before = loadData(t.dataDir);
   const r = await courtsRun({ http: mkHttp(), limiter: async () => {}, cases: { [ANTHROPIC]: CASES[ANTHROPIC] }, dataDir: t.dataDir, docsDir: t.docsDir, stateFile: t.stateFile, config: { max_entries_changed_per_run: 15 }, runId: 'update-20261028-1200', now: NOW });
   const d = loadData(t.dataDir), e = d.entries.find((x) => x.key === ANTHROPIC), o = before.entries.find((x) => x.key === ANTHROPIC);
