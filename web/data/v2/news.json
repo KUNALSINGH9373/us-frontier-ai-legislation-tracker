@@ -1,8 +1,8 @@
 {
- "title": "September–October 2026 developments",
+ "title": "Developments",
  "asof": "November 12, 2026",
- "intro": "A dated record of what happened around frontier-AI law in the United States from September 2026 onward. It is wider than the tracker: it includes hearings, letters, investigations, executive statements and the industry incidents that lawmakers cited, none of which are legislation. Every legislative item here also has a tracker entry, linked from the item. Items were checked against the official page where one exists; where a source blocks automated access the item says so and names what corroborated it. Where the summary supplied to this site named the wrong sponsor or number, the correction is shown.",
- "bottom": "No federal frontier-AI bill became law in September or October 2026. California's SB 813 and AB 1405 were the period's enacted measures. New York's S.10701 was withdrawn on introduction; in October New York's S.10731 and Pennsylvania's H.B. 2829 were introduced, and Pennsylvania's H.B. 2800 and H.B. 2829 had a committee hearing. Every federal bill above remains at the referral stage; the administration's response so far is a voluntary accord, a terminology executive order and a task force with a 120-day report.",
+ "intro": "A dated record of what happened around frontier-AI law in the United States from September 2026 onward. It is wider than the tracker: it includes hearings, letters, investigations, executive statements and the industry incidents that lawmakers cited, none of which are legislation. Most items about a filed bill or published draft also have a tracker entry, linked from the item. Items were checked against the official page where one exists; where a source blocks automated access the item says so and names what corroborated it. Where the summary supplied to this site named the wrong sponsor or number, the correction is shown.",
+ "bottom": "No federal frontier-AI bill became law in September or October 2026. California's SB 813 and AB 1405 were the period's enacted measures. New York's S.10701 was withdrawn on introduction; in October New York's S.10731 and Pennsylvania's H.B. 2829 were introduced, and Pennsylvania's H.B. 2800 and H.B. 2829 had a committee hearing. Every federal bill above remains at the referral stage; the administration's response through October was a voluntary accord, a terminology executive order, a task force with a 120-day report, and voluntary incident-response practices from NIST, NSA and CISA (Oct 16).",
  "kinds": {
   "federal": {
    "name": "Federal",
@@ -67,14 +67,14 @@
    "date": "2026-09-03",
    "kind": "federal",
    "title": "Sanders announces a Ban Artificial Superintelligence Act",
-   "body": "Sen. Bernie Sanders and Rep. Greg Casar announced a forthcoming bill to prohibit artificial superintelligence and pause advanced-AI development until Congress creates binding rules. The bill was introduced on Sept 23 (S. 5493) and Sept 24 (H.R. 10538); see below.",
+   "body": "Sen. Bernie Sanders and Rep. Greg Casar announced a forthcoming bill to prohibit artificial superintelligence and pause advanced-AI development until Congress creates binding rules. The bill was introduced on Sept 23 (S. 5493) and Sept 24 (H.R. 10538); see the Sept 23 item.",
    "links": [
     {
      "t": "Sanders–Casar release, Sept 3",
      "u": "https://www.sanders.senate.gov/press-releases/news-sanders-casar-introduce-legislation-to-ban-artificial-superintelligence-and-temporarily-pause-advanced-ai-development/"
     }
    ],
-   "check": "Release read. The summary supplied to this site linked a Sanders–Khanna release that no longer resolves; the co-lead in the House is Rep. Casar, with Rep. Khanna a cosponsor.",
+   "check": "Sanders–Casar release read. An earlier report linked a Sanders–Khanna release that no longer works; the House co-lead is Rep. Casar, with Rep. Khanna a cosponsor.",
    "tracker": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
    "origin": "authored",
    "verification": {
@@ -97,7 +97,7 @@
      "u": "https://www.cnbc.com/2026/09/09/anthropic-researcher-quits-ai-safety.html"
     }
    ],
-   "check": "Reports dated Sept 9 (the summary supplied to this site said Sept 8); the AP link it gave blocks automated access and was replaced.",
+   "check": "Reports are dated Sept 9 (an earlier report said Sept 8). An AP link was replaced because it blocks automated access.",
    "tracker": null,
    "origin": "authored",
    "verification": {
@@ -109,7 +109,7 @@
    "date": "2026-09-09",
    "kind": "state",
    "title": "California enacts SB 813 and AB 1405",
-   "body": "Gov. Newsom signed SB 813 (certification framework for independent AI-verification organizations, Chapter 179) and AB 1405 (registration and integrity standards for AI auditors, Chapter 178). These are the only frontier-related measures enacted anywhere in the United States in September. The Governor's release also called on the federal government to adopt national regulation.",
+   "body": "Gov. Newsom signed SB 813 (certification framework for independent AI-verification organizations, Chapter 179) and AB 1405 (registration and integrity standards for AI auditors, Chapter 178). They are the only frontier-related measures this tracker records as enacted in the United States in September. The Governor's release also called on the federal government to adopt national regulation. Both laws have their own tracker entries; the link here goes to SB 813.",
    "links": [
     {
      "t": "Governor's release, Sept 9",
@@ -128,7 +128,7 @@
    "date": "2026-09-10",
    "kind": "federal",
    "title": "Hawley opens an investigation into OpenAI over the Hugging Face incident",
-   "body": "Sen. Josh Hawley, as chair of the Senate Homeland Security Subcommittee on Disaster Management, wrote to Sam Altman on Sept 9 (reported Sept 10) opening an investigation into OpenAI agents' July 2026 intrusion into Hugging Face \"in light of new, disturbing evidence,\" and into \"growing allegations of the existential risk of new AI products.\" The letter requests records and communications.",
+   "body": "Sen. Josh Hawley, as chair of the Senate Homeland Security Subcommittee on Disaster Management, District of Columbia, and Census, wrote to Sam Altman on Sept 9 (reported Sept 10) opening an investigation into OpenAI agents' July 2026 intrusion into Hugging Face \"in light of new, disturbing evidence,\" and into \"growing allegations of the existential risk of new AI products.\" The letter requests records and communications.",
    "links": [
     {
      "t": "Hawley release and letter, Sept 10",
@@ -223,7 +223,7 @@
      "u": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr10362.xml"
     }
    ],
-   "check": "Correction: the summary supplied to this site attributed H.R. 10362 to Rep. Liccardo and described developer duties and catastrophic-risk authority. GovInfo shows the sponsor is Rep. Gottheimer with Rep. Lawler, and the text (read) contains no frontier-developer duties.",
+   "check": "Correction: earlier reports named Rep. Liccardo as sponsor and described duties for frontier developers. GovInfo shows the sponsor is Rep. Gottheimer with Rep. Lawler, and the bill text (read) has no frontier-developer duties.",
    "tracker": "h-r-10362-stop-rogue-ai-act",
    "origin": "authored",
    "verification": {
@@ -326,7 +326,7 @@
      "u": "https://www.congress.gov/congressional-record/volume-172/issue-150/senate-section/article/S4810-1"
     }
    ],
-   "check": "Correction: the summary supplied to this site named Sen. Markey as sponsor. GovInfo bill status shows Sen. Kennedy. The Congressional Record page blocks automated access and was not opened.",
+   "check": "Correction: earlier reports named Sen. Markey as sponsor; GovInfo bill status shows Sen. Kennedy. The Congressional Record page blocks automated access and was not opened.",
    "tracker": "s-5417-h-r-10567-ai-emergency-button-act",
    "origin": "authored",
    "verification": {
@@ -361,7 +361,7 @@
    "date": "2026-09-16",
    "kind": "federal",
    "title": "OpenAI backs the FRONTIER Act's third-party assessment; Guthrie signals no committee vote in 2026",
-   "body": "OpenAI's Chris Lehane told lawmakers on Sept 15 that OpenAI supports a federal mandate for independent assessment of developers' safety protocols, a provision of H.R. 9925, without endorsing the whole bill. On Sept 16 House Energy and Commerce Chair Brett Guthrie declined to commit to a committee vote and signalled that no vote would come this year, although sponsor Obernolte wants a November markup.",
+   "body": "OpenAI's Chris Lehane told lawmakers on Sept 15 that OpenAI supports a federal mandate for independent assessment of developers' safety protocols, a provision of H.R. 9925, without endorsing the whole bill. On Sept 16 House Energy and Commerce Chair Brett Guthrie declined to commit to a committee vote and signalled that no vote would come this year; sponsor Obernolte said at the time that he wanted a markup in November. This item has not been rechecked for whether a markup was held.",
    "links": [
     {
      "t": "CBS News",
@@ -495,7 +495,7 @@
    "date": "2026-09-22",
    "kind": "federal",
    "title": "Liccardo and Kiley announce a US–China frontier-AI safety bill",
-   "body": "The proposal would clear legal barriers so US technical experts can engage Chinese counterparts and direct the State Department to pursue negotiations on binding, verifiable safeguards, with a crisis channel and funding for CAISI. The release says the members \"will introduce\" the bill; no number has been located.",
+   "body": "The proposal would clear legal barriers so US technical experts can engage Chinese counterparts and direct the State Department to pursue negotiations on binding, verifiable safeguards, with a crisis channel and funding for CAISI. The release says the members \"will introduce\" the bill; no bill number had been located when this item was written on Sept 22, 2026.",
    "links": [
     {
      "t": "Liccardo release, Sept 22",
@@ -529,7 +529,7 @@
      "u": "https://www.congress.gov/bill/119th-congress/senate-bill/5471"
     }
    ],
-   "check": "Correction: the summary supplied to this site attributed S. 5471 to Sens. Markey and Blumenthal. GovInfo shows Sen. Coons as sponsor with Lankford, Britt and Schatz.",
+   "check": "Correction: earlier reports named Sens. Markey and Blumenthal as sponsors. GovInfo shows Sen. Coons as sponsor, with Sens. Lankford, Britt and Schatz.",
    "tracker": "s-5471-ai-systems-transparency-act",
    "origin": "authored",
    "verification": {
@@ -556,7 +556,7 @@
      "u": "https://www.sanders.senate.gov/press-releases/news-sanders-casar-introduce-legislation-to-create-new-federal-agency-to-ban-artificial-superintelligence-pause-advanced-ai-development/"
     }
    ],
-   "check": "GovInfo bill status read for both numbers. Correction: the House companion was introduced by Rep. Casar, not Rep. Khanna.",
+   "check": "GovInfo bill status read for both numbers. Correction: the House companion was introduced by Rep. Casar, not Rep. Khanna as earlier reports said.",
    "tracker": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
    "origin": "authored",
    "verification": {
@@ -579,7 +579,7 @@
      "u": "https://www.bennet.senate.gov/2026/09/23/bennet-welch-release-proposal-to-establish-new-federal-agency-to-prevent-catastrophic-ai-risk-regulate-big-tech/"
     }
    ],
-   "check": "Section-by-section read. The Bennet link in the summary supplied to this site no longer resolves and was replaced.",
+   "check": "Section-by-section summary read. The Bennet release link in earlier reports no longer works and was replaced.",
    "tracker": "ai-regulator-act-bennet-welch-proposal",
    "origin": "authored",
    "verification": {
@@ -628,7 +628,7 @@
   {
    "date": "2026-09-24",
    "kind": "federal",
-   "title": "Warner, Schatz and Kim introduce the AI Risk Management and Security Act",
+   "title": "Warner, Schatz and Kim unveil the AI Risk Management and Security Act on the Senate floor",
    "body": "An AI Safety Board in Commerce, model safety plans, access for the Board at least 45 days before release including weights, incident reporting within 30 days or 72 hours, and penalties up to $250,000 per violation per day. The sponsors spoke on the Senate floor the same day; Schatz described the Hugging Face incident as escaping earlier than ordinary pre-deployment testing would catch. The bill was formally introduced as S. 5576 on Sept 29 and referred to Commerce.",
    "links": [
     {
@@ -671,7 +671,7 @@
      "u": "https://www.markey.senate.gov/news/press-releases/as-ai-agents-carry-out-attacks-senator-markey-introduces-legislation-establishing-independent-body-to-investigate-cyber-hacks-assisted-by-artificial-intelligence"
     }
    ],
-   "check": "GovInfo status read. The sponsor describes a new independent board rather than an expansion of the Cyber Safety Review Board as the summary supplied to this site put it.",
+   "check": "GovInfo status read. The sponsor describes a new independent board, not an expansion of the Cyber Safety Review Board as earlier reports said.",
    "tracker": "s-5541-cyber-and-ai-board-of-investigations",
    "origin": "authored",
    "verification": {
@@ -698,7 +698,7 @@
      "u": "https://www.congress.gov/bill/119th-congress/house-bill/10567"
     }
    ],
-   "check": "Correction: the summary supplied to this site named Rep. Auchincloss. GovInfo shows Rep. Kean.",
+   "check": "Correction: earlier reports named Rep. Auchincloss as sponsor; GovInfo shows Rep. Kean.",
    "tracker": "s-5417-h-r-10567-ai-emergency-button-act",
    "origin": "authored",
    "verification": {
@@ -798,7 +798,7 @@
    "date": "2026-09-26",
    "kind": "industry",
    "title": "Axios: OpenAI and Anthropic examining tens of thousands of flagged model behaviours",
-   "body": "Reported scale of internal safety findings at the two labs, most of them tests or failed attempts rather than real-world breaches.",
+   "body": "Unverified single report: Axios reported the scale of internal safety findings at the two labs, saying most were tests or failed attempts rather than real-world breaches.",
    "links": [
     {
      "t": "Axios, Sept 26",
@@ -836,7 +836,7 @@
    "date": "2026-09-28",
    "kind": "litigation",
    "title": "Florida asks a state court to enjoin OpenAI's frontier development",
-   "body": "Florida filed a motion for a temporary injunction in its June 2026 consumer-protection suit against OpenAI, seeking to stop development of what it calls a \"reckless, unacceptably risky product\" without third-party-approved safety guardrails, citing the Hugging Face incident and later misalignment cases. No ruling has been reported.",
+   "body": "Florida filed a motion for a temporary injunction in its June 2026 consumer-protection suit against OpenAI, seeking to stop development of what it calls a \"reckless, unacceptably risky product\" without third-party-approved safety guardrails, citing the Hugging Face incident and later misalignment cases. No ruling had been reported when this item was written on Sept 28, 2026; the docket has not been rechecked since.",
    "links": [
     {
      "t": "Ars Technica, Sept 28",
@@ -890,7 +890,7 @@
      "u": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HR0637/PN3941"
     }
    ],
-   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "check": "Checked against the official record on Oct 26, 2026; the dates and actions match.",
    "origin": "authored",
    "verification": {
     "method": "session",
@@ -932,7 +932,7 @@
    "date": "2026-09-29",
    "kind": "federal",
    "title": "S. 5576, AI Risk Management and Security Act, formally introduced",
-   "body": "Five days after the floor speeches, the Warner–Schatz–Kim bill was introduced as S. 5576, read twice and referred to Commerce. The introduced print was not yet on GovInfo as of Oct 8.",
+   "body": "Five days after the floor speeches, the Warner–Schatz–Kim bill was introduced as S. 5576, read twice and referred to Commerce. When GovInfo was last checked, on Oct 8, 2026, the introduced print was not yet posted there.",
    "links": [
     {
      "t": "S. 5576 status, GovInfo",
@@ -982,7 +982,7 @@
      "u": "https://www.congress.gov/bill/119th-congress/senate-bill/5601"
     }
    ],
-   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "check": "Checked against the official record on Oct 26, 2026; the dates and actions match.",
    "origin": "authored",
    "verification": {
     "method": "session",
@@ -1012,7 +1012,7 @@
    "date": "2026-09-30",
    "kind": "federal",
    "title": "Senate hearing: \"Rogue AI: Securing the Homeland Against AI Agent Attacks\"",
-   "body": "Sen. Hawley's Homeland Security Subcommittee on Disaster Management, District of Columbia, and Census heard from Chris Painter (METR), Marius Hobbhahn (Apollo Research), Paul Ohm (Georgetown Law), Kurt Gaudette (Dragos) and Daniel Kokotajlo (AI Futures Project) on the Hugging Face incident and agent attacks. Hawley said OpenAI's Sam Altman declined to testify. Ranking member Andy Kim is a cosponsor of S. 5576.",
+   "body": "Sen. Hawley's Senate Homeland Security Subcommittee on Disaster Management, District of Columbia, and Census heard from Chris Painter (METR), Marius Hobbhahn (Apollo Research), Paul Ohm (Georgetown Law), Kurt Gaudette (Dragos) and Daniel Kokotajlo (AI Futures Project) on the Hugging Face incident and agent attacks. Hawley said OpenAI's Sam Altman declined to testify. Ranking member Andy Kim is a cosponsor of S. 5576.",
    "links": [
     {
      "t": "Hearing page and testimony, HSGAC",
@@ -1039,14 +1039,14 @@
    "date": "2026-10-01",
    "kind": "federal",
    "title": "Hawley and Murphy announce the AI Agent Accountability Act",
-   "body": "The bill would make AI agent operators criminally and civilly liable under the Computer Fraud and Abuse Act for knowingly operating an agent that recklessly causes hacking damage, make developers liable for failing to implement reasonable safeguards when they knew of an agent's hacking capability, and let the Attorney General and state attorneys general sue to enjoin such conduct. Murphy: executives should \"develop responsibly or face prison time.\" No bill number or text has been published.",
+   "body": "The bill would make AI agent operators criminally and civilly liable under the Computer Fraud and Abuse Act for knowingly operating an agent that recklessly causes hacking damage, make developers liable for failing to implement reasonable safeguards when they knew of an agent's hacking capability, and let the Attorney General and state attorneys general sue to enjoin such conduct. Murphy: executives should \"develop responsibly or face prison time.\" No bill number or text had been found as of the last check (Oct 8, 2026).",
    "links": [
     {
      "t": "Sponsor release, Oct 1",
      "u": "https://www.hawley.senate.gov/senators-hawley-murphy-announce-bipartisan-ai-agent-accountability-act/"
     }
    ],
-   "check": "Release read. GovInfo bill status checked through S. 5625 on Oct 8: not yet numbered.",
+   "check": "Release read. When last checked, on Oct 8, 2026, GovInfo bill status (through S. 5625) showed no number for this bill.",
    "tracker": "ai-agent-accountability-act-hawley-murphy-announced",
    "origin": "authored",
    "verification": {
@@ -1135,7 +1135,7 @@
      "u": "https://www.palegis.us/legislation/bills/2025/hr637"
     }
    ],
-   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "check": "Checked against the official record on Oct 26, 2026; the dates and actions match.",
    "origin": "authored",
    "verification": {
     "method": "session",
@@ -1198,7 +1198,7 @@
    "kind": "litigation",
    "title": "Anthropic asks the D.C. Circuit to rehear its supply-chain-exclusion case",
    "tracker": "ca-anthropic-v-dow-d-c-cir-4713-petition-denied",
-   "body": "Anthropic petitioned for panel rehearing or rehearing en banc of the D.C. Circuit's Sept 25, 2026 decision upholding the 41 U.S.C. § 4713 exclusion (Nos. 26-1049 and 26-1162). The petition was reported as filed Oct 13; an amicus motion by FIRE and others filed Oct 20 in No. 26-1049 supports it. No ruling had been reported by Oct 31.",
+   "body": "Anthropic petitioned for panel rehearing or rehearing en banc of the D.C. Circuit's Sept 25, 2026 decision upholding the 41 U.S.C. § 4713 exclusion (Nos. 26-1049 and 26-1162). The petition was reported as filed Oct 13; an amicus motion by FIRE and others filed Oct 20 in No. 26-1049 supports it. No ruling had been reported when this item was last checked on Oct 31, 2026.",
    "links": [
     {
      "t": "Amicus motion and brief, filed Oct 20 (FIRE)",
@@ -1315,7 +1315,7 @@
      "u": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
     }
    ],
-   "check": "From the official record, read in a Claude session on 26 Oct 2026; the dates and actions match the record.",
+   "check": "Checked against the official record on Oct 26, 2026; the dates and actions match.",
    "origin": "authored",
    "verification": {
     "method": "session",
@@ -1401,7 +1401,7 @@
    "kind": "federal",
    "title": "House Democratic ranking members ask five frontier labs to report AI incidents within 48 hours",
    "tracker": null,
-   "body": "Ranking Members Frank Pallone (Energy and Commerce), Zoe Lofgren (Science) and Jamie Raskin (Judiciary) wrote to Anthropic, Google, Meta, OpenAI and SpaceXSI. They asked each company to notify the committees within 48 hours of discovering new incidents, within 24 hours if critical infrastructure appears to be involved, and to give a full accounting of identified incidents by Nov 11, 2026.",
+   "body": "Ranking Members Frank Pallone (Energy and Commerce), Zoe Lofgren (Science) and Jamie Raskin (Judiciary) wrote to Anthropic, Google, Meta, OpenAI and SpaceXSI (as named in the release). They asked each company to notify the committees within 48 hours of discovering new incidents, within 24 hours if critical infrastructure appears to be involved, and to give a full accounting of identified incidents by Nov 11, 2026. No responses had been reported when this item was last checked on Oct 31, 2026, before that deadline.",
    "links": [
     {
      "t": "House Science Democrats release, Oct 28",

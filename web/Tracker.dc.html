@@ -222,7 +222,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 </header>
 
 <sc-if value="{{offline}}">
-  <div role="status" style="background:var(--surface-2);border-bottom:1px solid var(--line);padding:calc(10px*var(--ps)) clamp(16px,3vw,32px);font-size:calc(14px*var(--fs));font-weight:600;color:var(--ink-2);text-align:center">You’re offline. Showing the copy saved on this device, verified as of {{verLabel}}.</div>
+  <div role="status" style="background:var(--surface-2);border-bottom:1px solid var(--line);padding:calc(10px*var(--ps)) clamp(16px,3vw,32px);font-size:calc(14px*var(--fs));font-weight:600;color:var(--ink-2);text-align:center">You’re offline. Showing the copy saved on this device, updated through {{asofLabel}}.</div>
 </sc-if>
 
 <main id="main" tabIndex="-1" ref="{{mainRef}}" style="flex:1;outline:none;padding-bottom:{{mainPadBottom}}">
@@ -700,7 +700,7 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
       <sc-if value="{{hasConf}}"><p data-confidence style="margin:0;align-self:flex-start;font-size:calc(12.5px*var(--fs));font-weight:750;padding:4px calc(9px*var(--ps));border-radius:6px;background:var(--surface-2);color:var(--ink-2);overflow-wrap:anywhere" title="{{confNote}}"><span aria-hidden="true" style="color:{{confC}}">● </span>{{confLabel}}</p></sc-if>
       <sc-if value="{{hasMarks}}"><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{marks}}" as="m"><li style="font-size:calc(13.5px*var(--fs));color:var(--ink-2);display:flex;gap:8px"><span aria-hidden="true" style="color:var(--accent-ink)">●</span>{{m.t}}</li></sc-for></ul></sc-if>
       <sc-if value="{{hasBChecked}}"><p data-checked style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{bCheckedLine}}</p></sc-if>
-      <p style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Verified as of {{verLabel}}. Not legal advice: re-check the primary source before citing.</p>
+      <p data-checked-on style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{bCheckedOn}}Not legal advice: re-check the primary source before citing.</p>
     </section>
 
     <section aria-labelledby="b-steps" data-where class="bp-card bp-side-card">
@@ -1480,7 +1480,8 @@ class Component extends DCLogic {
     const pos = {}; others.forEach((o, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; pos[o] = { x: cx + rad * Math.cos(a), y: cy + rad * Math.sin(a) }; });
     const lines = es.map(e => { const o = e.from === c ? e.to : e.from; return { x2: pos[o].x, y2: pos[o].y, c: TC[e.type], dash: e.dashed ? '5 5' : '' }; });
     const nodes = others.map(o => ({ x: pos[o].x, y: pos[o].y, r: R.actors[o] ? 5 : 8, f: R.actors[o] ? 'var(--surface)' : 'var(--ink)' }));
-    const types = Object.keys(R.types).map(t => ({ t, name: R.types[t].name, c: TC[t], items: es.filter(e => e.type === t).map(e => { const o = e.from === c ? e.to : e.from, isEntry = !!D.keyToId[o]; return { k: e.from + '>' + e.to + '>' + e.type, name: nameOf(o), label: e.label, quote: e.quote, dir: e.from === c ? '→' : '←', dashed: !!e.dashed, isEntry, isActor: !isEntry, recenter: () => this.setP({ c: o }, true), href: isEntry ? '#/bill/' + D.keyToId[o] : '' }; }) })).filter(g => g.items.length);
+    const types = Object.keys(R.types).map(t => ({ t, name: R.types[t].name, c: TC[t], items: es.filter(e => e.type === t).map(e => { const o = e.from === c ? e.to : e.from, isEntry = !!D.keyToId[o]; return { k: e.from + '>' + e.to + '>' + e.type, name: nameOf(o), label: e.label, quote: String(e.quote || '').replace(/\*\*/g, '').replace(/\s*⟨[^⟩]*⟩/g, ''), // markdown and markers stripped for display; the stored quote stays as sourced
+      dir: e.from === c ? '→' : '←', dashed: !!e.dashed, isEntry, isActor: !isEntry, recenter: () => this.setP({ c: o }, true), href: isEntry ? '#/bill/' + D.keyToId[o] : '' }; }) })).filter(g => g.items.length);
     const deg = {}; D.edges.forEach(e => { if (!R.actors[e.from]) deg[e.from] = (deg[e.from] || 0) + 1; if (!R.actors[e.to]) deg[e.to] = (deg[e.to] || 0) + 1; });
     const hubs = Object.keys(deg).sort((a, b) => deg[b] - deg[a]).slice(0, 6).map(k => ({ l: R.short[k] || k, sel: k === c, bg: k === c ? 'var(--ink)' : 'var(--surface)', fg: k === c ? 'var(--bg)' : 'var(--ink)', go: () => this.setP({ c: k }, true) }));
     const cid = D.keyToId[c];
@@ -1550,6 +1551,16 @@ class Component extends DCLogic {
     }
     return null;
   }
+  // A step's text without its own date, which the step already shows above it: "Introduced Oct 28, 2026 and referred" -> "Introduced and
+  // referred". Only when the exact day of the step comes straight after an action word near the start ("Signed", "Passed Senate",
+  // "H.5224 introduced"); a range, another date or a date inside other words stays, and the punctuation after the date is kept.
+  withoutOwnDate(t, d) {
+    if (!t || !d) return t;
+    const M = ['Jan(?:uary)?', 'Feb(?:ruary)?', 'Mar(?:ch)?', 'Apr(?:il)?', 'May', 'June?', 'July?', 'Aug(?:ust)?', 'Sept?(?:ember)?', 'Oct(?:ober)?', 'Nov(?:ember)?', 'Dec(?:ember)?'][d.getMonth()];
+    const ACT = '(?:introduced|signed|approved|enacted|passed|filed|referred|re-referred|adopted|concurred|vetoed|effective|published|issued|appointed|withdrawn|amended|reported|chaptered|announced|released|decided|argued|granted|denied|stayed|Senate|House|Assembly|Governor)';
+    const m = new RegExp(`^([^()\\[\\]"“]{0,40}?\\b${ACT})\\s+(?:on\\s+)?${M}\\.?\\s+${d.getDate()}(?![\\d–-])(?:,\\s*${d.getFullYear()})?(?=$|[\\s,;.(])`, 'i').exec(String(t));
+    return m ? (m[1] + String(t).slice(m[0].length)).replace(/\s{2,}/g, ' ').replace(/\s+([,;.])/g, '$1').trim() : t;
+  }
   // Which page layout an entry uses: a bill (bills, laws, drafts, earlier proposals, export bills), an executive action (orders,
   // directives, agency programmes, export rules), a lawsuit (a named case), or a watch item (a litigation entry with no single case).
   billKind(x) {
@@ -1564,10 +1575,14 @@ class Component extends DCLogic {
     const t = x.title, i = t.indexOf(' — '), dn = x.raw && x.raw.display_name;
     if (dn) return dn;
     if (kind === 'lit') { const m = /^(.+? v\. .+?)(?:,? No\.|,|\s\(|$)/.exec(t); return m ? m[1] : x.short; }
-    if (i < 0) return x.short;
-    const after = t.slice(i + 3).replace(/\s*⟨[^⟩]*⟩/g, '').trim(), q = /^titled (?:the )?[“"]([^”"]+)[”"]/.exec(after);
+    const tidy = (n) => n.replace(/\s*⟨[^⟩]*⟩/g, '').replace(/\s*\((?:moved from|see) [^)]*\)/gi, '').trim();
+    if (i < 0) return tidy(x.short);
+    const before = tidy(t.slice(0, i)), after = tidy(t.slice(i + 3)), q = /^titled (?:the )?[“"]([^”"]+)[”"]/.exec(after);
     if (q) return q[1];
-    return /^(?:Chapter \d|[“"]An Act|An Act)/.test(after) ? x.short : after;
+    // "TRUMP AMERICA AI Act — discussion draft", "American AI Security Act — announced": the name is before the dash
+    if ((/^[a-z]/.test(after) || /^(?:announced|discussion draft|draft|proposal|in development|not yet|reported|text not|voluntary)/i.test(after)) && !/^(?:[A-Z]{1,4}\.?\s?){1,3}\d[\d\s/.&,A-Z-]*$/.test(before)) return before;
+    if (/^(?:Chapter \d|[“"]An Act|An Act)/.test(after)) return tidy(x.short);
+    return after.charAt(0).toUpperCase() + after.slice(1);
   }
   // The facts under the title and in the Key facts box, by layout. Only facts the record holds; a fact it does not hold says so.
   billFacts(x, kind) {
@@ -1610,29 +1625,32 @@ class Component extends DCLogic {
     if (!x) return { isBill: false };
     const R = D.rel, k = x.key, kind = this.billKind(x);
     let next = true;
-    const steps = x.dated.map(sg => { const fut = this.sched(sg.d), isNext = fut && next; if (fut) next = false; return { date: L.fmt(sg.d), t: sg.t, fut, tag: isNext ? 'Next' : fut ? 'Scheduled' : '', dot: fut ? 'var(--surface)' : `var(--st-${x.status})`, bd: `2px solid var(--st-${x.status})` }; });
+    const notLaw = ['pending', 'stalled', 'failed'].includes(x.status) && ['bill', 'draft', 'precursor', 'auditor', 'export'].includes(x.type);
+    const steps = x.dated.filter(sg => !(x.status === 'failed' && this.sched(sg.d))).map(sg => { const fut = this.sched(sg.d), isNext = fut && next && !notLaw; if (fut) next = false; return { date: L.fmt(sg.d), t: this.withoutOwnDate(sg.t, sg.d), fut, tag: isNext ? 'Next' : fut ? (notLaw ? 'If enacted' : 'Scheduled') : '', dot: fut ? 'var(--surface)' : `var(--st-${x.status})`, bd: `2px solid var(--st-${x.status})` }; });
     const rel = k ? D.edges.filter(e => e.from === k || e.to === k).map(e => { const o = e.from === k ? e.to : e.from, oid = D.keyToId[o]; return { t: e.type, name: R.actors[o] || R.short[o] || o, label: e.label, href: oid ? '#/bill/' + oid : '', isEntry: !!oid, isActor: !oid }; }) : [];
-    const relGroups = Object.keys(R.types).map(t => { const items = rel.filter(r => r.t === t); return { name: R.types[t].name, c: this.V.TYPE_COLOR[t] || 'var(--line-2)', n: String(items.length), items }; }).filter(g => g.items.length);
+    const relGroups = Object.keys(R.types).map(t => { const items = rel.filter(r => r.t === t).filter((r, j, a) => a.findIndex(o => o.name === r.name && o.label === r.label) === j); return { name: R.types[t].name, c: this.V.TYPE_COLOR[t] || 'var(--line-2)', n: String(items.length), items }; }).filter(g => g.items.length);
     const stx = x.statusText || { text: '', asOf: null };
+    // the entry's own last check against the official record (entry.last_checked), shown instead of the site-wide verification date
+    const checkedOn = x.lastChecked ? L.fmt(new Date(x.lastChecked + 'T12:00:00')) : '';
     // news and official actions: the first link sits on the right of the row; any others stay under it
     const go = (f, label) => ({ ...f, hasGo: f.links.length > 0, goU: f.links.length ? f.links[0].u : '', goT: f.links.length ? f.links[0].t : '', goL: label, moreLinks: f.links.slice(1), hasMoreLinks: f.links.length > 1 });
     const news = D.N.filter(n => n.entryId === id && !L.isAuto(n)).map(n => go(this.feedItem(n), 'Source'));
     // Per-entry timeline: this entry's automated events (with their attached statements), oldest first.
     const tl = D.N.filter(n => n.entryId === id && L.isAuto(n)).sort((a, b) => a.d - b.d || a.i - b.i).map(n => go(this.feedItem(n), kind === 'lit' ? 'Court record' : 'Official record'));
     const following = this.state.follow.includes(id);
-    const marks = [x.U && 'Added or changed in the supplementary checks through ' + L.fmt(L.ASOF), x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
+    const marks = [x.U && 'Added or updated after the site’s first full check on ' + L.fmt(L.VERIFIED), x.R && 'Found through a targeted search for frontier AI bills', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
     const dv = this.dutyView(x), pv = this.plainView(x), facts = this.billFacts(x, kind), name = this.billName(x, kind);
-    // In 30 seconds: entry.thirty_seconds when written; else, for a bill with the checklist, the checklist's own answers
+    // In 30 seconds: only entry.thirty_seconds, written and passed by the reviewer (a stand-in built from the checklist misled: 12 Nov 2026)
     const ts = x.raw && x.raw.thirty_seconds, H = { bill: ['Who', 'Must do', 'Or else'], exec: ['Who it directs', 'What it orders', 'Binding on companies?'], lit: ['Who v. who', 'About', 'Where it is'], watch: ['What we watch', 'Why', 'Latest'] }[kind];
     const box = (h, t) => ({ h, t: t || 'Not stated in the text', fg: t ? 'var(--ink)' : 'var(--ink-3)', fs: t ? 'normal' : 'italic' });
-    const thirty = ts ? H.map((h, j) => box(h, ts[['a', 'b', 'c'][j]])) : dv.dThirty ? [box(H[0], dv.dThirty.who), box(H[1], dv.dThirty.must), box(H[2], dv.dThirty.orelse)] : [];
+    const thirty = ts ? H.map((h, j) => box(h, ts[['a', 'b', 'c'][j]])) : [];
     const line = (x.raw && x.raw.summary_line) || x.summary || '';
     const CONF = { HIGH: ['High confidence', 'var(--st-enacted)'], 'MED-HIGH': ['Medium-high confidence', 'var(--st-pending)'], MED: ['Medium confidence', 'var(--st-pending)'], MEDIUM: ['Medium confidence', 'var(--st-pending)'], LOW: ['Low confidence', 'var(--st-failed)'] };
     const conf = x.conf ? CONF[x.conf] : null;
     const basis = x.raw && x.raw.confidence && x.raw.confidence.basis ? ' · ' + x.raw.confidence.basis.replace(/_/g, ' ') : '';
     const hasMechHead = pv.hasPlain || pv.isFactsOnly;
     return {
-      isBill: true, bId: id, ...this.billChecked(x.v2key), bTitle: x.title, bShort: x.short, bName: name,
+      isBill: true, bId: id, ...this.billChecked(x.v2key), bTitle: x.title, bShort: x.short, bName: name, bCheckedOn: checkedOn ? `Checked against the official record on ${checkedOn}. ` : '',
       bNumLine: facts.line, hasBNumLine: !!facts.line, bLine: line, hasBLine: !!line, hasSummaryDraft: !!x.summary && !(x.raw && x.raw.summary_line),
       bSec: x.sec, bSecHref: '#/explore?type=' + x.type, bJuris: x.juris, bType: L.TYPES[x.type],
       bSl: L.ST[x.status].l, bSg: L.ST[x.status].g, bSc: `var(--st-${x.status})`,
@@ -1642,7 +1660,7 @@ class Component extends DCLogic {
       hasConf: !!conf, confLabel: conf ? conf[0] + basis : '', confC: conf ? conf[1] : '', confNote: x.confNote,
       facts: facts.facts,
       steps, hasSteps: steps.length > 0, noSteps: !steps.length && !stx.text,
-      statusText: stx.text, hasStatusText: !!stx.text, statusLabel: x.raw && x.raw.verification && x.raw.verification.method === 'session' ? 'Read from the official record on ' + L.fmt(new Date(x.raw.verification.checked_at)) + '; added after the 15 Oct verification' : 'Verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)),
+      statusText: stx.text, hasStatusText: !!stx.text, statusLabel: stx.asOf ? 'Recorded as of ' + stx.asOf : checkedOn ? 'Checked against the official record on ' + checkedOn : '',
       relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0, bPress: ((x.raw && x.raw.press) || []).map((p) => ({ headline: p.headline, outlet: p.outlet, date: L.fmt(new Date(p.date + 'T12:00:00')), url: p.url })), hasPress: !!(x.raw && x.raw.press && x.raw.press.length), bTl: tl, hasTl: tl.length > 0, tlH: kind === 'lit' ? 'Docket' : 'Official actions and statements',
       ...dv, ...pv, ...this.billCompare(x, rel),
       ...(this.checkRows(x, kind) || { hasCheck: dv.hasDuties, checkGroups: dv.dGroups, reqH: 'What it requires', reqCap: 'the same 13 questions on every bill · open a row for the exact words' }),

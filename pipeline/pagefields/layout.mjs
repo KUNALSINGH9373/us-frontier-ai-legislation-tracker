@@ -23,10 +23,13 @@ export function kindOf(e) {
 export function nameOf(e) {
   const t = e.title.replace(/\s*⟨[^⟩]*⟩/g, ''), i = t.indexOf(' — ');
   if (kindOf(e) === 'lit') { const m = /^(.+? v\. .+?)(?:,? No\.|,|\s\(|$)/.exec(t); return { name: m ? m[1] : e.short_name, fallback: !m }; }
-  if (i < 0) return { name: e.short_name, fallback: true };
-  const after = t.slice(i + 3).trim(), q = /^titled (?:the )?[“"]([^”"]+)[”"]/.exec(after);
+  const tidy = (n) => n.replace(/\s*\((?:moved from|see) [^)]*\)/gi, '').trim();
+  if (i < 0) return { name: tidy(e.short_name), fallback: true };
+  const before = tidy(t.slice(0, i)), after = tidy(t.slice(i + 3)), q = /^titled (?:the )?[“"]([^”"]+)[”"]/.exec(after);
   if (q) return { name: q[1], fallback: false };
-  return /^(?:Chapter \d|[“"]An Act|An Act)/.test(after) ? { name: e.short_name, fallback: true } : { name: after, fallback: false };
+  if ((/^[a-z]/.test(after) || /^(?:announced|discussion draft|draft|proposal|in development|not yet|reported|text not|voluntary)/i.test(after)) && !/^(?:[A-Z]{1,4}\.?\s?){1,3}\d[\d\s/.&,A-Z-]*$/.test(before)) return { name: before, fallback: false };
+  if (/^(?:Chapter \d|[“"]An Act|An Act)/.test(after)) return { name: e.short_name, fallback: true };
+  return { name: after.charAt(0).toUpperCase() + after.slice(1), fallback: false };
 }
 export const needsName = (e) => { const n = nameOf(e); return n.fallback || /→/.test(n.name) || !/[a-z]{3}/.test(n.name); };
 
