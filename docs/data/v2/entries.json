@@ -11701,7 +11701,7 @@
   "title": "S. 2615 — VET Artificial Intelligence Act",
   "short_name": "Validation and Evaluation for Trustworthy (VET) Artificial Intelligence Act (also cited as the VET A",
   "sponsor_text": "Sen. John W. Hickenlooper (D-CO)",
-  "mechanism": "The Director of NIST must, within 1 year after enactment and working with public and private organizations including the NSF and Department of Energy, develop voluntary guidelines for internal and external AI assurance, and review and update them at least every 2 years as the Director considers appropriate.; The Director must publish the voluntary guidelines and specifications as a standalone public framework or document on the NIST website.; In developing the guidelines, the Director must seek public comment on at least 1 draft, allowing a reasonable period of not less than 30 days for comments.; The Secretary of Commerce must establish the Artificial Intelligence Assurance Qualifications Advisory Committee within 90 days after the Director publishes the guidelines.; The Secretary must appoint to the Advisory Committee not more than 20 individuals with AI expertise, including at least 1 representative from each of 12 listed groups, such as higher education, AI developers, deployers, assessors, consumers, labor and civil rights organizations.; The Advisory Committee must review case studies from entities that license, certify or accredit independent compliance-verifying organizations, and determine how they apply to AI systems, for the purpose of developing recommendations under subsection (d).; The Advisory Committee must, within 1 year after it is established, submit to the Secretary and Congress, and make public, a report with recommendations on qualifications for parties conducting AI assurance and on accreditation.; The Secretary must begin a study of the capabilities of entities that conduct internal and external AI assurances within 90 days after the Director publishes the guidelines.; The Secretary must report the study results to the appropriate congressional committees and any federal agency head the Secretary considers relevant, within 1 year after starting the study.",
+  "mechanism": "The Director of NIST must, within 1 year after enactment and working with public and private organizations including the NSF and Department of Energy, develop voluntary guidelines for internal and external AI assurance, and review and update them at least every 2 years as the Director considers appropriate.; The Director must publish the voluntary guidelines and specifications as a standalone public framework or document on the NIST website.; In developing the guidelines, the Director must seek public comment on at least 1 draft, allowing a reasonable period of not less than 30 days for comments.; The Secretary of Commerce must establish the Artificial Intelligence Assurance Qualifications Advisory Committee within 90 days after the Director publishes the guidelines.; The Secretary must appoint to the Advisory Committee not more than 20 individuals with AI expertise, including at least 1 representative from each of 12 listed groups, such as higher education, AI developers, deployers, assessors, consumers, labor and civil rights organizations.; The Advisory Committee must review case studies from entities that license, certify or accredit independent compliance-verifying organizations, and determine how they apply to AI systems, for the purpose of developing recommendations under subsection (d).; The Advisory Committee must, within 1 year after it is established, submit to the Secretary and Congress, and make public, a report with recommendations on qualifications for parties conducting AI assurance and on accreditation.; The Secretary must begin a study of the capabilities of entities that conduct internal and external AI assurances within 90 days after the Director publishes the guidelines.; The Secretary must report the study results to the appropriate congressional committees and any federal agency head the Secretary considers relevant, within 1 year after starting the study.; The Advisory Committee terminates not later than 1 year after it submits its recommendations.",
   "thresholds": "External AI assurance means an independent and impartial evaluation of an AI system by a nonaffiliated third party under the Section 4 guidelines or consensus-driven voluntary standards, either to verify claims about functionality and testing, including fitness for intended purpose, or to identify significant errors, inconsistencies, substantial vulnerabilities or negative societal impact.",
   "penalties": null,
   "status_text": "Introduced / status: July 31, 2025; Read twice and referred to the Committee on Commerce, Science, and Transportation (July 31, 2025)",
@@ -11723,6 +11723,11 @@
     "url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615",
     "kind": "primary",
     "retrieved_at": "2026-11-11T12:06:24Z"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615/text",
+    "kind": "primary"
    }
   ],
   "confidence": {
@@ -11740,63 +11745,8 @@
     "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
    },
    {
-    "field": "mechanism",
-    "quote": "Not later than 1 year after the date of the enactment of this Act, the Director, in collaboration with public and private sector organizations, including the National Science Foundation and the Department of Energy, shall develop and, not less frequently than every 2 years, shall review and update as the Director considers appropriate, a set of voluntary technical guidelines and specifications for internal artificial intelligence assurance and external artificial intelligence assurance.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "The Director shall publish the voluntary technical guidelines and specifications required by subsection (a) as a standalone framework or document available to the public on the website of the National Institute of Standards and Technology.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(1) solicit public comment on at least 1 draft of the technical guidelines and specifications, and provide a reasonable period of not less than 30 days for the submission of comments by interested stakeholders;",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "In developing the voluntary technical guidelines and specifications required by subsection (a), the Director shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Not later than 90 days after the date on which the Director publishes the voluntary technical guidelines and specifications required under section 4(a), the Secretary shall establish the Artificial Intelligence Assurance Qualifications Advisory Committee (referred to in this section as the ``Advisory Committee'').",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "The Secretary shall appoint to the Advisory Committee not more than 20 individuals with expertise relating to artificial intelligence systems, including at least 1 representative from each of the following: (1) Institutions of higher education. (2) Organizations developing artificial intelligence systems. (3) Organizations deploying artificial intelligence systems. (4) Organizations assessing artificial intelligence systems. (5) Consumers or consumer advocacy groups. (6) Public health organizations. (7) Public safety organizations. (8) Civil rights organizations. (9) Professional accreditation organizations. (10) Workforce development organizations. (11) Labor organizations. (12) Nonprofit assurance professional organizations.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "The Advisory Committee shall-- (1) review and assess case studies from entities that provide licensure, certification, or accreditation to independent organizations with a primary mission of verifying compliance with applicable statutes, regulations, standards, or guidelines; and (2) determine the applicability of the case studies reviewed and assessed under paragraph (1) to the development, maintenance, and use of artificial intelligence systems for the purpose of developing recommendations under subsection (d).",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Not later than 1 year after the date on which the Secretary establishes the Advisory Committee under this section, the Advisory Committee shall submit to the Secretary and Congress and make publicly available a report that includes recommendations for the Secretary to consider regarding--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Not later than 90 days after the date on which the Director publishes the voluntary technical guidelines and specifications required under section 4(a), the Secretary shall commence a study to evaluate the capabilities of the sector of entities that conduct internal artificial intelligence assurances and external artificial intelligence assurances.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Not later than 1 year after the date on which the Secretary commences the study required by subsection (a), the Secretary shall submit to the appropriate committees of Congress and the head of any Federal agency that the Secretary considers relevant, a report that contains the results of the study required by subsection (a), including--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
     "field": "effective_text",
     "quote": "Not later than 1 year after the date of the enactment of this Act, the Director, in collaboration with public and private sector organizations, including the National Science Foundation and the Department of Energy, shall develop",
-    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
-   },
-   {
-    "field": "mechanism",
-    "quote": "The Advisory Committee shall terminate not later than 1 year after the date on which the Advisory Committee submits the recommendations required under subsection (d).",
     "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
    },
    {
@@ -11808,6 +11758,11 @@
     "field": "section",
     "quote": "(5) External artificial intelligence assurance.--The term ``external artificial intelligence assurance'' means an independent and impartial evaluation of an artificial intelligence system conducted by a nonaffiliated third party in accordance with the voluntary assurance technical guidelines and specifications described in section 4 or consensus-driven voluntary standards, for the purpose of-- (A) verifying claims with respect to the functionality and testing of the artificial intelligence system, including verifying whether it is fit for its intended purpose; or (B) identifying any significant error or inconsistency in the testing, risk management processes, or internal governance, any substantial vulnerability, or any negative societal impact of the artificial intelligence system.",
     "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The Advisory Committee shall terminate not later than 1 year after the date on which the Advisory Committee submits the recommendations",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615/text"
    }
   ],
   "origin": "automated",
@@ -11824,12 +11779,12 @@
   },
   "verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T12:06:31Z",
-   "run_id": "run-20261111-1205-1d23",
-   "rounds": 3
+   "checked_at": "2026-11-12T00:05:44Z",
+   "run_id": "update-20261112-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-11",
-  "last_changed": "2026-11-11",
+  "last_checked": "2026-11-12",
+  "last_changed": "2026-11-12",
   "duties": {
    "framework": {
     "value": "not_in_bill",

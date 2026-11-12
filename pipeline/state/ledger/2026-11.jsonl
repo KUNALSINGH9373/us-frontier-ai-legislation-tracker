@@ -115,3 +115,5 @@
 {"at":"2026-11-11T12:12:07.329Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1917,"output":70,"cost":0.00022670000000000004}
 {"at":"2026-11-11T20:06:06.677Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2098,"output":113,"cost":0.0002663}
 {"at":"2026-11-11T20:06:13.391Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2051,"output":54,"cost":0.0002321}
+{"at":"2026-11-12T00:06:52.830Z","role":"reviewer","model":"claude-haiku-5-5","itemId":"correct:s-2615-vet-artificial-intelligence-act","input":8051,"output":1867,"cost":0.0017386}
+{"at":"2026-11-12T00:06:54.946Z","role":"confirmer","model":"claude-sonnet-5-5","itemId":"correct:s-2615-vet-artificial-intelligence-act:mechanism","input":7466,"output":109,"cost":0.016022}
