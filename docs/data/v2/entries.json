@@ -7025,7 +7025,7 @@
     ]
    }
   },
-  "summary_line": "Would protect employees and independent contractors from retaliation for reporting AI security vulnerabilities or AI violations to regulators, Congress, or supervisors.",
+  "summary_line": "Would bar employers from retaliating against employees and contractors who report AI security vulnerabilities or AI violations to regulators, Congress, or supervisors.",
   "thirty_seconds": {
    "a": "Employees and independent contractors who report an AI security vulnerability or an AI violation to regulators, Congress, or supervisors.",
    "b": "The bill would bar retaliation against these workers for making such reports.",
@@ -7033,7 +7033,7 @@
   },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:46:14.931Z",
+   "checked_at": "2026-11-12T07:21:32Z",
    "reviewer": "claude-opus-5-5",
    "basis_sha256": "60b521c0e71a343b77b2375b678183f62cb9b6064c455d6620b24ce00be9e874"
   },
@@ -7170,16 +7170,16 @@
     ]
    }
   },
-  "summary_line": "Would require frontier AI contractors to report security incidents and concerning model behavior to the Department of Defense, and would limit military uses of AI.",
+  "summary_line": "Would require frontier AI contractors to report security incidents to the Department of Defense and set limits on military uses of AI, including nuclear targeting and launch.",
   "thirty_seconds": {
    "a": "Frontier AI contractors of the Department of Defense; a frontier AI model is one the Secretary of Defense designates by scale and capability.",
    "b": "Would have to report weight theft, foreign-adversary access, supply-chain compromise or data poisoning within 72 hours, and serious vulnerabilities or concerning model behavior within 7 days.",
    "c": "The bill sets no fines; the reporting duties would apply through Defense Department contract clauses."
   },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
+   "method": "agent",
+   "checked_at": "2026-11-12T07:21:32Z",
+   "reviewer": "claude-opus-5-5",
    "basis_sha256": "078bfa93d0a9ba1a245fedd4d83d6e71e0799152e3224a6177d03c591b6d6b81"
   },
   "duties": {
@@ -7404,16 +7404,16 @@
     ]
    }
   },
-  "summary_line": "Would require a centralized, non-punitive Department of Defense-wide program to report, track, analyze and fix AI incidents and vulnerabilities.",
+  "summary_line": "Would require a DoD-wide, non-punitive program to report, track, analyze and fix AI incidents and vulnerabilities, with protections for people who report.",
   "thirty_seconds": {
-   "a": "The Department of Defense (DoD). Reports could come from servicemembers, civilian employees, contractors and subcontractors, who would get protected disclosures.",
-   "b": "Would have to set up a DoD-wide AI incident and vulnerability program covering development through operation, with prompt reporting, categorization, corrective-action plans and annual reports for 2027–2031.",
-   "c": "The bill sets no penalties or fines."
+   "a": "The Department of Defense, its servicemembers, civilian employees, contractors and subcontractors. The bill is not specific to frontier AI.",
+   "b": "Under the bill, the Secretary of Defense would have to require prompt reporting of covered AI incidents and vulnerabilities to a designated DoD official.",
+   "c": "The bill states no penalties or fines. Good-faith reporters would be protected from adverse contract or personnel action and retaliation based on the report alone."
   },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
+   "method": "agent",
+   "checked_at": "2026-11-12T07:21:32Z",
+   "reviewer": "claude-opus-5-5",
    "basis_sha256": "8e685929e638ea70248f0250511732fdbccb0e7567d01010d44323f6d53b755a"
   },
   "duties": {
@@ -8875,7 +8875,7 @@
    "permalink": "https://usfrontierlaw.com/#rec-executive-order-14434-inaugurating-the-era-of-super-intelligence-u",
    "section_name": "Executive actions"
   },
-  "summary_line": "Directs the executive branch to use the terms \"Super Intelligence\" and \"SI\" in place of \"Artificial Intelligence\" and \"AI\" in official non-statutory documents.",
+  "summary_line": "Directs the executive branch to use the terms \"Super Intelligence\" and \"SI\" in place of \"Artificial Intelligence\" and \"AI\" in official, non-statutory documents.",
   "thirty_seconds": {
    "a": "The executive branch, and the Assistant to the President for Science and Technology, who must propose legislative language on a federal definition.",
    "b": "Agencies must use \"Super Intelligence\" and \"SI\" instead of \"Artificial Intelligence\" and \"AI\" in correspondence, websites and reports, to the maximum extent permitted by law.",
@@ -8886,7 +8886,7 @@
   },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:50:55.212Z",
+   "checked_at": "2026-11-12T08:05:45Z",
    "reviewer": "claude-opus-5-5",
    "basis_sha256": "0ef4647a60ede69f57a0e76baf7d58bb47996c69fc08f0ec7a04721010d85bc9"
   },
