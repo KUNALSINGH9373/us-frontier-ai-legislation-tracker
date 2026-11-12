@@ -778,17 +778,17 @@
    "dead": false
   },
   "congress_gov:119/hr/10329": {
-   "raw_hash": "2d3975a0daed2c08f96531a79496d403b4c7432ef4d6d87778186695553f0361",
+   "raw_hash": "158d7a4f0949bde0ae308b4d9b9159dbd3413a59da8d5fd05b7aa99fc6e29417",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10329 (\"Combating Foreign Threats to Main Street Act of 2026\") meets neither federal section's criterion; not created",
-   "date": "2026-11-10",
+   "date": "2026-11-12",
    "dead": false
   },
   "congress_gov:119/hr/10238": {
-   "raw_hash": "3cc76a444ba0dd5690a6c8592538e9fbf795ed1d87917329a2e1c8c2e0fe1102",
+   "raw_hash": "6b486fe7796524e0e46c1226388d66b31bd71e21c3306f2f51579b088b15edf4",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10238 (\"Cybersecurity for Small Businesses Act of 2026\") meets neither federal section's criterion; not created",
-   "date": "2026-11-04",
+   "date": "2026-11-12",
    "dead": false
   },
   "congress_gov:119/s/5360": {
@@ -1012,6 +1012,20 @@
    "raw_hash": "ea094a73ae4bc746510a76ef11a75934f7a9d8f337325482f59ed85020b59cfa",
    "reason": "not created: an amendment record, not a bill: LegiScan titles it as an amendment",
    "proposal": "legiscan:2156727: not a bill (an amendment record, not a bill: LegiScan titles it as an amendment); not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "congress_gov:119/hr/9125": {
+   "raw_hash": "3ac480358cfc06fbe6c79beb56c6d16466a480b2c2e1381bf24b03bcc5a689e9",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/9125 (\"Sectoral AI Governance Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "congress_gov:119/s/3301": {
+   "raw_hash": "795694a2ca01d57cdbb1a173e7950c1486f5fff7dfd42155fb9d8aa917e82715",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/3301 (\"Chip EQUIP Act\") meets neither federal section's criterion; not created",
    "date": "2026-11-12",
    "dead": false
   }
