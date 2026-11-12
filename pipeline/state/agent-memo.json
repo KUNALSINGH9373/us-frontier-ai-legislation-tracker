@@ -951,6 +951,69 @@
    "proposal": "legiscan:2161257: not a bill (a budget, appropriations or defence authorization measure (\"Making appropriations for the fiscal year 2026 to provide for supplementing cert\"): an AI provision inside it is section I, which is never auto-created); not created",
    "date": "2026-11-11",
    "dead": false
+  },
+  "congress_gov:119/hr/10976": {
+   "raw_hash": "579ee264135eb1b4c785563acc4d1e6d82ee659ba7e9c0985f72dd64bc97c00b",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (its title names a subject F excludes: \"Community Control of Data Centers Act\") (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or defin",
+   "proposal": "congress_gov:119/hr/10976 (\"Community Control of Data Centers Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "congress_gov:119/hr/10981": {
+   "raw_hash": "9296e70c54d32e70a328b6afab7910b657fdf6169f269b661f52d4d5cc974f2c",
+   "reason": "the entry could not be assembled: no quote of the entry shows section D's criterion (a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"co",
+   "proposal": "congress_gov:119/hr/10981: not created (no quote of the entry shows section D's criterion (a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered model\" or \"large developer\" definition)))",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "legiscan:2096225": {
+   "raw_hash": "2a34b80fe94bccaa1b2a96da27deca2362d4e54874311a51e9a6a86608ac6f09",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2096225 (\"Requires AG to study use of artificial intelligence for certain law enforcement \") meets no state section's criterion; not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "legiscan:2159993": {
+   "raw_hash": "a340819f0ea79d84ca090d9c799b50976d2fe9f9b03ab87d63fcfefd67f60f12",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2159993 (\"Transparency in Downcoding Amendment Act of 2026\") meets no state section's criterion; not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "legiscan:2153523": {
+   "raw_hash": "0db009b1abfbb08cf30fe99a12267ed8737d32d33d793712a38e67f14ff263d9",
+   "reason": "not created: a resolution (HR563), not a bill: resolutions and memorials never go in sections A, B or B.2, and the pipeline creates no entry for them (reported)",
+   "proposal": "legiscan:2153523: not a bill (a resolution (HR563), not a bill: resolutions and memorials never go in sections A, B or B.2, and the pipeline creates no entry for them (reported)); not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "legiscan:2099640": {
+   "raw_hash": "1a3a9b3d1a0c13d3644c9ae36853dc3e42599798831a9b0f2b61089b2560abf1",
+   "reason": "not created: no passage of the text meets the criterion of section A, C (A: an enacted law that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); C: a measure on who ",
+   "proposal": "legiscan:2099640 (\"Establishes \"Forbidding the Algorithmic Inflation of Rent (FAIR) Act.\"\") meets no state section's criterion; not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "legiscan:2158694": {
+   "raw_hash": "2da74e43a626b3a867678808e95a6cb9bacfb135ace0b393c4fe204f5b9af9a2",
+   "reason": "not created: a measure that only extends dates or makes technical changes (\"Health Benefit Exchange Authority Technical Amendment Act of 2026\"): it updates the law it amends and is never a new entry",
+   "proposal": "legiscan:2158694: not a bill (a measure that only extends dates or makes technical changes (\"Health Benefit Exchange Authority Technical Amendment Act of 2026\"): it updates the law it amends and is never a new entry); not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "legiscan:2156570": {
+   "raw_hash": "9c675b5137a16a3dce226418531f48c2a2a6f52678fd075f2ee4ab979ab3aaf2",
+   "reason": "not created: an amendment record, not a bill: LegiScan titles it as an amendment",
+   "proposal": "legiscan:2156570: not a bill (an amendment record, not a bill: LegiScan titles it as an amendment); not created",
+   "date": "2026-11-12",
+   "dead": false
+  },
+  "legiscan:2156727": {
+   "raw_hash": "ea094a73ae4bc746510a76ef11a75934f7a9d8f337325482f59ed85020b59cfa",
+   "reason": "not created: an amendment record, not a bill: LegiScan titles it as an amendment",
+   "proposal": "legiscan:2156727: not a bill (an amendment record, not a bill: LegiScan titles it as an amendment); not created",
+   "date": "2026-11-12",
+   "dead": false
   }
  }
 }

@@ -6916,17 +6916,11 @@
     ]
    }
   },
-  "summary_line": "Would protect employees and independent contractors from retaliation for reporting AI security vulnerabilities or AI violations to regulators, Congress, or supervisors.",
-  "thirty_seconds": {
-   "a": "Employees and independent contractors who report an AI security vulnerability or an AI violation to regulators, Congress, or supervisors.",
-   "b": "The bill would bar retaliation against these workers for making such reports.",
-   "c": "Workers could file a complaint with the Department of Labor, then go to district court with a jury trial, for reinstatement, 2× back pay and compensatory damages."
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:46:14.931Z",
+   "checked_at": "2026-11-12T07:21:32Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "67ad316290d62e3ab05e2fcd87bc296e94bd87bc109bbb80ac8f167e31b5b48b"
+   "basis_sha256": "8926bdbc3e13c41f955dc96f566834f39ebd123ce0710d9d44f0b9dd89396b5c"
   },
   "duties": {
    "framework": {
@@ -6994,7 +6988,8 @@
    "chars": 10086,
    "method": "agent",
    "checked_at": "2026-11-12T03:05:03Z"
-  }
+  },
+  "summary_line": "Would bar employers from retaliating against employees and contractors who report AI security vulnerabilities or AI violations to regulators, Congress, or supervisors."
  },
  {
   "id": 44,
@@ -7061,17 +7056,11 @@
     ]
    }
   },
-  "summary_line": "Would require frontier AI contractors to report security incidents and concerning model behavior to the Department of Defense, and would limit military uses of AI.",
-  "thirty_seconds": {
-   "a": "Frontier AI contractors of the Department of Defense; a frontier AI model is one the Secretary of Defense designates by scale and capability.",
-   "b": "Report weight theft, foreign-adversary access, supply-chain compromise or data poisoning within 72 hrs; report material vulnerabilities and concerning model behavior within 7 days.",
-   "c": ""
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:46:22.694Z",
+   "checked_at": "2026-11-12T07:21:32Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "7eda51f000c3299aca6097c1ed2dc5215c9bd3f0a120d5e1b369e20fe0b148ef"
+   "basis_sha256": "2ce45e76816fdc660575ea0882d020ee77151fb21acc880e9e026c10d50f1168"
   },
   "duties": {
    "framework": {
@@ -7136,6 +7125,12 @@
    "chars": 34511,
    "method": "agent",
    "checked_at": "2026-11-12T03:05:12Z"
+  },
+  "summary_line": "Would require frontier AI contractors to report security incidents to the Department of Defense and set limits on military uses of AI, including nuclear targeting and launch.",
+  "thirty_seconds": {
+   "a": "Frontier AI contractors working with the Department of Defense. A frontier AI model is one the Secretary of Defense designates by scale and capability.",
+   "b": "Report weight theft, foreign-adversary access, supply-chain compromise or data poisoning within 72 hours. Report material vulnerabilities and concerning model behavior within 7 days.",
+   "c": ""
   }
  },
  {
@@ -7295,17 +7290,11 @@
     ]
    }
   },
-  "summary_line": "Would require a centralized, non-punitive Department of Defense-wide program to report, track, analyze and fix AI incidents and vulnerabilities.",
-  "thirty_seconds": {
-   "a": "The Department of Defense (DoD). Reports could come from servicemembers, civilian employees, contractors and subcontractors, who would get protected disclosures.",
-   "b": "Set up a DoD-wide AI incident and vulnerability program covering development through operation, with prompt reporting, categorization, corrective-action plans and annual reports for 2027–2031.",
-   "c": ""
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:46:43.895Z",
+   "checked_at": "2026-11-12T07:21:32Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "610468d9802022c008eb75a22ad80cec3ccd0ae09afc08840eb791d7ae51bad7"
+   "basis_sha256": "957d1e02ee6a6e89963ff6ff138d541014dda6cab83927b931f178e2171949da"
   },
   "duties": {
    "framework": {
@@ -7373,6 +7362,12 @@
    "chars": 7664,
    "method": "agent",
    "checked_at": "2026-11-12T03:05:44Z"
+  },
+  "summary_line": "Would require a DoD-wide, non-punitive program to report, track, analyze and fix AI incidents and vulnerabilities, with protections for people who report.",
+  "thirty_seconds": {
+   "a": "The Department of Defense, its servicemembers, civilian employees, contractors and subcontractors. The bill is not specific to frontier AI.",
+   "b": "Under the bill, the Secretary of Defense would have to require prompt reporting of covered AI incidents and vulnerabilities to a designated DoD official.",
+   "c": "The bill states no penalties or fines. Good-faith reporters would be protected from adverse contract or personnel action and retaliation based on the report alone."
   }
  },
  {
