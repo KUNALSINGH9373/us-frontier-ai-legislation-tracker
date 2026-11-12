@@ -215,7 +215,11 @@ const CORRECTABLE = new Set(READING_FIELDS);
 // corrected: { entry key: [fields] } the self-correction step changed this run (correct/apply.mjs); only reading fields are allowed.
 // links: { edges, nodes, texts?, created? } links/apply.mjs added this run; the network may grow by exactly these and nothing
 // else (texts: { url: official text } for AI links; created: entry keys created this run).
-export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [], corrected = {}, links = null }) {
+// paged: entry keys whose page fields the page-fields step wrote this run (pagefields/step.mjs); only those fields may change on them.
+export const PAGE_FIELD_KEYS = new Set(['display_name', 'summary_line', 'thirty_seconds', 'key_facts', 'page_verification']);
+// pressed: entry keys whose press list the press step added to this run (news/press.mjs); only that list may change on them.
+export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, newKeys = [], rawHashOk = [], corrected = {}, links = null, paged = [], pressed = [] }) {
+  const pagedSet = new Set(paged), pressedSet = new Set(pressed);
   const problems = [];
   // 1. every output file passes its schema, and the files agree with each other
   const v = makeValidator();
@@ -255,7 +259,7 @@ export function checkPublish({ before, after, runDate, maxEntries, maxNew = 0, n
     const fixed = new Set((corrected[key] || []).filter((f) => CORRECTABLE.has(f)));
     (corrected[key] || []).filter((f) => !CORRECTABLE.has(f)).forEach((f) => problems.push(`self-correction named ${f} on ${key}: only ${READING_FIELDS.join(', ')} may be corrected`));
     if (fixed.size) fixed.add('sources');
-    Object.keys({ ...o, ...n }).filter((f) => f !== 'sponsor_text' && !TIER_A_FIELDS.has(f) && !fixed.has(f) && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: ${fixed.size ? 'a self-correction' : 'Tier A'} may not change it`));
+    Object.keys({ ...o, ...n }).filter((f) => f !== 'sponsor_text' && !TIER_A_FIELDS.has(f) && !fixed.has(f) && !(pagedSet.has(key) && PAGE_FIELD_KEYS.has(f)) && !(pressedSet.has(key) && f === 'press') && !same(o[f], n[f])).forEach((f) => problems.push(`field ${f} changed on ${key}: ${fixed.size ? 'a self-correction' : 'Tier A'} may not change it`));
     const sp = sponsorTextProblem(o, n); if (sp) problems.push(`${sp} on ${key}`);
     appendOnlyProblems(o, n, { updatesThrough: after.site.updates_through, fixed }).forEach((p) => problems.push(`${p} on ${key}`));
     if (!same(o, n)) changed++;

@@ -1,0 +1,15 @@
+{
+ "measure": "page_fields",
+ "run_at": "2026-11-12T05:58:35.128Z",
+ "cases": 1293,
+ "wrong": 0,
+ "errors": 0,
+ "partial": false,
+ "failures": [],
+ "checks_hash": "510ea404e5ed95f4f9b577159d984a3a11b3d1d14c8d301c26185e1bf90a69f8",
+ "by_kind": {
+  "good": 256,
+  "bad": 855,
+  "review": 182
+ }
+}

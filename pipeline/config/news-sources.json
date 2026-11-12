@@ -14,33 +14,67 @@
  "structured": {
   "_note": "Structured official-record adapters (news/sources/*.mjs) and news/health.mjs. cadence_hours: how often the source is read and normally has new records; no ok read for 2x cadence is reported stale. max_requests_per_run caps each run (Open States allows about 500 requests/day, 1 per second); min_interval_ms paces requests. jurisdictions: what a source covers (\"all\", \"states\" = every jurisdiction but the federal one, or a list). role (state bill sources): aggregator (LegiScan, Open States), legislature_api (a legislature's own API: it confirms the aggregators there and they confirm it, news/confirm.mjs), legislature_site (the legislatures' own hosts, which state bill sources may link to). official_rank: which source is the official record when several give the same event first (news/events.mjs OFFICIAL_ORDER; lower first). run: records true = read from the records the run already has; else order (when the network adapter runs) and budget_share (the most of the news time budget it may use, news/run.mjs).",
   "openstates": {
-   "jurisdictions": "states", "role": "aggregator", "official_rank": 7, "run": { "order": 10, "budget_share": 1 },
+   "jurisdictions": "states",
+   "role": "aggregator",
+   "official_rank": 7,
+   "run": {
+    "order": 10,
+    "budget_share": 1
+   },
    "cadence_hours": 24,
    "max_requests_per_run": 80,
    "min_interval_ms": 6500,
-   "hosts": ["openstates.org"],
+   "hosts": [
+    "openstates.org"
+   ],
    "base": "https://v3.openstates.org"
   },
   "nysenate": {
-   "jurisdictions": ["NY"], "role": "legislature_api", "official_rank": 5, "run": { "order": 9, "budget_share": 0.5 },
+   "jurisdictions": [
+    "NY"
+   ],
+   "role": "legislature_api",
+   "official_rank": 5,
+   "run": {
+    "order": 9,
+    "budget_share": 0.5
+   },
    "cadence_hours": 24,
    "max_requests_per_run": 40,
    "min_interval_ms": 500,
    "base": "https://legislation.nysenate.gov/api/3"
   },
   "legiscan": {
-   "jurisdictions": "states", "role": "aggregator", "official_rank": 6, "run": { "records": true },
+   "jurisdictions": "states",
+   "role": "aggregator",
+   "official_rank": 6,
+   "run": {
+    "records": true
+   },
    "cadence_hours": 24
   },
   "congress_gov": {
-   "jurisdictions": ["US"], "official_rank": 1, "run": { "records": true },
+   "jurisdictions": [
+    "US"
+   ],
+   "official_rank": 1,
+   "run": {
+    "records": true
+   },
    "cadence_hours": 24,
    "hosts": [
     "congress.gov"
    ]
   },
   "govinfo": {
-   "jurisdictions": ["US"], "official_rank": 8, "run": { "order": 3, "budget_share": 0.25 },
+   "jurisdictions": [
+    "US"
+   ],
+   "official_rank": 8,
+   "run": {
+    "order": 3,
+    "budget_share": 0.25
+   },
    "cadence_hours": 24,
    "endpoint": "https://api.govinfo.gov/collections/{PLAW,BILLS}/{since} + /related/{id}/BILLS",
    "env": [
@@ -55,7 +89,14 @@
    "verified_at": "2026-10-29"
   },
   "federal_register": {
-   "jurisdictions": ["US"], "official_rank": 2, "run": { "order": 1, "budget_share": 0.25 },
+   "jurisdictions": [
+    "US"
+   ],
+   "official_rank": 2,
+   "run": {
+    "order": 1,
+    "budget_share": 0.25
+   },
    "cadence_hours": 24,
    "endpoint": "https://www.federalregister.gov/api/v1/documents.json + /public-inspection-documents/current.json",
    "env": [],
@@ -66,7 +107,14 @@
    "verified_at": "2026-10-29"
   },
   "whitehouse": {
-   "jurisdictions": ["US"], "official_rank": 3, "run": { "order": 2, "budget_share": 0.25 },
+   "jurisdictions": [
+    "US"
+   ],
+   "official_rank": 3,
+   "run": {
+    "order": 2,
+    "budget_share": 0.25
+   },
    "cadence_hours": 24,
    "endpoint": "https://www.whitehouse.gov/presidential-actions/feed/",
    "env": [],
@@ -78,7 +126,13 @@
    "verified_at": "2026-10-29"
   },
   "regulations_gov": {
-   "jurisdictions": ["US"], "run": { "order": 4, "budget_share": 0.25 },
+   "jurisdictions": [
+    "US"
+   ],
+   "run": {
+    "order": 4,
+    "budget_share": 0.25
+   },
    "cadence_hours": 24,
    "endpoint": "https://api.regulations.gov/v4/documents",
    "env": [
@@ -93,14 +147,24 @@
    "verified_at": "2026-10-29"
   },
   "courtlistener": {
-   "jurisdictions": "all", "official_rank": 4, "run": { "records": true },
+   "jurisdictions": "all",
+   "official_rank": 4,
+   "run": {
+    "records": true
+   },
    "cadence_hours": 72,
    "hosts": [
     "courtlistener.com"
    ]
   },
   "congress_extra": {
-   "jurisdictions": ["US"], "run": { "order": 5, "budget_share": 0.25 },
+   "jurisdictions": [
+    "US"
+   ],
+   "run": {
+    "order": 5,
+    "budget_share": 0.25
+   },
    "endpoint": "https://api.congress.gov/v3/{committee-meeting,crsreport,nomination}",
    "env": [
     "CONGRESS_API_KEY"
@@ -114,7 +178,13 @@
    "cadence_hours": 24
   },
   "nist": {
-   "jurisdictions": ["US"], "run": { "order": 6, "budget_share": 0.25 },
+   "jurisdictions": [
+    "US"
+   ],
+   "run": {
+    "order": 6,
+    "budget_share": 0.25
+   },
    "endpoint": "https://www.nist.gov/news-events/news/rss.xml",
    "env": [],
    "hosts": [
@@ -125,7 +195,13 @@
    "cadence_hours": 24
   },
   "cbo": {
-   "jurisdictions": ["US"], "run": { "order": 7, "budget_share": 0.25 },
+   "jurisdictions": [
+    "US"
+   ],
+   "run": {
+    "order": 7,
+    "budget_share": 0.25
+   },
    "endpoint": "https://www.cbo.gov/publications/all/rss.xml",
    "env": [],
    "hosts": [
@@ -136,7 +212,13 @@
    "cadence_hours": 24
   },
   "ca_ag": {
-   "jurisdictions": ["CA"], "run": { "order": 8, "budget_share": 0.25 },
+   "jurisdictions": [
+    "CA"
+   ],
+   "run": {
+    "order": 8,
+    "budget_share": 0.25
+   },
    "endpoint": "https://oag.ca.gov/news/feed",
    "env": [],
    "hosts": [
@@ -147,7 +229,8 @@
    "cadence_hours": 24
   },
   "state_legislature": {
-   "jurisdictions": "states", "role": "legislature_site",
+   "jurisdictions": "states",
+   "role": "legislature_site",
    "_note": "Hosts a state bill record may link to (LegiScan state_link, Open States, NY Senate): each legislature's own site, matched exactly or as a subdomain (news/events.mjs hostsFor). legiscan.com is LegiScan's own page, used only when a bill has no state link.",
    "hosts": [
     "akleg.gov",
@@ -332,6 +415,87 @@
    "verified_at": "2026-10-28",
    "handled_by": "grabber/run-federal-register.mjs",
    "_note": "Already a pipeline source: documents become entries and fixed-wording news through the grabber and Tier A / Tier B, so news/leads.mjs does not read it again."
+  },
+  {
+   "id": "nyt-technology",
+   "url": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+   "type": "rss",
+   "publisher": "The New York Times",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "nyt-politics",
+   "url": "https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",
+   "type": "rss",
+   "publisher": "The New York Times",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "wapo-technology",
+   "url": "https://feeds.washingtonpost.com/rss/business/technology",
+   "type": "rss",
+   "publisher": "The Washington Post",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "wapo-politics",
+   "url": "https://feeds.washingtonpost.com/rss/politics",
+   "type": "rss",
+   "publisher": "The Washington Post",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "cnn-tech",
+   "url": "http://rss.cnn.com/rss/cnn_tech.rss",
+   "type": "rss",
+   "publisher": "CNN",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "cnn-politics",
+   "url": "http://rss.cnn.com/rss/cnn_allpolitics.rss",
+   "type": "rss",
+   "publisher": "CNN",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "independent-tech",
+   "url": "https://www.independent.co.uk/tech/rss",
+   "type": "rss",
+   "publisher": "The Independent",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "independent-us-politics",
+   "url": "https://www.independent.co.uk/news/world/americas/us-politics/rss",
+   "type": "rss",
+   "publisher": "The Independent",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
+  },
+  {
+   "id": "politico-congress",
+   "url": "https://rss.politico.com/congress.xml",
+   "type": "rss",
+   "publisher": "Politico",
+   "primary": false,
+   "verified_at": "2026-11-12",
+   "kind": "federal"
   }
  ],
  "rejected": [
@@ -430,6 +594,16 @@
    "publisher": "White House",
    "checked_at": "2026-10-28",
    "why": "no feed (404)"
+  },
+  {
+   "id": "reuters-technology",
+   "url": "https://www.reuters.com/technology/rss",
+   "why": "robots.txt disallows automated reading (12 Nov 2026)"
+  },
+  {
+   "id": "ap-technology",
+   "url": "https://apnews.com/hub/technology.rss",
+   "why": "robots.txt disallows automated reading (12 Nov 2026); third-party mirrors are not the outlet's own feed"
   }
  ],
  "structured_note": "Official structured sources for the news rebuild (news/sources/*.mjs, news/CONTRACT.md). hosts: the only hosts an item url may have (https). cadence_hours: how often a run reads it. max_silence_days: health alarm when no item for longer than this (null = silence is normal: the adapter only emits items for tracked entries or AI documents). env: the key variables, first found wins. verified_at: fetched live on that day."

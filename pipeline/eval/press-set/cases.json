@@ -1,0 +1,497 @@
+{
+ "_note": "Built 12 Nov 2026: planted-fault candidates for the code checks (news/press.mjs checkPress) and the reviewer's recorded answers on real and written headlines, checked by a person. See eval/press-set.mjs.",
+ "cases": [
+  {
+   "id": "code:clean",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "https://www.politico.com/news/2026/11/10/ai-safety-law-test",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "keep"
+  },
+  {
+   "id": "code:clean-nyt",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "The New York Times",
+    "link": "https://www.nytimes.com/2026/11/10/technology/ai-law.html",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "keep"
+  },
+  {
+   "id": "code:clean-independent",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "The Independent",
+    "link": "https://www.independent.co.uk/tech/ai-law-b2.html",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "keep"
+  },
+  {
+   "id": "code:not-an-outlet",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Some Blog",
+    "link": "https://www.politico.com/news/2026/11/10/ai-safety-law-test",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:reuters-refuses-robots",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Reuters",
+    "link": "https://www.reuters.com/technology/x",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:link-off-site",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "https://politico.com.evil.example/news/x",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:link-other-outlet",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "https://www.nytimes.com/2026/11/10/x.html",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:link-http",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "http://www.politico.com/news/x",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:future-date",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "https://www.politico.com/news/2026/11/10/ai-safety-law-test",
+    "date": "2026-11-20"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:too-old",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "https://www.politico.com/news/2026/11/10/ai-safety-law-test",
+    "date": "2026-10-01"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:no-date",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "https://www.politico.com/news/2026/11/10/ai-safety-law-test",
+    "date": ""
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:markup",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI law <script>x</script> faces a test",
+    "publisher": "Politico",
+    "link": "https://www.politico.com/news/2026/11/10/ai-safety-law-test",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:too-short",
+   "kind": "code",
+   "lead": {
+    "title": "AI law",
+    "publisher": "Politico",
+    "link": "https://www.politico.com/news/2026/11/10/ai-safety-law-test",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "code:already-listed",
+   "kind": "code",
+   "lead": {
+    "title": "Newsom’s AI safety law faces its first test",
+    "publisher": "Politico",
+    "link": "https://www.politico.com/news/2026/11/01/earlier-story",
+    "date": "2026-11-10"
+   },
+   "entry": {
+    "key": "ca-sb-53-tfaia",
+    "press": [
+     {
+      "headline": "An earlier story about the law",
+      "outlet": "Politico",
+      "date": "2026-11-01",
+      "url": "https://www.politico.com/news/2026/11/01/earlier-story",
+      "checked_at": "2026-11-01T10:00:00Z"
+     }
+    ]
+   },
+   "today": "2026-11-12",
+   "expect": "refuse"
+  },
+  {
+   "id": "review:sb53-signed-real",
+   "kind": "review",
+   "source": "real (Politico Pro, Sept 29, 2025)",
+   "headline": "Gavin Newsom signs first-in-nation AI safety law",
+   "entry_key": "ca-sb-53-tfaia",
+   "verdict": {
+    "about_entry": "yes",
+    "misleading": "no",
+    "why": "The headline reports Newsom signing California's AI safety law on Sept 29, 2025, which matches the record of SB 53 being signed and enacted that day, and \"first-in-nation\" is a characterization that does not misstate the entry's status or duties."
+   },
+   "expect": "keep"
+  },
+  {
+   "id": "review:raise-signed-real",
+   "kind": "review",
+   "source": "real headline (Axios, Dec 19, 2025)",
+   "headline": "N.Y. Gov. Kathy Hochul signs sweeping AI safety bill",
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "verdict": {
+    "about_entry": "yes",
+    "misleading": "no",
+    "why": "The headline reports Hochul's Dec 19, 2025 signing of the RAISE Act, which matches the recorded original signing date, and calling it a sweeping AI safety bill is a fair characterization."
+   },
+   "expect": "keep"
+  },
+  {
+   "id": "review:dow-ruling-real",
+   "kind": "review",
+   "source": "real headline (Nextgov, Aug 28, 2026)",
+   "headline": "Judge rules Anthropic supply chain risk designation was ‘illegal and baseless’",
+   "entry_key": "fl-anthropic-v-department-of-war-n-d-cal",
+   "verdict": {
+    "about_entry": "yes",
+    "misleading": "no",
+    "why": "The headline reports Judge Lin's Aug 27, 2026 summary-judgment ruling that the supply-chain-risk designation was \"illegal and baseless,\" which matches the entry's record."
+   },
+   "expect": "keep"
+  },
+  {
+   "id": "review:eo14409-accurate",
+   "kind": "review",
+   "source": "written to be accurate",
+   "headline": "Trump order sets up voluntary government testing of AI models before release",
+   "entry_key": "eo-14409-pre-release-access",
+   "verdict": {
+    "about_entry": "yes",
+    "misleading": "no",
+    "why": "The headline describes the executive order's voluntary pre-release government access framework for AI models, which matches the record; calling it 'testing' is a reasonable gloss on the record's pre-release access and cyber-capability benchmark."
+   },
+   "expect": "keep"
+  },
+  {
+   "id": "review:ct-accurate",
+   "kind": "review",
+   "source": "written to be accurate",
+   "headline": "Connecticut law protects AI lab workers who report catastrophic risks",
+   "entry_key": "ct-p-a-26-15-omnibus",
+   "verdict": {
+    "about_entry": "yes",
+    "misleading": "no",
+    "why": "The headline accurately describes the enacted Connecticut law's anti-retaliation protection for frontier-developer employees who report catastrophic-risk concerns, which took effect Oct. 1, 2026."
+   },
+   "expect": "keep"
+  },
+  {
+   "id": "review:raise-hochul-testing-nearmiss",
+   "kind": "review",
+   "source": "real (Politico feed, Nov 2026): a different programme",
+   "headline": "New York’s Hochul launches nation’s first state AI testing program",
+   "entry_key": "ny-raise-act-ch-699-ch-96",
+   "verdict": {
+    "about_entry": "no",
+    "misleading": "no",
+    "why": "The headline describes a state AI testing program launched by Hochul, which the RAISE Act record does not describe (it creates a DFS office for frontier-developer disclosures and incident reports, not a testing program), so it is not plainly about this law and implies nothing false about it."
+   },
+   "expect": "refuse"
+  },
+  {
+   "id": "review:chip-nvidia-nearmiss",
+   "kind": "review",
+   "source": "real (Politico feed, Nov 2026): not about the bill",
+   "headline": "Nvidia loses ground in Washington chip fight after CEO spy scandal",
+   "entry_key": "chip-security-act-h-r-3447-cotton-companion",
+   "verdict": {
+    "about_entry": "no",
+    "misleading": "no",
+    "why": "The headline is about Nvidia's lobbying position after a CEO scandal and never names the Chip Security Act or describes its status or duties, so it is not plainly about this bill and asserts nothing false about it."
+   },
+   "expect": "refuse"
+  },
+  {
+   "id": "review:dcc-wrong-case",
+   "kind": "review",
+   "source": "real headline about the N.D. Cal. case, put on the D.C. Circuit case",
+   "headline": "Judge rules Anthropic supply chain risk designation was ‘illegal and baseless’",
+   "entry_key": "ca-anthropic-v-dow-d-c-cir-4713-petition-denied",
+   "verdict": {
+    "about_entry": "no",
+    "misleading": "yes",
+    "why": "A single judge calling the designation illegal points to the separate N.D. Cal. § 3252 case rather than this D.C. Circuit § 4713 petition, which a 2–1 panel denied with rehearing pending as of Oct 31, so on this page it would wrongly suggest the § 4713 designation was struck down."
+   },
+   "expect": "refuse"
+  },
+  {
+   "id": "review:trahan-new-bill",
+   "kind": "review",
+   "source": "real (Politico feed, Nov 2026): a different, unintroduced bill",
+   "headline": "Trahan crafting AI safety bill with narrower state preemption",
+   "entry_key": "h-r-9925-frontier-act",
+   "verdict": {
+    "about_entry": "no",
+    "misleading": "no",
+    "why": "The headline describes Trahan, a cosponsor here, drafting a separate AI safety bill with narrower preemption, apparently a different bill rather than Obernolte's H.R. 9925, so it is not plainly about this entry, and it makes no false claim about H.R. 9925's status or contents."
+   },
+   "expect": "refuse"
+  },
+  {
+   "id": "review:sb53-dies-false",
+   "kind": "review",
+   "source": "written to be false (SB 53 is law)",
+   "headline": "California’s AI safety bill dies in the Assembly",
+   "entry_key": "ca-sb-53-tfaia",
+   "verdict": {
+    "about_entry": "no",
+    "misleading": "yes",
+    "why": "SB 53 was signed and in effect since Jan 2026, so a November 2026 story about a California AI safety bill dying in the Assembly cannot be about this enacted law and would falsely suggest it failed if shown on its page."
+   },
+   "expect": "refuse"
+  },
+  {
+   "id": "review:mn-enacted-false",
+   "kind": "review",
+   "source": "written to be false (the bill is stalled)",
+   "headline": "Minnesota enacts sweeping AI safety law covering every developer",
+   "entry_key": "mn-hf-4532-no-threshold",
+   "verdict": {
+    "about_entry": "yes",
+    "misleading": "yes",
+    "why": "The headline is about this Minnesota AI safety bill covering any developer, but it says the bill was enacted, while the record shows it stalled in committee after its March 2026 introduction."
+   },
+   "expect": "refuse"
+  },
+  {
+   "id": "review:s2938-passed-false",
+   "kind": "review",
+   "source": "written to be false (the bill is pending)",
+   "headline": "Senate Passes A.I. Risk Evaluation Act, Sending It to the House",
+   "entry_key": "s-2938-ai-risk-evaluation-act",
+   "verdict": {
+    "about_entry": "yes",
+    "misleading": "yes",
+    "why": "The headline is about S. 2938, but it says the Senate passed the bill, while the record shows it pending after only a Sept 30, 2026 hearing with no further action."
+   },
+   "expect": "refuse"
+  }
+ ]
+}

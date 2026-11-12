@@ -47,6 +47,10 @@ import { formatReport } from './report/format.mjs';
 import { formatHtml } from './report/html.mjs';
 import { createTelegram, tokenFromEnv } from './notify/telegram.mjs';
 import { gatedPublishConfig, readGateInputs } from './eval/gate.mjs';
+import { runPageFieldsSet, PAGEFIELDS_SET } from './eval/pagefields-set.mjs';
+import { runPageFieldsStep } from './pagefields/step.mjs';
+import { runPressSet, PRESS_SET } from './eval/press-set.mjs';
+import { runPressStep } from './news/press.mjs';
 import { loadActorIds, loadRunRecords } from './links/records.mjs';
 import { linksMeasure, runSuite } from './eval/links-measure.mjs';
 import { runNewsSet, NEWS_SET } from './eval/news-set.mjs';
@@ -111,7 +115,7 @@ export function gateInputsFor({ P, config, deps = {} }) {
   }
 }
 
-// The news measures for this run's gate. Both are code only (the event set replays recorded records; the writer set replays the phrase
+// The news measures (and the page-fields set, when auto_publish.page_fields is on) for this run's gate. All are code only (the event set replays recorded records; the writer set replays the phrase
 // bank, or the recorded AI answers when news.ai_writer is on), free and deterministic, and both are tied to the code (every file under
 // pipeline/), the writer set also to the live entries (eval/hash.mjs). A report made by hand therefore goes stale with any code change and
 // any data change, and news would be off most of the time without anyone deciding so. So when the news switch is on and a stored report
@@ -119,17 +123,20 @@ export function gateInputsFor({ P, config, deps = {} }) {
 // the stale one. The bar is the gate's, unchanged: zero wrong over the whole set; a fresh report with anything wrong keeps news off.
 // A measure that cannot be run leaves no fresh report (news off this run, with why). Returns { inputs, ran: [{ measure, cases, wrong }], error }.
 export async function refreshNewsMeasures({ inputs, config, deps = {} }) {
-  if (!config || !config.auto_publish || !config.auto_publish.news || !inputs || inputs.error || !inputs.hashes) return { inputs, ran: [] };
+  const on = (config && config.auto_publish) || {};
+  if ((!on.news && !on.page_fields && !on.press) || !inputs || inputs.error || !inputs.hashes) return { inputs, ran: [] };
   const fresh = (m) => (inputs.measures || []).some((r) => r.measure === m && r.checks_hash === inputs.hashes[m]);
   const ai = !!(config.news && config.news.ai_writer === true);
   const run = {
     news: deps.newsSet || (async () => runNewsSet({ cases: JSON.parse(fs.readFileSync(NEWS_SET, 'utf8')).cases })),
+    page_fields: deps.pageFieldsSet || (async () => runPageFieldsSet({ cases: JSON.parse(fs.readFileSync(PAGEFIELDS_SET, 'utf8')).cases })),
+    press: deps.pressSet || (async () => runPressSet({ cases: JSON.parse(fs.readFileSync(PRESS_SET, 'utf8')).cases })),
     news_writer: deps.newsWriterSet || (async () => { const set = JSON.parse(fs.readFileSync(WRITER_SET, 'utf8')); return (ai ? runWriterSet : runBankMeasure)({ cases: set.cases, today: set.today, entries: loadEntries(), models: set.models || null }); })
   };
   let measures = inputs.measures || [];
   const ran = [];
   try {
-    for (const m of ['news', 'news_writer'].filter((x) => !fresh(x))) {
+    for (const m of [...(on.news ? ['news', 'news_writer'] : []), ...(on.page_fields ? ['page_fields'] : []), ...(on.press ? ['press'] : [])].filter((x) => !fresh(x))) {
       const rep = await run[m]();
       measures = [...measures.filter((r) => r.measure !== m), rep];
       ran.push({ measure: m, cases: rep.cases, wrong: rep.wrong });
@@ -379,7 +386,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   overridden.forEach((x) => rep.notes.push(`auto_publish.${x.field} is ON by owner override (${x.by}, ${x.date}${x.reason ? `: ${x.reason}` : ''}), without a passing test report; remove gate_override.${x.field} in config/publish.json to restore the gate`));
   // the links measure run for this run's gate (gateInputsFor), so the report shows why relationships are on or off
   if (gi.links) rep.notes.push(`links measure on this run's data: ${gi.links.cases} cases, ${gi.links.wrong} wrong${gi.links.wrong ? ' (relationships off this run)' : ''}`);
-  nm.ran.forEach((x) => rep.notes.push(`${x.measure === 'news' ? 'news event set' : 'news writer set'} measured again on this run's code and data (the stored report no longer matched): ${x.cases} cases, ${x.wrong} wrong${x.wrong ? ' (news off this run)' : ''}`));
+  nm.ran.forEach((x) => rep.notes.push(`${x.measure === 'news' ? 'news event set' : x.measure === 'page_fields' ? 'page-fields set' : x.measure === 'press' ? 'press set' : 'news writer set'} measured again on this run's code and data (the stored report no longer matched): ${x.cases} cases, ${x.wrong} wrong${x.wrong ? ` (${x.measure === 'page_fields' ? 'page fields' : x.measure === 'press' ? 'press links' : 'news'} off this run)` : ''}`));
   if (nm.error) rep.notes.push(`a news measure could not be run (${nm.error}); news is off this run`);
   // whether news can publish this run, on every report, so it is never off without the message saying so
   if (publishConfig && publishConfig.auto_publish && 'news' in publishConfig.auto_publish) { const g = gatedOff.find((x) => x.field === 'news'); rep.news_publishing = !publishConfig.auto_publish.news ? { on: false, why: 'switched off in config/publish.json' } : g ? { on: false, why: g.why } : { on: true, why: null }; }
@@ -585,6 +592,16 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
     const corrected = {};
     if (c.status === 'written') (c.corrected || []).forEach((x) => { (corrected[x.entry_key] = corrected[x.entry_key] || []).includes(x.field) || corrected[x.entry_key].push(x.field); });
 
+    // ---- 4b2. page fields: the entry pages' written fields (summary line, 30-second boxes, Key facts, display name) kept in step with the
+    // checked text, for the entries this run added or changed first; written only when auto_publish.page_fields is on and its gate passes ----
+    step = 'page fields';
+    const pfTouched = [...new Set([...rep.publish.runs.flatMap((p) => [...p.entries_updated, ...p.entries_added].map((u) => u.entry_key)), ...(c.corrected || []).map((x) => x.entry_key)])];
+    const pf = await (deps.pageFieldsRun || runPageFieldsStep)({ dataDir: S.v2, config, factory, aiOff: capOff(), dry, touched: pfTouched, now: startedAt, log: (m) => log('  ' + m) });
+    rep.page_fields = pf;
+    log(`page fields: ${pf.skipped_why ? 'skipped (' + pf.skipped_why + ')' : `${pf.checked.length} checked, ${pf.written.length} written, ${pf.status}`}; ${pf.waiting} page(s) waiting`);
+    pf.problems.forEach((p) => rep.notes.push(`page fields: ${p}`));
+    if (pf.status === 'written' && (pf.changed || []).length) { published.push('page fields'); summaries.push(pf.summary); partKeys.push(pf.changed); }
+
     // ---- 4c. links: propose links for the entries this run added or changed (code only); added only when auto_publish.relationships is on ----
     step = 'links';
     const touchedKeys = [...new Set([...rep.publish.runs.flatMap((p) => [...p.entries_updated, ...p.entries_added].map((u) => u.entry_key)), ...(c.corrected || []).map((x) => x.entry_key)])];
@@ -603,6 +620,15 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
     rep.news = nw;
     log(`news: ${nw.skipped_why ? 'skipped (' + nw.skipped_why + ')' : `${nw.leads.length} lead(s), ${nw.drafted.length} drafted, ${nw.status}`}`);
     if (nw.status === 'written') { published.push('news'); summaries.push(nw.summary); partKeys.push((nw.drafted || []).every((d) => d.tracker) ? nw.drafted.map((d) => d.tracker) : null); }
+
+    // ---- 4e. in the press: links to credible outlets' coverage of one tracked entry, from this run's press leads (headline, outlet, date,
+    // link only); added only when auto_publish.press is on and its gate passes ----
+    step = 'press';
+    const pr = await (deps.pressRun || runPressStep)({ dataDir: S.v2, config, factory, aiOff: capOff(), dry, leads: nw.leads || [], today, now: startedAt, log: (m) => log('  ' + m) });
+    rep.press = pr;
+    log(`press: ${pr.skipped_why ? 'skipped (' + pr.skipped_why + ')' : `${pr.candidates} candidate(s), ${pr.added.length} added, ${pr.status}`}`);
+    pr.problems.forEach((p) => rep.notes.push(`press: ${p}`));
+    if (pr.status === 'written' && (pr.changed || []).length) { published.push('press'); summaries.push(pr.summary); partKeys.push(pr.changed); }
 
     // ---- 5. status.json: what readers see as "checked for updates ..." (only the entries really read this run). Written after the
     // final check, so it never shows a change (or a check of an entry) the final check put back.
@@ -683,7 +709,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
       // else is unexplained and nothing is promoted.
       for (let round = 0; ; round++) {
         const after = loadData(S.v2);
-        const check = checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run, maxNew: config.max_new_entries_per_run ?? 0, newKeys, corrected, links: linksAllowance(after) });
+        const check = checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run, maxNew: config.max_new_entries_per_run ?? 0, newKeys, corrected, links: linksAllowance(after), paged: pf.status === 'written' ? (pf.changed || []).filter((k) => !reverted.has(k)) : [], pressed: pr && pr.status === 'written' ? (pr.changed || []).filter((k) => !reverted.has(k)) : [] });
         if (!check.problems.length) break;
         const linkProblems = check.problems.filter((p) => /^(relationships changed|added link)/.test(p)), limits = check.problems.filter(isLimit);
         const keys = [...new Set([...before.entries, ...after.entries].map((e) => e.key))];
@@ -778,7 +804,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   // ---- the run report (even when the run failed) ----
   try {
     const entries = readJson(path.join(S && code === 0 ? P.dataDir : (S ? S.v2 : P.dataDir), 'entries.json'), []);
-    rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key)) || (rep.corrections && rep.corrections.corrected.some((x) => x.entry_key === e.key))).map((e) => [e.key, e.short_name]));
+    rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key)) || (rep.corrections && rep.corrections.corrected.some((x) => x.entry_key === e.key)) || (rep.page_fields && (rep.page_fields.written || []).some((w) => w.entry_key === e.key))).map((e) => [e.key, e.short_name]));
     const finished = now();
     finalize(rep, { now: finished, spend: summarize(factory.spend.between(startedAt, finished)), month: factory.monthStatus() });
     // Items a stop rule holds go at the top of the "on hold" list (and so into the Telegram message), every run until they pass.
