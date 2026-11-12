@@ -8736,20 +8736,11 @@
    "permalink": "https://usfrontierlaw.com/#rec-executive-order-14434-inaugurating-the-era-of-super-intelligence-u",
    "section_name": "Executive actions"
   },
-  "summary_line": "Directs the executive branch to use the terms \"Super Intelligence\" and \"SI\" in place of \"Artificial Intelligence\" and \"AI\" in official non-statutory documents.",
-  "thirty_seconds": {
-   "a": "The executive branch, and the Assistant to the President for Science and Technology, who must propose legislative language on a federal definition.",
-   "b": "Agencies must use \"Super Intelligence\" and \"SI\" instead of \"Artificial Intelligence\" and \"AI\" in correspondence, websites and reports, to the maximum extent permitted by law.",
-   "c": "It changes no obligation on developers. It leaves existing regulations, Presidential actions, contracts and grants unchanged, and has no safety, testing or licensing provisions."
-  },
-  "key_facts": {
-   "lead_agencies": "Assistant to the President for Science and Technology"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:50:55.212Z",
+   "checked_at": "2026-11-12T08:05:45Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "528f4cf555125603c82eccc62331b590ce9f314070c9720580b624da0149d332"
+   "basis_sha256": "45dc516e15d179e1a0f56b84c20a08e6e3e50d19b7e9fc1d9be93b7f8c38a979"
   },
   "exec_checklist": {
    "binding": {
@@ -8790,6 +8781,15 @@
     "value": "not_in_bill",
     "summary": "The order sets no penalties or sanctions for failing to comply with it."
    }
+  },
+  "summary_line": "Directs the executive branch to use the terms \"Super Intelligence\" and \"SI\" in place of \"Artificial Intelligence\" and \"AI\" in official, non-statutory documents.",
+  "thirty_seconds": {
+   "a": "The executive branch, plus the Assistant to the President for Science and Technology, who must propose legislative language on a definition.",
+   "b": "Use \"Super Intelligence\" and \"SI\" instead of \"Artificial Intelligence\" and \"AI\" in official correspondence, websites and reports. Within 60 days, propose a federal definition in legislative language.",
+   "c": "No. It imposes no mandatory duties on private companies and sets no penalties; it only covers terminology within the executive branch."
+  },
+  "key_facts": {
+   "lead_agencies": "Assistant to the President for Science and Technology"
   }
  },
  {
