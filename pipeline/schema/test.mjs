@@ -3,7 +3,8 @@
 // 2) bad input is rejected, so the guard rails are proven and not just assumed
 import { makeValidator } from './validate.mjs';
 import { convert } from './legacy-to-v2.mjs';
-import { checkIntegrity } from './integrity.mjs';
+import fs from 'fs';
+import { checkIntegrity, pageFieldProblems } from './integrity.mjs';
 
 const v = makeValidator();
 let pass = 0, fail = 0;
@@ -90,6 +91,55 @@ ok('a well-formed validator verdict is accepted', v.check('verdict', verdictOk).
 { const d = clone(data); d.entries[1].key = d.entries[0].key; ok('integrity: catches a duplicate key', checkIntegrity(d).length > 0); }
 { const d = clone(data); d.entries[0].events[0].date = '2026-02-31'; ok('integrity: catches an impossible calendar date', checkIntegrity(d).length > 0); }
 { const d = clone(data); d.site.replay_milestones[0].entry_key = 'gone'; ok('integrity: catches a milestone pointing at a missing entry', checkIntegrity(d).length > 0); }
+
+// ---------- 4. the entry page's written fields (display_name, summary_line, thirty_seconds, key_facts, exec_checklist, claims) ----------
+{
+  const live = JSON.parse(fs.readFileSync(new URL('../../web/data/v2/entries.json', import.meta.url), 'utf8'));
+  const byShort = (re) => clone(live.find((e) => re.test(e.short_name)));
+  const PV = { method: 'agent', checked_at: '2026-11-11T10:00:00Z', reviewer: 'validator' };
+  const both = (e) => [...v.check('entry', e), ...pageFieldProblems(e)];
+  ok('page: today\'s live entries have no page-field problems', live.every((e) => !pageFieldProblems(e).length));
+  // a bill with every page field, its numbers taken from its own text
+  const sb = byShort(/^CA SB 53 \(/);
+  Object.assign(sb, { display_name: 'Transparency in Frontier AI Act', summary_line: 'Makes the largest AI developers publish their safety plans, report critical incidents within 15 days and protect whistleblowers.',
+    thirty_seconds: { a: 'Developers of models trained above 10^26 operations; the strictest rules apply above $500,000,000 in yearly revenue.', b: 'Publish a framework and transparency reports, report incidents, protect whistleblowers.', c: 'Up to $1,000,000 per violation, through the Attorney General.' },
+    key_facts: { enforced_by: 'Attorney General' }, page_verification: PV });
+  ok('page: a bill with checked page fields passes the schema and integrity', both(sb).length === 0, both(sb).join('; '));
+  { const x = clone(sb); delete x.page_verification; ok('page: page fields without page_verification are refused', pageFieldProblems(x).some((p) => /page_verification/.test(p))); }
+  { const x = clone(sb); x.summary_line = 'Makes the largest AI developers report critical incidents within 37 days and protect whistleblowers.'; ok('page: a number not in the entry\'s own text is refused (summary_line)', pageFieldProblems(x).some((p) => /summary_line has the number 37\b/.test(p))); }
+  { const x = clone(sb); x.thirty_seconds.c = 'Up to $2,000,000 per violation.'; ok('page: an invented amount is refused (thirty_seconds)', pageFieldProblems(x).some((p) => /thirty_seconds\.c has the number 2000000/.test(p))); }
+  { const x = clone(sb); x.display_name = 'Transparency in Frontier AI Act of 2027'; ok('page: a display name\'s number must be in the title or short name', pageFieldProblems(x).some((p) => /display_name has the number 2027/.test(p))); }
+  { const x = clone(sb); delete x.thirty_seconds.c; rejects('thirty_seconds with a box missing', 'entry', x); }
+  { const x = clone(sb); x.summary_line = 'Too short.'; rejects('a summary_line under 20 characters', 'entry', x); }
+  { const x = clone(sb); x.summary_line = 'A'.repeat(241); rejects('a summary_line over 240 characters', 'entry', x); }
+  { const x = clone(sb); x.display_name = 'Name <script>'; rejects('a display_name with markup', 'entry', x); }
+  { const x = clone(sb); x.key_facts = { favourite_colour: 'blue' }; rejects('an unknown key_facts row', 'entry', x); }
+  { const x = clone(sb); x.page_verification = { method: 'guess', checked_at: '2026-11-11T10:00:00Z' }; rejects('a page_verification method that is not agent, session or author', 'entry', x); }
+  // an executive action's checklist
+  const eo = byShort(/^EO 14409/);
+  const q = (value, summary, quote) => (value === 'not_in_bill' ? { value, summary } : { value, summary, section: 'Sec. 3(c)', quote, source_url: 'https://www.federalregister.gov/documents/2026/06/05/2026-11415/promoting-advanced-artificial-intelligence-innovation-and-security' });
+  eo.exec_checklist = { binding: q('no', 'The order rules out any mandatory licensing, preclearance or permit.', 'mandatory governmental licensing, preclearance, or permitting requirement'),
+    voluntary_program: q('yes', 'A voluntary developer framework.', 'voluntary developer framework'), pre_release_access: q('yes', 'Up to 30 days of pre-release access, if the developer agrees.', 'up to 30 days'),
+    agencies_build: q('yes', 'A classified cyber-capability benchmark.', 'classified cyber-capability benchmark'), deadlines: q('yes', 'Within 60 days.', 'within 60 days'),
+    enforcement_priority: q('yes', 'DOJ prioritization of AI-enabled cybercrime.', 'AI-enabled cybercrime'), targets_state_laws: q('not_in_bill', 'The order does not address state laws.'), penalties: q('not_in_bill', 'The order sets no penalty.') };
+  eo.key_facts = { issued_by: 'The President', lead_agencies: 'Treasury, Department of War/NSA, DHS/CISA' }; eo.page_verification = PV;
+  ok('page: an executive action with a full checklist passes', both(eo).length === 0, both(eo).join('; '));
+  { const x = clone(eo); delete x.exec_checklist.deadlines; rejects('an executive checklist missing a question', 'entry', x); }
+  { const x = clone(eo); delete x.exec_checklist.binding.quote; rejects('an executive checklist answer without its quote', 'entry', x); }
+  { const x = clone(sb); x.exec_checklist = clone(eo.exec_checklist); ok('page: an executive checklist on a bill is refused', pageFieldProblems(x).some((p) => /exec_checklist is only for/.test(p))); }
+  // a lawsuit's claims
+  const lit = byShort(/^Anthropic v\. Department of War/);
+  const src = 'https://www.courtlistener.com/docket/72379655/';
+  lit.claims = [{ label: 'I. Beyond the statute (APA, 10 U.S.C. § 3252)', outcome: 'won', source_url: src }, { label: 'III. Ultra vires presidential directive', outcome: 'lost', note: 'Rejected by the court', source_url: src }, { label: 'V. Unauthorized sanctions (APA § 558)', outcome: 'unclear', source_url: src }];
+  lit.key_facts = { judge: 'Rita F. Lin', lawyers: 'WilmerHale' }; lit.page_verification = PV;
+  ok('page: a lawsuit with claims passes', both(lit).length === 0, both(lit).join('; '));
+  { const x = clone(lit); delete x.claims[0].source_url; rejects('a decided claim without the record it is read from', 'entry', x); }
+  { const x = clone(lit); x.claims[0].outcome = 'maybe'; rejects('a claim outcome that is not won, lost, unclear or pending', 'entry', x); }
+  { const x = clone(lit); x.claims.push({ label: 'VI. A pending claim', outcome: 'pending' }); ok('page: a pending claim needs no source yet', both(x).length === 0, both(x).join('; ')); }
+  { const x = clone(sb); x.claims = clone(lit.claims); ok('page: claims on a bill are refused', pageFieldProblems(x).some((p) => /claims are only for lawsuits/.test(p))); }
+  { const x = clone(lit); x.claims[1].note = 'Rejected in a 7-2 ruling'; ok('page: an invented number in a claim note is refused', pageFieldProblems(x).some((p) => /claims\[1\] has the number 7/.test(p))); }
+  { const d = clone(data); d.entries[0] = { ...d.entries[0], summary_line: 'A summary line with no reviewer recorded at all.' }; ok('integrity: checkIntegrity reports page-field problems too', checkIntegrity(d).some((p) => /page_verification/.test(p))); }
+}
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

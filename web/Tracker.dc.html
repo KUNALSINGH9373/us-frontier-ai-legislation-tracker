@@ -160,6 +160,26 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 @keyframes gxFade{from{opacity:0}to{opacity:1}}
 @keyframes gxTile{0%{opacity:.12;transform:scale(.55)}55%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}@keyframes gxBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes gxOut{to{opacity:0;visibility:hidden}}@keyframes gxRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+/* Entry page (#/bill/…): main column + a sidebar that sits level with the title (sources, where it stands, key facts);
+   on narrow screens the sidebar comes first, so the status is the first thing seen. */
+.bp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,360px);grid-template-areas:"head side" "main side";grid-template-rows:auto 1fr;gap:20px 28px;align-items:start}
+.bp-head{grid-area:head;min-width:0}
+.bp-main{grid-area:main;display:flex;flex-direction:column;gap:18px;min-width:0}
+.bp-side{grid-area:side;display:flex;flex-direction:column;gap:14px;position:sticky;top:80px;min-width:0}
+.bp-card{padding:calc(18px*var(--ps)) calc(20px*var(--ps));border-radius:min(16px,var(--r));background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;min-width:0}
+.bp-side-card{padding:calc(16px*var(--ps)) calc(18px*var(--ps));gap:10px}
+.bp-h2{margin:0;font-size:calc(19px*var(--fs));font-weight:800;letter-spacing:-.01em;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.bp-h2s{margin:0;font-size:calc(17px*var(--fs));font-weight:800}
+.bp-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.bp-check{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px}
+.bp-check-group:first-child{grid-column:1/-1}
+.bp-check-group:first-child ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+.bp-row{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:calc(10px*var(--ps)) 0;border-top:1px solid var(--line)}
+.bp-row:first-child{border-top:0}
+.bp-go{flex:none;white-space:nowrap;font-weight:700;font-size:calc(13.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center}
+.bp-grid details>summary{list-style:none}.bp-grid details>summary::-webkit-details-marker{display:none}
+@media (max-width:1000px){.bp-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "side" "main";grid-template-rows:auto}.bp-side{position:static}}
+@media (max-width:700px){.bp-three,.bp-check,.bp-check-group:first-child ul{grid-template-columns:minmax(0,1fr)}.bp-quote{padding-left:0!important}}
 </style>
 </helmet>
 <div style="min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink)">
@@ -478,15 +498,18 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
 
 <sc-if value="{{isBill}}">
 <article data-screen-label="Bill page" style="max-width:1600px;width:100%;margin:0 auto;padding:clamp(calc(20px*var(--ps)),4vw,calc(44px*var(--ps))) clamp(16px,3vw,32px) calc(72px*var(--ps))">
-  <nav aria-label="Breadcrumb" style="font-size:calc(14px*var(--fs));font-weight:650;display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--ink-3)"><a href="#/explore" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Explore</a><span aria-hidden="true">›</span><a href="{{bSecHref}}" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">{{bSec}}</a></nav>
-  <header style="margin-top:10px;display:flex;flex-direction:column;gap:14px">
+  <div class="bp-grid">
+  <header class="bp-head" style="display:flex;flex-direction:column;gap:12px">
+    <nav aria-label="Breadcrumb" style="font-size:calc(14px*var(--fs));font-weight:650;display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:var(--ink-3)"><a href="#/explore" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Explore</a><span aria-hidden="true">›</span><a href="{{bSecHref}}" style="min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">{{bSec}}</a></nav>
     <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-      <span style="display:inline-flex;align-items:center;gap:7px;height:calc(40px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line);font-size:calc(14px*var(--fs));font-weight:750"><span aria-hidden="true" style="color:{{bSc}}">{{bSg}}</span>{{bSl}}</span>
+      <span style="display:inline-flex;align-items:center;gap:7px;height:calc(36px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:min(999px,var(--r));background:var(--surface);border:1px solid var(--line);font-size:calc(14px*var(--fs));font-weight:750"><span aria-hidden="true" style="color:{{bSc}}">{{bSg}}</span>{{bSl}}</span>
       <span style="font-size:calc(14px*var(--fs));font-weight:650;color:var(--ink-3)">{{bJuris}} · {{bType}}</span>
       <sc-if value="{{hasAutoBadge}}"><span title="{{autoTitle}}" style="font-size:calc(12.5px*var(--fs));font-weight:750;padding:3px calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--line-2);color:var(--ink-2)">Auto-updated</span></sc-if>
     </div>
-    <h1 style="margin:0;font-size:clamp(26px,3vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.03em;text-wrap:balance;overflow-wrap:anywhere;max-width:960px">{{bShort}}</h1>
-    <p style="margin:0;font-size:calc(15px*var(--fs));color:var(--ink-3);max-width:860px;overflow-wrap:anywhere">{{bTitle}}</p>
+    <h1 style="margin:0;font-size:clamp(26px,3vw,38px);line-height:1.15;font-weight:800;letter-spacing:-.03em;text-wrap:balance;overflow-wrap:anywhere;max-width:960px">{{bName}}</h1>
+    <sc-if value="{{hasBNumLine}}"><p data-num-line style="margin:0;font-size:calc(15px*var(--fs));font-weight:650;color:var(--ink-3);max-width:860px;overflow-wrap:anywhere">{{bNumLine}}</p></sc-if>
+    <sc-if value="{{hasBLine}}"><p data-summary-line style="margin:2px 0 0;font-family:var(--serif);font-size:calc(clamp(18px,1.9vw,22px)*var(--fs));line-height:1.45;font-weight:550;text-wrap:pretty;max-width:52ch">{{bLine}}</p></sc-if>
+    <sc-if value="{{hasSummaryDraft}}"><p style="margin:0;display:inline-flex;align-self:flex-start;font-size:calc(12.5px*var(--fs));font-weight:750;padding:4px calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--line-2);color:var(--ink-2)">Draft copy for author review · derived only from the tracker’s text</p></sc-if>
     <div style="display:flex;flex-wrap:wrap;gap:8px">
       <sc-if value="{{showFollow}}"><button onClick="{{toggleFollowB}}" aria-pressed="{{following}}" style="height:calc(44px*var(--hs));padding:0 calc(18px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:{{followBg}};color:{{followFg}};font-weight:750;font-size:calc(15px*var(--fs));cursor:pointer">{{followLabel}}</button></sc-if>
       <button onClick="{{share}}" style="height:calc(44px*var(--hs));padding:0 calc(18px*var(--ps));border-radius:min(999px,var(--r));border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:750;font-size:calc(15px*var(--fs));cursor:pointer">Copy link</button>
@@ -494,176 +517,222 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     </div>
   </header>
 
-  <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start">
-    <div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:28px">
-      <sc-if value="{{hasSummary}}">
-      <section aria-labelledby="b-sum" style="padding:calc(22px*var(--ps));border-radius:min(22px,var(--r));background:var(--surface);border:1px solid var(--line)">
-        <h2 id="b-sum" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">In plain English</h2>
-        <sc-if value="{{hasSummary}}"><p style="margin:0;font-size:calc(clamp(18px,1.9vw,22px)*var(--fs));line-height:1.45;font-weight:550;text-wrap:pretty">{{bSummary}}</p><p style="margin:12px 0 0;display:inline-flex;font-size:calc(12.5px*var(--fs));font-weight:750;padding:4px calc(10px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--line-2);color:var(--ink-2)">Draft copy for author review · derived only from the tracker’s text</p></sc-if>
-      </section>
-      </sc-if>
+  <div class="bp-main">
+  <sc-if value="{{hasThirty}}">
+  <section aria-labelledby="b-30" data-thirty class="bp-card">
+    <h2 id="b-30" class="bp-h2">In 30 seconds</h2>
+    <div class="bp-three">
+      <sc-for list="{{thirty}}" as="t"><div style="padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:min(14px,var(--r));background:var(--accent-soft);display:flex;flex-direction:column;gap:4px;min-width:0">
+        <h3 style="margin:0;font-size:calc(12.5px*var(--fs));font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)">{{t.h}}</h3>
+        <p style="margin:0;font-size:calc(15px*var(--fs));line-height:1.5;overflow-wrap:anywhere;text-wrap:pretty;color:{{t.fg}};font-style:{{t.fs}}">{{t.t}}</p>
+      </div></sc-for>
+    </div>
+  </section>
+  </sc-if>
 
-      <sc-if value="{{hasDuties}}">
-      <section aria-labelledby="b-cards" data-duty-cards>
-        <h2 id="b-cards" style="margin:0 0 12px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">At a glance</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px">
-          <sc-for list="{{dCards}}" as="c"><div style="padding:calc(16px*var(--ps));border-radius:min(18px,var(--r));background:var(--surface);border:1px solid var(--line)">
-            <h3 style="margin:0 0 8px;font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">{{c.h}}</h3>
-            <sc-for list="{{c.items}}" as="i"><p style="margin:0 0 6px;font-size:calc(15px*var(--fs));line-height:1.45;overflow-wrap:anywhere;text-wrap:pretty"><sc-if value="{{i.hasL}}"><strong>{{i.l}}: </strong></sc-if>{{i.t}}</p></sc-for>
-          </div></sc-for>
-        </div>
-      </section>
-      <section aria-labelledby="b-req" data-duty-list>
-        <h2 id="b-req" style="margin:0 0 4px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">What it requires</h2>
-        <p style="margin:0 0 12px;font-size:calc(14px*var(--fs));color:var(--ink-3)">Read from the bill’s official text. Open a row to see the exact words and where they sit.</p>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
-          <sc-for list="{{dRows}}" as="d"><li style="border-radius:min(16px,var(--r));border:1px solid var(--line);background:var(--surface)">
+  <sc-if value="{{hasNums}}">
+  <section aria-labelledby="b-nums" data-key-numbers class="bp-card">
+    <h2 id="b-nums" class="bp-h2">Key numbers</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:10px">
+      <sc-for list="{{nums}}" as="m"><div style="padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:min(12px,var(--r));border:1px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0">
+        <span style="font-size:calc(21px*var(--fs));font-weight:800;letter-spacing:-.01em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere">{{m.v}}</span>
+        <span style="font-size:calc(13px*var(--fs));color:var(--ink-3);line-height:1.4">{{m.l}}</span>
+      </div></sc-for>
+    </div>
+    <p style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Each figure is taken from the checklist below, which quotes the official text.</p>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{hasCheck}}">
+  <section aria-labelledby="b-req" data-duty-list class="bp-card">
+    <h2 id="b-req" class="bp-h2">{{reqH}} <span style="font-size:calc(13.5px*var(--fs));font-weight:600;color:var(--ink-3);letter-spacing:0">{{reqCap}}</span></h2>
+    <div class="bp-check">
+      <sc-for list="{{checkGroups}}" as="grp"><div class="bp-check-group">
+        <h3 style="margin:0;padding:6px 0;font-size:calc(12.5px*var(--fs));font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)">{{grp.h}}</h3>
+        <ul style="list-style:none;margin:0;padding:0">
+          <sc-for list="{{grp.rows}}" as="d"><li style="border-top:1px solid var(--line)">
             <details>
-              <summary style="cursor:pointer;list-style:none;padding:calc(14px*var(--ps)) calc(16px*var(--ps));min-height:calc(44px*var(--hs));display:flex;gap:12px;align-items:flex-start">
-                <span aria-hidden="true" style="color:var(--accent-ink);width:16px;flex:none;line-height:1.4">{{d.g}}</span>
-                <span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">{{d.l}} · {{d.vl}}</span><span style="font-size:calc(15px*var(--fs));line-height:1.45;overflow-wrap:anywhere;text-wrap:pretty">{{d.t}}</span></span>
-                <span aria-hidden="true" style="margin-left:auto;flex:none;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3);white-space:nowrap;padding-left:8px">Exact words ▾</span>
+              <summary style="cursor:pointer;list-style:none;padding:calc(10px*var(--ps)) 0;min-height:calc(44px*var(--hs));display:flex;gap:12px;align-items:flex-start">
+                <span style="flex:none;width:calc(92px*var(--fs));text-align:center;font-size:calc(12px*var(--fs));font-weight:800;padding:4px 0;border-radius:6px;background:{{d.bg}};color:{{d.fg}}"><span aria-hidden="true">{{d.g}} </span>{{d.vl}}</span>
+                <span style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:calc(15px*var(--fs));font-weight:700">{{d.l}}</span><span style="font-size:calc(14px*var(--fs));line-height:1.45;color:var(--ink-2);overflow-wrap:anywhere;text-wrap:pretty">{{d.t}}</span></span>
               </summary>
-              <div style="padding:0 calc(16px*var(--ps)) calc(14px*var(--ps)) calc(44px*var(--ps))">
-                <p style="margin:0 0 6px;font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{d.sec}}</p>
-                <blockquote style="margin:0;padding:2px 0 2px calc(12px*var(--ps));border-left:3px solid var(--line-2);font-size:calc(14px*var(--fs));line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere">“{{d.q}}”</blockquote>
-                <a href="{{d.u}}" target="_blank" rel="noopener" style="margin-top:6px;font-weight:700;font-size:calc(13.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Official text ↗</a>
+              <div style="padding:0 0 calc(12px*var(--ps)) calc(104px*var(--fs))" class="bp-quote">
+                <sc-if value="{{d.hasSec}}"><p style="margin:0 0 6px;font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{d.sec}}</p></sc-if>
+                <sc-if value="{{d.hasQ}}"><blockquote style="margin:0;padding:2px 0 2px calc(12px*var(--ps));border-left:3px solid var(--line-2);font-size:calc(14px*var(--fs));line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere">“{{d.q}}”</blockquote></sc-if>
+                <sc-if value="{{d.hasU}}"><a href="{{d.u}}" target="_blank" rel="noopener" style="margin-top:6px;font-weight:700;font-size:calc(13.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Official text ↗</a></sc-if>
               </div>
             </details>
           </li></sc-for>
         </ul>
-        <sc-if value="{{hasDNot}}"><p style="margin:12px 0 0;font-size:calc(14px*var(--fs));color:var(--ink-2)"><strong>Not in the bill text:</strong> {{dNot}}.</p></sc-if>
-        <p data-duty-basis style="margin:8px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{dBasis}}</p>
-      </section>
-      </sc-if>
+      </div></sc-for>
+    </div>
+    <sc-if value="{{hasDNot}}"><p style="margin:0;font-size:calc(14px*var(--fs));color:var(--ink-2)"><strong>Not in the bill text:</strong> {{dNot}}.</p></sc-if>
+    <p data-duty-basis style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{dBasis}}</p>
+  </section>
+  </sc-if>
 
-      <section aria-labelledby="b-steps">
-        <h2 id="b-steps" style="margin:0 0 12px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">Where it stands</h2>
-        <sc-if value="{{noSteps}}"><p style="margin:0;color:var(--ink-2)">No dated events are recorded for this entry.</p></sc-if>
-        <ol style="list-style:none;margin:0;padding:0 0 0 calc(18px*var(--ps));border-left:2px solid var(--line);display:flex;flex-direction:column">
-          <sc-for list="{{steps}}" as="s">
-            <li style="position:relative;padding:6px 0 calc(14px*var(--ps)) calc(18px*var(--ps))">
-              <span aria-hidden="true" style="position:absolute;left:-27px;top:10px;width:14px;height:14px;border-radius:50%;background:{{s.dot}};border:{{s.bd}}"></span>
-              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><strong style="font-size:calc(15px*var(--fs));font-variant-numeric:tabular-nums">{{s.date}}</strong><sc-if value="{{s.fut}}"><span style="font-size:calc(12px*var(--fs));font-weight:800;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--st-pending)">{{s.tag}}</span></sc-if></div>
-              <p style="margin:2px 0 0;font-size:calc(15px*var(--fs));color:var(--ink-2);text-wrap:pretty">{{s.t}}</p>
-            </li>
-          </sc-for>
-        </ol>
-        <sc-if value="{{hasStatusText}}"><div data-status-text style="margin-top:6px;padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line)">
-          <h3 style="margin:0 0 6px;font-size:calc(14px*var(--fs));font-weight:700;color:var(--ink-2)">{{statusLabel}}</h3>
-          <p style="margin:0;font-size:calc(15px*var(--fs));line-height:1.6;color:var(--ink);text-wrap:pretty;overflow-wrap:anywhere">{{statusText}}</p>
-        </div></sc-if>
-      </section>
+  <section aria-labelledby="b-mech" class="bp-card">
+    <sc-if value="{{isFactsOnly}}">
+      <h2 id="b-mech" class="bp-h2">What it does</h2>
+      <div data-facts-only style="padding:calc(18px*var(--ps)) calc(20px*var(--ps));border-radius:min(16px,var(--r));background:var(--surface-2);border:1px dashed var(--line-2)">
+        <p style="margin:0 0 4px;font-size:calc(15px*var(--fs));font-weight:750">Description coming soon</p>
+        <p style="margin:0;font-size:calc(14.5px*var(--fs));line-height:1.55;color:var(--ink-2);text-wrap:pretty">This bill is tracked and its official record is shown on this page. Its plain-English description has not passed its checks yet and is written again automatically. Until then, see the official record and text under Primary sources.</p>
+      </div>
+    </sc-if>
+    <sc-if value="{{hasPlain}}">
+      <h2 id="b-mech" class="bp-h2">{{plainH}} <span style="font-size:calc(13.5px*var(--fs));font-weight:600;color:var(--ink-3);letter-spacing:0">plain English, each line checked against the official text</span></h2>
+      <sc-for list="{{plainGroups}}" as="g"><div data-plain-group>
+        <h3 style="margin:0;padding:6px 0;font-size:calc(12.5px*var(--fs));font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)">{{g.h}}</h3>
+        <ul style="list-style:none;margin:0;padding:0">
+          <sc-for list="{{g.items}}" as="i"><li style="border-top:1px solid var(--line)">
+            <details>
+              <summary style="cursor:pointer;list-style:none;padding:calc(10px*var(--ps)) 0;min-height:calc(44px*var(--hs));display:flex;gap:12px;align-items:flex-start">
+                <span style="min-width:0;font-size:calc(15px*var(--fs));line-height:1.45;overflow-wrap:anywhere;text-wrap:pretty">{{i.t}}</span>
+                <span aria-hidden="true" style="margin-left:auto;flex:none;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--accent-ink);white-space:nowrap;padding-left:8px">Exact words ▾</span>
+              </summary>
+              <div style="padding:0 0 calc(12px*var(--ps))">
+                <sc-if value="{{i.hasSec}}"><p style="margin:0 0 6px;font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{i.sec}}</p></sc-if>
+                <blockquote style="margin:0;padding:2px 0 2px calc(12px*var(--ps));border-left:3px solid var(--line-2);font-size:calc(14px*var(--fs));line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere"><sc-if value="{{i.hasLead}}"><span>“{{i.lead}} …”<br></span></sc-if>“{{i.q}}”</blockquote>
+                <sc-if value="{{i.hasU}}"><a href="{{i.u}}" target="_blank" rel="noopener" style="margin-top:6px;font-weight:700;font-size:calc(13.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Official text ↗</a></sc-if>
+              </div>
+            </details>
+          </li></sc-for>
+        </ul>
+      </div></sc-for>
+      <p style="margin:0;font-size:calc(13px*var(--fs));line-height:1.5;color:var(--ink-3)">Each line is a plain-English summary written automatically and checked against the official text; open it to see the exact words. Not legal advice.</p>
+    </sc-if>
+    <sc-if value="{{showMechText}}">
+      <h2 id="b-mech" class="bp-h2">{{mechH}}</h2>
+      <p style="margin:0;font-size:calc(16px*var(--fs));line-height:1.6;text-wrap:pretty;overflow-wrap:anywhere">{{bMech}}</p>
+      <p style="margin:0;font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-3)">The tracker’s own wording.</p>
+    </sc-if>
+    <sc-if value="{{showMechFold}}">
+      <sc-if value="{{noMechHeading}}"><h2 id="b-mech" class="bp-h2">{{mechH}}</h2></sc-if>
+      <details>
+        <summary style="cursor:pointer;font-weight:700;font-size:calc(15px*var(--fs));color:var(--accent-ink);min-height:calc(44px*var(--hs));display:flex;align-items:center">Show the full description in legal detail</summary>
+        <sc-if value="{{foldMech}}"><p style="margin:0;padding:0 0 calc(6px*var(--ps));font-size:calc(15px*var(--fs));line-height:1.65;color:var(--ink-2);text-wrap:pretty;overflow-wrap:anywhere">{{bMech}}</p></sc-if>
+        <sc-for list="{{legal}}" as="r"><p style="margin:0;padding:0 0 calc(6px*var(--ps));font-size:calc(15px*var(--fs));line-height:1.65;color:var(--ink-2);text-wrap:pretty;overflow-wrap:anywhere"><strong style="color:var(--ink)">{{r.l}}:</strong> {{r.t}}</p></sc-for>
+        <p style="margin:0;font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-3)">The tracker’s own wording.</p>
+      </details>
+    </sc-if>
+  </section>
 
-      <section aria-labelledby="b-mech">
-        <sc-if value="{{isFactsOnly}}">
-          <h2 id="b-mech" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">What it does</h2>
-          <div data-facts-only style="padding:calc(18px*var(--ps)) calc(20px*var(--ps));border-radius:min(22px,var(--r));background:var(--surface);border:1px dashed var(--line-2)">
-            <p style="margin:0 0 4px;font-size:calc(15px*var(--fs));font-weight:750">Description coming soon</p>
-            <p style="margin:0;font-size:calc(14.5px*var(--fs));line-height:1.55;color:var(--ink-2);text-wrap:pretty">This bill is tracked and its official record is shown on this page. Its plain-English description has not passed its checks yet and is written again automatically. Until then, see the official record and text under Primary sources.</p>
+  <sc-if value="{{hasCmp}}">
+  <section aria-labelledby="b-cmp" data-compare class="bp-card">
+    <h2 id="b-cmp" class="bp-h2">How it compares <span style="font-size:calc(13.5px*var(--fs));font-weight:600;color:var(--ink-3);letter-spacing:0">with related bills, from each bill’s own checklist</span></h2>
+    <div style="overflow-x:auto">
+      <table style="border-collapse:collapse;width:100%;min-width:520px;font-size:calc(14px*var(--fs))">
+        <thead><tr><th scope="col" style="text-align:left;padding:8px 10px"></th><sc-for list="{{cmpCols}}" as="c"><th scope="col" style="text-align:left;padding:8px 10px;font-size:calc(13px*var(--fs));font-weight:800;color:var(--ink-2)"><sc-if value="{{c.self}}">{{c.name}}</sc-if><sc-if value="{{c.other}}"><a href="{{c.href}}">{{c.name}}</a></sc-if></th></sc-for></tr></thead>
+        <tbody><sc-for list="{{cmpRows}}" as="r"><tr><th scope="row" style="text-align:left;padding:8px 10px;border-top:1px solid var(--line);font-weight:650">{{r.l}}</th><sc-for list="{{r.cells}}" as="v"><td style="padding:8px 10px;border-top:1px solid var(--line);color:{{v.fg}}"><span aria-hidden="true">{{v.g}} </span>{{v.vl}}</td></sc-for></tr></sc-for></tbody>
+      </table>
+    </div>
+    <a href="{{cmpHref}}" style="font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Open the full comparison ⇆</a>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{hasNews}}">
+    <section aria-labelledby="b-news" class="bp-card">
+      <h2 id="b-news" class="bp-h2">In the news this month</h2>
+      <ul style="list-style:none;margin:0;padding:0">
+        <sc-for list="{{bNews}}" as="n"><li class="bp-row">
+          <div style="min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)"><span aria-hidden="true" style="color:{{n.kc}}">{{n.kg}}</span> {{n.date}} · {{n.kl}}</span><strong style="font-size:calc(15.5px*var(--fs))">{{n.title}}</strong><span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2)">{{n.check}}</span></div>
+          <sc-if value="{{n.hasGo}}"><a class="bp-go" href="{{n.goU}}" target="_blank" rel="noopener">Source ↗</a></sc-if>
+        </li></sc-for>
+      </ul>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{hasPress}}">
+    <section aria-labelledby="b-press" data-press class="bp-card">
+      <h2 id="b-press" class="bp-h2">In the press <span style="font-size:calc(13.5px*var(--fs));font-weight:600;color:var(--ink-3);letter-spacing:0">press reports, not confirmed by the official record</span></h2>
+      <ul style="list-style:none;margin:0;padding:0">
+        <sc-for list="{{bPress}}" as="n"><li class="bp-row">
+          <div style="min-width:0;display:flex;flex-direction:column;gap:3px"><span style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{n.outlet}} · {{n.date}}</span><strong style="font-size:calc(15.5px*var(--fs));font-weight:650">{{n.headline}}</strong></div>
+          <a class="bp-go" href="{{n.url}}" target="_blank" rel="noopener">Read ↗</a>
+        </li></sc-for>
+      </ul>
+      <p style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">The outlet’s own headline, linked as published. We matched each story to this entry by its bill number or name and checked that the headline does not misstate where it stands; we do not check the story itself.</p>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{hasTl}}">
+    <section data-entry-timeline aria-labelledby="b-tl" class="bp-card">
+      <h2 id="b-tl" class="bp-h2">{{tlH}} <span style="font-size:calc(13.5px*var(--fs));font-weight:600;color:var(--ink-3);letter-spacing:0">oldest first, read from the official record; statements linked as published</span></h2>
+      <ol style="list-style:none;margin:0;padding:0">
+        <sc-for list="{{bTl}}" as="n"><li class="bp-row">
+          <div style="min-width:0;display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{n.date}} · {{n.clsL}}<sc-if value="{{n.hasStatusNote}}"><span style="margin-left:8px;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));background:var(--ink);color:var(--bg)">{{n.statusTag}}</span></sc-if></span>
+            <strong style="font-size:calc(15.5px*var(--fs));text-decoration:{{n.tDeco}};opacity:{{n.aOp}}">{{n.title}}</strong>
+            <sc-if value="{{n.hasStatusNote}}"><span role="note" style="font-size:calc(13.5px*var(--fs));color:var(--ink)">{{n.statusNote}}</span></sc-if>
+            <sc-if value="{{n.hasCd}}"><span style="font-size:calc(13.5px*var(--fs));font-weight:750;color:{{n.cdBg}}">◷ {{n.cdText}}</span></sc-if>
+            <sc-if value="{{n.hasStmts}}"><ul aria-label="Statements" style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px"><sc-for list="{{n.stmts}}" as="s"><li><a href="{{s.u}}" target="_blank" rel="noopener" style="font-size:calc(13.5px*var(--fs));overflow-wrap:anywhere"><strong>Statement · {{s.pub}}:</strong> “{{s.t}}” ↗</a></li></sc-for></ul></sc-if>
+            <sc-if value="{{n.hasMoreLinks}}"><ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px 14px"><sc-for list="{{n.moreLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:calc(13.5px*var(--fs));font-weight:650">{{l.t}} ↗</a></li></sc-for></ul></sc-if>
           </div>
-        </sc-if>
-        <sc-if value="{{hasPlain}}">
-          <sc-for list="{{plainGroups}}" as="g"><div data-plain-group style="margin:0 0 18px">
-            <h2 style="margin:0 0 10px;font-size:calc(18px*var(--fs))">{{g.h}}</h2>
-            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
-              <sc-for list="{{g.items}}" as="i"><li style="border-radius:min(16px,var(--r));border:1px solid var(--line);background:var(--surface)">
-                <details>
-                  <summary style="cursor:pointer;list-style:none;padding:calc(14px*var(--ps)) calc(16px*var(--ps));min-height:calc(44px*var(--hs));display:flex;gap:12px;align-items:flex-start">
-                    <span style="min-width:0;font-size:calc(15px*var(--fs));line-height:1.45;overflow-wrap:anywhere;text-wrap:pretty">{{i.t}}</span>
-                    <span aria-hidden="true" style="margin-left:auto;flex:none;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3);white-space:nowrap;padding-left:8px">Exact words ▾</span>
-                  </summary>
-                  <div style="padding:0 calc(16px*var(--ps)) calc(14px*var(--ps)) calc(16px*var(--ps))">
-                    <sc-if value="{{i.hasSec}}"><p style="margin:0 0 6px;font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{i.sec}}</p></sc-if>
-                    <blockquote style="margin:0;padding:2px 0 2px calc(12px*var(--ps));border-left:3px solid var(--line-2);font-size:calc(14px*var(--fs));line-height:1.55;color:var(--ink-2);overflow-wrap:anywhere"><sc-if value="{{i.hasLead}}"><span>“{{i.lead}} …”<br></span></sc-if>“{{i.q}}”</blockquote>
-                    <sc-if value="{{i.hasU}}"><a href="{{i.u}}" target="_blank" rel="noopener" style="margin-top:6px;font-weight:700;font-size:calc(13.5px*var(--fs));min-height:calc(36px*var(--hs));display:inline-flex;align-items:center">Official text ↗</a></sc-if>
-                  </div>
-                </details>
-              </li></sc-for>
-            </ul>
-          </div></sc-for>
-          <p style="margin:0;font-size:calc(13px*var(--fs));line-height:1.5;color:var(--ink-3)">Each line is a plain-English summary written automatically and checked against the official text; open it to see the bill's exact words. Not legal advice.</p>
-        </sc-if>
-        <sc-if value="{{showMechText}}">
-          <h2 id="b-mech" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">What it does</h2>
-          <div style="padding:calc(22px*var(--ps));border-radius:min(22px,var(--r));background:var(--surface);border:1px solid var(--line)"><p style="margin:0;font-size:calc(17px*var(--fs));line-height:1.6;text-wrap:pretty;overflow-wrap:anywhere">{{bMech}}</p><p style="margin:12px 0 0;font-size:calc(13px*var(--fs));font-weight:650;color:var(--ink-3)">The tracker’s own wording.</p></div>
-        </sc-if>
-        <sc-if value="{{hasSummary}}">
-          <h2 id="b-mech2" style="margin:0 0 10px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">What it does, in legal detail</h2>
-          <details style="border-radius:min(18px,var(--r));border:1px solid var(--line);background:var(--surface)">
-            <summary style="cursor:pointer;padding:calc(14px*var(--ps)) calc(18px*var(--ps));font-weight:700;font-size:calc(15px*var(--fs));min-height:calc(44px*var(--hs))">Show the tracker’s full description</summary>
-            <p style="margin:0;padding:0 calc(18px*var(--ps)) calc(18px*var(--ps));font-size:calc(15px*var(--fs));line-height:1.65;color:var(--ink-2);text-wrap:pretty;overflow-wrap:anywhere">{{bMech}}</p>
-          </details>
-        </sc-if>
-      </section>
+          <sc-if value="{{n.hasGo}}"><a class="bp-go" href="{{n.goU}}" target="_blank" rel="noopener" title="{{n.goT}}">{{n.goL}} ↗</a></sc-if>
+        </li></sc-for>
+      </ol>
+    </section>
+  </sc-if>
 
-      <sc-if value="{{hasNews}}">
-        <section aria-labelledby="b-news">
-          <h2 id="b-news" style="margin:0 0 10px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">In the news this month</h2>
-          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
-            <sc-for list="{{bNews}}" as="n"><li style="padding:calc(14px*var(--ps)) calc(16px*var(--ps));border-radius:min(16px,var(--r));border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:4px"><span style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)"><span aria-hidden="true" style="color:{{n.kc}}">{{n.kg}}</span> {{n.date}} · {{n.kl}}</span><strong style="font-size:calc(15.5px*var(--fs))">{{n.title}}</strong><span style="font-size:calc(14px*var(--fs));color:var(--ink-2)">{{n.check}}</span></li></sc-for>
+  <sc-if value="{{hasRel}}">
+    <section aria-labelledby="b-rel" class="bp-card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><h2 id="b-rel" class="bp-h2">Related</h2><a href="{{relHref}}" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center">See all relationships →</a></div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+      <sc-for list="{{relGroups}}" as="g">
+        <section style="display:flex;flex-direction:column;gap:8px">
+          <h3 style="margin:0;font-size:calc(14px*var(--fs));font-weight:800;display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:18px;height:3px;border-radius:2px;background:{{g.c}}"></span>{{g.name}}<span style="font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums">{{g.n}}</span></h3>
+          <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:8px">
+            <sc-for list="{{g.items}}" as="r"><li style="padding:calc(10px*var(--ps)) calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line);display:flex;flex-direction:column;gap:4px"><sc-if value="{{r.isEntry}}"><a href="{{r.href}}" style="font-weight:750;font-size:calc(15px*var(--fs));color:var(--ink);min-height:32px;display:inline-flex;align-items:center">{{r.name}}</a></sc-if><sc-if value="{{r.isActor}}"><strong style="font-size:calc(15px*var(--fs))">{{r.name}}</strong></sc-if><span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2)">{{r.label}}</span></li></sc-for>
           </ul>
         </section>
-      </sc-if>
+      </sc-for>
+      </div>
+    </section>
+  </sc-if>
+  </div>
 
-      <sc-if value="{{hasTl}}">
-        <section data-entry-timeline aria-labelledby="b-tl">
-          <h2 id="b-tl" style="margin:0 0 4px;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">Official actions and statements</h2>
-          <p style="margin:0 0 12px;font-size:calc(13.5px*var(--fs));color:var(--ink-3)">Oldest first. Each action was read from the official record; statements are linked as published.</p>
-          <ol style="list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:14px">
-            <sc-for list="{{bTl}}" as="n"><li style="position:relative;display:flex;flex-direction:column;gap:5px"><span aria-hidden="true" style="position:absolute;left:-25px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid {{n.kc}}"></span>
-              <span style="font-size:calc(13px*var(--fs));font-weight:700;color:var(--ink-3)">{{n.date}} · {{n.clsL}}<sc-if value="{{n.hasStatusNote}}"><span style="margin-left:8px;padding:1px calc(8px*var(--ps));border-radius:min(999px,var(--r));background:var(--ink);color:var(--bg)">{{n.statusTag}}</span></sc-if></span>
-              <strong style="font-size:calc(15.5px*var(--fs));text-decoration:{{n.tDeco}};opacity:{{n.aOp}}">{{n.title}}</strong>
-              <sc-if value="{{n.hasStatusNote}}"><span role="note" style="font-size:calc(13.5px*var(--fs));color:var(--ink)">{{n.statusNote}}</span></sc-if>
-              <sc-if value="{{n.hasCd}}"><span style="font-size:calc(13.5px*var(--fs));font-weight:750;color:{{n.cdBg}}">◷ {{n.cdText}}</span></sc-if>
-              <sc-if value="{{n.hasStmts}}"><ul aria-label="Statements" style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px"><sc-for list="{{n.stmts}}" as="s"><li><a href="{{s.u}}" target="_blank" rel="noopener" style="font-size:calc(13.5px*var(--fs));overflow-wrap:anywhere"><strong>Statement · {{s.pub}}:</strong> “{{s.t}}” ↗</a></li></sc-for></ul></sc-if>
-              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:2px 14px"><sc-for list="{{n.links}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:calc(13.5px*var(--fs));font-weight:650">{{l.t}} ↗</a></li></sc-for></ul>
-            </li></sc-for>
-          </ol>
-        </section>
-      </sc-if>
+  <aside class="bp-side">
+    <section aria-labelledby="b-src" class="bp-card bp-side-card">
+      <h2 id="b-src" class="bp-h2s">Primary sources</h2>
+      <sc-if value="{{hasSrcLinks}}"><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column"><sc-for list="{{srcLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(40px*var(--hs));display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></sc-if>
+      <sc-if value="{{noSrcLinks}}"><p style="margin:0;font-size:calc(14.5px*var(--fs));overflow-wrap:anywhere">{{bSource}}</p><a href="{{bLink}}" target="_blank" rel="noopener" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(40px*var(--hs));display:inline-flex;align-items:center">See this entry on the current tracker ↗</a></sc-if>
+      <sc-if value="{{hasMoreLinks}}"><details><summary style="cursor:pointer;font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(40px*var(--hs));display:flex;align-items:center">More links ({{nMoreLinks}})</summary><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column"><sc-for list="{{moreLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:calc(14px*var(--fs));min-height:calc(40px*var(--hs));display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></details></sc-if>
+      <sc-if value="{{hasConf}}"><p data-confidence style="margin:0;align-self:flex-start;font-size:calc(12.5px*var(--fs));font-weight:750;padding:4px calc(9px*var(--ps));border-radius:6px;background:var(--surface-2);color:var(--ink-2);overflow-wrap:anywhere" title="{{confNote}}"><span aria-hidden="true" style="color:{{confC}}">● </span>{{confLabel}}</p></sc-if>
+      <sc-if value="{{hasMarks}}"><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{marks}}" as="m"><li style="font-size:calc(13.5px*var(--fs));color:var(--ink-2);display:flex;gap:8px"><span aria-hidden="true" style="color:var(--accent-ink)">●</span>{{m.t}}</li></sc-for></ul></sc-if>
+      <sc-if value="{{hasBChecked}}"><p data-checked style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{bCheckedLine}}</p></sc-if>
+      <p style="margin:0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Verified as of {{verLabel}}. Not legal advice: re-check the primary source before citing.</p>
+    </section>
 
-      <sc-if value="{{hasRel}}">
-        <section aria-labelledby="b-rel">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px"><h2 id="b-rel" style="margin:0;font-size:calc(20px*var(--fs));font-weight:800;letter-spacing:-.01em">Related</h2><a href="{{relHref}}" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center">See all relationships →</a></div>
-          <div style="display:flex;flex-direction:column;gap:16px">
-          <sc-for list="{{relGroups}}" as="g">
-            <section style="display:flex;flex-direction:column;gap:8px">
-              <h3 style="margin:0;font-size:calc(14px*var(--fs));font-weight:800;display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="width:18px;height:3px;border-radius:2px;background:{{g.c}}"></span>{{g.name}}<span style="font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums">{{g.n}}</span></h3>
-              <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:8px">
-                <sc-for list="{{g.items}}" as="r"><li style="padding:calc(12px*var(--ps)) calc(14px*var(--ps));border-radius:var(--r);border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:4px"><sc-if value="{{r.isEntry}}"><a href="{{r.href}}" style="font-weight:750;font-size:calc(15px*var(--fs));color:var(--ink);min-height:32px;display:inline-flex;align-items:center">{{r.name}}</a></sc-if><sc-if value="{{r.isActor}}"><strong style="font-size:calc(15px*var(--fs))">{{r.name}}</strong></sc-if><span style="font-size:calc(13.5px*var(--fs));color:var(--ink-2)">{{r.label}}</span></li></sc-for>
-              </ul>
-            </section>
-          </sc-for>
-          </div>
-        </section>
-      </sc-if>
-    </div>
+    <section aria-labelledby="b-steps" data-where class="bp-card bp-side-card">
+      <h2 id="b-steps" class="bp-h2s">Where it stands</h2>
+      <p data-now style="margin:0;padding:calc(10px*var(--ps)) calc(12px*var(--ps));border-radius:min(10px,var(--r));background:var(--surface-2);font-size:calc(14.5px*var(--fs));line-height:1.45"><strong style="color:{{bSc}}">Now:</strong> {{nowLine}}</p>
+      <sc-if value="{{noSteps}}"><p style="margin:0;font-size:calc(14px*var(--fs));color:var(--ink-2)">No dated events are recorded for this entry.</p></sc-if>
+      <sc-if value="{{hasSteps}}"><ol style="list-style:none;margin:0;padding:0 0 0 calc(16px*var(--ps));border-left:2px solid var(--line);display:flex;flex-direction:column;margin-left:6px">
+        <sc-for list="{{steps}}" as="s">
+          <li style="position:relative;padding:2px 0 calc(12px*var(--ps)) calc(4px*var(--ps))">
+            <span aria-hidden="true" style="position:absolute;left:calc(-24px*var(--ps));top:6px;width:12px;height:12px;border-radius:50%;background:{{s.dot}};border:{{s.bd}}"></span>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><strong style="font-size:calc(14px*var(--fs));font-variant-numeric:tabular-nums">{{s.date}}</strong><sc-if value="{{s.fut}}"><span style="font-size:calc(11.5px*var(--fs));font-weight:800;padding:1px calc(7px*var(--ps));border-radius:min(999px,var(--r));border:1px dashed var(--st-pending)">{{s.tag}}</span></sc-if></div>
+            <p style="margin:2px 0 0;font-size:calc(14px*var(--fs));color:var(--ink-2);text-wrap:pretty;overflow-wrap:anywhere">{{s.t}}</p>
+          </li>
+        </sc-for>
+      </ol></sc-if>
+      <sc-if value="{{hasStatusText}}"><details data-status-text>
+        <summary style="cursor:pointer;font-weight:700;font-size:calc(13.5px*var(--fs));color:var(--accent-ink);min-height:calc(40px*var(--hs));display:flex;align-items:center">Full status as recorded</summary>
+        <p style="margin:0 0 4px;font-size:calc(12.5px*var(--fs));font-weight:700;color:var(--ink-3)">{{statusLabel}}</p>
+        <p style="margin:0;font-size:calc(14px*var(--fs));line-height:1.6;color:var(--ink);text-wrap:pretty;overflow-wrap:anywhere">{{statusText}}</p>
+      </details></sc-if>
+    </section>
 
-    <aside style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:14px;position:sticky;top:80px">
-      <section aria-labelledby="b-facts" style="padding:calc(18px*var(--ps));border-radius:min(20px,var(--r));background:var(--surface);border:1px solid var(--line)">
-        <h2 id="b-facts" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">Key facts</h2>
-        <dl style="margin:0;display:flex;flex-direction:column;gap:12px">
-          <sc-if value="{{hasTh}}"><div><dt style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">Who it covers</dt><dd style="margin:2px 0 0;font-size:calc(15px*var(--fs));overflow-wrap:anywhere">{{bTh}}</dd></div></sc-if>
-          <sc-if value="{{hasSigned}}"><div><dt style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">Signed</dt><dd style="margin:2px 0 0;font-size:calc(15px*var(--fs))">{{bSigned}}</dd></div></sc-if>
-          <sc-if value="{{hasEffective}}"><div><dt style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">Effective</dt><dd style="margin:2px 0 0;font-size:calc(15px*var(--fs));overflow-wrap:anywhere">{{bEffective}}</dd></div></sc-if>
-          <sc-if value="{{hasPenalties}}"><div><dt style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">Penalties and enforcement</dt><dd style="margin:2px 0 0;font-size:calc(15px*var(--fs));overflow-wrap:anywhere">{{bPenalties}}</dd></div></sc-if>
-          <sc-if value="{{hasSponsor}}"><div><dt style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">Sponsors</dt><dd style="margin:2px 0 0;font-size:calc(15px*var(--fs))">{{bSponsor}}</dd></div></sc-if>
-          <div><dt style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">Jurisdiction</dt><dd style="margin:2px 0 0;font-size:calc(15px*var(--fs))">{{bJuris}}</dd></div>
-          <div><dt style="font-size:calc(13px*var(--fs));font-weight:750;color:var(--ink-3)">Years with dated events</dt><dd style="margin:2px 0 0;font-size:calc(15px*var(--fs));font-variant-numeric:tabular-nums">{{bYears}}</dd></div>
-        </dl>
-      </section>
-      <section aria-labelledby="b-src" style="padding:calc(18px*var(--ps));border-radius:min(20px,var(--r));background:var(--surface);border:1px solid var(--line)">
-        <h2 id="b-src" style="margin:0 0 10px;font-size:calc(18px*var(--fs))">Primary sources</h2>
-        <p style="margin:0;font-size:calc(15px*var(--fs));overflow-wrap:anywhere">{{bSource}}</p>
-        <sc-if value="{{hasSrcLinks}}"><ul style="margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px"><sc-for list="{{srcLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></sc-if>
-        <sc-if value="{{hasMoreLinks}}"><details style="margin-top:6px"><summary style="cursor:pointer;font-weight:700;font-size:calc(14px*var(--fs));min-height:calc(44px*var(--hs));display:flex;align-items:center">More links in the tracker row ({{nMoreLinks}})</summary><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px"><sc-for list="{{moreLinks}}" as="l"><li><a href="{{l.u}}" target="_blank" rel="noopener" style="font-size:calc(14px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center;overflow-wrap:anywhere">{{l.t}} ↗</a></li></sc-for></ul></details></sc-if>
-        <sc-if value="{{noSrcLinks}}"><a href="{{bLink}}" target="_blank" rel="noopener" style="margin-top:8px;font-weight:700;font-size:calc(14.5px*var(--fs));min-height:calc(44px*var(--hs));display:inline-flex;align-items:center">See this entry on the current tracker ↗</a></sc-if>
-        <sc-if value="{{hasMarks}}"><ul style="margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px"><sc-for list="{{marks}}" as="m"><li style="font-size:calc(13.5px*var(--fs));color:var(--ink-2);display:flex;gap:8px"><span aria-hidden="true" style="color:var(--accent-ink)">●</span>{{m.t}}</li></sc-for></ul></sc-if>
-        <sc-if value="{{hasBChecked}}"><p data-checked style="margin:12px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">{{bCheckedLine}}</p></sc-if>
-        <p style="margin:12px 0 0;font-size:calc(13px*var(--fs));color:var(--ink-3)">Verified as of {{verLabel}}. Not legal advice: re-check the primary source before citing.</p>
-      </section>
-    </aside>
+    <section aria-labelledby="b-facts" data-key-facts class="bp-card bp-side-card">
+      <h2 id="b-facts" class="bp-h2s">Key facts</h2>
+      <dl style="margin:0">
+        <sc-for list="{{facts}}" as="f"><div style="display:grid;grid-template-columns:minmax(90px,38%) minmax(0,1fr);gap:10px;padding:calc(8px*var(--ps)) 0;border-top:1px solid var(--line)">
+          <dt style="font-size:calc(13.5px*var(--fs));font-weight:700;color:var(--ink-3)">{{f.l}}</dt>
+          <dd style="margin:0;font-size:calc(14.5px*var(--fs));overflow-wrap:anywhere;color:{{f.fg}};font-style:{{f.fs}}">{{f.v}}</dd>
+        </div></sc-for>
+      </dl>
+    </section>
+  </aside>
   </div>
 </article>
 </sc-if>
@@ -1441,46 +1510,149 @@ class Component extends DCLogic {
     ].filter(g => g.items.length);
     return { hasPlain: groups.length > 0, plainGroups: groups, isFactsOnly: false };
   }
-  // What the bill requires, from entry.duties (each answer carries its section and an exact quote that code has checked).
+  // What the bill requires, from entry.duties (each answer carries its section and an exact quote that code has checked): the
+  // 13 questions in three fixed groups, every row shown (an answer the text does not give says so), and the 30-second boxes and
+  // key numbers read off the same answers. Nothing here is new wording: labels are ours, every value is a checked duty summary.
   dutyView(x) {
     const L = this.L, dts = x.raw && x.raw.duties;
-    if (!dts) return { hasDuties: false, dCards: [], dRows: [], hasDNot: false, dNot: '', dBasis: '' };
-    const card = (h, kind, none) => {
-      const items = L.DUTIES.filter(d => d.kind === kind && dts[d.k].value !== 'not_in_bill').map(d => ({ hasL: kind === 'covers', l: d.l, t: dts[d.k].summary }));
-      return { h, items: items.length ? items : [{ hasL: false, l: '', t: none }] };
-    };
-    const dCards = [card('Who it covers', 'covers', 'The text sets no compute, revenue or harm threshold.'), card('When it takes effect', 'when', 'The text states no effective date.'), card('Enforcement', 'enforce', 'The text states no penalty.')];
-    const dRows = L.DUTIES.filter(d => d.kind === 'duty' && dts[d.k].value !== 'not_in_bill').map(d => { const v = dts[d.k]; return { g: L.DUTY_VALUE[v.value].g, l: d.l, vl: L.DUTY_VALUE[v.value].l, t: v.summary, sec: v.section, q: v.quote, u: v.source_url }; });
+    if (!dts) return { hasDuties: false, dGroups: [], hasDNot: false, dNot: '', dBasis: '', dThirty: null, nums: [], hasNums: false };
+    const MARK = { yes: ['var(--accent-soft)', 'var(--accent-ink)'], partial: ['var(--surface-2)', 'var(--ink)'], no: ['var(--surface-2)', 'var(--ink-3)'], not_in_bill: ['var(--surface-2)', 'var(--ink-3)'] };
+    const row = (d) => { const v = dts[d.k], m = MARK[v.value] || MARK.not_in_bill; return { g: L.DUTY_VALUE[v.value].g, l: d.l, vl: L.DUTY_VALUE[v.value].l, t: v.summary, sec: v.section || '', hasSec: !!v.section, q: v.quote || '', hasQ: !!v.quote, u: v.source_url || '', hasU: !!v.source_url, bg: m[0], fg: m[1] }; };
+    const dGroups = [['Duties', ['duty']], ['Who it covers', ['covers']], ['Teeth and timing', ['enforce', 'when']]].map(([h, kinds]) => ({ h, rows: L.DUTIES.filter(d => kinds.includes(d.kind)).map(row) }));
     const notIn = L.DUTIES.filter(d => d.kind === 'duty' && dts[d.k].value === 'not_in_bill').map(d => d.l.toLowerCase());
+    const has = (d) => dts[d.k] && (dts[d.k].value === 'yes' || dts[d.k].value === 'partial');
+    const covers = L.DUTIES.filter(d => d.kind === 'covers' && has(d)).map(d => dts[d.k].summary);
+    const duties = L.DUTIES.filter(d => d.kind === 'duty' && has(d)).map(d => d.l.toLowerCase());
+    const pen = dts.penalties && dts.penalties.value !== 'not_in_bill' ? dts.penalties.summary : '';
+    const dThirty = { who: covers.join(' ') || 'The text sets no compute, revenue or harm threshold.', must: duties.length ? duties.join(', ').replace(/^./, c => c.toUpperCase()) + '.' : '', orelse: pen || 'The text states no penalty.' };
+    // key numbers: the first figure in each answer that has one (amounts, 10^n operations, periods, head counts)
+    const NUM = /\$\s?\d[\d,]*\d(?:\.\d+)?(?:\s?(?:million|billion|trillion))?|10\^\d+|\b\d[\d,]*(?:\.\d+)?\s?(?:calendar days|business days|days|hours|months|years|people|persons|individuals|percent|%)/i;
+    const SUP = { 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+    const nums = L.DUTIES.filter(d => d.k !== 'effective_date' && has(d)).map(d => { const m = NUM.exec(dts[d.k].summary || ''); return m ? { v: m[0].replace(/10\^(\d+)/, (_, e) => '10' + e.split('').map(c => SUP[c]).join('')).replace(/\$\s/, '$'), l: d.l } : null; }).filter(Boolean).slice(0, 6);
     const b = x.raw.duties_basis;
-    return { hasDuties: true, dCards, dRows, hasDNot: notIn.length > 0, dNot: notIn.join(', '),
+    return { hasDuties: true, dGroups, hasDNot: notIn.length > 0, dNot: notIn.join(', '), dThirty, nums, hasNums: nums.length >= 2,
       dBasis: b ? 'Read from the official bill text on ' + L.fmt(new Date(b.checked_at)) + '. Every quote above is checked against that text by code; the plain-English lines are not legal advice.' : '' };
+  }
+  // An executive action's checklist (entry.exec_checklist) and a lawsuit's claims (entry.claims), in the same row shape as the duties.
+  checkRows(x, kind) {
+    const L = this.L, raw = x.raw || {};
+    const MARK = { yes: ['var(--accent-soft)', 'var(--accent-ink)'], won: ['var(--accent-soft)', 'var(--accent-ink)'], partial: ['var(--surface-2)', 'var(--ink)'], unclear: ['var(--surface-2)', 'var(--ink)'] };
+    const mk = (v) => MARK[v] || ['var(--surface-2)', 'var(--ink-3)'];
+    if (kind === 'exec' && raw.exec_checklist) {
+      const c = raw.exec_checklist;
+      const row = (d) => { const v = c[d.k], m = mk(v.value); return { g: L.DUTY_VALUE[v.value].g, l: d.l, vl: L.DUTY_VALUE[v.value].l, t: v.summary, sec: v.section || '', hasSec: !!v.section, q: v.quote || '', hasQ: !!v.quote, u: v.source_url || '', hasU: !!v.source_url, bg: m[0], fg: m[1] }; };
+      const groups = [['Effect on companies', 'companies'], ['What government must do', 'government'], ['Reach', 'reach']].map(([h, kd]) => ({ h, rows: L.EXEC_QUESTIONS.filter(d => d.kind === kd).map(row) }));
+      return { hasCheck: true, checkGroups: groups, reqH: 'What it orders', reqCap: 'the same questions on every executive action · open a row for the exact words' };
+    }
+    if (kind === 'lit' && raw.claims) {
+      const rows = raw.claims.map(c => { const o = L.CLAIM_OUTCOME[c.outcome], m = mk(c.outcome); return { g: o.g, l: c.label, vl: o.l, t: c.note || '', sec: '', hasSec: false, q: '', hasQ: false, u: c.source_url || '', hasU: !!c.source_url, bg: m[0], fg: m[1] }; });
+      return { hasCheck: true, checkGroups: [{ h: 'Claims', rows }], reqH: 'The claims and how they fared', reqCap: 'in the order the complaint pleads them · open a row for the record' };
+    }
+    return null;
+  }
+  // Which page layout an entry uses: a bill (bills, laws, drafts, earlier proposals, export bills), an executive action (orders,
+  // directives, agency programmes, export rules), a lawsuit (a named case), or a watch item (a litigation entry with no single case).
+  billKind(x) {
+    if (x.type === 'executive') return 'exec';
+    if (x.type === 'export') return /\b(?:H\.\s?R\.|S\.)\s?\d|\bAct\b/.test(x.title) ? 'bill' : 'exec';
+    if (x.type === 'litigation') return / v\. /.test(x.title) ? 'lit' : 'watch';
+    return 'bill';
+  }
+  // The name shown as the page title: entry.display_name when set; else the official short title after the number ("S.B. 53 —
+  // Transparency in Frontier AI Act"), the quoted name of a "titled …" bill, or the case name; else the tracker's short name.
+  billName(x, kind) {
+    const t = x.title, i = t.indexOf(' — '), dn = x.raw && x.raw.display_name;
+    if (dn) return dn;
+    if (kind === 'lit') { const m = /^(.+? v\. .+?)(?:,? No\.|,|\s\(|$)/.exec(t); return m ? m[1] : x.short; }
+    if (i < 0) return x.short;
+    const after = t.slice(i + 3).replace(/\s*⟨[^⟩]*⟩/g, '').trim(), q = /^titled (?:the )?[“"]([^”"]+)[”"]/.exec(after);
+    if (q) return q[1];
+    return /^(?:Chapter \d|[“"]An Act|An Act)/.test(after) ? x.short : after;
+  }
+  // The facts under the title and in the Key facts box, by layout. Only facts the record holds; a fact it does not hold says so.
+  billFacts(x, kind) {
+    const L = this.L, t = x.title, i = t.indexOf(' — '), num = i > 0 ? t.slice(0, i) : '';
+    const first = x.dated.length ? x.dated[0] : null, sponsor = (x.sponsor || '').split(/;\s*/)[0];
+    const dts = x.raw && x.raw.duties, penText = [x.penalties, dts && dts.penalties && dts.penalties.value !== 'not_in_bill' && dts.penalties.summary].filter(Boolean).join(' ');
+    const enforcer = /Attorney General|\bAG\b/.test(penText) ? 'Attorney General' : '';
+    const kf = (x.raw && x.raw.key_facts) || {};
+    const NS = 'Not stated in our record';
+    const f = (l, v, none) => ({ l, v: v || none || NS, fg: v ? 'var(--ink)' : 'var(--ink-3)', fs: v ? 'normal' : 'italic' });
+    const checked = x.lastChecked ? L.fmt(new Date(x.lastChecked + 'T12:00:00')) : '';
+    if (kind === 'exec') {
+      const issuer = kf.issued_by || (!x.st && /^(?:EO|Executive Order)\b/.test(t) ? 'The President' : x.st && /\bEO\b|Executive Order/.test(t) ? 'Governor of ' + x.juris : '');
+      const order = num || x.short;
+      return { line: [this.billName(x, kind) === order ? '' : order, issuer, first && L.fmt(first.d)].filter(Boolean).join(' · '),
+        facts: [f('Official title', x.title), f('Type', L.TYPES[x.type]), f('Jurisdiction', x.juris), f('Issued by', issuer), f('Lead agencies', kf.lead_agencies), f('Last checked', checked)] };
+    }
+    if (kind === 'lit') {
+      const m = /No\. ([^\s,()]+)(?:\s*\(([^)]+)\))?/.exec(t), sides = this.billName(x, kind).split(' v. ');
+      return { line: [m && 'No. ' + m[1], m && m[2], first && 'filed ' + L.fmt(first.d)].filter(Boolean).join(' · '),
+        facts: [f('Official title', x.title), f('Case no.', m && m[1]), f('Type', 'Lawsuit'), f('Court', kf.court || (m && m[2])), f('Judge', kf.judge), f('Plaintiff', kf.plaintiff || sides[0]), f('Defendants', kf.defendants || sides[1]), f('Lawyers', kf.lawyers), f('Last checked', checked)] };
+    }
+    if (kind === 'watch') return { line: '', facts: [f('Official title', x.title), f('Type', L.TYPES[x.type]), f('Jurisdiction', x.juris), f('Last checked', checked)] };
+    const signed = x.signed && x.signed.length <= 24 ? 'signed ' + x.signed : '';
+    return { line: [num || (this.billName(x, kind) === x.short ? '' : x.short), sponsor, signed].filter(Boolean).join(' · '),
+      facts: [f('Official title', x.title), f('Type', L.TYPES[x.type]), f('Jurisdiction', x.juris), f('Sponsors', x.sponsor), f('Enforced by', kf.enforced_by || enforcer, penText ? '' : 'No penalty stated'), f('Last checked', checked)] };
+  }
+  // How it compares: this bill beside up to three related entries that have the same checklist.
+  billCompare(x, rel) {
+    const L = this.L, D = this.D, mine = x.raw && x.raw.duties;
+    if (!mine) return { hasCmp: false, cmpCols: [], cmpRows: [] };
+    const others = [...new Set(rel.filter(r => r.isEntry).map(r => +r.href.slice(7)))].map(i => D.byId[i]).filter(o => o && o.id !== x.id && o.raw && o.raw.duties).slice(0, 3);
+    if (!others.length) return { hasCmp: false, cmpCols: [], cmpRows: [] };
+    const cols = [x, ...others], keys = ['framework', 'incident_reporting', 'third_party_audit', 'whistleblower', 'shutdown', 'penalties'];
+    const cmpRows = keys.map(k => ({ l: L.DUTIES.find(d => d.k === k).l, cells: cols.map(o => { const v = o.raw.duties[k].value; return { g: L.DUTY_VALUE[v].g, vl: L.DUTY_VALUE[v].l, fg: v === 'yes' ? 'var(--ink)' : 'var(--ink-3)' }; }) }));
+    return { hasCmp: true, cmpCols: cols.map((o, j) => ({ name: o.short, self: j === 0, other: j > 0, href: '#/bill/' + o.id })), cmpRows };
   }
   bill(id) {
     const L = this.L, D = this.D, x = D.byId[id];
     if (!x) return { isBill: false };
-    const R = D.rel, k = x.key;
-    const steps = x.dated.map(sg => { const fut = this.sched(sg.d); return { date: L.fmt(sg.d), t: sg.t, fut, tag: fut ? 'Scheduled' : '', dot: fut ? 'var(--surface)' : `var(--st-${x.status})`, bd: `2px solid var(--st-${x.status})` }; });
+    const R = D.rel, k = x.key, kind = this.billKind(x);
+    let next = true;
+    const steps = x.dated.map(sg => { const fut = this.sched(sg.d), isNext = fut && next; if (fut) next = false; return { date: L.fmt(sg.d), t: sg.t, fut, tag: isNext ? 'Next' : fut ? 'Scheduled' : '', dot: fut ? 'var(--surface)' : `var(--st-${x.status})`, bd: `2px solid var(--st-${x.status})` }; });
     const rel = k ? D.edges.filter(e => e.from === k || e.to === k).map(e => { const o = e.from === k ? e.to : e.from, oid = D.keyToId[o]; return { t: e.type, name: R.actors[o] || R.short[o] || o, label: e.label, href: oid ? '#/bill/' + oid : '', isEntry: !!oid, isActor: !oid }; }) : [];
     const relGroups = Object.keys(R.types).map(t => { const items = rel.filter(r => r.t === t); return { name: R.types[t].name, c: this.V.TYPE_COLOR[t] || 'var(--line-2)', n: String(items.length), items }; }).filter(g => g.items.length);
     const stx = x.statusText || { text: '', asOf: null };
-    const news = D.N.filter(n => n.entryId === id && !L.isAuto(n)).map(n => this.feedItem(n));
+    // news and official actions: the first link sits on the right of the row; any others stay under it
+    const go = (f, label) => ({ ...f, hasGo: f.links.length > 0, goU: f.links.length ? f.links[0].u : '', goT: f.links.length ? f.links[0].t : '', goL: label, moreLinks: f.links.slice(1), hasMoreLinks: f.links.length > 1 });
+    const news = D.N.filter(n => n.entryId === id && !L.isAuto(n)).map(n => go(this.feedItem(n), 'Source'));
     // Per-entry timeline: this entry's automated events (with their attached statements), oldest first.
-    const tl = D.N.filter(n => n.entryId === id && L.isAuto(n)).sort((a, b) => a.d - b.d || a.i - b.i).map(n => this.feedItem(n));
+    const tl = D.N.filter(n => n.entryId === id && L.isAuto(n)).sort((a, b) => a.d - b.d || a.i - b.i).map(n => go(this.feedItem(n), kind === 'lit' ? 'Court record' : 'Official record'));
     const following = this.state.follow.includes(id);
     const marks = [x.U && 'Added or changed in the supplementary checks through ' + L.fmt(L.ASOF), x.R && 'Found through a dedicated search pass', x.NCSL && 'Found through the NCSL legislation database'].filter(Boolean).map(t => ({ t }));
+    const dv = this.dutyView(x), pv = this.plainView(x), facts = this.billFacts(x, kind), name = this.billName(x, kind);
+    // In 30 seconds: entry.thirty_seconds when written; else, for a bill with the checklist, the checklist's own answers
+    const ts = x.raw && x.raw.thirty_seconds, H = { bill: ['Who', 'Must do', 'Or else'], exec: ['Who it directs', 'What it orders', 'Binding on companies?'], lit: ['Who v. who', 'About', 'Where it is'], watch: ['What we watch', 'Why', 'Latest'] }[kind];
+    const box = (h, t) => ({ h, t: t || 'Not stated in the text', fg: t ? 'var(--ink)' : 'var(--ink-3)', fs: t ? 'normal' : 'italic' });
+    const thirty = ts ? H.map((h, j) => box(h, ts[['a', 'b', 'c'][j]])) : dv.dThirty ? [box(H[0], dv.dThirty.who), box(H[1], dv.dThirty.must), box(H[2], dv.dThirty.orelse)] : [];
+    const line = (x.raw && x.raw.summary_line) || x.summary || '';
+    const CONF = { HIGH: ['High confidence', 'var(--st-enacted)'], 'MED-HIGH': ['Medium-high confidence', 'var(--st-pending)'], MED: ['Medium confidence', 'var(--st-pending)'], MEDIUM: ['Medium confidence', 'var(--st-pending)'], LOW: ['Low confidence', 'var(--st-failed)'] };
+    const conf = x.conf ? CONF[x.conf] : null;
+    const basis = x.raw && x.raw.confidence && x.raw.confidence.basis ? ' · ' + x.raw.confidence.basis.replace(/_/g, ' ') : '';
+    const hasMechHead = pv.hasPlain || pv.isFactsOnly;
     return {
-      isBill: true, bId: id, ...this.billChecked(x.v2key), bTitle: x.title, bShort: x.short, bSec: x.sec, bSecHref: '#/explore?type=' + x.type, bJuris: x.juris, bType: L.TYPES[x.type],
+      isBill: true, bId: id, ...this.billChecked(x.v2key), bTitle: x.title, bShort: x.short, bName: name,
+      bNumLine: facts.line, hasBNumLine: !!facts.line, bLine: line, hasBLine: !!line, hasSummaryDraft: !!x.summary && !(x.raw && x.raw.summary_line),
+      bSec: x.sec, bSecHref: '#/explore?type=' + x.type, bJuris: x.juris, bType: L.TYPES[x.type],
       bSl: L.ST[x.status].l, bSg: L.ST[x.status].g, bSc: `var(--st-${x.status})`,
-      hasSummary: !!x.summary, bSummary: x.summary, noSummary: !x.summary, bLead: x.lead,
-      bMech: x.mech, hasSigned: !!x.signed, bSigned: x.signed, hasEffective: !!x.effective, bEffective: x.effective, hasPenalties: !!x.penalties, bPenalties: x.penalties,
-      srcLinks: x.srcLinks, hasSrcLinks: x.srcLinks.length > 0, noSrcLinks: !x.srcLinks.length && !x.moreLinks.length, moreLinks: x.moreLinks, hasMoreLinks: x.moreLinks.length > 0, nMoreLinks: x.moreLinks.length, bTh: x.thresholds, hasTh: !!x.thresholds, bSponsor: x.sponsor, hasSponsor: !!x.sponsor, bSource: x.source, bLink: x.link, bYears: x.years.filter(y => y !== '*').join(', ') || 'None recorded',
+      nowLine: L.ST[x.status].l + (x.kd ? '. Latest: ' + x.kdLabel : ''),
+      thirty, hasThirty: thirty.length > 0,
+      bMech: x.mech, srcLinks: x.srcLinks, hasSrcLinks: x.srcLinks.length > 0, noSrcLinks: !x.srcLinks.length && !x.moreLinks.length, moreLinks: x.moreLinks, hasMoreLinks: x.moreLinks.length > 0, nMoreLinks: x.moreLinks.length, bSource: x.source, bLink: x.link,
+      hasConf: !!conf, confLabel: conf ? conf[0] + basis : '', confC: conf ? conf[1] : '', confNote: x.confNote,
+      facts: facts.facts,
       steps, hasSteps: steps.length > 0, noSteps: !steps.length && !stx.text,
-      statusText: stx.text, hasStatusText: !!stx.text, statusLabel: x.raw && x.raw.verification && x.raw.verification.method === 'session' ? 'Status as recorded (read from the official record on ' + L.fmt(new Date(x.raw.verification.checked_at)) + '; added after the 15 Oct verification)' : 'Status as recorded (verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)) + ')',
-      relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0, bTl: tl, hasTl: tl.length > 0,
-      ...this.dutyView(x),
-      ...this.plainView(x),
-      showMechText: !x.summary && !(x.raw && x.raw.plain),
+      statusText: stx.text, hasStatusText: !!stx.text, statusLabel: x.raw && x.raw.verification && x.raw.verification.method === 'session' ? 'Read from the official record on ' + L.fmt(new Date(x.raw.verification.checked_at)) + '; added after the 15 Oct verification' : 'Verified as of ' + (stx.asOf || L.fmt(x.U ? L.ASOF : L.VERIFIED)),
+      relGroups, hasRel: rel.length > 0, relHref: k ? '#/insights?view=relations&c=' + k : '', bNews: news, hasNews: news.length > 0, bPress: ((x.raw && x.raw.press) || []).map((p) => ({ headline: p.headline, outlet: p.outlet, date: L.fmt(new Date(p.date + 'T12:00:00')), url: p.url })), hasPress: !!(x.raw && x.raw.press && x.raw.press.length), bTl: tl, hasTl: tl.length > 0, tlH: kind === 'lit' ? 'Docket' : 'Official actions and statements',
+      ...dv, ...pv, ...this.billCompare(x, rel),
+      ...(this.checkRows(x, kind) || { hasCheck: dv.hasDuties, checkGroups: dv.dGroups, reqH: 'What it requires', reqCap: 'the same 13 questions on every bill · open a row for the exact words' }),
+      plainH: dv.hasDuties ? 'What else it does' : 'What it does',
+      showMechText: !dv.hasDuties && !line && !pv.hasPlain && !pv.isFactsOnly && !!x.mech,
+      // the tracker's own longer wording (description, thresholds, penalties, dates) stays on the page, folded
+      ...(() => { const foldMech = (dv.hasDuties || !!line || hasMechHead) && !!x.mech, shown = !dv.hasDuties && !line && !pv.hasPlain && !pv.isFactsOnly && !!x.mech;
+        const legal = [['Who it covers', x.thresholds], ['Penalties and enforcement', x.penalties], ['Signed', x.signed], ['Effective', x.effective]].filter(r => r[1]).map(([l, t]) => ({ l, t }));
+        return { foldMech, legal, showMechFold: foldMech || legal.length > 0, noMechHeading: !hasMechHead && !shown }; })(),
+      mechH: dv.hasDuties ? 'What else it does' : 'What it does',
       hasAutoBadge: !!x.raw && x.raw.origin !== 'authored', autoTitle: 'The latest official actions on this entry were added automatically from the official record and checked by code.',
       marks, hasMarks: marks.length > 0,
       following, followLabel: following ? '✓ Following' : '+ Follow', followBg: following ? 'var(--ink)' : 'var(--surface)', followFg: following ? 'var(--bg)' : 'var(--ink)',

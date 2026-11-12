@@ -62,6 +62,12 @@ function done(rep) {
     const fixed = c.status === 'written' || c.status === 'dry-run' ? c.corrected : [];
     L.push(`<b>Self-check (${fixed.length} fixed)</b>`, `<i>${c.checked.length} entr${c.checked.length === 1 ? 'y' : 'ies'} re-read</i>`, ...bullets(fixed, 4, (x) => `▸ ${esc(clip(names[x.entry_key] || x.entry_key, 30))}, ${esc(x.field)}\n      <i>${esc(clip(x.problem, 80))}</i>`), '');
   }
+  // entry pages' written fields (pagefields/step.mjs): what was written, or how many pages wait while the switch is off
+  const pf = rep.page_fields;
+  if (pf && pf.ran) L.push(`<b>Page fields (${pf.written.length} written)</b>`, ...bullets(pf.written, 4, (w) => `▸ ${esc(clip(names[w.entry_key] || w.entry_key, 34))}\n      <i>${esc(clip(w.fields.join(', '), 60))}</i>`), ...(pf.dropped.length ? [`<i>${pf.dropped.length} field(s) left off by the checks</i>`] : []), '');
+  // in the press (news/press.mjs): the press links added to entry pages this run
+  const pr = rep.press;
+  if (pr && pr.ran && pr.added.length) L.push(`<b>In the press (${pr.added.length} added)</b>`, ...bullets(pr.added, 4, (a) => `▸ ${esc(clip(a.headline, 34))}\n      <i>${esc(clip(`${a.outlet} → ${names[a.entry_key] || a.entry_key}`, 50))}</i>`), '');
   const nw = rep.news;
   if (nw && nw.ran) {
     if (nw.events && (nw.events.added.length || nw.events.confirmed.length)) L.push(`<b>News events</b>`, `<i>${nw.events.added.length} new, ${nw.events.confirmed.length} confirmed, ${nw.events.pending} pending</i>`, '');

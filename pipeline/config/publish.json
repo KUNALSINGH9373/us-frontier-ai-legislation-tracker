@@ -16,7 +16,9 @@
   "penalties": false,
   "new_entries": true,
   "relationships": true,
-  "news": true
+  "news": true,
+  "page_fields": true,
+  "press": true
  },
  "links": {
   "_note": "The links step of update.mjs (links/run.mjs). For every entry added or changed in a run, code proposes links (a lead sponsor already in the network, a bill amending a tracked law). AI links need a quote from both bills found by code and the validator's agreement. While auto_publish.relationships is off, proposals are only listed in the run report under Links proposed; when on, links/apply.mjs adds them (additions only, checked by publish/guards.mjs). Code-only backtest: node links/backtest.mjs."
@@ -24,6 +26,17 @@
  "news": {
   "_note": "News card wording (news/writer.mjs). ai_writer false (default, decided 29 Oct 2026 after review round 3): every card is written by the phrase bank (news/phrasebank.mjs: fixed hand-reviewed variants filled from the fact sheet, no AI). true: the free AI writer checked by code and a second reader; the gate then also needs an AI-written card in the news_writer report, recorded with the production generator and validator models.",
   "ai_writer": false
+ },
+ "page_fields": {
+  "_note": "The page-fields step of update.mjs (pagefields/step.mjs): each entry page's summary line, 30-second boxes, Key facts rows and display name, written from the entry's own checked text by the generator, checked by code and passed by bill_reviewer, field by field. Entries this run added or changed come first, then any whose text changed since its page fields were written (page_verification.basis_sha256), then any that never had them, up to max_entries_per_run. A field that fails is left off and the page shows the entry's existing text there. Written only when auto_publish.page_fields is on and the gate passes (eval/pagefields-set.mjs at zero wrong and zero errors); while off, no AI is spent and the report says how many pages wait.",
+  "enabled": true,
+  "max_entries_per_run": 3
+ },
+ "press": {
+  "_note": "The press step of update.mjs (news/press.mjs): links to credible outlets' coverage of one tracked entry (NYT, Washington Post, CNN, The Independent, Politico: the outlets whose public feeds allow automated reading; Reuters and AP refuse it), shown on the entry page as 'In the press', apart from the official record. Only the outlet's headline, its name, the date and the link; never any other field. A story is a press lead from the news step matched to exactly one entry by its bill number or name; code checks the outlet, its own site, the date (within max_age_days, not in the future) and duplicates; bill_reviewer must confirm it is about that entry and its headline does not misstate the entry's status. At most 5 per entry, newest first. Gate: eval/press-set.mjs at zero wrong.",
+  "enabled": true,
+  "max_age_days": 14,
+  "max_checks_per_run": 8
  },
  "news_from_official_actions": false,
  "copy_to_docs": true,

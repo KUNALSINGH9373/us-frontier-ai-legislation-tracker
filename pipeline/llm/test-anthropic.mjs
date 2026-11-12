@@ -56,7 +56,8 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   const f = client.calls[0].output_config;
   ok('a schema is sent as output_config.format json_schema, next to effort', f.effort === 'high' && f.format.type === 'json_schema' && f.format.schema.type === 'object' && f.format.schema.additionalProperties === false);
   const item = f.format.schema.properties.results.items;
-  ok('the schema is JSON Schema: lower-case types, nullable as a null type, required kept', item.properties.n.type === 'integer' && JSON.stringify(item.properties.quote.type) === '["string","null"]' && item.required.includes('supported') && item.additionalProperties === false);
+  ok('the schema is JSON Schema: lower-case types, an optional text field sent as required text (empty = not given), required kept', item.properties.n.type === 'integer' && item.properties.quote.type === 'string' && item.required.includes('quote') && item.required.includes('supported') && item.additionalProperties === false);
+  ok('an empty optional text field comes back absent, as before', !('reason' in (await import('./schema.mjs')).dropOptionalNulls(VERDICT_SCHEMA.properties.results.items, { n: 1, supported: true, quote: 'a b', reason: '' })));
   ok('no tool and no tool_choice is sent (the current Sonnet and Opus models refuse forced tool use)', !('tools' in client.calls[0]) && !('tool_choice' in client.calls[0]));
   ok('the one answer is returned', r.data.results[0].quote === 'a b');
   const noSchema = fake(msg('{"a":1}'));
@@ -75,11 +76,15 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   ok('an unusable answer is asked once more and the second answer is used', (await askAgain({ prompt: 'p', responseSchema: VERDICT_SCHEMA })).data.results[0].supported === false && twice.calls.length === 2);
 }
 {
-  const { schemaProblems, toJsonSchema } = await import('./schema.mjs');
+  const { schemaProblems, toJsonSchema, dropOptionalNulls } = await import('./schema.mjs');
   const S = { type: 'OBJECT', required: ['v'], properties: { v: { type: 'STRING', enum: ['yes', 'no'], nullable: true }, k: { type: 'ARRAY', items: { type: 'NUMBER' } } } };
   ok('schema: enum, nullable and arrays are checked', !schemaProblems(S, { v: null, k: [1, 2.5] }).length && schemaProblems(S, { v: 'maybe' }).length === 1 && schemaProblems(S, { v: 'yes', k: ['x'] }).length === 1);
   ok('schema: a nullable enum is anyOf [enum, null], never a type list with an enum', JSON.stringify(toJsonSchema(S).properties.v) === JSON.stringify({ anyOf: [{ type: 'string', enum: ['yes', 'no'] }, { type: 'null' }] }));
   ok('schema: a nullable plain field stays a type list', JSON.stringify(toJsonSchema({ type: 'STRING', nullable: true })) === JSON.stringify({ type: ['string', 'null'] }));
+  { const O = { type: 'OBJECT', required: ['a'], properties: { a: { type: 'STRING' }, b: { type: 'STRING' }, c: { type: 'STRING', enum: ['x', 'y'] } } }, J = toJsonSchema(O);
+    ok('schema: an optional text property is sent as required (empty string = not given); other optional ones stay optional', JSON.stringify(J.required) === '["a","b"]' && J.properties.b.type === 'string' && /Empty string/.test(J.properties.b.description) && J.properties.a.type === 'string' && !J.required.includes('c'));
+    ok('schema: empty strings and nulls of optional properties are dropped from the answer, the rest kept', JSON.stringify(dropOptionalNulls(O, { a: 'v', b: '', c: 'x' })) === '{"a":"v","c":"x"}' && schemaProblems(O, dropOptionalNulls(O, { a: 'v', b: null, c: null })).length === 0);
+    ok('schema: a required property left null is still a problem', schemaProblems(O, dropOptionalNulls(O, { a: null, b: null, c: null })).length === 1); }
 }
 // a role's time limit (config/models.json timeout_ms): 2 minutes by default, more for the roles that read whole bills
 {

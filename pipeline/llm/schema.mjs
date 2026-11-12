@@ -16,8 +16,15 @@ export function toJsonSchema(s) {
   if (s.description) out.description = s.description;
   if (s.enum) out.enum = [...s.enum];
   if (t === 'object') {
-    out.properties = Object.fromEntries(Object.entries(s.properties || {}).map(([k, v]) => [k, toJsonSchema(v)]));
-    if (s.required && s.required.length) out.required = [...s.required];
+    // An optional text property is sent as required, and an empty string stands for "not given": the Claude API refuses a schema
+    // with many optional properties (Nov 2026: "too many optional parameters (27)", the 13 duties' section and quote) and also one
+    // with many null unions. dropOptionalNulls takes those empty strings (and any null) out of the answer again, so callers see the
+    // same answer as before. Other optional properties stay optional.
+    const req = new Set(s.required || []);
+    const asText = (k, v) => !req.has(k) && !v.enum && typeOf(v) === 'string';
+    out.properties = Object.fromEntries(Object.entries(s.properties || {}).map(([k, v]) => [k, asText(k, v) ? { ...toJsonSchema({ ...v, nullable: false }), description: ((v.description ? v.description + ' ' : '') + 'Empty string if not given.') } : toJsonSchema(v)]));
+    const sent = Object.keys(s.properties || {}).filter((k) => req.has(k) || asText(k, s.properties[k]));
+    if (sent.length) out.required = sent;
     out.additionalProperties = false;
   }
   if (t === 'array' && s.items) out.items = toJsonSchema(s.items);
@@ -39,5 +46,20 @@ export function schemaProblems(s, value, at = 'answer') {
     for (const [k, v] of Object.entries(s.properties || {})) if (k in value && value[k] !== undefined) out.push(...schemaProblems(v, value[k], `${at}.${k}`));
   }
   if (t === 'array' && s.items) value.forEach((x, i) => out.push(...schemaProblems(s.items, x, `${at}[${i}]`)));
+  return out;
+}
+
+// The empty strings (and nulls) toJsonSchema allowed for optional properties, removed: an optional property left empty is simply absent.
+export function dropOptionalNulls(s, value) {
+  if (!s || typeof s !== 'object' || value === null || typeof value !== 'object') return value;
+  const t = typeOf(s);
+  if (t === 'array' && Array.isArray(value)) return value.map((x) => dropOptionalNulls(s.items, x));
+  if (t !== 'object' || Array.isArray(value)) return value;
+  const req = new Set(s.required || []), out = {};
+  for (const [k, v] of Object.entries(value)) {
+    const p = (s.properties || {})[k];
+    if (p && !req.has(k) && ((v === null && !p.nullable) || (v === '' && typeOf(p) === 'string'))) continue;
+    out[k] = p ? dropOptionalNulls(p, v) : v;
+  }
   return out;
 }

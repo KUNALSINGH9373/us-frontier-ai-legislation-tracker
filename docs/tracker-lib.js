@@ -33,6 +33,15 @@ export const DUTIES = [
   { k: 'compute_threshold', l: 'Compute threshold', kind: 'covers' }, { k: 'revenue_threshold', l: 'Revenue or spending threshold', kind: 'covers' },
   { k: 'harm_threshold', l: 'Harm threshold', kind: 'covers' }, { k: 'penalties', l: 'Penalties', kind: 'enforce' }, { k: 'effective_date', l: 'Effective date', kind: 'when' }
 ];
+// An executive action's "What it orders" checklist: the same eight questions on every executive action (entry.exec_checklist).
+export const EXEC_QUESTIONS = [
+  { k: 'binding', l: 'Mandatory duty on companies', kind: 'companies' }, { k: 'voluntary_program', l: 'Voluntary programme', kind: 'companies' },
+  { k: 'pre_release_access', l: 'Pre-release testing or access', kind: 'companies' }, { k: 'agencies_build', l: 'Agencies must build something', kind: 'government' },
+  { k: 'deadlines', l: 'Deadlines', kind: 'government' }, { k: 'enforcement_priority', l: 'Law-enforcement priority', kind: 'government' },
+  { k: 'targets_state_laws', l: 'Targets state laws', kind: 'reach' }, { k: 'penalties', l: 'Penalties', kind: 'reach' }
+];
+// A lawsuit claim's outcome (entry.claims).
+export const CLAIM_OUTCOME = { won: { g: '●', l: 'Won' }, lost: { g: '○', l: 'Lost' }, unclear: { g: '◐', l: 'Unclear' }, pending: { g: '…', l: 'Pending' } };
 export const DUTY_VALUE = { yes: { g: '●', l: 'Yes' }, partial: { g: '◐', l: 'Partly' }, no: { g: '○', l: 'Expressly not' }, not_in_bill: { g: '–', l: 'Not in the text' } };
 export const CONF_ORDER = ['HIGH','MED-HIGH','MED','SEARCH-QUALIFIED','LOW'];
 export const KINDS = {federal:{l:'Congress',g:'■',v:'var(--k-fed)'},state:{l:'States',g:'●',v:'var(--k-state)'},executive:{l:'White House and agencies',g:'▲',v:'var(--k-exec)'},litigation:{l:'Courts',g:'§',v:'var(--k-lit)'},industry:{l:'Industry and incidents',g:'◇',v:'var(--k-ind)'}};

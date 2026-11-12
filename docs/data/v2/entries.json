@@ -163,6 +163,21 @@
    "chars": 45185,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Requires developers of the largest frontier AI models to publish safety frameworks and transparency reports, report critical incidents, and protect whistleblowers.",
+  "thirty_seconds": {
+   "a": "Frontier AI developers training models with more than 10^26 operations; large frontier developers (over $500,000,000 in annual revenue) also must publish a frontier AI framework.",
+   "b": "Publish a transparency report for new models and report critical safety incidents within 15 days, or 24 hours if there is imminent risk of death or serious injury.",
+   "c": "Civil penalty of up to $1,000,000 per violation, recovered in a civil action by the Attorney General. Employees may sue over whistleblower retaliation."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:34:58.120Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "baa4abd6c156c72ab21107dc54ecef7ff19953ce7a2be6d2095463d9e9cb0315"
   }
  },
  {
@@ -426,6 +441,22 @@
      2066205
     ]
    }
+  },
+  "summary_line": "Requires frontier AI developers to publish transparency reports and report safety incidents, and large ones to publish safety frameworks and file disclosure statements.",
+  "thirty_seconds": {
+   "a": "Frontier developers whose models are developed, deployed or operated in whole or in part in New York; large ones (over $500,000,000 in revenue) have added duties. Colleges and Empire AI Consortium are exempt.",
+   "b": "Publish transparency reports and report critical safety incidents within 72 hours. Large developers also publish a frontier AI framework and file a disclosure statement every 2 years.",
+   "c": "The Attorney General can seek up to $1,000,000 for a first violation and $3,000,000 for later ones. The Department of Financial Services office can levy $1,000 per day for no disclosure statement."
+  },
+  "key_facts": {
+   "enforced_by": "AG civil action, DFS office"
+  },
+  "display_name": "NY RAISE Act",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:35:15.975Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "87d76530ba31e91c081385c599e16da54a0443d492b0989923d61ec6cab1fc91"
   }
  },
  {
@@ -618,6 +649,21 @@
    "chars": 71883,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Requires frontier AI developers in Illinois to publish transparency reports, report safety incidents and protect whistleblowers, with extra duties for large developers.",
+  "thirty_seconds": {
+   "a": "Frontier developers of models trained with more than 10²⁶ operations; large ones (over $500,000,000 revenue) face added duties.",
+   "b": "From Jan 1, 2027, all must publish transparency reports, report incidents in 72 hours and protect whistleblowers. Large developers must also file disclosure statements, and from Jan 1, 2028 publish a framework and get audits.",
+   "c": "The Attorney General can seek up to $1,000,000 for a first violation and $3,000,000 for later ones. Missing disclosure statements can cost $1,000 a day."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:35:36.702Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "594335da5790b7fc15ac43d39507aff650bf100eddc593769d7557ed01aba775"
   }
  },
  {
@@ -883,6 +929,21 @@
      2046676
     ]
    }
+  },
+  "summary_line": "Would require large frontier AI developers to publish safety frameworks, report critical incidents and undergo independent audits, with Attorney General enforcement.",
+  "thirty_seconds": {
+   "a": "Frontier AI developers training models with more than 10^26 operations; \"large\" developers have over $500,000,000 in annual gross revenues with affiliates.",
+   "b": "Publish a safety framework and risk reports every 180 days, report critical safety incidents to the Attorney General within 15 days, and get an annual independent audit.",
+   "c": "The Attorney General can bring a civil action for up to $1,000,000 for a first violation and $3,000,000 for later ones."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:35:44.490Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "20652cc45af76436e71041765f421b8413e66fd030f4d986b37884ad4bb3ff18"
   }
  },
  {
@@ -1059,6 +1120,21 @@
    "chars": 14894,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require large AI developers to publish safety protocols, issue transparency reports every 90 days, and undergo annual third-party audits, enforced by the Attorney General.",
+  "thirty_seconds": {
+   "a": "Large developers: those that trained a model costing at least $5M in compute and spent at least $100M on compute in the preceding 12 months.",
+   "b": "Publish a safety and security protocol, publish a transparency report at least once every 90 days, and hire a third-party auditor at least once per year.",
+   "c": "The Attorney General may seek civil fines of up to $1,000,000 per violation. Whistleblower violations carry a fine of up to $500, and employees may sue."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:36:00.573Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "d142844425488f3f272da3bb8fed9c174d688298abfa6f2cd8a6ead48cfe77a3"
   }
  },
  {
@@ -1219,6 +1295,21 @@
    "chars": 14464,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require large frontier AI developers with New Jersey users to adopt risk protocols and file risk disclosures with the Attorney General, who publishes them.",
+  "thirty_seconds": {
+   "a": "Large frontier developers with New Jersey users, meaning those with more than $100 million in annual gross revenues that train models using at least 10^26 operations.",
+   "b": "Implement risk protocols, file a yearly Risk Management Disclosure, and file a New Model Risk Disclosure before or when deploying a new frontier model.",
+   "c": "A civil penalty of $100,000 per violation, collected by the Attorney General, who may also audit developers or hire a private auditor."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:36:08.118Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "a57f13fcdfda5a59bbde54abc1836a8794d3f01b7fbcaa01b9772e7cd1256d75"
   }
  },
  {
@@ -1388,6 +1479,21 @@
    "chars": 15141,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require large AI developers to publish a safety and security protocol, issue risk reports every 90 days, and get an annual third-party audit.",
+  "thirty_seconds": {
+   "a": "As introduced, developers that trained a foundation model with compute costing at least $100,000,000. Floor Amendment No. 2 would instead cover large developers: ≥$5M for one model and ≥$100M over 12 months.",
+   "b": "Publish a safety and security protocol, publish a risk assessment report at least every 90 days, hire a third-party auditor each year, and offer an anonymous way for employees to report.",
+   "c": "The Attorney General may sue for civil penalties up to $1,000,000 for violating Sec. 15 or 25, and seek injunctive or declaratory relief."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:36:30.393Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "58debc4344704607b96b9af16015a200aa0464c7625f4396f11352a817590f01"
   }
  },
  {
@@ -1537,6 +1643,18 @@
    "chars": 7964,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would shield frontier AI developers from liability for critical harms unless they act with intent or recklessness, if they publish a safety protocol and transparency report.",
+  "thirty_seconds": {
+   "a": "Developers of frontier models, defined as trained with more than 10^26 operations or a compute cost above $100,000,000.",
+   "b": "To get the liability shield, publish a safety and security protocol and a transparency report at release. A developer relying on a federal agency agreement must file a certification with the Attorney General.",
+   "c": "The bill states no fine. Developers who meet the conditions are not liable for critical harms absent intent or recklessness. A false certification is called a violation."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:36:44.642Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "41c188f290ad10403499227700864e0afdc58cdae685ede87b4ad1f6ad6e1c18"
   }
  },
  {
@@ -1689,6 +1807,21 @@
    "chars": 62687,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would have required large frontier AI developers to publish safety frameworks and report critical incidents, with civil penalties up to $1,000,000 per violation.",
+  "thirty_seconds": {
+   "a": "Frontier developers training models with more than 10²⁶ operations; large developers have annual gross revenues above $500,000,000.",
+   "b": "Publish a frontier AI framework and transparency reports, and report critical safety incidents within 15 days, or within 24 hours if there is imminent risk of death or serious injury.",
+   "c": "Large frontier developers face a civil penalty up to $1,000,000 per violation, recovered only by the Attorney General."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:37:07.812Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "13c3a636c6ac4a8d6b740c400a0b64cb2dbfb01245d5352e8177ffc380ebf0a0"
   }
  },
  {
@@ -1899,6 +2032,21 @@
      2104994
     ]
    }
+  },
+  "summary_line": "Would require large frontier AI developers and large chatbot providers to publish safety and child-protection plans and report safety incidents to the Attorney General.",
+  "thirty_seconds": {
+   "a": "Frontier AI developers (models trained with more than 10^26 operations) and large chatbot providers. Large means $500,000,000 or more in annual revenue for developers, $25,000,000 for chatbot providers.",
+   "b": "Would require a published safety plan and incident reports to the Attorney General within 15 days. Imminent risk of death or serious injury would need disclosure within 24 hours. Large developers would need yearly audits.",
+   "c": "Civil penalties up to $1,000,000 per violation for frontier developers and $50,000 for large chatbot providers. The bill is stalled in committee."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:37:26.931Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "dd0595e16e454e002b1c23ef0fce07744e9c80a63ce855dce4b5574a997bca98"
   }
  },
  {
@@ -2081,6 +2229,21 @@
    "chars": 20892,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would have required large frontier developers and large chatbot providers to publish safety plans and report critical safety incidents, with attorney general enforcement.",
+  "thirty_seconds": {
+   "a": "Large frontier developers (over 10^26 operations; annual revenue of $500,000,000 or more) and large chatbot providers (1,000,000 or more monthly users, minors).",
+   "b": "Publish safety plans (child-protection plans for chatbots). Frontier developers report critical safety incidents within 15 days; imminent risk of death or serious physical injury within 24 hours.",
+   "c": "Attorney general enforcement: up to $1,000,000 first violation and $3,000,000 each later one for large frontier developers; up to $50,000 per violation for chatbot providers."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney general"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:37:43.624Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "9a076bc884d9db4f49327fb50cfe84aa0c70de2a6139a280ee1fb53582b88e6c"
   }
  },
  {
@@ -2270,6 +2433,21 @@
    "chars": 27490,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would have required large frontier AI developers to publish safety plans, report safety incidents, and protect whistleblowers, but the bill failed in March 2026.",
+  "thirty_seconds": {
+   "a": "Large frontier developers: those with at least $500,000,000 in annual revenue that train models using at least 10^26 operations. Those that run a covered chatbot must also have a child-protection plan.",
+   "b": "Write, follow and publish a public safety plan, publish risk-assessment summaries before deploying a new model, and report safety incidents within 15 days, or 24 hours if imminent.",
+   "c": "The attorney general could sue for civil penalties of up to $1,000,000 for a first violation and $3,000,000 for each later one. The bill failed and never took effect."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:38:01.354Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "88bd4e8ff53aa30f8d99c96968b60e242960f0c7307184bdca838e884c6aea45"
   }
  },
  {
@@ -2468,6 +2646,21 @@
    "chars": 35382,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would have required large AI developers to publish safety frameworks, report critical incidents and undergo annual audits, aimed at protecting energy, health-care and port infrastructure.",
+  "thirty_seconds": {
+   "a": "Frontier developers: models trained with more than 10^26 operations, or distilled from one at a compute cost over $5,000,000. \"Large\" developers have over $500M in annual gross revenue.",
+   "b": "All frontier developers publish transparency reports and report incidents (15 days; 24 hours if imminent risk). Only large developers need a framework, and audits from July 1, 2028.",
+   "c": "The Attorney General could sue large frontier developers for up to $1,000,000 for a first violation and $10,000,000 for later ones. The bill failed and never became law."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:38:16.919Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "aea6b75bfe74b8ea3ef5abc2b1188ee446ea6e06536978e1e93374e6f5ef6fa9"
   }
  },
  {
@@ -2631,6 +2824,18 @@
    "chars": 6143,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would have made developers of covered AI models strictly liable for injuries to non-users caused by model conduct that would be negligent, tortious, or criminal if done by a human.",
+  "thirty_seconds": {
+   "a": "Developers of covered models: those trained with more than 10^26 operations costing over $100,000,000, plus fine-tunes and derivatives of them.",
+   "b": "Would be strictly liable for injuries to non-users from model conduct the user or any fine-tuner did not intend or reasonably anticipate.",
+   "c": "Developers would face private civil liability for injuries; no fine or agency enforcement. Defenses: meeting the human standard of care or pure capability failure."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:38:32.047Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "0f5d60f9f55be9860704684b7764689f82842d77721e55c92cc28797f4d496d1"
   }
  },
  {
@@ -2804,6 +3009,21 @@
      2157282
     ]
    }
+  },
+  "summary_line": "Would require large frontier developers to hire a third-party verifier each year to check compliance, with only accredited verifiers allowed from January 1, 2029.",
+  "thirty_seconds": {
+   "a": "Large frontier developers, as defined in the RAISE Act.",
+   "b": "Each year, hire a third-party verifier to assess framework compliance, redactions and public statements; a summary must be published within 60 days.",
+   "c": "The Attorney General may seek up to $1,000,000 for a first violation and up to $3,000,000 for later ones."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:38:47.784Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c6be486b445daae66e9cda31341a0e682222e10ea1fec720452b27301df150e4"
   }
  },
  {
@@ -2951,6 +3171,13 @@
      2150234
     ]
    }
+  },
+  "summary_line": "Would require the state office to adopt regulations by July 1, 2028 setting minimum standards for large frontier developers' frontier AI frameworks, reviewed annually.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:39:07.236Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "d118ec7d8f530886e20e9b7f48868d08efb56346dfdf0dbb8cf7064eb7c7f4bb"
   }
  },
  {
@@ -3099,6 +3326,21 @@
    "chars": 35690,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would have amended New York's RAISE Act to require independent safety evaluations, incident reporting and whistleblower protections for large frontier developers.",
+  "thirty_seconds": {
+   "a": "Large frontier developers under New York's RAISE Act, as defined in Chapter 96. The bill was withdrawn the day it was introduced and failed.",
+   "b": "Would have had to get an accredited independent safety evaluator to test each frontier model before deployment, and report significant safety incidents within 7 days.",
+   "c": "Would have let the Attorney General seek civil penalties up to 0.5% of annual gross revenue for knowing concealment, and up to 1% for wilful concealment of a critical safety incident."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:39:27.903Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "b6b2601ebcc9c87a7499b7a41f0b17caa7e4a229ecb2343e3daf5e2a38c38f18"
   }
  },
  {
@@ -3299,6 +3541,16 @@
      2158760
     ]
    }
+  },
+  "summary_line": "Would require large frontier AI developers to register, publish safety frameworks, undergo annual audits, and report critical safety incidents, with civil penalties for violations.",
+  "key_facts": {
+   "enforced_by": "Pennsylvania Emergency Management Agency, Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:39:51.422Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "a0dc9a2340bf2abc9a675000855c19497e0cb0f748d00c5668e69c25b7743872"
   }
  },
  {
@@ -3469,6 +3721,21 @@
      2133932
     ]
    }
+  },
+  "summary_line": "Would require any developer that has trained an AI model to adopt and publish a written safety protocol, and to report safety incidents to the Attorney General within 72 hours.",
+  "thirty_seconds": {
+   "a": "Any person that has trained at least one AI model; there is no compute, cost or revenue threshold.",
+   "b": "Adopt a written safety and security protocol before deployment, publish a redacted copy, send it to the AG, review it annually, and disclose safety incidents within 72 hrs.",
+   "c": "The Attorney General can seek civil penalties up to $10,000,000 for a first violation and $30,000,000 for a subsequent one. Injured persons can also sue."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:40:08.396Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "267a2b643373e78ee5274f703ab0abbf10ab9b370d7430ac94a013c2781dc390"
   }
  },
  {
@@ -3574,6 +3841,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-a-b-1405-artificial-intelligence-auditors-registration-gov-code-11549-",
    "section_name": "State IVO / AI-auditor licensing measures"
+  },
+  "summary_line": "Requires AI auditors to register with a state registry from Jan 1, 2029 before offering, selling, or conducting a covered AI audit, with independence and reporting rules.",
+  "thirty_seconds": {
+   "a": "Anyone who offers, sells, or conducts a covered AI audit, meaning an audit of controls and systems necessary for compliance with state law.",
+   "b": "Register with the AI Auditor Registry from Jan 1, 2029, disclose standards used, follow independence rules, keep records 10 years, and show the registration number in ads.",
+   "c": "GovOps may investigate and remove an auditor from the registry, with referral to the AG."
+  },
+  "key_facts": {
+   "enforced_by": "GovOps"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:40:26.721Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "1c8f29adf3edef0e747006e4d2cd5bf3e5bc0e4b9ff66b7e98d13097132bf00b"
   }
  },
  {
@@ -3688,6 +3970,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-813-independent-verification-organizations-gov-code-8898-8898-4",
    "section_name": "State IVO / AI-auditor licensing measures"
+  },
+  "summary_line": "Directs the Government Operations Agency to set up a system for designating independent verification organizations that audit AI, without requiring anyone to use one.",
+  "thirty_seconds": {
+   "a": "The Government Operations Agency, which must set up the designation process, and independent verification organizations (IVOs) that win designation.",
+   "b": "By Jan 1, 2028, the Agency must set IVO application criteria and suspension rules, convene working groups, and report to the Legislature. Designated IVOs file annual reports.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:40:32.390Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "3c88e5f13e075a0834e27497e37029e51035fcc6554939c5e69e7c38e2465fb5"
   }
  },
  {
@@ -3814,6 +4108,21 @@
      2058716
     ]
    }
+  },
+  "summary_line": "Would let the Attorney General license independent verification organizations and give models they verify a rebuttable presumption against liability in injury and property suits.",
+  "thirty_seconds": {
+   "a": "Independent verification organizations (IVOs) that choose to get a license from the AG, and AI developers who choose to seek verification from them.",
+   "b": "Nothing requires a developer to seek verification. A licensed IVO proposes which specific risks it will verify.",
+   "c": ""
+  },
+  "key_facts": {
+   "enforced_by": "AG"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:40:47.421Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "ca07db8b1e1b36d072ffa3541e95a45a6b564022ad8cb4509e83f9c278d9960f"
   }
  },
  {
@@ -3882,6 +4191,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-f-4544-s-f-4636-ai-independent-verification-organization-licensure-n",
    "section_name": "State IVO / AI-auditor licensing measures"
+  },
+  "summary_line": "Would have had Minnesota's Commerce commissioner license independent verification organizations to verify risk-specific standards for AI models and applications.",
+  "thirty_seconds": {
+   "a": "Applicants seeking an IVO license from the Commerce commissioner; AI developers could choose to be verified. Licensed IVOs would report annually.",
+   "b": "Applicants would submit risk thresholds, monitoring, mitigation, audit, corrective-action, revocation, disclosure, independence and funding plans. Verification would be voluntary.",
+   "c": ""
+  },
+  "key_facts": {
+   "enforced_by": "Commerce commissioner"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:40:59.526Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "40fb184444926ce6872b6e2e754135dc854f4d74ed06db6a9adb38cda36c235a"
   }
  },
  {
@@ -3968,6 +4292,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-797-chapter-425-s-b-384-chapter-426",
    "section_name": "State IVO / AI-auditor licensing measures"
+  },
+  "summary_line": "Directs the Joint Commission on Technology and Science to study whether to build a framework for independent verification organizations assessing AI models against injury and property-damage prevention standards.",
+  "thirty_seconds": {
+   "a": "The Joint Commission on Technology and Science (JCOTS) in Virginia, which must study the idea; no AI developers are directly regulated.",
+   "b": "JCOTS must evaluate the feasibility and impact of developing a framework for IVOs assessing AI models' adherence to injury and property-damage prevention standards, and report by Nov 1, 2026.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:41:10.000Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "24204f3d0a606b8d6a6795f689663c843ffbe962780f55ab194f7d5ec75976b7"
   }
  },
  {
@@ -4048,6 +4384,16 @@
      2106638
     ]
    }
+  },
+  "summary_line": "Creates a Department of Consumer Protection IVO pilot program, effective July 1, 2027 and running through June 30, 2030, with no more than five IVOs under memoranda of understanding.",
+  "key_facts": {
+   "enforced_by": "Department of Consumer Protection"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:41:27.201Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "3a27349c174c4a5d7c787a61dda83b9b4b1540bb7a9448e742fac132d8bf29c0"
   }
  },
  {
@@ -4210,6 +4556,18 @@
    "chars": 13519,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require developers of advanced AI systems to join a mandatory Department of Energy evaluation program and bar deployment unless they comply.",
+  "thirty_seconds": {
+   "a": "Any person that designs, codes, produces, owns, or substantially modifies an AI system trained with more than 10^26 operations.",
+   "b": "Take part in the Energy Department's Advanced AI Evaluation Program and provide code, training data, and model weights on request. No deployment unless in compliance.",
+   "c": "A fine of at least $1,000,000 per day for not participating or for violating the deployment rules."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:41:34.394Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f25a4bd517933c29ca30955b1bf15862c101fc8fcc2eb5f8fb0d3ebdd3580c7f"
   }
  },
  {
@@ -4412,6 +4770,18 @@
    "chars": 79087,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require large frontier AI developers to publish safety frameworks, undergo third-party audits and report incidents, and let Commerce suspend models that pose imminent catastrophic risk.",
+  "thirty_seconds": {
+   "a": "Large frontier AI developers (over $50,000,000 revenue and at least $1,000,000,000 in AI spending over 36 months); very large ones face extra duties.",
+   "b": "Publish a frontier AI framework, get an annual third-party audit, register, and report incidents within 72 hours (24 hours to law enforcement if death or injury is imminent).",
+   "c": "Civil penalties up to $1,000,000 per violation, up to $10,000,000 for breaking an emergency order; a willful breach of such an order is a crime."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:41:56.279Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "2498f079a48c2af28ead4286f10e086129e91473313a8fb7003c98150db747d0"
   }
  },
  {
@@ -4554,6 +4924,16 @@
    "chars": 49067,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require frontier AI model providers to give the NSA AI Security Center access 21 calendar days before release and to register each model in a NIST registry.",
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:42:12.917Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "9f97e57e2339077bf4e7c21fefdea90d918ff416c8bc829e1804816757a1f76b"
   }
  },
  {
@@ -4704,6 +5084,21 @@
    "chars": 9208,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would exempt from antitrust law two or more non-Federal entities that share AI security-risk information in good faith, solely to address covered AI security risks.",
+  "thirty_seconds": {
+   "a": "Two or more non-Federal entities that exchange AI security-risk information or help in good faith, solely to address covered AI security risks.",
+   "b": "To coordinate on delaying or limiting AI release, deployment or training, they must first give written notice to the DOJ Antitrust Assistant Attorney General.",
+   "c": "The exemption is only an affirmative defense, and entities must prove it. Price-fixing and market allocation are not covered. The Attorney General may seek injunctions."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:42:31.676Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "34bb25f8e851c6bd96ece300eea92c05f68a9f3e23095162000314bcf063e8f9"
   }
  },
  {
@@ -4877,6 +5272,21 @@
    "chars": 16383,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require developers of covered AI models to report serious incidents to the Secretary of Commerce within 7 days, with civil penalties up to $2,000,000 for violations.",
+  "thirty_seconds": {
+   "a": "Developers of AI models that Commerce designates as covered, using capability-based thresholds it sets by regulation within 180 days.",
+   "b": "Report to the Secretary of Commerce within 7 days of knowing or reasonably believing reportable activity occurred, such as weight theft or a model resisting shutdown. Imminent risks need expedited reports.",
+   "c": "The Secretary of Commerce may assess a civil penalty up to $2,000,000 for a violation, and each day is a separate offense. Commerce also has subpoena and inspection powers."
+  },
+  "key_facts": {
+   "enforced_by": "Secretary of Commerce, Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:42:48.735Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "462879aad48e16d7e7dd6d638e41df9ba0054b5f38635e9b43c8704161c7ec5e"
   }
  },
  {
@@ -5104,7 +5514,22 @@
     "quote": "\"count\": 14",
     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917"
    }
-  ]
+  ],
+  "summary_line": "Would require large AI developers to keep the ability to throttle, suspend or shut down covered AI systems, and let DHS order shutdowns in a loss-of-control scenario.",
+  "thirty_seconds": {
+   "a": "Developers of AI systems built with over $100,000,000 in compute and earning at least $500,000,000 a year in revenue from the technology. Personal, academic and noncommercial-only systems are exempt.",
+   "b": "Keep the technical ability to throttle, suspend or fully shut down the system, report covered incidents to DHS within 15 days, and preserve weights and telemetry under an order.",
+   "c": "Civil penalties of up to $2M/day for ordinary violations and up to $20M/day for violating an emergency order."
+  },
+  "key_facts": {
+   "enforced_by": "DHS Secretary, Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-12T05:20:34.903Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "2763b22dc1c9a3639f165e860084de6742bbc8b2b407865b6dd216bcb610183e"
+  }
  },
  {
   "id": 32,
@@ -5260,6 +5685,21 @@
    "chars": 16712,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require large advanced AI developers to join a federal nuclear-risk testing program run by the Department of Energy, with civil penalties for violations.",
+  "thirty_seconds": {
+   "a": "Large advanced AI developers: those with at least $2B in AI investment over the preceding 5 years, building AI trained with more than 10²⁶ operations.",
+   "b": "Take part in DOE testing for AI nuclear incidents, giving secure access to model weights and, where necessary, versions without safety mitigations.",
+   "c": "Civil penalty of up to $1M per violation, each day a separate violation; the Secretary may subpoena weights, and violations can be referred to DOJ."
+  },
+  "key_facts": {
+   "enforced_by": "Energy Secretary"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:43:23.599Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f400eed2cd158d45880af4ae43a27e9abfb031bffeb5d1188405590283be108f"
   }
  },
  {
@@ -5439,6 +5879,18 @@
    "chars": 20457,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would create a Department of Artificial Intelligence, pause advanced AI development, and permanently ban artificial superintelligence and systems with superintelligence precursor characteristics.",
+  "thirty_seconds": {
+   "a": "Companies and people who develop or deploy advanced AI, defined as systems trained on at least 10^25 operations, and anyone who builds or holds artificial superintelligence.",
+   "b": "Pause advanced AI work until the new Department is staffed and has rules. Get a charter and pre-deployment approval. Report any superintelligence discovery within 24 hours.",
+   "c": "Reckless violators who are policymaking individuals or rogue actors face up to 20 years in prison; other individuals get a 10-year industry bar. Companies can lose their charter, IP and assets."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:43:40.735Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c5e65965b5ffeb802412e7210023e827237a924f06bde98535a25ccfa758cbb8"
   }
  },
  {
@@ -5628,6 +6080,21 @@
    "chars": 34838,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would create a federal AI Safety Board and require frontier AI developers to give it pre-release access, publish safety plans, and report incidents.",
+  "thirty_seconds": {
+   "a": "Developers of frontier models, meaning models that exhibit or could be modified to exhibit high performance at tasks posing a serious risk to national security, economic security, or public health or safety. Incident reporting also covers critical-infrastructure operators using AI.",
+   "b": "Give the Board access, including model weights, at least 45 days before release. Publish a Model Safety Plan. Report incidents within 30 days, or 72 hours if an imminent threat.",
+   "c": "Civil penalties of up to $250,000 per violation, with each day a separate violation. The Commerce Secretary enforces and the Attorney General may sue."
+  },
+  "key_facts": {
+   "enforced_by": "Commerce Secretary, Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:44:01.512Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "73cf30ca6c87c0d9faee97c1904f86498ed7abf60d6ef021def894f3a0f64618"
   }
  },
  {
@@ -5787,6 +6254,18 @@
    "chars": 1947,
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
+  },
+  "summary_line": "Would require entities that develop or operate an advanced AI system in the United States to build in a way for a human operator to shut it down.",
+  "thirty_seconds": {
+   "a": "Any entity that develops or operates an advanced artificial intelligence system in the United States. The bill does not define \"advanced\".",
+   "b": "Make sure the system includes a technical capability for a human operator to shut it down. DHS regulations are due within 90 days.",
+   "c": "The bill states no penalties or enforcement remedies."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:44:11.318Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "24d0d9cf0b9b4b6043db470c79e0693f4dc5b1067ecd2b530321237aed1ea0d5"
   }
  },
  {
@@ -5850,6 +6329,13 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-great-american-ai-act-gaaia-discussion-draft",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
+  },
+  "summary_line": "Would set rules for frontier AI developers, with titles on workforce, cybersecurity and research; a 269-page discussion draft released for comment, not introduced as such.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:44:26.755Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f9df13127f4d1110a8c7c90cc64618001f469ff27e65a8baa3c072abddb25bad"
   }
  },
  {
@@ -5922,6 +6408,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-trump-america-ai-act-discussion-draft-republic-unifying-meritocratic-p",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
+  },
+  "summary_line": "Would set a federal AI framework, including a developer duty of care, a products-liability framework, and a DOE advanced AI evaluation program, in a 291-page discussion draft.",
+  "thirty_seconds": {
+   "a": "Sen. Marsha Blackburn's 291-page discussion draft; as of her Apr 22, 2026 release it was still not introduced as a numbered bill.",
+   "b": "Developers would owe a duty of care, and the draft sets up a DOE Advanced Artificial Intelligence Evaluation Program. Third-party audits for political-affiliation bias are also included.",
+   "c": "The products-liability framework allows suits by the AG, state AG, and private parties."
+  },
+  "key_facts": {
+   "enforced_by": "AG, state AG, and private suits"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:44:43.171Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "67de06963612b3713bd3f351369afda2eee78b9fe0cfde34146111e6e5f5b285"
   }
  },
  {
@@ -5980,6 +6481,14 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-white-house-national-policy-framework-for-ai-legislative-recommendatio",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
+  },
+  "summary_line": "Recommends that Congress bar states from regulating AI development and avoid creating a new federal AI rulemaking body, in non-binding recommendations published Mar 20, 2026.",
+  "display_name": "White House National Policy Framework for AI: Legislative Recommendations",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:45:00.734Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "80c434bfed6df89f4f0ab96d4a66f51b8f0ed2c77d578f97185a5bf264713f41"
   }
  },
  {
@@ -6043,6 +6552,16 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-ai-regulator-act-of-2026-proposal-not-introduced-u",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
+  },
+  "summary_line": "Would create a five-member Federal Digital Commission to oversee digital platforms and AI developers, with mandatory model testing and civil penalties.",
+  "key_facts": {
+   "enforced_by": "Federal Digital Commission"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:45:20.891Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "e49e1d71ca4cfb880c62adc8ff47681ac8490469428018689eb9915c9895b3cc"
   }
  },
  {
@@ -6101,6 +6620,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-american-ai-security-act-announced-u",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
+  },
+  "summary_line": "Would require the NSA to review \"covered\" frontier AI models for national-security risks before they are deployed, within a 30-day review that can be extended once by 30 days.",
+  "thirty_seconds": {
+   "a": "Developers of \"covered\" frontier AI models. Sponsors are Reps. Josh Gottheimer (D-NJ) and Mike Lawler (R-NY).",
+   "b": "Get a mandatory NSA review before deployment, checking whether a model can carry out a serious cyberattack or help develop chemical, biological or radiological weapons.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:45:29.550Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "795f76c78704cc3cb96250c7030031410093eb26ccee924929e44666e3aec103"
   }
  },
  {
@@ -6154,6 +6685,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-senate-commerce-draft-ai-bill-cruz-klobuchar-thune-in-development-text",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
+  },
+  "summary_line": "Would, according to press reports of an unreleased draft, set a duty of care on top AI developers and let the federal government block unsafe models.",
+  "thirty_seconds": {
+   "a": "Developers of the most capable AI models, per Reuters. Sens. Cruz, Klobuchar and Thune are drafting; no text is released or bill introduced.",
+   "b": "Reported duty of care to prevent catastrophic risks. Safety testing language, described by one aide as \"primarily a voluntary standard type situation\", is disputed.",
+   "c": "Reported federal authority to block release of a model deemed unsafe, reviewable in federal court. A liability element is also reported."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:45:48.182Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "a6299f5f8266638d50e8d6573c8f4b2a58c30424aa0431fb753eb7fcb90b88a3"
   }
  },
  {
@@ -6234,6 +6777,18 @@
      "119/hr/9363"
     ]
    }
+  },
+  "summary_line": "Would create a voluntary Center for AI Security and Innovation at NIST to run national-security evaluations of covered frontier AI systems under voluntary agreements.",
+  "thirty_seconds": {
+   "a": "Entities or consortia able to develop or evaluate a covered frontier system could join; the Director would define \"covered frontier system\" within 180 days of enactment.",
+   "b": "Nothing is mandatory: participation is by voluntary agreement for classified or unclassified national-security evaluations. It authorizes $20,000,000/yr FY2027-2032.",
+   "c": "No penalties. The Center is barred from regulatory, rulemaking or enforcement authority, and shared information cannot be used by any government to regulate the entity."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:45:55.187Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "322ee42473711130457e44be0177a741b2b29ac3eeab7095063313ac5a8a6c8d"
   }
  },
  {
@@ -6360,6 +6915,85 @@
      "119/hr/3460"
     ]
    }
+  },
+  "summary_line": "Would protect employees and independent contractors from retaliation for reporting AI security vulnerabilities or AI violations to regulators, Congress, or supervisors.",
+  "thirty_seconds": {
+   "a": "Employees and independent contractors who report an AI security vulnerability or an AI violation to regulators, Congress, or supervisors.",
+   "b": "The bill would bar retaliation against these workers for making such reports.",
+   "c": "Workers could file a complaint with the Department of Labor, then go to district court with a jury trial, for reinstatement, 2× back pay and compensatory damages."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:46:14.931Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "67ad316290d62e3ab05e2fcd87bc296e94bd87bc109bbb80ac8f167e31b5b48b"
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill does not require developers to adopt a safety or risk framework."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no public report or disclosure about a model."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill does not require developers to report incidents to the government."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no reporting window for imminent risks."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no independent audit or evaluation."
+   },
+   "whistleblower": {
+    "value": "yes",
+    "summary": "Employers may not retaliate against employees or contractors who report AI security vulnerabilities or AI violations to regulators, Congress, or supervisors.",
+    "section": "Sec. 3(a)",
+    "quote": "No employer may, directly or indirectly, discharge, demote, suspend, threaten, blacklist, harass, or in any other manner discriminate against a covered individual",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no registration, licensing or notice before developing or deploying AI."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "The bill requires no shutdown or containment capability."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no coverage by training compute."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill defines no coverage by revenue, spending or users."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "The bill sets no numeric harm threshold by deaths, injuries or damages."
+   },
+   "penalties": {
+    "value": "yes",
+    "summary": "Employees who win a retaliation claim get reinstatement, 2 times back pay with interest, and compensatory damages, via a Labor Department complaint or a federal court action.",
+    "section": "Sec. 3(b)(3)",
+    "quote": "2 times the amount of back pay otherwise owed to the covered individual, with interest;",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text"
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text",
+   "sha256": "ffa312d8075386d7d4f908250c57dd50697f931f591dd8fa929a954bbaddddcd",
+   "chars": 10086,
+   "method": "agent",
+   "checked_at": "2026-11-12T03:05:03Z"
   }
  },
  {
@@ -6426,6 +7060,82 @@
      "119/s/4656"
     ]
    }
+  },
+  "summary_line": "Would require frontier AI contractors to report security incidents and concerning model behavior to the Department of Defense, and would limit military uses of AI.",
+  "thirty_seconds": {
+   "a": "Frontier AI contractors of the Department of Defense; a frontier AI model is one the Secretary of Defense designates by scale and capability.",
+   "b": "Report weight theft, foreign-adversary access, supply-chain compromise or data poisoning within 72 hrs; report material vulnerabilities and concerning model behavior within 7 days.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:46:22.694Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "7eda51f000c3299aca6097c1ed2dc5215c9bd3f0a120d5e1b369e20fe0b148ef"
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill does not require developers to write or publish a safety or risk-management framework."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "No public report or disclosure about a model is required."
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "Frontier AI contractors to DoD must report covered incidents: 72 hours for theft, foreign-adversary access, supply-chain compromise or poisoning; 7 days for vulnerabilities or concerning model behavior.",
+    "section": "Sec. 5(c)(1)",
+    "quote": "an initial report regarding a covered incident described in subparagraph (A), (B), (C), or (D) of section 2(5) not later than 72 hours after the discovery of such covered incident",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/4656/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "No shorter window for incidents posing imminent risk of death or serious injury."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "No independent audit or evaluation of developers is required."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "The bill has no employee protections."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "No registration or licensing before developing or deploying a model is required."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "No shutdown or kill-switch capability is required of developers."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage is not defined by training compute."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage is not defined by revenue, spending or users."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "No death, injury or damage figures define covered harm."
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "The bill states no penalties or fines."
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill states no effective date; deadlines run from enactment."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/4656/text",
+   "sha256": "9c5fdaf2b61487b31ab91daa6c6118fe49ca5c6088feb97882a3c542a34375fc",
+   "chars": 34511,
+   "method": "agent",
+   "checked_at": "2026-11-12T03:05:12Z"
   }
  },
  {
@@ -6506,6 +7216,18 @@
      "119/hr/10180"
     ]
    }
+  },
+  "summary_line": "Would authorize NIST to assess trends in autonomous AI-research capability and tie voluntary frontier-model evaluation agreements to disclosure of how much AI helped build the model.",
+  "thirty_seconds": {
+   "a": "Developers of a frontier AI system, as determined by the NIST Director, who enter voluntary pre-deployment evaluation MOUs with NIST. It applies only to them.",
+   "b": "Would have to disclose, at NIST's request, metrics or estimates of how much AI was used to develop the model; the evaluation would test whether it can autonomously facilitate or conduct AI R&D.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:46:37.953Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f29e3c784a264d91a4292881d3b602052f65b12e6e64be3cab257a137169f3bd"
   }
  },
  {
@@ -6572,6 +7294,85 @@
      "119/hr/10189"
     ]
    }
+  },
+  "summary_line": "Would require a centralized, non-punitive Department of Defense-wide program to report, track, analyze and fix AI incidents and vulnerabilities.",
+  "thirty_seconds": {
+   "a": "The Department of Defense (DoD). Reports could come from servicemembers, civilian employees, contractors and subcontractors, who would get protected disclosures.",
+   "b": "Set up a DoD-wide AI incident and vulnerability program covering development through operation, with prompt reporting, categorization, corrective-action plans and annual reports for 2027–2031.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:46:43.895Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "610468d9802022c008eb75a22ad80cec3ccd0ae09afc08840eb791d7ae51bad7"
+  },
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "The bill does not require developers to write or follow a safety framework."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "No public report about a model is required."
+   },
+   "incident_reporting": {
+    "value": "yes",
+    "summary": "The Secretary of Defense must require prompt reporting of covered AI incidents and vulnerabilities to a designated DoD official; the text says 'prompt' and gives no number of days.",
+    "section": "Sec. 2224b(e)(1)",
+    "quote": "The Secretary shall require prompt reporting to the official designated under subsection (d) of--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text"
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "No shorter window for imminent-risk incidents is set."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "No independent audit or evaluation is required."
+   },
+   "whistleblower": {
+    "value": "partial",
+    "summary": "Servicemembers, civilian employees, contractors and subcontractors who report covered AI incidents or vulnerabilities in good faith must not, on the basis of that report alone, face adverse action or retaliation by DoD.",
+    "section": "Sec. 2224b(g)(2)",
+    "quote": "is not, on the basis of that report alone, subject to adverse contract action, subject to adverse personnel action, or otherwise retaliated against by the Department.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text"
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "No registration or licensing before development or deployment is required."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "No shutdown or kill-switch capability is required."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage is not defined by training compute."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Coverage is not defined by revenue, spending or users."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Covered incidents are defined by qualitative harm, not by numeric deaths, injuries or damages."
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "The bill states no penalties or fines."
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "The bill does not state an effective date."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text",
+   "sha256": "294e189ef1c58bf3dab91ef7b2c25c441b0cf45c74eea7b0ee5dfdc48e94cb86",
+   "chars": 7664,
+   "method": "agent",
+   "checked_at": "2026-11-12T03:05:44Z"
   }
  },
  {
@@ -6643,6 +7444,18 @@
      "119/s/5541"
     ]
    }
+  },
+  "summary_line": "Would create a five-member independent board with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure, including AI-enabled ones.",
+  "thirty_seconds": {
+   "a": "A new five-member independent, non-regulatory board modelled on the NTSB would investigate major cyber incidents, including AI and autonomous agent incidents. It is not a developer mandate.",
+   "b": "Federal civilian agencies would have to respond in writing to the board's recommendations within 90 days. A voluntary, anonymized near-miss reporting system would also be set up.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:47:01.514Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "09b622dd356ab4dd5efae5f72c02e6d816b405b2e1d626f25292902763147bae"
   }
  },
  {
@@ -6714,6 +7527,21 @@
      "119/s/5471"
     ]
    }
+  },
+  "summary_line": "Would require AI companies above set size thresholds to publish disclosures on their models and safeguards, enforced by the FTC.",
+  "thirty_seconds": {
+   "a": "Developers and deployers of generative AI models, including open-weight ones, with at least 1,000,000 unique monthly US users, or at least 100,000 if minors can create accounts.",
+   "b": "Publish model-card-type information, safeguards for child safety, mental health, privacy, cybersecurity, disaster risk and loss-of-control, and common policy violations. Update with each new or substantially updated model.",
+   "c": "The FTC would enforce the disclosure duties. The bill is a disclosure requirement, not a safety mandate."
+  },
+  "key_facts": {
+   "enforced_by": "FTC"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:47:09.963Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "aae585b2f7eae6e7b54a65db733bb48f96ff3150d5abe1301dae2e08257b402f"
   }
  },
  {
@@ -6808,6 +7636,18 @@
      "119/hr/10362"
     ]
    }
+  },
+  "summary_line": "Would direct NIST to set standards for finding, tracking and controlling AI agents on organisations' networks, with federal agencies and contractors building them into procurement and deployment.",
+  "thirty_seconds": {
+   "a": "Deployers of AI agents and federal agencies and contractors. The duties do not fall on frontier developers.",
+   "b": "NIST would set standards to find and track every AI agent on a network, verify who built and runs each, monitor in real time, and allow, deny or revoke access.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:47:15.798Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "68636ad9f45e2947f68455e5a3ce3af2ba2170427ea86b10e372d27fc9879357"
   }
  },
  {
@@ -6875,6 +7715,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-u-s-china-frontier-ai-safety-coordination-bill-liccardo-kiley-announce",
    "section_name": "Adjacent and sectoral federal bills"
+  },
+  "summary_line": "Would clear legal barriers for US experts to work with Chinese counterparts on AI safety and direct the State Department to pursue negotiations with China on binding, verifiable safeguards.",
+  "thirty_seconds": {
+   "a": "Sponsored by Reps. Sam Liccardo and Kevin Kiley. It covers US experts in labs, companies and universities, the State Department and the Administration.",
+   "b": "It would clear legal barriers so US experts can work with Chinese counterparts on safety metrics and testing, and direct negotiations with China on binding, verifiable safeguards.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:47:22.140Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "74f7eeb6729c224f9f8e1e7e8d6fb06b550d829f4d7da173ea43ab71f6d21167"
   }
  },
  {
@@ -6947,6 +7799,20 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-ai-agent-accountability-act-hawley-murphy-announced-not-yet-numbered-u",
    "section_name": "Adjacent and sectoral federal bills"
+  },
+  "thirty_seconds": {
+   "a": "Operators and developers of AI agents. Operators are covered for knowing operation of an agent that recklessly causes hacking damage or loss.",
+   "b": "Developers must implement reasonable safeguards against hacking when they knew or had reason to know of the AI agent's hacking capabilities.",
+   "c": "Criminal and civil liability under the Computer Fraud and Abuse Act. The Attorney General and state attorneys general may sue to enjoin violators."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General, state attorneys general"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:47:44.819Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "88756d83c798b625cdcd2f24def69d631177bf07f9ee344c22258615bc6613e0"
   }
  },
  {
@@ -7004,6 +7870,15 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-eo-14365-ensuring-a-national-policy-framework-for-ai",
    "section_name": "Executive actions"
+  },
+  "key_facts": {
+   "lead_agencies": "NTIA, Commerce"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:47:57.878Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "3f8447edf87523dc31ad2b181e56783e024b0eb94765d390a1d32f107f05d71d"
   }
  },
  {
@@ -7094,6 +7969,22 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-feb-27-2026-presidential-directive-and-agency-cessation-actions-agains",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Directs every federal agency to stop using Anthropic's technology and orders DoD to designate Anthropic a \"Supply-Chain Risk to National Security\".",
+  "thirty_seconds": {
+   "a": "A presidential post directed \"EVERY Federal Agency\" to stop using Anthropic's technology. The Secretary of War's order directed DoD to designate Anthropic a supply-chain risk.",
+   "b": "Agencies must \"IMMEDIATELY CEASE all use\" of Anthropic's technology. The order says no military contractor, supplier, or partner may do commercial activity with Anthropic. Anthropic must keep serving DoD for up to six months.",
+   "c": "The order says no contractor, supplier, or partner doing business with the military may conduct any commercial activity with Anthropic. It is a procurement and national-security action, not model-safety regulation."
+  },
+  "key_facts": {
+   "issued_by": "President, Secretary of War",
+   "lead_agencies": "DoD, GSA, Treasury, FHFA, State, HHS"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:48:15.123Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "6a29393b3006c6ebf3ecfd52d9a27a9f370893e500e92bf7f7b4896686a0e61b"
   }
  },
  {
@@ -7166,6 +8057,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-eo-14409-promoting-advanced-ai-innovation-and-security",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Directs federal agencies to build a classified cyber benchmark for frontier models and a voluntary framework allowing up to 30 days' pre-release government access.",
+  "thirty_seconds": {
+   "a": "Treasury, the Department of War/NSA, and DHS/CISA, consulting the White House, Commerce/NIST and others. DOJ is also directed on AI-enabled cybercrime.",
+   "b": "Develop a classified cyber-capability benchmark and threshold, a voluntary developer framework for up to 30 days' pre-release access, and a voluntary clearinghouse.",
+   "c": "No. The framework and clearinghouse are voluntary, and Section 3(c) disclaims any mandatory governmental licensing, preclearance, or permitting requirement."
+  },
+  "key_facts": {
+   "lead_agencies": "Treasury, Department of War/NSA, DHS/CISA"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:48:33.858Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f5956438daf90660243770ecd7883d068bf5b475ae1856c19bdf65a8c2c0d712"
   }
  },
  {
@@ -7266,6 +8172,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-june-12-2026-government-export-control-directive-affecting-anthropic-f",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Anthropic says the US government applied export controls to Fable 5 and Mythos 5 on June 12, requiring it to prevent all foreign-national access, until they were lifted June 30.",
+  "thirty_seconds": {
+   "a": "Anthropic says the directive was aimed at it and covered its two models, Fable 5 and Mythos 5. The issuing office is not publicly identified.",
+   "b": "Per Anthropic, it required preventing all foreign-national access to both models. Anthropic suspended both for all users because it could not verify nationality in real time.",
+   "c": "Anthropic treated it as binding and complied, suspending both models. The directive is nonpublic, and its legal basis cannot be verified from public text."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:48:56.813Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "d3a053baff55594653354381f5062bbb95babfa5d187170d8125a299807463ca"
   }
  },
  {
@@ -7329,6 +8247,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-caisi-voluntary-pre-deployment-evaluation-activity-nist-aite-program",
    "section_name": "Executive actions"
+  },
+  "thirty_seconds": {
+   "a": "NIST's center (formerly CAISI, now called CAISSI on NIST's site) and its Frontier Assessment team, which works with frontier labs and private developers or evaluators.",
+   "b": "Sets up voluntary agreements with private developers/evaluators, leads unclassified national-security-risk evaluations, and runs AITE blind-data testing in a sequestered environment.",
+   "c": "No. The programs are voluntary. They are a federal voluntary-evaluation track, not a mandate."
+  },
+  "key_facts": {
+   "issued_by": "NIST",
+   "lead_agencies": "CAISI, NIST"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:49:46.078Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "996d91a11c64d59f45fba4cb52b1e11558a66a6db6ed397dbe247d46ea457562"
   }
  },
  {
@@ -7392,6 +8325,16 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-trump-remarks-congress-wants-to-regulate-ai-out-of-business",
    "section_name": "Executive actions"
+  },
+  "key_facts": {
+   "issued_by": "Trump"
+  },
+  "display_name": "Trump remarks: Congress wants to regulate AI \"out of business\"",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:50:03.213Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "50aaa7b40b3afb25318b9812c495bef0647ce177a83e54c38a40b2b92ae9a5ab"
   }
  },
  {
@@ -7469,6 +8412,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-california-executive-order-n-9-26-independent-oversight-and-an-ai-kill",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Directs the Government Operations Agency to recommend state law changes for independent onsite audits of frontier labs, a frontier-model kill switch, and loss-of-control incident reporting.",
+  "thirty_seconds": {
+   "a": "The Government Operations Agency, in consultation with Cal OES, must convene national experts and submit recommendations by Nov 16, 2026.",
+   "b": "It asks for recommendations on four law changes: onsite independent verification organizations, verified safety filings, a verified kill switch, and loss-of-control incidents counted as critical safety incidents.",
+   "c": "No. A state executive order cannot itself amend SB 53; it produces recommendations for the Legislature."
+  },
+  "key_facts": {
+   "lead_agencies": "Government Operations Agency, Cal OES"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:50:16.457Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "7a79a636cda12b61524307eae6c72e81c4971f8d0a39789b0a719cdacf06a2c0"
   }
  },
  {
@@ -7532,6 +8490,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-illinois-executive-order-2026-07-illinois-artificial-intelligence-cabi",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Establishes an AI Cabinet of state agency leaders and outside experts to develop policies for AI incidents, protecting critical infrastructure, and evaluating further regulation.",
+  "thirty_seconds": {
+   "a": "Senior leaders from DoIT, IEMA-OHS, IDFPR, ICC, ISP, IDPH and IEPA, plus outside experts in academia, law, ethics and governance.",
+   "b": "Creates an AI Cabinet to develop policies to prepare for and respond to AI incidents, protect public assets and critical infrastructure, and analyse emerging incidents.",
+   "c": "No new duty is placed on developers. It is implementation context for the AI Safety Measures Act, though the Cabinet is to evaluate further regulation."
+  },
+  "key_facts": {
+   "lead_agencies": "DoIT, IEMA-OHS, IDFPR, ICC, ISP, IDPH, IEPA"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:50:24.376Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c94ed16145e4d2924305d1588db1543168888174d27300f16d77630719a8fd79"
   }
  },
  {
@@ -7595,6 +8568,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-oregon-executive-order-26-26-ai-procurement-safety-standards-for-state",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Directs the State Chief Information Officer to propose AI procurement and safety standards for Oregon's executive branch, including third-party safety reviews and a kill-switch assessment.",
+  "thirty_seconds": {
+   "a": "The State Chief Information Officer, who must act for the executive branch of Oregon state government.",
+   "b": "Submit within 90 days an implementation proposal for AI procurement and safety standards, with third-party review criteria and a kill-switch viability assessment for frontier AI models.",
+   "c": "No, not outside state contracts. It conditions the state's own use of AI and imposes no duty on developers outside state contracts."
+  },
+  "key_facts": {
+   "lead_agencies": "State Chief Information Officer"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:50:31.360Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c326c8ad007a652b7b6fd380e21bf8a83362ff0f9d524b08c40d6dd0787ce946"
   }
  },
  {
@@ -7663,6 +8651,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-white-house-accord-on-super-intelligence-joint-commitment-on-frontier-",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Sets out voluntary commitments for companies training frontier models to adopt internal controls, an internal team, an outside auditor and a board committee.",
+  "thirty_seconds": {
+   "a": "Companies training frontier models. It was signed at a White House meeting by President Trump and leaders of Google, Anthropic, Meta, OpenAI, xAI and Nvidia.",
+   "b": "It orders nothing. Each company pledges four layers: internal monitoring controls, an internal team, an independent external auditor or evaluator, and an independent board committee.",
+   "c": "No. Speaker Johnson described it as voluntary. It has no licensing, pre-release review, or legally binding risk standard, though it says it may make sense to codify the steps into laws or regulations."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:50:47.413Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "159b192e69035dd47cae9eb11597cf4c936b5a68f288d5193de4ec0e24ab4d2b"
   }
  },
  {
@@ -7740,6 +8740,61 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-executive-order-14434-inaugurating-the-era-of-super-intelligence-u",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Directs the executive branch to use the terms \"Super Intelligence\" and \"SI\" in place of \"Artificial Intelligence\" and \"AI\" in official non-statutory documents.",
+  "thirty_seconds": {
+   "a": "The executive branch, and the Assistant to the President for Science and Technology, who must propose legislative language on a federal definition.",
+   "b": "Agencies must use \"Super Intelligence\" and \"SI\" instead of \"Artificial Intelligence\" and \"AI\" in correspondence, websites and reports, to the maximum extent permitted by law.",
+   "c": "It changes no obligation on developers. It leaves existing regulations, Presidential actions, contracts and grants unchanged, and has no safety, testing or licensing provisions."
+  },
+  "key_facts": {
+   "lead_agencies": "Assistant to the President for Science and Technology"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:50:55.212Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "528f4cf555125603c82eccc62331b590ce9f314070c9720580b624da0149d332"
+  },
+  "exec_checklist": {
+   "binding": {
+    "value": "not_in_bill",
+    "summary": "The order imposes no mandatory duties on private companies; it only addresses terminology used within the executive branch."
+   },
+   "voluntary_program": {
+    "value": "not_in_bill",
+    "summary": "The order does not create or call for any voluntary program, framework or commitment that companies could join."
+   },
+   "pre_release_access": {
+    "value": "not_in_bill",
+    "summary": "The order says nothing about government testing of, or access to, AI models before they are released."
+   },
+   "agencies_build": {
+    "value": "yes",
+    "summary": "The APST must submit to the President proposed legislative language defining 'Super Intelligence', with an assessment, conforming amendments and recommendations for further action.",
+    "section": "Sec. 3(b)",
+    "quote": "shall submit to the President proposed legislative language to establish a Federal definition of ``Super Intelligence'' and ``SI''",
+    "source_url": "https://www.federalregister.gov/documents/2026/10/02/2026-20321/inaugurating-the-era-of-super-intelligence"
+   },
+   "deadlines": {
+    "value": "yes",
+    "summary": "The APST must submit the proposed legislative language on a Federal definition within 60 days of the order's date.",
+    "section": "Sec. 3(b)",
+    "quote": "Within 60 days of the date of this order, the Assistant to the President for Science and Technology",
+    "source_url": "https://www.federalregister.gov/documents/2026/10/02/2026-20321/inaugurating-the-era-of-super-intelligence"
+   },
+   "enforcement_priority": {
+    "value": "not_in_bill",
+    "summary": "The order does not direct any law enforcement or litigation priorities or enforcement actions."
+   },
+   "targets_state_laws": {
+    "value": "not_in_bill",
+    "summary": "The order does not address state laws in any way, whether by challenge, pre-emption, evaluation or funding conditions."
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "The order sets no penalties or sanctions for failing to comply with it."
+   }
   }
  },
  {
@@ -7808,6 +8863,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-super-intelligence-force-presidential-task-force-chaired-by-dni-jay-cl",
    "section_name": "Executive actions"
+  },
+  "summary_line": "Announces a presidential task force chaired by Director of National Intelligence Jay Clayton to coordinate the federal effort to lead the world in Super Intelligence.",
+  "thirty_seconds": {
+   "a": "The task force is chaired by Director of National Intelligence Jay Clayton and reports to the President and the Chief of Staff. Vice chairs are Andrew Ferguson, Emil Michael and Scott Kupor.",
+   "b": "Its stated task is coordinating the federal government's effort so America keeps leading in Super Intelligence. A 120-day report on AI risks and opportunities is reported.",
+   "c": ""
+  },
+  "key_facts": {
+   "issued_by": "President"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:51:15.514Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "290640b2d607366f3f1d9da1cfaebc7d00139bfb6cf459ca1bc8f478dc032786"
   }
  },
  {
@@ -7906,6 +8976,19 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-challenges-to-sb-53-raise-act-or-sb-315",
    "section_name": "Litigation and enforcement"
+  },
+  "summary_line": "Tracks whether any court challenge or enforcement action has been brought against SB 53, the RAISE Act or SB 315; none has been located so far.",
+  "thirty_seconds": {
+   "a": "Whether anyone sues to challenge, or regulators act to enforce, SB 53, the RAISE Act or SB 315.",
+   "b": "The enacted frontier laws appear to be judicially untested. SB 53 has been in effect since Jan 1, 2026; RAISE and SB 315 are not effective until Jan 1, 2027.",
+   "c": "Searches on Sept. 5, Sept 28 and Oct 31, 2026 located no challenge or reported enforcement action."
+  },
+  "display_name": "Challenges to SB 53, RAISE Act, or SB 315",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:51:23.663Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "e65f0750caba6fb47069326aec0109ac16b88267717f4455bb37711ac7336f83"
   }
  },
  {
@@ -7978,6 +9061,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-doj-ai-litigation-task-force-created-jan-9-2026-under-eo-14365",
    "section_name": "Litigation and enforcement"
+  },
+  "summary_line": "Tracks whether the DOJ AI Litigation Task Force, created Jan 9, 2026 under EO 14365, has been used in court against a frontier AI law.",
+  "thirty_seconds": {
+   "a": "Whether the DOJ AI Litigation Task Force brings a case against a frontier AI law.",
+   "b": "The Task Force was created Jan 9, 2026 under EO 14365.",
+   "c": "No Task Force case was independently attributed to it through Sept 28, 2026. DOJ intervened in the Colorado case, but the cited materials do not attribute that to the Task Force."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:51:46.315Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "01cb72bc73e136f560f97d76b4b79a1ad93cdd6014474fead497b7a12ebc94e3"
   }
  },
  {
@@ -8044,6 +9139,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-commerce-dept-onerous-state-ai-laws-evaluation-eo-14365-deliverable-du",
    "section_name": "Litigation and enforcement"
+  },
+  "summary_line": "Tracks whether Commerce has published its evaluation of onerous state AI laws, an EO 14365 deliverable that was due Mar. 11, 2026 and a trigger for BEAD-funding pressure.",
+  "thirty_seconds": {
+   "a": "Whether the Commerce Department has publicly released its evaluation of onerous state AI laws, due Mar. 11, 2026 under EO 14365.",
+   "b": "The evaluation is a trigger for BEAD-funding pressure.",
+   "c": "No public report was located through Sept. 5, nor through Sept 28, 2026; cited reporting likewise said it had not been released."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:52:00.163Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "430637e22dff8ec57ff2eec147de9cca426bac5501c6ccaf8224f21fbca3c9f7"
   }
  },
  {
@@ -8139,7 +9246,36 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-x-ai-llc-v-weiser-no-1-26-cv-01515-d-colo",
    "section_name": "Litigation and enforcement"
-  }
+  },
+  "summary_line": "Challenges Colorado's SB 24-205 algorithmic-discrimination law, with xAI suing to block it and the Department of Justice intervening on an Equal Protection theory.",
+  "key_facts": {
+   "court": "D. Colo.",
+   "plaintiff": "X.AI LLC",
+   "defendants": "Weiser"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:52:26.536Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "6f8925e50de6fe19f82684f01f4450e9bf41096cdadacf646e292e0268aacfde"
+  },
+  "claims": [
+   {
+    "label": "First Amendment (compelled speech) challenge to Colorado SB 24-205",
+    "outcome": "pending",
+    "note": "No ruling on the merits; the court only granted a joint stipulation barring enforcement and staying deadlines."
+   },
+   {
+    "label": "Equal Protection challenge to Colorado SB 24-205 (also DOJ's theory)",
+    "outcome": "pending",
+    "note": "DOJ intervened on this theory, but no ruling on it is recorded."
+   },
+   {
+    "label": "Dormant Commerce Clause challenge to Colorado SB 24-205",
+    "outcome": "pending",
+    "note": "No ruling on the merits is recorded; the preliminary-injunction motion has not yet been filed."
+   }
+  ]
  },
  {
   "id": 68,
@@ -8281,7 +9417,58 @@
    "external": {
     "courtlistener_docket": "72379655"
    }
-  }
+  },
+  "summary_line": "Anthropic challenges its federal supply-chain-risk designation and related measures; the court granted summary judgment largely for Anthropic and the government has appealed.",
+  "thirty_seconds": {
+   "a": "Anthropic PBC sued the U.S. Department of War and many other federal agencies and named officials.",
+   "b": "It challenges a \"supply chain risk\" designation under § 3252, pleaded as never before applied to a domestic company, and alleges retaliation, denial of due process and unauthorized sanctions.",
+   "c": "On Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic. The government filed a notice of appeal to the Ninth Circuit on Oct 26, 2026."
+  },
+  "key_facts": {
+   "court": "N.D. Cal.",
+   "judge": "Rita F. Lin",
+   "plaintiff": "Anthropic PBC",
+   "defendants": "U.S. Department of War et al.",
+   "lawyers": "WilmerHale"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:52:47.870Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "3c74561c836bf7741bfd3fbda20fc8d36a7702fc0401cd1d23f996f7839c6afd"
+  },
+  "claims": [
+   {
+    "label": "I. APA / 10 U.S.C. § 3252 – designation exceeds statute, skipped steps, arbitrary",
+    "outcome": "won",
+    "note": "Court held the APA violations (in excess of statutory authority; arbitrary and capricious) and the designation illegal and baseless.",
+    "source_url": "https://docs.justia.com/cases/federal/district-courts/california/candce/3:2026cv01996/465515/1"
+   },
+   {
+    "label": "II. First Amendment retaliation for protected speech and petitioning",
+    "outcome": "won",
+    "note": "The court found First Amendment retaliation as part of holding the designation illegal.",
+    "source_url": "https://docs.justia.com/cases/federal/district-courts/california/candce/3:2026cv01996/465515/1"
+   },
+   {
+    "label": "III. Ultra vires presidential directive",
+    "outcome": "lost",
+    "note": "The court rejected the ultra vires/separation-of-powers count.",
+    "source_url": "https://docs.justia.com/cases/federal/district-courts/california/candce/3:2026cv01996/465515/1"
+   },
+   {
+    "label": "IV. Fifth Amendment due process (de facto debarment)",
+    "outcome": "won",
+    "note": "The court found a Fifth Amendment due process violation.",
+    "source_url": "https://docs.justia.com/cases/federal/district-courts/california/candce/3:2026cv01996/465515/1"
+   },
+   {
+    "label": "V. APA § 558 unauthorized sanctions by other agencies",
+    "outcome": "unclear",
+    "note": "Summary judgment was largely for Anthropic, but the record does not say how this count was treated.",
+    "source_url": "https://docs.justia.com/cases/federal/district-courts/california/candce/3:2026cv01996/465515/1"
+   }
+  ]
  },
  {
   "id": 69,
@@ -8399,7 +9586,39 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-nos-26-1049-and-26-1162-d-c-cir-",
    "section_name": "Litigation and enforcement"
-  }
+  },
+  "summary_line": "Anthropic challenges the Department of War's 41 U.S.C. § 4713 supply-chain designation; the D.C. Circuit denied its petition for review 2–1 on Sept. 25, 2026.",
+  "thirty_seconds": {
+   "a": "Anthropic PBC v. U.S. Department of War, a petition for review in the D.C. Circuit (Nos. 26-1049 and 26-1162).",
+   "b": "Anthropic challenges a separate Mar. 3 letter invoking 41 U.S.C. § 4713, a civilian-agency supply-chain exclusion. Review lies exclusively in the D.C. Circuit.",
+   "c": "Petition denied 2–1 on Sept. 25, 2026. In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc; no ruling located as of Oct 31, 2026."
+  },
+  "key_facts": {
+   "court": "D.C. Circuit",
+   "judge": "Katsas, Rao, Henderson",
+   "plaintiff": "Anthropic PBC",
+   "defendants": "U.S. Department of War"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:52:56.749Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "1a3d4e25cf91e5d3c912203551c15eddaf4a37e691dc6e44f0e04428c088a5d3"
+  },
+  "claims": [
+   {
+    "label": "Statutory claim: \"manipulate\" in FASCSA does not reach Anthropic (41 U.S.C. § 4713 designation)",
+    "outcome": "lost",
+    "note": "The majority held FASCSA's term \"manipulate\" reaches a contractor that disables Claude from performing lawful actions requested by the Department.",
+    "source_url": "https://law.justia.com/cases/federal/appellate-courts/cadc/26-1049/26-1049-2026-09-25.html"
+   },
+   {
+    "label": "First Amendment claim",
+    "outcome": "lost",
+    "note": "The court held the exclusion rested on refusal to assent to a contract term the Department deemed essential.",
+    "source_url": "https://law.justia.com/cases/federal/appellate-courts/cadc/26-1049/26-1049-2026-09-25.html"
+   }
+  ]
  },
  {
   "id": 70,
@@ -8507,6 +9726,23 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-protect-democracy-project-v-office-of-the-national-cyber-director",
    "section_name": "Litigation and enforcement"
+  },
+  "summary_line": "Protect Democracy sues under FOIA for records of the administration's reported voluntary framework for reviewing closed frontier AI models before release.",
+  "thirty_seconds": {
+   "a": "Protect Democracy Project sued the Office of the National Cyber Director, OSTP, Commerce, the Bureau of Industry and Security, and Treasury.",
+   "b": "A FOIA suit seeking the reportedly finalized Aug. 1 voluntary review framework, participating-company information, and the claimed legal authority.",
+   "c": "Protect Democracy withdrew its preliminary-injunction motion on Sept 15, 2026. A joint status report is due Nov 13, 2026; the defendants' response is due Dec 1, 2026."
+  },
+  "key_facts": {
+   "court": "D.D.C.",
+   "judge": "Ana C. Reyes",
+   "plaintiff": "Protect Democracy Project"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:53:17.175Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "9bd5c301a3e858cff61e4b7a17315467748fc500f8678eacc1ef9e7e54788d88"
   }
  },
  {
@@ -8598,6 +9834,24 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-state-of-florida-v-openai-motion-for-temporary-injunction-against-fron",
    "section_name": "Litigation and enforcement"
+  },
+  "summary_line": "Florida asks a state court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" without \"third-party approved safety guardrails.\"",
+  "thirty_seconds": {
+   "a": "The State of Florida sues OpenAI in Highlands County Circuit Court and has moved for a temporary injunction.",
+   "b": "The suit, filed June 1, 2026, alleges deceptive trade practices, negligent design and marketing, failure to warn and public nuisance over ChatGPT's effects on vulnerable users.",
+   "c": "The motion was filed Sept 28, 2026. OpenAI removed the case to federal court, but a federal judge sent it back. No hearing or ruling was reported as of Oct 31, 2026."
+  },
+  "key_facts": {
+   "court": "Highlands County Circuit Court",
+   "judge": "Heather Beato",
+   "plaintiff": "State of Florida",
+   "defendants": "OpenAI"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:53:34.662Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "74c6afa3c44ef9a7eed6a25ec867a74fcfde1503a84d542ff791e69a5c59cb35"
   }
  },
  {
@@ -8661,6 +9915,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-california-doj-technical-enforcement-capacity",
    "section_name": "Litigation and enforcement"
+  },
+  "summary_line": "Tracks whether California DOJ is building technical staff to enforce tech laws, noting a job posting for Investigative Technologists but no SB 53 enforcement action.",
+  "thirty_seconds": {
+   "a": "Whether California DOJ is building technical capacity to enforce SB 53, including hiring Investigative Technologists.",
+   "b": "The posting establishes technical hiring, but not an SB 53-specific enforcement plan or action.",
+   "c": "A job posting sought Investigative Technologists for technical investigations in consumer-protection, privacy, and technology-enforcement matters. No SB 53 enforcement action was located in the Sept. 5 search."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:53:50.686Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "026171d858a015faaaf855b8e1e025ea066cfb01f0ee45537afaeb8ce5644115"
   }
  },
  {
@@ -8732,6 +9998,22 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-bis-framework-for-ai-diffusion-biden-era-interim-final-rule",
    "section_name": "Compute and export controls"
+  },
+  "summary_line": "Would have created a tiered global licensing regime for advanced chips and controls on closed model weights, with open-weight models exempt; it was rescinded in May 2025.",
+  "thirty_seconds": {
+   "a": "",
+   "b": "It would have set up tiered global licensing for advanced chips and, for the first time, controls on closed model weights. Open-weight models were exempt.",
+   "c": "It never took hold. Published Jan 15, 2025, it was rescinded in May 2025 before its compliance date."
+  },
+  "key_facts": {
+   "lead_agencies": "BIS, Commerce"
+  },
+  "display_name": "BIS \"Framework for AI Diffusion\"",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:53:57.986Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "67371b82d6083fb6d90f7570ea5b1b51c848f12ede33f975c8c548d701ee8265"
   }
  },
  {
@@ -8799,6 +10081,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-bis-final-rule-on-ai-chip-licensing-to-china-macau",
    "section_name": "Compute and export controls"
+  },
+  "summary_line": "Provides case-by-case review of certain chip exports to end users in China or Macau, under conditions including independent US testing and aggregate volume limits.",
+  "thirty_seconds": {
+   "a": "",
+   "b": "Chips below set performance and memory-bandwidth limits, including H200 and MI325X examples, get case-by-case review for export to end users in China or Macau.",
+   "c": "Conditions apply, including independent US testing and aggregate volume limits. Reexports and transfers remain under a presumption of denial. Published and effective Jan. 15, 2026."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:54:09.053Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "35c1a95149265a34a69b3397ef303853022642f651b5b22977b29320760bf396"
   }
  },
  {
@@ -8912,6 +10206,22 @@
      "119/hr/3447"
     ]
    }
+  },
+  "summary_line": "Would require the Commerce Department to make covered advanced chips carry location-verification mechanisms before export, within 180 days.",
+  "thirty_seconds": {
+   "a": "Covered advanced integrated circuits, and the Commerce Department, which would set the rules for them.",
+   "b": "Commerce would have to require location-verification mechanisms on covered chips before export within 180 days, set chip-security standards, and require reports of signs of diversion or tampering.",
+   "c": ""
+  },
+  "key_facts": {
+   "enforced_by": "Commerce"
+  },
+  "display_name": "Chip Security Act",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:54:24.621Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "132631676d09907ecbf0a89574f6aa6986b0a95833e4b8a8bcae37ec36af252e"
   }
  },
  {
@@ -8983,6 +10293,22 @@
      "119/s/3150"
     ]
    }
+  },
+  "summary_line": "Would require a Bureau of Industry and Security license to export advanced AI chips to countries of concern, with US buyers getting first refusal.",
+  "thirty_seconds": {
+   "a": "Anyone exporting, reexporting or transferring covered advanced chips to entities located or headquartered in Country Group D:5 or E, Macau or Hong Kong, or whose parent is. Chips not designed or marketed for data centers are excluded.",
+   "b": "The bill would require a license, with a certification that US persons had a right of first refusal, no backlog or foreseeable backlog over 12 months, and no better pricing for foreign buyers.",
+   "c": "The license would be denied without the certification."
+  },
+  "key_facts": {
+   "enforced_by": "BIS"
+  },
+  "display_name": "GAIN AI Act of 2025",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:54:41.123Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "0822543211a5bf7c99cb3bc383f41075d331b004a1fd098d6a8717bebb61b3b8"
   }
  },
  {
@@ -9064,6 +10390,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-bis-affiliates-rule",
    "section_name": "Compute and export controls"
+  },
+  "summary_line": "Extends Entity List and MEU restrictions to unlisted foreign entities owned 50% or more by listed entities, but a later final rule suspended and then reinstated these provisions.",
+  "thirty_seconds": {
+   "a": "Unlisted foreign entities owned 50% or more, directly or indirectly, individually or in aggregate, by entities on the Entity List or MEU list.",
+   "b": "It extends Entity List/MEU restrictions to those owned entities, subject to exclusions. A later final rule temporarily removed these provisions and prospectively reinstated them.",
+   "c": "Yes, it is an export rule. It took effect Sept. 29, 2025, was suspended Nov. 10, 2025 through Nov. 9, 2026, and was scheduled to be reimposed Nov. 10, 2026."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:54:57.412Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "45e8b7dd1c99b00f16e0a3d82f23e87c1e66c135c52e66e1b4c952532d98fbab"
   }
  },
  {
@@ -9145,6 +10483,22 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-documentary-lineage-of-the-10-threshold",
    "section_name": "Compute and export controls"
+  },
+  "summary_line": "Traces the 10²⁶ operations reporting trigger for dual-use foundation models from EO 14110 and a BIS proposal to the same benchmark in current state frontier statutes.",
+  "thirty_seconds": {
+   "a": "",
+   "b": "EO 14110 used 10²⁶ integer/floating-point operations as a reporting trigger for dual-use foundation models; BIS's Sept. 2024 proposal repeated it.",
+   "c": "No. EO 14110 was revoked Jan. 20, 2025, and no final version of BIS-2024-0047 was located before the revocation."
+  },
+  "key_facts": {
+   "lead_agencies": "BIS"
+  },
+  "display_name": "Documentary lineage of the 10²⁶ threshold",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:55:18.345Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "04290ba7ec851f7a696d1d0a8d8389d2eae957478098137dadbb203fc46d8f64"
   }
  },
  {
@@ -9290,6 +10644,17 @@
      "119/s/4456"
     ]
    }
+  },
+  "summary_line": "Would require Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval process.",
+  "key_facts": {
+   "enforced_by": "Commerce"
+  },
+  "display_name": "AI OVERWATCH Act",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:55:33.134Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "fae7a89f2fe7d1dd825c783154af553464695afb3b6678980eb2abfe917b2a26"
   }
  },
  {
@@ -9353,6 +10718,18 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-1047-safe-and-secure-innovation-for-frontier-ai-models-act",
    "section_name": "Precursors and withdrawn proposals"
+  },
+  "summary_line": "Would have required covered frontier AI developers to adopt a written safety and security protocol, use an annual independent auditor, and report safety incidents.",
+  "thirty_seconds": {
+   "a": "Covered developers of frontier AI models in California. The bill was vetoed Sept. 29, 2024, so it never took effect.",
+   "b": "It would have required a written safety and security protocol, an annual independent auditor, compliance certifications before training or deployment, a full-shutdown capability, and incident reports.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:55:49.244Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "d55f3ed7bec15471e151d16e1178db7007fd51670d7f11a1c70dd4f65d4420be"
   }
  },
  {
@@ -9416,6 +10793,19 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-reconciliation-bill-10-year-state-ai-law-moratorium-2025-r",
    "section_name": "Precursors and withdrawn proposals"
+  },
+  "summary_line": "Would have imposed a 10-year moratorium on state AI laws through the reconciliation bill, but the Senate stripped it by a 99–1 vote on July 1, 2025.",
+  "thirty_seconds": {
+   "a": "",
+   "b": "The reconciliation bill, H.R. 1, carried a 10-year moratorium on state AI laws. Blackburn Amendment No. 2814 struck that section.",
+   "c": "It failed: the Senate stripped it by a 99–1 vote on July 1, 2025."
+  },
+  "display_name": "Reconciliation-bill 10-year state-AI-law moratorium (2025)",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:55:55.957Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "df45a71cc7aa1b853120c689ca6e2a77e84e4ceb8811db9f01bb7c44f236352b"
   }
  },
  {
@@ -9488,6 +10878,21 @@
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-california-ballot-initiative-a-g-file-no-25-0034-amendment-1-oversight",
    "section_name": "Precursors and withdrawn proposals"
+  },
+  "summary_line": "Would have created an independent California AI Safety Commission to regulate large frontier AI companies, with fines, personal liability for executives and felony penalties.",
+  "thirty_seconds": {
+   "a": "Large \"frontier AI companies\", defined by valuation, capital raised, or expenditures plus a capability threshold the commission would set.",
+   "b": "Register, submit protection plans on workforce displacement, safety and loss of control for review, and follow commission orders, including possible delays to capability expansions.",
+   "c": "Civil fines up to 20% of California revenue, executives personally liable up to $1M, felony penalties (2–6 years), and private enforcement. Withdrawn Feb 27, 2026."
+  },
+  "key_facts": {
+   "enforced_by": "California AI Safety Commission"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:56:09.788Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "d45022c7c45303f7d1ffe498816260ce4a28f34b3ba1e03bffd994cf196bf796"
   }
  },
  {
@@ -9587,6 +10992,22 @@
      2106638
     ]
    }
+  },
+  "summary_line": "Bars retaliation against employees who report catastrophic-risk concerns at frontier AI developers and requires large ones to run anonymous internal reporting channels.",
+  "thirty_seconds": {
+   "a": "Frontier developers doing business in CT that train with more than 10²⁶ FLOPs; large frontier developers have more than $500M in revenue.",
+   "b": "Frontier developers may not retaliate against employees reporting catastrophic-risk concerns (from Oct. 1, 2026). Large ones must run anonymous internal reporting channels by Jan. 1, 2027.",
+   "c": "Civil penalty of up to $1,000 per violation of the whistleblower duties, in an AG action in Hartford superior court; the AG also recovers fees."
+  },
+  "key_facts": {
+   "enforced_by": "AG"
+  },
+  "display_name": "C.A.R.T. Act",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:56:25.757Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "62d6c21b74ae433602bed6cdb30a663a00c45ef2dbfece9ac880638bee9d2f3a"
   }
  },
  {
@@ -10125,7 +11546,19 @@
    "checked_at": "2026-10-26T12:00:00Z"
   },
   "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31"
+  "last_changed": "2026-10-31",
+  "summary_line": "Would require large AI contractors with Department of Defense contracts to report insider-threat protections and notify DoD within 72 hours of acute national security risks.",
+  "thirty_seconds": {
+   "a": "Large AI contractors with DoD AI contracts worth at least $100,000,000 and at least $1,000,000,000 in AI R&D over the prior 3 years (with affiliates), or those using a model from a developer meeting that spending test.",
+   "b": "If enacted, DoD regulations issued within 180 days would require these contractors to report vetting, insider-threat, access-control and model-weight protections with every bid, re-certify every 90 days, and give 72-hour notice of acute risks.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:56:42.516Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "7e283f452943bb10de7f4a335589e29b086fd0f824df103e58665532940621b6"
+  }
  },
  {
   "id": 95,
@@ -10249,7 +11682,14 @@
    "checked_at": "2026-10-26T12:00:00Z"
   },
   "last_checked": "2026-10-26",
-  "last_changed": "2026-10-26"
+  "last_changed": "2026-10-26",
+  "summary_line": "Would direct the NSA's AI Security Center to write an AI Security Playbook on defending advanced AI technologies from theft by nation-state and other highly resourced actors.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:57:00.408Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "3b37a06c78033419316af740bdecae6f7c3f574b839711397b59ad28478c4042"
+  }
  },
  {
   "id": 96,
@@ -10348,7 +11788,19 @@
    "checked_at": "2026-10-26T12:00:00Z"
   },
   "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31"
+  "last_changed": "2026-10-31",
+  "summary_line": "Would direct NIST to work with AI developers on defining AI distillation attacks and setting voluntary standards to detect and prevent them.",
+  "thirty_seconds": {
+   "a": "NIST, working with private-sector AI developers, but not entities tied to China, Russia, Iran, North Korea or Cuba.",
+   "b": "Nothing is required of developers. NIST would define distillation attacks within 180 days and publish voluntary standards and best practices within a year.",
+   "c": "No penalties. The standards are voluntary only, with no duties on developers."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:57:07.513Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "4d8c7b380cf18264ed05d0d8f11c0cf038d878a6adf02d1e1ba058add57d9110"
+  }
  },
  {
   "id": 104,
@@ -10456,7 +11908,19 @@
    "checked_at": "2026-10-31T12:00:00Z"
   },
   "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31"
+  "last_changed": "2026-10-31",
+  "summary_line": "Would require the Secretary of Defense to set up an Artificial General Intelligence Steering Committee to study AGI and its military uses and report to Congress.",
+  "thirty_seconds": {
+   "a": "The Department of Defense. The bill places no duties on AI developers.",
+   "b": "By April 1, 2026 the Secretary of Defense would set up the committee. It would report to the congressional defense committees by January 31, 2027.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:57:17.167Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "dc32724c78d11aea70a4a3948b9b10c64bec523a2bb14a869b5c2815a65339ce"
+  }
  },
  {
   "id": 97,
@@ -10574,7 +12038,19 @@
    "checked_at": "2026-10-26T12:00:00Z"
   },
   "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31"
+  "last_changed": "2026-10-31",
+  "summary_line": "Would urge Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable AI safety standards, with no legal effect.",
+  "thirty_seconds": {
+   "a": "A Pennsylvania House resolution from Rep. Joseph Ciresi and 13 co-sponsors, including Republicans Jason Ortitay and Andrea Verobish. It awaits a House vote.",
+   "b": "It would urge Congress to pass federal legislation regulating frontier AI models. It would urge the President to promote reasonable safety standards nationally and internationally.",
+   "c": "Nothing. It is non-binding and has no legal effect. It would also affirm the General Assembly's right to legislate on AI."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:57:30.673Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c2d97ee3c7f1f0cb95ef057cb177677bda777ba9c8593508999a2c0dc324ee2e"
+  }
  },
  {
   "id": 98,
@@ -10736,6 +12212,21 @@
    "chars": 58699,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "summary_line": "Would amend the RAISE Act to require 72-hour critical safety incident reports and add Attorney General civil penalties of up to $1,000,000 per day of a first violation.",
+  "thirty_seconds": {
+   "a": "Large frontier developers and frontier developers of models trained on more than 10²⁵ operations; large means more than $1,000,000,000 in frontier-model expenditures over 36 months.",
+   "b": "Publish safety frameworks and transparency reports, report critical safety incidents within 72 hours, and retain a frontier examiner for annual and continuous reports.",
+   "c": "The Attorney General may seek civil penalties up to $1,000,000 per day of a first violation and $3,000,000 per day of a subsequent violation, plus injunctions. No private right of action."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:57:48.399Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "497f56e39f255f3d4252261acbea679fa5e815892b0568aae6925f64220230a8"
   }
  },
  {
@@ -10910,6 +12401,21 @@
    "chars": 41440,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "summary_line": "Would require large frontier AI developers to publish safety frameworks, undergo annual audits, and report critical safety incidents, with civil penalties enforced by the Attorney General.",
+  "thirty_seconds": {
+   "a": "Frontier AI developers training models on more than 10^26 operations; large developers, with affiliates, have more than $500,000,000 in annual gross revenue.",
+   "b": "From January 1, 2028, large developers must publish a safety framework, file a disclosure statement, and get an annual independent audit. Incidents must be reported within 72 hours.",
+   "c": "Civil penalties up to $1,000,000 for a first violation and $3,000,000 per later violation, plus $1,000 per day from the Pennsylvania Emergency Management Agency for disclosure failures."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General, Pennsylvania Emergency Management Agency"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:57:59.437Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "89ce021832e7f152d0d8f20350996b2928cc429424b3ce1baaa86f4a89b8e48c"
   }
  },
  {
@@ -11057,6 +12563,21 @@
    "chars": 5134,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "summary_line": "Would have required businesses using large developers' frontier AI models to assess risks, report to the Attorney General, and get certified before selling.",
+  "thirty_seconds": {
+   "a": "Would have covered \"artificial intelligence businesses\" whose public-facing AI systems use a frontier model owned or operated by a large developer.",
+   "b": "Would have had to assess risks of each high risk AI system, file a transparency report, run quarterly audits, and get Attorney General certification before entering commerce.",
+   "c": "Would have let the Attorney General impose civil penalties up to $50,000 per violation, each day a separate violation. The bill failed, held in committees."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:58:14.725Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c87895580547daf29c12fa125f220722f4bd973b0bdd82889a9ee5c7bd3fa430"
   }
  },
  {
@@ -11207,6 +12728,21 @@
    "chars": 47209,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "summary_line": "Would create a North Carolina AI Innovation Trust Fund for AI company grants and require developers of covered AI models to follow safety protocols, with Attorney General enforcement.",
+  "thirty_seconds": {
+   "a": "Developers of covered AI models, which the Secretary of Commerce identifies, plus operators of computing clusters and third-party investigators.",
+   "b": "Keep a written safety protocol, be able to fully shut down, assess critical-harm risks, get an annual independent audit, and report safety incidents within 72 hours.",
+   "c": "The Attorney General may seek civil penalties of up to 5% of training compute cost for a first violation and 15% for later ones, plus injunctions and damages."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:58:25.529Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "5e732e5815df555ab9e54400bba1565035eea8c82df5bb9138ba8433342c139f"
   }
  },
  {
@@ -11401,6 +12937,16 @@
    "chars": 50607,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "summary_line": "Would have required large AI developers and large chatbot providers to publish safety and child protection plans and report safety incidents; it was indefinitely postponed.",
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:58:40.819Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "6182860f29fbfcd33a8ba3c71e1c75edefc4b7a8228d671e0d6db2cdfffaf6f6"
   }
  },
  {
@@ -11551,6 +13097,18 @@
    "chars": 12937,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "summary_line": "Would have barred developers of costly foundation models from retaliating against workers who report public-safety risks, and let those workers sue.",
+  "thirty_seconds": {
+   "a": "Developers that have trained a foundation model at a computational cost of at least one hundred million dollars, and their workers, including employees and independent contractors.",
+   "b": "Not retaliate against workers who disclose safety risks or violations, give notice of rights, and run an anonymous internal reporting process with monthly updates.",
+   "c": "Workers could sue in district court for reinstatement, the greater of ten thousand dollars or lost pay, punitive damages and attorney fees. The bill failed."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:58:47.511Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "449e1e4182f2acbf776878b69b5914acc0bff4cdfc9357f9da8cfaae85a89603"
   }
  },
  {
@@ -11687,6 +13245,13 @@
    "chars": 5961,
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
+  },
+  "summary_line": "Would make developers of covered AI models strictly liable to non-users injured by model conduct that would be negligence or an intentional tort or crime if done by a person.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-11T04:59:05.325Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "b12a0ce492b9804318d604418fd71d39a8a5bf586b9dad6ac94b6b70b2f4f25b"
   }
  },
  {
@@ -12010,6 +13575,18 @@
     ]
    },
    "text_problems": []
+  },
+  "summary_line": "Would direct NIST to develop voluntary guidelines for internal and external AI assurance and set up a committee and study on who should conduct AI assurance.",
+  "thirty_seconds": {
+   "a": "The Director of NIST and the Secretary of Commerce would carry out the bill. No private company would be required to do anything.",
+   "b": "If enacted, NIST would have to develop voluntary AI assurance guidelines within 1 year. Commerce would have to set up an advisory committee and begin a study of assurance providers.",
+   "c": "No penalties are stated. The guidelines would be voluntary, and no one would be required to undergo an audit."
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-12T05:20:50.351Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "ae77490654bb73bc8a8d02a63c91f0914a653d8158efa652c481ddd40f699c43"
   }
  }
 ]

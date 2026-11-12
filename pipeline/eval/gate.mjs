@@ -4,6 +4,8 @@
 //   new_entries                        every reading field above AND the Tier B replay set (eval/tierb-set.mjs) at zero wrong
 //   relationships                      the links backtest on the real network AND the links synthetic suite (eval/links-measure.mjs), zero wrong
 //   news                               the event set (eval/news-set.mjs) and the card writer (eval/news-writer-set.mjs) at zero wrong
+//   press                              the press set (eval/press-set.mjs: planted faults refused, recorded reviewer answers right) at zero wrong
+//   page_fields                        the page-fields set (eval/pagefields-set.mjs: reviewed drafts pass, planted faults refused) at zero wrong and zero errors
 // A report whose checks_hash is missing or differs from the current code does not count. An unreadable report or gold file turns every
 // switch off for the run with a note (update.mjs never stops on it; the official-record steps go on).
 //   node eval/gate.mjs            prints the verdict per switch; exit 1 if a switch is on without a passing report
@@ -16,7 +18,7 @@ import { PIPELINE } from '../agents/pipeline-config.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 
 export const FIELD_SWITCHES = ['mechanism', 'thresholds', 'penalties'];
-const MEASURED = { new_entries: 'tierb', relationships: 'links', news: 'news' };
+const MEASURED = { new_entries: 'tierb', relationships: 'links', news: 'news', page_fields: 'page_fields', press: 'press' };
 export const HOW = [
   'cd pipeline',
   'node eval/fetch-texts.mjs && node eval/run.mjs --provider anthropic      # field eval (whole test set, production models; paid)',
@@ -26,6 +28,8 @@ export const HOW = [
   'node eval/links-measure.mjs                                              # links backtest + links synthetic suite (code only)',
   'node eval/news-set.mjs                                                   # news event set (code only, real records replayed)',
   'node eval/news-writer-set.mjs                                            # news card writer (recorded answers + synthetic bad cards)',
+  'node eval/pagefields-set.mjs --write                                     # entry page fields (reviewed drafts + planted faults; code only)',
+  'node eval/press-set.mjs --write                                          # in the press (planted faults + recorded reviewer answers; code only)',
   'node eval/gate.mjs'
 ];
 
@@ -121,6 +125,17 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
     const lane1 = !config || config.news_from_official_actions !== false;
     fields.news = { on: !!auto.news, meets: zero(n) && wOk && !lane1, report: n ? n.run_at : null, writer_report: w ? w.run_at : null, note: lane1 ? 'news_from_official_actions is on in config/publish.json: Lane 1 already writes official-action news; switch it off before news publishing goes on' : nNote || wNote };
   }
+  if ('page_fields' in auto) {
+    // page_fields: the page-fields set (eval/pagefields-set.mjs), code only, over the whole set by the current code: every reviewed draft
+    // passes (errors 0) and every planted fault is refused (wrong 0)
+    const pf = measured('page_fields', 'page_fields'), zero = zeroOf('page_fields');
+    fields.page_fields = { on: !!auto.page_fields, meets: zero(pf), report: pf ? pf.run_at : null, note: !pf ? 'no page-fields report made by the current code (eval/pagefields-set.mjs)' : zero(pf) ? null : !complete(pf, 'page_fields') ? incomplete(pf, 'page_fields') : `the page-fields set has ${pf.wrong} wrong and ${pf.errors} errors of ${pf.cases}` };
+  }
+  if ('press' in auto) {
+    // press: the press set (eval/press-set.mjs), code only, over the whole set by the current code, at zero wrong
+    const pr = measured('press', 'press'), zero = zeroOf('press');
+    fields.press = { on: !!auto.press, meets: zero(pr), report: pr ? pr.run_at : null, note: !pr ? 'no press report made by the current code (eval/press-set.mjs)' : zero(pr) ? null : !complete(pr, 'press') ? incomplete(pr, 'press') : `the press set has ${pr.wrong} wrong of ${pr.cases}` };
+  }
   // An owner's override (config/publish.json gate_override.<switch>: { by, date, reason }): the switch counts as meeting its bar without a
   // passing report, by the owner's explicit decision. It is never silent: the field says "on by owner override" with who, when and why,
   // and update.mjs puts that in every run report. Every other check of the entries themselves still runs. Remove it to restore the gate.
@@ -159,7 +174,7 @@ export function readGateInputs(dir = path.join(here, 'reports'), goldFile = path
     const setSize = (f) => { const s = read(f); if (!s || !Array.isArray(s.cases)) throw new Error(`${path.basename(path.dirname(f))}/cases.json has no cases list`); return s.cases.length; };
     // The unseen set lives outside the repo; its size and fingerprints are pinned here, so only a run over exactly that set counts.
     const sets = fs.existsSync(path.join(P, 'config', 'eval-sets.json')) ? read(path.join(P, 'config', 'eval-sets.json')) : {};
-    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), news_writer: setSize(path.join(here, 'news-writer-set', 'cases.json')), links: null, unseen: sets.unseen || null };
+    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), news_writer: setSize(path.join(here, 'news-writer-set', 'cases.json')), page_fields: fs.existsSync(path.join(here, 'pagefields-set', 'cases.json')) ? setSize(path.join(here, 'pagefields-set', 'cases.json')) : null, press: fs.existsSync(path.join(here, 'press-set', 'cases.json')) ? setSize(path.join(here, 'press-set', 'cases.json')) : null, links: null, unseen: sets.unseen || null };
     return { expected, reports: all.filter((r) => !r.measure || r.measure === 'fields'), measures: all.filter((r) => r.measure && r.measure !== 'fields'), goldItems: gold.items.length, hashes: currentHashes() };
   } catch (e) { return { reports: [], measures: [], goldItems: 0, hashes: null, error: String(e.message || e).slice(0, 200) }; }
 }

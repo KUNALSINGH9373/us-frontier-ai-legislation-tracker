@@ -7,7 +7,7 @@
 // Each attempt times out after 2 minutes (the SDK default is 10), so a stuck call cannot hold a scheduled run for an hour.
 import Anthropic from '@anthropic-ai/sdk';
 import { LlmOutputError, InputTooLarge } from './gemini.mjs';
-import { toJsonSchema, schemaProblems } from './schema.mjs';
+import { toJsonSchema, schemaProblems, dropOptionalNulls } from './schema.mjs';
 
 // timeoutMs: each attempt's limit. 2 minutes by default, so a stuck call cannot hold a scheduled run; a role that reads a whole bill and
 // writes a long answer sets more in config/models.json (timeout_ms), or every long bill times out on every run (live run, 31 Oct 2026).
@@ -18,6 +18,7 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
   const parse = (text, responseSchema) => {
     const clean = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
     let data; try { data = JSON.parse(clean); } catch (e) { throw new LlmOutputError('the model did not return valid JSON', clean.slice(0, 300)); }
+    if (responseSchema) data = dropOptionalNulls(responseSchema, data);
     const problems = responseSchema ? schemaProblems(responseSchema, data) : [];
     if (problems.length) throw new LlmOutputError('the answer does not fit its schema: ' + problems.slice(0, 3).join('; '), clean.slice(0, 300));
     return data;

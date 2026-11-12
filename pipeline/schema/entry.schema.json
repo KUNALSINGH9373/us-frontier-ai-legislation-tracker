@@ -350,6 +350,91 @@
         "checked_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
       }
     },
+    "display_name": {
+      "type": "string", "minLength": 2, "maxLength": 80, "pattern": "^[^\\n{}<>]+$",
+      "description": "The name the entry page shows as its title, when the official short title cannot serve (only numbers, a chapter number, or an \"An Act relative to …\" title). Taken from the official text or the name the record uses; every number in it must appear in the title or short name (schema/integrity.mjs)."
+    },
+    "summary_line": {
+      "type": "string", "minLength": 20, "maxLength": 240, "pattern": "^[^\\n{}<>]+$",
+      "description": "One plain-English sentence under the page title: what the entry does. Every number in it must appear in the entry's own checked text (integrity)."
+    },
+    "thirty_seconds": {
+      "type": "object", "required": ["a", "b", "c"], "additionalProperties": false,
+      "description": "The three 'In 30 seconds' boxes. Their headings come from the layout: bill = Who / Must do / Or else; executive = Who it directs / What it orders / Binding on companies?; lawsuit = Who v. who / About / Where it is; watch item = What we watch / Why / Latest. Every number must appear in the entry's own checked text.",
+      "properties": {
+        "a": { "type": "string", "maxLength": 320, "pattern": "^[^\\n{}<>]*$" },
+        "b": { "type": "string", "maxLength": 320, "pattern": "^[^\\n{}<>]*$" },
+        "c": { "type": "string", "maxLength": 320, "pattern": "^[^\\n{}<>]*$" }
+      }
+    },
+    "key_facts": {
+      "type": "object", "additionalProperties": false, "minProperties": 1,
+      "description": "Key facts rows the record cannot give by code. Each value is short and taken from the official record; a row left out shows 'Not stated in our record'.",
+      "properties": {
+        "issued_by": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[^\\n{}<>]+$" },
+        "lead_agencies": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" },
+        "enforced_by": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[^\\n{}<>]+$" },
+        "court": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[^\\n{}<>]+$" },
+        "judge": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[^\\n{}<>]+$" },
+        "plaintiff": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" },
+        "defendants": { "type": "string", "minLength": 2, "maxLength": 200, "pattern": "^[^\\n{}<>]+$" },
+        "lawyers": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" }
+      }
+    },
+    "exec_checklist": {
+      "type": "object", "additionalProperties": false,
+      "required": ["binding", "voluntary_program", "pre_release_access", "agencies_build", "deadlines", "enforcement_priority", "targets_state_laws", "penalties"],
+      "description": "An executive action's 'What it orders' checklist: the same eight questions on every executive action, each answered like a bill duty (a section and an exact quote unless not_in_bill). Only for executive and export-rule entries.",
+      "properties": {
+        "binding": { "$ref": "common.schema.json#/$defs/duty" },
+        "voluntary_program": { "$ref": "common.schema.json#/$defs/duty" },
+        "pre_release_access": { "$ref": "common.schema.json#/$defs/duty" },
+        "agencies_build": { "$ref": "common.schema.json#/$defs/duty" },
+        "deadlines": { "$ref": "common.schema.json#/$defs/duty" },
+        "enforcement_priority": { "$ref": "common.schema.json#/$defs/duty" },
+        "targets_state_laws": { "$ref": "common.schema.json#/$defs/duty" },
+        "penalties": { "$ref": "common.schema.json#/$defs/duty" }
+      }
+    },
+    "claims": {
+      "type": "array", "minItems": 1, "maxItems": 20,
+      "description": "A lawsuit's claims and how each fared, in the order the complaint pleads them. Every decided claim (won, lost, unclear) names the record it is read from. Only for litigation entries.",
+      "items": {
+        "type": "object", "required": ["label", "outcome"], "additionalProperties": false,
+        "properties": {
+          "label": { "type": "string", "minLength": 3, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" },
+          "outcome": { "enum": ["won", "lost", "unclear", "pending"] },
+          "note": { "type": "string", "minLength": 3, "maxLength": 240, "pattern": "^[^\\n{}<>]+$" },
+          "source_url": { "$ref": "common.schema.json#/$defs/url" }
+        },
+        "if": { "properties": { "outcome": { "enum": ["won", "lost", "unclear"] } } },
+        "then": { "required": ["source_url"] }
+      }
+    },
+    "page_verification": {
+      "type": "object", "required": ["method", "checked_at"], "additionalProperties": false,
+      "description": "Who checked the page fields above (display_name, summary_line, thirty_seconds, key_facts, exec_checklist, claims) and when. Required whenever any of them is set (integrity): nothing on the page is published unreviewed.",
+      "properties": {
+        "method": { "enum": ["agent", "session", "author"] },
+        "checked_at": { "$ref": "common.schema.json#/$defs/isoDateTime" },
+        "reviewer": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "basis_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the entry's own checked text the page fields were written from (pagefields/layout.mjs entryText): when it changes, the pipeline writes them again." }
+      }
+    },
+    "press": {
+      "type": "array", "maxItems": 5,
+      "description": "In the press (news/press.mjs): links to credible outlets' coverage of this entry, newest first. Only the outlet's own headline, its name, the date and the link; shown apart from the official record and labelled as press. Never changes any other field. Each was matched to this entry by its bill number or name and passed by the reviewer (about this entry, headline not misleading).",
+      "items": {
+        "type": "object", "required": ["headline", "outlet", "date", "url", "checked_at"], "additionalProperties": false,
+        "properties": {
+          "headline": { "type": "string", "minLength": 12, "maxLength": 300, "pattern": "^[^\\n{}<>]+$" },
+          "outlet": { "enum": ["The New York Times", "The Washington Post", "CNN", "The Independent", "Politico"] },
+          "date": { "$ref": "common.schema.json#/$defs/isoDate" },
+          "url": { "$ref": "common.schema.json#/$defs/url" },
+          "checked_at": { "$ref": "common.schema.json#/$defs/isoDateTime" }
+        }
+      }
+    },
     "plain": {
       "type": "object",
       "required": ["box", "items"],
