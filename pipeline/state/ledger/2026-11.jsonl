@@ -673,3 +673,5 @@
 {"at":"2026-11-13T12:10:03.756Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2540,"output":727,"cost":0.0006175}
 {"at":"2026-11-13T16:06:09.300Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2056,"output":115,"cost":0.0002631}
 {"at":"2026-11-13T16:09:56.103Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2434,"output":353,"cost":0.0004199}
+{"at":"2026-11-13T20:06:02.577Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2059,"output":104,"cost":0.00025790000000000003}
+{"at":"2026-11-13T20:09:50.081Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1935,"output":75,"cost":0.000231}
