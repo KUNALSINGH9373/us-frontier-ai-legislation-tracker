@@ -1,17 +1,16 @@
 {
- "updated_at": "2026-11-13T04:05:43.800Z",
+ "updated_at": "2026-11-13T08:05:44.938Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-11-13T04:05:43.800Z",
-   "last_fetch": "2026-11-13T04:05:43.800Z",
-   "last_ok": "2026-11-13T04:05:43.800Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-11-11",
    "run_newest": null,
    "replay": false,
    "count": 0,
    "counts": [
-    0,
     4,
     0,
     0,
@@ -24,6 +23,7 @@
     13,
     4,
     0,
+    0,
     0
    ],
    "errors": [],
@@ -31,16 +31,15 @@
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-11-13T04:05:43.800Z",
-   "last_fetch": "2026-11-13T04:05:43.800Z",
-   "last_ok": "2026-11-13T04:05:43.800Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-11-16",
    "run_newest": null,
    "replay": false,
    "count": 0,
    "counts": [
-    0,
     12,
     0,
     0,
@@ -53,6 +52,7 @@
     0,
     0,
     1,
+    0,
     0
    ],
    "errors": [],
@@ -60,9 +60,9 @@
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-11-13T04:05:43.800Z",
-   "last_fetch": "2026-11-13T04:05:43.800Z",
-   "last_ok": "2026-11-13T04:05:43.800Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-11-06",
    "run_newest": null,
@@ -89,9 +89,9 @@
    "future_items": []
   },
   "federal_register": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-11-04",
    "run_newest": null,
@@ -110,17 +110,17 @@
     2,
     0,
     0,
+    0,
     0
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "whitehouse": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-09-29",
    "run_newest": "2026-09-29",
@@ -139,22 +139,22 @@
     1,
     1,
     1,
+    1,
     1
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "govinfo": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
-   "newest": "2026-10-22",
-   "run_newest": null,
+   "newest": "2026-11-10",
+   "run_newest": "2026-11-10",
    "replay": false,
-   "count": 0,
+   "count": 1,
    "counts": [
     1,
     1,
@@ -168,17 +168,17 @@
     0,
     0,
     0,
-    0
+    0,
+    1
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "regulations_gov": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-10-26",
    "run_newest": "2026-10-26",
@@ -197,17 +197,17 @@
     1,
     1,
     1,
+    1,
     1
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "congress_extra": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-01-13",
    "run_newest": null,
@@ -226,17 +226,17 @@
     1,
     1,
     0,
+    0,
     0
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "nist": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-08-04",
    "run_newest": "2026-08-04",
@@ -255,17 +255,17 @@
     7,
     7,
     7,
+    7,
     7
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "cbo": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": null,
    "run_newest": null,
@@ -284,17 +284,17 @@
     0,
     0,
     0,
+    0,
     0
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "ca_ag": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-10-28",
    "run_newest": null,
@@ -313,17 +313,17 @@
     0,
     0,
     0,
+    0,
     0
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "nysenate": {
-   "last_run": "2026-11-12T08:05:45.853Z",
-   "last_fetch": "2026-11-12T08:05:45.853Z",
-   "last_ok": "2026-11-12T08:05:45.853Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": null,
    "run_newest": null,
@@ -342,31 +342,31 @@
     0,
     0,
     0,
+    0,
     0
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-13T04:05:43.800Z"
+   "future_items": []
   },
   "openstates": {
-   "last_run": "2026-11-13T04:05:43.800Z",
-   "last_fetch": "2026-11-13T04:05:43.800Z",
+   "last_run": "2026-11-13T08:05:44.938Z",
+   "last_fetch": "2026-11-13T08:05:44.938Z",
    "truncated": true,
-   "last_ok": "2026-11-13T04:05:43.800Z",
+   "last_ok": "2026-11-13T08:05:44.938Z",
    "ok": true,
    "newest": "2026-09-09",
    "run_newest": "2026-09-09",
    "replay": false,
    "count": 45,
    "counts": [
-    220,
     134,
     243,
     45,
     45,
     45,
     0,
+    45,
     45,
     45,
     45,
