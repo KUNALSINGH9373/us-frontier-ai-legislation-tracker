@@ -997,6 +997,15 @@
   "hash": "b9ddbf2c9c93948253a89b5a45238922",
   "checked_at": "2026-10-13T07:14:36Z"
  },
+ "1941920": {
+  "verdict": "no",
+  "reason": "generic gen-AI output inaccuracy notice; no frontier, catastrophic-risk, or safety-testing duty",
+  "title": "Requires the owner, licensee or operator of a generative artificial intelligence system to conspicuously display a notice on the system's user interface that is reasonably calculated to consistently apprise the user that the outputs of the generative artificial intelligence system may be inaccurate.",
+  "state": "NY",
+  "number": "A03411",
+  "hash": "d75ef9d7cf0b9fa692f9e65e1367c59a",
+  "checked_at": "2026-11-14T06:38:02Z"
+ },
  "1941925": {
   "verdict": "no",
   "reason": "Relates to AI political communications and robocalls.",
