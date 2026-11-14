@@ -2,7 +2,7 @@
  "version": 1,
  "sources": {
   "legiscan": {
-   "last_success": "2026-11-14T08:06:08Z",
+   "last_success": "2026-11-14T12:06:05Z",
    "cursor": null,
    "hashes": {
     "1893423": "d3385d1ecaa0c403856481e3854f2c82",
@@ -540,8 +540,8 @@
    }
   },
   "congress_gov": {
-   "last_success": "2026-11-14T08:06:03Z",
-   "cursor": "2026-11-14T08:04:02Z",
+   "last_success": "2026-11-14T12:06:01Z",
+   "cursor": "2026-11-14T12:03:58Z",
    "hashes": {
     "119/hr/9925": "aaf161e11110510dc1852e3ef9b295427c9f00eee9a7e1fb7c88d0ee2d432d76",
     "119/s/1792": "01e7bbbd5cf87aa09c2850f3b456110cd1aae337aa7c7df363e83e933a7cd2d4",
@@ -717,7 +717,8 @@
     "119/s/3301": "53bb8dc6b11b7e7c32fa34bc5228a987b4a4dbe7b62ebfb39c68d8df40d222e4",
     "119/s/3809": "df95ce6f0255dfb622c4171427bd1cfa7625a1ccfc72aef632d040c140dd7138",
     "119/s/3854": "e6ca18ac3d8fd0eb497f66e7b7759e0b219656f54e6aeb8beebbb2fbcaaf6a20",
-    "119/hr/11032": "5d31111831ce75720b2bab5d2b2db848a9c2ed39305e0dd0524f61adc1b364be"
+    "119/hr/11032": "5d31111831ce75720b2bab5d2b2db848a9c2ed39305e0dd0524f61adc1b364be",
+    "119/hr/11036": "927ab40fd349868c1028bace104065e22bcb6e1cba23e4ce40a4b699d1b7bd8e"
    },
    "quota": {
     "period": "run",
@@ -726,7 +727,7 @@
    }
   },
   "federal_register": {
-   "last_success": "2026-11-14T08:06:04Z",
+   "last_success": "2026-11-14T12:06:02Z",
    "cursor": "2026-11-14",
    "hashes": {
     "2026-20023": "2224a32ef5f0d63f651a4011e8f5a281337d66f5a905aab7b6d538cb235a4d7b",
