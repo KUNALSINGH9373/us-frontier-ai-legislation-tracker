@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-14",
+ "last_run": "2026-11-15",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -206,8 +206,8 @@
   "s-5576-warner-schatz-kim-ai-risk-management-and-security-act": {
    "text_sha": "94e86eac77b4a583487695c7b4015b90a86769c872b1369ca00691ec3635e247",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-15",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -222,8 +222,8 @@
   "s-5601-insider-threat-reporting-act": {
    "text_sha": "f158a606b470fe64e323693c858de360d4d5d2ae49aea998d78dd34fa6bb5651",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5601/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-15",
+   "outcome": "clean",
    "retry": false,
    "retries": 0
   },
@@ -262,8 +262,8 @@
   "va-ch-425-426-jcots-study": {
    "text_sha": "2f80972dc59d61cb8b409004a82a78f22854c025dd3e8407f49c912d5e70a13b",
    "text_url": "https://lis.virginia.gov/bill-details/20261/HB797",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-15",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },

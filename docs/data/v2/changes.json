@@ -438,6 +438,48 @@
    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2615/text",
    "tier": "C",
    "note": "self-correction (omission): The entry omits the Advisory Committee's sunset: it terminates no later than 1 year after it submits its recommendations, as SOURCE states in Sec. 5(e). Quote: \"The Advisory Committee shall terminate not later than 1 year after the date on which the Advisory Committee submits the recommendations\""
+  },
+  {
+   "entry_key": "s-5576-warner-schatz-kim-ai-risk-management-and-security-act",
+   "field": "mechanism",
+   "old": "Would set up an Artificial Intelligence Safety Board within Commerce, within 30 days of enactment, drawing on NIST, CISA, the NSA, the Treasury and independent technical experts. The Board would assess risks and set technical safety and security standards, proposing them within 90 days of being set up. Frontier model developers would have to give the Board access at least 45 days before public release, including model weights, configuration files, runtimes and software libraries. They would also have to publish Model Safety Plans naming a responsible corporate officer, and report incidents within 30 days, or within 72 hours for an imminent threat to national security, critical infrastructure or public safety. The bill would also create a national AI incident database, secure federal testing environments using NSA and Energy Department resources, and documentation standards for autonomous AI agents. Civil penalties would be up to $250,000 per violation of the duties in Section 3(c), each day a separate violation. It follows Sen. Warner's earlier S. 5061 (NSA pre-release testing) with a broader board and standards system. This summary was first written from the sponsors' text released before introduction; the introduced text (Sept 29, 2026) is on Congress.gov.",
+   "new": "Would set up an Artificial Intelligence Safety Board within Commerce, within 30 days of enactment, drawing on NIST, CISA, the NSA, the Treasury and independent technical experts. The Board would assess risks and set technical safety and security standards, proposing them within 90 days of being set up. Frontier model developers would have to give the Board access at least 45 days before public release, including model weights, configuration files, runtimes and software libraries. They would also have to publish Model Safety Plans naming a responsible corporate officer, and report incidents within 30 days, or within 72 hours for an imminent threat to national security, critical infrastructure or public safety. The bill would also create a national AI incident database, the Secretary may seek to use secure computing environments from NSA and Energy Department resources, and documentation standards for autonomous AI agents. Civil penalties would be up to $250,000 per violation of the duties in Section 3(c), each day a separate violation. It follows Sen. Warner's earlier S. 5061 (NSA pre-release testing) with a broader board and standards system. This summary was first written from the sponsors' text released before introduction; the introduced text (Sept 29, 2026) is on Congress.gov.",
+   "date": "2026-11-15",
+   "run_id": "update-20261115-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+   "tier": "C",
+   "note": "self-correction (error): The entry says the bill would create secure federal testing environments, but SOURCE only lets the Secretary (permissively) seek to use secure computing environments from NSA and Energy Department labs on a reimbursable basis; the words \"secure federal testing environments using\" are removed and replaced. Quote: \"the Secretary may--\""
+  },
+  {
+   "entry_key": "s-5576-warner-schatz-kim-ai-risk-management-and-security-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-15",
+   "run_id": "update-20261115-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "va-ch-425-426-jcots-study",
+   "field": "mechanism",
+   "old": "Directs the Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for independent verification organizations (IVOs) that would check AI models against standards for preventing injury and property damage. The report was due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees. The 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8 (conference amendment 8 #1c), gives JCOTS $25,000 from the general fund for FY2027. This is a study, not a requirement on anyone; claims that it mandates verification are wrong.",
+   "new": "Directs the Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for independent verification organizations (IVOs) that would check AI models against standards for preventing injury and property damage. The report was due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees. The 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8 (conference amendment 8 #1c), gives JCOTS $25,000 from the general fund for FY2027. This is a study, not a requirement on anyone; claims that it mandates verification are wrong. If recommended, JCOTS shall evaluate IVO licensing and viability of the Virginia Information Technologies Agency or other state agency to run it.",
+   "date": "2026-11-15",
+   "run_id": "update-20261115-0005",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/HB797",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the conditional follow-on study: if JCOTS recommends a framework, it must also evaluate an IVO licensing scheme and whether the Virginia Information Technologies Agency or another state agency could implement it. Quote: \"JCOTS shall further evaluate (a) the feasibility of a licensing scheme for independent verification organizations\""
+  },
+  {
+   "entry_key": "va-ch-425-426-jcots-study",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-15",
+   "run_id": "update-20261115-0005",
+   "source_url": "https://lis.virginia.gov/bill-details/20261/HB797",
+   "tier": "C"
   }
  ]
 }

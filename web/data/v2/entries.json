@@ -4270,7 +4270,7 @@
   "title": "H.B. 797 (Chapter 425) / S.B. 384 (Chapter 426)",
   "short_name": "VA Ch. 425 / 426 (JCOTS study)",
   "sponsor_text": "Del. Cliff Hayes Jr. (D); Sen. Angelia Williams Graves (D)",
-  "mechanism": "Directs the Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for independent verification organizations (IVOs) that would check AI models against standards for preventing injury and property damage. The report was due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees. The 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8 (conference amendment 8 #1c), gives JCOTS $25,000 from the general fund for FY2027. This is a study, not a requirement on anyone; claims that it mandates verification are wrong.",
+  "mechanism": "Directs the Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for independent verification organizations (IVOs) that would check AI models against standards for preventing injury and property damage. The report was due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees. The 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8 (conference amendment 8 #1c), gives JCOTS $25,000 from the general fund for FY2027. This is a study, not a requirement on anyone; claims that it mandates verification are wrong. If recommended, JCOTS shall evaluate IVO licensing and viability of the Virginia Information Technologies Agency or other state agency to run it.",
   "thresholds": null,
   "penalties": null,
   "status_text": "HB 797 approved by the Governor Apr 8, 2026 (Chapter 425, effective July 1, 2026); SB 384 approved by the Governor Apr 8, 2026 (Chapter 426, effective July 1, 2026). Votes: 84-14 in the House, 40-0 in the Senate. Funded through the 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8: $25,000 FY2027 general fund added to JCOTS for Chapter 426. The study report was due Nov 1, 2026; as of Nov 12, 2026 we could not confirm whether it has been published.",
@@ -4320,6 +4320,11 @@
     "label": "Appropriation Act 2026, Item 8 (JCOTS)",
     "url": "https://budget.lis.virginia.gov/item/2026/2/HB30/Chapter/1/8/",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://lis.virginia.gov/bill-details/20261/HB797",
+    "kind": "primary"
    }
   ],
   "source_label": "VA budget amendment citing Ch. 426 — budget.lis.virginia.gov · HB 797 summary + votes",
@@ -4332,30 +4337,52 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-15T00:05:45Z",
+   "run_id": "update-20261115-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-28",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-11-15",
+  "last_changed": "2026-11-15",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-797-chapter-425-s-b-384-chapter-426",
    "section_name": "State IVO / AI-auditor licensing measures"
   },
-  "summary_line": "Directs the Joint Commission on Technology and Science to study whether to build a framework for independent verification organizations assessing AI models against injury and property-damage prevention standards.",
-  "thirty_seconds": {
-   "a": "The Joint Commission on Technology and Science (JCOTS) in Virginia, which must study the idea; no AI developers are directly regulated.",
-   "b": "JCOTS must study whether a framework for independent verification organizations (IVOs) checking AI models against injury and property-damage standards is feasible. Its report was due Nov 1, 2026.",
-   "c": ""
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "465f1b2a60ef413f8158395a2eebdc5ee0413225e8395317e8782ea9f0058cd5"
+   "method": "agent",
+   "checked_at": "2026-11-15T00:05:45Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "426258b1847ee00d9370293861b53408916c7fe502c32922917f1dd245754e84"
   },
-  "display_name": "Virginia AI verification study (JCOTS)"
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "JCOTS shall further evaluate (a) the feasibility of a licensing scheme for independent verification organizations",
+    "source_url": "https://lis.virginia.gov/bill-details/20261/HB797"
+   },
+   {
+    "field": "mechanism",
+    "quote": "the viability of the Virginia Information Technologies Agency or any other state agency to implement and manage such licensing scheme",
+    "source_url": "https://lis.virginia.gov/bill-details/20261/HB797"
+   }
+  ],
+  "identifiers": {
+   "session": "2026 Regular Regular Session",
+   "external": {
+    "legiscan": [
+     2073912,
+     2085408
+    ]
+   }
+  },
+  "summary_line": "Directs the Joint Commission on Technology and Science to study whether a framework for independent verification organizations to check AI models is feasible; it mandates no verification.",
+  "thirty_seconds": {
+   "a": "The Joint Commission on Technology and Science (JCOTS) in Virginia. It is a study, so no company or person is required to do anything.",
+   "b": "JCOTS must evaluate the feasibility and impact of a framework for independent verification organizations that would check AI models against standards for preventing injury and property damage.",
+   "c": ""
+  }
  },
  {
   "id": 25,
@@ -5974,7 +6001,7 @@
   "title": "S. 5576 — Artificial Intelligence Risk Management and Security Act of 2026",
   "short_name": "S. 5576 Warner–Schatz–Kim AI Risk Management and Security Act",
   "sponsor_text": "Sen. Mark Warner (D-VA), Sen. Brian Schatz (D-HI), Sen. Andy Kim (D-NJ)",
-  "mechanism": "Would set up an Artificial Intelligence Safety Board within Commerce, within 30 days of enactment, drawing on NIST, CISA, the NSA, the Treasury and independent technical experts. The Board would assess risks and set technical safety and security standards, proposing them within 90 days of being set up. Frontier model developers would have to give the Board access at least 45 days before public release, including model weights, configuration files, runtimes and software libraries. They would also have to publish Model Safety Plans naming a responsible corporate officer, and report incidents within 30 days, or within 72 hours for an imminent threat to national security, critical infrastructure or public safety. The bill would also create a national AI incident database, secure federal testing environments using NSA and Energy Department resources, and documentation standards for autonomous AI agents. Civil penalties would be up to $250,000 per violation of the duties in Section 3(c), each day a separate violation. It follows Sen. Warner's earlier S. 5061 (NSA pre-release testing) with a broader board and standards system. This summary was first written from the sponsors' text released before introduction; the introduced text (Sept 29, 2026) is on Congress.gov.",
+  "mechanism": "Would set up an Artificial Intelligence Safety Board within Commerce, within 30 days of enactment, drawing on NIST, CISA, the NSA, the Treasury and independent technical experts. The Board would assess risks and set technical safety and security standards, proposing them within 90 days of being set up. Frontier model developers would have to give the Board access at least 45 days before public release, including model weights, configuration files, runtimes and software libraries. They would also have to publish Model Safety Plans naming a responsible corporate officer, and report incidents within 30 days, or within 72 hours for an imminent threat to national security, critical infrastructure or public safety. The bill would also create a national AI incident database, the Secretary may seek to use secure computing environments from NSA and Energy Department resources, and documentation standards for autonomous AI agents. Civil penalties would be up to $250,000 per violation of the duties in Section 3(c), each day a separate violation. It follows Sen. Warner's earlier S. 5061 (NSA pre-release testing) with a broader board and standards system. This summary was first written from the sponsors' text released before introduction; the introduced text (Sept 29, 2026) is on Congress.gov.",
   "thresholds": "Capability-based, no compute figure: \"frontier artificial intelligence model\" = a model \"that exhibits or could be modified to exhibit high levels of performance at tasks that pose a serious risk to national security, national economic security, or public health or safety\"",
   "penalties": null,
   "status_text": "The sponsors announced the bill and spoke about it on the Senate floor Sept 24, 2026. It was introduced as S. 5576 on Sept 29, 2026, read twice and referred to the Senate Commerce, Science, and Transportation Committee. No further action recorded. News reports (The Hill and others) say Sen. Ted Cruz objected on Sept 29, 2026 to a unanimous-consent request to pass the bill; the objection is not listed in the Congress.gov actions.",
@@ -6034,6 +6061,11 @@
     "label": "The Hill, Sept 29, 2026",
     "url": "https://thehill.com/policy/technology/6118009-senator-ted-cruz-blocks-ai-bill/",
     "kind": "secondary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill text — warner.senate.gov · Sponsor release · S. 5576 status — GovInfo · Floor remarks — Congressional Record, Sept 24",
@@ -6046,13 +6078,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-15T00:05:45Z",
+   "run_id": "update-20261115-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-15",
+  "last_changed": "2026-11-15",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5576-artificial-intelligence-risk-management-and-security-act-of-202",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -6150,20 +6184,32 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would create a federal AI Safety Board and require frontier AI developers to give it pre-release access, publish safety plans, and report incidents.",
-  "thirty_seconds": {
-   "a": "Developers of frontier models, meaning models that exhibit or could be modified to exhibit high performance at tasks posing a serious risk to national security, economic security, or public health or safety. Incident reporting also covers critical-infrastructure operators using AI.",
-   "b": "Would have to give the Board access, including model weights, at least 45 days before release, publish a Model Safety Plan, and report incidents within 30 days, or 72 hours if an imminent threat.",
-   "c": "Civil penalties of up to $250,000 per violation of the Section 3(c) duties, with each day a separate violation. The Commerce Secretary would enforce and the Attorney General could sue."
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-15T00:05:45Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "a0a4e6e4a94d6092ff55854d7089b83aa8a3079d117487df31a9d112dcc49c1f"
   },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "the Secretary may--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "seek to utilize secure computing environments, on a",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5576/text"
+   }
+  ],
+  "summary_line": "Would set up an AI Safety Board at Commerce to set safety standards and require frontier AI developers to give it pre-release access, publish safety plans and report incidents.",
   "key_facts": {
    "enforced_by": "Commerce Secretary, Attorney General"
   },
-  "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-11T04:44:01.512Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "74d69485986e1cdf73a4d3d157a9d01e288fff3581023376b636044224a6c76d"
+  "thirty_seconds": {
+   "a": "Frontier model developers, meaning models that exhibit or could be modified to exhibit high levels of performance at tasks posing serious risk to national security, economic security, or public health or safety.",
+   "b": "They would have to give the Board access at least 45 days before release, publish Model Safety Plans, and report incidents within 30 days, or 72 hours for an imminent threat.",
+   "c": "Violating the duties in Section 3(c) would carry a civil penalty of up to $250,000 per violation, with each day a separate violation."
   }
  },
  {
@@ -9832,7 +9878,7 @@
     "text": "Joint status report due",
     "clause": "Joint status report due",
     "inferred_year": false,
-    "scheduled": true
+    "scheduled": false
    },
    {
     "date": "2026-12-01",
