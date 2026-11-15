@@ -703,3 +703,4 @@
 {"at":"2026-11-15T00:07:14.923Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"pagefields:s-5576-warner-schatz-kim-ai-risk-management-and-security-act:r2","input":3367,"output":379,"cost":0.021048}
 {"at":"2026-11-15T00:10:51.751Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1927,"output":56,"cost":0.0002207}
 {"at":"2026-11-15T12:09:54.912Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2016,"output":104,"cost":0.00025360000000000004}
+{"at":"2026-11-15T20:09:42.857Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2093,"output":172,"cost":0.00029529999999999997}
