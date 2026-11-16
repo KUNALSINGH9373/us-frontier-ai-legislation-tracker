@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-15",
+ "last_run": "2026-11-16",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -77,18 +77,19 @@
   "s-5541-cyber-and-ai-board-of-investigations": {
    "text_sha": "021e50f089d277aacc522ea27196c7eb8d9c892aa043e6f06e6df03fc399b2c2",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-16",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
   "s-5493-h-r-10538-ban-artificial-superintelligence-act": {
    "text_sha": "af682a0a653602b8ef31ae35c36bd877cdb1de13050078aa61643ed212817360",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-16",
+   "outcome": "corrected",
    "retry": false,
-   "retries": 0
+   "retries": 0,
+   "reason": "not confirmed: The omission is real, but the proposal states the funding bar without the SOURCE exception for Department defensive cybersecurity research, so it overstates the bar as absolute. It also copies SOURCE wording as if it were the entry's own prose."
   },
   "h-r-9363-ai-security-and-innovation-act": {
    "text_sha": "845b140febc2dd346cac49db5b1ee2cde4d5f7df58db8d94bde83be52378cbef",
@@ -214,8 +215,8 @@
   "s-5471-ai-systems-transparency-act": {
    "text_sha": "1390855f6c74789f6446f79fd50dd681241be00764e3482fc3a21a56814f5615",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-16",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },

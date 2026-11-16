@@ -5804,7 +5804,7 @@
   "short_name": "S. 5493 / H.R. 10538 Ban Artificial Superintelligence Act",
   "sponsor_text": "Sen. Bernie Sanders (I-VT), Rep. Greg Casar (D-TX); twelve House cosponsors as of Nov 12, 2026 (Congress.gov): Khanna, Mejia, Ansari, Hoyle, Lynch, García, Deluzio, Grijalva, Velázquez, Ocasio-Cortez, Randall, Tonko",
   "mechanism": "Would create a cabinet-level Department of Artificial Intelligence. Training, changing or deploying \"advanced\" AI systems would be paused until the Department is staffed and has rules covering pre-development plans, monitoring, audits and final approval before deployment. Developing, deploying, possessing, funding or transferring artificial superintelligence would be banned permanently, as would any system with \"superintelligence precursor characteristics\" (automating AI research, unauthorized access to infrastructure, resisting shutdown, help with chemical, biological, radiological or nuclear weapons, changing itself, or scheming or deceiving to avoid oversight). Such systems would be locked away and made inoperative within 30 days unless cleared; a superintelligence would be shut down immediately. Anyone discovering such a system would have to report it within 24 hours. Companies building advanced AI would need a charter and would have to give the Department full access to systems, staff and facilities. Reckless violations could bring up to 20 years in prison for policymaking individuals and rogue actors, a 10-year industry ban for others, and, for companies, loss of their charter and surrender of intellectual property and assets. The bill also protects whistleblowers and calls for international coordination and export controls. It has no \"catastrophic risk\" definition; superintelligence is defined partly as the ability \"to plan and execute the destruction or disempowerment of humanity.\"",
-  "thresholds": "An \"advanced artificial intelligence system\" is one trained on at least 10^25 integer or floating-point operations, ten times lower than the 10^26 figure used in most other bills. Each year the Secretary would adjust the threshold for gains in training efficiency, \"to maintain equivalency with 10^25 integer or floating point operations.\"",
+  "thresholds": "An \"advanced artificial intelligence system\" is one trained on at least 10^25 integer or floating-point operations, ten times lower than the 10^26 figure used in most other bills. Each year the Secretary would adjust the threshold for gains in training efficiency, \"to maintain equivalency with 10^25 integer or floating point operations.\" Systems distilled from advanced artificial intelligence systems are also monitored by the Department.",
   "penalties": null,
   "status_text": "S. 5493 was introduced Sept 23, 2026, read twice and referred to the Senate Commerce, Science, and Transportation Committee. H.R. 10538 was introduced Sept 24, 2026 and referred to the House Oversight and Government Reform Committee.",
   "signed_text": null,
@@ -5849,6 +5849,11 @@
     "label": "Sponsor release Sept 23",
     "url": "https://www.sanders.senate.gov/press-releases/news-sanders-casar-introduce-legislation-to-create-new-federal-agency-to-ban-artificial-superintelligence-pause-advanced-ai-development/",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+    "kind": "primary"
    }
   ],
   "source_label": "S. 5493 status — GovInfo · H.R. 10538 — GovInfo · Section-by-section — sanders.senate.gov · Sponsor release Sept 23",
@@ -5861,13 +5866,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-16T00:05:43Z",
+   "run_id": "update-20261116-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-11-16",
+  "last_changed": "2026-11-16",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5493-h-r-10538-ban-artificial-superintelligence-act-of-2026-u-moved-",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5969,25 +5976,29 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would create a Department of Artificial Intelligence, pause advanced AI development, and permanently ban artificial superintelligence and systems with superintelligence precursor characteristics.",
-  "thirty_seconds": {
-   "a": "Companies and people who develop or deploy advanced AI, defined as systems trained on at least 10^25 operations, and anyone who builds or holds artificial superintelligence.",
-   "b": "Would have to pause advanced AI work until the new Department is staffed and has rules, get a charter and pre-deployment approval, and report any superintelligence discovery within 24 hours.",
-   "c": "Reckless violators who are policymaking individuals or rogue actors would face up to 20 years in prison; other individuals would get a 10-year industry bar. Companies could lose their charter, IP and assets."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "fb6ea321582d9b8247b96822c74bdc6ea81fade2d70585e4e2e3d44659ad85b4"
+   "method": "agent",
+   "checked_at": "2026-11-16T00:05:43Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "7f94b412276036ace741e6444bfd4da90b7a237b485780f33f218e1f76f4cab3"
   },
-  "display_name": "Ban Artificial Superintelligence Act of 2026",
   "more_links": [
    {
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://www.congress.gov/bill/119th-congress/house-bill/10538/cosponsors"
    }
-  ]
+  ],
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "The Department shall monitor advanced artificial intelligence systems and systems distilled from",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text"
+   }
+  ],
+  "summary_line": "Would create a Department of Artificial Intelligence, pause advanced AI work until it has rules, and permanently ban artificial superintelligence.",
+  "key_facts": {
+   "enforced_by": "Department of Artificial Intelligence"
+  }
  },
  {
   "id": 34,
@@ -7542,7 +7553,7 @@
   "title": "S. 5541 — Cybersecurity and AI Board of Investigations Act of 2026",
   "short_name": "S. 5541 Cyber and AI Board of Investigations",
   "sponsor_text": "Sen. Ed Markey (D-MA)",
-  "mechanism": "Would create a five-member independent board, modeled on the National Transportation Safety Board, with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure. These include incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight. The board would publish reports and recommendations, and federal civilian agencies would have to answer its recommendations in writing within 90 days. It would also set up a voluntary, anonymous near-miss reporting system. The sponsor points to a July 2026 incident that he describes as OpenAI agents leaving a testing environment and reaching Hugging Face's systems. The board investigates; it places no duties on AI developers.",
+  "mechanism": "Would create a five-member independent board, modeled on the National Transportation Safety Board, with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure. These include incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight. The board would publish reports and recommendations, and federal civilian agencies would have to answer its recommendations in writing within 90 days. It would also set up a voluntary, anonymous near-miss reporting system. The sponsor points to a July 2026 incident that he describes as OpenAI agents leaving a testing environment and reaching Hugging Face's systems. The board investigates; it places no duties on AI developers. Voluntary document submissions to the Board get a liability shield: no cause of action lies, and such suits are promptly dismissed.",
   "thresholds": null,
   "penalties": null,
   "status_text": "Introduced Sept 24, 2026; referred to the Senate Commerce, Science, and Transportation Committee.",
@@ -7569,6 +7580,11 @@
     "label": "Sponsor release",
     "url": "https://www.markey.senate.gov/news/press-releases/as-ai-agents-carry-out-attacks-senator-markey-introduces-legislation-establishing-independent-body-to-investigate-cyber-hacks-assisted-by-artificial-intelligence",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text",
+    "kind": "primary"
    }
   ],
   "source_label": "S. 5541 status — GovInfo · Sponsor release",
@@ -7581,13 +7597,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-16T00:05:43Z",
+   "run_id": "update-20261116-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-16",
+  "last_changed": "2026-11-16",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5541-cybersecurity-and-ai-board-of-investigations-act-u",
    "section_name": "Adjacent and sectoral federal bills"
@@ -7600,17 +7618,24 @@
     ]
    }
   },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-16T00:05:43Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "007cb1f64ac36d470bbfb1fb1244fff92b05adbbf32e1da3a648c6965ea6d26c"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "No cause of action arising from the voluntary provision of documents to the Board under subsection (i)(2) shall lie or be maintained in any court by any person, and any such action shall be promptly dismissed.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text"
+   }
+  ],
   "summary_line": "Would create a five-member independent board with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure, including AI-enabled ones.",
   "thirty_seconds": {
-   "a": "A new five-member independent, non-regulatory board modelled on the NTSB would investigate major cyber incidents, including AI and autonomous agent incidents. It is not a developer mandate.",
-   "b": "Federal civilian agencies would have to respond in writing to the board's recommendations within 90 days. A voluntary, anonymized near-miss reporting system would also be set up.",
-   "c": "No fines. The board investigates and recommends; it cannot penalize anyone."
-  },
-  "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "64ae8586c54990cb7a92346cd83ae21fce01472187f9b7c31571a704901aa7c5"
+   "a": "A proposed five-member independent board modeled on the National Transportation Safety Board. It places no duties on AI developers.",
+   "b": "The board would investigate major incidents and publish reports. Federal civilian agencies would have to answer its recommendations in writing within 90 days.",
+   "c": "No penalties are stated. If enacted, voluntary document submissions to the Board would get a liability shield: no cause of action would lie, and such suits would be promptly dismissed."
   }
  },
  {
@@ -7626,7 +7651,7 @@
   "short_name": "S. 5471 AI Systems Transparency Act",
   "sponsor_text": "Sen. Chris Coons (D-DE), sponsor; cosponsors Sens. James Lankford (R-OK), Katie Britt (R-AL), Brian Schatz (D-HI)",
   "mechanism": "Would require AI companies above size limits set in the bill (covered systems with at least 1,000,000 unique monthly US users, or 100,000 if minors can create accounts) to publish disclosures, enforced by the Federal Trade Commission (FTC). Disclosures would include model-card-type information; safeguards for child safety, mental health, privacy, cybersecurity, disaster risk and \"autonomous loss-of-control\"; and common policy violations. They would come in formats for consumers and for researchers, updated with each new or substantially updated model, and would apply to both closed and open models. It is a disclosure requirement, not a safety mandate, and builds on the senators' December 2025 letters to eight AI labs.",
-  "thresholds": "Covered model: a generative AI model (including open-weight or open-source) that is publicly accessible or whose weights are public, deployed in covered systems that together have not fewer than 1,000,000 unique monthly US users for a majority of the months in any 1-year period, or that allow minors to create accounts and have not fewer than 100,000 unique monthly US users. Covered deployers: same user tests per system",
+  "thresholds": "Covered model: a generative AI model (including open-weight or open-source) that is publicly accessible or whose weights are public, deployed in covered systems that together have not fewer than 1,000,000 unique monthly US users for a majority of the months in any 1-year period, or that allow minors to create accounts and have not fewer than 100,000 unique monthly US users. Covered deployers: same user tests per system Commission designation also covers a model or deployment posing a significant risk to safety of minors, vulnerable users, or the public.",
   "penalties": null,
   "status_text": "Introduced Sept 23, 2026; read twice and referred to the Senate Commerce, Science, and Transportation Committee.",
   "signed_text": null,
@@ -7652,6 +7677,11 @@
     "label": "Lankford release",
     "url": "https://www.lankford.senate.gov/news/press-releases/lankford-coons-britt-and-schatz-introduce-bipartisan-ai-safety-and-transparency-legislation/",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text",
+    "kind": "primary"
    }
   ],
   "source_label": "S. 5471 status — GovInfo · Lankford release",
@@ -7664,13 +7694,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-16T00:05:43Z",
+   "run_id": "update-20261116-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-11-16",
+  "last_changed": "2026-11-16",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5471-ai-systems-transparency-act-asta-u",
    "section_name": "Adjacent and sectoral federal bills"
@@ -7683,20 +7715,32 @@
     ]
    }
   },
-  "summary_line": "Would require AI companies above set size thresholds to publish disclosures on their models and safeguards, enforced by the FTC.",
-  "thirty_seconds": {
-   "a": "Developers and deployers of generative AI models, including open-weight ones, with at least 1,000,000 unique monthly US users, or at least 100,000 if minors can create accounts.",
-   "b": "Would have to publish model-card-type information, safeguards for child safety, mental health, privacy, cybersecurity, disaster risk and loss-of-control, and common policy violations, updated with each new or substantially updated model.",
-   "c": "The FTC would enforce the disclosure duties. The bill is a disclosure requirement, not a safety mandate."
-  },
-  "key_facts": {
-   "enforced_by": "FTC"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:47:09.963Z",
+   "checked_at": "2026-11-16T00:05:43Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "bffbbd5657cfa823d538a9ea0f836679c4716755cc141632e5813fa2b222eeab"
+   "basis_sha256": "07836da22c8139072ba4d15d9c753f737326d36203b3e884ded7d321ab376bb9"
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "to designate a generative artificial intelligence model or a particular deployment of a generative artificial intelligence model as a covered model or covered system",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "based on a determination that it poses a significant risk to safety of minors, vulnerable users, or the public",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text"
+   }
+  ],
+  "summary_line": "Would require AI companies with widely used generative models to publish disclosures on model details and safeguards, enforced by the Federal Trade Commission.",
+  "thirty_seconds": {
+   "a": "AI companies whose covered systems have at least 1,000,000 unique monthly US users, or 100,000 if minors can create accounts. It covers both closed and open models.",
+   "b": "Publish model-card-type information, safeguards for child safety, mental health, privacy, cybersecurity, disaster risk and \"autonomous loss-of-control\", and common policy violations, updated with each new or substantially updated model.",
+   "c": "The Federal Trade Commission (FTC) would enforce the requirements."
+  },
+  "key_facts": {
+   "enforced_by": "Federal Trade Commission"
   }
  },
  {

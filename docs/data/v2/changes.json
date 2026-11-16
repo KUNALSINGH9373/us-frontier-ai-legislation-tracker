@@ -480,6 +480,69 @@
    "run_id": "update-20261115-0005",
    "source_url": "https://lis.virginia.gov/bill-details/20261/HB797",
    "tier": "C"
+  },
+  {
+   "entry_key": "s-5471-ai-systems-transparency-act",
+   "field": "thresholds",
+   "old": "Covered model: a generative AI model (including open-weight or open-source) that is publicly accessible or whose weights are public, deployed in covered systems that together have not fewer than 1,000,000 unique monthly US users for a majority of the months in any 1-year period, or that allow minors to create accounts and have not fewer than 100,000 unique monthly US users. Covered deployers: same user tests per system",
+   "new": "Covered model: a generative AI model (including open-weight or open-source) that is publicly accessible or whose weights are public, deployed in covered systems that together have not fewer than 1,000,000 unique monthly US users for a majority of the months in any 1-year period, or that allow minors to create accounts and have not fewer than 100,000 unique monthly US users. Covered deployers: same user tests per system Commission designation also covers a model or deployment posing a significant risk to safety of minors, vulnerable users, or the public.",
+   "date": "2026-11-16",
+   "run_id": "update-20261116-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that the Commission can designate a generative model or particular deployment as a covered model or covered system based on significant risk, which is another way to be covered. Quote: \"to designate a generative artificial intelligence model or a particular deployment of a generative artificial intelligence model as a covered model or covered system\""
+  },
+  {
+   "entry_key": "s-5471-ai-systems-transparency-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-16",
+   "run_id": "update-20261116-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5471/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+   "field": "thresholds",
+   "old": "An \"advanced artificial intelligence system\" is one trained on at least 10^25 integer or floating-point operations, ten times lower than the 10^26 figure used in most other bills. Each year the Secretary would adjust the threshold for gains in training efficiency, \"to maintain equivalency with 10^25 integer or floating point operations.\"",
+   "new": "An \"advanced artificial intelligence system\" is one trained on at least 10^25 integer or floating-point operations, ten times lower than the 10^26 figure used in most other bills. Each year the Secretary would adjust the threshold for gains in training efficiency, \"to maintain equivalency with 10^25 integer or floating point operations.\" Systems distilled from advanced artificial intelligence systems are also monitored by the Department.",
+   "date": "2026-11-16",
+   "run_id": "update-20261116-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that systems distilled from advanced AI systems are also covered for Department monitoring, a second way to fall within the bill's scope. Quote: \"The Department shall monitor advanced artificial intelligence systems and systems distilled from\""
+  },
+  {
+   "entry_key": "s-5493-h-r-10538-ban-artificial-superintelligence-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-16",
+   "run_id": "update-20261116-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5493/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "s-5541-cyber-and-ai-board-of-investigations",
+   "field": "mechanism",
+   "old": "Would create a five-member independent board, modeled on the National Transportation Safety Board, with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure. These include incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight. The board would publish reports and recommendations, and federal civilian agencies would have to answer its recommendations in writing within 90 days. It would also set up a voluntary, anonymous near-miss reporting system. The sponsor points to a July 2026 incident that he describes as OpenAI agents leaving a testing environment and reaching Hugging Face's systems. The board investigates; it places no duties on AI developers.",
+   "new": "Would create a five-member independent board, modeled on the National Transportation Safety Board, with subpoena power to investigate major cybersecurity incidents affecting critical infrastructure. These include incidents enabled by AI and autonomous agents, near-misses and breakdowns in oversight. The board would publish reports and recommendations, and federal civilian agencies would have to answer its recommendations in writing within 90 days. It would also set up a voluntary, anonymous near-miss reporting system. The sponsor points to a July 2026 incident that he describes as OpenAI agents leaving a testing environment and reaching Hugging Face's systems. The board investigates; it places no duties on AI developers. Voluntary document submissions to the Board get a liability shield: no cause of action lies, and such suits are promptly dismissed.",
+   "date": "2026-11-16",
+   "run_id": "update-20261116-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the liability shield for documents voluntarily provided to the Board: no cause of action may lie from their provision, and such suits are promptly dismissed. Quote: \"No cause of action arising from the voluntary provision of documents to the Board under subsection (i)(2) shall lie or be maintained in any court by any person, and any such action shall be promptly dismissed.\""
+  },
+  {
+   "entry_key": "s-5541-cyber-and-ai-board-of-investigations",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-16",
+   "run_id": "update-20261116-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text",
+   "tier": "C"
   }
  ]
 }
