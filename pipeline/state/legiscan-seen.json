@@ -11160,6 +11160,15 @@
   "hash": "24b3aed363f75d1dccb29e25e3b4b20f",
   "checked_at": "2026-10-26T06:51:24Z"
  },
+ "2099920": {
+  "verdict": "no",
+  "reason": "data center development notice, data centers only",
+  "title": "Establishes certain notice requirements and prohibits agreements intended to conceal certain information concerning development of large-scale data centers under MLUL.",
+  "state": "NJ",
+  "number": "A2774",
+  "hash": "2c5dd4a4c1141519995ba8a1a8269e48",
+  "checked_at": "2026-11-17T23:33:28Z"
+ },
  "2099948": {
   "verdict": "no",
   "reason": "Energy usage for AI data centers.",
@@ -16713,6 +16722,15 @@
   "hash": "97d90850495bdd557d6aa7d6a367f7bf",
   "checked_at": "2026-10-13T07:14:36Z"
  },
+ "2149949": {
+  "verdict": "no",
+  "reason": "data center development notice, data centers only",
+  "title": "Establishes certain notice requirements and prohibits agreements intended to conceal certain information concerning development of large-scale data centers under MLUL.",
+  "state": "NJ",
+  "number": "S4304",
+  "hash": "c0fa482cb64ba0cd95b185a7f9f5147a",
+  "checked_at": "2026-11-17T23:33:28Z"
+ },
  "2149966": {
   "verdict": "no",
   "reason": "Retirement resolution",
@@ -19888,5 +19906,14 @@
   "number": "S10741",
   "hash": "1ed84c02c8484e5bd2863ad6f35b733e",
   "checked_at": "2026-11-16T20:06:05Z"
+ },
+ "2163720": {
+  "verdict": "no",
+  "reason": "public utility rules for large load customers, data-center energy, not AI",
+  "title": "Generally revise public utility laws related to large load retail customers",
+  "state": "MT",
+  "number": "SB5",
+  "hash": "c829d7ce38f517187744a3e6ecbc1640",
+  "checked_at": "2026-11-17T23:33:28Z"
  }
 }
