@@ -749,3 +749,5 @@
 {"at":"2026-11-17T00:08:33.848Z","role":"generator","model":"claude-sonnet-5-5","itemId":"pagefields:s-4656-military-ai-act:w2","input":2947,"output":247,"cost":0.008364}
 {"at":"2026-11-17T00:08:37.180Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"pagefields:s-4656-military-ai-act:r2","input":2305,"output":296,"cost":0.01514}
 {"at":"2026-11-17T00:12:13.910Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2216,"output":225,"cost":0.00033410000000000004}
+{"at":"2026-11-17T02:58:50.282Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2046,"output":67,"cost":0.00023810000000000001}
+{"at":"2026-11-17T03:02:33.608Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2181,"output":236,"cost":0.00033610000000000004}

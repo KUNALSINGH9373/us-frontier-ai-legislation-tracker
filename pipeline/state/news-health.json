@@ -1,10 +1,10 @@
 {
- "updated_at": "2026-11-17T00:05:47.831Z",
+ "updated_at": "2026-11-17T02:58:27.339Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-11-17T00:05:47.831Z",
-   "last_fetch": "2026-11-17T00:05:47.831Z",
-   "last_ok": "2026-11-17T00:05:47.831Z",
+   "last_run": "2026-11-17T02:58:27.339Z",
+   "last_fetch": "2026-11-17T02:58:27.339Z",
+   "last_ok": "2026-11-17T02:58:27.339Z",
    "ok": true,
    "newest": "2026-11-12",
    "run_newest": null,
@@ -31,14 +31,14 @@
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-11-17T00:05:47.831Z",
-   "last_fetch": "2026-11-17T00:05:47.831Z",
-   "last_ok": "2026-11-17T00:05:47.831Z",
+   "last_run": "2026-11-17T02:58:27.339Z",
+   "last_fetch": "2026-11-17T02:58:27.339Z",
+   "last_ok": "2026-11-17T02:58:27.339Z",
    "ok": true,
    "newest": "2026-11-16",
-   "run_newest": "2026-11-16",
+   "run_newest": null,
    "replay": false,
-   "count": 18,
+   "count": 0,
    "counts": [
     0,
     0,
@@ -52,17 +52,17 @@
     0,
     0,
     0,
-    0,
-    18
+    18,
+    0
    ],
    "errors": [],
    "consecutive_failures": 0,
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-11-17T00:05:47.831Z",
-   "last_fetch": "2026-11-17T00:05:47.831Z",
-   "last_ok": "2026-11-17T00:05:47.831Z",
+   "last_run": "2026-11-17T02:58:27.339Z",
+   "last_fetch": "2026-11-17T02:58:27.339Z",
+   "last_ok": "2026-11-17T02:58:27.339Z",
    "ok": true,
    "newest": "2026-11-06",
    "run_newest": null,
@@ -116,7 +116,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "whitehouse": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -146,7 +146,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "govinfo": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -176,7 +176,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "regulations_gov": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -206,7 +206,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "congress_extra": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -236,7 +236,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "nist": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -266,7 +266,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "cbo": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -296,7 +296,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "ca_ag": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -326,7 +326,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "nysenate": {
    "last_run": "2026-11-16T08:05:45.852Z",
@@ -356,13 +356,13 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-17T00:05:47.831Z"
+   "last_skipped": "2026-11-17T02:58:27.339Z"
   },
   "openstates": {
-   "last_run": "2026-11-17T00:05:47.831Z",
-   "last_fetch": "2026-11-17T00:05:47.831Z",
+   "last_run": "2026-11-17T02:58:27.339Z",
+   "last_fetch": "2026-11-17T02:58:27.339Z",
    "truncated": true,
-   "last_ok": "2026-11-17T00:05:47.831Z",
+   "last_ok": "2026-11-17T02:58:27.339Z",
    "ok": true,
    "newest": "2026-09-09",
    "run_newest": "2026-09-09",
@@ -373,12 +373,12 @@
     45,
     45,
     45,
-    45,
     0,
     45,
     45,
     45,
     0,
+    45,
     45,
     45,
     45,
