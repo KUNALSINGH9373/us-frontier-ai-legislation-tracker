@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 140,
+   "stable_runs": 141,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 140,
+   "stable_runs": 141,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 140,
+   "stable_runs": 141,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -168,9 +168,9 @@
      "hash": "89ccaa83a68fe096"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 6,
+   "stable_runs": 0,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -270,6 +270,12 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-17T08:05:46.059Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending"
     }
    ],
    "card": null,
@@ -303,7 +309,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 140,
+   "stable_runs": 141,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-03T16:06:05.861Z",
    "facts_digest": "276c7aed410381f5",
@@ -350,7 +356,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 140,
+   "stable_runs": 141,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-06T06:56:55.820Z",
    "facts_digest": "905ea3751cd4242b",
@@ -398,7 +404,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 132,
+   "stable_runs": 133,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -446,7 +452,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 132,
+   "stable_runs": 133,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -488,7 +494,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 132,
+   "stable_runs": 133,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -536,7 +542,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 132,
+   "stable_runs": 133,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -578,7 +584,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 109,
+   "stable_runs": 110,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "e6dcf90065e2d86e",
@@ -626,7 +632,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 109,
+   "stable_runs": 110,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "51b56a9261a7eeef",
@@ -668,7 +674,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 108,
+   "stable_runs": 109,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "84179ed4a526e56a",
@@ -723,7 +729,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 108,
+   "stable_runs": 109,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "ffc725e4318a18f1",
@@ -772,7 +778,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 85,
+   "stable_runs": 86,
    "first_seen": "2026-11-06T21:35:14.206Z",
    "last_seen": "2026-11-06T21:35:14.206Z",
    "facts_digest": "ff5864f074760c67",
@@ -820,7 +826,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 63,
+   "stable_runs": 64,
    "first_seen": "2026-11-09T20:05:46.683Z",
    "last_seen": "2026-11-09T20:05:46.683Z",
    "facts_digest": "77c780b3eca47992",
@@ -862,7 +868,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-13T01:10:24.801Z",
    "facts_digest": "97f2fac0fc60a5ff",
@@ -904,7 +910,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "807adc20a8a354e9",
@@ -946,7 +952,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "afca5d3c2a1c9fdf",
@@ -988,7 +994,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "68018eee17f79bc4",
@@ -1030,7 +1036,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "dec07252f028d3aa",
@@ -1072,7 +1078,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "9e8cdbe559aeff15",
@@ -1114,7 +1120,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "4870b58e1e9eeeb7",
@@ -1156,7 +1162,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "cf39d362fea5fe85",
@@ -1198,7 +1204,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "c436af4d541c4977",
@@ -1240,7 +1246,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "102bd1564f63aaf8",
@@ -1282,7 +1288,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "bf08fd7640676ae9",
@@ -1324,7 +1330,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "1c767958d003d4cf",
@@ -1381,7 +1387,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 52,
+   "stable_runs": 53,
    "first_seen": "2026-11-11T04:05:46.546Z",
    "last_seen": "2026-11-11T04:05:46.546Z",
    "facts_digest": "25dda743fd8b6223",
@@ -1423,7 +1429,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "112b309dbbe3054c",
@@ -1507,7 +1513,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 42,
+   "stable_runs": 43,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "c1cf7a5a5abd7fe8",
@@ -1565,7 +1571,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 42,
+   "stable_runs": 43,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "eb46586c09224695",
@@ -1649,7 +1655,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 42,
+   "stable_runs": 43,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "cbb6a295b0ac04c5",
@@ -1734,7 +1740,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 46,
+   "stable_runs": 47,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "034c995100c7acc9",
@@ -1845,7 +1851,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 46,
+   "stable_runs": 47,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "6c60fda5fbb8a36f",
@@ -1874,16 +1880,29 @@
    "date": "2026-11-11",
    "facts": {
     "action": "Considered under suspension of the rules.",
-    "number": "H.R. 10329",
-    "title": "Combating Foreign Threats to Main Street Act of 2026",
+    "number": "H.R. 10238",
+    "title": "Cybersecurity for Small Businesses Act of 2026",
     "actions": [
      "Considered under suspension of the rules.",
+     "DEBATE - The House proceeded with forty minutes of debate on H.R. 10238.",
      "DEBATE - The House proceeded with forty minutes of debate on H.R. 10329.",
      "Motion to reconsider laid on the table Agreed to without objection.",
+     "Mr. Williams (TX) moved to suspend the rules and pass the bill, as amended.",
      "Mr. Williams (TX) moved to suspend the rules and pass the bill."
     ]
    },
    "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10238#2026-11-11#4e6d67d7",
+     "record": "119/hr/10238",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10238",
+     "title": "Cybersecurity for Small Businesses Act of 2026",
+     "publisher": null,
+     "retrieved_at": "2026-11-17T08:06:36Z",
+     "hash": "56bfc1f152fc9090"
+    },
     {
      "role": "official",
      "source": "congress_gov",
@@ -1892,8 +1911,19 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10329",
      "title": "Combating Foreign Threats to Main Street Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T20:06:03Z",
+     "retrieved_at": "2026-11-17T08:06:35Z",
      "hash": "67dd86c0903905b1"
+    },
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10238#2026-11-11#a4cc9803",
+     "record": "119/hr/10238",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10238",
+     "title": "Cybersecurity for Small Businesses Act of 2026",
+     "publisher": null,
+     "retrieved_at": "2026-11-17T08:06:36Z",
+     "hash": "dc4a025f255bcd1a"
     },
     {
      "role": "official",
@@ -1903,8 +1933,19 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10329",
      "title": "Combating Foreign Threats to Main Street Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T20:06:03Z",
+     "retrieved_at": "2026-11-17T08:06:35Z",
      "hash": "b46b6d18c4fe5cef"
+    },
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10238#2026-11-11#4eeb686b",
+     "record": "119/hr/10238",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10238",
+     "title": "Cybersecurity for Small Businesses Act of 2026",
+     "publisher": null,
+     "retrieved_at": "2026-11-17T08:06:36Z",
+     "hash": "2d730ca1ea9df657"
     },
     {
      "role": "official",
@@ -1914,8 +1955,19 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10329",
      "title": "Combating Foreign Threats to Main Street Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T20:06:03Z",
+     "retrieved_at": "2026-11-17T08:06:35Z",
      "hash": "07276e63e474e784"
+    },
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10238#2026-11-11#b80e91e1",
+     "record": "119/hr/10238",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10238",
+     "title": "Cybersecurity for Small Businesses Act of 2026",
+     "publisher": null,
+     "retrieved_at": "2026-11-17T08:06:36Z",
+     "hash": "9c05afec538b1cef"
     },
     {
      "role": "official",
@@ -1925,16 +1977,16 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10329",
      "title": "Combating Foreign Threats to Main Street Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T20:06:03Z",
+     "retrieved_at": "2026-11-17T08:06:35Z",
      "hash": "9adcfc73995cab03"
     }
    ],
-   "status": "corrected",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 30,
+   "stable_runs": 1,
    "first_seen": "2026-11-12T12:05:47.258Z",
-   "last_seen": "2026-11-13T20:05:46.848Z",
-   "facts_digest": "224a38c0013d211c",
+   "last_seen": "2026-11-17T08:05:46.059Z",
+   "facts_digest": "f7d594b23af65e97",
    "history": [
     {
      "at": "2026-11-12T12:05:47.258Z",
@@ -1995,10 +2047,62 @@
      "from": "confirmed",
      "to": "corrected",
      "why": "the change in the official record is confirmed"
+    },
+    {
+     "at": "2026-11-17T08:05:46.059Z",
+     "change": "facts",
+     "from": {
+      "action": "Considered under suspension of the rules.",
+      "number": "H.R. 10329",
+      "title": "Combating Foreign Threats to Main Street Act of 2026",
+      "actions": [
+       "Considered under suspension of the rules.",
+       "DEBATE - The House proceeded with forty minutes of debate on H.R. 10329.",
+       "Motion to reconsider laid on the table Agreed to without objection.",
+       "Mr. Williams (TX) moved to suspend the rules and pass the bill."
+      ]
+     },
+     "to": {
+      "action": "Considered under suspension of the rules.",
+      "number": "H.R. 10238",
+      "title": "Cybersecurity for Small Businesses Act of 2026",
+      "actions": [
+       "Considered under suspension of the rules.",
+       "DEBATE - The House proceeded with forty minutes of debate on H.R. 10238.",
+       "DEBATE - The House proceeded with forty minutes of debate on H.R. 10329.",
+       "Motion to reconsider laid on the table Agreed to without objection.",
+       "Mr. Williams (TX) moved to suspend the rules and pass the bill, as amended.",
+       "Mr. Williams (TX) moved to suspend the rules and pass the bill."
+      ]
+     }
+    },
+    {
+     "at": "2026-11-17T08:05:46.059Z",
+     "change": "status",
+     "from": "corrected",
+     "to": "pending",
+     "why": "the official record changed: confirming the change"
     }
    ],
    "card": null,
-   "facts_hash": "e835c1ef2c5a70d9"
+   "last_confirmed": {
+    "facts": {
+     "action": "Considered under suspension of the rules.",
+     "number": "H.R. 10329",
+     "title": "Combating Foreign Threats to Main Street Act of 2026",
+     "actions": [
+      "Considered under suspension of the rules.",
+      "DEBATE - The House proceeded with forty minutes of debate on H.R. 10329.",
+      "Motion to reconsider laid on the table Agreed to without objection.",
+      "Mr. Williams (TX) moved to suspend the rules and pass the bill."
+     ]
+    },
+    "facts_digest": "224a38c0013d211c",
+    "card": null,
+    "status": "corrected"
+   },
+   "pending_correction": true,
+   "facts_hash": "20880c35f7b79c68"
   },
   "US|-|passage|2026-11-11@house#HR10329": {
    "key": "US|-|passage|2026-11-11@house#HR10329",
@@ -2025,7 +2129,7 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10329",
      "title": "Combating Foreign Threats to Main Street Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T20:06:03Z",
+     "retrieved_at": "2026-11-17T08:06:35Z",
      "hash": "dcc7cd7770159281"
     },
     {
@@ -2036,15 +2140,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10329",
      "title": "Combating Foreign Threats to Main Street Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T20:06:03Z",
+     "retrieved_at": "2026-11-17T08:06:35Z",
      "hash": "ed2748d6db9002f9"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-12T12:05:47.258Z",
-   "last_seen": "2026-11-13T20:05:46.848Z",
+   "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "52d62caf37e66c8c",
    "history": [
     {
@@ -2088,7 +2192,7 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10238",
      "title": "Cybersecurity for Small Businesses Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T12:06:12Z",
+     "retrieved_at": "2026-11-17T08:06:36Z",
      "hash": "dffd9f36298cf399"
     },
     {
@@ -2099,15 +2203,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10238",
      "title": "Cybersecurity for Small Businesses Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T12:06:12Z",
+     "retrieved_at": "2026-11-17T08:06:36Z",
      "hash": "8a10ea312a55a6c2"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-12T12:05:47.258Z",
-   "last_seen": "2026-11-13T12:05:48.337Z",
+   "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "212583ba0d0c1a01",
    "history": [
     {
@@ -2168,7 +2272,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 37,
+   "stable_runs": 38,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-12T20:05:46.967Z",
    "facts_digest": "4723bd16dc4c8634",
@@ -2230,7 +2334,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 37,
+   "stable_runs": 38,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-12T20:05:46.967Z",
    "facts_digest": "1180097d4577d0cb",
@@ -2271,15 +2375,15 @@
      "url": "https://www.govinfo.gov/app/details/BILLS-119hr10981ih",
      "title": "American AI Security Act",
      "publisher": null,
-     "retrieved_at": "2026-11-16T08:05:45.852Z",
+     "retrieved_at": "2026-11-17T08:05:46.059Z",
      "hash": "399f2cbb10eba8f4"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 33,
+   "stable_runs": 34,
    "first_seen": "2026-11-13T08:05:44.938Z",
-   "last_seen": "2026-11-16T08:05:45.852Z",
+   "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "5244783b5683db57",
    "history": [
     {
@@ -2308,10 +2412,21 @@
     "action": "Received in the Senate and Read twice and referred to the Committee on Small Business and Entrepreneurship.",
     "chamber": "Senate",
     "committee": "Small Business and Entrepreneurship Committee",
-    "number": "H.R. 10329",
-    "title": "Combating Foreign Threats to Main Street Act of 2026"
+    "number": "H.R. 10238",
+    "title": "Cybersecurity for Small Businesses Act of 2026"
    },
    "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/10238#2026-11-12#60034bc7",
+     "record": "119/hr/10238",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10238",
+     "title": "Cybersecurity for Small Businesses Act of 2026",
+     "publisher": null,
+     "retrieved_at": "2026-11-17T08:06:36Z",
+     "hash": "31ea8c095b3a1ab7"
+    },
     {
      "role": "official",
      "source": "congress_gov",
@@ -2320,16 +2435,16 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10329",
      "title": "Combating Foreign Threats to Main Street Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-13T20:06:03Z",
+     "retrieved_at": "2026-11-17T08:06:35Z",
      "hash": "b5d9a3abc8c41ea4"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 1,
    "first_seen": "2026-11-13T12:05:48.337Z",
-   "last_seen": "2026-11-13T20:05:46.848Z",
-   "facts_digest": "ceaf338d6245fc45",
+   "last_seen": "2026-11-17T08:05:46.059Z",
+   "facts_digest": "3218b1f17089b2cf",
    "history": [
     {
      "at": "2026-11-13T12:05:48.337Z",
@@ -2342,10 +2457,48 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-17T08:05:46.059Z",
+     "change": "facts",
+     "from": {
+      "action": "Received in the Senate and Read twice and referred to the Committee on Small Business and Entrepreneurship.",
+      "chamber": "Senate",
+      "committee": "Small Business and Entrepreneurship Committee",
+      "number": "H.R. 10329",
+      "title": "Combating Foreign Threats to Main Street Act of 2026"
+     },
+     "to": {
+      "action": "Received in the Senate and Read twice and referred to the Committee on Small Business and Entrepreneurship.",
+      "chamber": "Senate",
+      "committee": "Small Business and Entrepreneurship Committee",
+      "number": "H.R. 10238",
+      "title": "Cybersecurity for Small Businesses Act of 2026"
+     }
+    },
+    {
+     "at": "2026-11-17T08:05:46.059Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending",
+     "why": "the official record changed: confirming the change"
     }
    ],
    "card": null,
-   "facts_hash": "5e4ba5631f452b21"
+   "last_confirmed": {
+    "facts": {
+     "action": "Received in the Senate and Read twice and referred to the Committee on Small Business and Entrepreneurship.",
+     "chamber": "Senate",
+     "committee": "Small Business and Entrepreneurship Committee",
+     "number": "H.R. 10329",
+     "title": "Combating Foreign Threats to Main Street Act of 2026"
+    },
+    "facts_digest": "ceaf338d6245fc45",
+    "card": null,
+    "status": "confirmed"
+   },
+   "pending_correction": true,
+   "facts_hash": "c7b8cf426812e3b9"
   },
   "MA|-|null|2026-11-16": {
    "key": "MA|-|null|2026-11-16",
@@ -2425,7 +2578,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 3,
+   "stable_runs": 4,
    "first_seen": "2026-11-17T00:05:47.831Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "c86d69e3c8ba0301",
@@ -2449,16 +2602,16 @@
  },
  "adapters": {
   "federal_register": {
-   "since": "2026-11-16"
+   "since": "2026-11-17"
   },
   "govinfo": {
-   "since": "2026-11-14"
+   "since": "2026-11-15"
   },
   "regulations_gov": {
-   "since": "2026-11-02"
+   "since": "2026-11-03"
   },
   "congress_extra": {
-   "since": "2026-11-15"
+   "since": "2026-11-16"
   },
   "openstates": {
    "sessions": {
@@ -3333,10 +3486,10 @@
      }
     ]
    },
-   "cursor": 2,
+   "cursor": 29,
    "quota": {
     "day": "2026-11-17",
-    "used": 89
+    "used": 117
    }
   }
  },
