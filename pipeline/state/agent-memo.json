@@ -806,10 +806,10 @@
    "dead": false
   },
   "legiscan:2155516": {
-   "raw_hash": "d6fe2b1ee423d77a8edaeab67efa916579a8c4219ed25c2870ff8dd88396b54c",
+   "raw_hash": "16d0fbf506f43542aa43442419a7ab2f06bd96d3e25096fde3d15124f4db9b97",
    "reason": "not created: a budget, appropriations or defence authorization measure (\"Fiscal Year 2027 Budget Support Emergency Act of 2026\"): an AI provision inside it is section I, which is never auto-created",
    "proposal": "legiscan:2155516: not a bill (a budget, appropriations or defence authorization measure (\"Fiscal Year 2027 Budget Support Emergency Act of 2026\"): an AI provision inside it is section I, which is never auto-created); not created",
-   "date": "2026-11-07",
+   "date": "2026-11-17",
    "dead": false
   },
   "legiscan:2161686": {
@@ -1061,6 +1061,27 @@
    "raw_hash": "48693d7f8023ffafc7e16b8aa2aa381b7dbae53d56b05d2ca4bd2138c4d05768",
    "reason": "Congress.gov relates it to a tracked bill (119/hr/3447: Related bill); possible duplicate or update of that entry (entry chip-security-act-h-r-3447-cotton-companion): not created",
    "proposal": "congress_gov:119/s/1705 may be a duplicate or update of entry chip-security-act-h-r-3447-cotton-companion: Congress.gov relates it to a tracked bill (119/hr/3447: Related bill); possible duplicate or update of that entry",
+   "date": "2026-11-17",
+   "dead": false
+  },
+  "congress_gov:119/hr/8880": {
+   "raw_hash": "663e73b0a6b6e0956a0c16e071bbe069db037e1b770b2f0ddc167e6ca8dbe0e1",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/8880 (\"Small Business Cybersecurity Assistance Evaluation Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-17",
+   "dead": false
+  },
+  "congress_gov:119/s/5291": {
+   "raw_hash": "ccdcbd3982292a04c287708061e3a73b4db3746b6cef12bba6c9d945caf1502b",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/5291 (\"Small Business Cybersecurity Assistance Evaluation Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-17",
+   "dead": false
+  },
+  "legiscan:2160830": {
+   "raw_hash": "6cf650be5b3c9420991862e8479bf159b10fcdbb489301be325db737cd75c02b",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2160830 (\"Use of artificial intelligence-based tools; covered artificial intelligence, dis\") meets no state section's criterion; not created",
    "date": "2026-11-17",
    "dead": false
   }

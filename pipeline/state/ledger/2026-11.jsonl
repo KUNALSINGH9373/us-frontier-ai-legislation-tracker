@@ -757,3 +757,6 @@
 {"at":"2026-11-17T12:06:23.935Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/s/2937","input":20010,"output":1729,"cost":0.05731}
 {"at":"2026-11-17T12:10:03.512Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2006,"output":115,"cost":0.0002581}
 {"at":"2026-11-17T13:38:38.058Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":1910,"output":191,"cost":0.0002865}
+{"at":"2026-11-17T16:06:06.681Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2066,"output":110,"cost":0.0002616}
+{"at":"2026-11-17T16:06:14.430Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2080,"output":105,"cost":0.0002605}
+{"at":"2026-11-17T16:10:05.370Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2227,"output":588,"cost":0.0005166999999999999}
