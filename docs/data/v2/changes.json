@@ -543,6 +543,80 @@
    "run_id": "update-20261116-0005",
    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5541/text",
    "tier": "C"
+  },
+  {
+   "entry_key": "s-4656-military-ai-act",
+   "field": "mechanism",
+   "old": "Applies only to the Defense Department. Section 5 would add a contract clause requiring frontier AI contractors to report \"covered incidents\" to the Department within 72 hours: theft or leaking of model weights (including attempts by the model itself), foreign-adversary access, supply-chain compromise, and poisoning of data or checkpoints. Material vulnerabilities and \"materially concerning model behavior\" (help with cyberattacks, evading safeguards, deception, chemical or biological weapons capability, automating research toward more powerful AI, or unauthorized autonomous action) would have to be reported within 7 days. The Department would then notify the Armed Services Committees within 7 days. The bill would also set an approval process for high-consequence uses, require a human to be accountable, ban AI in nuclear targeting and launch decisions, limit domestic surveillance, and restrict autonomous weapons, with Congress able to override by joint resolution. A \"frontier AI model\" is one the Secretary of Defense designates by scale and capability; there is no compute figure.",
+   "new": "Applies only to the Defense Department. Section 5 would add a contract clause requiring frontier AI contractors to report \"covered incidents\" to the Department within 72 hours: theft or leaking of model weights (including attempts by the model itself), foreign-adversary access, supply-chain compromise, and poisoning of data or checkpoints. Material vulnerabilities and \"materially concerning model behavior\" (help with cyberattacks, evading safeguards, deception, chemical or biological weapons capability, automating research toward more powerful AI, or unauthorized autonomous action) would have to be reported within 7 days. The Department would then notify the Armed Services Committees within 7 days. The bill would also set an approval process for high-consequence uses, require a human to be accountable, ban AI in nuclear targeting and launch decisions, limit domestic surveillance, and restrict autonomous weapons; a specialized autonomous weapon system may be fielded only if Congress enacts a joint resolution of approval. A \"frontier AI model\" is one the Secretary of Defense designates by scale and capability; there is no compute figure.",
+   "date": "2026-11-17",
+   "run_id": "update-20261117-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/4656/text",
+   "tier": "C",
+   "note": "self-correction (error): The entry says Congress can 'override by joint resolution' (removed words: 'with Congress able to override by joint resolution'), but SOURCE makes a joint resolution of approval a precondition for fielding a specialized autonomous weapon system that falls outside the section 6(d) exceptions. Quote: \"A system requested under subsection (a) may only be fielded if Congress enacts a joint resolution of approval\""
+  },
+  {
+   "entry_key": "s-4656-military-ai-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-17",
+   "run_id": "update-20261117-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/4656/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "s-5061-secure-ai-development-act",
+   "field": "mechanism",
+   "old": "Would require providers to give the NSA AI Security Center access to each frontier model at least 21 calendar days before release. The Attorney General would enforce this, with fines of at least $100,000 per day after a 7-calendar-day chance to fix the problem. Providers would also have to register each frontier model in a NIST registry before release. The bill would create an AI Risk Board and a voluntary incident-reporting system modeled on aviation safety.",
+   "new": "Would require providers to give the NSA AI Security Center access to each frontier model at least 21 calendar days before release. The Attorney General would enforce this, with fines of at least $100,000 per day after a 7-calendar-day chance to fix the problem. Providers would also have to register each frontier model in a NIST registry before release. The bill would create an AI Risk Board and a voluntary incident-reporting system modeled on aviation safety. Fines apply for each day a model is available without having obtained the voluntary security guidance. To cure, the provider shall demonstrate it has withdrawn the model from commerce and given NSA access to it.",
+   "date": "2026-11-17",
+   "run_id": "update-20261117-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the per-day penalty basis and the cure process: fines run for each day a model is available without the voluntary security guidance, and to cure a provider must demonstrate it withdrew the model and gave NSA access. Quote: \"fined an amount equal to not less than $100,000 per day for each day during which a frontier artificial intelligence model\""
+  },
+  {
+   "entry_key": "s-5061-secure-ai-development-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-17",
+   "run_id": "update-20261117-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "s-5417-h-r-10567-ai-emergency-button-act",
+   "field": "mechanism",
+   "old": "Covered entities would have to \"ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system.\" DHS would write regulations within 90 days. Sen. Kennedy asked for immediate passage by unanimous consent on Sept 16, 2026; Sen. Rand Paul objected and called for hearings first. It overlaps H.R. 9917 (AI Kill Switch Act) and the emergency orders in Section 8 of the FRONTIER Act, but describes no government power to order a shutdown.",
+   "new": "Covered entities would have to \"ensure that the advanced artificial intelligence system developed or operated by the covered entity includes a technical capability for a human operator to shut down the system.\" DHS would write regulations within 90 days. Sen. Kennedy asked for immediate passage by unanimous consent on Sept 16, 2026; Sen. Rand Paul objected and called for hearings first. It overlaps H.R. 9917 (AI Kill Switch Act) and the emergency orders in Section 8 of the FRONTIER Act, but describes no government power to order a shutdown. The DHS Secretary would issue these regulations in consultation with heads of relevant Federal agencies with jurisdiction over AI systems.",
+   "date": "2026-11-17",
+   "run_id": "update-20261117-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+   "tier": "C",
+   "note": "self-correction (omission): The tracker omits that the DHS regulations must be promulgated in consultation with heads of relevant Federal agencies with jurisdiction over AI systems, which SOURCE states. Quote: \"consultation with the heads of relevant Federal agencies with jurisdiction over artificial intelligence systems\""
+  },
+  {
+   "entry_key": "s-5417-h-r-10567-ai-emergency-button-act",
+   "field": "thresholds",
+   "old": "\"Covered entity\" = any entity that develops or operates an advanced artificial intelligence system in the United States (S. 5417)",
+   "new": "\"Covered entity\" = any entity that develops or operates an advanced artificial intelligence system in the United States (S. 5417). \"Artificial intelligence\" has the meaning given such term in section 5002 of the National Artificial Intelligence Initiative Act of 2020 (15 U.S.C. 9401).",
+   "date": "2026-11-17",
+   "run_id": "update-20261117-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry gives only the covered-entity definition. SOURCE also defines 'artificial intelligence' by reference to section 5002 of the National Artificial Intelligence Initiative Act of 2020 (15 U.S.C. 9401), which sets the scope of the covered systems and must be added. Quote: \"has the meaning given such term in section 5002\""
+  },
+  {
+   "entry_key": "s-5417-h-r-10567-ai-emergency-button-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-17",
+   "run_id": "update-20261117-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
+   "tier": "C"
   }
  ]
 }

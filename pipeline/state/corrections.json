@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-16",
+ "last_run": "2026-11-17",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -143,8 +143,8 @@
   "s-4656-military-ai-act": {
    "text_sha": "9c5fdaf2b61487b31ab91daa6c6118fe49ca5c6088feb97882a3c542a34375fc",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/4656/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-17",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -199,8 +199,8 @@
   "s-5061-secure-ai-development-act": {
    "text_sha": "872bc071685643e65acf6ddf5efa491748a76c207bf4e4ac4d96a636f473c9d3",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5061/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-17",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -271,8 +271,8 @@
   "s-5417-h-r-10567-ai-emergency-button-act": {
    "text_sha": "7b473d7e6287749a4b6411da01166158641a0da7b0f5c03db9c5b241716da203",
    "text_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-17",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
