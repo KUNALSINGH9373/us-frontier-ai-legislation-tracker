@@ -771,10 +771,10 @@
    "dead": false
   },
   "congress_gov:119/hr/10946": {
-   "raw_hash": "ea772bb1b93b89d2dceeeb9c9648e8a9e7cc33b86be8ec8b50e29a4f7daa72bd",
+   "raw_hash": "6d626059afd2189218fcbbd1279819480379bd816d5c8096d8f8880476306df6",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10946 (\"Congressional Office of Technology Improvement and Enhancement Act\") meets neither federal section's criterion; not created",
-   "date": "2026-11-10",
+   "date": "2026-11-18",
    "dead": false
   },
   "congress_gov:119/hr/10329": {
@@ -1173,6 +1173,27 @@
    "raw_hash": "8c9b4ff9e57bf09e03b3ccac5ae23aa169b2a7c35aa11b39eb880134ec1def6d",
    "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
    "proposal": "legiscan:2162254 (\"Relating to the requirements for artificial intelligence operations of state age\") meets no state section's criterion; not created",
+   "date": "2026-11-18",
+   "dead": false
+  },
+  "congress_gov:119/hr/6984": {
+   "raw_hash": "dc548edbebb4899046b0de77e1195a39d182415a7155291671425a63740b8115",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (its title names a subject F excludes: \"Data Center Transparency Act\") (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (tr",
+   "proposal": "congress_gov:119/hr/6984 (\"Data Center Transparency Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-18",
+   "dead": false
+  },
+  "congress_gov:119/hr/10570": {
+   "raw_hash": "b23a7d70834149d7cacb80625d720601971f89c01682483fd6ebb030f5deee7b",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (its title names a subject F excludes: \"No Secrets for Data Centers Act of 2026\") (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or def",
+   "proposal": "congress_gov:119/hr/10570 (\"No Secrets for Data Centers Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-18",
+   "dead": false
+  },
+  "congress_gov:119/s/5504": {
+   "raw_hash": "564ed27f26fcf58f682064dc3970efc4e40de47b757edb54a184f6e0387a5a94",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (its title names a subject F excludes: \"A bill to require the Secretary of Defense to establish a pilot program on Depar\") (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their model",
+   "proposal": "congress_gov:119/s/5504 (\"A bill to require the Secretary of Defense to establish a pilot program on Depar\") meets neither federal section's criterion; not created",
    "date": "2026-11-18",
    "dead": false
   }
