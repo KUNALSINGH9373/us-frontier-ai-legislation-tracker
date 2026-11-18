@@ -1196,6 +1196,13 @@
    "proposal": "congress_gov:119/s/5504 (\"A bill to require the Secretary of Defense to establish a pilot program on Depar\") meets neither federal section's criterion; not created",
    "date": "2026-11-18",
    "dead": false
+  },
+  "congress_gov:119/s/232": {
+   "raw_hash": "c5123a660060b5d505316b45e066cb2992198b2000dedbdf9f169e86b3b23dbb",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/232 (\"Preventing Algorithmic Collusion Act of 2025\") meets neither federal section's criterion; not created",
+   "date": "2026-11-18",
+   "dead": false
   }
  }
 }
