@@ -617,6 +617,80 @@
    "run_id": "update-20261117-0005",
    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/5417/text",
    "tier": "C"
+  },
+  {
+   "entry_key": "ri-s-358-h-5224",
+   "field": "mechanism",
+   "old": "A different design: strict liability in tort. Developers of covered models would have been strictly liable for injuries to non-users caused by model conduct that would be negligent, wrongful or criminal if a human did it, where the user or any fine-tuner did not intend or reasonably expect that conduct. The AI would be presumed to meet any mental-state element of the claim (\"it shall not be a defense that AI systems are incapable of having mental states\"); this presumption could be rebutted. Defenses: the conduct met the human standard of care, or it was a pure capability failure.",
+   "new": "A different design: strict liability in tort. Developers of covered models would have been strictly liable for injuries to non-users caused by model conduct that would be negligent, wrongful or criminal if a human did it, where the user or any fine-tuner did not intend or reasonably expect that conduct. The AI would be presumed to meet any mental-state element of the claim (\"it shall not be a defense that AI systems are incapable of having mental states\"); this presumption could be rebutted. Defenses: the conduct met the human standard of care, or it was a pure capability failure. Excludes defamation claims: \"Except with respect to any causes of action for defamation\".",
+   "date": "2026-11-18",
+   "run_id": "update-20261118-0005",
+   "source_url": "https://status.rilegislature.gov/",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the defamation carve-out: SOURCE excludes defamation causes of action from the strict liability duty. Quote: \"Except with respect to any causes of action for defamation\""
+  },
+  {
+   "entry_key": "ri-s-358-h-5224",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-18",
+   "run_id": "update-20261118-0005",
+   "source_url": "https://status.rilegislature.gov/",
+   "tier": "C"
+  },
+  {
+   "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+   "field": "mechanism",
+   "old": "Would protect employees and independent contractors from retaliation for reporting an \"AI security vulnerability\" (a lapse that could let someone steal leading-edge AI) or an \"AI violation\" (a breach of federal law, or a failure to address a substantial danger to public safety, public health or national security) to regulators, Congress or supervisors. A worker would first complain to the Labor Department, then could sue in federal court with a jury trial. Remedies would include reinstatement, double back pay and compensatory damages. Agreements forcing arbitration of these claims would be unenforceable. The June 2026 Great American AI Act discussion draft folded this bill in (its Section 113, with the same double back-pay remedy), but the FRONTIER Act (H.R. 9925) dropped it.",
+   "new": "Would protect employees and independent contractors from retaliation for reporting an \"AI security vulnerability\" (a lapse that could let someone steal leading-edge AI) or an \"AI violation\" (a breach of federal law, or a failure to address a substantial danger to public safety, public health or national security) to regulators, Congress or supervisors. A worker would first complain to the Labor Department, then could sue in federal court with a jury trial if no Labor Department final decision within 180 days, absent the worker's bad faith. Remedies would include reinstatement, double back pay with interest and compensatory damages. Agreements forcing arbitration of these claims would be unenforceable. The June 2026 Great American AI Act discussion draft folded this bill in (its Section 113, with the same double back-pay remedy), but the FRONTIER Act (H.R. 9925) dropped it.",
+   "date": "2026-11-18",
+   "run_id": "update-20261118-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that the worker may sue in district court only if the Labor Department has not issued a final decision within 180 days of the complaint, absent a showing of bad-faith delay by the worker, and that the back pay award is 2 times with interest. Quote: \"within 180 days of the filing of a complaint under\""
+  },
+  {
+   "entry_key": "s-1792-h-r-3460-ai-whistleblower-protection-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-18",
+   "run_id": "update-20261118-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "s-2938-ai-risk-evaluation-act",
+   "field": "mechanism",
+   "old": "Would require the Department of Energy to set up a mandatory Advanced AI Evaluation Program within 90 days, with classified red-team testing and blind third-party evaluations. Covered developers would have to take part and hand over code, training data and model weights on request, and could not deploy a system unless they comply. The fine would be at least $1M per day for not taking part or for breaking the deployment rules. A plan for permanent federal oversight would be due within 360 days and updated each year. The program would end after 7 years unless Congress renews it.",
+   "new": "Would require the Department of Energy to set up a mandatory Advanced AI Evaluation Program within 90 days, with classified red-team testing and, to the extent feasible, blind third-party evaluations. Covered developers would have to take part and hand over code, training data and model weights on request, and could not deploy a system unless they comply. The fine would be at least $1M per day for not taking part or for breaking the deployment rules. A plan for permanent federal oversight would be due within 360 days and updated each year. The program would end after 7 years unless Congress renews it.",
+   "date": "2026-11-18",
+   "run_id": "update-20261118-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry drops the qualifier that third-party assessments and blind model evaluations are required only to the extent feasible, which SOURCE states. Quote: \"to the extent feasible, establish and facilitate classified\""
+  },
+  {
+   "entry_key": "s-2938-ai-risk-evaluation-act",
+   "field": "thresholds",
+   "old": "More than 10^26 operations (the Secretary could propose a new definition by rule, but it would take effect only if Congress approves it by joint resolution). Covers any person that designs, codes, produces, owns, or substantially modifies such a system.",
+   "new": "More than 10^26 operations (the Secretary could propose a new definition by rule, but it would take effect only if Congress approves it by joint resolution). Covers any person that designs, codes, produces, owns, or substantially modifies such a system for use in interstate or foreign commerce, including by taking steps to initiate a training run.",
+   "date": "2026-11-18",
+   "run_id": "update-20261118-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+   "tier": "C",
+   "note": "self-correction (omission): The developer definition omits that coverage applies only to systems developed for use in interstate or foreign commerce, including by initiating a training run, as SOURCE states. Quote: \"including by taking steps to initiate a training run\""
+  },
+  {
+   "entry_key": "s-2938-ai-risk-evaluation-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-18",
+   "run_id": "update-20261118-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
+   "tier": "C"
   }
  ]
 }

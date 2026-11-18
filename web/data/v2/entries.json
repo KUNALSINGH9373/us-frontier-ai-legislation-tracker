@@ -2689,7 +2689,7 @@
   "title": "S.358 / H.5224",
   "short_name": "RI S.358 / H.5224",
   "sponsor_text": "Sen. Gu and 8 co-sponsors (S.358, Feb 21, 2025)",
-  "mechanism": "A different design: strict liability in tort. Developers of covered models would have been strictly liable for injuries to non-users caused by model conduct that would be negligent, wrongful or criminal if a human did it, where the user or any fine-tuner did not intend or reasonably expect that conduct. The AI would be presumed to meet any mental-state element of the claim (\"it shall not be a defense that AI systems are incapable of having mental states\"); this presumption could be rebutted. Defenses: the conduct met the human standard of care, or it was a pure capability failure.",
+  "mechanism": "A different design: strict liability in tort. Developers of covered models would have been strictly liable for injuries to non-users caused by model conduct that would be negligent, wrongful or criminal if a human did it, where the user or any fine-tuner did not intend or reasonably expect that conduct. The AI would be presumed to meet any mental-state element of the claim (\"it shall not be a defense that AI systems are incapable of having mental states\"); this presumption could be rebutted. Defenses: the conduct met the human standard of care, or it was a pure capability failure. Excludes defamation claims: \"Except with respect to any causes of action for defamation\".",
   "thresholds": "The same thresholds as California SB 1047: 10^26 operations and more than $100M compute cost; for fine-tunes, 3×10^25 operations and more than $10M. Also covers copies of covered models: unmodified copies, copies changed after training in ways other than fine-tuning, copies fine-tuned with 3×10^25 operations or less and $1,000,000 or less, and copies combined with other software.",
   "penalties": null,
   "status_text": "H.5224 was introduced Jan 29, 2025 and sent to House Judiciary, which heard it Feb 11, 2025 and held it for further study. S.358 was introduced Feb 21, 2025 and sent to Senate Judiciary, which heard it Mar 18, 2025 and held it for further study. Rhode Island does not carry bills over between years, so both bills died when the 2025 session ended. Update (checked Nov 12, 2026): the official record shows no further action.",
@@ -2743,6 +2743,11 @@
     "label": "H.5224 text",
     "url": "https://webserver.rilegislature.gov/BillText25/HouseText25/H5224.pdf",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://status.rilegislature.gov/",
+    "kind": "primary"
    }
   ],
   "source_label": "S.358 text — rilegislature.gov · H.5224 text",
@@ -2755,13 +2760,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-18T00:05:44Z",
+   "run_id": "update-20261118-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-18",
+  "last_changed": "2026-11-18",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-358-h-5224-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -2839,25 +2846,40 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would have made developers of covered AI models strictly liable for injuries to non-users caused by model conduct that would be negligent, tortious, or criminal if done by a human.",
-  "thirty_seconds": {
-   "a": "Developers of covered models: those trained with more than 10^26 operations costing over $100,000,000, plus fine-tunes and derivatives of them.",
-   "b": "Would have been strictly liable for injuries to non-users from model conduct the user or any fine-tuner did not intend or reasonably anticipate.",
-   "c": "Developers would have faced private lawsuits for injuries; no fine or agency enforcement. Defenses: the model acted as carefully as a reasonable person would have, or the harm came only from the model not being capable enough."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "fba29b7be30c176d1b814f3aeef3c82cfdc4e52d6796c4aeb0fc9b9cf6493518"
+   "method": "agent",
+   "checked_at": "2026-11-18T00:05:44Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "5549a3b59a26a56c24c8d285f1e6c8932ee5f3e3af82c9d6f08eb97622e4bf90"
   },
-  "display_name": "Rhode Island strict liability for AI model harms",
   "more_links": [
    {
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://legiscan.com/RI/bill/H5224/2025"
    }
-  ]
+  ],
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Except with respect to any causes of action for defamation",
+    "source_url": "https://status.rilegislature.gov/"
+   }
+  ],
+  "identifiers": {
+   "session": "2025 Regular Session",
+   "external": {
+    "legiscan": [
+     1979504,
+     1945535
+    ]
+   }
+  },
+  "summary_line": "Would have made developers of covered AI models strictly liable for injuries to non-users caused by model conduct that would be wrongful if a human did it.",
+  "thirty_seconds": {
+   "a": "Developers of covered models: those trained with more than 10^26 operations costing over $100,000,000, plus certain fine-tunes and copies. The bill died in 2025.",
+   "b": "Developers would have been strictly liable, regardless of care, for injuries to non-users from model conduct the user or fine-tuner did not intend or reasonably expect.",
+   "c": "Injured people could sue; the text sets no fine or agency enforcement. Defenses: the conduct met the human standard of care, or it was a pure capability failure."
+  }
  },
  {
   "id": 15,
@@ -4492,8 +4514,8 @@
   "title": "S. 2938 — Artificial Intelligence Risk Evaluation Act of 2025",
   "short_name": "S. 2938 AI Risk Evaluation Act",
   "sponsor_text": "Sen. Josh Hawley (R-MO), sponsor; cosponsors Sen. Richard Blumenthal (D-CT, original) and Sen. Marsha Blackburn (R-TN, added Mar 19, 2026)",
-  "mechanism": "Would require the Department of Energy to set up a mandatory Advanced AI Evaluation Program within 90 days, with classified red-team testing and blind third-party evaluations. Covered developers would have to take part and hand over code, training data and model weights on request, and could not deploy a system unless they comply. The fine would be at least $1M per day for not taking part or for breaking the deployment rules. A plan for permanent federal oversight would be due within 360 days and updated each year. The program would end after 7 years unless Congress renews it.",
-  "thresholds": "More than 10^26 operations (the Secretary could propose a new definition by rule, but it would take effect only if Congress approves it by joint resolution). Covers any person that designs, codes, produces, owns, or substantially modifies such a system.",
+  "mechanism": "Would require the Department of Energy to set up a mandatory Advanced AI Evaluation Program within 90 days, with classified red-team testing and, to the extent feasible, blind third-party evaluations. Covered developers would have to take part and hand over code, training data and model weights on request, and could not deploy a system unless they comply. The fine would be at least $1M per day for not taking part or for breaking the deployment rules. A plan for permanent federal oversight would be due within 360 days and updated each year. The program would end after 7 years unless Congress renews it.",
+  "thresholds": "More than 10^26 operations (the Secretary could propose a new definition by rule, but it would take effect only if Congress approves it by joint resolution). Covers any person that designs, codes, produces, owns, or substantially modifies such a system for use in interstate or foreign commerce, including by taking steps to initiate a training run.",
   "penalties": null,
   "status_text": "Introduced Sept 29, 2025 and referred to the Senate Commerce, Science, and Transportation Committee. Sen. Marsha Blackburn (R-TN) was added as a cosponsor Mar 19, 2026. Congress.gov lists hearings held Sept 30, 2026 by the Senate Homeland Security and Governmental Affairs Committee. No further action.",
   "signed_text": null,
@@ -4549,13 +4571,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-18T00:05:44Z",
+   "run_id": "update-20261118-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-18",
+  "last_changed": "2026-11-18",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-2938-artificial-intelligence-risk-evaluation-act-of-2025",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -4641,17 +4665,29 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would require developers of advanced AI systems to join a mandatory Department of Energy evaluation program and bar deployment unless they comply.",
-  "thirty_seconds": {
-   "a": "Any person that designs, codes, produces, owns, or substantially modifies an AI system trained with more than 10^26 operations.",
-   "b": "Take part in the Energy Department's Advanced AI Evaluation Program and provide code, training data, and model weights on request. No deployment unless in compliance.",
-   "c": "A fine of at least $1,000,000 per day for not participating or for violating the deployment rules."
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:41:34.394Z",
+   "checked_at": "2026-11-18T00:05:44Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "3b7a03e7c42c55b81fae65b6a434e86c6d05e1224654d8d9c7e0c0c94b9c369e"
+   "basis_sha256": "34ebd04f4ed0e0c9c40f9e105b20db7898874b0477b040dcebd1ec6dbf40f8f4"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "to the extent feasible, establish and facilitate classified",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "including by taking steps to initiate a training run",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text"
+   }
+  ],
+  "summary_line": "Would require developers of advanced AI systems to join a Department of Energy evaluation program and bar deployment of any system unless they comply.",
+  "thirty_seconds": {
+   "a": "Any person that designs, codes, produces, owns, or substantially modifies an AI system trained with more than 10^26 operations for interstate or foreign commerce.",
+   "b": "Take part in the Energy Department's Advanced AI Evaluation Program, hand over code, training data and model weights on request, and not deploy a system without complying.",
+   "c": "A fine of at least $1,000,000 per day for not taking part or for breaking the deployment rules."
   }
  },
  {
@@ -7022,7 +7058,7 @@
   "title": "S. 1792 / H.R. 3460 — AI Whistleblower Protection Act",
   "short_name": "S. 1792 / H.R. 3460 AI Whistleblower Protection Act",
   "sponsor_text": "Sen. Chuck Grassley (R-IA) with Coons, Blackburn, Klobuchar, Hawley, Schatz; House companion H.R. 3460 by Rep. Jay Obernolte (R-CA), referred to House Education and Workforce; 13 Senate and 9 House cosponsors in all, including Pocan (Oct 1, 2026) and Pappas (Oct 19, 2026) in the House (Congress.gov)",
-  "mechanism": "Would protect employees and independent contractors from retaliation for reporting an \"AI security vulnerability\" (a lapse that could let someone steal leading-edge AI) or an \"AI violation\" (a breach of federal law, or a failure to address a substantial danger to public safety, public health or national security) to regulators, Congress or supervisors. A worker would first complain to the Labor Department, then could sue in federal court with a jury trial. Remedies would include reinstatement, double back pay and compensatory damages. Agreements forcing arbitration of these claims would be unenforceable. The June 2026 Great American AI Act discussion draft folded this bill in (its Section 113, with the same double back-pay remedy), but the FRONTIER Act (H.R. 9925) dropped it.",
+  "mechanism": "Would protect employees and independent contractors from retaliation for reporting an \"AI security vulnerability\" (a lapse that could let someone steal leading-edge AI) or an \"AI violation\" (a breach of federal law, or a failure to address a substantial danger to public safety, public health or national security) to regulators, Congress or supervisors. A worker would first complain to the Labor Department, then could sue in federal court with a jury trial if no Labor Department final decision within 180 days, absent the worker's bad faith. Remedies would include reinstatement, double back pay with interest and compensatory damages. Agreements forcing arbitration of these claims would be unenforceable. The June 2026 Great American AI Act discussion draft folded this bill in (its Section 113, with the same double back-pay remedy), but the FRONTIER Act (H.R. 9925) dropped it.",
   "thresholds": null,
   "penalties": null,
   "status_text": "Introduced May 15, 2025; referred to the Senate Health, Education, Labor, and Pensions (HELP) Committee. Sen. Slotkin was added Oct 8, 2025. Senate cosponsors were added Sept 22, 2026 (Schumer, Blumenthal, Gillibrand), Sept 24, 2026 (Durbin, Curtis R-UT, Kelly) and Sept 30, 2026 (Schiff), for 13 Senate cosponsors in all. The House companion, H.R. 3460, was referred to the House Education and Workforce Committee; it has 9 House cosponsors, including Pocan (Oct 1, 2026) and Pappas (Oct 19, 2026).",
@@ -7103,6 +7139,11 @@
     "label": "House — GovInfo",
     "url": "https://www.govinfo.gov/app/details/BILLS-119hr3460ih",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Senate text — GovInfo · House — GovInfo",
@@ -7115,13 +7156,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-18T00:05:44Z",
+   "run_id": "update-20261118-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-18",
+  "last_changed": "2026-11-18",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-1792-h-r-3460-ai-whistleblower-protection-act-r",
    "section_name": "Adjacent and sectoral federal bills"
@@ -7135,17 +7178,11 @@
     ]
    }
   },
-  "summary_line": "Would bar employers from retaliating against employees and contractors who report AI security vulnerabilities or AI violations to regulators, Congress, or supervisors.",
-  "thirty_seconds": {
-   "a": "Employees and independent contractors who report an AI security vulnerability or an AI violation to regulators, Congress, or supervisors.",
-   "b": "The bill would bar retaliation against these workers for making such reports.",
-   "c": "Workers could file a complaint with the Department of Labor, then go to district court with a jury trial, for reinstatement, 2× back pay and compensatory damages."
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-12T07:21:32Z",
+   "checked_at": "2026-11-18T00:05:44Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "60b521c0e71a343b77b2375b678183f62cb9b6064c455d6620b24ce00be9e874"
+   "basis_sha256": "20d8049e3e289939d7f6a3b3e34c6ccbbf9031b5efe31ad372a44f4678b08a48"
   },
   "duties": {
    "framework": {
@@ -7213,6 +7250,29 @@
    "chars": 10086,
    "method": "agent",
    "checked_at": "2026-11-12T03:05:03Z"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "within 180 days of the filing of a complaint under",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "there is no showing that such a delay is due to the bad faith of the covered individual",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "2 times the amount of back pay otherwise owed to the covered individual, with interest",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/1792/text"
+   }
+  ],
+  "summary_line": "Would protect employees and independent contractors from retaliation for reporting AI security vulnerabilities or AI violations to regulators, Congress or supervisors.",
+  "thirty_seconds": {
+   "a": "Employees and independent contractors who report an AI security vulnerability or an AI violation to regulators, Congress or supervisors.",
+   "b": "Employers would not be allowed to retaliate against these workers for making such reports.",
+   "c": "Workers who win would get reinstatement, double back pay with interest and compensatory damages. They could sue in federal court if the Labor Department issues no final decision within 180 days."
   }
  },
  {
