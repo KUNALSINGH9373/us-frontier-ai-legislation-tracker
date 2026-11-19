@@ -691,6 +691,80 @@
    "run_id": "update-20261118-0005",
    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/2938/text",
    "tier": "C"
+  },
+  {
+   "entry_key": "mi-hb-4668",
+   "field": "mechanism",
+   "old": "Would require a safety and security protocol; transparency reports every 90 days; and a yearly third-party audit, published within 90 days. It would protect whistleblowers, with a right to sue (within 90 days, on clear and convincing evidence) and an anonymous channel with monthly updates. The Attorney General could seek civil fines of up to $1,000,000 per violation (and up to $500 under one section). It appears to copy the original June 2025 text of New York's RAISE Act: the same $5M/$100M compute-cost tests, the same 100-death threshold, and the same audit and whistleblower parts that New York later removed. Its start dates read \"Beginning January 1, 2026\", a date already past because the bill has not moved.",
+   "new": "Would require a safety and security protocol; transparency reports every 90 days; and a yearly third-party audit, published within 90 days. It would protect whistleblowers, with a right to sue (within 90 days, on clear and convincing evidence) and an anonymous channel with monthly updates. The Attorney General could seek civil fines of up to $1,000,000 per violation (and up to $500 under one section). It appears to copy the original June 2025 text of New York's RAISE Act: the same $5M/$100M compute-cost tests, the same 100-death threshold, and the same audit and whistleblower parts that New York later removed. Its start dates read \"Beginning January 1, 2026\", a date already past because the bill has not moved. The Attorney General may also seek injunctive or declaratory relief, and injunctive relief for an imminent critical risk.",
+   "date": "2026-11-19",
+   "run_id": "update-20261119-0005",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the Attorney General's injunctive and declaratory relief power, including the separate power to seek injunctive relief for an imminent critical risk. Quote: \"If a large developer's activities present an imminent critical risk, the attorney general may bring a civil action seeking injunctive relief.\""
+  },
+  {
+   "entry_key": "mi-hb-4668",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-19",
+   "run_id": "update-20261119-0005",
+   "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+   "tier": "C"
+  },
+  {
+   "entry_key": "nj-s-4446-a-5275",
+   "field": "mechanism",
+   "old": "Large frontier developers with New Jersey users would have to put protocols in place; file a yearly \"Risk Management Disclosure\" with the Attorney General, matched item by item to the NIST AI Risk Management Framework; file a \"New Model Risk Disclosure\" before deployment, with assessments others can repeat; and flag which sections were written by generative AI. The Attorney General would publish the disclosures with redactions. Civil penalty: $100,000 per violation. The Attorney General could audit developers or hire a private auditor, but would not have to. The law would expire after 5 years. It defines \"critical safety incident\" but never requires anyone to report one. No whistleblower provisions.",
+   "new": "Large frontier developers with New Jersey users would have to put protocols in place; file a yearly \"Risk Management Disclosure\" with the Attorney General, matched item by item to the NIST AI Risk Management Framework; file a \"New Model Risk Disclosure\" before deployment, with assessments others can repeat; and flag which sections were written by generative AI. The Attorney General would publish the disclosures with redactions. Civil penalty: $100,000 per violation. The Attorney General could audit developers or hire a private auditor, but would not have to. The law would expire after 5 years. It defines \"critical safety incident\" but never requires anyone to report one. No whistleblower provisions. No penalty for catastrophic-risk statements found reasonable and made in good faith. Takes effect six months after enactment.",
+   "date": "2026-11-19",
+   "run_id": "update-20261119-0005",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+   "tier": "C",
+   "note": "self-correction (omission): Omits the safe harbor in section 4b: no civil penalty for materially false or misleading catastrophic-risk statements if found reasonable and made in good faith. Also omits that the act takes effect six months after enactment. Quote: \"shall not be liable for a civil penalty pursuant to subsection a. of this section if the statements are found to be reasonable and made in good faith\""
+  },
+  {
+   "entry_key": "nj-s-4446-a-5275",
+   "field": "thresholds",
+   "old": "10^26 operations, including fine-tuning and reinforcement learning; \"large frontier developer\" = more than $100M revenue (the lowest revenue test of any bill tracked here); catastrophic harm = 25 or more deaths or serious injuries, or $1B (among the lowest casualty thresholds); the weapons list includes illegal firearms, lethal autonomous weapons and explosives, broader than chemical, biological, radiological and nuclear weapons",
+   "new": "10^26 operations, including fine-tuning and reinforcement learning; \"large frontier developer\" = more than $100M revenue (with affiliates, preceding calendar year) (the lowest revenue test of any bill tracked here); catastrophic harm = 25 or more deaths or serious injuries, or $1B (among the lowest casualty thresholds); the weapons list includes illegal firearms, lethal autonomous weapons and explosives, broader than chemical, biological, radiological and nuclear weapons",
+   "date": "2026-11-19",
+   "run_id": "update-20261119-0005",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+   "tier": "C",
+   "note": "self-correction (omission): Omits that the revenue test counts the developer together with its affiliates and the preceding calendar year. Quote: \"a frontier developer that together with its affiliates collectively had annual gross revenues in excess of $100 million in the preceding calendar year\""
+  },
+  {
+   "entry_key": "nj-s-4446-a-5275",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-19",
+   "run_id": "update-20261119-0005",
+   "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+   "tier": "C"
+  },
+  {
+   "entry_key": "pa-h-r-637-frontier-ai-resolution",
+   "field": "mechanism",
+   "old": "Non-binding House resolution: urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. Cites misalignment incidents, weapons-of-mass-destruction misuse risk, EO 14409 and the federal FRONTIER Act (H.R. 9925). No legal effect",
+   "new": "Non-binding House resolution: urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. Cites misalignment incidents, weapons-of-mass-destruction misuse risk, EO 14409 and the federal Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act. No legal effect",
+   "date": "2026-11-19",
+   "run_id": "update-20261119-0005",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hr637",
+   "tier": "C",
+   "note": "self-correction (error): The entry names the federal bill \"FRONTIER Act (H.R. 9925)\", which the source never gives; the source names it only by its formal title, so the words \"FRONTIER Act (H.R. 9925)\" are replaced with that title. Quote: \"Risk Oversight, National Transparency, Independent Evaluation,\""
+  },
+  {
+   "entry_key": "pa-h-r-637-frontier-ai-resolution",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-19",
+   "run_id": "update-20261119-0005",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hr637",
+   "tier": "C"
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-18",
+ "last_run": "2026-11-19",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -127,8 +127,8 @@
   "pa-h-r-637-frontier-ai-resolution": {
    "text_sha": "bda716c6ba80ca5f07c57ba4941a6938149393a8412ffcbde37a101a677e655d",
    "text_url": "https://www.palegis.us/legislation/bills/2025/hr637",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-19",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -167,8 +167,8 @@
   "nj-s-4446-a-5275": {
    "text_sha": "ec236d12979d692f80e3d33e11b49b31979d84427b3bb88577c5e077e458f3e9",
    "text_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-19",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -311,8 +311,8 @@
   "mi-hb-4668": {
    "text_sha": "7eb4fa7c20f6e75e84089072cc9bb0c38c14cc0bc97e49aae424671c399abc5b",
    "text_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-19",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },

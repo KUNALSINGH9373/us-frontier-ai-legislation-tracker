@@ -1217,6 +1217,13 @@
    "proposal": "congress_gov:119/hr/8901 (\"Securing Innovation and Research from Adversaries Act\") meets neither federal section's criterion; not created",
    "date": "2026-11-18",
    "dead": false
+  },
+  "legiscan:2163682": {
+   "raw_hash": "dcc9cacf3179392ecb97b2d80eba040f68baad0e96ca1d9188f05cce41e17cc1",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2163682 (\"Relating to required reporting of rogue artificial intelligence incidents; autho\") meets no state section's criterion; not created",
+   "date": "2026-11-19",
+   "dead": false
   }
  }
 }

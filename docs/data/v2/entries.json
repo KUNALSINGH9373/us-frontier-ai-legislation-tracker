@@ -959,7 +959,7 @@
   "title": "H.B. 4668 — Artificial Intelligence Safety and Security Transparency Act",
   "short_name": "MI HB 4668",
   "sponsor_text": "Rep. Lightner (R)",
-  "mechanism": "Would require a safety and security protocol; transparency reports every 90 days; and a yearly third-party audit, published within 90 days. It would protect whistleblowers, with a right to sue (within 90 days, on clear and convincing evidence) and an anonymous channel with monthly updates. The Attorney General could seek civil fines of up to $1,000,000 per violation (and up to $500 under one section). It appears to copy the original June 2025 text of New York's RAISE Act: the same $5M/$100M compute-cost tests, the same 100-death threshold, and the same audit and whistleblower parts that New York later removed. Its start dates read \"Beginning January 1, 2026\", a date already past because the bill has not moved.",
+  "mechanism": "Would require a safety and security protocol; transparency reports every 90 days; and a yearly third-party audit, published within 90 days. It would protect whistleblowers, with a right to sue (within 90 days, on clear and convincing evidence) and an anonymous channel with monthly updates. The Attorney General could seek civil fines of up to $1,000,000 per violation (and up to $500 under one section). It appears to copy the original June 2025 text of New York's RAISE Act: the same $5M/$100M compute-cost tests, the same 100-death threshold, and the same audit and whistleblower parts that New York later removed. Its start dates read \"Beginning January 1, 2026\", a date already past because the bill has not moved. The Attorney General may also seek injunctive or declaratory relief, and injunctive relief for an imminent critical risk.",
   "thresholds": "Cost-based, not FLOP-based: \"large developer\" = trained a model costing ≥$5M in compute (at prevailing cloud prices) and ≥$100M aggregate compute cost in preceding 12 months; critical risk = >100 deaths/serious injuries or >$1B",
   "penalties": null,
   "status_text": "Introduced June 24, 2025 and referred to Judiciary. On Sept 11, 2025 the committee voted 10–0 to recommend sending it to Communications & Technology; it was referred to Regulatory Reform on Sept 18, 2025, then re-referred to Communications & Technology on Mar 19, 2026. No floor vote. As of Nov 12, 2026, the official history (read through LegiScan) showed no change.",
@@ -1008,6 +1008,11 @@
     "label": "Official introduced text — Michigan Legislature",
     "url": "https://www.legislature.mi.gov/documents/2025-2026/billintroduced/House/pdf/2025-HIB-4668.pdf",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668",
+    "kind": "primary"
    }
   ],
   "source_label": "Official introduced text — Michigan Legislature",
@@ -1020,13 +1025,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-19T00:05:45Z",
+   "run_id": "update-20261119-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-11-19",
+  "last_changed": "2026-11-19",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-4668-artificial-intelligence-safety-and-security-transparency-act",
    "section_name": "Pending, stalled and failed state bills"
@@ -1122,27 +1129,47 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would require large AI developers to publish safety protocols, issue transparency reports every 90 days, and undergo annual third-party audits, enforced by the Attorney General.",
-  "thirty_seconds": {
-   "a": "Large developers: those that trained a model costing at least $5M in compute and spent at least $100M on compute in the preceding 12 months.",
-   "b": "Publish a safety and security protocol, publish a transparency report at least once every 90 days, and hire a third-party auditor at least once per year.",
-   "c": "The Attorney General may seek civil fines of up to $1,000,000 per violation. Whistleblower violations carry a fine of up to $500, and employees may sue."
-  },
-  "key_facts": {
-   "enforced_by": "Attorney General"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:36:00.573Z",
+   "checked_at": "2026-11-19T00:05:45Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "d5166be1669340ebf508a5258b77bda6c01c19a0bbfcbad79a5ff186e037c0f0"
+   "basis_sha256": "8c9a505c06dfdbce7310ac79cf1a92c574ffc503e822f101cf6ee334211ad583"
   },
   "more_links": [
    {
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
    }
-  ]
+  ],
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "If a large developer's activities present an imminent critical risk, the attorney general may bring a civil action seeking injunctive relief.",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(b) Injunctive or declaratory relief.",
+    "source_url": "https://legislature.mi.gov/Bills/Bill?ObjectName=2025-HB-4668"
+   }
+  ],
+  "identifiers": {
+   "session": "103rd Legislature",
+   "external": {
+    "legiscan": [
+     2037995
+    ]
+   }
+  },
+  "thirty_seconds": {
+   "a": "Large developers: those that trained a model costing at least $5,000,000 in compute and spent at least $100,000,000 on compute in the preceding 12 months.",
+   "b": "Publish a safety and security protocol, publish transparency reports every 90 days, hire a third-party auditor once a year, and not retaliate against employees who report critical risks.",
+   "c": "The Attorney General could seek civil fines of up to $1,000,000 per violation (up to $500 for whistleblower violations), plus court orders."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "summary_line": "Would require large AI developers to publish a safety protocol and transparency reports, get yearly third-party audits, and protect whistleblowers."
  },
  {
   "id": 6,
@@ -1156,8 +1183,8 @@
   "title": "S.4446 / A.5275 — \"An Act concerning artificial intelligence safety\"",
   "short_name": "NJ S.4446 / A.5275",
   "sponsor_text": "Asm. Andrew Macurdy (D-21); Sen. Raj Mukherji (D-32) for S.4446",
-  "mechanism": "Large frontier developers with New Jersey users would have to put protocols in place; file a yearly \"Risk Management Disclosure\" with the Attorney General, matched item by item to the NIST AI Risk Management Framework; file a \"New Model Risk Disclosure\" before deployment, with assessments others can repeat; and flag which sections were written by generative AI. The Attorney General would publish the disclosures with redactions. Civil penalty: $100,000 per violation. The Attorney General could audit developers or hire a private auditor, but would not have to. The law would expire after 5 years. It defines \"critical safety incident\" but never requires anyone to report one. No whistleblower provisions.",
-  "thresholds": "10^26 operations, including fine-tuning and reinforcement learning; \"large frontier developer\" = more than $100M revenue (the lowest revenue test of any bill tracked here); catastrophic harm = 25 or more deaths or serious injuries, or $1B (among the lowest casualty thresholds); the weapons list includes illegal firearms, lethal autonomous weapons and explosives, broader than chemical, biological, radiological and nuclear weapons",
+  "mechanism": "Large frontier developers with New Jersey users would have to put protocols in place; file a yearly \"Risk Management Disclosure\" with the Attorney General, matched item by item to the NIST AI Risk Management Framework; file a \"New Model Risk Disclosure\" before deployment, with assessments others can repeat; and flag which sections were written by generative AI. The Attorney General would publish the disclosures with redactions. Civil penalty: $100,000 per violation. The Attorney General could audit developers or hire a private auditor, but would not have to. The law would expire after 5 years. It defines \"critical safety incident\" but never requires anyone to report one. No whistleblower provisions. No penalty for catastrophic-risk statements found reasonable and made in good faith. Takes effect six months after enactment.",
+  "thresholds": "10^26 operations, including fine-tuning and reinforcement learning; \"large frontier developer\" = more than $100M revenue (with affiliates, preceding calendar year) (the lowest revenue test of any bill tracked here); catastrophic harm = 25 or more deaths or serious injuries, or $1B (among the lowest casualty thresholds); the weapons list includes illegal firearms, lethal autonomous weapons and explosives, broader than chemical, biological, radiological and nuclear weapons",
   "penalties": null,
   "status_text": "S.4446 was introduced June 11, 2026. A.5275, with identical text (checked against njleg.gov), was introduced June 15, 2026 and referred to the Assembly Science, Innovation & Technology Committee.",
   "signed_text": null,
@@ -1192,6 +1219,11 @@
     "label": "S.4446 official text",
     "url": "https://pub.njleg.gov/Bills/2026/S4500/4446_I1.HTM",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.njleg.state.nj.us/bill-search/2026/S4446",
+    "kind": "primary"
    }
   ],
   "source_label": "A.5275 official text · S.4446 official text",
@@ -1204,13 +1236,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-19T00:05:45Z",
+   "run_id": "update-20261119-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-11-19",
+  "last_changed": "2026-11-19",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-4446-a-5275-an-act-concerning-artificial-intelligence-safety-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -1303,20 +1337,46 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would require large frontier AI developers with New Jersey users to adopt risk protocols and file risk disclosures with the Attorney General, who publishes them.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-19T00:05:45Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f9c3b4618349a37790c9cfbcf941ddf2887d0b5d7dcb4a208e6a13b263afa158"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "shall not be liable for a civil penalty pursuant to subsection a. of this section if the statements are found to be reasonable and made in good faith",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   {
+    "field": "mechanism",
+    "quote": "This act shall take effect six months after the date of enactment.",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   },
+   {
+    "field": "thresholds",
+    "quote": "a frontier developer that together with its affiliates collectively had annual gross revenues in excess of $100 million in the preceding calendar year",
+    "source_url": "https://www.njleg.state.nj.us/bill-search/2026/S4446"
+   }
+  ],
+  "identifiers": {
+   "session": "2026-2027 Regular Session",
+   "external": {
+    "legiscan": [
+     2153268,
+     2153622
+    ]
+   }
+  },
+  "summary_line": "Would require large frontier AI developers with New Jersey users to adopt risk protocols and file public risk disclosures with the Attorney General, with $100,000 penalties per violation.",
   "thirty_seconds": {
-   "a": "Large frontier developers with New Jersey users, meaning those with more than $100 million in annual gross revenues that train models using at least 10^26 operations.",
-   "b": "Implement risk protocols, file a yearly Risk Management Disclosure, and file a New Model Risk Disclosure before or when deploying a new frontier model.",
-   "c": "A civil penalty of $100,000 per violation, collected by the Attorney General, who may also audit developers or hire a private auditor."
+   "a": "Large frontier developers with New Jersey users, meaning more than $100M in revenue and models trained with at least 10^26 operations.",
+   "b": "Put risk protocols in place, file a yearly Risk Management Disclosure, and file a New Model Risk Disclosure before or when deploying a new model.",
+   "c": "A civil penalty of $100,000 per violation. No penalty for catastrophic-risk statements found reasonable and made in good faith."
   },
   "key_facts": {
    "enforced_by": "Attorney General"
-  },
-  "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-11T04:36:08.118Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "ef022a80d3c62ba2f89d3fea7af37907c210ce0f92f805a113d15a690da292a8"
   }
  },
  {
@@ -12325,7 +12385,7 @@
   "title": "H.R. 637 — Resolution urging Congress to pass federal legislation regulating frontier AI models (Pennsylvania House)",
   "short_name": "PA H.R. 637 (resolution)",
   "sponsor_text": "Rep. Joseph Ciresi (D) with 13 co-sponsors, including Republicans Jason Ortitay and Andrea Verobish",
-  "mechanism": "Non-binding House resolution: urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. Cites misalignment incidents, weapons-of-mass-destruction misuse risk, EO 14409 and the federal FRONTIER Act (H.R. 9925). No legal effect",
+  "mechanism": "Non-binding House resolution: urges Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable safety standards nationally and internationally, while affirming the General Assembly's right to legislate on AI. Cites misalignment incidents, weapons-of-mass-destruction misuse risk, EO 14409 and the federal Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act. No legal effect",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Introduced and referred to House Communications & Technology Sept 28, 2026; reported as committed from Communications & Technology Oct 7, 2026 (26–0); awaiting a House vote",
@@ -12389,58 +12449,30 @@
   "evidence": [
    {
     "field": "mechanism",
-    "quote": "urge the Congress of the United States to pass Federal legislation that would regulate frontier artificial intelligence models",
-    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
-   },
-   {
-    "field": "mechanism",
-    "quote": "promote reasonable safety standards for frontier AI models, both nationally and internationally",
-    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Affirm the sovereign right and constitutional responsibility of the Pennsylvania General Assembly to legislate",
-    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
-   },
-   {
-    "field": "mechanism",
-    "quote": "AI models being misaligned with the intentions and goals of the AI developers",
-    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
-   },
-   {
-    "field": "mechanism",
-    "quote": "malicious use to create weapons of mass destruction",
-    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Executive Order 14409",
-    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act",
+    "quote": "Risk Oversight, National Transparency, Independent Evaluation,",
     "source_url": "https://www.palegis.us/legislation/bills/2025/hr637"
    }
   ],
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-26T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-19T00:05:45Z",
+   "run_id": "update-20261119-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
-  "summary_line": "Would urge Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable AI safety standards, with no legal effect.",
-  "thirty_seconds": {
-   "a": "No one. It is a non-binding message to Congress and the President from the Pennsylvania House; it awaits a House vote.",
-   "b": "It would urge Congress to pass federal legislation regulating frontier AI models. It would urge the President to promote reasonable safety standards nationally and internationally.",
-   "c": "Nothing. It is non-binding and has no legal effect. It would also affirm the General Assembly's right to legislate on AI."
-  },
+  "last_checked": "2026-11-19",
+  "last_changed": "2026-11-19",
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "c2d97ee3c7f1f0cb95ef057cb177677bda777ba9c8593508999a2c0dc324ee2e"
+   "method": "agent",
+   "checked_at": "2026-11-19T00:05:45Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "933f37d99d982be084ecfde86477490f019fb92339e17ed02d84ae8c73a7e9d5"
+  },
+  "summary_line": "Would urge Congress to pass federal legislation regulating frontier AI models and the President to promote reasonable AI safety standards, without any legal effect.",
+  "thirty_seconds": {
+   "a": "Pennsylvania House members. The resolution urges Congress and the President to act; it does not bind private companies or developers.",
+   "b": "Nothing is required. It is a non-binding resolution that urges federal legislation on frontier AI and affirms the General Assembly's right to legislate on AI.",
+   "c": "No penalties, because it has no legal effect. It was reported from committee 26–0 on Oct 7, 2026 and awaits a House vote."
   }
  },
  {
