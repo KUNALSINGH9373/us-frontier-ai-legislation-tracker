@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 158,
+   "stable_runs": 159,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 158,
+   "stable_runs": 159,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 158,
+   "stable_runs": 159,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -170,7 +170,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 0,
+   "stable_runs": 1,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -333,7 +333,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 158,
+   "stable_runs": 159,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-03T16:06:05.861Z",
    "facts_digest": "276c7aed410381f5",
@@ -380,7 +380,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 158,
+   "stable_runs": 159,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-06T06:56:55.820Z",
    "facts_digest": "905ea3751cd4242b",
@@ -428,7 +428,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 150,
+   "stable_runs": 151,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -476,7 +476,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 150,
+   "stable_runs": 151,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -518,7 +518,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 150,
+   "stable_runs": 151,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -566,7 +566,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 150,
+   "stable_runs": 151,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -602,15 +602,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-18T12:06:14Z",
+     "retrieved_at": "2026-11-19T12:06:10Z",
      "hash": "030426bb4eb1c303"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 127,
+   "stable_runs": 128,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-18T12:05:49.435Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
    "facts_digest": "e6dcf90065e2d86e",
    "history": [
     {
@@ -650,15 +650,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-18T12:06:14Z",
+     "retrieved_at": "2026-11-19T12:06:10Z",
      "hash": "be4f59f59a52eb45"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 127,
+   "stable_runs": 128,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-18T12:05:49.435Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
    "facts_digest": "51b56a9261a7eeef",
    "history": [
     {
@@ -698,7 +698,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 126,
+   "stable_runs": 127,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "84179ed4a526e56a",
@@ -753,7 +753,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 126,
+   "stable_runs": 127,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "ffc725e4318a18f1",
@@ -802,7 +802,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 103,
+   "stable_runs": 104,
    "first_seen": "2026-11-06T21:35:14.206Z",
    "last_seen": "2026-11-06T21:35:14.206Z",
    "facts_digest": "ff5864f074760c67",
@@ -850,7 +850,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 81,
+   "stable_runs": 82,
    "first_seen": "2026-11-09T20:05:46.683Z",
    "last_seen": "2026-11-09T20:05:46.683Z",
    "facts_digest": "77c780b3eca47992",
@@ -892,7 +892,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-13T01:10:24.801Z",
    "facts_digest": "97f2fac0fc60a5ff",
@@ -934,7 +934,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "807adc20a8a354e9",
@@ -976,7 +976,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "afca5d3c2a1c9fdf",
@@ -1018,7 +1018,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "68018eee17f79bc4",
@@ -1060,7 +1060,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "dec07252f028d3aa",
@@ -1102,7 +1102,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "9e8cdbe559aeff15",
@@ -1144,7 +1144,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "4870b58e1e9eeeb7",
@@ -1186,7 +1186,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "cf39d362fea5fe85",
@@ -1228,7 +1228,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-18T04:05:50.550Z",
    "facts_digest": "c436af4d541c4977",
@@ -1270,7 +1270,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "102bd1564f63aaf8",
@@ -1312,7 +1312,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "bf08fd7640676ae9",
@@ -1354,7 +1354,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 73,
+   "stable_runs": 74,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "1c767958d003d4cf",
@@ -1411,7 +1411,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 70,
+   "stable_runs": 71,
    "first_seen": "2026-11-11T04:05:46.546Z",
    "last_seen": "2026-11-11T04:05:46.546Z",
    "facts_digest": "25dda743fd8b6223",
@@ -1453,7 +1453,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 58,
+   "stable_runs": 59,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "112b309dbbe3054c",
@@ -1537,7 +1537,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 60,
+   "stable_runs": 61,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "c1cf7a5a5abd7fe8",
@@ -1595,7 +1595,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 60,
+   "stable_runs": 61,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "eb46586c09224695",
@@ -1679,7 +1679,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 60,
+   "stable_runs": 61,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "cbb6a295b0ac04c5",
@@ -1764,7 +1764,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 64,
+   "stable_runs": 65,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "034c995100c7acc9",
@@ -1875,7 +1875,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 64,
+   "stable_runs": 65,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "6c60fda5fbb8a36f",
@@ -2007,7 +2007,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 18,
+   "stable_runs": 19,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "f7d594b23af65e97",
@@ -2166,7 +2166,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 58,
+   "stable_runs": 59,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "52d62caf37e66c8c",
@@ -2229,7 +2229,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 58,
+   "stable_runs": 59,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "212583ba0d0c1a01",
@@ -2292,7 +2292,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-12T20:05:46.967Z",
    "facts_digest": "4723bd16dc4c8634",
@@ -2354,7 +2354,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 55,
+   "stable_runs": 56,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-12T20:05:46.967Z",
    "facts_digest": "1180097d4577d0cb",
@@ -2401,7 +2401,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 51,
+   "stable_runs": 52,
    "first_seen": "2026-11-13T08:05:44.938Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "5244783b5683db57",
@@ -2461,7 +2461,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 18,
+   "stable_runs": 19,
    "first_seen": "2026-11-13T12:05:48.337Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "3218b1f17089b2cf",
@@ -2598,7 +2598,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 21,
+   "stable_runs": 22,
    "first_seen": "2026-11-17T00:05:47.831Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "c86d69e3c8ba0301",
@@ -2646,7 +2646,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 14,
+   "stable_runs": 15,
    "first_seen": "2026-11-17T16:05:53.490Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "8e572b1e3c32b4b6",
@@ -2725,7 +2725,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 14,
+   "stable_runs": 15,
    "first_seen": "2026-11-17T20:05:59.304Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "34c5acd32ec95ad1",
@@ -2773,7 +2773,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 13,
+   "stable_runs": 14,
    "first_seen": "2026-11-17T23:33:13.302Z",
    "last_seen": "2026-11-19T00:05:45.298Z",
    "facts_digest": "ebdedac296d83747",
@@ -2815,7 +2815,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 9,
+   "stable_runs": 10,
    "first_seen": "2026-11-18T08:05:46.205Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "af1cc9417f2f4dc8",
@@ -2869,9 +2869,9 @@
      "hash": "38e6bb5a757838fd"
     }
    ],
-   "status": "pending",
+   "status": "corrected",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "9591655ff3e3ae9f",
@@ -2910,21 +2910,22 @@
      "from": "confirmed",
      "to": "pending",
      "why": "the official record changed: confirming the change"
+    },
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
+    },
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "corrected",
+     "why": "the change in the official record is confirmed"
     }
    ],
    "card": null,
-   "last_confirmed": {
-    "facts": {
-     "action": "Referred to the House Permanent Select Committee on Intelligence.",
-     "committee": "Intelligence (Permanent Select) Committee",
-     "number": "H.R. 11048",
-     "title": "To direct the Director of the National Geospatial-Intelligence Agency to conduct a comprehensive assessment of commercially available artificial intelligence tools capable of automated analysis of satellite and geospatial imagery, and for other purposes."
-    },
-    "facts_digest": "6705d0942375292f",
-    "card": null,
-    "status": "confirmed"
-   },
-   "pending_correction": true,
    "facts_hash": "f8828e896dc2ca0f"
   },
   "US|-|introduction|2026-11-17#HR11048": {
@@ -2954,7 +2955,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "8148e794f35108f0",
@@ -3012,7 +3013,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-18T16:05:48.477Z",
    "facts_digest": "8600d9a6325b067f",
@@ -3060,7 +3061,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-18T16:05:48.477Z",
    "facts_digest": "5673a50465d15e9c",
@@ -3100,9 +3101,9 @@
      "hash": "d91ad726252d9687"
     }
    ],
-   "status": "pending",
+   "status": "corrected",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "eeb9f6662ce33766",
@@ -3141,21 +3142,22 @@
      "from": "confirmed",
      "to": "pending",
      "why": "the official record changed: confirming the change"
+    },
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
+    },
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "corrected",
+     "why": "the change in the official record is confirmed"
     }
    ],
    "card": null,
-   "last_confirmed": {
-    "facts": {
-     "action": "Referred to the House Committee on Armed Services.",
-     "committee": "Armed Services Committee",
-     "number": "H.R. 11047",
-     "title": "To require certain persons to disclose to the Secretary of Defense covered relationships for covered contracts relating to covered aerospace technology, and for other purposes."
-    },
-    "facts_digest": "fe1f83fde1ab97c7",
-    "card": null,
-    "status": "confirmed"
-   },
-   "pending_correction": true,
    "facts_hash": "4c1ab3e229d5fe40"
   },
   "US|-|introduction|2026-11-17#HR11047": {
@@ -3185,7 +3187,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "72af37216c2d111c",
@@ -3215,6 +3217,340 @@
    ],
    "card": null,
    "facts_hash": "80d17fd111eec955"
+  },
+  "US|-|referral-committee|2026-11-18#HR11055": {
+   "key": "US|-|referral-committee|2026-11-18#HR11055",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "referral-committee",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Referred to the House Committee on Homeland Security.",
+    "committee": "Homeland Security Committee",
+    "number": "H.R. 11055",
+    "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/11055#2026-11-18#2c19c518",
+     "record": "119/hr/11055",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/11055",
+     "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes.",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:10Z",
+     "hash": "02d8c30f78876d24"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "73ea209d4a1ce786",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "ef1b4b6cea1345f5"
+  },
+  "US|-|introduction|2026-11-18#HR11055": {
+   "key": "US|-|introduction|2026-11-18#HR11055",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Introduced in House",
+    "chamber": "House",
+    "number": "H.R. 11055",
+    "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/11055#2026-11-18#40e2cd5e",
+     "record": "119/hr/11055",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/11055",
+     "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes.",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:10Z",
+     "hash": "a3abffa7305156ab"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "ec7c1e93e30a8986",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "e6af5cb6da607e97"
+  },
+  "US|-|null|2026-11-18": {
+   "key": "US|-|null|2026-11-18",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": null,
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Placed on the Union Calendar, Calendar No. 781.",
+    "number": "H.R. 9624",
+    "title": "Intelligence Authorization Act for Fiscal Year 2027"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/9624#2026-11-18#77de71de",
+     "record": "119/hr/9624",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
+     "title": "Intelligence Authorization Act for Fiscal Year 2027",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:10Z",
+     "hash": "c3d59c275049588b"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "7ca6ab6859df561c",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "e1576429c3abb637"
+  },
+  "US|-|committee-passage|2026-11-18#HR9624": {
+   "key": "US|-|committee-passage|2026-11-18#HR9624",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "committee-passage",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Reported (Amended) by the Committee on Intelligence. H. Rept. 119-886.",
+    "committee": "Intelligence (Permanent Select) Committee",
+    "number": "H.R. 9624",
+    "title": "Intelligence Authorization Act for Fiscal Year 2027"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/9624#2026-11-18#3da1f57f",
+     "record": "119/hr/9624",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
+     "title": "Intelligence Authorization Act for Fiscal Year 2027",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:10Z",
+     "hash": "c61d707626fe249d"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "10aa9b23ebfda6ea",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "d504566378b6c17c"
+  },
+  "US|-|referral-committee|2026-11-18#HR11076": {
+   "key": "US|-|referral-committee|2026-11-18#HR11076",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "referral-committee",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Referred to the Committee on Homeland Security, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.",
+    "committee": "Homeland Security Committee",
+    "number": "H.R. 11076",
+    "title": "To amend the Homeland Security Act of 2002 to require the Director of the Cybersecurity and Infrastructure Security Agency to lead cybersecurity efforts relating to the secure adoption, discovery, identification, authorization, monitoring, accountability, and risk management of artificial intelligence agents operating on executive agency information systems, and for other purposes."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/11076#2026-11-18#4ee34da4",
+     "record": "119/hr/11076",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
+     "title": "To amend the Homeland Security Act of 2002 to require the Director of the Cybersecurity and Infrastructure Security Agency to lead cybersecurity efforts relating to the secure adoption, discovery, identification, authorization, monitoring, accountability, and risk management of artificial intelligence agents operating on executive agency information systems, and for other purposes.",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:10Z",
+     "hash": "0b8df419590f2f2b"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 0,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "56ed050326d328fe",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null
+  },
+  "US|-|introduction|2026-11-18#HR11076": {
+   "key": "US|-|introduction|2026-11-18#HR11076",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Introduced in House",
+    "chamber": "House",
+    "number": "H.R. 11076",
+    "title": "To amend the Homeland Security Act of 2002 to require the Director of the Cybersecurity and Infrastructure Security Agency to lead cybersecurity efforts relating to the secure adoption, discovery, identification, authorization, monitoring, accountability, and risk management of artificial intelligence agents operating on executive agency information systems, and for other purposes."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/11076#2026-11-18#40e2cd5e",
+     "record": "119/hr/11076",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
+     "title": "To amend the Homeland Security Act of 2002 to require the Director of the Cybersecurity and Infrastructure Security Agency to lead cybersecurity efforts relating to the secure adoption, discovery, identification, authorization, monitoring, accountability, and risk management of artificial intelligence agents operating on executive agency information systems, and for other purposes.",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:10Z",
+     "hash": "dfb6ab4ea3454fd1"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "f24ecb8f9c2968a4",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "d08ec59bfeeefe94"
+  },
+  "US|-|referral-committee|2026-11-18#HR11069": {
+   "key": "US|-|referral-committee|2026-11-18#HR11069",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "referral-committee",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Referred to the House Committee on Homeland Security.",
+    "committee": "Homeland Security Committee",
+    "number": "H.R. 11069",
+    "title": "To amend the Homeland Security Act of 2002 to designate the Department of Homeland Security as the Sector Risk Management Agency for the information technology sector, require the Cybersecurity and Infrastructure Security Agency to carry out the responsibilities of the Department for such sector, strengthen public and private sector engagement to reduce cybersecurity risks to such sector and secure its systems, assets, and key resources against cybersecurity threats, supply chain compromise, and physical threats, including terrorism threats to the United States, and for other purposes."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/11069#2026-11-18#2c19c518",
+     "record": "119/hr/11069",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/11069",
+     "title": "To amend the Homeland Security Act of 2002 to designate the Department of Homeland Security as the Sector Risk Management Agency for the information technology sector, require the Cybersecurity and Infrastructure Security Agency to carry out the responsibilities of the Department for such sector, strengthen public and private sector engagement to reduce cybersecurity risks to such sector and secure its systems, assets, and key resources against cybersecurity threats, supply chain compromise, and physical threats, including terrorism threats to the United States, and for other purposes.",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:11Z",
+     "hash": "78257967d04d90ac"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "265ec03190c7f5be",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "faa541dee91448f3"
+  },
+  "US|-|introduction|2026-11-18#HR11069": {
+   "key": "US|-|introduction|2026-11-18#HR11069",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "introduction",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Introduced in House",
+    "chamber": "House",
+    "number": "H.R. 11069",
+    "title": "To amend the Homeland Security Act of 2002 to designate the Department of Homeland Security as the Sector Risk Management Agency for the information technology sector, require the Cybersecurity and Infrastructure Security Agency to carry out the responsibilities of the Department for such sector, strengthen public and private sector engagement to reduce cybersecurity risks to such sector and secure its systems, assets, and key resources against cybersecurity threats, supply chain compromise, and physical threats, including terrorism threats to the United States, and for other purposes."
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/hr/11069#2026-11-18#40e2cd5e",
+     "record": "119/hr/11069",
+     "url": "https://www.congress.gov/bill/119th-congress/house-bill/11069",
+     "title": "To amend the Homeland Security Act of 2002 to designate the Department of Homeland Security as the Sector Risk Management Agency for the information technology sector, require the Cybersecurity and Infrastructure Security Agency to carry out the responsibilities of the Department for such sector, strengthen public and private sector engagement to reduce cybersecurity risks to such sector and secure its systems, assets, and key resources against cybersecurity threats, supply chain compromise, and physical threats, including terrorism threats to the United States, and for other purposes.",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T12:06:11Z",
+     "hash": "15df1867ed8f6960"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T12:05:47.562Z",
+   "facts_digest": "1e54518ca96a3d78",
+   "history": [
+    {
+     "at": "2026-11-19T12:05:47.562Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "7fb2094e26f54804"
   }
  },
  "adapters": {
@@ -4103,10 +4439,10 @@
      }
     ]
    },
-   "cursor": 25,
+   "cursor": 23,
    "quota": {
     "day": "2026-11-19",
-    "used": 125
+    "used": 156
    }
   }
  },

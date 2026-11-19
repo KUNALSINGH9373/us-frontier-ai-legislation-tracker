@@ -771,10 +771,10 @@
    "dead": false
   },
   "congress_gov:119/hr/10946": {
-   "raw_hash": "6d626059afd2189218fcbbd1279819480379bd816d5c8096d8f8880476306df6",
+   "raw_hash": "33a932a89d883b89cac54b0f3729191947e303e1e0f51c55040988f629c8b6ac",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10946 (\"Congressional Office of Technology Improvement and Enhancement Act\") meets neither federal section's criterion; not created",
-   "date": "2026-11-18",
+   "date": "2026-11-19",
    "dead": false
   },
   "congress_gov:119/hr/10329": {
@@ -1023,10 +1023,10 @@
    "dead": false
   },
   "congress_gov:119/s/3301": {
-   "raw_hash": "795694a2ca01d57cdbb1a173e7950c1486f5fff7dfd42155fb9d8aa917e82715",
+   "raw_hash": "6cfcffef148f2de4e2c3759e2abff630a72fd52e8097c938d55294a6166a4107",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/s/3301 (\"Chip EQUIP Act\") meets neither federal section's criterion; not created",
-   "date": "2026-11-12",
+   "date": "2026-11-19",
    "dead": false
   },
   "congress_gov:119/s/1387": {
@@ -1100,10 +1100,10 @@
    "dead": false
   },
   "congress_gov:119/s/3741": {
-   "raw_hash": "604672dceef74c8f62433ed83a555cc389cdb5262a4615a81dab65cae9254ccb",
+   "raw_hash": "83bc1602757300e011ac7b98632e8c2a0d5ac51c6c7f6f03459986de3b52f918",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
-   "proposal": "congress_gov:119/s/3741 (\"Biosecurity Modernization and Innovation Act of 2026\") meets neither federal section's criterion; not created",
-   "date": "2026-11-17",
+   "proposal": "congress_gov:119/s/3741 (\"A bill to require the Secretary of Commerce to promulgate regulations to improve\") meets neither federal section's criterion; not created",
+   "date": "2026-11-19",
    "dead": false
   },
   "congress_gov:119/hr/3029": {
@@ -1229,6 +1229,20 @@
    "raw_hash": "1459f868b7b5242c8c50c00814f86d43f3c7f91ddea124c9f8924299db28b958",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/11047 (\"Aerospace Transparency Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-19",
+   "dead": false
+  },
+  "congress_gov:119/hr/8959": {
+   "raw_hash": "01627d01c507128b1b9772671c333a46a7ce6dddb4d955f887c20f410cd2ca09",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/8959 (\"Semiconductor Superiority Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-19",
+   "dead": false
+  },
+  "congress_gov:119/s/5508": {
+   "raw_hash": "987bfda604b4e236e2ad33ff1a71364cc97c7927eed55f472586a950b34b5619",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/5508 (\"Telecommunications Cybersecurity and Resilience Act\") meets neither federal section's criterion; not created",
    "date": "2026-11-19",
    "dead": false
   }
