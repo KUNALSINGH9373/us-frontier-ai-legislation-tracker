@@ -1224,6 +1224,13 @@
    "proposal": "legiscan:2163682 (\"Relating to required reporting of rogue artificial intelligence incidents; autho\") meets no state section's criterion; not created",
    "date": "2026-11-19",
    "dead": false
+  },
+  "congress_gov:119/hr/11047": {
+   "raw_hash": "1459f868b7b5242c8c50c00814f86d43f3c7f91ddea124c9f8924299db28b958",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/11047 (\"Aerospace Transparency Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-19",
+   "dead": false
   }
  }
 }
