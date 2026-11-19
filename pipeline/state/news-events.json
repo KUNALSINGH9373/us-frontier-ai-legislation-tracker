@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 159,
+   "stable_runs": 160,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 159,
+   "stable_runs": 160,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 159,
+   "stable_runs": 160,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -168,9 +168,9 @@
      "hash": "89ccaa83a68fe096"
     }
    ],
-   "status": "pending",
+   "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -300,6 +300,12 @@
      "change": "status",
      "from": "confirmed",
      "to": "pending"
+    },
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
     }
    ],
    "card": null,
@@ -333,7 +339,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 159,
+   "stable_runs": 160,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-03T16:06:05.861Z",
    "facts_digest": "276c7aed410381f5",
@@ -380,7 +386,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 159,
+   "stable_runs": 160,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-06T06:56:55.820Z",
    "facts_digest": "905ea3751cd4242b",
@@ -428,7 +434,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 151,
+   "stable_runs": 152,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -476,7 +482,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 151,
+   "stable_runs": 152,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -518,7 +524,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 151,
+   "stable_runs": 152,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -566,7 +572,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 151,
+   "stable_runs": 152,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -602,15 +608,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "030426bb4eb1c303"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 128,
+   "stable_runs": 129,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "e6dcf90065e2d86e",
    "history": [
     {
@@ -650,15 +656,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/10946",
      "title": "Congressional Office of Technology Improvement and Enhancement Act",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "be4f59f59a52eb45"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 128,
+   "stable_runs": 129,
    "first_seen": "2026-11-03T08:05:44.743Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "51b56a9261a7eeef",
    "history": [
     {
@@ -698,7 +704,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 127,
+   "stable_runs": 128,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "84179ed4a526e56a",
@@ -753,7 +759,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 127,
+   "stable_runs": 128,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "ffc725e4318a18f1",
@@ -802,7 +808,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 104,
+   "stable_runs": 105,
    "first_seen": "2026-11-06T21:35:14.206Z",
    "last_seen": "2026-11-06T21:35:14.206Z",
    "facts_digest": "ff5864f074760c67",
@@ -850,7 +856,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 82,
+   "stable_runs": 83,
    "first_seen": "2026-11-09T20:05:46.683Z",
    "last_seen": "2026-11-09T20:05:46.683Z",
    "facts_digest": "77c780b3eca47992",
@@ -892,7 +898,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-13T01:10:24.801Z",
    "facts_digest": "97f2fac0fc60a5ff",
@@ -934,7 +940,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "807adc20a8a354e9",
@@ -976,7 +982,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "afca5d3c2a1c9fdf",
@@ -1018,7 +1024,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "68018eee17f79bc4",
@@ -1060,7 +1066,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "dec07252f028d3aa",
@@ -1102,7 +1108,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "9e8cdbe559aeff15",
@@ -1144,7 +1150,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "4870b58e1e9eeeb7",
@@ -1186,7 +1192,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "cf39d362fea5fe85",
@@ -1228,7 +1234,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-18T04:05:50.550Z",
    "facts_digest": "c436af4d541c4977",
@@ -1270,7 +1276,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "102bd1564f63aaf8",
@@ -1312,7 +1318,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "bf08fd7640676ae9",
@@ -1354,7 +1360,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 74,
+   "stable_runs": 75,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "1c767958d003d4cf",
@@ -1411,7 +1417,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 71,
+   "stable_runs": 72,
    "first_seen": "2026-11-11T04:05:46.546Z",
    "last_seen": "2026-11-11T04:05:46.546Z",
    "facts_digest": "25dda743fd8b6223",
@@ -1453,7 +1459,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 59,
+   "stable_runs": 60,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "112b309dbbe3054c",
@@ -1537,7 +1543,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 61,
+   "stable_runs": 62,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "c1cf7a5a5abd7fe8",
@@ -1595,7 +1601,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 61,
+   "stable_runs": 62,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "eb46586c09224695",
@@ -1679,7 +1685,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 61,
+   "stable_runs": 62,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "cbb6a295b0ac04c5",
@@ -1764,7 +1770,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 65,
+   "stable_runs": 66,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "034c995100c7acc9",
@@ -1875,7 +1881,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 65,
+   "stable_runs": 66,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "6c60fda5fbb8a36f",
@@ -2007,7 +2013,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 19,
+   "stable_runs": 20,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "f7d594b23af65e97",
@@ -2166,7 +2172,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 59,
+   "stable_runs": 60,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "52d62caf37e66c8c",
@@ -2229,7 +2235,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 59,
+   "stable_runs": 60,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "212583ba0d0c1a01",
@@ -2292,7 +2298,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 56,
+   "stable_runs": 57,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-12T20:05:46.967Z",
    "facts_digest": "4723bd16dc4c8634",
@@ -2354,7 +2360,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 56,
+   "stable_runs": 57,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-12T20:05:46.967Z",
    "facts_digest": "1180097d4577d0cb",
@@ -2401,7 +2407,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 52,
+   "stable_runs": 53,
    "first_seen": "2026-11-13T08:05:44.938Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "5244783b5683db57",
@@ -2461,7 +2467,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 19,
+   "stable_runs": 20,
    "first_seen": "2026-11-13T12:05:48.337Z",
    "last_seen": "2026-11-17T08:05:46.059Z",
    "facts_digest": "3218b1f17089b2cf",
@@ -2598,7 +2604,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 22,
+   "stable_runs": 23,
    "first_seen": "2026-11-17T00:05:47.831Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "c86d69e3c8ba0301",
@@ -2646,7 +2652,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 15,
+   "stable_runs": 16,
    "first_seen": "2026-11-17T16:05:53.490Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "8e572b1e3c32b4b6",
@@ -2725,7 +2731,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 15,
+   "stable_runs": 16,
    "first_seen": "2026-11-17T20:05:59.304Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "34c5acd32ec95ad1",
@@ -2773,7 +2779,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 14,
+   "stable_runs": 15,
    "first_seen": "2026-11-17T23:33:13.302Z",
    "last_seen": "2026-11-19T00:05:45.298Z",
    "facts_digest": "ebdedac296d83747",
@@ -2815,7 +2821,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 10,
+   "stable_runs": 11,
    "first_seen": "2026-11-18T08:05:46.205Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "af1cc9417f2f4dc8",
@@ -2871,7 +2877,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "9591655ff3e3ae9f",
@@ -2955,7 +2961,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "8148e794f35108f0",
@@ -3013,7 +3019,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 9,
+   "stable_runs": 10,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-18T16:05:48.477Z",
    "facts_digest": "8600d9a6325b067f",
@@ -3061,7 +3067,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 9,
+   "stable_runs": 10,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-18T16:05:48.477Z",
    "facts_digest": "5673a50465d15e9c",
@@ -3103,7 +3109,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "eeb9f6662ce33766",
@@ -3187,7 +3193,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 2,
+   "stable_runs": 3,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "72af37216c2d111c",
@@ -3239,15 +3245,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11055",
      "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes.",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:48Z",
      "hash": "02d8c30f78876d24"
     }
    ],
-   "status": "pending",
+   "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "73ea209d4a1ce786",
    "history": [
     {
@@ -3255,6 +3261,12 @@
      "change": "created",
      "from": null,
      "to": "pending"
+    },
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
     }
    ],
    "card": null,
@@ -3281,15 +3293,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11055",
      "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes.",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:48Z",
      "hash": "a3abffa7305156ab"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "ec7c1e93e30a8986",
    "history": [
     {
@@ -3322,15 +3334,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
      "title": "Intelligence Authorization Act for Fiscal Year 2027",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "c3d59c275049588b"
     }
    ],
-   "status": "pending",
+   "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "7ca6ab6859df561c",
    "history": [
     {
@@ -3338,6 +3350,12 @@
      "change": "created",
      "from": null,
      "to": "pending"
+    },
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
     }
    ],
    "card": null,
@@ -3364,15 +3382,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
      "title": "Intelligence Authorization Act for Fiscal Year 2027",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "c61d707626fe249d"
     }
    ],
-   "status": "pending",
+   "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "10aa9b23ebfda6ea",
    "history": [
     {
@@ -3380,6 +3398,12 @@
      "change": "created",
      "from": null,
      "to": "pending"
+    },
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
     }
    ],
    "card": null,
@@ -3406,7 +3430,7 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
      "title": "To amend the Homeland Security Act of 2002 to require the Director of the Cybersecurity and Infrastructure Security Agency to lead cybersecurity efforts relating to the secure adoption, discovery, identification, authorization, monitoring, accountability, and risk management of artificial intelligence agents operating on executive agency information systems, and for other purposes.",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "0b8df419590f2f2b"
     }
    ],
@@ -3414,7 +3438,7 @@
    "confirmations": [],
    "stable_runs": 0,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "56ed050326d328fe",
    "history": [
     {
@@ -3447,15 +3471,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
      "title": "To amend the Homeland Security Act of 2002 to require the Director of the Cybersecurity and Infrastructure Security Agency to lead cybersecurity efforts relating to the secure adoption, discovery, identification, authorization, monitoring, accountability, and risk management of artificial intelligence agents operating on executive agency information systems, and for other purposes.",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:10Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "dfb6ab4ea3454fd1"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "f24ecb8f9c2968a4",
    "history": [
     {
@@ -3489,15 +3513,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11069",
      "title": "To amend the Homeland Security Act of 2002 to designate the Department of Homeland Security as the Sector Risk Management Agency for the information technology sector, require the Cybersecurity and Infrastructure Security Agency to carry out the responsibilities of the Department for such sector, strengthen public and private sector engagement to reduce cybersecurity risks to such sector and secure its systems, assets, and key resources against cybersecurity threats, supply chain compromise, and physical threats, including terrorism threats to the United States, and for other purposes.",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:11Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "78257967d04d90ac"
     }
    ],
-   "status": "pending",
+   "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "265ec03190c7f5be",
    "history": [
     {
@@ -3505,6 +3529,12 @@
      "change": "created",
      "from": null,
      "to": "pending"
+    },
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "status",
+     "from": "pending",
+     "to": "confirmed"
     }
    ],
    "card": null,
@@ -3531,15 +3561,15 @@
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11069",
      "title": "To amend the Homeland Security Act of 2002 to designate the Department of Homeland Security as the Sector Risk Management Agency for the information technology sector, require the Cybersecurity and Infrastructure Security Agency to carry out the responsibilities of the Department for such sector, strengthen public and private sector engagement to reduce cybersecurity risks to such sector and secure its systems, assets, and key resources against cybersecurity threats, supply chain compromise, and physical threats, including terrorism threats to the United States, and for other purposes.",
      "publisher": null,
-     "retrieved_at": "2026-11-19T12:06:11Z",
+     "retrieved_at": "2026-11-19T13:24:49Z",
      "hash": "15df1867ed8f6960"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 1,
+   "stable_runs": 2,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-19T12:05:47.562Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
    "facts_digest": "1e54518ca96a3d78",
    "history": [
     {
@@ -3551,6 +3581,132 @@
    ],
    "card": null,
    "facts_hash": "7fb2094e26f54804"
+  },
+  "US|-|committee-passage|2026-11-18#S3741": {
+   "key": "US|-|committee-passage|2026-11-18#S3741",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "committee-passage",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+    "committee": "Commerce, Science, and Transportation Committee",
+    "number": "S. 3741",
+    "title": "Biosecurity Modernization and Innovation Act of 2026"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/s/3741#2026-11-18#f7a47f8f",
+     "record": "119/s/3741",
+     "url": "https://www.congress.gov/bill/119th-congress/senate-bill/3741",
+     "title": "Biosecurity Modernization and Innovation Act of 2026",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T13:24:50Z",
+     "hash": "747962784e4a9d70"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T13:24:29.744Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
+   "facts_digest": "f2934f01d1a1ad08",
+   "history": [
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "ffc7fbe19fb397dd"
+  },
+  "US|-|committee-passage|2026-11-18#S3301": {
+   "key": "US|-|committee-passage|2026-11-18#S3301",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "committee-passage",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+    "committee": "Commerce, Science, and Transportation Committee",
+    "number": "S. 3301",
+    "title": "Chip EQUIP Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/s/3301#2026-11-18#f7a47f8f",
+     "record": "119/s/3301",
+     "url": "https://www.congress.gov/bill/119th-congress/senate-bill/3301",
+     "title": "Chip EQUIP Act",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T13:24:50Z",
+     "hash": "c84d7ca9fd0b4466"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T13:24:29.744Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
+   "facts_digest": "140b283dbcd6fc63",
+   "history": [
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "76d88860bc4f1215"
+  },
+  "US|-|committee-passage|2026-11-18#S5508": {
+   "key": "US|-|committee-passage|2026-11-18#S5508",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "committee-passage",
+   "date": "2026-11-18",
+   "facts": {
+    "action": "Committee on Commerce, Science, and Transportation. Ordered to be reported with an amendment in the nature of a substitute favorably.",
+    "committee": "Commerce, Science, and Transportation Committee",
+    "number": "S. 5508",
+    "title": "Telecommunications Cybersecurity and Resilience Act"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "congress_gov",
+     "source_id": "119/s/5508#2026-11-18#f7a47f8f",
+     "record": "119/s/5508",
+     "url": "https://www.congress.gov/bill/119th-congress/senate-bill/5508",
+     "title": "Telecommunications Cybersecurity and Resilience Act",
+     "publisher": null,
+     "retrieved_at": "2026-11-19T13:24:50Z",
+     "hash": "a9ebecc26a89fa33"
+    }
+   ],
+   "status": "pending",
+   "confirmations": [],
+   "stable_runs": 1,
+   "first_seen": "2026-11-19T13:24:29.744Z",
+   "last_seen": "2026-11-19T13:24:29.744Z",
+   "facts_digest": "9d0387dc689c9808",
+   "history": [
+    {
+     "at": "2026-11-19T13:24:29.744Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    }
+   ],
+   "card": null,
+   "facts_hash": "ed20587f7afb660b"
   }
  },
  "adapters": {
@@ -4439,10 +4595,10 @@
      }
     ]
    },
-   "cursor": 23,
+   "cursor": 12,
    "quota": {
     "day": "2026-11-19",
-    "used": 156
+    "used": 180
    }
   }
  },

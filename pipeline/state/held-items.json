@@ -4,12 +4,12 @@
    "item_id": "congress_gov:119/hr/9624",
    "entry_key": "h-r-9624-intelligence-authorization-act-for-fiscal-year-2027",
    "step": "publish",
-   "reason": "schema: entry h-r-9624-intelligence-authorization-act-for-fiscal-year-2027: /verification/rounds must be <= 3",
+   "reason": "new entry h-r-9624-intelligence-authorization-act-for-fiscal-year-2027: no evidence quote showing section F's criterion (an adjacent or sectoral federal AI-risk bill: AI testing, evaluation, safety, reliability or incident-reporting programs (including defence and intelligence-community AI safety), ",
    "first_seen": "2026-11-19T08:05:51Z",
-   "last_tried": "2026-11-19T12:05:47Z",
-   "tries": 2,
+   "last_tried": "2026-11-19T13:24:29Z",
+   "tries": 3,
    "replay": {
-    "run_id": "run-20261119-1206-b353",
+    "run_id": "run-20261119-1324-8de8",
     "item": {
      "item_id": "congress_gov:119/hr/9624",
      "source": "congress_gov",
@@ -18,7 +18,7 @@
      "change": "new",
      "reason": "discovery",
      "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
-     "fetched_at": "2026-11-19T12:06:10Z",
+     "fetched_at": "2026-11-19T13:24:49Z",
      "raw_hash": "df4de1657b4a2cfa04abd98a58fc420b888aa249859cd9a7fe488f8a1f43a4f2",
      "raw_path": "raw/congress_gov/119-hr-9624.json",
      "title": "Intelligence Authorization Act for Fiscal Year 2027"
@@ -40,14 +40,14 @@
       "item_id": "congress_gov:119/hr/9624",
       "outcome": "publishable",
       "operation": "create",
-      "attempts": 4,
-      "tokens": 170956,
-      "reason": "the reviewer still found 1 WRONG finding(s): The bill's own title is the Intelligence Authorization Act for Fiscal Year 2027; the entry invents a different descripti"
+      "attempts": 3,
+      "tokens": 123983,
+      "reason": "the reviewer still found 1 WRONG finding(s): The bill states its own title, which the bill itself uses in Sec. 423(2)(A); the entry invents a descriptive name instea"
      },
      "draft": {
       "item_id": "congress_gov:119/hr/9624",
       "operation": "create",
-      "attempts": 4,
+      "attempts": 3,
       "entry": {
        "id": 107,
        "key": "h-r-9624-intelligence-authorization-act-for-fiscal-year-2027",
@@ -89,7 +89,7 @@
          "label": "Congress.gov record: Intelligence Authorization Act for Fiscal Year 2027",
          "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
          "kind": "primary",
-         "retrieved_at": "2026-11-19T12:06:10Z"
+         "retrieved_at": "2026-11-19T13:24:49Z"
         }
        ],
        "confidence": {
@@ -103,7 +103,7 @@
        "evidence": [
         {
          "field": "in_scope",
-         "quote": "A communications equipment or service described in this subsection is any communications equipment or service produced or provided by-- (1) Game Science Interactive Co., Ltd.; (2) Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd. (commonly known as ``DeepSeek''); (3) Hangzhou Yushu Technology Co., Ltd. (commonly known as ``Unitree Robotics''); (4) Hangzhou Yunshenchu Technology Co., Ltd. (commonly known as ``DEEP Robotics''); (5) BrainCo, Inc.; (6) Manycore Tech, Inc.; or (7) with respect to any entity described in any of paragraphs (1) through (6) (referred to in this paragraph as a ``named entity'')-- (A) any subsidiary, affiliate, or partner of the named entity; (B) any entity in a joint venture with the named entity; or (C) any entity to which the named entity has issued a license to produce or provide that communications equipment or service.",
+         "quote": "A communications equipment or service described in this subsection is any communications equipment or service produced or provided by--\n(1) Game Science Interactive Co., Ltd.;\n(2) Hangzhou DeepSeek Artificial Intelligence Basic\nTechnology Research Co., Ltd. (commonly known as ``DeepSeek'');\n(3) Hangzhou Yushu Technology Co., Ltd. (commonly known as ``Unitree Robotics'');\n(4) Hangzhou Yunshenchu Technology Co., Ltd. (commonly\nknown as ``DEEP Robotics'');\n(5) BrainCo, Inc.;\n(6) Manycore Tech, Inc.; or\n(7) with respect to any entity described in any of\nparagraphs (1) through (6) (referred to in this paragraph as a\n``named entity'')--\n(A) any subsidiary, affiliate, or partner of the\nnamed entity;\n(B) any entity in a joint venture with the named\nentity; or\n(C) any entity to which the named entity has issued\na license to produce or provide that communications\nequipment or service.",
          "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
         },
         {
@@ -118,7 +118,7 @@
         },
         {
          "field": "section",
-         "quote": "Developing best practices and standards for benchmarking, testing, and evaluation of United States and foreign artificial intelligence models to understand standalone artificial intelligence capabilities, assess interactions between artificial intelligence capabilities, and evaluate circumstances and use cases where the Federal Government should use certain artificial intelligence capabilities and the conditions or scenarios for such use.",
+         "quote": "``(5) Developing best practices and standards for\nbenchmarking, testing, and evaluation of United States and\nforeign artificial intelligence models to understand standalone\nartificial intelligence capabilities, assess interactions\nbetween artificial intelligence capabilities, and evaluate\ncircumstances and use cases where the Federal Government should\nuse certain artificial intelligence capabilities and the\nconditions or scenarios for such use.",
          "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
         }
        ],
@@ -136,9 +136,9 @@
        },
        "verification": {
         "method": "agent",
-        "checked_at": "2026-11-19T12:06:18Z",
-        "run_id": "run-20261119-1206-b353",
-        "rounds": 4
+        "checked_at": "2026-11-19T13:24:55Z",
+        "run_id": "run-20261119-1324-8de8",
+        "rounds": 3
        },
        "last_checked": "2026-11-19",
        "last_changed": "2026-11-19",
@@ -157,7 +157,7 @@
       "patch": {
        "operation": "create",
        "in_scope": true,
-       "scope_reason": "Sec. 423 (new paragraphs (5) and (6) of section 6504(c)) adds functions for the Artificial Intelligence Security Center to evaluate AI models for risks such as loss of control and shutdown refusal. Sec. 340 and Sec. 401 set intelligence-community AI policy. Most of the bill is broader and not about AI.",
+       "scope_reason": "Sec. 423 amends the National Security Agency's Artificial Intelligence Security Center program to include testing and evaluating US and foreign AI models for safety risks such as loss of control and shutdown refusal. The rest of the bill is a broad intelligence authorization.",
        "fields": {
         "mechanism": "A plain-English description of this bill is not yet available: the automated description did not pass its checks and will be tried again. The official record and full text are linked below.",
         "section": "F"
@@ -167,12 +167,12 @@
        "notes": ""
       },
       "verdicts": [],
-      "reason": "the reviewer still found 1 WRONG finding(s): The bill's own title is the Intelligence Authorization Act for Fiscal Year 2027; the entry invents a different descripti",
+      "reason": "the reviewer still found 1 WRONG finding(s): The bill states its own title, which the bill itself uses in Sec. 423(2)(A); the entry invents a descriptive name instea",
       "outcome": "publishable",
       "facts_only": true,
-      "proposal": "congress_gov:119/hr/9624 (Intelligence Community Artificial Intelligence Provisions): published with official facts only (the reviewer still found 1 WRONG finding(s): The bill's own title is the Intelligence Authorization Act for Fiscal Year ); the description is written again when the record changes",
+      "proposal": "congress_gov:119/hr/9624 (Intelligence Community Artificial Intelligence Provisions): published with official facts only (the reviewer still found 1 WRONG finding(s): The bill states its own title, which the bill itself uses in Sec. 423(2)(A)); the description is written again when the record changes",
       "newbill": {
-       "writer_calls": 4,
+       "writer_calls": 3,
        "check_problems": [
         [
          "definitions[def1]: id must be d and a number",
@@ -189,7 +189,6 @@
          "duties[d11]: id must be u and a number",
          "duties[d12]: id must be u and a number",
          "duties[d13]: id must be u and a number",
-         "duties[d14]: id must be u and a number",
          "duties[d1]: force \"must\" is not one of duty, power, ban",
          "duties[d2]: force \"must\" is not one of duty, power, ban",
          "duties[d3]: force \"must\" is not one of duty, power, ban",
@@ -198,16 +197,11 @@
          "duties[d6]: force \"must\" is not one of duty, power, ban",
          "duties[d7]: force \"must\" is not one of duty, power, ban",
          "duties[d8]: force \"must\" is not one of duty, power, ban",
-         "duties[d9]: force \"function listed (the lead-in of subsection (c) is not shown)\" is not one of duty, power, ban",
-         "duties[d10]: force \"function listed (the lead-in of subsection (c) is not shown)\" is not one of duty, power, ban",
-         "duties[d11]: force \"function listed (the lead-in of subsection (c) is not shown)\" is not one of duty, power, ban",
-         "duties[d12]: force \"may\" is not one of duty, power, ban",
-         "duties[d13]: force \"must\" is not one of duty, power, ban",
-         "duties[d14]: force \"must\" is not one of duty, power, ban"
-        ],
-        [
-         "other_provisions[o3]: lead_in and quote are in different provisions",
-         "other_provisions[o4]: lead_in and quote are in different provisions"
+         "duties[d9]: force \"must\" is not one of duty, power, ban",
+         "duties[d10]: force \"must\" is not one of duty, power, ban",
+         "duties[d11]: force \"may\" is not one of duty, power, ban",
+         "duties[d12]: force \"must\" is not one of duty, power, ban",
+         "duties[d13]: force \"must\" is not one of duty, power, ban"
         ]
        ],
        "reviews": [
@@ -216,28 +210,21 @@
          "wrong": 0,
          "findings": [
           {
-           "severity": "MISLEADING",
-           "where": "box.applies_to",
-           "bill_quote": "Evaluating artificial intelligence alignment, assurance, interpretability, safety, security, and transparency against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal",
-           "problem": "The slot omits the Artificial Intelligence Security Center, which gets the new evaluation functions that place the bill in scope.",
-           "fix": "Add the Artificial Intelligence Security Center to the list of federal bodies."
+           "severity": "OMISSION",
+           "where": "duties",
+           "bill_quote": "``(4) Sharing with the other elements of the intelligence community information on counter-artificial intelligence tactics, techniques, and procedures used by adversaries.",
+           "problem": "New paragraph (4) of section 6504(c), added by Sec. 423(3), is not listed, nor are the amendments adding \"theft, including through distillation attacks\" and \"manipulate, deceive, or exploit\".",
+           "fix": "Add an item for Sec. 423(3) new paragraph (4) of section 6504(c): sharing with other intelligence community elements information on counter-AI tactics, techniques and procedures used by adversaries; and note Sec. 423(1) and (4)(A) amendments."
           },
           {
            "severity": "MISLEADING",
            "where": "box.requires",
-           "bill_quote": "Developing best practices and standards for benchmarking, testing, and evaluation of United States and foreign artificial intelligence models",
-           "problem": "The slot omits the AI Security Center's new evaluation functions (loss of control, shutdown refusal), which are the bill's core frontier-relevant provision.",
-           "fix": "Add: the Artificial Intelligence Security Center's functions now include developing benchmarking, testing and evaluation standards for US and foreign AI models, and evaluating AI against risks including loss of control and shutdown refusal."
-          },
-          {
-           "severity": "OMISSION",
-           "where": "Sec. 423 amendments",
-           "bill_quote": "in paragraph (1)(A), by striking ``theft'' and inserting ``theft, including through distillation attacks,''",
-           "problem": "The entry omits the other Sec. 423 changes: the purpose now covers efforts to \"manipulate, deceive, or exploit\"; the location \"within the Cybersecurity Collaboration Center of the National Security Agency\" is struck; the theft provision now covers distillation attacks; and subsection (d)(2) is struck.",
-           "fix": "Add other provisions listing these Sec. 423 amendments in the bill's words."
+           "bill_quote": "Evaluating artificial intelligence alignment, assurance, interpretability, safety, security, and transparency against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal",
+           "problem": "The box summary omits the AI Security Center evaluation and testing-standards activities, the very provisions the entry relies on for scope, so readers miss the bill's frontier-relevant content.",
+           "fix": "Add to requires: Sec. 423 adds to the Artificial Intelligence Security Center's activities developing best practices and standards for benchmarking, testing and evaluation of US and foreign AI models, and evaluating AI safety against risks including loss of control and shutdown refusal."
           }
          ],
-         "discarded": 1,
+         "discarded": 0,
          "missing": []
         },
         {
@@ -248,8 +235,15 @@
            "severity": "WRONG",
            "where": "name",
            "bill_quote": "Intelligence Authorization Act for Fiscal Year 2027",
-           "problem": "The bill's own title is the Intelligence Authorization Act for Fiscal Year 2027; the entry invents a different descriptive name and leaves name_quote blank.",
-           "fix": "Name it \"Intelligence Authorization Act for Fiscal Year 2027\"."
+           "problem": "The bill states its own title, which the bill itself uses in Sec. 423(2)(A); the entry invents a descriptive name instead.",
+           "fix": "Use the name \"Intelligence Authorization Act for Fiscal Year 2027\"."
+          },
+          {
+           "severity": "OMISSION",
+           "where": "other_provisions / box.requires",
+           "bill_quote": "by striking ``within the Cybersecurity\nCollaboration Center of the National Security Agency'';",
+           "problem": "Sec. 423(2)(B) removes the Center's placement within the NSA Cybersecurity Collaboration Center and Sec. 423(4)(B) strikes paragraph (2) of subsection (d); neither change appears in the entry.",
+           "fix": "Add an item stating that Sec. 423(2)(B) strikes \"within the Cybersecurity Collaboration Center of the National Security Agency\" from section 6504(b), and that Sec. 423(4)(B) strikes paragraph (2) of section 6504(d)."
           }
          ],
          "discarded": 0,
@@ -260,10 +254,10 @@
         "in_scope": true,
         "proved": true,
         "sec": "Sec. 423",
-        "reason": "Sec. 423 gives the intelligence community's AI Security Center binding functions to test and evaluate AI models for safety risks including loss of control and shutdown refusal. That is an intelligence-community AI safety and testing program (type 8(a)) and a federal program evaluating advanced-AI risks (type 4)."
+        "reason": "Sec. 423 tasks the NSA AI Security Center with evaluating AI safety against loss of control and shutdown refusal. It is also tasked with benchmarking and testing US and foreign AI models. This is an intelligence-community AI safety and testing program (type 8(a)) and a federal advanced-AI risk evaluation program (type 4)."
        }
       },
-      "tokens": 170956
+      "tokens": 123983
      }
     }
    }
