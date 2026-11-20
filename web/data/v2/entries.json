@@ -14101,5 +14101,568 @@
    "basis_sha256": "593021d30b1335e726933c7524f2893e4cf6fbf6584a608a4da3e1985a30efb0"
   },
   "display_name": "VET Artificial Intelligence Act"
+ },
+ {
+  "id": 107,
+  "key": "h-r-9624-intelligence-authorization-act-for-fiscal-year-2027",
+  "section": "F",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "Federal",
+  "state": null,
+  "status": "pending",
+  "title": "H.R. 9624 — Intelligence Authorization Act for Fiscal Year 2027",
+  "short_name": "Intelligence Authorization Act for Fiscal Year 2027",
+  "sponsor_text": "Rep. Eric A. \"Rick\" Crawford (R-AR)",
+  "mechanism": "The President must, within 180 days after enactment, issue or update intelligence community-wide policies on using classified information to train or refine AI models for use by an intelligence community element.; The policies under subsection (a) must seek to maximize, to the greatest extent practicable, the data usable for training or refining AI models, consistent with protecting it from unauthorized use and existing laws.; The Chief AI Officer of the Intelligence Community must act as the Director of National Intelligence's chief representative on AI matters with intelligence community elements.; The Chief AI Officer must assist the Director in formulating a long-term strategy for AI adoption in the intelligence community.; The Chief AI Officer must assist the Director regarding the AI elements of the budget of the Office of the Director of National Intelligence.; The Chief AI Officer must perform other AI-related duties as may be prescribed by the Director of National Intelligence or specified in law.; Sec. 423 adds to Section 6504(c) a function of evaluating AI alignment, assurance, interpretability, safety, security and transparency against risks including loss of control and shutdown refusal. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.; Sec. 423 adds to Section 6504(c) a function of developing best practices and standards for benchmarking, testing and evaluating US and foreign AI models. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.; Sec. 423 adds to Section 6504(c) a function of sharing with other intelligence community elements information on counter-AI tactics, techniques and procedures used by adversaries. The inserted text does not name who performs it.; The Director of the National Security Agency may, on a voluntary basis and as the Director determines appropriate, collaborate with government agencies, research entities, private-sector entities and foreign governments or entities, including by providing computing resources.; The Director of National Intelligence must, within one year after enactment, determine whether any communications equipment or service described in subsection (b) poses an unacceptable risk to US national security or the security and safety of US persons.; The Director of National Intelligence must, within one year after enactment, submit to the congressional intelligence committees a report on the results of the determination.",
+  "thresholds": "Any communications equipment or service produced or provided by Game Science Interactive Co., Ltd., DeepSeek, Unitree Robotics, DEEP Robotics, BrainCo, Inc. or Manycore Tech, Inc., or by their subsidiaries, affiliates, partners, joint-venture entities or licensees.",
+  "penalties": null,
+  "status_text": "Introduced / status: July 9, 2026; Reported (Amended) by the Committee on Intelligence. H. Rept. 119-886 (Nov 18, 2026)",
+  "signed_text": null,
+  "effective_text": "Not stated in the sections provided; the President's policies are due within 180 days after enactment and the Director of National Intelligence's report within one year after enactment.",
+  "events": [
+   {
+    "date": "2026-07-09",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "H.R. 9624 introduced",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-11-18",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "Reported (Amended) by the Committee on Intelligence. H. Rept. 119-886",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Congress.gov record: Intelligence Authorization Act for Fiscal Year 2027",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
+    "kind": "primary",
+    "retrieved_at": "2026-11-20T04:06:17Z"
+   }
+  ],
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record"
+  },
+  "tags": {
+   "found_via": "api",
+   "updated_after_verification": true
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "(b) Communications Equipment or Service Described.--A communications equipment or service described in this subsection is any communications equipment or service produced or provided by-- (1) Game Science Interactive Co., Ltd.; (2) Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd. (commonly known as ``DeepSeek''); (3) Hangzhou Yushu Technology Co., Ltd. (commonly known as ``Unitree Robotics''); (4) Hangzhou Yunshenchu Technology Co., Ltd. (commonly known as ``DEEP Robotics''); (5) BrainCo, Inc.; (6) Manycore Tech, Inc.; or (7) with respect to any entity described in any of paragraphs (1) through (6) (referred to in this paragraph as a ``named entity'')-- (A) any subsidiary, affiliate, or partner of the named entity; (B) any entity in a joint venture with the named entity; or (C) any entity to which the named entity has issued a license to produce or provide that communications equipment or service.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(a) Intelligence Community-wide Policies.--Not later than 180 days after the date of the enactment of this Act, the President shall issue or update policies that apply to the entire intelligence community with respect to the use of classified information for the purpose of training or refining artificial intelligence models for use by an element of the intelligence community.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(b) Maximum Data Usage.--The policies issued or updated under subsection (a) shall seek to maximize to the greatest extent practicable the amount of data that can be used for training or refining artificial intelligence models, including maximizing the amount of information classified at the most sensitive levels that may be used for such training or refining, consistent with the need to protect such information from unauthorized use and in accordance with existing laws.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(1) act as the chief representative of the Director of National Intelligence for artificial intelligence matters with the elements of the intelligence community;",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(2) assist the Director in formulating a long-term strategy for artificial intelligence adoption in the intelligence community;",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(3) assist the Director regarding the artificial intelligence elements of the budget of the Office of the Director of National Intelligence; and",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(4) perform other such duties relating to artificial intelligence as may be prescribed by the Director of National Intelligence or specified in law.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(6) Evaluating artificial intelligence alignment, assurance, interpretability, safety, security, and transparency against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal, sleeper agents, tampering, and other forms of unreliability.''",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(5) Developing best practices and standards for benchmarking, testing, and evaluation of United States and foreign artificial intelligence models to understand standalone artificial intelligence capabilities, assess interactions between artificial intelligence capabilities, and evaluate circumstances and use cases where the Federal Government should use certain artificial intelligence capabilities and the conditions or scenarios for such use.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(4) Sharing with the other elements of the intelligence community information on counter-artificial intelligence tactics, techniques, and procedures used by adversaries.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(e) External Collaboration.--In carrying out this section, the Director of the National Security Agency may collaborate, on a voluntary basis, with other departments and agencies of the United States Government, research entities, private-sector entities, and foreign governments or entities, as the Director determines appropriate, including through the provision of any computing resources the Director determines appropriate.''.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(1) determine if any communications equipment or service described in subsection (b) poses an unacceptable risk to the national security of the United States or the security and safety of United States persons; and",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(a) In General.--Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(2) submit to the congressional intelligence committees a report on the results of the determination.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(a) In General.--Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "effective_text",
+    "quote": "Not later than 180 days after the date of the enactment of this Act, the President shall issue or update policies",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "effective_text",
+    "quote": "Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(a) Chief Artificial Intelligence Officer.--There is a Chief Artificial Intelligence Officer of the Intelligence Community within the Office of the Director of National Intelligence who shall be appointed by the Director of National Intelligence.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(b) Qualifications.--An individual appointed as the Chief Artificial Intelligence Officer of the Intelligence Community shall have a professional background and experience appropriate for the duties of the Chief Artificial Intelligence Officer.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "``(d) Relationship to Other Laws.--The Chief Artificial Intelligence Officer of the Intelligence Community shall be considered the Chief Artificial Intelligence Officer of the Office of the Director of National Intelligence for purposes of the requirement to designate a Chief Artificial Intelligence Officer of each element of the intelligence community under section 6702(e) of the Intelligence Authorization Act for Fiscal Year 2023 (50 U.S.C. 3334m(e)).''.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(1) in subsection (a), by striking ``manipulate'' and inserting ``manipulate, deceive, or exploit'';",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(B) by striking ``within the Cybersecurity Collaboration Center of the National Security Agency'';",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(2) in subsection (b)--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(A) in paragraph (1)(A), by striking ``theft'' and inserting ``theft, including through distillation attacks,'';",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(4) in subsection (d)--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(A) by striking ``this Act'' and inserting ``the Intelligence Authorization Act for Fiscal Year 2027'';",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(2) in subsection (b)--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "short_name",
+    "quote": "by striking ``this Act'' and inserting ``the Intelligence Authorization Act for Fiscal Year 2027''",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "section",
+    "quote": "``(6) Evaluating artificial intelligence alignment, assurance, interpretability, safety, security, and transparency against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal, sleeper agents, tampering, and other forms of unreliability.''",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   }
+  ],
+  "origin": "automated",
+  "identifiers": {
+   "external": {
+    "congress_gov": [
+     "119/hr/9624"
+    ]
+   },
+   "session": "119th Congress"
+  },
+  "legacy": {
+   "section_name": "Adjacent and sectoral federal bills"
+  },
+  "verification": {
+   "method": "agent",
+   "checked_at": "2026-11-20T04:06:24Z",
+   "run_id": "run-20261120-0406-0964",
+   "rounds": 3
+  },
+  "last_checked": "2026-11-20",
+  "last_changed": "2026-11-20",
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "shutdown": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "effective_date": {
+    "value": "partial",
+    "summary": "No overall effective date appears in the sections provided. Government deadlines run from enactment: 180 days for the President's policies, one year for the Director of National Intelligence's determination and report.",
+    "section": "Sec. 340(a)",
+    "quote": "Not later than 180 days after the date of the enactment of this Act, the President shall issue or update policies",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
+   "sha256": "d17ce39afa6fbf8aa45ab42bb99d378a48ec5a60ff8b5c1003e0e7878136f571",
+   "chars": 195883,
+   "method": "agent",
+   "checked_at": "2026-11-20T04:06:24Z"
+  },
+  "plain": {
+   "name_quote": "by striking ``this Act'' and inserting ``the Intelligence Authorization Act for Fiscal Year 2027''",
+   "box": {
+    "applies_to": "The President, the Director of National Intelligence, the Chief AI Officer of the Intelligence Community and the National Security Agency; no duties on private parties.",
+    "requires_lead": "Directs",
+    "requires": "the President to issue or update intelligence community-wide policies on classified data in AI training within 180 days after enactment; the AI Security Center's functions now include developing standards for testing and evaluating US and foreign AI models and evaluating AI against risks including loss of control and shutdown refusal; the Director of National Intelligence to assess named foreign communications equipment within one year, among other duties.",
+    "enforcement": "none",
+    "effective": "Not stated in the sections provided; the President's policies are due within 180 days after enactment and the Director of National Intelligence's report within one year after enactment."
+   },
+   "items": {
+    "coverage": [],
+    "definitions": [
+     {
+      "id": "d1",
+      "text": "Any communications equipment or service produced or provided by Game Science Interactive Co., Ltd., DeepSeek, Unitree Robotics, DEEP Robotics, BrainCo, Inc. or Manycore Tech, Inc., or by their subsidiaries, affiliates, partners, joint-venture entities or licensees.",
+      "quote": "(b) Communications Equipment or Service Described.--A communications equipment or service described in this subsection is any communications equipment or service produced or provided by-- (1) Game Science Interactive Co., Ltd.; (2) Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd. (commonly known as ``DeepSeek''); (3) Hangzhou Yushu Technology Co., Ltd. (commonly known as ``Unitree Robotics''); (4) Hangzhou Yunshenchu Technology Co., Ltd. (commonly known as ``DEEP Robotics''); (5) BrainCo, Inc.; (6) Manycore Tech, Inc.; or (7) with respect to any entity described in any of paragraphs (1) through (6) (referred to in this paragraph as a ``named entity'')-- (A) any subsidiary, affiliate, or partner of the named entity; (B) any entity in a joint venture with the named entity; or (C) any entity to which the named entity has issued a license to produce or provide that communications equipment or service.",
+      "sec": "Sec. 516(b)",
+      "term": "communications equipment or service described in this subsection"
+     }
+    ],
+    "exclusions": [],
+    "duties": [
+     {
+      "id": "u1",
+      "text": "The President must, within 180 days after enactment, issue or update intelligence community-wide policies on using classified information to train or refine AI models for use by an intelligence community element.",
+      "quote": "(a) Intelligence Community-wide Policies.--Not later than 180 days after the date of the enactment of this Act, the President shall issue or update policies that apply to the entire intelligence community with respect to the use of classified information for the purpose of training or refining artificial intelligence models for use by an element of the intelligence community.",
+      "sec": "Sec. 340(a)",
+      "party": "the President",
+      "kind": "agency",
+      "force": "duty",
+      "deadline": "Not later than 180 days after the date of the enactment of this Act",
+      "conditions": [
+       "Not later than 180 days after the date of the enactment of this Act",
+       "policies apply to the entire intelligence community",
+       "use of classified information for training or refining artificial intelligence models for use by an element of the intelligence community"
+      ]
+     },
+     {
+      "id": "u2",
+      "text": "The policies under subsection (a) must seek to maximize, to the greatest extent practicable, the data usable for training or refining AI models, consistent with protecting it from unauthorized use and existing laws.",
+      "quote": "(b) Maximum Data Usage.--The policies issued or updated under subsection (a) shall seek to maximize to the greatest extent practicable the amount of data that can be used for training or refining artificial intelligence models, including maximizing the amount of information classified at the most sensitive levels that may be used for such training or refining, consistent with the need to protect such information from unauthorized use and in accordance with existing laws.",
+      "sec": "Sec. 340(b)",
+      "party": "the President",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "to the greatest extent practicable",
+       "consistent with the need to protect such information from unauthorized use",
+       "in accordance with existing laws"
+      ]
+     },
+     {
+      "id": "u3",
+      "text": "The Chief AI Officer of the Intelligence Community must act as the Director of National Intelligence's chief representative on AI matters with intelligence community elements.",
+      "quote": "``(1) act as the chief representative of the Director of National Intelligence for artificial intelligence matters with the elements of the intelligence community;",
+      "lead_in": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+      "sec": "Sec. 401 (new National Security Act § 103N(c)(1))",
+      "party": "Chief Artificial Intelligence Officer of the Intelligence Community",
+      "kind": "agency",
+      "force": "duty"
+     },
+     {
+      "id": "u4",
+      "text": "The Chief AI Officer must assist the Director in formulating a long-term strategy for AI adoption in the intelligence community.",
+      "quote": "``(2) assist the Director in formulating a long-term strategy for artificial intelligence adoption in the intelligence community;",
+      "lead_in": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+      "sec": "Sec. 401 (new National Security Act § 103N(c)(2))",
+      "party": "Chief Artificial Intelligence Officer of the Intelligence Community",
+      "kind": "agency",
+      "force": "duty"
+     },
+     {
+      "id": "u5",
+      "text": "The Chief AI Officer must assist the Director regarding the AI elements of the budget of the Office of the Director of National Intelligence.",
+      "quote": "``(3) assist the Director regarding the artificial intelligence elements of the budget of the Office of the Director of National Intelligence; and",
+      "lead_in": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+      "sec": "Sec. 401 (new National Security Act § 103N(c)(3))",
+      "party": "Chief Artificial Intelligence Officer of the Intelligence Community",
+      "kind": "agency",
+      "force": "duty"
+     },
+     {
+      "id": "u6",
+      "text": "The Chief AI Officer must perform other AI-related duties as may be prescribed by the Director of National Intelligence or specified in law.",
+      "quote": "``(4) perform other such duties relating to artificial intelligence as may be prescribed by the Director of National Intelligence or specified in law.",
+      "lead_in": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
+      "sec": "Sec. 401 (new National Security Act § 103N(c)(4))",
+      "party": "Chief Artificial Intelligence Officer of the Intelligence Community",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "as may be prescribed by the Director of National Intelligence or specified in law"
+      ]
+     },
+     {
+      "id": "u7",
+      "text": "Sec. 423 adds to Section 6504(c) a function of evaluating AI alignment, assurance, interpretability, safety, security and transparency against risks including loss of control and shutdown refusal. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.",
+      "quote": "``(6) Evaluating artificial intelligence alignment, assurance, interpretability, safety, security, and transparency against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal, sleeper agents, tampering, and other forms of unreliability.''",
+      "sec": "Sec. 423(3)(B) (new paragraph (6) of Section 6504(c) of the Intelligence Authorization Act for Fiscal Year 2025)",
+      "party": "not stated",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal, sleeper agents, tampering, and other forms of unreliability"
+      ]
+     },
+     {
+      "id": "u8",
+      "text": "Sec. 423 adds to Section 6504(c) a function of developing best practices and standards for benchmarking, testing and evaluating US and foreign AI models. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.",
+      "quote": "``(5) Developing best practices and standards for benchmarking, testing, and evaluation of United States and foreign artificial intelligence models to understand standalone artificial intelligence capabilities, assess interactions between artificial intelligence capabilities, and evaluate circumstances and use cases where the Federal Government should use certain artificial intelligence capabilities and the conditions or scenarios for such use.",
+      "sec": "Sec. 423(3)(B) (new paragraph (5) of Section 6504(c) of the Intelligence Authorization Act for Fiscal Year 2025)",
+      "party": "not stated",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "of United States and foreign artificial intelligence models"
+      ]
+     },
+     {
+      "id": "u9",
+      "text": "Sec. 423 adds to Section 6504(c) a function of sharing with other intelligence community elements information on counter-AI tactics, techniques and procedures used by adversaries. The inserted text does not name who performs it.",
+      "quote": "``(4) Sharing with the other elements of the intelligence community information on counter-artificial intelligence tactics, techniques, and procedures used by adversaries.",
+      "sec": "Sec. 423(3)(B) (new paragraph (4) of Section 6504(c) of the Intelligence Authorization Act for Fiscal Year 2025)",
+      "party": "not stated",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "used by adversaries"
+      ]
+     },
+     {
+      "id": "u10",
+      "text": "The Director of the National Security Agency may, on a voluntary basis and as the Director determines appropriate, collaborate with government agencies, research entities, private-sector entities and foreign governments or entities, including by providing computing resources.",
+      "quote": "``(e) External Collaboration.--In carrying out this section, the Director of the National Security Agency may collaborate, on a voluntary basis, with other departments and agencies of the United States Government, research entities, private-sector entities, and foreign governments or entities, as the Director determines appropriate, including through the provision of any computing resources the Director determines appropriate.''.",
+      "sec": "Sec. 423(6) (new subsection (e) of Section 6504)",
+      "party": "Director of the National Security Agency",
+      "kind": "agency",
+      "force": "power",
+      "conditions": [
+       "on a voluntary basis",
+       "as the Director determines appropriate"
+      ]
+     },
+     {
+      "id": "u11",
+      "text": "The Director of National Intelligence must, within one year after enactment, determine whether any communications equipment or service described in subsection (b) poses an unacceptable risk to US national security or the security and safety of US persons.",
+      "quote": "(1) determine if any communications equipment or service described in subsection (b) poses an unacceptable risk to the national security of the United States or the security and safety of United States persons; and",
+      "lead_in": "(a) In General.--Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
+      "sec": "Sec. 516(a)(1)",
+      "party": "Director of National Intelligence",
+      "kind": "agency",
+      "force": "duty",
+      "deadline": "Not later than one year after the date of the enactment of this Act",
+      "conditions": [
+       "Not later than one year after the date of the enactment of this Act",
+       "equipment or service described in subsection (b)"
+      ]
+     },
+     {
+      "id": "u12",
+      "text": "The Director of National Intelligence must, within one year after enactment, submit to the congressional intelligence committees a report on the results of the determination.",
+      "quote": "(2) submit to the congressional intelligence committees a report on the results of the determination.",
+      "lead_in": "(a) In General.--Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
+      "sec": "Sec. 516(a)(2)",
+      "party": "Director of National Intelligence",
+      "kind": "agency",
+      "force": "duty",
+      "deadline": "Not later than one year after the date of the enactment of this Act",
+      "conditions": [
+       "Not later than one year after the date of the enactment of this Act"
+      ]
+     }
+    ],
+    "penalties": [],
+    "effective": [
+     {
+      "id": "e1",
+      "text": "The President must issue or update the policies not later than 180 days after the date of the enactment of this Act.",
+      "quote": "Not later than 180 days after the date of the enactment of this Act, the President shall issue or update policies",
+      "sec": "Sec. 340(a)"
+     },
+     {
+      "id": "e2",
+      "text": "The Director of National Intelligence must make the determination and submit the report not later than one year after the date of the enactment of this Act.",
+      "quote": "Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
+      "sec": "Sec. 516(a)"
+     }
+    ],
+    "other_provisions": [
+     {
+      "id": "o1",
+      "text": "Creates a Chief Artificial Intelligence Officer of the Intelligence Community within the Office of the Director of National Intelligence, appointed by the Director of National Intelligence.",
+      "quote": "``(a) Chief Artificial Intelligence Officer.--There is a Chief Artificial Intelligence Officer of the Intelligence Community within the Office of the Director of National Intelligence who shall be appointed by the Director of National Intelligence.",
+      "sec": "Sec. 401 (new National Security Act § 103N(a))",
+      "kind": "other"
+     },
+     {
+      "id": "o2",
+      "text": "An individual appointed as Chief AI Officer must have a professional background and experience appropriate for the duties of the office.",
+      "quote": "``(b) Qualifications.--An individual appointed as the Chief Artificial Intelligence Officer of the Intelligence Community shall have a professional background and experience appropriate for the duties of the Chief Artificial Intelligence Officer.",
+      "sec": "Sec. 401 (new National Security Act § 103N(b))",
+      "kind": "other"
+     },
+     {
+      "id": "o3",
+      "text": "The Intelligence Community Chief AI Officer is treated as the Chief AI Officer of the Office of the Director of National Intelligence for the requirement in section 6702(e) of the Intelligence Authorization Act for Fiscal Year 2023 (50 U.S.C. 3334m(e)).",
+      "quote": "``(d) Relationship to Other Laws.--The Chief Artificial Intelligence Officer of the Intelligence Community shall be considered the Chief Artificial Intelligence Officer of the Office of the Director of National Intelligence for purposes of the requirement to designate a Chief Artificial Intelligence Officer of each element of the intelligence community under section 6702(e) of the Intelligence Authorization Act for Fiscal Year 2023 (50 U.S.C. 3334m(e)).''.",
+      "sec": "Sec. 401 (new National Security Act § 103N(d))",
+      "kind": "relation_to_other_law"
+     },
+     {
+      "id": "o4",
+      "text": "In subsection (a) of Section 6504, the word 'manipulate' becomes 'manipulate, deceive, or exploit'. The subsection's other text is not shown.",
+      "quote": "(1) in subsection (a), by striking ``manipulate'' and inserting ``manipulate, deceive, or exploit'';",
+      "sec": "Sec. 423(1)",
+      "kind": "other"
+     },
+     {
+      "id": "o5",
+      "text": "In subsection (b) of Section 6504, the words 'within the Cybersecurity Collaboration Center of the National Security Agency' are struck. The subsection's other text is not shown.",
+      "quote": "(B) by striking ``within the Cybersecurity Collaboration Center of the National Security Agency'';",
+      "lead_in": "(2) in subsection (b)--",
+      "sec": "Sec. 423(2)(B)",
+      "kind": "other"
+     },
+     {
+      "id": "o6",
+      "text": "In subsection (d)(1)(A) of Section 6504, 'theft' becomes 'theft, including through distillation attacks,'. The subsection's other text is not shown.",
+      "quote": "(A) in paragraph (1)(A), by striking ``theft'' and inserting ``theft, including through distillation attacks,'';",
+      "lead_in": "(4) in subsection (d)--",
+      "sec": "Sec. 423(4)(A)",
+      "kind": "other"
+     },
+     {
+      "id": "o7",
+      "text": "In subsection (b) of Section 6504, 'this Act' is replaced with 'the Intelligence Authorization Act for Fiscal Year 2027'.",
+      "quote": "(A) by striking ``this Act'' and inserting ``the Intelligence Authorization Act for Fiscal Year 2027'';",
+      "lead_in": "(2) in subsection (b)--",
+      "sec": "Sec. 423(2)(A)",
+      "kind": "other"
+     }
+    ]
+   },
+   "text_problems": [
+    "Only 6 of 181 sections were provided; the short title, definitions and other sections are omitted. Sec. 423 amends Section 6504 of the Intelligence Authorization Act for Fiscal Year 2025, whose existing text is not shown. The inserted paragraphs (4), (5) and (6) do not name the party that carries them out; new subsection (e) refers to the Director of the National Security Agency 'In carrying out this section', but the bill does not say in the inserted paragraphs who performs each function."
+   ]
+  },
+  "summary_line": "Would require AI training policies for classified data, create an intelligence community Chief AI Officer, and order a review of communications equipment from named firms including DeepSeek.",
+  "thirty_seconds": {
+   "a": "The President, the Director of National Intelligence, the intelligence community's Chief AI Officer, and the Director of the National Security Agency, which may collaborate voluntarily with outside entities.",
+   "b": "The President must issue or update policies on using classified information to train AI within 180 days after enactment. The Director of National Intelligence must determine within one year if named firms' equipment poses an unacceptable risk, and report.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-20T04:05:49Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "4ed5d84ac7f4e20039eb764f7fac3f80151f40a62ebd3d01dd5db14145639edb"
+  }
  }
 ]
