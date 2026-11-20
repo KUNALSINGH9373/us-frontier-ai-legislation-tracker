@@ -778,14 +778,14 @@
    "dead": false
   },
   "congress_gov:119/hr/10329": {
-   "raw_hash": "1ae97e8fedc1ef60eec552fb1dcf39856d5714fff54a281f59c45ccd0bc23276",
+   "raw_hash": "2e765a4d2079f2e451f67acc0d03bd099c835034f47a67c8afe0c0ca4fdcca7a",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10329 (\"Combating Foreign Threats to Main Street Act of 2026\") meets neither federal section's criterion; not created",
    "date": "2026-11-20",
    "dead": false
   },
   "congress_gov:119/hr/10238": {
-   "raw_hash": "3eb34ce351d3f1b9c9ef967a3f2215a0ede7054efd10c0291a4689bcc9ebda49",
+   "raw_hash": "ab67ae7c23f36dfafc6dafa2337cf5d5cb9f428a84d5af62fd91b09ba89f4478",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10238 (\"Cybersecurity for Small Businesses Act of 2026\") meets neither federal section's criterion; not created",
    "date": "2026-11-20",
@@ -1289,16 +1289,23 @@
    "dead": false
   },
   "congress_gov:119/s/4444": {
-   "raw_hash": "a67399928d7521ea832a2d8ae520b0ecd0ce34d3a32f8ed56efd94e644fe41b1",
+   "raw_hash": "bb4e7dfe50c98e0e3e77ff8f9bd7ead14946cd77cf7edec898577a876df21ae2",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/s/4444 (\"A bill to amend the FISA Amendments Act of 2008 to extend the authorities of tit\") meets neither federal section's criterion; not created",
    "date": "2026-11-20",
    "dead": false
   },
   "congress_gov:119/s/4633": {
-   "raw_hash": "a7005b96d1813e0167df7d0ab6951c9be1111b9a8ad448ba982774ad4d7aab83",
+   "raw_hash": "7b79dd8dce4ce2ca860599b412c4dcfdc9f175d84d570b55dd252b16ebc69340",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/s/4633 (\"Unmanned and Autonomous Systems Strategy Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-20",
+   "dead": false
+  },
+  "congress_gov:119/s/3861": {
+   "raw_hash": "a9c55a5953fc0ae60230cc7e1a595f6c8c9883d383fc2d7fd0ceb6aa8eac89b0",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/s/3861 (\"Rural Innovation Stronger Economy (RISE) Reauthorization Act of 2026\") meets neither federal section's criterion; not created",
    "date": "2026-11-20",
    "dead": false
   }

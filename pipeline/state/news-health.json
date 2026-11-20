@@ -1,17 +1,16 @@
 {
- "updated_at": "2026-11-20T17:00:17.429Z",
+ "updated_at": "2026-11-20T20:05:45.934Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-11-20T17:00:17.429Z",
-   "last_fetch": "2026-11-20T17:00:17.429Z",
-   "last_ok": "2026-11-20T17:00:17.429Z",
+   "last_run": "2026-11-20T20:05:45.934Z",
+   "last_fetch": "2026-11-20T20:05:45.934Z",
+   "last_ok": "2026-11-20T20:05:45.934Z",
    "ok": true,
    "newest": "2026-11-19",
    "run_newest": "2026-11-12",
    "replay": true,
-   "count": 71,
+   "count": 83,
    "counts": [
-    0,
     11,
     30,
     33,
@@ -24,16 +23,17 @@
     0,
     42,
     7,
-    71
+    71,
+    83
    ],
    "errors": [],
    "consecutive_failures": 0,
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-11-20T17:00:17.429Z",
-   "last_fetch": "2026-11-20T17:00:17.429Z",
-   "last_ok": "2026-11-20T17:00:17.429Z",
+   "last_run": "2026-11-20T20:05:45.934Z",
+   "last_fetch": "2026-11-20T20:05:45.934Z",
+   "last_ok": "2026-11-20T20:05:45.934Z",
    "ok": true,
    "newest": "2026-11-17",
    "run_newest": null,
@@ -60,9 +60,9 @@
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-11-20T17:00:17.429Z",
-   "last_fetch": "2026-11-20T17:00:17.429Z",
-   "last_ok": "2026-11-20T17:00:17.429Z",
+   "last_run": "2026-11-20T20:05:45.934Z",
+   "last_fetch": "2026-11-20T20:05:45.934Z",
+   "last_ok": "2026-11-20T20:05:45.934Z",
    "ok": true,
    "newest": "2026-11-06",
    "run_newest": null,
@@ -116,7 +116,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "whitehouse": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -146,7 +146,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "govinfo": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -176,7 +176,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "regulations_gov": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -206,7 +206,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "congress_extra": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -238,7 +238,7 @@
    ],
    "consecutive_failures": 1,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "nist": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -268,7 +268,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "cbo": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -298,7 +298,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "ca_ag": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -328,7 +328,7 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "nysenate": {
    "last_run": "2026-11-20T08:05:49.595Z",
@@ -358,20 +358,19 @@
    "errors": [],
    "consecutive_failures": 0,
    "future_items": [],
-   "last_skipped": "2026-11-20T17:00:17.429Z"
+   "last_skipped": "2026-11-20T20:05:45.934Z"
   },
   "openstates": {
-   "last_run": "2026-11-20T17:00:17.429Z",
-   "last_fetch": "2026-11-20T17:00:17.429Z",
+   "last_run": "2026-11-20T20:05:45.934Z",
+   "last_fetch": "2026-11-20T20:05:45.934Z",
    "truncated": true,
-   "last_ok": "2026-11-20T04:05:49.172Z",
-   "ok": false,
+   "last_ok": "2026-11-20T20:05:45.934Z",
+   "ok": true,
    "newest": "2026-09-09",
-   "run_newest": "2026-07-30",
+   "run_newest": "2026-09-09",
    "replay": false,
-   "count": 17,
+   "count": 90,
    "counts": [
-    73,
     28,
     45,
     73,
@@ -384,13 +383,13 @@
     28,
     90,
     90,
-    17
+    17,
+    90
    ],
    "errors": [
-    "This operation was aborted",
     "request cap: time budget reached; remaining bills next run"
    ],
-   "consecutive_failures": 5,
+   "consecutive_failures": 0,
    "future_items": []
   }
  }
