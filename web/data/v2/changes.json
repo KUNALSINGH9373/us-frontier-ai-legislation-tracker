@@ -765,6 +765,69 @@
    "run_id": "update-20261119-0005",
    "source_url": "https://www.palegis.us/legislation/bills/2025/hr637",
    "tier": "C"
+  },
+  {
+   "entry_key": "il-sb-315-p-a-104-0538",
+   "field": "mechanism",
+   "old": "Sec. 10: a frontier AI framework (from Jan 1, 2028); transparency reports before or at deployment, which may be published inside a system or model card; and a yearly independent third-party audit (from Jan 1, 2028, or 90 days after a developer qualifies). The auditor may have no financial interest in the developer, and payment cannot depend on results. A redacted audit report is published within 30 days and sent to the Agency and the Attorney General. Developers also send quarterly summaries of catastrophic risk from internal use. Sec. 15: critical incidents go within 72 hours to the Illinois Emergency Management Agency and Office of Homeland Security (the \"Agency\") and the Attorney General, or within 24 hours to an appropriate authority if there is imminent risk of death or serious injury. There is a public reporting channel, and incident reports, internal-use assessments, unredacted audits and auditor work papers are exempt from public-records requests. Sec. 17: a developer may choose to comply through a designated federal law, rule or guidance that is at least as strict on incident reporting, substantially equivalent on catastrophic risk, and requires independent audits; failing that federal standard then counts as an Illinois violation. Sec. 18: a disclosure statement naming owners of 5% or more (private companies) or 50% or more (public companies), renewed yearly, with a pro-rata fee. Sec. 20: whistleblower protections for covered employees, including an anonymous channel with monthly updates and the Attorney General's Workplace Rights Hotline; amends the Illinois Whistleblower Act. Sec. 35: frontier-model regulation is an exclusive State power, so home-rule cities and counties cannot regulate it. How it passed: introduced Jan 24, 2025 as a technical bill on the Predatory Loan Prevention Act; Senate Floor Amendment No. 1 (filed May 11, 2026) replaced the whole text; four floor amendments were adopted May 21. Note on timing: transparency reports start Jan 1, 2027, but large developers' reports must summarize assessments made under the frontier AI framework, which is not required until 2028.",
+   "new": "Sec. 10: a frontier AI framework (from Jan 1, 2028); transparency reports before or at deployment, which may be published inside a system or model card; and a yearly independent third-party audit (from Jan 1, 2028, or 90 days after a developer first qualifies as a large frontier developer, whichever is later). The auditor may have no financial interest in the developer, and payment cannot depend on results. A redacted audit report is published within 30 days and sent to the Agency and the Attorney General. Developers also send summaries of catastrophic risk from internal use on a reasonable schedule the developer specifies and communicates in writing to the Agency and the Attorney General. Sec. 15: critical incidents go within 72 hours to the Illinois Emergency Management Agency and Office of Homeland Security (the \"Agency\") and the Attorney General, or within 24 hours to an appropriate authority if there is imminent risk of death or serious injury. There is a public reporting channel, and incident reports, internal-use assessments, unredacted audits and auditor work papers are exempt from public-records requests. Sec. 17: a developer may choose to comply through a designated federal law, rule or guidance that is at least as strict on incident reporting, substantially equivalent on catastrophic risk, and requires independent audits; failing that federal standard then counts as an Illinois violation. Sec. 18: a disclosure statement naming owners of 5% or more (private companies) or 50% or more (public companies), renewed yearly, with a pro-rata fee. Sec. 20: whistleblower protections for covered employees, including an anonymous channel with monthly updates and the Attorney General's Workplace Rights Hotline; amends the Illinois Whistleblower Act. Sec. 35: frontier-model regulation is an exclusive State power, so home-rule cities and counties cannot regulate it. How it passed: introduced Jan 24, 2025 as a technical bill on the Predatory Loan Prevention Act; Senate Floor Amendment No. 1 (filed May 11, 2026) replaced the whole text; four floor amendments were adopted May 21. Note on timing: transparency reports start Jan 1, 2027, but large developers' reports must summarize assessments made under the frontier AI framework, which is not required until 2028.",
+   "date": "2026-11-20",
+   "run_id": "update-20261120-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+   "tier": "C",
+   "note": "self-correction (error): Two errors: the audit start is the later of Jan 1, 2028 or 90 days after first qualifying (\"whichever is later\", not \"or\"), and internal-use summaries are not quarterly. SOURCE sets no quarterly schedule; it uses a reasonable schedule the developer specifies, communicated in writing to the Agency and AG. The words \"quarterly\" and \"or\" in those phrases are the removed or changed parts. Quote: \"90 days after a developer first qualifies as a large frontier developer, whichever is later\""
+  },
+  {
+   "entry_key": "il-sb-315-p-a-104-0538",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-20",
+   "run_id": "update-20261120-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=315&GAID=18&DocTypeID=SB&LegId=157797&SessionID=114",
+   "tier": "C"
+  },
+  {
+   "entry_key": "il-sb-3312",
+   "field": "thresholds",
+   "old": "10^26 operations; large frontier developer = more than $500M revenue",
+   "new": "10^26 integer or floating-point operations, including original training run and subsequent fine-tuning, reinforcement learning, or other material modifications to a preceding foundation model; large frontier developer = annual gross revenues in excess of $500,000,000 with affiliates in preceding calendar year",
+   "date": "2026-11-20",
+   "run_id": "update-20261120-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
+   "tier": "C",
+   "note": "self-correction (error): The source sets the revenue figure as \"in excess of $500,000,000\" and the compute figure as \"greater than 10^26 integer or floating-point operations\"; the entry's \"$500M\" and the bare \"operations;\" drop the words \"more than\", \"$500M\" and the words \"integer or floating-point\" and omit that compute counts the original training run and later fine-tuning. Quote: \"greater than 10^26 integer or floating-point operations\""
+  },
+  {
+   "entry_key": "il-sb-3312",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-20",
+   "run_id": "update-20261120-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3312&GAID=18&DocTypeID=SB&LegId=166117&SessionID=114",
+   "tier": "C"
+  },
+  {
+   "entry_key": "il-sb-3444",
+   "field": "mechanism",
+   "old": "A different design from S.B. 315: a liability shield. A developer would not be liable for critical harms, unless it acted with intent or recklessness, if it publishes a safety and security protocol and a transparency report. A developer bound by EU rules or a federal agency agreement would count as compliant. The shield would end if federal law creates overlapping requirements.",
+   "new": "A different design from S.B. 315: a liability shield. A developer would not be liable for critical harms, unless it acted with intent or recklessness, if it publishes a safety and security protocol and a transparency report. A developer bound by EU rules or a federal agency agreement would count as compliant. The shield would end if federal law creates overlapping requirements. The developer must also adhere to its protocol before release. A developer relying on a federal agency agreement shall file a certification with the Attorney General; a materially false or misleading statement in it is a violation.",
+   "date": "2026-11-20",
+   "run_id": "update-20261120-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the certification duty and the penalty for a false certification, and the pre-release adherence requirement; SOURCE states the developer shall file a certification with the Attorney General and that a materially false or misleading statement in it is a violation. Quote: \"adhered to that safety and security protocol prior to the release of the frontier model\""
+  },
+  {
+   "entry_key": "il-sb-3444",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-20",
+   "run_id": "update-20261120-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3444&GAID=18&DocTypeID=SB&LegId=166392&SessionID=114",
+   "tier": "C"
   }
  ]
 }
