@@ -913,3 +913,4 @@
 {"at":"2026-11-20T12:06:20.766Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2970,"output":810,"cost":0.0007019999999999999}
 {"at":"2026-11-20T12:06:34.992Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/hr/10752","input":13677,"output":996,"cost":0.037314}
 {"at":"2026-11-20T12:06:41.524Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/hr/10594","input":15213,"output":1015,"cost":0.040576}
+{"at":"2026-11-20T16:06:00.509Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2148,"output":728,"cost":0.0005788}
