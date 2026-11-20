@@ -771,10 +771,10 @@
    "dead": false
   },
   "congress_gov:119/hr/10946": {
-   "raw_hash": "33a932a89d883b89cac54b0f3729191947e303e1e0f51c55040988f629c8b6ac",
+   "raw_hash": "8a36176c7be9c189723063cb97f3ca02292540600f03325c1f7d44104eb815d2",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10946 (\"Congressional Office of Technology Improvement and Enhancement Act\") meets neither federal section's criterion; not created",
-   "date": "2026-11-19",
+   "date": "2026-11-20",
    "dead": false
   },
   "congress_gov:119/hr/10329": {
@@ -820,10 +820,10 @@
    "dead": false
   },
   "congress_gov:119/hr/10197": {
-   "raw_hash": "e65eaa79f56d08170dc74ae8dd40c9489bb6e506e71a7451b8b16f89e02bcc5c",
+   "raw_hash": "92b47e2b98af39a382728552ccd7f15bf43098516d549380e35bfb474cf0f32d",
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/hr/10197 (\"Biosecurity Modernization and Innovation Act\") meets neither federal section's criterion; not created",
-   "date": "2026-11-10",
+   "date": "2026-11-20",
    "dead": false
   },
   "congress_gov:119/hr/4602": {
@@ -1244,6 +1244,27 @@
    "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
    "proposal": "congress_gov:119/s/5508 (\"Telecommunications Cybersecurity and Resilience Act\") meets neither federal section's criterion; not created",
    "date": "2026-11-19",
+   "dead": false
+  },
+  "congress_gov:119/hr/10563": {
+   "raw_hash": "9be242415025b16f718e93b900ca4ccf4755473e10e5af8e6fb128709d12f479",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10563 (\"Facial Recognition and Biometric Technology Moratorium Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-20",
+   "dead": false
+  },
+  "congress_gov:119/hr/10519": {
+   "raw_hash": "103dad62704b0672b7cb3fa9afedfb0b83569ebb918118645c682dbce1489a17",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10519 (\"To direct the Secretary of Homeland Security, acting through the Director of the\") meets neither federal section's criterion; not created",
+   "date": "2026-11-20",
+   "dead": false
+  },
+  "congress_gov:119/hr/10777": {
+   "raw_hash": "4d6f8e7b68f42457a21b4851d32b7857c1bde5894048ccdf8d43acafdeb43058",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10777 (\"National Coordination Center and Commercial Cyber Capabilities Codification Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-20",
    "dead": false
   }
  }
