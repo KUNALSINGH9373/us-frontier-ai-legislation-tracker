@@ -1308,6 +1308,48 @@
    "proposal": "congress_gov:119/s/3861 (\"Rural Innovation Stronger Economy (RISE) Reauthorization Act of 2026\") meets neither federal section's criterion; not created",
    "date": "2026-11-20",
    "dead": false
+  },
+  "congress_gov:119/hr/9173": {
+   "raw_hash": "fd68c62e4c97b06f8964347b78ce0456ad2b622b282eee72e974682010616032",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/9173 (\"Charitable Deductions for Digital Asset Donations Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-21",
+   "dead": false
+  },
+  "congress_gov:119/hjres/25": {
+   "raw_hash": "719e84e223708a730f3fe9520592a4ad7e977a17c5d5708682e9e267d81a9cd5",
+   "reason": "not created: a H.J.Res. resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)",
+   "proposal": "congress_gov:119/hjres/25: not a bill (a H.J.Res. resolution, not a bill: sections D and F hold bills only, and the pipeline creates no entry for a resolution (reported)); not created",
+   "date": "2026-11-21",
+   "dead": false
+  },
+  "congress_gov:119/hr/9174": {
+   "raw_hash": "42105887a55c8b32f783bb44331135adcba77f503d3d4deef396d6b7cdc20415",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/9174 (\"Digital Assets Voluntary Disclosure Program Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-21",
+   "dead": false
+  },
+  "congress_gov:119/hr/9172": {
+   "raw_hash": "d68e3bfe7d2a3a8f2e6391475625221a262384cf2d1a37b88ac8c5a427cb30db",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/9172 (\"Applying Existing Tax Anti-Abuse Rules to Digital Assets Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-21",
+   "dead": false
+  },
+  "congress_gov:119/hr/9178": {
+   "raw_hash": "dc4cd837f38ae206c82aade3543dab908ea250624312b9114bb2b8a85253891d",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/9178 (\"Less Tax Paperwork for Digital Asset Owners Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-21",
+   "dead": false
+  },
+  "congress_gov:119/hr/10357": {
+   "raw_hash": "44b680b1ea16479cc4391c0e88cccc2d09bfa36b380891a3f2dae7f972218ca6",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/10357 (\"Digital Asset Tax Certainty Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-21",
+   "dead": false
   }
  }
 }
