@@ -45,7 +45,11 @@ h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;
 @media (min-width:1024px){[data-homerow]{flex-direction:row;align-items:stretch}[data-mapcol]{flex:0 1 min(76%,calc((100vh - 215px) * 1.375),1300px)}[data-homeside]{flex:1 1 260px}[data-mapgrid] [data-tile]{font-size:clamp(10px,1.95cqw,16px)!important}[data-mapgrid] [data-tg],[data-mapgrid] [data-tn]{font-size:clamp(8px,1.3cqw,12px)!important}}
 [data-exgrid]{display:block}
 [data-screen-label="Bill page"] p,[data-screen-label="Bill page"] dd{max-width:75ch}
-@media (min-width:1024px){[data-exgrid]{display:grid;grid-template-columns:248px minmax(0,1fr);gap:36px;align-items:start}[data-side]{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}}
+/* Explore layout: sections on the left, results in the middle, search and filters on the right (from 1280px). Between 1024px and 1279px the
+   search and filters sit above the results in the right column; below 1024px everything stacks: browse, then search and filters, then results. */
+[data-exgrid]{display:flex;flex-direction:column}[data-side]{order:0}[data-fside]{order:1}[data-exmain]{order:2;margin-top:18px}
+@media (min-width:1024px){[data-exgrid]{display:grid;grid-template-columns:248px minmax(0,1fr);grid-template-areas:"side refine" "side main";gap:0 36px;align-items:start}[data-side]{grid-area:side;position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin}[data-fside]{grid-area:refine}[data-exmain]{grid-area:main}}
+@media (min-width:1280px){[data-exgrid]{grid-template-columns:248px minmax(0,1fr) 272px;grid-template-areas:"side main refine";gap:36px}[data-exmain]{margin-top:0}[data-fside]{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;scrollbar-width:thin;padding-right:2px}[data-fside] [data-frow]{flex-direction:column;gap:6px}[data-fside] [data-flabel]{flex:none;padding:0}[data-fside] [data-frows]{gap:14px}[data-fside] [data-fchips] > button[aria-label]{white-space:normal!important;height:auto!important;min-height:calc(34px*var(--hs));padding-top:5px!important;padding-bottom:5px!important;text-align:left;line-height:1.3}}
 [data-sideitem]{display:flex;align-items:baseline;gap:10px;padding:6px 10px;border-radius:6px;text-decoration:none;font-size:calc(15px*var(--fs));line-height:1.35;transition:background var(--dur-1)}
 [data-sideitem]:hover{background:var(--surface-2)!important;color:var(--ink)!important}
 [data-sidecode]{display:none}
@@ -137,6 +141,7 @@ h1,h2,[data-serif]{font-family:var(--serif)!important;font-weight:600!important;
 [data-chip]{position:relative}@media (pointer:coarse),(max-width:1023px){[data-chip]::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}}
 [data-sidetoggle]{align-items:center;justify-content:center;gap:6px;height:calc(32px*var(--hs));margin:0 0 8px auto;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink-2);font-weight:650;font-size:calc(13px*var(--fs));cursor:pointer}
 [data-sidetoggle]:hover{color:var(--ink);border-color:var(--line-2)}
+@media (min-width:1280px){[data-exgrid][data-collapsed=true]{grid-template-columns:40px minmax(0,1fr) 272px}}
 @media (min-width:1024px){[data-exgrid][data-collapsed=true]{grid-template-columns:40px minmax(0,1fr)}[data-exgrid][data-collapsed=true] [data-side] details{display:none}[data-exgrid][data-collapsed=true] [data-sidetoggle]{width:calc(32px*var(--hs));padding:0;margin:0;font-size:18px}}
 [data-fdlg]{left:0;right:0;bottom:0;border-radius:var(--r) var(--r) 0 0;animation:gxUp var(--dur-3) var(--ease-out)}
 @media (min-width:760px){[data-fdlg]{left:50%;right:auto;bottom:auto;top:12vh;width:min(600px,calc(100vw - 32px));transform:translateX(-50%);border-radius:var(--r);animation:gxFade var(--dur-2) var(--ease-out)}}
@@ -388,30 +393,8 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
     </nav>
   </details>
 </aside>
-<div style="min-width:0">
+<div data-exmain style="min-width:0">
   <h1 data-sr>Explore</h1>
-  <div style="display:flex;gap:8px;align-items:center">
-    <form role="search" onSubmit="{{submitQ}}" style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;height:calc(44px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line-2)" style-focus-within="border-color:var(--accent)">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-      <label for="ex-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search the tracker</label>
-      <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="{{qPh}}" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(16px*var(--fs));outline:none">
-    </form>
-  </div>
-  <details data-fdet open="{{fdOpen}}">
-    <summary data-fsum>Filters<sc-if value="{{hasExFN}}"><span data-fbadge>{{exFN}}</span></sc-if><span aria-hidden="true" style="margin-left:auto;color:var(--ink-3)">▾</span></summary>
-    <div id="ex-filters" role="group" aria-label="Filters" data-frows>
-      <sc-for list="{{fRows}}" as="r">
-        <div data-frow role="group" aria-label="{{r.l}}"><span data-flabel aria-hidden="true">{{r.l}}</span><div data-fopts><sc-for list="{{r.opts}}" as="o"><button data-fchip aria-pressed="{{o.pressed}}" onClick="{{o.go}}" disabled="{{o.off}}"><sc-if value="{{o.hasG}}"><span aria-hidden="true" style="color:{{o.c}}">{{o.g}}</span></sc-if>{{o.l}}<span data-fn>{{o.n}}</span></button></sc-for></div></div>
-      </sc-for>
-    </div>
-  </details>
-  <sc-if value="{{hasChips}}">
-    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-      <sc-for list="{{chips}}" as="c"><button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:calc(34px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);font-weight:600;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap">{{c.l}}<span aria-hidden="true" style="font-size:calc(12px*var(--fs));color:var(--ink-3)">✕</span></button></sc-for>
-      <button onClick="{{clearAll}}" style="height:calc(34px*var(--hs));padding:0 4px;border:0;background:transparent;color:var(--accent-ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Clear all</button>
-    </div>
-  </sc-if>
-  <div style="height:18px"></div>
 
   <sc-if value="{{hasSecNotes}}">{{secNotesEl}}</sc-if>
   <p aria-live="polite" style="margin:0 0 8px;font-size:calc(14px*var(--fs));color:var(--ink-3)">{{resultCount}}</p>
@@ -434,6 +417,29 @@ mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 1px}
   </ol>
   <sc-if value="{{hasMore}}"><button onClick="{{showMore}}" style="margin-top:16px;width:100%;height:calc(48px*var(--hs));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-weight:650;font-size:calc(15px*var(--fs));cursor:pointer">Show {{moreN}} more</button></sc-if>
 </div>
+<aside aria-label="Search and filters" data-fside>
+  <div style="display:flex;gap:8px;align-items:center">
+    <form role="search" onSubmit="{{submitQ}}" style="flex:1;min-width:0;display:flex;align-items:center;gap:10px;height:calc(44px*var(--hs));padding:0 calc(14px*var(--ps));border-radius:var(--r);background:var(--surface);border:1px solid var(--line-2)" style-focus-within="border-color:var(--accent)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="color:var(--ink-3);flex-shrink:0"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <label for="ex-q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search the tracker</label>
+      <input id="ex-q" ref="{{qRef}}" type="search" value="{{q}}" onChange="{{onQ}}" placeholder="{{qPh}}" autocomplete="off" style="flex:1;min-width:0;height:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:calc(16px*var(--fs));outline:none">
+    </form>
+  </div>
+  <details data-fdet open="{{fdOpen}}">
+    <summary data-fsum>Filters<sc-if value="{{hasExFN}}"><span data-fbadge>{{exFN}}</span></sc-if><span aria-hidden="true" style="margin-left:auto;color:var(--ink-3)">▾</span></summary>
+    <div id="ex-filters" role="group" aria-label="Filters" data-frows>
+      <sc-for list="{{fRows}}" as="r">
+        <div data-frow role="group" aria-label="{{r.l}}"><span data-flabel aria-hidden="true">{{r.l}}</span><div data-fopts><sc-for list="{{r.opts}}" as="o"><button data-fchip aria-pressed="{{o.pressed}}" onClick="{{o.go}}" disabled="{{o.off}}"><sc-if value="{{o.hasG}}"><span aria-hidden="true" style="color:{{o.c}}">{{o.g}}</span></sc-if>{{o.l}}<span data-fn>{{o.n}}</span></button></sc-for></div></div>
+      </sc-for>
+    </div>
+  </details>
+  <sc-if value="{{hasChips}}">
+    <div data-fchips style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+      <sc-for list="{{chips}}" as="c"><button onClick="{{c.rm}}" aria-label="{{c.aria}}" style="height:calc(34px*var(--hs));padding:0 calc(8px*var(--ps)) 0 calc(12px*var(--ps));border-radius:var(--r);border:1px solid var(--line-2);background:var(--surface-2);color:var(--ink);font-weight:600;font-size:calc(13.5px*var(--fs));cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap">{{c.l}}<span aria-hidden="true" style="font-size:calc(12px*var(--fs));color:var(--ink-3)">✕</span></button></sc-for>
+      <button onClick="{{clearAll}}" style="height:calc(34px*var(--hs));padding:0 4px;border:0;background:transparent;color:var(--accent-ink);font-weight:650;font-size:calc(13.5px*var(--fs));cursor:pointer;text-decoration:underline;text-underline-offset:3px;white-space:nowrap">Clear all</button>
+    </div>
+  </sc-if>
+</aside>
 </div>
 </div>
 </sc-if>
