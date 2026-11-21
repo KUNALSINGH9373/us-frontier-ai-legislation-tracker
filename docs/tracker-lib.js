@@ -7,12 +7,12 @@ export const SN = {AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'Calif
 export const GRID = [['AK',0,0],['ME',0,10],['WI',1,5],['VT',1,9],['NH',1,10],['WA',2,0],['ID',2,1],['MT',2,2],['ND',2,3],['MN',2,4],['IL',2,5],['MI',2,6],['NY',2,8],['MA',2,9],['OR',3,0],['NV',3,1],['WY',3,2],['SD',3,3],['IA',3,4],['IN',3,5],['OH',3,6],['PA',3,7],['NJ',3,8],['CT',3,9],['RI',3,10],['CA',4,0],['UT',4,1],['CO',4,2],['NE',4,3],['MO',4,4],['KY',4,5],['WV',4,6],['VA',4,7],['MD',4,8],['DE',4,9],['AZ',5,1],['NM',5,2],['KS',5,3],['AR',5,4],['TN',5,5],['NC',5,6],['SC',5,7],['DC',5,8],['OK',6,3],['LA',6,4],['MS',6,5],['AL',6,6],['GA',6,7],['HI',7,0],['TX',7,3],['FL',7,8]];
 export const ST = {
   enacted:{l:'Enacted',g:'●'}, pending:{l:'Pending',g:'◐'}, stalled:{l:'Stalled',g:'‖'}, failed:{l:'Failed',g:'✕'},
-  executive:{l:'Executive action',g:'▲'}, litigation:{l:'Litigation',g:'§'}, export:{l:'Export control',g:'⬢'}, excluded:{l:'Excluded',g:'○'}
+  executive:{l:'Executive action',g:'▲'}, litigation:{l:'Litigation',g:'§'}, export:{l:'Export control',g:'⬢'}, request:{l:'Reported request',g:'◇'}, excluded:{l:'Excluded',g:'○'}
 };
-export const STATUS_ORDER = ['enacted','pending','stalled','failed','executive','litigation','export','excluded'];
-export const TYPES = {law:'Law',bill:'Bill',auditor:'Auditor licensing',draft:'Draft or proposal',executive:'Executive action',litigation:'Litigation',export:'Export control',precursor:'Earlier proposal',excluded:'Excluded'};
-export let SEC = {A:'Enacted state frontier laws',B:'State frontier bills','B.2':'State catastrophic-risk bills without a compute threshold',C:'Auditor and verifier licensing',D:'Federal frontier bills',E:'Federal drafts and proposals',F:'Related federal bills',G:'Executive actions','G.2':'Lawsuits and enforcement','G.3':'Chips and export controls',H:'Earlier and withdrawn proposals',I:'Frontier provisions in broader laws',J:'Checked and excluded'};
-export const BOARD = {enacted:'#2FD69E',pending:'#FFC23D',auditor:'#C89BFF',stalled:'#A9B4C7',failed:'#FF9B5E',executive:'#4FD4F0',litigation:'#FF8CC0',export:'#A9B6C8',excluded:'#8792A6'};
+export const STATUS_ORDER = ['enacted','pending','stalled','failed','executive','litigation','export','request','excluded'];
+export const TYPES = {law:'Law',bill:'Bill',auditor:'Auditor licensing',draft:'Draft or proposal',executive:'Executive action',litigation:'Litigation',export:'Export control',request:'Informal government request',precursor:'Earlier proposal',excluded:'Excluded'};
+export let SEC = {A:'Enacted state frontier laws',B:'State frontier bills','B.2':'State catastrophic-risk bills without a compute threshold',C:'Auditor and verifier licensing',D:'Federal frontier bills',E:'Federal drafts and proposals',F:'Related federal bills',G:'Executive actions','G.2':'Lawsuits and enforcement','G.3':'Chips and export controls','G.4':'Informal government requests to developers',H:'Earlier and withdrawn proposals',I:'Frontier provisions in broader laws',J:'Checked and excluded'};
+export const BOARD = {enacted:'#2FD69E',pending:'#FFC23D',auditor:'#C89BFF',stalled:'#A9B4C7',failed:'#FF9B5E',executive:'#4FD4F0',litigation:'#FF8CC0',export:'#A9B6C8',request:'#E0A37A',excluded:'#8792A6'};
 export const CAT = {
   law:{l:'Frontier law enacted',g:'●',c:'#2FD69E'}, pending:{l:'Bill pending',g:'◐',c:'#FFC23D'}, auditor:{l:'Auditor licensing',g:'◆',c:'#C89BFF'},
   sf:{l:'Stalled or failed',g:'‖',c:'#FF9B5E'}, other:{l:'Other activity',g:'▲',c:'#4FD4F0'}, none:{l:'No frontier law tracked',g:'',c:'#56627A'}
@@ -58,6 +58,7 @@ export let FED_GROUPS = [
   {k:'G',l:'White House and agencies',sub:'Orders, directives, voluntary programs'},
   {k:'G.2',l:'Lawsuits and enforcement',sub:'Courts, task forces, negative findings'},
   {k:'G.3',l:'Chips and export controls',sub:'Compute and diffusion rules'},
+  {k:'G.4',l:'Informal requests to developers',sub:'Reported requests, not orders. Press-sourced; rated separately'},
   {k:'H',l:'Earlier proposals',sub:'Withdrawn or stripped'}
 ];
 export let MILESTONES = [
@@ -78,7 +79,7 @@ export let REPLAY_START = new Date(2023, 8, 1);
 export let GROUPS = [
   { k: 'state', l: 'State legislation', sections: ['A', 'B', 'B.2', 'C'] },
   { k: 'federal', l: 'Federal legislation', sections: ['D', 'E', 'F'] },
-  { k: 'exec', l: 'Executive action, litigation, export controls', sections: ['G', 'G.2', 'G.3'] },
+  { k: 'exec', l: 'Executive action, litigation, export controls', sections: ['G', 'G.2', 'G.3', 'G.4'] },
   { k: 'context', l: 'Precursors, adjacent laws, exclusions', sections: ['H', 'I', 'J'] }
 ];
 export const groupOf = (sec) => (GROUPS.find((g) => g.sections.includes(sec)) || { k: 'other' }).k;
@@ -170,10 +171,10 @@ function deriveStatus(x) {
   if (s === 'B.2') return 'stalled';
   if (s === 'C') { if (/FAILED/.test(sd)) return 'failed'; if (/signed|enacted|approved by governor/i.test(sd)) return 'enacted'; return 'pending'; }
   if (s === 'D' || s === 'E' || s === 'F') return 'pending';
-  if (s === 'G') return 'executive'; if (s === 'G.2') return 'litigation'; if (s === 'G.3') return 'export';
+  if (s === 'G') return 'executive'; if (s === 'G.2') return 'litigation'; if (s === 'G.3') return 'export'; if (s === 'G.4') return 'request';
   if (s === 'H') return 'failed'; return 'excluded';
 }
-const TYPE_OF = {A:'law',I:'law',B:'bill','B.2':'bill',C:'auditor',D:'bill',F:'bill',E:'draft',G:'executive','G.2':'litigation','G.3':'export',H:'precursor',J:'excluded'};
+const TYPE_OF = {A:'law',I:'law',B:'bill','B.2':'bill',C:'auditor',D:'bill',F:'bill',E:'draft',G:'executive','G.2':'litigation','G.3':'export','G.4':'request',H:'precursor',J:'excluded'};
 
 // Dated steps from a status line: the parts of the text tied to each date, plus the first date and the key (latest past) step.
 function stepsOf(statusText, fy) {

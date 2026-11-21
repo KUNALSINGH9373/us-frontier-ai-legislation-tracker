@@ -65,6 +65,10 @@ The published page reproduces `tracker.md` without editorial changes. The build 
 
 One deliberate edit was made afterwards: the document heading was shortened from "US Frontier AI Legislation Tracker (2025–2026) — Corrected Primary-Source Audit" to "US Frontier AI Legislation Tracker (2025–2026)". The subtitle and what it means are recorded on the About tab. No other text differs from the export.
 
+## Section G.4: informal government requests
+
+Added November 21, 2026 on a reader's suggestion. Section G.4 records requests by a US government body to an AI developer that never became an order, rule or contract: a request to delay a release, restrict who may use a model, or change how it behaves. These rows have no primary record by nature, so they follow a stated evidence standard instead: at least two independent, reputable outlets, or one outlet plus an on-record confirmation by the company or an official. Each row says what is confirmed on the record and what rests on anonymous sources, and none is rated HIGH. The section lives in the v2 data (`web/data/v2/`), with its own entry type `request` and page layout; `tracker.md` and the v1 site are unchanged.
+
 ## Updating
 
 1. Edit `tracker.md`.

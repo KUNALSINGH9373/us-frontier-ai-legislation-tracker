@@ -56,6 +56,10 @@
   ],
   "G.3": [
    "Upstream of every developer mandate above. Executive and legislative, none of it in the \"frontier law\" template."
+  ],
+  "G.4": [
+   "**What this section records.** Requests by a US government body to an AI developer, made outside any order, rule, contract or statute, to delay a release, restrict who may use a model, or change how it behaves. Section G lists formal instruments; the requests here left no official document. Each row names who asked, who was asked, what was asked and what the company then did.",
+   "**Evidence standard, and why it differs from the rest of the tracker.** Every other section is checked against a primary record (a bill text, a docket, a Federal Register page). An informal request has no such record, so these rows are built from reporting and from the companies' own statements. A row is added only when at least two independent, reputable outlets report the request, or one outlet reports it and the company or an official confirms it on the record. The confidence cell says what is confirmed on the record and what rests on anonymous sources. Treat a **MED** row as well reported, not as established fact; nothing here is rated **HIGH**."
   ]
  },
  "section_headings": {
@@ -74,7 +78,8 @@
   "J": "J. Checked and excluded (with reason)",
   "K": "K. Cross-cutting divergences (raw material for the ambiguity taxonomy)",
   "K.2": "K.2 Assurance layers",
-  "L": "L. Completeness methodology and known gaps"
+  "L": "L. Completeness methodology and known gaps",
+  "G.4": "G.4 Informal government requests to developers (reported, not ordered)"
  },
  "comparison": {
   "heading": "K. Cross-cutting divergences (raw material for the ambiguity taxonomy)",

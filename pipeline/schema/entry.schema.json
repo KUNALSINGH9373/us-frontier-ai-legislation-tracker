@@ -360,7 +360,7 @@
     },
     "thirty_seconds": {
       "type": "object", "required": ["a", "b", "c"], "additionalProperties": false,
-      "description": "The three 'In 30 seconds' boxes. Their headings come from the layout: bill = Who / Must do / Or else; executive = Who it directs / What it orders / Binding on companies?; lawsuit = Who v. who / About / Where it is; watch item = What we watch / Why / Latest. Every number must appear in the entry's own checked text.",
+      "description": "The three 'In 30 seconds' boxes. Their headings come from the layout: bill = Who / Must do / Or else; executive = Who it directs / What it orders / Binding on companies?; informal request = Who asked / What was asked / What the company did; lawsuit = Who v. who / About / Where it is; watch item = What we watch / Why / Latest. Every number must appear in the entry's own checked text.",
       "properties": {
         "a": { "type": "string", "maxLength": 320, "pattern": "^[^\\n{}<>]*$" },
         "b": { "type": "string", "maxLength": 320, "pattern": "^[^\\n{}<>]*$" },
@@ -378,7 +378,9 @@
         "judge": { "type": "string", "minLength": 2, "maxLength": 120, "pattern": "^[^\\n{}<>]+$" },
         "plaintiff": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" },
         "defendants": { "type": "string", "minLength": 2, "maxLength": 200, "pattern": "^[^\\n{}<>]+$" },
-        "lawyers": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" }
+        "lawyers": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" },
+        "requested_by": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" },
+        "asked_of": { "type": "string", "minLength": 2, "maxLength": 160, "pattern": "^[^\\n{}<>]+$" }
       }
     },
     "exec_checklist": {

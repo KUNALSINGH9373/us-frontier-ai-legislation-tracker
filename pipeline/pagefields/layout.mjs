@@ -4,14 +4,16 @@ import crypto from 'crypto';
 export const KIND_HEADINGS = {
   bill: ['Who', 'Must do', 'Or else'],
   exec: ['Who it directs', 'What it orders', 'Binding on companies?'],
+  request: ['Who asked', 'What was asked', 'What the company did'],
   lit: ['Who v. who', 'About', 'Where it is'],
   watch: ['What we watch', 'Why', 'Latest']
 };
 // Key facts rows the record cannot give by code, by layout (entry.key_facts).
-export const KIND_FACTS = { bill: ['enforced_by'], exec: ['issued_by', 'lead_agencies'], lit: ['court', 'judge', 'plaintiff', 'defendants', 'lawyers'], watch: [] };
+export const KIND_FACTS = { bill: ['enforced_by'], exec: ['issued_by', 'lead_agencies'], request: ['requested_by', 'asked_of'], lit: ['court', 'judge', 'plaintiff', 'defendants', 'lawyers'], watch: [] };
 
 export function kindOf(e) {
   if (e.type === 'executive') return 'exec';
+  if (e.type === 'request') return 'request';
   if (e.type === 'export') return /\b(?:H\.\s?R\.|S\.)\s?\d|\bAct\b/.test(e.title) ? 'bill' : 'exec';
   if (e.type === 'litigation') return / v\. /.test(e.title) ? 'lit' : 'watch';
   return 'bill';

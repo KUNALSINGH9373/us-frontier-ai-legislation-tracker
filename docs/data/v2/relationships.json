@@ -746,6 +746,18 @@
    "column": 4,
    "kind": "entry",
    "entry_key": "ny-a-8833"
+  },
+  "GPT56REQ": {
+   "name": "June 2026 GPT-5.6 release request (OpenAI)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "june-2026-request-openai-gpt-5-6-limited-preview"
+  },
+  "UKAISIREQ": {
+   "name": "Sept 2026 UK-testing request (OpenAI, Anthropic)",
+   "column": 1,
+   "kind": "entry",
+   "entry_key": "sept-2026-request-openai-anthropic-withhold-models-uk-aisi"
   }
  },
  "edges": [
@@ -2287,6 +2299,36 @@
    "quote": "Assemblymember Alex Bores (D)",
    "src": "NYA8833",
    "col": "Sponsor",
+   "origin": "authored"
+  },
+  {
+   "from": "EO14409",
+   "to": "GPT56REQ",
+   "type": "executive",
+   "label": "The request came while EO 14409's voluntary pre-release framework was still being set up",
+   "quote": "The request followed EO 14409 (June 2, 2026), whose voluntary framework for up to 30 days' pre-release government access had not yet been set up",
+   "src": "GPT56REQ",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "JUNE12",
+   "to": "GPT56REQ",
+   "type": "executive",
+   "label": "Two weeks after the June 12 directive to Anthropic",
+   "quote": "came two weeks after the June 12 export-control directive to Anthropic",
+   "src": "GPT56REQ",
+   "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "GPT56REQ",
+   "to": "UKAISIREQ",
+   "type": "executive",
+   "label": "The official called US-first review the policy for every new frontier model",
+   "quote": "this has been our policy with every new frontier model that comes out",
+   "src": "UKAISIREQ",
+   "col": "Core mechanism",
    "origin": "authored"
   }
  ]

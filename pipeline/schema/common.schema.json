@@ -10,15 +10,15 @@
     "key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "maxLength": 80, "description": "Stable slug. Never reused, never renamed once published." },
 
     "section": {
-      "enum": ["A", "B", "B.2", "C", "D", "E", "F", "G", "G.2", "G.3", "H", "I", "J"],
-      "description": "A enacted state laws; B state bills; B.2 state catastrophic-risk bills; C auditor/verifier licensing; D federal bills; E federal drafts; F adjacent federal bills; G executive actions; G.2 litigation; G.3 export controls; H precursors; I adjacent provisions; J excluded."
+      "enum": ["A", "B", "B.2", "C", "D", "E", "F", "G", "G.2", "G.3", "G.4", "H", "I", "J"],
+      "description": "A enacted state laws; B state bills; B.2 state catastrophic-risk bills; C auditor/verifier licensing; D federal bills; E federal drafts; F adjacent federal bills; G executive actions; G.2 litigation; G.3 export controls; G.4 informal government requests to developers; H precursors; I adjacent provisions; J excluded."
     },
     "status": {
-      "enum": ["enacted", "pending", "stalled", "failed", "executive", "litigation", "export", "excluded"],
+      "enum": ["enacted", "pending", "stalled", "failed", "executive", "litigation", "export", "request", "excluded"],
       "description": "What the entry is today. Set by rule from the source record, never guessed from prose."
     },
     "type": {
-      "enum": ["law", "bill", "auditor", "draft", "executive", "litigation", "export", "precursor", "excluded"]
+      "enum": ["law", "bill", "auditor", "draft", "executive", "litigation", "export", "request", "precursor", "excluded"]
     },
     "level": { "enum": ["federal", "state", "none"] },
     "jurisdiction": {

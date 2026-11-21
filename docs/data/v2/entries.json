@@ -14567,5 +14567,241 @@
    "b": "Within 180 days of enactment, the President must issue or update policies on using classified information to train AI models. Within one year, the Director of National Intelligence must decide whether named firms' equipment poses an unacceptable risk and report to Congress.",
    "c": ""
   }
+ },
+ {
+  "id": 108,
+  "key": "june-2026-request-openai-gpt-5-6-limited-preview",
+  "section": "G.4",
+  "type": "request",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "request",
+  "title": "June 2026 request that OpenAI limit the GPT-5.6 release to government-approved partners",
+  "short_name": "June 2026 GPT-5.6 release request (OpenAI)",
+  "sponsor_text": "",
+  "mechanism": "OpenAI's June 26, 2026 announcement of the GPT-5.6 series (Sol, Terra and Luna) states that, \"as part of our ongoing engagement with the U.S. government,\" it previewed its plans and the models' capabilities before launch and that \"at their request, we are starting with a limited preview for a small group of trusted partners whose participation has been shared with the government, before releasing more broadly.\" During the preview the models were available only through the API and Codex, not ChatGPT. OpenAI added: \"We don't believe this kind of government access process should become the long-term default,\" called it a \"short-term step,\" and said it was working with the administration on \"the cyber Executive Order framework and a repeatable process for future model releases.\" The Information reported, citing a memo from CEO Sam Altman and his remarks to staff, that the request arose from talks with the Office of the National Cyber Director and the Office of Science and Technology Policy over cybersecurity, and that the government would approve access \"customer by customer\" during the preview; Tom's Hardware reported, citing unnamed sources, that Commerce Secretary Howard Lutnick called Altman to warn against a public release without prior government approval. No written directive, order or rule was issued. The request followed EO 14409 (June 2, 2026), whose voluntary framework for up to 30 days' pre-release government access had not yet been set up, and came two weeks after the June 12 export-control directive to Anthropic. OpenAI released the family for general availability on July 9, 2026.",
+  "thresholds": null,
+  "penalties": null,
+  "status_text": "Reported June 24, 2026 (The Information, citing Altman's remarks to staff) | Confirmed by OpenAI June 26, 2026 in its own announcement | General availability July 9, 2026; the limited preview ended | No instrument issued; no government statement on the request found through Nov 21, 2026",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-06-26",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "OpenAI announces the limited preview at the government's request",
+    "clause": "June 26, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-07-09",
+    "precision": "day",
+    "type": "Passed / advanced",
+    "text": "General availability; the limited preview ends",
+    "clause": "July 9, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "OpenAI, \"Previewing GPT‑5.6 Sol\" (June 26, 2026)",
+    "url": "https://openai.com/index/previewing-gpt-5-6-sol/",
+    "kind": "primary"
+   },
+   {
+    "label": "OpenAI, GPT‑5.6 general availability (July 9, 2026)",
+    "url": "https://openai.com/index/gpt-5-6/",
+    "kind": "primary"
+   },
+   {
+    "label": "TechCrunch, June 26, 2026",
+    "url": "https://techcrunch.com/2026/06/26/openai-limits-gpt-5-6-rollout-after-government-request-says-restrictions-shouldnt-be-the-norm/",
+    "kind": "secondary"
+   },
+   {
+    "label": "CNBC, June 26, 2026",
+    "url": "https://www.cnbc.com/2026/06/26/openai-limits-new-ai-models-to-trusted-partners-request-us-government.html",
+    "kind": "secondary"
+   },
+   {
+    "label": "The Hill (via Yahoo News), June 26, 2026",
+    "url": "https://www.yahoo.com/news/politics/articles/openai-slow-rolls-model-release-175800372.html",
+    "kind": "secondary"
+   },
+   {
+    "label": "The Next Web on The Information's report",
+    "url": "https://thenextweb.com/news/trump-administration-openai-stagger-model-release",
+    "kind": "secondary"
+   },
+   {
+    "label": "Tom's Hardware (Lutnick call, unnamed sources)",
+    "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/openais-chatgpt-5-6-gets-the-same-banhammer-treatment-as-anthropics-mythos-from-the-federal-government-source-says-that-washington-cautioned-openai-against-releasing-the-model-without-receiving-approval",
+    "kind": "secondary"
+   }
+  ],
+  "source_label": "OpenAI announcement · TechCrunch · CNBC",
+  "confidence": {
+   "level": "MED-HIGH",
+   "basis": "primary_record",
+   "note": "MED-HIGH: the request and the limited preview are confirmed on the record by OpenAI's own June 26 announcement, read directly. Which offices asked (ONCD and OSTP), the customer-by-customer approval and the reported Lutnick call rest on The Information's account of an internal memo and on unnamed sources; no government statement was found. Section G.4 rows are press-sourced by nature and are never rated HIGH."
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-11-21T12:00:00Z"
+  },
+  "last_checked": "2026-11-21",
+  "last_changed": "2026-11-21",
+  "key_facts": {
+   "requested_by": "US government (reported: Office of the National Cyber Director and Office of Science and Technology Policy)",
+   "asked_of": "OpenAI"
+  },
+  "summary_line": "The government asked OpenAI to start GPT-5.6 with a small group of approved partners; OpenAI complied, objected publicly, and released it broadly on July 9, 2026.",
+  "thirty_seconds": {
+   "a": "The US government, through officials OpenAI has not named. Reporting attributes the request to the Office of the National Cyber Director and the Office of Science and Technology Policy.",
+   "b": "To release GPT-5.6 first to a small group of trusted partners whose participation was shared with the government, instead of to everyone at once, over cybersecurity concerns.",
+   "c": "OpenAI complied for the preview, said the process should not become the long-term default, and released GPT-5.6 generally on July 9, 2026."
+  },
+  "page_verification": {
+   "method": "session",
+   "checked_at": "2026-11-21T12:00:00Z",
+   "reviewer": "session 21 Nov 2026 (section G.4 added)",
+   "basis_sha256": "1d47886ba306f062fc992ec99d5ec0f7b4f9dd8631339437007a904963d68097"
+  }
+ },
+ {
+  "id": 109,
+  "key": "sept-2026-request-openai-anthropic-withhold-models-uk-aisi",
+  "section": "G.4",
+  "type": "request",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "request",
+  "title": "September 2026 request that OpenAI and Anthropic hold new models from the UK AI Security Institute until US review",
+  "short_name": "Sept 2026 UK-testing request (OpenAI, Anthropic)",
+  "sponsor_text": "",
+  "mechanism": "Politico reported on Sept 24, 2026 (Sophia Cai and Joseph Bambridge), citing a senior administration official and a person familiar with the matter, both unnamed, that the White House Office of the National Cyber Director asked OpenAI and Anthropic not to share new frontier models with the UK's AI Security Institute (AISI) until the US government had reviewed them. The official's stated reason, as quoted: \"Because they're American companies and this has been our policy with every new frontier model that comes out.\" Bloomberg reported on Sept 25 that a British official, unnamed, confirmed the request. Anthropic's Sept 1, 2026 announcement of Claude Mythos 5.1 states that the model \"is only available to a set of US organizations, though we're coordinating with the US government to expand access to a broader set of domestic and international partners as quickly as possible.\" AISI's director, Henry de Zoete, wrote to the Commons Business and Trade Committee on Sept 15, 2026 that the institute had not received the model but that \"we maintain strong relationships with all frontier AI developers and continue to have prerelease access to some of the world's most capable models,\" and that it had tested OpenAI's GPT-6 Astra before release. Anthropic declined to comment to Politico, OpenAI declined to comment to Bloomberg, and the White House did not reply to either outlet. No written directive was issued. On Oct 13, 2026 the committee took oral evidence from Anthropic, OpenAI, Google DeepMind, Meta and de Zoete.",
+  "thresholds": null,
+  "penalties": null,
+  "status_text": "Anthropic released Claude Mythos 5.1 Sept 1, 2026 to a set of US organizations only | AISI director's letter Sept 15, 2026 says the institute did not receive the model | Reported Sept 24, 2026 (Politico) | British official's confirmation reported Sept 25, 2026 (Bloomberg) | Commons committee oral evidence Oct 13, 2026 | No instrument issued; no on-record US confirmation found through Nov 21, 2026",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-09-01",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Anthropic releases Claude Mythos 5.1 to a set of US organizations only",
+    "clause": "Sept 1, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-09-15",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "AISI director's letter to the Commons committee",
+    "clause": "Sept 15, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-09-24",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Politico reports the request",
+    "clause": "Sept 24, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2026-10-13",
+    "precision": "day",
+    "type": "Referred / stalled / hearing",
+    "text": "Commons committee oral evidence from the four companies and AISI",
+    "clause": "Oct 13, 2026",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Politico, Sept 24, 2026 (first report)",
+    "url": "https://www.politico.com/news/2026/09/24/white-house-asks-openai-and-anthropic-to-hold-new-models-from-uk-testers-until-u-s-review-01091769",
+    "kind": "secondary"
+   },
+   {
+    "label": "Bloomberg, Sept 25, 2026 (British official's confirmation)",
+    "url": "https://www.bloomberg.com/news/articles/2026-09-25/trump-tells-openai-anthropic-to-withhold-models-from-uk-agency",
+    "kind": "secondary"
+   },
+   {
+    "label": "Anthropic, \"Introducing Claude Fable 5.1 and Claude Mythos 5.1\" (Sept 1, 2026)",
+    "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+    "kind": "primary"
+   },
+   {
+    "label": "Committee chair's letter to AISI, Sept 9, 2026 — committees.parliament.uk",
+    "url": "https://committees.parliament.uk/publications/54948/documents/304811/default/",
+    "kind": "primary"
+   },
+   {
+    "label": "AISI director's reply, Sept 15, 2026 — committees.parliament.uk",
+    "url": "https://committees.parliament.uk/publications/55073/standard/pdf/",
+    "kind": "primary"
+   },
+   {
+    "label": "Oral evidence, Oct 13, 2026 — committees.parliament.uk",
+    "url": "https://committees.parliament.uk/event/28282/formal-meeting-oral-evidence-session/",
+    "kind": "primary"
+   },
+   {
+    "label": "The Next Web, Sept 25, 2026",
+    "url": "https://thenextweb.com/news/white-house-openai-anthropic-uk-ai-security-institute-models",
+    "kind": "secondary"
+   }
+  ],
+  "source_label": "Politico · Bloomberg · Anthropic announcement · Commons committee",
+  "confidence": {
+   "level": "MED",
+   "basis": "corroborated",
+   "note": "MED: the request rests on Politico's two unnamed sources and an unnamed British official's confirmation to Bloomberg; no US official or company has confirmed it on the record. On the record: Anthropic's own statement that Mythos 5.1 was available only to US organizations, and the AISI director's letter as quoted in press. Politico, Bloomberg and the committee's PDFs block automated access and were not opened by this site; their contents are taken from The Next Web's Sept 25 report and the committee's web listings. Section G.4 rows are press-sourced by nature and are never rated HIGH."
+  },
+  "tags": {
+   "updated_after_verification": true,
+   "found_via": "author"
+  },
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-11-21T12:00:00Z"
+  },
+  "last_checked": "2026-11-21",
+  "last_changed": "2026-11-21",
+  "key_facts": {
+   "requested_by": "White House Office of the National Cyber Director (reported; not confirmed on the record)",
+   "asked_of": "OpenAI and Anthropic"
+  },
+  "summary_line": "Reported request that OpenAI and Anthropic keep new models from the UK AI Security Institute until US review; Anthropic's Mythos 5.1 was released to US organizations only.",
+  "thirty_seconds": {
+   "a": "The White House Office of the National Cyber Director, according to two unnamed sources cited by Politico; a British official, also unnamed, confirmed the request to Bloomberg.",
+   "b": "Not to give new frontier models to the UK AI Security Institute for pre-release testing until the US government had reviewed them.",
+   "c": "Anthropic released Claude Mythos 5.1 to US organizations only and said it was coordinating with the US government to widen access; the institute had tested OpenAI's GPT-6 Astra before release. Neither company confirmed the request."
+  },
+  "page_verification": {
+   "method": "session",
+   "checked_at": "2026-11-21T12:00:00Z",
+   "reviewer": "session 21 Nov 2026 (section G.4 added)",
+   "basis_sha256": "03d5c6fb61676499fb42f12bb9deddd363cb696f870b1fd7fe8293789b21c275"
+  }
  }
 ]

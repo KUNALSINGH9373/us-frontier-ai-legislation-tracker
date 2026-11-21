@@ -13,6 +13,7 @@
   "G": "Executive actions",
   "G.2": "Lawsuits and enforcement",
   "G.3": "Chips and export controls",
+  "G.4": "Informal government requests to developers",
   "H": "Earlier and withdrawn proposals",
   "I": "Frontier provisions in broader laws",
   "J": "Checked and excluded"
@@ -43,7 +44,8 @@
    "sections": [
     "G",
     "G.2",
-    "G.3"
+    "G.3",
+    "G.4"
    ]
   },
   {
@@ -86,6 +88,11 @@
    "section": "G.3",
    "name": "Chips and export controls",
    "note": "Compute and diffusion rules"
+  },
+  {
+   "section": "G.4",
+   "name": "Informal requests to developers",
+   "note": "Reported requests, not orders. Press-sourced; rated separately"
   },
   {
    "section": "H",
