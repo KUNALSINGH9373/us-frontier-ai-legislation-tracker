@@ -4841,8 +4841,8 @@
   "title": "H.R. 9925 — FRONTIER Act (Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting Act)",
   "short_name": "H.R. 9925 FRONTIER Act",
   "sponsor_text": "Rep. Jay Obernolte (R-CA), sponsor; original cosponsors Lori Trahan (D-MA), Franklin (R-FL), Peters (D-CA), Houchin (R-IN), Subramanyam (D-VA); 11 cosponsors in all (Congress.gov)",
-  "mechanism": "Would create an Under Secretary of Commerce for AI Security with power to write rules. Large developers would have to publish a frontier AI framework, get an annual third-party compliance audit, publish transparency reports, and file a registration and disclosure statement naming beneficial owners. Very large developers would also have to retain a licensed independent verification organization (IVO) for ongoing assessment, with reports at least every 6 months. Incidents would have to be reported to the Under Secretary within 72 hours, and to law enforcement within 24 hours if death or injury is imminent. Developers would also file quarterly summaries of internal-use risks. Under Section 8, the Commerce Secretary could suspend or restrict development, deployment or internal use of a model found to pose an imminent catastrophic risk (provisional orders last 45 days; final orders 90 days, renewable). Orders would also cover fine-tuned or distilled copies. Only the federal district court in Washington, D.C. could review them, and this would be the only way any federal official, including the President, could restrict a model on those grounds. IVOs could not be sued except for willful misconduct causing death or serious injury. Civil penalties would be up to $1,000,000 per violation, and up to $10,000,000 per violation for breaching an emergency order; a willful breach of an emergency order would be a crime punishable by up to 10 years in prison. State attorneys general could opt in to receive reports and enforce. The Under Secretary could raise the thresholds but never lower them. False statements made in good faith would be excused, and transparency reports could be deferred for confidential deployments. The bill has no whistleblower title, although the June 2026 Great American AI Act discussion draft had one. Section 9 would bar states from adopting or enforcing laws that impose \"new substantive obligations\" on developers about catastrophic-risk transparency, third-party auditing or verification, or incident reporting, with exceptions for general laws, rules on deployers and uses, protections for minors, and state purchasing. There is no end date (the June draft had a 3-year limit). The sponsor's section-by-section says the preemption clause \"is aimed at\" California SB 53, New York's RAISE Act and Illinois SB 315.",
-  "thresholds": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning. Large developer: over $50M revenue and at least $1B in AI development spending over 36 months. Very large developer: over $5B revenue and at least $10B in spending. This differs from the $500M revenue test used by states. Catastrophic risk: more than 50 deaths or more than $1B in property damage (not counting loss of share value).",
+  "mechanism": "Would create an Under Secretary of Commerce for AI Security with power to write rules. Large developers would have to publish a frontier AI framework, get an annual third-party compliance audit, publish transparency reports, and file a registration and disclosure statement naming beneficial owners. Very large developers would also have to retain a licensed independent verification organization (IVO) for ongoing assessment, with reports at least every 6 months. Incidents would have to be reported to the Under Secretary within 72 hours, and to law enforcement within 24 hours if death or injury is imminent. Developers would also file quarterly summaries of internal-use risks. Under Section 8, the Commerce Secretary could suspend or restrict development, deployment or internal use of a model found to pose an imminent catastrophic risk (provisional orders last 45 days; final orders 90 days, renewable). Orders would also cover fine-tuned or distilled copies. Only the federal district court in Washington, D.C. could review them, and this would be the only way any federal official, including the President, could restrict a model on those grounds. IVOs could not be sued except for willful misconduct causing death or serious injury. Civil penalties would be up to $1,000,000 per violation, and up to $10,000,000 per violation for breaching an emergency order; a willful breach of an emergency order would be a crime punishable by up to 10 years in prison. State attorneys general could opt in to receive reports and enforce. The Under Secretary could raise the thresholds but never lower them. False statements made in good faith would be excused, and transparency reports could be deferred for confidential deployments. The bill has no whistleblower title, although the June 2026 Great American AI Act discussion draft had one. Section 9 would bar states from adopting or enforcing laws that impose \"new substantive obligations\" on developers about catastrophic-risk transparency, third-party auditing or verification, or incident reporting, with exceptions for general laws, rules on deployers and uses, protections for minors, and state purchasing. There is no end date (the June draft had a 3-year limit). The sponsor's section-by-section says the preemption clause \"is aimed at\" California SB 53, New York's RAISE Act and Illinois SB 315. Registration violations carry a $10,000 civil penalty for each day of noncompliance.",
+  "thresholds": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning. Large developer: over $50M revenue and at least $1B in AI development spending over 36 months. Very large developer: over $5B revenue and at least $10B in spending. Catastrophic risk: death of, or serious injury to, more than 50 people, or more than $1B in property damage (not counting loss of share value).",
   "penalties": null,
   "status_text": "Introduced July 23, 2026; referred to the House Energy and Commerce Committee and the House Science, Space, and Technology Committee. Cosponsors were added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM), Sept 21, 2026 (Malliotakis R-NY, Correa D-CA) and Oct 1, 2026 (Gallagher R-CA, Quigley D-IL), for 11 cosponsors in all. As of Oct 27, 2026, no committee action had been recorded. Reuters linked a remark by President Trump on Aug 7, 2026 (a Punchbowl interview) that companies could be put \"out of business\" to this bill's audit requirement.",
   "signed_text": null,
@@ -4917,13 +4917,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-21T00:05:56Z",
+   "run_id": "update-20261121-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-21",
+  "last_changed": "2026-11-21",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9925-frontier-act-frontier-risk-oversight-national-transparency-in",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5030,17 +5032,34 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would require large frontier AI developers to publish safety frameworks, undergo third-party audits and report incidents, and let Commerce suspend models that pose imminent catastrophic risk.",
-  "thirty_seconds": {
-   "a": "Large frontier AI developers (over $50,000,000 revenue and at least $1,000,000,000 in AI spending over 36 months); very large ones face extra duties.",
-   "b": "Publish a frontier AI framework, get an annual third-party audit, register, and report incidents within 72 hours (24 hours to law enforcement if death or injury is imminent).",
-   "c": "Civil penalties up to $1,000,000 per violation, each day counting as a separate violation, and up to $10,000,000 for breaking an emergency order; a willful breach of such an order would be a crime."
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:41:56.279Z",
+   "checked_at": "2026-11-21T00:05:56Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "18c79a2fafdc246b3f36f7911774c6ef9e74cc9604aa73be2457d896e2786bf6"
+   "basis_sha256": "16ccbdea461716c3697a20ba1bbdc8b296fe4aef9f91a0d47f8052805dab4431"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "shall be subject to a civil penalty of $10,000 for each day of noncompliance",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "will materially contribute to the death of, or serious injury to, more than 50 people",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "does not include the loss of value of equity",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   }
+  ],
+  "summary_line": "Would require frontier AI developers to publish safety frameworks, report incidents and undergo audits, and let Commerce restrict models posing imminent catastrophic risk.",
+  "thirty_seconds": {
+   "a": "Developers of frontier models trained with more than 10^26 operations. Audits and frameworks apply to large developers; very large developers also need an independent verifier.",
+   "b": "Publish a safety framework and transparency reports, register, get audited, and report incidents to the Under Secretary of Commerce within 72 hours.",
+   "c": "Civil penalties up to $1,000,000 per violation, and up to $10,000,000 for breaching an emergency order. A willful breach could mean up to 10 years in prison."
   }
  },
  {
@@ -5832,7 +5851,7 @@
   "short_name": "H.R. 9965 ATOMIC Act",
   "sponsor_text": "Rep. Celeste Maloy (R-UT), sponsor; cosponsors Sara Jacobs (D-CA, original) and Tom Barrett (R-MI, added Aug 20, 2026)",
   "mechanism": "The Department of Energy, through the National Laboratories and the National Nuclear Security Administration, would set up an Advanced AI Nuclear Evaluation Program within 90 days. It would test for \"AI nuclear incidents\": help building nuclear weapons, generating classified nuclear data (Restricted Data), loss of control involving nuclear systems, access by adversaries, and scheming behavior. Testing would include red-teaming at the level of a sophisticated adversary, plus third-party and blind evaluations. Large advanced AI developers would have to take part and give secure access to model weights and, where necessary, versions without safety mitigations. The Secretary could subpoena weights and software. The penalty would be up to $1M per violation, each day a separate violation, and cases could be referred to the Justice Department. Program information would be exempt from public-records (FOIA) requests, with exceptions including requests from congressional committees. An annual report would give legislative recommendations, which may include licensing or a new federal agency. The program would end after 7 years. The bill defines \"evaluation awareness\" and \"scheming behavior\" in law.",
-  "thresholds": "\"Advanced AI\" means AI trained with more than 10^26 operations (the Secretary may change this by rule). A \"large advanced AI developer\" has spent at least $2B on AI over the preceding 5 years. \"Substantially modify\" means spending at least $5M. A loss-of-control scenario means at least 5 deaths, at least 50 serious injuries, or more than $100M in damage.",
+  "thresholds": "\"Advanced AI\" means AI trained with more than 10^26 operations (the Secretary may change this by rule). A \"large advanced AI developer\" has spent at least $2B on AI over the preceding 5 years. \"Substantially modify\" means spending at least $5M that materially alters the functionality or performance of the AI. A loss-of-control scenario means at least 5 deaths, at least 50 serious injuries, or more than $100M in damage.",
   "penalties": null,
   "status_text": "Introduced July 27, 2026 and referred to the House Science, Space, and Technology Committee. Rep. Tom Barrett (R-MI) was added as a cosponsor Aug 20, 2026.",
   "signed_text": null,
@@ -5867,6 +5886,11 @@
     "label": "Bill status — GovInfo",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9965.xml",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Text — GovInfo · Bill status — GovInfo",
@@ -5879,13 +5903,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-21T00:05:56Z",
+   "run_id": "update-20261121-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-21",
+  "last_changed": "2026-11-21",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9965-atomic-act-ai-threat-output-and-monitoring-incident-containme",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5974,20 +6000,27 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would require large advanced AI developers to join a federal nuclear-risk testing program run by the Department of Energy, with civil penalties for violations.",
-  "thirty_seconds": {
-   "a": "Large advanced AI developers: those with at least $2B in AI investment over the preceding 5 years, building AI trained with more than 10²⁶ operations.",
-   "b": "Would have to take part in DOE testing for AI nuclear incidents, giving secure access to model weights and, where necessary, versions without safety mitigations.",
-   "c": "Civil penalty of up to $1M per violation, each day a separate violation; the Secretary may subpoena weights, and violations can be referred to DOJ."
-  },
-  "key_facts": {
-   "enforced_by": "Energy Secretary"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:43:23.599Z",
+   "checked_at": "2026-11-21T00:05:56Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "29a4eeaf56355b391cf553376700ce11b79d9c8dc38a9edcb583b5571a346419"
+   "basis_sha256": "9dc8478ba3894a39c5d7cb447af8e71fae2fe19618fea5a24217a81ae56dc456"
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "carry out an action that costs not less than $5,000,000 and materially alters the functionality or performance of such artificial intelligence",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text"
+   }
+  ],
+  "summary_line": "Would set up a Department of Energy program to test advanced AI for nuclear weapons risks, requiring large developers to take part and give access to model weights.",
+  "thirty_seconds": {
+   "a": "Large advanced AI developers, meaning those that spent at least $2B on AI over the preceding 5 years. The AI tested is AI trained with more than 10^26 operations.",
+   "b": "Take part in Department of Energy testing for nuclear risks and give secure access to model weights and, where necessary, versions without safety mitigations.",
+   "c": "Civil penalty of up to $1M per violation, each day a separate violation. The Secretary could subpoena weights and software, and cases could be referred to the Justice Department."
+  },
+  "key_facts": {
+   "enforced_by": "Secretary, Department of Energy"
   }
  },
  {
@@ -14114,7 +14147,7 @@
   "title": "H.R. 9624 — Intelligence Authorization Act for Fiscal Year 2027",
   "short_name": "Intelligence Authorization Act for Fiscal Year 2027",
   "sponsor_text": "Rep. Eric A. \"Rick\" Crawford (R-AR)",
-  "mechanism": "The President must, within 180 days after enactment, issue or update intelligence community-wide policies on using classified information to train or refine AI models for use by an intelligence community element.; The policies under subsection (a) must seek to maximize, to the greatest extent practicable, the data usable for training or refining AI models, consistent with protecting it from unauthorized use and existing laws.; The Chief AI Officer of the Intelligence Community must act as the Director of National Intelligence's chief representative on AI matters with intelligence community elements.; The Chief AI Officer must assist the Director in formulating a long-term strategy for AI adoption in the intelligence community.; The Chief AI Officer must assist the Director regarding the AI elements of the budget of the Office of the Director of National Intelligence.; The Chief AI Officer must perform other AI-related duties as may be prescribed by the Director of National Intelligence or specified in law.; Sec. 423 adds to Section 6504(c) a function of evaluating AI alignment, assurance, interpretability, safety, security and transparency against risks including loss of control and shutdown refusal. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.; Sec. 423 adds to Section 6504(c) a function of developing best practices and standards for benchmarking, testing and evaluating US and foreign AI models. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.; Sec. 423 adds to Section 6504(c) a function of sharing with other intelligence community elements information on counter-AI tactics, techniques and procedures used by adversaries. The inserted text does not name who performs it.; The Director of the National Security Agency may, on a voluntary basis and as the Director determines appropriate, collaborate with government agencies, research entities, private-sector entities and foreign governments or entities, including by providing computing resources.; The Director of National Intelligence must, within one year after enactment, determine whether any communications equipment or service described in subsection (b) poses an unacceptable risk to US national security or the security and safety of US persons.; The Director of National Intelligence must, within one year after enactment, submit to the congressional intelligence committees a report on the results of the determination.",
+  "mechanism": "The President must, within 180 days after enactment, issue or update intelligence community-wide policies on using classified information to train or refine AI models for use by an intelligence community element.; The policies under subsection (a) must seek to maximize, to the greatest extent practicable, the data usable for training or refining AI models, including maximizing the amount of information classified at the most sensitive levels that may be used for such training or refining, consistent with protecting it from unauthorized use and existing laws.; The Chief AI Officer of the Intelligence Community must act as the Director of National Intelligence's chief representative on AI matters with intelligence community elements.; The Chief AI Officer must assist the Director in formulating a long-term strategy for AI adoption in the intelligence community.; The Chief AI Officer must assist the Director regarding the AI elements of the budget of the Office of the Director of National Intelligence.; The Chief AI Officer must perform other AI-related duties as may be prescribed by the Director of National Intelligence or specified in law.; Sec. 423 adds to Section 6504(c) a function of evaluating AI alignment, assurance, interpretability, safety, security and transparency against risks including loss of control and shutdown refusal. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.; Sec. 423 adds to Section 6504(c) a function of developing best practices and standards for benchmarking, testing and evaluating US and foreign AI models. The inserted text does not name who performs it; new subsection (e) refers to the Director of the National Security Agency 'carrying out this section'.; Sec. 423 adds to Section 6504(c) a function of sharing with other intelligence community elements information on counter-AI tactics, techniques and procedures used by adversaries. The inserted text does not name who performs it.; The Director of the National Security Agency may, on a voluntary basis and as the Director determines appropriate, collaborate with government agencies, research entities, private-sector entities and foreign governments or entities, including by providing computing resources.; The Director of National Intelligence must, within one year after enactment, determine whether any communications equipment or service described in subsection (b) poses an unacceptable risk to US national security or the security and safety of US persons.; The Director of National Intelligence must, within one year after enactment, submit to the congressional intelligence committees a report on the results of the determination.",
   "thresholds": "Any communications equipment or service produced or provided by Game Science Interactive Co., Ltd., DeepSeek, Unitree Robotics, DEEP Robotics, BrainCo, Inc. or Manycore Tech, Inc., or by their subsidiaries, affiliates, partners, joint-venture entities or licensees.",
   "penalties": null,
   "status_text": "Introduced / status: July 9, 2026; Reported (Amended) by the Committee on Intelligence. H. Rept. 119-886 (Nov 18, 2026)",
@@ -14144,6 +14177,11 @@
     "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624",
     "kind": "primary",
     "retrieved_at": "2026-11-20T04:06:17Z"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9624/text",
+    "kind": "primary"
    }
   ],
   "confidence": {
@@ -14161,96 +14199,6 @@
     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
    },
    {
-    "field": "mechanism",
-    "quote": "(a) Intelligence Community-wide Policies.--Not later than 180 days after the date of the enactment of this Act, the President shall issue or update policies that apply to the entire intelligence community with respect to the use of classified information for the purpose of training or refining artificial intelligence models for use by an element of the intelligence community.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(b) Maximum Data Usage.--The policies issued or updated under subsection (a) shall seek to maximize to the greatest extent practicable the amount of data that can be used for training or refining artificial intelligence models, including maximizing the amount of information classified at the most sensitive levels that may be used for such training or refining, consistent with the need to protect such information from unauthorized use and in accordance with existing laws.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(1) act as the chief representative of the Director of National Intelligence for artificial intelligence matters with the elements of the intelligence community;",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(2) assist the Director in formulating a long-term strategy for artificial intelligence adoption in the intelligence community;",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(3) assist the Director regarding the artificial intelligence elements of the budget of the Office of the Director of National Intelligence; and",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(4) perform other such duties relating to artificial intelligence as may be prescribed by the Director of National Intelligence or specified in law.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(c) Duties.--The Chief Artificial Intelligence Officer of the Intelligence Community shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(6) Evaluating artificial intelligence alignment, assurance, interpretability, safety, security, and transparency against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal, sleeper agents, tampering, and other forms of unreliability.''",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(5) Developing best practices and standards for benchmarking, testing, and evaluation of United States and foreign artificial intelligence models to understand standalone artificial intelligence capabilities, assess interactions between artificial intelligence capabilities, and evaluate circumstances and use cases where the Federal Government should use certain artificial intelligence capabilities and the conditions or scenarios for such use.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(4) Sharing with the other elements of the intelligence community information on counter-artificial intelligence tactics, techniques, and procedures used by adversaries.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(e) External Collaboration.--In carrying out this section, the Director of the National Security Agency may collaborate, on a voluntary basis, with other departments and agencies of the United States Government, research entities, private-sector entities, and foreign governments or entities, as the Director determines appropriate, including through the provision of any computing resources the Director determines appropriate.''.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(1) determine if any communications equipment or service described in subsection (b) poses an unacceptable risk to the national security of the United States or the security and safety of United States persons; and",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(a) In General.--Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(2) submit to the congressional intelligence committees a report on the results of the determination.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(a) In General.--Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
     "field": "effective_text",
     "quote": "Not later than 180 days after the date of the enactment of this Act, the President shall issue or update policies",
     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
@@ -14258,56 +14206,6 @@
    {
     "field": "effective_text",
     "quote": "Not later than one year after the date of the enactment of this Act, the Director of National Intelligence shall--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(a) Chief Artificial Intelligence Officer.--There is a Chief Artificial Intelligence Officer of the Intelligence Community within the Office of the Director of National Intelligence who shall be appointed by the Director of National Intelligence.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(b) Qualifications.--An individual appointed as the Chief Artificial Intelligence Officer of the Intelligence Community shall have a professional background and experience appropriate for the duties of the Chief Artificial Intelligence Officer.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "``(d) Relationship to Other Laws.--The Chief Artificial Intelligence Officer of the Intelligence Community shall be considered the Chief Artificial Intelligence Officer of the Office of the Director of National Intelligence for purposes of the requirement to designate a Chief Artificial Intelligence Officer of each element of the intelligence community under section 6702(e) of the Intelligence Authorization Act for Fiscal Year 2023 (50 U.S.C. 3334m(e)).''.",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(1) in subsection (a), by striking ``manipulate'' and inserting ``manipulate, deceive, or exploit'';",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(B) by striking ``within the Cybersecurity Collaboration Center of the National Security Agency'';",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(2) in subsection (b)--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(A) in paragraph (1)(A), by striking ``theft'' and inserting ``theft, including through distillation attacks,'';",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(4) in subsection (d)--",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(A) by striking ``this Act'' and inserting ``the Intelligence Authorization Act for Fiscal Year 2027'';",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
-   },
-   {
-    "field": "mechanism",
-    "quote": "(2) in subsection (b)--",
     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
    },
    {
@@ -14319,6 +14217,11 @@
     "field": "section",
     "quote": "``(6) Evaluating artificial intelligence alignment, assurance, interpretability, safety, security, and transparency against risks, including backdoors, data poisoning, deception, hallucination, loss of control, shutdown refusal, sleeper agents, tampering, and other forms of unreliability.''",
     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624"
+   },
+   {
+    "field": "mechanism",
+    "quote": "including maximizing the amount of information classified at the most sensitive levels that may be used for such training or refining",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624/text"
    }
   ],
   "origin": "automated",
@@ -14335,12 +14238,12 @@
   },
   "verification": {
    "method": "agent",
-   "checked_at": "2026-11-20T04:06:24Z",
-   "run_id": "run-20261120-0406-0964",
-   "rounds": 3
+   "checked_at": "2026-11-21T00:05:56Z",
+   "run_id": "update-20261121-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-20",
-  "last_changed": "2026-11-20",
+  "last_checked": "2026-11-21",
+  "last_changed": "2026-11-21",
   "duties": {
    "framework": {
     "value": "not_in_bill",
@@ -14652,17 +14555,17 @@
     "Only 6 of 181 sections were provided; the short title, definitions and other sections are omitted. Sec. 423 amends Section 6504 of the Intelligence Authorization Act for Fiscal Year 2025, whose existing text is not shown. The inserted paragraphs (4), (5) and (6) do not name the party that carries them out; new subsection (e) refers to the Director of the National Security Agency 'In carrying out this section', but the bill does not say in the inserted paragraphs who performs each function."
    ]
   },
-  "summary_line": "Would require AI training policies for classified data, create an intelligence community Chief AI Officer, and order a review of communications equipment from named firms including DeepSeek.",
-  "thirty_seconds": {
-   "a": "The President, the Director of National Intelligence, the intelligence community's Chief AI Officer, and the Director of the National Security Agency, which may collaborate voluntarily with outside entities.",
-   "b": "The President must issue or update policies on using classified information to train AI within 180 days after enactment. The Director of National Intelligence must determine within one year if named firms' equipment poses an unacceptable risk, and report.",
-   "c": ""
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-20T04:05:49Z",
+   "checked_at": "2026-11-21T00:05:56Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "4ed5d84ac7f4e20039eb764f7fac3f80151f40a62ebd3d01dd5db14145639edb"
+   "basis_sha256": "1a7c29c861749cf36f9006afeda28c688c9c9574fc1e4da8fb40fa0535ac1866"
+  },
+  "summary_line": "Would require AI policies for using classified data, create an intelligence community Chief AI Officer, and have a review of communications equipment from named firms including DeepSeek.",
+  "thirty_seconds": {
+   "a": "The President, the Director of National Intelligence, the intelligence community's Chief AI Officer, and the Director of the National Security Agency, which may collaborate voluntarily with outside groups.",
+   "b": "Within 180 days of enactment, the President must issue or update policies on using classified information to train AI models. Within one year, the Director of National Intelligence must decide whether named firms' equipment poses an unacceptable risk and report to Congress.",
+   "c": ""
   }
  }
 ]
