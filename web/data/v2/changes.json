@@ -907,6 +907,81 @@
    "run_id": "update-20261121-0005",
    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9965/text",
    "tier": "C"
+  },
+  {
+   "entry_key": "h-r-9477-ai-incident-reporting-act",
+   "field": "mechanism",
+   "old": "Commerce would set, by regulation within 180 days, capability-based thresholds (no compute figure) that decide which models and developers are covered. Covered developers would have to report \"reportable activity\" within 7 days: a model evading oversight or resisting shutdown, theft or leaking of model weights, help with offensive cyberattacks, unprompted speeding-up of AI research, help with chemical, biological, radiological, nuclear or explosive weapons, and near-misses avoided only by luck. Imminent risks would need faster reports, and Commerce would have to tell congressional leaders within 48 hours of an imminent-risk report. Reports would be exempt from public-records (FOIA) requests. Under Section 2(d)(4), reports could not be used in any civil, criminal or administrative case against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer, a protection that would also bind state attorneys general. Civil penalties would be up to $2M per violation, with each day a separate offense, and Commerce would have subpoena and inspection powers. Rep. Moran told Reuters he split incident reporting out of the Great American AI Act discussion draft to move faster.",
+   "new": "Commerce would set, by regulation within 180 days, capability-based thresholds (no compute figure) that decide which models and developers are covered. Covered developers would have to report \"reportable activity\" within 7 days: a model evading oversight or resisting shutdown, theft or leaking of model weights, help with offensive cyberattacks, unprompted speeding-up of AI research, help with chemical, biological, radiological, nuclear or explosive weapons, and near-misses avoided only by luck. Imminent risks would need faster reports, and Commerce would have to tell congressional leaders within 48 hours of an imminent-risk report. Reports would be exempt from public-records (FOIA) requests. Under Section 2(d)(4), reports could not be used in any civil, criminal or administrative case against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer, a protection that would also bind state attorneys general. Liability for the underlying incident is not affected if it can be established independently of the report. Civil penalties would be up to $2M per violation, with each day a separate offense, and Commerce would have subpoena and inspection powers. Rep. Moran told Reuters he split incident reporting out of the Great American AI Act discussion draft to move faster.",
+   "date": "2026-11-22",
+   "run_id": "update-20261122-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that liability for the underlying incident is not shielded: Section 2(d)(4)(C)(iii) says the use restrictions do not affect liability for the incident when it can be established from information obtained independently of the report. Quote: \"affect the liability of any person\""
+  },
+  {
+   "entry_key": "h-r-9477-ai-incident-reporting-act",
+   "field": "thresholds",
+   "old": "Capability-based, Commerce-designated",
+   "new": "Capability-based, Commerce-designated; also covers developers that substantially modify a covered model, including through fine-tuning, in a manner that the Secretary determines causes it to meet a threshold",
+   "date": "2026-11-22",
+   "run_id": "update-20261122-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits a second way to be covered: a developer that substantially modifies a covered model, including through fine-tuning, in a manner the Secretary determines causes it to meet a threshold is a covered model developer. Quote: \"substantially modifies a covered model, including through fine-tuning\""
+  },
+  {
+   "entry_key": "h-r-9477-ai-incident-reporting-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-22",
+   "run_id": "update-20261122-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "h-r-9914-s-5105-catsr",
+   "field": "mechanism",
+   "old": "Would give an antitrust exemption to two or more non-federal entities that share AI security-risk information or help in good faith, only to address covered AI security risks. It would also cover coordinating to delay or limit the release, deployment or training of AI, if they first give written notice to the Justice Department's Assistant Attorney General for antitrust. The exemption is a defense the entities must prove, and it does not cover price-fixing or dividing markets. The Attorney General could seek court orders to stop violations. It is modeled on the Cybersecurity Information Sharing Act of 2015. It enables coordination rather than regulating developers.",
+   "new": "Would give an antitrust exemption to two or more non-federal entities that share AI security-risk information or help in good faith, only to address covered AI security risks. It would also cover coordinating to delay or limit the release, deployment or training of AI, if they first give written notice to the Justice Department's Assistant Attorney General for antitrust. The exemption is a defense the entities must prove, and it does not cover price-fixing or dividing markets. The Attorney General could seek court orders to stop violations. It is modeled on the Cybersecurity Information Sharing Act of 2015. It enables coordination rather than regulating developers. Nothing limits private rights of action for non-exempt violations. No injunction immunity if AG shows an overall increase in risks.",
+   "date": "2026-11-22",
+   "run_id": "update-20261122-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that the bill preserves private rights of action for non-exempt violations (Sec. 3(d)(2)) and that the exemption gives no immunity from AG injunctions if the AG shows an overall increase in covered risks (Sec. 4(b)(2)). Quote: \"Nothing in this Act shall be construed as limiting any private right of action with respect\""
+  },
+  {
+   "entry_key": "h-r-9914-s-5105-catsr",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-22",
+   "run_id": "update-20261122-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "mechanism",
+   "old": "Would amend the Homeland Security Act. Covered developers would have to keep the technical ability to throttle computing, inference or user access, suspend, or fully shut down covered systems. The Homeland Security Secretary, working with Commerce and the Director of National Intelligence, could order steps from throttling up to full shutdown in a \"loss-of-control scenario\" (a system resisting shutdown, hiding its actions from monitoring, or pursuing high-stakes goals without authorization) or when unintended AI conduct causes at least 10 deaths or at least $100M in damage. For comparison, the ATOMIC Act (H.R. 9965) uses five deaths in its testing definition of loss of control, but gives no shutdown power. Covered incidents would have to be reported to DHS within 15 days, and weights and records would have to be preserved under an order. A developer could ask for reconsideration within 48 hours, but the order would stay in force meanwhile. The Department of Homeland Security would define the scope by rule each year. Civil penalties would be up to $2M per day for ordinary violations and up to $20M per day for violating an emergency order. The full-shutdown requirement echoes California's 2024 bill SB 1047, and the order power overlaps the emergency orders in Section 8 of the FRONTIER Act (H.R. 9925), but here the power sits with DHS rather than Commerce.",
+   "new": "Would amend the Homeland Security Act. Covered developers would have to keep the technical ability to throttle computing, inference or user access, suspend, or fully shut down covered systems. The Homeland Security Secretary, working with Commerce and the Director of National Intelligence, could order steps from throttling up to full shutdown in a \"loss-of-control scenario\" (a system resisting shutdown, hiding its actions from monitoring, or pursuing high-stakes goals without authorization) or when unintended AI conduct causes at least 10 deaths or at least $100M in damage. For comparison, the ATOMIC Act (H.R. 9965) uses five deaths in its testing definition of loss of control, but gives no shutdown power. Covered incidents would have to be reported to DHS within 15 days, and weights and telemetry would have to be preserved under an order. A developer could ask for reconsideration within 48 hours, but the order would stay in force meanwhile. The Department of Homeland Security would define the scope by rule each year. Civil penalties would be up to $2M per day for ordinary violations and up to $20M per day for violating an emergency order. The full-shutdown requirement echoes California's 2024 bill SB 1047, and the order power overlaps the emergency orders in Section 8 of the FRONTIER Act (H.R. 9925), but here the power sits with DHS rather than Commerce.",
+   "date": "2026-11-22",
+   "run_id": "update-20261122-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+   "tier": "C",
+   "note": "self-correction (error): The word \"records\" is wrong: SOURCE requires preservation of the model weights and telemetry, not records, so \"records\" is replaced with \"telemetry\". Quote: \"Preserve the model weights and telemetry of such technology.\""
+  },
+  {
+   "entry_key": "h-r-9917-ai-kill-switch-act",
+   "field": "thresholds",
+   "old": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
+   "new": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue, with affiliates, from the covered technology; personal/academic/noncommercial-only systems exempt",
+   "date": "2026-11-22",
+   "run_id": "update-20261122-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+   "tier": "C",
+   "note": "self-correction (omission): The revenue test also counts affiliates together, which the entry leaves out; SOURCE states this and the threshold is \"not less than $500,000,000 in gross revenue\". Quote: \"Derives together with the affiliates, if any, of such person not less than $500,000,000 in gross revenue from such technology\""
   }
  ]
 }

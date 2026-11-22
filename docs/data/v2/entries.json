@@ -5255,7 +5255,7 @@
   "title": "H.R. 9914 / S. 5105 — Collaboration on Adversarial Threats and Security Risks Act",
   "short_name": "H.R. 9914 / S. 5105 CATSR",
   "sponsor_text": "House: Rep. Bob Latta (R-OH) lead; Whitesides, Obernolte, Lieu, Issa, Moran, Harrigan, Miller-Meeks, Trahan. Senate: Sens. Adam Schiff (D-CA) and Jim Banks (R-IN); 25 House cosponsors in all (Congress.gov)",
-  "mechanism": "Would give an antitrust exemption to two or more non-federal entities that share AI security-risk information or help in good faith, only to address covered AI security risks. It would also cover coordinating to delay or limit the release, deployment or training of AI, if they first give written notice to the Justice Department's Assistant Attorney General for antitrust. The exemption is a defense the entities must prove, and it does not cover price-fixing or dividing markets. The Attorney General could seek court orders to stop violations. It is modeled on the Cybersecurity Information Sharing Act of 2015. It enables coordination rather than regulating developers.",
+  "mechanism": "Would give an antitrust exemption to two or more non-federal entities that share AI security-risk information or help in good faith, only to address covered AI security risks. It would also cover coordinating to delay or limit the release, deployment or training of AI, if they first give written notice to the Justice Department's Assistant Attorney General for antitrust. The exemption is a defense the entities must prove, and it does not cover price-fixing or dividing markets. The Attorney General could seek court orders to stop violations. It is modeled on the Cybersecurity Information Sharing Act of 2015. It enables coordination rather than regulating developers. Nothing limits private rights of action for non-exempt violations. No injunction immunity if AG shows an overall increase in risks.",
   "thresholds": "—",
   "penalties": null,
   "status_text": "Introduced July 23, 2026 in both chambers and referred to the House and Senate Judiciary Committees. The House bill had 8 original cosponsors and 25 in all. Later House cosponsors: Krishnamoorthi (July 27), Jacobs (Aug 31), Tokuda (Sept 3), Cline and Veasey (Sept 8), Moulton, Hunt, Foster, Carter, Weber and Houlahan (Sept 14), Correa (Sept 15), Liccardo and Huizenga (Sept 16), and Crockett, Sherman and McClain Delaney (Oct 15, 2026). No further action.",
@@ -5296,6 +5296,11 @@
     "label": "Bill status — GovInfo",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9914.xml",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
+    "kind": "primary"
    }
   ],
   "source_label": "H.R. 9914 text · S. 5105 text · Bill status — GovInfo",
@@ -5308,13 +5313,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-22T00:05:57Z",
+   "run_id": "update-20261122-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-22",
+  "last_changed": "2026-11-22",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9914-s-5105-collaboration-on-adversarial-threats-and-security-risk",
    "section_name": "Adjacent and sectoral federal bills"
@@ -5392,20 +5399,32 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would exempt from antitrust law two or more non-Federal entities that share AI security-risk information in good faith, solely to address covered AI security risks.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-22T00:05:57Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "d22dd54b8554c6d4f661e183621d2501831ecf84ac39c0b03d6163cc88992ded"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Nothing in this Act shall be construed as limiting any private right of action with respect",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "reasonably likely to result in an overall increase in covered artificial intelligence security risks",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text"
+   }
+  ],
+  "summary_line": "Would give an antitrust exemption to non-federal entities that share AI security-risk information or coordinate in good faith to address covered AI security risks.",
   "thirty_seconds": {
-   "a": "Two or more non-Federal entities that exchange AI security-risk information or help in good faith, solely to address covered AI security risks.",
-   "b": "To coordinate on delaying or limiting AI release, deployment or training, they would first have to give written notice to the Justice Department's antitrust chief (Assistant Attorney General).",
-   "c": "The exemption would be only an affirmative defense, which entities would have to prove. Price-fixing and market allocation would not be covered. The Attorney General could seek injunctions."
+   "a": "Two or more non-federal entities that share AI security-risk information or help each other in good faith, only to address covered AI security risks.",
+   "b": "Nothing is required. To coordinate on delaying or limiting AI release, deployment or training, entities must first give written notice to the Assistant Attorney General for antitrust.",
+   "c": "The Attorney General could seek a court injunction against entities whose coordination violates antitrust law. No fines are set. The exemption does not cover price-fixing or dividing markets."
   },
   "key_facts": {
    "enforced_by": "Attorney General"
-  },
-  "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-11T04:42:31.676Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "f3fffe5a9dfcf99d47fb426da950def56639322ed1eda1612194123f43a03a3f"
   }
  },
  {
@@ -5420,8 +5439,8 @@
   "title": "H.R. 9477 — AI Incident Reporting Act",
   "short_name": "H.R. 9477 AI Incident Reporting Act",
   "sponsor_text": "Rep. Nathaniel Moran (R-TX), sponsor; cosponsors Whitesides (D-CA, Aug 20, 2026), Jacobs (D-CA, Aug 24, 2026), Lieu (D-CA, Sept 15, 2026)",
-  "mechanism": "Commerce would set, by regulation within 180 days, capability-based thresholds (no compute figure) that decide which models and developers are covered. Covered developers would have to report \"reportable activity\" within 7 days: a model evading oversight or resisting shutdown, theft or leaking of model weights, help with offensive cyberattacks, unprompted speeding-up of AI research, help with chemical, biological, radiological, nuclear or explosive weapons, and near-misses avoided only by luck. Imminent risks would need faster reports, and Commerce would have to tell congressional leaders within 48 hours of an imminent-risk report. Reports would be exempt from public-records (FOIA) requests. Under Section 2(d)(4), reports could not be used in any civil, criminal or administrative case against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer, a protection that would also bind state attorneys general. Civil penalties would be up to $2M per violation, with each day a separate offense, and Commerce would have subpoena and inspection powers. Rep. Moran told Reuters he split incident reporting out of the Great American AI Act discussion draft to move faster.",
-  "thresholds": "Capability-based, Commerce-designated",
+  "mechanism": "Commerce would set, by regulation within 180 days, capability-based thresholds (no compute figure) that decide which models and developers are covered. Covered developers would have to report \"reportable activity\" within 7 days: a model evading oversight or resisting shutdown, theft or leaking of model weights, help with offensive cyberattacks, unprompted speeding-up of AI research, help with chemical, biological, radiological, nuclear or explosive weapons, and near-misses avoided only by luck. Imminent risks would need faster reports, and Commerce would have to tell congressional leaders within 48 hours of an imminent-risk report. Reports would be exempt from public-records (FOIA) requests. Under Section 2(d)(4), reports could not be used in any civil, criminal or administrative case against the developer, and \"may not be used by any Federal, State, or local government to regulate, or to bring an enforcement action against\" the developer, a protection that would also bind state attorneys general. Liability for the underlying incident is not affected if it can be established independently of the report. Civil penalties would be up to $2M per violation, with each day a separate offense, and Commerce would have subpoena and inspection powers. Rep. Moran told Reuters he split incident reporting out of the Great American AI Act discussion draft to move faster.",
+  "thresholds": "Capability-based, Commerce-designated; also covers developers that substantially modify a covered model, including through fine-tuning, in a manner that the Secretary determines causes it to meet a threshold",
   "penalties": null,
   "status_text": "Introduced June 25, 2026 and referred to the House Energy and Commerce Committee. Whitesides (D-CA), Jacobs (D-CA) and Lieu (D-CA) were added as cosponsors between Aug 20 and Sept 15, 2026. No further action.",
   "signed_text": null,
@@ -5479,6 +5498,11 @@
     "label": "Bill status — GovInfo",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9477.xml",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Text — GovInfo · Sponsor release via Benton · Bill status — GovInfo",
@@ -5491,13 +5515,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-22T00:05:57Z",
+   "run_id": "update-20261122-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-22",
+  "last_changed": "2026-11-22",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9477-ai-incident-reporting-act-r",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5580,20 +5606,42 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would require developers of covered AI models to report serious incidents to the Secretary of Commerce within 7 days, with civil penalties up to $2,000,000 for violations.",
-  "thirty_seconds": {
-   "a": "Developers of AI models that Commerce designates as covered, using capability-based thresholds it sets by regulation within 180 days.",
-   "b": "Report to the Secretary of Commerce within 7 days of knowing or reasonably believing reportable activity occurred, such as weight theft or a model resisting shutdown. Imminent risks need expedited reports.",
-   "c": "The Secretary of Commerce may assess a civil penalty up to $2,000,000 for a violation, and each day is a separate offense. Commerce also has subpoena and inspection powers."
-  },
-  "key_facts": {
-   "enforced_by": "Secretary of Commerce, Attorney General"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:42:48.735Z",
+   "checked_at": "2026-11-22T00:05:57Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "a2050da85903dcb2de7138bac24ae458d6601f5007b6e8f80d4bd2e5f4beffe0"
+   "basis_sha256": "7b12419fe78e1a7274d63b05fcd2171e2d70c42f6df95aafa09bd5690c9a73aa"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "affect the liability of any person",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "information obtained independently of the",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "substantially modifies a covered model, including through fine-tuning",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "the Secretary determines causes the model to meet a",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text"
+   }
+  ],
+  "summary_line": "Would require developers of covered AI models to report serious incidents to the Secretary of Commerce within 7 days, with civil penalties of up to $2,000,000 per violation.",
+  "thirty_seconds": {
+   "a": "Developers of AI models that Commerce designates as covered, using capability-based thresholds set by regulation within 180 days. No compute figure is used.",
+   "b": "Report within 7 days events like a model evading oversight or resisting shutdown, weight theft, or help with cyberattacks or CBRN weapons. Imminent risks need faster reports.",
+   "c": "Commerce may assess civil penalties up to $2,000,000 per violation, each day a separate offense, and has subpoena and inspection powers. Reports cannot be used to bring enforcement actions."
+  },
+  "key_facts": {
+   "enforced_by": "Secretary of Commerce"
   }
  },
  {
@@ -5608,8 +5656,8 @@
   "title": "H.R. 9917 — AI Kill Switch Act",
   "short_name": "H.R. 9917 AI Kill Switch Act",
   "sponsor_text": "Rep. Ted Lieu (D-CA), sponsor; Rep. Nathaniel Moran (R-TX), original cosponsor; 14 cosponsors in all (Congress.gov)",
-  "mechanism": "Would amend the Homeland Security Act. Covered developers would have to keep the technical ability to throttle computing, inference or user access, suspend, or fully shut down covered systems. The Homeland Security Secretary, working with Commerce and the Director of National Intelligence, could order steps from throttling up to full shutdown in a \"loss-of-control scenario\" (a system resisting shutdown, hiding its actions from monitoring, or pursuing high-stakes goals without authorization) or when unintended AI conduct causes at least 10 deaths or at least $100M in damage. For comparison, the ATOMIC Act (H.R. 9965) uses five deaths in its testing definition of loss of control, but gives no shutdown power. Covered incidents would have to be reported to DHS within 15 days, and weights and records would have to be preserved under an order. A developer could ask for reconsideration within 48 hours, but the order would stay in force meanwhile. The Department of Homeland Security would define the scope by rule each year. Civil penalties would be up to $2M per day for ordinary violations and up to $20M per day for violating an emergency order. The full-shutdown requirement echoes California's 2024 bill SB 1047, and the order power overlaps the emergency orders in Section 8 of the FRONTIER Act (H.R. 9925), but here the power sits with DHS rather than Commerce.",
-  "thresholds": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue from the covered technology; personal/academic/noncommercial-only systems exempt",
+  "mechanism": "Would amend the Homeland Security Act. Covered developers would have to keep the technical ability to throttle computing, inference or user access, suspend, or fully shut down covered systems. The Homeland Security Secretary, working with Commerce and the Director of National Intelligence, could order steps from throttling up to full shutdown in a \"loss-of-control scenario\" (a system resisting shutdown, hiding its actions from monitoring, or pursuing high-stakes goals without authorization) or when unintended AI conduct causes at least 10 deaths or at least $100M in damage. For comparison, the ATOMIC Act (H.R. 9965) uses five deaths in its testing definition of loss of control, but gives no shutdown power. Covered incidents would have to be reported to DHS within 15 days, and weights and telemetry would have to be preserved under an order. A developer could ask for reconsideration within 48 hours, but the order would stay in force meanwhile. The Department of Homeland Security would define the scope by rule each year. Civil penalties would be up to $2M per day for ordinary violations and up to $20M per day for violating an emergency order. The full-shutdown requirement echoes California's 2024 bill SB 1047, and the order power overlaps the emergency orders in Section 8 of the FRONTIER Act (H.R. 9925), but here the power sits with DHS rather than Commerce.",
+  "thresholds": "Cost test: >$100M development compute at prevailing US cloud prices and ≥$500M annual gross revenue, with affiliates, from the covered technology; personal/academic/noncommercial-only systems exempt",
   "penalties": null,
   "status_text": "Introduced July 23, 2026, the same day as the FRONTIER Act (H.R. 9925) and the CATSR Act (H.R. 9914); referred to the House Homeland Security Committee, and to its Cybersecurity and Infrastructure Protection Subcommittee July 24, 2026. Subramanyam (D-VA) and Luna (R-FL) cosponsored Sept 15, 2026, and nine more joined Oct 1-19, 2026. The bill had 14 cosponsors as of Nov 11, 2026 (Congress.gov).",
   "signed_text": null,
@@ -5685,6 +5733,11 @@
     "label": "Bill status — GovInfo",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9917.xml",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Introduced text — GovInfo PDF · GovInfo metadata · Bill status — GovInfo",
@@ -5700,12 +5753,12 @@
   "origin": "mixed",
   "verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T00:00:00Z",
-   "run_id": "run-20261111-1205-1d23",
-   "rounds": 0
+   "checked_at": "2026-11-22T00:05:57Z",
+   "run_id": "update-20261122-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-11-11",
+  "last_checked": "2026-11-22",
+  "last_changed": "2026-11-22",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9917-ai-kill-switch-act-r",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5820,22 +5873,32 @@
     "field": "record_facts.cosponsors",
     "quote": "\"count\": 14",
     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Preserve the model weights and telemetry of such technology.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "Derives together with the affiliates, if any, of such person not less than $500,000,000 in gross revenue from such technology",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text"
    }
   ],
-  "summary_line": "Would require large AI developers to keep the ability to throttle, suspend or shut down covered AI systems, and let DHS order shutdowns in a loss-of-control scenario.",
-  "thirty_seconds": {
-   "a": "Developers of AI systems built with over $100,000,000 in compute and earning at least $500,000,000 a year in revenue from the technology. Personal, academic and noncommercial-only systems are exempt.",
-   "b": "Would have to keep the technical ability to throttle, suspend or fully shut down the system, report covered incidents to DHS within 15 days, and preserve weights and telemetry under an order.",
-   "c": "Civil penalties of up to $2M/day for ordinary violations and up to $20M/day for violating an emergency order."
-  },
-  "key_facts": {
-   "enforced_by": "DHS Secretary, Attorney General"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-12T05:20:34.903Z",
+   "checked_at": "2026-11-22T00:05:57Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "2707b8c2c478d08699cbd80b40d432b1a91d8f4dfb2b3917091ba7fc3f0aee7a"
+   "basis_sha256": "93d836682d2dbd97c23505d28e1afd02f7833979649c7b2fbd3591d762a526a0"
+  },
+  "summary_line": "Would require large AI developers to keep the ability to throttle, suspend or shut down covered systems, and let DHS order shutdown in a loss-of-control scenario.",
+  "thirty_seconds": {
+   "a": "Developers of AI built with over $100,000,000 in compute at cloud prices that earn at least $500,000,000 a year in gross revenue from it, with affiliates. Personal, academic and noncommercial-only systems are exempt.",
+   "b": "Keep the technical ability to throttle, suspend or fully shut down systems, report covered incidents to DHS within 15 days, and preserve weights and telemetry when ordered.",
+   "c": "Civil penalties of up to $2,000,000 per day, or up to $20,000,000 per day for violating an emergency order. The Attorney General can also sue."
+  },
+  "key_facts": {
+   "enforced_by": "Homeland Security Secretary"
   }
  },
  {

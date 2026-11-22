@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-21",
+ "last_run": "2026-11-22",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -110,8 +110,8 @@
   "h-r-9914-s-5105-catsr": {
    "text_sha": "a8271e54fc2b582f31d561dccae9bd85835d3c0756f60b557b89f7642dfbe3e3",
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9914/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-22",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -160,8 +160,8 @@
   "h-r-9477-ai-incident-reporting-act": {
    "text_sha": "28aa38c30b1b46749d77862ba2e3a95e588aa54721b47fed196087b9cc19aee4",
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9477/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-22",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -240,8 +240,8 @@
   "h-r-9917-ai-kill-switch-act": {
    "text_sha": "2f0bb8157dd21c91ab8efefae2cb5c07e1532f1f7a4a24fc5f02dd93bf76b90e",
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-22",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },

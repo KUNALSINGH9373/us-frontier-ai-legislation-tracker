@@ -1,6 +1,6 @@
 {
  "title": "Developments",
- "asof": "November 21, 2026",
+ "asof": "November 22, 2026",
  "intro": "A dated record of what happened around frontier-AI law in the United States from September 2026 onward, plus the June 2026 request to OpenAI recorded under Informal government requests to developers. It is wider than the tracker: it includes hearings, letters, investigations, executive statements and the industry incidents that lawmakers cited, none of which are legislation. Most items about a filed bill or published draft also have a tracker entry, linked from the item. Items were checked against the official page where one exists; where a source blocks automated access the item says so and names what corroborated it. Where the summary supplied to this site named the wrong sponsor or number, the correction is shown.",
  "bottom": "No federal frontier-AI bill became law in September or October 2026. California's SB 813 and AB 1405 were the period's enacted measures. New York's S.10701 was withdrawn on introduction; in October New York's S.10731 and Pennsylvania's H.B. 2829 were introduced, and Pennsylvania's H.B. 2800 and H.B. 2829 had a committee hearing. Every federal bill above remains at the referral stage; the administration's response through October was a voluntary accord, a terminology executive order, a task force with a 120-day report, and voluntary incident-response practices from NIST, NSA and CISA (Oct 16).",
  "kinds": {
@@ -36,6 +36,37 @@
   }
  },
  "items": [
+  {
+   "date": "2026-06-26",
+   "kind": "executive",
+   "title": "US government asks OpenAI to start GPT-5.6 with approved partners only; OpenAI complies and objects",
+   "body": "OpenAI said in its GPT-5.6 announcement that, at the US government's request, it was starting with a limited preview for a small group of trusted partners whose participation had been shared with the government, through the API and Codex only. It said it did not believe \"this kind of government access process should become the long-term default\" and called the step short-term. The Information reported, citing a memo from Sam Altman, that the request came out of talks with the Office of the National Cyber Director and the Office of Science and Technology Policy over cybersecurity, with access approved customer by customer. No order or directive was issued. General availability followed on July 9. Filed under Informal government requests to developers.",
+   "links": [
+    {
+     "t": "OpenAI announcement, June 26",
+     "u": "https://openai.com/index/previewing-gpt-5-6-sol/"
+    },
+    {
+     "t": "TechCrunch, June 26",
+     "u": "https://techcrunch.com/2026/06/26/openai-limits-gpt-5-6-rollout-after-government-request-says-restrictions-shouldnt-be-the-norm/"
+    },
+    {
+     "t": "CNBC, June 26",
+     "u": "https://www.cnbc.com/2026/06/26/openai-limits-new-ai-models-to-trusted-partners-request-us-government.html"
+    },
+    {
+     "t": "OpenAI, general availability, July 9",
+     "u": "https://openai.com/index/gpt-5-6/"
+    }
+   ],
+   "check": "OpenAI's two posts were read directly. The requesting offices and the customer-by-customer approval come from The Information's report of an internal memo, as carried by The Next Web and Tom's Hardware; no government statement was found.",
+   "tracker": "june-2026-request-openai-gpt-5-6-limited-preview",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-21T12:00:00Z"
+   }
+  },
   {
    "date": "2026-09-03",
    "kind": "industry",
@@ -749,6 +780,37 @@
    }
   },
   {
+   "date": "2026-09-24",
+   "kind": "executive",
+   "title": "White House reported to ask OpenAI and Anthropic to hold new models from UK testers until US review",
+   "body": "Politico reported, citing a senior administration official and a person familiar with the matter, that the Office of the National Cyber Director asked OpenAI and Anthropic not to share new frontier models with the UK's AI Security Institute until the US government had reviewed them. The official's reason, as quoted: \"Because they're American companies and this has been our policy with every new frontier model that comes out.\" A British official confirmed the request to Bloomberg the next day. Anthropic's Claude Mythos 5.1, released Sept 1, was available only to a set of US organizations; the institute's director told a Commons committee it had tested OpenAI's GPT-6 Astra before release. Neither company nor the White House confirmed the request on the record. Filed under Informal government requests to developers.",
+   "links": [
+    {
+     "t": "Politico, Sept 24",
+     "u": "https://www.politico.com/news/2026/09/24/white-house-asks-openai-and-anthropic-to-hold-new-models-from-uk-testers-until-u-s-review-01091769"
+    },
+    {
+     "t": "Bloomberg, Sept 25",
+     "u": "https://www.bloomberg.com/news/articles/2026-09-25/trump-tells-openai-anthropic-to-withhold-models-from-uk-agency"
+    },
+    {
+     "t": "Anthropic announcement, Sept 1",
+     "u": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
+    },
+    {
+     "t": "The Next Web, Sept 25",
+     "u": "https://thenextweb.com/news/white-house-openai-anthropic-uk-ai-security-institute-models"
+    }
+   ],
+   "check": "Politico and Bloomberg block automated access and were not opened; their reporting is taken from The Next Web's Sept 25 account. Anthropic's announcement was read directly.",
+   "tracker": "sept-2026-request-openai-anthropic-withhold-models-uk-aisi",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-21T12:00:00Z"
+   }
+  },
+  {
    "date": "2026-09-25",
    "kind": "litigation",
    "title": "D.C. Circuit denies Anthropic's petition on the § 4713 designation, 2–1",
@@ -1454,68 +1516,6 @@
      "to": "confirmed"
     }
    ]
-  },
-  {
-   "date": "2026-06-26",
-   "kind": "executive",
-   "title": "US government asks OpenAI to start GPT-5.6 with approved partners only; OpenAI complies and objects",
-   "body": "OpenAI said in its GPT-5.6 announcement that, at the US government's request, it was starting with a limited preview for a small group of trusted partners whose participation had been shared with the government, through the API and Codex only. It said it did not believe \"this kind of government access process should become the long-term default\" and called the step short-term. The Information reported, citing a memo from Sam Altman, that the request came out of talks with the Office of the National Cyber Director and the Office of Science and Technology Policy over cybersecurity, with access approved customer by customer. No order or directive was issued. General availability followed on July 9. Filed under Informal government requests to developers.",
-   "links": [
-    {
-     "t": "OpenAI announcement, June 26",
-     "u": "https://openai.com/index/previewing-gpt-5-6-sol/"
-    },
-    {
-     "t": "TechCrunch, June 26",
-     "u": "https://techcrunch.com/2026/06/26/openai-limits-gpt-5-6-rollout-after-government-request-says-restrictions-shouldnt-be-the-norm/"
-    },
-    {
-     "t": "CNBC, June 26",
-     "u": "https://www.cnbc.com/2026/06/26/openai-limits-new-ai-models-to-trusted-partners-request-us-government.html"
-    },
-    {
-     "t": "OpenAI, general availability, July 9",
-     "u": "https://openai.com/index/gpt-5-6/"
-    }
-   ],
-   "check": "OpenAI's two posts were read directly. The requesting offices and the customer-by-customer approval come from The Information's report of an internal memo, as carried by The Next Web and Tom's Hardware; no government statement was found.",
-   "tracker": "june-2026-request-openai-gpt-5-6-limited-preview",
-   "origin": "authored",
-   "verification": {
-    "method": "session",
-    "checked_at": "2026-11-21T12:00:00Z"
-   }
-  },
-  {
-   "date": "2026-09-24",
-   "kind": "executive",
-   "title": "White House reported to ask OpenAI and Anthropic to hold new models from UK testers until US review",
-   "body": "Politico reported, citing a senior administration official and a person familiar with the matter, that the Office of the National Cyber Director asked OpenAI and Anthropic not to share new frontier models with the UK's AI Security Institute until the US government had reviewed them. The official's reason, as quoted: \"Because they're American companies and this has been our policy with every new frontier model that comes out.\" A British official confirmed the request to Bloomberg the next day. Anthropic's Claude Mythos 5.1, released Sept 1, was available only to a set of US organizations; the institute's director told a Commons committee it had tested OpenAI's GPT-6 Astra before release. Neither company nor the White House confirmed the request on the record. Filed under Informal government requests to developers.",
-   "links": [
-    {
-     "t": "Politico, Sept 24",
-     "u": "https://www.politico.com/news/2026/09/24/white-house-asks-openai-and-anthropic-to-hold-new-models-from-uk-testers-until-u-s-review-01091769"
-    },
-    {
-     "t": "Bloomberg, Sept 25",
-     "u": "https://www.bloomberg.com/news/articles/2026-09-25/trump-tells-openai-anthropic-to-withhold-models-from-uk-agency"
-    },
-    {
-     "t": "Anthropic announcement, Sept 1",
-     "u": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
-    },
-    {
-     "t": "The Next Web, Sept 25",
-     "u": "https://thenextweb.com/news/white-house-openai-anthropic-uk-ai-security-institute-models"
-    }
-   ],
-   "check": "Politico and Bloomberg block automated access and were not opened; their reporting is taken from The Next Web's Sept 25 account. Anthropic's announcement was read directly.",
-   "tracker": "sept-2026-request-openai-anthropic-withhold-models-uk-aisi",
-   "origin": "authored",
-   "verification": {
-    "method": "session",
-    "checked_at": "2026-11-21T12:00:00Z"
-   }
   }
  ]
 }
