@@ -7201,8 +7201,8 @@
   "title": "H.R. 9363 — AI Security and Innovation Act",
   "short_name": "H.R. 9363 AI Security and Innovation Act",
   "sponsor_text": "Rep. Jay Obernolte (R-CA), sponsor; 7 cosponsors in all, including Rep. Valerie Foushee (D-NC) (Congress.gov)",
-  "mechanism": "Would create a voluntary Center for AI Security and Innovation at NIST, barred by law from any regulatory, rulemaking or enforcement power. Companies could sign voluntary agreements for classified or unclassified national-security evaluations of covered frontier systems. Shared information would be exempt from public-records (FOIA) requests, would not be made public without consent, and could not be used by any government to regulate the company. The bill would authorize $20,000,000 a year for fiscal years 2027-2032, yet also says the Center ends 5 years after enactment; the official text contains both. The Congressional Budget Office estimates actual spending of $80M over 2026-31.",
-  "thresholds": "\"Covered frontier system\" to be defined by the Director (capabilities and requirements) within 180 days of enactment; \"covered entity\" = entity or consortium with a demonstrated ability to develop or evaluate a covered frontier system",
+  "mechanism": "Would create a voluntary Center for AI Security and Innovation at NIST, barred by law from any regulatory, rulemaking or enforcement power. The Secretary of Commerce shall establish the Center within 60 days of enactment. Companies could sign voluntary agreements for classified or unclassified national-security evaluations of covered frontier systems. Shared information would be exempt from public-records (FOIA) requests, would not be made public without consent, and could not be used by any government to regulate the company. The bill would authorize $20,000,000 a year for fiscal years 2027-2032, yet also says the Center ends 5 years after enactment; the official text contains both.",
+  "thresholds": "\"Covered frontier system\" to be defined by the Under Secretary, acting through the Director (capabilities and requirements), within 180 days of enactment; \"covered entity\" = entity or consortium with a demonstrated ability to develop or evaluate a covered frontier system",
   "penalties": null,
   "status_text": "Introduced June 18, 2026. At its June 25, 2026 markup, the House Science Committee voted 29-0 to report it with an amendment (part of a 10-bill package; Congress.gov actions).",
   "signed_text": null,
@@ -7237,6 +7237,11 @@
     "label": "CBO estimate",
     "url": "https://www.cbo.gov/publication/62730",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill text · CBO estimate",
@@ -7249,13 +7254,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-23T00:05:45Z",
+   "run_id": "update-20261123-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-28",
+  "last_checked": "2026-11-23",
+  "last_changed": "2026-11-23",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9363-ai-security-and-innovation-act",
    "section_name": "Adjacent and sectoral federal bills"
@@ -7268,17 +7275,39 @@
     ]
    }
   },
-  "summary_line": "Would create a voluntary Center for AI Security and Innovation at NIST to run national-security evaluations of covered frontier AI systems under voluntary agreements.",
-  "thirty_seconds": {
-   "a": "Entities or consortia able to develop or evaluate a covered frontier system could join; the Director would define \"covered frontier system\" within 180 days of enactment.",
-   "b": "Nothing is mandatory: participation is by voluntary agreement for classified or unclassified national-security evaluations. It would authorize $20,000,000 a year for FY2027-2032.",
-   "c": "No penalties. The Center is barred from regulatory, rulemaking or enforcement authority, and shared information cannot be used by any government to regulate the entity."
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:45:55.187Z",
+   "checked_at": "2026-11-23T00:05:45Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "6e88a47801aaaebdd58dcf276de2d56518b8c34af6fb5f068edf7f18796269fc"
+   "basis_sha256": "d97bf25b7563c9ae1069335fb81c0e18e12222ebdd1c57c64c068509ad4c7e4c"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Not later than 60 days after the date of the enactment of this section, the Secretary of Commerce",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "shall establish in the National Institute of Standards and Technology a center on artificial intelligence",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "$20,000,000 for each of fiscal years 2027 through 2032",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "the Under Secretary, acting through the Director, shall publish, and update as the Director determines appropriate, a definition of the term `covered frontier system'",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text"
+   }
+  ],
+  "summary_line": "Would create a voluntary Center for AI Security and Innovation at NIST to run national-security evaluations of covered frontier AI systems for companies that opt in.",
+  "thirty_seconds": {
+   "a": "Companies or consortia able to develop or evaluate a covered frontier system could join; the Secretary of Commerce would set up the Center within 60 days of enactment.",
+   "b": "Nothing is required of companies. They could sign voluntary agreements for classified or unclassified national-security evaluations of covered frontier systems.",
+   "c": "No penalties: the Center is barred from any regulatory, rulemaking or enforcement power, and shared information could not be used by any government to regulate the company."
   }
  },
  {
@@ -12193,8 +12222,8 @@
   "title": "H.R. 3919 — Advanced AI Security Readiness Act",
   "short_name": "H.R. 3919 Advanced AI Security Readiness Act",
   "sponsor_text": "Rep. Darin LaHood (R-IL), 8 co-sponsors",
-  "mechanism": "The NSA, through its AI Security Center, would write an \"AI Security Playbook\" to defend covered AI technologies from theft by nation-state and other highly resourced actors: vulnerabilities at advanced AI developers and data centers, which components (models, weights, core insights) matter most, and the security levels that would need substantial US Government involvement, including a hypothetical secure government build. NSA would have to engage prominent AI developers and review their preparedness frameworks and scaling policies. Initial report in 90 days, final in 270 days, with a public version; no regulatory or enforcement authority",
-  "thresholds": "Capability-based, no compute figure: \"covered AI technologies\" are advanced AI with critical capabilities that would pose a grave national security threat if stolen, such as systems that match or exceed human expert performance in CBRN, cyber offense, model autonomy, persuasion, R&D and self-improvement",
+  "mechanism": "The NSA, through its AI Security Center, would write an \"AI Security Playbook\" to defend covered AI technologies from theft by nation-state and other highly resourced actors: vulnerabilities at advanced AI developers and data centers, which components (models, weights, core insights) matter most, and the security levels that would need substantial US Government involvement, including a hypothetical secure government build. NSA would have to engage prominent AI developers and review their preparedness frameworks and scaling policies. Initial report in 90 days, final in 270 days, with a public version; no regulatory or enforcement authority (rule of construction covers only the security-levels element, subsection (b)(4))",
+  "thresholds": "Capability-based, no compute figure: \"covered AI technologies\" are advanced AI (whether developed by the private sector, the United States Government, or a public-private partnership) with critical capabilities that the Director determines would pose a grave national security threat if stolen, such as systems that match or exceed human expert performance in CBRN, cyber offense, model autonomy, persuasion, R&D and self-improvement",
   "penalties": null,
   "status_text": "Status: Introduced June 11, 2025; referred to House Permanent Select Committee on Intelligence; no further action",
   "events": [
@@ -12223,6 +12252,11 @@
     "label": "Bill text and status — Congress.gov",
     "url": "https://www.congress.gov/bill/119th-congress/house-bill/3919",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill text and status — Congress.gov",
@@ -12238,83 +12272,40 @@
   "evidence": [
    {
     "field": "mechanism",
-    "quote": "shall develop strategies (in this section referred to as the ``AI Security Playbook'') to defend covered AI technologies from technology theft by threat actors",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Identification of potential vulnerabilities in advanced AI data centers and among advanced AI developers",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Identification of the levels of security, if any, that would require substantial involvement by the United States Government",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "a hypothetical initiative to build covered AI technology systems in a highly secure governmental environment",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "engage with prominent AI developers and researchers",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "preparedness frameworks, scaling policies, risk management frameworks",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Not later than 90 days after the date of the enactment of this Act",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Not later than 270 days after the date of enactment of this Act",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
-    "quote": "a publicly available version",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
-   },
-   {
-    "field": "mechanism",
     "quote": "Nothing in subsection (b)(4) shall be construed to authorize or require any regulatory or enforcement action",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text"
    },
    {
     "field": "thresholds",
-    "quote": "with critical capabilities that the Director determines would pose a grave national security threat if acquired or stolen by threat actors",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+    "quote": "whether developed by the private sector, the United States",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text"
    },
    {
     "field": "thresholds",
-    "quote": "match or exceed human expert performance in relating to chemical, biological, radiological, and nuclear matters, cyber offense, model autonomy, persuasion, research and development, and self-improvement",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919"
+    "quote": "capabilities that the Director determines would pose a grave",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text"
    }
   ],
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-26T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-23T00:05:45Z",
+   "run_id": "update-20261123-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-26",
-  "last_changed": "2026-10-26",
-  "summary_line": "Would direct the NSA's AI Security Center to write an AI Security Playbook on defending advanced AI technologies from theft by nation-state and other highly resourced actors.",
+  "last_checked": "2026-11-23",
+  "last_changed": "2026-11-23",
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "2e458083fd26ea09608930540f63f713020bfee1c62c719007889d94480bdefe"
+   "method": "agent",
+   "checked_at": "2026-11-23T00:05:45Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "371e5b8b81528a078e05bcdccdd9c3f795398c19c6696b785f9510bc7427982f"
   },
+  "summary_line": "Would direct the NSA, through its AI Security Center, to write an AI Security Playbook on defending advanced AI technologies from theft by nation-state and other highly resourced actors.",
   "thirty_seconds": {
-   "a": "The National Security Agency (NSA), through its AI Security Center. No duties on AI developers.",
-   "b": "Would write an AI Security Playbook on defending advanced AI from theft, after engaging leading AI developers. Initial report in 90 days, final in 270 days.",
-   "c": "No penalties and no regulatory power. Pending in the House Intelligence Committee since June 11, 2025."
+   "a": "The NSA, through its AI Security Center, would work with prominent AI developers and review their preparedness frameworks and scaling policies.",
+   "b": "Would require an initial report in 90 days and a final report in 270 days, with a public version, covering vulnerabilities, key components and security levels.",
+   "c": "No penalties are stated. A rule of construction says no regulatory or enforcement authority, but it covers only the security-levels element, subsection (b)(4)."
   }
  },
  {
@@ -12329,7 +12320,7 @@
   "title": "H.R. 10873 — AI Cyber Defense Act",
   "short_name": "H.R. 10873 AI Cyber Defense Act",
   "sponsor_text": "Rep. Pat Harrigan (R-NC), sponsor; Rep. George Whitesides (D-CA), original cosponsor",
-  "mechanism": "Within 180 days NIST would work with private-sector AI developers (excluding entities tied to China, Russia, Iran, North Korea or Cuba) to define \"artificial intelligence distillation attacks\" (copying a model through its outputs) and to set voluntary standards and best practices to detect and prevent them, published within a year. Also an \"AI Cybersecurity Roundtable\" for voluntary standards on defensive use of AI. Voluntary only; no duties on developers",
+  "mechanism": "Within 180 days NIST would work with private-sector AI developers (excluding entities tied to China, Russia, Iran, North Korea or Cuba) to define \"artificial intelligence distillation attacks\" (copying a model through its outputs) and to set voluntary standards and best practices to detect and prevent them, published within a year after establishment. Also an \"AI Cybersecurity Roundtable\" for voluntary standards on defensive use of AI. Voluntary only; no duties on developers",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Introduced Oct 22, 2026; referred to House Science, Space, and Technology; no further action",
@@ -12359,6 +12350,11 @@
     "label": "Bill text and status — Congress.gov",
     "url": "https://www.congress.gov/bill/119th-congress/house-bill/10873",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/10873/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill text and status — Congress.gov",
@@ -12374,58 +12370,30 @@
   "evidence": [
    {
     "field": "mechanism",
-    "quote": "Not later than 180 days after the date of the enactment of this Act, the Director of the National Institute of Standards and Technology (NIST) shall seek to engage with private sector artificial intelligence stakeholders",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
-   },
-   {
-    "field": "mechanism",
-    "quote": "A definition for artificial intelligence distillation attacks",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
-   },
-   {
-    "field": "mechanism",
-    "quote": "Voluntary standards and best practices for the detection and prevention of such attacks",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
-   },
-   {
-    "field": "mechanism",
     "quote": "Not later than one year after the establishment of voluntary standards and best practices",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
-   },
-   {
-    "field": "mechanism",
-    "quote": "AI Cybersecurity Roundtable",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
-   },
-   {
-    "field": "mechanism",
-    "quote": "The Republic of Cuba",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
-   },
-   {
-    "field": "mechanism",
-    "quote": "is not an entity of concern",
-    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873"
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873/text"
    }
   ],
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-26T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-23T00:05:45Z",
+   "run_id": "update-20261123-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
-  "summary_line": "Would direct NIST to work with AI developers on defining AI distillation attacks and setting voluntary standards to detect and prevent them.",
-  "thirty_seconds": {
-   "a": "NIST, working with private-sector AI developers, but not entities tied to China, Russia, Iran, North Korea or Cuba.",
-   "b": "Nothing is required of developers. NIST would define distillation attacks within 180 days and publish voluntary standards and best practices within a year.",
-   "c": "No penalties. The standards are voluntary only, with no duties on developers."
-  },
+  "last_checked": "2026-11-23",
+  "last_changed": "2026-11-23",
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:57:07.513Z",
+   "checked_at": "2026-11-23T00:05:45Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "5c718519376154401ed61ca196227180710c6bfe20ed2a69419a75f94df08cde"
+   "basis_sha256": "bdee82d6b40de1bab3e773af4d058e07a566e7b693756ce794c41c305ec04743"
+  },
+  "summary_line": "Would direct NIST to work with AI developers on voluntary standards to detect and prevent AI distillation attacks, and set up an AI Cybersecurity Roundtable.",
+  "thirty_seconds": {
+   "a": "NIST and private-sector AI developers, excluding entities tied to China, Russia, Iran, North Korea or Cuba, would work together on the standards.",
+   "b": "Within 180 days NIST would work with developers to define distillation attacks and set voluntary standards to detect and prevent them. A roundtable would cover defensive AI use.",
+   "c": "Nothing. The standards are voluntary only and the bill puts no duties on developers."
   }
  },
  {

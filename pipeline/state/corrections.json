@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-22",
+ "last_run": "2026-11-23",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -53,8 +53,8 @@
   "h-r-3919-advanced-ai-security-readiness-act": {
    "text_sha": "e99f8af7c3b4cecd7aef716b8ee38a6d44b848f371edcd8c85a41f03b4c929e9",
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-23",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -94,8 +94,8 @@
   "h-r-9363-ai-security-and-innovation-act": {
    "text_sha": "845b140febc2dd346cac49db5b1ee2cde4d5f7df58db8d94bde83be52378cbef",
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-23",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -192,10 +192,11 @@
   "h-r-10873-ai-cyber-defense-act": {
    "text_sha": "b1e8d8c45b531bdcf90568d70226edf99d1a03fbd76670595854f374b5681b4a",
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-23",
+   "outcome": "corrected",
    "retry": false,
-   "retries": 0
+   "retries": 0,
+   "reason": "not confirmed: The proposal states the entity-of-concern exclusion too narrowly: the source also covers entities the Director of NIST determines to be entities of concern and entities operating under direction or control of an entity headquartered in a country of concern, and it carves out lawful pe"
   },
   "s-5061-secure-ai-development-act": {
    "text_sha": "872bc071685643e65acf6ddf5efa491748a76c207bf4e4ac4d96a636f473c9d3",

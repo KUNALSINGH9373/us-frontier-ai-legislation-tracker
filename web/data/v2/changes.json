@@ -982,6 +982,91 @@
    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9917/text",
    "tier": "C",
    "note": "self-correction (omission): The revenue test also counts affiliates together, which the entry leaves out; SOURCE states this and the threshold is \"not less than $500,000,000 in gross revenue\". Quote: \"Derives together with the affiliates, if any, of such person not less than $500,000,000 in gross revenue from such technology\""
+  },
+  {
+   "entry_key": "h-r-10873-ai-cyber-defense-act",
+   "field": "mechanism",
+   "old": "Within 180 days NIST would work with private-sector AI developers (excluding entities tied to China, Russia, Iran, North Korea or Cuba) to define \"artificial intelligence distillation attacks\" (copying a model through its outputs) and to set voluntary standards and best practices to detect and prevent them, published within a year. Also an \"AI Cybersecurity Roundtable\" for voluntary standards on defensive use of AI. Voluntary only; no duties on developers",
+   "new": "Within 180 days NIST would work with private-sector AI developers (excluding entities tied to China, Russia, Iran, North Korea or Cuba) to define \"artificial intelligence distillation attacks\" (copying a model through its outputs) and to set voluntary standards and best practices to detect and prevent them, published within a year after establishment. Also an \"AI Cybersecurity Roundtable\" for voluntary standards on defensive use of AI. Voluntary only; no duties on developers",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873/text",
+   "tier": "C",
+   "note": "self-correction (error): The one-year publication deadline runs from the establishment of the standards, not from enactment, so 'published within a year' needs that trigger; the source says 'Not later than one year after the establishment of voluntary standards and best practices'. Quote: \"Not later than one year after the establishment of voluntary standards and best practices\""
+  },
+  {
+   "entry_key": "h-r-10873-ai-cyber-defense-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10873/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "h-r-3919-advanced-ai-security-readiness-act",
+   "field": "mechanism",
+   "old": "The NSA, through its AI Security Center, would write an \"AI Security Playbook\" to defend covered AI technologies from theft by nation-state and other highly resourced actors: vulnerabilities at advanced AI developers and data centers, which components (models, weights, core insights) matter most, and the security levels that would need substantial US Government involvement, including a hypothetical secure government build. NSA would have to engage prominent AI developers and review their preparedness frameworks and scaling policies. Initial report in 90 days, final in 270 days, with a public version; no regulatory or enforcement authority",
+   "new": "The NSA, through its AI Security Center, would write an \"AI Security Playbook\" to defend covered AI technologies from theft by nation-state and other highly resourced actors: vulnerabilities at advanced AI developers and data centers, which components (models, weights, core insights) matter most, and the security levels that would need substantial US Government involvement, including a hypothetical secure government build. NSA would have to engage prominent AI developers and review their preparedness frameworks and scaling policies. Initial report in 90 days, final in 270 days, with a public version; no regulatory or enforcement authority (rule of construction covers only the security-levels element, subsection (b)(4))",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry states 'no regulatory or enforcement authority' without the scope of the rule of construction, which covers only the security-levels element in subsection (b)(4). Quote: \"Nothing in subsection (b)(4) shall be construed to authorize or require any regulatory or enforcement action\""
+  },
+  {
+   "entry_key": "h-r-3919-advanced-ai-security-readiness-act",
+   "field": "thresholds",
+   "old": "Capability-based, no compute figure: \"covered AI technologies\" are advanced AI with critical capabilities that would pose a grave national security threat if stolen, such as systems that match or exceed human expert performance in CBRN, cyber offense, model autonomy, persuasion, R&D and self-improvement",
+   "new": "Capability-based, no compute figure: \"covered AI technologies\" are advanced AI (whether developed by the private sector, the United States Government, or a public-private partnership) with critical capabilities that the Director determines would pose a grave national security threat if stolen, such as systems that match or exceed human expert performance in CBRN, cyber offense, model autonomy, persuasion, R&D and self-improvement",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that the Director determines which advanced AI is covered and that covered AI may be developed by the private sector, the US Government, or a public-private partnership. Quote: \"whether developed by the private sector, the United States\""
+  },
+  {
+   "entry_key": "h-r-3919-advanced-ai-security-readiness-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3919/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "h-r-9363-ai-security-and-innovation-act",
+   "field": "mechanism",
+   "old": "Would create a voluntary Center for AI Security and Innovation at NIST, barred by law from any regulatory, rulemaking or enforcement power. Companies could sign voluntary agreements for classified or unclassified national-security evaluations of covered frontier systems. Shared information would be exempt from public-records (FOIA) requests, would not be made public without consent, and could not be used by any government to regulate the company. The bill would authorize $20,000,000 a year for fiscal years 2027-2032, yet also says the Center ends 5 years after enactment; the official text contains both. The Congressional Budget Office estimates actual spending of $80M over 2026-31.",
+   "new": "Would create a voluntary Center for AI Security and Innovation at NIST, barred by law from any regulatory, rulemaking or enforcement power. The Secretary of Commerce shall establish the Center within 60 days of enactment. Companies could sign voluntary agreements for classified or unclassified national-security evaluations of covered frontier systems. Shared information would be exempt from public-records (FOIA) requests, would not be made public without consent, and could not be used by any government to regulate the company. The bill would authorize $20,000,000 a year for fiscal years 2027-2032, yet also says the Center ends 5 years after enactment; the official text contains both.",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
+   "tier": "C",
+   "note": "self-correction (error): The sentence \"The Congressional Budget Office estimates actual spending of $80M over 2026-31\" is removed because SOURCE contains no CBO estimate or $80M figure; SOURCE instead requires the Secretary of Commerce to establish the Center within 60 days of enactment, which is added. Quote: \"Not later than 60 days after the date of the enactment of this section, the Secretary of Commerce\""
+  },
+  {
+   "entry_key": "h-r-9363-ai-security-and-innovation-act",
+   "field": "thresholds",
+   "old": "\"Covered frontier system\" to be defined by the Director (capabilities and requirements) within 180 days of enactment; \"covered entity\" = entity or consortium with a demonstrated ability to develop or evaluate a covered frontier system",
+   "new": "\"Covered frontier system\" to be defined by the Under Secretary, acting through the Director (capabilities and requirements), within 180 days of enactment; \"covered entity\" = entity or consortium with a demonstrated ability to develop or evaluate a covered frontier system",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
+   "tier": "C",
+   "note": "self-correction (error): The definition is made by the Under Secretary acting through the Director, not by the Director alone, as SOURCE states. Quote: \"the Under Secretary, acting through the Director, shall publish, and update as the Director determines appropriate, a definition of the term `covered frontier system'\""
+  },
+  {
+   "entry_key": "h-r-9363-ai-security-and-innovation-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-23",
+   "run_id": "update-20261123-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
+   "tier": "C"
   }
  ]
 }
