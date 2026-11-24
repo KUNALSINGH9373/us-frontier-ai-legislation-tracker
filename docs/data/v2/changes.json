@@ -1067,6 +1067,69 @@
    "run_id": "update-20261123-0005",
    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9363/text",
    "tier": "C"
+  },
+  {
+   "entry_key": "h-r-10180-self-improving-ai-monitoring-act",
+   "field": "mechanism",
+   "old": "Would amend the National Institute of Standards and Technology (NIST) Act. NIST would be authorized to study trends in AI systems' ability to do AI research on their own. NIST makes voluntary agreements (memorandums of understanding) with developers to test frontier models before release. Under the bill, a developer in such an agreement would have to disclose, if NIST asks, figures or estimates of how much AI was used to build the model, and the testing would check whether the model can carry out or help with AI research and development on its own. It applies only to developers that choose to enter these agreements.",
+   "new": "Would amend the National Institute of Standards and Technology (NIST) Act. NIST would be authorized to study trends in AI systems' ability to do AI research on their own. NIST makes agreements (memorandums of understanding) with developers to test frontier models before release. Under the bill, a developer in such an agreement would have to disclose, if NIST asks, figures or estimates of how much AI was used to build the model, and the testing would check whether the model can carry out or help with AI research and development on its own. It applies only to developers that choose to enter these agreements.",
+   "date": "2026-11-24",
+   "run_id": "update-20261124-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10180/text",
+   "tier": "C",
+   "note": "self-correction (error): The word \"voluntary\" is removed from \"NIST makes voluntary agreements\" because SOURCE never calls these agreements voluntary. SOURCE says the Director may not enter into a memorandum of understanding with a frontier developer unless the listed requirements are satisfied. Quote: \"the Director may not enter into with the developer\""
+  },
+  {
+   "entry_key": "h-r-10180-self-improving-ai-monitoring-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-24",
+   "run_id": "update-20261124-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10180/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "h-r-10189-defense-ai-reliability-act",
+   "field": "mechanism",
+   "old": "Would require a single, non-punitive AI incident and vulnerability program across the Department of Defense to report, track, analyze and fix problems from development through operation. It would include prompt reporting; protected disclosures by servicemembers, civilian employees, contractors and subcontractors; sorting of incidents and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operating outside guardrails, weakened mission performance, failure to obey a disengage command, near misses, and concerns about control or autonomy. It is not limited to frontier AI.",
+   "new": "Would require a single, non-punitive AI incident and vulnerability program across the Department of Defense to report, track, analyze and fix problems from development through operation. It would include prompt reporting; protected disclosures by servicemembers, civilian employees, contractors and subcontractors; sorting of incidents and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operating outside guardrails, weakened mission performance, failure to obey a disengage command, near misses, and concerns about control or autonomy. It is not limited to frontier AI. Good-faith reporters would not be subject to adverse contract or personnel action, or retaliation, based on that report alone.",
+   "date": "2026-11-24",
+   "run_id": "update-20261124-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry mentions protected disclosures but omits the bill's anti-retaliation protection for good-faith reporters, which SOURCE states. Quote: \"is not, on the basis of that report alone, subject to adverse contract action, subject to adverse personnel action, or otherwise retaliated against by the Department\""
+  },
+  {
+   "entry_key": "h-r-10189-defense-ai-reliability-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-24",
+   "run_id": "update-20261124-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "h-r-10362-stop-rogue-ai-act",
+   "field": "mechanism",
+   "old": "Would direct the National Institute of Standards and Technology (NIST) to set standards so organizations can find and track every AI agent on their networks, verify who built and operates each one, monitor them in real time, and allow, deny or revoke their access. Federal agencies and contractors would have to build these safeguards into how they buy and deploy AI. The duties fall on deployers and agencies, not on frontier developers.",
+   "new": "Would direct the National Institute of Standards and Technology (NIST) to set standards so organizations can find and track every AI agent on their networks, verify who built and operates each one, monitor them in real time, and allow, deny or revoke their access. Federal agencies and contractors would have to build these safeguards into how they buy and deploy AI. The duties fall on deployers and agencies, not on frontier developers. NIST standards due not later than 1 year after enactment and annually thereafter. Procurement rule revisions proposed not later than 18 months after NIST publishes standards, and annually thereafter.",
+   "date": "2026-11-24",
+   "run_id": "update-20261124-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text",
+   "tier": "C",
+   "note": "self-correction (omission): The field omits the deadlines: NIST standards are due not later than 1 year after enactment and annually thereafter, and FAR revisions are proposed not later than 18 months after NIST publishes the standards, then annually. Quote: \"Not later than 1 year after the date of\""
+  },
+  {
+   "entry_key": "h-r-10362-stop-rogue-ai-act",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-24",
+   "run_id": "update-20261124-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text",
+   "tier": "C"
   }
  ]
 }

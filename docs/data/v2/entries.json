@@ -7707,7 +7707,7 @@
   "title": "H.R. 10180 — Self-Improving AI Monitoring Act",
   "short_name": "H.R. 10180 Self-Improving AI Monitoring Act",
   "sponsor_text": "Rep. George Whitesides (D-CA), sponsor; Rep. Pat Harrigan (R-NC), original cosponsor; Rep. Jared Huffman (D-CA) added Oct 15, 2026",
-  "mechanism": "Would amend the National Institute of Standards and Technology (NIST) Act. NIST would be authorized to study trends in AI systems' ability to do AI research on their own. NIST makes voluntary agreements (memorandums of understanding) with developers to test frontier models before release. Under the bill, a developer in such an agreement would have to disclose, if NIST asks, figures or estimates of how much AI was used to build the model, and the testing would check whether the model can carry out or help with AI research and development on its own. It applies only to developers that choose to enter these agreements.",
+  "mechanism": "Would amend the National Institute of Standards and Technology (NIST) Act. NIST would be authorized to study trends in AI systems' ability to do AI research on their own. NIST makes agreements (memorandums of understanding) with developers to test frontier models before release. Under the bill, a developer in such an agreement would have to disclose, if NIST asks, figures or estimates of how much AI was used to build the model, and the testing would check whether the model can carry out or help with AI research and development on its own. It applies only to developers that choose to enter these agreements.",
   "thresholds": "Developers of a frontier artificial intelligence system (as determined by the NIST Director) entering pre-deployment evaluation MOUs",
   "penalties": null,
   "status_text": "Introduced Aug. 27, 2026; referred to the House Science, Space, and Technology Committee.",
@@ -7743,6 +7743,11 @@
     "label": "Bill status — GovInfo",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr10180.xml",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/10180/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Introduced text — GovInfo · Bill status — GovInfo",
@@ -7755,13 +7760,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-24T00:05:43Z",
+   "run_id": "update-20261124-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-24",
+  "last_changed": "2026-11-24",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-10180-self-improving-ai-monitoring-act-r",
    "section_name": "Adjacent and sectoral federal bills"
@@ -7774,17 +7781,29 @@
     ]
    }
   },
-  "summary_line": "Would authorize NIST to assess trends in autonomous AI-research capability and tie voluntary frontier-model evaluation agreements to disclosure of how much AI helped build the model.",
-  "thirty_seconds": {
-   "a": "Developers of a frontier AI system, as determined by the NIST Director, who enter voluntary pre-deployment evaluation MOUs with NIST. It applies only to them.",
-   "b": "Would have to disclose, at NIST's request, metrics or estimates of how much AI was used to develop the model; the evaluation would test whether it can autonomously facilitate or conduct AI R&D.",
-   "c": "No penalties. Taking part is voluntary; the disclosure is a condition of a voluntary NIST evaluation agreement."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "36a71e0d778ed87b2969945f37c035b1a9a53f196f14ca98b293ba12697d1735"
+   "method": "agent",
+   "checked_at": "2026-11-24T00:05:43Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "95b4b6d67239ee942cd07c772fc7a6138c6ba563052dee0fbf7c61eafdce0043"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "the Director may not enter into with the developer",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10180/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "unless the following requirements are satisfied",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10180/text"
+   }
+  ],
+  "summary_line": "Would authorize NIST to study AI systems' ability to do AI research on their own and require developers in pre-release testing agreements to disclose AI-use figures if asked.",
+  "thirty_seconds": {
+   "a": "Developers of frontier AI systems, as determined by the NIST Director, that choose to enter pre-deployment evaluation agreements with NIST.",
+   "b": "If NIST asks, disclose figures or estimates of how much AI was used to build the model. Testing would check if it can carry out or help with AI research on its own.",
+   "c": ""
   }
  },
  {
@@ -7799,7 +7818,7 @@
   "title": "H.R. 10189 — Defense AI Reliability and Reporting Act",
   "short_name": "H.R. 10189 Defense AI Reliability Act",
   "sponsor_text": "Rep. Sara Jacobs (D-CA), sponsor; Reps. Nathaniel Moran (R-TX) and George Whitesides (D-CA), original cosponsors",
-  "mechanism": "Would require a single, non-punitive AI incident and vulnerability program across the Department of Defense to report, track, analyze and fix problems from development through operation. It would include prompt reporting; protected disclosures by servicemembers, civilian employees, contractors and subcontractors; sorting of incidents and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operating outside guardrails, weakened mission performance, failure to obey a disengage command, near misses, and concerns about control or autonomy. It is not limited to frontier AI.",
+  "mechanism": "Would require a single, non-punitive AI incident and vulnerability program across the Department of Defense to report, track, analyze and fix problems from development through operation. It would include prompt reporting; protected disclosures by servicemembers, civilian employees, contractors and subcontractors; sorting of incidents and corrective-action plans; and annual reports for 2027–2031. Covered incidents include unintended harm, operating outside guardrails, weakened mission performance, failure to obey a disengage command, near misses, and concerns about control or autonomy. It is not limited to frontier AI. Good-faith reporters would not be subject to adverse contract or personnel action, or retaliation, based on that report alone.",
   "thresholds": null,
   "penalties": null,
   "status_text": "Introduced Aug. 31, 2026; referred to the House Armed Services Committee. The Congressional Research Service lists the FY2027 defense authorization bill (H.R. 8800) as related. No further action on H.R. 10189.",
@@ -7821,6 +7840,11 @@
     "label": "Introduced text — GovInfo",
     "url": "https://www.govinfo.gov/content/pkg/BILLS-119hr10189ih/html/BILLS-119hr10189ih.htm",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Introduced text — GovInfo",
@@ -7833,13 +7857,15 @@
    "updated_after_verification": false,
    "found_via": "dedicated_search"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-24T00:05:43Z",
+   "run_id": "update-20261124-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-24",
+  "last_changed": "2026-11-24",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-10189-defense-ai-reliability-and-reporting-act-r",
    "section_name": "Adjacent and sectoral federal bills"
@@ -7852,17 +7878,11 @@
     ]
    }
   },
-  "summary_line": "Would require a DoD-wide, non-punitive program to report, track, analyze and fix AI incidents and vulnerabilities, with protections for people who report.",
-  "thirty_seconds": {
-   "a": "The Department of Defense, its servicemembers, civilian employees, contractors and subcontractors. The bill is not specific to frontier AI.",
-   "b": "Under the bill, the Secretary of Defense would have to require prompt reporting of covered AI incidents and vulnerabilities to a designated DoD official.",
-   "c": "The bill states no penalties or fines. Good-faith reporters would be protected from adverse contract or personnel action and retaliation based on the report alone."
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-12T07:21:32Z",
+   "checked_at": "2026-11-24T00:05:43Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "8e685929e638ea70248f0250511732fdbccb0e7567d01010d44323f6d53b755a"
+   "basis_sha256": "723e664dd23bba4b76274c1b64eb33f62e8e091beed60733d0c70e5149c127b5"
   },
   "duties": {
    "framework": {
@@ -7930,6 +7950,19 @@
    "chars": 7664,
    "method": "agent",
    "checked_at": "2026-11-12T03:05:44Z"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "is not, on the basis of that report alone, subject to adverse contract action, subject to adverse personnel action, or otherwise retaliated against by the Department",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10189/text"
+   }
+  ],
+  "summary_line": "Would require one non-punitive AI incident and vulnerability reporting program across the Department of Defense, with protections for good-faith reporters.",
+  "thirty_seconds": {
+   "a": "The Department of Defense, with reporting by servicemembers, civilian employees, contractors and subcontractors. It is not limited to frontier AI.",
+   "b": "The Secretary of Defense would require prompt reporting of AI incidents and vulnerabilities, plus tracking, analysis, corrective-action plans and annual reports for 2027–2031.",
+   "c": "The bill states no penalties or fines. Good-faith reporters could not face adverse contract or personnel action, or retaliation, based on that report alone."
   }
  },
  {
@@ -8146,7 +8179,7 @@
   "title": "H.R. 10362 — Stop Rogue AI Act",
   "short_name": "H.R. 10362 Stop Rogue AI Act",
   "sponsor_text": "Rep. Josh Gottheimer (D-NJ), sponsor; Rep. Mike Lawler (R-NY), original cosponsor; Rep. Jared Huffman (D-CA) added Oct 15, 2026",
-  "mechanism": "Would direct the National Institute of Standards and Technology (NIST) to set standards so organizations can find and track every AI agent on their networks, verify who built and operates each one, monitor them in real time, and allow, deny or revoke their access. Federal agencies and contractors would have to build these safeguards into how they buy and deploy AI. The duties fall on deployers and agencies, not on frontier developers.",
+  "mechanism": "Would direct the National Institute of Standards and Technology (NIST) to set standards so organizations can find and track every AI agent on their networks, verify who built and operates each one, monitor them in real time, and allow, deny or revoke their access. Federal agencies and contractors would have to build these safeguards into how they buy and deploy AI. The duties fall on deployers and agencies, not on frontier developers. NIST standards due not later than 1 year after enactment and annually thereafter. Procurement rule revisions proposed not later than 18 months after NIST publishes standards, and annually thereafter.",
   "thresholds": null,
   "penalties": null,
   "status_text": "Status: Announced Sept 9, 2026; introduced Sept 14, 2026, referred to Science, Space, and Technology and to Oversight and Government Reform; Rep. Jared Huffman (D-CA) added as cosponsor Oct 15, 2026",
@@ -8196,6 +8229,11 @@
     "label": "Sponsor release Sept 9",
     "url": "https://gottheimer.house.gov/posts/release-gottheimer-introduces-bipartisan-bill-to-stop-rogue-ai-agents-and-keep-people-in-control",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text",
+    "kind": "primary"
    }
   ],
   "source_label": "H.R. 10362 text — GovInfo · Bill status — GovInfo · Sponsor release Sept 9",
@@ -8208,13 +8246,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-24T00:05:43Z",
+   "run_id": "update-20261124-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-24",
+  "last_changed": "2026-11-24",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-10362-stop-rogue-ai-act-u",
    "section_name": "Adjacent and sectoral federal bills"
@@ -8227,17 +8267,34 @@
     ]
    }
   },
-  "summary_line": "Would direct NIST to set standards for finding, tracking and controlling AI agents on organisations' networks, with federal agencies and contractors building them into procurement and deployment.",
-  "thirty_seconds": {
-   "a": "Deployers of AI agents and federal agencies and contractors. The duties do not fall on frontier developers.",
-   "b": "NIST would set standards to find and track every AI agent on a network, verify who built and runs each, monitor in real time, and allow, deny or revoke access.",
-   "c": "No penalties are set out in the bill text."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "e8c8fd91abac9587bd759437dcdf6cec56a9be9aba54ef8512be9e75e1daa0ee"
+   "method": "agent",
+   "checked_at": "2026-11-24T00:05:43Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "fd6fa0e4292e9f3a9ad92e6575af025b5ceb3f09849007e2429125b550ae11c1"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "Not later than 1 year after the date of",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than 18 months after the",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text"
+   },
+   {
+    "field": "mechanism",
+    "quote": "the Federal Acquisition Regulatory Council shall propose revisions to the Federal Acquisition Regulation",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text"
+   }
+  ],
+  "summary_line": "Would direct NIST to set standards for finding, tracking, verifying and controlling AI agents on networks, and require federal agencies and contractors to build them into AI buying.",
+  "thirty_seconds": {
+   "a": "Federal agencies and contractors that buy and deploy AI. The duties fall on deployers and agencies, not on frontier developers.",
+   "b": "They would have to build safeguards into how they buy and deploy AI, following NIST standards to track AI agents, verify who built them, monitor them and allow, deny or revoke access.",
+   "c": ""
   }
  },
  {
