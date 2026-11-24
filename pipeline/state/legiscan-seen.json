@@ -14543,12 +14543,12 @@
  },
  "2131588": {
   "verdict": "no",
-  "reason": "Chatbot toys prohibition.",
+  "reason": "chatbot toys, companion-style AI for children; out of scope",
   "title": "Prohibits the manufacture, exchange, distribution and sale of chatbot toys in this state.",
   "state": "NY",
   "number": "S09408",
-  "hash": "8fc377013e13dfae12a66ff17de59f12",
-  "checked_at": "2026-10-13T07:14:36Z"
+  "hash": "2d3642e4c829efc07e610cf3e1ced719",
+  "checked_at": "2026-11-24T20:05:59Z"
  },
  "2131656": {
   "verdict": "no",
@@ -19598,6 +19598,15 @@
   "number": "A5729",
   "hash": "5391a5211c638c6be8102d1266980b75",
   "checked_at": "2026-10-26T06:51:24Z"
+ },
+ "2161175": {
+  "verdict": "no",
+  "reason": "AI wage-setting algorithms in employment decisions; out of scope",
+  "title": "\"Fair Wage Protection Act\"; prohibits use of surveillance wage setting through use of wage setting algorithm.",
+  "state": "NJ",
+  "number": "S4923",
+  "hash": "da621a9d86472137ace95bd64c42dc67",
+  "checked_at": "2026-11-24T20:05:59Z"
  },
  "2161185": {
   "verdict": "other_jurisdiction",
