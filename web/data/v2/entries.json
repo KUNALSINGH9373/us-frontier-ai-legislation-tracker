@@ -14891,5 +14891,497 @@
    "reviewer": "session 21 Nov 2026 (section G.4 added)",
    "basis_sha256": "03d5c6fb61676499fb42f12bb9deddd363cb696f870b1fd7fe8293789b21c275"
   }
+ },
+ {
+  "id": 110,
+  "key": "h-r-11076-ai-insight-act",
+  "section": "F",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "Federal",
+  "state": null,
+  "status": "pending",
+  "title": "H.R. 11076 — AI INSIGHT Act",
+  "short_name": "Improving Nonhuman-Agent Security, Identification, Governance, Handling, and Traceability Act",
+  "sponsor_text": "Rep. Matt Van Epps (R-TN)",
+  "mechanism": "Within 90 days after enactment, the Director must seek to convene representatives of the listed entities to identify the most pressing cybersecurity risks of AI agents on executive agency systems and practical approaches to address them.; Within 270 days after enactment, the Director must make public a report summarizing the identifications from the convening, including the priorities in paragraph (4).; Within one year after enactment, the Director, in consultation with OMB, NIST and other relevant agency heads, must establish capabilities and processes enabling executive agencies to securely adopt, discover, monitor and enforce security policies for AI agents at runtime.; In carrying out subsection (d), the Director must develop and make available capabilities, services, guidance, directives and reference materials enabling agencies to manage each AI agent as an identifiable and accountable asset.; The Director's capabilities and guidance must enable executive agencies to maintain real-time inspection of AI agent actions and immediately suspend or terminate an agent that deviates from its task or authorized scope, among other activities.; The Director must conduct operational pilots evaluating multiple technical approaches from multiple providers for the subsection (e)(3) activities and incorporate the results into Agency services.; The Director must disseminate threat information, indicators, mitigations and other cybersecurity guidance on malicious, compromised, over-permissioned or untrusted AI agent behavior, including threats from agent interactions with users, applications, models, tools, data or other agents.; The Director must issue guidance on the traceability, verification, integrity and evidentiary reliability of outputs of AI agents or AI systems on executive agency systems that agencies rely on for investigations, enforcement referrals and other official actions, developed in consultation with the Attorney General.; The Director must, on a regular basis and as appropriate, share operational data and lessons learned from implementing this section with the Director of NIST to inform voluntary consensus standards.; Within one year after enactment and semiannually for three years after, the Director must brief the appropriate congressional committees on the outcomes and operational impact of the published capabilities, services, guidance, directives and reference materials.; The Director must support executive agencies' implementation through guidance, technical assistance and directives authorized by law, for AI agents deployed through cloud, managed or other hosted services.",
+  "thresholds": "The section covers AI agents on information systems owned or operated by or on behalf of an executive agency, other than national security systems.; An AI agent is a software system that uses AI to plan or sequence actions toward an assigned objective, has access or permissions to act within an information system, and can act without human approval of each action; it excludes predetermined-instruction software and content-only systems that cannot act.; Executive agency has the meaning given in section 2, except it does not include the Department of Defense, a military department, or an element of the intelligence community.. Excludes: The Department of Defense, military departments and elements of the intelligence community are not executive agencies under this section.",
+  "penalties": null,
+  "status_text": "Introduced / status: Nov 18, 2026; Referred to the Committee on Homeland Security, and in addition to the Committee on Oversight and Government Reform, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned (Nov 18, 2026)",
+  "signed_text": null,
+  "effective_text": "Not stated in the bill; the Director must seek to convene stakeholders within 90 days after enactment",
+  "events": [
+   {
+    "date": "2026-11-18",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "H.R. 11076 introduced",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Congress.gov record: AI INSIGHT Act",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
+    "kind": "primary",
+    "retrieved_at": "2026-11-24T08:06:07Z"
+   }
+  ],
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record"
+  },
+  "tags": {
+   "found_via": "api",
+   "updated_after_verification": true
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "The term `executive agency information system' means an information system owned or operated by or on behalf of an executive agency, other than a national security system.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "thresholds",
+    "quote": "The term `artificial intelligence agent'-- ``(A) means a software system that-- ``(i) uses artificial intelligence to plan, select, or sequence actions toward an objective assigned by a user, organization, or other system; ``(ii) has been granted access, credentials, or permissions that enable it to carry out such actions within or through an information system, including by invoking tools, calling application programming interfaces, operating a software user interface, accessing or modifying data, or directing other software; and ``(iii) can carry out such actions without requiring human approval of each such action; and ``(B) does not include-- ``(i) software that executes only predetermined instructions without the use of artificial intelligence to determine its actions; and ``(ii) an artificial intelligence system that only generates content, recommendations, or analysis for review by a human user and cannot itself take action within or through an information system.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "thresholds",
+    "quote": "The term `executive agency' has the meaning given such term in section 2, except that such term does not include the Department of Defense, a military department, or an element of the intelligence community.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "thresholds",
+    "quote": "The term `executive agency' has the meaning given such term in section 2, except that such term does not include the Department of Defense, a military department, or an element of the intelligence community.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than 90 days after the date of the enactment of this section, the Director shall seek to convene relevant representatives from the entities specified in paragraph (2) to identify the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than 270 days after the date of the enactment of this section, the Director shall make publicly available a report summarizing the identifications under paragraph (1), including relating to the priorities described in paragraph (4), to inform ongoing standards development activities and cybersecurity considerations.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than one year after the date of the enactment of this section, and taking into account the report under subsection (c)(5), the Director, in consultation with the Director of the Office of Management and Budget, the Director of the National Institute of Standards and Technology, and the heads of other relevant executive agencies, shall establish capabilities and processes, or integrate capabilities and processes into existing Agency programs and services (including the continuous diagnostics and mitigation program of the Agency), that enable such agencies to securely adopt, discover, identify, authorize, continuously monitor, and enforce security policies for artificial intelligence agents operating on executive agency information systems at runtime, including such agents' interactions with users, applications, models, tools, data, and other artificial intelligence agents, and hold accountable such agents and manage the cybersecurity risks such agents present, including by carrying out, in accordance with relevant consensus standards and best practices, the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(A) manage each artificial intelligence agent operating on an executive agency information system as an identifiable and accountable asset, consistent with the security controls, asset management, access control, logging, and incident response practices that apply to privileged users and privileged software on executive agency information systems; and",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "In carrying out subsection (d), the Director shall develop, and make available to executive agencies, capabilities, services, guidance, directives, and reference materials that enable such agencies to--",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(K) Maintain the ability to perform real-time inspection of actions by artificial intelligence agents operating on executive agency information systems prior to completing such actions, to immediately-- ``(i) suspend or terminate such an agent's execution of such an actions if such an agent's behavior deviates from its assigned task or authorized scope; ``(ii) identify, reverse, and recover from unauthorized or erroneous actions taken by such an agent, including restoration of affected data, models, or configurations to a verified known-good state; and ``(iii) apply remediation or compensating measures in cases in which such reversals and recoveries are technically infeasible.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The activities described in this paragraph are the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(2) Conduct operational pilots on executive agency information systems, including through the continuous diagnostics and mitigation program of the Agency, that evaluate multiple technical approaches offered by multiple providers for carrying out the activities described in subsection (e)(3), and incorporate the results into services the Agency offers to executive agencies.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The Director shall carry out the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(4) Disseminate threat information, indicators, mitigations, and other cybersecurity guidance relating to malicious, compromised, over-permissioned, or untrusted artificial intelligence agent behavior, including threats arising from artificial intelligence agent interactions with users, applications, models, tools, data, or other artificial intelligence agents.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The Director shall carry out the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(5) Issue guidance addressing the traceability, verification, integrity, and evidentiary reliability of outputs generated by artificial intelligence agents or artificial intelligence systems operating on executive agency information systems on which such agencies rely for investigations, enforcement referrals, and other official actions, developed in consultation with the Attorney General and taking into account existing practices for the collection, preservation, and use of digital evidence.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The Director shall carry out the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(6) Share with the Director of the National Institute of Standards and Technology, on a regular basis and as appropriate, operational data and lessons learned from the implementation of this section to inform the development of voluntary consensus standards.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The Director shall carry out the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "Not later than one year after the date of the enactment of this section and semiannually for three years thereafter, the Director shall brief the appropriate congressional committees on the outcomes and operational impact, including the prevalence of artificial intelligence agents within executive agencies, the rate and scope of the use and deployment of artificial intelligence agents within executive agencies, how artificial intelligence agents are used and deployed within executive agencies, cybersecurity threat detection and risk management capabilities with respect to artificial intelligence agents, and the traceability and verification of artificial intelligence agent findings, of published capabilities, services, guidance, directives, and reference materials on the Agency, executive agencies, and relevant contractors, third-party platforms, or vendors.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "The Director shall support executive agencies' implementation of this section through supplementary operational guidance, technical assistance, and such additional directives as may be authorized by law, including binding operational directives and emergency directives, with respect to artificial intelligence agents deployed through a cloud service provider, a managed service provider, or another hosted service.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "effective_text",
+    "quote": "Not later than 90 days after the date of the enactment of this section, the Director shall seek to convene relevant representatives from the entities specified in paragraph (2) to identify the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "(2) Streamlines security requirements by building on existing cybersecurity programs, controls, and assessments, rather than establishing separate or duplicative processes.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "mechanism",
+    "quote": "It is the policy of the United States that executive agencies should deploy artificial intelligence agents securely and without unnecessary delay, and that this section should be implemented in a manner that carries out the following:",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "short_name",
+    "quote": "This Act may be cited as the ``Improving Nonhuman-Agent Security, Identification, Governance, Handling, and Traceability Act'' or the ``AI INSIGHT Act''.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   {
+    "field": "section",
+    "quote": "(A) manage each artificial intelligence agent operating on an executive agency information system as an identifiable and accountable asset, consistent with the security controls, asset management, access control, logging, and incident response practices that apply to privileged users and privileged software on executive agency information systems; and",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   }
+  ],
+  "origin": "automated",
+  "identifiers": {
+   "external": {
+    "congress_gov": [
+     "119/hr/11076"
+    ]
+   },
+   "session": "119th Congress"
+  },
+  "legacy": {
+   "section_name": "Adjacent and sectoral federal bills"
+  },
+  "verification": {
+   "method": "agent",
+   "checked_at": "2026-11-24T08:06:13Z",
+   "run_id": "run-20261124-0806-e460",
+   "rounds": 3
+  },
+  "last_checked": "2026-11-24",
+  "last_changed": "2026-11-24",
+  "duties": {
+   "framework": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "transparency_report": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "incident_reporting": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "imminent_risk_reporting": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "third_party_audit": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "whistleblower": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "registration": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "shutdown": {
+    "value": "partial",
+    "summary": "The Director's capabilities and guidance must enable executive agencies to immediately suspend or terminate an AI agent's execution if it deviates from its task or authorized scope. Binds only the Director and agencies, not developers.",
+    "section": "Homeland Security Act § 2220F(e)(3)(K)",
+    "quote": "(K) Maintain the ability to perform real-time inspection of actions by artificial intelligence agents operating on executive agency information systems prior to completing such actions, to immediately-- ``(i) suspend or terminate such an agent's execution of such an actions if such an agent's behavior deviates from its assigned task or authorized scope;",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076"
+   },
+   "compute_threshold": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "revenue_threshold": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "harm_threshold": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "penalties": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   },
+   "effective_date": {
+    "value": "not_in_bill",
+    "summary": "Not in the bill text."
+   }
+  },
+  "duties_basis": {
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
+   "sha256": "32279485933fde7b6164294e5b57a1a540dc334a7a1bf6f8a50d8acf00fe17c9",
+   "chars": 28532,
+   "method": "agent",
+   "checked_at": "2026-11-24T08:06:13Z"
+  },
+  "plain": {
+   "name_quote": "This Act may be cited as the ``Improving Nonhuman-Agent Security, Identification, Governance, Handling, and Traceability Act'' or the ``AI INSIGHT Act''.",
+   "box": {
+    "applies_to": "No duties on private parties; the Director, for AI agents on executive agency information systems (not national security systems; excluding Defense Department, military departments and intelligence community elements)",
+    "requires_lead": "Directs",
+    "requires": "the Director to seek to convene stakeholders within 90 days after enactment, publish a report within 270 days, and within one year establish capabilities for agencies to discover, monitor and enforce security policies for AI agents, among other duties",
+    "enforcement": "none",
+    "effective": "Not stated in the bill; the Director must seek to convene stakeholders within 90 days after enactment"
+   },
+   "items": {
+    "coverage": [
+     {
+      "id": "c1",
+      "text": "The section covers AI agents on information systems owned or operated by or on behalf of an executive agency, other than national security systems.",
+      "quote": "The term `executive agency information system' means an information system owned or operated by or on behalf of an executive agency, other than a national security system.",
+      "sec": "Homeland Security Act § 2220F(h)(10)",
+      "party": "the Director",
+      "conditions": [
+       "owned or operated by or on behalf of an executive agency",
+       "other than a national security system"
+      ]
+     }
+    ],
+    "definitions": [
+     {
+      "id": "d1",
+      "text": "An AI agent is a software system that uses AI to plan or sequence actions toward an assigned objective, has access or permissions to act within an information system, and can act without human approval of each action; it excludes predetermined-instruction software and content-only systems that cannot act.",
+      "quote": "The term `artificial intelligence agent'-- ``(A) means a software system that-- ``(i) uses artificial intelligence to plan, select, or sequence actions toward an objective assigned by a user, organization, or other system; ``(ii) has been granted access, credentials, or permissions that enable it to carry out such actions within or through an information system, including by invoking tools, calling application programming interfaces, operating a software user interface, accessing or modifying data, or directing other software; and ``(iii) can carry out such actions without requiring human approval of each such action; and ``(B) does not include-- ``(i) software that executes only predetermined instructions without the use of artificial intelligence to determine its actions; and ``(ii) an artificial intelligence system that only generates content, recommendations, or analysis for review by a human user and cannot itself take action within or through an information system.",
+      "sec": "Homeland Security Act § 2220F(h)(4)",
+      "term": "artificial intelligence agent"
+     },
+     {
+      "id": "d2",
+      "text": "Executive agency has the meaning given in section 2, except it does not include the Department of Defense, a military department, or an element of the intelligence community.",
+      "quote": "The term `executive agency' has the meaning given such term in section 2, except that such term does not include the Department of Defense, a military department, or an element of the intelligence community.",
+      "sec": "Homeland Security Act § 2220F(h)(9)",
+      "term": "executive agency"
+     }
+    ],
+    "exclusions": [
+     {
+      "id": "x1",
+      "text": "The Department of Defense, military departments and elements of the intelligence community are not executive agencies under this section.",
+      "quote": "The term `executive agency' has the meaning given such term in section 2, except that such term does not include the Department of Defense, a military department, or an element of the intelligence community.",
+      "sec": "Homeland Security Act § 2220F(h)(9)"
+     }
+    ],
+    "duties": [
+     {
+      "id": "u1",
+      "text": "Within 90 days after enactment, the Director must seek to convene representatives of the listed entities to identify the most pressing cybersecurity risks of AI agents on executive agency systems and practical approaches to address them.",
+      "quote": "Not later than 90 days after the date of the enactment of this section, the Director shall seek to convene relevant representatives from the entities specified in paragraph (2) to identify the following:",
+      "sec": "Homeland Security Act § 2220F(c)(1)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "deadline": "Not later than 90 days after the date of the enactment of this section",
+      "conditions": [
+       "Not later than 90 days after the date of the enactment of this section",
+       "shall seek to convene",
+       "relevant representatives from the entities specified in paragraph (2)"
+      ]
+     },
+     {
+      "id": "u2",
+      "text": "Within 270 days after enactment, the Director must make public a report summarizing the identifications from the convening, including the priorities in paragraph (4).",
+      "quote": "Not later than 270 days after the date of the enactment of this section, the Director shall make publicly available a report summarizing the identifications under paragraph (1), including relating to the priorities described in paragraph (4), to inform ongoing standards development activities and cybersecurity considerations.",
+      "sec": "Homeland Security Act § 2220F(c)(5)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "deadline": "Not later than 270 days after the date of the enactment of this section",
+      "conditions": [
+       "Not later than 270 days after the date of the enactment of this section"
+      ]
+     },
+     {
+      "id": "u3",
+      "text": "Within one year after enactment, the Director, in consultation with OMB, NIST and other relevant agency heads, must establish capabilities and processes enabling executive agencies to securely adopt, discover, monitor and enforce security policies for AI agents at runtime.",
+      "quote": "Not later than one year after the date of the enactment of this section, and taking into account the report under subsection (c)(5), the Director, in consultation with the Director of the Office of Management and Budget, the Director of the National Institute of Standards and Technology, and the heads of other relevant executive agencies, shall establish capabilities and processes, or integrate capabilities and processes into existing Agency programs and services (including the continuous diagnostics and mitigation program of the Agency), that enable such agencies to securely adopt, discover, identify, authorize, continuously monitor, and enforce security policies for artificial intelligence agents operating on executive agency information systems at runtime, including such agents' interactions with users, applications, models, tools, data, and other artificial intelligence agents, and hold accountable such agents and manage the cybersecurity risks such agents present, including by carrying out, in accordance with relevant consensus standards and best practices, the following:",
+      "sec": "Homeland Security Act § 2220F(d)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "deadline": "Not later than one year after the date of the enactment of this section",
+      "conditions": [
+       "Not later than one year after the date of the enactment of this section",
+       "in consultation with the Director of the Office of Management and Budget, the Director of the National Institute of Standards and Technology, and the heads of other relevant executive agencies",
+       "in accordance with relevant consensus standards and best practices"
+      ]
+     },
+     {
+      "id": "u4",
+      "text": "In carrying out subsection (d), the Director must develop and make available capabilities, services, guidance, directives and reference materials enabling agencies to manage each AI agent as an identifiable and accountable asset.",
+      "quote": "(A) manage each artificial intelligence agent operating on an executive agency information system as an identifiable and accountable asset, consistent with the security controls, asset management, access control, logging, and incident response practices that apply to privileged users and privileged software on executive agency information systems; and",
+      "lead_in": "In carrying out subsection (d), the Director shall develop, and make available to executive agencies, capabilities, services, guidance, directives, and reference materials that enable such agencies to--",
+      "sec": "Homeland Security Act § 2220F(e)(1)(A)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "In carrying out subsection (d)"
+      ]
+     },
+     {
+      "id": "u5",
+      "text": "The Director's capabilities and guidance must enable executive agencies to maintain real-time inspection of AI agent actions and immediately suspend or terminate an agent that deviates from its task or authorized scope, among other activities.",
+      "quote": "(K) Maintain the ability to perform real-time inspection of actions by artificial intelligence agents operating on executive agency information systems prior to completing such actions, to immediately-- ``(i) suspend or terminate such an agent's execution of such an actions if such an agent's behavior deviates from its assigned task or authorized scope; ``(ii) identify, reverse, and recover from unauthorized or erroneous actions taken by such an agent, including restoration of affected data, models, or configurations to a verified known-good state; and ``(iii) apply remediation or compensating measures in cases in which such reversals and recoveries are technically infeasible.",
+      "lead_in": "The activities described in this paragraph are the following:",
+      "sec": "Homeland Security Act § 2220F(e)(3)(K)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "through a risk-based approach",
+       "takes into account the technical feasibility of such activities"
+      ]
+     },
+     {
+      "id": "u6",
+      "text": "The Director must conduct operational pilots evaluating multiple technical approaches from multiple providers for the subsection (e)(3) activities and incorporate the results into Agency services.",
+      "quote": "(2) Conduct operational pilots on executive agency information systems, including through the continuous diagnostics and mitigation program of the Agency, that evaluate multiple technical approaches offered by multiple providers for carrying out the activities described in subsection (e)(3), and incorporate the results into services the Agency offers to executive agencies.",
+      "lead_in": "The Director shall carry out the following:",
+      "sec": "Homeland Security Act § 2220F(f)(2)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty"
+     },
+     {
+      "id": "u9",
+      "text": "The Director must disseminate threat information, indicators, mitigations and other cybersecurity guidance on malicious, compromised, over-permissioned or untrusted AI agent behavior, including threats from agent interactions with users, applications, models, tools, data or other agents.",
+      "quote": "(4) Disseminate threat information, indicators, mitigations, and other cybersecurity guidance relating to malicious, compromised, over-permissioned, or untrusted artificial intelligence agent behavior, including threats arising from artificial intelligence agent interactions with users, applications, models, tools, data, or other artificial intelligence agents.",
+      "lead_in": "The Director shall carry out the following:",
+      "sec": "Homeland Security Act § 2220F(f)(4)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty"
+     },
+     {
+      "id": "u10",
+      "text": "The Director must issue guidance on the traceability, verification, integrity and evidentiary reliability of outputs of AI agents or AI systems on executive agency systems that agencies rely on for investigations, enforcement referrals and other official actions, developed in consultation with the Attorney General.",
+      "quote": "(5) Issue guidance addressing the traceability, verification, integrity, and evidentiary reliability of outputs generated by artificial intelligence agents or artificial intelligence systems operating on executive agency information systems on which such agencies rely for investigations, enforcement referrals, and other official actions, developed in consultation with the Attorney General and taking into account existing practices for the collection, preservation, and use of digital evidence.",
+      "lead_in": "The Director shall carry out the following:",
+      "sec": "Homeland Security Act § 2220F(f)(5)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "developed in consultation with the Attorney General",
+       "taking into account existing practices for the collection, preservation, and use of digital evidence"
+      ]
+     },
+     {
+      "id": "u11",
+      "text": "The Director must, on a regular basis and as appropriate, share operational data and lessons learned from implementing this section with the Director of NIST to inform voluntary consensus standards.",
+      "quote": "(6) Share with the Director of the National Institute of Standards and Technology, on a regular basis and as appropriate, operational data and lessons learned from the implementation of this section to inform the development of voluntary consensus standards.",
+      "lead_in": "The Director shall carry out the following:",
+      "sec": "Homeland Security Act § 2220F(f)(6)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "on a regular basis and as appropriate"
+      ]
+     },
+     {
+      "id": "u7",
+      "text": "Within one year after enactment and semiannually for three years after, the Director must brief the appropriate congressional committees on the outcomes and operational impact of the published capabilities, services, guidance, directives and reference materials.",
+      "quote": "Not later than one year after the date of the enactment of this section and semiannually for three years thereafter, the Director shall brief the appropriate congressional committees on the outcomes and operational impact, including the prevalence of artificial intelligence agents within executive agencies, the rate and scope of the use and deployment of artificial intelligence agents within executive agencies, how artificial intelligence agents are used and deployed within executive agencies, cybersecurity threat detection and risk management capabilities with respect to artificial intelligence agents, and the traceability and verification of artificial intelligence agent findings, of published capabilities, services, guidance, directives, and reference materials on the Agency, executive agencies, and relevant contractors, third-party platforms, or vendors.",
+      "sec": "Homeland Security Act § 2220F(g)(1)(A)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "deadline": "Not later than one year after the date of the enactment of this section and semiannually for three years thereafter",
+      "conditions": [
+       "Not later than one year after the date of the enactment of this section",
+       "semiannually for three years thereafter"
+      ]
+     },
+     {
+      "id": "u8",
+      "text": "The Director must support executive agencies' implementation through guidance, technical assistance and directives authorized by law, for AI agents deployed through cloud, managed or other hosted services.",
+      "quote": "The Director shall support executive agencies' implementation of this section through supplementary operational guidance, technical assistance, and such additional directives as may be authorized by law, including binding operational directives and emergency directives, with respect to artificial intelligence agents deployed through a cloud service provider, a managed service provider, or another hosted service.",
+      "sec": "Homeland Security Act § 2220F(g)(2)",
+      "party": "the Director",
+      "kind": "agency",
+      "force": "duty",
+      "conditions": [
+       "such additional directives as may be authorized by law",
+       "with respect to artificial intelligence agents deployed through a cloud service provider, a managed service provider, or another hosted service"
+      ]
+     }
+    ],
+    "penalties": [],
+    "effective": [
+     {
+      "id": "e1",
+      "text": "Government deadline: 90 days after enactment for the Director to seek to convene.",
+      "quote": "Not later than 90 days after the date of the enactment of this section, the Director shall seek to convene relevant representatives from the entities specified in paragraph (2) to identify the following:",
+      "sec": "Homeland Security Act § 2220F(c)(1)"
+     }
+    ],
+    "other_provisions": [
+     {
+      "id": "o1",
+      "text": "Policy statement: the section should be implemented in a way that builds on existing cybersecurity programs rather than creating separate or duplicative processes.",
+      "quote": "(2) Streamlines security requirements by building on existing cybersecurity programs, controls, and assessments, rather than establishing separate or duplicative processes.",
+      "lead_in": "It is the policy of the United States that executive agencies should deploy artificial intelligence agents securely and without unnecessary delay, and that this section should be implemented in a manner that carries out the following:",
+      "sec": "Homeland Security Act § 2220F(a)(2)",
+      "kind": "other"
+     }
+    ]
+   },
+   "text_problems": [
+    "Sec. 2220F(f)(1) refers to \"this subsection (e)\" although (e) is a subsection of the section; read as written.",
+    "Sec. 2220F(e)(3)(K)(i) reads \"such an actions\"; read as written.",
+    "The bill does not define \"the Director\" or \"the Agency\" in its own text; context suggests the Director of the Cybersecurity and Infrastructure Security Agency, per the bill's long title."
+   ]
+  },
+  "summary_line": "Would direct the Director to set up capabilities and guidance so federal civilian agencies can securely adopt, monitor and control AI agents on their information systems.",
+  "thirty_seconds": {
+   "a": "Executive agencies' AI agents on their information systems, other than national security systems. Defense, military departments and intelligence community elements are excluded.",
+   "b": "The Director must seek to convene stakeholders within 90 days, publish a report within 270 days, and within one year establish capabilities for agencies to monitor and suspend AI agents.",
+   "c": ""
+  },
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-24T08:05:44Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "d799de8e485e14b29ce393a7156c8a06eba179fa0cf2f8627da500514f68c1ae"
+  }
  }
 ]

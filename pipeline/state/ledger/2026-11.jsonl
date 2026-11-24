@@ -994,3 +994,15 @@
 {"at":"2026-11-24T00:07:28.260Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"pagefields:h-r-10362-stop-rogue-ai-act:r1","input":1742,"output":299,"cost":0.012948000000000001}
 {"at":"2026-11-24T00:07:31.458Z","role":"generator","model":"claude-sonnet-5-5","itemId":"pagefields:h-r-10362-stop-rogue-ai-act:w2","input":2406,"output":260,"cost":0.007412}
 {"at":"2026-11-24T00:07:34.707Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"pagefields:h-r-10362-stop-rogue-ai-act:r2","input":1754,"output":298,"cost":0.012976}
+{"at":"2026-11-24T08:06:05.734Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2110,"output":206,"cost":0.000314}
+{"at":"2026-11-24T08:06:13.317Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2062,"output":108,"cost":0.00026020000000000004}
+{"at":"2026-11-24T08:06:51.400Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/hr/11076","input":20866,"output":6951,"cost":0.11124200000000001}
+{"at":"2026-11-24T08:07:33.804Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/hr/11076","input":28564,"output":8193,"cost":0.13905800000000001}
+{"at":"2026-11-24T08:07:43.617Z","role":"scope_judge","model":"claude-opus-5-5","itemId":"congress_gov:119/hr/11076","input":11211,"output":977,"cost":0.064384}
+{"at":"2026-11-24T08:08:00.628Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"congress_gov:119/hr/11076","input":19271,"output":1781,"cost":0.112704}
+{"at":"2026-11-24T08:08:37.536Z","role":"writer","model":"claude-sonnet-5-5","itemId":"congress_gov:119/hr/11076","input":28413,"output":8005,"cost":0.136876}
+{"at":"2026-11-24T08:08:46.277Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"congress_gov:119/hr/11076","input":20460,"output":773,"cost":0.0973}
+{"at":"2026-11-24T08:09:03.129Z","role":"generator","model":"claude-sonnet-5-5","itemId":"pagefields:h-r-11076-ai-insight-act:w1","input":6823,"output":291,"cost":0.016556}
+{"at":"2026-11-24T08:09:06.515Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"pagefields:h-r-11076-ai-insight-act:r1","input":6296,"output":314,"cost":0.031464}
+{"at":"2026-11-24T08:09:09.331Z","role":"generator","model":"claude-sonnet-5-5","itemId":"pagefields:h-r-11076-ai-insight-act:w2","input":6984,"output":265,"cost":0.016618}
+{"at":"2026-11-24T08:09:12.702Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"pagefields:h-r-11076-ai-insight-act:r2","input":6298,"output":365,"cost":0.032492}

@@ -1130,6 +1130,21 @@
    "run_id": "update-20261124-0005",
    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/10362/text",
    "tier": "C"
+  },
+  {
+   "entry_key": "h-r-11076-ai-insight-act",
+   "field": "entry",
+   "old": null,
+   "new": {
+    "title": "H.R. 11076 — AI INSIGHT Act",
+    "section": "F",
+    "status": "pending"
+   },
+   "date": "2026-11-24",
+   "run_id": "run-20261124-0806-e460",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
+   "tier": "B",
+   "note": "new entry; reading fields written by the AI with quotes checked by code"
   }
  ]
 }
