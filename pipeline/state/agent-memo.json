@@ -1455,6 +1455,20 @@
    "proposal": "legiscan:2160046 (\"Establishes content and data privacy requirements for chatbot providers.\") meets no state section's criterion; not created",
    "date": "2026-11-25",
    "dead": false
+  },
+  "congress_gov:119/hr/4640": {
+   "raw_hash": "a746872096eb644ca77f42a49f9d9f28c4b99c87154fc269f104e2dc61d53b21",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/4640 (\"Stop AI Price Gouging and Wage Fixing Act of 2025\") meets neither federal section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
+  },
+  "congress_gov:119/hr/11100": {
+   "raw_hash": "1a7a25f5038bec02ed004196ef9a87b217b87de507ca4f58a2948d71c0f641f1",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/11100 (\"Digital Infrastructure Security Act of 2026\") meets neither federal section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
   }
  }
 }
