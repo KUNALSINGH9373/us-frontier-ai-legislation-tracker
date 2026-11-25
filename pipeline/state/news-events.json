@@ -28,7 +28,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 207,
+   "stable_runs": 208,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "29a119a182b41cc1",
@@ -76,7 +76,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 207,
+   "stable_runs": 208,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "0ca8dda222baa9b2",
@@ -120,7 +120,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 207,
+   "stable_runs": 208,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -168,9 +168,9 @@
      "hash": "89ccaa83a68fe096"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 7,
+   "stable_runs": 0,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-09T08:05:44.066Z",
    "facts_digest": "0ba506c37c8914c4",
@@ -366,6 +366,12 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending"
     }
    ],
    "card": null,
@@ -399,7 +405,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 207,
+   "stable_runs": 208,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-03T16:06:05.861Z",
    "facts_digest": "276c7aed410381f5",
@@ -446,7 +452,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 207,
+   "stable_runs": 208,
    "first_seen": "2026-10-30T15:06:01.949Z",
    "last_seen": "2026-11-06T06:56:55.820Z",
    "facts_digest": "905ea3751cd4242b",
@@ -494,7 +500,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 199,
+   "stable_runs": 200,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "01b204e925a28aac",
@@ -542,7 +548,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 199,
+   "stable_runs": 200,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "906ec7dae2a05cf1",
@@ -584,7 +590,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 199,
+   "stable_runs": 200,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "ea1db7479f77ce51",
@@ -632,7 +638,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 199,
+   "stable_runs": 200,
    "first_seen": "2026-10-31T12:05:48.630Z",
    "last_seen": "2026-10-31T12:05:48.630Z",
    "facts_digest": "2d4afe4147425460",
@@ -674,7 +680,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 176,
+   "stable_runs": 177,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-20T12:06:02.578Z",
    "facts_digest": "e6dcf90065e2d86e",
@@ -722,7 +728,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 176,
+   "stable_runs": 177,
    "first_seen": "2026-11-03T08:05:44.743Z",
    "last_seen": "2026-11-20T12:06:02.578Z",
    "facts_digest": "51b56a9261a7eeef",
@@ -764,7 +770,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 175,
+   "stable_runs": 176,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "84179ed4a526e56a",
@@ -819,7 +825,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 175,
+   "stable_runs": 176,
    "first_seen": "2026-11-03T12:00:19.676Z",
    "last_seen": "2026-11-11T12:05:48.023Z",
    "facts_digest": "ffc725e4318a18f1",
@@ -868,7 +874,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 152,
+   "stable_runs": 153,
    "first_seen": "2026-11-06T21:35:14.206Z",
    "last_seen": "2026-11-06T21:35:14.206Z",
    "facts_digest": "ff5864f074760c67",
@@ -916,7 +922,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 130,
+   "stable_runs": 131,
    "first_seen": "2026-11-09T20:05:46.683Z",
    "last_seen": "2026-11-09T20:05:46.683Z",
    "facts_digest": "77c780b3eca47992",
@@ -958,7 +964,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-13T01:10:24.801Z",
    "facts_digest": "97f2fac0fc60a5ff",
@@ -1000,7 +1006,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "807adc20a8a354e9",
@@ -1042,7 +1048,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "afca5d3c2a1c9fdf",
@@ -1084,7 +1090,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "68018eee17f79bc4",
@@ -1126,7 +1132,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "dec07252f028d3aa",
@@ -1168,7 +1174,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "9e8cdbe559aeff15",
@@ -1210,7 +1216,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "4870b58e1e9eeeb7",
@@ -1252,7 +1258,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "cf39d362fea5fe85",
@@ -1294,7 +1300,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-18T04:05:50.550Z",
    "facts_digest": "c436af4d541c4977",
@@ -1336,7 +1342,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "102bd1564f63aaf8",
@@ -1378,7 +1384,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "bf08fd7640676ae9",
@@ -1420,7 +1426,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 122,
+   "stable_runs": 123,
    "first_seen": "2026-11-10T20:05:44.895Z",
    "last_seen": "2026-11-10T20:05:44.895Z",
    "facts_digest": "1c767958d003d4cf",
@@ -1477,7 +1483,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 119,
+   "stable_runs": 120,
    "first_seen": "2026-11-11T04:05:46.546Z",
    "last_seen": "2026-11-11T04:05:46.546Z",
    "facts_digest": "25dda743fd8b6223",
@@ -1519,7 +1525,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 107,
+   "stable_runs": 108,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "112b309dbbe3054c",
@@ -1603,7 +1609,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 109,
+   "stable_runs": 110,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "c1cf7a5a5abd7fe8",
@@ -1661,7 +1667,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 109,
+   "stable_runs": 110,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "eb46586c09224695",
@@ -1745,7 +1751,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 109,
+   "stable_runs": 110,
    "first_seen": "2026-11-11T12:05:48.023Z",
    "last_seen": "2026-11-14T20:46:19.574Z",
    "facts_digest": "cbb6a295b0ac04c5",
@@ -1830,7 +1836,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 113,
+   "stable_runs": 114,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "034c995100c7acc9",
@@ -1941,7 +1947,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 113,
+   "stable_runs": 114,
    "first_seen": "2026-11-11T20:05:47.417Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "6c60fda5fbb8a36f",
@@ -2027,7 +2033,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 34,
+   "stable_runs": 35,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-21T04:05:44.258Z",
    "facts_digest": "40cfd77472219958",
@@ -2234,7 +2240,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 107,
+   "stable_runs": 108,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-21T01:35:03.950Z",
    "facts_digest": "52d62caf37e66c8c",
@@ -2297,7 +2303,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 107,
+   "stable_runs": 108,
    "first_seen": "2026-11-12T12:05:47.258Z",
    "last_seen": "2026-11-21T04:05:44.258Z",
    "facts_digest": "212583ba0d0c1a01",
@@ -2360,7 +2366,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 104,
+   "stable_runs": 105,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-21T00:05:56.562Z",
    "facts_digest": "4723bd16dc4c8634",
@@ -2422,7 +2428,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 104,
+   "stable_runs": 105,
    "first_seen": "2026-11-12T20:05:46.967Z",
    "last_seen": "2026-11-21T00:05:56.562Z",
    "facts_digest": "1180097d4577d0cb",
@@ -2463,15 +2469,15 @@
      "url": "https://www.govinfo.gov/app/details/BILLS-119hr10981ih",
      "title": "American AI Security Act",
      "publisher": null,
-     "retrieved_at": "2026-11-24T08:05:44.595Z",
+     "retrieved_at": "2026-11-25T08:05:44.910Z",
      "hash": "399f2cbb10eba8f4"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 100,
+   "stable_runs": 101,
    "first_seen": "2026-11-13T08:05:44.938Z",
-   "last_seen": "2026-11-24T08:05:44.595Z",
+   "last_seen": "2026-11-25T08:05:44.910Z",
    "facts_digest": "5244783b5683db57",
    "history": [
     {
@@ -2518,7 +2524,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 35,
+   "stable_runs": 36,
    "first_seen": "2026-11-13T12:05:48.337Z",
    "last_seen": "2026-11-21T04:05:44.258Z",
    "facts_digest": "3218b1f17089b2cf",
@@ -2739,7 +2745,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 70,
+   "stable_runs": 71,
    "first_seen": "2026-11-17T00:05:47.831Z",
    "last_seen": "2026-11-17T00:05:47.831Z",
    "facts_digest": "c86d69e3c8ba0301",
@@ -2769,28 +2775,61 @@
    "facts": {
     "action": "Left in Committee Communications, Technology and Innovation",
     "chamber": "House",
-    "number": "VA HB1521",
-    "title": "Digital innovation & infrastructure; establishing rights in digital property & technology resources."
+    "number": "VA HB1257",
+    "title": "Law-enforcement agencies; use of certain technologies & interrogation practices; forensic lab."
    },
    "sources": [
     {
      "role": "official",
      "source": "legiscan",
-     "source_id": "2160715#2026-11-17#4d79a736",
-     "record": "2160715",
-     "url": "https://lis.virginia.gov/bill-details/20271/HB1521",
-     "title": "Digital innovation & infrastructure; establishing rights in digital property & technology resources.",
+     "source_id": "2160815#2026-11-17#4d79a736",
+     "record": "2160815",
+     "url": "https://lis.virginia.gov/bill-details/20271/HB1257",
+     "title": "Law-enforcement agencies; use of certain technologies & interrogation practices; forensic lab.",
      "publisher": null,
-     "retrieved_at": "2026-11-17T20:06:25Z",
-     "hash": "e098c66477308873"
+     "retrieved_at": "2026-11-25T08:06:10Z",
+     "hash": "ce6ef1c369096963"
+    },
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2160641#2026-11-17#4d79a736",
+     "record": "2160641",
+     "url": "https://lis.virginia.gov/bill-details/20271/HB1261",
+     "title": "Law-enforcement agencies; use of certain technology & interrogation practices; forensic laboratory.",
+     "publisher": null,
+     "retrieved_at": "2026-11-25T08:06:10Z",
+     "hash": "3da1398ed18b7753"
+    },
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2160599#2026-11-17#4d79a736",
+     "record": "2160599",
+     "url": "https://lis.virginia.gov/bill-details/20271/HB1295",
+     "title": "Law enforcement; artificial intelligence inventory, civil action.",
+     "publisher": null,
+     "retrieved_at": "2026-11-25T08:06:11Z",
+     "hash": "112cdff0e711f7b1"
+    },
+    {
+     "role": "official",
+     "source": "legiscan",
+     "source_id": "2160873#2026-11-17#4d79a736",
+     "record": "2160873",
+     "url": "https://lis.virginia.gov/bill-details/20271/HB635",
+     "title": "Artificial Intelligence Chatbots Act; established, prohibited practices, penalties.",
+     "publisher": null,
+     "retrieved_at": "2026-11-25T08:06:12Z",
+     "hash": "74db480ad1fb5578"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 63,
+   "stable_runs": 1,
    "first_seen": "2026-11-17T16:05:53.490Z",
-   "last_seen": "2026-11-17T20:05:59.304Z",
-   "facts_digest": "8e572b1e3c32b4b6",
+   "last_seen": "2026-11-25T08:05:44.910Z",
+   "facts_digest": "b5d9b2677690e88d",
    "history": [
     {
      "at": "2026-11-17T16:05:53.490Z",
@@ -2819,10 +2858,45 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "facts",
+     "from": {
+      "action": "Left in Committee Communications, Technology and Innovation",
+      "chamber": "House",
+      "number": "VA HB1521",
+      "title": "Digital innovation & infrastructure; establishing rights in digital property & technology resources."
+     },
+     "to": {
+      "action": "Left in Committee Communications, Technology and Innovation",
+      "chamber": "House",
+      "number": "VA HB1257",
+      "title": "Law-enforcement agencies; use of certain technologies & interrogation practices; forensic lab."
+     }
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending",
+     "why": "the official record changed: confirming the change"
     }
    ],
    "card": null,
-   "facts_hash": "0f195ac1955be8e2"
+   "last_confirmed": {
+    "facts": {
+     "action": "Left in Committee Communications, Technology and Innovation",
+     "chamber": "House",
+     "number": "VA HB1521",
+     "title": "Digital innovation & infrastructure; establishing rights in digital property & technology resources."
+    },
+    "facts_digest": "8e572b1e3c32b4b6",
+    "card": null,
+    "status": "confirmed"
+   },
+   "pending_correction": true,
+   "facts_hash": "5745d30ee674e4e8"
   },
   "IL|-|null|2026-11-17": {
    "key": "IL|-|null|2026-11-17",
@@ -2866,7 +2940,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 63,
+   "stable_runs": 64,
    "first_seen": "2026-11-17T20:05:59.304Z",
    "last_seen": "2026-11-17T20:05:59.304Z",
    "facts_digest": "34c5acd32ec95ad1",
@@ -2914,7 +2988,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 62,
+   "stable_runs": 63,
    "first_seen": "2026-11-17T23:33:13.302Z",
    "last_seen": "2026-11-19T00:05:45.298Z",
    "facts_digest": "ebdedac296d83747",
@@ -2956,7 +3030,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 58,
+   "stable_runs": 59,
    "first_seen": "2026-11-18T08:05:46.205Z",
    "last_seen": "2026-11-20T08:05:49.595Z",
    "facts_digest": "af1cc9417f2f4dc8",
@@ -3012,7 +3086,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 50,
+   "stable_runs": 51,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "9591655ff3e3ae9f",
@@ -3096,7 +3170,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 50,
+   "stable_runs": 51,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "8148e794f35108f0",
@@ -3154,7 +3228,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 57,
+   "stable_runs": 58,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-18T16:05:48.477Z",
    "facts_digest": "8600d9a6325b067f",
@@ -3202,7 +3276,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 57,
+   "stable_runs": 58,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-18T16:05:48.477Z",
    "facts_digest": "5673a50465d15e9c",
@@ -3244,7 +3318,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 50,
+   "stable_runs": 51,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "eeb9f6662ce33766",
@@ -3328,7 +3402,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 50,
+   "stable_runs": 51,
    "first_seen": "2026-11-18T12:05:49.435Z",
    "last_seen": "2026-11-19T08:05:51.667Z",
    "facts_digest": "72af37216c2d111c",
@@ -3369,7 +3443,7 @@
     "action": "Referred to the House Committee on Homeland Security.",
     "committee": "Homeland Security Committee",
     "number": "H.R. 11055",
-    "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes."
+    "title": "BRIDGE AI Act"
    },
    "sources": [
     {
@@ -3378,18 +3452,18 @@
      "source_id": "119/hr/11055#2026-11-18#2c19c518",
      "record": "119/hr/11055",
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11055",
-     "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes.",
+     "title": "BRIDGE AI Act",
      "publisher": null,
-     "retrieved_at": "2026-11-20T04:06:16Z",
-     "hash": "02d8c30f78876d24"
+     "retrieved_at": "2026-11-25T08:06:00Z",
+     "hash": "a5fd40238c53e35d"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 49,
+   "stable_runs": 1,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-20T04:05:49.172Z",
-   "facts_digest": "73ea209d4a1ce786",
+   "last_seen": "2026-11-25T08:05:44.910Z",
+   "facts_digest": "bf71cd41ec5ecd93",
    "history": [
     {
      "at": "2026-11-19T12:05:47.562Z",
@@ -3402,9 +3476,44 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "facts",
+     "from": {
+      "action": "Referred to the House Committee on Homeland Security.",
+      "committee": "Homeland Security Committee",
+      "number": "H.R. 11055",
+      "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes."
+     },
+     "to": {
+      "action": "Referred to the House Committee on Homeland Security.",
+      "committee": "Homeland Security Committee",
+      "number": "H.R. 11055",
+      "title": "BRIDGE AI Act"
+     }
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending",
+     "why": "the official record changed: confirming the change"
     }
    ],
    "card": null,
+   "last_confirmed": {
+    "facts": {
+     "action": "Referred to the House Committee on Homeland Security.",
+     "committee": "Homeland Security Committee",
+     "number": "H.R. 11055",
+     "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes."
+    },
+    "facts_digest": "73ea209d4a1ce786",
+    "card": null,
+    "status": "confirmed"
+   },
+   "pending_correction": true,
    "facts_hash": "ef1b4b6cea1345f5"
   },
   "US|-|introduction|2026-11-18#HR11055": {
@@ -3417,7 +3526,7 @@
     "action": "Introduced in House",
     "chamber": "House",
     "number": "H.R. 11055",
-    "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes."
+    "title": "BRIDGE AI Act"
    },
    "sources": [
     {
@@ -3426,24 +3535,40 @@
      "source_id": "119/hr/11055#2026-11-18#40e2cd5e",
      "record": "119/hr/11055",
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11055",
-     "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes.",
+     "title": "BRIDGE AI Act",
      "publisher": null,
-     "retrieved_at": "2026-11-20T04:06:16Z",
-     "hash": "a3abffa7305156ab"
+     "retrieved_at": "2026-11-25T08:06:00Z",
+     "hash": "c31354482b6464e3"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 49,
+   "stable_runs": 1,
    "first_seen": "2026-11-19T12:05:47.562Z",
-   "last_seen": "2026-11-20T04:05:49.172Z",
-   "facts_digest": "ec7c1e93e30a8986",
+   "last_seen": "2026-11-25T08:05:44.910Z",
+   "facts_digest": "d82ec6de9e47b34e",
    "history": [
     {
      "at": "2026-11-19T12:05:47.562Z",
      "change": "created",
      "from": null,
      "to": "pending"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "facts",
+     "from": {
+      "action": "Introduced in House",
+      "chamber": "House",
+      "number": "H.R. 11055",
+      "title": "To amend the Homeland Security Act of 2002 to establish within the Cybersecurity and Infrastructure Security Agency a pilot program to be known as the \"BRIDGE AI Mission Program\" to recruit and manage artificial intelligence and emerging technology professionals on a temporary basis to support the core mission of the Agency, and for other purposes."
+     },
+     "to": {
+      "action": "Introduced in House",
+      "chamber": "House",
+      "number": "H.R. 11055",
+      "title": "BRIDGE AI Act"
+     }
     }
    ],
    "card": null,
@@ -3585,7 +3710,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 7,
+   "stable_runs": 8,
    "first_seen": "2026-11-19T12:05:47.562Z",
    "last_seen": "2026-11-24T08:05:44.595Z",
    "facts_digest": "df0d97dc675be424",
@@ -3669,7 +3794,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-19T12:05:47.562Z",
    "last_seen": "2026-11-24T08:05:44.595Z",
    "facts_digest": "5175ed19bb18fcab",
@@ -3727,7 +3852,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-19T12:05:47.562Z",
    "last_seen": "2026-11-20T12:06:02.578Z",
    "facts_digest": "dc5df944db4b6f48",
@@ -3811,7 +3936,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-19T12:05:47.562Z",
    "last_seen": "2026-11-20T12:06:02.578Z",
    "facts_digest": "c64016e2171f5d05",
@@ -3869,7 +3994,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 48,
+   "stable_runs": 49,
    "first_seen": "2026-11-19T13:24:29.744Z",
    "last_seen": "2026-11-24T08:05:44.595Z",
    "facts_digest": "f2934f01d1a1ad08",
@@ -3917,7 +4042,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-19T13:24:29.744Z",
    "last_seen": "2026-11-24T08:05:44.595Z",
    "facts_digest": "8ba8daed3f443582",
@@ -4037,7 +4162,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 48,
+   "stable_runs": 49,
    "first_seen": "2026-11-19T13:24:29.744Z",
    "last_seen": "2026-11-19T20:05:46.562Z",
    "facts_digest": "9d0387dc689c9808",
@@ -4082,15 +4207,15 @@
      "url": "https://www.federalregister.gov/documents/2026/11/19/2026-23529/addressing-remote-access-to-advanced-semiconductors",
      "title": "Addressing Remote Access to Advanced Semiconductors",
      "publisher": null,
-     "retrieved_at": "2026-11-24T08:05:44.595Z",
+     "retrieved_at": "2026-11-25T08:05:44.910Z",
      "hash": "8ed61a34f6cab5d1"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 41,
+   "stable_runs": 42,
    "first_seen": "2026-11-20T08:05:49.595Z",
-   "last_seen": "2026-11-24T08:05:44.595Z",
+   "last_seen": "2026-11-25T08:05:44.910Z",
    "facts_digest": "a11f518cfa152243",
    "history": [
     {
@@ -4133,15 +4258,15 @@
      "url": "https://www.federalregister.gov/documents/2026/11/19/2026-23529/addressing-remote-access-to-advanced-semiconductors",
      "title": "Addressing Remote Access to Advanced Semiconductors",
      "publisher": null,
-     "retrieved_at": "2026-11-24T08:05:44.595Z",
+     "retrieved_at": "2026-11-25T08:05:44.910Z",
      "hash": "8ed61a34f6cab5d1"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 41,
+   "stable_runs": 42,
    "first_seen": "2026-11-20T08:05:49.595Z",
-   "last_seen": "2026-11-24T08:05:44.595Z",
+   "last_seen": "2026-11-25T08:05:44.910Z",
    "facts_digest": "a11f518cfa152243",
    "history": [
     {
@@ -4180,15 +4305,15 @@
      "url": "https://www.govinfo.gov/app/details/BILLS-119hr9624rh",
      "title": "Intelligence Authorization Act for Fiscal Year 2027",
      "publisher": null,
-     "retrieved_at": "2026-11-24T08:05:44.595Z",
+     "retrieved_at": "2026-11-25T08:05:44.910Z",
      "hash": "043b2fd61d4c8cb0"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 41,
+   "stable_runs": 42,
    "first_seen": "2026-11-20T08:05:49.595Z",
-   "last_seen": "2026-11-24T08:05:44.595Z",
+   "last_seen": "2026-11-25T08:05:44.910Z",
    "facts_digest": "85712de475cb0662",
    "history": [
     {
@@ -4218,7 +4343,7 @@
     "action": "Referred to the House Committee on Energy and Commerce.",
     "committee": "Energy and Commerce Committee",
     "number": "H.R. 11100",
-    "title": "To establish prohibitions on certain entities with respect to data centers, data center services, and cloud services, and for other purposes."
+    "title": "Digital Infrastructure Security Act of 2026"
    },
    "sources": [
     {
@@ -4227,18 +4352,18 @@
      "source_id": "119/hr/11100#2026-11-19#a479e581",
      "record": "119/hr/11100",
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11100",
-     "title": "To establish prohibitions on certain entities with respect to data centers, data center services, and cloud services, and for other purposes.",
+     "title": "Digital Infrastructure Security Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-20T16:06:01Z",
-     "hash": "f8366965e5aa5efe"
+     "retrieved_at": "2026-11-25T08:05:59Z",
+     "hash": "45c31f06bf12e2eb"
     }
    ],
-   "status": "confirmed",
+   "status": "pending",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 1,
    "first_seen": "2026-11-20T12:06:02.578Z",
-   "last_seen": "2026-11-20T16:05:44.735Z",
-   "facts_digest": "1188cc411c6f7a6b",
+   "last_seen": "2026-11-25T08:05:44.910Z",
+   "facts_digest": "88f948708038b4d3",
    "history": [
     {
      "at": "2026-11-20T12:06:02.578Z",
@@ -4251,9 +4376,44 @@
      "change": "status",
      "from": "pending",
      "to": "confirmed"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "facts",
+     "from": {
+      "action": "Referred to the House Committee on Energy and Commerce.",
+      "committee": "Energy and Commerce Committee",
+      "number": "H.R. 11100",
+      "title": "To establish prohibitions on certain entities with respect to data centers, data center services, and cloud services, and for other purposes."
+     },
+     "to": {
+      "action": "Referred to the House Committee on Energy and Commerce.",
+      "committee": "Energy and Commerce Committee",
+      "number": "H.R. 11100",
+      "title": "Digital Infrastructure Security Act of 2026"
+     }
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "status",
+     "from": "confirmed",
+     "to": "pending",
+     "why": "the official record changed: confirming the change"
     }
    ],
    "card": null,
+   "last_confirmed": {
+    "facts": {
+     "action": "Referred to the House Committee on Energy and Commerce.",
+     "committee": "Energy and Commerce Committee",
+     "number": "H.R. 11100",
+     "title": "To establish prohibitions on certain entities with respect to data centers, data center services, and cloud services, and for other purposes."
+    },
+    "facts_digest": "1188cc411c6f7a6b",
+    "card": null,
+    "status": "confirmed"
+   },
+   "pending_correction": true,
    "facts_hash": "563693cf8a236233"
   },
   "US|-|introduction|2026-11-19#HR11100": {
@@ -4266,7 +4426,7 @@
     "action": "Introduced in House",
     "chamber": "House",
     "number": "H.R. 11100",
-    "title": "To establish prohibitions on certain entities with respect to data centers, data center services, and cloud services, and for other purposes."
+    "title": "Digital Infrastructure Security Act of 2026"
    },
    "sources": [
     {
@@ -4275,24 +4435,40 @@
      "source_id": "119/hr/11100#2026-11-19#40e2cd5e",
      "record": "119/hr/11100",
      "url": "https://www.congress.gov/bill/119th-congress/house-bill/11100",
-     "title": "To establish prohibitions on certain entities with respect to data centers, data center services, and cloud services, and for other purposes.",
+     "title": "Digital Infrastructure Security Act of 2026",
      "publisher": null,
-     "retrieved_at": "2026-11-20T16:06:01Z",
-     "hash": "62935824a0596062"
+     "retrieved_at": "2026-11-25T08:05:59Z",
+     "hash": "f53986eba5d5e3e3"
     }
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 1,
    "first_seen": "2026-11-20T12:06:02.578Z",
-   "last_seen": "2026-11-20T16:05:44.735Z",
-   "facts_digest": "85377850886dd75c",
+   "last_seen": "2026-11-25T08:05:44.910Z",
+   "facts_digest": "7313ba8888174ba3",
    "history": [
     {
      "at": "2026-11-20T12:06:02.578Z",
      "change": "created",
      "from": null,
      "to": "pending"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "facts",
+     "from": {
+      "action": "Introduced in House",
+      "chamber": "House",
+      "number": "H.R. 11100",
+      "title": "To establish prohibitions on certain entities with respect to data centers, data center services, and cloud services, and for other purposes."
+     },
+     "to": {
+      "action": "Introduced in House",
+      "chamber": "House",
+      "number": "H.R. 11100",
+      "title": "Digital Infrastructure Security Act of 2026"
+     }
     }
    ],
    "card": null,
@@ -4325,7 +4501,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-20T12:06:02.578Z",
    "last_seen": "2026-11-20T16:05:44.735Z",
    "facts_digest": "fb879188c3444021",
@@ -4373,7 +4549,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-20T12:06:02.578Z",
    "last_seen": "2026-11-20T16:05:44.735Z",
    "facts_digest": "fbf1c608d9e6fb56",
@@ -4415,7 +4591,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-20T12:06:02.578Z",
    "last_seen": "2026-11-21T00:05:56.562Z",
    "facts_digest": "32c820edbb10dc2f",
@@ -4463,7 +4639,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 40,
+   "stable_runs": 41,
    "first_seen": "2026-11-20T12:06:02.578Z",
    "last_seen": "2026-11-21T00:05:56.562Z",
    "facts_digest": "8b39d9db2ea1c1a8",
@@ -4499,15 +4675,15 @@
      "url": "https://www.congress.gov/nomination/119th-congress/1426",
      "title": "Michael LoSapio, of New Jersey, to be Director of the Cybersecurity and Infrastructure Security Agency, Department of Homeland Security, vice Jen Easterly, resigned.",
      "publisher": null,
-     "retrieved_at": "2026-11-24T08:05:44.595Z",
+     "retrieved_at": "2026-11-25T08:05:44.910Z",
      "hash": "c7c3cd35bb83a989"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 33,
+   "stable_runs": 34,
    "first_seen": "2026-11-21T08:05:46.470Z",
-   "last_seen": "2026-11-24T08:05:44.595Z",
+   "last_seen": "2026-11-25T08:05:44.910Z",
    "facts_digest": "3cabab29846a3833",
    "history": [
     {
@@ -4567,7 +4743,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-21T12:05:44.262Z",
    "last_seen": "2026-11-24T08:05:44.595Z",
    "facts_digest": "0cb6d0c549dac790",
@@ -4657,7 +4833,7 @@
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 32,
+   "stable_runs": 33,
    "first_seen": "2026-11-21T12:05:44.262Z",
    "last_seen": "2026-11-24T08:05:44.595Z",
    "facts_digest": "c4762c2eb4b61081",
@@ -4705,7 +4881,7 @@
    ],
    "status": "corrected",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-21T12:05:44.262Z",
    "last_seen": "2026-11-24T08:05:44.595Z",
    "facts_digest": "28e84fdb27551854",
@@ -4789,7 +4965,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 19,
+   "stable_runs": 20,
    "first_seen": "2026-11-23T00:05:45.619Z",
    "last_seen": "2026-11-23T00:05:45.619Z",
    "facts_digest": "03f2909370acdf9d",
@@ -4933,7 +5109,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-24T08:05:44.595Z",
    "last_seen": "2026-11-25T00:05:50.907Z",
    "facts_digest": "3918053ed5cdcddd",
@@ -4968,15 +5144,15 @@
      "url": "https://www.govinfo.gov/app/details/BILLS-119hr11076ih",
      "title": "Improving Nonhuman-Agent Security, Identification, Governance, Handling, and Traceability Act; AI INSIGHT Act",
      "publisher": null,
-     "retrieved_at": "2026-11-24T08:05:44.595Z",
+     "retrieved_at": "2026-11-25T08:05:44.910Z",
      "hash": "ade200be73852db5"
     }
    ],
    "status": "confirmed",
    "confirmations": [],
-   "stable_runs": 8,
+   "stable_runs": 9,
    "first_seen": "2026-11-24T08:05:44.595Z",
-   "last_seen": "2026-11-24T08:05:44.595Z",
+   "last_seen": "2026-11-25T08:05:44.910Z",
    "facts_digest": "084640630154c217",
    "history": [
     {
@@ -5022,7 +5198,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 3,
+   "stable_runs": 4,
    "first_seen": "2026-11-25T00:05:50.907Z",
    "last_seen": "2026-11-25T00:05:50.907Z",
    "facts_digest": "1eab8de62e28b5c1",
@@ -5064,7 +5240,7 @@
    ],
    "status": "pending",
    "confirmations": [],
-   "stable_runs": 3,
+   "stable_runs": 4,
    "first_seen": "2026-11-25T00:05:50.907Z",
    "last_seen": "2026-11-25T00:05:50.907Z",
    "facts_digest": "6085638849191da8",
@@ -5078,20 +5254,81 @@
    ],
    "card": null,
    "facts_hash": "9d468745e8d1e8a2"
+  },
+  "US|-|comment-period-closing|FR2026-21723": {
+   "key": "US|-|comment-period-closing|FR2026-21723",
+   "jurisdiction": "US",
+   "entry_id": null,
+   "class": "comment-period-closing",
+   "date": "2026-11-25",
+   "facts": {
+    "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
+    "agency": "USCG",
+    "document_type": "Notice",
+    "docket": "USCG-2026-0374",
+    "document_number": "2026-21723",
+    "comments_close": "2026-11-25",
+    "comments_open": "2026-10-26"
+   },
+   "sources": [
+    {
+     "role": "official",
+     "source": "regulations_gov",
+     "source_id": "USCG-2026-0374-0001",
+     "url": "https://www.regulations.gov/document/USCG-2026-0374-0001",
+     "title": "Cooperative Research and Development Agreement: Super Intelligence (SI) Situational Awareness Tools for Analyzing Coast Guard (CG) Sensor Feeds for Search and Rescue (SAR)",
+     "publisher": null,
+     "retrieved_at": "2026-11-25T08:05:44.910Z",
+     "hash": "07ccbaeefd388c31"
+    }
+   ],
+   "status": "withdrawn",
+   "confirmations": [],
+   "stable_runs": 0,
+   "first_seen": "2026-11-25T08:05:44.910Z",
+   "last_seen": "2026-11-25T08:05:44.910Z",
+   "facts_digest": "3c04cce5fda4ba7a",
+   "history": [
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "created",
+     "from": null,
+     "to": "pending"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "date",
+     "from": "2026-11-25",
+     "to": "2026-10-26"
+    },
+    {
+     "at": "2026-11-25T08:05:44.910Z",
+     "change": "status",
+     "from": "pending",
+     "to": "withdrawn",
+     "why": "superseded: the record now gives date 2026-10-26"
+    }
+   ],
+   "card": null,
+   "disagreements": [],
+   "superseded": {
+    "field": "date",
+    "to": "2026-10-26"
+   }
   }
  },
  "adapters": {
   "federal_register": {
-   "since": "2026-11-24"
+   "since": "2026-11-25"
   },
   "govinfo": {
-   "since": "2026-11-22"
+   "since": "2026-11-23"
   },
   "regulations_gov": {
-   "since": "2026-11-10"
+   "since": "2026-11-11"
   },
   "congress_extra": {
-   "since": "2026-11-23"
+   "since": "2026-11-24"
   },
   "openstates": {
    "sessions": {
@@ -5966,10 +6203,10 @@
      }
     ]
    },
-   "cursor": 17,
+   "cursor": 10,
    "quota": {
     "day": "2026-11-25",
-    "used": 90
+    "used": 118
    }
   }
  },

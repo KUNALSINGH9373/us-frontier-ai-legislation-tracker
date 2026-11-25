@@ -11053,12 +11053,12 @@
  },
  "2098061": {
   "verdict": "no",
-  "reason": "Data center water use study.",
+  "reason": "data center water use study",
   "title": "Requires DEP to conduct study of short and long term effects of water use by large-scale data centers.",
   "state": "NJ",
   "number": "A3966",
-  "hash": "250d24de1cba421f248658704cc8d87b",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "dc8a1da7f97ba8dcdaeb75c3d4e75f31",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2098195": {
   "verdict": "no",
@@ -17118,12 +17118,12 @@
  },
  "2152503": {
   "verdict": "no",
-  "reason": "Data center water use study",
+  "reason": "data center water use study",
   "title": "Requires DEP to conduct study of short and long term effects of water use by large-scale data centers.",
   "state": "NJ",
   "number": "S4400",
-  "hash": "a0411f268959a7567ccb817dd1d83e31",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "b0f48122d57eed4aaf8dfb5c50fa1dbd",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2152733": {
   "verdict": "other_jurisdiction",
@@ -17176,12 +17176,12 @@
  },
  "2153021": {
   "verdict": "no",
-  "reason": "Data center developer disclosures.",
+  "reason": "data center disclosure, data centers",
   "title": "Requires data center developers to disclose certain information to public and elected officials before preliminary site plan consideration under MLUL.",
   "state": "NJ",
   "number": "A5224",
-  "hash": "d1a11e31b4e0001e74d0ba0e4d8144bb",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "66d4254b9fa9956daba06283cf26b760",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2153109": {
   "verdict": "other_jurisdiction",
@@ -19476,12 +19476,12 @@
  },
  "2160615": {
   "verdict": "no",
-  "reason": "AI use in health insurance disclosures.",
+  "reason": "AI use by health carriers, a single sector",
   "title": "Health carriers; use of artificial intelligence, disclosures.",
   "state": "VA",
   "number": "SB586",
-  "hash": "b8353c8322b4a4d710a0b3d1def0a911",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "3294d015ec71c1079d745dd983412f32",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2160641": {
   "verdict": "no",
@@ -19494,12 +19494,12 @@
  },
  "2160706": {
   "verdict": "no",
-  "reason": "Algorithmic pricing in renting",
+  "reason": "algorithmic rent pricing in landlord-tenant law, housing sector",
   "title": "Virginia Residential Landlord and Tenant Act; algorithmic pricing device use by certain landlords.",
   "state": "VA",
   "number": "HB1252",
-  "hash": "b78d090ba8c331ac8a1530433c591f39",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "b1fc9ae55eb13aa18575366f8984b50b",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2160738": {
   "verdict": "no",
@@ -19512,12 +19512,12 @@
  },
  "2160809": {
   "verdict": "no",
-  "reason": "Mental health service providers and AI use",
+  "reason": "AI use by mental health providers, a single sector",
   "title": "Mental health service providers;  definitions, use of artificial intelligence system, civil penalty.",
   "state": "VA",
   "number": "SB269",
-  "hash": "4c00f00dac8c68838da1db9c20c01ef4",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "8f826e6897438e5ef164727c0125e1b9",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2160815": {
   "verdict": "no",
@@ -19530,12 +19530,12 @@
  },
  "2160839": {
   "verdict": "no",
-  "reason": "Data brokers regulation",
+  "reason": "data broker regulation, no AI link in title",
   "title": "Data brokers; regulation, civil penalties.",
   "state": "VA",
   "number": "HB638",
-  "hash": "a07046c29e57169b46a305ead057814d",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "02b72c319f6e83eff7cb3c87149ccb25",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2160873": {
   "verdict": "no",
@@ -19548,21 +19548,21 @@
  },
  "2160889": {
   "verdict": "no",
-  "reason": "AI companion chatbots and minors.",
+  "reason": "AI companion chatbots for minors",
   "title": "Artificial Intelligence Companion Chatbots and Minors Act; established, enforcement, civil penalty.",
   "state": "VA",
   "number": "SB796",
-  "hash": "0bb73f7bc6800ed7cb13c7df3ddeaccc",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "4f7191380577c16d6de33833cc01d507",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2160924": {
   "verdict": "no",
-  "reason": "Restricting photo editing.",
+  "reason": "listing photo alterations, deepfake-style media editing",
   "title": "Restricting Editing and Alterations in Listing Photos Amendment Act of 2026",
   "state": "DC",
   "number": "B26-0858",
-  "hash": "fe2f2bdf50c2bf3f8e65603c1d5874fb",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "3bec516e19e9224be328fb237383d188",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2161002": {
   "verdict": "other_jurisdiction",
@@ -19601,12 +19601,12 @@
  },
  "2161129": {
   "verdict": "no",
-  "reason": "AI data centers expedited permitting",
+  "reason": "data center permitting and energy",
   "title": "Requires certain State agencies to establish expedited approval and permitting procedures for artificial intelligence data centers that bring their own power.",
   "state": "NJ",
   "number": "A5729",
-  "hash": "5391a5211c638c6be8102d1266980b75",
-  "checked_at": "2026-10-26T06:51:24Z"
+  "hash": "be9675ecc514f877bfcd6706e3e469b4",
+  "checked_at": "2026-11-25T08:06:01Z"
  },
  "2161175": {
   "verdict": "no",
