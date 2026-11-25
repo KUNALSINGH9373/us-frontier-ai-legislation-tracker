@@ -1469,6 +1469,20 @@
    "proposal": "congress_gov:119/hr/11100 (\"Digital Infrastructure Security Act of 2026\") meets neither federal section's criterion; not created",
    "date": "2026-11-25",
    "dead": false
+  },
+  "congress_gov:119/hr/1588": {
+   "raw_hash": "47618b587c5c61c991fd90bc0116c76f4dbebc4b8814490ffa63d6b7275e8d43",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/1588 (\"Facilitating DIGITAL Applications Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
+  },
+  "congress_gov:119/hr/1694": {
+   "raw_hash": "98e47d26912feb1ba1c1465ee9b6c44e6c3813e74b888542491d9e8472de5879",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/1694 (\"AI Accountability Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
   }
  }
 }
