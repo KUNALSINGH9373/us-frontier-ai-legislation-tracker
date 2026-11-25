@@ -13,6 +13,14 @@ import { daysBefore } from './text.mjs';
 // The code screen: a headline (or its summary) needs an AI or advanced-computing word, or a tracked bill's number or name.
 export const NEWS_TERMS = /\b(?:A\.?I\.?|AGI|artificial intelligence|frontier|superintelligen\w*|super intelligence|foundation models?|large language models?|LLMs?|machine learning|neural|chatbots?|generative|model weights|compute|chips?|semiconductors?|GPUs?|Nvidia|export controls?|OpenAI|Anthropic|xAI|DeepMind|DeepSeek|Gemini|Claude|ChatGPT|Grok|CAISI|AI Safety Institute|algorithm\w*|autonomous|kill switch)\b/i;
 
+// A possible informal government request to a developer (section G.4: a request outside any order or rule to delay a release,
+// restrict access or change a model). A lead whose headline names a government body, a frontier developer and a request verb is
+// marked request_flag and listed first in the run report, so a person can check it. The mark changes no screen; nothing is written from it.
+const REQ_BODY = /\b(?:White House|administration|Trump|government|federal officials?|U\.?S\.? officials?|Commerce(?: Department| Secretary)?|Lutnick|Pentagon|Department of War|DoD|NSA|CISA|ONCD|National Cyber Director|OSTP|Office of Science and Technology|Treasury|DHS|DOJ|Justice Department)\b/i;
+const REQ_LAB = /\b(?:OpenAI|Anthropic|DeepMind|Google|Meta|xAI|Microsoft|Nvidia|AI (?:labs?|companies|developers|firms|makers)|frontier (?:labs?|developers?|models?)|chatbot makers?)\b/i;
+const REQ_VERB = /\b(?:asks?|asked|asking|tells?|told|urges?|urged|presses?|pressed|wants?|requests?|requested|demands?|demanded|warns?|warned|holds? back|hold|withh(?:o|e)ld|delay(?:s|ed)?|limits?|limited|restricts?|restricted|stagger(?:s|ed)?|pauses?|paused|blocks?|blocked|gates?|gated|approv(?:e|es|ed|al)|review(?:s|ed)?|sign[- ]off|clearance|vetted?)\b/i;
+export const informalRequestSignal = (text) => { const t = String(text || ''); return REQ_BODY.test(t) && REQ_LAB.test(t) && REQ_VERB.test(t); };
+
 const id = (s) => crypto.createHash('sha256').update(s).digest('hex').slice(0, 12);
 const titleKey = (t) => norm(t).replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
 
@@ -120,7 +128,7 @@ export async function findLeads({ sources, fetchFeed, news, seen = {}, entries, 
       if (onPage.has(k) || onPage.has(linkKey(releaseUrl(item))) || titlesOnPage.has(titleKey(item.title))) { out.duplicates.push({ title: item.title, link: item.link, why: 'already on the news page' }); continue; }
       if (seen[k] && !seen[k].retry) { out.already_seen++; continue; }
       const m = matchEntries({ ...item, sponsor: src.sponsor, state: src.state || null }, index);
-      const lead = { id: id(k), key: k, source_id: src.id, publisher: src.publisher, kind: src.kind || 'federal', sponsor: src.sponsor || null, state: src.state || null, primary: isPrimary(src, item), title: item.title, link: item.link, release_url: releaseUrl(item), date: item.date, summary: item.summary, ...m };
+      const lead = { id: id(k), key: k, source_id: src.id, publisher: src.publisher, kind: src.kind || 'federal', sponsor: src.sponsor || null, state: src.state || null, primary: isPrimary(src, item), request_flag: informalRequestSignal(`${item.title} ${item.summary || ''}`), title: item.title, link: item.link, release_url: releaseUrl(item), date: item.date, summary: item.summary, ...m };
       if (!NEWS_TERMS.test(`${item.title} ${item.summary}`) && !m.matches.some((x) => x.by !== 'sponsor')) { out.screened_out.push({ title: item.title, link: item.link, by: 'code' }); out.seen_add[k] = { first_seen: today, outcome: 'screened_out', title: item.title }; continue; }
       pending.push(lead);
     }

@@ -8,7 +8,7 @@ import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { parseFeed, robotsAllows, linkKey, isoDate } from './feeds.mjs';
-import { findLeads, matchEntries, entryIndex, billNumbers, releaseUrl, NEWS_TERMS } from './leads.mjs';
+import { findLeads, matchEntries, entryIndex, billNumbers, releaseUrl, NEWS_TERMS, informalRequestSignal } from './leads.mjs';
 import { newsRun, createReader } from './run.mjs';
 import { emptyState, saveEvents } from './events.mjs';
 import { newReport, finalize } from '../report/build.mjs';
@@ -86,6 +86,8 @@ const run = (sb, o = {}) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile
   ok('3 a sponsor\'s name with no AI word is no match', matchEntries({ title: 'Lieu visits a veterans home' }, ix).matches.length === 0);
   ok('3 several entries at the same level: matches listed, no tracker guessed', (() => { const m = matchEntries({ title: 'Obernolte and Lieu on AI' }, ix); return m.matches.length > 1 && m.tracker === null; })());
   ok('3 the code screen needs an AI word', NEWS_TERMS.test(PITCH) && !NEWS_TERMS.test('Zuckerberg considered leaving CA over wealth tax'));
+  ok('3 a possible informal request: a government body, a developer and a request verb', informalRequestSignal('White House asks OpenAI and Anthropic to hold new models from UK testers until U.S. review') && informalRequestSignal('Trump administration asks OpenAI to limit GPT-5.6 release') && informalRequestSignal('Commerce Secretary Lutnick warned OpenAI against releasing its model without approval'));
+  ok('3 not a request: a lab alone, a body alone, or no request verb', !informalRequestSignal('OpenAI releases GPT-6 Astra') && !informalRequestSignal('White House publishes AI action plan') && !informalRequestSignal('Anthropic and the White House sign voluntary accord'));
 }
 
 // ---------- 4. leads: window, dedupe, screens ----------

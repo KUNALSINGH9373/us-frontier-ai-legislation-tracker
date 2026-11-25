@@ -126,6 +126,8 @@ export function formatDone(rep, names = {}) {
     (ev && ev.alerts || []).slice(0, 3).forEach((a) => L.push(`- ${clip(a, 120)}`));
     const wr = nw.waiting_record || [];
     if (wr.length) L.push(`News waiting for the official record: ${wr.length} (${list(wr.map((w) => `${clip(w.title, 50)}, ${clip(w.publisher, 24)}`), 3)}) — retried next run`);
+    const rq = nw.leads.filter((l) => l.request_flag);
+    if (rq.length) L.push(`Possible informal government requests to developers (section G.4, check by hand): ${rq.length}`, ...rq.slice(0, 4).map((l) => `- ${clip(l.title, 90)} (${clip(l.publisher, 24)}) ${l.link}`));
     if (nw.leads.length) L.push(`News leads: ${nw.leads.length} (${list(nw.leads.map((l) => `${clip(l.title, 50)}, ${clip(l.publisher, 24)}`), 3)}) — not published`);
   }
   L.push(costLine(rep), queriesLine(rep));
