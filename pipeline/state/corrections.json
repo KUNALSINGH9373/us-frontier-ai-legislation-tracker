@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-24",
+ "last_run": "2026-11-25",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -176,10 +176,11 @@
   "chip-security-act-h-r-3447-cotton-companion": {
    "text_sha": "0cc10e8f15161d5c3ce1a4716c91c5b72627fe1a13dc62bbe9c8ed873e4c5a66",
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-25",
+   "outcome": "corrected",
    "retry": false,
-   "retries": 0
+   "retries": 0,
+   "reason": "not confirmed: The proposal overstates the secondary-mechanism step: SOURCE requires the Secretary to require them within 2 years of the assessment only 'if any mechanisms are determined by the Secretary to be appropriate', and the proposal also drops the 'credible information' trigger for reporting"
   },
   "il-sb-3444": {
    "text_sha": "1808956f1fbece0904e392b61b7e169b7ede9bb189aac13d7996afcaecc49405",
@@ -329,8 +330,8 @@
   "ca-sb-813-ivos": {
    "text_sha": "5452a531b5368b1df5694307831c33b92c917f0eae67eca4442e69d6d5f97602",
    "text_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
-   "checked_at": "2026-10-27",
-   "outcome": "session",
+   "checked_at": "2026-11-25",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   },
@@ -397,6 +398,14 @@
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/9624/text",
    "checked_at": "2026-11-21",
    "outcome": "corrected",
+   "retry": false,
+   "retries": 0
+  },
+  "h-r-11076-ai-insight-act": {
+   "text_sha": "109b6714bf2b29ddcea205c86cb0b95e7096dd45433a3bd299591331c8156993",
+   "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076/text",
+   "checked_at": "2026-11-25",
+   "outcome": "clean",
    "retry": false,
    "retries": 0
   }

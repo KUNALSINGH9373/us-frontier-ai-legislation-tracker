@@ -1145,6 +1145,48 @@
    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076",
    "tier": "B",
    "note": "new entry; reading fields written by the AI with quotes checked by code"
+  },
+  {
+   "entry_key": "ca-sb-813-ivos",
+   "field": "mechanism",
+   "old": "By Jan 1, 2028 the Government Operations Agency must: set the requirements and criteria for designating independent verification organizations (IVOs), covering risk-assessment skill, technical expertise, handling conflicts of interest and operational independence (an IVO may be paid by the company it assesses at market rates, but not on terms tied to the result); set procedures to suspend or end a designation; convene working groups that include engineers from competing AI companies and AI safety experts; and report to the Legislature. Designated IVOs file yearly reports. §8898.4 states that failing a standard alone creates no liability, the state endorses no one, no one is required to use an IVO or undergo a covered audit, and an audit is \"relevant to, but not conclusive of\" a harm lawsuit, so it gives no presumption of reasonable care. \"Covered AI audit\" is defined the same way as in AB 1405. The commission and liability-presumption design of earlier versions was dropped.",
+   "new": "By Jan 1, 2028 the Government Operations Agency must: set the requirements and criteria for designating independent verification organizations (IVOs), covering risk-assessment skill, technical expertise, handling conflicts of interest and operational independence (an IVO may be paid by the company it assesses at market rates, but not on terms tied to the result); set procedures to suspend or end a designation; convene working groups that include engineers from competing AI companies and AI safety experts; and report to the Legislature. Designated IVOs file yearly reports. Reports go to the agency and Legislature, no sooner than 12 months after initial designation. §8898.4 states that failing a standard alone creates no liability, the state endorses no one, no one is required to use an IVO or undergo a covered audit, and an audit is \"relevant to, but not conclusive of\" a harm lawsuit, so it gives no presumption of reasonable care. \"Covered AI audit\" is defined the same way as in AB 1405. The commission and liability-presumption design of earlier versions was dropped.",
+   "date": "2026-11-25",
+   "run_id": "update-20261125-0005",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+   "tier": "C",
+   "note": "self-correction (omission): The entry says designated IVOs file yearly reports but omits that reports go to the agency and Legislature and that the first report is due no sooner than 12 months after initial designation. Quote: \"A designated IVO shall submit annually, and no sooner than 12 months after initial designation as an IVO, to the agency and Legislature\""
+  },
+  {
+   "entry_key": "ca-sb-813-ivos",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-25",
+   "run_id": "update-20261125-0005",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+   "tier": "C"
+  },
+  {
+   "entry_key": "chip-security-act-h-r-3447-cotton-companion",
+   "field": "thresholds",
+   "old": null,
+   "new": "Covered integrated circuit product: an integrated circuit classified under ECCN 3A090 or 3A001.z; a computer or other product classified under ECCN 4A090 or 4A003.z; or a product under a successor or substantially similar classification.",
+   "date": "2026-11-25",
+   "run_id": "update-20261125-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
+   "tier": "C",
+   "note": "self-correction (omission): The thresholds field is empty, but SOURCE defines which products are covered by the export-control classifications 3A090, 3A001.z, 4A090, 4A003.z and their successors. Quote: \"an integrated circuit classified under Export Control Classification Number 3A090 or 3A001.z\""
+  },
+  {
+   "entry_key": "chip-security-act-h-r-3447-cotton-companion",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-25",
+   "run_id": "update-20261125-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
+   "tier": "C"
   }
  ]
 }

@@ -1364,6 +1364,34 @@
    "proposal": "congress_gov:119/hr/5167 may be a duplicate or update of entry h-r-3919-advanced-ai-security-readiness-act: Congress.gov relates it to a tracked bill (119/hr/3919: Related bill); possible duplicate or update of that entry",
    "date": "2026-11-23",
    "dead": false
+  },
+  "congress_gov:119/s/501": {
+   "raw_hash": "837ec7991b9740333379488f8acff21cee75c2a388b77607917368b95822031d",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (its title names a subject F excludes: \"Strategy for Public Health Preparedness and Response to Artificial Intelligence \") (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their model",
+   "proposal": "congress_gov:119/s/501 (\"Strategy for Public Health Preparedness and Response to Artificial Intelligence \") meets neither federal section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
+  },
+  "legiscan:2161182": {
+   "raw_hash": "f93f148f1d5952cb03a804f2e19d7593cfc5ca3f527d4ceb105c1b0a2e97c38c",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2161182 (\"Requires Chief Innovation Officer to conduct study and issue report on certain a\") meets no state section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
+  },
+  "legiscan:2161143": {
+   "raw_hash": "2c1bc0e1ff083651c220372c90521a4848ee404ebdcd3f5d529e77aecca9def7",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2161143 (\"Requires AG to study use of artificial intelligence for certain law enforcement \") meets no state section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
+  },
+  "legiscan:2163821": {
+   "raw_hash": "43ef2670adc69fe01ff06b5ddb14a6f398e6556cd0f94121e30aabdd8b7ccab6",
+   "reason": "not created: no passage of the text meets the criterion of section B, B.2, C (B: a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a \"frontier model\" or \"large developer\" definition); B.2: a bill that puts d",
+   "proposal": "legiscan:2163821 (\"Revises provisions relating to governmental administration. (BDR 18-587)\") meets no state section's criterion; not created",
+   "date": "2026-11-25",
+   "dead": false
   }
  }
 }

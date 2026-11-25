@@ -4075,7 +4075,7 @@
   "title": "S.B. 813 — Independent verification organizations (Gov. Code §§8898–8898.4)",
   "short_name": "CA SB 813 (IVOs)",
   "sponsor_text": "Sen. Jerry McNerney (D); coauthors Asm. Bauer-Kahan, Asm. Lowenthal; sponsored by Fathom",
-  "mechanism": "By Jan 1, 2028 the Government Operations Agency must: set the requirements and criteria for designating independent verification organizations (IVOs), covering risk-assessment skill, technical expertise, handling conflicts of interest and operational independence (an IVO may be paid by the company it assesses at market rates, but not on terms tied to the result); set procedures to suspend or end a designation; convene working groups that include engineers from competing AI companies and AI safety experts; and report to the Legislature. Designated IVOs file yearly reports. §8898.4 states that failing a standard alone creates no liability, the state endorses no one, no one is required to use an IVO or undergo a covered audit, and an audit is \"relevant to, but not conclusive of\" a harm lawsuit, so it gives no presumption of reasonable care. \"Covered AI audit\" is defined the same way as in AB 1405. The commission and liability-presumption design of earlier versions was dropped.",
+  "mechanism": "By Jan 1, 2028 the Government Operations Agency must: set the requirements and criteria for designating independent verification organizations (IVOs), covering risk-assessment skill, technical expertise, handling conflicts of interest and operational independence (an IVO may be paid by the company it assesses at market rates, but not on terms tied to the result); set procedures to suspend or end a designation; convene working groups that include engineers from competing AI companies and AI safety experts; and report to the Legislature. Designated IVOs file yearly reports. Reports go to the agency and Legislature, no sooner than 12 months after initial designation. §8898.4 states that failing a standard alone creates no liability, the state endorses no one, no one is required to use an IVO or undergo a covered audit, and an audit is \"relevant to, but not conclusive of\" a harm lawsuit, so it gives no presumption of reasonable care. \"Covered AI audit\" is defined the same way as in AB 1405. The commission and liability-presumption design of earlier versions was dropped.",
   "thresholds": null,
   "penalties": null,
   "status_text": "Passed the Assembly Aug 30, 2026 (53–4, per the author's Aug 30 release); the Senate agreed to the changes Aug 30, 2026 (37–0). Sent to the Governor Sept 8, 2026; signed by Gov. Newsom Sept 9, 2026; Chapter 179, Statutes of 2026. Executive Order N-9-26 (para. 1) tells the Government Operations Agency to finish the Gov. Code §8898.1 requirements and post the IVO application requirements by May 1, 2027, ahead of the Jan 1, 2028 date in the law.",
@@ -4153,6 +4153,11 @@
     "label": "Governor's signing release, Sept 9, 2026",
     "url": "https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813",
+    "kind": "primary"
    }
   ],
   "source_label": "Official text, history, and votes — leginfo.ca.gov · Chaptered text — LegiScan · Sponsor release — sd05.senate.ca.gov · Executive Order N-9-26 (signed PDF) · Governor's signing release, Sept 9, 2026",
@@ -4165,35 +4170,52 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-25T00:05:50Z",
+   "run_id": "update-20261125-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-813-independent-verification-organizations-gov-code-8898-8898-4",
    "section_name": "State IVO / AI-auditor licensing measures"
   },
-  "summary_line": "Directs the Government Operations Agency to set up a system for designating independent verification organizations that audit AI, without requiring anyone to use one.",
-  "thirty_seconds": {
-   "a": "The Government Operations Agency, which must set up the designation process, and independent verification organizations (IVOs) that win designation.",
-   "b": "By Jan 1, 2028, the Agency must set IVO application criteria and suspension rules, convene working groups, and report to the Legislature. Designated IVOs file annual reports.",
-   "c": "No penalties. Using an independent verification organization is voluntary, and failing a standard alone creates no liability."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "a0c6a5127bc0727610811bd9168f0d7ffee4ca32eea4efd7ec3c532ab9998ff6"
+   "method": "agent",
+   "checked_at": "2026-11-25T00:05:50Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "5713676efa283c7bb7f3f8e38a37b88846c78a4279030ccdaa70cd96eccdb1be"
   },
   "more_links": [
    {
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SEC.%208.&article=IV"
    }
-  ]
+  ],
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "A designated IVO shall submit annually, and no sooner than 12 months after initial designation as an IVO, to the agency and Legislature",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB813"
+   }
+  ],
+  "identifiers": {
+   "session": "2025-2026 Regular Session",
+   "external": {
+    "legiscan": [
+     1980543
+    ]
+   }
+  },
+  "summary_line": "Directs the Government Operations Agency to set requirements for designating independent verification organizations that assess AI companies, with no one required to use them.",
+  "thirty_seconds": {
+   "a": "The Government Operations Agency, which must set up the designation of independent verification organizations (IVOs) that assess AI risk.",
+   "b": "By Jan 1, 2028, set designation criteria and suspension procedures, convene working groups, and report to the Legislature. Designated IVOs file yearly reports.",
+   "c": "Failing a standard alone creates no liability. No one must use an IVO or undergo a covered audit, and an audit gives no presumption of reasonable care."
+  }
  },
  {
   "id": 22,
@@ -10798,7 +10820,7 @@
   "short_name": "Chip Security Act (H.R. 3447 / Cotton companion)",
   "sponsor_text": "Rep. Bill Huizenga (R-MI); Senate companion S. 1705 (referred to Senate Banking May 8, 2025)",
   "mechanism": "Within 180 days, Commerce would have to require covered chips to carry location-verification mechanisms before export. The bill would also require Commerce standards for location-verification and other chip-security mechanisms for covered advanced integrated circuits, plus reporting of signs of diversion or tampering.",
-  "thresholds": null,
+  "thresholds": "Covered integrated circuit product: an integrated circuit classified under ECCN 3A090 or 3A001.z; a computer or other product classified under ECCN 4A090 or 4A003.z; or a product under a successor or substantially similar classification.",
   "penalties": null,
   "status_text": "Date / status: House Foreign Affairs ordered it reported 42–0 on Mar. 26, 2026. As of Oct 31, 2026 we found no standalone floor action. It was included, with the AI OVERWATCH Act and MATCH Act, in the Senate FY2027 NDAA manager's package (S. 4784: SA 6683 Chip Security, SA 6575 AI OVERWATCH, SA 6585 MATCH). S. 4784 was reported June 15, 2026 (S. Rept. 119-127), and cloture on the motion to proceed failed 50–46 on July 14, 2026. The Senate has not passed its NDAA, so there is no conference with the House-passed H.R. 8800 yet.",
   "signed_text": null,
@@ -10866,6 +10888,11 @@
     "label": "Sen. Banks release",
     "url": "https://www.banks.senate.gov/news/press-releases/banks-secures-ai-overwatch-act-in-senate-ndaa/",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Introduced text — Congress.gov PDF · Official 42–0 committee-vote release · CBO record of bill as ordered reported · AIPN conference letter listing the Senate amendments · Sen. Banks release",
@@ -10878,13 +10905,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-25T00:05:50Z",
+   "run_id": "update-20261125-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-chip-security-act-h-r-3447-senate-companion-by-sen-cotton",
    "section_name": "Compute and export controls"
@@ -10897,22 +10926,36 @@
     ]
    }
   },
-  "summary_line": "Would require the Commerce Department to make covered advanced chips carry location-verification mechanisms before export, within 180 days.",
-  "thirty_seconds": {
-   "a": "Covered advanced integrated circuits, and the Commerce Department, which would set the rules for them.",
-   "b": "Commerce would have to require location-verification mechanisms on covered chips before export within 180 days, set chip-security standards, and require reports of signs of diversion or tampering.",
-   "c": "Pending. Approved 42–0 by House Foreign Affairs on Mar. 26, 2026, and added to the Senate defense bill (NDAA) package, which has not passed the Senate."
-  },
-  "key_facts": {
-   "enforced_by": "Commerce"
-  },
-  "display_name": "Chip Security Act",
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "7090065c358125d5f80518ae981ef5770d8209fcf99df03edcc7a63926215f25"
-  }
+   "method": "agent",
+   "checked_at": "2026-11-25T00:05:50Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "7177341308cc318540a9ebae0d292de04dab88c4965c40a80d94b0fa573bf395"
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "an integrated circuit classified under Export Control Classification Number 3A090 or 3A001.z",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "a computer or other product classified under Export Control Classification Number 4A090 or 4A003.z",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "classified under an Export Control Classification Number that is a successor or substantially similar",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text"
+   }
+  ],
+  "summary_line": "Would require Commerce to mandate location-verification mechanisms on covered advanced chips before export and to set chip-security standards.",
+  "thirty_seconds": {
+   "a": "Covered advanced chips and computers, those classified under ECCN 3A090, 3A001.z, 4A090 or 4A003.z, or a successor or substantially similar classification.",
+   "b": "Within 180 days, Commerce would have to require covered chips to carry location-verification mechanisms before export. It would also set standards and require reporting of signs of diversion or tampering.",
+   "c": ""
+  },
+  "display_name": "Chip Security Act"
  },
  {
   "id": 76,
