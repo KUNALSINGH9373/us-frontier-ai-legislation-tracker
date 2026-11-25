@@ -19,7 +19,9 @@ import { formatReport } from '../report/format.mjs';
 import { formatHtml } from '../report/html.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const realData = path.join(here, '..', '..', 'web', 'data', 'v2');
+// A frozen copy of the site data (web/data/v2 as merged 12 Nov 2026, PR #22), so the live data changing never breaks the test (25 Nov 2026:
+// self-correction lengthened every short federal mechanism and the live-data pick found none).
+const realData = path.join(here, '..', 'fixtures', 'correct');
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
 const clone = (o) => JSON.parse(JSON.stringify(o));

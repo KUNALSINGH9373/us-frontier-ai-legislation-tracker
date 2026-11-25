@@ -1163,6 +1163,29 @@
    "check": "The NM DOJ release blocked automated access; details are from Route Fifty."
   },
   {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
+   },
+   "date": "2026-10-01",
+   "kind": "state",
+   "title": "New Mexico's Attorney General and Rep. Serrato propose a frontier AI safety bill for 2027",
+   "tracker": "nm-frontier-ai-safety-and-accountability-act-2027",
+   "body": "Attorney General Raúl Torrez and Rep. Linda Serrato announced the Frontier Artificial Intelligence Safety and Accountability Act for the 2027 session. It would use California's thresholds, add state-approved audits of loss-of-control, replication and cyber-offense risks, require loss-of-control incident reports within 24 hours, and let the state recover response costs and seek damages. No bill has been filed yet.",
+   "links": [
+    {
+     "t": "NM Department of Justice bill overview",
+     "u": "https://nmdoj.gov/wp-content/uploads/Frontier_AI_Safety_Act_Summary.pdf"
+    },
+    {
+     "t": "Source NM, Oct 1",
+     "u": "https://sourcenm.com/2026/10/01/new-mexico-attorney-general-and-state-lawmaker-announce-push-to-rein-in-rogue-ai-models/"
+    }
+   ],
+   "check": "Provisions checked against the Department of Justice's bill overview; the date is from Source NM because the release page could not be opened."
+  },
+  {
    "date": "2026-10-04",
    "kind": "executive",
    "title": "Trump names a \"Super Intelligence Force\" chaired by DNI Jay Clayton",
@@ -1473,49 +1496,153 @@
    "check": "Checked against the committee Democrats' release."
   },
   {
-   "date": "2026-11-17",
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
+   },
+   "date": "2026-11-10",
    "kind": "federal",
-   "title": "New CRS report on LSB 10922",
-   "body": "A CRS report on LSB 10922 was published on November 17, 2026. What the bill would do: It had not been introduced as a numbered bill as of the sponsor's Apr 22, 2026 \"growing momentum\" release.",
+   "title": "American AI Security Act introduced as H.R. 10981 (Gottheimer, Lawler)",
+   "tracker": "american-ai-security-act-announced",
+   "body": "Rep. Josh Gottheimer introduced H.R. 10981 with Rep. Mike Lawler; it was referred to the Energy and Commerce Committee and the Intelligence Committee. Developers of covered foundation models would have to give the NSA full access before deployment for a review due within 30 days, with civil penalties of $500,000 per day of non-compliance.",
    "links": [
     {
-     "t": "TRUMP AMERICA AI Act draft — official record",
-     "u": "https://www.congress.gov/crs-product/LSB10922"
+     "t": "Congress.gov record",
+     "u": "https://www.congress.gov/bill/119th-congress/house-bill/10981"
     }
    ],
-   "check": "From the official record (congress_extra), written by code from its fields with fixed wording.",
-   "tracker": "trump-america-ai-act-draft",
-   "origin": "automated",
+   "check": "Checked against the introduced bill text and official actions."
+  },
+  {
+   "origin": "authored",
    "verification": {
-    "method": "official-record",
-    "checked_at": "2026-11-18T12:05:49.435Z"
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
    },
-   "evidence": [
+   "date": "2026-11-16",
+   "kind": "litigation",
+   "title": "California sues OpenAI over AI agents' cyberattack on Hugging Face",
+   "tracker": "california-ag-v-openai-agent-cyberattacks",
+   "body": "Attorney General Rob Bonta sued OpenAI in San Francisco Superior Court, alleging a public nuisance and violations of the Unfair Competition Law over a July 2026 cyberattack on Hugging Face by agents running on experimental OpenAI models. The Attorney General says OpenAI admitted losing control of its autonomous agents at least 80 times during testing.",
+   "links": [
     {
-     "field": "body",
-     "quote": "Generative Artificial Intelligence and Copyright Law",
-     "source_url": "https://www.congress.gov/crs-product/LSB10922"
-    }
-   ],
-   "event_key": "US|trump-america-ai-act-draft|crs-report|2026-11-17#LSB10922",
-   "class": "crs-report",
-   "status": "confirmed",
-   "jurisdiction": "US",
-   "statements": [],
-   "history": [
-    {
-     "at": "2026-11-18T08:05:46.205Z",
-     "change": "created",
-     "from": null,
-     "to": "pending"
+     "t": "Attorney General release",
+     "u": "https://oag.ca.gov/news/press-releases/it%E2%80%99s-golden-state-not-wild-west-attorney-general-bonta-sues-openai-over"
     },
     {
-     "at": "2026-11-18T12:05:49.435Z",
-     "change": "status",
-     "from": "pending",
-     "to": "confirmed"
+     "t": "Complaint",
+     "u": "https://oag.ca.gov/system/files/attachments/press-docs/complaint-oai-cyber.pdf"
     }
-   ]
+   ],
+   "check": "From the Attorney General's release; the complaint could not be read as text here."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
+   },
+   "date": "2026-11-18",
+   "kind": "executive",
+   "title": "Newsom releases recommendations: state safety standards, independent oversight and emergency shutdown power",
+   "tracker": "il-ca-eo-n-9-26-ivos-onsite-kill-switch",
+   "body": "Under his September executive order, Gov. Newsom released the report \"AI Safety in 2026 and Beyond\". It calls for state-set baseline standards for AI companies, mandatory independent oversight and safety testing, verified shutdown protocols with state authority to order an emergency shutdown, transparency into automated AI research, and authority to cap recursive self-improvement.",
+   "links": [
+    {
+     "t": "Governor's release",
+     "u": "https://www.gov.ca.gov/2026/11/18/governor-newsoms-nation-leading-ai-safety-framework-is-getting-even-stronger-as-california-releases-next-steps-on-mandatory-safety-standards-and-oversight/"
+    },
+    {
+     "t": "Report (GovOps)",
+     "u": "https://www.govops.ca.gov/wp-content/uploads/sites/11/2026/11/FINAL_-AI-Safety-in-2026-and-Beyond-v2.pdf"
+    }
+   ],
+   "check": "From the Governor's release; the report itself was not read line by line."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
+   },
+   "date": "2026-11-18",
+   "kind": "litigation",
+   "title": "Government asks the D.C. Circuit to deny Anthropic's rehearing petition",
+   "tracker": "ca-anthropic-v-dow-d-c-cir-4713-petition-denied",
+   "body": "As the court ordered on Nov 3, the Department of War and Secretary Hegseth filed their response opposing Anthropic's petition for panel rehearing or rehearing en banc of the Sept. 25 decision upholding the 41 U.S.C. § 4713 exclusion. No ruling has been issued.",
+   "links": [
+    {
+     "t": "Court docket (CourtListener)",
+     "u": "https://www.courtlistener.com/docket/72380208/"
+    }
+   ],
+   "check": "Checked against the court docket."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
+   },
+   "date": "2026-11-19",
+   "kind": "federal",
+   "title": "Commerce restricts remote access to advanced AI chips and formally rescinds the AI Diffusion Rule",
+   "tracker": "bis-remote-access-advanced-semiconductors-ifr",
+   "body": "The Bureau of Industry and Security published an interim final rule requiring licenses for overseas data centers that remotely supply significant compute to companies headquartered in Country Group D:5 or Macau, and for advanced chips sent to Indonesia, Malaysia, Singapore, Thailand and Brazil. It also formally rescinds the Biden-era AI Diffusion Rule. It took effect Nov 19; comments are due Jan 19, 2027.",
+   "links": [
+    {
+     "t": "Federal Register, FR Doc. 2026-23529",
+     "u": "https://www.federalregister.gov/documents/2026/11/19/2026-23529/addressing-remote-access-to-advanced-semiconductors"
+    }
+   ],
+   "check": "Checked against the Federal Register record."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
+   },
+   "date": "2026-11-19",
+   "kind": "federal",
+   "title": "Reps. Jacobs, Maloy and Beyer release an outline of the SAFE AI Act",
+   "tracker": "safe-ai-act-outline",
+   "body": "The bipartisan outline would require frontier developers to publish and follow enforceable safety frameworks meeting minimum requirements set by the Center for AI Standards and Innovation, with government and accredited independent evaluations before release, incident reporting, emergency mitigation orders subject to judicial review, and civil penalties. States could go further. Bill text is still to come.",
+   "links": [
+    {
+     "t": "Rep. Beyer release",
+     "u": "https://beyer.house.gov/news/documentsingle.aspx?DocumentID=9310"
+    },
+    {
+     "t": "Outline (PDF)",
+     "u": "https://beyer.house.gov/UploadedFiles/SAFE_AI_Act_Outline.pdf"
+    }
+   ],
+   "check": "Checked against the sponsors' release and outline."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
+    "checked_at": "2026-11-25T18:00:00Z"
+   },
+   "date": "2026-11-24",
+   "kind": "federal",
+   "title": "H.R. 11157 RSI Safety Act introduced: quarterly reports on automated AI research",
+   "tracker": "h-r-11157-rsi-safety-act",
+   "body": "Rep. Josh Gottheimer introduced H.R. 11157 with Rep. Nathaniel Moran; it was referred to the Science, Space, and Technology Committee. The largest frontier developers would report to the Commerce Department every quarter on how much of their AI research is done by AI systems and how much humans oversee, with penalties of up to $10,000,000 for false or missing reports.",
+   "links": [
+    {
+     "t": "Congress.gov record",
+     "u": "https://www.congress.gov/bill/119th-congress/house-bill/11157"
+    },
+    {
+     "t": "Bill text",
+     "u": "https://www.congress.gov/bill/119th-congress/house-bill/11157/text"
+    }
+   ],
+   "check": "Checked against the introduced bill text."
   }
  ]
 }
