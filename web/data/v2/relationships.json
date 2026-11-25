@@ -758,6 +758,12 @@
    "column": 1,
    "kind": "entry",
    "entry_key": "sept-2026-request-openai-anthropic-withhold-models-uk-aisi"
+  },
+  "SAFEAIA": {
+   "name": "SAFE AI Act (outline)",
+   "column": 2,
+   "kind": "entry",
+   "entry_key": "safe-ai-act-outline"
   }
  },
  "edges": [
@@ -2329,6 +2335,17 @@
    "quote": "this has been our policy with every new frontier model that comes out",
    "src": "UKAISIREQ",
    "col": "Core mechanism",
+   "origin": "authored"
+  },
+  {
+   "from": "act-jacobs",
+   "to": "SAFEAIA",
+   "type": "actor",
+   "label": "Draft author",
+   "quote": "Reps. Sara Jacobs (D-CA)",
+   "source_url": "https://beyer.house.gov/news/documentsingle.aspx?DocumentID=9310",
+   "src": "SAFEAIA",
+   "col": "Sponsor(s)",
    "origin": "authored"
   }
  ]

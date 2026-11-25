@@ -137,7 +137,7 @@
     "generator_role": "referee",
     "max_tokens_per_item": 200000
   },
-  "monthly_cost_cap_usd": 25,
+  "monthly_cost_cap_usd": 50,
   "monthly_warn_fraction": 0.8,
   "_note_cost": "Prices are USD per million tokens (Claude, 26 Oct 2026). Haiku 5.5 is $0.10 in / $0.50 out up to 100K prompt tokens and $0.50 / $2.50 above that (the whole call). monthly_cost_cap_usd stops all AI work for the rest of the month; a warning goes out at monthly_warn_fraction of it."
 }

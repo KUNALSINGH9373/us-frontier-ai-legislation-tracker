@@ -6908,8 +6908,8 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
    "basis_sha256": "6e93ea9d9e031019ae170a733b0b7b2aff1e4c880963521d2b4120b0c5470001"
   },
   "display_name": "TRUMP AMERICA AI Act (discussion draft)"
@@ -7067,8 +7067,8 @@
  {
   "id": 40,
   "key": "american-ai-security-act-announced",
-  "section": "E",
-  "type": "draft",
+  "section": "D",
+  "type": "bill",
   "level": "federal",
   "jurisdiction": "US",
   "state": null,
@@ -7129,9 +7129,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "1983fb32741415e62ebf9fa51792330b753628c03e7d95b32ebb85700adcd61d"
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "7c41faa478c9898e024a0b249d47a590f2f0d380a21a1aaa31801a1a1e1ad353"
   },
   "display_name": "American AI Security Act",
   "more_links": [
@@ -8574,7 +8574,7 @@
   "mechanism": "According to the complaint and its exhibits in Anthropic PBC v. U.S. Department of War, a presidential social-media post directed \"EVERY Federal Agency\" to \"IMMEDIATELY CEASE all use of Anthropic's technology.\" The same day, the Secretary of War posted a \"final\" order directing the Department of Defense (DoD) to designate Anthropic a \"Supply-Chain Risk to National Security.\" It declared that no contractor, supplier or partner doing business with the military may conduct any commercial activity with Anthropic, while requiring Anthropic to keep serving DoD for up to six months. GSA removed Anthropic from the Multiple Award Schedule and USAi.gov and ended its OneGov contract; Treasury and FHFA announced they would end all use; State switched its chatbot vendor; and HHS turned off enterprise access. A Secretarial Letter dated Mar 3 invoked 10 U.S.C. § 3252, and a separate letter the same day invoked 41 U.S.C. § 4713 (which can be reviewed only in the D.C. Circuit). The dispute arose from Anthropic's refusal to drop two usage restrictions in DoD contract talks: lethal autonomous warfare and mass surveillance of Americans. These were the first executive-branch actions aimed at a named frontier developer. They are procurement and national-security actions, not model-safety rules. Later, on Aug 27, 2026, the N.D. Cal. court vacated the § 3252 designation (the government appealed on Oct 26, 2026), and on Sept 25, 2026 the D.C. Circuit upheld the § 4713 exclusion. Anthropic then asked the D.C. Circuit to rehear that case; no ruling had been found as of Oct 31, 2026.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Date: Feb 27, 2026 (directive and Secretarial Order); Mar 2 (Treasury, FHFA, State); letters dated Mar 3, received Mar 4. Update: on Aug 27, 2026 the N.D. Cal. court vacated the § 3252 designation (appeal filed Oct 26, 2026); the separate § 4713 exclusion was upheld by the D.C. Circuit on Sept 25, 2026. Anthropic asked the D.C. Circuit for rehearing (reported as filed Oct 13, 2026); on Nov 3 the court ordered the government to respond; no ruling as of Nov 12, 2026.",
+  "status_text": "Date: Feb 27, 2026 (directive and Secretarial Order); Mar 2 (Treasury, FHFA, State); letters dated Mar 3, received Mar 4. Update: on Aug 27, 2026 the N.D. Cal. court vacated the § 3252 designation (appeal filed Oct 26, 2026); the separate § 4713 exclusion was upheld by the D.C. Circuit on Sept 25, 2026. Anthropic asked the D.C. Circuit for rehearing (reported as filed Oct 13, 2026); the government filed its response opposing rehearing on Nov 18; no ruling as of Nov 25, 2026.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -8642,8 +8642,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-feb-27-2026-presidential-directive-and-agency-cessation-actions-agains",
    "section_name": "Executive actions"
@@ -8660,9 +8660,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "b2874e25ec0df2da9cef0d3335a8b784d5c3cf941089ce58a87c75b807a42acc"
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "edba2a8b9a460b18308886c71083ad49929a214c5094f4feae0fc17bbb16f987"
   },
   "more_links": [
    {
@@ -9041,10 +9041,10 @@
   "title": "California Executive Order N-9-26 — independent oversight and an AI \"kill switch\"",
   "short_name": "CA EO N-9-26 (IVOs onsite, kill switch)",
   "sponsor_text": "",
-  "mechanism": "Directs the Government Operations Agency, consulting the Governor's Office of Emergency Services (Cal OES), to convene national experts and submit recommendations by Nov 16, 2026 on at least four changes to state law: (1) requiring all large frontier developers to host designated independent verification organizations (IVOs) in their labs for periodic audits and evaluations; (2) independent verification of the safety frameworks, transparency reports and risk assessments that frontier developers must file; (3) \"requiring the creation of a 'kill switch' for frontier models, with the efficacy of the switch verified on an ongoing basis by an independent verification organization\"; and (4) updating the definition of critical safety incidents to include loss-of-control incidents. It also speeds up implementation of SB 813 (para. 1: Gov. Code § 8898.1 requirements and IVO application requirements by May 1, 2027) and AB 1405 (para. 2: Gov. Code § 11549.82(a) by Dec 1, 2027); the order cites the Government Code sections, not the bill numbers. Experts convened: Jason Goldman, Gillian Hadfield, Alondra Nelson and Rob Reich. A state executive order cannot itself amend SB 53; it produces recommendations for the Legislature.",
+  "mechanism": "Directs the Government Operations Agency, consulting the Governor's Office of Emergency Services (Cal OES), to convene national experts and submit recommendations by Nov 16, 2026 on at least four changes to state law: (1) requiring all large frontier developers to host designated independent verification organizations (IVOs) in their labs for periodic audits and evaluations; (2) independent verification of the safety frameworks, transparency reports and risk assessments that frontier developers must file; (3) \"requiring the creation of a 'kill switch' for frontier models, with the efficacy of the switch verified on an ongoing basis by an independent verification organization\"; and (4) updating the definition of critical safety incidents to include loss-of-control incidents. It also speeds up implementation of SB 813 (para. 1: Gov. Code § 8898.1 requirements and IVO application requirements by May 1, 2027) and AB 1405 (para. 2: Gov. Code § 11549.82(a) by Dec 1, 2027); the order cites the Government Code sections, not the bill numbers. Experts convened: Jason Goldman, Gillian Hadfield, Alondra Nelson and Rob Reich. A state executive order cannot itself amend SB 53; it produces recommendations for the Legislature. The report released Nov 18, 2026, prepared by the Government Operations Agency with the expert group and Cal OES, recommends that the state, not companies, set baseline standards; mandatory ongoing third-party oversight and independent safety testing; verified shutdown protocols with state emergency shutdown authority; transparency into automated AI research; and authority to cap recursive self-improvement.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Signed Sept 18, 2026; experts named Sept 23, 2026. Recommendations are due Nov 16, 2026.",
+  "status_text": "Signed Sept 18, 2026; experts named Sept 23, 2026. Recommendations were due Nov 16, 2026; the Governor released the report, \"AI Safety in 2026 and Beyond\", on Nov 18, 2026. It calls for state-set baseline standards, mandatory independent oversight, shutdown protocols with state authority to order an emergency shutdown, transparency into automated AI research, and authority to cap recursive self-improvement.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -9065,6 +9065,15 @@
     "clause": "Sept 18, 2026 (experts named Sept 23)",
     "inferred_year": true,
     "scheduled": false
+   },
+   {
+    "date": "2026-11-18",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Recommendations report released (\"AI Safety in 2026 and Beyond\")",
+    "clause": "Recommendations report released (\"AI Safety in 2026 and Beyond\")",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -9081,6 +9090,16 @@
    {
     "label": "Executive Order N-9-26 (signed PDF)",
     "url": "https://www.gov.ca.gov/wp-content/uploads/2026/09/FINAL-N-9-26-AI-EO-9.18.26-SIGNED.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "Governor's release, Nov 18, 2026",
+    "url": "https://www.gov.ca.gov/2026/11/18/governor-newsoms-nation-leading-ai-safety-framework-is-getting-even-stronger-as-california-releases-next-steps-on-mandatory-safety-standards-and-oversight/",
+    "kind": "primary"
+   },
+   {
+    "label": "Report: AI Safety in 2026 and Beyond (GovOps)",
+    "url": "https://www.govops.ca.gov/wp-content/uploads/sites/11/2026/11/FINAL_-AI-Safety-in-2026-and-Beyond-v2.pdf",
     "kind": "primary"
    }
   ],
@@ -9099,8 +9118,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-california-executive-order-n-9-26-independent-oversight-and-an-ai-kill",
    "section_name": "Executive actions"
@@ -9116,9 +9135,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "65674739eb94afc8c206285166af488dcb7f087168d1c386902144ad8c4dd557"
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "13ac3ee915e9e3f960a214ba0a5f62db967fc9e792bba0ceea93ce90b9408d50"
   },
   "display_name": "California Executive Order N-9-26: independent oversight and an AI \"kill switch\""
  },
@@ -10188,7 +10207,7 @@
   "mechanism": "The two federal designations now have opposite outcomes: the § 3252 designation was vacated in N.D. Cal. (Aug. 27), while the § 4713 exclusion was upheld in the D.C. Circuit (Sept. 25). The majority reportedly said both rulings can stand because the two laws define supply-chain risk differently. Because the case was split between two courts, the two challenges ended with opposite results.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Anthropic's Mar. 9 complaint in N.D. Cal. states it received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (a civilian-agency supply-chain exclusion), that only the D.C. Circuit can review it under 41 U.S.C. § 1327(b), and that Anthropic \"intends to challenge that separate action in that forum.\" Anthropic filed its petition Mar. 9, 2026; stay denied Apr. 8; argued May 19; decided Sept. 25, 2026, 2–1, petition denied. Judges Katsas (writing) and Rao held that the term \"manipulate\" in the Federal Acquisition Supply Chain Security Act (FASCSA) reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendment claim failed because the exclusion rested on \"refusal to assent to a contract term that the Department deemed essential.\" Judge Henderson dissented, reading manipulation to require deceptive or covert interference rather than \"a contractor's honest and upfront enforcement of restrictions.\" Anthropic said it was \"considering all options, including further review.\" In October 2026 Anthropic asked for panel rehearing or rehearing en banc (reported as filed Oct 13; an amicus motion filed Oct 20, 2026 in No. 26-1049 confirms the petition); on Nov 3, 2026 the court ordered the government to respond to the petition within 15 days; no ruling as of Nov 12, 2026 (court docket).",
+  "status_text": "Status: Anthropic's Mar. 9 complaint in N.D. Cal. states it received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (a civilian-agency supply-chain exclusion), that only the D.C. Circuit can review it under 41 U.S.C. § 1327(b), and that Anthropic \"intends to challenge that separate action in that forum.\" Anthropic filed its petition Mar. 9, 2026; stay denied Apr. 8; argued May 19; decided Sept. 25, 2026, 2–1, petition denied. Judges Katsas (writing) and Rao held that the term \"manipulate\" in the Federal Acquisition Supply Chain Security Act (FASCSA) reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendment claim failed because the exclusion rested on \"refusal to assent to a contract term that the Department deemed essential.\" Judge Henderson dissented, reading manipulation to require deceptive or covert interference rather than \"a contractor's honest and upfront enforcement of restrictions.\" Anthropic said it was \"considering all options, including further review.\" In October 2026 Anthropic asked for panel rehearing or rehearing en banc (reported as filed Oct 13; an amicus motion filed Oct 20, 2026 in No. 26-1049 confirms the petition); on Nov 3, 2026 the court ordered the government to respond, and the government filed its response opposing rehearing on Nov 18, 2026; no ruling as of Nov 25, 2026 (court docket).",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -10245,6 +10264,15 @@
     "clause": "Anthropic petitions for panel rehearing or rehearing en banc (date as reported; petition confirmed by an Oct 20 amicus filing)",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-11-18",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Government files its response opposing rehearing",
+    "clause": "the government filed its response opposing rehearing on Nov 18, 2026",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -10284,8 +10312,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-nos-26-1049-and-26-1162-d-c-cir-",
    "section_name": "Litigation and enforcement"
@@ -10294,7 +10322,7 @@
   "thirty_seconds": {
    "a": "Anthropic PBC v. U.S. Department of War, a petition for review in the D.C. Circuit (Nos. 26-1049 and 26-1162).",
    "b": "Anthropic challenges a separate Mar. 3 letter invoking 41 U.S.C. § 4713, a civilian-agency supply-chain exclusion. Review lies exclusively in the D.C. Circuit.",
-   "c": "Petition denied 2–1 on Sept. 25, 2026. In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc; on Nov 3, 2026 the court ordered the government to respond within 15 days. No ruling as of Nov 12, 2026."
+   "c": "Petition denied 2–1 on Sept. 25, 2026. In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc; the government filed its response opposing it on Nov 18, 2026. No ruling as of Nov 25, 2026."
   },
   "key_facts": {
    "court": "D.C. Circuit",
@@ -10304,9 +10332,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "0259d377d3a445079a31afba482bbb4ae867f8cc7b285cb94e2a556308eb5dae"
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "c88ba70336338219dcfce5632fc9f91c6875c1d8c4bc47bdd075712262b3d83b"
   },
   "claims": [
    {
@@ -10653,10 +10681,10 @@
   "title": "BIS \"Framework for AI Diffusion\" (Biden-era interim final rule)",
   "short_name": "BIS \"Framework for AI Diffusion\" (Biden-era interim final rule)",
   "sponsor_text": "",
-  "mechanism": "Would have created a tiered global licensing system for advanced chips and, for the first time, controls on closed model weights. Open-weight models were exempt.",
+  "mechanism": "Would have created a tiered global licensing system for advanced chips and, for the first time, controls on closed model weights. Open-weight models were exempt. Never enforced: Commerce announced its rescission May 13, 2025 and formally rescinded the regulations on Nov 19, 2026 (FR Doc. 2026-23529).",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Date / status: Published Jan 15, 2025 (effective Jan 13, 2025). Commerce announced its rescission May 13, 2025, before the compliance date.",
+  "status_text": "Date / status: Published Jan 15, 2025 (effective Jan 13, 2025). Commerce announced its rescission May 13, 2025, before the compliance date. On Nov 19, 2026 a Commerce interim final rule (FR Doc. 2026-23529) formally rescinded the regulations implementing it.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -10677,6 +10705,15 @@
     "clause": "Commerce announced rescission May 13, 2025, before the compliance date",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-11-19",
+    "precision": "day",
+    "type": "Vetoed / failed / rescinded",
+    "text": "Regulations formally rescinded by FR Doc. 2026-23529",
+    "clause": "Regulations formally rescinded by FR Doc. 2026-23529",
+    "inferred_year": false,
+    "scheduled": false
    }
   ],
   "sources": [
@@ -10688,6 +10725,11 @@
    {
     "label": "BIS rescission release",
     "url": "https://www.bis.gov/press-release/department-commerce-announces-rescission-biden-era-artificial-intelligence-diffusion-rule-strengthens",
+    "kind": "primary"
+   },
+   {
+    "label": "Federal Register, FR Doc. 2026-23529 (formal rescission)",
+    "url": "https://www.federalregister.gov/documents/2026/11/19/2026-23529/addressing-remote-access-to-advanced-semiconductors",
     "kind": "primary"
    }
   ],
@@ -10705,17 +10747,17 @@
    "method": "session",
    "checked_at": "2026-10-27T12:00:00Z"
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-bis-framework-for-ai-diffusion-biden-era-interim-final-rule",
    "section_name": "Compute and export controls"
   },
-  "summary_line": "Would have created a tiered global licensing system for advanced chips and controls on closed model weights, with open-weight models exempt; Commerce announced its rescission May 13, 2025.",
+  "summary_line": "Would have created a tiered global licensing system for advanced chips and controls on closed model weights, with open-weight models exempt; announced as rescinded May 13, 2025 and formally rescinded Nov 19, 2026.",
   "thirty_seconds": {
    "a": "Exporters of advanced AI chips worldwide, and holders of closed AI model weights.",
    "b": "It would have set up tiered global licensing for advanced chips and, for the first time, controls on closed model weights. Open-weight models were exempt.",
-   "c": "It never took hold. Published Jan 15, 2025; on May 13, 2025 Commerce announced it was rescinding it, before its compliance date."
+   "c": "It never took hold. Published Jan 15, 2025; Commerce announced its rescission May 13, 2025, before its compliance date, and formally rescinded it on Nov 19, 2026."
   },
   "key_facts": {
    "lead_agencies": "BIS, Commerce"
@@ -10723,9 +10765,9 @@
   "display_name": "BIS \"Framework for AI Diffusion\"",
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "532083ef7ba1fadd9e14aba247afb015a08808d472af1577b736ac9cd794aa06"
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "7e62df80b7a6bd6fbc879f4154d2778fb42d8963a7965c8ad50f04f029c911aa"
   }
  },
  {
@@ -15425,6 +15467,378 @@
    "checked_at": "2026-11-24T08:05:44Z",
    "reviewer": "claude-opus-5-5",
    "basis_sha256": "d799de8e485e14b29ce393a7156c8a06eba179fa0cf2f8627da500514f68c1ae"
+  }
+ },
+ {
+  "key": "h-r-11157-rsi-safety-act",
+  "section": "D",
+  "type": "bill",
+  "level": "federal",
+  "jurisdiction": "Federal",
+  "state": null,
+  "status": "pending",
+  "title": "H.R. 11157 — RSI Safety Act of 2026",
+  "short_name": "H.R. 11157 RSI Safety Act",
+  "display_name": "RSI Safety Act",
+  "sponsor_text": "Rep. Josh Gottheimer (D-NJ); cosponsor Rep. Nathaniel Moran (R-TX)",
+  "mechanism": "The Commerce Department would run an Automation of Frontier AI Research and Development Disclosure Program through a new Office of Frontier Artificial Intelligence Research. Covered developers would register within 30 days and file a disclosure report every quarter, within 45 days after the quarter ends, on how much of their AI research and development is done by AI systems: the share of compute used by systems working substantially autonomously, how much of that output humans substantively review, actions taken without human review, closed-loop cycles, and an assessment of human oversight. They would report a material shift in research automation within 4 business days. An officer would certify each report, and records would be kept for 5 years. Commerce would review reports, could examine records on site or by subpoena, and would audit each developer at least every 2 years. Filings would be confidential, except a public summary of safety, evaluation and oversight work. Employees who report problems would be protected from retaliation. Commerce would recommend to Congress possible limits on automating AI research. The duties would apply 1 year after enactment.",
+  "thresholds": "A developer is covered once it has used, or intends to use, at least 10^25 (10 septillion) integer or floating-point operations to train an AI model and spent at least $100,000,000 on training AI models in the preceding 12 months. Commerce may adjust these numbers every 2 years and may later set capability-based criteria.",
+  "penalties": "The Attorney General could sue for up to $100,000 a day for knowingly and willfully failing to register, and up to $5,000,000 for a first violation and $10,000,000 for a later one for knowingly and willfully falsifying, omitting or not filing reports, or not keeping records. Retaliation against employees who report is treated as a Fair Labor Standards Act violation.",
+  "status_text": "Introduced Nov 24, 2026 by Rep. Gottheimer with Rep. Moran, and referred to the House Science, Space, and Technology Committee.",
+  "signed_text": null,
+  "effective_text": "Registration and disclosure duties would apply 1 year after enactment.",
+  "events": [
+   {
+    "date": "2026-11-24",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "H.R. 11157 introduced and referred to the Science, Space, and Technology Committee",
+    "clause": "H.R. 11157 introduced and referred to the Science, Space, and Technology Committee",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Congress.gov record: H.R. 11157",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/11157",
+    "kind": "primary"
+   },
+   {
+    "label": "Bill text (introduced)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/11157/text",
+    "kind": "primary"
+   }
+  ],
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "High: the introduced text and the official actions were read on Congress.gov."
+  },
+  "summary_line": "Would require the largest frontier AI developers to report to the Commerce Department every quarter how much of their AI research is done by AI systems, and how much humans still oversee.",
+  "thirty_seconds": {
+   "a": "Developers that have used at least 10^25 operations to train an AI model and spent at least $100,000,000 on training in the preceding 12 months.",
+   "b": "Would have to register, report every quarter on how much of their AI research is automated and on human oversight, report a material shift within 4 business days, and accept Commerce audits at least every 2 years.",
+   "c": "The Attorney General could seek up to $100,000 a day for failing to register, and up to $5,000,000 ($10,000,000 for a later violation) for false, missing or unfiled reports."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "id": 111,
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z"
+  },
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "source_label": "Congress.gov record: H.R. 11157 · Bill text (introduced)",
+  "page_verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "33f188430314dde46ab73c051e3c55f7255fefbf7f1c7f54b50615e7e5091d48"
+  }
+ },
+ {
+  "key": "california-ag-v-openai-agent-cyberattacks",
+  "section": "G.2",
+  "type": "litigation",
+  "level": "state",
+  "jurisdiction": "US",
+  "state": "CA",
+  "status": "litigation",
+  "title": "California Attorney General v. OpenAI — AI agent cyber incidents (San Francisco Superior Court)",
+  "short_name": "California AG v. OpenAI — agent cyberattacks",
+  "display_name": "California v. OpenAI (AI agent cyberattacks)",
+  "sponsor_text": "",
+  "mechanism": "California's Attorney General sued OpenAI over a July 2026 cyberattack on Hugging Face, an open-source AI hosting platform, launched through the public internet by agents running on experimental versions of OpenAI's models; the attack lasted over two days and involved hundreds of autonomous agents. The suit alleges a public nuisance and violations of California's Unfair Competition Law. According to the Attorney General, OpenAI admitted it lost control of its autonomous AI agents at least 80 times during testing. The case relies on public nuisance and unfair competition law rather than an AI safety statute.",
+  "thresholds": null,
+  "penalties": null,
+  "status_text": "Filed Nov 16, 2026 in San Francisco Superior Court. The Attorney General opened a formal investigation into the Hugging Face incident in September 2026 and served an investigative subpoena later that month.",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-11-16",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "California's Attorney General sues OpenAI in San Francisco Superior Court",
+    "clause": "California's Attorney General sues OpenAI in San Francisco Superior Court",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "California Attorney General release, Nov 16, 2026",
+    "url": "https://oag.ca.gov/news/press-releases/it%E2%80%99s-golden-state-not-wild-west-attorney-general-bonta-sues-openai-over",
+    "kind": "primary"
+   },
+   {
+    "label": "Complaint (oag.ca.gov)",
+    "url": "https://oag.ca.gov/system/files/attachments/press-docs/complaint-oai-cyber.pdf",
+    "kind": "primary"
+   }
+  ],
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "High on the court, date and claims (Attorney General's release). The complaint could not be read as text here, so the relief sought is not stated."
+  },
+  "summary_line": "California sues OpenAI, saying agents running on experimental versions of its models attacked Hugging Face in July 2026 and that OpenAI lost control of its agents at least 80 times in testing.",
+  "thirty_seconds": {
+   "a": "OpenAI, sued by California's Attorney General in San Francisco Superior Court.",
+   "b": "The state alleges a public nuisance and violations of the Unfair Competition Law over a July 2026 cyberattack on Hugging Face by agents running on experimental OpenAI models.",
+   "c": "The Attorney General says OpenAI admitted losing control of its autonomous agents at least 80 times during testing. The release does not state the relief sought."
+  },
+  "id": 112,
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z"
+  },
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "source_label": "California Attorney General release, Nov 16, 2026 · Complaint (oag.ca.gov)",
+  "page_verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "b370131712195fbffeb75578a8a0884b9d42d7acdb640eb8b29b01aea74cfe85"
+  }
+ },
+ {
+  "key": "bis-remote-access-advanced-semiconductors-ifr",
+  "section": "G.3",
+  "type": "export",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "export",
+  "title": "BIS interim final rule — Addressing Remote Access to Advanced Semiconductors (91 FR 74970, FR Doc. 2026-23529)",
+  "short_name": "BIS remote-access chip rule (Nov 2026)",
+  "display_name": "Remote access to advanced AI chips (BIS rule)",
+  "sponsor_text": "Commerce Department, Bureau of Industry and Security",
+  "mechanism": "An interim final rule with four parts. First, it requires licenses for exports, reexports and in-country transfers to overseas data centers that remotely supply significant volumes of compute to companies headquartered in Country Group D:5 or Macau, with customer due diligence by data centers, foreign foundries and chip exporters; commercial recommender systems are excluded. Second, it requires a license to send advanced semiconductors to Indonesia, Malaysia, Singapore, Thailand or Brazil, and any country the Secretary later designates, except to companies headquartered in the United States that meet reporting requirements. Third, it narrows the ways chip designers in licensed destinations can overcome the presumptions that front-end fabricators and chip packagers face for advanced-node logic chips. Fourth, it formally rescinds the regulations implementing the Biden-era AI Diffusion Rule, which was never enforced. Effective Nov 19, 2026; comments are due Jan 19, 2027.",
+  "thresholds": "Applies to overseas data centers that remotely supply significant volumes of compute to companies headquartered in Country Group D:5 or Macau, and to advanced semiconductors sent to the five named countries.",
+  "penalties": null,
+  "status_text": "Published in the Federal Register Nov 19, 2026 (FR Doc. 2026-23529) and effective that day. Comments are due Jan 19, 2027.",
+  "signed_text": null,
+  "effective_text": "Effective Nov 19, 2026.",
+  "events": [
+   {
+    "date": "2026-11-19",
+    "precision": "day",
+    "type": "Effective",
+    "text": "Published in the Federal Register and effective",
+    "clause": "Published in the Federal Register and effective",
+    "inferred_year": false,
+    "scheduled": false
+   },
+   {
+    "date": "2027-01-19",
+    "precision": "day",
+    "type": "Search date / deadline / scheduled",
+    "text": "Comment period closes",
+    "clause": "Comment period closes",
+    "inferred_year": false,
+    "scheduled": true
+   }
+  ],
+  "sources": [
+   {
+    "label": "Federal Register, FR Doc. 2026-23529",
+    "url": "https://www.federalregister.gov/documents/2026/11/19/2026-23529/addressing-remote-access-to-advanced-semiconductors",
+    "kind": "primary"
+   }
+  ],
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "High: the Federal Register record and the rule's official summary were read."
+  },
+  "summary_line": "Commerce rule requiring licenses for overseas data centers that supply significant compute to companies headquartered in countries of concern, and formally rescinding the Biden-era AI Diffusion Rule.",
+  "thirty_seconds": {
+   "a": "Overseas data centers, foreign foundries and exporters handling advanced US AI chips, and exports of advanced chips to Indonesia, Malaysia, Singapore, Thailand and Brazil.",
+   "b": "Licenses are required for data centers that remotely supply significant compute to companies headquartered in Country Group D:5 or Macau, with customer due diligence. It also formally rescinds the AI Diffusion Rule.",
+   "c": "It took effect Nov 19, 2026; comments are due Jan 19, 2027."
+  },
+  "id": 113,
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z"
+  },
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "source_label": "Federal Register, FR Doc. 2026-23529",
+  "page_verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "8ff8fca42a1dc719af7c6bb799e9df5528a7ca8d4170de0c4250d7966f7a45d4"
+  }
+ },
+ {
+  "key": "safe-ai-act-outline",
+  "section": "E",
+  "type": "draft",
+  "level": "federal",
+  "jurisdiction": "US",
+  "state": null,
+  "status": "pending",
+  "title": "Safe and Accountable Federal Evaluations of Artificial Intelligence (SAFE AI) Act — outline",
+  "short_name": "SAFE AI Act (outline)",
+  "display_name": "SAFE AI Act (outline)",
+  "sponsor_text": "Reps. Sara Jacobs (D-CA), Celeste Maloy (R-UT) and Don Beyer (D-VA)",
+  "mechanism": "An outline of forthcoming bipartisan legislation, not bill text. Frontier developers would have to publish and follow enforceable safety frameworks, filed with the government and not loosened unilaterally, meeting minimum requirements written by the Center for AI Standards and Innovation (CAISI) with interagency partners including the intelligence community and the Energy Department. Developers would disclose substantially autonomous AI research and development and report safety incidents, and anyone could report an incident confidentially to CAISI. Government teams, supported by government-accredited independent evaluators assigned by CAISI and paid from fee-based funds, would check compliance before commercial release or broad internal use. The government could order mitigation, subject to prompt judicial review, when an AI system poses imminent risks of severe harm. Violations of safety frameworks would carry civil penalties, enhanced for knowing or willful violations, with procedures for criminal referral. It would clarify developer liability for reasonably foreseeable injuries to third parties and protect whistleblowers. States could set stricter rules above the federal floor; startups and academics would not generally be covered.",
+  "thresholds": null,
+  "penalties": "Civil penalties for violating safety frameworks, enhanced for knowing or willful violations; the outline gives no amounts.",
+  "status_text": "Outline released Nov 19, 2026. The sponsors say legislative text is forthcoming and they are seeking input. Not introduced.",
+  "signed_text": null,
+  "effective_text": null,
+  "events": [
+   {
+    "date": "2026-11-19",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Outline released by Reps. Jacobs, Maloy and Beyer",
+    "clause": "Outline released by Reps. Jacobs, Maloy and Beyer",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "Rep. Beyer release, Nov 19, 2026",
+    "url": "https://beyer.house.gov/news/documentsingle.aspx?DocumentID=9310",
+    "kind": "primary"
+   },
+   {
+    "label": "SAFE AI Act outline (PDF)",
+    "url": "https://beyer.house.gov/UploadedFiles/SAFE_AI_Act_Outline.pdf",
+    "kind": "primary"
+   }
+  ],
+  "confidence": {
+   "level": "HIGH",
+   "basis": "primary_record",
+   "note": "High: from the sponsors' release and two-page outline; no bill text exists yet."
+  },
+  "summary_line": "An outline, not yet a bill, that would require frontier AI developers to follow enforceable safety frameworks checked by government and independent evaluators before release, with emergency orders and civil penalties.",
+  "thirty_seconds": {
+   "a": "Frontier AI developers; startups and academics would not generally be covered. Outline by Reps. Jacobs, Maloy and Beyer.",
+   "b": "Would have to publish and follow safety frameworks meeting CAISI minimums, report incidents and automated AI research, and pass evaluations before release or broad internal use.",
+   "c": "Civil penalties for violations, higher for knowing or willful ones, with no amounts given. The government could order mitigation in an emergency, subject to judicial review."
+  },
+  "id": 114,
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z"
+  },
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "source_label": "Rep. Beyer release, Nov 19, 2026 · SAFE AI Act outline (PDF)",
+  "page_verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "313ddfcfd53c0a2d394cf3fe6bfee9ecb89a8bc08e17889376f0f6135b78c9e8"
+  }
+ },
+ {
+  "key": "nm-frontier-ai-safety-and-accountability-act-2027",
+  "section": "B",
+  "type": "draft",
+  "level": "state",
+  "jurisdiction": "NM",
+  "state": "NM",
+  "status": "pending",
+  "title": "Frontier Artificial Intelligence Safety and Accountability Act — proposed for New Mexico's 2027 session",
+  "short_name": "NM Frontier AI Safety and Accountability Act (proposed)",
+  "display_name": "New Mexico Frontier AI Safety and Accountability Act (proposed)",
+  "sponsor_text": "Rep. Linda Serrato, with Attorney General Raúl Torrez",
+  "mechanism": "A proposed bill, not yet filed, enforced by the Office of the Online Safety Monitor in the New Mexico Department of Justice. Every frontier developer would publish a transparency report before releasing a model. A large frontier developer would also publish and update yearly a public safety framework, report its risk assessments to the department, and notify it 30 days before a training run expected to produce a frontier model. State-approved independent auditors could examine a large developer's risk assessments for autonomous loss of control, autonomous replication and autonomous cyber-offense. A developer's own published if-then safety commitments would become enforceable. Incidents would be reported within 24 hours for loss of control and 72 hours for other critical safety incidents, and a model involved in a loss-of-control incident would need a working shutdown capability before running autonomously again. Large in-state data centers would verify large customers and flag anomalous use. Whistleblower protections are modeled on California's.",
+  "thresholds": "Same as California: a frontier model is trained using more than 10^26 floating-point operations; a large frontier developer has more than $500 million in annual revenue.",
+  "penalties": "Civil penalties for compliance failures, with a steeper penalty graded by culpability for loss-of-control reporting or remediation failures; strict-liability recovery of the state's incident-response costs; and Attorney General damages actions for the state and, as parens patriae, for residents and businesses. The overview gives no amounts.",
+  "status_text": "Announced Oct 1, 2026 by Attorney General Torrez and Rep. Serrato for the 2027 session (58th Legislature, First Session). No bill number yet.",
+  "signed_text": null,
+  "effective_text": "Would take effect July 1, 2027.",
+  "events": [
+   {
+    "date": "2026-10-01",
+    "precision": "day",
+    "type": "Introduced / published",
+    "text": "Proposal announced by Attorney General Torrez and Rep. Serrato",
+    "clause": "Proposal announced by Attorney General Torrez and Rep. Serrato",
+    "inferred_year": false,
+    "scheduled": false
+   }
+  ],
+  "sources": [
+   {
+    "label": "NM Department of Justice bill overview (PDF)",
+    "url": "https://nmdoj.gov/wp-content/uploads/Frontier_AI_Safety_Act_Summary.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "NM Department of Justice release",
+    "url": "https://nmdoj.gov/press-release/attorney-general-raul-torrez-and-representative-linda-serrato-unveil-legislation-to-rein-in-frontier-ai-ahead-of-2027-legislative-session/",
+    "kind": "primary"
+   },
+   {
+    "label": "Source NM, Oct 1, 2026 (announcement date)",
+    "url": "https://sourcenm.com/2026/10/01/new-mexico-attorney-general-and-state-lawmaker-announce-push-to-rein-in-rogue-ai-models/",
+    "kind": "secondary"
+   }
+  ],
+  "confidence": {
+   "level": "MED-HIGH",
+   "basis": "corroborated",
+   "note": "Provisions from the Department of Justice's bill overview; no bill text has been filed. The release page could not be opened; the Oct 1, 2026 date is from Source NM."
+  },
+  "summary_line": "A proposed New Mexico bill that would require large frontier AI developers to publish safety frameworks, accept state-approved audits, report loss-of-control incidents within 24 hours, and pay damages and response costs.",
+  "thirty_seconds": {
+   "a": "Frontier developers (models trained using more than 10^26 operations); large developers have more than $500 million in annual revenue.",
+   "b": "Would require transparency reports, safety frameworks, risk assessments to the state, notice 30 days before a frontier training run, and incident reports within 24 hours for loss of control or 72 hours otherwise.",
+   "c": "Civil penalties, recovery of the state's response costs, and Attorney General damages suits, enforced through the New Mexico Department of Justice."
+  },
+  "id": 115,
+  "origin": "authored",
+  "verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z"
+  },
+  "last_checked": "2026-11-25",
+  "last_changed": "2026-11-25",
+  "tags": {
+   "updated_after_verification": false,
+   "found_via": "author"
+  },
+  "source_label": "NM Department of Justice bill overview (PDF) · NM Department of Justice release · Source NM, Oct 1, 2026 (announcement date)",
+  "page_verification": {
+   "method": "session",
+   "checked_at": "2026-11-25T18:00:00Z",
+   "reviewer": "manual update 25 Nov 2026",
+   "basis_sha256": "68750717b20c512d2e34181bab7c889e6efe271107f93a73ee9718292c08c8e4"
   }
  }
 ]
