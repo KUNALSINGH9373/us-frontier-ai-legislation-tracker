@@ -272,6 +272,7 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
   ok('a short-named bill whose official title is about frontier AI is a candidate (H.R. 11157)', ids.includes('119/hr/11157') && r.stats.found_by_official_title === 1, JSON.stringify({ ids, stats: r.stats }));
   ok('a short-named bill whose official title is not about AI is screened out', !ids.includes('119/hr/8001') && r.stats.screened_out === 1, JSON.stringify(r.stats));
   ok('each short-named bill costs one titles call', r.stats.official_title_lookups === 2 && srv.log.filter((l) => /\/titles/.test(l.url)).length === 2);
+  { const errs = makeValidator().check('state', r.nextState); ok('the state with screened-out short names passes its schema (26 Nov: the run refused to save it)', errs.length === 0 && Object.keys(r.nextState.sources.congress_gov.official_checked || {}).length === 1, errs.join('; ')); }
   const srv2 = fakeServer({ bills });
   const r2 = await runCongress({ http: mk(srv2), state: r.nextState, entries: [], scope, outDir: out, now: new Date(+NOW + 3600e3), since: '2026-09-29T00:00:00Z' });
   ok('the screened-out bill is not looked up again while it is unchanged', !srv2.log.some((l) => /8001\/titles/.test(l.url)), JSON.stringify(srv2.log.map((l) => l.url).filter((u) => /titles/.test(u))));
