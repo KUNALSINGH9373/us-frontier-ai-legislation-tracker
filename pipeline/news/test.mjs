@@ -88,6 +88,18 @@ const run = (sb, o = {}) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile
   ok('3 the code screen needs an AI word', NEWS_TERMS.test(PITCH) && !NEWS_TERMS.test('Zuckerberg considered leaving CA over wealth tax'));
   ok('3 a possible informal request: a government body, a developer and a request verb', informalRequestSignal('White House asks OpenAI and Anthropic to hold new models from UK testers until U.S. review') && informalRequestSignal('Trump administration asks OpenAI to limit GPT-5.6 release') && informalRequestSignal('Commerce Secretary Lutnick warned OpenAI against releasing its model without approval'));
   ok('3 not a request: a lab alone, a body alone, or no request verb', !informalRequestSignal('OpenAI releases GPT-6 Astra') && !informalRequestSignal('White House publishes AI action plan') && !informalRequestSignal('Anthropic and the White House sign voluntary accord'));
+  // 26 Nov 2026: the false positives the first version raised, and the real requests it must still catch
+  const fp = {
+    'a developer pitching a bill, the government\'s power only described (Politico, Oct 16)': 'Anthropic quietly pitches its own AI safety bill to lawmakers The draft proposal would limit the circumstances in which the government could block the release of an advanced model and preempt some state AI safety laws.',
+    'a power a draft bill would give (Politico, Oct 21)': 'Why Anthropic’s draft bill sets $1 billion threshold for AI risk The artificial intelligence company’s proposed threshold mirrors a California law — but repurposes it to decide when the government could block an advanced AI model.',
+    'a developer asking the government': 'Anthropic urges White House to delay AI preemption',
+    'a company warning the government': 'Microsoft’s president warns White House against skilled immigration crackdown',
+    'a power a rule would give': 'A new rule could allow the administration to delay an OpenAI release',
+    'a passive verb': 'Nvidia scandal rocks White House as report reveals Trump was ‘warned’ about CEO’s affair months ago',
+    'a request about a company\'s CEO, not a model': 'Trump urges Nvidia to reinstate Jensen Huang, calling him ‘best thing’ for U.S.'
+  };
+  for (const [why, t] of Object.entries(fp)) ok(`3 not a G.4 request: ${why}`, !informalRequestSignal(t), t);
+  ok('3 still a request: the two G.4 stories on the site, and a pressed usage-limit change', informalRequestSignal('US government asks OpenAI to start GPT-5.6 with approved partners only; OpenAI complies and objects') && informalRequestSignal('White House reported to ask OpenAI and Anthropic to hold new models from UK testers until US review') && informalRequestSignal('Pentagon pressed Anthropic to drop usage limits, officials say'));
 }
 
 // ---------- 4. leads: window, dedupe, screens ----------
