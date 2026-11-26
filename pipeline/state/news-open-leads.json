@@ -1,0 +1,84 @@
+{
+ "last_audit": "2026-11-26",
+ "_note": "Open news leads (news/open-leads.mjs): each stays until covered, rejected with a reason, or expired after being raised. Do not edit by hand.",
+ "items": {
+  "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely": {
+   "key": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely",
+   "title": "BIS interim final rule requires licenses for AI chips and remote access by restricted-country entities",
+   "link": "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
+   "publisher": "weekly completeness check",
+   "date": "2026-11-16",
+   "first_seen": "2026-11-26",
+   "runs": 1,
+   "request_flag": false,
+   "from_audit": true,
+   "alerted": "2026-11-26",
+   "triage": null
+  },
+  "https://companyscope.io/register/air-2026-025": {
+   "key": "https://companyscope.io/register/air-2026-025",
+   "title": "California AG sues OpenAI over undisclosed agent incidents",
+   "link": "https://companyscope.io/register/air-2026-025",
+   "publisher": "weekly completeness check",
+   "date": "2026-11-16",
+   "first_seen": "2026-11-26",
+   "runs": 1,
+   "request_flag": false,
+   "from_audit": true,
+   "alerted": "2026-11-26",
+   "triage": null
+  },
+  "https://trahan.house.gov/news/documentsingle.aspx?DocumentID=3871": {
+   "key": "https://trahan.house.gov/news/documentsingle.aspx?DocumentID=3871",
+   "title": "Trahan releases updated FRONTIER Act section-by-section",
+   "link": "https://trahan.house.gov/news/documentsingle.aspx?DocumentID=3871",
+   "publisher": "weekly completeness check",
+   "date": "2026-11-19",
+   "first_seen": "2026-11-26",
+   "runs": 1,
+   "request_flag": false,
+   "from_audit": true,
+   "alerted": "2026-11-26",
+   "triage": null
+  },
+  "https://casrai.org/news/safe-ai-act-outline-frontier-ai-labs-2026": {
+   "key": "https://casrai.org/news/safe-ai-act-outline-frontier-ai-labs-2026",
+   "title": "Beyer, Jacobs, Maloy release SAFE AI Act outline for frontier AI safety rules",
+   "link": "https://casrai.org/news/safe-ai-act-outline-frontier-ai-labs-2026",
+   "publisher": "weekly completeness check",
+   "date": "2026-11-19",
+   "first_seen": "2026-11-26",
+   "runs": 1,
+   "request_flag": false,
+   "from_audit": true,
+   "alerted": "2026-11-26",
+   "triage": null
+  },
+  "https://tokenpost.com/news/regulation/62603": {
+   "key": "https://tokenpost.com/news/regulation/62603",
+   "title": "Recursive Self-Improvement Safety Act introduced in House",
+   "link": "https://www.tokenpost.com/news/regulation/62603",
+   "publisher": "weekly completeness check",
+   "date": "2026-11-24",
+   "first_seen": "2026-11-26",
+   "runs": 1,
+   "request_flag": false,
+   "from_audit": true,
+   "alerted": "2026-11-26",
+   "triage": null
+  },
+  "https://aljazeera.com/economy/2026/11/20/us-lawmakers-push-for-tougher-ai-chip-rules-amid-china-export-crackdown": {
+   "key": "https://aljazeera.com/economy/2026/11/20/us-lawmakers-push-for-tougher-ai-chip-rules-amid-china-export-crackdown",
+   "title": "Lawmakers push for tougher AI chip rules after BIS remote-access rule",
+   "link": "https://www.aljazeera.com/economy/2026/11/20/us-lawmakers-push-for-tougher-ai-chip-rules-amid-china-export-crackdown",
+   "publisher": "weekly completeness check",
+   "date": "2026-11-20",
+   "first_seen": "2026-11-26",
+   "runs": 1,
+   "request_flag": false,
+   "from_audit": true,
+   "alerted": "2026-11-26",
+   "triage": null
+  }
+ }
+}

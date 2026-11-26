@@ -1,17 +1,16 @@
 {
- "updated_at": "2026-11-26T00:29:29.622Z",
+ "updated_at": "2026-11-26T08:05:42.668Z",
  "sources": {
   "congress_gov": {
-   "last_run": "2026-11-26T00:29:29.622Z",
-   "last_fetch": "2026-11-26T00:29:29.622Z",
-   "last_ok": "2026-11-26T00:29:29.622Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-11-20",
-   "run_newest": null,
-   "replay": false,
-   "count": 0,
+   "run_newest": "2026-11-19",
+   "replay": true,
+   "count": 3,
    "counts": [
-    0,
     0,
     0,
     4,
@@ -24,23 +23,23 @@
     0,
     15,
     0,
-    0
+    0,
+    3
    ],
    "errors": [],
    "consecutive_failures": 0,
    "future_items": []
   },
   "legiscan": {
-   "last_run": "2026-11-26T00:29:29.622Z",
-   "last_fetch": "2026-11-26T00:29:29.622Z",
-   "last_ok": "2026-11-26T00:29:29.622Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-11-23",
    "run_newest": null,
    "replay": false,
    "count": 0,
    "counts": [
-    0,
     0,
     0,
     0,
@@ -53,6 +52,7 @@
     0,
     0,
     0,
+    0,
     0
    ],
    "errors": [],
@@ -60,9 +60,9 @@
    "future_items": []
   },
   "courtlistener": {
-   "last_run": "2026-11-26T00:29:29.622Z",
-   "last_fetch": "2026-11-26T00:29:29.622Z",
-   "last_ok": "2026-11-26T00:29:29.622Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-11-06",
    "run_newest": null,
@@ -89,21 +89,20 @@
    "future_items": []
   },
   "federal_register": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
-   "newest": "2026-11-19",
-   "run_newest": "2026-11-19",
+   "newest": "2026-11-27",
+   "run_newest": "2026-11-27",
    "replay": false,
-   "count": 2,
+   "count": 4,
    "counts": [
     0,
     0,
     0,
     0,
     0,
-    0,
     1,
     1,
     2,
@@ -111,17 +110,17 @@
     2,
     2,
     2,
-    2
+    2,
+    4
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "whitehouse": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-09-29",
    "run_newest": "2026-09-29",
@@ -145,20 +144,18 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "govinfo": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
-   "newest": "2026-11-18",
-   "run_newest": "2026-11-18",
+   "newest": "2026-11-24",
+   "run_newest": "2026-11-24",
    "replay": false,
-   "count": 3,
+   "count": 4,
    "counts": [
-    0,
     1,
     1,
     1,
@@ -171,17 +168,17 @@
     0,
     2,
     3,
-    3
+    3,
+    4
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "regulations_gov": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-11-25",
    "run_newest": "2026-11-25",
@@ -200,18 +197,17 @@
     1,
     1,
     1,
-    1,
+    2,
     2
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "congress_extra": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-11-17",
    "run_newest": "2026-11-09",
@@ -223,7 +219,7 @@
     0,
     0,
     0,
-    0,
+    1,
     1,
     1,
     1,
@@ -235,13 +231,12 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "nist": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-08-04",
    "run_newest": "2026-08-04",
@@ -254,7 +249,7 @@
     7,
     7,
     7,
-    7,
+    6,
     6,
     6,
     6,
@@ -265,13 +260,12 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "cbo": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-11-20",
    "run_newest": "2026-11-20",
@@ -286,7 +280,7 @@
     0,
     0,
     0,
-    0,
+    1,
     1,
     1,
     1,
@@ -295,13 +289,12 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "ca_ag": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": "2026-11-24",
    "run_newest": "2026-11-24",
@@ -312,7 +305,6 @@
     0,
     0,
     0,
-    0,
     1,
     1,
     1,
@@ -321,17 +313,17 @@
     1,
     1,
     0,
+    1,
     1
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "nysenate": {
-   "last_run": "2026-11-25T08:05:44.910Z",
-   "last_fetch": "2026-11-25T08:05:44.910Z",
-   "last_ok": "2026-11-25T08:05:44.910Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
+   "last_ok": "2026-11-26T08:05:42.668Z",
    "ok": true,
    "newest": null,
    "run_newest": null,
@@ -355,21 +347,19 @@
    ],
    "errors": [],
    "consecutive_failures": 0,
-   "future_items": [],
-   "last_skipped": "2026-11-26T00:29:29.622Z"
+   "future_items": []
   },
   "openstates": {
-   "last_run": "2026-11-26T00:29:29.622Z",
-   "last_fetch": "2026-11-26T00:29:29.622Z",
+   "last_run": "2026-11-26T08:05:42.668Z",
+   "last_fetch": "2026-11-26T08:05:42.668Z",
    "truncated": true,
    "last_ok": "2026-11-25T20:05:47.292Z",
    "ok": false,
    "newest": "2026-09-09",
-   "run_newest": "2026-07-30",
+   "run_newest": null,
    "replay": false,
-   "count": 17,
+   "count": 0,
    "counts": [
-    90,
     73,
     90,
     90,
@@ -382,15 +372,16 @@
     90,
     90,
     17,
-    17
+    17,
+    0
    ],
    "errors": [
     "This operation was aborted",
     "This operation was aborted",
-    "HTTP 502",
-    "request cap: time budget reached; remaining bills next run"
+    "This operation was aborted",
+    "stopped: 3 consecutive errors"
    ],
-   "consecutive_failures": 2,
+   "consecutive_failures": 3,
    "future_items": []
   }
  }

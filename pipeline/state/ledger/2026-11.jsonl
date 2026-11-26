@@ -1140,6 +1140,10 @@
 {"at":"2026-11-26T07:26:51.253Z","role":"validator","model":"claude-haiku-5-5","itemId":"eval:different-steps","input":1010,"output":287,"cost":0.00024450000000000003}
 {"at":"2026-11-26T07:26:53.450Z","role":"validator","model":"claude-haiku-5-5","itemId":"eval:huang-meme","input":1093,"output":265,"cost":0.0002418}
 {"at":"2026-11-26T07:26:55.065Z","role":"validator","model":"claude-haiku-5-5","itemId":"eval:huang-reinstated","input":1086,"output":172,"cost":0.00019460000000000001}
+{"at":"2026-11-26T08:06:24.424Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2046,"output":100,"cost":0.0002546}
+{"at":"2026-11-26T08:08:17.746Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2088,"output":553,"cost":0.00048530000000000003}
+{"at":"2026-11-26T08:08:50.275Z","role":"auditor","model":"claude-sonnet-5-5","itemId":"completeness:2026-11-26","input":73039,"output":3213,"cost":0.278208}
+{"at":"2026-11-26T08:08:54.789Z","role":"screener","model":"claude-haiku-5-5","itemId":"open-leads:2026-11-26","input":1514,"output":919,"cost":0.0006108999999999999}
 {"at":"2026-11-26T08:22:56.010Z","role":"screener","model":"claude-haiku-5-5","itemId":"open-leads:cover:2026-11-26","input":6960,"output":698,"cost":0.001045}
 {"at":"2026-11-26T08:35:24.606Z","role":"writer","model":"claude-sonnet-5-5","itemId":"eval:ca-v-openai","input":5058,"output":715,"cost":0.017266}
 {"at":"2026-11-26T08:35:26.516Z","role":"bill_reviewer","model":"claude-opus-5-5","itemId":"eval:ca-v-openai","input":5018,"output":39,"cost":0.020852}
