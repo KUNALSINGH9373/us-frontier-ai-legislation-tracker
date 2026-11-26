@@ -1215,3 +1215,7 @@
 {"at":"2026-11-26T09:11:41.919Z","role":"validator","model":"claude-haiku-5-5","itemId":"eval:different-steps","input":1010,"output":230,"cost":0.00021600000000000002}
 {"at":"2026-11-26T09:11:43.818Z","role":"validator","model":"claude-haiku-5-5","itemId":"eval:huang-meme","input":1093,"output":246,"cost":0.0002323}
 {"at":"2026-11-26T09:11:45.359Z","role":"validator","model":"claude-haiku-5-5","itemId":"eval:huang-reinstated","input":1086,"output":175,"cost":0.0001961}
+{"at":"2026-11-26T12:10:11.200Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":7739,"output":2584,"cost":0.0020659}
+{"at":"2026-11-26T12:10:17.175Z","role":"screener","model":"claude-haiku-5-5","itemId":"open-leads:2026-11-26","input":1883,"output":1351,"cost":0.0008638}
+{"at":"2026-11-26T12:10:22.206Z","role":"screener","model":"claude-haiku-5-5","itemId":"open-leads:cover:2026-11-26","input":7194,"output":758,"cost":0.0010984}
+{"at":"2026-11-26T12:10:26.037Z","role":"validator","model":"claude-haiku-5-5","itemId":"press-news:update-20261126-1205","input":2341,"output":789,"cost":0.0006286}
