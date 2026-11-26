@@ -9,7 +9,7 @@
    "publisher": "weekly completeness check",
    "date": "2026-11-20",
    "first_seen": "2026-11-26",
-   "runs": 2,
+   "runs": 3,
    "request_flag": false,
    "from_audit": true,
    "alerted": "2026-11-26",
@@ -27,12 +27,12 @@
    "publisher": "Rep. Don Beyer",
    "date": "2026-11-19",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": true,
    "summary": "Today, Reps. Don Beyer (D-VA), George Whitesides (D-CA), and Nathaniel Moran (R-TX), announced the launch of the House AI Safety and Innovation Caucus, the first congressional caucus focused specifically on addressing AI safety and security risks posed by increasingly advanced AI systems while ensuring the United States remains a global leader in innovative AI technologies. As AI capabilities accelerate, so do the potential consequences of catastrophic misuse, loss of control over advanced systems, and threats to national security. In July, an experimental OpenAI agent escaped its testing envi",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "Congressional caucus on AI safety and innovation is a legislative-branch development on frontier AI safety.",
@@ -46,12 +46,12 @@
    "publisher": "The New York Times",
    "date": "2026-11-26",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "The shipping halt, which hit four countries, follows a new U.S. rule that would require licenses for companies in the countries to buy advanced A.I. chips.",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "Nvidia halting sales to Southeast Asia amid US chip restrictions is an informal or agency action on AI chips.",
@@ -65,12 +65,12 @@
    "publisher": "The New York Times",
    "date": "2026-11-26",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "Members of both parties say they want to tackle artificial intelligence policy, but the slow pace of legislating and turf battles could stand in the way.",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "Reports on congressional efforts to regulate AI, a legislative development on frontier AI rules.",
@@ -84,12 +84,12 @@
    "publisher": "The Independent",
    "date": "2026-11-26",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "China has fallen behind schedule on its next flagship AI model",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "Covers US closing overseas chip loopholes affecting Chinese frontier model development, a chip export policy action.",
@@ -103,12 +103,12 @@
    "publisher": "The Verge",
    "date": "2026-11-26",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "A coalition of 42 state attorneys general is trying to prevent Character.AI from selling off user data as it navigates Chapter 11 bankruptcy proceedings. In a deluge of nearly identical press releases, the various AGs accuse the company of planning to auction off \"the private chat histories of more than 21 million U.S. accounts - […]",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "State attorneys general action against Character.AI; a state AG enforcement action on an AI developer, though focused on user data rather than frontier safety.",
@@ -122,12 +122,12 @@
    "publisher": "The Verge",
    "date": "2026-11-24",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "As Jensen Huang returns to his post as Nvidia's CEO with support from the Trump administration, the Department of Commerce has added Megaspeed to its Entity List, which blocks trade with the company, citing national security risks. As reported earlier by Semafor, Commerce Secretary Howard Lutnick had faced increasing pressure to list the company after […]",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "Commerce Department entity list addition targeting AI chip smuggling is an agency action on AI chips.",
@@ -141,12 +141,12 @@
    "publisher": "MIT Technology Review",
    "date": "2026-11-12",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "Representatives from Nvidia told Illinois representative Bill Foster that it would be technically possible to implement the anti-smuggling measures called for in the Chip Security Act, Foster told MIT Technology Review in an interview on Thursday, even while an industry group claimed they were “potentially infeasible.” Foster, a Democrat who serves on the Committee on…",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "Reports Nvidia's private confirmation of chip tracking to fight smuggling, relevant to chip export control policy.",
@@ -160,32 +160,17 @@
    "publisher": "StateScoop",
    "date": "2026-11-18",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "The new office will enforce state AI laws, investigate potential harms and help develop policies addressing emerging technology.",
    "from_audit": false,
-   "alerted": null,
+   "alerted": "2026-11-26",
    "triage": {
     "relevant": true,
     "reason": "New York AG creating an AI safety and enforcement unit is a state government action on AI oversight.",
     "at": "2026-11-26"
    }
-  },
-  "route-fifty.com/artificial-intelligence/2026/11/states-need-ai-agenda-their-own/417372": {
-   "key": "route-fifty.com/artificial-intelligence/2026/11/states-need-ai-agenda-their-own/417372",
-   "title": "States need an AI agenda of their own",
-   "link": "https://www.route-fifty.com/artificial-intelligence/2026/11/states-need-ai-agenda-their-own/417372/",
-   "publisher": "Route Fifty",
-   "date": "2026-11-24",
-   "first_seen": "2026-11-26",
-   "runs": 1,
-   "request_flag": false,
-   "primary": false,
-   "summary": "COMMENTARY | The biggest questions about AI’s future should not eclipse the decisions states must make today.",
-   "from_audit": false,
-   "alerted": null,
-   "triage": null
   },
   "route-fifty.com/artificial-intelligence/2026/11/california-suing-openai-over-its-rogue-ai-agent-hack/417271": {
    "key": "route-fifty.com/artificial-intelligence/2026/11/california-suing-openai-over-its-rogue-ai-agent-hack/417271",
@@ -194,13 +179,17 @@
    "publisher": "Route Fifty",
    "date": "2026-11-17",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "California Attorney General Rob Bonta filed a lawsuit against OpenAI, saying its lack of safeguards led to the Hugging Face hack.",
    "from_audit": false,
-   "alerted": null,
-   "triage": null
+   "alerted": "2026-11-26",
+   "triage": {
+    "relevant": true,
+    "reason": "California attorney general lawsuit against a frontier AI developer (OpenAI), a court case in scope.",
+    "at": "2026-11-26"
+   }
   },
   "bloomberg.com/news/videos/2026-11-26/us-chip-curbs-stall-asia-data-center-financing-video": {
    "key": "bloomberg.com/news/videos/2026-11-26/us-chip-curbs-stall-asia-data-center-financing-video",
@@ -209,13 +198,17 @@
    "publisher": "Bloomberg",
    "date": "2026-11-26",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "US chip curbs are putting the brakes on billions of dollars in AI data center financing across Asia, with lenders reassessing deals tied to Chinese tech firms including ByteDance, Alibaba and Tencent. Bloomberg’s Annabelle Droules says legal and compliance risks are weighing on banks as new rules on chip access take effect. (Source: Bloomberg)",
    "from_audit": false,
-   "alerted": null,
-   "triage": null
+   "alerted": "2026-11-26",
+   "triage": {
+    "relevant": true,
+    "reason": "Reports on US AI chip export curbs and their effects, touching chip policy in scope; video summary of the same story.",
+    "at": "2026-11-26"
+   }
   },
   "bloomberg.com/news/articles/2026-11-25/billions-in-data-center-deals-grind-to-halt-after-ai-chip-curbs": {
    "key": "bloomberg.com/news/articles/2026-11-25/billions-in-data-center-deals-grind-to-halt-after-ai-chip-curbs",
@@ -224,13 +217,17 @@
    "publisher": "Bloomberg",
    "date": "2026-11-25",
    "first_seen": "2026-11-26",
-   "runs": 1,
+   "runs": 2,
    "request_flag": false,
    "primary": false,
    "summary": "Lenders have hit the brakes on billions of dollars in loans tied to Chinese firms ByteDance, Alibaba and Tencent, as new US curbs on chip access threaten to upend Asia’s burgeoning AI debt financing market.",
    "from_audit": false,
-   "alerted": null,
-   "triage": null
+   "alerted": "2026-11-26",
+   "triage": {
+    "relevant": true,
+    "reason": "Reports on US AI chip curbs (export controls on compute/chips) affecting data center deals.",
+    "at": "2026-11-26"
+   }
   }
  }
 }
