@@ -18,7 +18,7 @@ import { makeValidator } from '../schema/validate.mjs';
 import { checkPublish } from '../publish/guards.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..'), root = path.resolve(P, '..');
-const FIX = path.join(P, 'fixtures', 'news', 'sources'), realData = path.join(root, 'web', 'data', 'v2');
+const FIX = path.join(P, 'fixtures', 'news', 'sources'), realData = path.join(P, 'fixtures', 'correct'); // frozen site data (12 Nov 2026): a live automated item on the page must not change what these code tests check (26 Nov 2026)
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
 const j = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
@@ -194,17 +194,32 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   // the stored H.R. 3460 record with its actions re-dated to 25 Oct 2026, so they fall inside the 14-day window of a real run
   const HRN = clone(HR); HRN.raw.actions.forEach((a) => { a.actionDate = '2026-10-25'; });
   const sb = sandbox(), newsBefore = fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8');
-  const go = (on, now, id) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile, eventsFile: sb.eventsFile, healthFile: sb.healthFile, config: CFG(on), factory: null, today: now.toISOString().slice(0, 10), now, runId: id, records: [HRN], courtFound: FOUND });
+  const reviewer = (answer) => ({ make: () => ({ generate: async () => ({ data: answer }) }) });
+  const APPROVE = reviewer({ about_entry: true, faithful: true, problems: [] });
+  const go = (on, now, id, factory = null) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile, eventsFile: sb.eventsFile, healthFile: sb.healthFile, config: CFG(on), factory, today: now.toISOString().slice(0, 10), now, runId: id, records: [HRN], courtFound: FOUND });
   const a = await go(false, T1, 'r1'); const b = await go(false, T2, 'r2');
   ok('6 switch off: events computed, stored and reported; news.json byte-identical', a.events.added.length > 0 && b.events.confirmed.length > 0 && b.drafted.length > 0 && b.drafted.every((d) => !d.written) && b.status === 'reported' && fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8') === newsBefore && Object.keys(loadEvents(sb.eventsFile).events).length > 0);
   ok('6 switch off: the summary names the events', /new official event/.test(b.summary));
-  const c = await go(true, T3, 'r3');
+  // 26 Nov 2026: nothing is added without an independent review; no reader (no AI) means nothing is written
+  const c0 = await go(true, T3, 'r3a');
+  ok('6 switch on, no reviewer: nothing is added, the items are held as not yet reviewed, news.json byte-identical', c0.drafted.length === 0 && c0.status !== 'written' && c0.events.held.some((h) => /not yet reviewed/.test(h.why)) && fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8') === newsBefore, JSON.stringify({ status: c0.status, held: c0.events.held.slice(0, 3) }));
+  const c = await go(true, T3, 'r3', APPROVE);
   const after = j(path.join(sb.dataDir, 'news.json'));
   ok('6 switch on: the confirmed events are written, alongside every hand-written item', c.status === 'written' && c.drafted.every((d) => d.written) && after.items.filter((n) => n.event_key).length === c.drafted.length && JSON.stringify(after.items.filter((n) => !n.event_key)) === JSON.stringify(j(path.join(realData, 'news.json')).items), JSON.stringify(c.problems));
   ok('6 switch on: the whole data passes checkPublish', checkPublish({ before: { entries: ENTRIES, news: NEWS, site: j(path.join(realData, 'site.json')), changes: j(path.join(realData, 'changes.json')), relationships: j(path.join(realData, 'relationships.json')) }, after: { entries: ENTRIES, news: after, site: j(path.join(realData, 'site.json')), changes: j(path.join(realData, 'changes.json')), relationships: j(path.join(realData, 'relationships.json')) }, runDate: '2026-10-27', maxEntries: 15 }).problems.length === 0);
-  const d = await go(true, new Date('2026-10-28T08:00:00Z'), 'r4');
+  ok('6 switch on: every added item carries a passing review of its exact text', c.events.review && c.events.review.passed === c.drafted.length && c.events.review.refused === 0, JSON.stringify(c.events.review));
+  const d = await go(true, new Date('2026-10-28T08:00:00Z'), 'r4', APPROVE);
   ok('6 the next run changes nothing (idempotent)', d.drafted.length === 0 && JSON.stringify(j(path.join(sb.dataDir, 'news.json'))) === JSON.stringify(after));
   fs.rmSync(sb.dir, { recursive: true, force: true });
+  // a reader that says the record is not about the entry: held with its reason, nothing written
+  {
+    const sb2 = sandbox(), before2 = fs.readFileSync(path.join(sb2.dataDir, 'news.json'), 'utf8');
+    const go2 = (now, id, factory) => newsRun({ dataDir: sb2.dataDir, seenFile: sb2.seenFile, eventsFile: sb2.eventsFile, healthFile: sb2.healthFile, config: CFG(true), factory, today: now.toISOString().slice(0, 10), now, runId: id, records: [HRN], courtFound: FOUND });
+    await go2(T1, 'q1', null); await go2(T2, 'q2', null);
+    const q = await go2(T3, 'q3', reviewer({ about_entry: false, faithful: true, problems: ['the record is about another measure'] }));
+    ok('6 a reader refusing (not about the entry): nothing added, held with the reason the reader gave', q.drafted.length === 0 && q.events.review.refused > 0 && q.events.held.some((h) => /independent review refused it: the record is about another measure/.test(h.why)) && fs.readFileSync(path.join(sb2.dataDir, 'news.json'), 'utf8') === before2, JSON.stringify({ review: q.events.review, held: q.events.held.slice(0, 2) }));
+    fs.rmSync(sb2.dir, { recursive: true, force: true });
+  }
   // records from the grabber's run folders
   const rd = fs.mkdtempSync(path.join(os.tmpdir(), 'news-run-'));
   fs.mkdirSync(path.join(rd, 'raw', 'legiscan'), { recursive: true });
@@ -213,6 +228,30 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const recs = recordsFromRuns([rd]);
   ok('6 records are read from the run folders the grabber wrote (a missing raw file is skipped)', recs.length === 1 && recs[0].entry_key === AB.entry_key && recs[0].raw.bill.bill_number === 'AB1405');
   fs.rmSync(rd, { recursive: true, force: true });
+}
+
+// ---------- 6b. the independent review covers exactly the text it read (news/review.mjs) ----------
+{
+  const { reviewItems, reviewedOk } = await import('./review.mjs');
+  const entry = ENTRIES.find((e) => e.key === 'h-r-9917-ai-kill-switch-act');
+  const ev = { key: 'k', entry_id: entry.key, class: 'introduction', date: '2026-10-25', facts: { title: 'x' }, sources: [{ role: 'official', source: 'congress_gov', url: 'https://www.congress.gov/x', title: 'H.R. 9917' }] };
+  const state = { events: { k: ev } }, item = { date: '2026-10-25', title: 'H.R. 9917 introduced', body: 'H.R. 9917 was introduced on October 25, 2026.', tracker: entry.key, links: [], status: 'confirmed' };
+  let calls = 0; const yes = { make: () => ({ generate: async () => { calls++; return { data: { about_entry: true, faithful: true, problems: [] } }; } }) };
+  const r1 = await reviewItems({ state, entries: ENTRIES, items: [{ key: 'k', item }], factory: yes });
+  ok('6b a passing review covers that exact item', r1.passed === 1 && reviewedOk(ev, item) && calls === 1);
+  const r2 = await reviewItems({ state, entries: ENTRIES, items: [{ key: 'k', item }], factory: yes });
+  ok('6b the same item is not asked about twice', r2.kept === 1 && calls === 1);
+  const changed = { ...item, body: 'H.R. 9917 was introduced and referred on October 25, 2026.' };
+  ok('6b a changed item is not covered by the old review', !reviewedOk(ev, changed));
+  const r3 = await reviewItems({ state, entries: ENTRIES, items: [{ key: 'k', item: changed }], factory: null });
+  ok('6b no reader: the changed item gets no verdict (it waits)', r3.unreviewed === 1 && !reviewedOk(ev, changed));
+  const bad = { make: () => ({ generate: async () => ({ data: { about_entry: true, faithful: true, problems: ['a number is not in the record'] } }) }) };
+  const r4 = await reviewItems({ state, entries: ENTRIES, items: [{ key: 'k', item: changed }], factory: bad });
+  ok('6b both answers true but a problem listed: refused', r4.refused === 1 && !reviewedOk(ev, changed));
+  const boom = { make: () => ({ generate: async () => { throw new Error('API down'); } }) };
+  const ev2 = { ...ev, key: 'k2' }; state.events.k2 = ev2;
+  const r5 = await reviewItems({ state, entries: ENTRIES, items: [{ key: 'k2', item }], factory: boom });
+  ok('6b an API failure gives no verdict, never a pass', r5.unreviewed === 1 && !reviewedOk(ev2, item) && /API down/.test(r5.why_unreviewed));
 }
 
 // ---------- 7. cards for the writer, the milestone fact ----------
@@ -253,7 +292,7 @@ const CFG = (on) => ({ max_entries_changed_per_run: 15, auto_publish: { news: on
   const sb = sandbox(); fs.writeFileSync(sb.eventsFile, '][');
   const rn = await newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile, eventsFile: sb.eventsFile, healthFile: sb.healthFile, config: CFG(false), factory: null, today: '2026-10-26', now: T1, runId: 'r', records: [HR] });
   ok('r2#6 newsRun with an unreadable events file runs on and says so', rn.status !== 'stopped' && rn.problems.some((p) => /moved to/.test(p)));
-  const rx = await newsRun({ dataDir: path.join(tmp, 'missing'), config: CFG(true), factory: null, today: '2026-10-26', now: T1, runId: 'r', records: [] });
+  const rx = await newsRun({ dataDir: path.join(tmp, 'missing'), seenFile: sb.seenFile, eventsFile: sb.eventsFile, healthFile: sb.healthFile, config: CFG(true), factory: null, today: '2026-10-26', now: T1, runId: 'r', records: [] });
   ok('r2#6 any error inside the news step is a stopped report, never a throw', rx.status === 'stopped' && /news step failed/.test(rx.problems[0]) && Array.isArray(rx.drafted));
   fs.rmSync(sb.dir, { recursive: true, force: true });
 

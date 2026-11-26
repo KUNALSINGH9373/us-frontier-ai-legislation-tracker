@@ -25,6 +25,35 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
   };
   return {
     role, model, timeoutMs,
+    // A turn with Claude's server-side web search (26 Nov 2026, the weekly completeness check, audit/completeness.mjs). Returns the final
+    // text, the URLs the searches returned, and how many searches ran. Each request is checked against the budget first and recorded on the
+    // ledger with its search fee ($10 per 1,000 searches, usage.server_tool_use.web_search_requests). A paused turn (stop_reason
+    // "pause_turn") is continued by sending the paused assistant message back unchanged, at most maxContinues times.
+    async search({ system, prompt, itemId, maxUses = 10, maxContinues = 4, searchCostUsd = 0.01 }) {
+      if (prompt.length + (system || '').length > maxInputChars) throw new InputTooLarge(prompt.length + (system || '').length, maxInputChars);
+      const messages = [{ role: 'user', content: prompt }];
+      let res = null, searches = 0;
+      const urls = new Set();
+      for (let round = 0; round <= maxContinues; round++) {
+        if (ledger) ledger.assertWithin(itemId);
+        res = await api.messages.create({
+          model, max_tokens: maxOutputTokens, ...(system ? { system } : {}), ...(effort ? { output_config: { effort } } : {}),
+          tools: [{ type: 'web_search_20260318', name: 'web_search', max_uses: maxUses }], messages
+        });
+        const usage = res.usage || {}, n = (usage.server_tool_use && usage.server_tool_use.web_search_requests) || 0;
+        searches += n;
+        if (ledger) ledger.record({ role, model, itemId, usage: { promptTokenCount: (usage.input_tokens || 0) + (usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0), candidatesTokenCount: usage.output_tokens || 0, extraCostUsd: n * searchCostUsd } });
+        for (const b of res.content || []) if (b.type === 'web_search_tool_result' && Array.isArray(b.content)) for (const r of b.content) if (r && r.url) urls.add(r.url);
+        if (res.stop_reason !== 'pause_turn') break;
+        messages.push({ role: 'assistant', content: res.content });
+      }
+      if (res.stop_reason === 'refusal') throw new LlmOutputError('the model declined' + (res.stop_details && res.stop_details.category ? ` (${res.stop_details.category})` : ''), JSON.stringify(res.stop_details || {}));
+      if (res.stop_reason === 'max_tokens') throw new LlmOutputError('the model stopped early: max_tokens', 'max_tokens');
+      if (res.stop_reason === 'pause_turn') throw new LlmOutputError('the search turn did not finish', 'pause_turn');
+      const text = (res.content || []).filter((b) => b.type === 'text').map((b) => b.text).join('');
+      log(`${role}/${model}: web search, ${searches} search(es)`);
+      return { text, searchedUrls: [...urls], searches };
+    },
     // Same call as the Gemini client. responseSchema (a Gemini-style schema, llm/schema.mjs) is sent as the structured-output
     // format, so the reply is exactly one answer of that shape. Forced tool use (tool_choice "tool") would do the same, but the
     // current Sonnet and Opus models refuse it with a 400; output_config.format is the API's route for a JSON-only answer.

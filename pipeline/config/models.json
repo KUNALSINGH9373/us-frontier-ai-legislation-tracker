@@ -120,6 +120,13 @@
         "max_output_tokens": 4000,
         "effort": "low"
       },
+      "auditor": {
+        "_note": "26 Nov 2026: the weekly completeness check (audit/completeness.mjs) with Claude web search ($10 per 1,000 searches, counted on the ledger), at most config/publish.json completeness.max_searches (10) searches a week.",
+        "model": "claude-sonnet-5-5",
+        "max_output_tokens": 16000,
+        "effort": "medium",
+        "timeout_ms": 600000
+      },
       "screener": {
         "model": "claude-haiku-5-5",
         "max_output_tokens": 16000,

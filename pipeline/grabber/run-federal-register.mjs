@@ -25,6 +25,9 @@ export async function runFederalRegister({ http, state, entries = [], scope, out
     return hit ? hit.key : null;
   };
 
+  // each tracked entry's own Federal Register documents (document number -> entry) and their citations (citation -> entry)
+  const ownDoc = new Map(), cited = new Map(), citedBy = new Map();
+  for (const e of entries) for (const f of ((e.identifiers && e.identifiers.external && e.identifiers.external.federal_register) || [])) { ownDoc.set(f.document_number, e.key); if (f.citation) cited.set(f.citation, e.key); }
   const items = [], stats = { found: 0, tracked: 0, candidates: 0, screened_out: 0, unchanged: 0, over_candidate_cap: 0, text_missing: 0, errors: 0 };
   let truncated = false, lastDate = null, candidatesTaken = 0;
 
@@ -50,11 +53,15 @@ export async function runFederalRegister({ http, state, entries = [], scope, out
       // List first (cheap), across every search term, then process in date order so a cut-off run can resume.
       const byNumber = new Map();
       for (const term of cfg.terms) for await (const d of fr.searchDocuments({ from, to, term })) byNumber.set(d.document_number, d);
+      // A later document that cites a tracked rule or order by its official citation ("90 FR 4544") is about that entry, whatever it
+      // calls it (26 Nov 2026: the rule formally rescinding the AI Diffusion Rule named it "the Biden-era AI Diffusion Rule", which no
+      // title phrase matched). The entry's identifiers.external.federal_register list gives the citations.
+      for (const [citation, key] of cited) for await (const d of fr.searchDocuments({ from, to, term: citation })) { byNumber.set(d.document_number, d); if (!ownDoc.has(d.document_number)) citedBy.set(d.document_number, citedBy.get(d.document_number) || key); }
       found = [...byNumber.values()].sort((a, b) => a.publication_date.localeCompare(b.publication_date) || a.document_number.localeCompare(b.document_number));
     }
     stats.found = found.length;
     for (const d of found) {
-      const key = trackedKey(d);
+      const key = ownDoc.get(d.document_number) || citedBy.get(d.document_number) || trackedKey(d);
       if (docs.length) { await collect(d, 'reconcile', key); continue; }
       if (block.hashes[d.document_number] === hashOf(d)) { stats.unchanged++; lastDate = d.publication_date; continue; }
       if (key) { await collect(d, 'updated_since_cursor', key); stats.tracked++; }

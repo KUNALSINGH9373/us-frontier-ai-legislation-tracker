@@ -136,5 +136,22 @@ ok('watchPhrases drops a quoted phrase that equals or is contained in a scope se
 ok('watchPhrases: the scope terms come from config/scope.draft.json and config/legiscan.json', SCOPE_TERMS.includes('super intelligence') && SCOPE_TERMS.includes('frontier developer') && SCOPE_TERMS.includes('superintelligen'));
 ok('htmlToText strips tags and decodes entities', htmlToText('<html><body><pre>A &amp; B &quot;c&quot; &#8212; <a href="x">d</a></pre></body></html>') === 'A & B "c" — d');
 
+// 26 Nov 2026: a document that cites a tracked rule's official citation is filed under that entry, whatever it calls the rule
+{
+  const entries = [{ key: 'bis-diffusion', section: 'G.3', title: 'BIS "Framework for AI Diffusion" (Biden-era interim final rule)', identifiers: { external: { federal_register: [{ document_number: '2025-00636', citation: '90 FR 4544' }] } } }];
+  const docs = [
+    doc('2026-23529', 'Addressing Remote Access to Advanced Semiconductors', '2026-10-05', { type: 'Rule', abstract: 'Formally rescinds the Biden-era AI Diffusion Rule.', text: 'The regulations published at 90 FR 4544 are rescinded.' }),
+    doc('2026-23530', 'Fisheries Off West Coast States', '2026-10-05', { type: 'Rule', text: 'Nothing about chips.' })
+  ];
+  const srv = fakeServer({ docs }), r = await runFederalRegister({ http: mk(srv), state: emptyState(), entries, scope, outDir: tmp(), now: NOW, since: '2026-10-01' });
+  const it = r.changeset.items.find((i) => i.source_id === '2026-23529');
+  ok('a document citing a tracked rule\'s citation is filed under that entry (its own words never named the rule\'s title)', it && it.entry_key === 'bis-diffusion' && it.change === 'changed', JSON.stringify(r.changeset.items));
+  ok('an unrelated document is not', !r.changeset.items.some((i) => i.source_id === '2026-23530'));
+  ok('the citation is searched as an exact phrase', srv.log.some((u) => decodeURIComponent(u).includes('conditions[term]="90 FR 4544"')));
+  const self = fakeServer({ docs: [doc('2025-00636', 'Framework for Artificial Intelligence Diffusion', '2026-10-05', { type: 'Rule', text: '90 FR 4544' })] });
+  const r2 = await runFederalRegister({ http: mk(self), state: emptyState(), entries, scope, outDir: tmp(), now: NOW, since: '2026-10-01' });
+  ok('the rule\'s own document is filed under its entry, never as a new candidate', r2.changeset.items.every((i) => i.entry_key === 'bis-diffusion'));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

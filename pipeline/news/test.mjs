@@ -142,7 +142,34 @@ const run = (sb, o = {}) => newsRun({ dataDir: sb.dataDir, seenFile: sb.seenFile
   ok('5 the official release and the press story are reported as leads; news.json unchanged even with publishing on', r.leads.length === 2 && r.leads.some((l) => l.primary) && r.leads.some((l) => !l.primary && l.title === PITCH) && fs.readFileSync(path.join(sb.dataDir, 'news.json'), 'utf8') === before && r.drafted.length === 0, JSON.stringify(r.leads));
   ok('5 no page but the feeds is fetched: release pages are never read', r.requests === 3, String(r.requests));
   const seen = JSON.parse(fs.readFileSync(sb.seenFile, 'utf8')).items;
-  ok('5 leads are remembered, so the next run does not report them again', Object.values(seen).some((v) => v.outcome === 'lead') && (await run(sb)).leads.length === 0);
+  const olFile = path.join(path.dirname(sb.seenFile), 'news-open-leads.json');
+  const ol1 = JSON.parse(fs.readFileSync(olFile, 'utf8')).items;
+  ok('5 (26 Nov 2026) every unattached lead is kept open in news-open-leads.json', Object.keys(ol1).length === r.leads.length && Object.values(ol1).every((l) => l.runs === 1 && (!l.alerted || l.request_flag)), JSON.stringify(ol1));
+  // an official statement that attaches to no event (a state AG's lawsuit release: no bill action to attach to) joins the register too
+  {
+    const sbS = sandbox();
+    const stmt = { source: 'ca_ag', source_id: 'https://oag.ca.gov/news/press-releases/bonta-sues-ai-developer', jurisdiction: 'CA', entry_id: null, class: null, date: '2026-10-27', facts: { role: 'statement', publisher: 'California Attorney General', title: 'Attorney General Bonta sues an AI developer over autonomous agent cyberattacks' }, url: 'https://oag.ca.gov/news/press-releases/bonta-sues-ai-developer', title: 'Attorney General Bonta sues an AI developer over autonomous agent cyberattacks', retrieved_at: NOW.toISOString() };
+    const caAg = { fetchItems: async () => ({ items: [stmt], health: { ok: true, count: 1, newest: '2026-10-27', errors: [] }, fetched: [] }) };
+    await run(sbS, { env: {}, adapters: [['ca_ag', caAg]] });
+    const reg = JSON.parse(fs.readFileSync(path.join(path.dirname(sbS.seenFile), 'news-open-leads.json'), 'utf8')).items;
+    ok('5 an official statement attached to nothing (a state AG lawsuit release) is kept open, not just listed once', Object.values(reg).some((l) => /Bonta sues an AI developer/.test(l.title) && l.publisher === 'California Attorney General'), JSON.stringify(Object.values(reg).map((l) => l.title)));
+  }
+  // the weekly completeness check runs inside the news step when it is due, and what it finds is raised through the register
+  {
+    const sbC = sandbox(); let searches = 0;
+    const auditor = { search: async () => { searches++; return { text: JSON.stringify([{ title: 'H.R. 11999 Frontier Test Act introduced', date: TODAY, kind: 'federal bill', jurisdiction: 'US', bill_number: 'H.R. 11999', url: 'https://www.congress.gov/bill/119th-congress/house-bill/11999' }]), searchedUrls: ['https://www.congress.gov/bill/119th-congress/house-bill/11999'], searches: 4 }; } };
+    const base = factoryOf(), factory = { ...base, make: (role) => (role === 'auditor' ? auditor : base.make(role)) };
+    const c1 = await run(sbC, { factory });
+    const reg = JSON.parse(fs.readFileSync(path.join(path.dirname(sbC.seenFile), 'news-open-leads.json'), 'utf8'));
+    ok('5 the completeness check runs when due and its finding is raised at once', c1.completeness && c1.completeness.ran && c1.completeness.missing === 1 && c1.open_leads.alerts.some((l) => /Frontier Test Act/.test(l.title)) && reg.last_audit === TODAY, JSON.stringify({ cc: c1.completeness, alerts: c1.open_leads && c1.open_leads.alerts }));
+    const c2 = await run(sbC, { factory, today: '2026-10-29', now: new Date('2026-10-29T06:00:00Z') });
+    ok('5 ...and not again until a week has passed', searches === 1 && !c2.completeness, JSON.stringify(c2.completeness));
+    const c3 = await run(sbC, { factory, dry: true, today: '2026-11-10', now: new Date('2026-11-10T06:00:00Z') });
+    ok('5 a dry run never spends on the completeness check', searches === 1 && !c3.completeness);
+  }
+  const rAgain = await run(sb);
+  ok('5 leads are remembered, so the next run does not report them again', Object.values(seen).some((v) => v.outcome === 'lead') && rAgain.leads.length === 0);
+  ok('5 ...but a lead still open on the next run is raised (not forgotten once seen)', rAgain.open_leads && rAgain.open_leads.alerts.length === Object.keys(ol1).filter((k) => !(ol1[k].triage && ol1[k].triage.relevant === false)).length && rAgain.open_leads.alerts.length > 0, JSON.stringify(rAgain.open_leads));
   // a primary lead on a tracked entry attaches to an official event as a statement (within 3 days, a compatible headline)
   const sb2 = sandbox(), st = emptyState();
   const key = 'US|h-r-9917-ai-kill-switch-act|hearing-held|2026-10-26';

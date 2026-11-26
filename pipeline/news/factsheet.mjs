@@ -137,9 +137,12 @@ export const DEAD_END = new Set(['withdrawal', 'failure', 'committee-failure', '
 // fact sheet then has no "What it does" (review r4: "(earlier drafts said 2027)", "IVO proposes which specific risks it will verify").
 const META = /\b(earlier drafts?|drafts? said|said|says|reportedly|note[sd]?|see|cf\.?|tracker|we|our|unclear|apparently|seems?|arguably)\b/i;
 const WHAT_IT_DOES = /^(?:(?:The|This) (?:bill|act|law|measure|order|resolution|rule|statute|proposal)\b|It\b|Would\b|(?:Requires|Prohibits|Creates|Establishes|Directs|Bans|Mandates|Imposes|Sets|Allows|Authorizes|Amends|Applies|Defines|Gives|Bars|Makes|Provides|Covers|Adds|Expands|Repeals|Preempts|Limits|Restricts|Orders|Instructs|Tasks|Requests|Calls|Codifies|Extends|Exempts|Protects|Funds)\b)/;
+// A sentence about the measure's own progress, not what it does (Nov 2026: "It had not been introduced as a numbered bill as of ..." was
+// published as "What the bill would do").
+const PROGRESS = /\b(?:has|had|have)(?: not| yet)* been (?:introduced|filed|enacted|passed|signed|adopted|released|published|vetoed)\b|\b(?:was|were|is) (?:introduced|filed|enacted|passed|signed|vetoed|withdrawn|superseded)\b|\bas of (?:[A-Z][a-z]{2,8}\.? \d|\d)|\b(?:never|not yet) (?:introduced|filed|enacted|passed)\b/;
 export function summaryUsable(s) {
   const t = String(s || '').trim();
-  return t.length >= 40 && /^[A-Z]/.test(t) && WHAT_IT_DOES.test(t) && !/[()]/.test(t) && !META.test(t) && !READING_NOTE.test(t);
+  return t.length >= 40 && /^[A-Z]/.test(t) && WHAT_IT_DOES.test(t) && !/[()]/.test(t) && !META.test(t) && !READING_NOTE.test(t) && !PROGRESS.test(t);
 }
 export function summaryOf(mechanism) {
   const parts = String(mechanism || '').split(/;\s|(?<=[a-z]{4}|\))\.\s+(?=[A-Z])/).map((x) => x.trim());

@@ -34,7 +34,9 @@ export function createLedger({ limits = {}, prices = {}, monthly = null, onCall 
     },
     record({ role, model, itemId, usage }) {
       const i = usage.promptTokenCount || 0, o = (usage.candidatesTokenCount || 0) + (usage.thoughtsTokenCount || 0); // thinking tokens are billed as output
-      const c = priceOf(model, i, o);
+      const base = priceOf(model, i, o);
+      // extraCostUsd: a fee billed per use, not per token (Claude web search: $10 per 1,000 searches), so the monthly cap counts it too
+      const c = base == null ? null : base + (usage.extraCostUsd || 0);
       if (c == null) t.unpriced = true;
       t.calls++; t.input += i; t.output += o; t.cost += c || 0;
       add(t.byRole, role, i, o, c); add(t.byModel, model, i, o, c); if (itemId) add(t.byItem, itemId, i, o, c);

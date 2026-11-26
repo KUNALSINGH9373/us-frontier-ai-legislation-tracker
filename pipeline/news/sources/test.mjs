@@ -135,6 +135,9 @@ const status500 = async () => ({ status: 500, text: 'err' });
       d.results.push({ ...base, document_number: '2026-50002', executive_order_number: '15051', title: 'Amendments to Executive Order 14434 on Artificial Intelligence', abstract: base.title, signing_date: '2026-10-21' });
       d.results.push({ ...base, document_number: 'C1-2026-50003' });
       d.results.push({ ...base, document_number: '2026-50004', subtype: 'Memorandum', executive_order_number: null, title: `Memorandum Amending ${base.title}`, signing_date: '2026-10-22' });
+      // Nov 2026: a document is on an entry by its OWN title (or order number), never by a mention in its abstract
+      d.results.push({ ...base, document_number: '2026-50005', subtype: 'Memorandum', executive_order_number: null, title: 'Advancing Artificial Intelligence Research', abstract: 'This memorandum discusses the AI Kill Switch Act (H.R. 9917) among other proposals.', signing_date: '2026-10-23' });
+      d.results.push({ ...base, document_number: '2026-50006', subtype: 'Memorandum', executive_order_number: null, title: 'Implementing the AI Kill Switch Act (H.R. 9917)', abstract: 'Artificial intelligence.', signing_date: '2026-10-24' });
       piTitle = `Revoking ${base.title}`;
       return d;
     }
@@ -153,6 +156,9 @@ const status500 = async () => ({ status: 500, text: 'err' });
   const chg = inj.out.items.filter((i) => ['2026-50004', 'pi:2026-99998'].includes(i.source_id));
   ok('3.14d a memorandum or filed document changing an order is on no entry', chg.length === 2 && chg.every((i) => !i.entry_id), JSON.stringify(chg.map((i) => [i.source_id, i.entry_id])));
   ok('3.14e the tracked order own document is still on its entry', inj.out.items.some((i) => i.facts.eo_number === '14434' && i.entry_id === 'eo-14434-super-intelligence-terminology-order'));
+  const ab = inj.out.items.find((i) => i.source_id === '2026-50005'), tt = inj.out.items.find((i) => i.source_id === '2026-50006');
+  ok('3.14f a document whose abstract only mentions a tracked bill is on no entry', ab && !ab.entry_id, JSON.stringify(ab && ab.entry_id));
+  ok('3.14g a document naming a tracked bill in its own title is on that entry', tt && tt.entry_id === 'h-r-9917-ai-kill-switch-act', JSON.stringify(tt && tt.entry_id));
   ok('3.14c a Federal Register correction (C1-...) is not an item', !inj.out.items.some((i) => /^C1-/.test(i.source_id)));
   const bad = await FR.fetchItems({ http: status500, entries: ENTRIES, since: '2026-09-01' });
   ok('3.15 HTTP 500: no throw, health not ok, error reported', bad.items.length === 0 && !bad.health.ok && bad.health.errors.some((e) => /HTTP 500/.test(e)));
@@ -174,7 +180,7 @@ const status500 = async () => ({ status: 500, text: 'err' });
     if (/committee-meeting\/119\/house\/119549/.test(k)) { d.committeeMeeting.relatedItems.bills.push({ congress: 119, number: '2938', type: 'S' }); return d; }
     if (/committee-meeting\/119\/house\/118597/.test(k)) { d.committeeMeeting.relatedItems = { bills: [{ congress: 119, number: '29380', type: 'S' }] }; return d; }
     if (/committee-meeting\/119\/house\/119520/.test(k)) { d.committeeMeeting.relatedItems = { bills: [{ congress: 119, number: '9925', type: 'HR' }] }; d.committeeMeeting.date = '2026-11-12T15:00:00Z'; d.committeeMeeting.type = 'Hearing'; d.committeeMeeting.meetingStatus = 'Scheduled'; return d; }
-    if (/crsreport\/IF13336/.test(k)) { d.CRSReport.summary += ' The AI Kill Switch Act (H.R. 9917) would require ...'; return d; }
+    if (/crsreport\/IF13336/.test(k)) { d.CRSReport.title = 'The AI Kill Switch Act (H.R. 9917): ' + d.CRSReport.title; return d; }
     if (/crsreport\/LSB11429/.test(k)) { d.CRSReport.relatedMaterials = [{ congress: 119, number: 2938, type: 'S' }, { congress: 119, number: 9925, type: 'HR' }]; return d; }
     if (/nomination\?/.test(k)) {
       d.nominations.push({ ...d.nominations[0], congress: 119, citation: 'PN999', number: 999, description: 'Jane Doe, of Virginia, to be Director of the Office of Science and Technology Policy, vice John Roe, resigned.', receivedDate: '2026-10-20' });
@@ -198,7 +204,11 @@ const status500 = async () => ({ status: 500, text: 'err' });
   const sch = inj.items.find((i) => i.source_id === 'meeting:119/house/119520');
   ok('4.7 future meeting -> hearing-scheduled, dated when listed (not the future day), meeting_date in facts', sch && sch.class === 'hearing-scheduled' && sch.date <= inj.items[0].retrieved_at.slice(0, 10) && sch.facts.hearing_date === '2026-11-12', JSON.stringify(sch));
   const crs = inj.items.find((i) => i.class === 'crs-report');
-  ok('4.8 CRS report naming a tracked bill -> crs-report', crs && crs.entry_id === 'h-r-9917-ai-kill-switch-act' && crs.source_id.startsWith('crs:IF13336') && /congress\.gov\/crs-product\/IF13336/.test(crs.url), JSON.stringify(crs));
+  // a summary that only MENTIONS a tracked bill is not a report about it (Nov 2026: a copyright report became the TRUMP AMERICA draft's card)
+  const mention = (k, d) => { if (/crsreport\/IF13336/.test(k)) { d.CRSReport.summary += ' The AI Kill Switch Act (H.R. 9917) would require ...'; return d; } return patch(k, d); };
+  const mOut = (await run(CX, 'congress_extra', { since: '2026-10-10', patch: mention })).out;
+  ok('4.8b CRS report whose summary only mentions a tracked bill -> no card on that bill', !mOut.items.some((i) => i.class === 'crs-report' && i.source_id.startsWith('crs:IF13336')), JSON.stringify(mOut.items.filter((i) => i.class === 'crs-report')));
+  ok('4.8 CRS report naming a tracked bill in its own title -> crs-report', crs && crs.entry_id === 'h-r-9917-ai-kill-switch-act' && crs.source_id.startsWith('crs:IF13336') && /congress\.gov\/crs-product\/IF13336/.test(crs.url), JSON.stringify(crs));
   ok('4.9 CRS report related to two tracked bills -> not attached (ambiguous)', !inj.items.some((i) => /LSB11429/.test(i.source_id)));
   const nom = inj.items.filter((i) => i.class === 'nomination');
   ok('4.10 only the AI-relevant 119th-Congress nomination', nom.length === 1 && nom[0].source_id === 'nomination:119/PN999' && nom[0].date === '2026-10-20' && nom[0].entry_id === null, JSON.stringify(nom));

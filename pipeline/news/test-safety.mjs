@@ -78,7 +78,8 @@ const adapter = (fn) => ({ fetchItems: fn });
   ok('F5 news-health.json text has no key value, whatever the error string', !text.includes(secret) && !text.includes('QQQ777') && /REDACTED/.test(text));
 }
 
-// r7 L1: leads (feeds) run under the same deadline, and the AI screener is not made while news publishing is off
+// r7 L1: leads (feeds) run under the same deadline, and no AI is made while news publishing is off and there is nothing to judge (the
+// open-leads reader of 26 Nov 2026 is made only when a new lead needs a verdict)
 {
   const { newsRun } = await import('./run.mjs');
   const fs = (await import('fs')).default, os = (await import('os')).default, path = (await import('path')).default;
@@ -86,12 +87,13 @@ const adapter = (fn) => ({ fetchItems: fn });
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-safety-'));
   const dataDir = path.join(dir, 'data'); fs.mkdirSync(dataDir);
   for (const f of fs.readdirSync(real)) if (f.endsWith('.json')) fs.copyFileSync(path.join(real, f), path.join(dataDir, f));
-  let made = 0, gets = 0; const factory = { keyName: 'ANTHROPIC_API_KEY', make: () => { made++; return { async generate() { return { data: { relevant: true } }; } }; } };
+  let made = 0, audits = 0, gets = 0; const factory = { keyName: 'ANTHROPIC_API_KEY', make: (role) => { if (role === 'auditor') { audits++; return null; } made++; return { async generate() { return { data: { relevant: true } }; } }; } };
   let t = 0; const clock = () => t;
   const reader = { used: () => gets, async get(u) { gets++; t += 200000; return '<feed></feed>'; } }; // each feed read "takes" 200 s
   const sources = { user_agent: 't', sources: Array.from({ length: 5 }, (_, i) => ({ id: 'f' + i, url: `https://www.senate.gov/f${i}.xml`, type: 'atom', publisher: 'P', primary: true, kind: 'federal' })) };
   const r = await newsRun({ dataDir, seenFile: path.join(dir, 'seen.json'), eventsFile: path.join(dir, 'ev.json'), healthFile: path.join(dir, 'h.json'), config: { max_entries_changed_per_run: 15, auto_publish: { news: false }, news_leads: { enabled: true, max_age_days: 40 } }, sources, factory, today: '2026-10-29', now: NOW, runId: 't', reader, records: [], clock });
   ok('r7 L1 the AI screener is not made while news publishing is off', made === 0);
+  ok('r7 L1 (26 Nov 2026) the weekly completeness check is its own spend, made at most once a week, news on or off', audits <= 1);
   ok('r7 L1 the leads stop at their share of the budget (2 min): at most one 200 s feed read, the step returns', gets <= 1 && r && r.ran !== false, `${gets} feed reads`);
   fs.rmSync(dir, { recursive: true, force: true });
 }

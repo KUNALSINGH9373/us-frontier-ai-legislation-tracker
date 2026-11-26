@@ -3010,62 +3010,6 @@
    "card": null,
    "facts_hash": "043ad69a2e0d9e72"
   },
-  "US|trump-america-ai-act-draft|crs-report|2026-11-17#LSB10922": {
-   "key": "US|trump-america-ai-act-draft|crs-report|2026-11-17#LSB10922",
-   "jurisdiction": "US",
-   "entry_id": "trump-america-ai-act-draft",
-   "class": "crs-report",
-   "date": "2026-11-17",
-   "facts": {
-    "title": "Generative Artificial Intelligence and Copyright Law",
-    "number": "LSB10922",
-    "content_type": "Posts",
-    "version": 11,
-    "authors": "Christopher T. Zirpoli"
-   },
-   "sources": [
-    {
-     "role": "official",
-     "source": "congress_extra",
-     "source_id": "crs:LSB10922:11",
-     "url": "https://www.congress.gov/crs-product/LSB10922",
-     "title": "Generative Artificial Intelligence and Copyright Law",
-     "publisher": null,
-     "retrieved_at": "2026-11-20T08:05:49.595Z",
-     "hash": "5f0aa67547ff7ed8"
-    }
-   ],
-   "status": "confirmed",
-   "confirmations": [],
-   "stable_runs": 65,
-   "first_seen": "2026-11-18T08:05:46.205Z",
-   "last_seen": "2026-11-20T08:05:49.595Z",
-   "facts_digest": "af1cc9417f2f4dc8",
-   "history": [
-    {
-     "at": "2026-11-18T08:05:46.205Z",
-     "change": "created",
-     "from": null,
-     "to": "pending"
-    },
-    {
-     "at": "2026-11-18T12:05:49.435Z",
-     "change": "status",
-     "from": "pending",
-     "to": "confirmed"
-    }
-   ],
-   "card": {
-    "headline": "New CRS report on LSB 10922",
-    "body": "A CRS report on LSB 10922 was published on November 17, 2026. What the bill would do: It had not been introduced as a numbered bill as of the sponsor's Apr 22, 2026 \"growing momentum\" release.",
-    "template_headline": "CRS report on LSB 10922",
-    "template_body": "The official record shows this action on TRUMP AMERICA AI Act — discussion draft (Republic Unifying Meritocratic Performance Advancing Machine intelligence by Eliminating Regulatory Interstate Chaos Across American Industry Act) (LSB10922) on Nov 17, 2026: \"Generative Artificial Intelligence and Copyright Law\".",
-    "written_by": "bank",
-    "facts_hash": "af1cc9417f2f4dc8"
-   },
-   "facts_hash": "b40e2b1ddff14b01",
-   "shown": "2026-11-18T12:05:49.435Z"
-  },
   "US|-|referral-committee|2026-11-17#HR11048": {
    "key": "US|-|referral-committee|2026-11-17#HR11048",
    "jurisdiction": "US",

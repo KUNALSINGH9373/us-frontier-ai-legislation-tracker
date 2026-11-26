@@ -188,4 +188,18 @@ await t('phrase bank measure: every class x variant x trap sheet, real events an
   assert.strictEqual(rep.checkcard_suite.passed_wrongly, 0);
   assert.ok(rep.matrix.renderings > 10000 && rep.checkcard_suite.cases >= 70);
 });
+await t('Nov 2026: a CRS report card names the bill it is about, never the report\'s own product id', () => {
+  const e = entries.get('h-r-9917-ai-kill-switch-act');
+  const ev2 = { key: 'crs', jurisdiction: 'US', entry_id: e.key, class: 'crs-report', date: '2026-10-27', facts: { title: 'The AI Kill Switch Act (H.R. 9917): an overview', report_number: 'IF13336' } };
+  const c = bankCard({ event: ev2, entry: e, today: '2026-10-29' }).card;
+  assert.ok(/H\.R\. 9917/.test(c.headline) && !/IF ?13336/.test(c.headline + ' ' + c.body), `${c.headline} | ${c.body}`);
+});
+await t('Nov 2026: a sentence about a measure\'s own progress is never quoted as what it does', () => {
+  for (const s of ['It had not been introduced as a numbered bill as of the sponsor\'s Apr 22, 2026 release',
+    'The bill was introduced in the Senate and referred to the Commerce Committee on a later date',
+    'It has not yet been filed, and the sponsors say text will follow after the recess ends',
+    'The proposal was superseded by a later version that the committee reported in the fall']) assert.ok(!FSM.summaryUsable(s), s);
+  for (const s of ['Requires large developers to publish safety frameworks and report critical incidents within 15 days',
+    'It would require the Commerce Department to set up a registration program for covered developers']) assert.ok(FSM.summaryUsable(s), s);
+});
 console.log(`news writer: ${n} tests passed`);

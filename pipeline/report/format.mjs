@@ -28,6 +28,7 @@ function costLine(rep) {
 }
 
 // Only what needs a look. Silence means everything is fine.
+const MEASURE_NAMES = { news: 'news event measure', news_writer: 'news writer measure', page_fields: 'page-fields measure', press: 'press measure', fields: 'fields measure', new_entries: 'new-bills measure', relationships: 'links measure' };
 export function watchLines(rep) {
   const w = [], m = rep.month, t = rep.totals || {};
   if (m && m.over) w.push('⚠️ The monthly AI limit is reached: AI work is paused until next month.');
@@ -35,6 +36,7 @@ export function watchLines(rep) {
   const ls = rep.legiscan;
   if (ls && ls.month_cap && ls.month_used / ls.month_cap >= 0.8) w.push(`⚠️ LegiScan queries are at ${Math.round((ls.month_used / ls.month_cap) * 100)}% of this month's limit (${num(ls.month_used)} of ${num(ls.month_cap)}).`);
   else if (ls && ls.month_cap) w.push(`LegiScan this month: ${num(ls.month_used)} of ${num(ls.month_cap)} queries`);
+  for (const b of rep.broken_measures || []) w.push(`⚠️ The ${MEASURE_NAMES[b.measure] || b.measure} failed every case (${b.cases} of ${b.cases}): the measure itself is probably broken, not the output. What it gates stays off until it is fixed.`);
   for (const s of rep.sources) if (s.truncated) w.push(`⚠️ ${s.name} stopped early and will carry on next run.`);
   const errs = rep.sources.reduce((k, s) => k + (s.counts.errors || 0), 0);
   if (errs) w.push(`⚠️ ${num(errs)} item${errs === 1 ? '' : 's'} had a read error while checking sources.`);
@@ -47,6 +49,18 @@ export function watchLines(rep) {
   if (nw && nw.feeds_failed && nw.feeds_failed.length) w.push(`⚠️ ${nw.feeds_failed.length} news feed${nw.feeds_failed.length === 1 ? '' : 's'} could not be read: ${list(nw.feeds_failed.map((f) => f.id), 3)}`);
   if (nw && nw.status === 'stopped') w.push(`⚠️ News items were not written (a stop rule failed: ${clip(nw.problems[0], 120)}); they are retried next run.`);
   else if (nw && nw.problems && nw.problems.length) w.push(`⚠️ News: ${clip(nw.problems[0], 140)}`);
+  const nr = (rep.publish && rep.publish.runs || []).filter((p) => p.status === 'published').flatMap((p) => p.needs_reading || []);
+  if (nr.length) w.push(`⚠️ ${nr.length} tracked rule${nr.length === 1 ? '' : 's'} or order${nr.length === 1 ? '' : 's'} may have changed: a new Federal Register document uses revoke / amend / rescind wording about ${list(nr.map((x) => `${(rep.names && rep.names[x.entry_key]) || x.entry_key} (FR Doc. ${x.document_number})`), 3)}. The entry's description may need updating.`);
+  const cc = nw && nw.completeness;
+  if (cc && !cc.ran) w.push(`⚠️ The weekly completeness check did not run${cc.why ? ` (${clip(cc.why, 90)})` : ''}; it is tried again next run.`);
+  const ol = nw && nw.open_leads;
+  if (ol && ol.alerts && ol.alerts.length) {
+    const g4 = ol.alerts.filter((l) => l.request_flag).length;
+    w.push(`⚠️ ${ol.alerts.length} news lead${ol.alerts.length === 1 ? '' : 's'} about a possible tracked development ${ol.alerts.length === 1 ? 'is' : 'are'} still not on the site${g4 ? ` (${g4} possible informal government request${g4 === 1 ? '' : 's'}, section G.4)` : ''}: ${list(ol.alerts.map((l) => `${clip(l.title, 60)} (${clip(l.publisher, 24)})`), 3)}`);
+  }
+  const rv = nw && nw.events && nw.events.review;
+  if (rv && rv.refused) w.push(`⚠️ The independent review refused ${rv.refused} news item${rv.refused === 1 ? '' : 's'}; ${rv.refused === 1 ? 'it was' : 'they were'} not published (reasons in the text report).`);
+  if (rv && rv.unreviewed) w.push(`⚠️ ${rv.unreviewed} news item${rv.unreviewed === 1 ? '' : 's'} could not be reviewed${rv.why_unreviewed ? ` (${clip(rv.why_unreviewed, 80)})` : ''} and ${rv.unreviewed === 1 ? 'waits' : 'wait'} for a later run.`);
   for (const n of rep.notes || []) w.push(`ℹ️ ${n}`);
   return w;
 }

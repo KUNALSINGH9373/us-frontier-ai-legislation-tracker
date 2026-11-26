@@ -1,0 +1,7 @@
+{
+  "_note": "Federal bills found OUTSIDE the pipeline (web search, the weekly completeness check, by hand) that the new-bill screen must catch. The recall tests (grabber/test.mjs, code only; grabber/recall-congress.mjs, with the AI intent check) screen each one the way a run does: the list's title first, then the official title when the list title is only a short name. Every bill the pipeline is found to have missed is added here with both titles, so the miss can never happen again unseen. Titles copied from Congress.gov /bill/{congress}/{type}/{number}/titles.",
+  "bills": [
+    { "id": "119/hr/11157", "found": "2026-11-25 web search (missed by the screen: short name only)", "list_title": "RSI Safety Act of 2026", "official_title": "To establish a program for the disclosure of research and development programs in the automation of frontier artificial intelligence research." },
+    { "id": "119/hr/10981", "found": "2026-11-12 Congress.gov title search (tracked as an announcement; the screen never proposed it)", "list_title": "American AI Security Act", "official_title": "To direct the Secretary of Commerce to promulgate regulations related to certain artificial intelligence models, and for other purposes." }
+  ]
+}

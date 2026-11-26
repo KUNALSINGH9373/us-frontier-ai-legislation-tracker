@@ -256,6 +256,13 @@ for (const [name, over, config, stepName] of cases) {
       publishRun: (o) => { seenCfg = o.config; return (okSteps.publishRun || publishRun)(o); }, linkRun: async (o) => { linkOpts = o; return okSteps.linkRun(o); } }, log: () => {}, logErr: () => {} });
   ok('gate: new_entries, relationships and news are OFF for the run without a passing full test-set report', code === 0 && seenCfg && seenCfg.auto_publish.new_entries === false && seenCfg.auto_publish.relationships === false && seenCfg.auto_publish.news === false, `${code} ${rep.error} ${JSON.stringify(seenCfg && seenCfg.auto_publish)}`);
   ok('gate: the run report says which switches were turned off and why', rep.gate && rep.gate.off.map((x) => x.field).sort().join() === 'new_entries,news,relationships' && rep.notes.some((n) => /auto_publish\.new_entries is on in config\/publish\.json but treated as OFF/.test(n) && /every reading field must meet the bar|Tier B replay|new-bills report/.test(n)), JSON.stringify(rep.gate)); // the reason names the engine's own measure (config/pipeline.json new_bills.engine)
+  // A gate measure failing every case is reported as broken on the run report (18-25 Nov 2026: 75 of 75, news off a week, only a note).
+  {
+    const Pb = setup();
+    const ub = await runUpdate({ P: Pb, config: { ...CONFIG, auto_publish: { news: true } }, models, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T12:00:00Z'),
+      deps: { ...okSteps, gateInputs: { reports: [], goldItems: 48, hashes: { news: 'h', news_writer: 'w' }, measures: [{ measure: 'news', checks_hash: 'h', cases: 75, wrong: 75 }, { measure: 'news_writer', checks_hash: 'w', cases: 32, wrong: 0 }] } }, log: () => {}, logErr: () => {} });
+    ok('a measure failing every case is on the run report as broken (and only that one)', ub.code === 0 && JSON.stringify(ub.rep.broken_measures) === JSON.stringify([{ measure: 'news', cases: 75 }]), JSON.stringify(ub.rep.broken_measures));
+  }
   // An unreadable report or gold file: every switch off with a note, and the run goes on (round 2, code review S7).
   const P2 = setup(); let cfg2 = null;
   const u2 = await runUpdate({ P: P2, config: { ...CONFIG, auto_publish: { mechanism: true, new_entries: true, relationships: true, news: true }, eval_bar: { pass_rate: 1, unsupported_fields: 0, scope_agreement: 1 } }, models, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2026-10-28T12:00:00Z'),

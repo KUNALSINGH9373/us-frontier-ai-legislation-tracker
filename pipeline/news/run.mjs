@@ -20,6 +20,9 @@ import { robotsAllows } from './feeds.mjs';
 import { loadEvents, saveEvents, upsertItems, renderNews, checkNewsEvents, markShown, visible, refreshCards } from './events.mjs';
 import { attachStatements, allowHostsFrom, canonicalUrl } from './attach.mjs';
 import { makeStatementVerifier, checkAttachments } from './statement-check.mjs';
+import { reviewItems } from './review.mjs';
+import { updateOpenLeads } from './open-leads.mjs';
+import { completenessCheck } from '../audit/completeness.mjs';
 import { updateHealth, alerts, loadHealth, saveHealth } from './health.mjs';
 import * as congressGov from './sources/congress_gov.mjs';
 import * as legiscan from './sources/legiscan.mjs';
@@ -218,7 +221,7 @@ export async function newsRun(opts) {
   }
 }
 
-async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eventsFile = EVENTS_FILE, healthFile = HEALTH_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, runDirs = [], records = null, courtFound = [], env = null, http = null, adapters = EXTRA_ADAPTERS, log = () => {}, clock = () => Date.now() }) {
+async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, openLeadsFile = null, eventsFile = EVENTS_FILE, healthFile = HEALTH_FILE, config, sources = readJson(SOURCES_FILE, { sources: [] }), factory, aiOff = null, dry = false, today, now = new Date(), runId, reader = null, runDirs = [], records = null, courtFound = [], env = null, http = null, adapters = EXTRA_ADAPTERS, log = () => {}, clock = () => Date.now() }) {
   const cfg = config.news_leads || { enabled: false };
   const rep = { ran: true, skipped_why: null, status: 'quiet', publishing: !!(config.auto_publish && config.auto_publish.news), feeds_checked: 0, feeds_failed: [], leads: [], drafted: [], screened_out: 0, duplicates: 0, waiting: 0, waiting_record: [], requests: 0, problems: [], summary: '',
     events: { added: [], confirmed: [], corrected: [], withdrawn: [], refused: [], pending: 0, showable: 0, statements: 0, held: [], report: [], alerts: [] } };
@@ -241,6 +244,8 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
   // statements from the structured statement sources (NIST, CBO, CA AG feeds): attach to an event or stay a lead
   // A statement attaches only when code proposes it AND the AI check agrees (news/statement-check.mjs). The AI runs only while news
   // publishing is on; without it nothing attaches (every statement stays a lead).
+  let openLeadsOut = null;
+  const openFresh = []; // every unattached lead, from official statements (here) and from the press feeds (below): news/open-leads.mjs
   let verifier = null;
   if (!aiOff && factory && rep.publishing) { try { verifier = makeStatementVerifier(factory.make('validator'), { log }); } catch { verifier = null; } }
   if (ev.statements.length) {
@@ -250,6 +255,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
     for (const d of att.dropped.filter((x) => x.why !== 'duplicate' && x.item)) rep.leads.push({ title: d.item.title || '(no title)', publisher: (d.item.facts && d.item.facts.publisher) || d.item.source, link: d.item.url, date: d.item.date, primary: false, tracker: d.item.entry_id || null, note: `statement not used: ${d.why}` });
     // a statement the AI refused on an earlier run was reported then: not again every run (review r9 #7)
     const refusedBefore = (u) => Object.entries(state.statement_checks || {}).some(([k, v]) => k.startsWith(`${u}|`) && !v.ok && v.at < today);
+    for (const l of [...att.leads, ...att.timeline.map((t) => t.item)]) openFresh.push({ key: canonicalUrl(l.url), title: l.title, link: l.url, publisher: (l.facts && l.facts.publisher) || l.source, date: l.date, request_flag: false });
     for (const l of [...att.leads, ...att.timeline.map((t) => t.item)].filter((x) => !refusedBefore(x.url))) rep.leads.push({ title: l.title, publisher: (l.facts && l.facts.publisher) || l.source, link: l.url, date: l.date, primary: true, tracker: l.entry_id || null, note: 'official statement: no official event it could attach to' });
   }
 
@@ -284,7 +290,30 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
       if (!attached) rep.leads.push({ title: l.title, publisher: l.publisher, link: l.link, date: l.date, primary: l.primary, tracker: l.tracker, note: l.primary ? 'official release: no official event it could attach to (shown only as a statement on an event)' : 'press report: never published; a pointer only' });
       mark[l.key] = { first_seen: today, outcome: attached ? 'statement' : 'lead', title: l.title };
     }
+    openFresh.push(...found.leads.filter((l) => !(l.primary && attachedUrls.has(canonicalUrl(l.release_url)))).map((l) => ({ key: l.key, title: l.title, link: l.link, publisher: l.publisher, date: l.date, request_flag: !!l.request_flag })));
     rep.requests = rd.used();
+  }
+  // every unattached lead (official statement or press) joins the open-leads register until it is covered, rejected with a reason, or
+  // raised and expired (news/open-leads.mjs)
+  {
+    const olFile = openLeadsFile || path.join(path.dirname(seenFile), 'news-open-leads.json');
+    // the reader is made only when there is a lead to judge (no AI spent on a run with no new leads, review r7 L1), news publishing on or off
+    const triager = !aiOff && factory && !dry ? () => factory.make('screener') : null;
+    const register = readJson(olFile, null);
+    // the weekly completeness check (audit/completeness.mjs): what happened that the site does not have, raised through this register
+    const cc = config.completeness || {}, every = cc.every_days ?? 7;
+    const due = cc.enabled !== false && !dry && !aiOff && factory && (!register || !register.last_audit || (+new Date(today) - +new Date(register.last_audit)) / 864e5 >= every);
+    if (due) {
+      let auditor = null; try { auditor = factory.make('auditor'); } catch { auditor = null; }
+      const c = await completenessCheck({ client: auditor, entries: before.entries, news: before.news, today, days: cc.days ?? 10, maxSearches: cc.max_searches ?? 10, log });
+      rep.completeness = { ran: c.ran, searches: c.searches, found: c.found, missing: c.missing.length, dropped: c.dropped.length, why: c.why };
+      openFresh.push(...c.missing);
+      if (c.ran) rep.completeness.ran_on = today;
+    }
+    const ol = await updateOpenLeads({ register, fresh: openFresh, news: before.news, entries: before.entries, today, screener: triager, log });
+    if (rep.completeness && rep.completeness.ran) ol.register.last_audit = today; // a failed check is tried again next run
+    rep.open_leads = { open: Object.keys(ol.register.items).length, alerts: ol.alerts.map((l) => ({ title: l.title, publisher: l.publisher, link: l.link, first_seen: l.first_seen, request_flag: l.request_flag, why: l.triage ? l.triage.reason : null })), resolved: ol.resolved, triage: ol.triage };
+    openLeadsOut = { file: olFile, register: ol.register }; // saved with the rest of the state at the end of the step, never midway
   }
 
   // 3. the card writer for showable events (only when publishing is on and AI may run), then render and the stop rules
@@ -300,13 +329,22 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
   rep.events.pending = evs.filter((e) => e.status === 'pending' && e.class).length;
   rep.events.showable = evs.filter(visible).length;
   const at = now.toISOString();
-  const r = renderNews(before.news, state, before.entries, { at });
+  // Independent review (news/review.mjs): the items this render would add are each read by a second reader before they may be added; an
+  // item without a passing review of its exact text is held (and the stop rule below refuses it). No AI, no review, nothing added.
+  if (rep.publishing) {
+    const pre = renderNews(before.news, state, before.entries, { at });
+    const preBy = new Map(pre.news.items.filter((n) => n.event_key).map((n) => [n.event_key, n]));
+    const cand = pre.added.map((k) => ({ key: k, item: preBy.get(k) })).filter((x) => x.item);
+    rep.events.review = cand.length ? await reviewItems({ state, entries: before.entries, items: cand, factory: !dry && !aiOff ? factory : null, max: (config.news_writer && config.news_writer.max_reviews_per_run) ?? 10, log })
+      : { passed: 0, refused: 0, unreviewed: 0, kept: 0, why_unreviewed: null };
+  }
+  const r = renderNews(before.news, state, before.entries, { at, requireReview: !!rep.publishing });
   rep.events.held = r.held.slice(0, 20);
   const byKey = new Map(r.news.items.filter((n) => n.event_key).map((n) => [n.event_key, n]));
   for (const k of [...r.added, ...r.updated]) { const n = byKey.get(k); rep.drafted.push({ title: n.title, publisher: n.links[0] ? host(n.links[0].u) : null, link: n.links[0] && n.links[0].u, date: n.date, tracker: n.tracker, event_key: k, class: n.class, update: r.updated.includes(k), written: false }); }
   if (rep.drafted.length && rep.publishing) {
     const after = { ...before, news: r.news };
-    const problems = [...checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run }).problems, ...checkNewsEvents({ before, after, state: r.state, entries: before.entries, at })];
+    const problems = [...checkPublish({ before, after, runDate: today, maxEntries: config.max_entries_changed_per_run }).problems, ...checkNewsEvents({ before, after, state: r.state, entries: before.entries, at, requireReview: true })];
     if (problems.length) { rep.status = 'stopped'; rep.problems.push(...problems.slice(0, 10)); }
     else {
       rep.status = dry ? 'dry-run' : 'written';
@@ -317,6 +355,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, eve
 
   if (!dry) {
     saveEvents(eventsFile, state);
+    if (openLeadsOut) { fs.mkdirSync(path.dirname(openLeadsOut.file), { recursive: true }); const t = openLeadsOut.file + '.tmp'; fs.writeFileSync(t, JSON.stringify(openLeadsOut.register, null, 1) + '\n'); fs.renameSync(t, openLeadsOut.file); }
     fs.mkdirSync(path.dirname(healthFile), { recursive: true }); saveHealth(healthFile, health, Object.entries(env || process.env).filter(([k]) => /KEY|TOKEN|SECRET/i.test(k)).map(([, v]) => v));
     for (const [k, v] of Object.entries(mark)) seen.items[k] = { ...(seen.items[k] || {}), ...v, first_seen: (seen.items[k] && seen.items[k].first_seen) || v.first_seen, last_seen: today };
     const cut = daysBefore(today, KEEP_DAYS);
