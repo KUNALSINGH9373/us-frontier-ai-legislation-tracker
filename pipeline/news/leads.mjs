@@ -19,7 +19,21 @@ export const NEWS_TERMS = /\b(?:A\.?I\.?|AGI|artificial intelligence|frontier|su
 const REQ_BODY = /\b(?:White House|administration|Trump|government|federal officials?|U\.?S\.? officials?|Commerce(?: Department| Secretary)?|Lutnick|Pentagon|Department of War|DoD|NSA|CISA|ONCD|National Cyber Director|OSTP|Office of Science and Technology|Treasury|DHS|DOJ|Justice Department)\b/i;
 const REQ_LAB = /\b(?:OpenAI|Anthropic|DeepMind|Google|Meta|xAI|Microsoft|Nvidia|AI (?:labs?|companies|developers|firms|makers)|frontier (?:labs?|developers?|models?)|chatbot makers?)\b/i;
 const REQ_VERB = /\b(?:asks?|asked|asking|tells?|told|urges?|urged|presses?|pressed|wants?|requests?|requested|demands?|demanded|warns?|warned|holds? back|hold|withh(?:o|e)ld|delay(?:s|ed)?|limits?|limited|restricts?|restricted|stagger(?:s|ed)?|pauses?|paused|blocks?|blocked|gates?|gated|approv(?:e|es|ed|al)|review(?:s|ed)?|sign[- ]off|clearance|vetted?)\b/i;
-export const informalRequestSignal = (text) => { const t = String(text || ''); return REQ_BODY.test(t) && REQ_LAB.test(t) && REQ_VERB.test(t); };
+// The government body must be the one acting: in one sentence that names a developer, the body is followed within a few words by a
+// request verb, with no "could / would / may / might / can / should" between them (26 Nov 2026: "Anthropic quietly pitches its own AI
+// safety bill to lawmakers. The draft proposal would limit the circumstances in which the government could block ..." was flagged: the
+// three words were matched anywhere, though the developer was the actor and the government's "block" was what a bill would allow).
+// (a passive "was warned" is not the body acting either)
+const REQ_ACT = new RegExp(`${REQ_BODY.source}(?:\\W+(?!(?:could|would|may|might|can|should|will|was|were|been|being|is|are)\\b)\\w+){0,4}?\\W+${REQ_VERB.source}`, 'i');
+// What G.4 is about: a model, its release, access to it, or its testing (not, say, a company's choice of chief executive).
+const REQ_OBJECT = /\b(?:models?|release[sd]?|releasing|launch(?:es|ed|ing)?|deploy\w*|access|test(?:s|ing|ers?)?|evaluat\w*|weights|usage (?:limits?|polic\w+)|safeguards?|GPT[-\s]?\d[\w.]*|Claude|Gemini|Grok|Llama|Mythos|chatbots?|AI systems?)\b/i;
+const sentences = (t) => String(t || '').split(/(?<=[.!?;:])\s+|\n+/).filter(Boolean);
+// ...and the developer is not the one asking: a developer named first, with a request verb before the body ("Anthropic urges White House
+// to delay ...") is a request TO the government, not from it.
+const DEV_ASKS = new RegExp(`${REQ_LAB.source}(?:\\W+\\w+){0,4}?\\W+${REQ_VERB.source}(?:\\W+\\w+){0,3}?\\W+${REQ_BODY.source}`, 'i');
+// ...and it is not a power a bill or rule would give ("would let the government block", "could allow the administration to delay").
+const POWER = new RegExp(`\\b(?:could|would|may|might|can|should|will|let|lets|allow|allows|allowing|permit|permits|empower|empowers|authorize|authorizes)(?:\\W+\\w+){0,2}?\\W+${REQ_BODY.source}`, 'i');
+export const informalRequestSignal = (text) => sentences(text).some((s) => REQ_LAB.test(s) && REQ_ACT.test(s) && REQ_OBJECT.test(s) && !DEV_ASKS.test(s) && !POWER.test(s));
 
 const id = (s) => crypto.createHash('sha256').update(s).digest('hex').slice(0, 12);
 const titleKey = (t) => norm(t).replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
