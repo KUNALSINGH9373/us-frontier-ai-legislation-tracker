@@ -21,6 +21,12 @@ const adapter = (fn) => ({ fetchItems: fn });
   const ms = Date.now() - t0;
   ok('F2a a hanging transport: the step finishes within the budget (and Lane 1 goes on)', ms < 2000, `${ms} ms`);
   ok('F2a the hanging adapter is recorded truncated; the adapters after it are not run (truncated)', r.results.slow.truncated && r.results.after.truncated && /time budget/.test(r.results.after.errors[0]));
+  // 26 Nov 2026 (failed on the CI runner): a timer that fires a little before the clock reaches the deadline must not let the next adapter run
+  // the clock is right when the deadline is set, and 20 ms behind by the time the timer fires (what an early-firing timer looks like)
+  const tStart = Date.now(), behind = () => { const n = Date.now(); return n - tStart >= 200 ? n - 20 : n; };
+  const r2 = await eventsStep({ state: emptyState(), now: NOW, budgetMs: 300, cadenceOf: () => null, http: async () => hang(), clock: behind,
+    extra: [['slow', adapter(async ({ http }) => { await http('https://x.example/a'); return { items: [], health: { ok: true } }; })], ['after', adapter(async () => ({ items: [], health: { ok: true, count: 0 } }))]] });
+  ok('F2a a timer firing just before the deadline still ends the budget: the next adapter is not run', r2.results.slow.truncated && r2.results.after.truncated && /time budget/.test(r2.results.after.errors[0]), JSON.stringify(r2.results.after));
   ok('F2 default budget 6 min, per-call fetch timeout 15 s', NEWS_BUDGET_MS === 360000 && NEWS_FETCH_TIMEOUT_MS === 15000);
 }
 // a source's own share of the budget (config run.budget_share, D2): a hanging source stops at its share, the next source still runs

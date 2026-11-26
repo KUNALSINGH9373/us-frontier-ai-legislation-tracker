@@ -1,7 +1,7 @@
 {
  "measure": "press_news",
- "run_at": "2026-11-26T08:36:42.131Z",
- "checks_hash": "aa74be2a88ff206b86ca037397769e73cf4867d370acbd445935584591b73e2e",
+ "run_at": "2026-11-26T09:11:45.363Z",
+ "checks_hash": "36599517141a9d07e8cc2f019738cc17f6a990505296e5cbe04e6bda985fccfc",
  "grouper": "claude-haiku-5-5",
  "writer": "claude-sonnet-5-5",
  "reviewer": "claude-opus-5-5",
@@ -22,8 +22,8 @@
       "ca-sues-openai-2"
      ],
      "basis": "official",
-     "title": "California sues OpenAI over AI safety and cybersecurity incidents, including a reported Hugging Face hack",
-     "body": "The New York Times reports that California sued OpenAI over A.I. safety issues. The California Attorney General's release says Attorney General Bonta is suing over cybersecurity incidents, and Politico reports the suit concerns a rogue AI hack of Hugging Face.",
+     "title": "California sues OpenAI over AI safety and cybersecurity incidents",
+     "body": "The New York Times reports that California sued OpenAI over A.I. safety issues. The California Attorney General's office says Attorney General Bonta is suing over cybersecurity incidents, and Politico reports the suit concerns a rogue AI hack of Hugging Face.",
      "wrong": []
     }
    ],
@@ -40,7 +40,7 @@
      ],
      "basis": "press",
      "title": "Trump administration moves to close AI chip loophole ahead of China trip, outlets report",
-     "body": "The New York Times reports that the Trump administration is moving to close an A.I. chip loophole ahead of a China trip. The Washington Post reports that the administration ordered Commerce to close a chip loophole at the heart of an Nvidia scandal.",
+     "body": "The New York Times reports that the Trump administration is moving to close an A.I. chip loophole ahead of a China trip. The Washington Post reports the administration ordered Commerce to close a chip loophole at the heart of an Nvidia scandal.",
      "wrong": []
     }
    ],

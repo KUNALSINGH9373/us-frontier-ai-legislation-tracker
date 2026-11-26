@@ -149,7 +149,10 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
       if (r && r.timedOut) { why = why || 'time budget reached'; r = { items: [], health: { ok: true, count: 0, newest: null, errors: [] }, fetched: [] }; }
       if (why) {
         r.health = { ...(r.health || {}), truncated: true, ok: why !== '3 consecutive errors' && (r.health ? r.health.ok !== false || (r.health.errors || []).every((x) => /not read this run|request cap/.test(x)) : true), errors: [...((r.health && r.health.errors) || []).filter((x) => !/not read this run/.test(x)).slice(0, 5), `stopped: ${why}`] };
-        if (why === 'time budget reached' && clock() >= deadline) outOfTime = true; // its own share used up: the next source still runs
+        // Out of time when this adapter's share ran to the shared deadline. Decided from the deadlines, not by reading the clock again: a timer
+        // can fire a fraction of a millisecond before the clock reaches its time (26 Nov 2026: on the CI runner the next adapter then ran past
+        // the budget). Its own share used up before the shared deadline: the next source still runs.
+        if (why === 'time budget reached' && (mine >= deadline || clock() >= deadline)) outOfTime = true;
       }
     } else {
       try { r = await mod.fetchItems(args); } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [String(e.message || e)] }, fetched: [] }; }

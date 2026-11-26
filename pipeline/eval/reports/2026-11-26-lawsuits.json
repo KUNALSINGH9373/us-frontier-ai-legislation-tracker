@@ -1,7 +1,7 @@
 {
  "measure": "lawsuits",
- "run_at": "2026-11-26T08:36:00.555Z",
- "checks_hash": "795536f2c4089326a888a4701400df299dd2fca1a1d31c63202bc0623e630f46",
+ "run_at": "2026-11-26T09:11:00.330Z",
+ "checks_hash": "e43e089336119e7b2972878edb2d441b702589a06353e1ae3e35dc984b3491f3",
  "writer": "claude-sonnet-5-5",
  "reviewer": "claude-opus-5-5",
  "cases": 11,
@@ -35,7 +35,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The release announces a notice filed in Character.AI's bankruptcy proceedings, not a new lawsuit by the states. Bankruptcy filings with no lawsuit are excluded. The 2024 wrongful death suit is private background only."
+   "reason": "The release announces a notice filed by state attorneys general in Character.AI's bankruptcy proceedings. It is not a new lawsuit against a frontier AI developer, and the tracker excludes bankruptcy filings with no lawsuit. The 2024 wrongful death suit it mentions was brought by a private party and is background only."
   },
   {
    "id": "wa-characterai-bankruptcy",
@@ -44,7 +44,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The release describes a notice filed by states in Character.AI's bankruptcy case. The states are not suing Character.AI, and the tracker excludes bankruptcy filings with no lawsuit by the states. Character.AI is also a companion chatbot company rather than a frontier AI developer."
+   "reason": "The release announces a notice filed in Character.AI's bankruptcy proceedings, not a new lawsuit. The tracker excludes bankruptcy filings with no lawsuit. Character.AI is also not a frontier AI developer of the kind the section covers."
   },
   {
    "id": "nj-characterai-bankruptcy",
@@ -53,7 +53,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The release announces a notice filed in Character Technologies' bankruptcy case, not a new lawsuit by the states against an AI developer. The tracker excludes bankruptcy filings with no lawsuit. The 2024 wrongful death suit it mentions was brought by a private party and is only background."
+   "reason": "The release announces a notice filed by state attorneys general in Character Technologies' bankruptcy proceeding. It is not a new lawsuit against the developer. The tracker excludes bankruptcy filings with no lawsuit. The 2024 wrongful death suit is only background."
   },
   {
    "id": "nj-xai-demand",
@@ -62,7 +62,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The release announces a letter from a coalition of attorneys general demanding action from xAI. It does not announce a lawsuit, so it falls under the excluded demand letters."
+   "reason": "The release announces a demand letter from a coalition of attorneys general to xAI, not a lawsuit. No court case is filed."
   },
   {
    "id": "nj-chatbots-letter",
@@ -71,7 +71,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The release announces a letter from 42 attorneys general demanding safeguards from AI companies. It does not announce a lawsuit, so it falls under the excluded demand letters."
+   "reason": "The release announces a letter from 42 attorneys general to 13 tech companies demanding safeguards. It is a demand letter, not a lawsuit, so it is outside the litigation section."
   },
   {
    "id": "doj-xai-clean-air",
@@ -80,7 +80,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The case is a Clean Air Act citizen suit over the power source for an xAI data facility. It is about permits and power supply, not an AI model's safety or an AI law, so it falls under the facilities and energy exclusion. The DOJ filing is a motion to intervene and dismiss."
+   "reason": "The case is a Clean Air Act citizen suit over the power source for an xAI data facility. It concerns facilities, power and environmental permits, not an AI law or an AI model's safety. DOJ's filing is a motion to intervene and dismiss, not a new suit over AI conduct."
   },
   {
    "id": "doj-texas-attack",
@@ -89,7 +89,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "This is a criminal case against an individual who attacked an AI company's CEO and headquarters. It is not about the developer's models or conduct as an AI developer, and not about a frontier-AI law."
+   "reason": "This is a criminal case against an individual who attacked an AI company CEO's home and headquarters. It is not about a frontier developer's models or conduct as an AI developer, and it does not challenge an AI law."
   },
   {
    "id": "ca-characterai-asset-sale",
@@ -98,7 +98,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The release announces an objection filed in Character.AI's bankruptcy case to an asset sale. It does not announce a new lawsuit against a frontier AI developer. Bankruptcy filings with no lawsuit are excluded, and Character.AI is not named as a frontier developer in the release."
+   "reason": "The release describes attorneys general objecting in a bankruptcy court to Character.AI's asset sale. Character.AI is not named as a frontier developer in the tracker's sense, and the release announces objections in a bankruptcy proceeding, not a new lawsuit over a frontier AI model or an AI law."
   },
   {
    "id": "nj-housing-suit",
@@ -107,7 +107,7 @@
    "wrong": false,
    "why": [],
    "missed": false,
-   "reason": "The lawsuit challenges a HUD housing rule affecting mixed immigration status families. It does not involve a frontier AI developer, an AI model, or a frontier-AI law."
+   "reason": "The lawsuit challenges a HUD housing assistance rule for mixed immigration status families. It does not involve a frontier AI developer, an AI model, or an AI law."
   }
  ],
  "partial": false
