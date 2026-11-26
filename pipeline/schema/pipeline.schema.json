@@ -67,6 +67,13 @@
                 },
                 "description": "Change hash per record id, for sources like LegiScan."
               },
+              "official_checked": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Congress.gov: bill id -> list hash of a short-named bill whose official title was read and screened out, so it is not looked up again until the bill changes."
+              },
               "quota": {
                 "type": "object",
                 "additionalProperties": false,
