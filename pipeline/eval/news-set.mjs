@@ -20,6 +20,8 @@ import { writeMeasureReport } from './gate.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..'), root = path.resolve(P, '..');
 export const NEWS_SET = path.join(here, 'news-set', 'cases.json');
+// web/data/v2/news.json and entries.json as merged 12 Nov 2026 (PR #22), the data the cases were last measured on at zero wrong
+const SNAP_NEWS = path.join(here, 'news-set', 'news.snapshot.json'), SNAP_ENTRIES = path.join(here, 'news-set', 'entries.snapshot.json');
 const FIX = path.join(P, 'fixtures', 'news', 'sources');
 const j = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 
@@ -52,13 +54,18 @@ export async function runCase(c, { news, entries }) {
   return renderNews(page, state, entries, { at: last, maxAgeDays: c.max_age_days ?? 100000 });
 }
 
-export async function runNewsSet({ cases, now = new Date() }) {
-  const news = j(path.join(root, 'web', 'data', 'v2', 'news.json')), entries = j(path.join(root, 'web', 'data', 'v2', 'entries.json'));
+export async function runNewsSet({ cases, now = new Date(), page = null, data = null }) {
+  // The set is code only (eval/hash.mjs gives it no data inputs), so it runs on its own snapshot of the page and the entries, never the
+  // live site: a live item (the first automated card, published 18 Nov 2026, made all 75 cases "wrong") or a changed entry must not
+  // change what is measured.
+  const news = page || j(SNAP_NEWS), entries = data || j(SNAP_ENTRIES);
+  // a case's output is what it adds: an automated card already on the starting page is not the case's (and not its error)
+  const before = new Set(news.items.filter((n) => n.event_key).map((n) => n.event_key));
   const rows = [];
   for (const c of cases) {
     let r, err = null;
     try { r = await runCase(c, { news, entries }); } catch (e) { err = e.message; }
-    const got = err ? [] : r.news.items.filter((n) => n.event_key);
+    const got = err ? [] : r.news.items.filter((n) => n.event_key && !before.has(n.event_key));
     const want = new Map((c.expect || []).map((x) => [x.event_key, x]));
     const extra = got.filter((n) => !want.has(n.event_key));
     const differs = got.filter((n) => want.has(n.event_key) && (n.title !== want.get(n.event_key).title || n.body !== want.get(n.event_key).body || (want.get(n.event_key).status && n.status !== want.get(n.event_key).status) || (want.get(n.event_key).links && JSON.stringify(n.links.map((l) => l.u)) !== JSON.stringify(want.get(n.event_key).links)) || ('status_note' in want.get(n.event_key) && (n.status_note || null) !== want.get(n.event_key).status_note)));

@@ -144,6 +144,11 @@ const diffOf = (item) => ({ item_id: item.item_id, verdict: 'new_entry_candidate
   ok('9 the Tier B replay set: zero wrong', t.cases >= 15 && t.wrong === 0, JSON.stringify(t.rows.filter((x) => x.wrong)));
   const n = await runNewsSet({ cases: J(NEWS_SET).cases });
   ok('9 the recorded news leads set: zero wrong', n.cases >= 5 && n.wrong === 0, JSON.stringify(n.rows.filter((x) => x.wrong)));
+  // 18-25 Nov 2026: the first automated card on the live page was counted as every case's output (75 of 75 wrong, news off for a week).
+  // A card already on the starting page is never a case's output.
+  const snap = J(path.join(here, '..', 'eval', 'news-set', 'news.snapshot.json')), card = J(path.join(here, '..', 'eval', 'news-set', 'live-card-18nov.json'));
+  const m = await runNewsSet({ cases: J(NEWS_SET).cases, page: { ...snap, items: [...snap.items, card] } });
+  ok('9 an automated card already on the page is not counted as any case\'s output', m.cases === n.cases && m.wrong === 0, JSON.stringify(m.rows.filter((x) => x.wrong).slice(0, 2)));
 }
 console.log(`round 2: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

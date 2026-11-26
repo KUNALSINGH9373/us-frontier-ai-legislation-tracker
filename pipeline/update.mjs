@@ -388,6 +388,9 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   if (gi.links) rep.notes.push(`links measure on this run's data: ${gi.links.cases} cases, ${gi.links.wrong} wrong${gi.links.wrong ? ' (relationships off this run)' : ''}`);
   nm.ran.forEach((x) => rep.notes.push(`${x.measure === 'news' ? 'news event set' : x.measure === 'page_fields' ? 'page-fields set' : x.measure === 'press' ? 'press set' : 'news writer set'} measured again on this run's code and data (the stored report no longer matched): ${x.cases} cases, ${x.wrong} wrong${x.wrong ? ` (${x.measure === 'page_fields' ? 'page fields' : x.measure === 'press' ? 'press links' : 'news'} off this run)` : ''}`));
   if (nm.error) rep.notes.push(`a news measure could not be run (${nm.error}); news is off this run`);
+  // a measure that fails EVERY case is almost certainly broken itself (18-25 Nov 2026: one live card made 75 of 75 "wrong" and news was
+  // off for a week with only a note): it goes to the run report's Watch list on every run until it is fixed
+  rep.broken_measures = ((nm.inputs && nm.inputs.measures) || []).filter((r) => r && r.cases > 0 && r.wrong === r.cases).map((r) => ({ measure: r.measure, cases: r.cases }));
   // whether news can publish this run, on every report, so it is never off without the message saying so
   if (publishConfig && publishConfig.auto_publish && 'news' in publishConfig.auto_publish) { const g = gatedOff.find((x) => x.field === 'news'); rep.news_publishing = !publishConfig.auto_publish.news ? { on: false, why: 'switched off in config/publish.json' } : g ? { on: false, why: g.why } : { on: true, why: null }; }
   if (gi.linksError) rep.notes.push(`the links measure could not be run (${gi.linksError}); relationships are off this run`);
@@ -616,7 +619,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
 
     // ---- 4d. news: feed leads, and items written from official releases (added only when auto_publish.news is on) ----
     step = 'news';
-    const nw = await (deps.newsRun || newsRun)({ dataDir: S.v2, docsDir: null, seenFile: S.stateFile('news-seen.json'), eventsFile: S.stateFile('news-events.json'), healthFile: S.stateFile('news-health.json'), runDirs: runs.map(runDirOf), courtFound, env, config, factory, aiOff: capOff(), dry, today, now: startedAt, runId: rep.id, log: (m) => log('  ' + m) });
+    const nw = await (deps.newsRun || newsRun)({ dataDir: S.v2, docsDir: null, seenFile: S.stateFile('news-seen.json'), openLeadsFile: S.stateFile('news-open-leads.json'), eventsFile: S.stateFile('news-events.json'), healthFile: S.stateFile('news-health.json'), runDirs: runs.map(runDirOf), courtFound, env, config, factory, aiOff: capOff(), dry, today, now: startedAt, runId: rep.id, log: (m) => log('  ' + m) });
     rep.news = nw;
     log(`news: ${nw.skipped_why ? 'skipped (' + nw.skipped_why + ')' : `${nw.leads.length} lead(s), ${nw.drafted.length} drafted, ${nw.status}`}`);
     if (nw.status === 'written') { published.push('news'); summaries.push(nw.summary); partKeys.push((nw.drafted || []).every((d) => d.tracker) ? nw.drafted.map((d) => d.tracker) : null); }

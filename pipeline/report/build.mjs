@@ -51,7 +51,9 @@ export function publishEntry({ result, newsBefore = 0, newsAfter = 0, status }) 
     entries_updated: ((result && result.applied) || []).map((a) => ({ entry_key: a.entry_key, status: a.status || null, actions: (a.actions || []).map((x) => ({ date: x.date, text: x.text })) })),
     entries_added: ((result && result.added) || []).map((a) => ({ entry_key: a.entry_key, item_id: a.item_id, section: a.section })), links_added: 0, news_added: Math.max(0, newsAfter - newsBefore),
     fields_changed: log.map((c) => ({ entry_key: c.entry_key, field: c.field, old: c.old, new: c.new, source_url: c.source_url })),
-    not_applied: ((result && result.skipped) || []).map((s) => ({ ref: s.entry_key || s.item_id, why: s.why }))
+    not_applied: ((result && result.skipped) || []).map((s) => ({ ref: s.entry_key || s.item_id, why: s.why })),
+    // entries a new Federal Register document may change (revoke / amend / rescind wording): their reading fields need checking
+    needs_reading: ((result && result.needs_reading) || []).map((x) => ({ entry_key: x.entry_key, document_number: x.document_number, title: x.title, source_url: x.source_url }))
   };
 }
 

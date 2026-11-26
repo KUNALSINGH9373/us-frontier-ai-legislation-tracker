@@ -78,10 +78,13 @@ export async function fetchItems({ http, env = {}, since, state = {}, entries = 
       const d = dr.data.CRSReport || {};
       const rel = (d.relatedMaterials || []).map((b) => matchBill(index, { jurisdiction: 'US', type: billType(b.type), number: b.number, congress: b.congress })).filter(Boolean);
       const relSet = [...new Set(rel)];
-      const entry_id = relSet.length === 1 ? relSet[0] : relSet.length > 1 ? null : matchText(index, `${d.title || r.title}. ${plain(d.summary)}`, 'US').entry_id;
+      // on an entry only by the report's official related bills, or a tracked bill named in the report's OWN title: a summary that mentions
+      // a bill is not a report about it (Nov 2026: a copyright report whose summary mentioned the TRUMP AMERICA draft became that draft's card)
+      const entry_id = relSet.length === 1 ? relSet[0] : relSet.length > 1 ? null : matchText(index, d.title || r.title, 'US').entry_id;
       if (!entry_id) continue;
       c.add({ source_id: `crs:${r.id}:${d.currentVersion || r.version || 1}`, entry_id, class: 'crs-report', date: etDate(d.publishDate || r.publishDate),
-        facts: { title: d.title || r.title, number: r.id, content_type: r.contentType, version: d.currentVersion || r.version, authors: (d.authors || []).map((a) => a.author).join('; ') },
+        facts: { title: d.title || r.title, report_number: r.id, // the CRS product id (e.g. LSB10922): never a bill number (Nov 2026: a card said "report on LSB 10922")
+         content_type: r.contentType, version: d.currentVersion || r.version, authors: (d.authors || []).map((a) => a.author).join('; ') },
         url: `https://www.congress.gov/crs-product/${encodeURIComponent(r.id)}`, title: d.title || r.title });
     }
 

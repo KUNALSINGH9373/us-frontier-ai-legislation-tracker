@@ -8,15 +8,22 @@ import { fileURLToPath } from 'url';
 import { loadEnv } from './lib/env.mjs';
 import { createHttp } from './lib/http.mjs';
 import { makeScreen } from './screen.mjs';
+import { isShortName } from './run.mjs';
 import { classifyTitles, fetchIt, INTENT_PROMPT_VERSION } from './intent.mjs';
 import { createLlmFactory, roleModel } from '../llm/make.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const pipelineDir = path.resolve(here, '..');
 
-export async function recallCongress({ llm, ids, scope }) {
+// outside: config/recall-outside.json bills (found outside the pipeline). A bill on the site alone cannot show what the screen misses,
+// so those are screened the way a run screens a new bill: the list title, then the official title when the list title is a short name.
+export async function recallCongress({ llm, ids, scope, outside = [] }) {
   const precise = makeScreen({ title_terms: scope.precise_terms }), wide = makeScreen(scope);
-  const rows = Object.entries(ids.congress_gov).flatMap(([key, v]) => v.checks.filter((c) => c.found).map((c) => ({ key, id: c.id, title: c.api_title })));
+  const rows = Object.entries(ids.congress_gov).flatMap(([key, v]) => (v.checks || []).filter((c) => c.found).map((c) => ({ key, id: c.id, title: c.api_title })));
+  for (const b of outside) if (!rows.some((r) => r.id === b.id)) {
+    const listHit = precise(b.list_title) || wide(b.list_title);
+    rows.push({ key: '(found outside the pipeline)', id: b.id, title: listHit || !isShortName(b.list_title) ? b.list_title : b.official_title });
+  }
   for (const r of rows) r.gate = precise(r.title) ? 'precise' : wide(r.title) ? 'wide' : 'none';
   const v = await classifyTitles({ llm, items: rows.filter((r) => r.gate === 'wide').map((r) => ({ id: r.id, title: r.title })) });
   for (const r of rows) {
@@ -33,10 +40,10 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const factory = createLlmFactory({ models });
   if (!factory.hasKey) { console.error(`${factory.keyName} is not set`); process.exit(2); }
   const llm = factory.make('screener');
-  const rows = await recallCongress({ llm, ids: read('identifiers.json'), scope: read('scope.draft.json') });
+  const rows = await recallCongress({ llm, ids: read('identifiers.json'), scope: read('scope.draft.json'), outside: read('recall-outside.json').bills });
   const missed = rows.filter((r) => /MISSED/.test(r.result));
   fs.writeFileSync(path.join(pipelineDir, 'out', 'recall-congress.md'), [`# Congress.gov recall test (${new Date().toISOString().slice(0, 10)}, ${INTENT_PROMPT_VERSION}, ${roleModel(models, 'screener')})`, '',
-    `Every federal bill on the site, treated as if it were new today. **Caught ${rows.length - missed.length} / ${rows.length}; missed ${missed.length}.**`, '',
+    `Every federal bill on the site, and every bill found outside the pipeline (config/recall-outside.json), treated as if it were new today. **Caught ${rows.length - missed.length} / ${rows.length}; missed ${missed.length}.**`, '',
     '| Bill | Official title | Result | Intent reason |', '| --- | --- | --- | --- |', ...rows.map((r) => `| ${r.id} | ${r.title} | ${/MISSED/.test(r.result) ? '**' + r.result + '**' : r.result} | ${r.intent ? r.intent.reason : ''} |`)].join('\n') + '\n');
   console.log(`congress recall: caught ${rows.length - missed.length}/${rows.length}`);
   for (const r of rows.filter((r) => r.gate === 'wide')) console.log(`  ${r.result.padEnd(22)} ${r.title} — ${r.intent.reason}`);

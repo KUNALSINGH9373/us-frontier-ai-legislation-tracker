@@ -86,7 +86,7 @@ export async function fetchItems({ http, env = {}, since, state = {}, entries = 
       // that revokes or amends a tracked one ("Revoking Executive Order 14365") would show as "President signs" on that order's page
       // (review r9 B1): no entry, so no card (a lead at most).
       // The same for a presidential document without a number (memorandum, proclamation) that changes an order: on no entry (r9 C2).
-      const entry_id = eo ? matchNumbers(index, eo, 'US') || null : changesAnOrder(d) ? null : matchText(index, `${d.title}. ${plain(d.abstract)}`, 'US').entry_id;
+      const entry_id = eo ? matchNumbers(index, eo, 'US') || null : changesAnOrder(d) ? null : matchText(index, d.title, 'US').entry_id; // the document's own title, never a mention in its abstract
       const cls = classify(d);
       const facts = { title: d.title, document_number: d.document_number, agency, type: d.type, subtype: d.subtype, eo_number: d.executive_order_number,
         publication_date: d.publication_date, signing_date: d.signing_date, effective_on: d.effective_on, comments_close: d.comments_close_on,

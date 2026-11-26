@@ -1538,51 +1538,6 @@
    "check": "From the Attorney General's release; the complaint could not be read as text here."
   },
   {
-   "date": "2026-11-17",
-   "kind": "federal",
-   "title": "New CRS report on LSB 10922",
-   "body": "A CRS report on LSB 10922 was published on November 17, 2026. What the bill would do: It had not been introduced as a numbered bill as of the sponsor's Apr 22, 2026 \"growing momentum\" release.",
-   "links": [
-    {
-     "t": "TRUMP AMERICA AI Act draft — official record",
-     "u": "https://www.congress.gov/crs-product/LSB10922"
-    }
-   ],
-   "check": "From the official record (congress_extra), written by code from its fields with fixed wording.",
-   "tracker": "trump-america-ai-act-draft",
-   "origin": "automated",
-   "verification": {
-    "method": "official-record",
-    "checked_at": "2026-11-25T20:05:47.292Z"
-   },
-   "evidence": [
-    {
-     "field": "body",
-     "quote": "Generative Artificial Intelligence and Copyright Law",
-     "source_url": "https://www.congress.gov/crs-product/LSB10922"
-    }
-   ],
-   "event_key": "US|trump-america-ai-act-draft|crs-report|2026-11-17#LSB10922",
-   "class": "crs-report",
-   "status": "confirmed",
-   "jurisdiction": "US",
-   "statements": [],
-   "history": [
-    {
-     "at": "2026-11-18T08:05:46.205Z",
-     "change": "created",
-     "from": null,
-     "to": "pending"
-    },
-    {
-     "at": "2026-11-18T12:05:49.435Z",
-     "change": "status",
-     "from": "pending",
-     "to": "confirmed"
-    }
-   ]
-  },
-  {
    "origin": "authored",
    "verification": {
     "method": "session",

@@ -6945,7 +6945,7 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
+  "last_checked": "2026-11-26",
   "last_changed": "2026-10-15",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-trump-america-ai-act-discussion-draft-republic-unifying-meritocratic-p",
@@ -8611,6 +8611,16 @@
    "a": "Federal agencies, including a new AI Litigation Task Force, the National Telecommunications and Information Administration (NTIA) and the Commerce Department.",
    "b": "Challenge state AI laws that conflict with a \"minimally burdensome\" standard. Within 90 days, NTIA was to issue a notice on broadband (BEAD) funds and Commerce was to evaluate state laws.",
    "c": "No. It directs federal agencies and cannot itself override state law. States with \"onerous\" AI laws could lose some federal broadband (BEAD) funds, to the extent federal law allows."
+  },
+  "identifiers": {
+   "external": {
+    "federal_register": [
+     {
+      "document_number": "2025-23092",
+      "citation": "90 FR 58499"
+     }
+    ]
+   }
   }
  },
  {
@@ -8810,6 +8820,16 @@
    "checked_at": "2026-11-11T04:48:33.858Z",
    "reviewer": "claude-opus-5-5",
    "basis_sha256": "9114aba623e5d8530e8c09c3f9a554d62223e7e655db735cd4dfa1dac4325e15"
+  },
+  "identifiers": {
+   "external": {
+    "federal_register": [
+     {
+      "document_number": "2026-11415",
+      "citation": "91 FR 34565"
+     }
+    ]
+   }
   }
  },
  {
@@ -9561,6 +9581,16 @@
    "penalties": {
     "value": "not_in_bill",
     "summary": "The order sets no penalties or sanctions for failing to comply with it."
+   }
+  },
+  "identifiers": {
+   "external": {
+    "federal_register": [
+     {
+      "document_number": "2026-20321",
+      "citation": "91 FR 63129"
+     }
+    ]
    }
   }
  },
@@ -10822,6 +10852,16 @@
    "checked_at": "2026-11-25T18:00:00Z",
    "reviewer": "manual update 25 Nov 2026",
    "basis_sha256": "7e62df80b7a6bd6fbc879f4154d2778fb42d8963a7965c8ad50f04f029c911aa"
+  },
+  "identifiers": {
+   "external": {
+    "federal_register": [
+     {
+      "document_number": "2025-00636",
+      "citation": "90 FR 4544"
+     }
+    ]
+   }
   }
  },
  {
@@ -10901,6 +10941,16 @@
    "checked_at": "2026-11-12T12:00:00Z",
    "reviewer": "site review 12 Nov 2026",
    "basis_sha256": "da1fdac6c113b44811a178eb40e59f879f6ed2ae035d51ff190947e8fb26f1bc"
+  },
+  "identifiers": {
+   "external": {
+    "federal_register": [
+     {
+      "document_number": "2026-00789",
+      "citation": "91 FR 1684"
+     }
+    ]
+   }
   }
  },
  {
@@ -11237,7 +11287,25 @@
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://www.federalregister.gov/documents/2026/11/09/2026-22793/extension-of-the-suspension-of-expansion-of-end-user-controls-for-affiliates-of-certain-listed"
    }
-  ]
+  ],
+  "identifiers": {
+   "external": {
+    "federal_register": [
+     {
+      "document_number": "2025-19001",
+      "citation": "90 FR 47201"
+     },
+     {
+      "document_number": "2025-19846",
+      "citation": "90 FR 50857"
+     },
+     {
+      "document_number": "2026-22793",
+      "citation": "91 FR 70789"
+     }
+    ]
+   }
+  }
  },
  {
   "id": 78,
@@ -15750,6 +15818,16 @@
    "checked_at": "2026-11-25T18:00:00Z",
    "reviewer": "manual update 25 Nov 2026",
    "basis_sha256": "8ff8fca42a1dc719af7c6bb799e9df5528a7ca8d4170de0c4250d7966f7a45d4"
+  },
+  "identifiers": {
+   "external": {
+    "federal_register": [
+     {
+      "document_number": "2026-23529",
+      "citation": "91 FR 74970"
+     }
+    ]
+   }
   }
  },
  {

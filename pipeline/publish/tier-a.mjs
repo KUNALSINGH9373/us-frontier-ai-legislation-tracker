@@ -92,7 +92,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
   const out = { entries: clone(data.entries), news: clone(data.news), site: clone(data.site), changes: clone(data.changes || { items: [] }) };
   const byKey = new Map(out.entries.map((e) => [e.key, e]));
   const itemById = new Map(changeset.items.map((i) => [i.item_id, i]));
-  const applied = [], skipped = [], log = [], touched = new Set(), disagreements = [];
+  const applied = [], skipped = [], log = [], touched = new Set(), disagreements = [], needsReading = [];
   const at = runDate + 'T00:00:00Z';
   // "Future" means after the later of the run date and the data's own cut-off (an older run can be replayed onto newer data).
   const cutoff = runDate > data.site.updates_through ? runDate : data.site.updates_through;
@@ -114,7 +114,32 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
     const actionText = (r) => { const a = actionOf(r); return a ? a.text : ''; };
     const reasons = [...d.reasons.filter((r) => r.kind !== 'new_action'), ...d.reasons.filter((r) => r.kind === 'new_action').sort((x, y) => actionRank(actionText(y), item.source) - actionRank(actionText(x), item.source))];
 
-    for (const r of reasons) {
+    // A Federal Register document filed under a tracked rule or order (it cites the entry's own citation, or names it): the record's
+    // own facts only, written by code (26 Nov 2026; before this no Federal Register document ever reached an entry, so a rescission or an
+    // extension stayed off the site until someone added it by hand). What the document does to the rule is reading, not a record fact:
+    // when it uses revoke / amend / rescind wording the entry is listed as needing its reading fields checked (the run report's Watch list).
+    const fr = item.source === 'federal_register';
+    if (fr) {
+      let doc = null; try { doc = JSON.parse(raw).document; } catch { doc = null; }
+      if (!doc || !doc.document_number || !doc.title || !/^\d{4}-\d{2}-\d{2}$/.test(String(doc.publication_date || ''))) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: 'Federal Register document without its number, title or date in the stored record' }); continue; }
+      const own = (((e.identifiers || {}).external || {}).federal_register || []).some((f) => f.document_number === doc.document_number);
+      if (own) continue; // the entry's own document: nothing new
+      const said = (e.status_text || '').includes(doc.document_number) || e.events.some((v) => `${v.text} ${v.clause || ''}`.includes(doc.document_number));
+      if (!d.reasons.some((r) => r.kind === 'new_action') || said) { if (said) skipped.push({ item_id: d.item_id, entry_key: e.key, why: `FR Doc. ${doc.document_number} is already on the entry` }); continue; }
+      const kind = doc.type === 'Presidential Document' ? 'presidential document' : doc.type === 'Proposed Rule' ? 'proposed rule' : doc.type === 'Rule' ? 'rule' : 'notice';
+      const text = `Federal Register ${kind}: "${clean(doc.title)}" (FR Doc. ${doc.document_number})`;
+      e.events.push({ date: doc.publication_date, precision: 'day', type: 'Introduced / published', text: cut(text, 200), clause: clean(doc.title), scheduled: false, source_url: item.source_url });
+      log.push({ entry_key: e.key, field: 'events', old: null, new: { date: doc.publication_date, type: 'Introduced / published', text }, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
+      (e.evidence = e.evidence || []).push({ field: 'events', quote: clean(doc.title), source_url: item.source_url });
+      const old = e.status_text, add = `On ${longDate(doc.publication_date)} the Federal Register published a ${kind}, "${clean(doc.title)}" (FR Doc. ${doc.document_number}), that refers to this ${e.type === 'executive' ? 'order' : 'rule'}`;
+      e.status_text = old ? `${String(old).replace(/[\s.;]+$/, '')}. ${add}.` : `${add}.`;
+      log.push({ entry_key: e.key, field: 'status_text', old, new: e.status_text, date: runDate, run_id: runId, source_url: item.source_url, tier: 'A' });
+      notes.push({ date: doc.publication_date, text, quote: clean(doc.title), news: false });
+      if (d.reasons.some((r) => r.kind === 'status_change')) needsReading.push({ entry_key: e.key, document_number: doc.document_number, title: clean(doc.title), source_url: item.source_url });
+      // falls through to the bookkeeping every applied item gets (events sorted, origin, verification, checked and changed dates)
+    }
+
+    for (const r of fr ? [] : reasons) {
       if (!allowed.includes(r.kind)) { skipped.push({ item_id: d.item_id, entry_key: e.key, why: `${r.kind} is not a Tier A fact: ${r.detail}` }); continue; }
       if (r.kind === 'new_action') {
         const a = actionOf(r);
@@ -229,7 +254,7 @@ export function applyTierA({ data, diff, changeset, readRaw, runId, runDate, con
   }
 
   if (touched.size) { advanceCutoff(out, runDate); out.changes.items.push(...log); }
-  return { data: out, applied, skipped, touched: [...touched], log, disagreements };
+  return { data: out, applied, skipped, touched: [...touched], log, disagreements, needs_reading: needsReading };
 }
 
 // The cut-off moves to the run date, so every event's "scheduled" flag is recomputed against it.

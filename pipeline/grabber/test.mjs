@@ -36,6 +36,11 @@ function fakeServer({ bills, failures = {}, log = [] }) {
       return resp(200, { textVersions: [{ date: '2026-10-01T04:00:00Z', type: 'Introduced in Senate', formats: [{ type: 'PDF', url: `https://www.congress.gov/x/${tx[3]}.pdf` }, { type: 'Formatted Text', url: `https://www.congress.gov/119/bills/${tx[3]}.htm` }] }] });
     }
     if (u.hostname === 'www.congress.gov' && p.endsWith('.htm')) return resp(200, {}, '<html><body><pre>[S. ' + p.split('/').pop() + ']\nA BILL To establish a Department &amp; regulate advanced AI.</pre></body></html>');
+    const ti = /^\/bill\/(\d+)\/([a-z]+)\/(\d+)\/titles$/.exec(p);
+    if (ti) {
+      const b = bills.find((x) => String(x.congress) === ti[1] && x.type.toLowerCase() === ti[2] && String(x.number) === ti[3]);
+      return resp(200, { titles: [{ titleType: 'Display Title', title: b.title }, ...(b.official ? [{ titleType: 'Official Title as Introduced', title: b.official }] : [])] });
+    }
     const m = /^\/bill\/(\d+)\/([a-z]+)\/(\d+)(\/actions|\/summaries)?$/.exec(p);
     if (m) {
       const b = bills.find((x) => String(x.congress) === m[1] && x.type.toLowerCase() === m[2] && String(x.number) === m[3]);
@@ -254,6 +259,42 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
   } finally {
     fs.rmSync(stateDir, { recursive: true, force: true }); fs.rmSync(counterDir, { recursive: true, force: true });
   }
+}
+
+// ---------- Nov 2026: a bill listed only by its short name is screened on its official title ----------
+{
+  const short = (n, title, official, d) => ({ ...bill(n, title, d), official });
+  const bills = [short(11157, 'RSI Safety Act of 2026', 'To establish a program for the disclosure of research and development programs in the automation of frontier artificial intelligence research.', '2026-10-03T10:00:00Z'),
+    short(8001, 'Healthy Lunches Act of 2026', 'To improve school meal programs, and for other purposes.', '2026-10-04T10:00:00Z')];
+  const srv = fakeServer({ bills }), out = tmp();
+  const r = await runCongress({ http: mk(srv), state: emptyState(), entries: [], scope, outDir: out, now: NOW });
+  const ids = r.changeset.items.map((i) => i.source_id);
+  ok('a short-named bill whose official title is about frontier AI is a candidate (H.R. 11157)', ids.includes('119/hr/11157') && r.stats.found_by_official_title === 1, JSON.stringify({ ids, stats: r.stats }));
+  ok('a short-named bill whose official title is not about AI is screened out', !ids.includes('119/hr/8001') && r.stats.screened_out === 1, JSON.stringify(r.stats));
+  ok('each short-named bill costs one titles call', r.stats.official_title_lookups === 2 && srv.log.filter((l) => /\/titles/.test(l.url)).length === 2);
+  const srv2 = fakeServer({ bills });
+  const r2 = await runCongress({ http: mk(srv2), state: r.nextState, entries: [], scope, outDir: out, now: new Date(+NOW + 3600e3), since: '2026-09-29T00:00:00Z' });
+  ok('the screened-out bill is not looked up again while it is unchanged', !srv2.log.some((l) => /8001\/titles/.test(l.url)), JSON.stringify(srv2.log.map((l) => l.url).filter((u) => /titles/.test(u))));
+  const descriptive = fakeServer({ bills: [bill(5556, 'To rename a post office in Ohio', '2026-10-04T10:00:00Z')] });
+  const r3 = await runCongress({ http: mk(descriptive), state: emptyState(), entries: [], scope, outDir: tmp(), now: NOW });
+  ok('a descriptive "To ..." title is screened as it is (no titles call)', !descriptive.log.some((l) => /\/titles/.test(l.url)) && r3.stats.screened_out === 1);
+  const capped = fakeServer({ bills });
+  const r4 = await runCongress({ http: mk(capped), state: emptyState(), entries: [], scope: { ...scope, max_official_title_lookups_per_run: 1 }, outDir: tmp(), now: NOW });
+  ok('the per-run lookup cap is kept', r4.stats.official_title_lookups === 1 && capped.log.filter((l) => /\/titles/.test(l.url)).length === 1, JSON.stringify(r4.stats));
+}
+
+// ---------- recall on bills found OUTSIDE the pipeline (config/recall-outside.json), with the real screen config ----------
+{
+  const { makeScreen } = await import('./screen.mjs');
+  const { isShortName } = await import('./run.mjs');
+  const cfg = (f) => JSON.parse(fs.readFileSync(new URL(`../config/${f}`, import.meta.url), 'utf8'));
+  const real = cfg('scope.draft.json'), outside = cfg('recall-outside.json').bills;
+  const precise = makeScreen({ title_terms: real.precise_terms || [] }), wide = makeScreen(real);
+  // the path a run takes: the list title; when it is only a short name and fails, the official title
+  const passes = (b) => precise(b.list_title) || wide(b.list_title) || (isShortName(b.list_title) && (precise(b.official_title) || wide(b.official_title)));
+  const missed = outside.filter((b) => !passes(b));
+  ok(`every bill found outside the pipeline passes the word screen (${outside.length} bills)`, outside.length >= 2 && missed.length === 0, JSON.stringify(missed.map((b) => b.id)));
+  ok('and H.R. 11157 is caught only through its official title (its short name has no subject word)', !precise('RSI Safety Act of 2026') && !wide('RSI Safety Act of 2026') && passes(outside.find((b) => b.id === '119/hr/11157')));
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);

@@ -148,5 +148,44 @@ ok('a dry run is labelled and says it saves nothing', /dry run, nothing saved/.t
   ok('the added bill is no longer listed as spotted; the other one still is', /New bills spotted \(1\)/.test(h) && !/▸ Frontier Test Act/.test(h) && /▸ Another Act/.test(h) && /New bills spotted: 1 \(Another Act\)/.test(t), h + '\n' + t);
 }
 
+// a gate measure failing every case is shown as a broken measure (18-25 Nov 2026: 75 of 75 "wrong", news off a week with only a note)
+{
+  const r = finalize(Object.assign(newReport({ id: 'b', now: new Date('2026-11-25T08:00:00Z') }), { broken_measures: [{ measure: 'news', cases: 75 }] }), { now: new Date('2026-11-25T08:01:00Z') });
+  const t = formatDone(r), h = formatHtml(r);
+  ok('a measure failing every case is a Watch warning in the text report', /⚠️ The news event measure failed every case \(75 of 75\): the measure itself is probably broken/.test(t), t);
+  ok('...and in the Telegram message, which is not sent silently', /news event measure failed every case \(75 of 75\)/.test(h.text) && /⚠️ Watch/.test(h.text) && h.silent === false, h.text);
+  const ok2 = finalize(Object.assign(newReport({ id: 'c', now: new Date('2026-11-25T08:00:00Z') }), { broken_measures: [] }), { now: new Date('2026-11-25T08:01:00Z') });
+  ok('no broken measure, no such warning', !/failed every case/.test(formatDone(ok2)) && !/failed every case/.test(formatHtml(ok2).text));
+}
+
+// news items the independent review refused, or could not review, are on the Watch list (26 Nov 2026)
+{
+  const r = finalize(Object.assign(newReport({ id: 'rv', now: new Date('2026-11-26T08:00:00Z') }), { news: { ran: true, status: 'reported', leads: [], drafted: [], problems: [], feeds_failed: [], events: { added: [], confirmed: [], corrected: [], withdrawn: [], pending: 0, review: { passed: 0, refused: 2, unreviewed: 1, kept: 0, why_unreviewed: 'monthly limit reached' } } } }), { now: new Date('2026-11-26T08:01:00Z') });
+  const t = formatDone(r);
+  ok('review refusals and unreviewed items are Watch warnings', /⚠️ The independent review refused 2 news items; they were not published/.test(t) && /⚠️ 1 news item could not be reviewed \(monthly limit reached\) and waits for a later run/.test(t), t);
+}
+
+// open leads still not on the site are raised (26 Nov 2026)
+{
+  const r = finalize(Object.assign(newReport({ id: 'ol', now: new Date('2026-11-26T08:00:00Z') }), { news: { ran: true, status: 'reported', leads: [], drafted: [], problems: [], feeds_failed: [], events: { added: [], confirmed: [], corrected: [], withdrawn: [], pending: 0 }, open_leads: { open: 2, alerts: [{ title: 'California sues OpenAI over AI agents', publisher: 'TechRepublic', request_flag: false }, { title: 'White House asks labs to hold models', publisher: 'Politico', request_flag: true }], resolved: [], triage: {} } } }), { now: new Date('2026-11-26T08:01:00Z') });
+  const t = formatDone(r), h = formatHtml(r);
+  ok('open leads are a Watch warning naming them, G.4 requests counted', /⚠️ 2 news leads about a possible tracked development are still not on the site \(1 possible informal government request, section G\.4\): California sues OpenAI/.test(t), t);
+  ok('...and in the Telegram message, not silent', /still not on the site/.test(h.text) && h.silent === false, h.text);
+}
+
+// a tracked rule a new Federal Register document may change is on the Watch list (26 Nov 2026)
+{
+  const pe = publishEntry({ status: 'published', result: { applied: [], skipped: [], log: [], needs_reading: [{ entry_key: 'bis-diffusion', document_number: '2026-23529', title: 'Addressing Remote Access to Advanced Semiconductors', source_url: 'https://www.federalregister.gov/x' }] } });
+  const r = finalize(Object.assign(newReport({ id: 'nr', now: new Date('2026-11-26T08:00:00Z') }), { publish: { runs: [pe] }, names: { 'bis-diffusion': 'AI Diffusion Rule' } }), { now: new Date('2026-11-26T08:01:00Z') });
+  const t = formatDone(r);
+  ok('a rule a new FR document may change is a Watch warning, named', /⚠️ 1 tracked rule or order may have changed: a new Federal Register document uses revoke \/ amend \/ rescind wording about AI Diffusion Rule \(FR Doc\. 2026-23529\)/.test(t), t);
+}
+
+// a weekly completeness check that could not run is a Watch warning (26 Nov 2026)
+{
+  const r = finalize(Object.assign(newReport({ id: 'cc', now: new Date('2026-11-26T08:00:00Z') }), { news: { ran: true, status: 'quiet', leads: [], drafted: [], problems: [], feeds_failed: [], events: { added: [], confirmed: [], corrected: [], withdrawn: [], pending: 0 }, completeness: { ran: false, searches: 0, found: 0, missing: 0, dropped: 0, why: 'the monthly AI cost cap of $50 is reached' } } }), { now: new Date('2026-11-26T08:01:00Z') });
+  ok('a completeness check that did not run is a Watch warning with its reason', /⚠️ The weekly completeness check did not run \(the monthly AI cost cap of \$50 is reached\); it is tried again next run/.test(formatDone(r)), formatDone(r));
+}
+
 console.log(`report: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

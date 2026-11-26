@@ -92,5 +92,29 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   const quick = createLlmFromConfig({ config: cfg, http: {}, role: 'quick', claudeKey: 'k' }).llm, long = createLlmFromConfig({ config: cfg, http: {}, role: 'long', claudeKey: 'k' }).llm;
   ok('a role\'s timeout_ms reaches the client; without it the 2-minute default holds', quick.timeoutMs === 120000 && long.timeoutMs === 600000);
 }
+// search(): Claude's server-side web search (26 Nov 2026, the weekly completeness check)
+{
+  let n = 0;
+  const client = fake(() => {
+    n++;
+    const res = { content: [{ type: 'server_tool_use', id: 's' + n, name: 'web_search', input: { query: 'q' } }, { type: 'web_search_tool_result', tool_use_id: 's' + n, content: [{ type: 'web_search_result', url: `https://example.gov/${n}`, title: 't' }] }], usage: { input_tokens: 1000, output_tokens: 100, server_tool_use: { web_search_requests: 2 } } };
+    return n === 1 ? { ...res, stop_reason: 'pause_turn' } : { ...res, content: [...res.content, { type: 'text', text: '[{"title":"x"}]' }], stop_reason: 'end_turn' };
+  });
+  const ledger = createLedger({ prices: { 'claude-sonnet-5-5': { input: 2, output: 10 } } });
+  const llm = createAnthropic({ client, role: 'auditor', model: 'claude-sonnet-5-5', maxOutputTokens: 8000, effort: 'medium', ledger });
+  const r = await llm.search({ system: 'Find developments.', prompt: 'p', itemId: 'audit', maxUses: 8 });
+  const req = client.calls[0];
+  ok('search: sends the current web search tool with max_uses', req.tools.length === 1 && req.tools[0].type === 'web_search_20260318' && req.tools[0].name === 'web_search' && req.tools[0].max_uses === 8);
+  ok('search: a paused turn is continued by sending the paused assistant message back unchanged', client.calls.length === 2 && client.calls[1].messages.length === 2 && client.calls[1].messages[1].role === 'assistant' && client.calls[1].messages[1].content[0].type === 'server_tool_use');
+  ok('search: returns the final text, the searched URLs and the search count', r.text === '[{"title":"x"}]' && r.searchedUrls.includes('https://example.gov/1') && r.searchedUrls.includes('https://example.gov/2') && r.searches === 4);
+  const cost = ledger.totals().estimated_cost_usd, tokens = 2 * ((1000 / 1e6) * 2 + (100 / 1e6) * 10);
+  ok('search: the ledger counts the search fee ($0.01 a search) on top of the tokens, so the monthly cap covers it', Math.abs(cost - (tokens + 4 * 0.01)) < 1e-9, String(cost));
+  const stuck = createAnthropic({ client: fake({ content: [], stop_reason: 'pause_turn', usage: {} }), role: 'a', model: 'm' });
+  let threw = false; try { await stuck.search({ prompt: 'p', maxContinues: 1 }); } catch (e) { threw = /did not finish/.test(e.message); }
+  ok('search: a turn still paused after the allowed continues is an error, never a half answer', threw);
+  const cap = createLedger({ monthly: { capUsd: 1, spentBefore: 1 } });
+  let refused = false; try { await createAnthropic({ client: fake(msg('x')), role: 'a', model: 'm', ledger: cap }).search({ prompt: 'p' }); } catch (e) { refused = e instanceof BudgetExceeded; }
+  ok('search: the monthly cap is checked before any search', refused);
+}
 console.log(`anthropic client: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

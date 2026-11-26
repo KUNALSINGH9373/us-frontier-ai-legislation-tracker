@@ -264,5 +264,31 @@ function tierA({ key = KEY, editEntry = () => {}, latest = null, actions = [], r
   ok('guard: changing the author\'s punctuation is refused', stp({ status_text: 'Introduced Jan 5... referred', events: [] }, { status_text: 'Introduced Jan 5. referred; Hearings held (Sept 30, 2026)', events: ev }) !== null);
 }
 
+// 26 Nov 2026: a Federal Register document filed under a tracked rule (it cites the rule's citation) reaches the entry, record facts only
+{
+  const FRK = 'bis-framework-for-ai-diffusion-biden-era-interim-final-rule';
+  const data = loadData(path.join(FX, 'data-2026-10-08')), e0 = data.entries.find((x) => x.key === FRK);
+  if (!e0) { ok('fixture has the AI Diffusion entry', false); } else {
+    e0.identifiers = { external: { federal_register: [{ document_number: '2025-00636', citation: '90 FR 4544' }] } };
+    const doc = { document_number: '2026-23529', title: 'Addressing Remote Access to Advanced Semiconductors', type: 'Rule', publication_date: '2026-10-05', html_url: 'https://www.federalregister.gov/documents/2026/11/19/2026-23529/x', abstract: 'Finally, the IFR formally rescinds the regulations implementing the Biden-era AI Diffusion Rule.' };
+    const raw = JSON.stringify({ id: doc.document_number, document: doc, text: 'This rule rescinds 90 FR 4544.' }, null, 1);
+    const item = { item_id: 'federal_register:2026-23529', source: 'federal_register', entry_key: FRK, source_url: doc.html_url, fetched_at: '2026-10-06T08:00:00Z', raw_path: 'raw/federal_register/2026-23529.json' };
+    const reasons = [{ kind: 'new_action', detail: 'Rule "Addressing Remote Access to Advanced Semiconductors", published 2026-10-05', api_value: doc.title }, { kind: 'status_change', detail: 'rescind wording' }];
+    const run = (d, rs = reasons, rw = raw) => applyTierA({ data: d, diff: { items: [{ item_id: item.item_id, entry_key: FRK, verdict: 'material', reasons: rs }] }, changeset: { items: [item] }, readRaw: () => rw, runId: 'run-x', runDate: '2026-10-06', config: CONFIG });
+    const a = run(data), e = a.data.entries.find((x) => x.key === FRK);
+    ok('FR: the citing document is an event, with its exact title and FR document number', e.events.some((v) => v.date === '2026-10-05' && v.type === 'Introduced / published' && /"Addressing Remote Access to Advanced Semiconductors" \(FR Doc\. 2026-23529\)/.test(v.text)), JSON.stringify(e.events.slice(-1)));
+    ok('FR: the status text names it, without claiming what it does', /the Federal Register published a rule, "Addressing Remote Access to Advanced Semiconductors" \(FR Doc\. 2026-23529\), that refers to this rule\.$/.test(e.status_text) && !/rescind/i.test(e.status_text.slice(e0.status_text.length)), e.status_text);
+    ok('FR: rescind wording lists the entry as needing its reading checked', a.needs_reading.length === 1 && a.needs_reading[0].entry_key === FRK && a.needs_reading[0].document_number === '2026-23529');
+    ok('FR: the usual bookkeeping (changed date, verification, change log)', e.last_changed === '2026-10-06' && e.verification.run_id === 'run-x' && a.log.some((l) => l.entry_key === FRK && l.field === 'status_text') && a.touched.includes(FRK));
+    ok('FR: no news item is written from it (Tier A news is for bill milestones)', !a.data.news.items.some((n) => n.tracker === FRK && n.origin === 'automated' && n.date === '2026-10-05'));
+    ok('FR: the result passes the publish guards', checkPublish({ before: data, after: { ...a.data, relationships: data.relationships }, runDate: '2026-10-06', maxEntries: 15 }).problems.length === 0, JSON.stringify(checkPublish({ before: data, after: { ...a.data, relationships: data.relationships }, runDate: '2026-10-06', maxEntries: 15 }).problems));
+    const again = run(a.data), e2 = again.data.entries.find((x) => x.key === FRK);
+    ok('FR: the same document is never written twice', e2.events.length === e.events.length && e2.status_text === e.status_text && again.skipped.some((s) => /already on the entry/.test(s.why)));
+    const ownRaw = JSON.stringify({ document: { ...doc, document_number: '2025-00636', title: 'Framework for Artificial Intelligence Diffusion' } });
+    const own = run(loadData(path.join(FX, 'data-2026-10-08')).entries ? (() => { const d = loadData(path.join(FX, 'data-2026-10-08')); d.entries.find((x) => x.key === FRK).identifiers = e0.identifiers; return d; })() : data, reasons, ownRaw);
+    ok('FR: the entry\'s own document changes nothing', own.touched.length === 0 && own.needs_reading.length === 0);
+  }
+}
+
 console.log(`publisher: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

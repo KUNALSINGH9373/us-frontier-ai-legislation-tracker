@@ -74,6 +74,13 @@ export function createCongress(http) {
       return all.map(relatedBill);
     },
     async getSummaries({ congress, type, number }) { return (await get(`/bill/${congress}/${type}/${number}/summaries`)).summaries || []; },
+    // The bill's official (long, descriptive) title, "To establish ...". The list's title is often only the short name ("RSI Safety Act of
+    // 2026"), which says nothing about the subject; the screen reads this instead (Nov 2026: H.R. 11157 was screened out on its short name).
+    async getOfficialTitle({ congress, type, number }) {
+      const t = (await get(`/bill/${congress}/${type}/${number}/titles`)).titles || [];
+      const off = t.filter((x) => /^Official Title/i.test(x.titleType || ''));
+      return (off.find((x) => /as Introduced/i.test(x.titleType)) || off[0] || {}).title || null;
+    },
     // Whether any text version with a formatted text has been published yet (one cheap call; the text itself is not fetched).
     async hasText({ congress, type, number }) {
       const versions = (await get(`/bill/${congress}/${type}/${number}/text`)).textVersions || [];

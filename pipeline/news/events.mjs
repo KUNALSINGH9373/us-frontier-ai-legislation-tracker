@@ -18,6 +18,7 @@ import { templateFor, quoteOf } from './templates.mjs';
 import { ownStageCode, billKey, displayNumber, skipsExecutive } from './factsheet.mjs';
 import { upperOf, lowerOf, unicameralBody } from './jurisdictions.mjs';
 import { newsKind } from '../publish/tier-a.mjs';
+import { reviewedOk, itemHash } from './review.mjs';
 import { sourceConfig, structuredSources } from './sources/common.mjs';
 import { guardClass } from './sources/openstates.mjs';
 
@@ -450,7 +451,8 @@ export function renderItem(owner, entry, { at, state = null } = {}) {
 //   - an event in the same equivalence group as a card already on the page (or added this run): merged into that card (review r2 #3);
 //   - an event dated more than maxAgeDays before the run (the backlog when publishing is first switched on): timeline only (review r2 #11).
 // Returns { news, added: [key], updated: [key], merged: [[key, into]], held: [{ key, why }], state (the events with this render's merges) }.
-export function renderNews(news, stateIn, entries, { at, maxAgeDays = 14 } = {}) {
+// requireReview (production, news/run.mjs): a NEW item is added only with a passing independent review of exactly that item (news/review.mjs).
+export function renderNews(news, stateIn, entries, { at, maxAgeDays = 14, requireReview = false } = {}) {
   // merges are made on a copy: the caller keeps them (r.state) only when the render is written
   const state = { ...stateIn, events: JSON.parse(JSON.stringify(stateIn.events)) };
   const byKey = new Map(entries.map((e) => [e.key, e]));
@@ -494,6 +496,11 @@ export function renderNews(news, stateIn, entries, { at, maxAgeDays = 14 } = {})
     if (twin) { held.push({ key: ev.key, why: 'an event card on this entry and date is already on the page' }); continue; }
     const item = renderItem(ev, entry, { at, state });
     if (!item) { held.push({ key: ev.key, why: 'the template needs a fact the record does not give' }); continue; }
+    if (requireReview && !reviewedOk(ev, item)) {
+      const r = ev.review && ev.review.item_hash === itemHash(item) ? ev.review : null;
+      held.push({ key: ev.key, why: r ? `the independent review refused it: ${(r.problems || []).join('; ').slice(0, 200) || 'not confirmed'}` : 'not yet reviewed: waits for an independent review' });
+      continue;
+    }
     out.items.push(item); added.push(ev.key); owners.push(ev);
   }
   // every event card on the page is re-rendered (after merges), in place
@@ -516,7 +523,7 @@ export function markShown(state, keys, at) { for (const k of keys) if (state.eve
 
 // The stop rules for an event render: hand-written and Lane 1 items exactly as before and in order; every automated event item exactly
 // the render of its event; entries untouched; nothing removed.
-export function checkNewsEvents({ before, after, state, entries, at }) {
+export function checkNewsEvents({ before, after, state, entries, at, requireReview = false }) {
   const problems = [];
   const plainB = before.news.items.filter((n) => !n.event_key), plainA = after.news.items.filter((n) => !n.event_key);
   if (JSON.stringify(plainB) !== JSON.stringify(plainA)) problems.push('news items not written by the event model changed');
@@ -529,6 +536,7 @@ export function checkNewsEvents({ before, after, state, entries, at }) {
     if (!visible(ev)) problems.push(`news item ${n.event_key}: event is ${ev.status}, not publishable`);
     const want = renderItem(ev, entry, { at: n.verification.checked_at, state });
     if (JSON.stringify(want) !== JSON.stringify(n)) problems.push(`news item ${n.event_key}: not the render of its event` + (process.env.DBGR ? JSON.stringify([want, n]) : ""));
+    if (requireReview && !keysB.includes(n.event_key) && !reviewedOk(ev, n)) problems.push(`news item ${n.event_key}: added without a passing independent review`);
     if (n.origin !== 'automated' || n.verification.method !== 'official-record') problems.push(`news item ${n.event_key}: not marked automated / official-record`);
     if (!n.links.some((l) => n.evidence.every((e) => e.source_url === l.u))) problems.push(`news item ${n.event_key}: evidence is not from its own linked record`);
   }

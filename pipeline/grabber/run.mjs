@@ -38,6 +38,8 @@ const MAX_TEXT = 1_500_000; // characters of bill text kept
 // listed again (the date filter follows updateDate, which publishing a text need not move), so each run asks up to WAITING_CHECKS of
 // them directly, least recently asked first, and collects the ones that now have a text. One that waited WAITING_DAYS is let go.
 export const WAITING_CHECKS = 10, WAITING_DAYS = 365;
+// A list title that is only a bill's short name, not a descriptive "To ..." / "A bill to ..." / resolution sentence.
+export const isShortName = (t) => !!t && !/^(?:To|A bill to|A joint resolution|A resolution|A concurrent resolution|Expressing|Providing|Making|Recognizing|Supporting|Condemning|Designating|Authorizing|Requesting|Calling|Directing|Requiring|Amending|Honoring|Commemorating|Disapproving|Relating)\b/i.test(String(t).trim());
 
 // entries: v2 entries (to match bills we already track). scope: the screen config. now: Date. llm: the AI intent check (optional).
 // New bills: a title with frontier wording (scope.precise_terms) is a candidate at once; a title with any AI / chip / computing word
@@ -50,6 +52,8 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
   const runId = makeRunId(now);
   const block = structuredClone(state.sources.congress_gov || { last_success: DATA_CUTOFF, cursor: DATA_CUTOFF, hashes: {} }); // a copy: the saved state only changes when the whole run succeeds
   block.hashes = block.hashes || {};
+  block.official_checked = block.official_checked || {}; // bill id -> list hash whose official title was read and screened out
+  const maxOfficialLookups = scope.max_official_title_lookups_per_run ?? 150;
   const from = since || block.cursor || DATA_CUTOFF;
   const to = isoZ(+now - 2 * 60 * 1000); // 2 min margin so a bill updated mid-run is never skipped
   const tracked = new Map(entries.flatMap((e) => ((e.identifiers && e.identifiers.external && e.identifiers.external.congress_gov) || []).map((id) => [id, e.key]))); // a bill id -> the entry that covers it
@@ -106,6 +110,13 @@ export async function runCongress({ http, llm = null, state, entries = [], scope
         } else if (precise(b.title) || screen(b.title)) {
           if (block.hashes[id] === newHash) { stats.unchanged++; }
           else pending.push({ ref, id, b, newHash, precise: precise(b.title) }); // judged after the listing, in one model call
+        } else if (isShortName(b.title) && block.official_checked[id] !== newHash && (stats.official_title_lookups || 0) < maxOfficialLookups) {
+          // only a short name ("RSI Safety Act of 2026") says nothing about the subject: screen the bill's official title instead
+          stats.official_title_lookups = (stats.official_title_lookups || 0) + 1;
+          let off = null;
+          try { off = await congress.getOfficialTitle(ref); } catch (e) { if (e instanceof QuotaExceeded) throw e; if (!(e instanceof HttpError || e instanceof NetworkError)) throw e; log(`official title of ${id} not read: ${String(e.message).slice(0, 80)}`); }
+          if (off && (precise(off) || screen(off))) { stats.found_by_official_title = (stats.found_by_official_title || 0) + 1; pending.push({ ref, id, b: { ...b, title: off }, newHash, precise: precise(off) }); }
+          else { if (off) block.official_checked[id] = newHash; stats.screened_out++; } // a failed read is tried again next run
         } else stats.screened_out++;
         lastProcessed = b.updateDate;
       }
