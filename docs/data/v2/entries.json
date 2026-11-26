@@ -12,8 +12,8 @@
   "short_name": "CA SB 53 (TFAIA)",
   "sponsor_text": "Sen. Scott Wiener (D)",
   "mechanism": "Requires a frontier AI framework and transparency reports. Critical safety incidents must be reported within 15 days, or within 24 hours if there is an imminent risk of death or serious injury. Protects whistleblowers, including through an anonymous reporting channel with monthly updates. Requires a yearly review of the law's definitions and sets up the CalCompute consortium. Overrides local ordinances adopted on or after Jan 1, 2025 that regulate catastrophic risk from frontier models.",
-  "thresholds": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$500M revenue; catastrophic risk = >50 deaths/serious injuries or >$1B damage",
-  "penalties": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation",
+  "thresholds": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$500M revenue; catastrophic risk = >50 deaths/serious injuries or >$1B damage; revenue counted with affiliates, preceding calendar year",
+  "penalties": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation; penalty applies to large frontier developers",
   "status_text": "Signed: Sept 29, 2025 | Effective: Jan 1, 2026 (OES anonymized reporting & annual reviews from Jan 1, 2027)",
   "signed_text": "Sept 29, 2025",
   "effective_text": "Jan 1, 2026 (anonymized reporting by the Office of Emergency Services and yearly reviews from Jan 1, 2027)",
@@ -51,6 +51,11 @@
     "label": "Bill text — leginfo.ca.gov",
     "url": "https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202520260SB53",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill text — leginfo.ca.gov",
@@ -62,13 +67,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-26T00:05:44Z",
+   "run_id": "update-20261126-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-b-53-transparency-in-frontier-ai-act-tfaia",
    "section_name": "Enacted state frontier-developer laws"
@@ -164,21 +171,46 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Requires developers of the largest frontier AI models to publish safety frameworks and transparency reports, report critical incidents, and protect whistleblowers.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-26T00:05:44Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "2180064d20819bd7d70d8e9e023a76316082f2de692634fb39be26e4342fd11d"
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "together with its affiliates collectively had annual gross revenues in excess of five hundred million dollars ($500,000,000) in the preceding calendar year",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   {
+    "field": "penalties",
+    "quote": "A large frontier developer that fails to publish or transmit a compliant document required to be published or transmitted under this chapter",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   },
+   {
+    "field": "penalties",
+    "quote": "shall be recovered in a civil action brought only by the Attorney General",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53"
+   }
+  ],
+  "identifiers": {
+   "session": "2025-2026 Regular Session",
+   "external": {
+    "legiscan": [
+     1904800
+    ]
+   }
+  },
   "thirty_seconds": {
-   "a": "Frontier AI developers training models with more than 10^26 operations; large frontier developers (over $500,000,000 in annual revenue) also must publish a frontier AI framework.",
-   "b": "Publish a transparency report for new models and report critical safety incidents within 15 days, or 24 hours if there is imminent risk of death or serious injury.",
-   "c": "Civil penalty of up to $1,000,000 per violation, recovered in a civil action by the Attorney General. Employees may sue over whistleblower retaliation."
+   "a": "Frontier AI developers, trained with more than 10^26 operations; large frontier developers (over $500,000,000 in annual gross revenues) have extra duties.",
+   "b": "Publish transparency reports and report critical safety incidents within 15 days, or 24 hours if death or serious injury is imminent. Large developers must also publish a frontier AI framework.",
+   "c": "Civil penalty of up to $1,000,000 per violation, recovered in a civil action by the Attorney General."
   },
   "key_facts": {
    "enforced_by": "Attorney General"
   },
-  "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-11T04:34:58.120Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "abe742a2019b8fb3dc4695cb37fdff3fdd312311c686d8df164ae0960f2edc42"
-  }
+  "summary_line": "Requires frontier AI developers to publish transparency reports and report critical safety incidents, requires large ones to publish a safety framework, and protects whistleblowers."
  },
  {
   "id": 2,
@@ -3949,7 +3981,7 @@
   "title": "A.B. 1405 — Artificial intelligence: auditors: registration (Gov. Code §§11549.80–.86)",
   "short_name": "CA AB 1405 (auditor registry)",
   "sponsor_text": "Asm. Rebecca Bauer-Kahan (D); coauthors Sens. McNerney, Rubio, Wiener",
-  "mechanism": "The Government Operations Agency (GovOps) must set up an AI Auditor Registry by Jan 1, 2029. From Jan 1, 2029, no one may offer, sell or conduct a \"covered AI audit\" (an audit of internal controls, processes or systems \"necessary for compliance with state law\") unless registered. Registered auditors disclose the standards they apply (ISO, NIST, AICPA and others) and why they claim their audit is valid. The law sets what a report must contain: scope, results, deficiencies, whether the company followed its own internal safety protocols, limitations and a signed statement. Records are kept 10 years. Independence rules bar auditing one's own work and job-seeking during an audit, and require a 12-month wait before auditing a former employer. Auditor employees get whistleblower protection. GovOps may investigate and remove an auditor from the registry and refer cases to the Attorney General. Licensed CPAs who follow AICPA standards count as compliant. The registration number must appear in all advertising. Fees go to an AI Auditors' Registration Fund.",
+  "mechanism": "The Government Operations Agency (GovOps) must set up an AI Auditor Registry by Jan 1, 2029. From Jan 1, 2029, no one may offer, sell or conduct a \"covered AI audit\" (an audit of internal controls, processes or systems \"necessary for compliance with state law\") unless registered. Registered auditors disclose the standards they apply (ISO, NIST, AICPA and others) and why they claim their audit is valid. The law sets what a report must contain: scope, results, deficiencies, whether the company followed its own internal safety protocols, limitations and a signed statement. Records are kept 10 years. Independence rules bar auditing one's own work and job-seeking during an audit, and require a 12-month wait before auditing a former employer. Auditor employees get whistleblower protection. GovOps may investigate and remove an auditor from the registry (after written notice and a reasonable opportunity to cure or contest) and refer cases to the Attorney General. Licensed CPAs who follow AICPA standards count as compliant. The registration number must appear in all advertising. Fees go to an AI Auditors' Registration Fund.",
   "thresholds": null,
   "penalties": null,
   "status_text": "Passed the Senate Aug 30 (29–10); the Assembly agreed to the Senate changes Aug 30 (60–6). Signed by Gov. Newsom Sept 9, 2026; Chapter 178, Statutes of 2026. Executive Order N-9-26 (para. 2) tells GovOps to finish the work in Gov. Code §11549.82(a) and begin the steps in §11549.82(b) by Dec 1, 2027, ahead of the Jan 1, 2029 date in the law.",
@@ -4018,6 +4050,11 @@
     "label": "Governor's signing release, Sept 9, 2026",
     "url": "https://www.gov.ca.gov/2026/09/09/governor-newsom-signs-first-in-the-nation-ai-safeguards-to-protect-californians-calls-on-the-federal-government-to-do-its-part/",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+    "kind": "primary"
    }
   ],
   "source_label": "Official text, history, and votes — leginfo.ca.gov · Chaptered text — LegiScan · Governor's EO release naming AB 1405 as signed · Executive Order N-9-26 (signed PDF) · Governor's signing release, Sept 9, 2026",
@@ -4030,38 +4067,55 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-26T00:05:44Z",
+   "run_id": "update-20261126-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-a-b-1405-artificial-intelligence-auditors-registration-gov-code-11549-",
    "section_name": "State IVO / AI-auditor licensing measures"
   },
-  "summary_line": "Requires AI auditors to register with a state registry from Jan 1, 2029 before offering, selling, or conducting a covered AI audit, with independence and reporting rules.",
-  "thirty_seconds": {
-   "a": "Anyone who offers, sells, or conducts a covered AI audit, meaning an audit of controls and systems necessary for compliance with state law.",
-   "b": "Register with the AI Auditor Registry from Jan 1, 2029, disclose standards used, follow independence rules, keep records 10 years, and show the registration number in ads.",
-   "c": "The Government Operations Agency may investigate and remove an auditor from the registry, and refer cases to the Attorney General."
-  },
-  "key_facts": {
-   "enforced_by": "Government Operations Agency (GovOps)"
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "e4b0e2a92460ea2d3213a0804f22728a8e922343d94faccd346e36b219ced7e1"
+   "method": "agent",
+   "checked_at": "2026-11-26T00:05:44Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "38e42e9eb419dbc31e6bb5244c276330d2076cba6be0175f5cef3e1d97a1c2b3"
   },
   "more_links": [
    {
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CONS&sectionNum=SEC.%208.&article=IV"
    }
-  ]
+  ],
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "a reasonable opportunity to cure or contest the removal, in a manner prescribed by the agency",
+    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405"
+   }
+  ],
+  "identifiers": {
+   "session": "2025-2026 Regular Session",
+   "external": {
+    "legiscan": [
+     1980302
+    ]
+   }
+  },
+  "summary_line": "Requires auditors of AI systems to register with a state AI Auditor Registry before offering or conducting a covered AI audit, starting Jan 1, 2029.",
+  "key_facts": {
+   "enforced_by": "Government Operations Agency"
+  },
+  "thirty_seconds": {
+   "a": "Anyone who offers, sells or conducts a covered AI audit. Licensed CPAs who follow AICPA standards count as compliant.",
+   "b": "From Jan 1, 2029, be registered before doing a covered AI audit. Disclose standards used, follow report and independence rules, and show the registration number in all advertising.",
+   "c": "The Government Operations Agency may investigate, remove an auditor from the registry after written notice and a chance to cure or contest, and refer cases to the Attorney General."
+  }
  },
  {
   "id": 21,
@@ -11294,7 +11348,7 @@
   "title": "AI OVERWATCH Act (H.R. 6875, Rep. Mast; S. 4456, Sen. Banks with Sen. Warren among 10 cosponsors) and other FY2027 NDAA AI provisions",
   "short_name": "AI OVERWATCH Act / FY27 NDAA",
   "sponsor_text": "H.R. 6875: Rep. Mast; S. 4456: Sen. Banks, with Sen. Warren among 10 cosponsors",
-  "mechanism": "Would require Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval process modelled on arms-sales review. It would codify the licence denial for the most capable chips, whose technical parameters Commerce could revise only after 18 months. For lesser chips, Commerce would have to certify that exports do not divert US supply or foundry capacity or permit unauthorized remote access. It would also call for an \"American AI Victory Strategy.\" Other AI provisions in play in the FY2027 defense bill (NDAA), as listed in an advocacy group's (AIPN) letter to negotiators: House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors) and 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers).",
+  "mechanism": "Would require Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval process modelled on arms-sales review. It would codify the licence denial for the most capable chips, whose technical parameters Commerce could revise only after 18 months. For lesser chips, Commerce would have to certify that exports do not divert US supply or foundry capacity or permit unauthorized remote access. It would also call for an \"American AI Victory Strategy.\" Licenses issued or approved before enactment for such exports to countries of concern would be terminated. Other AI provisions in play in the FY2027 defense bill (NDAA), as listed in an advocacy group's (AIPN) letter to negotiators: House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors) and 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers).",
   "thresholds": "Covered integrated circuits (H.R. 6875): ECCN 3A090 or 4A090, or chips with total processing performance of 4,800 or more; 2,400 or more with performance density of 1.6 or more; 1,600 or more with density of 3.2 or more; or DRAM bandwidth of 1,400 gigabytes per second or more, interconnect 1,100 gigabytes per second or more, or combined 1,700 gigabytes per second; excludes chips not designed or marketed for data centers",
   "penalties": null,
   "status_text": "Date / status: H.R. 6875 introduced Dec 18, 2025 and ordered reported in the nature of a substitute by House Foreign Affairs 42–2 on Jan 21, 2026. S. 4456 introduced Apr 30, 2026. Included in the Senate NDAA manager's package as SA 6575 (submitted July 13, 2026; S. 4784 itself was reported June 15, 2026). Senate NDAA (S. 4784) awaiting floor action after a failed cloture vote July 14. House NDAA (H.R. 8800) passed July 22 and was received in the Senate Sept 14, 2026. As of Oct 31, 2026 the Senate had not passed its NDAA, so there was no conference yet.",
@@ -11394,6 +11448,11 @@
     "label": "H.R. 8800 status — GovInfo",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr8800.xml",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/house-bill/6875/text",
+    "kind": "primary"
    }
   ],
   "source_label": "H.R. 6875 — congress.gov · Sen. Banks release, July 14, 2026 · AIPN conference letter, Aug 31, 2026 · H.R. 8800 status — GovInfo",
@@ -11406,13 +11465,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-26T00:05:44Z",
+   "run_id": "update-20261126-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-ai-overwatch-act-h-r-6875-rep-mast-s-4456-sens-banks-and-warren-and-ot",
    "section_name": "Compute and export controls"
@@ -11426,22 +11487,21 @@
     ]
    }
   },
-  "summary_line": "Would require Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval process.",
-  "key_facts": {
-   "enforced_by": "Commerce"
-  },
-  "display_name": "AI OVERWATCH Act (and other FY2027 NDAA AI provisions)",
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "28873815e53600cabd65bdd7be151253154d707427aec1e48ccd139ec363adf0"
+   "method": "agent",
+   "checked_at": "2026-11-26T00:05:44Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c61cd3823d66009cb13af96c79f99f902d27b9a4c41dc4b0a76eaebe392d36ac"
   },
-  "thirty_seconds": {
-   "a": "Exporters of advanced AI chips to countries of concern, and the Commerce Department, which would license them.",
-   "b": "Would require Commerce licences for these exports, with a 30-day review in which Congress could disapprove, and would codify denial for the most capable chips.",
-   "c": "Pending. It is in the Senate defense bill (NDAA) manager's package, but as of Oct 31, 2026 the Senate had not passed its NDAA, so there was no deal with the House."
-  }
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "a country of concern is terminated.",
+    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/6875/text"
+   }
+  ],
+  "summary_line": "Would require Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review, and codify denial for the most capable chips.",
+  "display_name": "AI OVERWATCH Act"
  },
  {
   "id": 80,

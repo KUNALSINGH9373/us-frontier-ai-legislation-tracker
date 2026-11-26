@@ -1187,6 +1187,80 @@
    "run_id": "update-20261125-0005",
    "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/3447/text",
    "tier": "C"
+  },
+  {
+   "entry_key": "ai-overwatch-act-fy27-ndaa",
+   "field": "mechanism",
+   "old": "Would require Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval process modelled on arms-sales review. It would codify the licence denial for the most capable chips, whose technical parameters Commerce could revise only after 18 months. For lesser chips, Commerce would have to certify that exports do not divert US supply or foundry capacity or permit unauthorized remote access. It would also call for an \"American AI Victory Strategy.\" Other AI provisions in play in the FY2027 defense bill (NDAA), as listed in an advocacy group's (AIPN) letter to negotiators: House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors) and 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers).",
+   "new": "Would require Commerce licences for exports of advanced AI chips to countries of concern, with a 30-day congressional review and disapproval process modelled on arms-sales review. It would codify the licence denial for the most capable chips, whose technical parameters Commerce could revise only after 18 months. For lesser chips, Commerce would have to certify that exports do not divert US supply or foundry capacity or permit unauthorized remote access. It would also call for an \"American AI Victory Strategy.\" Licenses issued or approved before enactment for such exports to countries of concern would be terminated. Other AI provisions in play in the FY2027 defense bill (NDAA), as listed in an advocacy group's (AIPN) letter to negotiators: House Sec. 240 (AGI Preparedness Initiative), House Sec. 1502 (AI Incident and Vulnerability Reporting Program), and Senate Secs. 1634 (insider-threat reporting for large AI contractors) and 1652–1655 (AI bill of materials, human oversight for use of force, biosecurity procurement for covered AI models, secure AI data centers).",
+   "date": "2026-11-26",
+   "run_id": "update-20261126-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/6875/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that licenses already issued or approved for covered chip exports to countries of concern are terminated, per section 1758A(e). Quote: \"a country of concern is terminated.\""
+  },
+  {
+   "entry_key": "ai-overwatch-act-fy27-ndaa",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-26",
+   "run_id": "update-20261126-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/6875/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ca-ab-1405-auditor-registry",
+   "field": "mechanism",
+   "old": "The Government Operations Agency (GovOps) must set up an AI Auditor Registry by Jan 1, 2029. From Jan 1, 2029, no one may offer, sell or conduct a \"covered AI audit\" (an audit of internal controls, processes or systems \"necessary for compliance with state law\") unless registered. Registered auditors disclose the standards they apply (ISO, NIST, AICPA and others) and why they claim their audit is valid. The law sets what a report must contain: scope, results, deficiencies, whether the company followed its own internal safety protocols, limitations and a signed statement. Records are kept 10 years. Independence rules bar auditing one's own work and job-seeking during an audit, and require a 12-month wait before auditing a former employer. Auditor employees get whistleblower protection. GovOps may investigate and remove an auditor from the registry and refer cases to the Attorney General. Licensed CPAs who follow AICPA standards count as compliant. The registration number must appear in all advertising. Fees go to an AI Auditors' Registration Fund.",
+   "new": "The Government Operations Agency (GovOps) must set up an AI Auditor Registry by Jan 1, 2029. From Jan 1, 2029, no one may offer, sell or conduct a \"covered AI audit\" (an audit of internal controls, processes or systems \"necessary for compliance with state law\") unless registered. Registered auditors disclose the standards they apply (ISO, NIST, AICPA and others) and why they claim their audit is valid. The law sets what a report must contain: scope, results, deficiencies, whether the company followed its own internal safety protocols, limitations and a signed statement. Records are kept 10 years. Independence rules bar auditing one's own work and job-seeking during an audit, and require a 12-month wait before auditing a former employer. Auditor employees get whistleblower protection. GovOps may investigate and remove an auditor from the registry (after written notice and a reasonable opportunity to cure or contest) and refer cases to the Attorney General. Licensed CPAs who follow AICPA standards count as compliant. The registration number must appear in all advertising. Fees go to an AI Auditors' Registration Fund.",
+   "date": "2026-11-26",
+   "run_id": "update-20261126-0005",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that before removing an auditor from the registry the agency must give written notice of the basis for removal and a reasonable opportunity to cure or contest it, as SOURCE states in 11549.84(a)(3). Quote: \"a reasonable opportunity to cure or contest the removal, in a manner prescribed by the agency\""
+  },
+  {
+   "entry_key": "ca-ab-1405-auditor-registry",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-26",
+   "run_id": "update-20261126-0005",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260AB1405",
+   "tier": "C"
+  },
+  {
+   "entry_key": "ca-sb-53-tfaia",
+   "field": "thresholds",
+   "old": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$500M revenue; catastrophic risk = >50 deaths/serious injuries or >$1B damage",
+   "new": "10²⁶ ops incl. fine-tuning/RL; \"large frontier developer\" = >$500M revenue; catastrophic risk = >50 deaths/serious injuries or >$1B damage; revenue counted with affiliates, preceding calendar year",
+   "date": "2026-11-26",
+   "run_id": "update-20261126-0005",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+   "tier": "C",
+   "note": "self-correction (omission): The revenue threshold omits that it counts a developer together with its affiliates, measured over the preceding calendar year, which SOURCE states. Quote: \"together with its affiliates collectively had annual gross revenues in excess of five hundred million dollars ($500,000,000) in the preceding calendar year\""
+  },
+  {
+   "entry_key": "ca-sb-53-tfaia",
+   "field": "penalties",
+   "old": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation",
+   "new": "Up to $1M/violation; AG enforcement; no general private right to enforce developer obligations, but employees may sue for whistleblower retaliation; penalty applies to large frontier developers",
+   "date": "2026-11-26",
+   "run_id": "update-20261126-0005",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+   "tier": "C",
+   "note": "self-correction (omission): The $1M civil penalty applies only to large frontier developers, which the entry does not say; SOURCE limits the penalty to them. Quote: \"A large frontier developer that fails to publish or transmit a compliant document required to be published or transmitted under this chapter\""
+  },
+  {
+   "entry_key": "ca-sb-53-tfaia",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-26",
+   "run_id": "update-20261126-0005",
+   "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
+   "tier": "C"
   }
  ]
 }
