@@ -2,13 +2,13 @@
  "measure": "new_bills",
  "method": "simple",
  "set": "test",
- "run_at": "2026-11-26T07:01:46.005Z",
+ "run_at": "2026-11-26T09:52:32.623Z",
  "provider": "anthropic",
  "writer": "claude-sonnet-5-5",
  "reviewer": "claude-opus-5-5",
  "scope_judge": "claude-opus-5-5",
  "scorer": "claude-opus-5-5",
- "checks_hash": "521642b95f0e86b758cdc57443ba49047b125b41a6e835a886d437f9b24979c5",
+ "checks_hash": "e1cf0d1744cb93c7d2daa746af72c36f8bf61c6f27af0f7fb78fdfa9f3cb99d5",
  "partial": true,
  "set_size": 48,
  "gold_sha256": "5c831c3bdaa6901bfc00e71066bef61787500f3389219c66d091988c3640ca31",
@@ -24,61 +24,92 @@
   "scope_errors": 0,
   "missed": 0,
   "wrong": 0,
-  "misleading": 6,
+  "misleading": 4,
   "omission": 6,
-  "misleading_per_published": 1.2,
+  "misleading_per_published": 0.8,
   "publish_rate": 1
  },
  "usage": {
-  "calls": 35,
-  "input_tokens": 1111744,
-  "output_tokens": 309998,
-  "total_tokens": 1421742,
+  "calls": 36,
+  "input_tokens": 1175316,
+  "output_tokens": 340232,
+  "total_tokens": 1515548,
   "by_role": {
    "writer": {
     "calls": 15,
-    "input": 553794,
-    "output": 289984,
-    "cost": 4.007427999999999
+    "input": 558323,
+    "output": 318976,
+    "cost": 4.306406
    },
    "scope_judge": {
     "calls": 6,
-    "input": 101972,
-    "output": 3895,
-    "cost": 0.48578800000000005
+    "input": 101973,
+    "output": 3932,
+    "cost": 0.486532
    },
    "bill_reviewer": {
-    "calls": 9,
-    "input": 295707,
-    "output": 12902,
-    "cost": 1.4408679999999998
+    "calls": 10,
+    "input": 346978,
+    "output": 15043,
+    "cost": 1.6887720000000002
    },
    "scorer": {
     "calls": 5,
-    "input": 160271,
-    "output": 3217,
-    "cost": 0.705424
+    "input": 168042,
+    "output": 2281,
+    "cost": 0.717788
    }
   },
   "by_model": {
    "claude-sonnet-5-5": {
     "calls": 15,
-    "input": 553794,
-    "output": 289984,
-    "cost": 4.007427999999999
+    "input": 558323,
+    "output": 318976,
+    "cost": 4.306406
    },
    "claude-opus-5-5": {
-    "calls": 20,
-    "input": 557950,
-    "output": 20014,
-    "cost": 2.6320799999999993
+    "calls": 21,
+    "input": 616993,
+    "output": 21256,
+    "cost": 2.8930919999999998
    }
   },
-  "estimated_cost_usd": 6.639508
+  "estimated_cost_usd": 7.199498
  },
  "items": [
   {
    "key": "ca-sb-53-tfaia",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 1,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.requires.text",
+     "bill_quote": "A large frontier developer shall transmit to the Office of Emergency Services a summary of any assessment of catastrophic risk resulting from internal use of its frontier models",
+     "problem": "The box summary of duties leaves out the quarterly internal-use risk summaries that large frontier developers must send to the Office of Emergency Services. It also leaves out the 24-hour imminent-risk disclosure. 'Among other duties' signals that the list is incomplete but does not tell readers about these notable duties."
+    },
+    {
+     "severity": "OMISSION",
+     "where": "other_provisions",
+     "bill_quote": "Notwithstanding Section 916 of the Code of Civil Procedure, injunctive relief granted pursuant to this section shall not be stayed pending appeal.",
+     "problem": "The entry leaves out the whistleblower enforcement provisions that injunctive relief is not stayed pending appeal and that remedies are cumulative (§1107.1(i), (j))."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "il-sb-315-p-a-104-0538",
    "gold_in_scope": true,
    "decision": "publish",
    "published": true,
@@ -93,46 +124,15 @@
    "findings": [
     {
      "severity": "MISLEADING",
-     "where": "rows.whistleblower.items",
-     "bill_quote": "(A) Except as provided in subparagraph (B), the disclosures and responses of the process required by this subdivision shall be shared with officers and directors of the large frontier developer at least once each quarter.",
-     "problem": "The whistleblower row lists u24 through u27 but leaves out u28, the large frontier developer's duty to share disclosures and responses with officers and directors each quarter. A reader of the row would think it lists every whistleblower duty."
+     "where": "box.requires.text",
+     "bill_quote": "Before, or concurrently with, deploying a new frontier model or a substantially modified version of an existing frontier model, a frontier developer shall clearly and conspicuously publish on its website a transparency report",
+     "problem": "The box lists the framework, audit, incident-reporting and whistleblower duties and covers the rest with 'among other duties'. It leaves out the transparency report that every frontier developer must publish at deployment. It also leaves out the large-developer disclosure statement and fee that begin in 2027, so the summary hides core duties."
     },
     {
      "severity": "MISLEADING",
-     "where": "rows.incident_reporting.items",
-     "bill_quote": "(1) A frontier developer that intends to comply with this section by complying with the requirements of, or meeting the standards stated by, a federal law, regulation, or guidance document designated pursuant to subdivision (h) shall declare its intent to do so to the Office of Emergency Services.",
-     "problem": "The incident-reporting row omits the federal-equivalence route in u20 and o9. Under that route a developer that declares its intent is deemed in compliance by meeting the designated federal standards. The row reads as if the 15-day report to the Office of Emergency Services is the only path."
-    }
-   ],
-   "reason": null,
-   "writer_calls": 2,
-   "reviews": 1
-  },
-  {
-   "key": "il-sb-315-p-a-104-0538",
-   "gold_in_scope": true,
-   "decision": "publish",
-   "published": true,
-   "facts_only": false,
-   "scope_error": null,
-   "error": false,
-   "no_text": false,
-   "wrong": 0,
-   "misleading": 0,
-   "omission": 2,
-   "dropped_findings": 0,
-   "findings": [
-    {
-     "severity": "OMISSION",
-     "where": "duties / whistleblower row",
-     "bill_quote": "(e) An employer may not take retaliatory action against an employee for disclosing or threatening to disclose in good faith any violation of the Artificial Intelligence Safety Measures Act.",
-     "problem": "The entry leaves out the Sec. 90 amendment to the Whistleblower Act. That amendment protects any employee, not only covered employees, who discloses violations of the Act. Without it, a reader would think only covered employees are protected."
-    },
-    {
-     "severity": "OMISSION",
-     "where": "other_provisions / Sec. 10(c)(4)",
-     "bill_quote": "A frontier developer that publishes the information described in paragraph (1) or (2) as part of a larger document, including a system card or model card, shall be deemed in compliance with the applicable paragraph.",
-     "problem": "The entry omits the safe harbour that deems a developer compliant if it publishes the transparency report inside a system card or model card."
+     "where": "box.enforcement.text",
+     "bill_quote": "(B) the failure by a frontier developer to meet the standards of, or comply with the requirements stated by, the federal law, regulation, or guidance document designated pursuant to subsection (a) shall constitute a violation of this Act.",
+     "problem": "The box says the Section 25 penalty 'applies to large frontier developers only', which is accurate. It does not mention that the duties on smaller frontier developers have no penalty attached in the Act. A reader could assume those duties are enforced in the same way."
     }
    ],
    "reason": null,
@@ -149,27 +149,21 @@
    "error": false,
    "no_text": false,
    "wrong": 0,
-   "misleading": 1,
+   "misleading": 0,
    "omission": 2,
    "dropped_findings": 0,
    "findings": [
     {
-     "severity": "MISLEADING",
-     "where": "box.requires",
-     "bill_quote": "A large frontier developer shall engage at least 1 third party to conduct an independent evaluation of the developer’s frontier models with respect to each category of catastrophic risk.",
-     "problem": "The box names the annual audit but hides the separate independent catastrophic-risk evaluation required at least every 120 days. It also hides the risk report renewed every 180 days, folding both into 'among other duties'. These are central duties of the bill."
+     "severity": "OMISSION",
+     "where": "duties / other_provisions",
+     "bill_quote": "provided, however, that failure by a frontier developer to meet the standards of, or comply with the requirements stated by, the federal law, regulation or guidance document designated pursuant to subsection (h) shall constitute a violation of this chapter.",
+     "problem": "The entry covers only the declaration step of the federal-equivalence safe harbor in Section 3(i)(1). It leaves out the deemed-compliance effect, the rule that failing the designated federal standard is itself a violation, and the attorney general's duty to designate (3(h)) and revoke (3(j)) such federal laws by regulation."
     },
     {
      "severity": "OMISSION",
      "where": "duties",
-     "bill_quote": "(b) A frontier developer shall not: (i) enter into a contract that prevents a covered employee from making a disclosure protected under this chapter; or (ii) discriminate against any person that has made a disclosure under this chapter.",
-     "problem": "Section 7(b), the ban on contracts and on discrimination, is not listed."
-    },
-    {
-     "severity": "OMISSION",
-     "where": "effective",
-     "bill_quote": "The third party shall publish a public version of its report not later than 30 days after delivering the report to the large frontier developer and the large frontier developer shall conspicuously publish a link to the report on its internet website.",
-     "problem": "The duty to publish the evaluation report and post a link to it (Section 3A(b)(4)) is omitted from the duties."
+     "bill_quote": "(1) The third party shall be granted access to all materials reasonably necessary to comply with the third party’s obligations under this section, including, but not limited to, all unredacted versions of materials published pursuant to this chapter.",
+     "problem": "The entry omits the third party's right of access to unredacted materials and, for evaluators, to the most capable frontier models and reasonable answers to their questions (3A(b)(3)). It also omits the 3A(a)(3) duty to retain the unredacted audit report for the deployment period plus 5 years."
     }
    ],
    "reason": null,
@@ -186,27 +180,21 @@
    "error": false,
    "no_text": false,
    "wrong": 0,
-   "misleading": 2,
+   "misleading": 1,
    "omission": 1,
    "dropped_findings": 0,
    "findings": [
     {
-     "severity": "MISLEADING",
-     "where": "box.effective / rows.effective_date",
-     "bill_quote": "(2) A large developer shall not knowingly make false or materially misleading statements or omissions in or regarding documents produced in accordance with this section.",
-     "problem": "The entry says 'Section 7 and section 9 duties begin January 1, 2026'. Only Sec. 7(1) and 9(1) carry that start date. Sec. 7(2)-(4) and Sec. 9(2)-(4) state no date."
-    },
-    {
      "severity": "OMISSION",
-     "where": "other_provisions",
-     "bill_quote": "(9) This section does not invalidate or limit any protection afforded to an employee or any obligation imposed on an employer, including an employer that is a large developer, under the whistleblowers' protection act, 1980 PA 469, MCL 15.361 to 15.369.",
-     "problem": "The entry leaves out the savings and non-preemption clauses in Sec. 11(8) and 11(9), which preserve the state whistleblowers' protection act and collective bargaining rights."
+     "where": "penalties / p5 conditions",
+     "bill_quote": "(4) A civil action commenced under\nsubsection (2) may be brought in the circuit court for the county where the\nalleged violation occurred",
+     "problem": "The entry leaves out the venue provision for employee civil actions in Sec. 11(4)."
     },
     {
      "severity": "MISLEADING",
-     "where": "box.enforcement",
-     "bill_quote": "A large developer that violates this section is subject to a civil fine of not more than $500.00.",
-     "problem": "The box lists the $500 section 11 fine under 'the attorney general, by civil action', which implies the AG enforces it. The bill names no enforcer for this fine. The box also leaves out the AG's separate injunction power for imminent critical risk under Sec. 13(3)."
+     "where": "other_provisions o2 quote",
+     "bill_quote": "(8) This section does not\ndiminish or impair the rights of a person under any collective bargaining",
+     "problem": "The o2 quote is not character-for-character accurate: the line break in the bill falls after \"does not\", but the entry breaks after \"does\"."
     }
    ],
    "reason": null,
@@ -223,25 +211,25 @@
    "error": false,
    "no_text": false,
    "wrong": 0,
-   "misleading": 1,
-   "omission": 1,
+   "misleading": 0,
+   "omission": 2,
    "dropped_findings": 0,
    "findings": [
     {
      "severity": "OMISSION",
-     "where": "duties",
-     "bill_quote": "(iii) frontier developers who comply with subdivision three of this section by meeting such federal standards shall send copies of any critical safety incident reports required by such federal standards to the office concurrently with sending them to federal authorities.",
-     "problem": "The entry omits the federal-pathway duties in § 1422(9)(b). These are the duty to send the office copies of federal incident reports at the same time as they go to federal authorities, and the rule that failing to meet the designated federal standard is itself a violation of the article."
+     "where": "duties / rows.framework",
+     "bill_quote": "(j) assessing and managing catastrophic risk resulting from the internal use of its frontier models, including risks resulting from a frontier model circumventing oversight mechanisms.",
+     "problem": "The entry never lists the ten required contents of the framework (items (a)-(j)), such as third-party assessment, cybersecurity of model weights and internal-use risk. It only says \"all of the listed matters\" without naming them."
     },
     {
-     "severity": "MISLEADING",
-     "where": "box.enforcement",
-     "bill_quote": "5. If any person develops, deploys, or operates a large frontier model in part in New York state without a current disclosure filed with the office as required by this section, submits false information in its disclosure or fails to timely pay any assessment",
-     "problem": "The box calls the office's penalty one thousand dollars per day for 'disclosure failures'. It leaves out that § 1428(5)(b) also lets the office levy an amount equal to unpaid assessments, and that the penalties also cover submitting false information."
+     "severity": "OMISSION",
+     "where": "duties",
+     "bill_quote": "(a) When a frontier developer publishes documents to comply with this section, such frontier developer may make redactions to such documents that are necessary to protect such frontier developer's trade secrets",
+     "problem": "The redaction permission in § 1421(5)(a) and the model-card deemed-compliance rule in § 1421(3)(c) are both left out; the entry covers only the duty to describe redactions."
     }
    ],
    "reason": null,
-   "writer_calls": 4,
+   "writer_calls": 3,
    "reviews": 2
   }
  ]
