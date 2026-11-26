@@ -1,6 +1,7 @@
 // Run:  node news/test-open-leads.mjs
 // Every news lead ends resolved (covered, rejected with a reason, or expired after being raised); a lead left open is raised (26 Nov 2026).
-import { updateOpenLeads, coveredBy, ALERT_RUNS } from './open-leads.mjs';
+import { updateOpenLeads, coveredBy, ALERT_RUNS, siteNear } from './open-leads.mjs';
+import fsx from 'fs';
 
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
@@ -55,5 +56,27 @@ const reader = (fn) => ({ generate: async ({ prompt }) => ({ data: { items: fn(p
   await updateOpenLeads({ register: null, fresh: [lead('f')], news, entries, today: '2026-11-20', screener: lazy });
   ok('a lead to judge: the reader is made once', made === 1);
 }
+
+// ---------- completeness-check leads the site already has (26 Nov 2026: 4 of 6 alerts were already on the site) ----------
+{
+  const live = (f) => JSON.parse(fsx.readFileSync(new URL('../fixtures/live-2026-11-26/' + f + '.json', import.meta.url), 'utf8'));
+  const entries = live('entries'), news = live('news');
+  const ca = { key: 'aud1', title: 'California AG sues OpenAI over undisclosed agent incidents', link: 'https://companyscope.io/register/air-2026-025', publisher: 'weekly completeness check', date: '2026-11-16', from_audit: true };
+  const far = { key: 'aud2', title: 'Something on a quiet day', link: 'https://example.org/x', publisher: 'weekly completeness check', date: '2026-07-04', from_audit: true };
+  const near = siteNear(ca, { news, entries });
+  ok('the reader sees only site items dated within 5 days of the lead', near.some((c) => c.id === 'entry:california-ag-v-openai-agent-cyberattacks') && near.length <= 40);
+  const reader = (answer) => ({ calls: 0, async generate() { this.calls++; return { data: { items: answer } }; } });
+  const r1 = await updateOpenLeads({ register: { items: {} }, fresh: [ca, far], news, entries, today: '2026-11-26', screener: reader([{ key: 'aud1', covered_by: 'entry:california-ag-v-openai-agent-cyberattacks', why: 'the same lawsuit' }, { key: 'aud2', covered_by: '', why: 'none' }]) });
+  ok('a lead the site already has is resolved as covered, with the item named', r1.resolved.some((x) => x.key === 'aud1' && x.outcome === 'covered' && /california-ag-v-openai/.test(x.why)) && !r1.alerts.some((l) => l.key === 'aud1'), JSON.stringify(r1.resolved));
+  ok('a lead nothing covers stays raised', r1.alerts.some((l) => l.key === 'aud2'));
+  const r2 = await updateOpenLeads({ register: { items: {} }, fresh: [ca], news, entries, today: '2026-11-26', screener: reader([{ key: 'aud1', covered_by: 'entry:made-up-entry', why: 'x' }]) });
+  ok('a name not in the shown list never counts', r2.alerts.some((l) => l.key === 'aud1') && !r2.resolved.length);
+  const rd = reader([]);
+  const r3 = await updateOpenLeads({ register: r2.register, fresh: [], news, entries, today: '2026-11-27', screener: rd });
+  ok('checked again only after 3 days', rd.calls === 0 && r3.alerts.some((l) => l.key === 'aud1'));
+  const r4 = await updateOpenLeads({ register: { items: {} }, fresh: [ca], news, entries, today: '2026-11-26', screener: null });
+  ok('no AI: the lead stays raised (never assumed covered)', r4.alerts.some((l) => l.key === 'aud1'));
+}
+
 console.log(`open leads: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

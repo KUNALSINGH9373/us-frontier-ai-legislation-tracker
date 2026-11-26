@@ -1,6 +1,11 @@
-# web/ — the new front end (v2 UI, v1 data)
+# web/ — the site's front end
 
-The redesigned interface (from the Claude Design prototype, `Design1`) showing exactly the data of the current site (v1). It is independent of the current site in `docs/` and `build/`.
+The site page of US Frontier Law (https://usfrontierlaw.com). It reads the v2 data in `data/v2/` (`entries.json`, `news.json`,
+`relationships.json`, `site.json`, `content.json`, `status.json`), which the pipeline (`pipeline/`) writes every 4 hours.
+GitHub Pages serves `docs/` from `main`: `docs/index.html` is a copy of `Tracker.dc.html` (identical on 26 Nov 2026), with
+`tracker-lib.js`, `viz-lib.js`, `support.js`, fonts and logo beside it, and `docs/data/v2/` a byte-for-byte copy of
+`web/data/v2/` (the pipeline writes both). After changing the page, copy it to `docs/` (`docs/index.html` and the scripts it
+loads). `scripts/publish-site.mjs` rebuilds the whole of `docs/` (it also rebuilds the frozen v1 site under `docs/v1/`).
 
 ## Run locally
 
@@ -12,9 +17,17 @@ python -m http.server 8768
 
 Then open http://127.0.0.1:8768/Tracker.dc.html (the page must be served over http; opening the file directly will not load the data).
 
-## Refresh the data from v1
+## Data
 
-Data is generated from v1's own sources, from the repository root:
+The live data is `data/v2/`, written only by the pipeline or by a checked data-edit script (see `pipeline/README.md`,
+"How to add things"). Never edit it by hand without the schema, integrity and site checks. Every pull request runs
+`scripts/site-check.mjs` against the data before the change (`.github/workflows/check.yml`).
+
+## Historical: the v1 data (frozen)
+
+v1 (`tracker.md`, `build/`) is frozen since 15 Oct 2026. `data/entries.json`, `news.json`, `relationships.json` and
+`events.json` in this folder are the old v1-derived files; the page reads them only when opened with `?data=v1` (a comparison mode); the live site uses `data/v2/`. They were made from
+the repository root with:
 
 ```bash
 npm run build            # v1 build: writes docs/tracker-table.csv
@@ -27,7 +40,7 @@ node web/scripts/build-data.mjs
 
 ## What is hardcoded for now
 
-The entry ids are referenced by `tracker-lib.js` (state overrides, replay milestones, the comparison matrix `K_IDS/K_ROWS`) and the headline numbers are typed in. Both go away in the dynamic-data phase.
+In v1 mode the entry ids are referenced by `tracker-lib.js` (state overrides, replay milestones, the comparison matrix `K_IDS/K_ROWS`). In v2 these come from `site.json` and the entries (`buildV2`).
 
 ## Switches
 
@@ -45,7 +58,8 @@ The design-rationale and design-system pages, the RSS feed and the email signup 
 | `support.js` | Component runtime used by the prototype |
 | `tracker-lib.js` | Data model and derivations (status, dates, search, map tiles) |
 | `viz-lib.js` | Views built from data: lifecycle lanes (Timeline), the relationship canvas (Insights → Bill relations), the full comparison table + CSV (Insights → Table), and the v1 reference text (Handbook, About, Methodology, Compare) rendered from `content.json` |
-| `data/` | Generated data (see above) |
+| `data/v2/` | The live site data, written by the pipeline |
+| `data/*.json` | Old v1-derived data (`?data=v1` only) |
 | `fonts/` | Plus Jakarta Sans and Source Serif 4 (headings), latin and latin-ext WOFF2 subsets |
 | `downloads/` | v1's handbook (PDF, Markdown) and tracker Markdown, copied by `scripts/sync-v2.mjs` |
 | `scripts/build-data.mjs` | Data generator and verifier |

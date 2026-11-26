@@ -148,7 +148,7 @@ function scriptedValidator(answerFor) {
 
 // ---------- 6. the self-correction reader re-checks a long bill instead of skipping it ----------
 {
-  const entry = J(path.join(here, '..', '..', 'web', 'data', 'v2', 'entries.json')).find((e) => e.key === 'ma-h-5576-s-3178');
+  const entry = J(path.join(here, '..', 'fixtures', 'live-2026-11-26', 'entries.json')).find((e) => e.key === 'ma-h-5576-s-3178');
   const scripted = (fn) => ({ calls: [], async generate(req) { this.calls.push(req); return { data: asSlots(fn(req)), usage: {} }; } });
   const Q = 'to the attorney general within 15 days of discovering the critical safety incident';
   const omitted = 'There shall be within the division of highways an automated road safety'; // in the bill, not in the selection

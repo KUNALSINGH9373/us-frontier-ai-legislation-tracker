@@ -18,7 +18,7 @@ import { PIPELINE } from '../agents/pipeline-config.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url)), P = path.resolve(here, '..');
 
 export const FIELD_SWITCHES = ['mechanism', 'thresholds', 'penalties'];
-const MEASURED = { new_entries: 'tierb', relationships: 'links', news: 'news', page_fields: 'page_fields', press: 'press' };
+const MEASURED = { new_entries: 'tierb', relationships: 'links', news: 'news', page_fields: 'page_fields', press: 'press', lawsuits: 'lawsuits', press_news: 'press_news' };
 export const HOW = [
   'cd pipeline',
   'node eval/fetch-texts.mjs && node eval/run.mjs --provider anthropic      # field eval (whole test set, production models; paid)',
@@ -29,6 +29,8 @@ export const HOW = [
   'node eval/news-set.mjs                                                   # news event set (code only, real records replayed)',
   'node eval/news-writer-set.mjs                                            # news card writer (recorded answers + synthetic bad cards)',
   'node eval/pagefields-set.mjs --write                                     # entry page fields (reviewed drafts + planted faults; code only)',
+  'node eval/press-news-set.mjs --write                                    # press-based news (production grouper, writer, reviewer + scorer; paid)',
+  'node eval/lawsuits-set.mjs --write                                      # lawsuits (production writer + reviewer on real releases; paid)',
   'node eval/press-set.mjs --write                                          # in the press (planted faults + recorded reviewer answers; code only)',
   'node eval/gate.mjs'
 ];
@@ -136,6 +138,22 @@ export function gate({ config, models, reports = [], goldItems, measures = [], h
     const pr = measured('press', 'press'), zero = zeroOf('press');
     fields.press = { on: !!auto.press, meets: zero(pr), report: pr ? pr.run_at : null, note: !pr ? 'no press report made by the current code (eval/press-set.mjs)' : zero(pr) ? null : !complete(pr, 'press') ? incomplete(pr, 'press') : `the press set has ${pr.wrong} wrong of ${pr.cases}` };
   }
+  if ('lawsuits' in auto) {
+    // lawsuits (owner, 26 Nov 2026): the lawsuit set (eval/lawsuits-set.mjs: production writer and reviewer on real releases), the whole set,
+    // by the current code and the production models, at zero wrong and zero errors, with at least one case published
+    const prodW = roleModel(models, 'writer'), prodR = roleModel(models, 'bill_reviewer');
+    const lr = (measures || []).filter((r) => r && r.measure === 'lawsuits' && hashOk(r, 'lawsuits') && r.writer === prodW && r.reviewer === prodR).sort((a, b) => String(a.run_at).localeCompare(String(b.run_at))).pop() || null;
+    const ok = !!lr && complete(lr, 'lawsuits') && lr.wrong === 0 && lr.errors === 0 && lr.published > 0;
+    fields.lawsuits = { on: !!auto.lawsuits, meets: ok, report: lr ? lr.run_at : null, note: !lr ? 'no lawsuit report for the production writer and reviewer made by the current code (eval/lawsuits-set.mjs --write)' : ok ? null : !complete(lr, 'lawsuits') ? `the lawsuit report covers ${lr.cases} case(s), not the whole set` : `the lawsuit set has ${lr.wrong} wrong, ${lr.errors} error(s), ${lr.published} published` };
+  }
+  if ('press_news' in auto) {
+    // press-based news (owner, 26 Nov 2026): eval/press-news-set.mjs over the whole set by the current code and the production grouper,
+    // writer and reviewer, at zero wrong and zero errors, with at least one item published
+    const want = { grouper: roleModel(models, 'validator'), writer: roleModel(models, 'generator'), reviewer: roleModel(models, 'bill_reviewer') };
+    const pr = (measures || []).filter((r) => r && r.measure === 'press_news' && hashOk(r, 'press_news') && r.grouper === want.grouper && r.writer === want.writer && r.reviewer === want.reviewer).sort((a, b) => String(a.run_at).localeCompare(String(b.run_at))).pop() || null;
+    const ok = !!pr && complete(pr, 'press_news') && pr.wrong === 0 && pr.errors === 0 && pr.published > 0;
+    fields.press_news = { on: !!auto.press_news, meets: ok, report: pr ? pr.run_at : null, note: !pr ? 'no press-based news report for the production models made by the current code (eval/press-news-set.mjs --write)' : ok ? null : !complete(pr, 'press_news') ? `the press-based news report covers ${pr.cases} case(s), not the whole set` : `the press-based news set has ${pr.wrong} wrong, ${pr.errors} error(s), ${pr.published} published` };
+  }
   // An owner's override (config/publish.json gate_override.<switch>: { by, date, reason }): the switch counts as meeting its bar without a
   // passing report, by the owner's explicit decision. It is never silent: the field says "on by owner override" with who, when and why,
   // and update.mjs puts that in every run report. Every other check of the entries themselves still runs. Remove it to restore the gate.
@@ -174,7 +192,7 @@ export function readGateInputs(dir = path.join(here, 'reports'), goldFile = path
     const setSize = (f) => { const s = read(f); if (!s || !Array.isArray(s.cases)) throw new Error(`${path.basename(path.dirname(f))}/cases.json has no cases list`); return s.cases.length; };
     // The unseen set lives outside the repo; its size and fingerprints are pinned here, so only a run over exactly that set counts.
     const sets = fs.existsSync(path.join(P, 'config', 'eval-sets.json')) ? read(path.join(P, 'config', 'eval-sets.json')) : {};
-    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), news_writer: setSize(path.join(here, 'news-writer-set', 'cases.json')), page_fields: fs.existsSync(path.join(here, 'pagefields-set', 'cases.json')) ? setSize(path.join(here, 'pagefields-set', 'cases.json')) : null, press: fs.existsSync(path.join(here, 'press-set', 'cases.json')) ? setSize(path.join(here, 'press-set', 'cases.json')) : null, links: null, unseen: sets.unseen || null };
+    const expected = { tierb: setSize(path.join(here, 'tierb-set', 'cases.json')), news: setSize(path.join(here, 'news-set', 'cases.json')), news_writer: setSize(path.join(here, 'news-writer-set', 'cases.json')), page_fields: fs.existsSync(path.join(here, 'pagefields-set', 'cases.json')) ? setSize(path.join(here, 'pagefields-set', 'cases.json')) : null, press_news: fs.existsSync(path.join(here, 'press-news-set', 'cases.json')) ? setSize(path.join(here, 'press-news-set', 'cases.json')) : null, lawsuits: fs.existsSync(path.join(here, 'lawsuits-set', 'cases.json')) ? setSize(path.join(here, 'lawsuits-set', 'cases.json')) : null, press: fs.existsSync(path.join(here, 'press-set', 'cases.json')) ? setSize(path.join(here, 'press-set', 'cases.json')) : null, links: null, unseen: sets.unseen || null };
     return { expected, reports: all.filter((r) => !r.measure || r.measure === 'fields'), measures: all.filter((r) => r.measure && r.measure !== 'fields'), goldItems: gold.items.length, hashes: currentHashes() };
   } catch (e) { return { reports: [], measures: [], goldItems: 0, hashes: null, error: String(e.message || e).slice(0, 200) }; }
 }

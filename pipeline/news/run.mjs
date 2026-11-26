@@ -37,6 +37,8 @@ import * as congressExtra from './sources/congress_extra.mjs';
 import * as nist from './sources/nist.mjs';
 import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
+import * as njAg from './sources/nj_ag.mjs';
+import * as waAg from './sources/wa_ag.mjs';
 import { defaultHttp, sourceConfig, structuredSources, NEWS_FETCH_TIMEOUT_MS, NEWS_TIMING, redact } from './sources/common.mjs';
 import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
 import { daysBefore } from './text.mjs';
@@ -147,7 +149,10 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
       if (r && r.timedOut) { why = why || 'time budget reached'; r = { items: [], health: { ok: true, count: 0, newest: null, errors: [] }, fetched: [] }; }
       if (why) {
         r.health = { ...(r.health || {}), truncated: true, ok: why !== '3 consecutive errors' && (r.health ? r.health.ok !== false || (r.health.errors || []).every((x) => /not read this run|request cap/.test(x)) : true), errors: [...((r.health && r.health.errors) || []).filter((x) => !/not read this run/.test(x)).slice(0, 5), `stopped: ${why}`] };
-        if (why === 'time budget reached' && clock() >= deadline) outOfTime = true; // its own share used up: the next source still runs
+        // Out of time when this adapter's share ran to the shared deadline. Decided from the deadlines, not by reading the clock again: a timer
+        // can fire a fraction of a millisecond before the clock reaches its time (26 Nov 2026: on the CI runner the next adapter then ran past
+        // the budget). Its own share used up before the shared deadline: the next source still runs.
+        if (why === 'time budget reached' && (mine >= deadline || clock() >= deadline)) outOfTime = true;
       }
     } else {
       try { r = await mod.fetchItems(args); } catch (e) { r = { items: [], health: { ok: false, count: 0, newest: null, errors: [String(e.message || e)] }, fetched: [] }; }
@@ -170,7 +175,7 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
 // Order and share of the time budget: config/news-sources.json run.order and run.budget_share. The quick sources first, each with a
 // quarter of the budget at most; NY Senate (half) and Open States (paced to Plural's free-tier rate, several minutes; what is left) last, so a
 // slow source can never starve the others (local live run, 30 Oct 2026: Open States used it all and nothing after it was read).
-const ADAPTER_MODULES = { federal_register: federalRegister, whitehouse, govinfo, regulations_gov: regulationsGov, congress_extra: congressExtra, nist, cbo, ca_ag: caAg, nysenate, openstates };
+const ADAPTER_MODULES = { federal_register: federalRegister, whitehouse, govinfo, regulations_gov: regulationsGov, congress_extra: congressExtra, nist, cbo, ca_ag: caAg, nj_ag: njAg, wa_ag: waAg, nysenate, openstates };
 const orderOf = (n) => (sourceConfig(n).run || {}).order ?? Infinity;
 export const EXTRA_ADAPTERS = Object.entries(ADAPTER_MODULES).sort((a, b) => orderOf(a[0]) - orderOf(b[0]));
 
@@ -290,7 +295,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, ope
       if (!attached) rep.leads.push({ title: l.title, publisher: l.publisher, link: l.link, date: l.date, primary: l.primary, tracker: l.tracker, note: l.primary ? 'official release: no official event it could attach to (shown only as a statement on an event)' : 'press report: never published; a pointer only' });
       mark[l.key] = { first_seen: today, outcome: attached ? 'statement' : 'lead', title: l.title };
     }
-    openFresh.push(...found.leads.filter((l) => !(l.primary && attachedUrls.has(canonicalUrl(l.release_url)))).map((l) => ({ key: l.key, title: l.title, link: l.link, publisher: l.publisher, date: l.date, request_flag: !!l.request_flag })));
+    openFresh.push(...found.leads.filter((l) => !(l.primary && attachedUrls.has(canonicalUrl(l.release_url)))).map((l) => ({ key: l.key, title: l.title, link: l.link, publisher: l.publisher, date: l.date, request_flag: !!l.request_flag, primary: !!l.primary, summary: String(l.summary || '').slice(0, 600) })));
     rep.requests = rd.used();
   }
   // every unattached lead (official statement or press) joins the open-leads register until it is covered, rejected with a reason, or

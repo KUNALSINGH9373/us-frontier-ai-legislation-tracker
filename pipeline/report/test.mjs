@@ -181,6 +181,22 @@ ok('a dry run is labelled and says it saves nothing', /dry run, nothing saved/.t
   ok('a rule a new FR document may change is a Watch warning, named', /⚠️ 1 tracked rule or order may have changed: a new Federal Register document uses revoke \/ amend \/ rescind wording about AI Diffusion Rule \(FR Doc\. 2026-23529\)/.test(t), t);
 }
 
+// Tier A disagreements (publish/tier-a.mjs: a date the record gives differently, a cosponsor total that fell) are a Watch warning (26 Nov 2026:
+// they were returned by Tier A but no report showed them)
+{
+  const tierA = { applied: [], skipped: [], log: [], disagreements: [
+    { entry_key: 'ca-sb-813-ivos', date: '2026-09-08', said: '2026-09-01', text: 'Enrolled and presented to the Governor at 4 p.m.', source_url: 'https://leginfo.legislature.ca.gov/x' },
+    { entry_key: 'h-r-9917-ai-kill-switch-act', field: 'cosponsors', said: 12, record: 11, source_url: 'https://www.congress.gov/x' }] };
+  const pe = publishEntry({ status: 'published', result: tierA });
+  ok('the run report keeps every disagreement with its source', pe.disagreements.length === 2 && pe.disagreements[0].field === 'date' && pe.disagreements[1].record === 11 && pe.disagreements.every((x) => x.source_url));
+  const r = finalize(Object.assign(newReport({ id: 'dg', now: new Date('2026-11-26T08:00:00Z') }), { publish: { runs: [pe] }, names: { 'ca-sb-813-ivos': 'CA SB 813', 'h-r-9917-ai-kill-switch-act': 'AI Kill Switch Act' } }), { now: new Date('2026-11-26T08:01:00Z') });
+  const t = formatDone(r), h = formatHtml(r);
+  ok('disagreements are a Watch warning naming the entry and both sides', /⚠️ 2 entries disagree with the official record \(not written over; the entry needs checking\): CA SB 813 \(the record dates "Enrolled and presented to the Governor at 4 p\.m\." 2026-09-08, the entry says 2026-09-01\), AI Kill Switch Act \(cosponsors: the record has 11, the entry says 12\)/.test(t), t);
+  ok('...and in the Telegram message, not silent', /disagree with the official record/.test(h.text) && h.silent === false);
+  const stopped = finalize(Object.assign(newReport({ id: 'dg2', now: new Date('2026-11-26T08:00:00Z') }), { publish: { runs: [publishEntry({ status: 'stopped', result: tierA })] } }), { now: new Date('2026-11-26T08:01:00Z') });
+  ok('a stopped publish (retried later) does not report them twice', !/disagree with the official record/.test(formatDone(stopped)));
+}
+
 // a weekly completeness check that could not run is a Watch warning (26 Nov 2026)
 {
   const r = finalize(Object.assign(newReport({ id: 'cc', now: new Date('2026-11-26T08:00:00Z') }), { news: { ran: true, status: 'quiet', leads: [], drafted: [], problems: [], feeds_failed: [], events: { added: [], confirmed: [], corrected: [], withdrawn: [], pending: 0 }, completeness: { ran: false, searches: 0, found: 0, missing: 0, dropped: 0, why: 'the monthly AI cost cap of $50 is reached' } } }), { now: new Date('2026-11-26T08:01:00Z') });

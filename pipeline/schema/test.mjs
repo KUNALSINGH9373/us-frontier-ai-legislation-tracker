@@ -94,7 +94,7 @@ ok('a well-formed validator verdict is accepted', v.check('verdict', verdictOk).
 
 // ---------- 4. the entry page's written fields (display_name, summary_line, thirty_seconds, key_facts, exec_checklist, claims) ----------
 {
-  const live = JSON.parse(fs.readFileSync(new URL('../../web/data/v2/entries.json', import.meta.url), 'utf8'));
+  const live = JSON.parse(fs.readFileSync(new URL('../fixtures/live-2026-11-26/entries.json', import.meta.url), 'utf8'));
   const byShort = (re) => clone(live.find((e) => re.test(e.short_name)));
   const PV = { method: 'agent', checked_at: '2026-11-11T10:00:00Z', reviewer: 'validator' };
   const both = (e) => [...v.check('entry', e), ...pageFieldProblems(e)];

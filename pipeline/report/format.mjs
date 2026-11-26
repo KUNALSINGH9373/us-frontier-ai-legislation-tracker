@@ -51,6 +51,14 @@ export function watchLines(rep) {
   else if (nw && nw.problems && nw.problems.length) w.push(`⚠️ News: ${clip(nw.problems[0], 140)}`);
   const nr = (rep.publish && rep.publish.runs || []).filter((p) => p.status === 'published').flatMap((p) => p.needs_reading || []);
   if (nr.length) w.push(`⚠️ ${nr.length} tracked rule${nr.length === 1 ? '' : 's'} or order${nr.length === 1 ? '' : 's'} may have changed: a new Federal Register document uses revoke / amend / rescind wording about ${list(nr.map((x) => `${(rep.names && rep.names[x.entry_key]) || x.entry_key} (FR Doc. ${x.document_number})`), 3)}. The entry's description may need updating.`);
+  // Tier A disagreements: the official record and the entry differ (a date, a falling cosponsor total). Never written over; listed so the
+  // entry can be checked. Stopped publishes are left out (their items are retried and would report the same thing again).
+  const dis = (rep.publish && rep.publish.runs || []).filter((p) => p.status !== 'stopped').flatMap((p) => p.disagreements || []);
+  if (dis.length) {
+    const nm = (k) => clip((rep.names && rep.names[k]) || k, 40);
+    const what = (x) => (x.field === 'cosponsors' ? `cosponsors: the record has ${x.record}, the entry says ${x.said}` : `the record dates "${clip(x.text, 60)}" ${x.date}, the entry says ${x.said}`);
+    w.push(`⚠️ ${dis.length} entr${dis.length === 1 ? 'y disagrees' : 'ies disagree'} with the official record (not written over; the entry needs checking): ${list(dis.map((x) => `${nm(x.entry_key)} (${what(x)})`), 3)}`);
+  }
   const cc = nw && nw.completeness;
   if (cc && !cc.ran) w.push(`⚠️ The weekly completeness check did not run${cc.why ? ` (${clip(cc.why, 90)})` : ''}; it is tried again next run.`);
   const ol = nw && nw.open_leads;
@@ -61,6 +69,37 @@ export function watchLines(rep) {
   const rv = nw && nw.events && nw.events.review;
   if (rv && rv.refused) w.push(`⚠️ The independent review refused ${rv.refused} news item${rv.refused === 1 ? '' : 's'}; ${rv.refused === 1 ? 'it was' : 'they were'} not published (reasons in the text report).`);
   if (rv && rv.unreviewed) w.push(`⚠️ ${rv.unreviewed} news item${rv.unreviewed === 1 ? '' : 's'} could not be reviewed${rv.why_unreviewed ? ` (${clip(rv.why_unreviewed, 80)})` : ''} and ${rv.unreviewed === 1 ? 'waits' : 'wait'} for a later run.`);
+  const ce = rep.congress_end;
+  if (ce) {
+    const name = (k) => clip((rep.names && rep.names[k]) || k, 40);
+    if (ce.marked.length) w.push(`${ce.marked.length} pending federal bill${ce.marked.length === 1 ? '' : 's'} marked as died at the end of the Congress, each checked against its Congress.gov record: ${list(ce.marked.map(name), 3)}`);
+    if (ce.stopped) w.push(`⚠️ End of Congress: nothing was marked (a stop rule failed: ${clip(ce.stopped, 120)}); it is tried again next run.`);
+    if (ce.not_marked.length) w.push(`⚠️ ${ce.not_marked.length} federal bill${ce.not_marked.length === 1 ? '' : 's'} from an ended Congress not marked as died: ${list(ce.not_marked.map((s) => `${name(s.entry_key)} (${clip(s.why, 90)})`), 3)}`);
+    if (ce.errors.length) w.push(`⚠️ End of Congress: ${ce.errors.length} record${ce.errors.length === 1 ? '' : 's'} could not be read (${clip(ce.errors[0], 90)}); tried again next run.`);
+    const left = ce.waiting - ce.marked.length - ce.not_marked.length;
+    if (left > 0 && !ce.stopped && !ce.errors.length) w.push(`End of Congress: ${left} more bill${left === 1 ? '' : 's'} will be marked on the next run (per-run limit).`);
+  }
+  const se = rep.session_end;
+  if (se) {
+    const name = (k) => clip((rep.names && rep.names[k]) || k, 40);
+    if (se.marked.length) w.push(`${se.marked.length} pending state bill${se.marked.length === 1 ? '' : 's'} marked as died at the end of their session, each checked against its LegiScan record: ${list(se.marked.map(name), 3)}`);
+    if (se.stopped) w.push(`⚠️ End of state sessions: nothing was marked (a stop rule failed: ${clip(se.stopped, 120)}); it is tried again next run.`);
+    if (se.not_marked.length) w.push(`⚠️ ${se.not_marked.length} state bill${se.not_marked.length === 1 ? '' : 's'} from an ended session not marked as died: ${list(se.not_marked.map((s) => `${name(s.entry_key)} (${clip(s.why, 90)})`), 3)}`);
+    if (se.errors.length) w.push(`⚠️ End of state sessions: ${se.errors.length} LegiScan read${se.errors.length === 1 ? '' : 's'} failed (${clip(se.errors[0], 90)}); tried again next run.`);
+  }
+  const lw = rep.lawsuits;
+  if (lw) {
+    if (lw.added.length) w.push(`${lw.added.length} lawsuit entr${lw.added.length === 1 ? 'y' : 'ies'} added from official releases (writer and independent reviewer, every fact quoted): ${list(lw.added.map((x) => clip(x.title, 60)), 3)}`);
+    if (lw.held.length) w.push(`⚠️ ${lw.held.length} lawsuit release${lw.held.length === 1 ? '' : 's'} not published (${clip(lw.held[0].why, 110)}): ${list(lw.held.map((x) => clip(x.title, 50)), 3)}`);
+    if (lw.errors.length) w.push(`⚠️ ${lw.errors.length} lawsuit release${lw.errors.length === 1 ? '' : 's'} could not be read (${clip(lw.errors[0], 90)}); tried again next run.`);
+    if (lw.waiting && lw.skipped_why && !/is off/.test(lw.skipped_why)) w.push(`⚠️ ${lw.waiting} lawsuit release${lw.waiting === 1 ? '' : 's'} wait: ${lw.skipped_why}.`);
+  }
+  const pn = rep.press_news;
+  if (pn) {
+    if (pn.added.length) w.push(`${pn.added.length} news item${pn.added.length === 1 ? '' : 's'} added from press reports or official releases (two independent approved outlets or an official source; independent review): ${list(pn.added.map((x) => `${clip(x.title, 60)} (${x.basis === 'press' ? 'press reports' : 'official'})`), 3)}`);
+    if (pn.held.length) w.push(`⚠️ ${pn.held.length} press-based news item${pn.held.length === 1 ? '' : 's'} not published (${clip(pn.held[0].why, 110)}): ${list(pn.held.map((x) => clip(x.event, 50)), 3)}`);
+    if (pn.skipped_why && !/is off/.test(pn.skipped_why) && pn.candidates) w.push(`⚠️ Press-based news did not run: ${clip(pn.skipped_why, 90)}.`);
+  }
   for (const n of rep.notes || []) w.push(`ℹ️ ${n}`);
   return w;
 }

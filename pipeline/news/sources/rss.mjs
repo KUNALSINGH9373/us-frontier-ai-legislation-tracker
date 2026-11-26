@@ -1,4 +1,4 @@
-// RSS 2.0 reading for the official feed adapters (whitehouse, nist, cbo, ca_ag). Keeps what news/feeds.mjs parseFeed drops:
+// RSS 2.0 reading for the official feed adapters (whitehouse, nist, cbo, ca_ag, nj_ag, wa_ag). Keeps what news/feeds.mjs parseFeed drops:
 // the guid, the categories and the full item text (plain text only).
 import { decode } from '../feeds.mjs';
 import { plain, etDate, collect, get, sourceConfig, safely, iso, isAI } from './common.mjs';
@@ -21,7 +21,8 @@ export function parseRss(xml) {
 // A statement feed: an official body's own releases. Items are statements only (class null, facts.role 'statement'); they never
 // create an event and only attach to one by key. Only items about AI or naming a tracked entry are returned.
 // classify(item, match) may return { class, role } to promote an item (CBO cost estimates naming a tracked bill).
-export function statementAdapter({ source, url, jurisdiction, publisher, classify = null }) {
+// keep: an optional test an item must pass (a feed that mixes press releases with other notices keeps only its releases).
+export function statementAdapter({ source, url, jurisdiction, publisher, classify = null, keep = null }) {
   return async function fetchItems({ http, entries = [], now } = {}) {
     return safely(async () => {
       const retrievedAt = iso(now || new Date());
@@ -32,6 +33,7 @@ export function statementAdapter({ source, url, jurisdiction, publisher, classif
       const items = parseRss(r.text);
       if (!items.length && !/<rss|<channel/i.test(r.text)) { c.errors.push(`not a feed: ${url}`); return c.result({}, false); }
       for (const it of items) {
+        if (keep && !keep(it)) continue;
         const text = `${it.title}. ${it.text.slice(0, 1500)}`;
         const m = matchText(index, text, jurisdiction);
         const promoted = classify ? classify(it, index) : null;

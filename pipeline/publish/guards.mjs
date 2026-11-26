@@ -91,7 +91,7 @@ export function checkNewEntry(e, ctx = {}) {
   const seen = new Set();
   for (const x of ev) { const k = `${x.date}|${String(x.text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()}`; if (seen.has(k)) problems.push(`the same event is listed twice on ${x.date} ("${String(x.text).slice(0, 60)}")`); seen.add(k); }
   if (!AUTO_CREATE_SECTIONS.includes(e.section)) problems.push(`section ${e.section} is never auto-created (the pipeline creates only in ${AUTO_CREATE_SECTIONS.join(", ")})`);
-  else if (e.type !== rule.type || e.level !== rule.level) problems.push(`type/level ${e.type}/${e.level} do not follow the rule for section ${e.section}`);
+  else if (e.type !== rule.type || (rule.level != null && e.level !== rule.level)) problems.push(`type/level ${e.type}/${e.level} do not follow the rule for section ${e.section}`);
   if (e.status !== statusFor(e.section, e.status)) problems.push(`status ${e.status} does not follow the rule for section ${e.section}`);
   // A state entry (the four state sections the pipeline may create in) is on its state's tile and tracked by its LegiScan record and session,
   // so the grabber keeps it current; a federal one is on no state tile. tier-b.mjs checks these against the stored record too.

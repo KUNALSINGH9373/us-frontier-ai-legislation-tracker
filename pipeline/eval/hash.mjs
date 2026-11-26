@@ -38,7 +38,9 @@ export const MEASURE_INPUTS = {
   news: [],
   news_writer: ['../web/data/v2/entries.json'], // the bank's cards quote the entries' verified summaries
   page_fields: [], // the case set carries its own entry snapshots
-  press: []
+  press: [],
+  lawsuits: [],
+  press_news: []
 };
 export const MEASURE_FILES = MEASURE_INPUTS; // older name
 

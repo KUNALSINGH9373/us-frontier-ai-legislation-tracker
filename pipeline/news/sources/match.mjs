@@ -9,7 +9,9 @@
 //   matchText(index, text, jurisdiction)        -> { entry_id, by: 'number'|'title'|null }
 // Near misses never match: "SB 53" is not "SB 530", "S. 29" is not "S. 2938", "U.S. 2938" is not a bill.
 
-const STATE_NAMES = { california: 'CA', 'new york': 'NY', illinois: 'IL', massachusetts: 'MA', michigan: 'MI', 'new jersey': 'NJ', tennessee: 'TN', utah: 'UT', louisiana: 'LA', 'rhode island': 'RI', pennsylvania: 'PA', minnesota: 'MN', ohio: 'OH', virginia: 'VA', connecticut: 'CT', colorado: 'CO', texas: 'TX', washington: 'WA' };
+import { congressOfEntry, congressOfId } from '../../lib/congress.mjs';
+
+const STATE_NAMES ={ california: 'CA', 'new york': 'NY', illinois: 'IL', massachusetts: 'MA', michigan: 'MI', 'new jersey': 'NJ', tennessee: 'TN', utah: 'UT', louisiana: 'LA', 'rhode island': 'RI', pennsylvania: 'PA', minnesota: 'MN', ohio: 'OH', virginia: 'VA', connecticut: 'CT', colorado: 'CO', texas: 'TX', washington: 'WA' };
 
 export function jurOf(e) {
   const j = String(e.jurisdiction || e.state || '').trim();
@@ -58,7 +60,7 @@ const cleanPhrase = (s) => String(s || '').toLowerCase().replace(/[“”"']/g, 
 
 export function buildIndex(entriesIn) {
   const entries = Array.isArray(entriesIn) ? entriesIn : (entriesIn?.entries || []);
-  const bills = new Map(), eos = new Map(), phrases = new Map();
+  const bills = new Map(), eos = new Map(), phrases = new Map(), congressOf = new Map();
   const add = (map, k, key) => { if (!map.has(k)) map.set(k, new Set()); map.get(k).add(key); };
   for (const e of entries) {
     if (!e || !e.key || e.type === 'excluded') continue;
@@ -69,6 +71,9 @@ export function buildIndex(entriesIn) {
     const sources = [String(e.title || ''), String(e.short_name || '').replace(/\(.*?\)/g, ' ')];
     for (const t of sources) for (const b of billTokens(t, jur)) add(bills, `${jur}|${b}`, e.key);
     const ids = e.identifiers?.external?.congress_gov || [];
+    // A federal entry's Congress: its Congress.gov ids ("120/hr/5"), else its stored session or first event (lib/congress.mjs).
+    // Bill numbers restart every Congress, so H.R. 5 of the 120th is never matched to H.R. 5 of the 119th.
+    if (jur === 'US') { const c = new Set(ids.map(congressOfId).filter(Boolean)); if (!c.size) { const x = congressOfEntry(e); if (x) c.add(x); } congressOf.set(e.key, c); }
     for (const id of ids) { const m = /^(\d+)\/(hr|s|hres|sres|hjres|sjres)\/(\d+)$/i.exec(id); if (m) add(bills, `US|${m[2].toUpperCase()}${+m[3]}`, e.key); }
     for (const t of [head, e.short_name]) for (const x of eoTokens(String(t || '').replace(/\(.*?\)/g, ' '))) add(eos, x, e.key);
     // Official titles: the part after the dash, without parentheticals; also without "of 2025".
@@ -88,7 +93,7 @@ export function buildIndex(entriesIn) {
       if (noYear !== p && noYear.length >= 15) add(phrases, `${jur}|${noYear}`, e.key);
     }
   }
-  return { bills, eos, phrases, entries };
+  return { bills, eos, phrases, entries, congressOf };
 }
 
 const one = (sets) => { const all = new Set(); for (const s of sets) for (const k of s) all.add(k); return all.size === 1 ? [...all][0] : null; };
@@ -96,11 +101,13 @@ const jurOk = (jur) => /^[A-Z]{2}$/.test(String(jur || ''));
 
 export function matchBill(index, { jurisdiction, type, number, congress } = {}) {
   if (!jurOk(jurisdiction) || number == null) return null;
-  if (jurisdiction === 'US' && congress != null && +congress !== 119) return null;   // tracked federal bills are 119th Congress
   const tok = normBill(`${String(type || '').toUpperCase()} ${number}`, jurisdiction) || normBill(`${type}${number}`, jurisdiction);
   if (!tok) return null;
-  const s = index.bills.get(`${jurisdiction}|${tok}`);
-  return s && s.size === 1 ? [...s][0] : null;
+  let keys = [...(index.bills.get(`${jurisdiction}|${tok}`) || [])];
+  // A federal record that names its Congress matches only an entry of that same Congress (an entry whose Congress is unknown never
+  // matches a record that names one: a wrong match is worse than a missed one).
+  if (jurisdiction === 'US' && congress != null) keys = keys.filter((k) => (index.congressOf?.get(k) || new Set()).has(+congress));
+  return keys.length === 1 ? keys[0] : null;
 }
 
 export function matchNumbers(index, text, jurisdiction) {

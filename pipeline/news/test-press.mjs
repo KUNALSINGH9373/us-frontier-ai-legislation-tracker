@@ -23,7 +23,7 @@ ok('integrity: a press link off its outlet\'s site is refused', pressProblems({ 
 
 // the step on a scratch copy of the data
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'press-'));
-['entries', 'news', 'relationships', 'site', 'changes'].forEach((f) => { const s = new URL(`../../web/data/v2/${f}.json`, import.meta.url); if (fs.existsSync(s)) fs.copyFileSync(s, path.join(dir, f + '.json')); });
+['entries', 'news', 'relationships', 'site', 'changes'].forEach((f) => { const s = new URL(`../fixtures/live-2026-11-26/${f}.json`, import.meta.url); if (fs.existsSync(s)) fs.copyFileSync(s, path.join(dir, f + '.json')); });
 const keep = async () => ({ keep: true, about: 'yes', misleading: 'no', why: 'about it' }), refuse = async () => ({ keep: false, about: 'yes', misleading: 'yes', why: 'calls a pending bill law' });
 let calls = 0;
 const factory = { make: () => ({ model: 'opus', generate: async () => { calls++; return { data: {} }; } }) };

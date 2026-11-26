@@ -1,0 +1,21 @@
+{
+ "_note": "Federal bills that were announced but have no bill number yet (publish/congress-end.mjs; schema/tracking.mjs requires every such pending entry to be listed here). When their Congress ends, each sponsor's Congress.gov sponsored-legislation list is read: if none of the bills they introduced in that Congress after the announcement is about AI, the entry is marked 'Not introduced before the end of the Nth Congress' (owner decision, 26 Nov 2026); if one is, it is reported as a possible match and nothing is written. Member ids are Congress.gov bioguide ids, read from the Congress.gov API on 26 Nov 2026. Remove an entry here once it has a bill number (its entry then carries identifiers.external.congress_gov).",
+ "bills": {
+  "liccardo-kiley-us-china-ai-safety-bill": {
+   "congress": 119,
+   "announced": "2026-09-22",
+   "sponsors": [
+    { "bioguide": "L000607", "name": "Rep. Sam Liccardo (D-CA)" },
+    { "bioguide": "K000401", "name": "Rep. Kevin Kiley (CA)" }
+   ]
+  },
+  "ai-agent-accountability-act-hawley-murphy-announced": {
+   "congress": 119,
+   "announced": "2026-10-01",
+   "sponsors": [
+    { "bioguide": "H001089", "name": "Sen. Josh Hawley (R-MO)" },
+    { "bioguide": "M001169", "name": "Sen. Chris Murphy (D-CT)" }
+   ]
+  }
+ }
+}

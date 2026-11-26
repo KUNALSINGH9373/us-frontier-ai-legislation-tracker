@@ -1,0 +1,423 @@
+{
+ "_note": "Press-based news measure (eval/press-news-set.mjs). Real headlines the pipeline read from its feeds (Politico, NYT, WaPo, The Independent, California AG), Oct-Nov 2026, with their real links and dates; summaries were not kept, so each case gives headlines only. events: the groups a correct run may publish (publish: official | press | optional); anything else published is wrong. A group that mixes events, a wrong basis, or text the scorer finds unsupported is wrong.",
+ "cases": [
+  {
+   "id": "ca-sues-openai",
+   "note": "official release plus two outlets: publish (official)",
+   "today": "2026-11-16",
+   "leads": [
+    {
+     "link": "https://www.nytimes.com/2026/11/16/technology/california-openai-ai-safety.html",
+     "publisher": "The New York Times",
+     "title": "California Sues OpenAI Over A.I. Safety Issues",
+     "date": "2026-11-16",
+     "primary": false,
+     "summary": "",
+     "key": "ca-sues-openai-0"
+    },
+    {
+     "link": "https://oag.ca.gov/news/press-releases/it%e2%80%99s-golden-state-not-wild-west-attorney-general-bonta-sues-openai-over",
+     "publisher": "California Attorney General",
+     "title": "It’s the Golden State, not the Wild West: Attorney General Bonta Sues OpenAI Over Cybersecurity Incidents",
+     "date": "2026-11-16",
+     "primary": true,
+     "summary": "",
+     "key": "ca-sues-openai-1"
+    },
+    {
+     "link": "https://www.politico.com/news/2026/11/16/bonta-sues-openai-over-rogue-ai-hack-of-hugging-face-01166953",
+     "publisher": "Politico",
+     "title": "California sues OpenAI over rogue AI hack of Hugging Face",
+     "date": "2026-11-16",
+     "primary": false,
+     "summary": "",
+     "key": "ca-sues-openai-2"
+    }
+   ],
+   "events": [
+    {
+     "keys": [
+      "ca-sues-openai-0",
+      "ca-sues-openai-1",
+      "ca-sues-openai-2"
+     ],
+     "publish": "official"
+    }
+   ]
+  },
+  {
+   "id": "chip-loophole",
+   "note": "NYT and WaPo report the order to close the chip loophole: publish (press); the Megaspeed statement and the Independent piece are other stories",
+   "today": "2026-11-16",
+   "leads": [
+    {
+     "link": "https://www.nytimes.com/2026/11/16/us/politics/trump-china-ai-chip-loophole.html",
+     "publisher": "The New York Times",
+     "title": "Trump Administration Moves to Close A.I. Chip Loophole Ahead of China Trip",
+     "date": "2026-11-16",
+     "primary": false,
+     "summary": "",
+     "key": "chip-loophole-0"
+    },
+    {
+     "link": "https://www.washingtonpost.com/technology/2026/11/16/trump-officials-issue-rule-restrict-sales-ai-chips-china",
+     "publisher": "The Washington Post",
+     "title": "Trump administration orders Commerce to close chip loophole at heart of Nvidia scandal",
+     "date": "2026-11-16",
+     "primary": false,
+     "summary": "",
+     "key": "chip-loophole-1"
+    },
+    {
+     "link": "https://www.washingtonpost.com/technology/2026/11/16/megaspeed-says-alice-huang-left-company-2025",
+     "publisher": "The Washington Post",
+     "title": "Megaspeed says Alice Huang, alleged spy in Nvidia affair scandal, left in 2025",
+     "date": "2026-11-16",
+     "primary": false,
+     "summary": "",
+     "key": "chip-loophole-2"
+    },
+    {
+     "link": "https://www.the-independent.com/tech/nvidia-megaspeed-jensen-huang-alice-spy-b3085329.html",
+     "publisher": "The Independent",
+     "title": "Nvidia scandal: Alice Huang’s former employer Megaspeed launches probe",
+     "date": "2026-11-16",
+     "primary": false,
+     "summary": "",
+     "key": "chip-loophole-3"
+    }
+   ],
+   "events": [
+    {
+     "keys": [
+      "chip-loophole-0",
+      "chip-loophole-1"
+     ],
+     "publish": "press"
+    }
+   ]
+  },
+  {
+   "id": "megaspeed-sanctions",
+   "note": "NYT and WaPo report the Megaspeed sanctions: publish (press); the Alice Huang profile is not news of a government action",
+   "today": "2026-11-24",
+   "leads": [
+    {
+     "link": "https://www.nytimes.com/2026/11/23/business/trump-administration-megaspeed-trade-blacklist-nvidia.html",
+     "publisher": "The New York Times",
+     "title": "Trump Administration Imposes Sanctions on Megaspeed, Singaporean Firm at Center of Nvidia Scandal",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "megaspeed-sanctions-0"
+    },
+    {
+     "link": "https://www.washingtonpost.com/technology/2026/11/23/trump-administration-blacklists-megaspeed-key-firm-nvidia-scandal",
+     "publisher": "The Washington Post",
+     "title": "Trump administration blacklists Megaspeed, key firm in Nvidia scandal",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "megaspeed-sanctions-1"
+    },
+    {
+     "link": "https://www.the-independent.com/tech/trump-sanction-nvidia-scandal-megaspeed-b3090321.html",
+     "publisher": "The Independent",
+     "title": "Trump administration announces sanctions against Asian AI firm at centre of Nvidia scandal",
+     "date": "2026-11-24",
+     "primary": false,
+     "summary": "",
+     "key": "megaspeed-sanctions-2"
+    },
+    {
+     "link": "https://www.nytimes.com/2026/11/24/business/nvidia-alice-huang-china.html",
+     "publisher": "The New York Times",
+     "title": "From Chinese Factory Town to the Nvidia Scandal: The Rise of Alice Huang",
+     "date": "2026-11-24",
+     "primary": false,
+     "summary": "",
+     "key": "megaspeed-sanctions-3"
+    }
+   ],
+   "events": [
+    {
+     "keys": [
+      "megaspeed-sanctions-0",
+      "megaspeed-sanctions-1",
+      "megaspeed-sanctions-2"
+     ],
+     "publish": "press"
+    }
+   ]
+  },
+  {
+   "id": "anthropic-draft-bill",
+   "note": "two Politico stories (one owner): not published",
+   "today": "2026-10-21",
+   "leads": [
+    {
+     "link": "https://www.politico.com/news/2026/10/16/anthropic-ai-safety-01124654",
+     "publisher": "Politico",
+     "title": "Anthropic quietly pitches its own AI safety bill to lawmakers",
+     "date": "2026-10-16",
+     "primary": false,
+     "summary": "",
+     "key": "anthropic-draft-bill-0"
+    },
+    {
+     "link": "https://www.politico.com/news/2026/10/21/anthropic-bill-ai-risk-threshold-01128458",
+     "publisher": "Politico",
+     "title": "Why Anthropic’s draft bill sets $1 billion threshold for AI risk",
+     "date": "2026-10-21",
+     "primary": false,
+     "summary": "",
+     "key": "anthropic-draft-bill-1"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "anthropic-ipo",
+   "note": "business news reported by two outlets: out of scope",
+   "today": "2026-11-10",
+   "leads": [
+    {
+     "link": "https://www.nytimes.com/2026/11/10/technology/anthropic-ipo-valuation-share-price.html",
+     "publisher": "The New York Times",
+     "title": "Anthropic Targets Valuation of Up to $1.4 Trillion for Blockbuster I.P.O.",
+     "date": "2026-11-10",
+     "primary": false,
+     "summary": "",
+     "key": "anthropic-ipo-0"
+    },
+    {
+     "link": "https://www.politico.com/news/2026/11/10/anthropic-seeks-1-3t-valuation-for-blockbuster-ipo-01158056",
+     "publisher": "Politico",
+     "title": "Anthropic seeks $1.3T valuation for blockbuster IPO",
+     "date": "2026-11-10",
+     "primary": false,
+     "summary": "",
+     "key": "anthropic-ipo-1"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "huang-hearing",
+   "note": "one approved outlet (The Independent does not count): not published",
+   "today": "2026-11-24",
+   "leads": [
+    {
+     "link": "https://www.politico.com/live-updates/2026/11/23/congress/jensen-huang-testify-senate-banking-nvidia-congress-01180480",
+     "publisher": "Politico",
+     "title": "Senate schedules Jensen Huang hearing",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "huang-hearing-0"
+    },
+    {
+     "link": "https://www.independent.co.uk/news/world/americas/us-politics/nvidia-jensen-huang-trump-china-investigation-b3090522.html",
+     "publisher": "The Independent",
+     "title": "Why Nvidia’s Jensen Huang faces congressional hearings and multiple probes despite Trump’s backing",
+     "date": "2026-11-24",
+     "primary": false,
+     "summary": "",
+     "key": "huang-hearing-1"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "texas-sues-openai",
+   "note": "one approved outlet, no official source in the pool: not published",
+   "today": "2026-10-23",
+   "leads": [
+    {
+     "link": "https://www.politico.com/news/2026/10/23/texas-sues-openai-over-product-safety-01134162",
+     "publisher": "Politico",
+     "title": "Texas sues OpenAI, Sam Altman over product safety",
+     "date": "2026-10-23",
+     "primary": false,
+     "summary": "",
+     "key": "texas-sues-openai-0"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "nonprofits-sue",
+   "note": "one approved outlet: not published",
+   "today": "2026-11-12",
+   "leads": [
+    {
+     "link": "https://www.politico.com/news/2026/11/12/nonprofits-sue-ai-companies-over-existential-risk-01161965",
+     "publisher": "Politico",
+     "title": "Nonprofits sue Anthropic, Google, and other tech giants to freeze the AI arms race",
+     "date": "2026-11-12",
+     "primary": false,
+     "summary": "",
+     "key": "nonprofits-sue-0"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "lutnick-chip-rules",
+   "note": "the same NYT story twice (one owner): not published",
+   "today": "2026-11-15",
+   "leads": [
+    {
+     "link": "https://www.nytimes.com/2026/11/15/us/politics/trump-lutnick-ai-chips-cantor-fitzgerald.html",
+     "publisher": "The New York Times",
+     "title": "Lutnick Pushed to Weaken Chip Rules That Overlap With His Family Business",
+     "date": "2026-11-15",
+     "primary": false,
+     "summary": "",
+     "key": "lutnick-chip-rules-0"
+    },
+    {
+     "link": "https://www.nytimes.com/2026/11/15/us/politics/trump-lutnick-ai-chips-nvidia-cantor-fitzgerald.html",
+     "publisher": "The New York Times",
+     "title": "Lutnick Pushed to Weaken Chip Rules That Overlap With His Family Business",
+     "date": "2026-11-15",
+     "primary": false,
+     "summary": "",
+     "key": "lutnick-chip-rules-1"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "bessent-commerce",
+   "note": "one approved outlet plus The Independent: not published",
+   "today": "2026-11-13",
+   "leads": [
+    {
+     "link": "https://www.nytimes.com/2026/11/13/business/economy/bessent-commerce-megaspeed-lutnick.html",
+     "publisher": "The New York Times",
+     "title": "Bessent Faults Commerce Dept. for Failing to Blacklist Megaspeed",
+     "date": "2026-11-13",
+     "primary": false,
+     "summary": "",
+     "key": "bessent-commerce-0"
+    },
+    {
+     "link": "https://www.independent.co.uk/news/world/americas/us-politics/bessent-howard-lutnick-nvidia-trump-b3084646.html",
+     "publisher": "The Independent",
+     "title": "Nvidia fallout deepens as Trump official blames commerce secretary for lack of controls",
+     "date": "2026-11-13",
+     "primary": false,
+     "summary": "",
+     "key": "bessent-commerce-1"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "different-steps",
+   "note": "two outlets, two different events (a defence of a probe; a staff briefing): not one event, not published",
+   "today": "2026-11-24",
+   "leads": [
+    {
+     "link": "https://www.politico.com/news/2026/11/17/us-agencies-confirm-megaspeed-investigation-as-pressure-mounts-for-a-blacklist-01169449",
+     "publisher": "Politico",
+     "title": "Commerce, DOJ defend probe of Nvidia-linked firm as blacklist pressure mounts",
+     "date": "2026-11-17",
+     "primary": false,
+     "summary": "",
+     "key": "different-steps-0"
+    },
+    {
+     "link": "https://www.nytimes.com/2026/11/24/us/politics/intelligence-nvidia-affair-congressional-briefing.html",
+     "publisher": "The New York Times",
+     "title": "Officials Brief Congressional Staff on Intelligence Surrounding Nvidia Affair",
+     "date": "2026-11-24",
+     "primary": false,
+     "summary": "",
+     "key": "different-steps-1"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "huang-meme",
+   "note": "personal scandal, a market story and a stock story: out of scope",
+   "today": "2026-11-24",
+   "leads": [
+    {
+     "link": "https://www.washingtonpost.com/politics/2026/11/23/trump-shares-meme-defiant-bloodied-huang-raising-red-bra-air",
+     "publisher": "The Washington Post",
+     "title": "Trump shares meme of defiant, bloodied Huang raising red bra in air",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "huang-meme-0"
+    },
+    {
+     "link": "https://www.washingtonpost.com/business/2026/11/24/us-futures-european-markets-fade-following-nvidia-rally",
+     "publisher": "The Washington Post",
+     "title": "U.S. futures, European markets fade following Nvidia rally",
+     "date": "2026-11-24",
+     "primary": false,
+     "summary": "",
+     "key": "huang-meme-1"
+    },
+    {
+     "link": "https://www.politico.com/news/2026/11/23/nvidia-stock-huang-reinstatement-01180520",
+     "publisher": "Politico",
+     "title": "Nvidia stock soars after Huang’s reinstatement",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "huang-meme-2"
+    }
+   ],
+   "events": []
+  },
+  {
+   "id": "huang-reinstated",
+   "note": "the reinstatement after government input, three outlets: publishing is acceptable or not (a judgement call); if published it must group these and be faithful",
+   "today": "2026-11-23",
+   "leads": [
+    {
+     "link": "https://www.politico.com/news/2026/11/23/jensen-huang-nvidia-return-01180321",
+     "publisher": "Politico",
+     "title": "Nvidia reinstates Huang as CEO",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "huang-reinstated-0"
+    },
+    {
+     "link": "https://www.washingtonpost.com/technology/2026/11/23/nvidia-board-reinstates-jensen-huang-after-us-government-input",
+     "publisher": "The Washington Post",
+     "title": "Nvidia board reinstates Jensen Huang after U.S. government input",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "huang-reinstated-1"
+    },
+    {
+     "link": "https://www.nytimes.com/2026/11/23/us/politics/trump-nvidia-huang.html",
+     "publisher": "The New York Times",
+     "title": "Trump Is Said to Have Directed Effort to Reinstate Nvidia Chief",
+     "date": "2026-11-23",
+     "primary": false,
+     "summary": "",
+     "key": "huang-reinstated-2"
+    }
+   ],
+   "events": [
+    {
+     "keys": [
+      "huang-reinstated-0",
+      "huang-reinstated-1",
+      "huang-reinstated-2"
+     ],
+     "publish": "optional"
+    }
+   ]
+  }
+ ]
+}

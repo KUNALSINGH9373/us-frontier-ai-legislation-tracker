@@ -16,10 +16,13 @@ import * as WH from './whitehouse.mjs';
 import * as NIST from './nist.mjs';
 import * as CBO from './cbo.mjs';
 import * as CAAG from './ca_ag.mjs';
+import * as NJAG from './nj_ag.mjs';
+import * as WAAG from './wa_ag.mjs';
+import { isPrimary } from '../leads.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const FIX = path.join(here, '..', '..', 'fixtures', 'news', 'sources');
-const ENTRIES = JSON.parse(fs.readFileSync(path.join(here, '..', '..', '..', 'web', 'data', 'v2', 'entries.json'), 'utf8'));
+const ENTRIES = JSON.parse(fs.readFileSync(path.join(here, '..', '..', 'fixtures', 'live-2026-11-26', 'entries.json'), 'utf8'));
 const KEY = 'TESTKEY-abcdef123456';
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
@@ -96,7 +99,7 @@ ok('2.2 hostAllowed: https on the list only (subdomains ok)', C.hostAllowed('htt
 ok('2.3 redact removes keys', !C.redact(`x?api_key=${KEY}&a=1`, KEY).includes(KEY) && !C.redact('u?api_key=SECRET999', '').includes('SECRET999'));
 ok('2.4 etDate in Washington time', C.etDate('2026-10-14T03:59:59Z') === '2026-10-13' && C.etDate('2026-10-28T20:03:48Z') === '2026-10-28');
 ok('2.5 isAI', C.isAI('Inaugurating the Era of Super Intelligence') && C.isAI('AI Kill Switch Act') && !C.isAI('Thai food') && !C.isAI('Said a thing') && !C.isAI('Music Streaming Fraud'));
-ok('2.6 config has hosts for every adapter', ['federal_register', 'congress_extra', 'govinfo', 'regulations_gov', 'whitehouse', 'nist', 'cbo', 'ca_ag'].every((n) => C.sourceConfig(n).hosts.length > 0 && C.sourceConfig(n).cadence_hours > 0 && !('cadence' in C.sourceConfig(n))));
+ok('2.6 config has hosts for every adapter', ['federal_register', 'congress_extra', 'govinfo', 'regulations_gov', 'whitehouse', 'nist', 'cbo', 'ca_ag', 'nj_ag', 'wa_ag'].every((n) => C.sourceConfig(n).hosts.length > 0 && C.sourceConfig(n).cadence_hours > 0 && !('cadence' in C.sourceConfig(n))));
 
 const run = async (mod, name, opts = {}) => {
   const f = fixtureHttp(name, opts);
@@ -280,6 +283,17 @@ const status500 = async () => ({ status: 500, text: 'err' });
   ok('8.9 CA AG release naming SB 53 -> statement attached to TFAIA', ai.items.some((i) => i.source_id === 'sb53' && i.entry_id === 'ca-sb-53-tfaia' && i.class === null));
   ok('8.10 CA AG near miss SB 530 (not AI) -> nothing', !ai.items.some((i) => i.source_id === 'sb530'));
   ok('8.11 non-https link rejected', !ai.items.some((i) => i.source_id === 'insecure'));
+  // New Jersey and Washington Attorney General feeds (recorded 26 Nov 2026; Step 4.4: the only state AG feeds that can be read)
+  const nj = (await run(NJAG, 'nj_ag')).out, wa = (await run(WAAG, 'wa_ag')).out;
+  ok('8.13 NJ and WA AG feeds read; none of the recorded releases is about AI, so nothing is kept', nj.health.ok && wa.health.ok && nj.items.length === 0 && wa.items.length === 0, JSON.stringify([nj.health, wa.health]));
+  const njp = (k, x) => x.replace(/<item>/, '<item><title>Attorney General Davenport Sues AI Developer Over Frontier Model Safety Failures</title><link>https://www.njoag.gov/ag-sues-ai-developer/</link><pubDate>Tue, 24 Nov 2026 10:00:00 +0000</pubDate><guid>https://www.njoag.gov/?p=1</guid><description>The lawsuit concerns an artificial intelligence model.</description></item><item>');
+  const nja = (await run(NJAG, 'nj_ag', { patch: njp })).out;
+  ok('8.14 an NJ AG release about AI -> a statement, jurisdiction NJ', nja.items.length === 1 && nja.items[0].facts.role === 'statement' && nja.items[0].jurisdiction === 'NJ' && nja.items[0].class === null && nja.items[0].facts.publisher === 'New Jersey Attorney General', JSON.stringify(nja.items));
+  const wap = (k, x) => x.replace(/<item>/, '<item><title>AG Brown sues AI chatbot maker</title><link>https://www.atg.wa.gov/news/news-releases/ag-brown-sues-ai-chatbot-maker</link><pubDate>Tue, 24 Nov 2026 10:00:00 +0000</pubDate><guid>wa1</guid><description>An artificial intelligence chatbot.</description></item><item><title>AI Analytics, Inc.</title><link>https://www.atg.wa.gov/ai-analytics-inc</link><pubDate>Tue, 24 Nov 2026 10:00:00 +0000</pubDate><guid>wa2</guid><description>Data breach notice: artificial intelligence vendor.</description></item><item>');
+  const waa = (await run(WAAG, 'wa_ag', { patch: wap })).out;
+  ok('8.15 WA AG: a news release about AI is kept; a data-breach notice that mentions AI is not', waa.items.length === 1 && waa.items[0].source_id === 'wa1' && waa.items[0].jurisdiction === 'WA', JSON.stringify(waa.items.map((i) => i.source_id)));
+  const waSrc = JSON.parse(fs.readFileSync(path.join(here, '..', '..', 'config', 'news-sources.json'), 'utf8')).sources.find((x) => x.id === 'wa-ag');
+  ok('8.16 leads: a WA release page is primary, a breach notice on the same feed is a lead only', isPrimary(waSrc, { link: 'https://www.atg.wa.gov/news/news-releases/x', title: 'x' }) && !isPrimary(waSrc, { link: 'https://www.atg.wa.gov/ai-analytics-inc', title: 'AI Analytics, Inc.' }));
   const down = await NIST.fetchItems({ http: status500, entries: ENTRIES });
   ok('8.12 feed down -> health not ok, no throw', !down.health.ok && down.items.length === 0);
 }
