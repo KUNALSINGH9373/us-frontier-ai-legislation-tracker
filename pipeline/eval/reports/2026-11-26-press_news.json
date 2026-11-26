@@ -1,0 +1,129 @@
+{
+ "measure": "press_news",
+ "run_at": "2026-11-26T08:36:42.131Z",
+ "checks_hash": "aa74be2a88ff206b86ca037397769e73cf4867d370acbd445935584591b73e2e",
+ "grouper": "claude-haiku-5-5",
+ "writer": "claude-sonnet-5-5",
+ "reviewer": "claude-opus-5-5",
+ "scorer": "claude-opus-5-5",
+ "cases": 13,
+ "published": 3,
+ "wrong": 0,
+ "missed": 0,
+ "errors": 0,
+ "results": [
+  {
+   "id": "ca-sues-openai",
+   "published": [
+    {
+     "keys": [
+      "ca-sues-openai-0",
+      "ca-sues-openai-1",
+      "ca-sues-openai-2"
+     ],
+     "basis": "official",
+     "title": "California sues OpenAI over AI safety and cybersecurity incidents, including a reported Hugging Face hack",
+     "body": "The New York Times reports that California sued OpenAI over A.I. safety issues. The California Attorney General's release says Attorney General Bonta is suing over cybersecurity incidents, and Politico reports the suit concerns a rogue AI hack of Hugging Face.",
+     "wrong": []
+    }
+   ],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "chip-loophole",
+   "published": [
+    {
+     "keys": [
+      "chip-loophole-0",
+      "chip-loophole-1"
+     ],
+     "basis": "press",
+     "title": "Trump administration moves to close AI chip loophole ahead of China trip, outlets report",
+     "body": "The New York Times reports that the Trump administration is moving to close an A.I. chip loophole ahead of a China trip. The Washington Post reports that the administration ordered Commerce to close a chip loophole at the heart of an Nvidia scandal.",
+     "wrong": []
+    }
+   ],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "megaspeed-sanctions",
+   "published": [
+    {
+     "keys": [
+      "megaspeed-sanctions-0",
+      "megaspeed-sanctions-1"
+     ],
+     "basis": "press",
+     "title": "Trump administration sanctions Megaspeed, Singaporean firm at center of Nvidia scandal, outlets report",
+     "body": "The New York Times reports that the Trump administration imposed sanctions on Megaspeed, a Singaporean firm at the center of an Nvidia scandal. The Washington Post reports that the administration blacklisted Megaspeed, which it calls a key firm in the Nvidia scandal.",
+     "wrong": []
+    }
+   ],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "anthropic-draft-bill",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "anthropic-ipo",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "huang-hearing",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "texas-sues-openai",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "nonprofits-sue",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "lutnick-chip-rules",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "bessent-commerce",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "different-steps",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "huang-meme",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  },
+  {
+   "id": "huang-reinstated",
+   "published": [],
+   "wrong": 0,
+   "missed": 0
+  }
+ ],
+ "partial": false
+}

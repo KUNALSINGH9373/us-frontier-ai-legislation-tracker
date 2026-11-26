@@ -110,9 +110,11 @@ export function matchEntries({ title, summary, text: body, sponsor, state = null
 }
 
 // A source's item is secondary even on an official site when it is an op-ed or a repost of a press story (config secondary_paths /
-// secondary_titles). Both the item's own link and the release page it points to are tested.
+// secondary_titles), or outside a source's only_paths. Both the item's own link and the release page it points to are tested.
 const pathOf = (u) => { try { return new URL(u).pathname; } catch { return ''; } };
-export const isPrimary = (src, item, release = releaseUrl(item)) => !!src.primary && !(src.secondary_paths || []).some((p) => pathOf(item.link).includes(p) || pathOf(release).includes(p)) && !(src.secondary_titles && new RegExp(src.secondary_titles).test(item.title));
+export const isPrimary = (src, item, release = releaseUrl(item)) => !!src.primary && !(src.secondary_paths || []).some((p) => pathOf(item.link).includes(p) || pathOf(release).includes(p)) && !(src.secondary_titles && new RegExp(src.secondary_titles).test(item.title))
+  // only_paths: a feed that mixes releases with other notices (Washington AG: data-breach notices) counts only its release pages as primary
+  && (!src.only_paths || src.only_paths.some((p) => pathOf(item.link).startsWith(p)));
 
 // The page to read for a primary lead: the item's own link, or (House teaser pages) a release link on the same site in its text.
 export function releaseUrl(item) {

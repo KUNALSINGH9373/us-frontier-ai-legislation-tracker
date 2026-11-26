@@ -1,0 +1,114 @@
+{
+ "measure": "lawsuits",
+ "run_at": "2026-11-26T08:36:00.555Z",
+ "checks_hash": "795536f2c4089326a888a4701400df299dd2fca1a1d31c63202bc0623e630f46",
+ "writer": "claude-sonnet-5-5",
+ "reviewer": "claude-opus-5-5",
+ "cases": 11,
+ "published": 2,
+ "wrong": 0,
+ "missed": 0,
+ "errors": 0,
+ "results": [
+  {
+   "id": "ca-v-openai",
+   "in_scope": true,
+   "decision": "publishable",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": null
+  },
+  {
+   "id": "doj-xai-colorado",
+   "in_scope": true,
+   "decision": "publishable",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": null
+  },
+  {
+   "id": "ca-characterai-bankruptcy",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The release announces a notice filed in Character.AI's bankruptcy proceedings, not a new lawsuit by the states. Bankruptcy filings with no lawsuit are excluded. The 2024 wrongful death suit is private background only."
+  },
+  {
+   "id": "wa-characterai-bankruptcy",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The release describes a notice filed by states in Character.AI's bankruptcy case. The states are not suing Character.AI, and the tracker excludes bankruptcy filings with no lawsuit by the states. Character.AI is also a companion chatbot company rather than a frontier AI developer."
+  },
+  {
+   "id": "nj-characterai-bankruptcy",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The release announces a notice filed in Character Technologies' bankruptcy case, not a new lawsuit by the states against an AI developer. The tracker excludes bankruptcy filings with no lawsuit. The 2024 wrongful death suit it mentions was brought by a private party and is only background."
+  },
+  {
+   "id": "nj-xai-demand",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The release announces a letter from a coalition of attorneys general demanding action from xAI. It does not announce a lawsuit, so it falls under the excluded demand letters."
+  },
+  {
+   "id": "nj-chatbots-letter",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The release announces a letter from 42 attorneys general demanding safeguards from AI companies. It does not announce a lawsuit, so it falls under the excluded demand letters."
+  },
+  {
+   "id": "doj-xai-clean-air",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The case is a Clean Air Act citizen suit over the power source for an xAI data facility. It is about permits and power supply, not an AI model's safety or an AI law, so it falls under the facilities and energy exclusion. The DOJ filing is a motion to intervene and dismiss."
+  },
+  {
+   "id": "doj-texas-attack",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "This is a criminal case against an individual who attacked an AI company's CEO and headquarters. It is not about the developer's models or conduct as an AI developer, and not about a frontier-AI law."
+  },
+  {
+   "id": "ca-characterai-asset-sale",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The release announces an objection filed in Character.AI's bankruptcy case to an asset sale. It does not announce a new lawsuit against a frontier AI developer. Bankruptcy filings with no lawsuit are excluded, and Character.AI is not named as a frontier developer in the release."
+  },
+  {
+   "id": "nj-housing-suit",
+   "in_scope": false,
+   "decision": "out_of_scope",
+   "wrong": false,
+   "why": [],
+   "missed": false,
+   "reason": "The lawsuit challenges a HUD housing rule affecting mixed immigration status families. It does not involve a frontier AI developer, an AI model, or a frontier-AI law."
+  }
+ ],
+ "partial": false
+}

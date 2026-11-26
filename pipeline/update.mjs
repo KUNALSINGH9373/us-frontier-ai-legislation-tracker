@@ -31,6 +31,12 @@ import { runAgents, MEMO_FILE as AGENT_MEMO_FILE } from './agents/run.mjs';
 import { correctRun, summaryOf as correctSummary } from './correct/run.mjs';
 import { linkRun, summaryOf as linksSummaryOf } from './links/run.mjs';
 import { courtsRun } from './publish/courts.mjs';
+import { congressEndRun, due as dueAtCongressEnd } from './publish/congress-end.mjs';
+import { lawsuitsRun } from './publish/lawsuits.mjs';
+import { runPressNewsStep } from './news/press-news.mjs';
+import { createCongress } from './grabber/sources/congress.mjs';
+import { sessionEndRun, due as dueAtSessionEnd } from './publish/session-end.mjs';
+import { createLegiScan } from './grabber/sources/legiscan.mjs';
 import { createRateLimiter } from './grabber/sources/courtlistener.mjs';
 import { createHttp } from './grabber/lib/http.mjs';
 import { newsRun, summaryOf as newsSummary } from './news/run.mjs';
@@ -586,6 +592,52 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
       }
     }
 
+    // ---- 4a2. end of Congress: pending federal bills of a Congress that has ended are marked as died, each checked against its own
+    // Congress.gov record first (publish/congress-end.mjs; nothing happens before the Congress's last day). Up to what the per-run limit
+    // leaves after the steps above; the rest are marked on the next run.
+    step = 'end of Congress';
+    {
+      const waiting = dueAtCongressEnd(loadData(S.v2), startedAt);
+      if (waiting.length && !env.CONGRESS_API_KEY && !deps.congressEndRun) rep.congress_end = { waiting: waiting.length, marked: [], not_marked: [], errors: ['CONGRESS_API_KEY is not set'], stopped: null };
+      else if (waiting.length) {
+        const cur = loadData(S.v2), was = new Map(before.entries.map((e) => [e.key, JSON.stringify(e)]));
+        const changedSoFar = cur.entries.filter((e) => was.get(e.key) !== JSON.stringify(e)).length;
+        const room = Math.max(0, (config.max_entries_changed_per_run ?? 15) - changedSoFar);
+        const newsBefore = (readJson(path.join(S.v2, 'news.json'), { items: [] }).items || []).length;
+        const run = deps.congressEndRun || ((o) => congressEndRun({ ...o, congress: createCongress(createHttp({ headers: { 'X-Api-Key': env.CONGRESS_API_KEY }, secrets: [env.CONGRESS_API_KEY], maxRequests: 200, log: (m) => log('  ' + m) })) }));
+        const ce = await run({ dataDir: S.v2, docsDir: null, config, announced: readJson(path.join(P.pipelineDir, 'config', 'announced-bills.json'), { bills: {} }).bills || {}, now: startedAt, runId: rep.id, dry, maxEntries: room, log: (m) => log('  ' + m) });
+        log(`end of Congress: ${ce.status}; ${ce.result.touched.length} marked as died, ${ce.waiting - ce.result.touched.length} waiting`);
+        // A stop writes nothing (the step checks before it writes) and is retried next run; the rest of the run carries on.
+        rep.congress_end = { waiting: ce.waiting, marked: ce.status === 'stopped' ? [] : [...ce.result.touched], not_marked: ce.result.skipped.filter((s) => !/not read this run/.test(s.why)), errors: ce.errors, stopped: ce.status === 'stopped' ? ce.check.problems[0] : null };
+        if (ce.status === 'stopped') log(ce.summary);
+        else ce.result.touched.forEach((k) => { checked[k] = stamped; });
+        if (ce.status !== 'stopped' && ce.result.touched.length) { rep.publish.runs.push(publishEntry({ result: { ...ce.result, added: [] }, newsBefore, newsAfter: newsBefore, status: ce.status })); published.push('end of Congress'); summaries.push(ce.summary); partKeys.push([...ce.result.touched]); }
+      }
+    }
+
+    // ---- 4a3. end of state sessions: pending state bills of a session LegiScan shows as over (adjourned, and a newer regular session
+    // convened) are marked as died, each checked against its own LegiScan record (publish/session-end.mjs). Nothing is read before the
+    // calendar year after the session's last year; queries count on the LegiScan monthly counter.
+    step = 'end of state sessions';
+    {
+      const tracked = readJson(S.ids.lsIds, { legiscan: {} }).legiscan || {};
+      const waiting = dueAtSessionEnd(loadData(S.v2), tracked, startedAt);
+      if (waiting.length && !env.LEGISCAN_API_KEY && !deps.sessionEndRun) rep.session_end = { waiting: waiting.length, marked: [], not_marked: [], errors: ['LEGISCAN_API_KEY is not set'], stopped: null };
+      else if (waiting.length) {
+        const cur = loadData(S.v2), was = new Map(before.entries.map((e) => [e.key, JSON.stringify(e)]));
+        const room = Math.max(0, (config.max_entries_changed_per_run ?? 15) - cur.entries.filter((e) => was.get(e.key) !== JSON.stringify(e)).length);
+        const newsBefore = (readJson(path.join(S.v2, 'news.json'), { items: [] }).items || []).length;
+        const lsConfig = readJson(path.join(P.pipelineDir, 'config', 'legiscan.json'), {});
+        const run = deps.sessionEndRun || ((o) => sessionEndRun({ ...o, legiscan: createLegiScan(createHttp({ secrets: [env.LEGISCAN_API_KEY], maxRequests: 60, log: (m) => log('  ' + m) }), env.LEGISCAN_API_KEY) }));
+        const se = await run({ tracked, dataDir: S.v2, docsDir: null, config, lsConfig, usageFile, now: startedAt, runId: rep.id, dry, maxEntries: room, log: (m) => log('  ' + m) });
+        log(`end of state sessions: ${se.status}; ${se.result.touched.length} marked as died, ${se.result.waiting.length} waiting for LegiScan to show the session over`);
+        rep.session_end = { waiting: se.waiting, marked: se.status === 'stopped' ? [] : [...se.result.touched], not_marked: se.result.skipped.filter((s) => !/not read this run/.test(s.why)), errors: se.errors, stopped: se.status === 'stopped' ? se.check.problems[0] : null, still_open: se.result.waiting.length };
+        if (se.status === 'stopped') log(se.summary);
+        else se.result.touched.forEach((k) => { checked[k] = stamped; });
+        if (se.status !== 'stopped' && se.result.touched.length) { rep.publish.runs.push(publishEntry({ result: { ...se.result, added: [] }, newsBefore, newsAfter: newsBefore, status: se.status })); published.push('end of state sessions'); summaries.push(se.summary); partKeys.push([...se.result.touched]); }
+      }
+    }
+
     // ---- 4b. self-correction: once a day, re-read tracked bills and fix confirmed errors and omissions in the reading fields ----
     step = 'self-correction';
     const c = await (deps.correctRun || correctRun)({ dataDir: S.v2, docsDir: null, stateFile: S.stateFile('corrections.json'), config, factory, aiOff: capOff(), dry, today, now: startedAt, runId: rep.id, log: (m) => log('  ' + m) });
@@ -623,6 +675,20 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
     rep.news = nw;
     log(`news: ${nw.skipped_why ? 'skipped (' + nw.skipped_why + ')' : `${nw.leads.length} lead(s), ${nw.drafted.length} drafted, ${nw.status}`}`);
     if (nw.status === 'written') { published.push('news'); summaries.push(nw.summary); partKeys.push((nw.drafted || []).every((d) => d.tracker) ? nw.drafted.map((d) => d.tracker) : null); }
+
+    // ---- 4d2. lawsuits: official releases announcing a lawsuit about frontier AI become G.2 entries (publish/lawsuits.mjs; AI writer and
+    // independent reviewer, every fact quoted from the release); only when auto_publish.lawsuits is on and its gate passes ----
+    step = 'lawsuits';
+    const lw = await (deps.lawsuitsRun || lawsuitsRun)({ http: deps.lawsuitsHttp || createHttp({ headers: { 'user-agent': 'us-frontier-ai-tracker-pipeline/0.1 (official releases; reader)' }, maxRequests: 6, log: (m) => log('  ' + m) }), factory, aiOff: capOff(), dataDir: S.v2, leadsFile: S.stateFile('news-open-leads.json'), stateFile: S.stateFile('lawsuits.json'), config, now: startedAt, runId: rep.id, dry, log: (m) => log('  ' + m) });
+    rep.lawsuits = { waiting: lw.waiting, added: lw.added, held: lw.held, out_of_scope: lw.out_of_scope, errors: lw.errors, skipped_why: lw.skipped_why || null };
+    if (lw.status === 'written' && lw.added.length) { newKeys.push(...lw.changed); published.push('lawsuits'); summaries.push(lw.summary); partKeys.push([...lw.changed]); }
+
+    // ---- 4d3. press-based news: a development confirmed by an official source or reported by two independent approved outlets becomes a
+    // news item (news/press-news.mjs: grouper, writer, code checks, independent reviewer); only when auto_publish.press_news is on and gated ----
+    step = 'press-based news';
+    const pn = await (deps.pressNewsRun || runPressNewsStep)({ dataDir: S.v2, leadsFile: S.stateFile('news-open-leads.json'), stateFile: S.stateFile('press-news.json'), config, factory, aiOff: capOff(), dry, today, now: startedAt, runId: rep.id, log: (m) => log('  ' + m) });
+    rep.press_news = { candidates: pn.candidates, added: pn.added, held: pn.held, out_of_scope: pn.out_of_scope, waiting: pn.waiting, skipped_why: pn.skipped_why };
+    if (pn.status === 'written' && pn.added.length) { published.push('press-based news'); summaries.push(pn.summary); partKeys.push(null); }
 
     // ---- 4e. in the press: links to credible outlets' coverage of one tracked entry, from this run's press leads (headline, outlet, date,
     // link only); added only when auto_publish.press is on and its gate passes ----
@@ -807,7 +873,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   // ---- the run report (even when the run failed) ----
   try {
     const entries = readJson(path.join(S && code === 0 ? P.dataDir : (S ? S.v2 : P.dataDir), 'entries.json'), []);
-    rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key)) || (rep.corrections && rep.corrections.corrected.some((x) => x.entry_key === e.key)) || (rep.page_fields && (rep.page_fields.written || []).some((w) => w.entry_key === e.key))).map((e) => [e.key, e.short_name]));
+    rep.names = Object.fromEntries(entries.filter((e) => rep.publish.runs.some((p) => [...p.entries_updated, ...p.entries_added].some((u) => u.entry_key === e.key)) || (rep.corrections && rep.corrections.corrected.some((x) => x.entry_key === e.key)) || (rep.page_fields && (rep.page_fields.written || []).some((w) => w.entry_key === e.key)) || [rep.congress_end, rep.session_end].some((x) => x && x.not_marked.some((y) => y.entry_key === e.key)) || rep.publish.runs.some((p) => (p.disagreements || []).some((x) => x.entry_key === e.key))).map((e) => [e.key, e.short_name]));
     const finished = now();
     finalize(rep, { now: finished, spend: summarize(factory.spend.between(startedAt, finished)), month: factory.monthStatus() });
     // Items a stop rule holds go at the top of the "on hold" list (and so into the Telegram message), every run until they pass.

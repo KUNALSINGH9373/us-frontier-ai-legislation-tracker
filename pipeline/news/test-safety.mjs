@@ -83,7 +83,7 @@ const adapter = (fn) => ({ fetchItems: fn });
 {
   const { newsRun } = await import('./run.mjs');
   const fs = (await import('fs')).default, os = (await import('os')).default, path = (await import('path')).default;
-  const real = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..', '..', 'web', 'data', 'v2');
+  const real = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), '..', 'fixtures', 'live-2026-11-26'); // the site data frozen on 26 Nov 2026
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-safety-'));
   const dataDir = path.join(dir, 'data'); fs.mkdirSync(dataDir);
   for (const f of fs.readdirSync(real)) if (f.endsWith('.json')) fs.copyFileSync(path.join(real, f), path.join(dataDir, f));

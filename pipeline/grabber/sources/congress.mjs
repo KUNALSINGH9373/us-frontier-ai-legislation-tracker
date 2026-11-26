@@ -54,6 +54,17 @@ export function createCongress(http) {
       for (const b of [...found.values()].sort((x, y) => x.updateDate.localeCompare(y.updateDate))) if (!given.has(idOf(b))) yield b;
     },
     async getBill({ congress, type, number }) { return (await get(`/bill/${congress}/${type}/${number}`)).bill; },
+    // A member's record (bioguide id, e.g. "H001089"): { bioguideId, directOrderName, ... }.
+    async getMember(bioguideId) { return (await get(`/member/${bioguideId}`)).member; },
+    // Every bill and resolution a member sponsored (amendments, which have no type, are left out), newest first, all pages.
+    async getSponsored(bioguideId) {
+      const all = [];
+      for (let offset = 0; ; offset += 250) {
+        const r = await get(`/member/${bioguideId}/sponsored-legislation`, { limit: 250, offset });
+        all.push(...(r.sponsoredLegislation || []).filter((b) => b.type && b.number));
+        if ((r.sponsoredLegislation || []).length < 250) return all;
+      }
+    },
     async getActions({ congress, type, number }) {
       const all = [];
       for (let offset = 0; ; offset += 250) {

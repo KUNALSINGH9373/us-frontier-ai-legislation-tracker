@@ -21,7 +21,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const J = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 const clone = (o) => JSON.parse(JSON.stringify(o));
 const fx = (n) => J(path.join(here, '..', 'fixtures', 'legiscan', 'audit-2026-10-28', n + '.json'));
-const ENTRIES = J(path.join(here, '..', '..', 'web', 'data', 'v2', 'entries.json')); // read only
+const ENTRIES = J(path.join(here, '..', 'fixtures', 'live-2026-11-26', 'entries.json')); // the site data frozen on 26 Nov 2026 (a code test never reads the live site)
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
 const MA = fx('MA-S3224'), NJ = fx('NJ-SR52'), KS = fx('KS-HR6023'), OH = fx('OH-SCR14'), NE = fx('NE-LB1083');

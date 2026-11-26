@@ -1,12 +1,13 @@
 // Congress.gov API v3, the records the bill adapter (congress_gov) does not read. Key: CONGRESS_API_KEY (an api.data.gov key; the
 // limit is 5,000 calls an hour, and a run makes at most 1 + MAX_MEETINGS + 1 + MAX_CRS + 1 calls, incremental via `since`).
-//   GET /v3/committee-meeting?fromDateTime   -> detail for 119th-Congress meetings -> hearing-scheduled / hearing-held, only when a
+//   GET /v3/committee-meeting?fromDateTime   -> detail for meetings of the Congress(es) the window falls in -> hearing-scheduled / hearing-held, only when a
 //                                               related bill is a tracked entry (structured relatedItems, never the title)
 //   GET /v3/crsreport?fromDateTime           -> detail for reports whose title is about AI -> crs-report, only when the report names a
 //                                               tracked bill (relatedMaterials or a bill number / official title in its summary)
 //   GET /v3/nomination?fromDateTime          -> nomination, only for the AI-relevant positions in POSITIONS (code list)
 import { collect, get, isAI, plain, sourceConfig, safely, iso, addDays, etDate, noKey } from './common.mjs';
 import { buildIndex, matchBill, matchText } from './match.mjs';
+import { congressesBetween } from '../../lib/congress.mjs';
 
 const API = 'https://api.congress.gov/v3';
 export const MAX_MEETINGS = 15, MAX_CRS = 10;
@@ -44,7 +45,7 @@ export async function fetchItems({ http, env = {}, since, state = {}, entries = 
     // Committee meetings.
     const ml = await get(http, q('committee-meeting', `&limit=50&fromDateTime=${from}`), { keys });
     if (!ml.ok) c.errors.push(ml.error);
-    else for (const m of (ml.data.committeeMeetings || []).filter((x) => +x.congress >= 119).slice(0, MAX_MEETINGS)) {
+    else for (const m of (ml.data.committeeMeetings || []).filter((x) => congressesBetween(from, retrievedAt).includes(+x.congress)).slice(0, MAX_MEETINGS)) {
       const dr = await get(http, q(`committee-meeting/${m.congress}/${String(m.chamber).toLowerCase()}/${m.eventId}`), { keys });
       if (!dr.ok) { c.errors.push(dr.error); continue; }
       const d = dr.data.committeeMeeting || {};

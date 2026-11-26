@@ -16,7 +16,7 @@ import { formatReport } from '../report/format.mjs';
 import { formatHtml } from '../report/html.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const FIX = path.join(here, '..', 'fixtures', 'news'), realData = path.join(here, '..', '..', 'web', 'data', 'v2');
+const FIX = path.join(here, '..', 'fixtures', 'news'), realData = path.join(here, '..', 'fixtures', 'live-2026-11-26'); // the site data frozen on 26 Nov 2026
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
 const read = (f) => fs.readFileSync(path.join(FIX, f), 'utf8');

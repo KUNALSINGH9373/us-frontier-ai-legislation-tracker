@@ -121,7 +121,7 @@
         "effort": "low"
       },
       "auditor": {
-        "_note": "26 Nov 2026: the weekly completeness check (audit/completeness.mjs) with Claude web search ($10 per 1,000 searches, counted on the ledger), at most config/publish.json completeness.max_searches (10) searches a week.",
+        "_note": "26 Nov 2026: the weekly completeness check (audit/completeness.mjs) with Claude web search ($10 per 1,000 searches, counted on the ledger), at most 10 searches a week (audit/completeness.mjs MAX_SEARCHES; it looks back 10 days, DAYS).",
         "model": "claude-sonnet-5-5",
         "max_output_tokens": 16000,
         "effort": "medium",

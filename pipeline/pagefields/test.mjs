@@ -5,7 +5,7 @@ import { kindOf, nameOf, needsName, entryText } from './layout.mjs';
 
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
-const live = JSON.parse(fs.readFileSync(new URL('../../web/data/v2/entries.json', import.meta.url), 'utf8'));
+const live = JSON.parse(fs.readFileSync(new URL('../fixtures/live-2026-11-26/entries.json', import.meta.url), 'utf8'));
 const by = (re) => live.find((e) => re.test(e.short_name));
 const sb = by(/^CA SB 53 \(/), raise = by(/^NY RAISE/), mn = by(/^MN HF 4532/), eo = by(/^EO 14409/), lit = by(/^Anthropic v\. Department of War/), watch = by(/^No challenge/);
 
@@ -69,7 +69,7 @@ const okAll = (f) => [...(f.summary_line ? ['summary_line'] : []), ...(f.thirty_
   const { checkPublish } = await import('../publish/guards.mjs');
   const { loadData } = await import('../publish/run.mjs');
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'pf-'));
-  ['entries', 'news', 'relationships', 'site', 'changes'].forEach((f) => { const src = new URL(`../../web/data/v2/${f}.json`, import.meta.url); if (fs.existsSync(src)) fs.copyFileSync(src, path.join(dir, f + '.json')); });
+  ['entries', 'news', 'relationships', 'site', 'changes'].forEach((f) => { const src = new URL(`../fixtures/live-2026-11-26/${f}.json`, import.meta.url); if (fs.existsSync(src)) fs.copyFileSync(src, path.join(dir, f + '.json')); });
   const base = loadData(dir);
   // a fresh entry with no page fields, and SB 53 with stale ones
   const fresh = base.entries.find((e) => e.key === sb.key);

@@ -11,6 +11,7 @@ name: update
 on:
   schedule:
     - cron: '17 */4 * * *' # 00:17, 04:17, ... UTC (off the hour, when GitHub's scheduler is less busy)
+    - cron: '47 2-22/4 * * *' # backup, 02:47, 06:47, ... UTC: runs only when no update run succeeded in the last 3 hours (job "decide")
   workflow_dispatch:
     inputs:
       dry_run:
@@ -24,9 +25,35 @@ concurrency:
 
 permissions:
   contents: write
+  actions: read # the backup schedule reads when the last update run succeeded
 
 jobs:
+  # The backup schedule: GitHub sometimes drops or delays a scheduled run, and a run can fail. The backup cron runs the update only when
+  # GitHub's record shows no successful update run in the last 3 hours (pipeline/lib/backup-due.mjs; when unsure, it runs). Every other
+  # trigger runs the update as before.
+  decide:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.due.outputs.run }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout: pipeline/lib
+      - id: due
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          if [ "$SCHEDULE" != '47 2-22/4 * * *' ]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          url="https://api.github.com/repos/${{ github.repository }}/actions/workflows/update.yml/runs?status=success&per_page=5"
+          curl -sS -m 20 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "$url" > runs.json || echo '{}' > runs.json
+          node pipeline/lib/backup-due.mjs runs.json 3 >> "$GITHUB_OUTPUT"
+
   update:
+    needs: decide
+    if: needs.decide.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:

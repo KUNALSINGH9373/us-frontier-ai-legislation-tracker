@@ -36,6 +36,10 @@ jobs:
         working-directory: pipeline
         run: npm ci
 
+      - name: Every pending bill is followed by a grabber
+        working-directory: pipeline
+        run: node schema/tracking.mjs
+
       - name: Site data against the schemas
         working-directory: pipeline
         run: |

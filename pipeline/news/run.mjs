@@ -37,6 +37,8 @@ import * as congressExtra from './sources/congress_extra.mjs';
 import * as nist from './sources/nist.mjs';
 import * as cbo from './sources/cbo.mjs';
 import * as caAg from './sources/ca_ag.mjs';
+import * as njAg from './sources/nj_ag.mjs';
+import * as waAg from './sources/wa_ag.mjs';
 import { defaultHttp, sourceConfig, structuredSources, NEWS_FETCH_TIMEOUT_MS, NEWS_TIMING, redact } from './sources/common.mjs';
 import { writeCard, bankCard, aiWriterOn } from './writer.mjs';
 import { daysBefore } from './text.mjs';
@@ -170,7 +172,7 @@ export async function eventsStep({ state, records = [], courtFound = [], now = n
 // Order and share of the time budget: config/news-sources.json run.order and run.budget_share. The quick sources first, each with a
 // quarter of the budget at most; NY Senate (half) and Open States (paced to Plural's free-tier rate, several minutes; what is left) last, so a
 // slow source can never starve the others (local live run, 30 Oct 2026: Open States used it all and nothing after it was read).
-const ADAPTER_MODULES = { federal_register: federalRegister, whitehouse, govinfo, regulations_gov: regulationsGov, congress_extra: congressExtra, nist, cbo, ca_ag: caAg, nysenate, openstates };
+const ADAPTER_MODULES = { federal_register: federalRegister, whitehouse, govinfo, regulations_gov: regulationsGov, congress_extra: congressExtra, nist, cbo, ca_ag: caAg, nj_ag: njAg, wa_ag: waAg, nysenate, openstates };
 const orderOf = (n) => (sourceConfig(n).run || {}).order ?? Infinity;
 export const EXTRA_ADAPTERS = Object.entries(ADAPTER_MODULES).sort((a, b) => orderOf(a[0]) - orderOf(b[0]));
 
@@ -290,7 +292,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, ope
       if (!attached) rep.leads.push({ title: l.title, publisher: l.publisher, link: l.link, date: l.date, primary: l.primary, tracker: l.tracker, note: l.primary ? 'official release: no official event it could attach to (shown only as a statement on an event)' : 'press report: never published; a pointer only' });
       mark[l.key] = { first_seen: today, outcome: attached ? 'statement' : 'lead', title: l.title };
     }
-    openFresh.push(...found.leads.filter((l) => !(l.primary && attachedUrls.has(canonicalUrl(l.release_url)))).map((l) => ({ key: l.key, title: l.title, link: l.link, publisher: l.publisher, date: l.date, request_flag: !!l.request_flag })));
+    openFresh.push(...found.leads.filter((l) => !(l.primary && attachedUrls.has(canonicalUrl(l.release_url)))).map((l) => ({ key: l.key, title: l.title, link: l.link, publisher: l.publisher, date: l.date, request_flag: !!l.request_flag, primary: !!l.primary, summary: String(l.summary || '').slice(0, 600) })));
     rep.requests = rd.used();
   }
   // every unattached lead (official statement or press) joins the open-leads register until it is covered, rejected with a reason, or

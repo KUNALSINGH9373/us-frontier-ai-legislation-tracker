@@ -1,304 +1,280 @@
-# pipeline/ — schemas and checks for the automatic update system
+# pipeline/: the automatic update for US Frontier Law
 
-Separate from v1 (`build/`, `docs/`, `tracker.md`) and from the new UI (`web/`). Nothing here changes either of them.
+Technical guide, updated 26 Nov 2026. For the owner's plain-English guide see `../OWNER-HANDBOOK.md`; for keys, limits and
+spend see `../ACCOUNTS-AND-COSTS.md`.
 
-## What this is
+The pipeline is plain Node (ES modules, Node 22 in CI). It reads official sources, updates the site data in `web/data/v2/`
+(copied byte for byte to `docs/data/v2/`, which GitHub Pages serves), commits to `main`, and sends a Telegram report. AI
+(Claude) is used only behind code checks, an independent reviewer and a test gate. Every file starts with a comment that says
+what it does; read it before changing the file.
 
-The one agreed shape of the data. Every stage of the pipeline (Grabber, Generator, Validator) reads and writes these shapes, and the UI will read the published ones. If a file does not match its schema, it is rejected before it can reach the site.
+---
 
-## Run it
+## 1. Architecture
+
+```
+.github/workflows/update.yml  every 4 h (+ backup schedule)  ->  pipeline/update.mjs --commit  ->  push to main
+.github/workflows/check.yml   every PR / human push to main  ->  tracking check, schemas, site check, npm test
+
+update.mjs (one run)
+  gate (eval/gate.mjs) -> staging copy (lib/staging.mjs)
+  -> grab: grabber/run.mjs  (congress_gov, federal_register, legiscan; a child process, state in staging)
+  -> per source: compare/run.mjs -> agents (AI step) -> publish/run.mjs (Tier A, then Tier B)
+  -> held items -> court dockets (publish/courts.mjs) -> end of Congress (publish/congress-end.mjs)
+  -> end of state sessions (publish/session-end.mjs) -> self-correction (correct/) -> page fields (pagefields/step.mjs)
+  -> links (links/run.mjs) -> news (news/run.mjs) -> lawsuits (publish/lawsuits.mjs) -> press-based news (news/press-news.mjs)
+  -> in the press (news/press.mjs) -> final check (publish/guards.mjs checkPublish + schema + integrity + web/scripts/site-check.mjs)
+  -> status.json -> promote (all files at once) -> git commit -> run report (report/build.mjs) -> Telegram (report/html.mjs)
+```
+
+The workflow (`update.yml`):
+- Regular cron `17 */4 * * *` (00:17, 04:17 … UTC). Backup cron `47 2-22/4 * * *` (02:47, 06:47 … UTC): job `decide` reads the
+  last successful runs from the GitHub API and runs `node pipeline/lib/backup-due.mjs runs.json 3`; the update runs only if no
+  run succeeded in the last 3 hours (or the list cannot be read). Any other trigger always runs.
+- `workflow_dispatch` defaults to a dry run (`--dry-run --notify`).
+- Concurrency group `tracker-update`: never two runs at once.
+- Before the run: a Telegram warning if `web/data/v2/status.json` `last_checked` is over 12 hours old.
+- After the run (also after a failed run, so spend counters are saved): push to `main`. If `main` changed `web`, `pipeline` or
+  `docs/data` during the run, the run's commit is dropped (Telegram ⚠️) and never rebased or force-pushed.
+- Heartbeat to `HEALTHCHECK_URL` if set. The run report is uploaded as an artifact (30 days).
+
+## 2. Folders
+
+| Folder / file | What it holds |
+|---|---|
+| `update.mjs` | The whole run (section 3). `node update.mjs [--dry-run] [--commit] [--source <congress_gov\|federal_register\|legiscan\|all>] [--no-search] [--no-ai] [--no-notify] [--notify]` |
+| `grabber/` | Official-source readers: `run.mjs` (Congress.gov, and dispatches the others), `run-federal-register.mjs`, `run-legiscan.mjs`, `sources/` (API clients incl. `courtlistener.mjs`), `intent.mjs` (AI title screen), `screen.mjs`, `map-ids*.mjs` (identifier mapping), `recall-*.mjs` (recall tests), `lib/` (http with retries and secret scrubbing, env loader, state, PDF text) |
+| `compare/` | Record vs entry: verdicts `new_entry_candidate`, `material`, `minor`, `unchanged` (code only) |
+| `agents/` | New-bill AI step: `newbill.mjs` (engine "simple": writer + reviewer + scope judge, `config/pipeline.json` `new_bills.engine`), the older generator/validator/referee loop (`process-item.mjs`, `run.mjs`), `derive.mjs` (facts code writes from the record), `rules.mjs` (sections and statuses), `sections.mjs` (long bills), `dedupe.mjs`, `lawsuit.mjs` |
+| `publish/` | Writers of site data: `run.mjs` (Tier A `tier-a.mjs`, Tier B `tier-b.mjs`, `loadData`/`writeData`), `courts.mjs`, `congress-end.mjs`, `session-end.mjs`, `lawsuits.mjs`, `guards.mjs` (stop rules) |
+| `correct/` | Self-correction (reader `reviewer`, confirmer `confirmer`, code checks) |
+| `pagefields/` | Entry-page fields (summary line, 30-second boxes, Key facts, display name); backfill tools |
+| `links/` | Relationship links (only record-proved sponsor links are ever applied) |
+| `news/` | News: feeds and official adapters (`sources/`), events (`events.mjs`), fixed-phrase writer (`phrasebank.mjs`, `writer.mjs`), independent review (`review.mjs`), open-leads register (`open-leads.mjs`), in the press (`press.mjs`), press-based news (`press-news.mjs`). Contract: `news/CONTRACT.md` |
+| `audit/` | Weekly completeness check (`completeness.mjs`, role `auditor`, Claude web search) |
+| `llm/` | Model clients (`anthropic.mjs`, `gemini.mjs` for testing), factory `make.mjs`, spend ledger `spend.mjs`, schema adapter `schema.mjs` |
+| `eval/` | The accuracy gate (`gate.mjs`, `hash.mjs`) and every gate measure (section 7); reports in `eval/reports/` |
+| `schema/` | JSON schemas, `validate.mjs`, `integrity.mjs`, `tracking.mjs` (section 6) |
+| `report/` | Run report (`build.mjs`), plain text (`format.mjs`), Telegram HTML (`html.mjs`) |
+| `notify/` | Telegram client |
+| `lib/` | `staging.mjs`, `congress.mjs` (current Congress from the date), `backup-due.mjs`, `test-cleanup.mjs` |
+| `config/` | Settings (section 4.2). `identifiers.json` and `identifiers-legiscan.json` are the tracked-bill lists, rewritten by runs |
+| `state/` | Committed run-to-run state (cursors, seen lists, held items, open leads, spend ledger, LegiScan usage) |
+| `fixtures/` | Frozen data for tests: `live-2026-11-26/` (site data and config as of 26 Nov 2026), `correct/` (12 Nov 2026 copy), recorded API answers |
+| `data/` | Git-ignored: run folders, run reports, staging, text cache |
+| `out/` | Git-ignored: one-off scripts (data edits, checks). Never commit |
+| `duties/`, `scope-check/` | Duty-question tools; one-off LegiScan scope catch-up |
+
+## 3. How one run writes (staging, promote, rollback)
+
+From `update.mjs` and `lib/staging.mjs`:
+
+1. **Lock**: `data/update.lock`; a second run exits (a lock older than 6 hours is ignored).
+2. **Gate**: `gateInputsFor` and `refreshNewsMeasures` re-run the free measures that are stale (links; news + news writer;
+   page fields; press), then `applyGate` turns off every switch whose measure does not pass. `publish.json` is never edited.
+3. **Staging**: `web/data/v2`, both identifiers files and the state files (`grabber/lib/state.mjs` `PROMOTED_STATE`, plus
+   `held-items.json` and `agent-memo.json`) are copied to `data/staging/<run id>/`. Every step writes only there.
+4. **Steps** in the order of section 1. Each publishing step runs its own guards before writing to staging.
+5. **Final check**: `checkPublish` from the run-start data to the staged data, with the union of what each step was allowed
+   to change and `max_entries_changed_per_run` / `max_new_entries_per_run` counted over the whole run; schema and integrity;
+   then `web/scripts/site-check.mjs` (the staged data builds, and everything not claimed builds exactly as before).
+6. **Holds instead of failing**: a problem that names an item or entry (read only from the guards' own positions: `on KEY`,
+   `entry KEY:` …) puts that entry back as it was (with its news items, change-log records, links, court and correction
+   state) and holds it in `state/held-items.json`; the rest is promoted. A per-run limit alone holds the lowest-ranked entries.
+   A held item is retried every run for its first day, then daily, from a fresh copy (its grabber hash is forgotten); a stored
+   copy is replayed only while under a day old; after `HELD_DAYS` (14) it is dropped with an "expired, needs attention" note.
+   A problem that names nothing promotes nothing.
+7. **status.json** is written after the final check (only entries really read count as "checked").
+8. **Promote**: temp file, read back, rename, all files together. `web/data/v2` and `docs/data/v2` are then compared byte for
+   byte; any difference rolls every promoted file back and fails the run.
+9. **Commit** (`--commit`): data files, docs copies, identifiers files and `state/`. `status.json` alone is committed at most
+   once a day. Never pushes (the workflow pushes).
+10. **Failure**: the run report says the step and error; nothing is promoted. With `--commit`, only the spend counters
+    (`state/legiscan-usage.json`, `state/ledger/`) are committed, because that money and those queries were really spent.
+
+A dry run (`--dry-run`) fetches and compares, makes no AI calls and promotes nothing.
+
+## 4. Run and test locally
+
+Keys come from `E:\uslegislation\.env` (`grabber/lib/env.mjs` `loadEnv`, searching upward). Never print them.
 
 ```bash
 cd pipeline
-npm install
-npm test                                   # 49 checks
-node schema/legacy-to-v2.mjs               # converts today's data into the v2 shape (writes pipeline/out/, git-ignored)
-node schema/validate.mjs entry out/entries.v2.json
+npm ci
+npm test                         # every test file, about 10 minutes; must end with no failure
+node update.mjs --dry-run        # a real read of the sources; saves nothing, no AI
+node eval/gate.mjs               # which switches meet their bar now (exit 1 if a switch is on without a passing report)
+node eval/gate.mjs --how         # the commands that make reports that count
 ```
 
-## Files
+Do not run `node update.mjs --commit` locally against the real repo unless you mean to: it commits to the checked-out branch.
+Production commits come from the workflow.
 
-| File | What it defines |
-| --- | --- |
-| `schema/common.schema.json` | Shared lists: status, section, event type, confidence level and basis, source, evidence |
-| `schema/entry.schema.json` | One tracker entry (bill, law, order, lawsuit) |
-| `schema/news.schema.json` | The updates feed |
-| `schema/relationships.schema.json` | The link network: nodes, edges, each with a quote |
-| `schema/site.schema.json` | Dates, section names, replay milestones, comparison table |
-| `schema/pipeline.schema.json` | The agents' own files: state, change set, draft, verdict, held item, run log |
-| `schema/validate.mjs` | Checks any file against a schema |
-| `schema/integrity.mjs` | Checks references between files (every link points at a real entry, dates are real) |
-| `schema/legacy-to-v2.mjs` | Converts the current data to v2, reusing the UI's own logic |
-| `schema/test.mjs` | Proves the real data passes and bad data is rejected |
-
-## What changed compared with today's data
-
-| Today | v2 | Why |
-| --- | --- | --- |
-| Entry numbers (1–90) | Stable text `key` (e.g. `ca-sb-53-tfaia`) plus the old `id` | Numbers are row positions. A key survives re-ordering, so news, links and milestones can point at it. |
-| Dates and status written inside prose | Structured `events[]`, `status`, `type`, `state` | The agents can update a date without rewriting a paragraph. The UI stops guessing from sentences. |
-| Hardcoded state overrides, milestone ids, comparison matrix, headline counts in the UI | `state` per entry, `site.json` for milestones and the matrix; counts computed by the build | The first automatic update would otherwise break the UI. |
-| Confidence written by hand | `confidence.level` plus `confidence.basis`, tied together by rule | Automated entries cannot claim HIGH from a news story. |
-| Source links mixed into text | `sources[]` with `kind` primary / secondary | The validator and the confidence rule need to know which is which. |
-| Nothing says who wrote it | `origin`, `verification`, `last_checked`, `last_changed` | Every entry shows whether the author or the agents produced it, and when it was last checked. |
-
-## Rules the schema enforces for automatic entries
-
-An entry with `origin: automated` or `mixed` is rejected unless it has:
-
-1. `identifiers` (how it was matched to the official API record),
-2. at least one `sources` entry,
-3. at least one `evidence` item: a verbatim quote and its source URL (the Validator then checks in code that the quote really appears in the stored source text),
-4. `verification.method = agent`, with the run id and the number of rounds (max 3),
-5. a confidence `basis` of primary record, corroborated, secondary or single source. The agents may never write a "none located" finding.
-
-Confidence level must match the basis: primary record gives HIGH or MED-HIGH; corroborated gives MED-HIGH or MED; secondary gives MED or LOW; single source gives LOW.
-
-Other rules: excluded (section J) entries have status `excluded` and no confidence rating; federal entries sit on no state tile; state entries must name a state; automated news items and links need evidence and a source URL.
-
-## What converting the real data showed
-
-All 90 entries, 178 events, 133 links and 39 news items convert and pass. The conversion also found things worth knowing:
-
-- **10 entries have no source link, and all 10 are in the "excluded" section (J).** That is expected: the section lists things the tracker checked and left out. Every other entry has at least one source.
-- **13 entries have no dated event.** Ten are the same excluded items; the other three (one state bill, one federal draft, one executive action) are worth a look by the author.
-- **40 of the 178 events have a year inferred from the same cell** (the date was written without a year). The schema keeps that flag, and the UI already says so on the event card.
-- **Source kind (primary / secondary) is a first guess** from the web address (government and legislature sites count as primary). The author should check it.
-- Event kinds come from v1's keyword rules and are not yet verified.
-
-## The Grabber (Congress.gov)
-
-Plain code, no AI. It asks Congress.gov which bills changed since the last successful run, saves each one's raw source text, and writes a change set that the Generator and Validator will read.
+The PR checks (`.github/workflows/check.yml`, skipped for the bot's own commits), from `pipeline/`:
 
 ```bash
-npm run test:grabber                       # 37 checks against a fake Congress.gov, no live calls
-node grabber/run.mjs --dry-run             # normal run, saves nothing
-node grabber/run.mjs --bill 119/hr/9925    # fetch named bills (used for the one-time reconciliation)
-node grabber/run.mjs                       # normal run, saves state
+node schema/tracking.mjs                                    # every pending bill is followed by a grabber
+for s in entry news relationships site content changes status; do   # every data file against its schema
+  node schema/validate.mjs $s ../web/data/v2/<file>.json            # entry -> entries.json, others by name
+done
+# site check against the data before the change (from the repo root):
+#   git show <base>:web/data/v2/{entries,news,relationships,site}.json into a temp folder, then
+node web/scripts/site-check.mjs <tempdir> web/data/v2 auto
+npm test
 ```
 
-How it behaves:
-
-- **Key:** read from `CONGRESS_API_KEY` in the environment or a `.env` file found upward from this folder (yours is at `E:\uslegislation\.env`, outside the repo). It is sent in a header, scrubbed from every error and log line, and `.env` is git-ignored.
-- **Starting point:** 29 Sep 2026, the tracker's data cut-off. Nothing earlier is re-examined.
-- **What it keeps:** bills we already track (matched by `identifiers.external.congress_gov`) and new bills that pass the screen in `config/scope.draft.json` (finalised 13 Oct 2026): a title with frontier wording (`precise_terms`) is a candidate at once; a title with any AI, compute, chip, security or threat word (`title_terms`, deliberately wide, because e.g. the "Collaboration on Adversarial Threats and Security Risks Act" has no AI word) goes to the AI intent check, which drops only a confident "no" (listed in `congress-screened-out.json`). Titles with none of those words are counted and dropped. A run cut off by its budget resumes at the first candidate it did not fetch.
-- **Unchanged bills cost nothing:** a saved fingerprint per bill means a bill that has not changed is skipped, so a quiet run is one request.
-- **Budget:** a hard cap on requests per run (default 400). If it is reached, the run stops cleanly and the next run resumes exactly where it stopped.
-- **Failures:** rate limits and server errors are retried with growing waits; anything else fails the run. A failed run saves no state, so the next run starts from the same point and nothing is lost.
-- **Outputs (git-ignored for now):** `data/runs/<run id>/changeset.json`, the raw text under `raw/`, and `state/state.json`.
-
-## Identifiers (which bill is which entry)
-
-`node grabber/map-ids.mjs` proposes the Congress.gov bill id(s) for every federal entry from the bill number in its title, then checks each against the live record (title and sponsor). Results: `config/identifiers.json` (kept in git) and a readable table at `out/identifier-review.md`.
-
-Current result: 20 entries (25 bills) map and all agree with the live records. 12 federal-section entries have no bill number (drafts, rules, an executive order, and two bills not yet numbered: #34 and #50). **A person should confirm the table** (set an entry's `status` to `confirmed`, or fix an id). The converter merges these ids into each entry's `identifiers`, and the Grabber uses them to recognise tracked bills. An entry covering a House and a Senate bill lists both ids.
-
-## The comparison step
-
-`node compare/run.mjs` reads a change set and writes `diff.json`, so the AI steps only run where something real changed:
-
-| Verdict | Meaning | AI used? |
-| --- | --- | --- |
-| `new_entry_candidate` | a bill we do not track that passed the title screen | yes |
-| `material` | a new action since the entry was last checked, a status change (became law, vetoed) or a different primary sponsor | yes |
-| `minor` | the record was touched, the title was reworded, or a companion bill's sponsor is not named | no |
-| `unchanged` | nothing to do | no |
-
-An action the tracker's own text already mentions is not counted as new. These rules are plain code, so they are exact, free and testable (`npm run test:compare`, 25 checks, using real Congress.gov records saved in `fixtures/`).
-
-### First live reconciliation (dry run, 6 Oct 2026)
-
-All 25 mapped federal bills were fetched (75 requests) and compared: **1 material, 17 minor, 7 unchanged.** The one material item is real: S. 2938 had a hearing on 30 Sep 2026, held by the Homeland Security and Governmental Affairs Committee, after the tracker's cut-off. The tracker still says "referred to Senate Commerce. No action in 11+ months". Only that item would have been sent on to the Generator.
-
-## The Federal Register Grabber
-
-`node grabber/run.mjs --source federal_register` (no key needed) searches for exact phrases ("artificial intelligence", "frontier model", "foundation model", "advanced computing", "superintelligence", "super intelligence") in documents published since the saved date, then screens each document's title and abstract. Presidential documents also have their full text screened, because an order's title often does not say what it is about. Orders already in the tracker are recognised by order number; later documents that name a tracked order are flagged. `--source all` runs both Grabbers. Bill text is also fetched for new Congress.gov candidates, so what we write about them can be checked.
-
-## The LegiScan Grabber (state bills)
-
-`node grabber/run.mjs --source legiscan [--dry-run] [--no-search] [--legiscan-bill <bill_id>]` (keys: `LEGISCAN_API_KEY`; `GEMINI_API_KEY` for the intent check). Built standalone so it can be plugged into compare / agents / derive later. The site is frontier-only (owner, 13 Oct 2026); discovery is built to **miss nothing in scope**, and catching extra bills is acceptable. The free tier is 30,000 queries a month:
-
-- **Tracked bills:** `config/identifiers-legiscan.json` (made by `node grabber/map-ids-legiscan.mjs`, reviewed in `out/identifier-review-legiscan.md`) links 21 live state entries to 33 LegiScan bills. Each run makes one `getMasterListRaw` call per open session (11) and compares `change_hash`; `getBill` only for bills whose hash changed. A session counts as open until its last year ends (LegiScan's `sine_die` flag is set after the regular session, but e.g. Illinois still has a veto session).
-- **New bills, two bulk full-text searches per run** (`getSearchRaw`: up to 2,000 hits per query, so no hit is cut off by a page limit):
-  - *precise* (`precise_phrases` in `config/legiscan.json`: frontier model / developer, foundation model, large developer, compute-threshold wording, IVO, AI safety, ...): every hit is a candidate, with no title screen. A bill whose TEXT uses frontier wording can therefore never be dropped by the AI check.
-  - *wide* (`wide_query`: every bill mentioning artificial intelligence / machine learning / AI model or system, about 2,700): titles of bills not seen before go to the **AI intent check** (`grabber/intent.mjs`, model role `screener`). Only a confident "no" is dropped; a title the model leaves out, a failed call or no key all count as "maybe"; a "no" on a generic title (budget, omnibus, "An act to amend the code", Illinois "SCH CD-...") is overruled to "maybe" by code. Titles come from one `getBill` each when there are few, or from the titled search pages (50 a query) when there are many.
-  - Bill numbers the tracker already has (failed entries too) and federal bills (left to Congress.gov) are settled without the model. Every "no" is listed with the model's reason in the run folder (`legiscan-screened-out.json`) and remembered in `state/legiscan-seen.json`; it is re-checked only when the bill changes and 30 days have passed.
-- **Text:** fetched only for candidates, newest version, HTML preferred; PDF-only states are read by `grabber/lib/pdf.mjs` (pdfjs-dist, pinned): margin line numbers and running headers / footers removed, words split across lines rejoined; the PDF file is kept next to the record. A scanned PDF (no text layer) or garbled text gives `text_missing: true` with the reason; nothing is guessed. Pieces of text that touch with no gap are one word (CT, RI and PA printers split words mid-run: "w" + "ithin"); line numbers are removed from the right margin too (Ohio) when they count up; a small raised number after a number becomes an exponent ("10^26"). Where the printed text itself has lost an exponent (PA H.B. 2800 prints "1,026 integer or floating-point operations"; MA S. 37 prints "1026"), the text is kept as printed and `pdf.warnings` lists a `possible_lost_exponent`, so no number is ever silently corrected. Tested on the real PA H.B. 2800, OH H.B. 628 and MA S. 37 PDFs (`fixtures/legiscan/`); all 11 PDF texts of the tracked state bills read on 15 Oct 2026. Each candidate also carries `frontier_markers` found in its text (a flag for the agents, never a filter).
-- **Citations:** each item's `source_url` is the legislature's own page (`state_link`); LegiScan is only the finder.
-- **Caps only delay:** `per_run_budget` (100), `max_candidates_per_run` (25) and a monthly cap (15,000 = half the free tier, counted in `state/legiscan-usage.json`, written even when a run fails). Anything not reached is not marked seen, so the next run continues.
-- **Status and events:** `trackerStatus` (4 enacted, 5/6 failed, else pending; "stalled" is never set by code) and `eventsFrom` (routine readings, amendments, substitutes and Virginia's "passed by for the day" dropped), in `grabber/sources/legiscan.mjs`. `derive.mjs` does not use them yet.
-
-**Recall tests (the bar is 100%; re-run after any change to the phrases, the word lists, the intent prompt or the screener model):**
-- `node grabber/recall-legiscan.mjs` treats every state bill on the site as new: 13 Oct 2026, intent-v2: **38 / 38 caught** (37 by the precise search; MA H.5576 "economic development" by the wide search + "maybe"); 3 bills are in older sessions outside the search (RI 2025, CA SB 1047). Report: `out/recall-legiscan.md`.
-- `node grabber/recall-congress.mjs` does the same for the 25 federal bills: **25 / 25**. intent-v1 missed 3 (two military / defense AI bills and the Cybersecurity and AI Board of Investigations), which led to intent-v2.
-
-**Live dry run, 13 Oct 2026 (first run, nothing saved):** 180 queries. 141 precise hits, 2,717 wide hits (658 federal), intent yes 54 / maybe 539 / no 1,346 (before the generic-title rule, which turns 53 of those "no"s into "maybe"); 25 candidates fetched, all with text (16 read from PDFs); about 650 wait for later runs. The first catch-up therefore takes about 1,400 queries spread over a few days; after that a quiet run costs about 14 queries (11 master lists + 3 search pages).
-
-## The Publisher (`publish/`), Tier A and Tier B
-
-`node publish/run.mjs [run folder] [--dry-run] [--commit] [--data <dir>]` turns one run (its `changeset.json` and `diff.json`) into updated site data. **v1 is frozen** (owner, 15 Oct 2026): from now on the publisher writes `web/data/v2/{entries,news,site,changes}.json` directly (and the same files to `docs/data/v2/`, which the live site serves); `web/scripts/sync-v2.mjs` refuses to copy the v1 conversion over data the pipeline has changed. The grabber and the compare step read `web/data/v2/entries.json` (`--entries <file>` for a replay).
-
-- **Tier A only: official facts, written by code, no AI.** For each `material` item on a tracked entry (matched by `key`, never by row number): a new dated action becomes an event (type by `agents/derive.mjs eventFor`, deduped by date and type) and is appended to the status text in fixed wording, e.g. `...; Committee on Homeland Security and Governmental Affairs. Hearings held (Sept 30, 2026, Congress.gov)`; a status the record proves (became law, vetoed) is set. The action text must be found in the stored record. Mechanism, thresholds, penalties and every other reading field are never touched. Not Tier A (sponsor changes, Federal Register wording, new bills): listed in the summary, not applied.
-- Changed entries become `origin: mixed` with `verification` (agent, run id) and `evidence` (the official action text and URL); `last_checked` / `last_changed` move to the run date; `site.updates_through` and `news.asof` move forward (never back), and every event's `scheduled` flag is recomputed.
-- **News:** one item per new action, in fixed wording, linked to the entry and the official page (`origin: automated`, with evidence); none if the entry already has a news item that day.
-- **Change log** `web/data/v2/changes.json` (`schema/changes.schema.json`): one record per changed field (entry, field, old, new, date, run, source URL, tier).
-- **Stop rules** (`publish/guards.mjs`); any one failing writes nothing and exits 1: every file passes its schema and the cross-file checks; no status goes backwards; no entry, event, link, news item or change record is deleted or edited; only Tier A fields change; relationships unchanged; at most `max_entries_changed_per_run` (15, `config/publish.json`) entries change; every stored source still has the hash saved at grab time; no unscheduled event after the cut-off.
-- A quiet run writes nothing. `publish-summary.md` goes in the run folder; `--commit` makes one local commit with it as the message (never pushes).
-- Tests: `npm run test:publish` (29), using the real S. 2938 run of 6 Oct 2026 against the site data of 8 Oct 2026 (`fixtures/publish/`).
-- **Tier B: new entries** (`publish/tier-b.mjs`, after Tier A in the same run). Reads the agents' drafts marked `publishable` with operation `create` (`results.json`, `results/<item>.json`). **Off until `auto_publish.new_entries` is on** in `config/publish.json` (the accuracy bar); while off, each draft is listed as "ready; new-bill publishing is switched off". When on, a draft is added only if: the bill is not already tracked by any entry; the entry passes `checkNewEntry` (section in `AUTO_CREATE_SECTIONS`; type, level and status by the section rule; `origin: automated`, verified by the agent; mechanism, thresholds and penalties each with an evidence quote; no "none located" wording); the status is the one the record's latest action gives; and every evidence quote is in the stored record word for word. Id and key are renumbered against the current data (drafts from one run can share them). At most `max_new_entries_per_run` (3) per run; the rest wait for the next run. Each added entry gets a change-log record (`field: entry`, tier B) and one news item in fixed wording ("introduced" / "published in the Federal Register", dated by the record, quoting the official title). A new Congress bill is added to `config/identifiers.json` (`status: confirmed`, `added_by: pipeline`) after the data is written; `update.mjs` puts that file back with the data if the site check fails. The stop rules add a stricter path for new entries: any new entry Tier B did not add, one that fails `checkNewEntry`, an unscheduled future event, or more than `max_new_entries_per_run` stops the run. Tests: `node publish/test-tier-b.mjs` (38). Not built yet: links to existing bills, re-checking amended text, and section-by-section reading of long bills.
-- **New state bills (28 Oct 2026)**, the same path to the same standard. `agents/derive.mjs` writes everything the LegiScan record states: title ("H.B. 4098 — " + official title), short name ("AZ HB 4098"; one-letter prefixes as "NY S.10373"), jurisdiction and state (the two-letter code, as on every state entry), sponsor ("Rep. Anastasia Travers (D) with 3 co-sponsors; joint sponsor ..."), events (the history actions `eventsFrom` keeps, the Tier A rules), status (LegiScan's status code, the rule `compare/legiscan.mjs` uses: passed = enacted, vetoed or failed = failed, else pending), status line ("Status: Introduced Feb 10, 2026; <latest kept action> (<date>)"), identifiers (`session` = LegiScan session name, `external.legiscan` = [bill_id]) and the legislature's own page as the source (plus its text page when the text came from there). Section by rule from the status: an enacted bill may go only in A (enacted state frontier-developer laws) or C (IVO / auditor measures), any other in B, B.2 or C; the Generator chooses within those (the answer schema and `assemble.mjs` refuse anything else, and a state bill can never take a federal section or the reverse). "stalled" is never written by the pipeline. A, B and B.2 get the duty step (every state frontier entry carries a session-written duty set); C has none. Tier B re-checks state, session and LegiScan id against the stored record, skips a bill already tracked (by entry ids, by `config/identifiers-legiscan.json`, or by a hand-written entry naming the same state and number), writes the "introduced" news item ("The AZ Legislature records that ..."), and adds the bill to `config/identifiers-legiscan.json` as a confirmed mapping in the `map-ids-legiscan.mjs` shape (`added_by: pipeline`), so the grabber watches it. Tests: `node publish/test-tier-b-state.mjs`, and the state cases in `agents/test.mjs` and `agents/test-derive.mjs` (real candidates in `fixtures/legiscan/candidates/`).
-- **Replay, 16 Oct 2026:** all 25 tracked federal bills fetched live, compared and published onto the 8 Oct data: 1 material (the S. 2938 hearing), 14 minor, 10 unchanged, published cleanly and rendered on the bill page and News and Updates. Limit found: compare only counts actions after the entry's last check, so an action the author missed before that date (H.R. 9363's 25 June vote) is not caught; the daily re-check (phase 6) covers that.
-
-## State bills through the publisher, and the one-command update
-
-- **`compare/legiscan.mjs`** (LegiScan items): a non-routine history step after the entry's last check is `material` (routine steps such as readings, amendments and cosponsor additions are already dropped by `eventsFrom`); a chaptered bill on an entry not yet `enacted` is a status change; a failed bill is a status change only when the entry covers that one bill (a dead companion of a two-bill entry is `minor`, kind `companion_status`). The publisher types state events with the LegiScan rules, writes the bill number into the wording ("CA SB813: Enrolled and presented to the Governor at 4 p.m. (Sept 8, 2026, CA Legislature)"), cites the legislature's own page, and gives the entry its `identifiers.external.legiscan` ids when it first becomes `mixed`. Tests: `npm run test:publish-legiscan` (14), on real records fetched 16 Oct 2026 (`fixtures/publish/run-legiscan-20261016/`). A live reconcile of all 32 tracked state bills against the 8 Oct data found one real step after the author's check (CA SB 813, 8 Sept 2026).
-- **`node update.mjs [--dry-run] [--commit] [--source ...] [--no-search]`** runs the whole chain the schedule will run: grab all three sources, compare and publish each run in turn, run the site check against the run-start data (`web/scripts/site-check.mjs`; on failure the run's entries are put back and held), write `web/data/v2/status.json`, and with `--commit` make one local commit (`data: ...` when the data changed, `status only: ...` otherwise; never pushes). One run at a time (`data/update.lock`). Dry run 16 Oct 2026: Congress.gov 2,701 updated bills listed (13 tracked, all unchanged or minor), Federal Register 1 tracked unchanged, LegiScan 33 tracked bills unchanged by hash; nothing published.
-- **`status.json`** (`schema/status.schema.json`): `last_checked`, `sources`, `run_ids`, `last_change`, and `checked` (entry key -> time). Every run rewrites it, quiet runs included. The site shows "Checked for updates 2 hours ago · Last change 15 Oct 2026" under the Home headline and on News and Updates, and "Official record last checked ..." on a bill page; nothing at all when the file is missing or over 24 hours old.
-
-## The accuracy test set (`eval/`), the gate for AI-written fields
-
-- **Gold answers:** `eval/gold.json`, frozen 16 Oct 2026 from the hand-checked entries: 48 entries with an official text (41 in scope; 7 from section J, which must not be published). `node eval/build-gold.mjs` wrote it once.
-- **Texts:** `node eval/fetch-texts.mjs` fetches each bill's official text (Congress.gov; LegiScan / the legislature for state bills, PDFs read by `grabber/lib/pdf.mjs`) into `data/eval/texts/` (git-ignored) and records bill, URL, length and SHA-256 in `eval/sources.json`. A changed text is refused until re-fetched. GPO superscripts (`10\`) are written `10^26`, and number checks read 10²⁶, 10^26 and 10\ alike.
-- **Run:** `node eval/run.mjs [--provider] [--model] [--thinking-level] [--max-output-tokens] [--only] [--concurrency]` runs the production Generator and independent reader on each text as a new bill (up to 3 rounds, complaints fed back), publishes nothing, and writes `eval/report.md` and `eval/reports/<date>-<provider>-<model>.json`.
-- **Scoring is code:** published (every code check and every claim confirmed by the reader); unsupported (a published quote or number not in the text, should be 0); fact recall (numbers of the author's field that the text also contains); a field passes when published, nothing unsupported, and for thresholds and penalties every provable number is stated (mechanism is prose: recall reported, not required); scope agreement (an in-scope bill must not be dropped, an excluded one must not be published).
-- **Gate:** `config/publish.json` `eval_bar` (pass rate 100%, 0 unsupported, scope agreement 100%, the owner's to set). `node eval/gate.mjs` reads the latest full-set report for the production model and refuses any `auto_publish` switch that is on without a passing report. **Enforced at run time:** `update.mjs` treats every switch whose field does not pass (new_entries, relationships, news, the reading fields) as OFF for the run and says why in the run report (`rep.gate`, notes); news is not measured by the test set, so its switch stays off. To produce a report that counts (whole test set, production models, about $1-3): `cd pipeline && node eval/fetch-texts.mjs && node eval/run.mjs --provider anthropic && node eval/gate.mjs`. Tests: `node eval/test.mjs`.
-- **First runs, 16 Oct 2026 (Gemini, testing only):**
-
-| Model | Published | Pass rate (each field) | Unsupported | Scope agreement | Tokens |
-|---|---|---|---|---|---|
-| `gemini-3.5-flash-lite` (default) | 12 of 41 | 29% | 0 | 100% | 1.36M |
-| `gemini-3.5-flash`, thinking low | 6 of 41 | 15% | 0 | 81% (9 in-scope bills dropped) | 1.54M |
-
-  **After fixes, same day** (`gemini-3.5-flash-lite`): the owner-approved scope definition (`agents/prompts.mjs` SCOPE_DEFINITION, from sections A–I and the J exclusion reasons; title screener now `intent-v3`, recall re-run: 38/38 state, 25/25 federal); state bill texts cleaned of printed line numbers (`grabber/lib/text.mjs stripLineNumbering`: Illinois inline, New York at line starts) and `<sup>` exponents kept as `^`; GPO "10-26" before "integer or floating-point operations" written 10^26; numbers to be written as the source writes them; thresholds and penalties capped at 300 characters with one short quote per figure; the reader quotes one short exact span; a new check rejects letters from a script the source does not use (a published field had ended in Bengali text). Result: **15 of 41 published, 37% / 32% / 37% pass (mechanism / thresholds / penalties), 0 unsupported, scope agreement 100%.** Still held: the generator calling 6 in-scope bills out of scope, 4 answers cut off at the output limit, a few inexact quotes or numbers. Runs vary by a few items from one to the next.
-
-  Nothing wrong was published by either, so the checks hold; but neither is near the bar. Published items are the simpler bills; every bill with compute or revenue thresholds was held (quotes not exact, fields too long), 3 texts are too long for one call (MA H.5576, CT P.A. 26-15 twice), and the scope definition in `agents/prompts.mjs` is narrower than the tracker (auditor registries, whistleblower and defence-AI bills judged out). All switches stay off.
-
-## Model providers (`llm/`)
-
-`config/models.json` `"provider"` picks the model company: **`gemini` for building and testing** (`roles`), **`anthropic` in production** (`anthropic.roles`, key `ANTHROPIC_API_KEY`). Both clients (`llm/gemini.mjs`, `llm/anthropic.mjs`) have the same `generate({ system, prompt, itemId })` call, share one token ledger and budget, and return JSON only; `llm/index.mjs` builds either from the config. The Claude client uses the official SDK (`@anthropic-ai/sdk`, pinned), sends no temperature (current Claude models reject non-default sampling), sets thinking depth with `effort`, and treats a refusal or a `max_tokens` stop as an error, never a half answer. `npm run test:anthropic` runs without a key; `npm run smoke:anthropic` makes one real call (pass a model id to try another) and must pass once before the provider is switched to `anthropic`.
-
-## The Generator and Validator (`agents/`)
-
-`node agents/run.mjs [run folder] [--item <id>]` takes a run folder that has a `diff.json` and, for every item the comparison step marked `material` or `new_entry_candidate`:
-
-1. **Code writes what the record states exactly** (`derive.mjs`): title, short name, sponsor, signing and publication dates, status line, signing/publication events, and the section when a rule decides it (executive orders are section G). A model cannot get these wrong because it is never asked for them.
-2. **The Generator** (an LLM) writes only what needs reading: what the item does, who it covers, penalties, and whether it is in scope. Every text field needs an evidence quote copied exactly from the source. It can never set status, type, level, jurisdiction or confidence: code sets those from rules (`rules.mjs`).
-3. **The Validator** checks the draft in two independent layers. *Code:* schema, every quote found word for word in the source, every number and date present in the source, no "none located" claims, no leaked JSON syntax, no rambling fields. *An independent LLM reader* that sees only the source and a numbered list of claims, never the Generator's reasoning.
-4. **Up to 3 rounds.** Every complaint is fed back to the Generator word for word. Outcomes: `publishable`, `out_of_scope` (both readers agree), or `held`.
-5. **Before any AI (new items):** a LegiScan record that is a resolution or memorial, an amendment filed as its own record, or has a placeholder title is not written up (`agents/record-kind.mjs`); an item the tracker already has, under any id, any bill number written in any entry (J entries included), a LegiScan companion/amendment link, a Congress.gov identical bill, or a tracked bill named in its text, is not written up (`agents/dedupe.mjs`, also re-run by Tier B); a bill with no text is held without being judged on its title. Every new entry also needs the referee (Sonnet) to confirm its scope with a quote code finds in the text, and an A or B entry needs proved duty answers. An item held for its token budget or for running out of rounds gets ONE escalated pass (config/models.json `escalation`: the referee model writes, a larger budget, long bills read by section); still held after that, or held for a reason no retry fixes, it is marked `escalate` and read again only when its record changes.
-6. **Held items** include: still failing after 3 rounds; the generator and reader disagree on scope (stops after one retry, recorded for the author); the bill text is not published yet (retried later); a source over 100,000 characters in which no frontier-AI section was found (judged on its opening); the model service failing.
-
-**Long bills, section by section** (`sections.mjs`): a source over 100,000 characters (an omnibus bill) is split at the bill's own headings ("SEC. 2.", "Section 1.", "SECTION 164.", "Sec. 33.", chapter sections like "Section 3A." under the bill section that inserts them) and the models read only the sections that matter: definitions, coverage, duties, enforcement and penalties, whistleblower protections, effective dates, and any section naming frontier or AI terms, ranked and kept under 90,000 characters, in their original order, with a note listing what was left out. Sections are copied whole and word for word (one over the limit is split only at its own (a)/(b) subsections), and every code check still runs on the FULL text. MA S.3228 (600,000 characters) reads as chapter 93M, its effective-date sections and two other AI sections (40,000 characters). Tests: `npm run test:sections` (46), on trimmed real texts in `fixtures/long-bills/`.
-
-Nothing is published here. It writes `results/<item>.json`, `results.json` and `llm-usage.json` into the run folder.
-
-**Budgets and safety:** a token budget per run and per item (`config/models.json`), checked *before* each call; an oversized prompt is refused, never silently truncated; one failing item never stops the run, and three model-service failures in a row stop it cleanly.
-
-**Models:** `config/models.json` names the model for each role, with optional `thinking_level`. Try others for one run without editing it: `--generator-model`, `--validator-model`, `--thinking-level low`, `--max-output-tokens`.
-
-### What the real models did (7 Oct 2026, 15 real items: 14 new-bill candidates and the S. 2938 hearing)
-
-| | `gemini-3.5-flash-lite` (the configured default) | `gemini-3.5-flash`, thinking `low` |
-| --- | --- | --- |
-| Out of scope | 10 | 11 |
-| Publishable | 3 | 2 |
-| Held | 2 (bill text not published yet) | 2 (same two) |
-| Time / tokens | about 1m20s, 132k in / 10k out | about 2m20s, 120k in / 21k out |
-| Problems seen | leaked JSON syntax in a field (now caught by a code check); occasional runaway output | none |
-
-Both resolved every item without crashing. Held items are the safe outcome. With the default thinking setting `gemini-3.5-flash` failed (`RECITATION`, then runaway thinking), so it must be run at thinking `low`. **Borderline scope calls differ between runs and models** (for example H.R. 9183, an AI data-centre environmental-reporting bill; and EO 14434, which only renames "AI" as "Super Intelligence" in federal communications). Those are for the author's scope rule to settle.
-
-## How one update run writes (staging, one promotion)
-
-`update.mjs` never writes the live data step by step. It copies `web/data/v2`, the two identifiers files and the state files into `data/staging/<run id>/`; the grabber, each source's publish, courts, self-correction, links, news and `status.json` all write there. Then one final `checkPublish` runs from the run-start data to the staged data (the union of what each step may change; `max_entries_changed_per_run` counted over the whole run), plus schema, integrity and the site check on the staged copy (`web/scripts/site-check.mjs`): the staged data must build, and everything the run did not say it changed must build exactly as it did from the run-start data. The baseline is the live data, never the frozen v1 copy, so an edit made outside the pipeline cannot fail a later run. A site check failure puts back and holds the run's entries (and any entry a problem names, and the link network if a link problem remains), promotes the rest, and stops the run only if a problem is still there, with the reasons in the error and the Telegram message. Only if everything passes are the files promoted together (temp file, read back, rename; on any error the renamed files are put back), with `web/data/v2` and `docs/data/v2` verified byte for byte. A stop that names its item or entry (read only from the guards' own positions: `on KEY`, `entry KEY:`, `no such entry KEY`, ...) does not block the run: that item is held in `state/held-items.json`, the rest is promoted, and the Telegram report lists it under "on hold". A stop on a per-run limit alone (`max_entries_changed_per_run`, `max_new_entries_per_run`) keeps the first entries in a stable order (most important new event first, then key) and holds the rest; they go out on later runs. A held item is retried every run for the first day, then daily, always from fresh data: its hash and cursor in the staged grabber state are forgotten (`forgetItem` in `grabber/lib/state.mjs`) so the next grab fetches it again; its stored copy is published alone only while less than a day old. It leaves the list when it passes or when it comes back with nothing left to publish (a report line), and is dropped with a report line after 14 days. An entry put back takes everything with it: its news items, change-log records, the links this run added to it, its court-docket and self-correction state, the news leads drafted this run, its "checked" mark in `status.json` (written after the final check) and its lines in the commit message. An unexplained failure promotes nothing. Tests: `node test-update.mjs` (13 injected failures, each leaving every file byte-identical, plus the hold, limit and revert paths).
-
-**State** lives in the committed `state/` folder so a fresh GitHub runner carries on: `state.json` (grabber cursors), `legiscan-seen.json`, `news-seen.json`, `courts-state.json`, `waiting-for-text.json`, `corrections.json` (promoted only on success), and `legiscan-usage.json` and `ledger/` (written at once: they count queries and money really spent). `data/` (runs, run reports, text cache, staging) is git-ignored. `--commit` stages the data files (web and docs), both identifiers files and `state/`; `status.json` alone is committed at most once a day; a real git error fails the run.
-
-## Self-correction (`correct/`)
-
-No person reviews published entries, so the pipeline re-reads them and fixes confirmed mistakes in the reading fields, on every entry, hand-written ones included (owner, 27 Oct 2026). `update.mjs` runs it after publishing, at most once a day (`config/publish.json` `self_correction`); by hand: `node correct/run.mjs [--dry-run] [--only k1,k2] [--max n] [--force]`.
-
-- **Texts** (`correct/texts.mjs`, shared with `eval/fetch-texts.mjs`): every tracked bill's official text from Congress.gov or LegiScan (free; LegiScan queries count toward the monthly cap). 46 of the 97 entries have one (27 Oct 2026); executive actions, lawsuits, drafts and section J have none. Texts over 110,000 characters (MA S.3228, the CT omnibus) are read section by section (`agents/sections.mjs`): the reader and confirmer see the frontier-AI sections, code checks quotes and numbers against the full text; a long text with no such section stays `too_long`.
-- **Which entries** (`correct/select.mjs`): the bill text changed since the last check (SHA-256 in `state/corrections.json`), then a failed check (up to 3 retries), then never checked (an empty reading field first), then the one checked longest ago (after 30 days). At most `max_entries_per_run` (3) a day.
-- **Review** (`correct/review.mjs`): the reader (role `reviewer`, Haiku low) lists errors and omissions with the corrected field and quotes. Code checks: the field is mechanism, thresholds, or penalties in section A; every quote is in the text; every number is in the text or the old field; the text rules (`textProblems`), length, no debris. The confirmer (role `confirmer`, Sonnet low) must agree, and its own quote must be in the text.
-- **Apply** (`correct/apply.mjs`): new text and evidence, entry becomes `mixed` / `agent`, one `changes.json` record per field (tier `C`, old -> new, the problem and the quote). The publisher's stop rules (`checkPublish` with `corrected`) still run: anything else changed stops the write and the entry is retried. The Telegram report lists each correction under "Self-check".
-- Tests: `npm run test:correct` (56), scripted models on a copy of the real data.
-
-## Record facts and sources added 28 Oct 2026
-
-- **Congress.gov fallback** (`grabber/sources/congress.mjs` `listUpdated`): the date-filtered list (`bill?fromDateTime=...`) sometimes answers 503 for days while the plain list works. After the normal retries a 5xx switches to the plain list, newest first, paged until a bill is older than the cursor, kept to the 119th Congress and replayed oldest first: the same bills in the same order (a 4xx is never hidden). `grab-stats.json` gets `list_fallback` / `fallback_pages`, and the run report a note "fallback used". A run cut off before any bill keeps its cursor. Tests: `grabber/test-fallback.mjs`.
-- **Waiting for text** (`state/waiting-for-text.json`): a new bill collected without a published text waits there. Publishing a text need not move a bill's `updateDate`, so it may never be listed again; each run asks up to 10 waiting bills (`bill/{id}/text`, least recently asked first) and collects those that now have a text as new candidates. A bill tracked meanwhile, or waiting over a year, leaves the list. Same test file.
-- **Cosponsor totals** (Tier A): when Congress.gov's current cosponsor count (`bill.cosponsors.count`) differs from the total the entry states (`record_facts.cosponsors`, or the fixed-wording end of `sponsor_text`, "; 11 cosponsors in all (Congress.gov)"), compare reports `cosponsors_change` (material; the AI step skips it). Tier A stores `record_facts.cosponsors {count, as_of, source_url}` and replaces or adds only that fixed-wording end; hand-written wording is never parsed or rewritten, and entries covering several bills are skipped. The guard lets `sponsor_text` change only at that end, to the stored total. Tests: `publish/test-cosponsors.mjs`.
-- **Court dockets** (`grabber/sources/courtlistener.mjs`, `publish/courts.mjs`, `config/courts.json`, state `state/courts-state.json`): `update.mjs` reads the docket entries filed since the last run for each tracked federal case (`COURTLISTENER_API_TOKEN`, at most 5 requests a minute, `config/publish.json` `courts.max_requests_per_run`). Orders, judgments, notices of appeal, minute orders setting deadlines and withdrawals become Litigation events in the court's words; orders, judgments and appeals also a status-text line and a fixed-wording news item. Appearances, transcripts, summons, pro hac vice, certificates, proposed orders, referrals and counsel withdrawals are dropped, as is any day a person already wrote up. A docket read for the first time starts at its entry's `last_checked`. Same stop rules as Tier A; a stopped or rolled-back run keeps the docket state. Tests: `grabber/test-courts.mjs` (recorded real responses in `fixtures/courts/`).
-
-## News from feeds (`news/`)
-
-`update.mjs` runs it after self-correction; by hand: `node news/run.mjs [--dry-run]` (`--dry-run` reads the feeds but makes no AI calls and saves nothing).
-
-- **Sources** (`config/news-sources.json`): only feeds meant for automated reading, fetched with the pipeline's own honest user agent, and only where the site's `robots.txt` allows it (`news/feeds.mjs robotsAllows`; a site that refuses `robots.txt` is not read). Verified live 28 Oct 2026: Politico technology (press, `secondary`), NIST news (covers CAISI), FTC press releases, California Attorney General, and the House feeds of three tracked sponsors (Liccardo, Lieu, Casar) (`primary`). Rejected, with the reason, under `rejected`: every senate.gov feed (Senate Commerce, Cantwell, Cruz: 403), New York and Florida AGs (403), Lawfare (bot challenge), Tech Policy Press (no feed served), House Science, BIS, Illinois AG and the White House (no feed), stale member feeds. The Federal Register stays with its grabber.
-- **Leads** (`news/leads.mjs`): items from the last `max_age_days` (14); links already on the news page (the item's own link or the release it points to), or seen on an earlier run (`state/news-seen.json`), are skipped; a code word screen (`NEWS_TERMS`), then the AI headline screen (role `screener`; only a confident "no" is dropped, a failed call keeps everything, a headline naming a tracked bill is always kept); then matched to tracked entries by bill number, the bill's name, or a sponsor's surname (a `tracker` key only when exactly one entry matches).
-- **Writing** (`news/write.mjs`): only from a **primary** lead (the official body's own release, on the same site as its feed; op-eds on a member's site count as press). The release page is read in a headless browser (`news/render.mjs`, visible text only), the writer (role `generator`, prompts in `news/prompts.mjs`, style from recent hand-checked items) drafts title, body and date; code checks every quoted span and every number against the release (`containsQuote`, `digitRuns`), dates with years, no future or unsupported dates, length; the second reader (role `validator`, `VALIDATOR_SYSTEM`) must confirm the title and each sentence with a quote code finds in the release. Up to `max_rounds` (2), complaints fed back. The item: `origin: automated`, `verification` by the agent, evidence quotes from the release, `check`: "From the official release (<publisher>), quotes checked by code." A draft repeating an item already on the page (same entry and day, same title or same link) is dropped.
-- **Press leads are never published**: the Telegram report lists them under "News leads".
-- **Switch:** `config/publish.json` `auto_publish.news` (off). Off: drafted items are reported under "News drafted", nothing is written. On: they are added to `news.json` (and `docs/`) only if `checkPublish` and `checkNewsAdded` (`publish/guards.mjs`: only this run's drafts added, nothing edited or deleted, evidence from the item's own release, the fixed check line, no entry changed) pass. The gate needs the news event set (`eval/news-set.mjs`) and the news writer set (`eval/news-writer-set.mjs`) at zero wrong, each made by the current code (and, for the writer set, the current entries). Both are code only and free, so when the switch is on and a stored report no longer matches, `update.mjs` (`refreshNewsMeasures`) runs it again at the start of the run and the gate reads that fresh report: a code or data change never switches news off by itself, and anything wrong in a fresh report keeps it off. Every Telegram message has a "News publishing" line saying on, or OFF and why.
-- **Hidden text** (`news/render.mjs`, 29 Oct 2026): the release is loaded in headless Chromium (Playwright) and only words a reader sees are kept: each word needs a box on the page, must be the top element at its own spot (not clipped, covered, off-page or in a collapsed `<details>`), at least 6px tall, not (nearly) transparent, not `aria-hidden`, and in a colour that differs from the background behind it; `<template>`, `<noscript>` and comments are never rendered. Quotes and numbers are checked against this text only. Pattern stripping was dropped (an adversarial round got 14 of 20 tricks through it); 25 tricks are fixtures in `fixtures/news/hidden/`. The page may end up, after redirects, only on the host of a primary feed in `config/news-sources.json`; a redirect elsewhere or a failed page load is refused and retried later. If the browser cannot start, news drafts are held (not marked seen) and the rest of the run goes on. CI installs it with `npx playwright install --with-deps --only-shell chromium` (a failed install only holds news).
-- **Release date** (`releaseDate`): a date line with an update note ("September 3, 2026 (updated October 25, 2026)") is a release of the first date; a year one less than the feed date's year, with month and day within 2 days of the feed date, is a typo and the feed's year is used (anything else is taken as written, and an old date is refused as old news).
-- **Record lag** (`eventClaims`): a dated bill event in the release that the entry's record does not show is **waiting** when the record may simply not have it yet (no event of that kind on or after the date; for an introduction, signing or veto, none at all): not marked seen, retried every run (no try limit, no AI used, not counted in `max_drafts_per_run`) until the record shows it, then drafted; when the freshness window closes first it is dropped with a report line. A record that shows the event on another date refuses it for good.
-- **Self-resolving:** a release that cannot be read or a model outage is retried on a later run (up to 3 times); leads over `max_drafts_per_run` (3) wait; a feed that fails is a warning in the report and the others are still read.
-- Tests: `npm run test:news` (176), on feeds and a release recorded 28 Oct 2026 (`fixtures/news/`) and scripted models: invented quote, invented number, unconfirmed claim, press-only lead, duplicate, irrelevant headline, robots rules, stop rules, report sections.
-
-## Entry page fields (`pagefields/`), 12 Nov 2026
-
-Each entry page (see `web/README.md`) opens with a few short written fields: `display_name` (only when the official short title cannot serve), `summary_line` (one sentence), `thirty_seconds` (three boxes whose headings depend on the layout: bill, executive action, lawsuit, watch item) and `key_facts` (rows the record cannot give by code: enforced by, issued by, lead agencies, court, judge, plaintiff, defendants, lawyers). `page_verification` records who checked them, when, and `basis_sha256`, the checksum of the entry's checked text they were written from.
-
-- **Writing** (`pagefields/write.mjs`): the writer (role `generator`) drafts from the entry's own checked text only (`pagefields/layout.mjs` `entryText`: title, mechanism, thresholds, penalties, dates, status, events, the duty and checklist answers with their quotes). Code checks: every number already in that text (`schema/integrity.mjs` `pageFieldProblems`, also run by every publish), one sentence, tense matches the status ("Would ..." for a pending bill), no words about the record itself ("the entry text does not say"), Key facts and display names copied word for word and names only, no formal "An Act relative to ..." names. The reviewer (role `bill_reviewer`, a stronger model) passes each field with a quote code finds, or refuses it as wrong or misleading. One rewrite round; a field that still fails is left off and the page shows the entry's existing text there.
-- **Each run** (`pagefields/step.mjs`, step 4b2 of `update.mjs`): entries the run added or changed first, then any whose checked text changed since (checksum), then any that never had page fields; at most `page_fields.max_entries_per_run` (3). The final check lets this step change only those fields, only on the entries it wrote (`publish/guards.mjs` `checkPublish` `paged`). Switch `auto_publish.page_fields` (on since 12 Nov 2026); gate: `eval/pagefields-set.mjs` (code only: 256 reviewed drafts must pass, 855 planted faults and 182 recorded reviewer refusals must be refused), measured again by `update.mjs` whenever the code changes.
-- **Backfill tools** (drafts first, then `node pagefields/apply.mjs <drafts.json> [...]`, which re-runs today's code rules on every draft and writes `web/` and `docs/` only if the schema, the integrity rules and the site check pass): `pagefields/run.mjs` (page fields), `pagefields/duties-run.mjs` (the 13 duties from a stored bill text, `agents/duties.mjs`), `pagefields/claims-run.mjs` (a lawsuit's claims and outcomes from its record, `pagefields/claims.mjs`; linked only to a court record of that case number), `pagefields/exec-run.mjs` (an executive action's 8-question checklist from its official text, `pagefields/exec.mjs`, texts fetched by `pagefields/fetch-exec-texts.mjs`). Duties and checklists are all or nothing: one unproved answer and the whole set is left off. `pagefields/make-set.mjs` rebuilds the gate's case set from reviewed drafts.
-- First backfill (12 Nov 2026, $6.13 in all): on the site, 92 summary lines, 82 thirty-second sets, 57 Key facts sets, 11 display names; duties for 3 more bills, claims for 3 lawsuits, a checklist for EO 14434. Every kept field was also read by a person against its record.
-
-## In the press (`news/press.mjs`), 12 Nov 2026
-
-Links to credible outlets' coverage of one tracked entry, shown on its page as "In the press", apart from the official record and labelled as press. Only the outlet's own headline, its name, the date and the link (`entry.press`, at most 5, newest first); a press link never changes any other field (`checkPublish` `pressed`).
-
-- **Outlets**: The New York Times, The Washington Post, CNN, The Independent, Politico: their public feeds allow automated reading (feeds in `config/news-sources.json`). Reuters and AP refuse it in robots.txt and are not read.
-- **Candidates**: the news step's press leads (`news/leads.mjs`) matched to exactly one entry by its bill number or name (never by a sponsor alone).
-- **Checks**: code (an allowed outlet, the link https on that outlet's own site, dated within `press.max_age_days` and not in the future, not already listed); then `bill_reviewer` must answer that the story is about this entry and its headline does not misstate the entry's status or what it does.
-- Step 4e of `update.mjs`; switch `auto_publish.press` (on since 12 Nov 2026); gate `eval/press-set.mjs` (planted faults and the reviewer's recorded answers on real and written headlines, 26 cases, zero wrong). In the live test the reviewer got 12 of 12 right, including a real headline about the N.D. Cal. ruling placed on the separate D.C. Circuit case (refused).
-
-## Claude API schema limits (`llm/schema.mjs`), Nov 2026
-
-The Claude API refuses a structured-output schema with a type list and an enum (5 Nov 2026), with more than about 26 optional properties, or with more than about 26 null unions (found 12 Nov 2026 on the 13-duty schema; it broke the duty step for new bills). `toJsonSchema` therefore sends a nullable enum as `anyOf [enum, null]` and every optional text property as required text, an empty string meaning "not given"; `dropOptionalNulls` takes those empty strings and nulls out of the answer before `schemaProblems` runs, so callers see the same answers as before. Every exported schema was sent to the live API to confirm it is accepted.
-
-## Tests
-
-```bash
-npm test        # schema 49, grabber 47, federal register 23, legiscan 70, compare 25 + 9, llm 25, derive 16, agents 77
-```
-
-Every test file was also checked by deliberately breaking the code and confirming a test fails.
-
-## Not built yet
-
-The held-item retry loop and the publisher (merge verified entries into the data, 24-hour delay, anomaly guard, rollback, heartbeat); the CourtListener Grabber; reading PDF bill text and plugging LegiScan into the compare/agents/derive steps; the GitHub workflows; and the UI reading v2.
-
-## Links (`links/`): relationships formed automatically
-
-`links/run.mjs` runs inside `update.mjs` after self-correction, for every entry the run added or changed. It proposes links in the `relationships.json` shape and, **while `auto_publish.relationships` is off (`config/publish.json`), only lists them in the run report under "Links proposed"**. When on, `links/apply.mjs` adds them, but **only links for entries the automation made** (`origin: automated`, or created this run, `created`); a link proposed for an entry the owner wrote or edited by hand is listed as "report only" and never added, so the owner's choice of links stands. Anything the code is unsure of (two actor nodes match one person, a repeal, a record sponsor the entry's text does not name, an edge whose reverse exists) is listed under "not proposed", never guessed.
-
-**Applied vs proposed (29 Oct 2026).** Three audit rounds showed that rules over the tracker's prose never converge: each round found new wording that published a wrong link. So the **only link ever applied** is a **sponsor link proved by a structured official record**: the entry's raw Congress.gov record (`sponsors[].bioguideId`) or LegiScan record (primary sponsor, `sponsor_type_id` 1, `people_id`) names one primary sponsor; that id is stored for exactly one actor node in **`config/actor-ids.json`**; the node is that person (full name, chamber, state, party where the node gives one); and the record's sponsor is the entry's stated lead (same name and chamber, and the same party and state wherever both give one). Its quote is the record's own sponsor field (`Rep. Lieu, Ted [D-CA-36]`, `Scott Wiener`), `col` is `record`, and `source_url` is the record's page (Congress.gov bill page or LegiScan bill page). **Everything else** (a sponsor read from prose only, every "Would amend" / succession link, every AI link) is a **proposal**: listed in the run report and Telegram ("Links proposed", each marked record-proved or "proposal only" with why), **never applied, whatever the switch says**. `apply.mjs` skips any other proposal and `checkLinks` stops the run on any added edge that is not a record-proved sponsor edge. A record that contradicts the prose (another primary, another party, "Del." where the node is "Rep.", a committee as the only sponsor) draws nothing at all, with a note.
-- **Actor ids (`node links/actor-ids.mjs [--runs pipeline/data/runs] [--write]`):** reads every person the raw records in `pipeline/data/runs` name with an official id and matches the network's legislator nodes on full first and last name, chamber and state (and party where the node states one); only unambiguous matches are kept (one id per node, one node per id), and every node left without an id is listed with why. 29 Oct 2026: 17 of 21 legislator nodes matched; unmatched: Bill Cunningham (LegiScan has "William"), Lori Trahan, Richard Blumenthal, Marsha Blackburn (no record in the runs names them). "Del." is its own chamber: a delegate is never matched to a Representative.
-
-- **Convention (`links/rules.mjs`, followed by the proposer and enforced by `checkLinks`):**
-  - *Direction:* an edge reads "<from> <label> <to>"; `from` is the party that acts: legislator -> bill (sponsor), amending bill -> law (amendment). Two of the three hand-written amendment edges follow this (S10373 -> RAISE, S10456 -> RAISE); RAISE -> NYTERM "Would amend the RAISE Act" names its own `from` and is the odd one out (left as written). No edge is proposed when the network already links the pair in either direction.
-  - *Labels:* actor edges are "Sponsor" for a bill, law, auditor bill or precursor and "Draft author" for a discussion draft (the network's own wording); no sponsor edge for other types. Amendments are "Would amend <law's node name>" (type `succession`).
-  - *Evidence:* a code edge's quote is the tracker's own prose, so the edge says so: `src` = the quoted entry's node, `col` = the field (`sponsor_text`, `title`, `mechanism`), `source_url` = that entry's tracker page (`https://usfrontierlaw.com/#/bill/<id>`), never the bill's page. An AI edge quotes the official text: `col` = `text`, `source_url` = the text read.
-- **By code (`links/propose.mjs`, facts the text states):**
-  - *Sponsor*: from the official record when the step has it (`records`: Congress.gov `sponsors` with `bioguideId`; LegiScan primary sponsors, `sponsor_type_id` 1, with `people_id`), else the lead sponsor as the entry states it: the sponsor text must **start** with a title, full name and party ("Sen. Jerry Moran (R-KS)"), and only that first person is read (co-sponsors, "with", "cosponsored by", "supported by", "opposed by" never are). The person must match exactly one legislator node on first name, last name, chamber and state, and on party wherever the node states one (Congress nodes do; state nodes carry no party). The quote must name the person in full in the entry's sponsor text. `update.mjs` passes the records the run read (`runRecords`); with a record and a stored id the link is record-proved (applied when the switch is on), otherwise it is a prose proposal (reported only).
-  - *Amends a tracked law* (type `succession`): an explicit "amends / would amend / amending / to amend" whose object (the words after the verb up to ",", " to ", " by " ... outside parentheses) starts with the enacted law's name ("Amends the RAISE Act", "Amends section 5 of the NAII Act") or contains a code citation another entry of the same jurisdiction occupies ("Section 1422 of the General Business Law", "chapter 93M", "Gov. Code §§11549.80–.86", "15 U.S.C. § 278h–1(b)"; a law occupies what its title's parentheses cite and what its enacting or "codified at" clauses cite); or "adds" whose direct object is such a citation ("Adds GBL §1425"). A law mentioned elsewhere in the clause ("Unlike TFAIA, adds duties") is no amendment, nor is a negated verb; a repeal is reported, never drawn as "would amend".
-  - *Companions* (Congress.gov `relatedBills` "Identical bill", or a title naming another entry's bill as its companion) are **reported, never drawn**: the tracker keeps a bill and its companion in one entry, and the network has no companion link type.
-  - Only types the network already uses are proposed. A changed entry with no node gets one: the column most nodes of its section (and level) use, keyed by its bill number as the network writes it (SB315, HR9917).
-- **By AI (`links/prompts.mjs`):** "copies / modeled on" (type `template`, the existing label "Same template; common drafting source rather than sequential copying") and "overlaps" (type `succession`, label "Overlap: ..."). Needs the official text of both bills; the reader must give a word-for-word quote (20+ characters) from each, code finds each in its bill, and the validator must confirm from the two quotes. AI links are always dashed (unproven direction). Not called by `update.mjs` yet (code only).
-- **Apply (`links/apply.mjs`, pure):** new edges after the old ones (origin `automated`, quote, source URL, `src`, `col`), only the new nodes those edges use; one link per pair and type in either direction; `checkIntegrity` must pass. Nothing old is edited or removed.
-- **Stop rule (`publish/guards.mjs` `checkLinks`):** the network may change only by exactly the edges and nodes `apply.mjs` returned. Any edit, deletion, reordering, other addition, or a new edge not marked automated stops the run. Without that list, any change still stops it. Only a record-proved sponsor edge may be added (`col: record`, proved again against the records passed as `links.records` and the ids in `config/actor-ids.json`: one primary sponsor, its record wording as the quote, the record's URL as the source, its id stored for the node at `from`, and that sponsor the entry's stated lead); any other added edge stops the run. Each added edge is also checked for meaning: both ends are nodes; the ends' kinds and the entry's type fit the label (a sponsor edge comes from a legislator node, with the label for the entry's type; an amendment stays in one jurisdiction and names the law at its end; any other label is refused); the quote is word for word in the source it names (field `col` of the entry at `src`, which must be an end of the edge, with that entry's tracker page as `source_url`; or, for `col: text`, the official text the step read); the entry is automated or created this run; and no edge, old or new, joins the pair the other way.
-- **Backtest (`node links/backtest.mjs`):** for each of the 75 entries with links, all its links are removed (and, in a second pass, its node too) and the code proposer is run on it alone. Scoring is strict: right = same from, same to, same type and a label that means the same (`labelOk`: "Sponsor" is not "Cosponsor", "Coauthor" or "Draft author"); otherwise wrong label, wrong direction or false link; a proposal reversing a hand-written edge that breaks the convention itself (RAISE -> NYTERM) is listed as a conflict, never counted right. 28 Oct 2026: **25 proposals, 24 right, 0 false, 0 wrong direction, 0 wrong label, 1 conflict (NYTERM -> RAISE, not proposed in a real run because the reverse exists); recall 24 of 138 (17%)**: sponsors 23 of 58, succession 1 of 21 (S10373 -> RAISE), and 0 of the template, fedstate, executive, litigation and assurance links, which are judgements in prose that code cannot prove. The old proposer, scored the same way, made 36 proposals: 32 right, 3 wrong labels ("Sponsor" on the GAAIA and TRUMPAI drafts), 1 conflict. The script exits 1 on any false link, wrong direction or wrong label. Since 29 Oct 2026 it reads the raw records in `pipeline/data/runs` (`--runs`) and scores **applied** (record-proved) links and **report-only** proposals separately; the bar for applied links is zero wrong. 29 Oct 2026, records for 26 entries: **applied 8 proposals, 8 right, 0 wrong; report-only 14 proposals, 13 right, 0 wrong, 1 conflict (NYTERM -> RAISE)**; the same as new bills (node removed).
-- **Link map (`node web/scripts/check-links.mjs`):** applies the proposals to the site data and builds the UI's model; every link end must be a node the map draws, no two nodes may stand for one entry, no link is listed twice. `web/scripts/parity-v2.mjs` (the v1 comparison, now a tool that gates nothing) skips links with origin `automated` (they have no v1 counterpart).
-- Tests: `npm run test:links` (178), with every audit case of 28 Oct 2026 as a permanent test (section 8), and the round-3 cases of 29 Oct 2026 (06, 12, 13, 17, 21, 25, 26, 27, 39, "Sen. Scott Wiener (R)", "Del. Ted Lieu") kept in section 10 to show none is applied with the switch on.
+`site-check auto` claims every changed entry; it fails if a news item disappears from an entry that did not change. When you
+remove a news item on purpose, also record a real check on that entry (for example `last_checked`).
+
+### 4.1 Gate measures (rerun each)
+
+| Measure | Switch | Command | Cost |
+|---|---|---|---|
+| News event set | `news` | `node eval/news-set.mjs [--no-write]` | free; runs on its own snapshot (`eval/news-set/*.snapshot.json`) |
+| News writer set | `news` | `node eval/news-writer-set.mjs [--no-write]` (`--record` makes live calls) | free in replay |
+| Page-fields set | `page_fields` | `node eval/pagefields-set.mjs --write` | free |
+| Press set | `press` | `node eval/press-set.mjs --write` | free |
+| Links measure | `relationships` | `node eval/links-measure.mjs [--no-write]` | free |
+| Tier B replay | `new_entries` | `node eval/tierb-set.mjs [--no-write]` | free |
+| New bills | `new_entries` | `node eval/newbill-eval.mjs --set test` and `--set unseen --gold … --sources … --texts … --references …` (unseen set outside the repo, pinned in `config/eval-sets.json`) | paid, about $3 |
+| Lawsuits | `lawsuits` | `node eval/lawsuits-set.mjs --write [--only id,id]` | paid, about 2 calls per case |
+| Press-based news | `press_news` | `node eval/press-news-set.mjs --write [--only id,id]` | paid, a few calls per case |
+| Field eval (old) | `mechanism`, `thresholds`, `penalties` | `node eval/fetch-texts.mjs && node eval/run.mjs --provider anthropic` | paid |
+| Links suite | (part of links measure) | `node links/test.mjs` | free; reads live data on purpose |
+
+A report counts only if it covers the whole case set (or `new_bills_gate.min_items` for new bills), was made with the
+production models for its roles, and carries the current `checks_hash`. `--only` runs never count. As of 26 Nov 2026 there is
+no lawsuits or press-based-news report in `eval/reports/`, so those two switches cannot pass yet even if turned on.
+Ask the owner before any paid run over about $1.
+
+### 4.2 Config files
+
+| File | What |
+|---|---|
+| `config/publish.json` | Switches and per-step limits (explained in `OWNER-HANDBOOK.md` section 3) |
+| `config/models.json` | Provider, roles, prices, token limits, `monthly_cost_cap_usd` (50), escalation |
+| `config/pipeline.json` | Structured pipeline settings incl. `new_bills.engine` ("simple") |
+| `config/legiscan.json` | LegiScan search phrases, per-run and monthly caps |
+| `config/news-sources.json` | News feeds (and rejected feeds with reasons) |
+| `config/courts.json` | Tracked federal court cases (CourtListener dockets) |
+| `config/announced-bills.json` | Federal bills announced without a number (end of Congress, tracking check) |
+| `config/identifiers.json`, `identifiers-legiscan.json` | Tracked bills (federal map; state bills with LegiScan ids and sessions) |
+| `config/actor-ids.json` | Official member ids for legislator nodes (links) |
+| `config/recall-outside.json` | Bills found outside the pipeline that the screen must catch |
+| `config/eval-sets.json` | Pinned size and fingerprints of the unseen new-bills set |
+| `config/scope.draft.json`, `jurisdictions.json`, `news-lexicon.json` | Title screen words, jurisdictions, news words |
+
+## 5. How to add things
+
+**A source.** Add a client under `grabber/sources/` (bill records) or `news/sources/` (news adapters, contract in
+`news/CONTRACT.md`) using `grabber/lib/http.mjs` (`createHttp` with `secrets: [key]` so the key is scrubbed, `maxRequests`).
+Respect robots.txt and refusals: never work around a block. Record real responses in `fixtures/` and test on them (no network
+in tests). A news feed goes in `config/news-sources.json` only after you have verified it works; failed candidates go under
+`rejected` with the reason. A new key needs: the `.env` entry, a GitHub secret, and the `env:` line in `update.yml`.
+
+**An entry (by hand).** Write a script in `pipeline/out/` (git-ignored) that: loads with `publish/run.mjs` `loadData`;
+makes the change from official sources read in that session; validates with `schema/validate.mjs`, `schema/integrity.mjs`
+`checkIntegrity` and `web/scripts/site-check.mjs` `siteCheck`; re-stamps `page_verification.basis_sha256` with
+`pagefields/layout.mjs` `basisOf` where the checked text changed; writes with `writeData`; copies to `docs/data/v2/`.
+`out/apply-patches.mjs` does this for field patches. Tracking rules (`schema/tracking.mjs`, run in CI):
+- a federal entry whose title names a bill must carry `identifiers.external.congress_gov` (e.g. `119/hr/9925`);
+- a pending federal bill with no id must be in `config/announced-bills.json`;
+- a pending state bill must be in `config/identifiers-legiscan.json`, with the same ids in `identifiers.external.legiscan`.
+Then run section 4's checks and open a PR. Merge `main` into the branch right before pushing: the pipeline commits to `main`
+every 4 hours (expect conflicts in `pipeline/state/*.json` and `web/data/v2/*.json`).
+
+**A rule.** Section and status rules: `agents/rules.mjs`. Stop rules: `publish/guards.mjs`. Cross-file rules:
+`schema/integrity.mjs`. Shape rules: `schema/*.schema.json`. Add a test that fails on the old code and passes on the new.
+Remember that any change under `pipeline/` makes every gate report stale (section 8).
+
+**A gate measure.** A script under `eval/` that runs the production code over a fixed `cases.json`, scores by code, and
+writes its report with `eval/gate.mjs` `writeMeasureReport` carrying `checks_hash` from `eval/hash.mjs`. Then: add the
+measure to `MEASURE_INPUTS` in `hash.mjs`, map the switch in `gate.mjs` `MEASURED`, add its case-set size in
+`readGateInputs` `expected`, add its rule in `gate()`, add the command to `HOW`, and add tests in `eval/test.mjs`.
+
+## 6. Data and schema rules
+
+- Site data (`web/data/v2/`): `entries.json`, `news.json`, `relationships.json`, `site.json`, `content.json`, `changes.json`,
+  `status.json`. Schemas: `schema/entry.schema.json` (with `common.schema.json`), `news`, `relationships`, `site`, `content`,
+  `changes`, `status`, and `pipeline.schema.json` for the pipeline's own files. Check one file:
+  `node schema/validate.mjs <schema> <file>`.
+- Automated entries (`origin: automated` or `mixed`) need identifiers, a source, evidence quotes with source URLs, and
+  `verification` by the agent; confidence level must match its basis.
+- `schema/integrity.mjs` (`checkIntegrity`, `pageFieldProblems`, `pressProblems`): every reference between files points at a
+  real entry, dates are real, page fields and press links follow their rules.
+- `publish/guards.mjs`: `checkPublish` (no status goes backwards; nothing deleted or edited outside what the step may change;
+  per-run limits; source hashes unchanged), `checkNewEntry`, `checkLinks`.
+- `schema/tracking.mjs`: every pending bill is followed (section 5).
+- Every fact comes from an official source read in the session. A source that cannot be read leaves the fact out.
+- `web/data/v2` and `docs/data/v2` must always hold the same bytes.
+
+## 7. Components (short reference)
+
+- **Grabber.** Congress.gov: bills updated since the cursor, tracked bills matched by `identifiers.external.congress_gov`,
+  new bills through the title screen (`config/scope.draft.json`, then the AI intent check `grabber/intent.mjs`, which drops
+  only a confident "no"); the official title is read when the list title is only a short name; a 5xx on the date-filtered list
+  falls back to the plain list. Federal Register: phrase searches; entries carry `identifiers.external.federal_register`, and
+  documents citing them are found. LegiScan: master lists per open session, `change_hash`, two bulk full-text searches
+  (`precise_phrases`, `wide_query`), monthly cap in `state/legiscan-usage.json`. Bills without text wait in
+  `state/waiting-for-text.json`.
+- **Compare.** Code only. Verdicts as above; cosponsor count changes are `material` and handled by Tier A.
+- **Tier A** (`publish/tier-a.mjs`). Official facts in fixed wording: events, status the record proves, cosponsor totals,
+  Federal Register record facts (a revoke/amend/rescind document raises "may need updating" via `needs_reading`). It returns
+  `disagreements` (record vs entry) which the report lists; it never overwrites them.
+- **Tier B** (`publish/tier-b.mjs`). New entries from the AI step, only when `auto_publish.new_entries` is on; at most
+  `max_new_entries_per_run`; adds the bill to the identifiers file.
+- **Court dockets** (`publish/courts.mjs`). CourtListener entries since the last run for `config/courts.json` cases.
+- **End of Congress / sessions.** See `OWNER-HANDBOOK.md` section 6. Both are code only, read each record first, and count
+  against `max_entries_changed_per_run`.
+- **Self-correction** (`correct/`). Once a day, up to 3 entries; reader + confirmer + code checks; fields mechanism,
+  thresholds, penalties. By hand: `node correct/run.mjs [--dry-run] [--only k1,k2] [--max n] [--force]`.
+- **Page fields** (`pagefields/`). Writer `generator`, reviewer `bill_reviewer`, code checks; up to 3 entries per run.
+- **Links** (`links/`). Proposals for changed entries; only record-proved sponsor links are applied (`checkLinks`).
+  Backtest: `node links/backtest.mjs`.
+- **News** (`news/run.mjs`). Official adapters and feeds → events (`news/events.mjs`) rendered by the phrase bank → every
+  automated item reviewed by `news/review.mjs` (role `validator`) before it is added → leads not covered go to the open-leads
+  register (`state/news-open-leads.json`): each ends covered, rejected with a reason, or raised and expired. The weekly
+  completeness check runs here (defaults: every 7 days, 10 days back, 10 searches; no `completeness` block in `publish.json`).
+  All news state files are written together at the end of the news step.
+- **Lawsuits** (`publish/lawsuits.mjs`, `agents/lawsuit.mjs`). Open official leads announcing a lawsuit → G.2 entry
+  (writer + reviewer, facts quoted from the release); state `state/lawsuits.json`; up to 3 tries per lead. Off now.
+- **Press-based news** (`news/press-news.mjs`). Groups leads from approved outlets and official sources; publishes when an
+  official source confirms or two outlets of different owners report; the item's `check` line says "From press reports (…)"
+  or "From the official release (…)", which the site shows under "How we checked". State `state/press-news.json`. Off now.
+- **In the press** (`news/press.mjs`). Headline, outlet, date, link on one entry; max 5 per entry.
+- **Spend.** Every AI call is appended to `state/ledger/<YYYY-MM>.jsonl`; the monthly cap stops all AI work when reached.
+
+## 8. Traps (read before changing anything)
+
+- **Every change under `pipeline/` makes every gate report stale.** `eval/hash.mjs` hashes all of `pipeline/` (code, prompts,
+  config, case sets, fixtures, tests) except `node_modules/`, `data/`, `out/`, `state/`, `eval/reports/`, `eval/report.md`,
+  `.env`, the identifiers files, and the `auto_publish` / `gate_override` blocks of `publish.json`. Free measures re-run
+  themselves at the start of a run; paid ones (new bills, lawsuits, press-based news) must be re-run by hand or their switch
+  stays off (the new-bills switch is on today only by `gate_override`).
+- **Tests use frozen data**: `fixtures/live-2026-11-26/` and `fixtures/correct/`. Never read `web/data/v2` in a code test; live
+  data changes every 4 hours and has broken tests three times. `links/test.mjs` is the one deliberate exception (it checks the
+  real network).
+- **Windows line endings**: many files are CRLF. Normalise `\r\n` before multi-line matches. Prefer the Edit tool.
+- **Shell quoting**: `\b`, `\n` and quotes in bash heredocs and `node -e` get mangled. Write scripts to files; check for stray
+  control characters (`grep -c $'\x08' file`).
+- **State files are written only at the end of a news run** (`news/run.mjs` saves events, open leads and seen leads together).
+  Never write state midway. Tests must pass temp paths, never the real `pipeline/state/`. Never commit a test-written
+  `state/news-open-leads.json`.
+- **Re-running a GitHub check reuses the old merge snapshot.** Use "Update branch", or close and reopen the PR.
+- **Removed news items can come back** if their event stays in `state/news-events.json`. Remove the item and fix its cause
+  (and for a linking bug, remove the wrongly keyed event).
+- **`site-check auto`** fails if a news item disappears from an unchanged entry; record a real check on that entry.
+- **Pages redeploy** a few minutes after a merge; check the live JSON with a cache-busting query string.
+- **CourtListener** rate-limits (HTTP 429): space out calls. **Congress.gov** list titles are often short names: use
+  `/titles` for the official title.
+- Never commit `pipeline/out/`.
+- Never print a key. `createHttp` scrubs listed secrets from errors; `update.mjs` scrubs error text before reporting it.
+
+## 9. Tests
+
+`npm test` runs every test file in sequence (the list is in `package.json`), each with `lib/test-cleanup.mjs`. Single areas:
+`npm run test:schema`, `test:grabber`, `test:legiscan`, `test:compare`, `test:publish`, `test:update`, `test:correct`,
+`test:links`, `test:news`, `test:report`, or `node <file>` for any test file (e.g. `node publish/test-congress-end.mjs`,
+`node publish/test-session-end.mjs`, `node lib/test-backup-due.mjs`, `node news/test-press-news.mjs`,
+`node publish/test-lawsuits.mjs`, `node audit/test.mjs`). Tests use recorded responses and scripted models: no network, no AI
+spend (except `links/test.mjs`, which reads the live site data, and the explicit `smoke:` scripts).

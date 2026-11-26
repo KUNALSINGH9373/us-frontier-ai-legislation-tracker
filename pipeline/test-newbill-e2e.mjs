@@ -24,8 +24,8 @@ function setup() {
   const P = { pipelineDir, root, dataDir: path.join(root, 'web', 'data', 'v2'), docsDir: path.join(root, 'docs', 'data', 'v2'), idsFile: path.join(pipelineDir, 'config', 'identifiers.json'), lsIdsFile: path.join(pipelineDir, 'config', 'identifiers-legiscan.json'), stateDir: path.join(pipelineDir, 'state'), workDir: path.join(pipelineDir, 'data') };
   for (const d of [P.dataDir, P.docsDir]) fs.cpSync(path.join(FX, 'data-2026-10-08'), d, { recursive: true });
   fs.mkdirSync(path.dirname(P.idsFile), { recursive: true });
-  fs.copyFileSync(path.join(here, 'config', 'identifiers.json'), P.idsFile);
-  fs.copyFileSync(path.join(here, 'config', 'identifiers-legiscan.json'), P.lsIdsFile);
+  fs.copyFileSync(path.join(here, 'fixtures', 'live-2026-11-26', 'config', 'identifiers.json'), P.idsFile); // the tracked-bill lists frozen on 26 Nov 2026
+  fs.copyFileSync(path.join(here, 'fixtures', 'live-2026-11-26', 'config', 'identifiers-legiscan.json'), P.lsIdsFile);
   fs.mkdirSync(P.stateDir, { recursive: true });
   fs.writeFileSync(path.join(P.stateDir, 'state.json'), JSON.stringify({ version: 1, sources: {} }, null, 1) + '\n');
   fs.writeFileSync(path.join(P.stateDir, 'corrections.json'), '{"last_run":null,"items":{}}\n');

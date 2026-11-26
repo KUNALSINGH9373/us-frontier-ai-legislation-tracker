@@ -1,6 +1,6 @@
 // Run:  node grabber/test-courts.mjs
 // The court-docket step: the rate limiter, paging a docket back to the last entry seen, which entries are material, and the publish
-// (events, news, status text, guards, state) on a temp copy of the live site data. Docket responses are real CourtListener answers
+// (events, news, status text, guards, state) on a temp copy of the site data frozen on 26 Nov 2026 (fixtures/live-2026-11-26). Docket responses are real CourtListener answers
 // recorded on 28 Oct 2026 (fixtures/courts/, trimmed to the fields read). No network.
 import fs from 'fs';
 import os from 'os';
@@ -14,7 +14,7 @@ import { makeValidator } from '../schema/validate.mjs';
 import { checkIntegrity } from '../schema/integrity.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const FX = path.join(here, '..', 'fixtures', 'courts'), LIVE = path.join(here, '..', '..', 'web', 'data', 'v2');
+const FX = path.join(here, '..', 'fixtures', 'courts'), LIVE = path.join(here, '..', 'fixtures', 'live-2026-11-26'); // the site data frozen on 26 Nov 2026
 let pass = 0, fail = 0;
 const ok = (name, cond, detail = '') => { if (cond) pass++; else { fail++; console.log('FAIL  ' + name + (detail ? '\n      ' + detail : '')); } };
 const j = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));

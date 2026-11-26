@@ -7,6 +7,7 @@ import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { runUpdate } from './update.mjs';
+import { congressEndRun } from './publish/congress-end.mjs';
 import { publishRun } from './publish/run.mjs';
 import { compareRun } from './compare/run.mjs';
 import { writeChangeset, sha } from './grabber/lib/run-common.mjs';
@@ -28,8 +29,8 @@ function setup() {
   const P = { pipelineDir, root, dataDir: path.join(root, 'web', 'data', 'v2'), docsDir: path.join(root, 'docs', 'data', 'v2'), idsFile: path.join(pipelineDir, 'config', 'identifiers.json'), lsIdsFile: path.join(pipelineDir, 'config', 'identifiers-legiscan.json'), stateDir: path.join(pipelineDir, 'state'), workDir: path.join(pipelineDir, 'data') };
   for (const d of [P.dataDir, P.docsDir]) fs.cpSync(path.join(FX, 'data-2026-10-08'), d, { recursive: true });
   fs.mkdirSync(path.dirname(P.idsFile), { recursive: true });
-  fs.copyFileSync(path.join(here, 'config', 'identifiers.json'), P.idsFile);
-  fs.copyFileSync(path.join(here, 'config', 'identifiers-legiscan.json'), P.lsIdsFile);
+  fs.copyFileSync(path.join(here, 'fixtures', 'live-2026-11-26', 'config', 'identifiers.json'), P.idsFile); // the tracked-bill lists frozen on 26 Nov 2026
+  fs.copyFileSync(path.join(here, 'fixtures', 'live-2026-11-26', 'config', 'identifiers-legiscan.json'), P.lsIdsFile);
   fs.mkdirSync(P.stateDir, { recursive: true });
   fs.writeFileSync(path.join(P.stateDir, 'state.json'), JSON.stringify({ version: 1, sources: {} }, null, 1) + '\n');
   fs.writeFileSync(path.join(P.stateDir, 'corrections.json'), '{"last_run":null,"items":{}}\n');
@@ -655,5 +656,33 @@ function fakeGit(answers) {
   const on = formatHtml({ ...base, news_publishing: { on: true, why: null } }), offm = formatHtml({ ...base, news_publishing: { on: false, why: 'no news-set report made by the current code' }, notes: ['auto_publish.news is on in config/publish.json but treated as OFF this run: no news-set report made by the current code'] });
   ok('every message says whether news can publish; off is a warning (not silent) and not repeated under Watch', /News publishing<\/b>  on/.test(on.text) && /News publishing<\/b>  OFF/.test(offm.text) && !offm.silent && (offm.text.match(/no news-set report/g) || []).length === 1, offm.text);
 }
+// ---------- 3 Jan 2027: the whole run marks pending federal bills as died (within the per-run limit) and alerts what it cannot do ----------
+{
+  const P = setup(), calls = [];
+  const congress = { async getActions(b) { calls.push(`${b.congress}/${b.type}/${b.number}`); return [{ actionDate: '2026-10-01', text: 'Referred to the Committee on Science, Space, and Technology.' }]; } };
+  const startData = j(path.join(P.dataDir, 'entries.json'));
+  const pendingFed = startData.filter((e) => e.level === 'federal' && e.type === 'bill' && ['pending', 'stalled'].includes(e.status) && ((e.identifiers && e.identifiers.external && e.identifiers.external.congress_gov) || []).length);
+  const { code, rep } = await runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2027-01-03T08:00:00Z'),
+    deps: { ...okSteps, congressEndRun: (o) => congressEndRun({ ...o, congress }) }, log: () => {}, logErr: () => {} });
+  const after = j(path.join(P.dataDir, 'entries.json')), died = after.filter((e) => e.events.some((v) => /^Died at the end of the 119th Congress/.test(v.text)));
+  const changed = after.filter((e, i) => JSON.stringify(e) !== JSON.stringify(startData.find((x) => x.key === e.key))).length;
+  ok('3 Jan 2027: the run succeeds and promotes bills marked as died', code === 0 && died.length > 0 && died.every((e) => e.status === 'failed'), rep && (rep.error || JSON.stringify(rep.congress_end)));
+  ok('3 Jan 2027: the whole run stays within the per-run limit', changed <= CONFIG.max_entries_changed_per_run, `${changed} > ${CONFIG.max_entries_changed_per_run}`);
+  ok('3 Jan 2027: the report lists the marked bills and how many wait', rep.congress_end && rep.congress_end.marked.length === died.length && rep.congress_end.waiting >= pendingFed.length, JSON.stringify(rep.congress_end));
+  ok('3 Jan 2027: web and docs agree', fs.readFileSync(path.join(P.dataDir, 'entries.json')).equals(fs.readFileSync(path.join(P.docsDir, 'entries.json'))));
+  ok('3 Jan 2027: without a LegiScan key the state-session step says so (no silent skip)', !rep.session_end || rep.session_end.errors.includes('LEGISCAN_API_KEY is not set'));
+  // the next run (4 hours later) marks more, and none twice
+  const r2 = await runUpdate({ P, config: CONFIG, models: {}, factory, flags: { source: 'all' }, env: { COURTLISTENER_API_TOKEN: 'token-for-tests-123' }, now: () => new Date('2027-01-03T12:00:00Z'),
+    deps: { ...okSteps, congressEndRun: (o) => congressEndRun({ ...o, congress }) }, log: () => {}, logErr: () => {} });
+  const after2 = j(path.join(P.dataDir, 'entries.json'));
+  ok('the next run marks the rest, none twice', r2.code === 0 && after2.filter((e) => e.events.some((v) => /^Died at the end/.test(v.text))).length > died.length && after2.every((e) => e.events.filter((v) => /^Died at the end/.test(v.text)).length <= 1), r2.rep && (r2.rep.error || JSON.stringify(r2.rep.congress_end)));
+}
+// before 3 Jan 2027 the step does nothing at all
+{
+  const P = setup(); let called = false;
+  const { code, rep } = await run(P, { congressEndRun: async () => { called = true; throw new Error('must not run'); } });
+  ok('before the end of the Congress the step is not run and the report has no line about it', code === 0 && !called && !rep.congress_end);
+}
+
 console.log(`update: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

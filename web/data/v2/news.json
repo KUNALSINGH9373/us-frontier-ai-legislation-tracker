@@ -1625,6 +1625,25 @@
    "origin": "authored",
    "verification": {
     "method": "session",
+    "checked_at": "2026-11-26T12:30:00Z"
+   },
+   "date": "2026-11-19",
+   "kind": "federal",
+   "title": "Rep. Trahan releases a summary of an updated FRONTIER Act",
+   "tracker": "h-r-9925-frontier-act",
+   "body": "Rep. Lori Trahan released a section-by-section summary of her updated FRONTIER Act (H.R. 9925). Changes she lists include preserving state laws that are more protective (a federal floor), embedded independent verification organizations, treating automated AI research and development as a category of catastrophic risk, enforceable corrective orders, penalties and reporting for near misses, and a new Office of AI Security at Commerce. Full bill text will follow.",
+   "links": [
+    {
+     "t": "Rep. Trahan release (Nov 19, 2026)",
+     "u": "https://trahan.house.gov/news/documentsingle.aspx?DocumentID=3871"
+    }
+   ],
+   "check": "Checked against Rep. Trahan's own release; the updated bill text is not published yet."
+  },
+  {
+   "origin": "authored",
+   "verification": {
+    "method": "session",
     "checked_at": "2026-11-25T18:00:00Z"
    },
    "date": "2026-11-24",

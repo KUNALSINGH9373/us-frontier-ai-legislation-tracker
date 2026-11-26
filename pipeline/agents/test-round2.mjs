@@ -23,7 +23,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const J = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 const SET = path.join(here, '..', 'eval', 'tierb-set');
 const rec = (n) => J(path.join(SET, 'records', n + '.json')), draft = (n) => J(path.join(SET, 'drafts', n + '.json'));
-const ENTRIES = J(path.join(here, '..', '..', 'web', 'data', 'v2', 'entries.json'));
+const ENTRIES = J(path.join(here, '..', 'fixtures', 'live-2026-11-26', 'entries.json')); // the site data frozen on 26 Nov 2026
 // The live site data without any entry that already tracks this record (by its LegiScan id, or its state and number in the entry's key),
 // for a test that uses a real bill as an example NEW bill: the test keeps measuring what it means to as the site adds bills (AZ H.B. 4098
 // was added by hand on 31 Oct 2026, and the duplicate check then held it before the step this test checks).

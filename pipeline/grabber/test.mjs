@@ -298,5 +298,26 @@ function require_sha(s) { return crypto.createHash('sha256').update(s).digest('h
   ok('and H.R. 11157 is caught only through its official title (its short name has no subject word)', !precise('RSI Safety Act of 2026') && !wide('RSI Safety Act of 2026') && passes(outside.find((b) => b.id === '119/hr/11157')));
 }
 
+// ---------- the recall test's bill list (grabber/recall-congress.mjs): every federal bill on the site, titles read, none left out ----------
+{
+  const { siteBills, withTitles, recallCongress } = await import('./recall-congress.mjs');
+  const entries = [
+    { key: 'a', level: 'federal', identifiers: { external: { congress_gov: ['119/s/1', '119/hr/2'] } } },
+    { key: 'b', level: 'federal', identifiers: { external: { congress_gov: ['119/hr/3'] } } },
+    { key: 'c', level: 'state', identifiers: { external: { legiscan: [5] } } },
+    { key: 'd', level: 'federal' }];
+  const bills = siteBills(entries, [{ id: '119/hr/3', list_title: 'x' }, { id: '119/hr/11157', list_title: 'RSI Safety Act of 2026', official_title: 'To establish a program for the disclosure of research and development programs in the automation of frontier artificial intelligence research.' }]);
+  ok('recall list: every Congress.gov id on a federal entry, then outside bills not already listed', bills.map((b) => b.id).join() === '119/s/1,119/hr/2,119/hr/3,119/hr/11157');
+  const titles = { '119/s/1': ['Frontier AI Safety Act', 'To require frontier artificial intelligence developers to ...'], '119/hr/2': ['Lunch Act', 'To improve school meals.'] };
+  const fakeCongress = { async getBill(r) { const t = titles[`${r.congress}/${r.type}/${r.number}`]; if (!t) throw new Error('HTTP 503'); return { title: t[0] }; }, async getOfficialTitle(r) { return titles[`${r.congress}/${r.type}/${r.number}`][1]; } };
+  await withTitles(bills, fakeCongress);
+  const noLlm = { async complete() { throw new Error('no AI in this test'); } };
+  const rows = await recallCongress({ llm: noLlm, bills: bills.filter((b) => b.id !== '119/hr/2'), scope: JSON.parse(fs.readFileSync(new URL('../config/scope.draft.json', import.meta.url), 'utf8')) });
+  const r = (id) => rows.find((x) => x.id === id);
+  ok('a bill whose titles cannot be read counts as missed, never left out', /^MISSED \(titles not read: HTTP 503\)/.test(r('119/hr/3').result), JSON.stringify(r('119/hr/3')));
+  ok('a short name is screened on its official title, as a run does', r('119/hr/11157').via === 'official title' && /^caught/.test(r('119/hr/11157').result));
+  ok('a descriptive list title is screened as it is', r('119/s/1').via === 'list title' && r('119/s/1').result === 'caught (precise)');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -6,7 +6,8 @@ import { loose, LOST_EXPONENT, COMPUTE_POWER_PHRASE } from './text-norm.mjs';
 // the four state sections whose entries are bills or laws, with a status the record gives (agents/derive.mjs stateSections decides which
 // of them a bill's status allows). E (drafts), G.2 (litigation), H (precursors), I (provisions inside broader laws) and J (exclusions)
 // are judgements about context, not facts a bill record states, so they stay with a person.
-export const AUTO_CREATE_SECTIONS = ['A', 'B', 'B.2', 'C', 'D', 'F', 'G', 'G.3'];
+// G.2: lawsuits only, from an official release (publish/lawsuits.mjs, owner 26 Nov 2026); the new-bill writer never offers it.
+export const AUTO_CREATE_SECTIONS = ['A', 'B', 'B.2', 'C', 'D', 'F', 'G', 'G.2', 'G.3'];
 
 export const SECTION_RULES = {
   A: { type: 'law', level: 'state' }, B: { type: 'bill', level: 'state' }, 'B.2': { type: 'bill', level: 'state' }, C: { type: 'auditor', level: 'state' },

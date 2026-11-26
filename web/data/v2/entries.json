@@ -1612,6 +1612,14 @@
    "checked_at": "2026-11-11T04:36:30.393Z",
    "reviewer": "claude-opus-5-5",
    "basis_sha256": "c514412dd267c5d0b1cb120725a7040ace01101a20418bcf56cb5242c009eb3d"
+  },
+  "identifiers": {
+   "session": "104th General Assembly",
+   "external": {
+    "legiscan": [
+     1962488
+    ]
+   }
   }
  },
  {
@@ -2446,16 +2454,16 @@
   "mechanism": "A public-safety plan on the California TFAIA model, plus a child-protection plan for covered chatbots. Large developers would have published risk-assessment summaries before deployment and reported safety incidents within 15 days (24 hours if imminent) to the Office of Artificial Intelligence Policy or an appropriate public-safety authority. It also required quarterly internal-use summaries, banned false statements, and gave employees an anonymous internal channel and remedies against retaliation. The attorney general would have enforced it, with civil penalties of $1M for a first violation and $3M for later ones.",
   "thresholds": "10^26 operations; large frontier developer = $500M or more annual revenue; catastrophic risk = more than 50 deaths or serious injuries, or more than $1B property loss; covered chatbot = 1M or more monthly active users and likely use by minors",
   "penalties": null,
-  "status_text": "Introduced Jan. 19, 2026. The first substitute got an 8–0 favorable committee vote Jan. 27. Moved from the third-reading calendar to the Rules Committee Mar. 3. The enacting clause was struck and it was filed with bills not passed on Mar. 6, 2026.",
+  "status_text": "Publicly distributed Jan. 19, 2026 and introduced (first reading) Jan. 20, 2026. The first substitute got an 8–0 favorable committee vote Jan. 27. Moved from the third-reading calendar to the Rules Committee Mar. 3. The enacting clause was struck and it was filed with bills not passed on Mar. 6, 2026.",
   "signed_text": null,
   "effective_text": null,
   "events": [
    {
-    "date": "2026-01-19",
+    "date": "2026-01-20",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "Introduced Jan. 19, 2026",
-    "clause": "Introduced Jan. 19, 2026",
+    "text": "Introduced (first reading) Jan. 20, 2026",
+    "clause": "Introduced (first reading) Jan. 20, 2026",
     "inferred_year": false,
     "scheduled": false
    },
@@ -2516,11 +2524,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-11-26T12:00:00Z"
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-286-1st-substitute-artificial-intelligence-transparency-amendments",
    "section_name": "Pending, stalled and failed state bills"
@@ -2630,9 +2638,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "8353e1f22dc87206107895f5bb424a1ab383899164539ae2e0992f658ada9d74"
+   "checked_at": "2026-11-26T12:00:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "6cf044bf23393fb0849e10a4d9aa8f2bc25b247b227c8a20747169a0e2f8a651"
   }
  },
  {
@@ -4510,7 +4518,7 @@
   "mechanism": "Directs the Joint Commission on Technology and Science (JCOTS) to \"evaluate the feasibility and impact of developing a framework\" for independent verification organizations (IVOs) that would check AI models against standards for preventing injury and property damage. The report was due Nov 1, 2026 to the Senate Finance and Appropriations and General Laws and Technology committees and the House Appropriations and Communications, Technology and Innovation committees. The 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8 (conference amendment 8 #1c), gives JCOTS $25,000 from the general fund for FY2027. This is a study, not a requirement on anyone; claims that it mandates verification are wrong. If recommended, JCOTS shall evaluate IVO licensing and viability of the Virginia Information Technologies Agency or other state agency to run it.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "HB 797 approved by the Governor Apr 8, 2026 (Chapter 425, effective July 1, 2026); SB 384 approved by the Governor Apr 8, 2026 (Chapter 426, effective July 1, 2026). Votes: 84-14 in the House, 40-0 in the Senate. Funded through the 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8: $25,000 FY2027 general fund added to JCOTS for Chapter 426. The study report was due Nov 1, 2026; as of Nov 12, 2026 we could not confirm whether it has been published.",
+  "status_text": "HB 797 approved by the Governor Apr 8, 2026 (Chapter 425, effective July 1, 2026); SB 384 approved by the Governor Apr 8, 2026 (Chapter 426, effective July 1, 2026). Votes: 84-14 in the House, 40-0 in the Senate. Funded through the 2026 Appropriation Act (HB 30, 2026 Special Session I, Chapter 1), Item 8: $25,000 FY2027 general fund added to JCOTS for Chapter 426. The study report was due Nov 1, 2026; the Joint Commission on Technology and Science published it as RD734, \"Independent Verification Organizations (IVO) and AI Oversight in Virginia – November 2026\" (the report itself was not read here).",
   "signed_text": "Apr 8, 2026 (HB 797, Chapter 425; SB 384, Chapter 426)",
   "effective_text": "July 1, 2026",
   "events": [
@@ -4562,6 +4570,11 @@
     "label": "Bill text (official)",
     "url": "https://lis.virginia.gov/bill-details/20261/HB797",
     "kind": "primary"
+   },
+   {
+    "label": "JCOTS report RD734 (Virginia General Assembly reports)",
+    "url": "https://rga.lis.virginia.gov/Published/2026/RD734",
+    "kind": "primary"
    }
   ],
   "source_label": "VA budget amendment citing Ch. 426 — budget.lis.virginia.gov · HB 797 summary + votes",
@@ -4581,17 +4594,17 @@
    "run_id": "update-20261115-0005",
    "rounds": 1
   },
-  "last_checked": "2026-11-15",
-  "last_changed": "2026-11-15",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-797-chapter-425-s-b-384-chapter-426",
    "section_name": "State IVO / AI-auditor licensing measures"
   },
   "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-15T00:05:45Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "426258b1847ee00d9370293861b53408916c7fe502c32922917f1dd245754e84"
+   "method": "session",
+   "checked_at": "2026-11-26T12:00:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "5b517878c194533b758b33920dcc81639769cacae27326c33883d666cae67051"
   },
   "evidence": [
    {
@@ -4603,6 +4616,11 @@
     "field": "mechanism",
     "quote": "the viability of the Virginia Information Technologies Agency or any other state agency to implement and manage such licensing scheme",
     "source_url": "https://lis.virginia.gov/bill-details/20261/HB797"
+   },
+   {
+    "field": "status_text",
+    "quote": "Independent Verification Organizations (IVO) and AI Oversight in Virginia – November 2026",
+    "source_url": "https://rga.lis.virginia.gov/Published/2026/RD734"
    }
   ],
   "identifiers": {
@@ -4920,7 +4938,7 @@
   "mechanism": "Would create an Under Secretary of Commerce for AI Security with power to write rules. Large developers would have to publish a frontier AI framework, get an annual third-party compliance audit, publish transparency reports, and file a registration and disclosure statement naming beneficial owners. Very large developers would also have to retain a licensed independent verification organization (IVO) for ongoing assessment, with reports at least every 6 months. Incidents would have to be reported to the Under Secretary within 72 hours, and to law enforcement within 24 hours if death or injury is imminent. Developers would also file quarterly summaries of internal-use risks. Under Section 8, the Commerce Secretary could suspend or restrict development, deployment or internal use of a model found to pose an imminent catastrophic risk (provisional orders last 45 days; final orders 90 days, renewable). Orders would also cover fine-tuned or distilled copies. Only the federal district court in Washington, D.C. could review them, and this would be the only way any federal official, including the President, could restrict a model on those grounds. IVOs could not be sued except for willful misconduct causing death or serious injury. Civil penalties would be up to $1,000,000 per violation, and up to $10,000,000 per violation for breaching an emergency order; a willful breach of an emergency order would be a crime punishable by up to 10 years in prison. State attorneys general could opt in to receive reports and enforce. The Under Secretary could raise the thresholds but never lower them. False statements made in good faith would be excused, and transparency reports could be deferred for confidential deployments. The bill has no whistleblower title, although the June 2026 Great American AI Act discussion draft had one. Section 9 would bar states from adopting or enforcing laws that impose \"new substantive obligations\" on developers about catastrophic-risk transparency, third-party auditing or verification, or incident reporting, with exceptions for general laws, rules on deployers and uses, protections for minors, and state purchasing. There is no end date (the June draft had a 3-year limit). The sponsor's section-by-section says the preemption clause \"is aimed at\" California SB 53, New York's RAISE Act and Illinois SB 315. Registration violations carry a $10,000 civil penalty for each day of noncompliance.",
   "thresholds": "A frontier model is one trained with more than 10^26 operations, counting fine-tuning and reinforcement learning. Large developer: over $50M revenue and at least $1B in AI development spending over 36 months. Very large developer: over $5B revenue and at least $10B in spending. Catastrophic risk: death of, or serious injury to, more than 50 people, or more than $1B in property damage (not counting loss of share value).",
   "penalties": null,
-  "status_text": "Introduced July 23, 2026; referred to the House Energy and Commerce Committee and the House Science, Space, and Technology Committee. Cosponsors were added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM), Sept 21, 2026 (Malliotakis R-NY, Correa D-CA) and Oct 1, 2026 (Gallagher R-CA, Quigley D-IL), for 11 cosponsors in all. As of Oct 27, 2026, no committee action had been recorded. Reuters linked a remark by President Trump on Aug 7, 2026 (a Punchbowl interview) that companies could be put \"out of business\" to this bill's audit requirement.",
+  "status_text": "Introduced July 23, 2026; referred to the House Energy and Commerce Committee and the House Science, Space, and Technology Committee. Cosponsors were added Sept 16, 2026 (Wilson R-SC, Vasquez D-NM), Sept 21, 2026 (Malliotakis R-NY, Correa D-CA) and Oct 1, 2026 (Gallagher R-CA, Quigley D-IL), for 11 cosponsors in all. As of Oct 27, 2026, no committee action had been recorded. Reuters linked a remark by President Trump on Aug 7, 2026 (a Punchbowl interview) that companies could be put \"out of business\" to this bill's audit requirement. On Nov 19, 2026 Rep. Trahan released a section-by-section summary of an updated FRONTIER Act; she said full bill text \"will follow in the coming weeks.\"",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -4981,6 +4999,11 @@
     "label": "Bill status XML — GovInfo",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr9925.xml",
     "kind": "primary"
+   },
+   {
+    "label": "Rep. Trahan release, Nov 19, 2026 (updated section-by-section)",
+    "url": "https://trahan.house.gov/news/documentsingle.aspx?DocumentID=3871",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill text — sponsor PDF · Section-by-section · congress.gov · Bill status XML — GovInfo",
@@ -5000,8 +5023,8 @@
    "run_id": "update-20261121-0005",
    "rounds": 1
   },
-  "last_checked": "2026-11-21",
-  "last_changed": "2026-11-21",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-r-9925-frontier-act-frontier-risk-oversight-national-transparency-in",
    "section_name": "Federal frontier-AI bills introduced (none enacted)"
@@ -5109,10 +5132,10 @@
    "checked_at": "2026-10-26T17:18:08Z"
   },
   "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-21T00:05:56Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "16ccbdea461716c3697a20ba1bbdc8b296fe4aef9f91a0d47f8052805dab4431"
+   "method": "session",
+   "checked_at": "2026-11-26T12:30:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "1105f8d389e904b6e920359c46e73dbd80db232e9e5a120d3abf3ee55d26d925"
   },
   "evidence": [
    {
@@ -5129,6 +5152,11 @@
     "field": "thresholds",
     "quote": "does not include the loss of value of equity",
     "source_url": "https://www.congress.gov/bill/119th-congress/house-bill/9925/text"
+   },
+   {
+    "field": "status_text",
+    "quote": "released a section-by-section summary of her updated Frontier Risk Oversight, National Transparency, Independent Evaluation, and Reporting (FRONTIER) Act. Full bill text will follow in the coming weeks.",
+    "source_url": "https://trahan.house.gov/news/documentsingle.aspx?DocumentID=3871"
    }
   ],
   "summary_line": "Would require frontier AI developers to publish safety frameworks, report incidents and undergo audits, and let Commerce restrict models posing imminent catastrophic risk.",
@@ -7197,7 +7225,15 @@
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://www.congress.gov/bill/119th-congress/house-bill/10981/text"
    }
-  ]
+  ],
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/hr/10981"
+    ]
+   }
+  }
  },
  {
   "id": 41,
@@ -8638,7 +8674,7 @@
   "mechanism": "According to the complaint and its exhibits in Anthropic PBC v. U.S. Department of War, a presidential social-media post directed \"EVERY Federal Agency\" to \"IMMEDIATELY CEASE all use of Anthropic's technology.\" The same day, the Secretary of War posted a \"final\" order directing the Department of Defense (DoD) to designate Anthropic a \"Supply-Chain Risk to National Security.\" It declared that no contractor, supplier or partner doing business with the military may conduct any commercial activity with Anthropic, while requiring Anthropic to keep serving DoD for up to six months. GSA removed Anthropic from the Multiple Award Schedule and USAi.gov and ended its OneGov contract; Treasury and FHFA announced they would end all use; State switched its chatbot vendor; and HHS turned off enterprise access. A Secretarial Letter dated Mar 3 invoked 10 U.S.C. § 3252, and a separate letter the same day invoked 41 U.S.C. § 4713 (which can be reviewed only in the D.C. Circuit). The dispute arose from Anthropic's refusal to drop two usage restrictions in DoD contract talks: lethal autonomous warfare and mass surveillance of Americans. These were the first executive-branch actions aimed at a named frontier developer. They are procurement and national-security actions, not model-safety rules. Later, on Aug 27, 2026, the N.D. Cal. court vacated the § 3252 designation (the government appealed on Oct 26, 2026), and on Sept 25, 2026 the D.C. Circuit upheld the § 4713 exclusion. Anthropic then asked the D.C. Circuit to rehear that case; no ruling had been found as of Oct 31, 2026.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Date: Feb 27, 2026 (directive and Secretarial Order); Mar 2 (Treasury, FHFA, State); letters dated Mar 3, received Mar 4. Update: on Aug 27, 2026 the N.D. Cal. court vacated the § 3252 designation (appeal filed Oct 26, 2026); the separate § 4713 exclusion was upheld by the D.C. Circuit on Sept 25, 2026. Anthropic asked the D.C. Circuit for rehearing (reported as filed Oct 13, 2026); the government filed its response opposing rehearing on Nov 18; no ruling as of Nov 25, 2026.",
+  "status_text": "Date: Feb 27, 2026 (directive and Secretarial Order); Mar 2 (Treasury, FHFA, State); letters dated Mar 3, received Mar 4. Update: on Aug 27, 2026 the N.D. Cal. court vacated the § 3252 designation (appeal filed Oct 26, 2026; Ninth Circuit No. 26-7228); the separate § 4713 exclusion was upheld by the D.C. Circuit on Sept 25, 2026. Anthropic asked the D.C. Circuit for rehearing (reported as filed Oct 13, 2026); the government filed its response opposing rehearing on Nov 18; no ruling as of Nov 25, 2026.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -8703,11 +8739,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-11-26T12:00:00Z"
   },
-  "last_checked": "2026-11-25",
-  "last_changed": "2026-11-25",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-feb-27-2026-presidential-directive-and-agency-cessation-actions-agains",
    "section_name": "Executive actions"
@@ -8724,9 +8760,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-25T18:00:00Z",
-   "reviewer": "manual update 25 Nov 2026",
-   "basis_sha256": "edba2a8b9a460b18308886c71083ad49929a214c5094f4feae0fc17bbb16f987"
+   "checked_at": "2026-11-26T12:00:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "82d0db6d706421cf77c0847b0518d818a88c50e7aad3c0f78da68d84994d70ed"
   },
   "more_links": [
    {
@@ -8747,10 +8783,10 @@
   "title": "EO 14409 — Promoting Advanced AI Innovation and Security",
   "short_name": "EO 14409 (pre-release access)",
   "sponsor_text": "",
-  "mechanism": "Directs Treasury, the Department of War and the National Security Agency (NSA), and the Cybersecurity and Infrastructure Security Agency (CISA) at Homeland Security, consulting the White House, Commerce/NIST and others, to develop a classified cyber-capability benchmark and threshold for \"covered frontier models\" and to design a voluntary framework under which developers could give the government up to 30 days' access before release. It also directs a voluntary Treasury/NSA/CISA AI-cybersecurity clearinghouse, and tells the Justice Department to prioritize AI-enabled cybercrime. The framework and related directives were due within 60 days (Sec. 3) and the clearinghouse and CISA directives within 30 days (Sec. 2); whether they were delivered has not been confirmed from public records. Section 3(c) expressly rules out any \"mandatory governmental licensing, preclearance, or permitting requirement.\"",
+  "mechanism": "Directs Treasury, the Department of War and the National Security Agency (NSA), and the Cybersecurity and Infrastructure Security Agency (CISA) at Homeland Security, consulting the White House, Commerce/NIST and others, to develop a classified cyber-capability benchmark and threshold for \"covered frontier models\" and to design a voluntary framework under which developers could give the government up to 30 days' access before release. It also directs a voluntary Treasury/NSA/CISA AI-cybersecurity clearinghouse, and tells the Justice Department to prioritize AI-enabled cybercrime. The framework and related directives were due within 60 days (Sec. 3) and the clearinghouse and CISA directives within 30 days (Sec. 2); the White House announced the clearinghouse (\"GOLD EAGLE\") on July 14, 2026; delivery of the framework has not been confirmed from public records. Section 3(c) expressly rules out any \"mandatory governmental licensing, preclearance, or permitting requirement.\"",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Signed June 2, 2026; published in the Federal Register June 5, 2026 (FR Doc. 2026-11415). The 30- and 60-day deadlines passed in July and August 2026; public delivery of the framework and clearinghouse has not been confirmed. A Freedom of Information Act suit by Protect Democracy says the framework was reportedly finalized Aug 1, 2026, but it has not been published.",
+  "status_text": "Signed June 2, 2026; published in the Federal Register June 5, 2026 (FR Doc. 2026-11415). The 30- and 60-day deadlines passed in July and August 2026; on July 14, 2026 the White House announced the clearinghouse, \"GOLD EAGLE,\" established under the order. Public delivery of the framework has not been confirmed (checked Nov 26, 2026). A Freedom of Information Act suit by Protect Democracy says the framework was reportedly finalized Aug 1, 2026, but it has not been published.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -8771,6 +8807,16 @@
     "clause": "published in the Federal Register June 5, 2026 (FR Doc. 2026-11415)",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-07-14",
+    "precision": "day",
+    "type": "Effective",
+    "text": "White House announces the AI cybersecurity clearinghouse, \"GOLD EAGLE\"",
+    "clause": "the creation of \"GOLD EAGLE,\" a clearinghouse that enables unprecedented cybersecurity vulnerability coordination",
+    "inferred_year": false,
+    "scheduled": false,
+    "source_url": "https://www.whitehouse.gov/releases/2026/07/white-house-launches-gold-eagle-initiative-for-unprecedented-cybersecurity-vulnerability-coordination/"
    }
   ],
   "sources": [
@@ -8782,6 +8828,11 @@
    {
     "label": "public-inspection PDF",
     "url": "https://public-inspection.federalregister.gov/2026-11415.pdf",
+    "kind": "primary"
+   },
+   {
+    "label": "White House release, July 14, 2026 (GOLD EAGLE clearinghouse)",
+    "url": "https://www.whitehouse.gov/releases/2026/07/white-house-launches-gold-eagle-initiative-for-unprecedented-cybersecurity-vulnerability-coordination/",
     "kind": "primary"
    }
   ],
@@ -8798,10 +8849,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "checked_at": "2026-11-26T12:00:00Z"
   },
-  "last_checked": "2026-10-27",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-eo-14409-promoting-advanced-ai-innovation-and-security",
    "section_name": "Executive actions"
@@ -8816,10 +8867,10 @@
    "lead_agencies": "Treasury, Department of War/NSA, DHS/CISA"
   },
   "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-11T04:48:33.858Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "9114aba623e5d8530e8c09c3f9a554d62223e7e655db735cd4dfa1dac4325e15"
+   "method": "session",
+   "checked_at": "2026-11-26T12:00:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "314d382f944201b9e63ed6292867d767d478e7f344670d79517436e8987c7570"
   },
   "identifiers": {
    "external": {
@@ -9889,7 +9940,7 @@
   "mechanism": "The evidence shows only that no report had been made public by the search dates. It does not show that no internal evaluation was done.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: As of Sept 28, 2026, no public report had been found (also checked Sept 5); the cited reporting likewise said it had not been released.",
+  "status_text": "Status: As of Nov 26, 2026, no public report had been found (the Federal Register and Commerce searched; also checked Sept 5 and Sept 28); the cited reporting likewise said it had not been released.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -9931,11 +9982,11 @@
   },
   "origin": "authored",
   "verification": {
-   "method": "author",
-   "checked_at": "2026-10-15T00:00:00Z"
+   "method": "session",
+   "checked_at": "2026-11-26T12:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-commerce-dept-onerous-state-ai-laws-evaluation-eo-14365-deliverable-du",
    "section_name": "Litigation and enforcement"
@@ -9948,9 +9999,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "97857353a54e1929fa28b4c014897d4d44bd940279e0315f79f9b0079fef9c9d"
+   "checked_at": "2026-11-26T12:00:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "e4bbcff3c41d0c0b5a72526dd0370341b6e42759f1d3313daf20e4b8df0ca8bf"
   },
   "display_name": "Commerce review of 'onerous' state AI laws"
  },
@@ -10098,7 +10149,7 @@
   "mechanism": "The first direct court challenge to federal treatment of a frontier-model developer. It concerns procurement, a national-security designation and alleged retaliation, not whether a state frontier law is valid. The complaint says a \"supply chain risk\" designation under § 3252 had never before been applied to a US company.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against the Department of War, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President and named officials. Five counts: (I) APA / 10 U.S.C. § 3252: the supply-chain-risk order goes beyond § 3252, which is limited to risks of sabotage or subversion by adversaries, skipped the law's consultation, written-determination and congressional-notice steps, and is arbitrary given DoD's simultaneous order to keep using Anthropic for six months; (II) First Amendment retaliation for protected speech and petitioning; (III) presidential directive beyond legal authority (ultra vires); (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. It seeks vacatur, a § 705 stay, a declaration and a permanent injunction. The government's Ninth Circuit appeal of the preliminary injunction (No. 26-2011) was stayed Apr 27 pending the D.C. Circuit. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic, holding the § 3252 designation and related measures \"illegal and baseless\" (First Amendment retaliation, Fifth Amendment due process, and APA violations: beyond statutory authority, arbitrary and capricious) while rejecting the ultra vires/separation-of-powers count. Reports state the designation was vacated and its enforcement permanently blocked; the docket shows the case closed Aug 27, 2026. On Oct 26, 2026 the government filed a new notice of appeal to the Ninth Circuit (Dkt. 253; Ninth Circuit number not yet found) from the Aug 27, 2026 summary-judgment order, order of final relief and judgment.",
+  "status_text": "Status: Filed Mar. 9, 2026 (WilmerHale; 48 pp.) against the Department of War, Treasury, FHFA, State, HHS, Commerce, VA, GSA, OPM, NRC, SSA, DHS, SEC, NASA, DOE, the Federal Reserve Board, NEA, the Executive Office of the President and named officials. Five counts: (I) APA / 10 U.S.C. § 3252: the supply-chain-risk order goes beyond § 3252, which is limited to risks of sabotage or subversion by adversaries, skipped the law's consultation, written-determination and congressional-notice steps, and is arbitrary given DoD's simultaneous order to keep using Anthropic for six months; (II) First Amendment retaliation for protected speech and petitioning; (III) presidential directive beyond legal authority (ultra vires); (IV) Fifth Amendment due process (de facto debarment without notice or hearing); (V) APA § 558 unauthorized sanctions by other agencies. It seeks vacatur, a § 705 stay, a declaration and a permanent injunction. Judge Rita F. Lin granted a preliminary injunction on Mar. 26, 2026. The government's Ninth Circuit appeal of the preliminary injunction (No. 26-2011) was stayed Apr 27 pending the D.C. Circuit. Update: on Aug 27, 2026 Judge Rita F. Lin granted summary judgment largely for Anthropic, holding the § 3252 designation and related measures \"illegal and baseless\" (First Amendment retaliation, Fifth Amendment due process, and APA violations: beyond statutory authority, arbitrary and capricious) while rejecting the ultra vires/separation-of-powers count. Reports state the designation was vacated and its enforcement permanently blocked; the docket shows the case closed Aug 27, 2026. On Oct 26, 2026 the government filed a new notice of appeal to the Ninth Circuit (Dkt. 253; Ninth Circuit No. 26-7228) from the Aug 27, 2026 summary-judgment order, order of final relief and judgment.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -10110,6 +10161,16 @@
     "clause": "Anthropic files suit (WilmerHale)",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-03-26",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Preliminary injunction granted (Judge Rita F. Lin)",
+    "clause": "ORDER GRANTING MOTION FOR PRELIMINARY INJUNCTION",
+    "inferred_year": false,
+    "scheduled": false,
+    "source_url": "https://www.courtlistener.com/docket/72379655/"
    },
    {
     "date": "2026-04-27",
@@ -10206,8 +10267,8 @@
    "run_id": "update-20261106-2135",
    "rounds": 0
   },
-  "last_checked": "2026-11-06",
-  "last_changed": "2026-11-06",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-et-al-no-3-26-cv-01996-n-d-cal",
    "section_name": "Litigation and enforcement"
@@ -10216,6 +10277,11 @@
    {
     "field": "events",
     "quote": "NOTICE of Withdrawal filed by Susan J Hennessey, no longer appearing on behalf of Anthropic PBC in this case (Hennessey, Susan)",
+    "source_url": "https://www.courtlistener.com/docket/72379655/"
+   },
+   {
+    "field": "events",
+    "quote": "ORDER GRANTING MOTION FOR PRELIMINARY INJUNCTION 6 . Signed by Judge Rita F. Lin on 3/26/2026.",
     "source_url": "https://www.courtlistener.com/docket/72379655/"
    }
   ],
@@ -10238,10 +10304,10 @@
    "lawyers": "WilmerHale"
   },
   "page_verification": {
-   "method": "agent",
-   "checked_at": "2026-11-11T04:52:47.870Z",
-   "reviewer": "claude-opus-5-5",
-   "basis_sha256": "3cd0868dd35c52ee9308632be62d3e99a7810351017534b26d79f95ae74378ad"
+   "method": "session",
+   "checked_at": "2026-11-26T12:00:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "f0eadef7f107ce28365c20eec3d8692876cc5a84b224269840dcadf523ea6b57"
   },
   "claims": [
    {
@@ -10583,7 +10649,7 @@
   "mechanism": "The first attempt to use a state court order, rather than a law, to make frontier AI development depend on safeguards approved by an outside party. The idea resembles the independent-auditor approach in California's bills. Case number not found.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Motion filed Sept 28, 2026 in Highlands County Circuit Court (Tenth Judicial Circuit, Judge Heather Beato) in the suit Florida filed June 1, 2026 alleging violations of the Florida Deceptive and Unfair Trade Practices Act plus negligent design and marketing, failure to warn and public nuisance over ChatGPT's effects on vulnerable users. OpenAI removed the case to federal court; a federal judge sent it back to Highlands County. The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" without \"third-party approved safety guardrails,\" arguing OpenAI has \"repeatedly shown they are incapable of monitoring their AI, and hesitant in revealing rogue activity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No hearing date or ruling reported as of Oct 31, 2026",
+  "status_text": "Status: Motion filed Sept 28, 2026 in Highlands County Circuit Court (Tenth Judicial Circuit, Judge Heather Beato) in the suit Florida filed June 1, 2026 alleging violations of the Florida Deceptive and Unfair Trade Practices Act plus negligent design and marketing, failure to warn and public nuisance over ChatGPT's effects on vulnerable users. OpenAI removed the case to federal court; on Sept 8, 2026 the federal court (S.D. Fla., Judge Aileen M. Cannon) granted the state's motion to remand, sending it back to state court (state case number 26-000295-GC-AXMX). The state asks the court to stop OpenAI from continuing to develop a \"reckless, unacceptably risky product\" without \"third-party approved safety guardrails,\" arguing OpenAI has \"repeatedly shown they are incapable of monitoring their AI, and hesitant in revealing rogue activity once discovered,\" and citing the Hugging Face incident and later misalignment disclosures. No hearing date or ruling reported as of Oct 31, 2026",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -10595,6 +10661,16 @@
     "clause": "Florida sues OpenAI in Highlands County Circuit Court",
     "inferred_year": false,
     "scheduled": false
+   },
+   {
+    "date": "2026-09-08",
+    "precision": "day",
+    "type": "Litigation",
+    "text": "Federal court remands the case to state court",
+    "clause": "ORDER GRANTING PLAINTIFF'S MOTION TO REMAND 12 AND CLOSING CASE",
+    "inferred_year": false,
+    "scheduled": false,
+    "source_url": "https://www.courtlistener.com/docket/73571809/"
    },
    {
     "date": "2026-09-28",
@@ -10635,6 +10711,11 @@
     "label": "ABA Journal (court and judge)",
     "url": "https://www.abajournal.com/news/article/florida-ag-asks-judge-to-bar-openai-from-developing-new-models-without-regulation",
     "kind": "secondary"
+   },
+   {
+    "label": "Federal court docket, S.D. Fla. 2:26-cv-14238 (CourtListener)",
+    "url": "https://www.courtlistener.com/docket/73571809/",
+    "kind": "primary"
    }
   ],
   "source_label": "Ars Technica, Sept 28, 2026",
@@ -10650,10 +10731,10 @@
   "origin": "authored",
   "verification": {
    "method": "session",
-   "checked_at": "2026-10-28T12:00:00Z"
+   "checked_at": "2026-11-26T12:00:00Z"
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-state-of-florida-v-openai-motion-for-temporary-injunction-against-fron",
    "section_name": "Litigation and enforcement"
@@ -10672,9 +10753,9 @@
   },
   "page_verification": {
    "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "0db71f8c4ef81f43497422bf5c1ba55f0c0ae77d2f74c33880c32a0d79ba6176"
+   "checked_at": "2026-11-26T12:00:00Z",
+   "reviewer": "manual update 26 Nov 2026",
+   "basis_sha256": "01cf56ab092e59746d6b8d5b22c542253c0db5620bbcf55b5c0367541e73c050"
   },
   "display_name": "Florida v. OpenAI: injunction motion"
  },
@@ -13063,6 +13144,14 @@
    "checked_at": "2026-11-11T04:57:48.399Z",
    "reviewer": "claude-opus-5-5",
    "basis_sha256": "da854a76650186e5b696e1b09e0aaa71362a51fd02f2d813534bf70f6cec8de5"
+  },
+  "identifiers": {
+   "session": "2025-2026 General Assembly",
+   "external": {
+    "legiscan": [
+     2161394
+    ]
+   }
   }
  },
  {
@@ -13252,6 +13341,14 @@
    "checked_at": "2026-11-12T12:00:00Z",
    "reviewer": "site review 12 Nov 2026",
    "basis_sha256": "c9ed95958f2b5e2df543363549daf9cf39078c08aa42f04e55d0ff4a41a7bad6"
+  },
+  "identifiers": {
+   "session": "2025-2026 Regular Session",
+   "external": {
+    "legiscan": [
+     2159955
+    ]
+   }
   }
  },
  {
@@ -13579,6 +13676,14 @@
    "checked_at": "2026-11-12T12:00:00Z",
    "reviewer": "site review 12 Nov 2026",
    "basis_sha256": "3bff3128ae34f1c85ea2f056a2388715aeb8bc8cd11f73ae542a1f83c17b7800"
+  },
+  "identifiers": {
+   "session": "2025-2026 Session",
+   "external": {
+    "legiscan": [
+     2014277
+    ]
+   }
   }
  },
  {
@@ -14098,6 +14203,14 @@
    "a": "Developers that do the initial training of covered models (more than 10²⁶ operations costing over $100 million).",
    "b": "Would make them strictly liable to non-users injured by model conduct that would be negligence, an intentional tort or a crime if done by a person, with two defenses.",
    "c": "No fines; injured people could sue. Pending in the Assembly since June 9, 2025."
+  },
+  "identifiers": {
+   "session": "2025-2026 General Assembly",
+   "external": {
+    "legiscan": [
+     2036382
+    ]
+   }
   }
  },
  {
@@ -15670,6 +15783,14 @@
    "checked_at": "2026-11-25T18:00:00Z",
    "reviewer": "manual update 25 Nov 2026",
    "basis_sha256": "33f188430314dde46ab73c051e3c55f7255fefbf7f1c7f54b50615e7e5091d48"
+  },
+  "identifiers": {
+   "session": "119th Congress",
+   "external": {
+    "congress_gov": [
+     "119/hr/11157"
+    ]
+   }
   }
  },
  {

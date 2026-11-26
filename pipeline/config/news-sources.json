@@ -1,5 +1,5 @@
 {
- "_note": "News leads (news/leads.mjs). Only feeds meant for automated reading, each fetched live with the pipeline's own honest user agent and allowed by the site's robots.txt on the date in verified_at. primary: the official body's own releases (a news item may be written from them, quotes and numbers checked by code); secondary: press (never published automatically, reported as leads only). A site that blocks automated readers (403, a bot challenge) is listed under rejected and is never worked around. secondary_paths / secondary_titles mark op-eds on an official site: opinion, not an official release, so those items are leads only. sponsor: the member whose own feed it is (a weak match only: it never sets an item's tracker). secondary_paths are tested on both the feed link and the release link (\"In the News\" press reposts on house.gov are press). state: the two-letter code of a state body's own feed (a bill number with no state written next to it is read as that state's). type html_teasers: an official listing page read like a feed (only teasers with their own machine-readable date).",
+ "_note": "News leads (news/leads.mjs). Only feeds meant for automated reading, each fetched live with the pipeline's own honest user agent and allowed by the site's robots.txt on the date in verified_at. primary: the official body's own releases (a news item may be written from them, quotes and numbers checked by code); secondary: press (never published automatically, reported as leads only). A site that blocks automated readers (403, a bot challenge) is listed under rejected and is never worked around. secondary_paths / secondary_titles mark op-eds on an official site: opinion, not an official release, so those items are leads only. sponsor: the member whose own feed it is (a weak match only: it never sets an item's tracker). secondary_paths are tested on both the feed link and the release link (\"In the News\" press reposts on house.gov are press). state: the two-letter code of a state body's own feed (a bill number with no state written next to it is read as that state's). type html_teasers: an official listing page read like a feed (only teasers with their own machine-readable date). only_paths: a feed that mixes the office's releases with other notices counts only items under these paths as primary (the rest are leads only).",
  "user_agent": "us-frontier-ai-tracker-pipeline/0.1 (news leads; RSS reader)",
  "timing": {
   "_note": "The news step's time limits and windows (news/run.mjs, news/sources/common.mjs). budget_ms: the whole news step (config/publish.json news.time_budget_ms overrides it); leads_budget_ms: the feeds' share of it, at most, and never more than 1/leads_max_part of the total; cadence_slack_ms: a 24 h source read at 06:00 is due again at the 06:00 run the next day; fetch_timeout_ms: one news request (review F2d), also the margin an adapter keeps before its deadline; event_days: no new event older than this; keep_days: links remembered as seen.",
@@ -228,6 +228,40 @@
    "verified_at": "2026-10-29",
    "cadence_hours": 24
   },
+  "nj_ag": {
+   "jurisdictions": [
+    "NJ"
+   ],
+   "run": {
+    "order": 8.3,
+    "budget_share": 0.25
+   },
+   "endpoint": "https://www.njoag.gov/feed/",
+   "env": [],
+   "hosts": [
+    "njoag.gov"
+   ],
+   "max_silence_days": null,
+   "verified_at": "2026-11-26",
+   "cadence_hours": 24
+  },
+  "wa_ag": {
+   "jurisdictions": [
+    "WA"
+   ],
+   "run": {
+    "order": 8.6,
+    "budget_share": 0.25
+   },
+   "endpoint": "https://www.atg.wa.gov/rss.xml",
+   "env": [],
+   "hosts": [
+    "atg.wa.gov"
+   ],
+   "max_silence_days": null,
+   "verified_at": "2026-11-26",
+   "cadence_hours": 24
+  },
   "state_legislature": {
    "jurisdictions": "states",
    "role": "legislature_site",
@@ -348,6 +382,29 @@
    "kind": "state"
   },
   {
+   "id": "nj-ag",
+   "url": "https://www.njoag.gov/feed/",
+   "type": "rss",
+   "publisher": "New Jersey Attorney General",
+   "primary": true,
+   "state": "NJ",
+   "verified_at": "2026-11-26",
+   "kind": "state"
+  },
+  {
+   "id": "wa-ag",
+   "url": "https://www.atg.wa.gov/rss.xml",
+   "type": "rss",
+   "publisher": "Washington Attorney General",
+   "primary": true,
+   "state": "WA",
+   "verified_at": "2026-11-26",
+   "kind": "state",
+   "only_paths": [
+    "/news/news-releases/"
+   ]
+  },
+  {
    "id": "rep-liccardo",
    "url": "https://liccardo.house.gov/rss.xml",
    "type": "rss",
@@ -356,6 +413,44 @@
    "verified_at": "2026-10-28",
    "kind": "federal",
    "sponsor": "Liccardo",
+   "secondary_paths": [
+    "/editorials/",
+    "/in-the-news/",
+    "/news-coverage/",
+    "/press-coverage/",
+    "/media-coverage/",
+    "/op-eds/",
+    "/opinion/"
+   ]
+  },
+  {
+   "id": "rep-beyer",
+   "url": "https://beyer.house.gov/news/rss.aspx",
+   "type": "rss",
+   "publisher": "Rep. Don Beyer",
+   "primary": true,
+   "verified_at": "2026-11-26",
+   "kind": "federal",
+   "sponsor": "Beyer",
+   "secondary_paths": [
+    "/editorials/",
+    "/in-the-news/",
+    "/news-coverage/",
+    "/press-coverage/",
+    "/media-coverage/",
+    "/op-eds/",
+    "/opinion/"
+   ]
+  },
+  {
+   "id": "rep-trahan",
+   "url": "https://trahan.house.gov/news/rss.aspx",
+   "type": "rss",
+   "publisher": "Rep. Lori Trahan",
+   "primary": true,
+   "verified_at": "2026-11-26",
+   "kind": "federal",
+   "sponsor": "Trahan",
    "secondary_paths": [
     "/editorials/",
     "/in-the-news/",
@@ -496,6 +591,78 @@
    "primary": false,
    "verified_at": "2026-11-12",
    "kind": "federal"
+  },
+  {
+   "id": "verge-policy",
+   "url": "https://www.theverge.com/rss/policy/index.xml",
+   "type": "rss",
+   "publisher": "The Verge",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "federal"
+  },
+  {
+   "id": "verge-ai",
+   "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+   "type": "rss",
+   "publisher": "The Verge",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "federal"
+  },
+  {
+   "id": "ars-policy",
+   "url": "https://feeds.arstechnica.com/arstechnica/tech-policy",
+   "type": "rss",
+   "publisher": "Ars Technica",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "federal"
+  },
+  {
+   "id": "wired-ai",
+   "url": "https://www.wired.com/feed/tag/ai/latest/rss",
+   "type": "rss",
+   "publisher": "Wired",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "federal"
+  },
+  {
+   "id": "mittr-ai",
+   "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed",
+   "type": "rss",
+   "publisher": "MIT Technology Review",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "federal"
+  },
+  {
+   "id": "statescoop",
+   "url": "https://statescoop.com/feed/",
+   "type": "rss",
+   "publisher": "StateScoop",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "state"
+  },
+  {
+   "id": "route-fifty",
+   "url": "https://www.route-fifty.com/rss/all/",
+   "type": "rss",
+   "publisher": "Route Fifty",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "state"
+  },
+  {
+   "id": "bloomberg-technology",
+   "url": "https://feeds.bloomberg.com/technology/news.rss",
+   "type": "rss",
+   "publisher": "Bloomberg",
+   "primary": false,
+   "verified_at": "2026-11-26",
+   "kind": "federal"
   }
  ],
  "rejected": [
@@ -604,6 +771,90 @@
    "id": "ap-technology",
    "url": "https://apnews.com/hub/technology.rss",
    "why": "robots.txt disallows automated reading (12 Nov 2026); third-party mirrors are not the outlet's own feed"
+  },
+  {
+   "url": "https://www.texasattorneygeneral.gov",
+   "publisher": "Texas Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "no feed: the homepage advertises none and /news/releases/rss, /rss.xml, /news/rss.xml, /feed answer 404"
+  },
+  {
+   "url": "https://www.myfloridalegal.com",
+   "publisher": "Florida Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "HTTP 403 to an automated reader (homepage and feed paths): blocked, not used"
+  },
+  {
+   "url": "https://ag.ny.gov/rss.xml",
+   "publisher": "New York Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "HTTP 403 to an automated reader; the other paths answer the press-releases web page, not a feed"
+  },
+  {
+   "url": "https://nmdoj.gov/feed/",
+   "publisher": "New Mexico Department of Justice",
+   "checked_at": "2026-11-26",
+   "why": "the site serves a bot challenge; its feed answers with 0 items: not used"
+  },
+  {
+   "url": "https://www.attorneygeneral.gov/feed/",
+   "publisher": "Pennsylvania Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "HTTP 403, redirected to /blocked/: blocked, not used"
+  },
+  {
+   "url": "https://coag.gov/feed/",
+   "publisher": "Colorado Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "HTTP 202 with a bot challenge instead of a feed: not used"
+  },
+  {
+   "url": "https://illinoisattorneygeneral.gov",
+   "publisher": "Illinois Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "no feed: the homepage advertises none and /rss.xml, /news/rss, /feed answer 404"
+  },
+  {
+   "url": "https://www.mass.gov/orgs/office-of-the-attorney-general",
+   "publisher": "Massachusetts Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "no feed advertised"
+  },
+  {
+   "url": "https://www.michigan.gov/ag",
+   "publisher": "Michigan Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "no feed advertised (/rss redirects to an unrelated page)"
+  },
+  {
+   "url": "https://portal.ct.gov/ag",
+   "publisher": "Connecticut Attorney General",
+   "checked_at": "2026-11-26",
+   "why": "bot challenge; no feed advertised"
+  },
+  {
+   "url": "https://api.axios.com/feed/",
+   "publisher": "Axios",
+   "checked_at": "2026-11-26",
+   "why": "robots.txt disallows automated reading of the feed (26 Nov 2026)"
+  },
+  {
+   "url": "https://www.lawfaremedia.org/feeds/rss",
+   "publisher": "Lawfare",
+   "checked_at": "2026-11-26",
+   "why": "HTTP 403 to an automated reader"
+  },
+  {
+   "url": "https://feeds.a.dj.com/rss/RSSWSJD.xml",
+   "publisher": "The Wall Street Journal",
+   "checked_at": "2026-11-26",
+   "why": "robots.txt answers 403, so permission cannot be checked: not used"
+  },
+  {
+   "url": "https://gottheimer.house.gov/news/rss.aspx",
+   "publisher": "Rep. Josh Gottheimer",
+   "checked_at": "2026-11-26",
+   "why": "no feed at the standard House path (404); the homepage advertises none"
   }
  ],
  "structured_note": "Official structured sources for the news rebuild (news/sources/*.mjs, news/CONTRACT.md). hosts: the only hosts an item url may have (https). cadence_hours: how often a run reads it. max_silence_days: health alarm when no item for longer than this (null = silence is normal: the adapter only emits items for tracked entries or AI documents). env: the key variables, first found wins. verified_at: fetched live on that day."

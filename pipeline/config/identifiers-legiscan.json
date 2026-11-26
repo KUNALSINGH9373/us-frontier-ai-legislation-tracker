@@ -1061,6 +1061,126 @@
      "note": "added by hand 26 Oct 2026"
     }
    ]
+  },
+  "ny-s-10731-raise-act-2-0": {
+   "bills": [
+    {
+     "bill_id": 2161394,
+     "number": "S10731",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S10731",
+     "legiscan_url": "https://legiscan.com/NY/bill/S10731/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "confirmed",
+   "entry_id": 98,
+   "short_name": "NY S.10731 (RAISE Act amendments)",
+   "checks": [
+    {
+     "number": "S10731",
+     "found": true,
+     "bill_id": 2161394,
+     "session": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/S10731",
+     "result": "match",
+     "note": "read from LegiScan (getMasterList, getBill) on 26 Nov 2026; title matches the entry"
+    }
+   ],
+   "added_by": "manual fix 26 Nov 2026"
+  },
+  "ny-a-8833": {
+   "bills": [
+    {
+     "bill_id": 2036382,
+     "number": "A08833",
+     "state": "NY",
+     "session_id": 2188,
+     "session_name": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+     "legiscan_url": "https://legiscan.com/NY/bill/A08833/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "confirmed",
+   "entry_id": 105,
+   "short_name": "NY A.8833 Understanding AI Act",
+   "checks": [
+    {
+     "number": "A08833",
+     "found": true,
+     "bill_id": 2036382,
+     "session": "2025-2026 General Assembly",
+     "official_url": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+     "result": "match",
+     "note": "read from LegiScan (getMasterList, getBill) on 26 Nov 2026; title matches the entry"
+    }
+   ],
+   "added_by": "manual fix 26 Nov 2026"
+  },
+  "pa-h-b-2829-frontier-ai": {
+   "bills": [
+    {
+     "bill_id": 2159955,
+     "number": "HB2829",
+     "state": "PA",
+     "session_id": 2192,
+     "session_name": "2025-2026 Regular Session",
+     "official_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+     "legiscan_url": "https://legiscan.com/PA/bill/HB2829/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "confirmed",
+   "entry_id": 99,
+   "short_name": "PA H.B. 2829 Frontier AI Safety, Transparency and Accountability Act",
+   "checks": [
+    {
+     "number": "HB2829",
+     "found": true,
+     "bill_id": 2159955,
+     "session": "2025-2026 Regular Session",
+     "official_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+     "result": "match",
+     "note": "read from LegiScan (getMasterList, getBill) on 26 Nov 2026; title matches the entry"
+    }
+   ],
+   "added_by": "manual fix 26 Nov 2026"
+  },
+  "nc-s-735": {
+   "bills": [
+    {
+     "bill_id": 2014277,
+     "number": "S735",
+     "state": "NC",
+     "session_id": 2189,
+     "session_name": "2025-2026 Session",
+     "official_url": "https://www.ncleg.gov/BillLookUp/2025/S735",
+     "legiscan_url": "https://legiscan.com/NC/bill/S735/2025",
+     "year_end": 2026,
+     "session_open": true
+    }
+   ],
+   "status": "confirmed",
+   "entry_id": 101,
+   "short_name": "NC S 735 AI Innovation Trust Fund",
+   "checks": [
+    {
+     "number": "S735",
+     "found": true,
+     "bill_id": 2014277,
+     "session": "2025-2026 Session",
+     "official_url": "https://www.ncleg.gov/BillLookUp/2025/S735",
+     "result": "match",
+     "note": "read from LegiScan (getMasterList, getBill) on 26 Nov 2026; title matches the entry"
+    }
+   ],
+   "added_by": "manual fix 26 Nov 2026"
   }
  }
 }

@@ -34,9 +34,10 @@ const it = (title, url, date = '2026-11-24', extra = {}) => ({ title, url, date,
   ok('an item with the same headline as a news item is not missing', /same headline/.test(why('Commerce restricts remote access to advanced AI chips')));
   ok('the search count is reported', r.searches === 6 && r.found === 6);
   // into the register: raised at once, never sent to the triage reader, never rejected
-  let asked = 0; const triage = { generate: async () => { asked++; return { data: { items: [] } }; } };
+  // the reader may be asked only whether the site already has it (news/open-leads.mjs coverage check), never to triage (reject) it
+  let asked = 0, covered = 0; const triage = { generate: async (req) => { if (/already has a development/.test(req.system)) covered++; else asked++; return { data: { items: [] } }; } };
   const ol = await updateOpenLeads({ register: null, fresh: r.missing, news, entries, today: TODAY, screener: triage });
-  ok('an audit lead is raised on the Watch list at once, without asking the triage reader', ol.alerts.length === 1 && ol.alerts[0].from_audit && asked === 0);
+  ok('an audit lead is raised on the Watch list at once, never sent to the triage reader (only the coverage check may ask)', ol.alerts.length === 1 && ol.alerts[0].from_audit && asked === 0 && covered <= 1);
 }
 {
   const r = await completenessCheck({ client: null, entries, news, today: TODAY });
