@@ -1,0 +1,191 @@
+{
+ "measure": "new_bills",
+ "method": "simple",
+ "set": "unseen",
+ "run_at": "2026-11-26T09:29:06.495Z",
+ "provider": "anthropic",
+ "writer": "claude-sonnet-5-5",
+ "reviewer": "claude-opus-5-5",
+ "scope_judge": "claude-opus-5-5",
+ "scorer": "claude-opus-5-5",
+ "checks_hash": "e1cf0d1744cb93c7d2daa746af72c36f8bf61c6f27af0f7fb78fdfa9f3cb99d5",
+ "partial": true,
+ "set_size": 26,
+ "gold_sha256": "d6ecc5c301a1e156e116801eecb492eb9dbda5b613fc4ae461c27238afdabe75",
+ "references_sha256": "61282773c15fd085779eb9658edd627107d4543bff5ebb8b2231b98e78d764a9",
+ "summary": {
+  "items": 5,
+  "published": 2,
+  "facts_only": 0,
+  "out_of_scope": 3,
+  "held": 0,
+  "errors": 0,
+  "no_text": 0,
+  "scope_errors": 0,
+  "missed": 0,
+  "wrong": 0,
+  "misleading": 1,
+  "omission": 2,
+  "misleading_per_published": 0.5,
+  "publish_rate": 1
+ },
+ "usage": {
+  "calls": 18,
+  "input_tokens": 346165,
+  "output_tokens": 84644,
+  "total_tokens": 430809,
+  "by_role": {
+   "writer": {
+    "calls": 10,
+    "input": 230301,
+    "output": 76711,
+    "cost": 1.2277120000000004
+   },
+   "scope_judge": {
+    "calls": 2,
+    "input": 12280,
+    "output": 1604,
+    "cost": 0.0812
+   },
+   "bill_reviewer": {
+    "calls": 4,
+    "input": 67645,
+    "output": 5514,
+    "cost": 0.38086
+   },
+   "scorer": {
+    "calls": 2,
+    "input": 35939,
+    "output": 815,
+    "cost": 0.160056
+   }
+  },
+  "by_model": {
+   "claude-sonnet-5-5": {
+    "calls": 10,
+    "input": 230301,
+    "output": 76711,
+    "cost": 1.2277120000000004
+   },
+   "claude-opus-5-5": {
+    "calls": 8,
+    "input": 115864,
+    "output": 7933,
+    "cost": 0.6221159999999999
+   }
+  },
+  "estimated_cost_usd": 1.849828
+ },
+ "items": [
+  {
+   "key": "az-hb4098",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "rows.framework / box.requires",
+     "bill_quote": "F. An artificial intelligence business shall conduct a quarterly audit to identify and correct any instances of discrimination, harmful outputs or unsafe behavior.",
+     "problem": "The box's requires slot names only the risk assessment, the transparency report and the AG certification, plus a vague 'among other duties'. It leaves out the quarterly audit, the bias-mitigation duty and the child-safety tools duty, so a reader would think the business's obligations are fewer than they are."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "ca-ab2653",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding provisions create a state working group to study labor practices behind foundation models and state procurement standards; this is a government procurement/workforce study, not a frontier developer duty or catastrophic-risk measure, and falls under the OUT list (government procurement of AI; workforce or economic studies).",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "ca-sb833",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding provisions (Gov. Code §§ 8954.51 and 8954.52) apply only to state agencies that operate critical infrastructure using any AI system or automated decision system. This is government use of AI, with no frontier or compute threshold and no developer duties, so it falls under the out-of-scope item on government procurement or use of AI. It is not a federal Defense or intelligence program, and it is not an agent-control standard.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "co-hb1212",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 2,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "OMISSION",
+     "where": "duties / penalties",
+     "bill_quote": "A DEVELOPER'S ATTEMPT TO IMPOSE SUCH A CONTRACT OR AGREEMENT IS AN ADVERSE ACTION IN VIOLATION OF THIS ARTICLE 13.6.",
+     "problem": "The entry leaves out the provision that makes an attempt to impose a gag contract an adverse action in violation of the article. Entry p6 quotes only the void-and-unenforceable sentence."
+    },
+    {
+     "severity": "OMISSION",
+     "where": "penalties",
+     "bill_quote": "IN DETERMINING THE APPROPRIATE LEVEL OF DAMAGES TO AWARD AN AGGRIEVED WORKER, THE COURT SHALL CONSIDER THE GRAVITY OF THE RISK TO PUBLIC SAFETY OR SECURITY, THE SIZE AND ASSETS OF THE DEVELOPER",
+     "problem": "The entry leaves out the factors the court must consider in setting damages. It also omits the right to a jury trial when punitive damages are sought (8-13.6-105(4))."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "hi-sb2923",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The only binding ban (§ -4) applies to every artificial intelligence product, with no frontier threshold and no catastrophic-harm aim; the office's duties are general risk and privacy regulation of all AI. The findings mention existential risk, but findings do not count. This falls under broad AI rules with no size, compute or capability threshold.",
+   "writer_calls": 1,
+   "reviews": 0
+  }
+ ]
+}
