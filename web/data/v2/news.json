@@ -1411,14 +1411,22 @@
    "origin": "authored",
    "verification": {
     "method": "session",
-    "checked_at": "2026-10-31T12:00:00Z"
+    "checked_at": "2026-11-27T10:00:00Z"
    },
    "date": "2026-10-23",
    "kind": "litigation",
    "title": "Texas sues OpenAI and Sam Altman, seeking court-approved evaluation of new models",
    "tracker": null,
-   "body": "The Texas Tribune and MLex report that Texas sued OpenAI and Sam Altman in Collin County district court under the state's Deceptive Trade Practices Act and SCOPE Act. As reported, the state asks for an injunction that would require third-party approval of any new OpenAI model from a court-appointed evaluator before release, a remedy similar to the one Florida sought in September.",
+   "body": "Attorney General Ken Paxton sued OpenAI, its affiliated companies and CEO Sam Altman in Collin County district court on Oct 23, 2026, under the Texas Deceptive Trade Practices Act and the SCOPE Act. Among the injunctions the petition asks for is one barring OpenAI from releasing any new AI model to Texas users unless an independent third-party evaluator, approved by the court, has reviewed its safety guardrails and approved its release, a remedy similar to the one Florida sought in September. It also asks for civil penalties of $10,000 per violation.",
    "links": [
+    {
+     "t": "Texas Attorney General press release, Oct 23",
+     "u": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-sues-openai-and-ceo-sam-altman-lying-users-and-harming-texans"
+    },
+    {
+     "t": "Texas's Original Petition (PDF)",
+     "u": "https://www.texasattorneygeneral.gov/sites/default/files/images/press/OpenAI%20Final.pdf"
+    },
     {
      "t": "Texas Tribune, Oct 23",
      "u": "https://www.texastribune.org/2026/10/23/ken-paxton-chatgpt-openai-lawsuit-texas-attorney-general/"
@@ -1428,7 +1436,7 @@
      "u": "https://www.mlex.com/mlex/articles/2542081"
     }
    ],
-   "check": "The Attorney General's petition could not be opened; details are from the Texas Tribune and MLex."
+   "check": "Checked against the Attorney General's press release and the filed petition (prayer, items j and 209.A)."
   },
   {
    "date": "2026-10-26",

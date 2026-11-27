@@ -246,6 +246,7 @@ Bills sometimes contain drafting slips: a cross-reference to a subdivision that 
 
 <when_the_text_is_damaged>
 If part of the text is garbled, cut off, or unclear because of leftover markup, list each problem in `text_problems` with its location ("Sec. 5(c): bracket markup around the compute figure; inserted and deleted text cannot be told apart"). Never guess what an unreadable passage says, and never use a number from it. Write the rest of the entry normally. If too little of the bill is readable to write an honest entry, set `readable` to false and leave everything else empty.
+A long bill may reach you as a selection of its sections, joined by "[...]" and followed by a NOTE saying so. The tracker left those parts out on purpose; they are not damage. Never list a "[...]" gap in `text_problems`, and never say a section is omitted, missing or skipped because of one.
 </when_the_text_is_damaged>
 
 <self_check>

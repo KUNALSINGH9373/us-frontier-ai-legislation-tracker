@@ -85,6 +85,15 @@ const bad2 = clone(good); bad2.penalties[0].text = 'A civil penalty of not more 
 ok('a number not in the bill is refused (one way)', writerProblems(bad2, { source }).some((p) => /"100000" is not in the bill/.test(p)));
 const bad3 = clone(good); bad3.box.effective.text = '';
 ok('a blank box slot is refused', writerProblems(bad3, { source }).some((p) => /box.effective is blank/.test(p)));
+// 27 Nov 2026 (MA H.5576): a "[...]" gap the tracker made is not damage; calling a section omitted because of it goes back to the writer
+{
+  const sel = `${source}\n\n[...]\n\nSECTION 7. Remedies.`;
+  const t1 = clone(good); t1.text_problems = ['Section 6 is omitted from the text; it appears only as [...]'];
+  ok('a text problem calling a section omitted while SOURCE is a "[...]" selection is sent back', writerProblems(t1, { source: sel }).some((p) => /left out on purpose/.test(p)));
+  const t2 = clone(good); t2.text_problems = ['Sec. 4(4)(b) refers to subdivision (5)(a), which concerns false statements'];
+  ok('a real drafting-slip note on a selection is kept', !writerProblems(t2, { source: sel }).some((p) => /left out on purpose/.test(p)));
+  ok('on a whole bill (no "[...]") the same note is not touched by this check', !writerProblems(t1, { source }).some((p) => /left out on purpose/.test(p)));
+}
 const bad4 = clone(good); bad4.duties[0].lead_in = 'Before deploying, an operator shall:';
 ok('a duty quoted as one item of a list without the words that open it is sent back', (() => { const b = clone(good); b.duties[1].lead_in = ''; return writerProblems(b, { source }).some((p) => /u2]: the quote is one item of a list/.test(p)); })());
 ok('a quote that is not a list item needs no lead_in', (() => { const b = clone(good); return !writerProblems(b, { source }).some((p) => /one item of a list/.test(p)) && !writerProblems({ ...b, penalties: [{ ...b.penalties[0], lead_in: '' }] }, { source }).some((p) => /one item of a list/.test(p)); })());

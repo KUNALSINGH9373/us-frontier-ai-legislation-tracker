@@ -33,11 +33,11 @@ const it = (title, url, date = '2026-11-24', extra = {}) => ({ title, url, date,
   ok('an item whose page an entry already links is not missing', /already linked/.test(why('California sues OpenAI')));
   ok('an item with the same headline as a news item is not missing', /same headline/.test(why('Commerce restricts remote access to advanced AI chips')));
   ok('the search count is reported', r.searches === 6 && r.found === 6);
-  // into the register: raised at once, never sent to the triage reader, never rejected
-  // the reader may be asked only whether the site already has it (news/open-leads.mjs coverage check), never to triage (reject) it
+  // into the register: raised at once. Since 27 Nov 2026 it is also judged by the reader like any other lead (a completeness lead that
+  // is only a reaction stayed raised for 30 days); a reader with no verdict leaves it raised, never assumed irrelevant.
   let asked = 0, covered = 0; const triage = { generate: async (req) => { if (/already has a development/.test(req.system)) covered++; else asked++; return { data: { items: [] } }; } };
   const ol = await updateOpenLeads({ register: null, fresh: r.missing, news, entries, today: TODAY, screener: triage });
-  ok('an audit lead is raised on the Watch list at once, never sent to the triage reader (only the coverage check may ask)', ol.alerts.length === 1 && ol.alerts[0].from_audit && asked === 0 && covered <= 1);
+  ok('an audit lead is raised on the Watch list at once; it is judged once and checked against the site once; no verdict keeps it raised', ol.alerts.length === 1 && ol.alerts[0].from_audit && asked === 1 && covered === 1 && !ol.alerts[0].triage);
 }
 {
   const r = await completenessCheck({ client: null, entries, news, today: TODAY });

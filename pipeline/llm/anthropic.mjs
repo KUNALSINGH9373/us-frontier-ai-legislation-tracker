@@ -62,12 +62,15 @@ export function createAnthropic({ apiKey, client, role, model, maxOutputTokens =
       if (ledger) ledger.assertWithin(itemId);
       // No temperature: current Claude models reject non-default sampling values. Thinking stays adaptive (the default);
       // effort sets its depth.
-      const res = await api.messages.create({
+      const params = {
         model, max_tokens: maxOutputTokens,
         ...(system ? { system: system + '\n\nReply with one JSON value only, no prose and no code fences.' } : {}),
         ...(effort || responseSchema ? { output_config: { ...(effort ? { effort } : {}), ...(responseSchema ? { format: { type: 'json_schema', schema: toJsonSchema(responseSchema) } } : {}) } } : {}),
         messages: [{ role: 'user', content: prompt }]
-      });
+      };
+      // Streamed (27 Nov 2026): a long bill's answer needs more than 32,000 output tokens (IL SB 315 stopped at max_tokens twice), and the
+      // SDK requires streaming for large max_tokens. finalMessage() gives the same message object as create().
+      const res = api.messages.stream ? await api.messages.stream(params).finalMessage() : await api.messages.create(params);
       const usage = res.usage || {};
       if (ledger) ledger.record({ role, model, itemId, usage: { promptTokenCount: (usage.input_tokens || 0) + (usage.cache_read_input_tokens || 0) + (usage.cache_creation_input_tokens || 0), candidatesTokenCount: usage.output_tokens || 0 } });
       if (res.stop_reason === 'refusal') throw new LlmOutputError('the model declined' + (res.stop_details && res.stop_details.category ? ` (${res.stop_details.category})` : ''), JSON.stringify(res.stop_details || {}));

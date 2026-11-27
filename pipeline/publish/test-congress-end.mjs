@@ -184,5 +184,16 @@ ok('"S. 2938" is not read as "S. 29"', billIdProblems({ level: 'federal', key: '
   ok('a missing key is an alert', s.some((l) => /^⚠️ End of Congress: 1 record could not be read \(CONGRESS_API_KEY is not set\)/.test(l)));
 }
 
+// 27 Nov 2026: a court case whose CourtListener docket the site cites must be followed (the D.C. Circuit docket was not)
+{
+  const dc = { key: 'dc-case', type: 'litigation', status: 'litigation', sources: [{ url: 'https://www.courtlistener.com/docket/72380208/' }], events: [] };
+  const state = { key: 'state-case', type: 'litigation', status: 'litigation', sources: [{ url: 'https://oag.ca.gov/news/x' }], events: [] };
+  const base = { 'other': { court: 'D. Colo.', docket_id: 73171074 } };
+  ok('a cited docket that courts.json does not follow is a problem', checkTracking({ entries: [dc], courts: base }).some((p) => /dc-case: cites CourtListener docket 72380208/.test(p)));
+  ok('followed (also under a second name with entry_key): no problem', !checkTracking({ entries: [dc], courts: { ...base, 'x@ca': { entry_key: 'dc-case', docket_id: 72380208 } } }).length);
+  ok('listed in _not_followed with a reason: no problem', !checkTracking({ entries: [dc], courts: { ...base, _not_followed: { 'dc-case': 'closed on remand' } } }).length);
+  ok('a state-court case with no docket link is not flagged', !checkTracking({ entries: [state], courts: base }).length);
+}
+
 console.log(`${pass} passed, ${fail} failed`);
 if (fail) process.exit(1);

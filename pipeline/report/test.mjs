@@ -158,6 +158,15 @@ ok('a dry run is labelled and says it saves nothing', /dry run, nothing saved/.t
   ok('no broken measure, no such warning', !/failed every case/.test(formatDone(ok2)) && !/failed every case/.test(formatHtml(ok2).text));
 }
 
+// 27 Nov 2026: a self-test with a wrong answer is a ⚠️ line (the message turns yellow); clean self-tests are one ℹ️ line
+{
+  const bad = finalize(Object.assign(newReport({ id: 'm', now: new Date('2026-11-27T08:00:00Z') }), { measure_alerts: ['press links self-test on this run\'s code and data: 1 wrong of 26 cases (press links off this run)'] }), { now: new Date('2026-11-27T08:01:00Z') });
+  const h = formatHtml(bad);
+  ok('a self-test with a wrong answer is a ⚠️ Watch line and the message is yellow', /⚠️ press links self-test .* 1 wrong of 26/.test(formatDone(bad)) && /🟡/.test(h.text), h.text);
+  const clean = finalize(Object.assign(newReport({ id: 'n', now: new Date('2026-11-27T08:00:00Z') }), { notes: ['self-tests on this run\'s code and data, all 0 wrong: links 262, news events 75 cases'] }), { now: new Date('2026-11-27T08:01:00Z') });
+  ok('clean self-tests are one ℹ️ line and do not turn the message yellow', (formatDone(clean).match(/self-tests/g) || []).length === 1 && !/🟡/.test(formatHtml(clean).text), formatHtml(clean).text);
+}
+
 // news items the independent review refused, or could not review, are on the Watch list (26 Nov 2026)
 {
   const r = finalize(Object.assign(newReport({ id: 'rv', now: new Date('2026-11-26T08:00:00Z') }), { news: { ran: true, status: 'reported', leads: [], drafted: [], problems: [], feeds_failed: [], events: { added: [], confirmed: [], corrected: [], withdrawn: [], pending: 0, review: { passed: 0, refused: 2, unreviewed: 1, kept: 0, why_unreviewed: 'monthly limit reached' } } } }), { now: new Date('2026-11-26T08:01:00Z') });

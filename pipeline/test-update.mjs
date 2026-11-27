@@ -478,6 +478,8 @@ function fakeGit(answers) {
   const { code } = await run(P, { git: g.git, newsRun: boom('news') }, {}, { commit: true });
   const commit = g.calls.find((c) => c.args[0] === 'commit');
   ok('a failed run commits only the spend counters (LegiScan usage and AI ledger)', code === 1 && commit && commit.args.includes('pipeline/state/legiscan-usage.json') && !commit.args.some((x) => /web|docs|state\.json$/.test(x)), commit && commit.args.join(' '));
+  // 27 Nov 2026: the 14 and 16 Nov failures could not be traced afterwards; the commit now names the step and the error
+  ok('a failed run\'s commit message names the failed step and the error', commit && /Failed step: \S+/.test(commit.input) && /Error: .*news/.test(commit.input), commit && commit.input);
 }
 
 // ---------- commit message after a revert: news and self-correction summaries rebuilt from what is promoted ----------

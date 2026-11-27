@@ -40,7 +40,7 @@ From `pipeline/config/models.json` (`provider: "anthropic"`, `anthropic.roles`).
 
 | Role | Model | Effort | Job |
 |---|---|---|---|
-| `writer` | claude-sonnet-5-5 | medium | Writes a new bill's entry from the whole bill; writes lawsuit entries |
+| `writer` | claude-sonnet-5-5 | medium | Writes a new bill's entry from the whole bill; writes lawsuit entries. Up to 64,000 output tokens, streamed |
 | `bill_reviewer` | claude-opus-5-5 | low | Independent fact-check of new entries; also reviews page fields, press links, lawsuit entries, press-based news |
 | `scope_judge` | claude-opus-5-5 | medium | Separate scope check for new bills |
 | `scorer` | claude-opus-5-5 | low | Test runs only (new-bills and press-based news tests); never in a daily run |
@@ -51,6 +51,7 @@ From `pipeline/config/models.json` (`provider: "anthropic"`, `anthropic.roles`).
 | `confirmer` | claude-sonnet-5-5 | low | Self-correction: must agree before a fix |
 | `auditor` | claude-sonnet-5-5 | medium | Weekly completeness check with web search |
 | `screener` | claude-haiku-5-5 | low | Title and headline screens |
+| `lead_matcher` | claude-sonnet-5-5 | medium | Open news leads: closes noise with a reason and leads the site already covers (a few calls a day, cents) |
 | `scope_checker` | claude-haiku-5-5 | low | One-off scope check tool (`scope-check/run.mjs`), not part of the daily run |
 
 Prices, USD per million tokens (`prices_per_million_tokens`):

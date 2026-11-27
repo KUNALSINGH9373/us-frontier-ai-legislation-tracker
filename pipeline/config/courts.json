@@ -1,6 +1,12 @@
 {
- "_note": "Tracked federal cases read from CourtListener by the court-docket step (publish/courts.mjs): entry key -> the court and CourtListener's docket id. Material docket entries become Litigation events; orders, judgments and appeals also news items.",
+ "_note": "Tracked federal cases read from CourtListener by the court-docket step (publish/courts.mjs): entry key -> the court and CourtListener's docket id. A second docket for the same entry (an appeal) uses any name with an entry_key. Material docket entries become Litigation events; orders, judgments, opinions and appeals also news items. Every litigation entry that is still active must be here or in _not_followed with the reason (schema/tracking.mjs checks it on every pull request).",
  "fl-anthropic-v-department-of-war-n-d-cal": { "court": "N.D. Cal.", "docket_id": 72379655 },
+ "fl-anthropic-v-department-of-war-n-d-cal@ca9": { "entry_key": "fl-anthropic-v-department-of-war-n-d-cal", "court": "9th Cir.", "docket_id": 75052464 },
+ "ca-anthropic-v-dow-d-c-cir-4713-petition-denied": { "court": "D.C. Cir.", "docket_id": 72380208 },
  "protect-democracy-v-oncd": { "court": "D.D.C.", "docket_id": 74734757 },
- "x-ai-v-weiser-d-colo": { "court": "D. Colo.", "docket_id": 73171074 }
+ "x-ai-v-weiser-d-colo": { "court": "D. Colo.", "docket_id": 73171074 },
+ "_not_followed": {
+  "florida-v-openai-injunction-motion": "The federal docket (S.D. Fla.) closed when the case was remanded on Sept 8, 2026; the case is in Highlands County Circuit Court, which has no public API and is not on CourtListener.",
+  "california-ag-v-openai-agent-cyberattacks": "Filed in San Francisco Superior Court, a state court that CourtListener does not carry and that has no public API."
+ }
 }

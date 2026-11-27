@@ -56,6 +56,12 @@ export function writerProblems(out, { source }) {
   if (!clean(out.name)) p.push('name is empty');
   if (clean(out.name_quote) && !containsQuote(source, out.name_quote)) p.push(`name_quote is not in the bill word for word: "${clean(out.name_quote).slice(0, 80)}"`);
   if (clean(out.name_quote) && !norm(out.name_quote).includes(norm(out.name).replace(/^the /, '').slice(0, 40))) p.push('name is not copied from name_quote (options 1 and 2 copy the bill\'s own words)');
+  // 27 Nov 2026 (MA H.5576, scored WRONG): a long bill reaches the writer as a selection joined by "[...]" (agents/sections.mjs); the
+  // writer called a section it was not shown "omitted". A text problem that calls a section omitted/missing while SOURCE has a "[...]"
+  // gap goes back to the writer.
+  if (/\[\.\.\.\]/.test(source)) for (const tp of out.text_problems || []) {
+    if (/\[\.\.\.\]|\b(omit\w*|missing|skip\w*|elid\w*|not included|left out|absent)\b/i.test(String(tp)) && /\b(sec(tion)?s?\.?|subsection|paragraph)\b|\(\w{1,4}\)/i.test(String(tp))) p.push(`text_problems: "${String(tp).slice(0, 90)}" calls a part omitted or missing, but SOURCE is a selection and its "[...]" gaps were left out on purpose; remove this note`);
+  }
   // ids: unique, the right letter for the list
   const ids = new Set();
   for (const x of items) {

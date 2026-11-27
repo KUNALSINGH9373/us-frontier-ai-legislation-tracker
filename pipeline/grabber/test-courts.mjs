@@ -160,6 +160,14 @@ function tempData() {
   ok('the next run finds nothing new, in one request', r2.status === 'quiet' && r2.requests === 1 && JSON.stringify(loadData(t.dataDir).entries) === JSON.stringify(d.entries));
 }
 
+// ---------- 27 Nov 2026: a second docket for the same entry (an appeal) is listed under another name with entry_key ----------
+{
+  const t = tempData();
+  fs.writeFileSync(t.stateFile, JSON.stringify({ dockets: { 72379655: { last_date: '2026-07-01', seen: {} } } }));
+  const r = await courtsRun({ http: mkHttp(), limiter: async () => {}, cases: { [`${ANTHROPIC}@ca9`]: { ...CASES[ANTHROPIC], entry_key: ANTHROPIC } }, dataDir: t.dataDir, stateFile: t.stateFile, config: { max_entries_changed_per_run: 15 }, runId: 'u2', now: NOW });
+  ok('a docket listed under another name with entry_key updates that entry', r.status === 'published' && r.read[0].entry_key === ANTHROPIC && r.result.touched.includes(ANTHROPIC), r.summary);
+}
+
 // ---------- 5. first read, errors, dry run, stop rules ----------
 {
   // a docket never read starts from its entry's last check (28 Oct): nothing in the recording is newer. The copied live entries carry
@@ -202,6 +210,18 @@ function tempData() {
   ok('a long entry: display text trimmed, full text kept whole', c.text.endsWith('…') && !c.full.includes('…') && c.full.length > c.text.length && c.full.endsWith('4/27/2026'));
   ok('a conference time reset is housekeeping, not a deadline', classifyEntry({ description: 'Minute Order: This matter is before the Court sua sponte. The Scheduling Conference set for 6/16/2026 at 10:30 a.m is hereby RESET to 6/16/2026 at 10:45 a.m.' }) === null);
   ok('a filing deadline is still kept', classifyEntry({ description: 'Set/Reset Deadlines/Hearings: Response to Complaint due by 12/1/2026.' }) === null || classifyEntry({ description: 'MINUTE ORDER. Defendants shall respond to the 1 Complaint by December 1, 2026.' })?.kind === 'deadline');
+}
+
+// 27 Nov 2026: appeals-court wording (the D.C. Circuit docket in Anthropic v. Department of War, real entry texts)
+{
+  const k = (d) => classifyEntry({ description: d });
+  ok('appeals: a per curiam order denying rehearing is a ruling with news', k('PER CURIAM ORDER [2209999] filed denying petition for panel rehearing. Before Judges: Henderson, Katsas and Rao. [26-1049]')?.news === true);
+  ok('appeals: a per curiam judgment denying the petitions for review is a judgment with news', k('PER CURIAM JUDGMENT [2194982] filed that the petitions for review be denied, for the reasons in the accompanying opinion')?.kind === 'judgment');
+  ok('appeals: an opinion filed is kept with news', k('OPINION [2194984] filed (Pages: 43) for the Court by Judge Katsas, DISSENTING OPINION (Pages: 8) by Judge Henderson.')?.kind === 'opinion');
+  ok('appeals: the mandate and a rehearing petition are events', k('MANDATE ISSUED to the agency. [26-1049]')?.kind === 'mandate' && k('PETITION [2197902] for rehearing en banc filed by Petitioner Anthropic PBC in 26-1049')?.kind === 'petition');
+  ok("appeals: a clerk's order directing a response is a court order (no news)", (() => { const c = k("CLERK'S ORDER [2201653] filed vacating the court's order filed October 23, 2026. It is FURTHER ORDERED, on the court's own motion, that within 15 days of the date of this order, respondents file a response to petitioner's petition for panel rehearing"); return c && c.kind === 'order' && !c.news; })());
+  ok('appeals: amicus orders and briefs, and a response brief, are routine', !k("CLERK'S ORDER [2199999] filed granting motion to participate as amicus curiae") && !k('AMICUS FOR PETITIONER BRIEF [2199396] lodged by Former Senior National Security Government Officials') && !k('RESPONSE [2204024] to petition for rehearing en banc filed by Peter B. Hegseth'));
+  ok('district courts are unchanged: an order granting a preliminary injunction is a ruling with news', k('ORDER GRANTING MOTION FOR PRELIMINARY INJUNCTION. Signed by Judge Rita F. Lin on 3/26/2026.')?.news === true);
 }
 
 console.log(`\ncourts: ${pass} passed, ${fail} failed`);

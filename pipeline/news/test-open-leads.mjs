@@ -33,7 +33,7 @@ const reader = (fn) => ({ generate: async ({ prompt }) => ({ data: { items: fn(p
 }
 // the reader: not relevant -> rejected with its reason; relevant -> kept and raised later; a G.4 flag is never rejected and raised at once
 {
-  const rd = reader((p) => [...p.matchAll(/key: (\S+)/g)].map((m) => ({ key: m[1], relevant: m[1] === 'rel', reason: m[1] === 'rel' ? 'a state AG lawsuit against a frontier developer' : 'a product launch' })));
+  const rd = reader((p) => [...p.matchAll(/key: (\S+)\nheadline: Headline (\S+)/g)].map((m) => ({ key: m[1], relevant: m[2] === 'rel', reason: m[2] === 'rel' ? 'a state AG lawsuit against a frontier developer' : 'a product launch' })));
   let r = await updateOpenLeads({ register: null, fresh: [lead('rel'), lead('launch'), lead('g4', { request_flag: true })], news, entries, today: '2026-11-20', screener: rd });
   ok('not relevant: rejected, with the reader\'s reason on record', r.resolved.some((x) => x.key === 'launch' && x.outcome === 'rejected' && /product launch/.test(x.why)) && !r.register.items.launch);
   ok('relevant: kept open with its reason', r.register.items.rel && r.register.items.rel.triage.relevant === true);
@@ -66,16 +66,53 @@ const reader = (fn) => ({ generate: async ({ prompt }) => ({ data: { items: fn(p
   const near = siteNear(ca, { news, entries });
   ok('the reader sees only site items dated within 5 days of the lead', near.some((c) => c.id === 'entry:california-ag-v-openai-agent-cyberattacks') && near.length <= 40);
   const reader = (answer) => ({ calls: 0, async generate() { this.calls++; return { data: { items: answer } }; } });
-  const r1 = await updateOpenLeads({ register: { items: {} }, fresh: [ca, far], news, entries, today: '2026-11-26', screener: reader([{ key: 'aud1', covered_by: 'entry:california-ag-v-openai-agent-cyberattacks', why: 'the same lawsuit' }, { key: 'aud2', covered_by: '', why: 'none' }]) });
+  const r1 = await updateOpenLeads({ register: { items: {} }, fresh: [ca, far], news, entries, today: '2026-11-26', screener: reader([{ key: 'L1', covered_by: 'entry:california-ag-v-openai-agent-cyberattacks', why: 'the same lawsuit' }, { key: 'L2', covered_by: '', why: 'none' }]) });
   ok('a lead the site already has is resolved as covered, with the item named', r1.resolved.some((x) => x.key === 'aud1' && x.outcome === 'covered' && /california-ag-v-openai/.test(x.why)) && !r1.alerts.some((l) => l.key === 'aud1'), JSON.stringify(r1.resolved));
   ok('a lead nothing covers stays raised', r1.alerts.some((l) => l.key === 'aud2'));
-  const r2 = await updateOpenLeads({ register: { items: {} }, fresh: [ca], news, entries, today: '2026-11-26', screener: reader([{ key: 'aud1', covered_by: 'entry:made-up-entry', why: 'x' }]) });
+  const r2 = await updateOpenLeads({ register: { items: {} }, fresh: [ca], news, entries, today: '2026-11-26', screener: reader([{ key: 'L1', covered_by: 'entry:made-up-entry', why: 'x', relevant: true, reason: 'a lawsuit' }]) });
   ok('a name not in the shown list never counts', r2.alerts.some((l) => l.key === 'aud1') && !r2.resolved.length);
   const rd = reader([]);
   const r3 = await updateOpenLeads({ register: r2.register, fresh: [], news, entries, today: '2026-11-27', screener: rd });
   ok('checked again only after 3 days', rd.calls === 0 && r3.alerts.some((l) => l.key === 'aud1'));
   const r4 = await updateOpenLeads({ register: { items: {} }, fresh: [ca], news, entries, today: '2026-11-26', screener: null });
   ok('no AI: the lead stays raised (never assumed covered)', r4.alerts.some((l) => l.key === 'aud1'));
+}
+
+// ---------- 27 Nov 2026: press leads the site already has, and leads judged under an older reader text ----------
+{
+  const { TRIAGE_VERSION, TRIAGE_SYSTEM } = await import('./open-leads.mjs');
+  const live = (f) => JSON.parse(fsx.readFileSync(new URL('../fixtures/live-2026-11-26/' + f + '.json', import.meta.url), 'utf8'));
+  const entries = live('entries'), news = live('news');
+  // the live case: a Route Fifty story on California suing OpenAI stayed raised for a week although the site has the case
+  const press = { key: 'rf', title: "California is suing OpenAI over its 'rogue' AI agent hack", link: 'https://www.route-fifty.com/x', publisher: 'Route Fifty', date: '2026-11-17' };
+  const both = (cov) => ({ calls: 0, async generate({ prompt }) { this.calls++; return { data: { items: /^LEAD /m.test(prompt) ? cov : [...prompt.matchAll(/key: (\S+)/g)].map((m) => ({ key: m[1], relevant: true, reason: 'a state AG lawsuit' })) } }; } });
+  const rd = both([{ key: 'L1', covered_by: 'entry:california-ag-v-openai-agent-cyberattacks', why: 'the same lawsuit' }]);
+  const r = await updateOpenLeads({ register: { items: {} }, fresh: [press], news, entries, today: '2026-11-26', screener: rd });
+  ok('a press lead the reader keeps is checked against the site and resolved as covered', r.resolved.some((x) => x.key === 'rf' && x.outcome === 'covered') && !r.alerts.length, JSON.stringify(r.resolved));
+  const rj = await updateOpenLeads({ register: { items: {} }, fresh: [lead('rej')], news, entries, today: '2026-11-26', screener: { calls: 0, async generate({ prompt }) { this.calls++; return { data: { items: /^LEAD /m.test(prompt) ? [] : [{ key: 'L1', relevant: false, reason: 'market reaction' }] } }; } } });
+  ok('a rejected lead is not sent to the coverage check', rj.resolved.some((x) => x.key === 'rej' && x.outcome === 'rejected'));
+  // a lead judged by the first reader text (no version) is judged again, once
+  const old = { items: { o: { ...lead('o'), first_seen: '2026-11-20', runs: 5, triage: { relevant: true, reason: 'chip sales halted', at: '2026-11-20' } } } };
+  const again = { calls: 0, async generate({ prompt }) { this.calls++; return { data: { items: /^LEAD /m.test(prompt) ? [] : [{ key: 'L1', relevant: false, reason: 'a company reaction, no government step' }] } }; } };
+  const r2 = await updateOpenLeads({ register: old, fresh: [], news, entries, today: '2026-11-27', screener: again });
+  ok('a lead judged under an older reader text is judged again and can be rejected', r2.resolved.some((x) => x.key === 'o' && x.outcome === 'rejected'), JSON.stringify(r2.resolved));
+  const cur = { items: { c: { ...lead('c'), first_seen: '2026-11-20', runs: 5, triage: { v: TRIAGE_VERSION, relevant: true, reason: 'x', at: '2026-11-26' }, coverage: { checked: '2026-11-26', covered_by: null, why: '' } } } };
+  const quiet = both([]);
+  await updateOpenLeads({ register: cur, fresh: [], news, entries, today: '2026-11-27', screener: quiet });
+  ok('a lead judged under the current text is not asked again', quiet.calls === 0);
+  // the live case of 27 Nov: lead keys are URLs, the reader rewrote them, and its right answers were lost
+  const urlKey = 'statescoop.com/new-york-attorney-general-creates-unit-to-oversee-ai-safety-and-enforcement';
+  const seen = []; const rw = { async generate({ prompt }) { seen.push(prompt); return { data: { items: /^LEAD /m.test(prompt) ? [{ key: 'L1', covered_by: 'entry:california-ag-v-openai-agent-cyberattacks', why: 'same' }] : [{ key: 'L1', relevant: true, reason: 'a new AG unit' }] } }; } };
+  const r3 = await updateOpenLeads({ register: { items: {} }, fresh: [{ ...press, key: urlKey }], news, entries, today: '2026-11-26', screener: rw });
+  ok('the reader never sees a lead\'s own (URL) key, and its answers keyed L1 are matched back', seen.every((p) => !p.includes(urlKey)) && r3.resolved.some((x) => x.key === urlKey && x.outcome === 'covered'), JSON.stringify(r3.resolved));
+  // completeness-check leads are judged too (27 Nov: "lawmakers push for tougher chip rules" stayed raised for 30 days); a G.4 flag never is
+  const no = { async generate({ prompt }) { return { data: { items: /^LEAD /m.test(prompt) ? [] : [...prompt.matchAll(/key: (\S+)/g)].map((m) => ({ key: m[1], relevant: false, reason: 'a reaction, no government step' })) } }; } };
+  const aud = { key: 'push', title: 'Lawmakers push for tougher AI chip rules', link: 'https://x.example/p', publisher: 'weekly completeness check', date: '2026-11-20', from_audit: true, summary: 'Members of Congress called for tougher rules.' };
+  const g4 = { key: 'req', title: 'White House asks a lab to delay a model', link: 'https://x.example/r', publisher: 'P', date: '2026-11-20', request_flag: true };
+  const r5 = await updateOpenLeads({ register: { items: {} }, fresh: [aud, g4], news, entries, today: '2026-11-26', screener: no });
+  ok('a completeness-check lead the reader judges not relevant is rejected, with its reason', r5.resolved.some((x) => x.key === 'push' && x.outcome === 'rejected'), JSON.stringify(r5.resolved));
+  ok('a possible government request (G.4) is still never rejected and stays raised', r5.alerts.some((l) => l.key === 'req') && !r5.resolved.some((x) => x.key === 'req'));
+  ok('the reader text rejects market reactions, commentary, caucuses and single Entity List additions', /companies or markets react/.test(TRIAGE_SYSTEM) && /When unsure, answer relevant/.test(TRIAGE_SYSTEM) && /commentary/.test(TRIAGE_SYSTEM) && /caucus/.test(TRIAGE_SYSTEM) && /Entity List/.test(TRIAGE_SYSTEM));
 }
 
 console.log(`open leads: ${pass} passed, ${fail} failed`);

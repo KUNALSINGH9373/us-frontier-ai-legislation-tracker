@@ -21,6 +21,11 @@
       "temperature": 0,
       "max_output_tokens": 16000
     },
+    "lead_matcher": {
+      "model": "gemini-3.5-flash-lite",
+      "temperature": 0,
+      "max_output_tokens": 16000
+    },
     "scope_checker": {
       "model": "gemini-3.5-flash-lite",
       "temperature": 0,
@@ -81,10 +86,10 @@
         "effort": "low"
       },
       "writer": {
-       "_note": "New bills (agents/newbill.mjs, owner 31 Oct 2026): reads the whole bill and writes every field of its page with the bill words behind each line. Medium effort: the hand tests used it.",
+       "_note": "New bills (agents/newbill.mjs, owner 31 Oct 2026): reads the whole bill and writes every field of its page with the bill words behind each line. Medium effort: the hand tests used it. 64,000 output tokens, streamed (27 Nov 2026: IL SB 315 stopped at 32,000 twice).",
        "model": "claude-sonnet-5-5",
-       "max_output_tokens": 32000,
-       "timeout_ms": 600000,
+       "max_output_tokens": 64000,
+       "timeout_ms": 900000,
        "effort": "medium"
       },
       "bill_reviewer": {
@@ -131,6 +136,12 @@
         "model": "claude-haiku-5-5",
         "max_output_tokens": 16000,
         "effort": "low"
+      },
+      "lead_matcher": {
+        "_note": "Open news leads (news/open-leads.mjs): judges whether a lead is a tracked development and whether the site already has it. A few leads a day. Stronger than the screener (27 Nov 2026: the screener kept market news as relevant and missed a news item that covered a lead).",
+        "model": "claude-sonnet-5-5",
+        "max_output_tokens": 16000,
+        "effort": "medium"
       },
       "scope_checker": {
         "model": "claude-haiku-5-5",
