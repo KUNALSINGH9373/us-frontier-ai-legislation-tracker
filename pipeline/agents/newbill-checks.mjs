@@ -77,6 +77,9 @@ export function writerProblems(out, { source }) {
   }
   // 27 Nov 2026 (MA H.5576, scored WRONG): an item may not name a party while its own text says the bill does not say who
   for (const x of items) if (clean(x.party) && /\b(does not|doesn't|do not) (name|say|specify|identify|state) (who|which|whom)\b/i.test(String(x.text || ''))) p.push(`${where(x)}: its party is "${clean(x.party)}" but its text says the bill does not name who; either the bill names the party (then say so) or leave party empty`);
+  // 27 Nov 2026 (H.R. 10180, WRONG twice): an item whose own words grant an authority ("is authorized to", "may") and say no "shall" or
+  // "must" is a power, never a duty
+  for (const x of items) if (x.force === 'duty') { const w = `${x.lead_in || ''} ${x.quote || ''}`; if (/\b(is|are) (hereby )?authorized to\b|\bmay\b|\bis permitted to\b/i.test(w) && !/\b(shall|must|is required to|are required to)\b/i.test(w)) p.push(`${where(x)}: its words grant an authority ("authorized to" / "may") with no "shall" or "must", so its force is a power, not a duty`); }
   // ids: unique, the right letter for the list
   const ids = new Set();
   for (const x of items) {

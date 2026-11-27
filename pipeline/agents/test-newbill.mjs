@@ -114,6 +114,12 @@ ok('a blank box slot is refused', writerProblems(bad3, { source }).some((p) => /
   ok('an item naming a party while its text says the bill does not say who is sent back', writerProblems(o2, { source }).some((p) => /does not name who/.test(p)));
   ok('the faithful answer still passes', writerProblems(good, { source }).length === 0, writerProblems(good, { source }));
 }
+// 27 Nov 2026 (H.R. 10180): an authority marked as a duty goes back
+{
+  const a = clone(good); a.duties[0].lead_in = 'In carrying out this section, the Director is authorized to:'; a.duties[0].force = 'duty';
+  ok('an item under "is authorized to" with no "shall" marked as a duty is sent back', writerProblems(a, { source }).some((p) => /grant an authority/.test(p)));
+  ok('a real duty ("shall") is not touched by that check', !writerProblems(good, { source }).some((p) => /grant an authority/.test(p)));
+}
 const bad4 = clone(good); bad4.duties[0].lead_in = 'Before deploying, an operator shall:';
 ok('a duty quoted as one item of a list without the words that open it is sent back', (() => { const b = clone(good); b.duties[1].lead_in = ''; return writerProblems(b, { source }).some((p) => /u2]: the quote is one item of a list/.test(p)); })());
 ok('a quote that is not a list item needs no lead_in', (() => { const b = clone(good); return !writerProblems(b, { source }).some((p) => /one item of a list/.test(p)) && !writerProblems({ ...b, penalties: [{ ...b.penalties[0], lead_in: '' }] }, { source }).some((p) => /one item of a list/.test(p)); })());
