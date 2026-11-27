@@ -1,0 +1,369 @@
+{
+ "measure": "new_bills",
+ "method": "simple",
+ "set": "unseen",
+ "run_at": "2026-11-27T14:01:25.362Z",
+ "provider": "anthropic",
+ "writer": "claude-sonnet-5-5",
+ "reviewer": "claude-opus-5-5",
+ "scope_judge": "claude-opus-5-5",
+ "scorer": "claude-opus-5-5",
+ "checks_hash": "68a123402770a031607942d4f4aefc4954f4f90c8fe2e9f1ed24d8ad038bb28d",
+ "partial": true,
+ "set_size": 26,
+ "gold_sha256": "d6ecc5c301a1e156e116801eecb492eb9dbda5b613fc4ae461c27238afdabe75",
+ "references_sha256": "61282773c15fd085779eb9658edd627107d4543bff5ebb8b2231b98e78d764a9",
+ "summary": {
+  "items": 13,
+  "published": 7,
+  "facts_only": 1,
+  "out_of_scope": 5,
+  "held": 0,
+  "errors": 0,
+  "no_text": 0,
+  "scope_errors": 2,
+  "missed": 0,
+  "wrong": 2,
+  "misleading": 7,
+  "omission": 1,
+  "misleading_per_published": 1,
+  "publish_rate": 1.17
+ },
+ "usage": {
+  "calls": 68,
+  "input_tokens": 2628964,
+  "output_tokens": 1186501,
+  "total_tokens": 3815465,
+  "by_role": {
+   "writer": {
+    "calls": 36,
+    "input": 1655690,
+    "output": 1088561,
+    "cost": 14.196990000000003
+   },
+   "scope_judge": {
+    "calls": 10,
+    "input": 129798,
+    "output": 10125,
+    "cost": 0.7216919999999999
+   },
+   "bill_reviewer": {
+    "calls": 15,
+    "input": 577319,
+    "output": 85486,
+    "cost": 4.018996
+   },
+   "scorer": {
+    "calls": 7,
+    "input": 266157,
+    "output": 2329,
+    "cost": 1.111208
+   }
+  },
+  "by_model": {
+   "claude-sonnet-5-5": {
+    "calls": 36,
+    "input": 1655690,
+    "output": 1088561,
+    "cost": 14.196990000000003
+   },
+   "claude-opus-5-5": {
+    "calls": 32,
+    "input": 973274,
+    "output": 97940,
+    "cost": 5.851896000000001
+   }
+  },
+  "estimated_cost_usd": 20.048886
+ },
+ "items": [
+  {
+   "key": "az-hb4098",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "ca-ab2653",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding provisions create a state working group (Public Contract Code § 12452) to study labor practices in foundation-model development and state AI procurement, and (in the other printed version) add AI data-enrichment labor certification to state contracts. This falls under the OUT-list items for government procurement of AI and workforce studies. No duty is limited to frontier-scale models by a measurable test or aimed at catastrophic harm.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "co-hb1212",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "coverage c1 / box applies_to",
+     "bill_quote": "\"DEVELOPER\" MEANS AN EMPLOYER AS DEFINED IN SECTION 8-4-101 (6) OR AN ENTITY THAT CONTRACTS WITH FIVE OR MORE",
+     "problem": "The entry's definitions list includes \"employer\" (8-13.6-101(3)), but the developer definition cross-references the employer definition in 8-4-101(6) instead. The entry does not flag this inconsistency. The entry is otherwise accurate, so this is minor."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "ma-h5527",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 1,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "OMISSION",
+     "where": "duties u12 / rows / other_provisions",
+     "bill_quote": "A covered employee may use the hotline described in this section to make reports described in subdivision (a).",
+     "problem": "No substantive omission found beyond style; entry is broadly complete."
+    },
+    {
+     "severity": "MISLEADING",
+     "where": "scope_reason",
+     "bill_quote": "Subject to paragraph (2), a frontier developer shall report any critical safety incident pertaining to one or more of its frontier models to the attorney general within 15 days",
+     "problem": "The scope_reason says § 3(c) requires 'them' (large frontier developers) to report incidents, but the incident-reporting duty binds every frontier developer, not only large ones."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "ny-a08195",
+   "gold_in_scope": false,
+   "decision": "facts_only",
+   "published": false,
+   "facts_only": true,
+   "scope_error": "published_out_of_scope",
+   "error": false,
+   "no_text": false,
+   "wrong": 1,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "the code checks still fail after the fix round: mechanism states a duty no quote backs (\"Every time a licensee's system operates it must automatically generate a log.;\") — rewrite that line of the matching item's text closer to the bill's own words (keep every condition)",
+   "writer_calls": 4,
+   "reviews": 1
+  },
+  {
+   "key": "us-hr8094-119",
+   "gold_in_scope": false,
+   "decision": "excluded",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "the scope check rules it out of scope: This is a general foundation-model transparency bill run by the FTC. Coverage turns on alternative prongs (users, downloads, a broad consumer-protection and civil-rights capability test, or compute), so the duties are not limited to frontier-scale developers; the bill even expects small businesses t",
+   "writer_calls": 2,
+   "reviews": 0
+  },
+  {
+   "key": "us-s4230-118",
+   "gold_in_scope": false,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": "published_out_of_scope",
+   "error": false,
+   "no_text": false,
+   "wrong": 1,
+   "misleading": 2,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "duties u12 party and text_problems",
+     "bill_quote": "the Director shall initiate a process, in consultation with the Director of the National Institute of Standards and Technology and the Director of the Office of Management and Budget, to update relevant vulnerability reporting processes, including the Department of Homeland Security Binding Operational Directive 20-01",
+     "problem": "The entry names the NIST Director as the party under Sec. 4(c)(2)(B). The text consults the NIST Director as a separate official and concerns the DHS directive, so the actor is ambiguous and most plausibly the CISA Director. Stating NIST as fact misattributes the duty."
+    },
+    {
+     "severity": "MISLEADING",
+     "where": "rows.incident_reporting",
+     "bill_quote": "develop and establish a comprehensive, voluntary database to publicly track artificial intelligence security and artificial intelligence safety incidents",
+     "problem": "The row is marked not_in_bill, but the bill does create a voluntary incident-tracking database. The row should be partial or explained rather than marked absent."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "us-s4664-118",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.applies_to.text",
+     "bill_quote": "to require public utility transmission providers to share and employ, as appropriate, queue management best practices",
+     "problem": "The box says the rulemaking would require transmission providers to 'share' best practices, but the bill says 'share and employ'. The duty to employ the practices is dropped, which understates the reach of the rulemaking."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "us-s5598-118",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.applies_to.text",
+     "bill_quote": "(iv) develops any artificial intelligence system that is not covered under clause (vii), (viii), (ix), or (xvi) of paragraph (8)(A), and that is--",
+     "problem": "The box names only the compute-based AI categories. It does not mention that AI models using ECCN 3A090 chips, AI models designed for PRC government use, and military or surveillance AI are also prohibited technologies. It also omits the AI systems that are notifiable because of their cyber, robotics, military or surveillance uses. A reader would think the compute thresholds are the only AI coverage tests."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "us-s5616-118",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.applies_to.text",
+     "bill_quote": "The term ``deploy'' means an action taken by a covered frontier artificial intelligence model developer to release, sell, or otherwise provide access to a covered frontier artificial intelligence model outside the custody of the developer",
+     "problem": "The entry says the deployment duties and the Sec. 9(a) ban 'reach such actions', which suggests they are limited to developer actions. Sec. 9(a) reads 'No person may deploy' and the duties bind 'Any person seeking to deploy'. The explanation is defensible but muddled, and it may lead a reader to misjudge who is bound."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "va-hb747",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding duties in §59.1-604 and §59.1-605 apply to developers and deployers of any high-risk AI system used to make consequential decisions and aim at algorithmic discrimination, with no frontier threshold or catastrophic-harm aim. This is a sector or decision-specific AI rule, which is out of scope; the foundation model definition is not used in any duty.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "vt-h0341",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding duties (§§ 4193e, 4193f, 4193g) apply to every \"inherently dangerous artificial intelligence system\", defined in § 4193b(12) to include any generative AI system or high-risk AI system, so they are not limited to frontier-scale models by a measurable test and are aimed at ordinary harms (consumer injury, discrimination, unfair treatment). The dual-use foundational model definition is not used by any duty applying to it alone. This falls under the OUT-list rule for broad duties on all AI systems with no frontier threshold and no catastrophic-risk aim.",
+   "writer_calls": 1,
+   "reviews": 0
+  },
+  {
+   "key": "vt-h0711",
+   "gold_in_scope": false,
+   "decision": "out_of_scope",
+   "published": false,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "The binding duties (9 V.S.A. §§ 2495d to 2495f) apply to every \"inherently dangerous artificial intelligence system\", defined in § 2495b(10) to include any high-risk or generative AI system, so a small company's chatbot is covered. They are aimed at ordinary harms (discrimination, consumer injury, privacy, intellectual property, crime) and not at catastrophic harm. No provision is limited to frontier-scale models by a measurable test, so the bill falls under the OUT-list item of general duties on every AI system or deployer with no frontier threshold or catastrophic-risk aim.",
+   "writer_calls": 1,
+   "reviews": 0
+  }
+ ]
+}
