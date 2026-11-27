@@ -54,10 +54,10 @@
     }
   },
   "limits": {
-    "_note": "30 Oct 2026 (owner): a long bill's frontier sections (up to 160,000 characters, agents/sections.mjs) are read in one request, so one call may hold 200,000 characters and one item 250,000 tokens; the monthly cap still bounds the month.",
-    "max_tokens_per_run": 600000,
-    "max_tokens_per_item": 250000,
-    "max_input_chars_per_call": 200000
+    "_note": "27 Nov 2026: raised so the longest bills fit (a 160,000-character selection plus the instructions passed 200,000 and two bills failed; the writer may now write 128,000 tokens). 30 Oct 2026 (owner): a long bill's frontier sections (up to 160,000 characters, agents/sections.mjs) are read in one request, so one call may hold 200,000 characters and one item 250,000 tokens; the monthly cap still bounds the month.",
+    "max_tokens_per_run": 3000000,
+    "max_tokens_per_item": 1000000,
+    "max_input_chars_per_call": 400000
   },
   "scope_check_limits": {
     "_note": "Own limits for scope-check/run.mjs (the one-off LegiScan catch-up reads hundreds of bills).",
@@ -86,23 +86,23 @@
         "effort": "low"
       },
       "writer": {
-       "_note": "New bills (agents/newbill.mjs, owner 31 Oct 2026): reads the whole bill and writes every field of its page with the bill words behind each line. Medium effort: the hand tests used it. 64,000 output tokens, streamed (27 Nov 2026: IL SB 315 stopped at 32,000 twice).",
+       "_note": "New bills (agents/newbill.mjs, owner 31 Oct 2026): reads the whole bill and writes every field of its page with the bill words behind each line. Medium effort: the hand tests used it. 128,000 output tokens (the model maximum), streamed (27 Nov 2026: IL SB 315 stopped at 32,000 twice, the FRONTIER Act at 64,000).",
        "model": "claude-sonnet-5-5",
-       "max_output_tokens": 64000,
+       "max_output_tokens": 128000,
        "timeout_ms": 900000,
        "effort": "medium"
       },
       "bill_reviewer": {
        "_note": "New bills: the independent fact-check of the writer's entry (WRONG / MISLEADING / OMISSION, each proved by a bill quote that code finds). A wrong scope call it proves keeps the bill out. Must be a stronger model than the writer. Low effort (owner, 31 Oct 2026: cost).",
        "model": "claude-opus-5-5",
-       "max_output_tokens": 32000,
+       "max_output_tokens": 64000,
        "timeout_ms": 600000,
        "effort": "low"
       },
       "scorer": {
        "_note": "The new-bills eval only (eval/newbill-eval.mjs): an independent third reader that scores every published entry against the bill and the human reference note for the gate. Never runs in a daily update. Low effort (owner, 31 Oct 2026: cost).",
        "model": "claude-opus-5-5",
-       "max_output_tokens": 16000,
+       "max_output_tokens": 32000,
        "timeout_ms": 600000,
        "effort": "low"
       },

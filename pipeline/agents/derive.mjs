@@ -77,7 +77,7 @@ export const stateStatus = (bill) => trackerStatus(bill && bill.status);
 // state frontier-developer laws) or an IVO / AI-auditor measure (C); a pending or failed one is a bill (B, pending, stalled and failed state
 // bills; B.2, catastrophic-risk regulation without a frontier threshold) or an IVO / AI-auditor measure (C). Which one needs a reading of the
 // text, so the Generator chooses within these, and code refuses anything else.
-export const stateSections = (status) => (status === 'enacted' ? ['A', 'C'] : ['B', 'B.2', 'C']);
+export const stateSections = (status) => (status === 'enacted' ? ['A', 'I', 'C'] : ['B', 'B.2', 'C']); // I: owner, 27 Nov 2026
 
 // Returns { fields, events, section } with everything the record states exactly. section is null when it cannot be decided by rule.
 export function deriveCreate({ item, raw }) {

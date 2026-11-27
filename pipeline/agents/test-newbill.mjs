@@ -94,6 +94,22 @@ ok('a blank box slot is refused', writerProblems(bad3, { source }).some((p) => /
   ok('a real drafting-slip note on a selection is kept', !writerProblems(t2, { source: sel }).some((p) => /left out on purpose/.test(p)));
   ok('on a whole bill (no "[...]") the same note is not touched by this check', !writerProblems(t1, { source }).some((p) => /left out on purpose/.test(p)));
 }
+// 27 Nov 2026 (NJ S.4446, VA Ch. 425): a bill with its own title line is named from it, never with an invented name
+{
+  const titled = `AN ACT concerning artificial intelligence safety and supplementing Title 56 of the Revised Statutes.\n${source}`;
+  const inv = clone(good); inv.name_quote = ''; inv.name = 'AI Safety Disclosures to Attorney General';
+  ok('an invented name (empty name_quote) on a bill with an "An Act ..." title line is sent back', writerProblems(inv, { source: titled }).some((p) => /own title line/.test(p)));
+  ok('a bill with no title line may still take a descriptive name', !writerProblems(inv, { source: source.split('\n').slice(1).join('\n') }).some((p) => /own title line/.test(p)));
+}
+// 27 Nov 2026: a text problem naming a bill number the bill does not contain (AI OVERWATCH Act), and an item whose party contradicts
+// its own text (MA H.5576), go back to the writer
+{
+  const o1 = clone(good); o1.text_problems = ['The official title mentions S. 4456 and FY2027 NDAA provisions'];
+  ok('a text problem naming a bill number or fiscal year not in the bill is sent back', writerProblems(o1, { source }).some((p) => /names S\. 4456/.test(p)) && writerProblems(o1, { source }).some((p) => /names FY2027/.test(p)));
+  const o2 = clone(good); o2.duties[0].party = 'large frontier developer'; o2.duties[0].text = 'Access must be granted to the auditor; the bill does not name who must grant it.';
+  ok('an item naming a party while its text says the bill does not say who is sent back', writerProblems(o2, { source }).some((p) => /does not name who/.test(p)));
+  ok('the faithful answer still passes', writerProblems(good, { source }).length === 0, writerProblems(good, { source }));
+}
 const bad4 = clone(good); bad4.duties[0].lead_in = 'Before deploying, an operator shall:';
 ok('a duty quoted as one item of a list without the words that open it is sent back', (() => { const b = clone(good); b.duties[1].lead_in = ''; return writerProblems(b, { source }).some((p) => /u2]: the quote is one item of a list/.test(p)); })());
 ok('a quote that is not a list item needs no lead_in', (() => { const b = clone(good); return !writerProblems(b, { source }).some((p) => /one item of a list/.test(p)) && !writerProblems({ ...b, penalties: [{ ...b.penalties[0], lead_in: '' }] }, { source }).some((p) => /one item of a list/.test(p)); })());
@@ -113,6 +129,8 @@ const rv = readReview({ checked: all, findings: [finding('MISLEADING', 'box.requ
 ok('a finding whose proof is not in the bill is dropped; the verdict is computed', rv.findings.length === 1 && rv.discarded.length === 1 && rv.verdict === 'fix' && rv.wrong === 0);
 ok('a proved WRONG finding fails the entry', readReview({ checked: all, findings: [finding('WRONG', 'p1', 'not more than $75,000')] }, { source, out: good }).verdict === 'fail');
 ok('a proved WRONG scope finding marks the bill out', readReview({ checked: all, findings: [finding('WRONG', 'in_scope / scope_reason', 'publish a safety plan')] }, { source, out: good }).scopeWrong && !readReview({ checked: all, findings: [finding('WRONG', 'tracker_section', 'publish a safety plan')] }, { source, out: good }).scopeWrong);
+// 27 Nov 2026 (CA SB 53 excluded): a WRONG about the wording of scope_reason alone is a fixable line, not an out-of-scope bill
+ok('a WRONG finding on scope_reason alone does not mark the bill out; a bare "scope" or "in_scope" does', !readReview({ checked: all, findings: [finding('WRONG', 'scope_reason', 'publish a safety plan')] }, { source, out: good }).scopeWrong && readReview({ checked: all, findings: [finding('WRONG', 'scope', 'publish a safety plan')] }, { source, out: good }).scopeWrong && readReview({ checked: all, findings: [finding('WRONG', 'in_scope', 'publish a safety plan')] }, { source, out: good }).scopeWrong);
 ok('parts named with the reviewer own paths count as checked (rows.framework, in_scope, name_quote, box.requires)', readReview({ checked: [...all.filter((t) => !['framework', 'shutdown', 'scope', 'name'].includes(t)), 'rows.framework', 'duty row: shutdown', 'in_scope', 'name_quote'], findings: [] }, { source, out: good }).missing.length === 0, readReview({ checked: [...all.filter((t) => !['framework', 'shutdown', 'scope', 'name'].includes(t)), 'rows.framework', 'duty row: shutdown', 'in_scope', 'name_quote'], findings: [] }, { source, out: good }).missing);
 ok('a part never named is still missing', readReview({ checked: all.filter((t) => t !== 'shutdown'), findings: [] }, { source, out: good }).missing.join() === 'shutdown');
 ok('parts the reviewer did not say it checked are listed', readReview({ checked: all.slice(2), findings: [] }, { source, out: good }).missing.length === 2);

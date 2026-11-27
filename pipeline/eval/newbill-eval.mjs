@@ -83,7 +83,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const textsDir = opt('--texts') || path.join(P, 'data', 'eval', 'texts'), referencesDir = opt('--references') || null;
   const models = read(path.join(P, 'config', 'models.json')), provider = opt('--provider') || models.provider;
   // A whole-set run reads every bill once or twice with two models: a larger budget than a daily run.
-  const config = { ...models, provider, limits: { ...models.limits, max_tokens_per_run: 12_000_000, max_tokens_per_item: 400_000 } };
+  const config = { ...models, provider, limits: { ...models.limits, max_tokens_per_run: 12_000_000, max_tokens_per_item: 1_500_000 } };
   const gkey = process.env.GEMINI_API_KEY;
   const http = createHttp({ headers: provider === 'gemini' ? { 'x-goog-api-key': gkey } : {}, secrets: [gkey].filter(Boolean), maxRequests: 5000, timeoutMs: 300000 });
   const make = (role) => createLlmFromConfig({ config, apiKey: gkey, http, role });

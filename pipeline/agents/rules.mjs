@@ -7,17 +7,18 @@ import { loose, LOST_EXPONENT, COMPUTE_POWER_PHRASE } from './text-norm.mjs';
 // of them a bill's status allows). E (drafts), G.2 (litigation), H (precursors), I (provisions inside broader laws) and J (exclusions)
 // are judgements about context, not facts a bill record states, so they stay with a person.
 // G.2: lawsuits only, from an official release (publish/lawsuits.mjs, owner 26 Nov 2026); the new-bill writer never offers it.
-export const AUTO_CREATE_SECTIONS = ['A', 'B', 'B.2', 'C', 'D', 'F', 'G', 'G.2', 'G.3'];
+// I (owner, 27 Nov 2026): an enacted state law whose frontier-AI provisions are part of a broader act may be created too.
+export const AUTO_CREATE_SECTIONS = ['A', 'B', 'B.2', 'C', 'D', 'F', 'G', 'G.2', 'G.3', 'I'];
 
 export const SECTION_RULES = {
   A: { type: 'law', level: 'state' }, B: { type: 'bill', level: 'state' }, 'B.2': { type: 'bill', level: 'state' }, C: { type: 'auditor', level: 'state' },
   D: { type: 'bill', level: 'federal' }, E: { type: 'draft', level: 'federal' }, F: { type: 'bill', level: 'federal' },
   G: { type: 'executive', level: 'federal' }, 'G.2': { type: 'litigation', level: null }, 'G.3': { type: 'export', level: 'federal' },
-  H: { type: 'precursor', level: null }, I: { type: 'law', level: null }, J: { type: 'excluded', level: 'none' }
+  H: { type: 'precursor', level: null }, I: { type: 'law', level: 'state' }, J: { type: 'excluded', level: 'none' }
 };
 export const SECTION_NAMES = {
   A: 'Enacted state frontier-developer laws', B: 'Pending, stalled and failed state bills', 'B.2': 'Catastrophic-risk regulation without a frontier threshold', C: 'State IVO / AI-auditor licensing measures',
-  D: 'Federal frontier-AI bills introduced (none enacted)', F: 'Adjacent and sectoral federal bills', G: 'Executive actions', 'G.3': 'Compute and export controls'
+  D: 'Federal frontier-AI bills introduced (none enacted)', F: 'Adjacent and sectoral federal bills', G: 'Executive actions', 'G.3': 'Compute and export controls', I: 'Frontier provisions in broader laws'
 };
 
 // Federal bills stay "pending" until they become law; executive actions, litigation and export controls have their own status.
@@ -28,7 +29,7 @@ export function statusFor(section, apiStatus) {
   if (section === 'D' || section === 'E' || section === 'F') return apiStatus === 'enacted' || apiStatus === 'failed' ? apiStatus : 'pending';
   // State sections: A holds only enacted laws, B and B.2 only bills that are not law (pending or failed; "stalled" is a person's
   // judgement), C IVO / AI-auditor measures in any state. An enacted bill in B, or a pending one in A, has no status by rule.
-  if (section === 'A') return apiStatus === 'enacted' ? 'enacted' : null;
+  if (section === 'A' || section === 'I') return apiStatus === 'enacted' ? 'enacted' : null;
   if (section === 'B' || section === 'B.2') return apiStatus === 'failed' ? 'failed' : apiStatus === 'pending' ? 'pending' : null;
   if (section === 'C') return ['enacted', 'failed', 'pending'].includes(apiStatus) ? apiStatus : null;
   return null;
@@ -83,12 +84,13 @@ const CATASTROPHIC_SRC = String.raw`\bcatastrophic\s+risks?\b|\bcritical\s+(?:sa
 const AI_CONTEXT = /\b(?:artificial\s+intelligence|AI|machine\s+learning|algorithm\w*|frontier\s+models?|foundation\s+models?)\b/i;
 const AUDITOR_SRC = String.raw`\bindependent\s+verification\s+organi[sz]ations?\b|\b(?:AI|artificial\s+intelligence)\s+auditors?\b|\b(?:licens|certif|accredit)\w*\s+(?:of\s+)?(?:independent\s+)?(?:third[- ]party\s+)?(?:AI\s+)?auditors?\b|\bthird[- ]party\s+auditors?\b[^.]{0,80}\b(?:licens|certif|accredit)\w*`;
 const re = (src, g = '') => new RegExp(src, 'i' + g);
-export const SECTION_MARKERS = { A: THRESHOLD_SRC, B: THRESHOLD_SRC, 'B.2': CATASTROPHIC_SRC, C: AUDITOR_SRC };
+export const SECTION_MARKERS = { A: THRESHOLD_SRC, B: THRESHOLD_SRC, 'B.2': CATASTROPHIC_SRC, C: AUDITOR_SRC, I: `${THRESHOLD_SRC}|${CATASTROPHIC_SRC}` };
 // Defined below the federal criteria (D_SRC, F_RISK_SRC): SECTION_MARKERS.D and .F are added there.
 export const SECTION_CRITERIA = {
   A: 'an enacted law that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a "frontier model" or "large developer" definition)',
   B: 'a bill that puts binding duties on frontier or large AI developers defined by a frontier threshold (training compute such as 10^26 operations, a "frontier model" or "large developer" definition)',
   'B.2': 'a bill that puts duties about catastrophic risk (catastrophic risk, critical harm, chemical, biological, radiological or nuclear weapons, mass casualties, loss of control) on AI developers, without any compute or frontier threshold',
+  I: 'an enacted state law whose main subject is something else (online safety, employment, privacy) and which contains frontier-AI provisions (a frontier threshold or definition, or catastrophic-risk duties)',
   C: 'a measure on who may audit or verify AI developers: independent verification organizations, or the licensing, certification or accreditation of AI auditors',
   D: 'a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a "frontier model", "covered model" or "large developer" definition)',
   F: 'an adjacent or sectoral federal AI-risk bill: AI testing, evaluation, safety, reliability or incident-reporting programs (including defence and intelligence-community AI safety), AI whistleblower protection, independent verification or AI auditors, preemption of state AI laws, export or security rules for AI chips, compute or model weights, control of autonomous AI agents, or catastrophic-risk work; NOT government procurement or use of AI, privacy or civil-liberties reports on agency use of AI, sector-only rules, deepfakes, children\'s online safety, or workforce, energy or data-centre studies'
@@ -198,6 +200,8 @@ export function sectionPassage(section, text) {
   const t = String(text || '').replace(/\s+/g, ' ');
   // Round 4: an operative threshold (a compute figure or a definition), about AI, with a binding duty near it.
   if (section === 'A' || section === 'B') return dutyNear(t, OPERATIVE_SRC, PARTY_DUTY, { ai: true });
+  // I (27 Nov 2026): the broader law must itself hold a frontier provision: an operative threshold, or catastrophic-risk words, with a duty near it.
+  if (section === 'I') return dutyNear(t, OPERATIVE_SRC, PARTY_DUTY, { ai: true }) || dutyNear(t, CATASTROPHIC_SRC, DUTY_ON_DEVELOPER, { ai: true });
   // B.2 is for a text WITHOUT a frontier threshold: refused when the text meets B (a threshold with a duty near it), not because a threshold
   // word appears somewhere in passing.
   if (section === 'B.2') return dutyNear(t, OPERATIVE_SRC, PARTY_DUTY, { ai: true }) ? null : dutyNear(t, CATASTROPHIC_SRC, DUTY_ON_DEVELOPER, { ai: true });
@@ -244,7 +248,7 @@ export const FEDERAL_CHECKED_SECTIONS = ['D', 'F'];
 // Problems with a state section for a record of this kind ('bill' | 'resolution' | 'memorial' | 'other', agents/record-kind.mjs) and text.
 export function stateSectionProblems(section, kind, text) {
   const out = [];
-  if (['A', 'B', 'B.2'].includes(section) && kind && kind !== 'bill') out.push(`a ${kind} never goes in section ${section} (A, B and B.2 hold bills and laws)`);
+  if (['A', 'B', 'B.2', 'I'].includes(section) && kind && kind !== 'bill') out.push(`a ${kind} never goes in section ${section} (A, B, B.2 and I hold bills and laws)`);
   if (section === 'A' && text != null && !frontierDutyPassage(text)) out.push('section A needs an enacted text with binding duties on frontier or large AI developers or their models, and none was found in this text; choose C if its subject is independent verification or AI auditors');
   if (SECTION_MARKERS[section] && text != null && !sectionPassage(section, text)) out.push(`section ${section} needs ${SECTION_CRITERIA[section]}, and no passage of this text meets it`);
   return out;
