@@ -55,7 +55,31 @@ export function writerProblems(out, { source }) {
   if (!clean(out.scope_reason)) p.push('scope_reason is empty: name the binding provision that places the bill in scope');
   if (!clean(out.name)) p.push('name is empty');
   if (clean(out.name_quote) && !containsQuote(source, out.name_quote)) p.push(`name_quote is not in the bill word for word: "${clean(out.name_quote).slice(0, 80)}"`);
-  if (clean(out.name_quote) && !norm(out.name_quote).includes(norm(out.name).replace(/^the /, '').slice(0, 40))) p.push('name is not copied from name_quote (options 1 and 2 copy the bill\'s own words)');
+  if (clean(out.name_quote) && !norm(out.name_quote).includes(norm(out.name).replace(/^the /, '').slice(0, 40))) p.push('name is not copied from name_quote (options 1 to 3 copy the bill\'s own words)');
+  // 27 Nov 2026 (NJ S.4446, VA Ch. 425 scored WRONG): a bill with its own title line ("An Act concerning ...", "A BILL To ...") is named
+  // from it (option 3); an invented descriptive name (option 4, empty name_quote) is allowed only when the bill has no title line.
+  // A title line may stand anywhere near the top (a scraped page puts navigation first) and in Ohio's form "To enact sections ... to ...".
+  if (!clean(out.name_quote) && /\b(AN ACT|A BILL)\b|\bTo (enact|amend|repeal|create|establish|require)\b[\s\S]{0,400}?\b(of the Revised Code|Code|law)\b/i.test(String(source).slice(0, 8000))) p.push('name_quote is empty but the bill has its own title line ("An Act ...", "A BILL ...", "To enact sections ... to ..."): name it from that line (option 3) and copy those words into name_quote');
+  // a name that only names the law or sections the bill amends says nothing of its subject (NY S.10456, 27 Nov 2026)
+  if (/^(an act|a bill)?\s*to (amend|enact|repeal)\b[^,]*\b(law|code|sections?[\s\d.,]*)\s*$/i.test(clean(out.name))) p.push(`name "${clean(out.name)}" names only the law or sections the bill amends; take the clause that says what the bill is about ("in relation to ...", "to create ...")`);
+  // 27 Nov 2026 (MA H.5576, scored WRONG): a long bill reaches the writer as a selection joined by "[...]" (agents/sections.mjs); the
+  // writer called a section it was not shown "omitted". A text problem that calls a section omitted/missing while SOURCE has a "[...]"
+  // gap goes back to the writer.
+  if (/\[\.\.\.\]/.test(source)) for (const tp of out.text_problems || []) {
+    if (/\[\.\.\.\]|\b(omit\w*|missing|skip\w*|elid\w*|not included|left out|absent)\b/i.test(String(tp)) && /\b(sec(tion)?s?\.?|subsection|paragraph)\b|\(\w{1,4}\)/i.test(String(tp))) p.push(`text_problems: "${String(tp).slice(0, 90)}" calls a part omitted or missing, but SOURCE is a selection and its "[...]" gaps were left out on purpose; remove this note`);
+  }
+  // 27 Nov 2026 (AI OVERWATCH Act, scored WRONG): a text problem may describe only the bill's own text; a bill number or fiscal year it
+  // names that the bill does not contain came from outside the bill.
+  for (const tp of out.text_problems || []) {
+    const refs = String(tp).match(/\b(H\.\s?R\.|S\.|H\.J\.Res\.|S\.J\.Res\.)\s?\d{2,5}\b|\bFY\s?20\d\d\b/gi) || [];
+    const norm2 = (x) => x.replace(/\s+/g, '').toLowerCase(), src = norm2(String(source));
+    refs.filter((r) => !src.includes(norm2(r))).forEach((r) => p.push(`text_problems: "${String(tp).slice(0, 80)}" names ${r}, which the bill does not contain; a text problem describes only the bill's own text`));
+  }
+  // 27 Nov 2026 (MA H.5576, scored WRONG): an item may not name a party while its own text says the bill does not say who
+  for (const x of items) if (clean(x.party) && /\b(does not|doesn't|do not) (name|say|specify|identify|state) (who|which|whom)\b/i.test(String(x.text || ''))) p.push(`${where(x)}: its party is "${clean(x.party)}" but its text says the bill does not name who; either the bill names the party (then say so) or leave party empty`);
+  // 27 Nov 2026 (H.R. 10180, WRONG twice): an item whose own words grant an authority ("is authorized to", "may") and say no "shall" or
+  // "must" is a power, never a duty
+  for (const x of items) if (x.force === 'duty') { const w = `${x.lead_in || ''} ${x.quote || ''}`; if (/\b(is|are) (hereby )?authorized to\b|\bmay\b|\bis permitted to\b/i.test(w) && !/\b(shall|must|is required to|are required to)\b/i.test(w)) p.push(`${where(x)}: its words grant an authority ("authorized to" / "may") with no "shall" or "must", so its force is a power, not a duty`); }
   // ids: unique, the right letter for the list
   const ids = new Set();
   for (const x of items) {
@@ -134,7 +158,10 @@ export function readReview(review, { source, out }) {
   const wrong = findings.filter((f) => f.severity === 'WRONG');
   // A wrong scope call is not a fixable line: the bill is out of the tracker (agents/newbill.mjs never gives it an entry).
   // (a wrong tracker_section alone is a fixable line, not an out-of-scope bill)
-  const scopeWrong = wrong.filter((f) => /(^|[^a-z])(in_)?scope(_reason)?([^a-z]|$)/i.test(clean(f.where)));
+  // 27 Nov 2026: only a finding against the in/out call itself (where "in_scope", or a bare "scope") keeps the bill out. A finding that
+  // only the wording of scope_reason is wrong is a fixable line: CA SB 53, the core frontier law, was excluded because its scope_reason
+  // described the "large frontier developer" test incompletely.
+  const scopeWrong = wrong.filter((f) => { const w = clean(f.where); return /(^|[^a-z_])in_scope([^a-z_]|$)/i.test(w) || /^\s*scope\s*$/i.test(w); });
   const verdict = !findings.length ? 'pass' : wrong.length ? 'fail' : 'fix';
   return { findings, discarded, missing, verdict, wrong: wrong.length, scopeWrong: scopeWrong.length > 0 };
 }

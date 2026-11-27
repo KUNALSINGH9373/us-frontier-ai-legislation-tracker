@@ -66,8 +66,10 @@ This is the real order, from `pipeline/update.mjs`.
    something code will not overwrite, the report says so.
 6. **New bills ("Tier B").** Drafts that passed every check are added, at most 3 per run.
 7. **Held items.** Items a check refused earlier are tried again.
-8. **Court dockets.** New filings in the tracked federal lawsuits are read from CourtListener. Orders, judgments and appeals
-   become dated events.
+8. **Court dockets.** New filings in the tracked federal lawsuits, trial and appeals courts, are read from CourtListener
+   (`pipeline/config/courts.json`). Orders, judgments, opinions and appeals become dated events. Every court case on the site
+   that cites a CourtListener docket must be followed, or listed in `_not_followed` with the reason (state-court cases, which
+   CourtListener does not carry); a pull request check enforces this.
 9. **End of Congress.** From 3 Jan 2027, pending federal bills of the 119th Congress are marked as died (section 6).
 10. **End of state sessions.** Pending state bills are marked as died when their session is over (section 6).
 11. **Self-correction.** Once a day, up to 3 entries are re-read against their bill text. A reader AI lists mistakes, a second AI
@@ -77,10 +79,13 @@ This is the real order, from `pipeline/update.mjs`.
 13. **Links.** Links between entries (for example "sponsor of") are proposed. Only links proved by an official record are added.
 14. **News.** News feeds and official records are read. News items from official records are written in fixed wording and
     checked by an independent AI review before they are added. Leads that are not yet on the site are kept in an "open leads"
-    list. Once a week this step also runs a completeness check (an AI web search for anything the site is missing).
-15. **Lawsuits.** An official press release announcing a frontier-AI lawsuit can become a new lawsuit entry. (Switched off now.)
+    list. Once a week this step also runs a completeness check (an AI web search for anything the site is missing). Each open
+    lead is read by an AI (role `lead_matcher`): business news, market reactions, commentary and similar noise is closed with the
+    reason; a lead the site already has is closed as covered. What is left is raised on the Watch list until it is covered or
+    30 days pass. A possible government request to an AI developer is never closed by the AI.
+15. **Lawsuits.** An official press release announcing a frontier-AI lawsuit can become a new lawsuit entry.
 16. **Press-based news.** A story becomes a news item if an official source confirms it, or two independent approved outlets
-    report it. (Switched off now.)
+    report it.
 17. **In the press.** Links to good outlets' stories about one entry ("In the press" on the entry page). Headline, outlet, date
     and link only.
 18. **Final check.** The whole run is checked against the data as it was at the start: schemas, cross-file checks, the per-run
@@ -107,23 +112,23 @@ most of these steps spend no AI money and only report what is waiting.
 
 | Switch | Now | What it controls | When on | When off |
 |---|---|---|---|---|
-| `new_entries` | **on** (by owner override, see 3.2) | New bills found by the pipeline | Up to 3 new bill entries per run, after the writer, reviewer and scope checks | New bills are only listed in the report as "spotted" |
+| `new_entries` | **on** | New bills found by the pipeline | Up to 3 new bill entries per run, after the writer, reviewer and scope checks | New bills are only listed in the report as "spotted" |
 | `relationships` | **on** | Links between entries | Links proved by an official record (sponsor links) are added | Links are only listed in the report |
 | `news` | **on** | News items from official records | Items that pass the independent review are added to the News page | Items are worked out and reported, not published |
 | `page_fields` | **on** | Short texts at the top of entry pages | Up to 3 entries a run get them written | No AI spent; the report says how many pages wait |
 | `press` | **on** | "In the press" links on entry pages | Checked links are added (max 5 per entry) | No AI spent |
-| `lawsuits` | **off** | New lawsuit entries from official press releases | Writer + independent reviewer; every fact quoted from the release | No AI spent; releases wait in the open-leads list |
-| `press_news` | **off** | News from press reports (official confirmation or two approved outlets) | Writer + reviewer; labelled "From press reports" or "From the official release" | No AI spent; stories stay open leads |
+| `lawsuits` | **on** | New lawsuit entries from official press releases | Writer + independent reviewer; every fact quoted from the release | No AI spent; releases wait in the open-leads list |
+| `press_news` | **on** | News from press reports (official confirmation or two approved outlets) | Writer + reviewer; labelled "From press reports" or "From the official release" | No AI spent; stories stay open leads |
 | `mechanism`, `thresholds`, `penalties` | off | Left from an older design | No effect today (the new-bill method in use does not read them) | Leave them off |
 
-Note on `lawsuits` and `press_news`: they are built, but no passing test report exists for them yet. Turning them on alone
-does nothing until a paid test run passes (section 4).
+Note on `new_entries`, `lawsuits` and `press_news`: each publishes only while a paid test report made by the current code shows
+zero wrong (section 4). After any pipeline code change they stay off until those tests are re-run.
 
 ### 3.2 Gate override (`gate_override`)
 
-An owner's written decision to let a switch publish **without** a passing test report. Now set for `new_entries` (by the
-owner, 31 Oct 2026: accepted the live test of that day instead of a further paid run). Every run report reminds you of it.
-All other checks on the entries still run. To restore the normal gate, delete the `new_entries` line from `gate_override`.
+An owner's written decision to let a switch publish **without** a passing test report. None is set now: the one for
+`new_entries` (31 Oct 2026) was removed on 26 Nov 2026, when that switch passed its own tests. If one is ever set, every run
+report reminds you of it, all other checks still run, and deleting its line from `gate_override` restores the normal gate.
 
 ### 3.3 Other settings
 
@@ -166,7 +171,8 @@ What this means for you:
 - **News, page fields, press links and links** use free tests (code only). The pipeline re-runs them by itself at the start of a
   run when they are stale. You do not need to do anything.
 - **New bills, lawsuits and press-based news** use paid tests (they call the AI, about $1–3 each). After a code change, a
-  developer must re-run them, or the switch stays off. `new_entries` is on now only because of the owner override.
+  developer must re-run them, or the switch stays off. The unseen new-bills test is run by the owner (its answers are kept
+  away from the developer).
 - If a test fails **every** case, the test itself is probably broken. The report then says so on every run (see "broken
   measures" in section 5).
 
@@ -254,7 +260,9 @@ Lines with ⚠️ need attention. Lines with no icon are for information. Lines 
 | ⚠️ Press-based news did not run: … | It could not run for a reason other than "switched off". | Nothing unless it repeats. |
 | ℹ️ auto_publish.X is on in config/publish.json but treated as OFF this run: … | The gate turned a switch off (stale or failing test). | Nothing for free tests. For new bills / lawsuits / press news, ask a developer to re-run the paid test. |
 | ℹ️ auto_publish.new_entries is ON by owner override … | Reminder of the override (section 3.2). | Nothing, unless you want to remove the override. |
-| ℹ️ … measured again on this run's code and data … N cases, N wrong | A free test was re-run. If wrong is above 0, that switch is off this run. | Act only if "wrong" stays above 0. |
+| ℹ️ self-tests on this run's code and data, all 0 wrong: … | The free tests were re-run on this run's data and all passed. | Nothing. |
+| ⚠️ … self-test on this run's code and data: N wrong of N cases (… off this run) | A free test found a wrong answer, so that switch is off for this run. | Act only if it repeats on the next runs: ask a developer. |
+| ⚠️ N news leads about a possible tracked development are still not on the site … | Leads the AI judged to be a real development that no site item covers yet. | Look at them; each closes once the site covers it, or after 30 days. |
 | ℹ️ held item … expired, needs attention … | An item was held for 14 days and dropped. | **Act.** Ask a developer to read the reason. |
 | ℹ️ other notes | Things like "fallback used", "court docket not read", "proposal (held, not created)". | Nothing. |
 

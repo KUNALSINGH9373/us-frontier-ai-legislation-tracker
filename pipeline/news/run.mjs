@@ -303,7 +303,7 @@ async function newsRunInner({ dataDir, docsDir = null, seenFile = SEEN_FILE, ope
   {
     const olFile = openLeadsFile || path.join(path.dirname(seenFile), 'news-open-leads.json');
     // the reader is made only when there is a lead to judge (no AI spent on a run with no new leads, review r7 L1), news publishing on or off
-    const triager = !aiOff && factory && !dry ? () => factory.make('screener') : null;
+    const triager = !aiOff && factory && !dry ? () => factory.make('lead_matcher') : null; // 27 Nov 2026: a stronger reader than the headline screener
     const register = readJson(olFile, null);
     // the weekly completeness check (audit/completeness.mjs): what happened that the site does not have, raised through this register
     const cc = config.completeness || {}, every = cc.every_days ?? 7;

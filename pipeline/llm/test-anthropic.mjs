@@ -116,5 +116,17 @@ ok('input over the limit is refused before any call', await fails(msg('{}'), /ov
   let refused = false; try { await createAnthropic({ client: fake(msg('x')), role: 'a', model: 'm', ledger: cap }).search({ prompt: 'p' }); } catch (e) { refused = e instanceof BudgetExceeded; }
   ok('search: the monthly cap is checked before any search', refused);
 }
+// 27 Nov 2026: answers are streamed, so a large max_tokens (the new-bills writer, 64,000) is allowed by the SDK
+{
+  let streamed = 0, created = 0, sent = null;
+  const message = { content: [{ type: 'text', text: '{"a":1}' }], stop_reason: 'end_turn', usage: { input_tokens: 5, output_tokens: 3 } };
+  const client = { messages: { stream: (p) => { streamed++; sent = p; return { finalMessage: async () => message }; }, create: async () => { created++; return message; } } };
+  const llm = createAnthropic({ client, role: 'writer', model: 'claude-sonnet-5-5', maxOutputTokens: 64000 });
+  const r = await llm.generate({ prompt: 'x', itemId: 't' });
+  ok('a call is streamed (finalMessage), not a plain create, and carries the large max_tokens', streamed === 1 && created === 0 && sent.max_tokens === 64000 && r.data.a === 1);
+  const cut = { messages: { stream: () => ({ finalMessage: async () => ({ ...message, stop_reason: 'max_tokens' }) }) } };
+  let why = ''; try { await createAnthropic({ client: cut, role: 'writer', model: 'm' }).generate({ prompt: 'x', itemId: 't' }); } catch (e) { why = e.message; }
+  ok('a streamed answer cut at max_tokens is still refused', /max_tokens/.test(why));
+}
 console.log(`anthropic client: ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

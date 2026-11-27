@@ -100,6 +100,7 @@ export function watchLines(rep) {
     if (pn.held.length) w.push(`⚠️ ${pn.held.length} press-based news item${pn.held.length === 1 ? '' : 's'} not published (${clip(pn.held[0].why, 110)}): ${list(pn.held.map((x) => clip(x.event, 50)), 3)}`);
     if (pn.skipped_why && !/is off/.test(pn.skipped_why) && pn.candidates) w.push(`⚠️ Press-based news did not run: ${clip(pn.skipped_why, 90)}.`);
   }
+  for (const a of rep.measure_alerts || []) w.push(`⚠️ ${a}`);
   for (const n of rep.notes || []) w.push(`ℹ️ ${n}`);
   return w;
 }

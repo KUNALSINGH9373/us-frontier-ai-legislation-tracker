@@ -49,6 +49,7 @@ export function createCourtListener(http, { limiter = async () => {} } = {}) {
 // around an appeal or a deadline: transmission of a notice of appeal, the appeals court's case number, the appeal fee, motions for
 // an extension of time (to file a notice of appeal or anything else), stipulations to extend time, scheduling orders.
 const ROUTINE = [
+  /^\W*((per curiam|clerk'?s|en banc) )?order\b[^.]{0,160}\bamic(us|i)\b/i, // 27 Nov 2026: an order on amicus participation (appeals courts)
   /^\W*(notice of )?(entry of )?appearance\b/i, /\bnotice of (entry of )?appearance\b/i, /^\W*transcript\b/i, /^\W*(amended )?transcript of proceedings\b/i, /\btranscript order\b/i,
   /\bsummons\b/i, /\bpro hac vice\b/i, /\bapplication for admission\b/i, /^\W*certificate\b/i, /\bcertificate of (service|interested|counsel)\b/i, /^\W*(corporate )?disclosure statement\b/i,
   /^\W*proposed order\b/i, /^\W*clerk'?s notice\b/i, /\border referring motion/i, /\bwithdraw(al)? (as|of) (attorney|counsel)\b/i, /\bmotion to withdraw as attorney\b/i,
@@ -61,8 +62,8 @@ const ROUTINE = [
 ];
 // A ruling the public cares about: on a dispositive motion, an injunction, a stay of a rule, an order or enforcement (not a stay of
 // discovery or of a briefing deadline), summary judgment, dismissal or final relief.
-const DISPOSITIVE = String.raw`summary judgment|dismiss\w*|(preliminary |permanent )?injunct\w*|temporary restraining order|\bTRO\b|\bstay(ed|ing|s)? (of )?(the )?(rule|regulation|order|agency action|enforcement|effective date|statute|law|injunction|judgment|proceedings pending appeal)\b|\bstay pending appeal\b|\benforcement\b[^.]{0,80}\bstayed\b|final (relief|judgment)|judgment on the pleadings|remand\w*|vacat\w* (the )?(rule|order|agency action)`;
-const RULING_ORDER = new RegExp(String.raw`^\W*((memorandum|opinion) (and|&) )?(minute )?order\b[^.]{0,200}?\b(on|of|granting|denying|re|regarding|resolving)\b[^.]{0,200}?(${DISPOSITIVE})|^\W*minute (order|entry)\b(?=[\s\S]*\b(granted|denied|granting|denying)\b)[\s\S]*(${DISPOSITIVE})`, 'i');
+const DISPOSITIVE = String.raw`rehearing|petitions? for review|summary judgment|dismiss\w*|(preliminary |permanent )?injunct\w*|temporary restraining order|\bTRO\b|\bstay(ed|ing|s)? (of )?(the )?(rule|regulation|order|agency action|enforcement|effective date|statute|law|injunction|judgment|proceedings pending appeal)\b|\bstay pending appeal\b|\benforcement\b[^.]{0,80}\bstayed\b|final (relief|judgment)|judgment on the pleadings|remand\w*|vacat\w* (the )?(rule|order|agency action)`;
+const RULING_ORDER = new RegExp(String.raw`^\W*((per curiam|clerk'?s|en banc) )?((memorandum|opinion) (and|&) )?(minute )?order\b[^.]{0,200}?\b(on|of|granting|denying|re|regarding|resolving)\b[^.]{0,200}?(${DISPOSITIVE})|^\W*minute (order|entry)\b(?=[\s\S]*\b(granted|denied|granting|denying)\b)[\s\S]*(${DISPOSITIVE})`, 'i');
 // Material kinds, in order (the first match wins). news: whether a fixed-wording news item is written for it ('ruling': only for an
 // order that rules on a dispositive motion, an injunction, a stay, summary judgment, dismissal or final relief; other orders are events
 // without news). An ORDER granting a voluntary dismissal is an order (the case is dismissed), not a party's withdrawal.
@@ -73,12 +74,16 @@ const RULING_ORDER = new RegExp(String.raw`^\W*((memorandum|opinion) (and|&) )?(
 const NOT_WHOLE_CASE = String.raw`^(?![\s\S]*\b(as to(?! all (defendants|parties)\b)|(?<!as to all )defendants?|den(y|ies|ied|ying)|counter-?claims?|cross-?claims?|claims?|counts?|in part|partial(ly)?|only|except|(?<!without )leave to (file an )?amend|with leave(?! of (the )?court)|(file|filing|submit) an amended complaint)\b)`;
 const KINDS = [
   { kind: 'appeal', news: true, label: 'Notice of appeal filed', re: /^\W*(amended )?notice of (interlocutory )?appeal\b/i },
-  { kind: 'judgment', news: true, label: 'Judgment entered', re: /^\W*(final |amended |clerk'?s )?judgment\b/i },
+  { kind: 'judgment', news: true, label: 'Judgment entered', re: /^\W*(final |amended |clerk'?s |per curiam )?judgment\b/i },
   { kind: 'order', news: true, label: 'Case dismissed', re: new RegExp(NOT_WHOLE_CASE + String.raw`(^\W*((memorandum|opinion) (and|&) )?(minute )?order\b[^.]{0,120}?\b(granting|approving)\b[^.]{0,80}?\bvoluntary dismissal\b|^\W*order (of )?dismissal( of (the )?(case|action|complaint))?\b|^\W*order dismissing (the )?(case|action|((first|second|third) )?(amended )?complaint)\b)`, 'i') },
   { kind: 'order', news: 'ruling', label: 'Court order', re: /^\W*minute order\b[\s\S]*\b(granted|denied|granting|denying)\b/i }, // a minute order that rules on a motion
   { kind: 'deadline', news: false, label: 'Minute order setting a deadline', re: /^\W*minute (order|entry)\b(?=[\s\S]*\b(due|deadline|shall (file|respond|submit)|set for|reset|by (january|february|march|april|may|june|july|august|september|october|november|december) \d))/i },
-  { kind: 'order', news: 'ruling', label: 'Court order', re: /^\W*((memorandum|opinion) (and|&) )?order\b|^\W*(stipulated|protective) order\b/i },
+  { kind: 'order', news: 'ruling', label: 'Court order', re: /^\W*((per curiam|clerk'?s|en banc) )?((memorandum|opinion) (and|&) )?order\b|^\W*(stipulated|protective) order\b/i },
   { kind: 'withdrawal', news: false, label: 'Withdrawn', re: new RegExp(NOT_WHOLE_CASE + String.raw`(^\W*(notice of )?(voluntary )?(dismissal|withdrawal)\b|^\W*(joint )?stipulat\w*( of| for)? (voluntary )?dismissal\b|^\W*(\S+ ){0,3}withdraw(s|ing)? (its |the |their )?(motion|complaint|petition)\b)`, 'i') }, // a filing that only mentions a dismissal (an opposition, a response) is not one
+  // appeals courts (27 Nov 2026: the D.C. Circuit's wording matched none of the kinds above, so its rulings would have been skipped)
+  { kind: 'opinion', news: true, label: 'Opinion filed', re: /^\W*(per curiam |amended )?opinion\b[^.]{0,60}\bfiled\b/i },
+  { kind: 'mandate', news: false, label: 'Mandate issued', re: /^\W*mandate\b[^.]{0,40}\bissued\b/i },
+  { kind: 'petition', news: false, label: 'Petition for rehearing filed', re: /^\W*petition\b[^.]{0,30}\bfor (panel )?rehearing\b/i },
   { kind: 'closed', news: false, label: 'Case closed', re: /\bcivil case terminated\b|\bcase (closed|terminated)\b/i }
 ];
 

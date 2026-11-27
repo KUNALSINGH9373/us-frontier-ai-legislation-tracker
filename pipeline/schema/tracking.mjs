@@ -22,10 +22,23 @@ export function billIdProblems(e) {
 const LIVE = ['pending', 'stalled'];
 const lsIdsOf = (e) => ((e.identifiers && e.identifiers.external && e.identifiers.external.legiscan) || []).map(String).sort();
 
+// A court case on the site whose CourtListener docket it cites must be read by the court-docket step (config/courts.json), or be listed
+// in its _not_followed block with the reason (27 Nov 2026: the D.C. Circuit docket in Anthropic v. Department of War was cited but not
+// followed, so its rulings were added by hand). courts: the parsed config/courts.json.
+const CL_DOCKET = /courtlistener\.com\/docket\/(\d+)/g;
+export function courtProblems(e, courts = {}) {
+  if (e.type !== 'litigation') return [];
+  const followed = new Set(Object.entries(courts).filter(([k]) => !k.startsWith('_')).map(([, c]) => String(c.docket_id)));
+  const skipped = (courts._not_followed || {})[e.key];
+  const cited = [...new Set([...JSON.stringify([e.sources, e.more_links, e.events, e.evidence]).matchAll(CL_DOCKET)].map((m) => m[1]))];
+  return skipped ? [] : cited.filter((id) => !followed.has(id)).map((id) => `${e.key}: cites CourtListener docket ${id}, which config/courts.json does not follow (add it, or list the entry in _not_followed with the reason)`);
+}
+
 // announced: config/announced-bills.json "bills" (federal bills announced without a number: the end-of-Congress step checks them there).
-export function checkTracking({ entries, legiscan = {}, announced = {} }) {
+export function checkTracking({ entries, legiscan = {}, announced = {}, courts = {} }) {
   const problems = [];
   for (const e of entries) {
+    problems.push(...courtProblems(e, courts));
     if (e.level === 'federal') problems.push(...billIdProblems(e)); // a federal title that names a bill must carry its Congress.gov id
     if (e.level === 'federal' && e.type === 'bill' && LIVE.includes(e.status) && !((e.identifiers && e.identifiers.external && e.identifiers.external.congress_gov) || []).length && !announced[e.key]) problems.push(`${e.key}: a pending federal bill with no Congress.gov id and not in config/announced-bills.json (nothing follows it)`);
     if (e.level === 'state' && ['bill', 'auditor'].includes(e.type) && LIVE.includes(e.status)) {
@@ -43,7 +56,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const entries = JSON.parse(fs.readFileSync(path.join(dir, 'entries.json'), 'utf8'));
   const legiscan = JSON.parse(fs.readFileSync(path.join(here, '..', 'config', 'identifiers-legiscan.json'), 'utf8')).legiscan || {};
   const announced = JSON.parse(fs.readFileSync(path.join(here, '..', 'config', 'announced-bills.json'), 'utf8')).bills || {};
-  const p = checkTracking({ entries, legiscan, announced });
+  const courts = JSON.parse(fs.readFileSync(path.join(here, '..', 'config', 'courts.json'), 'utf8'));
+  const p = checkTracking({ entries, legiscan, announced, courts });
   if (p.length) { console.log(p.join('\n')); process.exit(1); }
-  console.log(`tracking: every pending bill is followed (${entries.length} entries checked)`);
+  console.log(`tracking: every pending bill and every cited court docket is followed (${entries.length} entries checked)`);
 }

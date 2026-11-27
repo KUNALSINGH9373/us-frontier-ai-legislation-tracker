@@ -122,7 +122,7 @@ conditions
 
 text
 - One plain sentence saying what the quote says, built from the party, the bill's verb and the conditions. Aim for 35 words or fewer, but conditions are never cut to meet that.
-- Keep the bill's legal force: "shall"/"must" → a duty ("must"); "may" → a power or option ("may"); "shall not"/"may not" → a ban ("may not"); "should", "is encouraged to", "it is the sense of" → a recommendation ("should"). Never turn a power or a recommendation into a duty, or a duty into guidance. A time limit attached to a recommendation is not a deadline: write "should ... within 180 days", never "is due within 180 days". This applies to every field, including `effective` items and the box.
+- Keep the bill's legal force: "shall"/"must" → a duty ("must"); "may" → a power or option ("may"); "shall not"/"may not" → a ban ("may not"); "should", "is encouraged to", "it is the sense of" → a recommendation ("should"). Never turn a power or a recommendation into a duty, or a duty into guidance. Items in a list that opens "is authorized to", "may" or "is permitted to" are powers, even when the list item itself has no verb of its own. A time limit attached to a recommendation is not a deadline: write "should ... within 180 days", never "is due within 180 days". This applies to every field, including `effective` items and the box.
 - Write numbers exactly as the quote prints them ("$75,000", "10^25", "seventy-two hours"). Never convert, round, add up or compute.
 - No words of judgment ("landmark", "strict", "sweeping") and no predictions.
 </writing_an_item>
@@ -136,7 +136,7 @@ exclusions: each carve-out ("does not include", "does not apply to", "other than
 
 duties: one item for each obligation, power or ban the bill creates: every "shall", "must", "shall not", "may not", and every "may" that gives someone a power over others. That includes duties of government agencies, auditors and boards, each with its own party. If one sentence holds two separate duties, make two items with the same quote.
   - `kind` is the row it belongs to (one of the 8 duty row keys below), or "records", "agency" (a duty or power of government), "rulemaking" (a power to make rules that may later create duties), or "other".
-  - `deadline` is the time limit exactly as written, or "".
+  - `deadline` is the time limit exactly as written, or "". An ongoing duty ("regularly review", "periodically", "at least annually") has no completion deadline: a date the bill attaches to it is when the duty starts, so write "beginning on or before ...", never "by ...".
 
 penalties: one item for each tier. Give the amount and unit exactly as printed, the party it applies to, what triggers it and who enforces it. Criminal penalties, injunctions, damages, private lawsuits, notice-and-hearing steps, and statements that there is "no private right of action" are penalty items too. If there is enforcement but no amount, the amount is "".
 
@@ -212,8 +212,9 @@ Example (invented bill):
 <name>
 The name is the headline readers will quote, so it is copied, not composed. Take the first of these that the bill offers:
 1. Its short title ("may be cited as", "shall be known as"): copy the name exactly, without the quotation marks. `name_quote` is the sentence that gives it.
-2. Otherwise, the heading of the title, division, chapter or article that holds the bill's main provisions, if that heading is 15 words or fewer: copy it exactly, changing only ALL CAPITALS to normal title case. `name_quote` is the heading as printed.
-3. Otherwise, a plain descriptive name of at most 8 words, built from the bill's own words for what it does. It never ends in "Act" and has no word of praise ("Safety", "Protection", "Accountability") unless the bill uses it of itself. `name_quote` is "".
+2. Otherwise, the heading of the title, division, chapter, article or section that the bill itself adds and that holds its main provisions, if that heading is 15 words or fewer (never the heading of an existing chapter or title the bill only adds to or amends, such as "Causes of Action"): copy it exactly, changing only ALL CAPITALS to normal title case. `name_quote` is the heading as printed.
+3. Otherwise, the bill's own title line, the long title that says what the act does ("An Act concerning artificial intelligence safety and supplementing Title 56", "An act to amend the general business law, in relation to requiring minimum standards for ...", "To enact sections 3755.01 ... of the Revised Code to create an independent verification organization license for ..."). Copy its subject words exactly: for "An Act concerning X" the words "An Act concerning X" up to the first "and" or ";" that starts a second subject; for a title that only names the law or sections it amends or enacts, the clause that says what the bill is about, starting at "in relation to" or at the final "to" ("in relation to requiring minimum standards for large frontier developer's frontier AI frameworks", "to create an independent verification organization license for verifying artificial intelligence risk mitigation"). Never a name that names only the law or sections amended ("An Act to amend the general business law"). At most 20 words. `name_quote` is those words as printed.
+4. Only if the bill has none of these, a plain descriptive name of at most 8 words, built from the bill's own words for what it does. It never ends in "Act" and has no word of praise ("Safety", "Protection", "Accountability") unless the bill uses it of itself. `name_quote` is "".
 Never reword a name or heading the bill gives. If you use option 2 or 3, the official number and title shown underneath still tell readers exactly which bill it is.
 </name>
 
@@ -246,6 +247,8 @@ Bills sometimes contain drafting slips: a cross-reference to a subdivision that 
 
 <when_the_text_is_damaged>
 If part of the text is garbled, cut off, or unclear because of leftover markup, list each problem in `text_problems` with its location ("Sec. 5(c): bracket markup around the compute figure; inserted and deleted text cannot be told apart"). Never guess what an unreadable passage says, and never use a number from it. Write the rest of the entry normally. If too little of the bill is readable to write an honest entry, set `readable` to false and leave everything else empty.
+A text problem describes only what is printed in the bill. Never put in `text_problems` anything you know from outside it (another bill's number, a larger act it may be part of, a fiscal year the bill does not print).
+A long bill may reach you as a selection of its sections, joined by "[...]" and followed by a NOTE saying so. The tracker left those parts out on purpose; they are not damage. Never list a "[...]" gap in `text_problems`, and never say a section is omitted, missing or skipped because of one.
 </when_the_text_is_damaged>
 
 <self_check>
@@ -461,7 +464,7 @@ For type (1), at least one binding provision must itself be either (a) limited t
 
 <method>
 1. Read the whole bill before reading the entry. Write your own map of it in `reviewer_map`: every duty with its group, every coverage test, every penalty tier and enforcer, every effective date, and any preemption or immunity provision.
-2. Decide scope yourself before reading the entry's `scope_reason`: from your map, find a binding provision (a duty, ban, power, penalty or program, never findings or a definition alone) that is aimed at frontier-scale models or catastrophic risk, or fits one of types (2) to (8). Then compare with the entry. If the entry calls the bill in scope and you cannot find such a provision, that is a WRONG finding, even if the rest of the entry is accurate. Use the scope definition below. Then check the name.
+2. Decide scope yourself before reading the entry's `scope_reason`: from your map, find a binding provision (a duty, ban, power, penalty or program, never findings or a definition alone) that is aimed at frontier-scale models or catastrophic risk, or fits one of types (2) to (8). Then compare with the entry. If the entry calls the bill in scope and you cannot find such a provision, that is a WRONG finding, even if the rest of the entry is accurate; give it `where` "in_scope", which keeps the bill out of the tracker. If the bill is in scope but the wording of `scope_reason` is inaccurate or incomplete, give that finding `where` "scope_reason": it is fixed like any other line and never keeps the bill out. Use the scope definition below. Then check the name.
 3. Check the box. It is what most readers read. For each slot, ask: would someone who reads only this slot believe anything the bill does not support, or miss a group the bill binds?
 4. Check every item, in order, against its quote and against the section around it. Then check the 13 rows. In `checked`, list each part you checked by its plain name: every item id as the entry gives it ("c1", "u3"), every row key ("framework", "shutdown", and the rest, including rows marked not_in_bill), and "scope", "name", "box.applies_to", "box.requires", "box.enforcement", "box.effective".
 5. Compare your map from step 1 with the entry to find omissions.

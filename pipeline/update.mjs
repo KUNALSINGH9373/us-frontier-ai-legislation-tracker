@@ -358,7 +358,9 @@ export function commitRun({ P, git, config, dataChanged, today, summaries, sourc
 }
 
 // After a failed run only the spend counters are committed (the LegiScan usage and the AI ledger record money and queries really used).
-function commitCounters({ P, git, usageFile, ledgerDir, log }) {
+// 27 Nov 2026: the message names the failed step and the (scrubbed) error, so the history explains every failed run (the 14 and 16 Nov
+// failures left only "after a failed run" and could not be traced afterwards).
+export function commitCounters({ P, git, usageFile, ledgerDir, log, step = null, error = null }) {
   const rel = (f) => path.relative(P.root, f).split(path.sep).join('/');
   const files = [usageFile, ledgerDir].filter((f) => fs.existsSync(f)).map(rel);
   if (!files.length) return;
@@ -367,7 +369,8 @@ function commitCounters({ P, git, usageFile, ledgerDir, log }) {
   const d = git(['diff', '--cached', '--quiet', '--', ...files], { cwd: P.root });
   if (d.status === 0) return;
   if (d.status > 1) throw new Error(`git diff --cached failed (exit ${d.status})`);
-  const c = git(['commit', '-q', '-F', '-', '--', ...files], { cwd: P.root, input: 'state: LegiScan usage and AI spend after a failed run' });
+  const why = [step ? `Failed step: ${step}` : '', error ? `Error: ${String(error).slice(0, 500)}` : ''].filter(Boolean).join('\n');
+  const c = git(['commit', '-q', '-F', '-', '--', ...files], { cwd: P.root, input: `state: LegiScan usage and AI spend after a failed run${why ? '\n\n' + why : ''}` });
   if (c.status !== 0) throw new Error(`git commit failed (exit ${c.status})`);
   log('committed the spend counters (not pushed)');
 }
@@ -391,8 +394,13 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
   // an owner's override is reported on every run, so it is never forgotten (config/publish.json gate_override)
   overridden.forEach((x) => rep.notes.push(`auto_publish.${x.field} is ON by owner override (${x.by}, ${x.date}${x.reason ? `: ${x.reason}` : ''}), without a passing test report; remove gate_override.${x.field} in config/publish.json to restore the gate`));
   // the links measure run for this run's gate (gateInputsFor), so the report shows why relationships are on or off
-  if (gi.links) rep.notes.push(`links measure on this run's data: ${gi.links.cases} cases, ${gi.links.wrong} wrong${gi.links.wrong ? ' (relationships off this run)' : ''}`);
-  nm.ran.forEach((x) => rep.notes.push(`${x.measure === 'news' ? 'news event set' : x.measure === 'page_fields' ? 'page-fields set' : x.measure === 'press' ? 'press set' : 'news writer set'} measured again on this run's code and data (the stored report no longer matched): ${x.cases} cases, ${x.wrong} wrong${x.wrong ? ` (${x.measure === 'page_fields' ? 'page fields' : x.measure === 'press' ? 'press links' : 'news'} off this run)` : ''}`));
+  // 27 Nov 2026: the free self-tests re-run on most runs, one note each, so a clean run read like five warnings. They are now one line
+  // when all are clean; a self-test with a wrong answer gets its own ⚠️ line saying what is off this run (rep.measure_alerts).
+  const MEASURE_NAME = { news: 'news events', news_writer: 'news writer', page_fields: 'page fields', press: 'press links', links: 'links' };
+  const OFF = { news: 'news', news_writer: 'news', page_fields: 'page fields', press: 'press links', links: 'relationships' };
+  const self = [...(gi.links ? [{ measure: 'links', cases: gi.links.cases, wrong: gi.links.wrong }] : []), ...nm.ran];
+  rep.measure_alerts = self.filter((x) => x.wrong).map((x) => `${MEASURE_NAME[x.measure] || x.measure} self-test on this run's code and data: ${x.wrong} wrong of ${x.cases} cases (${OFF[x.measure] || x.measure} off this run)`);
+  if (self.length && !rep.measure_alerts.length) rep.notes.push(`self-tests on this run's code and data, all 0 wrong: ${self.map((x) => `${MEASURE_NAME[x.measure] || x.measure} ${x.cases}`).join(', ')} cases`);
   if (nm.error) rep.notes.push(`a news measure could not be run (${nm.error}); news is off this run`);
   // a measure that fails EVERY case is almost certainly broken itself (18-25 Nov 2026: one live card made 75 of 75 "wrong" and news was
   // off for a week with only a note): it goes to the run report's Watch list on every run until it is fixed
@@ -865,7 +873,7 @@ export async function runUpdate({ P = defaultPaths(), config: publishConfig, mod
     rep.outcome = 'failed'; rep.failed_step = step; rep.error = scrub(e.message);
     logErr('FAILED: ' + rep.error);
     code = 1;
-    if (flags.commit && !dry) { try { commitCounters({ P, git, usageFile, ledgerDir, log }); } catch (e2) { logErr('could not commit the spend counters: ' + scrub(e2.message)); } }
+    if (flags.commit && !dry) { try { commitCounters({ P, git, usageFile, ledgerDir, log, step, error: rep.error }); } catch (e2) { logErr('could not commit the spend counters: ' + scrub(e2.message)); } }
   } finally {
     fs.rmSync(lock, { force: true });
   }

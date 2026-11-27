@@ -250,7 +250,7 @@ measure to `MEASURE_INPUTS` in `hash.mjs`, map the switch in `gate.mjs` `MEASURE
   config, case sets, fixtures, tests) except `node_modules/`, `data/`, `out/`, `state/`, `eval/reports/`, `eval/report.md`,
   `.env`, the identifiers files, and the `auto_publish` / `gate_override` blocks of `publish.json`. Free measures re-run
   themselves at the start of a run; paid ones (new bills, lawsuits, press-based news) must be re-run by hand or their switch
-  stays off (the new-bills switch is on today only by `gate_override`).
+  stays off. No `gate_override` is set (the last one, for new bills, was removed on 26 Nov 2026).
 - **Tests use frozen data**: `fixtures/live-2026-11-26/` and `fixtures/correct/`. Never read `web/data/v2` in a code test; live
   data changes every 4 hours and has broken tests three times. `links/test.mjs` is the one deliberate exception (it checks the
   real network).

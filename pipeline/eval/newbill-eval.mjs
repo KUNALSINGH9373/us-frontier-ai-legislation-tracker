@@ -17,6 +17,7 @@ import { fileURLToPath } from 'url';
 import { cleanText, readerText } from '../agents/text-norm.mjs';
 import { writeAndReview, modelText } from '../agents/newbill.mjs';
 import { stateSectionRule, FEDERAL_SECTION_RULE } from '../agents/prompts.mjs';
+import { stateSections } from '../agents/derive.mjs';
 import { SCORER_SYSTEM, SCORER_SCHEMA, scorerUser, readScore } from './newbill-scorer.mjs';
 import { currentHashes } from './hash.mjs';
 
@@ -33,9 +34,12 @@ export function setFingerprint({ goldFile, referencesDir = null }) {
 }
 
 // The sections a bill may take, as production allows them (agents/derive.mjs stateSections, the federal rule).
+// 27 Nov 2026: from the bill's real status (gold "status", from its official record), as production does, never from the expected
+// section: an enacted law expected in I or C was offered B, B.2 or C (the CT omnibus could not be filed right). A set without a status
+// falls back to the enacted-only sections A and I.
 export function sectionsFor(g) {
   if (g.level === 'federal') return ['D', 'F', 'G.3'];
-  return g.section === 'A' ? ['A', 'C'] : ['B', 'B.2', 'C'];
+  return stateSections(g.status || (['A', 'I'].includes(g.section) ? 'enacted' : 'pending'));
 }
 export function billOf(g, meta, stored) {
   const text = modelText(readerText(stored));
@@ -83,7 +87,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const textsDir = opt('--texts') || path.join(P, 'data', 'eval', 'texts'), referencesDir = opt('--references') || null;
   const models = read(path.join(P, 'config', 'models.json')), provider = opt('--provider') || models.provider;
   // A whole-set run reads every bill once or twice with two models: a larger budget than a daily run.
-  const config = { ...models, provider, limits: { ...models.limits, max_tokens_per_run: 12_000_000, max_tokens_per_item: 400_000 } };
+  const config = { ...models, provider, limits: { ...models.limits, max_tokens_per_run: 12_000_000, max_tokens_per_item: 1_500_000 } };
   const gkey = process.env.GEMINI_API_KEY;
   const http = createHttp({ headers: provider === 'gemini' ? { 'x-goog-api-key': gkey } : {}, secrets: [gkey].filter(Boolean), maxRequests: 5000, timeoutMs: 300000 });
   const make = (role) => createLlmFromConfig({ config, apiKey: gkey, http, role });

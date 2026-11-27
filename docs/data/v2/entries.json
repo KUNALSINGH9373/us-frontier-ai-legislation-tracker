@@ -1237,7 +1237,7 @@
   "mechanism": "Large frontier developers with New Jersey users would have to put protocols in place; file a yearly \"Risk Management Disclosure\" with the Attorney General, matched item by item to the NIST AI Risk Management Framework; file a \"New Model Risk Disclosure\" before deployment, with assessments others can repeat; and flag which sections were written by generative AI. The Attorney General would publish the disclosures with redactions. Civil penalty: $100,000 per violation. The Attorney General could audit developers or hire a private auditor, but would not have to. The law would expire after 5 years. It defines \"critical safety incident\" but never requires anyone to report one. No whistleblower provisions. No penalty for catastrophic-risk statements found reasonable and made in good faith. Takes effect six months after enactment.",
   "thresholds": "10^26 operations, including fine-tuning and reinforcement learning; \"large frontier developer\" = more than $100M revenue (with affiliates, preceding calendar year) (the lowest revenue test of any bill tracked here); catastrophic harm = 25 or more deaths or serious injuries, or $1B (among the lowest casualty thresholds); the weapons list includes illegal firearms, lethal autonomous weapons and explosives, broader than chemical, biological, radiological and nuclear weapons",
   "penalties": null,
-  "status_text": "S.4446 was introduced June 11, 2026. A.5275, with identical text (checked against njleg.gov), was introduced June 15, 2026 and referred to the Assembly Science, Innovation & Technology Committee.",
+  "status_text": "S.4446 was introduced June 11, 2026 and referred to the Senate Law and Public Safety Committee. A.5275, with identical text (checked against njleg.gov), was introduced June 15, 2026 and referred to the Assembly Science, Innovation & Technology Committee.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -1245,7 +1245,7 @@
     "date": "2026-06-11",
     "precision": "day",
     "type": "Introduced / published",
-    "text": "S.4446 introduced in the Senate (same text as A.5275)",
+    "text": "S.4446 introduced in the Senate (same text as A.5275) and referred to the Senate Law and Public Safety Committee",
     "clause": "referred to Assembly Science, Innovation & Technology Committee. S.4446 introduced June 11, 2026 — identical text (verified against njleg.gov)",
     "inferred_year": false,
     "scheduled": false
@@ -1294,8 +1294,8 @@
    "run_id": "update-20261119-0005",
    "rounds": 1
   },
-  "last_checked": "2026-11-19",
-  "last_changed": "2026-11-19",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-4446-a-5275-an-act-concerning-artificial-intelligence-safety-r",
    "section_name": "Pending, stalled and failed state bills"
@@ -6923,7 +6923,7 @@
   "mechanism": "A 291-page discussion draft with 17 titles. It had not been introduced as a numbered bill as of the sponsor's Apr 22, 2026 \"growing momentum\" release. Frontier AI content: it includes the Energy Department's \"Advanced Artificial Intelligence Evaluation Program\" from the Hawley-Blumenthal bill (S. 2938), and authorizes the Center for AI Standards and Innovation (CAISI), the National AI Research Resource (NAIRR) and national-lab testbeds. Other content: a duty of care for developers; a products-liability framework with suits by the U.S. Attorney General, state attorneys general and private parties; an end to Section 230 protections; the Kids Online Safety Act and the NO FAKES Act folded in; a declaration that training on copyrighted works is not fair use; third-party audits for political-affiliation bias; quarterly reporting of AI-related layoffs to the Labor Department; and agreements to protect electricity customers from data-center costs. Despite its \"one rulebook\" framing, the law firm Covington reads it as not expressly overriding all state AI laws.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Section-by-section released Dec 19, 2025; draft text released Mar 18, 2026. No numbered bill had been found when last checked on Oct 15, 2026.",
+  "status_text": "Section-by-section released Dec 19, 2025; draft text released Mar 18, 2026. No numbered bill had been found on Congress.gov as of Nov 26, 2026.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -6974,7 +6974,7 @@
    "checked_at": "2026-10-15T00:00:00Z"
   },
   "last_checked": "2026-11-26",
-  "last_changed": "2026-10-15",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-trump-america-ai-act-discussion-draft-republic-unifying-meritocratic-p",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
@@ -7082,7 +7082,7 @@
   "mechanism": "A section-by-section summary and one-pager were released Sept 23, 2026; both senators' offices call it a proposal, and no bill number had been found as of Sept 28, 2026. It would create a five-member Federal Digital Commission with authority over digital platforms and AI developers. Developers could be designated \"systemically important\" based on AI-related spending or model level. The Commission would write rules on risk thresholds, safeguards and reporting. Developers would have to submit models for testing, and the Commission would approve or reject public release within 45 days, extendable by no more than 30 days. It could pause public release for up to six months. Critical safety incidents would have to be reported within 15 days. The proposal also includes whistleblower protections, an interagency working group on international AI safety standards, and civil penalties up to 15% of prior-year global revenue. Definitions: a frontier model is a foundation model trained on more than 10^26 operations, \"which includes computing for the original training run and for any subsequent fine-tuning, reinforcement learning, or other\" modification. Catastrophic risk is a foreseeable and material risk of death or serious injury to more than 50 people, or more than $1,000,000,000 in damage, from a single incident. A critical safety incident includes unauthorized access to or theft of model weights causing death or injury, loss of control causing death or injury, and \"a frontier model that uses deceptive techniques against its own developer to subvert that developer's controls or monitoring.\" These definitions match California SB 53 and New York's RAISE Act, and the 15-day deadline is SB 53's (the amended RAISE Act uses 72 hours); the match does not prove either was copied.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Released Sept 23, 2026 as a proposal. No introduced bill had been found when last checked on Oct 15, 2026.",
+  "status_text": "Released Sept 23, 2026 as a proposal. No introduced bill had been found on Congress.gov as of Nov 26, 2026.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -7123,8 +7123,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-ai-regulator-act-of-2026-proposal-not-introduced-u",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
@@ -8177,7 +8177,7 @@
  {
   "id": 48,
   "key": "s-5471-ai-systems-transparency-act",
-  "section": "F",
+  "section": "D",
   "type": "bill",
   "level": "federal",
   "jurisdiction": "US",
@@ -8237,8 +8237,8 @@
    "run_id": "update-20261116-0005",
    "rounds": 1
   },
-  "last_checked": "2026-11-16",
-  "last_changed": "2026-11-16",
+  "last_checked": "2026-11-27",
+  "last_changed": "2026-11-27",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-s-5471-ai-systems-transparency-act-asta-u",
    "section_name": "Adjacent and sectoral federal bills"
@@ -9852,10 +9852,10 @@
   "title": "DOJ AI Litigation Task Force (created Jan 9, 2026 under EO 14365)",
   "short_name": "DOJ AI Litigation Task Force",
   "sponsor_text": "",
-  "mechanism": "As of Sept 28, 2026, searches had not found the Task Force bringing a case against a frontier AI law.",
+  "mechanism": "As of Nov 26, 2026, searches had not found the Task Force bringing a case against a frontier AI law.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: As of Sept 28, 2026, searches found no case clearly brought by the Task Force. The Justice Department did join the Colorado case X.AI v. Weiser, but the sources do not say the Task Force did so.",
+  "status_text": "Status: As of Nov 26, 2026, searches (including every Justice Department press release since Sept 25) found no case clearly brought by the Task Force. The Justice Department did join the Colorado case X.AI v. Weiser, but the sources do not say the Task Force did so.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -9905,8 +9905,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-doj-ai-litigation-task-force-created-jan-9-2026-under-eo-14365",
    "section_name": "Litigation and enforcement"
@@ -9915,7 +9915,7 @@
   "thirty_seconds": {
    "a": "Whether the DOJ AI Litigation Task Force brings a case against a frontier AI law.",
    "b": "The Task Force was created Jan 9, 2026 under EO 14365.",
-   "c": "No case clearly brought by the Task Force was found through Sept 28, 2026. DOJ joined X.AI v. Weiser, but sources do not say the Task Force did."
+   "c": "No case clearly brought by the Task Force was found through Nov 26, 2026. DOJ joined X.AI v. Weiser, but sources do not say the Task Force did."
   },
   "page_verification": {
    "method": "session",
@@ -10020,7 +10020,7 @@
   "mechanism": "As of Oct 31, 2026, this was the only lawsuit found in which the federal government sided against a state AI law. It targets a law on AI in consequential decisions, not catastrophic-risk rules, and its legal theories (First Amendment compelled speech, Equal Protection and the dormant Commerce Clause) do not map cleanly onto SB 53-style disclosure laws. It also shows DOJ choosing to join a private suit rather than file its own.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: xAI sued Apr 9, 2026 to block Colorado SB 24-205, an algorithmic-discrimination law (not a frontier AI law), on First Amendment, Equal Protection and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division; Equal Protection theory), the first federal court action against any state AI law. On Apr 27, 2026 the court approved the parties' joint agreement: the Colorado Attorney General may not start enforcement, including investigations, of SB 24-205 (or a law replacing or amending it) for conduct up to 14 days after a ruling on xAI's planned preliminary-injunction motion, which xAI must file within 28 days after final implementing rules are adopted; all case deadlines are paused. The legislature then repealed and replaced the law with SB 26-189 (May 14, 2026). No later court activity is recorded here.",
+  "status_text": "Status: xAI sued Apr 9, 2026 to block Colorado SB 24-205, an algorithmic-discrimination law (not a frontier AI law), on First Amendment, Equal Protection and dormant Commerce Clause grounds. DOJ intervened Apr 24, 2026 (Civil Rights Division; Equal Protection theory), the first federal court action against any state AI law. On Apr 27, 2026 the court approved the parties' joint agreement: the Colorado Attorney General may not start enforcement, including investigations, of SB 24-205 (or a law replacing or amending it) for conduct up to 14 days after a ruling on xAI's planned preliminary-injunction motion, which xAI must file within 28 days after final implementing rules are adopted; all case deadlines are paused. The legislature then repealed and replaced the law with SB 26-189 (May 14, 2026). Since then the docket shows only attorney withdrawals (as of Nov 26, 2026); the case remains paused.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -10093,8 +10093,8 @@
    "method": "session",
    "checked_at": "2026-10-28T12:00:00Z"
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-x-ai-llc-v-weiser-no-1-26-cv-01515-d-colo",
    "section_name": "Litigation and enforcement"
@@ -10357,7 +10357,7 @@
   "mechanism": "The two federal designations now have opposite outcomes: the § 3252 designation was vacated in N.D. Cal. (Aug. 27), while the § 4713 exclusion was upheld in the D.C. Circuit (Sept. 25). The majority reportedly said both rulings can stand because the two laws define supply-chain risk differently. Because the case was split between two courts, the two challenges ended with opposite results.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: Anthropic's Mar. 9 complaint in N.D. Cal. states it received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (a civilian-agency supply-chain exclusion), that only the D.C. Circuit can review it under 41 U.S.C. § 1327(b), and that Anthropic \"intends to challenge that separate action in that forum.\" Anthropic filed its petition Mar. 9, 2026; stay denied Apr. 8; argued May 19; decided Sept. 25, 2026, 2–1, petition denied. Judges Katsas (writing) and Rao held that the term \"manipulate\" in the Federal Acquisition Supply Chain Security Act (FASCSA) reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendment claim failed because the exclusion rested on \"refusal to assent to a contract term that the Department deemed essential.\" Judge Henderson dissented, reading manipulation to require deceptive or covert interference rather than \"a contractor's honest and upfront enforcement of restrictions.\" Anthropic said it was \"considering all options, including further review.\" In October 2026 Anthropic asked for panel rehearing or rehearing en banc (reported as filed Oct 13; an amicus motion filed Oct 20, 2026 in No. 26-1049 confirms the petition); on Nov 3, 2026 the court ordered the government to respond, and the government filed its response opposing rehearing on Nov 18, 2026; no ruling as of Nov 25, 2026 (court docket).",
+  "status_text": "Status: Anthropic's Mar. 9 complaint in N.D. Cal. states it received a separate Mar. 3 letter invoking 41 U.S.C. § 4713 (a civilian-agency supply-chain exclusion), that only the D.C. Circuit can review it under 41 U.S.C. § 1327(b), and that Anthropic \"intends to challenge that separate action in that forum.\" Anthropic filed its petition Mar. 9, 2026; stay denied Apr. 8; argued May 19; decided Sept. 25, 2026, 2–1, petition denied. Judges Katsas (writing) and Rao held that the term \"manipulate\" in the Federal Acquisition Supply Chain Security Act (FASCSA) reaches a contractor that \"disable[s] Claude from performing lawful actions requested by the Department,\" and that the First Amendment claim failed because the exclusion rested on \"refusal to assent to a contract term that the Department deemed essential.\" Judge Henderson dissented, reading manipulation to require deceptive or covert interference rather than \"a contractor's honest and upfront enforcement of restrictions.\" Anthropic said it was \"considering all options, including further review.\" In October 2026 Anthropic asked for panel rehearing or rehearing en banc (filed Oct 13, 2026 (court docket)); on Nov 3, 2026 the court ordered the government to respond, and the government filed its response opposing rehearing on Nov 18, 2026; no ruling as of Nov 26, 2026 (court docket).",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -10410,7 +10410,7 @@
     "date": "2026-10-13",
     "precision": "day",
     "type": "Litigation",
-    "text": "Anthropic petitions for panel rehearing or rehearing en banc (date as reported; petition confirmed by an Oct 20 amicus filing)",
+    "text": "Anthropic petitions for panel rehearing or rehearing en banc",
     "clause": "Anthropic petitions for panel rehearing or rehearing en banc (date as reported; petition confirmed by an Oct 20 amicus filing)",
     "inferred_year": false,
     "scheduled": false
@@ -10462,8 +10462,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-11-25",
-  "last_changed": "2026-11-25",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-nos-26-1049-and-26-1162-d-c-cir-",
    "section_name": "Litigation and enforcement"
@@ -10472,7 +10472,7 @@
   "thirty_seconds": {
    "a": "Anthropic PBC v. U.S. Department of War, a petition for review in the D.C. Circuit (Nos. 26-1049 and 26-1162).",
    "b": "Anthropic challenges a separate Mar. 3 letter invoking 41 U.S.C. § 4713, a civilian-agency supply-chain exclusion. Review lies exclusively in the D.C. Circuit.",
-   "c": "Petition denied 2–1 on Sept. 25, 2026. In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc; the government filed its response opposing it on Nov 18, 2026. No ruling as of Nov 25, 2026."
+   "c": "Petition denied 2–1 on Sept. 25, 2026. In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc; the government filed its response opposing it on Nov 18, 2026. No ruling as of Nov 26, 2026."
   },
   "key_facts": {
    "court": "D.C. Circuit",
@@ -10774,7 +10774,7 @@
   "mechanism": "The job posting shows technical hiring, but not a plan or action to enforce SB 53 specifically.",
   "thresholds": null,
   "penalties": null,
-  "status_text": "Status: A California DOJ job posting sought Investigative Technologists to carry out technical investigations and support consumer-protection, privacy and technology-enforcement cases. As of Sept 5, 2026, no SB 53 enforcement action had been found. A later search on Oct 31, 2026 for challenges to or enforcement of SB 53 also found no enforcement action.",
+  "status_text": "Status: A California DOJ job posting sought Investigative Technologists to carry out technical investigations and support consumer-protection, privacy and technology-enforcement cases. As of Sept 5, 2026, no SB 53 enforcement action had been found. Later checks found no enforcement action either; as of Nov 26, 2026 none of the Attorney General's press releases since Aug 31 announces SB 53 enforcement.",
   "signed_text": null,
   "effective_text": null,
   "events": [
@@ -10815,8 +10815,8 @@
    "method": "author",
    "checked_at": "2026-10-15T00:00:00Z"
   },
-  "last_checked": "2026-10-15",
-  "last_changed": "2026-10-15",
+  "last_checked": "2026-11-26",
+  "last_changed": "2026-11-26",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-california-doj-technical-enforcement-capacity",
    "section_name": "Litigation and enforcement"
@@ -10825,7 +10825,7 @@
   "thirty_seconds": {
    "a": "Whether California DOJ is building technical capacity to enforce SB 53, including hiring Investigative Technologists.",
    "b": "Enforcing SB 53 takes technical staff. Hiring of that kind is an early sign of whether the state can enforce the law.",
-   "c": "A job posting sought Investigative Technologists for technical investigations. Searches through Oct 31, 2026 found no SB 53 enforcement action."
+   "c": "A job posting sought Investigative Technologists for technical investigations. Searches through Nov 26, 2026 found no SB 53 enforcement action."
   },
   "page_verification": {
    "method": "session",

@@ -522,5 +522,16 @@ const runEo = (o) => processItem({ referee: confirmingReferee(), item: itemEo, r
   }
 }
 
+// 27 Nov 2026 (owner): section I, an enacted state law whose frontier provisions are part of a broader act, may be created automatically
+{
+  const { stateSections } = await import('./derive.mjs');
+  const { AUTO_CREATE_SECTIONS, SECTION_RULES, statusFor, stateSectionProblems } = await import('./rules.mjs');
+  ok('an enacted state law may go in A, I or C; a pending bill still only in B, B.2 or C', stateSections('enacted').join() === 'A,I,C' && stateSections('pending').join() === 'B,B.2,C');
+  ok('I is auto-created as an enacted state law', AUTO_CREATE_SECTIONS.includes('I') && SECTION_RULES.I.type === 'law' && SECTION_RULES.I.level === 'state' && statusFor('I', 'enacted') === 'enacted' && statusFor('I', 'pending') === null);
+  const omnibus = 'Sec. 20. (a) As used in this section, "frontier developer" means a person that has trained a frontier model using more than 10^26 integer or floating-point operations. (b) No frontier developer shall retaliate against an employee who discloses a catastrophic risk.';
+  ok('I needs a frontier threshold or catastrophic-risk passage in the text', !stateSectionProblems('I', 'bill', omnibus).length && stateSectionProblems('I', 'bill', 'An act concerning social media feeds for minors.').length > 0);
+  ok('a resolution never goes in I', stateSectionProblems('I', 'resolution', omnibus).some((p) => /never goes in section I/.test(p)));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

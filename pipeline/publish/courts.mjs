@@ -107,7 +107,9 @@ export async function courtsRun({ http, limiter, cases, dataDir, docsDir = null,
   const before = loadData(dataDir), byKey = new Map(before.entries.map((e) => [e.key, e]));
   const cl = createCourtListener(http, { limiter });
   const found = [], errors = [], read = [];
-  for (const [key, c] of Object.entries(cases).filter(([k]) => !k.startsWith('_'))) {
+  for (const [name, c] of Object.entries(cases).filter(([k]) => !k.startsWith('_'))) {
+    // the config key is the entry key, or any name with { entry_key } when an entry follows a second docket (an appeal, 27 Nov 2026)
+    const key = c.entry_key || name;
     const id = String(c.docket_id), st = state.dockets && state.dockets[id];
     const since = (st && st.last_date) || (byKey.get(key) && byKey.get(key).last_checked) || runDate;
     let r;
