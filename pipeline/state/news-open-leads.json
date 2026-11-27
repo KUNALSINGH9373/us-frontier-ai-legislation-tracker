@@ -9,7 +9,7 @@
    "publisher": "weekly completeness check",
    "date": "2026-11-20",
    "first_seen": "2026-11-26",
-   "runs": 11,
+   "runs": 12,
    "request_flag": false,
    "from_audit": true,
    "alerted": "2026-11-26",
@@ -32,7 +32,7 @@
    "publisher": "MIT Technology Review",
    "date": "2026-11-12",
    "first_seen": "2026-11-26",
-   "runs": 10,
+   "runs": 11,
    "request_flag": false,
    "primary": false,
    "summary": "Representatives from Nvidia told Illinois representative Bill Foster that it would be technically possible to implement the anti-smuggling measures called for in the Chip Security Act, Foster told MIT Technology Review in an interview on Thursday, even while an industry group claimed they were “potentially infeasible.” Foster, a Democrat who serves on the Committee on…",
@@ -48,46 +48,6 @@
     "checked": "2026-11-27",
     "covered_by": null,
     "why": "No listed item reports Nvidia's private confirmation that it could track chips; the nearby items cover other developments."
-   }
-  },
-  "bloomberg.com/news/videos/2026-11-27/blackwell-chips-found-at-alice-huang-linked-china-site-video": {
-   "key": "bloomberg.com/news/videos/2026-11-27/blackwell-chips-found-at-alice-huang-linked-china-site-video",
-   "title": "Blackwell Chips Found at Alice Huang-Linked China Site",
-   "link": "https://www.bloomberg.com/news/videos/2026-11-27/blackwell-chips-found-at-alice-huang-linked-china-site-video",
-   "publisher": "Bloomberg",
-   "date": "2026-11-27",
-   "first_seen": "2026-11-27",
-   "runs": 1,
-   "request_flag": false,
-   "primary": false,
-   "summary": "A Bloomberg investigation found Chinese firms installed an Nvidia GB300 Blackwell rack at a Shanghai data center linked to Alice Huang, despite US restrictions on the hardware. (Source: Bloomberg)",
-   "from_audit": false,
-   "alerted": null,
-   "triage": null,
-   "coverage": {
-    "checked": "2026-11-27",
-    "covered_by": null,
-    "why": "No item covers Blackwell chips found at a China site; the nearby items concern a lawsuit deadline and the RSI Safety Act."
-   }
-  },
-  "bloomberg.com/news/articles/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-tied-to-alice-huang": {
-   "key": "bloomberg.com/news/articles/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-tied-to-alice-huang",
-   "title": "Nvidia Blackwell Chips Turn Up at China Site Tied to Alice Huang",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-tied-to-alice-huang",
-   "publisher": "Bloomberg",
-   "date": "2026-11-27",
-   "first_seen": "2026-11-27",
-   "runs": 1,
-   "request_flag": false,
-   "primary": false,
-   "summary": "A pair of Chinese firms installed Nvidia Corp.’s powerful Blackwell semiconductors in a Shanghai data center linked to Alice Huang, the woman at the heart of a controversy surrounding the US chipmaker.",
-   "from_audit": false,
-   "alerted": null,
-   "triage": null,
-   "coverage": {
-    "checked": "2026-11-27",
-    "covered_by": null,
-    "why": "No item covers Blackwell chips turning up at a China site tied to Alice Huang; the nearby items are unrelated."
    }
   }
  }
