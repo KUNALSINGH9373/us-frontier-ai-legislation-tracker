@@ -1390,9 +1390,9 @@
   },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-19T00:05:45Z",
+   "checked_at": "2026-11-27T13:57:34Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "f9c3b4618349a37790c9cfbcf941ddf2887d0b5d7dcb4a208e6a13b263afa158"
+   "basis_sha256": "4e08b651e8ca56c7eb99e43478177013f7e9b1823fa27c401558aa5ffbe6af2d"
   },
   "evidence": [
    {
@@ -1420,11 +1420,11 @@
     ]
    }
   },
-  "summary_line": "Would require large frontier AI developers with New Jersey users to adopt risk protocols and file public risk disclosures with the Attorney General, with $100,000 penalties per violation.",
+  "summary_line": "Would require large frontier AI developers with New Jersey users to adopt risk protocols and file yearly and pre-deployment risk disclosures with the Attorney General.",
   "thirty_seconds": {
-   "a": "Large frontier developers with New Jersey users, meaning more than $100M in revenue and models trained with at least 10^26 operations.",
+   "a": "Large frontier developers with New Jersey users, meaning those with more than $100M in revenue that train models using at least 10^26 operations.",
    "b": "Put risk protocols in place, file a yearly Risk Management Disclosure, and file a New Model Risk Disclosure before or when deploying a new model.",
-   "c": "A civil penalty of $100,000 per violation. No penalty for catastrophic-risk statements found reasonable and made in good faith."
+   "c": "A civil penalty of $100,000 per violation, collected by the Attorney General. No penalty for good-faith, reasonable catastrophic-risk statements."
   },
   "key_facts": {
    "enforced_by": "Attorney General"
@@ -6979,22 +6979,21 @@
    "permalink": "https://usfrontierlaw.com/#rec-trump-america-ai-act-discussion-draft-republic-unifying-meritocratic-p",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
   },
-  "summary_line": "Would set a federal AI framework, including a developer duty of care, a products-liability framework, and a DOE advanced AI evaluation program, in a 291-page discussion draft.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-27T13:57:34Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "9a83686b2f70bc4ef301d859d10456350ffd794ee34c2e286561f762524d232a"
+  },
+  "summary_line": "Would set a federal framework for AI, including a duty of care for developers, products-liability suits, and an end to Section 230 protections.",
   "thirty_seconds": {
-   "a": "AI developers, who would owe a duty of care. A 291-page discussion draft by Sen. Marsha Blackburn; not introduced as of her Apr 22, 2026 release.",
-   "b": "Developers would owe a duty of care and face third-party audits for political bias; the draft also sets up an Energy Department advanced AI evaluation program.",
-   "c": "A products-liability framework would allow suits by the U.S. Attorney General, state attorneys general and private parties."
+   "a": "AI developers, under a 291-page discussion draft from Sen. Marsha Blackburn that has not been introduced as a numbered bill.",
+   "b": "Developers would owe a duty of care, and third-party audits for political-affiliation bias and quarterly reporting of AI-related layoffs to the Labor Department are included.",
+   "c": "The U.S. Attorney General, state attorneys general and private parties could sue under a products-liability framework."
   },
   "key_facts": {
-   "enforced_by": "U.S. Attorney General, state attorneys general, private suits"
-  },
-  "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-25T18:00:00Z",
-   "reviewer": "manual update 25 Nov 2026",
-   "basis_sha256": "6e93ea9d9e031019ae170a733b0b7b2aff1e4c880963521d2b4120b0c5470001"
-  },
-  "display_name": "TRUMP AMERICA AI Act (discussion draft)"
+   "enforced_by": "U.S. Attorney General, state attorneys general"
+  }
  },
  {
   "id": 38,
@@ -7129,21 +7128,15 @@
    "permalink": "https://usfrontierlaw.com/#rec-ai-regulator-act-of-2026-proposal-not-introduced-u",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
   },
-  "summary_line": "Would create a five-member Federal Digital Commission to oversee digital platforms and AI developers, with mandatory model testing and civil penalties.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-27T12:05:56Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "8f54683f00f715ca1642f6df1f3cfddb8a36db416726ff67fa60be96a46f636c"
+  },
+  "summary_line": "Would create a five-member Federal Digital Commission to oversee digital platforms and AI developers, including testing models and approving or rejecting public release.",
   "key_facts": {
    "enforced_by": "Federal Digital Commission"
-  },
-  "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "23e6e65a172b2d9fc1ccda907ffd57a854f638e97798f4e23885db4da0c10361"
-  },
-  "display_name": "AI Regulator Act of 2026 (Bennet-Welch proposal)",
-  "thirty_seconds": {
-   "a": "Digital platforms and AI developers; developers can be named \"systemically important\" by AI spending or model level. A proposal by Sens. Bennet and Welch; not introduced.",
-   "b": "Would have to submit models for testing before public release (decision within 45 days) and report critical safety incidents within 15 days.",
-   "c": "Civil penalties up to 15% of prior-year global revenue, enforced by a new five-member Federal Digital Commission."
   }
  },
  {
@@ -9911,19 +9904,18 @@
    "permalink": "https://usfrontierlaw.com/#rec-doj-ai-litigation-task-force-created-jan-9-2026-under-eo-14365",
    "section_name": "Litigation and enforcement"
   },
-  "summary_line": "Tracks whether the DOJ AI Litigation Task Force, created Jan 9, 2026 under EO 14365, has been used in court against a frontier AI law.",
-  "thirty_seconds": {
-   "a": "Whether the DOJ AI Litigation Task Force brings a case against a frontier AI law.",
-   "b": "The Task Force was created Jan 9, 2026 under EO 14365.",
-   "c": "No case clearly brought by the Task Force was found through Nov 26, 2026. DOJ joined X.AI v. Weiser, but sources do not say the Task Force did."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "1044c3129486702411fda4b593d0263d58a8204c84b2feaa853806a24c343cc0"
+   "method": "agent",
+   "checked_at": "2026-11-27T12:05:56Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "6fd10e1165a70b2e4c3da06774f64237c2da9c8ffe8a276d61ed063b2b782c91"
   },
-  "display_name": "DOJ AI Litigation Task Force"
+  "summary_line": "Tracks whether the DOJ AI Litigation Task Force, created under EO 14365, has brought any case against a frontier AI law.",
+  "thirty_seconds": {
+   "a": "Whether the Task Force brings a case against a frontier AI law. It was created Jan 9, 2026 under EO 14365.",
+   "b": "The Justice Department did join the Colorado case X.AI v. Weiser, but the sources do not say the Task Force did so.",
+   "c": "As of Nov 26, 2026, searches, including every Justice Department press release since Sept 25, found no case clearly brought by the Task Force."
+  }
  },
  {
   "id": 66,
@@ -10099,17 +10091,11 @@
    "permalink": "https://usfrontierlaw.com/#rec-x-ai-llc-v-weiser-no-1-26-cv-01515-d-colo",
    "section_name": "Litigation and enforcement"
   },
-  "summary_line": "Challenges Colorado's SB 24-205 algorithmic-discrimination law, with xAI suing to block it and the Department of Justice intervening on an Equal Protection theory.",
-  "key_facts": {
-   "court": "D. Colo.",
-   "plaintiff": "X.AI LLC",
-   "defendants": "Phil Weiser, Colorado Attorney General"
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "6e210d4ac33b20a4a243b7e49e0af5555ac6c2035204e9562e7a2f66f536bca0"
+   "method": "agent",
+   "checked_at": "2026-11-27T12:05:56Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f5ceff3d7ccd40a3034d76ddf2fe99e39c35c61760eb4fa13531646c2c56727b"
   },
   "claims": [
    {
@@ -10128,10 +10114,16 @@
     "note": "No ruling on the merits is recorded; the preliminary-injunction motion has not yet been filed."
    }
   ],
+  "summary_line": "Challenges Colorado's algorithmic-discrimination law SB 24-205 as xAI sues to block it, with the Justice Department joining the suit.",
   "thirty_seconds": {
-   "a": "X.AI LLC (xAI) v. Phil Weiser, Colorado Attorney General; the Justice Department joined on xAI's side.",
-   "b": "xAI challenges Colorado's SB 24-205 algorithmic-discrimination law (not a frontier AI law) on First Amendment, Equal Protection and dormant Commerce Clause grounds.",
-   "c": "Federal court in Colorado. Enforcement and deadlines are paused; the law was repealed and replaced by SB 26-189 on May 14, 2026. No ruling on the merits is recorded."
+   "a": "X.AI LLC sued Colorado (Weiser) in federal court in Colorado; the Justice Department's Civil Rights Division intervened on April 24, 2026.",
+   "b": "xAI challenges Colorado SB 24-205, an algorithmic-discrimination law, on First Amendment, Equal Protection and dormant Commerce Clause grounds. It is not a frontier AI law.",
+   "c": "Paused. The court approved a joint agreement on April 27, 2026 barring enforcement and pausing deadlines. The legislature replaced the law with SB 26-189 on May 14, 2026."
+  },
+  "key_facts": {
+   "court": "D. Colo.",
+   "plaintiff": "X.AI LLC",
+   "defendants": "Weiser"
   }
  },
  {
@@ -10821,17 +10813,17 @@
    "permalink": "https://usfrontierlaw.com/#rec-california-doj-technical-enforcement-capacity",
    "section_name": "Litigation and enforcement"
   },
-  "summary_line": "Tracks whether California DOJ is building technical staff to enforce tech laws, noting a job posting for Investigative Technologists but no SB 53 enforcement action.",
-  "thirty_seconds": {
-   "a": "Whether California DOJ is building technical capacity to enforce SB 53, including hiring Investigative Technologists.",
-   "b": "Enforcing SB 53 takes technical staff. Hiring of that kind is an early sign of whether the state can enforce the law.",
-   "c": "A job posting sought Investigative Technologists for technical investigations. Searches through Nov 26, 2026 found no SB 53 enforcement action."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "3af91f60f746ee1594dc438ba9b5a9fe4a4a2c1a8d2db6c2a76d849f5850f25c"
+   "method": "agent",
+   "checked_at": "2026-11-27T13:57:34Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "fc9cf0ba2349d4a11b3194e0daf16f0d98fa9ddc056c6fbe7e606fb3c2100288"
+  },
+  "summary_line": "Tracks whether California's Department of Justice is building technical staff to enforce SB 53, based on a job posting for Investigative Technologists.",
+  "thirty_seconds": {
+   "a": "Whether the California DOJ is hiring technical staff and bringing enforcement actions under SB 53.",
+   "b": "A job posting sought Investigative Technologists for technical investigations in consumer-protection, privacy and technology-enforcement cases. It shows hiring, but no plan to enforce SB 53 specifically.",
+   "c": "As of Nov 26, 2026, none of the Attorney General's press releases since Aug 31 announces SB 53 enforcement. No action was found as of Sept 5, 2026."
   }
  },
  {
