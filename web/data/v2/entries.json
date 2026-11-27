@@ -10460,23 +10460,11 @@
    "permalink": "https://usfrontierlaw.com/#rec-anthropic-pbc-v-u-s-department-of-war-nos-26-1049-and-26-1162-d-c-cir-",
    "section_name": "Litigation and enforcement"
   },
-  "summary_line": "Anthropic challenges the Department of War's 41 U.S.C. § 4713 supply-chain designation; the D.C. Circuit denied its petition for review 2–1 on Sept. 25, 2026.",
-  "thirty_seconds": {
-   "a": "Anthropic PBC v. U.S. Department of War, a petition for review in the D.C. Circuit (Nos. 26-1049 and 26-1162).",
-   "b": "Anthropic challenges a separate Mar. 3 letter invoking 41 U.S.C. § 4713, a civilian-agency supply-chain exclusion. Review lies exclusively in the D.C. Circuit.",
-   "c": "Petition denied 2–1 on Sept. 25, 2026. In October 2026 Anthropic petitioned for panel rehearing or rehearing en banc; the government filed its response opposing it on Nov 18, 2026. No ruling as of Nov 26, 2026."
-  },
-  "key_facts": {
-   "court": "D.C. Circuit",
-   "judge": "Katsas, Rao, Henderson",
-   "plaintiff": "Anthropic PBC",
-   "defendants": "U.S. Department of War"
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-25T18:00:00Z",
-   "reviewer": "manual update 25 Nov 2026",
-   "basis_sha256": "c88ba70336338219dcfce5632fc9f91c6875c1d8c4bc47bdd075712262b3d83b"
+   "method": "agent",
+   "checked_at": "2026-11-27T16:05:55Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "c96832bc4f17ae20d5b55e6b915860e917a86e39904353d3161a26b5132d63ef"
   },
   "claims": [
    {
@@ -10492,13 +10480,24 @@
     "source_url": "https://law.justia.com/cases/federal/appellate-courts/cadc/26-1049/26-1049-2026-09-25.html"
    }
   ],
-  "display_name": "Anthropic v. Department of War (D.C. Cir., § 4713)",
   "more_links": [
    {
     "t": "Official source (checked 12 Nov 2026)",
     "u": "https://www.courtlistener.com/docket/72380208/"
    }
-  ]
+  ],
+  "summary_line": "Anthropic challenges the U.S. Department of War's 41 U.S.C. § 4713 supply-chain exclusion in the D.C. Circuit, which denied its petition for review 2–1.",
+  "thirty_seconds": {
+   "a": "Anthropic PBC against the U.S. Department of War, in the D.C. Circuit (Nos. 26-1049 and 26-1162).",
+   "b": "Anthropic petitioned for review of a civilian-agency supply-chain exclusion under 41 U.S.C. § 4713, imposed by a Mar. 3 letter. It filed the petition Mar. 9, 2026.",
+   "c": "The court denied the petition 2–1 on Sept. 25, 2026. Anthropic asked for rehearing on Oct 13, 2026; the government opposed on Nov 18, 2026; no ruling as of Nov 26, 2026."
+  },
+  "key_facts": {
+   "court": "D.C. Circuit",
+   "judge": "Katsas, Rao, Henderson",
+   "plaintiff": "Anthropic PBC",
+   "defendants": "U.S. Department of War"
+  }
  },
  {
   "id": 70,
