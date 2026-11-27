@@ -1,0 +1,298 @@
+{
+ "measure": "new_bills",
+ "method": "simple",
+ "set": "test",
+ "run_at": "2026-11-27T08:53:32.852Z",
+ "provider": "anthropic",
+ "writer": "claude-sonnet-5-5",
+ "reviewer": "claude-opus-5-5",
+ "scope_judge": "claude-opus-5-5",
+ "scorer": "claude-opus-5-5",
+ "checks_hash": "ca507cb75224eb2ffebef5cae1e4e3f77b01708761358bd8fe9b901c569436a5",
+ "partial": true,
+ "set_size": 48,
+ "gold_sha256": "0b163da971aec832e9791ff6c2a9d077dcfc5f262c28943bfd31e3c89e258991",
+ "references_sha256": null,
+ "summary": {
+  "items": 8,
+  "published": 7,
+  "facts_only": 1,
+  "out_of_scope": 0,
+  "held": 0,
+  "errors": 0,
+  "no_text": 0,
+  "scope_errors": 0,
+  "missed": 0,
+  "wrong": 0,
+  "misleading": 9,
+  "omission": 2,
+  "misleading_per_published": 1.29,
+  "publish_rate": 0.88
+ },
+ "usage": {
+  "calls": 55,
+  "input_tokens": 2156182,
+  "output_tokens": 936899,
+  "total_tokens": 3093081,
+  "by_role": {
+   "writer": {
+    "calls": 26,
+    "input": 1223340,
+    "output": 853145,
+    "cost": 10.97813
+   },
+   "scope_judge": {
+    "calls": 8,
+    "input": 125422,
+    "output": 5124,
+    "cost": 0.604168
+   },
+   "bill_reviewer": {
+    "calls": 14,
+    "input": 563772,
+    "output": 76094,
+    "cost": 3.7769679999999997
+   },
+   "scorer": {
+    "calls": 7,
+    "input": 243648,
+    "output": 2536,
+    "cost": 1.025312
+   }
+  },
+  "by_model": {
+   "claude-sonnet-5-5": {
+    "calls": 26,
+    "input": 1223340,
+    "output": 853145,
+    "cost": 10.97813
+   },
+   "claude-opus-5-5": {
+    "calls": 29,
+    "input": 932842,
+    "output": 83754,
+    "cost": 5.406447999999999
+   }
+  },
+  "estimated_cost_usd": 16.384578
+ },
+ "items": [
+  {
+   "key": "ca-sb-53-tfaia",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 1,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "OMISSION",
+     "where": "box.requires / box.enforcement",
+     "bill_quote": "This act preempts any rule, regulation, code, ordinance, or other law adopted by a city, county, city and county, municipality, or local agency on or after January 1, 2025, specifically related to the regulation of frontier developers with respect to their management of catastrophic risk.",
+     "problem": "The box never mentions the local preemption provision. It appears only in other_provisions o19, so a reader of the box summary would not learn that the act preempts local frontier-AI rules adopted on or after January 1, 2025."
+    },
+    {
+     "severity": "MISLEADING",
+     "where": "rows.transparency_report",
+     "bill_quote": "A large frontier developer shall transmit to the Office of Emergency Services a summary of any assessment of catastrophic risk resulting from internal use of its frontier models",
+     "problem": "The row is marked a plain 'yes' and leads with 'Frontier developers', but its items include u6, the confidential internal-use risk summaries sent to the Office of Emergency Services. That duty is not a published transparency report. The summary does mention it, so this is a framing issue rather than an error."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "ca-sb-813-ivos",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 2,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.applies_to.text",
+     "bill_quote": "the agency shall do all of the following",
+     "problem": "The applies_to text names only IVOs and applicants. Most of the bill's binding duties fall on the Government Operations Agency, so the box slot leaves out a bound group, and a reader would not learn that the agency is the main duty-holder."
+    },
+    {
+     "severity": "MISLEADING",
+     "where": "box.requires.text",
+     "bill_quote": "Working groups shall include, but not be limited to, engineers from AI companies that are competitors and AI safety experts.",
+     "problem": "The summary ends with \"among other duties\" and never mentions the working groups, the required membership of competitor engineers and AI safety experts, or the report to the Legislature. These are central features of the bill, so the summary is incomplete on key points."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "ct-p-a-26-15-ivo-pilot",
+   "gold_in_scope": true,
+   "decision": "facts_only",
+   "published": false,
+   "facts_only": true,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [],
+   "reason": "the code checks still fail after the fix round: duties[u10]: quote is not in the bill word for word: \"(A) a proposed definition of the acceptable levels of risk, (B) metrics that are\"",
+   "writer_calls": 4,
+   "reviews": 1
+  },
+  {
+   "key": "h-r-10180-self-improving-ai-monitoring-act",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 2,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.requires.text",
+     "bill_quote": "(6) assess, based on the information, if any, disclosed pursuant to subsection (h)(1) and other information, trends regarding the capabilities of artificial intelligence systems",
+     "problem": "The box uses the lead 'Directs' and lumps in u4, which the entry itself marks as a power, under the vague phrase 'among other duties'. A reader would take the trend assessment to be a mandatory duty and would not know what it is."
+    },
+    {
+     "severity": "MISLEADING",
+     "where": "duties u2.force",
+     "bill_quote": "Such memorandum includes a requirement for such developer, in carrying out such evaluation, to disclose to the Director upon request",
+     "problem": "The entry labels this a binding 'duty' on the developer. In the bill it is only a condition on the content of a voluntary MOU that limits the Director. The developer is bound only if it chooses to sign such an MOU, and the entry's own box says there are 'no duties directly on private parties', which contradicts this label."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "h-r-9925-frontier-act",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.applies_to.text",
+     "bill_quote": "An IVO shall be immune from suit and liability under Federal and State law with respect to all claims for loss caused by, arising out of, relating to, or resulting from the materialization of a catastrophic risk of a frontier model assessed by the IVO",
+     "problem": "The box does not mention two major features: IVO immunity and Sec. 9 state preemption. Both are captured only in other_provisions, so the summary reads as complete when it is not."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "ma-h-5576-s-3178",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 1,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "duties u12 text",
+     "bill_quote": "shall describe the character and justification of the redaction in any published version of the document",
+     "problem": "The bill requires this description in any published version of the document. The entry says only 'the published version', which narrows the duty."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 4,
+   "reviews": 2
+  },
+  {
+   "key": "nj-s-4446-a-5275",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 0,
+   "omission": 1,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "OMISSION",
+     "where": "definitions",
+     "bill_quote": "\"Critical safety incident\" means:",
+     "problem": "The entry leaves out the defined term \"critical safety incident\". No provision applies it, so this is minor, but the definitions list reads as complete. The \"Large frontier developer\" and \"Model weight\" definitions are also missing from the definitions list."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 3,
+   "reviews": 2
+  },
+  {
+   "key": "ri-s-358-h-5224",
+   "gold_in_scope": true,
+   "decision": "publish",
+   "published": true,
+   "facts_only": false,
+   "scope_error": null,
+   "error": false,
+   "no_text": false,
+   "wrong": 0,
+   "misleading": 2,
+   "omission": 0,
+   "dropped_findings": 0,
+   "findings": [
+    {
+     "severity": "MISLEADING",
+     "where": "box.requires.text / duties u1",
+     "bill_quote": "(2) That conduct was neither intended nor could have been reasonably anticipated by:",
+     "problem": "The entry says the condition is met if 'neither the user nor an intermediary' intended or anticipated the conduct. The bill's own wording is 'by: (i) The user of the model; or (ii) Any intermediary', and the entry does not show that the 'or' leaves it ambiguous which of the two must lack intent or foresight. This is a minor point."
+    },
+    {
+     "severity": "MISLEADING",
+     "where": "box.requires.text",
+     "bill_quote": "falls short of performing the intended or reasonably anticipated performance of the user, but the conduct of the system would not satisfy the elements of negligence or any intentional tort or crime",
+     "problem": "The box mentions the capabilities-failure defence but drops its limiting condition: the defence applies only when the model's conduct would not be negligence or an intentional tort or crime if done by a human. The box also leaves out the rebuttable presumption that the AI had the relevant mental state, and the bar on arguing that AI cannot have mental states. As written, the box reads as a complete summary when it is not."
+    }
+   ],
+   "reason": null,
+   "writer_calls": 2,
+   "reviews": 1
+  }
+ ]
+}
