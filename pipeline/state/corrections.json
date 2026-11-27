@@ -1,6 +1,6 @@
 {
  "_note": "Self-correction state (correct/run.mjs): the text each entry was last checked against and the outcome. Do not edit by hand.",
- "last_run": "2026-11-26",
+ "last_run": "2026-11-27",
  "items": {
   "h-r-9925-frontier-act": {
    "text_sha": "23c093a5a52488c819a4ad60817deb064bb466e07952e88856f36d542bf764e5",
@@ -406,6 +406,30 @@
    "text_url": "https://www.congress.gov/bill/119th-congress/house-bill/11076/text",
    "checked_at": "2026-11-25",
    "outcome": "clean",
+   "retry": false,
+   "retries": 0
+  },
+  "ny-a-8833": {
+   "text_sha": "13e4267c130f05f510e68310d9e4fa5dcf87fa10139844cc06ef14a621b78d8f",
+   "text_url": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+   "checked_at": "2026-11-27",
+   "outcome": "corrected",
+   "retry": false,
+   "retries": 0
+  },
+  "pa-h-b-2829-frontier-ai": {
+   "text_sha": "3a1d2bbf8bbd68e92bd3e06f18c9402c080942e2ca7bb52ee2cf23e33b68bb59",
+   "text_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+   "checked_at": "2026-11-27",
+   "outcome": "corrected",
+   "retry": false,
+   "retries": 0
+  },
+  "nc-s-735": {
+   "text_sha": "f3fec4a8885db00bab209bf34d3410902f8f6285bce43d66b89512f77b801496",
+   "text_url": "https://www.ncleg.gov/BillLookUp/2025/S735",
+   "checked_at": "2026-11-27",
+   "outcome": "corrected",
    "retry": false,
    "retries": 0
   }

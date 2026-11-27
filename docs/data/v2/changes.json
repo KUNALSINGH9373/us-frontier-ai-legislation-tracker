@@ -1261,6 +1261,69 @@
    "run_id": "update-20261126-0005",
    "source_url": "https://leginfo.legislature.ca.gov/faces/billStatusClient.xhtml?bill_id=202520260SB53",
    "tier": "C"
+  },
+  {
+   "entry_key": "ny-a-8833",
+   "field": "thresholds",
+   "old": "Covered model = trained using more than 10²⁶ integer or floating-point operations, the cost of which exceeds $100 million at average cloud compute market prices at the start of training (§ 1511(2)); developer = the person that performs the initial training of a covered model (§ 1511(3))",
+   "new": "Covered model = trained using more than 10²⁶ integer or floating-point operations, the cost of which exceeds $100 million at average cloud compute market prices at the start of training as reasonably assessed by the developer (§ 1511(2)); developer = the person that performs the initial training of a covered model (§ 1511(3))",
+   "date": "2026-11-27",
+   "run_id": "update-20261127-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+   "tier": "C",
+   "note": "self-correction (omission): The covered-model cost test is measured as reasonably assessed by the developer, which the entry leaves out. Quote: \"at the start of training as reasonably assessed by the developer.\""
+  },
+  {
+   "entry_key": "ny-a-8833",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-27",
+   "run_id": "update-20261127-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+   "tier": "C"
+  },
+  {
+   "entry_key": "pa-h-b-2829-frontier-ai",
+   "field": "thresholds",
+   "old": "Frontier model = trained on more than 10²⁶ operations, counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident (Sec. 102)",
+   "new": "Frontier model = trained on more than 10²⁶ operations, counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = foreseeable and material risk that a frontier model will materially contribute to death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident (Sec. 102)",
+   "date": "2026-11-27",
+   "run_id": "update-20261127-0005",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+   "tier": "C",
+   "note": "self-correction (omission): The catastrophic-risk threshold omits that the harm must be a foreseeable and material risk that a frontier model will materially contribute to the harm, and that it arises from a single incident involving a frontier model, as SOURCE states. Quote: \"foreseeable and material risk\""
+  },
+  {
+   "entry_key": "pa-h-b-2829-frontier-ai",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-27",
+   "run_id": "update-20261127-0005",
+   "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+   "tier": "C"
+  },
+  {
+   "entry_key": "nc-s-735",
+   "field": "mechanism",
+   "old": "Would create the North Carolina Artificial Intelligence Innovation Trust Fund in the Department of Commerce (grants for AI companies, $750,000 appropriated for 2025-26) and, in the same part, duties modelled on California's vetoed SB 1047 for developers of covered models: before training, cybersecurity protections, full-shutdown capability, a written safety and security protocol implemented as written, retained five years, reviewed annually and published in redacted form to the Attorney General (G.S. 143B-472.83B(c)); pre-deployment assessment of critical-harm capability, test records and safeguards (83B(d)); a ban on use or release with an unreasonable risk of critical harm (83B(e)); an annual independent third-party compliance investigation (83B(g)); an annual signed statement of compliance to the Attorney General (83B(h)); safety incident reports within 72 hours (83B(i)); know-your-customer and shutdown duties for computing-cluster operators (83C); Attorney General enforcement with penalties tied to training compute cost (83D); whistleblower protections and an anonymous internal process (83E); Secretary of Commerce regulations and annual threshold updates (83)",
+   "new": "Would create the North Carolina Artificial Intelligence Innovation Trust Fund in the Department of Commerce (grants for AI companies, $750,000 appropriated for 2025-26) and, in the same part, duties modelled on California's vetoed SB 1047 for developers of covered models: before training, cybersecurity protections, full-shutdown capability, a written safety and security protocol implemented as written, retained five years, reviewed annually and published in redacted form to the Attorney General (G.S. 143B-472.83B(c)); pre-deployment assessment of critical-harm capability, test records and safeguards (83B(d)); a ban on use or release with an unreasonable risk of critical harm (83B(e)); an annual independent third-party compliance investigation (83B(g)); an annual signed statement of compliance to the Attorney General (83B(h)); safety incident reports within 72 hours (83B(i)); know-your-customer and shutdown duties for computing-cluster operators (83C); Attorney General enforcement with penalties tied to training compute cost (83D) (investigators and cluster operators: $25,000 first offense, $50,000 subsequent, $5,000,000 aggregate); whistleblower protections and an anonymous internal process (83E); Secretary of Commerce regulations and annual threshold updates (83)",
+   "date": "2026-11-27",
+   "run_id": "update-20261127-0005",
+   "source_url": "https://www.ncleg.gov/BillLookUp/2025/S735",
+   "tier": "C",
+   "note": "self-correction (omission): The entry says penalties are tied to training compute cost but omits the fixed-dollar penalty tiers for investigators and computing-cluster operators, which SOURCE states as $25,000 for a first offense, $50,000 for subsequent violations, and $5,000,000 in the aggregate. Quote: \"thousand dollars ($25,000) for a first offense;\""
+  },
+  {
+   "entry_key": "nc-s-735",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-27",
+   "run_id": "update-20261127-0005",
+   "source_url": "https://www.ncleg.gov/BillLookUp/2025/S735",
+   "tier": "C"
   }
  ]
 }
