@@ -13167,7 +13167,7 @@
   "short_name": "PA H.B. 2829 Frontier AI Safety, Transparency and Accountability Act",
   "sponsor_text": "Rep. Manuel Guzman (D) with 4 Democratic co-sponsors",
   "mechanism": "Would create a standalone act modelled on California's SB 53, plus a disclosure layer. From January 1, 2028 large frontier developers would file an annual disclosure statement with ownership information with the Pennsylvania Emergency Management Agency (PEMA) and pay a pro rata fee (Sec. 104); write, implement, comply with and publish a frontier AI framework from January 1, 2028, reviewed at least annually, sent to PEMA and the Attorney General, and re-published within 30 days of a material modification (Secs. 501–503); annual independent third-party audit with independence limits, summary and redacted report published within 30 days (Sec. 504); internal-use risk assessment summaries to PEMA every three months (Sec. 505); a ban on deploying a frontier model that would create an unreasonable risk of catastrophic harm (Sec. 506); transparency reports before deployment, with summaries in machine-readable format (Sec. 701); critical safety incident reports to PEMA and the Attorney General within 72 hours, and within 24 hours to an appropriate authority for imminent risk of death or serious physical injury (Sec. 702); whistleblower protections preserving the state Whistleblower Law (Sec. 1103); civil penalties up to $1,000,000 for a first violation and $3,000,000 per subsequent violation, recovered by the Attorney General, plus PEMA penalties of $1,000 per day after notice and hearing for disclosure failures (Secs. 104(d), 1105); preemption of local frontier-model rules (Sec. 1107); no private right of action",
-  "thresholds": "Frontier model = trained on more than 10²⁶ operations, counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident (Sec. 102)",
+  "thresholds": "Frontier model = trained on more than 10²⁶ operations, counting the original run and subsequent fine-tuning and reinforcement learning; large frontier developer = more than $500,000,000 annual gross revenue with affiliates; catastrophic risk = foreseeable and material risk that a frontier model will materially contribute to death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident (Sec. 102)",
   "penalties": null,
   "status_text": "Status (as of Oct 31, 2026): Introduced and referred to House Communications & Technology Oct 5, 2026; public hearing with H.B. 2800 Oct 19, 2026; no votes as of Oct 31, 2026. Would take effect January 1, 2028.",
   "signed_text": null,
@@ -13211,6 +13211,11 @@
     "label": "Printer's No. 4002 (PDF)",
     "url": "https://www.palegis.us/legislation/bills/text/PDF/2025/0/HB2829/PN4002",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.palegis.us/legislation/bills/2025/hb2829",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill page and history — palegis.us · Printer's No. 4002 (PDF)",
@@ -13223,13 +13228,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-31T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-27T00:05:47Z",
+   "run_id": "update-20261127-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-27",
+  "last_changed": "2026-11-27",
   "duties": {
    "framework": {
     "value": "yes",
@@ -13327,20 +13334,11 @@
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
   },
-  "summary_line": "Would require large frontier AI developers to publish safety frameworks, undergo annual audits, and report critical safety incidents, with civil penalties enforced by the Attorney General.",
-  "thirty_seconds": {
-   "a": "Frontier AI developers training models on more than 10^26 operations; large developers, with affiliates, have more than $500,000,000 in annual gross revenue.",
-   "b": "From January 1, 2028, large developers would have to publish a safety framework, file a disclosure statement, get an annual independent audit, and report incidents within 72 hours.",
-   "c": "Civil penalties up to $1,000,000 for a first violation and $3,000,000 per later violation, plus $1,000 per day from the Pennsylvania Emergency Management Agency for disclosure failures."
-  },
-  "key_facts": {
-   "enforced_by": "Attorney General, Pennsylvania Emergency Management Agency"
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "c9ed95958f2b5e2df543363549daf9cf39078c08aa42f04e55d0ff4a41a7bad6"
+   "method": "agent",
+   "checked_at": "2026-11-27T00:05:47Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "4cac056fcdb27bd2954284c09e2a84d3736e91c272057ca297ebdaff19ac9a95"
   },
   "identifiers": {
    "session": "2025-2026 Regular Session",
@@ -13349,6 +13347,22 @@
      2159955
     ]
    }
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "foreseeable and material risk",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   },
+   {
+    "field": "thresholds",
+    "quote": "will materially contribute to the death of",
+    "source_url": "https://www.palegis.us/legislation/bills/2025/hb2829"
+   }
+  ],
+  "summary_line": "Would require large frontier AI developers to publish safety frameworks, get annual audits and report serious incidents, with civil penalties enforced by the Attorney General.",
+  "key_facts": {
+   "enforced_by": "Attorney General, Pennsylvania Emergency Management Agency"
   }
  },
  {
@@ -13516,13 +13530,15 @@
  {
   "type": "bill",
   "level": "state",
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-31T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-27T00:05:47Z",
+   "run_id": "update-20261127-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-27",
+  "last_changed": "2026-11-27",
   "tags": {
    "updated_after_verification": false,
    "found_via": "author"
@@ -13539,7 +13555,7 @@
   "title": "S 735 — AI Innovation Trust Fund",
   "short_name": "NC S 735 AI Innovation Trust Fund",
   "sponsor_text": "Sens. Salvador, Garrett and Murdock (primary sponsors)",
-  "mechanism": "Would create the North Carolina Artificial Intelligence Innovation Trust Fund in the Department of Commerce (grants for AI companies, $750,000 appropriated for 2025-26) and, in the same part, duties modelled on California's vetoed SB 1047 for developers of covered models: before training, cybersecurity protections, full-shutdown capability, a written safety and security protocol implemented as written, retained five years, reviewed annually and published in redacted form to the Attorney General (G.S. 143B-472.83B(c)); pre-deployment assessment of critical-harm capability, test records and safeguards (83B(d)); a ban on use or release with an unreasonable risk of critical harm (83B(e)); an annual independent third-party compliance investigation (83B(g)); an annual signed statement of compliance to the Attorney General (83B(h)); safety incident reports within 72 hours (83B(i)); know-your-customer and shutdown duties for computing-cluster operators (83C); Attorney General enforcement with penalties tied to training compute cost (83D); whistleblower protections and an anonymous internal process (83E); Secretary of Commerce regulations and annual threshold updates (83)",
+  "mechanism": "Would create the North Carolina Artificial Intelligence Innovation Trust Fund in the Department of Commerce (grants for AI companies, $750,000 appropriated for 2025-26) and, in the same part, duties modelled on California's vetoed SB 1047 for developers of covered models: before training, cybersecurity protections, full-shutdown capability, a written safety and security protocol implemented as written, retained five years, reviewed annually and published in redacted form to the Attorney General (G.S. 143B-472.83B(c)); pre-deployment assessment of critical-harm capability, test records and safeguards (83B(d)); a ban on use or release with an unreasonable risk of critical harm (83B(e)); an annual independent third-party compliance investigation (83B(g)); an annual signed statement of compliance to the Attorney General (83B(h)); safety incident reports within 72 hours (83B(i)); know-your-customer and shutdown duties for computing-cluster operators (83C); Attorney General enforcement with penalties tied to training compute cost (83D) (investigators and cluster operators: $25,000 first offense, $50,000 subsequent, $5,000,000 aggregate); whistleblower protections and an anonymous internal process (83E); Secretary of Commerce regulations and annual threshold updates (83)",
   "thresholds": "Covered model = an AI model the Secretary of Commerce identifies as warranting oversight, considering computing power, training cost, scope and foreseeable risks; covered model derivative includes fine-tuning with up to 3 x 10^25 operations costing over $10,000,000; computing cluster = at least 10^20 operations per second; critical harm = mass casualties from CBRN weapons, or mass casualties or at least $500,000,000 of damage from cyberattacks on critical infrastructure or autonomous crime-like conduct (G.S. 143B-472.83A(b))",
   "status_text": "Status: Filed Mar 26, 2025, referred to Senate Rules and Operations, then withdrawn from that committee and re-referred to Appropriations/Base Budget the same day. Update (checked Nov 12, 2026): the official record shows no later action; the 2025-2026 session is still open, so the bill remains pending. Its stated effective date, July 1, 2025, has passed.",
   "events": [
@@ -13662,20 +13678,11 @@
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
   },
-  "summary_line": "Would create a North Carolina AI Innovation Trust Fund for AI company grants and require developers of covered AI models to follow safety protocols, with Attorney General enforcement.",
-  "thirty_seconds": {
-   "a": "Developers of covered AI models, which the Secretary of Commerce identifies, plus operators of computing clusters and third-party investigators.",
-   "b": "Would have to keep a written safety protocol, be able to fully shut down, assess critical-harm risks, get an annual independent audit, and report safety incidents within 72 hours.",
-   "c": "The Attorney General could seek civil penalties of up to 5% of training compute cost for a first violation and 15% for later ones, plus injunctions and damages."
-  },
-  "key_facts": {
-   "enforced_by": "Attorney General"
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "3bff3128ae34f1c85ea2f056a2388715aeb8bc8cd11f73ae542a1f83c17b7800"
+   "method": "agent",
+   "checked_at": "2026-11-27T00:05:47Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "2aef9f029722af1bff76204b984366c0b23742ca6c6f1423a96a0a9e3781e099"
   },
   "identifiers": {
    "session": "2025-2026 Session",
@@ -13684,6 +13691,32 @@
      2014277
     ]
    }
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "thousand dollars ($25,000) for a first offense;",
+    "source_url": "https://www.ncleg.gov/BillLookUp/2025/S735"
+   },
+   {
+    "field": "mechanism",
+    "quote": "($50,000) for any subsequent violation;",
+    "source_url": "https://www.ncleg.gov/BillLookUp/2025/S735"
+   },
+   {
+    "field": "mechanism",
+    "quote": "($5,000,000) in the aggregate for related violations.",
+    "source_url": "https://www.ncleg.gov/BillLookUp/2025/S735"
+   }
+  ],
+  "summary_line": "Would create an AI Innovation Trust Fund in the Department of Commerce and impose safety, testing, reporting and shutdown duties on developers of covered AI models.",
+  "thirty_seconds": {
+   "a": "Developers of covered AI models, which the Secretary of Commerce identifies, plus computing-cluster operators and third-party investigators.",
+   "b": "Developers would need a written safety protocol, shutdown capability, an annual independent audit, a signed compliance statement, and safety incident reports within 72 hours.",
+   "c": "The Attorney General could seek civil penalties of up to 5% of training compute cost for a first violation and 15% for later ones, plus injunctions and damages."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
   }
  },
  {
@@ -14070,7 +14103,7 @@
   "short_name": "NY A.8833 Understanding AI Act",
   "sponsor_text": "Assemblymember Alex Bores (D), with co-sponsor Assemblymember Simone; no Senate same-as bill listed",
   "mechanism": "Would add GBL Article 45-A (§§ 1510–1512). Except for defamation claims, developers of covered models would be strictly liable, regardless of the degree of care exercised, for injuries to a non-user of the model that meet the actual harm element of a negligence claim, if the model engaged in conduct that would be negligence or an intentional tort or crime if done by an adult human of sound mind, and the conduct was neither intended nor reasonably anticipated by the user or by an intermediary that fine-tuned, scaffolded or modified the model (§ 1512(1)). Rebuttable presumption that the AI system had the relevant mental state where a natural person acting similarly would have; it is no defense that AI systems cannot have mental states (§ 1512(2)). Affirmative defenses: the model met the human standard of care for the same function, or the injury was a capabilities failure (§ 1512(3)). No framework, reporting, audit or agency duties",
-  "thresholds": "Covered model = trained using more than 10²⁶ integer or floating-point operations, the cost of which exceeds $100 million at average cloud compute market prices at the start of training (§ 1511(2)); developer = the person that performs the initial training of a covered model (§ 1511(3))",
+  "thresholds": "Covered model = trained using more than 10²⁶ integer or floating-point operations, the cost of which exceeds $100 million at average cloud compute market prices at the start of training as reasonably assessed by the developer (§ 1511(2)); developer = the person that performs the initial training of a covered model (§ 1511(3))",
   "penalties": "No fines; civil strict liability to injured non-users (§ 1512)",
   "status_text": "Status (as of Oct 31, 2026): Introduced and referred to Assembly Science and Technology June 9, 2025; re-referred Jan 7, 2026; no further action. Would take effect immediately.",
   "signed_text": null,
@@ -14100,6 +14133,11 @@
     "label": "Bill text and actions — nyassembly.gov",
     "url": "https://nyassembly.gov/leg/?default_fld=&leg_video=&bn=A08833&term=2025&Summary=Y&Actions=Y&Text=Y",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.nysenate.gov/legislation/bills/2025/A8833",
+    "kind": "primary"
    }
   ],
   "source_label": "Bill text and actions — nyassembly.gov",
@@ -14112,13 +14150,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-31T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-27T00:05:47Z",
+   "run_id": "update-20261127-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-27",
+  "last_changed": "2026-11-27",
   "duties": {
    "framework": {
     "value": "not_in_bill",
@@ -14192,17 +14232,11 @@
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
   },
-  "summary_line": "Would make developers of covered AI models strictly liable to non-users injured by model conduct that would be negligence or an intentional tort or crime if done by a person.",
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "207add15f64ab79204d4110a767e2a7b34b256d67f66cf2c1b75d3e938985dd9"
-  },
-  "thirty_seconds": {
-   "a": "Developers that do the initial training of covered models (more than 10²⁶ operations costing over $100 million).",
-   "b": "Would make them strictly liable to non-users injured by model conduct that would be negligence, an intentional tort or a crime if done by a person, with two defenses.",
-   "c": "No fines; injured people could sue. Pending in the Assembly since June 9, 2025."
+   "method": "agent",
+   "checked_at": "2026-11-27T00:05:47Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "99659b599bf14a9d9418713d1f5cbb5b68e080949f8a912f4a5f5caf41701fa1"
   },
   "identifiers": {
    "session": "2025-2026 General Assembly",
@@ -14211,6 +14245,19 @@
      2036382
     ]
    }
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "at the start of training as reasonably assessed by the developer.",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/A8833"
+   }
+  ],
+  "summary_line": "Would make developers of covered AI models strictly liable for certain injuries to non-users caused by model conduct that would be negligence or a crime if done by a person.",
+  "thirty_seconds": {
+   "a": "Developers of covered models: the person that performs the initial training of a model trained with more than 10²⁶ operations at a cost above $100 million.",
+   "b": "No safety framework, reporting or audit duties. The bill only sets liability rules for injuries to non-users, with defenses if the model met the human standard of care or the injury was a capabilities failure.",
+   "c": "No fines. Developers would face civil strict liability to injured non-users, regardless of the degree of care they exercised."
   }
  },
  {
