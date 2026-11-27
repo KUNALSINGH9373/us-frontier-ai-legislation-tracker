@@ -7129,21 +7129,15 @@
    "permalink": "https://usfrontierlaw.com/#rec-ai-regulator-act-of-2026-proposal-not-introduced-u",
    "section_name": "Federal frameworks and discussion drafts (not introduced bills)"
   },
-  "summary_line": "Would create a five-member Federal Digital Commission to oversee digital platforms and AI developers, with mandatory model testing and civil penalties.",
+  "page_verification": {
+   "method": "agent",
+   "checked_at": "2026-11-27T12:05:56Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "8f54683f00f715ca1642f6df1f3cfddb8a36db416726ff67fa60be96a46f636c"
+  },
+  "summary_line": "Would create a five-member Federal Digital Commission to oversee digital platforms and AI developers, including testing models and approving or rejecting public release.",
   "key_facts": {
    "enforced_by": "Federal Digital Commission"
-  },
-  "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "23e6e65a172b2d9fc1ccda907ffd57a854f638e97798f4e23885db4da0c10361"
-  },
-  "display_name": "AI Regulator Act of 2026 (Bennet-Welch proposal)",
-  "thirty_seconds": {
-   "a": "Digital platforms and AI developers; developers can be named \"systemically important\" by AI spending or model level. A proposal by Sens. Bennet and Welch; not introduced.",
-   "b": "Would have to submit models for testing before public release (decision within 45 days) and report critical safety incidents within 15 days.",
-   "c": "Civil penalties up to 15% of prior-year global revenue, enforced by a new five-member Federal Digital Commission."
   }
  },
  {
@@ -9911,19 +9905,18 @@
    "permalink": "https://usfrontierlaw.com/#rec-doj-ai-litigation-task-force-created-jan-9-2026-under-eo-14365",
    "section_name": "Litigation and enforcement"
   },
-  "summary_line": "Tracks whether the DOJ AI Litigation Task Force, created Jan 9, 2026 under EO 14365, has been used in court against a frontier AI law.",
-  "thirty_seconds": {
-   "a": "Whether the DOJ AI Litigation Task Force brings a case against a frontier AI law.",
-   "b": "The Task Force was created Jan 9, 2026 under EO 14365.",
-   "c": "No case clearly brought by the Task Force was found through Nov 26, 2026. DOJ joined X.AI v. Weiser, but sources do not say the Task Force did."
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "1044c3129486702411fda4b593d0263d58a8204c84b2feaa853806a24c343cc0"
+   "method": "agent",
+   "checked_at": "2026-11-27T12:05:56Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "6fd10e1165a70b2e4c3da06774f64237c2da9c8ffe8a276d61ed063b2b782c91"
   },
-  "display_name": "DOJ AI Litigation Task Force"
+  "summary_line": "Tracks whether the DOJ AI Litigation Task Force, created under EO 14365, has brought any case against a frontier AI law.",
+  "thirty_seconds": {
+   "a": "Whether the Task Force brings a case against a frontier AI law. It was created Jan 9, 2026 under EO 14365.",
+   "b": "The Justice Department did join the Colorado case X.AI v. Weiser, but the sources do not say the Task Force did so.",
+   "c": "As of Nov 26, 2026, searches, including every Justice Department press release since Sept 25, found no case clearly brought by the Task Force."
+  }
  },
  {
   "id": 66,
@@ -10099,17 +10092,11 @@
    "permalink": "https://usfrontierlaw.com/#rec-x-ai-llc-v-weiser-no-1-26-cv-01515-d-colo",
    "section_name": "Litigation and enforcement"
   },
-  "summary_line": "Challenges Colorado's SB 24-205 algorithmic-discrimination law, with xAI suing to block it and the Department of Justice intervening on an Equal Protection theory.",
-  "key_facts": {
-   "court": "D. Colo.",
-   "plaintiff": "X.AI LLC",
-   "defendants": "Phil Weiser, Colorado Attorney General"
-  },
   "page_verification": {
-   "method": "session",
-   "checked_at": "2026-11-12T12:00:00Z",
-   "reviewer": "site review 12 Nov 2026",
-   "basis_sha256": "6e210d4ac33b20a4a243b7e49e0af5555ac6c2035204e9562e7a2f66f536bca0"
+   "method": "agent",
+   "checked_at": "2026-11-27T12:05:56Z",
+   "reviewer": "claude-opus-5-5",
+   "basis_sha256": "f5ceff3d7ccd40a3034d76ddf2fe99e39c35c61760eb4fa13531646c2c56727b"
   },
   "claims": [
    {
@@ -10128,10 +10115,16 @@
     "note": "No ruling on the merits is recorded; the preliminary-injunction motion has not yet been filed."
    }
   ],
+  "summary_line": "Challenges Colorado's algorithmic-discrimination law SB 24-205 as xAI sues to block it, with the Justice Department joining the suit.",
   "thirty_seconds": {
-   "a": "X.AI LLC (xAI) v. Phil Weiser, Colorado Attorney General; the Justice Department joined on xAI's side.",
-   "b": "xAI challenges Colorado's SB 24-205 algorithmic-discrimination law (not a frontier AI law) on First Amendment, Equal Protection and dormant Commerce Clause grounds.",
-   "c": "Federal court in Colorado. Enforcement and deadlines are paused; the law was repealed and replaced by SB 26-189 on May 14, 2026. No ruling on the merits is recorded."
+   "a": "X.AI LLC sued Colorado (Weiser) in federal court in Colorado; the Justice Department's Civil Rights Division intervened on April 24, 2026.",
+   "b": "xAI challenges Colorado SB 24-205, an algorithmic-discrimination law, on First Amendment, Equal Protection and dormant Commerce Clause grounds. It is not a frontier AI law.",
+   "c": "Paused. The court approved a joint agreement on April 27, 2026 barring enforcement and pausing deadlines. The legislature replaced the law with SB 26-189 on May 14, 2026."
+  },
+  "key_facts": {
+   "court": "D. Colo.",
+   "plaintiff": "X.AI LLC",
+   "defendants": "Weiser"
   }
  },
  {

@@ -9,129 +9,20 @@
    "publisher": "weekly completeness check",
    "date": "2026-11-20",
    "first_seen": "2026-11-26",
-   "runs": 10,
+   "runs": 11,
    "request_flag": false,
    "from_audit": true,
    "alerted": "2026-11-26",
-   "triage": null,
+   "triage": {
+    "v": 3,
+    "relevant": true,
+    "reason": "Lawmakers pushing for tougher chip rules after a BIS rule; vague, but about export controls and unsure, so keep as a lead",
+    "at": "2026-11-27"
+   },
    "coverage": {
     "checked": "2026-11-26",
     "covered_by": null,
     "why": "The lead reports lawmakers calling for tougher chip rules after the BIS rule, which is a reaction to the rule rather than the rule itself or any tracked bill introduction, and no tracker item matches "
-   }
-  },
-  "beyer.house.gov/news/documentsingle.aspx?documentid=9311": {
-   "key": "beyer.house.gov/news/documentsingle.aspx?documentid=9311",
-   "title": "Reps. Beyer, Whitesides, and Moran Launch First Congressional Caucus Focused on AI Safety and Innovation",
-   "link": "http://beyer.house.gov/news/documentsingle.aspx?DocumentID=9311",
-   "publisher": "Rep. Don Beyer",
-   "date": "2026-11-19",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": true,
-   "summary": "Today, Reps. Don Beyer (D-VA), George Whitesides (D-CA), and Nathaniel Moran (R-TX), announced the launch of the House AI Safety and Innovation Caucus, the first congressional caucus focused specifically on addressing AI safety and security risks posed by increasingly advanced AI systems while ensuring the United States remains a global leader in innovative AI technologies. As AI capabilities accelerate, so do the potential consequences of catastrophic misuse, loss of control over advanced systems, and threats to national security. In July, an experimental OpenAI agent escaped its testing envi",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Congressional caucus on AI safety and innovation is a legislative-branch development on frontier AI safety.",
-    "at": "2026-11-26"
-   }
-  },
-  "nytimes.com/2026/11/26/business/nvidia-southeast-asia-sales.html": {
-   "key": "nytimes.com/2026/11/26/business/nvidia-southeast-asia-sales.html",
-   "title": "Nvidia Halts Sales to Southeast Asia as U.S. Tightens China Restrictions",
-   "link": "https://www.nytimes.com/2026/11/26/business/nvidia-southeast-asia-sales.html",
-   "publisher": "The New York Times",
-   "date": "2026-11-26",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "The shipping halt, which hit four countries, follows a new U.S. rule that would require licenses for companies in the countries to buy advanced A.I. chips.",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Nvidia halting sales to Southeast Asia amid US chip restrictions is an informal or agency action on AI chips.",
-    "at": "2026-11-26"
-   }
-  },
-  "nytimes.com/2026/11/26/us/politics/ai-regulation-congress-nvidia.html": {
-   "key": "nytimes.com/2026/11/26/us/politics/ai-regulation-congress-nvidia.html",
-   "title": "Bipartisan Desire to Regulate A.I. Faces Obstacles in Congress",
-   "link": "https://www.nytimes.com/2026/11/26/us/politics/ai-regulation-congress-nvidia.html",
-   "publisher": "The New York Times",
-   "date": "2026-11-26",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "Members of both parties say they want to tackle artificial intelligence policy, but the slow pace of legislating and turf battles could stand in the way.",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Reports on congressional efforts to regulate AI, a legislative development on frontier AI rules.",
-    "at": "2026-11-26"
-   }
-  },
-  "the-independent.com/tech/zhipu-moonshot-nvidia-chip-delays-b3092031.html": {
-   "key": "the-independent.com/tech/zhipu-moonshot-nvidia-chip-delays-b3092031.html",
-   "title": "American tech defenses stall China’s next flagship AI models as Washington closes overseas chip loopholes",
-   "link": "https://www.the-independent.com/tech/zhipu-moonshot-nvidia-chip-delays-b3092031.html",
-   "publisher": "The Independent",
-   "date": "2026-11-26",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "China has fallen behind schedule on its next flagship AI model",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Covers US closing overseas chip loopholes affecting Chinese frontier model development, a chip export policy action.",
-    "at": "2026-11-26"
-   }
-  },
-  "theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats": {
-   "key": "theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats",
-   "title": "42 state AGs are trying to stop Character.AI from selling users’ chats",
-   "link": "https://www.theverge.com/policy/1042620/character-ai-sale-state-ags-block-selling-users-chats",
-   "publisher": "The Verge",
-   "date": "2026-11-26",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "A coalition of 42 state attorneys general is trying to prevent Character.AI from selling off user data as it navigates Chapter 11 bankruptcy proceedings. In a deluge of nearly identical press releases, the various AGs accuse the company of planning to auction off \"the private chat histories of more than 21 million U.S. accounts - […]",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "State attorneys general action against Character.AI; a state AG enforcement action on an AI developer, though focused on user data rather than frontier safety.",
-    "at": "2026-11-26"
-   }
-  },
-  "theverge.com/policy/1041270/nvidia-megaspeed-commerce-dept-entity-list": {
-   "key": "theverge.com/policy/1041270/nvidia-megaspeed-commerce-dept-entity-list",
-   "title": "US Commerce Department adds Megaspeed to trade blacklist as Huang retakes control of Nvidia",
-   "link": "https://www.theverge.com/policy/1041270/nvidia-megaspeed-commerce-dept-entity-list",
-   "publisher": "The Verge",
-   "date": "2026-11-24",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "As Jensen Huang returns to his post as Nvidia's CEO with support from the Trump administration, the Department of Commerce has added Megaspeed to its Entity List, which blocks trade with the company, citing national security risks. As reported earlier by Semafor, Commerce Secretary Howard Lutnick had faced increasing pressure to list the company after […]",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Commerce Department entity list addition targeting AI chip smuggling is an agency action on AI chips.",
-    "at": "2026-11-26"
    }
   },
   "technologyreview.com/2026/11/12/1148483/nvidia-chip-tracking": {
@@ -141,130 +32,62 @@
    "publisher": "MIT Technology Review",
    "date": "2026-11-12",
    "first_seen": "2026-11-26",
-   "runs": 9,
+   "runs": 10,
    "request_flag": false,
    "primary": false,
    "summary": "Representatives from Nvidia told Illinois representative Bill Foster that it would be technically possible to implement the anti-smuggling measures called for in the Chip Security Act, Foster told MIT Technology Review in an interview on Thursday, even while an industry group claimed they were “potentially infeasible.” Foster, a Democrat who serves on the Committee on…",
    "from_audit": false,
    "alerted": "2026-11-26",
    "triage": {
+    "v": 3,
     "relevant": true,
-    "reason": "Reports Nvidia's private confirmation of chip tracking to fight smuggling, relevant to chip export control policy.",
-    "at": "2026-11-26"
+    "reason": "Rep. Foster on the Chip Security Act and Nvidia's confirmation that tracking is feasible; a legislator's statement on a chip bill",
+    "at": "2026-11-27"
+   },
+   "coverage": {
+    "checked": "2026-11-27",
+    "covered_by": null,
+    "why": "No listed item reports Nvidia's private confirmation that it could track chips; the nearby items cover other developments."
    }
   },
-  "statescoop.com/new-york-attorney-general-creates-unit-to-oversee-ai-safety-and-enforcement": {
-   "key": "statescoop.com/new-york-attorney-general-creates-unit-to-oversee-ai-safety-and-enforcement",
-   "title": "New York attorney general creates unit to oversee AI safety and enforcement",
-   "link": "https://statescoop.com/new-york-attorney-general-creates-unit-to-oversee-ai-safety-and-enforcement/",
-   "publisher": "StateScoop",
-   "date": "2026-11-18",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "The new office will enforce state AI laws, investigate potential harms and help develop policies addressing emerging technology.",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "New York AG creating an AI safety and enforcement unit is a state government action on AI oversight.",
-    "at": "2026-11-26"
-   }
-  },
-  "route-fifty.com/artificial-intelligence/2026/11/california-suing-openai-over-its-rogue-ai-agent-hack/417271": {
-   "key": "route-fifty.com/artificial-intelligence/2026/11/california-suing-openai-over-its-rogue-ai-agent-hack/417271",
-   "title": "California is suing OpenAI over its ‘rogue’ AI agent hack",
-   "link": "https://www.route-fifty.com/artificial-intelligence/2026/11/california-suing-openai-over-its-rogue-ai-agent-hack/417271/",
-   "publisher": "Route Fifty",
-   "date": "2026-11-17",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "California Attorney General Rob Bonta filed a lawsuit against OpenAI, saying its lack of safeguards led to the Hugging Face hack.",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "California attorney general lawsuit against a frontier AI developer (OpenAI), a court case in scope.",
-    "at": "2026-11-26"
-   }
-  },
-  "bloomberg.com/news/videos/2026-11-26/us-chip-curbs-stall-asia-data-center-financing-video": {
-   "key": "bloomberg.com/news/videos/2026-11-26/us-chip-curbs-stall-asia-data-center-financing-video",
-   "title": "US Chip Curbs Stall Asia Data Center Financing",
-   "link": "https://www.bloomberg.com/news/videos/2026-11-26/us-chip-curbs-stall-asia-data-center-financing-video",
+  "bloomberg.com/news/videos/2026-11-27/blackwell-chips-found-at-alice-huang-linked-china-site-video": {
+   "key": "bloomberg.com/news/videos/2026-11-27/blackwell-chips-found-at-alice-huang-linked-china-site-video",
+   "title": "Blackwell Chips Found at Alice Huang-Linked China Site",
+   "link": "https://www.bloomberg.com/news/videos/2026-11-27/blackwell-chips-found-at-alice-huang-linked-china-site-video",
    "publisher": "Bloomberg",
-   "date": "2026-11-26",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "US chip curbs are putting the brakes on billions of dollars in AI data center financing across Asia, with lenders reassessing deals tied to Chinese tech firms including ByteDance, Alibaba and Tencent. Bloomberg’s Annabelle Droules says legal and compliance risks are weighing on banks as new rules on chip access take effect. (Source: Bloomberg)",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Reports on US AI chip export curbs and their effects, touching chip policy in scope; video summary of the same story.",
-    "at": "2026-11-26"
-   }
-  },
-  "bloomberg.com/news/articles/2026-11-25/billions-in-data-center-deals-grind-to-halt-after-ai-chip-curbs": {
-   "key": "bloomberg.com/news/articles/2026-11-25/billions-in-data-center-deals-grind-to-halt-after-ai-chip-curbs",
-   "title": "Billions in Data Center Deals Grind to Halt After Chip Curbs",
-   "link": "https://www.bloomberg.com/news/articles/2026-11-25/billions-in-data-center-deals-grind-to-halt-after-ai-chip-curbs",
-   "publisher": "Bloomberg",
-   "date": "2026-11-25",
-   "first_seen": "2026-11-26",
-   "runs": 9,
-   "request_flag": false,
-   "primary": false,
-   "summary": "Lenders have hit the brakes on billions of dollars in loans tied to Chinese firms ByteDance, Alibaba and Tencent, as new US curbs on chip access threaten to upend Asia’s burgeoning AI debt financing market.",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Reports on US AI chip curbs (export controls on compute/chips) affecting data center deals.",
-    "at": "2026-11-26"
-   }
-  },
-  "independent.co.uk/news/world/americas/us-politics/marco-rubio-jensen-huang-nvidia-b3092316.html": {
-   "key": "independent.co.uk/news/world/americas/us-politics/marco-rubio-jensen-huang-nvidia-b3092316.html",
-   "title": "Rubio angry after Nvidia CEO reinstated despite warning Trump officials about security risk: report",
-   "link": "https://www.independent.co.uk/news/world/americas/us-politics/marco-rubio-jensen-huang-nvidia-b3092316.html",
-   "publisher": "The Independent",
-   "date": "2026-11-26",
-   "first_seen": "2026-11-26",
-   "runs": 6,
-   "request_flag": false,
-   "primary": false,
-   "summary": "Secretary of State Marco Rubio has reportedly expressed concerns in private about Jensen Huang’s return to chipmaker, CBS News reports",
-   "from_audit": false,
-   "alerted": "2026-11-26",
-   "triage": {
-    "relevant": true,
-    "reason": "Concerns US government handling of Nvidia, a frontier AI chip maker, and security risks tied to AI chip policy, which falls under chips and informal government dealings with AI developers.",
-    "at": "2026-11-26"
-   }
-  },
-  "the-independent.com/tech/nvidia-halts-chip-shipments-to-southeast-asia-b3092524.html": {
-   "key": "the-independent.com/tech/nvidia-halts-chip-shipments-to-southeast-asia-b3092524.html",
-   "title": "Nvidia halts chip shipments to Southeast Asia",
-   "link": "https://www.the-independent.com/tech/nvidia-halts-chip-shipments-to-southeast-asia-b3092524.html",
-   "publisher": "The Independent",
    "date": "2026-11-27",
    "first_seen": "2026-11-27",
    "runs": 1,
    "request_flag": false,
    "primary": false,
-   "summary": "It remains unclear for how long the export halt would be in place",
+   "summary": "A Bloomberg investigation found Chinese firms installed an Nvidia GB300 Blackwell rack at a Shanghai data center linked to Alice Huang, despite US restrictions on the hardware. (Source: Bloomberg)",
    "from_audit": false,
    "alerted": null,
-   "triage": {
-    "relevant": true,
-    "reason": "Halting AI chip shipments relates to chip export controls and compute access, a frontier-AI policy topic.",
-    "at": "2026-11-27"
+   "triage": null,
+   "coverage": {
+    "checked": "2026-11-27",
+    "covered_by": null,
+    "why": "No item covers Blackwell chips found at a China site; the nearby items concern a lawsuit deadline and the RSI Safety Act."
+   }
+  },
+  "bloomberg.com/news/articles/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-tied-to-alice-huang": {
+   "key": "bloomberg.com/news/articles/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-tied-to-alice-huang",
+   "title": "Nvidia Blackwell Chips Turn Up at China Site Tied to Alice Huang",
+   "link": "https://www.bloomberg.com/news/articles/2026-11-27/nvidia-blackwell-chips-turn-up-at-china-site-tied-to-alice-huang",
+   "publisher": "Bloomberg",
+   "date": "2026-11-27",
+   "first_seen": "2026-11-27",
+   "runs": 1,
+   "request_flag": false,
+   "primary": false,
+   "summary": "A pair of Chinese firms installed Nvidia Corp.’s powerful Blackwell semiconductors in a Shanghai data center linked to Alice Huang, the woman at the heart of a controversy surrounding the US chipmaker.",
+   "from_audit": false,
+   "alerted": null,
+   "triage": null,
+   "coverage": {
+    "checked": "2026-11-27",
+    "covered_by": null,
+    "why": "No item covers Blackwell chips turning up at a China site tied to Alice Huang; the nearby items are unrelated."
    }
   }
  }
