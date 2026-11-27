@@ -17,6 +17,7 @@ import { fileURLToPath } from 'url';
 import { cleanText, readerText } from '../agents/text-norm.mjs';
 import { writeAndReview, modelText } from '../agents/newbill.mjs';
 import { stateSectionRule, FEDERAL_SECTION_RULE } from '../agents/prompts.mjs';
+import { stateSections } from '../agents/derive.mjs';
 import { SCORER_SYSTEM, SCORER_SCHEMA, scorerUser, readScore } from './newbill-scorer.mjs';
 import { currentHashes } from './hash.mjs';
 
@@ -33,9 +34,12 @@ export function setFingerprint({ goldFile, referencesDir = null }) {
 }
 
 // The sections a bill may take, as production allows them (agents/derive.mjs stateSections, the federal rule).
+// 27 Nov 2026: from the bill's real status (gold "status", from its official record), as production does, never from the expected
+// section: an enacted law expected in I or C was offered B, B.2 or C (the CT omnibus could not be filed right). A set without a status
+// falls back to the enacted-only sections A and I.
 export function sectionsFor(g) {
   if (g.level === 'federal') return ['D', 'F', 'G.3'];
-  return g.section === 'A' ? ['A', 'C'] : ['B', 'B.2', 'C'];
+  return stateSections(g.status || (['A', 'I'].includes(g.section) ? 'enacted' : 'pending'));
 }
 export function billOf(g, meta, stored) {
   const text = modelText(readerText(stored));

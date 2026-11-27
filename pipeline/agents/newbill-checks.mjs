@@ -58,7 +58,10 @@ export function writerProblems(out, { source }) {
   if (clean(out.name_quote) && !norm(out.name_quote).includes(norm(out.name).replace(/^the /, '').slice(0, 40))) p.push('name is not copied from name_quote (options 1 to 3 copy the bill\'s own words)');
   // 27 Nov 2026 (NJ S.4446, VA Ch. 425 scored WRONG): a bill with its own title line ("An Act concerning ...", "A BILL To ...") is named
   // from it (option 3); an invented descriptive name (option 4, empty name_quote) is allowed only when the bill has no title line.
-  if (!clean(out.name_quote) && /(^|\n)\s*(AN ACT|A BILL)\b/i.test(String(source).slice(0, 6000))) p.push('name_quote is empty but the bill has its own title line ("An Act ..." / "A BILL ..."): name it from that line (option 3) and copy those words into name_quote');
+  // A title line may stand anywhere near the top (a scraped page puts navigation first) and in Ohio's form "To enact sections ... to ...".
+  if (!clean(out.name_quote) && /\b(AN ACT|A BILL)\b|\bTo (enact|amend|repeal|create|establish|require)\b[\s\S]{0,400}?\b(of the Revised Code|Code|law)\b/i.test(String(source).slice(0, 8000))) p.push('name_quote is empty but the bill has its own title line ("An Act ...", "A BILL ...", "To enact sections ... to ..."): name it from that line (option 3) and copy those words into name_quote');
+  // a name that only names the law or sections the bill amends says nothing of its subject (NY S.10456, 27 Nov 2026)
+  if (/^(an act|a bill)?\s*to (amend|enact|repeal)\b[^,]*\b(law|code|sections?[\s\d.,]*)\s*$/i.test(clean(out.name))) p.push(`name "${clean(out.name)}" names only the law or sections the bill amends; take the clause that says what the bill is about ("in relation to ...", "to create ...")`);
   // 27 Nov 2026 (MA H.5576, scored WRONG): a long bill reaches the writer as a selection joined by "[...]" (agents/sections.mjs); the
   // writer called a section it was not shown "omitted". A text problem that calls a section omitted/missing while SOURCE has a "[...]"
   // gap goes back to the writer.

@@ -99,6 +99,10 @@ ok('a blank box slot is refused', writerProblems(bad3, { source }).some((p) => /
   const titled = `AN ACT concerning artificial intelligence safety and supplementing Title 56 of the Revised Statutes.\n${source}`;
   const inv = clone(good); inv.name_quote = ''; inv.name = 'AI Safety Disclosures to Attorney General';
   ok('an invented name (empty name_quote) on a bill with an "An Act ..." title line is sent back', writerProblems(inv, { source: titled }).some((p) => /own title line/.test(p)));
+  const ohio = `H. B. No. 628 To enact sections 3755.01 and 3755.02 of the Revised Code to create an independent verification organization license for verifying artificial intelligence risk mitigation. BE IT ENACTED\n${source.split('\n').slice(1).join('\n')}`;
+  ok('Ohio\'s "To enact sections ... of the Revised Code to ..." title counts as a title line', writerProblems(inv, { source: ohio }).some((p) => /own title line/.test(p)));
+  const bare = clone(good); bare.name = 'An Act to amend the general business law'; bare.name_quote = '';
+  ok('a name that only names the law it amends is sent back', writerProblems(bare, { source }).some((p) => /names only the law/.test(p)));
   ok('a bill with no title line may still take a descriptive name', !writerProblems(inv, { source: source.split('\n').slice(1).join('\n') }).some((p) => /own title line/.test(p)));
 }
 // 27 Nov 2026: a text problem naming a bill number the bill does not contain (AI OVERWATCH Act), and an item whose party contradicts

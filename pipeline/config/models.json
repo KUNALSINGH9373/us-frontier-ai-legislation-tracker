@@ -90,14 +90,14 @@
        "model": "claude-sonnet-5-5",
        "max_output_tokens": 128000,
        "timeout_ms": 900000,
-       "effort": "medium"
+       "effort": "high"
       },
       "bill_reviewer": {
        "_note": "New bills: the independent fact-check of the writer's entry (WRONG / MISLEADING / OMISSION, each proved by a bill quote that code finds). A wrong scope call it proves keeps the bill out. Must be a stronger model than the writer. Low effort (owner, 31 Oct 2026: cost).",
        "model": "claude-opus-5-5",
        "max_output_tokens": 64000,
        "timeout_ms": 600000,
-       "effort": "low"
+       "effort": "high"
       },
       "scorer": {
        "_note": "The new-bills eval only (eval/newbill-eval.mjs): an independent third reader that scores every published entry against the bill and the human reference note for the gate. Never runs in a daily update. Low effort (owner, 31 Oct 2026: cost).",
