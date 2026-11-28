@@ -9,7 +9,7 @@
    "publisher": "weekly completeness check",
    "date": "2026-11-20",
    "first_seen": "2026-11-26",
-   "runs": 17,
+   "runs": 18,
    "request_flag": false,
    "from_audit": true,
    "alerted": "2026-11-26",
@@ -32,7 +32,7 @@
    "publisher": "MIT Technology Review",
    "date": "2026-11-12",
    "first_seen": "2026-11-26",
-   "runs": 16,
+   "runs": 17,
    "request_flag": false,
    "primary": false,
    "summary": "Representatives from Nvidia told Illinois representative Bill Foster that it would be technically possible to implement the anti-smuggling measures called for in the Chip Security Act, Foster told MIT Technology Review in an interview on Thursday, even while an industry group claimed they were “potentially infeasible.” Foster, a Democrat who serves on the Committee on…",
@@ -57,7 +57,7 @@
    "publisher": "The Independent",
    "date": "2026-11-27",
    "first_seen": "2026-11-28",
-   "runs": 3,
+   "runs": 4,
    "request_flag": false,
    "primary": false,
    "summary": "Republican-led hearings will only scratch the surface, Alex Woodward writes",
@@ -73,6 +73,81 @@
     "checked": "2026-11-28",
     "covered_by": null,
     "why": "The lead is about Lutnick and Huang testifying over Nvidia; none of the listed items concern that testimony or Nvidia. They cover a lawsuit's response deadline and the introduction of the RSI Safety A"
+   }
+  },
+  "https://nist.gov/news-events/news/2026/08/nist-joins-national-genesis-mission-accelerate-ai-innovation": {
+   "key": "https://nist.gov/news-events/news/2026/08/nist-joins-national-genesis-mission-accelerate-ai-innovation",
+   "title": "NIST Joins National Genesis Mission to Accelerate AI Innovation",
+   "link": "https://nist.gov/news-events/news/2026/08/nist-joins-national-genesis-mission-accelerate-ai-innovation",
+   "publisher": "NIST",
+   "date": "2026-08-04",
+   "first_seen": "2026-11-28",
+   "runs": 1,
+   "request_flag": false,
+   "primary": false,
+   "summary": "",
+   "from_audit": false,
+   "alerted": null,
+   "triage": {
+    "v": 3,
+    "relevant": true,
+    "reason": "NIST, a federal agency, is joining the national Genesis Mission on AI, which is a government action on AI policy and organization.",
+    "at": "2026-11-28"
+   },
+   "coverage": {
+    "checked": "2026-11-28",
+    "covered_by": null,
+    "why": "No listed item reports NIST joining the Genesis Mission; the items concern a Massachusetts bill, Trump remarks, and a frontier model review framework."
+   }
+  },
+  "https://nist.gov/news-events/news/2026/05/nist-expands-ai-consortiums-scope-calls-new-members": {
+   "key": "https://nist.gov/news-events/news/2026/05/nist-expands-ai-consortiums-scope-calls-new-members",
+   "title": "NIST Expands AI Consortium’s Scope, Calls for New Members",
+   "link": "https://nist.gov/news-events/news/2026/05/nist-expands-ai-consortiums-scope-calls-new-members",
+   "publisher": "NIST",
+   "date": "2026-05-29",
+   "first_seen": "2026-11-28",
+   "runs": 1,
+   "request_flag": false,
+   "primary": false,
+   "summary": "",
+   "from_audit": false,
+   "alerted": null,
+   "triage": {
+    "v": 3,
+    "relevant": true,
+    "reason": "NIST expanded the scope of its AI consortium and is recruiting members, which is an agency action on AI oversight.",
+    "at": "2026-11-28"
+   },
+   "coverage": {
+    "checked": "2026-11-28",
+    "covered_by": null,
+    "why": "None of the items concern NIST expanding its AI consortium's scope or seeking new members; they cover state laws, a military AI bill, an EO, and a lawsuit."
+   }
+  },
+  "https://nist.gov/news-events/news/2026/02/announcing-ai-agent-standards-initiative-interoperable-and-secure": {
+   "key": "https://nist.gov/news-events/news/2026/02/announcing-ai-agent-standards-initiative-interoperable-and-secure",
+   "title": "Announcing the \"AI Agent Standards Initiative\" for Interoperable and Secure Innovation",
+   "link": "https://nist.gov/news-events/news/2026/02/announcing-ai-agent-standards-initiative-interoperable-and-secure",
+   "publisher": "NIST",
+   "date": "2026-02-17",
+   "first_seen": "2026-11-28",
+   "runs": 1,
+   "request_flag": false,
+   "primary": false,
+   "summary": "",
+   "from_audit": false,
+   "alerted": null,
+   "triage": {
+    "v": 3,
+    "relevant": true,
+    "reason": "NIST announced an AI Agent Standards Initiative, which is an agency standards and guidance action.",
+    "at": "2026-11-28"
+   },
+   "coverage": {
+    "checked": "2026-11-28",
+    "covered_by": null,
+    "why": "No site items within the window, so nothing covers the AI Agent Standards Initiative."
    }
   }
  }

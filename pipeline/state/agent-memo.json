@@ -1504,6 +1504,13 @@
    "proposal": "legiscan:2154575: not a bill (an amendment record, not a bill: LegiScan titles it as an amendment); not created",
    "date": "2026-11-28",
    "dead": false
+  },
+  "congress_gov:119/hr/11127": {
+   "raw_hash": "e4cba12d5231448f139021729f86f5c27e4347a68be9e0ee47948231ee5d407a",
+   "reason": "not created: no passage of the text meets the criterion of section D or F (D: a federal bill that puts binding duties on frontier, large or advanced-AI developers or their models, defined by a frontier threshold or definition (training compute such as 10^26 operations, a \"frontier model\", \"covered m",
+   "proposal": "congress_gov:119/hr/11127 (\"Cyber Resilience for Critical Infrastructure Act\") meets neither federal section's criterion; not created",
+   "date": "2026-11-28",
+   "dead": false
   }
  }
 }

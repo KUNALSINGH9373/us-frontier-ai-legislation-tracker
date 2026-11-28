@@ -1313,3 +1313,7 @@
 {"at":"2026-11-28T00:09:02.056Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2197,"output":74,"cost":0.0002567}
 {"at":"2026-11-28T00:09:04.075Z","role":"lead_matcher","model":"claude-sonnet-5-5","itemId":"open-leads:2026-11-28","input":1053,"output":112,"cost":0.0032259999999999997}
 {"at":"2026-11-28T00:09:05.657Z","role":"lead_matcher","model":"claude-sonnet-5-5","itemId":"open-leads:cover:2026-11-28","input":756,"output":101,"cost":0.002522}
+{"at":"2026-11-28T07:59:12.239Z","role":"screener","model":"claude-haiku-5-5","itemId":"intent-screen-0","input":2359,"output":103,"cost":0.0002874}
+{"at":"2026-11-28T08:00:09.963Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2196,"output":77,"cost":0.00025810000000000004}
+{"at":"2026-11-28T08:00:13.672Z","role":"lead_matcher","model":"claude-sonnet-5-5","itemId":"open-leads:2026-11-28","input":1472,"output":491,"cost":0.007854}
+{"at":"2026-11-28T08:00:16.001Z","role":"lead_matcher","model":"claude-sonnet-5-5","itemId":"open-leads:cover:2026-11-28","input":1375,"output":198,"cost":0.00473}
