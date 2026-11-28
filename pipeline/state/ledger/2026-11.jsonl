@@ -1317,3 +1317,4 @@
 {"at":"2026-11-28T08:00:09.963Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2196,"output":77,"cost":0.00025810000000000004}
 {"at":"2026-11-28T08:00:13.672Z","role":"lead_matcher","model":"claude-sonnet-5-5","itemId":"open-leads:2026-11-28","input":1472,"output":491,"cost":0.007854}
 {"at":"2026-11-28T08:00:16.001Z","role":"lead_matcher","model":"claude-sonnet-5-5","itemId":"open-leads:cover:2026-11-28","input":1375,"output":198,"cost":0.00473}
+{"at":"2026-11-28T12:09:53.440Z","role":"screener","model":"claude-haiku-5-5","itemId":"news-screen","input":2160,"output":63,"cost":0.0002475}
