@@ -1442,7 +1442,7 @@
   "title": "H.B. 3506 — Artificial Intelligence Safety and Security Protocol Act (2025)",
   "short_name": "IL HB 3506 (2025)",
   "sponsor_text": "Rep. Daniel Didech (D); co-sponsor Rep. Matt Hanson (added Jan. 2026)",
-  "mechanism": "Follows the original RAISE Act design, the same model as Michigan H.B. 4668. Developers would publish a safety and security protocol, a risk assessment report every 90 days, and a yearly third-party audit of protocol compliance, with rules on redaction, whistleblower protections and civil penalties. Committee Amendment No. 1 narrowed it to \"large developers\" and let employees sue for damages. This 2025 bill did not advance. In 2026 Illinois switched to the California TFAIA model, and S.B. 315, which became law, added audits back.",
+  "mechanism": "Follows the original RAISE Act design, the same model as Michigan H.B. 4668. Developers would publish a safety and security protocol, a risk assessment report every 90 days, and a yearly third-party audit of protocol compliance, with rules on redaction, whistleblower protections and civil penalties. Committee Amendment No. 1 narrowed it to \"large developers\" and let employees sue for damages. This 2025 bill did not advance. In 2026 Illinois switched to the California TFAIA model, and S.B. 315, which became law, added audits back. A developer found guilty of violating Sections 15 or 25 may be assessed a civil penalty not to exceed $1,000,000.",
   "thresholds": "Floor Amendment No. 2: \"large developer\" = ≥$5M compute cost for a single model and ≥$100M aggregate compute cost over the preceding 12 months — the original-RAISE test. As introduced: \"developer\" = trained at least one foundation model with compute costing at least $100,000,000 at cloud market prices; critical risk = >100 deaths/serious injuries or >$1,000,000,000 damage",
   "penalties": null,
   "status_text": "Filed Feb. 7, 2025. Passed the Cybersecurity, Data Analytics & IT Committee 7–4 on Mar. 20, 2025; held on second reading; sent back to the Rules Committee under Rule 19(a) on Apr. 11, 2025. Inactive, but not formally dead while the 104th General Assembly remains in session.",
@@ -1487,6 +1487,11 @@
     "label": "ILGA status + amendments",
     "url": "https://www.ilga.gov/Legislation/BillStatus?GAID=18&DocNum=3506&DocTypeID=HB&LegId=0&SessionID=114",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+    "kind": "primary"
    }
   ],
   "source_label": "Official amendment text · ILGA status + amendments",
@@ -1499,13 +1504,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-28T00:05:52Z",
+   "run_id": "update-20261128-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-27",
+  "last_checked": "2026-11-28",
+  "last_changed": "2026-11-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-h-b-3506-artificial-intelligence-safety-and-security-protocol-act-2025",
    "section_name": "Pending, stalled and failed state bills"
@@ -1598,20 +1605,11 @@
    "method": "session",
    "checked_at": "2026-10-26T17:18:08Z"
   },
-  "summary_line": "Would require large AI developers to publish a safety and security protocol, issue risk reports every 90 days, and get an annual third-party audit.",
-  "thirty_seconds": {
-   "a": "As introduced, developers that trained a foundation model with compute costing at least $100,000,000. Floor Amendment No. 2 would instead cover large developers: ≥$5M for one model and ≥$100M over 12 months.",
-   "b": "Publish a safety and security protocol, publish a risk assessment report at least every 90 days, hire a third-party auditor each year, and offer an anonymous way for employees to report.",
-   "c": "The Attorney General may sue for civil penalties up to $1,000,000 for violating Sec. 15 or 25, and seek injunctive or declaratory relief."
-  },
-  "key_facts": {
-   "enforced_by": "Attorney General"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:36:30.393Z",
+   "checked_at": "2026-11-28T00:05:52Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "c514412dd267c5d0b1cb120725a7040ace01101a20418bcf56cb5242c009eb3d"
+   "basis_sha256": "15934c35287096de72a3eb5b7182e924fece5cec77924bfd0f3e47e1dd0beb8e"
   },
   "identifiers": {
    "session": "104th General Assembly",
@@ -1620,6 +1618,22 @@
      1962488
     ]
    }
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "A developer found guilty of violating Sections 15 or 25 may be assessed a civil penalty not to exceed $1,000,000.",
+    "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114"
+   }
+  ],
+  "summary_line": "Would have required large AI developers to publish safety protocols, risk reports every 90 days and yearly third-party audits, but the bill stalled in 2025.",
+  "thirty_seconds": {
+   "a": "Developers that trained a foundation model with compute costing at least $100,000,000 as introduced; a later amendment narrowed it to \"large developers\".",
+   "b": "Publish a safety and security protocol, a risk assessment report at least every 90 days, and hire a third-party auditor yearly to check compliance.",
+   "c": "A developer found guilty of violating Sections 15 or 25 may be assessed a civil penalty not to exceed $1,000,000. The Attorney General could also seek injunctive or declaratory relief."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
   }
  },
  {
@@ -11187,8 +11201,8 @@
   "title": "GAIN AI Act of 2025 (S.3150)",
   "short_name": "GAIN AI Act of 2025 (S.3150)",
   "sponsor_text": "Sen. Jim Banks (R-IN)",
-  "mechanism": "Would require the Bureau of Industry and Security (BIS) to require a license to export, reexport, or transfer covered chips to entities located or headquartered (or whose parent is headquartered) in a country of concern. The applicant would have to certify that US persons had a right of first refusal (public notice, with not fewer than 15 business days to request), that there is no backlog of US requests or foreseeable backlog over the 12-month period, and that foreign persons get no better pricing. A license would be denied without that certification. BIS would have to issue regulations within 90 days. Trusted US persons would be exempt from certain license requirements for destinations that are not countries of concern.",
-  "thresholds": "Covered circuit = advanced integrated circuit (ECCN 3A090/4A090 or equivalent, or TPP 4,800 or more; TPP 2,400+ with density 1.6+; TPP 1,600+ with density 3.2+; or DRAM bandwidth 1,400 GB/s, interconnect 1,100 GB/s, or sum 1,700 GB/s) or product containing one, excluding chips not designed or marketed for data centers; country of concern = Country Group D:5 or E, Macau, Hong Kong",
+  "mechanism": "Would require the Bureau of Industry and Security (BIS) to require a license to export, reexport, or transfer covered chips to entities located or headquartered (or whose parent is headquartered) in a country of concern. The applicant would have to certify that US persons had a right of first refusal (public notice, with not fewer than 15 business days to request), that there is no backlog of US requests or foreseeable backlog over the 12-month period, and that foreign persons get no better pricing. A license would be denied without that certification. BIS would have to issue regulations within 90 days. Regulations would include penalties for misrepresentation and concealment of material facts. Trusted US persons would be exempt from certain license requirements for destinations that are not countries of concern.",
+  "thresholds": "Covered circuit = advanced integrated circuit (ECCN 3A090/4A090 or equivalent, or TPP 4,800 or more; TPP 2,400+ with density 1.6+; TPP 1,600+ with density 3.2+; or DRAM bandwidth 1,400 GB/s, interconnect 1,100 GB/s, or sum 1,700 GB/s) or product containing one, excluding chips not designed or marketed for data centers; country of concern = Country Group D:5 or E, Macau, Hong Kong. Under Secretary may add technical parameters beginning 36 months after enactment.",
   "penalties": null,
   "status_text": "Date / status: Introduced in the Senate Nov. 6, 2025; referred to Senate Banking; no further action as of Oct. 31, 2026",
   "signed_text": null,
@@ -11214,6 +11228,11 @@
     "label": "GovInfo metadata/status",
     "url": "https://www.govinfo.gov/app/details/BILLS-119s3150is",
     "kind": "primary"
+   },
+   {
+    "label": "Bill text (official)",
+    "url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text",
+    "kind": "primary"
    }
   ],
   "source_label": "Introduced text — GovInfo PDF · GovInfo metadata/status",
@@ -11226,13 +11245,15 @@
    "updated_after_verification": false,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-27T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-28T00:05:52Z",
+   "run_id": "update-20261128-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-10-31",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-28",
+  "last_changed": "2026-11-28",
   "legacy": {
    "permalink": "https://usfrontierlaw.com/#rec-gain-ai-act-of-2025-s-3150",
    "section_name": "Compute and export controls"
@@ -11245,21 +11266,33 @@
     ]
    }
   },
-  "summary_line": "Would require a Bureau of Industry and Security license to export advanced AI chips to countries of concern, with US buyers getting first refusal.",
-  "thirty_seconds": {
-   "a": "Anyone exporting, reexporting or transferring covered advanced chips to entities located or headquartered in Country Group D:5 or E, Macau or Hong Kong, or whose parent is. Chips not designed or marketed for data centers are excluded.",
-   "b": "The bill would require a license, with a certification that US persons had a right of first refusal, no backlog or foreseeable backlog over 12 months, and no better pricing for foreign buyers.",
-   "c": "The license would be denied without the certification."
-  },
-  "key_facts": {
-   "enforced_by": "BIS"
-  },
-  "display_name": "GAIN AI Act of 2025",
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:54:41.123Z",
+   "checked_at": "2026-11-28T00:05:52Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "208374c470bea8f2dd5211016248efbaed777770d56e38451b1b7883c10428b5"
+   "basis_sha256": "766b434fcd4a8119c90e1316beeb1fa3af0cb15b63010ec03b21d138ca3a2135"
+  },
+  "evidence": [
+   {
+    "field": "mechanism",
+    "quote": "penalties for misrepresentation and concealment of material facts",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text"
+   },
+   {
+    "field": "thresholds",
+    "quote": "Beginning 36 months after the date of the enactment of this section, the Under Secretary may add new technical",
+    "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text"
+   }
+  ],
+  "summary_line": "Would require a license to export advanced AI chips to entities tied to countries of concern, with a US right of first refusal certified by the applicant.",
+  "thirty_seconds": {
+   "a": "Applicants seeking to export, reexport, or transfer covered chips to entities in or tied to a country of concern, such as Country Group D:5 or E, Macau, Hong Kong.",
+   "b": "Certify that US persons had a right of first refusal, that there is no backlog of US requests, and that foreign buyers get no better pricing.",
+   "c": "A license would be denied without that certification. Regulations would include penalties for misrepresentation and concealment of material facts."
+  },
+  "display_name": "GAIN AI Act of 2025",
+  "key_facts": {
+   "enforced_by": "Bureau of Industry and Security"
   }
  },
  {
@@ -12973,7 +13006,7 @@
   "short_name": "NY S.10731 (RAISE Act amendments)",
   "sponsor_text": "Sen. Gounardes with co-sponsor Sen. Fahy",
   "mechanism": "Would amend the RAISE Act (GBL Article 44-B as added by Chapter 96 of 2026). The frontier AI framework would also have to cover security risk, the automation of AI research and development, internal use, models evading training or assessment, and models used to monitor other models (§ 1421(1)), and the office could add framework elements by regulation (§ 1421(2)); the office would have to adopt binding minimum standards for frameworks and mitigations by January 1, 2029 (§ 1422); transparency reports add the model specification and how reproducible assessments are (§ 1421(4)); an accountable senior officer certifies publications and submissions under penalty of perjury (§ 1421(5)); measures to prevent and contain critical safety incidents (§ 1421(6)); a wider critical safety incident definition (§ 1420(5)); assessments of internal-use risk, AI research automation and compute use go to the office every three months and within 72 hours of a substantial increase, shared with the Attorney General (§ 1423(2)); critical safety incident reports within 72 hours, and within 24 hours to an appropriate authority for imminent risk of death or serious physical injury (§ 1423(3)); an annual frontier examiner compliance report plus continuous examination with reports every 90 days from April 1, 2028, examiner independence rules, and licensed examiners only from January 1, 2029 (§ 1424); examiner covered-emergency reports within 72 hours (§ 1424(7)); the office could order large frontier developers to limit compute used to train new models or for automated research and development (§ 1425); whistleblower protections tied to Labor Law § 740 (§ 1426); Attorney General civil penalties up to $1,000,000 per day of a first violation and $3,000,000 per day of a subsequent violation, plus injunctions that may restrict a model's deployment in the state (§ 1431); no private right of action",
-  "thresholds": "Frontier model = trained on more than 10²⁵ operations (lowered from 10²⁶), counting fine-tuning and reinforcement learning, or a foundation model the office determines is among the most capable, poses catastrophic risk and is reasonably likely to automate AI research and development (§ 1420(12)); large frontier developer = more than $1,000,000,000 in frontier-model expenditures with affiliates over the preceding 36 months, replacing the $500,000,000 revenue test (§ 1420(14)); catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident or multiple incidents (§ 1420(3))",
+  "thresholds": "Frontier model = trained on more than 10²⁵ operations (lowered from 10²⁶), counting fine-tuning and reinforcement learning, or a foundation model the office determines is among the most capable, poses catastrophic risk and is reasonably likely to automate AI research and development (§ 1420(12)); large frontier developer = more than $1,000,000,000 in frontier-model expenditures with affiliates over the preceding 36 months, replacing the $500,000,000 revenue test (§ 1420(14)); catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident or multiple incidents (§ 1420(3)); frontier developer = a person who trained, or initiated training of, a frontier model (§ 1420(10))",
   "penalties": null,
   "status_text": "Status (as of Oct 31, 2026): Introduced Oct 28, 2026 and referred to Senate Rules; no Assembly companion bill as of Oct 31, 2026. Would take effect on the same date as Chapter 699 of the laws of 2025.",
   "signed_text": null,
@@ -13020,13 +13053,15 @@
    "updated_after_verification": true,
    "found_via": "author"
   },
-  "origin": "authored",
+  "origin": "mixed",
   "verification": {
-   "method": "session",
-   "checked_at": "2026-10-31T12:00:00Z"
+   "method": "agent",
+   "checked_at": "2026-11-28T00:05:52Z",
+   "run_id": "update-20261128-0005",
+   "rounds": 1
   },
-  "last_checked": "2026-11-12",
-  "last_changed": "2026-10-31",
+  "last_checked": "2026-11-28",
+  "last_changed": "2026-11-28",
   "duties": {
    "framework": {
     "value": "yes",
@@ -13121,20 +13156,11 @@
    "method": "session",
    "checked_at": "2026-10-31T12:00:00Z"
   },
-  "summary_line": "Would amend the RAISE Act to require 72-hour critical safety incident reports and set Attorney General civil penalties of up to $1,000,000 per day of a first violation.",
-  "thirty_seconds": {
-   "a": "Large frontier developers and frontier developers of models trained on more than 10²⁵ operations; large means more than $1,000,000,000 in frontier-model expenditures over 36 months.",
-   "b": "Publish safety frameworks and transparency reports, report critical safety incidents within 72 hours, and retain a frontier examiner for annual and continuous reports.",
-   "c": "The Attorney General could seek civil penalties up to $1,000,000 per day of a first violation and $3,000,000 per day of a subsequent violation, plus injunctions. There would be no private right of action."
-  },
-  "key_facts": {
-   "enforced_by": "Attorney General"
-  },
   "page_verification": {
    "method": "agent",
-   "checked_at": "2026-11-11T04:57:48.399Z",
+   "checked_at": "2026-11-28T00:05:52Z",
    "reviewer": "claude-opus-5-5",
-   "basis_sha256": "da854a76650186e5b696e1b09e0aaa71362a51fd02f2d813534bf70f6cec8de5"
+   "basis_sha256": "82a309b1abeee562ebd9ac0f1bef62e5a59df4572f622332778d747cdb9f9dab"
   },
   "identifiers": {
    "session": "2025-2026 General Assembly",
@@ -13143,7 +13169,28 @@
      2161394
     ]
    }
-  }
+  },
+  "evidence": [
+   {
+    "field": "thresholds",
+    "quote": "10. \"Frontier developer\" means a person who has trained, or initiated the training of, a frontier model",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10731"
+   },
+   {
+    "field": "thresholds",
+    "quote": "§ 1420. Definitions. As used in this article, the following terms",
+    "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10731"
+   }
+  ],
+  "thirty_seconds": {
+   "a": "Frontier developers training models above 10^25 operations, and large frontier developers spending more than $1,000,000,000 on frontier models over 36 months.",
+   "b": "Publish expanded safety frameworks and transparency reports, report critical safety incidents within 72 hours, and retain a frontier examiner for annual and continuous reports.",
+   "c": "The Attorney General could seek up to $1,000,000 per day of a first violation and $3,000,000 per day of a subsequent one, plus injunctions. No private right of action."
+  },
+  "key_facts": {
+   "enforced_by": "Attorney General"
+  },
+  "summary_line": "Would amend the RAISE Act to widen frontier AI safety duties and set Attorney General civil penalties of up to $1,000,000 per day of a first violation."
  },
  {
   "id": 99,

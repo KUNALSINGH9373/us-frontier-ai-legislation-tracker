@@ -1324,6 +1324,80 @@
    "run_id": "update-20261127-0005",
    "source_url": "https://www.ncleg.gov/BillLookUp/2025/S735",
    "tier": "C"
+  },
+  {
+   "entry_key": "ny-s-10731-raise-act-2-0",
+   "field": "thresholds",
+   "old": "Frontier model = trained on more than 10²⁵ operations (lowered from 10²⁶), counting fine-tuning and reinforcement learning, or a foundation model the office determines is among the most capable, poses catastrophic risk and is reasonably likely to automate AI research and development (§ 1420(12)); large frontier developer = more than $1,000,000,000 in frontier-model expenditures with affiliates over the preceding 36 months, replacing the $500,000,000 revenue test (§ 1420(14)); catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident or multiple incidents (§ 1420(3))",
+   "new": "Frontier model = trained on more than 10²⁵ operations (lowered from 10²⁶), counting fine-tuning and reinforcement learning, or a foundation model the office determines is among the most capable, poses catastrophic risk and is reasonably likely to automate AI research and development (§ 1420(12)); large frontier developer = more than $1,000,000,000 in frontier-model expenditures with affiliates over the preceding 36 months, replacing the $500,000,000 revenue test (§ 1420(14)); catastrophic risk = death or serious injury to more than 50 people or more than $1,000,000,000 in property damage from a single incident or multiple incidents (§ 1420(3)); frontier developer = a person who trained, or initiated training of, a frontier model (§ 1420(10))",
+   "date": "2026-11-28",
+   "run_id": "update-20261128-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10731",
+   "tier": "C",
+   "note": "self-correction (omission): The figures 10 and 1420 in the added frontier developer definition and section references lacked evidence quotes; this adds the frontier developer definition (§ 1420(10)) with its own supporting quote. Quote: \"10. \"Frontier developer\" means a person who has trained, or initiated the training of, a frontier model\""
+  },
+  {
+   "entry_key": "ny-s-10731-raise-act-2-0",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-28",
+   "run_id": "update-20261128-0005",
+   "source_url": "https://www.nysenate.gov/legislation/bills/2025/S10731",
+   "tier": "C"
+  },
+  {
+   "entry_key": "gain-ai-act-of-2025-s-3150",
+   "field": "mechanism",
+   "old": "Would require the Bureau of Industry and Security (BIS) to require a license to export, reexport, or transfer covered chips to entities located or headquartered (or whose parent is headquartered) in a country of concern. The applicant would have to certify that US persons had a right of first refusal (public notice, with not fewer than 15 business days to request), that there is no backlog of US requests or foreseeable backlog over the 12-month period, and that foreign persons get no better pricing. A license would be denied without that certification. BIS would have to issue regulations within 90 days. Trusted US persons would be exempt from certain license requirements for destinations that are not countries of concern.",
+   "new": "Would require the Bureau of Industry and Security (BIS) to require a license to export, reexport, or transfer covered chips to entities located or headquartered (or whose parent is headquartered) in a country of concern. The applicant would have to certify that US persons had a right of first refusal (public notice, with not fewer than 15 business days to request), that there is no backlog of US requests or foreseeable backlog over the 12-month period, and that foreign persons get no better pricing. A license would be denied without that certification. BIS would have to issue regulations within 90 days. Regulations would include penalties for misrepresentation and concealment of material facts. Trusted US persons would be exempt from certain license requirements for destinations that are not countries of concern.",
+   "date": "2026-11-28",
+   "run_id": "update-20261128-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the penalties for misrepresentation and concealment of material facts that the required BIS regulations must include. Quote: \"penalties for misrepresentation and concealment of material facts\""
+  },
+  {
+   "entry_key": "gain-ai-act-of-2025-s-3150",
+   "field": "thresholds",
+   "old": "Covered circuit = advanced integrated circuit (ECCN 3A090/4A090 or equivalent, or TPP 4,800 or more; TPP 2,400+ with density 1.6+; TPP 1,600+ with density 3.2+; or DRAM bandwidth 1,400 GB/s, interconnect 1,100 GB/s, or sum 1,700 GB/s) or product containing one, excluding chips not designed or marketed for data centers; country of concern = Country Group D:5 or E, Macau, Hong Kong",
+   "new": "Covered circuit = advanced integrated circuit (ECCN 3A090/4A090 or equivalent, or TPP 4,800 or more; TPP 2,400+ with density 1.6+; TPP 1,600+ with density 3.2+; or DRAM bandwidth 1,400 GB/s, interconnect 1,100 GB/s, or sum 1,700 GB/s) or product containing one, excluding chips not designed or marketed for data centers; country of concern = Country Group D:5 or E, Macau, Hong Kong. Under Secretary may add technical parameters beginning 36 months after enactment.",
+   "date": "2026-11-28",
+   "run_id": "update-20261128-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits that the Under Secretary may add new technical parameters to the advanced integrated circuit definition beginning 36 months after enactment. Quote: \"Beginning 36 months after the date of the enactment of this section, the Under Secretary may add new technical\""
+  },
+  {
+   "entry_key": "gain-ai-act-of-2025-s-3150",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-28",
+   "run_id": "update-20261128-0005",
+   "source_url": "https://www.congress.gov/bill/119th-congress/senate-bill/3150/text",
+   "tier": "C"
+  },
+  {
+   "entry_key": "il-hb-3506-2025",
+   "field": "mechanism",
+   "old": "Follows the original RAISE Act design, the same model as Michigan H.B. 4668. Developers would publish a safety and security protocol, a risk assessment report every 90 days, and a yearly third-party audit of protocol compliance, with rules on redaction, whistleblower protections and civil penalties. Committee Amendment No. 1 narrowed it to \"large developers\" and let employees sue for damages. This 2025 bill did not advance. In 2026 Illinois switched to the California TFAIA model, and S.B. 315, which became law, added audits back.",
+   "new": "Follows the original RAISE Act design, the same model as Michigan H.B. 4668. Developers would publish a safety and security protocol, a risk assessment report every 90 days, and a yearly third-party audit of protocol compliance, with rules on redaction, whistleblower protections and civil penalties. Committee Amendment No. 1 narrowed it to \"large developers\" and let employees sue for damages. This 2025 bill did not advance. In 2026 Illinois switched to the California TFAIA model, and S.B. 315, which became law, added audits back. A developer found guilty of violating Sections 15 or 25 may be assessed a civil penalty not to exceed $1,000,000.",
+   "date": "2026-11-28",
+   "run_id": "update-20261128-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+   "tier": "C",
+   "note": "self-correction (omission): The entry omits the civil penalty cap and its trigger: SOURCE sets a civil penalty of up to $1,000,000 for violating Sections 15 or 25, and the Attorney General brings the action. Quote: \"A developer found guilty of violating Sections 15 or 25 may be assessed a civil penalty not to exceed $1,000,000.\""
+  },
+  {
+   "entry_key": "il-hb-3506-2025",
+   "field": "origin",
+   "old": "authored",
+   "new": "mixed",
+   "date": "2026-11-28",
+   "run_id": "update-20261128-0005",
+   "source_url": "https://www.ilga.gov/Legislation/BillStatus?DocNum=3506&GAID=18&DocTypeID=HB&LegId=162191&SessionID=114",
+   "tier": "C"
   }
  ]
 }
